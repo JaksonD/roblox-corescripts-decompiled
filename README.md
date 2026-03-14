@@ -6,8 +6,8 @@ A full decompilation of every CoreScript Roblox currently ships in the client.
 
 > [!NOTE]  
 > Keep in mind that this code is decompiled. You're going to find a lot of things that don't make a lot of sense.
-> - If you see a function with name `_` and a comment saying `[[ Name: NAME ]]` it most likely got inlined (and thus orphaned) by the bytecode compiler. Look for areas where that function's logic is used to see where it was called
-> - A LOT of variable names are ugly. In the future I'd like to do a postprocess to clean things up, out of scope for now.
+> - If you see a function with name `_` and a comment saying `[[ Name: NAME ]]`, it most likely got inlined (and thus orphaned) by the bytecode compiler. To find where that function may have been called, look for areas where its logic is duplicated.
+> - A LOT of variable names are ugly. In the future I'd like to do a postprocess to clean things up; out of scope for now.
 
 Made possible by the [Oracle Decompiler.](https://discord.gg/prHW9TA4QW)
 
