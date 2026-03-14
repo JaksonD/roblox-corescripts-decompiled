@@ -1,52 +1,29 @@
-# Info
+# Repo Info
 A full decompilation of every CoreScript Roblox currently ships in the client.
 
-> [!WARNING]  
+> [!CAUTION]  
 > Consider all code inside this repo to be unlicensed. This is provided solely as reference.
+
+> [!NOTE]  
+> Keep in mind that this code is decompiled. You're going to find a lot of things that don't make a lot of sense.
+> - If you see a function with name `_` and a comment saying `[[ Name: NAME ]]` it most likely got inlined (and thus orphaned) by the bytecode compiler. Look for areas where that function's logic is used to see where it was called
+> - A LOT of variable names are ugly. In the future I'd like to do a postprocess to clean things up, out of scope for now.
 
 Made possible by the [Oracle Decompiler.](https://discord.gg/prHW9TA4QW)
 
-## Quick Reference
+# Quick Reference
 
-### In-Game (InExperience)
+There's a lot of things you might find interesting in here. 
+All of it lives in `extracontent-models`:
 
-**CoreScript entry points** (chat, voice, notifications, proximity prompts, etc.):
-[`extracontent-models/InExperience/.../CoreScripts/CoreScripts/`](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/CoreScripts/)
+[**In-Game UI Modules**](extracontent-models/InExperience/InExperience/PatchRoot/DataModelInstances/CoreGui/RobloxGui/Modules/) - topbar, Chrome, escape menu, settings, leaderboard, chat, voice chat, emotes, backpack, dev console, and more.
 
-**RobloxGui Modules** - most in-game UI lives here:
-[`extracontent-models/InExperience/.../CoreGui/RobloxGui/Modules/`](extracontent-models/InExperience/InExperience/PatchRoot/DataModelInstances/CoreGui/RobloxGui/Modules/)
+[**In-Game CoreScript Entry Points**](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/CoreScripts/) - the scripts that bootstrap chat, voice, notifications, proximity prompts, etc.
 
-Notable subdirectories include:
-- `TopBar/` and `Chrome/` - topbar and the unified Chrome UI system
-- `InGameMenu/` and `Settings/` - escape menu and settings
-- `PlayerList/` - leaderboard
-- `InGameChat/` - in-game chat UI
-- `VoiceChat/` and `SelfView/` - voice chat and avatar camera
-- `EmotesMenu/` - emote wheel
-- `BackpackScript.luau` - inventory/backpack
-- `InspectAndBuy/` - item inspection and purchase
-- `DevConsole/` - developer console (F9)
-- `Stats/` - performance stats
-- `Captures/` - screenshot system
-- `AvatarContextMenu/` - right-click player menu
-- `TrustAndSafety/` - reporting and moderation
-- `VR/` - VR-specific UI
+[**ServerCoreScripts**](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/ServerCoreScripts/) - server-side CoreScripts.
 
-### Universal App
+[**Universal App Modules**](extracontent-models/UniversalApp/UniversalApp/PatchRoot/DataModelInstances/CoreGui/RobloxGui/Modules/) - app topbar, avatar editor, home feed, catalog, search, settings, and console/10-foot UI.
 
-**App entry point:**
-[`extracontent-models/UniversalApp/.../CoreScripts/LuaAppStarterScript.luau`](extracontent-models/UniversalApp/UniversalApp/PatchRoot/CoreScripts/LuaAppStarterScript.luau)
+[**Shared Core Packages**](extracontent-models/UniversalApp/UniversalApp/PatchRoot/DataModelInstances/CorePackages/) - React/Roact, Rodux, networking, UI component libraries.
 
-**RobloxGui Modules** - app-level UI and features:
-[`extracontent-models/UniversalApp/.../CoreGui/RobloxGui/Modules/`](extracontent-models/UniversalApp/UniversalApp/PatchRoot/DataModelInstances/CoreGui/RobloxGui/Modules/)
-
-Notable subdirectories include:
-- `LuaApp/Components/TopBar/` - app navigation bar
-- `LuaApp/Components/Chat/` - app chat
-- `LuaApp/Components/More/` - settings and more menu
-- `AvatarExperience/` - avatar editor, catalog, color picker, emotes, photobooth
-- `Personalization/` - home feed, OmniFeed, search, games discovery
-- `Shell/` - console/10-foot UI framework (Xbox nav, overscan, etc.)
-
-**Shared Core Packages** (React/Roact, Rodux, networking, UI libraries):
-[`extracontent-models/UniversalApp/.../CorePackages/`](extracontent-models/UniversalApp/UniversalApp/PatchRoot/DataModelInstances/CorePackages/)
+[extracontent-places](extracontent-places/) seems like test or dead code; it is kept for completeness.
