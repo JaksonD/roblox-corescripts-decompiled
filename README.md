@@ -20,7 +20,7 @@ All of it lives in `extracontent-models`:
 
 [**In-Game CoreScript Entry Points**](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/CoreScripts/) - the scripts that bootstrap chat, voice, notifications, proximity prompts, etc.
 
-[**ServerCoreScripts**](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/ServerCoreScripts/) - server-side CoreScripts.
+[**CoreScripts Container**](extracontent-models/InExperience/InExperience/PatchRoot/CoreScripts/) - lots of misc. CoreScript related stuff, including an entry point for the server-side CoreScripts & its related modules.
 
 [**Universal App Modules**](extracontent-models/UniversalApp/UniversalApp/PatchRoot/DataModelInstances/CoreGui/RobloxGui/Modules/) - app topbar, avatar editor, home feed, catalog, search, settings, and console/10-foot UI.
 
