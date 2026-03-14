@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAXMigrateAXToGlobalAutofocus) and game:DefineFastFlag("AXMigrateScalesPageComponentsForAutofocus", false);

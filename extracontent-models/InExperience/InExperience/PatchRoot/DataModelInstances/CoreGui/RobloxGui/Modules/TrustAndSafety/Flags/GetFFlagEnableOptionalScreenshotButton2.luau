@@ -1,0 +1,4 @@
+game:DefineFastFlag("EnableOptionalScreenshotButton2", false);
+return function() --[[ Line: 3 ]]
+    return game:GetFastFlag("EnableOptionalScreenshotButton2");
+end;

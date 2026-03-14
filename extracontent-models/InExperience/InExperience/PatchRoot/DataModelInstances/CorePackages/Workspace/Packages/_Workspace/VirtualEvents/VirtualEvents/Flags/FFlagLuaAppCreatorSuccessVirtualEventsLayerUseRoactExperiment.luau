@@ -1,0 +1,3 @@
+game:SetFlagVersion("LuaAppCreatorSuccessVirtualEventsLayerUseRoactExperiment", 2);
+game:DefineFastFlag("LuaAppCreatorSuccessVirtualEventsLayerUseRoactExperiment", false);
+return game:GetFastFlag("LuaAppCreatorSuccessVirtualEventsLayerUseRoactExperiment");

@@ -1,0 +1,1 @@
+return game:DefineFastFlag("EnableHeaderBarButtonsUpdate", false) and not game:DefineFastFlag("HeaderBarButtonsUpdateBypassTest", false);

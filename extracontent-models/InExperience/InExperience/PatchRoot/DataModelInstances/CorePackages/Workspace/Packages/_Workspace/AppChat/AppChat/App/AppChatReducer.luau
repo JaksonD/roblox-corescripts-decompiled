@@ -1,0 +1,40 @@
+local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
+local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local v2 = require(l_script_FirstAncestor_0.Flags.getFFlagSupportGameCardForInExpPlatChat);
+local v3 = require(l_Parent_0.GameDetailRodux);
+local v4 = require(l_Parent_0.Http);
+local v5 = require(l_Parent_0.PlayabilityRodux);
+local v6 = require(l_Parent_0.Rodux);
+local v7 = require(l_Parent_0.SquadsCore);
+local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
+local l_FormFactorReducer_0 = require(l_Parent_0.FormFactor).FormFactorReducer;
+local v10 = require(l_Parent_0.UserLib);
+local l_GameDetailReducer_0 = v3.GameDetails.GameDetailReducer;
+local l_FetchingStatus_0 = v4.Reducers.FetchingStatus;
+local l_UserReducer_0 = v10.Reducers.UserReducer;
+local l_LocalUserIdReducer_0 = v10.Reducers.LocalUserIdReducer;
+local l_PlayabilityStatusReducer_0 = v5.PlayabilityStatus.PlayabilityStatusReducer;
+local v16 = require(l_Parent_0.SocialBlockingModal);
+local v17 = require(l_script_FirstAncestor_0.installReducer);
+local v18 = require(l_script_FirstAncestor_0.installReducer.ScreenSize);
+local l_FriendCount_0 = require(l_Parent_0.LegacyFriendsRodux).Reducers.FriendCount;
+local v20 = require(l_Parent_0.PlayerContextualMenu);
+local l_SquadLocation_0 = v7.Enums.SquadLocation;
+local l_PartyPageCarouselExperimentation_0 = require(l_Parent_0.SocialExperiments).PartyPageCarouselExperimentation;
+return (v6.combineReducers({
+    PlayerContextualMenu = v20.installReducer(), 
+    EventReceievers = v6.combineReducers({
+        NetworkStatus = require(l_script_FirstAncestor_0.Http.RoduxNetworking).installReducer()
+    }), 
+    ChatAppReducer = v17(), 
+    FetchingStatus = if v2() then l_FetchingStatus_0 else nil, 
+    GameDetails = if v2() then l_GameDetailReducer_0 else nil, 
+    LocalUserId = l_LocalUserIdReducer_0, 
+    FriendCount = l_FriendCount_0, 
+    PlayabilityStatus = if v2() then l_PlayabilityStatusReducer_0 else nil, 
+    ScreenSize = if l_PartyPageCarouselExperimentation_0.getPartyPageCarouselEnabled() then v18 else nil, 
+    FormFactor = l_FormFactorReducer_0, 
+    Users = l_UserReducer_0, 
+    [v7.RoduxKey] = if l_GetFFlagIsSquadEnabled_0() then v7.installReducer(l_SquadLocation_0.InExperience) else nil, 
+    [v16.RoduxKey] = v16.installReducer()
+}));

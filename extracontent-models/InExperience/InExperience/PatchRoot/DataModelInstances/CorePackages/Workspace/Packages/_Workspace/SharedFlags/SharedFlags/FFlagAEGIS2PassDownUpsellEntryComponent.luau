@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagEnableCommsFAEUpsell) and game:DefineFastFlag("AEGIS2PassDownUpsellEntryComponent", false);

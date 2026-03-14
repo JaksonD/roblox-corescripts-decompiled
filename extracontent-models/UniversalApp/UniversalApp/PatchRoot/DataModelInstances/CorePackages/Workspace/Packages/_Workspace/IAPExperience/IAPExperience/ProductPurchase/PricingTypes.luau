@@ -1,0 +1,5 @@
+return {
+    DiscountType = {
+        RobloxSubscription = "RobloxSubscription"
+    }
+};

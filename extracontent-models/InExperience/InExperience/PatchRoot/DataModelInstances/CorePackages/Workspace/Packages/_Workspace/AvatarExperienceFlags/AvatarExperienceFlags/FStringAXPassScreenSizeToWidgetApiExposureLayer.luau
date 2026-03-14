@@ -1,0 +1,1 @@
+return game:DefineFastString("AXPassScreenSizeToWidgetApiExposureLayer", "AvatarExperience.UA.MarketplaceView");

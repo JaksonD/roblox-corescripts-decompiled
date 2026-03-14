@@ -1,0 +1,36 @@
+local l_Parent_0 = script:FindFirstAncestor("IAPExperience").Parent;
+local v1 = require(l_Parent_0.React);
+local v2 = {
+    ["IAPExperience.PurchasePrompt.Label.BlackbirdDiscount"] = "Sit amet ({discountPercentage}% elit)", 
+    ["IAPExperience.PurchasePrompt.Label.BlackbirdDiscountNoPercent"] = "Sit amet", 
+    ["IAPExperience.PurchasePrompt.Label.GenericDiscount"] = "... ({discountPercentage}% elit)", 
+    ["IAPExperience.PurchasePrompt.Label.GenericDiscountNoPercent"] = "...", 
+    ["IAPExperience.PurchasePrompt.Label.BlackbirdSummary"] = "Lorem {robuxIcon} {savingsAmount} ipsum dolor", 
+    ["IAPExperience.PurchasePrompt.Label.Subtotal"] = "Subtotal", 
+    ["IAPExperience.PurchasePrompt.Label.Total"] = "Total"
+};
+return function(v3) --[[ Line: 23 ]] --[[ Name: usePlaceholderLocalization ]]
+    -- upvalues: v1 (copy), v2 (copy)
+    return v1.useMemo(function() --[[ Line: 24 ]]
+        -- upvalues: v3 (copy), v2 (ref)
+        local v4 = {};
+        for v5, v6 in pairs(v3) do
+            local v7 = if typeof(v6) == "table" then v6[1] else v6;
+            local v8 = v2[v7] or v7;
+            if typeof(v6) == "table" then
+                for v9, v10 in pairs(v6) do
+                    if typeof(v9) == "string" then
+                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 32 ]]
+                            -- upvalues: v10 (copy)
+                            return (tostring(v10));
+                        end);
+                    end;
+                end;
+            end;
+            v4[v5] = v8;
+        end;
+        return v4;
+    end, {
+        v3
+    });
+end;

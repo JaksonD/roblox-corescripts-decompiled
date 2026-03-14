@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAXMigrateLayeredClothingSortPageToFocusNavigation) and game:DefineFastFlag("AXMigrateVerticalClothingListToFocusNavigation2", false);
