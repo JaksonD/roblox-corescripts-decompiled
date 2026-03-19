@@ -17,128 +17,127 @@ local l_sendAXStat_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperie
 local l_FFlagAXEnableTTIViaModule_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableTTIViaModule;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
 local l_getUseSelectorDeepEquals_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.getUseSelectorDeepEquals;
-local v19 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableWidgetsTTI);
-local function v33(v20, v21, v22) --[[ Line: 29 ]] --[[ Name: fireTileLoadingLatencyTracker ]]
-    -- upvalues: v19 (copy), v11 (copy), v12 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_sendAXStat_0 (copy), l_MemStorageService_0 (copy)
-    if v20.trackerStartTime then
-        local l_trackerPerceivedStartTime_0 = v20.trackerPerceivedStartTime;
-        local v24 = os.clock();
-        if v21 and v19() and not v22 then
-            v20.dispatch(v11.EndTracking(v20.searchUuid, v24));
+local function v32(v19, v20, v21) --[[ Line: 28 ]] --[[ Name: fireTileLoadingLatencyTracker ]]
+    -- upvalues: v11 (copy), v12 (copy), l_FFlagAXEnableTTIViaModule_0 (copy), l_TimeToInteractiveTracker_0 (copy), l_sendAXStat_0 (copy), l_MemStorageService_0 (copy)
+    if v19.trackerStartTime then
+        local l_trackerPerceivedStartTime_0 = v19.trackerPerceivedStartTime;
+        local v23 = os.clock();
+        if v20 and not v21 then
+            v19.dispatch(v11.EndTracking(v19.searchUuid, v23));
         end;
-        local v25 = (v24 - v20.trackerStartTime) * 1000;
-        local v26 = if l_trackerPerceivedStartTime_0 then (v24 - l_trackerPerceivedStartTime_0) * 1000 else nil;
-        local v27 = if v21 then v12.Counter.Latency.Organic.Thumbnails else v12.Counter.Latency.Organic.Tiles;
-        if v19() and v22 then
-            v27 = if v21 then v12.Counter.Latency.Widget.Thumbnails else v12.Counter.Latency.Widget.Tiles;
+        local v24 = (v23 - v19.trackerStartTime) * 1000;
+        local v25 = if l_trackerPerceivedStartTime_0 then (v23 - l_trackerPerceivedStartTime_0) * 1000 else nil;
+        local v26 = if v20 then v12.Counter.Latency.Organic.Thumbnails else v12.Counter.Latency.Organic.Tiles;
+        if v21 then
+            v26 = if v20 then v12.Counter.Latency.Widget.Thumbnails else v12.Counter.Latency.Widget.Tiles;
         end;
-        local v28 = {
-            Page = v20.currentPageName, 
-            OpaquePage = v20.opaquePageName, 
-            ColdStart = v20.coldStart, 
-            Category = v20.currentCategory, 
-            Subcategory = v20.currentSubcategory
+        local v27 = {
+            Page = v19.currentPageName, 
+            OpaquePage = v19.opaquePageName, 
+            ColdStart = v19.coldStart, 
+            Category = v19.currentCategory, 
+            Subcategory = v19.currentSubcategory
         };
         if l_FFlagAXEnableTTIViaModule_0 then
-            local v29 = v12.Counter.PREFIX .. v27;
-            local v30 = {
-                page = v20.currentPageName, 
-                opaquePage = v20.opaquePageName, 
-                coldStart = v20.coldStart, 
-                category = v20.currentCategory, 
-                subcategory = v20.currentSubcategory
+            local v28 = v12.Counter.PREFIX .. v26;
+            local v29 = {
+                page = v19.currentPageName, 
+                opaquePage = v19.opaquePageName, 
+                coldStart = v19.coldStart, 
+                category = v19.currentCategory, 
+                subcategory = v19.currentSubcategory
             };
-            l_TimeToInteractiveTracker_0.updateMetadata(v29, v30);
-            l_TimeToInteractiveTracker_0.trackEnd(v29);
-            if v26 then
-                local v31 = v12.Counter.PREFIX .. v27 .. "_Percieved";
-                local v32 = l_TimeToInteractiveTracker_0.getEvents();
-                if v32 and v32[v31] ~= nil then
-                    l_TimeToInteractiveTracker_0.updateMetadata(v31, v30);
-                    l_TimeToInteractiveTracker_0.trackEnd(v31, {
+            l_TimeToInteractiveTracker_0.updateMetadata(v28, v29);
+            l_TimeToInteractiveTracker_0.trackEnd(v28);
+            if v25 then
+                local v30 = v12.Counter.PREFIX .. v26 .. "_Percieved";
+                local v31 = l_TimeToInteractiveTracker_0.getEvents();
+                if v31 and v31[v30] ~= nil then
+                    l_TimeToInteractiveTracker_0.updateMetadata(v30, v29);
+                    l_TimeToInteractiveTracker_0.trackEnd(v30, {
                         cleanupAfterSend = false
                     });
                 end;
             end;
         end;
         l_sendAXStat_0({
-            statName = v27, 
-            deltaMs = v25, 
-            metaData = v28
+            statName = v26, 
+            deltaMs = v24, 
+            metaData = v27
         });
-        if v26 then
+        if v25 then
             l_sendAXStat_0({
-                statName = v27 .. "_Percieved", 
-                deltaMs = v26, 
-                metaData = v28
+                statName = v26 .. "_Percieved", 
+                deltaMs = v25, 
+                metaData = v27
             });
         end;
-        if l_MemStorageService_0:GetItem(v12.MemStorageKeys.ColdStart.CatalogAndCatalogSearch) and v21 then
+        if l_MemStorageService_0:GetItem(v12.MemStorageKeys.ColdStart.CatalogAndCatalogSearch) and v20 then
             l_MemStorageService_0:SetItem(v12.MemStorageKeys.ColdStart.CatalogAndCatalogSearch, "false");
         end;
     end;
 end;
-local function v35(v34) --[[ Line: 126 ]] --[[ Name: perceivedStartTimeSelector ]]
-    return v34.AvatarExperience.Catalog.ResultsList.perceivedStartTime or nil;
+local function v34(v33) --[[ Line: 125 ]] --[[ Name: perceivedStartTimeSelector ]]
+    return v33.AvatarExperience.Catalog.ResultsList.perceivedStartTime or nil;
 end;
-return function(v36) --[[ Line: 130 ]] --[[ Name: useTileLoadingLatencyInitializer ]]
-    -- upvalues: l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), v6 (copy), v3 (copy), v10 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v35 (copy), l_MemStorageService_0 (copy), v12 (copy), l_usePrevious_0 (copy), v2 (copy), l_AvatarScreen_0 (copy), v33 (copy)
-    local v37 = l_useAvatarRoute_0();
-    local l_name_0 = v37.current.name;
-    local v39 = if v37.opaque then v37.opaque.name else nil;
-    local v40 = l_useDispatch_0();
-    local v41 = v6(v3);
-    local v42 = v10();
-    local v44 = l_useSelector_0(function(v43) --[[ Line: 137 ]]
-        -- upvalues: v36 (copy)
-        return v43.AvatarExperience.Catalog.ResultsList[v36] and v43.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency and v43.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency.thumbnails or nil;
+return function(v35) --[[ Line: 129 ]] --[[ Name: useTileLoadingLatencyInitializer ]]
+    -- upvalues: l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), v6 (copy), v3 (copy), v10 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v34 (copy), l_MemStorageService_0 (copy), v12 (copy), l_usePrevious_0 (copy), v2 (copy), l_AvatarScreen_0 (copy), v32 (copy)
+    local v36 = l_useAvatarRoute_0();
+    local l_name_0 = v36.current.name;
+    local v38 = if v36.opaque then v36.opaque.name else nil;
+    local v39 = l_useDispatch_0();
+    local v40 = v6(v3);
+    local v41 = v10();
+    local v43 = l_useSelector_0(function(v42) --[[ Line: 136 ]]
+        -- upvalues: v35 (copy)
+        return v42.AvatarExperience.Catalog.ResultsList[v35] and v42.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency and v42.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency.thumbnails or nil;
     end, l_getUseSelectorDeepEquals_0());
-    local v46 = l_useSelector_0(function(v45) --[[ Line: 143 ]]
-        -- upvalues: v36 (copy)
-        return v45.AvatarExperience.Catalog.ResultsList[v36] and v45.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency and v45.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency.startTime or nil;
+    local v45 = l_useSelector_0(function(v44) --[[ Line: 142 ]]
+        -- upvalues: v35 (copy)
+        return v44.AvatarExperience.Catalog.ResultsList[v35] and v44.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency and v44.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency.startTime or nil;
     end, l_getUseSelectorDeepEquals_0());
-    local v47 = l_useSelector_0(v35, l_getUseSelectorDeepEquals_0());
-    local v49 = l_useSelector_0(function(v48) --[[ Line: 150 ]]
-        -- upvalues: v36 (copy)
-        return v48.AvatarExperience.Catalog.ResultsList[v36] and v48.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency and v48.AvatarExperience.Catalog.ResultsList[v36].tileLoadingLatency.endTime or nil;
+    local v46 = l_useSelector_0(v34, l_getUseSelectorDeepEquals_0());
+    local v48 = l_useSelector_0(function(v47) --[[ Line: 149 ]]
+        -- upvalues: v35 (copy)
+        return v47.AvatarExperience.Catalog.ResultsList[v35] and v47.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency and v47.AvatarExperience.Catalog.ResultsList[v35].tileLoadingLatency.endTime or nil;
     end, l_getUseSelectorDeepEquals_0());
-    local v50 = l_MemStorageService_0:GetItem(v12.MemStorageKeys.ColdStart.CatalogAndCatalogSearch) ~= "false";
-    local v51 = l_usePrevious_0(v44);
-    local v52, v53 = v2.useState("");
-    local v54, v55 = v2.useState("");
-    v2.useEffect(function() --[[ Line: 165 ]]
-        -- upvalues: v42 (copy), l_name_0 (copy), l_AvatarScreen_0 (ref), v53 (copy), v55 (copy)
-        if not v42 then
+    local v49 = l_MemStorageService_0:GetItem(v12.MemStorageKeys.ColdStart.CatalogAndCatalogSearch) ~= "false";
+    local v50 = l_usePrevious_0(v43);
+    local v51, v52 = v2.useState("");
+    local v53, v54 = v2.useState("");
+    v2.useEffect(function() --[[ Line: 164 ]]
+        -- upvalues: v41 (copy), l_name_0 (copy), l_AvatarScreen_0 (ref), v52 (copy), v54 (copy)
+        if not v41 then
             return;
         elseif l_name_0 == l_AvatarScreen_0.CatalogSearch then
-            v53(v42.catalogSearchCategory);
-            v55(v42.catalogSearchSubcategory);
+            v52(v41.catalogSearchCategory);
+            v54(v41.catalogSearchSubcategory);
             return;
         else
-            v53(v42.catalogCategory);
-            v55(v42.catalogSubcategory);
+            v52(v41.catalogCategory);
+            v54(v41.catalogSubcategory);
             return;
         end;
     end, {
         l_name_0, 
-        v42
+        v41
     });
     return {
-        dispatch = v40, 
-        analytics = v41, 
-        trackerLoadedThumbnails = v44, 
-        trackerStartTime = v46, 
-        trackerEndTime = v49, 
-        coldStart = v50, 
-        prevImpressionResults = v51, 
-        currentCategory = v52, 
-        setCurrentCategory = v53, 
-        currentSubcategory = v54, 
-        setCurrentSubcategory = v55, 
+        dispatch = v39, 
+        analytics = v40, 
+        trackerLoadedThumbnails = v43, 
+        trackerStartTime = v45, 
+        trackerEndTime = v48, 
+        coldStart = v49, 
+        prevImpressionResults = v50, 
+        currentCategory = v51, 
+        setCurrentCategory = v52, 
+        currentSubcategory = v53, 
+        setCurrentSubcategory = v54, 
         currentPageName = l_name_0, 
-        searchUuid = v36, 
-        opaquePageName = v39, 
-        fireTileLoadingLatencyTracker = v33, 
-        trackerPerceivedStartTime = v47
+        searchUuid = v35, 
+        opaquePageName = v38, 
+        fireTileLoadingLatencyTracker = v32, 
+        trackerPerceivedStartTime = v46
     };
 end;

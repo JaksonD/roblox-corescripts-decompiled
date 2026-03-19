@@ -14,11 +14,10 @@ local v12 = require(l_script_FirstAncestor_0.Components.ChatConversation.EnumMes
 local v13 = require(script.Parent.ChatMessageContainerAutomaticSize);
 local v14 = require(script.Parent.Logger);
 local l_pruneConsecutiveNewLines_0 = require(l_script_FirstAncestor_0.SocialLibraries).Utils.pruneConsecutiveNewLines;
-local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableNewChatBubbleUI);
-local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableAutotranslation);
-local v18 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableHiddenMessages);
-local v19 = require(l_script_FirstAncestor_0.Models.MessageModel);
-local v20 = {
+local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableAutotranslation);
+local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableHiddenMessages);
+local v18 = require(l_script_FirstAncestor_0.Models.MessageModel);
+local v19 = {
     [v12.PlainText] = {
         component = v8, 
         name = "PlainText", 
@@ -27,34 +26,34 @@ local v20 = {
     [v12.Link] = {
         component = v10, 
         name = "AssetCard", 
-        paddingOffset = v16 and 0 or 2
+        paddingOffset = 0
     }
 };
-local v21 = {
+local v20 = {
     component = v11, 
     name = "Hidden", 
     paddingOffset = 0
 };
-local function _(v22) --[[ Line: 51 ]] --[[ Name: getMessageComponent ]]
-    -- upvalues: v18 (copy), v19 (copy), v21 (copy), v20 (copy)
-    if v18 and v22 and v22.visibility == v19.VisibilityTypes.Hidden then
-        return v21;
+local function _(v21) --[[ Line: 49 ]] --[[ Name: getMessageComponent ]]
+    -- upvalues: v17 (copy), v18 (copy), v20 (copy), v19 (copy)
+    if v17 and v21 and v21.visibility == v18.VisibilityTypes.Hidden then
+        return v20;
     else
-        return v20[v22.messageType];
+        return v19[v21.messageType];
     end;
 end;
 local l_useTokens_0 = require(l_Parent_0.Foundation).Hooks.useTokens;
-local v25 = v4.PureComponent:extend("ChatMessage");
-v25.defaultProps = {
+local v24 = v4.PureComponent:extend("ChatMessage");
+v24.defaultProps = {
     additionalProps = {
         shareLink = nil, 
         placeId = nil, 
         universeId = nil, 
         senderUserId = nil, 
-        onDetailsOpened = function() --[[ Line: 69 ]] --[[ Name: onDetailsOpened ]]
+        onDetailsOpened = function() --[[ Line: 67 ]] --[[ Name: onDetailsOpened ]]
 
         end, 
-        openGameDetailsPage = function() --[[ Line: 70 ]] --[[ Name: openGameDetailsPage ]]
+        openGameDetailsPage = function() --[[ Line: 68 ]] --[[ Name: openGameDetailsPage ]]
 
         end
     }, 
@@ -81,7 +80,7 @@ v25.defaultProps = {
     Transparency = nil, 
     wideMode = false, 
     viewProfileOnAvatarPressed = true, 
-    closeKeyboard = function() --[[ Line: 95 ]] --[[ Name: closeKeyboard ]]
+    closeKeyboard = function() --[[ Line: 93 ]] --[[ Name: closeKeyboard ]]
 
     end, 
     inputBoxRef = nil, 
@@ -93,194 +92,194 @@ v25.defaultProps = {
     messageHiddenNoticeText = "PLACEHOLDER This message is not available", 
     unknownUserText = "PLACEHOLDER unknown user"
 };
-v25.init = function(v26) --[[ Line: 107 ]] --[[ Name: init ]]
-    -- upvalues: v17 (copy), l_memoize_0 (copy), l_Text_0 (copy)
-    v26.getModeratedText = function(v27) --[[ Line: 108 ]]
-        return string.gsub(v27, "[^%s]", "#");
+v24.init = function(v25) --[[ Line: 105 ]] --[[ Name: init ]]
+    -- upvalues: v16 (copy), l_memoize_0 (copy), l_Text_0 (copy)
+    v25.getModeratedText = function(v26) --[[ Line: 106 ]]
+        return string.gsub(v26, "[^%s]", "#");
     end;
-    v26.messageMaxWidth = function(v28, v29) --[[ Line: 112 ]]
-        local v30 = 128;
-        if v28 then
-            v30 = v30 + 112;
+    v25.messageMaxWidth = function(v27, v28) --[[ Line: 110 ]]
+        local v29 = 128;
+        if v27 then
+            v29 = v29 + 112;
         end;
-        return v29 - v30;
+        return v28 - v29;
     end;
-    if v17 then
-        v26.getBubbleMaxWidth = l_memoize_0(function(v31, v32, v33, v34, v35) --[[ Line: 123 ]]
-            -- upvalues: l_Text_0 (ref), v26 (copy)
-            if v35 then
-                local v36 = l_Text_0.GetTextBounds(v32, v34, v26.props.autotranslationOriginalTextFontSize, Vector2.new(v31, 10000));
-                local v37 = l_Text_0.GetTextBounds(v35, v34, v33, Vector2.new(v31, 10000));
-                return math.max(v36.X, v37.X) + 20;
+    if v16 then
+        v25.getBubbleMaxWidth = l_memoize_0(function(v30, v31, v32, v33, v34) --[[ Line: 121 ]]
+            -- upvalues: l_Text_0 (ref), v25 (copy)
+            if v34 then
+                local v35 = l_Text_0.GetTextBounds(v31, v33, v25.props.autotranslationOriginalTextFontSize, Vector2.new(v30, 10000));
+                local v36 = l_Text_0.GetTextBounds(v34, v33, v32, Vector2.new(v30, 10000));
+                return math.max(v35.X, v36.X) + 20;
             else
-                return l_Text_0.GetTextBounds(v32, v34, v33, Vector2.new(v31, 10000)).X + 20;
+                return l_Text_0.GetTextBounds(v31, v33, v32, Vector2.new(v30, 10000)).X + 20;
             end;
         end);
         return;
     else
-        v26.getBubbleMaxWidth = l_memoize_0(function(v38, v39, v40, v41) --[[ Line: 140 ]]
+        v25.getBubbleMaxWidth = l_memoize_0(function(v37, v38, v39, v40) --[[ Line: 138 ]]
             -- upvalues: l_Text_0 (ref)
-            return l_Text_0.GetTextBounds(v39, v41, v40, Vector2.new(v38, 10000)).X + 20;
+            return l_Text_0.GetTextBounds(v38, v40, v39, Vector2.new(v37, 10000)).X + 20;
         end);
         return;
     end;
 end;
-v25.render = function(v42) --[[ Line: 147 ]] --[[ Name: render ]]
-    -- upvalues: v18 (copy), v19 (copy), v21 (copy), v20 (copy), v14 (copy), l_pruneConsecutiveNewLines_0 (copy), v7 (copy), l_withStyle_0 (copy), v4 (copy), v13 (copy), v2 (copy), v17 (copy), v3 (copy), v16 (copy)
-    local v43;
-    if v18 then
-        local l_props_0 = v42.props;
-        v43 = if v18 and l_props_0 and l_props_0.visibility == v19.VisibilityTypes.Hidden then v21 else v20[l_props_0.messageType];
+v24.render = function(v41) --[[ Line: 145 ]] --[[ Name: render ]]
+    -- upvalues: v17 (copy), v18 (copy), v20 (copy), v19 (copy), v14 (copy), l_pruneConsecutiveNewLines_0 (copy), v7 (copy), l_withStyle_0 (copy), v4 (copy), v13 (copy), v2 (copy), v16 (copy), v3 (copy)
+    local v42;
+    if v17 then
+        local l_props_0 = v41.props;
+        v42 = if v17 and l_props_0 and l_props_0.visibility == v18.VisibilityTypes.Hidden then v20 else v19[l_props_0.messageType];
     else
-        v43 = v20[v42.props.messageType];
+        v42 = v19[v41.props.messageType];
     end;
-    local v45 = v42.messageMaxWidth(v42.props.wideMode, v42.props.parentWidth);
-    if not v43 then
-        v14:warning("ChatMessage doesn't support messageType: {}", v42.props.messageType);
+    local v44 = v41.messageMaxWidth(v41.props.wideMode, v41.props.parentWidth);
+    if not v42 then
+        v14:warning("ChatMessage doesn't support messageType: {}", v41.props.messageType);
         return nil;
     else
-        local l_content_0 = v42.props.content;
+        local l_content_0 = v41.props.content;
         l_content_0 = l_pruneConsecutiveNewLines_0(l_content_0);
-        local v47 = v42.props.moderated and v42.getModeratedText(l_content_0) or l_content_0;
-        local v48 = v7() and v42.props.repliesTo and v42.props.repliesTo.messageType and v42.props.repliesTo.content;
-        return l_withStyle_0(function(v49) --[[ Line: 169 ]]
-            -- upvalues: v4 (ref), v13 (ref), v2 (ref), v42 (copy), v45 (copy), v43 (copy), v7 (ref), v18 (ref), v17 (ref), v47 (copy), v3 (ref), v48 (copy), v19 (ref), v21 (ref), v20 (ref), v16 (ref)
-            local l_Body_0 = v49.Font.Body;
-            local v51 = v49.Font.BaseSize * l_Body_0.RelativeSize;
-            local l_BodySmall_0 = v49.Font.BodySmall;
-            local v53 = v49.Font.BaseSize * l_BodySmall_0.RelativeSize;
-            return v4.createElement(v13, v2.Dictionary.join(v42.props, {
-                messageMaxWidth = v45, 
-                messageTypePaddingOffset = v43.paddingOffset, 
-                messageId = v42.props.messageId, 
-                isPending = if v7() then v42.props.isSending or v42.props.moderated or v42.props.failed else nil, 
-                visibility = if v18 then v42.props.visibility else nil, 
-                renderMessage = not v7() and function(v54) --[[ Line: 189 ]]
-                    -- upvalues: v4 (ref), v43 (ref), v2 (ref), v42 (ref), l_Body_0 (copy), v17 (ref), v45 (ref), v47 (ref), v51 (copy)
+        local v46 = v41.props.moderated and v41.getModeratedText(l_content_0) or l_content_0;
+        local v47 = v7() and v41.props.repliesTo and v41.props.repliesTo.messageType and v41.props.repliesTo.content;
+        return l_withStyle_0(function(v48) --[[ Line: 167 ]]
+            -- upvalues: v4 (ref), v13 (ref), v2 (ref), v41 (copy), v44 (copy), v42 (copy), v7 (ref), v17 (ref), v16 (ref), v46 (copy), v3 (ref), v47 (copy), v18 (ref), v20 (ref), v19 (ref)
+            local l_Body_0 = v48.Font.Body;
+            local v50 = v48.Font.BaseSize * l_Body_0.RelativeSize;
+            local l_BodySmall_0 = v48.Font.BodySmall;
+            local v52 = v48.Font.BaseSize * l_BodySmall_0.RelativeSize;
+            return v4.createElement(v13, v2.Dictionary.join(v41.props, {
+                messageMaxWidth = v44, 
+                messageTypePaddingOffset = v42.paddingOffset, 
+                messageId = v41.props.messageId, 
+                isPending = if v7() then v41.props.isSending or v41.props.moderated or v41.props.failed else nil, 
+                visibility = if v17 then v41.props.visibility else nil, 
+                renderMessage = not v7() and function(v53) --[[ Line: 187 ]]
+                    -- upvalues: v4 (ref), v42 (ref), v2 (ref), v41 (ref), l_Body_0 (copy), v16 (ref), v44 (ref), v46 (ref), v50 (copy)
                     return v4.createFragment({
-                        [v43.name] = v4.createElement(v43.component, v2.Dictionary.join({
-                            additionalProps = v42.props.additionalProps, 
+                        [v42.name] = v4.createElement(v42.component, v2.Dictionary.join({
+                            additionalProps = v41.props.additionalProps, 
                             font = l_Body_0.Font, 
-                            hasTail = v42.props.isNewSender, 
+                            hasTail = v41.props.isNewSender, 
                             innerPadding = 10, 
-                            isIncoming = v42.props.isIncoming, 
-                            isPending = v42.props.isSending or v42.props.moderated or v42.props.failed, 
-                            isUnfiltered = v42.props.isUnfiltered, 
-                            isLastMessageInMessageGroup = v42.props.isLastMessageInMessageGroup, 
-                            maxWidth = if v17 then v42.getBubbleMaxWidth(v45, v47, v51, l_Body_0.Font, v42.props.translatedText) else v42.getBubbleMaxWidth(v45, v47, v51, l_Body_0.Font), 
-                            messageDefaultNoticeText = v42.props.messageDefaultNoticeText, 
-                            messageModeratedNoticeText = v42.props.messageModeratedNoticeText, 
-                            parentWidth = v42.props.parentWidth, 
-                            text = v47, 
-                            textSize = v51, 
-                            wideMode = v42.props.wideMode, 
-                            [v4.Change.AbsoluteSize] = v42.messageSizeChanged, 
-                            translatedText = if v17 then v42.props.translatedText else nil
-                        }, v54 or {}))
+                            isIncoming = v41.props.isIncoming, 
+                            isPending = v41.props.isSending or v41.props.moderated or v41.props.failed, 
+                            isUnfiltered = v41.props.isUnfiltered, 
+                            isLastMessageInMessageGroup = v41.props.isLastMessageInMessageGroup, 
+                            maxWidth = if v16 then v41.getBubbleMaxWidth(v44, v46, v50, l_Body_0.Font, v41.props.translatedText) else v41.getBubbleMaxWidth(v44, v46, v50, l_Body_0.Font), 
+                            messageDefaultNoticeText = v41.props.messageDefaultNoticeText, 
+                            messageModeratedNoticeText = v41.props.messageModeratedNoticeText, 
+                            parentWidth = v41.props.parentWidth, 
+                            text = v46, 
+                            textSize = v50, 
+                            wideMode = v41.props.wideMode, 
+                            [v4.Change.AbsoluteSize] = v41.messageSizeChanged, 
+                            translatedText = if v16 then v41.props.translatedText else nil
+                        }, v53 or {}))
                     });
-                end or function(v55, v56) --[[ Line: 233 ]]
-                    -- upvalues: v3 (ref), v2 (ref), v42 (ref), v48 (ref), v4 (ref), v18 (ref), v19 (ref), v21 (ref), v20 (ref), l_Body_0 (copy), v7 (ref), v17 (ref), v45 (ref), v47 (ref), v51 (copy), v53 (copy), v49 (copy), v43 (ref), v16 (ref)
+                end or function(v54, v55) --[[ Line: 231 ]]
+                    -- upvalues: v3 (ref), v2 (ref), v41 (ref), v47 (ref), v4 (ref), v17 (ref), v18 (ref), v20 (ref), v19 (ref), l_Body_0 (copy), v7 (ref), v16 (ref), v44 (ref), v46 (ref), v50 (copy), v52 (copy), v48 (copy), v42 (ref)
                     local l_createElement_0 = v3.createElement;
-                    local v58 = "ImageButton";
-                    local v59 = v2.Dictionary.join({
+                    local v57 = "ImageButton";
+                    local v58 = v2.Dictionary.join({
                         AutomaticSize = Enum.AutomaticSize.XY, 
                         BackgroundTransparency = 1
-                    }, v55 or {});
-                    local v60 = {
+                    }, v54 or {});
+                    local v59 = {
                         UIListLayout = v3.createElement("UIListLayout", {
                             FillDirection = Enum.FillDirection.Vertical, 
                             SortOrder = Enum.SortOrder.LayoutOrder, 
                             VerticalAlignment = Enum.VerticalAlignment.Center, 
-                            HorizontalAlignment = if v42.props.isIncoming then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Right, 
+                            HorizontalAlignment = if v41.props.isIncoming then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Right, 
                             Padding = UDim.new(0, 10)
                         })
                     };
-                    local v61;
-                    if v48 then
-                        v61 = v4.createElement;
-                        local v62;
-                        if v18 then
-                            local l_repliesTo_0 = v42.props.repliesTo;
-                            v62 = (if v18 and l_repliesTo_0 and l_repliesTo_0.visibility == v19.VisibilityTypes.Hidden then v21 else v20[l_repliesTo_0.messageType]).component;
+                    local v60;
+                    if v47 then
+                        v60 = v4.createElement;
+                        local v61;
+                        if v17 then
+                            local l_repliesTo_0 = v41.props.repliesTo;
+                            v61 = (if v17 and l_repliesTo_0 and l_repliesTo_0.visibility == v18.VisibilityTypes.Hidden then v20 else v19[l_repliesTo_0.messageType]).component;
                         else
-                            v62 = v20[v42.props.repliesTo.messageType].component;
+                            v61 = v19[v41.props.repliesTo.messageType].component;
                         end;
-                        v61 = v61(v62, {
-                            additionalProps = v42.props.additionalProps, 
+                        v60 = v60(v61, {
+                            additionalProps = v41.props.additionalProps, 
                             font = l_Body_0.Font, 
                             hasTail = false, 
                             innerPadding = 10, 
-                            isIncoming = v42.props.isIncoming, 
+                            isIncoming = v41.props.isIncoming, 
                             isPending = false, 
-                            isUnfiltered = v42.props.isUnfiltered, 
+                            isUnfiltered = v41.props.isUnfiltered, 
                             isRepliedTo = true, 
-                            isLastMessageInMessageGroup = v42.props.isLastMessageInMessageGroup, 
-                            maxWidth = if not not v7() or v17 then v45 else v42.getBubbleMaxWidth(v45, v47, v51, l_Body_0.Font), 
-                            messageDefaultNoticeText = v42.props.messageDefaultNoticeText, 
-                            messageModeratedNoticeText = v42.props.messageModeratedNoticeText, 
-                            parentWidth = v42.props.parentWidth, 
-                            text = v42.props.repliesTo.content, 
-                            textSize = v53, 
-                            wideMode = v42.props.wideMode, 
-                            [v4.Change.AbsoluteSize] = v42.messageSizeChanged, 
+                            isLastMessageInMessageGroup = v41.props.isLastMessageInMessageGroup, 
+                            maxWidth = if not not v7() or v16 then v44 else v41.getBubbleMaxWidth(v44, v46, v50, l_Body_0.Font), 
+                            messageDefaultNoticeText = v41.props.messageDefaultNoticeText, 
+                            messageModeratedNoticeText = v41.props.messageModeratedNoticeText, 
+                            parentWidth = v41.props.parentWidth, 
+                            text = v41.props.repliesTo.content, 
+                            textSize = v52, 
+                            wideMode = v41.props.wideMode, 
+                            [v4.Change.AbsoluteSize] = v41.messageSizeChanged, 
                             LayoutOrder = 1
                         });
                     else
-                        v61 = nil;
+                        v60 = nil;
                     end;
-                    v60.repliesTo = v61;
-                    v60.mainMessage = v3.createElement("Frame", {
+                    v59.repliesTo = v60;
+                    v59.mainMessage = v3.createElement("Frame", {
                         AutomaticSize = Enum.AutomaticSize.XY, 
                         BackgroundTransparency = 1, 
-                        [v3.Change.AbsoluteSize] = v42.messageSizeChanged, 
+                        [v3.Change.AbsoluteSize] = v41.messageSizeChanged, 
                         LayoutOrder = 2, 
-                        ref = if v56 then v56.ref else nil
+                        ref = if v55 then v55.ref else nil
                     }, {
                         UIListLayout = v3.createElement("UIListLayout", {
                             FillDirection = Enum.FillDirection.Horizontal, 
                             HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                             VerticalAlignment = Enum.VerticalAlignment.Center, 
                             SortOrder = Enum.SortOrder.LayoutOrder, 
-                            Padding = UDim.new(0, v49.Tokens.Global.Size_50)
+                            Padding = UDim.new(0, v48.Tokens.Global.Size_50)
                         }), 
-                        Icons = if v56 then v56.Icons else nil, 
-                        [v43.name] = v4.createElement(v43.component, {
-                            additionalProps = v42.props.additionalProps, 
+                        Icons = if v55 then v55.Icons else nil, 
+                        [v42.name] = v4.createElement(v42.component, {
+                            additionalProps = v41.props.additionalProps, 
                             font = l_Body_0.Font, 
-                            hasTail = (not not v16 or not v42.props.repliesTo) and v42.props.isNewSender, 
+                            hasTail = v41.props.isNewSender, 
                             innerPadding = 10, 
-                            isIncoming = v42.props.isIncoming, 
-                            isPending = v42.props.isSending or v42.props.moderated or v42.props.failed, 
-                            isUnfiltered = v42.props.isUnfiltered, 
-                            isLastMessageInMessageGroup = v42.props.isLastMessageInMessageGroup, 
-                            isLastIncomingChatMessage = v42.props.isLastIncomingChatMessage, 
-                            isPressed = if v56 then v56.isPressed else nil, 
-                            maxWidth = if v17 then v42.getBubbleMaxWidth(v45, v47, v51, l_Body_0.Font, v42.props.translatedText) else v42.getBubbleMaxWidth(v45, v47, v51, l_Body_0.Font), 
-                            messageDefaultNoticeText = v42.props.messageDefaultNoticeText, 
-                            messageModeratedNoticeText = v42.props.messageModeratedNoticeText, 
-                            parentWidth = v42.props.parentWidth, 
-                            text = v47, 
-                            textSize = v51, 
-                            wideMode = v42.props.wideMode, 
-                            [v4.Change.AbsoluteSize] = v42.messageSizeChanged, 
-                            LayoutOrder = v42.props.isIncoming and 1 or 2, 
-                            translatedText = if v17 then v42.props.translatedText else nil
+                            isIncoming = v41.props.isIncoming, 
+                            isPending = v41.props.isSending or v41.props.moderated or v41.props.failed, 
+                            isUnfiltered = v41.props.isUnfiltered, 
+                            isLastMessageInMessageGroup = v41.props.isLastMessageInMessageGroup, 
+                            isLastIncomingChatMessage = v41.props.isLastIncomingChatMessage, 
+                            isPressed = if v55 then v55.isPressed else nil, 
+                            maxWidth = if v16 then v41.getBubbleMaxWidth(v44, v46, v50, l_Body_0.Font, v41.props.translatedText) else v41.getBubbleMaxWidth(v44, v46, v50, l_Body_0.Font), 
+                            messageDefaultNoticeText = v41.props.messageDefaultNoticeText, 
+                            messageModeratedNoticeText = v41.props.messageModeratedNoticeText, 
+                            parentWidth = v41.props.parentWidth, 
+                            text = v46, 
+                            textSize = v50, 
+                            wideMode = v41.props.wideMode, 
+                            [v4.Change.AbsoluteSize] = v41.messageSizeChanged, 
+                            LayoutOrder = v41.props.isIncoming and 1 or 2, 
+                            translatedText = if v16 then v41.props.translatedText else nil
                         })
                     });
-                    return l_createElement_0(v58, v59, v60);
+                    return l_createElement_0(v57, v58, v59);
                 end
             }));
         end);
     end;
 end;
-if v17 then
-    return function(v64) --[[ Line: 349 ]]
-        -- upvalues: l_useTokens_0 (copy), v3 (copy), v25 (copy), v2 (copy)
-        local v65 = l_useTokens_0();
-        return v3.createElement(v25, v2.Dictionary.union(v64, {
-            autotranslationOriginalTextFontSize = v65.Typography.BodySmall.FontSize
+if v16 then
+    return function(v63) --[[ Line: 346 ]]
+        -- upvalues: l_useTokens_0 (copy), v3 (copy), v24 (copy), v2 (copy)
+        local v64 = l_useTokens_0();
+        return v3.createElement(v24, v2.Dictionary.union(v63, {
+            autotranslationOriginalTextFontSize = v64.Typography.BodySmall.FontSize
         }));
     end;
 else
-    return v25;
+    return v24;
 end;

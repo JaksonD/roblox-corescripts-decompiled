@@ -28,7 +28,8 @@ local v26 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatEnableNewBottomLo
 local l_ExpChatNewHiddenMessagesExperimentation_0 = require(l_Parent_0.SocialExperiments).ExpChatNewHiddenMessagesExperimentation;
 local l_FFlagExpChatPerfTracking_0 = require(l_Parent_0.SharedFlags).FFlagExpChatPerfTracking;
 local v29 = require(l_script_FirstAncestor_0.Telemetry.ExpChatPerfTracker);
-local v30 = {
+local v30 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatRewriteInline);
+local v31 = {
     LayoutOrder = 1, 
     size = UDim2.fromScale(1, 1), 
     messages = if v22 then nil else {}, 
@@ -38,190 +39,191 @@ local v30 = {
     verifiedUserIds = {}, 
     showTranslationButton = false
 };
-return (v3.memo(function(v31) --[[ Line: 56 ]]
-    -- upvalues: l_Dictionary_0 (copy), v30 (copy), v7 (copy), v23 (copy), v8 (copy), v4 (copy), v15 (copy), l_GetFFlagMemoizeChatReportingMenu_0 (copy), v3 (copy), v22 (copy), l_GetFFlagEnableChatLineReporting_0 (copy), l_useUserExperiment_0 (copy), l_FStringReportingIXPLayer_0 (copy), v21 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy), v17 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v11 (copy), v12 (copy), l_game_EngineFeature_0 (copy), v26 (copy), l_FFlagExpChatPerfTracking_0 (copy), v29 (copy), l_TextChatService_0 (copy), v6 (copy), v14 (copy), v13 (copy), v10 (copy)
-    local v32 = l_Dictionary_0.join(v30, v31);
-    local l_chatWindowSettings_0 = v32.chatWindowSettings;
+return (v3.memo(function(v32) --[[ Line: 57 ]]
+    -- upvalues: l_Dictionary_0 (copy), v31 (copy), v7 (copy), v23 (copy), v8 (copy), v4 (copy), v15 (copy), l_GetFFlagMemoizeChatReportingMenu_0 (copy), v3 (copy), v22 (copy), l_GetFFlagEnableChatLineReporting_0 (copy), l_useUserExperiment_0 (copy), l_FStringReportingIXPLayer_0 (copy), v21 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy), v17 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v11 (copy), v12 (copy), l_game_EngineFeature_0 (copy), v30 (copy), v26 (copy), l_FFlagExpChatPerfTracking_0 (copy), v29 (copy), l_TextChatService_0 (copy), v6 (copy), v14 (copy), v13 (copy), v10 (copy)
+    local v33 = l_Dictionary_0.join(v31, v32);
+    local l_chatWindowSettings_0 = v33.chatWindowSettings;
     local l_BackgroundTransparency_0 = v7(l_chatWindowSettings_0).BackgroundTransparency;
     local l_BackgroundColor3_0 = v7(l_chatWindowSettings_0).BackgroundColor3;
-    local v36 = nil;
     local v37 = nil;
-    local v38 = true;
+    local v38 = nil;
+    local v39 = true;
     if v23 then
-        v37 = v8(false);
-        v36 = v4.useSignalState(v37.getChatStatus);
-        v38 = v15(v36);
+        v38 = v8(false);
+        v37 = v4.useSignalState(v38.getChatStatus);
+        v39 = v15(v37);
     end;
-    local v39 = nil;
     local v40 = nil;
+    local v41 = nil;
     if l_GetFFlagMemoizeChatReportingMenu_0() then
-        v40 = v3.useRef(if v22 then nil else v32.messages);
-        v3.useEffect(function() --[[ Line: 76 ]]
-            -- upvalues: v40 (ref), v22 (ref), v32 (copy)
-            v40.current = if v22 then nil else v32.messages;
+        v41 = v3.useRef(if v22 then nil else v33.messages);
+        v3.useEffect(function() --[[ Line: 77 ]]
+            -- upvalues: v41 (ref), v22 (ref), v33 (copy)
+            v41.current = if v22 then nil else v33.messages;
         end, {
-            if v22 then nil else v32.messages
+            if v22 then nil else v33.messages
         });
-        v39 = v3.useCallback(function() --[[ Line: 80 ]]
-            -- upvalues: v40 (ref)
-            return v40.current;
+        v40 = v3.useCallback(function() --[[ Line: 81 ]]
+            -- upvalues: v41 (ref)
+            return v41.current;
         end, {});
     end;
-    local v42 = if l_GetFFlagEnableChatLineReporting_0() then l_useUserExperiment_0({
+    local v43 = if l_GetFFlagEnableChatLineReporting_0() then l_useUserExperiment_0({
         l_FStringReportingIXPLayer_0
-    }, function(v41) --[[ Line: 86 ]]
+    }, function(v42) --[[ Line: 87 ]]
         -- upvalues: l_FStringReportingIXPLayer_0 (ref)
-        return (v41[l_FStringReportingIXPLayer_0] or {}).EnableChatLineReporting;
+        return (v42[l_FStringReportingIXPLayer_0] or {}).EnableChatLineReporting;
     end) else false;
-    local v46 = v3.useCallback(function(v43, v44) --[[ Line: 92 ]]
-        -- upvalues: v32 (copy)
-        if type(v44) == "number" then
-            return v32.transparencyValue;
+    local v47 = v3.useCallback(function(v44, v45) --[[ Line: 93 ]]
+        -- upvalues: v33 (copy)
+        if type(v45) == "number" then
+            return v33.transparencyValue;
         else
-            return v44:map(function(v45) --[[ Line: 97 ]]
-                -- upvalues: v43 (copy)
-                return v43 + v45 * (1 - v43);
+            return v45:map(function(v46) --[[ Line: 98 ]]
+                -- upvalues: v44 (copy)
+                return v44 + v46 * (1 - v44);
             end);
         end;
     end, if v21() then {
-        v32.transparencyValue
+        v33.transparencyValue
     } else nil);
-    local v49 = v3.useCallback(function(v47) --[[ Line: 103 ]]
-        -- upvalues: v32 (copy)
-        v32.resetTargetChannel();
-        local v48 = tonumber(v47.userId);
-        if v48 then
-            v32.activateWhisperMode(v48);
+    local v50 = v3.useCallback(function(v48) --[[ Line: 104 ]]
+        -- upvalues: v33 (copy)
+        v33.resetTargetChannel();
+        local v49 = tonumber(v48.userId);
+        if v49 then
+            v33.activateWhisperMode(v49);
         end;
     end, if v21() then {
-        v32.resetTargetChannel, 
-        v32.activateWhisperMode
+        v33.resetTargetChannel, 
+        v33.activateWhisperMode
     } else nil);
-    local v55 = if v22 then nil else v3.useCallback(function(v50) --[[ Line: 119 ]]
-        -- upvalues: l_Dictionary_0 (ref), l_FFlagEnableVerifiedBadgeStore_0 (ref), v17 (ref), v32 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v3 (ref), v11 (ref), v12 (ref), l_game_EngineFeature_0 (ref), v49 (copy), v26 (ref)
-        local v54 = l_Dictionary_0.map(v50, function(v51, v52) --[[ Line: 120 ]]
-            -- upvalues: l_FFlagEnableVerifiedBadgeStore_0 (ref), v17 (ref), l_Dictionary_0 (ref), v32 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v3 (ref), v11 (ref), v12 (ref), l_game_EngineFeature_0 (ref), v49 (ref)
-            if v51.isVisibleInChatWindow then
-                local v53 = nil;
-                v53 = if l_FFlagEnableVerifiedBadgeStore_0 then if v51.userId then v17.isBadgeVisible((tonumber(v51.userId))) else false else if v51.userId then l_Dictionary_0.has(v32.verifiedUserIds, v51.userId) else false;
-                if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() and v51.isHiddenMessage then
+    local v56 = if v22 then nil else v3.useCallback(function(v51) --[[ Line: 120 ]]
+        -- upvalues: l_Dictionary_0 (ref), l_FFlagEnableVerifiedBadgeStore_0 (ref), v17 (ref), v33 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v3 (ref), v11 (ref), v12 (ref), l_game_EngineFeature_0 (ref), v50 (copy), v30 (ref), v26 (ref)
+        local v55 = l_Dictionary_0.map(v51, function(v52, v53) --[[ Line: 121 ]]
+            -- upvalues: l_FFlagEnableVerifiedBadgeStore_0 (ref), v17 (ref), l_Dictionary_0 (ref), v33 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v3 (ref), v11 (ref), v12 (ref), l_game_EngineFeature_0 (ref), v50 (ref), v30 (ref)
+            if v52.isVisibleInChatWindow then
+                local v54 = nil;
+                v54 = if l_FFlagEnableVerifiedBadgeStore_0 then if v52.userId then v17.isBadgeVisible((tonumber(v52.userId))) else false else if v52.userId then l_Dictionary_0.has(v33.verifiedUserIds, v52.userId) else false;
+                if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatHiddenMessagesNewDesignEnabled() and v52.isHiddenMessage then
                     return v3.createElement(v11, {
-                        chatWindowSettings = v32.chatWindowSettings, 
-                        isSpatialUIEnabled = v32.isSpatialUIEnabled, 
-                        LayoutOrder = v52, 
-                        message = v51, 
-                        textTransparency = v32.textTransparency
+                        chatWindowSettings = v33.chatWindowSettings, 
+                        isSpatialUIEnabled = v33.isSpatialUIEnabled, 
+                        LayoutOrder = v53, 
+                        message = v52, 
+                        textTransparency = v33.textTransparency
                     });
                 else
                     return v3.createElement(v12, {
-                        message = v51, 
-                        LayoutOrder = v52, 
-                        isUserVerified = v53, 
-                        textTransparency = v32.textTransparency, 
-                        transparencyValue = if l_game_EngineFeature_0 then v32.transparencyValue else nil, 
-                        onTextMessageLabelButtonActivated = v49, 
-                        chatWindowSettings = v32.chatWindowSettings, 
-                        showTranslationButton = v32.showTranslationButton, 
-                        isSpatialUIEnabled = v32.isSpatialUIEnabled, 
-                        onToggle = function() --[[ Line: 154 ]] --[[ Name: onToggle ]]
+                        message = v52, 
+                        LayoutOrder = v53, 
+                        isUserVerified = v54, 
+                        textTransparency = v33.textTransparency, 
+                        transparencyValue = if l_game_EngineFeature_0 then v33.transparencyValue else nil, 
+                        onTextMessageLabelButtonActivated = v50, 
+                        chatWindowSettings = v33.chatWindowSettings, 
+                        showTranslationButton = v33.showTranslationButton, 
+                        isSpatialUIEnabled = v33.isSpatialUIEnabled, 
+                        onToggle = function() --[[ Line: 155 ]] --[[ Name: onToggle ]]
 
-                        end
-                    }), v51.messageId;
+                        end, 
+                        chatWindowTransparencyBindingOrValue = if v30 then v33.transparencyValue else nil
+                    }), v52.messageId;
                 end;
             else
                 return nil, nil;
             end;
         end);
-        v54["$layout"] = v3.createElement("UIListLayout", {
+        v55["$layout"] = v3.createElement("UIListLayout", {
             Padding = if v26 then nil else UDim.new(0, 4), 
             SortOrder = Enum.SortOrder.LayoutOrder
         });
-        return v54;
+        return v55;
     end, if v21() then {
-        v32.messages, 
-        v32.textTransparency, 
-        v32.verifiedUserIds, 
-        v32.chatWindowSettings, 
-        v32.showTranslationButton
+        v33.messages, 
+        v33.textTransparency, 
+        v33.verifiedUserIds, 
+        v33.chatWindowSettings, 
+        v33.showTranslationButton
     } else nil);
     if l_FFlagExpChatPerfTracking_0 then
-        local v56 = if v32.targetTextChannel then v32.targetTextChannel.Name else "UNKNOWN_TAB";
-        v3.useEffect(function() --[[ Line: 185 ]]
+        local v57 = if v33.targetTextChannel then v33.targetTextChannel.Name else "UNKNOWN_TAB";
+        v3.useEffect(function() --[[ Line: 189 ]]
             -- upvalues: v29 (ref)
             v29.finish(v29.Events.ChatWindowMountTTI, {});
-            return function() --[[ Line: 187 ]]
+            return function() --[[ Line: 191 ]]
                 -- upvalues: v29 (ref)
                 v29.cancelAll();
             end;
         end, {});
-        v3.useEffect(function() --[[ Line: 191 ]]
-            -- upvalues: v29 (ref), v56 (copy)
+        v3.useEffect(function() --[[ Line: 195 ]]
+            -- upvalues: v29 (ref), v57 (copy)
             v29.finish(v29.Events.ChatWindowTabSwitchTTI, {
-                tabId = v56
+                tabId = v57
             });
         end, {
-            v56
+            v57
         });
     end;
     return v3.createElement("Frame", {
         BackgroundColor3 = l_BackgroundColor3_0, 
         BorderSizePixel = 0, 
-        LayoutOrder = v32.LayoutOrder, 
-        Size = v32.size, 
-        Visible = v32.visible, 
-        BackgroundTransparency = v46(l_BackgroundTransparency_0, v32.transparencyValue), 
-        [v3.Event.MouseEnter] = v32.onHovered, 
-        [v3.Event.MouseLeave] = v32.onUnhovered, 
-        [v3.Change.AbsoluteSize] = if v21() then v3.useCallback(function(v57) --[[ Line: 208 ]]
-            -- upvalues: l_TextChatService_0 (ref), v32 (copy)
+        LayoutOrder = v33.LayoutOrder, 
+        Size = v33.size, 
+        Visible = v33.visible, 
+        BackgroundTransparency = v47(l_BackgroundTransparency_0, v33.transparencyValue), 
+        [v3.Event.MouseEnter] = v33.onHovered, 
+        [v3.Event.MouseLeave] = v33.onUnhovered, 
+        [v3.Change.AbsoluteSize] = if v21() then v3.useCallback(function(v58) --[[ Line: 212 ]]
+            -- upvalues: l_TextChatService_0 (ref), v33 (copy)
             local l_ChatWindowConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
-            if l_ChatWindowConfiguration_0 and v32.onAbsoluteSizeChanged then
-                v32.onAbsoluteSizeChanged(v57, l_ChatWindowConfiguration_0);
+            if l_ChatWindowConfiguration_0 and v33.onAbsoluteSizeChanged then
+                v33.onAbsoluteSizeChanged(v58, l_ChatWindowConfiguration_0);
             end;
         end, {
             l_TextChatService_0, 
-            v32.onAbsoluteSizeChanged
-        }) else function(v59) --[[ Line: 214 ]]
-            -- upvalues: l_TextChatService_0 (ref), v32 (copy)
+            v33.onAbsoluteSizeChanged
+        }) else function(v60) --[[ Line: 218 ]]
+            -- upvalues: l_TextChatService_0 (ref), v33 (copy)
             local l_ChatWindowConfiguration_1 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
-            if l_ChatWindowConfiguration_1 and v32.onAbsoluteSizeChanged then
-                v32.onAbsoluteSizeChanged(v59, l_ChatWindowConfiguration_1);
+            if l_ChatWindowConfiguration_1 and v33.onAbsoluteSizeChanged then
+                v33.onAbsoluteSizeChanged(v60, l_ChatWindowConfiguration_1);
             end;
         end, 
-        [v3.Change.AbsolutePosition] = if v21() then v3.useCallback(function(v61) --[[ Line: 221 ]]
-            -- upvalues: l_TextChatService_0 (ref), v32 (copy)
+        [v3.Change.AbsolutePosition] = if v21() then v3.useCallback(function(v62) --[[ Line: 225 ]]
+            -- upvalues: l_TextChatService_0 (ref), v33 (copy)
             local l_ChatWindowConfiguration_2 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
-            if l_ChatWindowConfiguration_2 and v32.onAbsoluteSizeChanged then
-                v32.onAbsolutePositionChanged(v61, l_ChatWindowConfiguration_2);
+            if l_ChatWindowConfiguration_2 and v33.onAbsoluteSizeChanged then
+                v33.onAbsolutePositionChanged(v62, l_ChatWindowConfiguration_2);
             end;
         end, {
             l_TextChatService_0, 
-            v32.onAbsolutePositionChanged
-        }) else function(v63) --[[ Line: 227 ]]
-            -- upvalues: l_TextChatService_0 (ref), v32 (copy)
+            v33.onAbsolutePositionChanged
+        }) else function(v64) --[[ Line: 231 ]]
+            -- upvalues: l_TextChatService_0 (ref), v33 (copy)
             local l_ChatWindowConfiguration_3 = l_TextChatService_0:FindFirstChildOfClass("ChatWindowConfiguration");
-            if l_ChatWindowConfiguration_3 and v32.onAbsoluteSizeChanged then
-                v32.onAbsolutePositionChanged(v63, l_ChatWindowConfiguration_3);
+            if l_ChatWindowConfiguration_3 and v33.onAbsoluteSizeChanged then
+                v33.onAbsolutePositionChanged(v64, l_ChatWindowConfiguration_3);
             end;
         end
     }, {
         uiSizeConstraint = v3.createElement("UISizeConstraint", {
-            MaxSize = if v32.isSpatialUIEnabled then Vector2.new(1e999, 400) else Vector2.new(v6.ChatWindowMaxWidth, v6.ChatWindowMaxHeight)
+            MaxSize = if v33.isSpatialUIEnabled then Vector2.new(1e999, 400) else Vector2.new(v6.ChatWindowMaxWidth, v6.ChatWindowMaxHeight)
         }), 
-        TopBanner = if not v14() and v38 and v42 then v3.createElement(v13, {
+        TopBanner = if not v14() and v39 and v43 then v3.createElement(v13, {
             backgroundColor3 = l_BackgroundColor3_0, 
             backgroundTransparency = l_BackgroundTransparency_0, 
-            iconTransparency = if l_GetFFlagMemoizeChatReportingMenu_0() then v32.transparencyValue else v46(l_BackgroundTransparency_0, v32.transparencyValue), 
-            onFocus = v32.onFocus, 
-            onUnfocus = v32.onUnfocus, 
-            getMessages = if l_GetFFlagMemoizeChatReportingMenu_0() then v39 else nil, 
-            messages = if not l_GetFFlagMemoizeChatReportingMenu_0() then v32.messages else nil
+            iconTransparency = if l_GetFFlagMemoizeChatReportingMenu_0() then v33.transparencyValue else v47(l_BackgroundTransparency_0, v33.transparencyValue), 
+            onFocus = v33.onFocus, 
+            onUnfocus = v33.onUnfocus, 
+            getMessages = if l_GetFFlagMemoizeChatReportingMenu_0() then v40 else nil, 
+            messages = if not l_GetFFlagMemoizeChatReportingMenu_0() then v33.messages else nil
         }) else nil, 
         scrollingView = v3.createElement(v10, {
-            size = v32.size, 
-            messages = if v26 then nil else v32.messages, 
-            targetTextChannel = v32.targetTextChannel, 
-            isChannelBarVisible = v32.isChannelBarVisible
-        }, if v22 then nil else v55(v32.messages))
+            size = v33.size, 
+            messages = if v26 then nil else v33.messages, 
+            targetTextChannel = v33.targetTextChannel, 
+            isChannelBarVisible = v33.isChannelBarVisible
+        }, if v22 then nil else v56(v33.messages))
     });
 end));

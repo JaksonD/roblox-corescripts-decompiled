@@ -264,8 +264,7 @@ return function(v28) --[[ Line: 69 ]]
                 tag = "size-full-0 text-body-large text-align-y-top text-align-x-left", 
                 Text = l_displayDescription_0, 
                 TextWrapped = true, 
-                AutomaticSize = Enum.AutomaticSize.X, 
-                Size = UDim2.new(0, 0, 0, v56), 
+                Size = UDim2.new(1, 0, 0, v56), 
                 padding = Vector2.new(0, 0), 
                 ref = v58
             })

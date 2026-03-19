@@ -9,113 +9,118 @@ local v7 = require(l_Parent_0.InternalHttpStore);
 local _ = require(l_script_FirstAncestor_0.Parent.GraphQLServer);
 local v9 = l_UrlBuilder_0.fromString("apis:virtual-events/v1/virtual-events/groups/{id}");
 local v10 = l_UrlBuilder_0.fromString("apis:virtual-events/v1/virtual-events/{eventId}/rsvps");
-local v11 = {};
-return function(v12) --[[ Line: 20 ]] --[[ Name: createGroupEventsStore ]]
-    -- upvalues: v7 (copy), l_FFlagLuaAppUseAppHttpStore_0 (copy), v5 (copy), v4 (copy), v9 (copy), v11 (copy), l_HttpService_0 (copy), v10 (copy)
-    local v13 = v7.GetHttpStore();
+local v11 = require(l_script_FirstAncestor_0.Flags.FFlagEnableCommunityProfileLoadingSkeletons);
+local v12 = {};
+return function(v13) --[[ Line: 22 ]] --[[ Name: createGroupEventsStore ]]
+    -- upvalues: v7 (copy), l_FFlagLuaAppUseAppHttpStore_0 (copy), v5 (copy), v4 (copy), v9 (copy), v12 (copy), l_HttpService_0 (copy), v11 (copy), v10 (copy)
+    local v14 = v7.GetHttpStore();
     if l_FFlagLuaAppUseAppHttpStore_0 then
-        local v14 = v5.Instance.get();
-        if v14 then
-            v13 = v14;
+        local v15 = v5.Instance.get();
+        if v15 then
+            v14 = v15;
         end;
     end;
-    local v15, v16 = v4.createSignal(0);
-    local v17 = {};
-    local v18, v19 = v4.createSignal(v17);
-    local function _(v20, v21) --[[ Line: 35 ]]
-        -- upvalues: v17 (ref), v19 (copy)
-        local l_v17_0 = v17;
-        local v23 = table.clone(l_v17_0);
-        v23[v20] = v21;
-        v19(v23);
-        v17 = v23;
+    local v16, v17 = v4.createSignal(0);
+    local v18 = {};
+    local v19, v20 = v4.createSignal(v18);
+    local function _(v21, v22) --[[ Line: 37 ]]
+        -- upvalues: v18 (ref), v20 (copy)
+        local l_v18_0 = v18;
+        local v24 = table.clone(l_v18_0);
+        v24[v21] = v22;
+        v20(v24);
+        v18 = v24;
     end;
-    local v29 = v4.createComputed(function(v25) --[[ Line: 43 ]]
-        -- upvalues: v15 (copy), v12 (copy), v9 (ref), v13 (ref)
-        local v26 = v15(v25);
-        local v27 = string.format("GetEvents_%d_%d", v12, v26);
-        local v28 = {
+    local v30 = v4.createComputed(function(v26) --[[ Line: 45 ]]
+        -- upvalues: v16 (copy), v13 (copy), v9 (ref), v14 (ref)
+        local v27 = v16(v26);
+        local v28 = string.format("GetEvents_%d_%d", v13, v27);
+        local v29 = {
             Url = v9({
-                id = v12
+                id = v13
             }), 
             Method = "GET"
         };
-        return v13.fetch(v27, v28);
+        return v14.fetch(v28, v29);
     end);
-    local l_v11_0 = v11;
-    local v31 = nil;
+    local l_v12_0 = v12;
+    local v32 = nil;
     return {
-        getEvents = v4.createComputed(function(v32) --[[ Line: 57 ]]
-            -- upvalues: v29 (copy), v18 (copy), l_HttpService_0 (ref), l_v11_0 (ref)
-            local v33 = v29(v32)(v32);
-            local v34 = v18(v32);
-            if v33.status == "Success" then
-                local v35 = {};
-                local l_status_0, l_result_0 = pcall(l_HttpService_0.JSONDecode, l_HttpService_0, v33.response.Body);
+        getEvents = v4.createComputed(function(v33) --[[ Line: 59 ]]
+            -- upvalues: v30 (copy), v19 (copy), l_HttpService_0 (ref), l_v12_0 (ref)
+            local v34 = v30(v33)(v33);
+            local v35 = v19(v33);
+            if v34.status == "Success" then
+                local v36 = {};
+                local l_status_0, l_result_0 = pcall(l_HttpService_0.JSONDecode, l_HttpService_0, v34.response.Body);
                 if l_status_0 then
-                    for v38, v39 in pairs(l_result_0.data) do
-                        v39.universeId = tostring(v39.universeId);
-                        local v40 = v34[v39.id];
-                        if v40 ~= nil then
-                            v39.userRsvpStatus = v40;
+                    for v39, v40 in pairs(l_result_0.data) do
+                        v40.universeId = tostring(v40.universeId);
+                        local v41 = v35[v40.id];
+                        if v41 ~= nil then
+                            v40.userRsvpStatus = v41;
                         end;
-                        v35[v38] = v39;
+                        v36[v39] = v40;
                     end;
                 end;
-                l_v11_0 = v35;
-                return v35;
-            elseif v33.status == "Failed" then
+                l_v12_0 = v36;
+                return v36;
+            elseif v34.status == "Failed" then
                 return {};
             else
-                return l_v11_0;
+                return l_v12_0;
             end;
         end), 
-        updateRsvpStatus = function(v41, v42) --[[ Line: 91 ]] --[[ Name: updateRsvpStatus ]]
-            -- upvalues: v10 (ref), l_HttpService_0 (ref), v13 (ref), v17 (ref), v19 (copy), v31 (ref), v4 (ref)
-            local v43 = string.format("UpdateEventRsvpStatus_%s_%s", v41.id, v42);
-            local v44 = {
+        isLoading = if v11 then v4.createComputed(function(v42) --[[ Line: 94 ]]
+            -- upvalues: v30 (copy)
+            return v30(v42)(v42).status == "Fetching";
+        end) else nil, 
+        updateRsvpStatus = function(v43, v44) --[[ Line: 101 ]] --[[ Name: updateRsvpStatus ]]
+            -- upvalues: v10 (ref), l_HttpService_0 (ref), v14 (ref), v18 (ref), v20 (copy), v32 (ref), v4 (ref)
+            local v45 = string.format("UpdateEventRsvpStatus_%s_%s", v43.id, v44);
+            local v46 = {
                 Url = v10({
-                    eventId = v41.id
+                    eventId = v43.id
                 }), 
                 Method = "POST", 
                 Body = l_HttpService_0:JSONEncode({
-                    rsvpStatus = v42
+                    rsvpStatus = v44
                 }), 
                 Headers = {
                     ["Content-Type"] = "application/json"
                 }
             };
-            local v45 = v13.fetch(v43, v44);
-            local v46 = v17[v41.id];
-            local l_id_0 = v41.id;
-            local l_v17_1 = v17;
-            local v49 = table.clone(l_v17_1);
-            v49[l_id_0] = v42;
-            v19(v49);
-            v17 = v49;
-            if v31 then
-                v31();
+            local v47 = v14.fetch(v45, v46);
+            local v48 = v18[v43.id];
+            local l_id_0 = v43.id;
+            local l_v18_1 = v18;
+            local v51 = table.clone(l_v18_1);
+            v51[l_id_0] = v44;
+            v20(v51);
+            v18 = v51;
+            if v32 then
+                v32();
             end;
-            v31 = v4.createEffect(function(v50) --[[ Line: 108 ]]
-                -- upvalues: v45 (copy), v41 (copy), v46 (copy), v17 (ref), v19 (ref)
-                if v45(v50).status == "Failed" then
-                    local l_id_1 = v41.id;
-                    local l_v46_0 = v46;
-                    local l_v17_2 = v17;
-                    local v54 = table.clone(l_v17_2);
-                    v54[l_id_1] = l_v46_0;
-                    v19(v54);
-                    v17 = v54;
+            v32 = v4.createEffect(function(v52) --[[ Line: 118 ]]
+                -- upvalues: v47 (copy), v43 (copy), v48 (copy), v18 (ref), v20 (ref)
+                if v47(v52).status == "Failed" then
+                    local l_id_1 = v43.id;
+                    local l_v48_0 = v48;
+                    local l_v18_2 = v18;
+                    local v56 = table.clone(l_v18_2);
+                    v56[l_id_1] = l_v48_0;
+                    v20(v56);
+                    v18 = v56;
                 end;
             end);
-            return v45;
+            return v47;
         end, 
-        refetch = function() --[[ Line: 119 ]] --[[ Name: refetch ]]
-            -- upvalues: v16 (copy), v19 (copy)
-            v16(function(v55) --[[ Line: 121 ]]
-                return v55 + 1;
+        refetch = function() --[[ Line: 129 ]] --[[ Name: refetch ]]
+            -- upvalues: v17 (copy), v20 (copy)
+            v17(function(v57) --[[ Line: 131 ]]
+                return v57 + 1;
             end);
-            v19(function(_) --[[ Line: 125 ]]
+            v20(function(_) --[[ Line: 135 ]]
                 return {};
             end);
         end

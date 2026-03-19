@@ -12,6 +12,11 @@ return {
         Unacknowledged = "unacknowledged", 
         Acknowledged = "acknowledged"
     }, 
+    UserOptedIntoChatMessagesStatusResponse = {
+        NotApplicable = "not_applicable", 
+        NotOptedIn = "not_opted_in", 
+        OptedIn = "opted_in"
+    }, 
     ModalSequence = {
         ChatLandingModal = "chat_landing_modal", 
         ConversationTopModal = "conversation_top_modal", 

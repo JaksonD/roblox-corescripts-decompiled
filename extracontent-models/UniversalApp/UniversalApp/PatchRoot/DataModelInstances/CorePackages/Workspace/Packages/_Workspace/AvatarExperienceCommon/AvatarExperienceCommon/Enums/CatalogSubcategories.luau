@@ -3,6 +3,9 @@ local v1 = require(l_Parent_0.enumerate);
 local v2 = require(l_Parent_0.AvatarExperienceFlags);
 local l_FFlagAXCatalogBodySuits_0 = v2.FFlagAXCatalogBodySuits;
 local l_FFlagAXCustomizeMakeupSupport_0 = v2.FFlagAXCustomizeMakeupSupport;
+local l_FFlagAXCatalogM41Props_0 = v2.FFlagAXCatalogM41Props;
+local l_FFlagAXCatalogM41FullMasks_0 = v2.FFlagAXCatalogM41FullMasks;
+local l_FFlagAXCatalogM41HandAndArm_0 = v2.FFlagAXCatalogM41HandAndArm;
 local l_FFlagDynamicHeadsMigration_0 = v2.FFlagDynamicHeadsMigration;
 local l_FFlagAXCatalogMakeupSupport_0 = v2.FFlagAXCatalogMakeupSupport;
 if l_FFlagAXCatalogBodySuits_0 then
@@ -25,8 +28,10 @@ if l_FFlagAXCatalogBodySuits_0 then
         Bodysuits = "Bodysuits", 
         Hats = "Hats", 
         Face = "Face", 
+        FullMasks = l_FFlagAXCatalogM41FullMasks_0 and "Full Masks" or nil, 
         Neck = "Neck", 
         Shoulder = "Shoulder", 
+        HandAndArm = l_FFlagAXCatalogM41HandAndArm_0 and "Hand & Arm" or nil, 
         Front = "Front", 
         Back = "Back", 
         Waist = "Waist", 
@@ -36,6 +41,7 @@ if l_FFlagAXCatalogBodySuits_0 then
         Hair = "Hair", 
         ClassicHeads = not l_FFlagDynamicHeadsMigration_0 and "Classic Heads" or nil, 
         ClassicFaces = not l_FFlagDynamicHeadsMigration_0 and "Classic Faces" or nil, 
+        Props = l_FFlagAXCatalogM41Props_0 and "Props" or nil, 
         MakeupLooks = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Makeup Looks" or nil, 
         EyeMakeup = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Eye Makeup" or nil, 
         FaceMakeup = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Face Makeup" or nil, 
@@ -64,8 +70,10 @@ else
         ClassicPants = "Classic Pants", 
         Hats = "Hats", 
         Face = "Face", 
+        FullMasks = l_FFlagAXCatalogM41FullMasks_0 and "Full Masks" or nil, 
         Neck = "Neck", 
         Shoulder = "Shoulder", 
+        HandAndArm = l_FFlagAXCatalogM41HandAndArm_0 and "Hand & Arm" or nil, 
         Front = "Front", 
         Back = "Back", 
         Waist = "Waist", 
@@ -75,6 +83,7 @@ else
         Hair = "Hair", 
         ClassicHeads = not l_FFlagDynamicHeadsMigration_0 and "Classic Heads" or nil, 
         ClassicFaces = not l_FFlagDynamicHeadsMigration_0 and "Classic Faces" or nil, 
+        Props = l_FFlagAXCatalogM41Props_0 and "Props" or nil, 
         MakeupLooks = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Makeup Looks" or nil, 
         EyeMakeup = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Eye Makeup" or nil, 
         FaceMakeup = (not not l_FFlagAXCustomizeMakeupSupport_0 or l_FFlagAXCatalogMakeupSupport_0) and "Face Makeup" or nil, 

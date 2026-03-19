@@ -30,11 +30,13 @@ local v28 = require(l_Modules_0.AvatarExperience.AvatarEditor.Services.Analytics
 local v29 = require(l_Modules_0.AvatarExperience.AvatarEditor.Selectors.CheckShouldPreloadEditableCostumes);
 local v30 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.CreateOutfit);
 local v31 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.GetEditableOutfits);
+local v32 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
 local l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateSaveOutfitPromptFromRoactGamepad;
-local l_FFlagAXCharacterToAvatarStrings_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXCharacterToAvatarStrings;
-local l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXUpdateSlotBasedEditorToastAndPrompts;
-local v35 = v4.PureComponent:extend("SaveOutfitPrompt");
-v35.validateProps = v6.strictInterface({
+local l_FFlagAXCharacterToAvatarStrings_0 = v32.FFlagAXCharacterToAvatarStrings;
+local l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 = v32.FFlagAXUpdateSlotBasedEditorToastAndPrompts;
+local l_FFlagAXFixCustomOutfitNamesDisabled_0 = v32.FFlagAXFixCustomOutfitNamesDisabled;
+local v37 = v4.PureComponent:extend("SaveOutfitPrompt");
+v37.validateProps = v6.strictInterface({
     lookId = v6.optional(v6.string), 
     onComplete = v6.optional(v6.callback), 
     containerWidth = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else v6.optional(v6.number), 
@@ -54,115 +56,115 @@ v35.validateProps = v6.strictInterface({
     getEditableUserCostumes = v6.callback, 
     forwardRef = v6.optional(v6.table)
 });
-v35.init = function(v36) --[[ Line: 93 ]] --[[ Name: init ]]
-    -- upvalues: v24 (copy), v10 (copy), l_AvatarScreen_0 (copy), v21 (copy), v4 (copy), v27 (copy), l_UserInputService_0 (copy)
-    v36.getShowCustomCostumeNames = function() --[[ Line: 94 ]]
-        -- upvalues: v36 (copy)
-        return v36.props.showCustomOutfitNames;
+v37.init = function(v38) --[[ Line: 93 ]] --[[ Name: init ]]
+    -- upvalues: l_FFlagAXFixCustomOutfitNamesDisabled_0 (copy), v24 (copy), v10 (copy), l_AvatarScreen_0 (copy), v21 (copy), v4 (copy), v27 (copy), l_UserInputService_0 (copy)
+    v38.getShowCustomCostumeNames = function() --[[ Line: 94 ]]
+        -- upvalues: v38 (copy)
+        return v38.props.showCustomOutfitNames;
     end;
-    v36.outfitName = v36.getShowCustomCostumeNames() and "" or nil;
-    v36.isMounted = false;
-    v36.checkIsMounted = function() --[[ Line: 101 ]]
-        -- upvalues: v36 (copy)
-        return v36.isMounted;
+    v38.outfitName = v38.getShowCustomCostumeNames() and "" or nil;
+    v38.isMounted = false;
+    v38.checkIsMounted = function() --[[ Line: 101 ]]
+        -- upvalues: v38 (copy)
+        return v38.isMounted;
     end;
-    v36.state = {
+    v38.state = {
         isKeyboardRepositioned = false, 
-        isNameInvalid = v36.getShowCustomCostumeNames() and true or false
+        isNameInvalid = v38.getShowCustomCostumeNames() and true or false
     };
-    v36.saveOutfit = function() --[[ Line: 110 ]]
-        -- upvalues: v36 (copy), v24 (ref), v10 (ref), l_AvatarScreen_0 (ref), v21 (ref)
-        if v36.state.isNameInvalid then
+    v38.saveOutfit = function() --[[ Line: 110 ]]
+        -- upvalues: v38 (copy), l_FFlagAXFixCustomOutfitNamesDisabled_0 (ref), v24 (ref), v10 (ref), l_AvatarScreen_0 (ref), v21 (ref)
+        if v38.state.isNameInvalid then
             return;
-        elseif not v36.getShowCustomCostumeNames() then
-            v36.props.createOutfit(v36.outfitName, v36.props.avatarEditorAnalytics, v36.checkIsMounted, v36.props.onComplete, if v36.props.lookId ~= nil then v36.props.combinedTryOnHumanoidDescription else nil);
+        elseif not v38.getShowCustomCostumeNames() then
+            v38.props.createOutfit(l_FFlagAXFixCustomOutfitNamesDisabled_0 and "" or v38.outfitName, v38.props.avatarEditorAnalytics, v38.checkIsMounted, v38.props.onComplete, if v38.props.lookId ~= nil then v38.props.combinedTryOnHumanoidDescription else nil);
             return;
-        elseif v24.isDuplicateOutfitName(v36.props.ownedItemIdsBySubtype, v36.props.outfitInfos, v36.outfitName) then
-            local l_outfitName_0 = v36.outfitName;
-            local function v38() --[[ Line: 134 ]] --[[ Name: saveCallback ]]
-                -- upvalues: v36 (ref), l_outfitName_0 (copy)
-                v36.props.createOutfit(l_outfitName_0, v36.props.avatarEditorAnalytics, v36.checkIsMounted, v36.props.onComplete, if v36.props.lookId ~= nil then v36.props.combinedTryOnHumanoidDescription else nil);
+        elseif v24.isDuplicateOutfitName(v38.props.ownedItemIdsBySubtype, v38.props.outfitInfos, v38.outfitName) then
+            local l_outfitName_0 = v38.outfitName;
+            local function v40() --[[ Line: 134 ]] --[[ Name: saveCallback ]]
+                -- upvalues: v38 (ref), l_outfitName_0 (copy)
+                v38.props.createOutfit(l_outfitName_0, v38.props.avatarEditorAnalytics, v38.checkIsMounted, v38.props.onComplete, if v38.props.lookId ~= nil then v38.props.combinedTryOnHumanoidDescription else nil);
             end;
-            v10.navigateToNextOverlay(v36.props.navigation, l_AvatarScreen_0.DuplicateOutfitNamePrompt, {
-                outfitName = v36.outfitName, 
+            v10.navigateToNextOverlay(v38.props.navigation, l_AvatarScreen_0.DuplicateOutfitNamePrompt, {
+                outfitName = v38.outfitName, 
                 sourcePrompt = l_AvatarScreen_0.SaveOutfitPrompt, 
                 sourceParams = {}, 
-                saveCallback = v38, 
+                saveCallback = v40, 
                 saveFetchingStateKey = v21.CreateOutfitKey
             });
             return;
         else
-            v36.props.createOutfit(v36.outfitName, v36.props.avatarEditorAnalytics, v36.checkIsMounted, v36.props.onComplete, if v36.props.lookId ~= nil then v36.props.combinedTryOnHumanoidDescription else nil);
+            v38.props.createOutfit(v38.outfitName, v38.props.avatarEditorAnalytics, v38.checkIsMounted, v38.props.onComplete, if v38.props.lookId ~= nil then v38.props.combinedTryOnHumanoidDescription else nil);
             return;
         end;
     end;
-    v36.onOutfitNameUpdated = function(v39, v40) --[[ Line: 164 ]]
-        -- upvalues: v36 (copy)
-        if not v36.isMounted then
+    v38.onOutfitNameUpdated = function(v41, v42) --[[ Line: 164 ]]
+        -- upvalues: v38 (copy)
+        if not v38.isMounted then
             return;
         else
-            v36.outfitName = v39;
-            v36:setState({
-                isNameInvalid = v40
+            v38.outfitName = v41;
+            v38:setState({
+                isNameInvalid = v42
             });
             return;
         end;
     end;
-    v36.renderMiddleContent = function() --[[ Line: 175 ]]
-        -- upvalues: v4 (ref), v27 (ref), v36 (copy)
+    v38.renderMiddleContent = function() --[[ Line: 175 ]]
+        -- upvalues: v4 (ref), v27 (ref), v38 (copy)
         return v4.createElement(v27, {
-            onOutfitNameUpdated = v36.onOutfitNameUpdated
+            onOutfitNameUpdated = v38.onOutfitNameUpdated
         });
     end;
-    v36.keyboardConnection = l_UserInputService_0:GetPropertyChangedSignal("OnScreenKeyboardVisible"):Connect(function() --[[ Line: 181 ]]
-        -- upvalues: v36 (copy), l_UserInputService_0 (ref)
-        if not v36.isMounted then
+    v38.keyboardConnection = l_UserInputService_0:GetPropertyChangedSignal("OnScreenKeyboardVisible"):Connect(function() --[[ Line: 181 ]]
+        -- upvalues: v38 (copy), l_UserInputService_0 (ref)
+        if not v38.isMounted then
             return;
         else
-            if not v36.state.isKeyboardRepositioned and l_UserInputService_0.OnScreenKeyboardVisible then
-                v36:setState({
+            if not v38.state.isKeyboardRepositioned and l_UserInputService_0.OnScreenKeyboardVisible then
+                v38:setState({
                     isKeyboardRepositioned = true
                 });
             end;
             return;
         end;
     end);
-    v36.closePrompt = function() --[[ Line: 192 ]]
-        -- upvalues: v10 (ref), v36 (copy)
-        v10.closeOverlay(v36.props.navigation);
-        if v36.props.onComplete then
-            v36.props.onComplete();
+    v38.closePrompt = function() --[[ Line: 192 ]]
+        -- upvalues: v10 (ref), v38 (copy)
+        v10.closeOverlay(v38.props.navigation);
+        if v38.props.onComplete then
+            v38.props.onComplete();
         end;
     end;
 end;
-v35.checkFetchEditableOutfits = function(v41) --[[ Line: 200 ]] --[[ Name: checkFetchEditableOutfits ]]
-    if v41.props.shouldPreloadEditableCostumes then
-        v41.props.getEditableUserCostumes();
+v37.checkFetchEditableOutfits = function(v43) --[[ Line: 200 ]] --[[ Name: checkFetchEditableOutfits ]]
+    if v43.props.shouldPreloadEditableCostumes then
+        v43.props.getEditableUserCostumes();
     end;
 end;
-v35.didMount = function(v42) --[[ Line: 207 ]] --[[ Name: didMount ]]
-    v42.isMounted = true;
-    v42:checkFetchEditableOutfits();
+v37.didMount = function(v44) --[[ Line: 207 ]] --[[ Name: didMount ]]
+    v44.isMounted = true;
+    v44:checkFetchEditableOutfits();
 end;
-v35.willUpdate = function(v43, v44, _) --[[ Line: 213 ]] --[[ Name: willUpdate ]]
+v37.willUpdate = function(v45, v46, _) --[[ Line: 213 ]] --[[ Name: willUpdate ]]
     -- upvalues: v23 (copy)
-    if v23.isFetchingDoneOrFailed(v43.props.fetchingState, v44.fetchingState) then
-        v43.closePrompt();
+    if v23.isFetchingDoneOrFailed(v45.props.fetchingState, v46.fetchingState) then
+        v45.closePrompt();
     end;
 end;
-v35.renderAlertLocalized = function(v46, v47) --[[ Line: 219 ]] --[[ Name: renderAlertLocalized ]]
+v37.renderAlertLocalized = function(v48, v49) --[[ Line: 219 ]] --[[ Name: renderAlertLocalized ]]
     -- upvalues: l_UserInputService_0 (copy), v4 (copy), l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 (copy), l_Overlay_0 (copy), l_Focusable_0 (copy), v7 (copy), l_InteractiveAlert_0 (copy), l_FFlagAXCharacterToAvatarStrings_0 (copy), l_ButtonType_0 (copy), l_RetrievalStatus_0 (copy)
-    local v48 = v46.getShowCustomCostumeNames();
-    local l_screenSize_0 = v46.props.screenSize;
-    local v50 = UDim2.new(0.5, 0, 0.5, 0);
-    if v46.state.isKeyboardRepositioned then
-        v50 = UDim2.new(0.5, 0, 0, (l_screenSize_0.Y - l_UserInputService_0.OnScreenKeyboardSize.Y) / 2);
+    local v50 = v48.getShowCustomCostumeNames();
+    local l_screenSize_0 = v48.props.screenSize;
+    local v52 = UDim2.new(0.5, 0, 0.5, 0);
+    if v48.state.isKeyboardRepositioned then
+        v52 = UDim2.new(0.5, 0, 0, (l_screenSize_0.Y - l_UserInputService_0.OnScreenKeyboardSize.Y) / 2);
     end;
     return v4.createElement(if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then l_Overlay_0 else l_Focusable_0.Frame, {
         Size = UDim2.fromScale(1, 1), 
         BackgroundTransparency = 1, 
         inputBindings = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else {
-            NavigateBack = v7.Input.onBegin(Enum.KeyCode.ButtonB, v46.closePrompt), 
+            NavigateBack = v7.Input.onBegin(Enum.KeyCode.ButtonB, v48.closePrompt), 
             Confirm = v7.Input.onBegin(Enum.KeyCode.ButtonA, function() --[[ Line: 239 ]]
 
             end, {
@@ -172,37 +174,37 @@ v35.renderAlertLocalized = function(v46, v47) --[[ Line: 219 ]] --[[ Name: rende
     }, {
         Alert = v4.createElement(l_InteractiveAlert_0, {
             isRoactGamepadEnabled = not l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 and nil, 
-            title = v47.titleText, 
-            bodyText = if l_FFlagAXCharacterToAvatarStrings_0 then nil else v48 and v47.messageText or nil, 
+            title = v49.titleText, 
+            bodyText = if l_FFlagAXCharacterToAvatarStrings_0 then nil else v50 and v49.messageText or nil, 
             buttonStackInfo = {
                 buttons = {
                     {
                         props = {
-                            onActivated = v46.closePrompt, 
-                            text = v47.cancelButtonText
+                            onActivated = v48.closePrompt, 
+                            text = v49.cancelButtonText
                         }, 
                         isDefaultChild = not l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 or nil
                     }, 
                     {
                         buttonType = if l_FFlagAXCharacterToAvatarStrings_0 then l_ButtonType_0.PrimaryContextual else l_ButtonType_0.PrimarySystem, 
                         props = {
-                            isLoading = v46.props.fetchingState == l_RetrievalStatus_0.Fetching, 
-                            isDisabled = v48 and v46.state.isNameInvalid or false, 
-                            onActivated = v46.saveOutfit, 
-                            text = v47.confirmButtonText
+                            isLoading = v48.props.fetchingState == l_RetrievalStatus_0.Fetching, 
+                            isDisabled = v50 and v48.state.isNameInvalid or false, 
+                            onActivated = v48.saveOutfit, 
+                            text = v49.confirmButtonText
                         }
                     }
                 }
             }, 
-            middleContent = v48 and v46.renderMiddleContent or nil, 
-            isMiddleContentFocusable = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else v48, 
-            position = v50, 
-            screenSize = v46.props.screenSize, 
-            defaultChildRef = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else v46.props.defaultChildRef
+            middleContent = v50 and v48.renderMiddleContent or nil, 
+            isMiddleContentFocusable = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else v50, 
+            position = v52, 
+            screenSize = v48.props.screenSize, 
+            defaultChildRef = if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then nil else v48.props.defaultChildRef
         })
     });
 end;
-v35.render = function(v51) --[[ Line: 285 ]] --[[ Name: render ]]
+v37.render = function(v53) --[[ Line: 285 ]] --[[ Name: render ]]
     -- upvalues: l_withLocalization_0 (copy), l_FFlagAXCharacterToAvatarStrings_0 (copy), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (copy), l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 (copy), l_withSelectionCursorProvider_0 (copy)
     return l_withLocalization_0({
         titleText = l_FFlagAXCharacterToAvatarStrings_0 and "Feature.Avatar.Label.Title.AvatarName" or "Feature.Avatar.Heading.SaveCostume", 
@@ -210,65 +212,65 @@ v35.render = function(v51) --[[ Line: 285 ]] --[[ Name: render ]]
         confirmButtonText = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "Feature.Avatar.Label.Add" or "Feature.Avatar.Action.Save", 
         cancelButtonText = "Feature.Avatar.Action.Cancel", 
         warningText = "Feature.Avatar.Label.CostumeWarning"
-    })(function(v52) --[[ Line: 296 ]]
-        -- upvalues: l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 (ref), v51 (copy), l_withSelectionCursorProvider_0 (ref)
+    })(function(v54) --[[ Line: 296 ]]
+        -- upvalues: l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 (ref), v53 (copy), l_withSelectionCursorProvider_0 (ref)
         if l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then
-            return v51:renderAlertLocalized(v52);
+            return v53:renderAlertLocalized(v54);
         else
-            return l_withSelectionCursorProvider_0(function(v53) --[[ Line: 300 ]]
-                -- upvalues: v51 (ref), v52 (copy)
-                return v51:renderAlertLocalized(v52, v53);
+            return l_withSelectionCursorProvider_0(function(v55) --[[ Line: 300 ]]
+                -- upvalues: v53 (ref), v54 (copy)
+                return v53:renderAlertLocalized(v54, v55);
             end);
         end;
     end);
 end;
-v35.didUpdate = function(v54, _, _) --[[ Line: 306 ]] --[[ Name: didUpdate ]]
-    v54:checkFetchEditableOutfits();
+v37.didUpdate = function(v56, _, _) --[[ Line: 306 ]] --[[ Name: didUpdate ]]
+    v56:checkFetchEditableOutfits();
 end;
-v35.willUnmount = function(v57) --[[ Line: 310 ]] --[[ Name: willUnmount ]]
-    v57.keyboardConnection:disconnect();
-    v57.keyboardConnection = nil;
-    v57.isMounted = false;
+v37.willUnmount = function(v59) --[[ Line: 310 ]] --[[ Name: willUnmount ]]
+    v59.keyboardConnection:disconnect();
+    v59.keyboardConnection = nil;
+    v59.isMounted = false;
 end;
-v35 = v5.connect(function(v58, v59) --[[ Line: 316 ]]
+v37 = v5.connect(function(v60, v61) --[[ Line: 316 ]]
     -- upvalues: v22 (copy), l_PerformFetch_0 (copy), v21 (copy), v29 (copy)
-    local v60 = if v59.lookId ~= nil then v22.getCombinedHumanoidDescriptionFromEquippedAndOutfitTryOn(v58) else nil;
+    local v62 = if v61.lookId ~= nil then v22.getCombinedHumanoidDescriptionFromEquippedAndOutfitTryOn(v60) else nil;
     return {
-        fetchingState = l_PerformFetch_0.GetStatus(v58, v21.CreateOutfitKey), 
-        screenSize = v58.ScreenSize, 
-        shouldPreloadEditableCostumes = v29(v58), 
-        ownedItemIdsBySubtype = v58.AvatarExperience.AvatarEditor.Character.OwnedItemIdsBySubtype, 
-        outfitInfos = v58.AvatarExperience.AvatarEditor.OutfitInfos, 
-        combinedTryOnHumanoidDescription = v60
+        fetchingState = l_PerformFetch_0.GetStatus(v60, v21.CreateOutfitKey), 
+        screenSize = v60.ScreenSize, 
+        shouldPreloadEditableCostumes = v29(v60), 
+        ownedItemIdsBySubtype = v60.AvatarExperience.AvatarEditor.Character.OwnedItemIdsBySubtype, 
+        outfitInfos = v60.AvatarExperience.AvatarEditor.OutfitInfos, 
+        combinedTryOnHumanoidDescription = v62
     };
-end, function(v61) --[[ Line: 328 ]]
+end, function(v63) --[[ Line: 328 ]]
     -- upvalues: v30 (copy), v31 (copy)
     return {
-        createOutfit = function(v62, v63, v64, v65, v66) --[[ Line: 330 ]] --[[ Name: createOutfit ]]
-            -- upvalues: v61 (copy), v30 (ref)
-            v61(v30(v62, v63, v64, v65, v66));
+        createOutfit = function(v64, v65, v66, v67, v68) --[[ Line: 330 ]] --[[ Name: createOutfit ]]
+            -- upvalues: v63 (copy), v30 (ref)
+            v63(v30(v64, v65, v66, v67, v68));
         end, 
         getEditableUserCostumes = function() --[[ Line: 333 ]] --[[ Name: getEditableUserCostumes ]]
-            -- upvalues: v61 (copy), v31 (ref)
-            return v61(v31());
+            -- upvalues: v63 (copy), v31 (ref)
+            return v63(v31());
         end
     };
-end)(v35);
-v35 = l_RoactAppPolicy_0.connect(function(v67, _) --[[ Line: 339 ]]
+end)(v37);
+v37 = l_RoactAppPolicy_0.connect(function(v69, _) --[[ Line: 339 ]]
     return {
-        showCustomOutfitNames = v67.getCustomOutfitNames()
+        showCustomOutfitNames = v69.getCustomOutfitNames()
     };
-end)(v35);
-v35 = l_RoactServices_0.connect({
+end)(v37);
+v37 = l_RoactServices_0.connect({
     avatarEditorAnalytics = v28
-})(v35);
+})(v37);
 if not l_FFlagAXMigrateSaveOutfitPromptFromRoactGamepad_0 then
-    v35 = v26(v35);
+    v37 = v26(v37);
 end;
-v35 = v25(v35);
-return v4.forwardRef(function(v69, v70) --[[ Line: 355 ]]
-    -- upvalues: v4 (copy), v35 (ref), v3 (copy)
-    return v4.createElement(v35, v3.Dictionary.join(v69, {
-        forwardRef = v70
+v37 = v25(v37);
+return v4.forwardRef(function(v71, v72) --[[ Line: 355 ]]
+    -- upvalues: v4 (copy), v37 (ref), v3 (copy)
+    return v4.createElement(v37, v3.Dictionary.join(v71, {
+        forwardRef = v72
     }));
 end);

@@ -3,81 +3,80 @@ local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v2 = require(l_CorePackages_0.Packages.React);
 local l_useImpressionsTagger_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).useImpressionsTagger;
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v5 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableWidgetsTTI);
-local v6 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
-local l_FFlagAXCatalogItemCardFooterBackendDriven_0 = v6.FFlagAXCatalogItemCardFooterBackendDriven;
-local l_FFlagAXCatalogCategoriesStoreImprovePerf_0 = v6.FFlagAXCatalogCategoriesStoreImprovePerf;
-local v9 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local v10 = require(l_Modules_0.AvatarExperience.Catalog.Components.ItemsList.CatalogItemCardContainer);
+local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local l_FFlagAXCatalogItemCardFooterBackendDriven_0 = v5.FFlagAXCatalogItemCardFooterBackendDriven;
+local l_FFlagAXCatalogCategoriesStoreImprovePerf_0 = v5.FFlagAXCatalogCategoriesStoreImprovePerf;
+local v8 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local v9 = require(l_Modules_0.AvatarExperience.Catalog.Components.ItemsList.CatalogItemCardContainer);
 local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_getUseSelectorDeepEquals_0 = v9.Utils.getUseSelectorDeepEquals;
-local v13 = require(l_CorePackages_0.Packages.RoactGamepad);
-local v14 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
-local l_ItemTypeEnum_0 = v9.Enums.ItemTypeEnum;
-local v16 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v17 = require(l_Modules_0.AvatarExperience.Catalog.Hooks.useCatalogCategoryImpressionsInfo);
+local l_getUseSelectorDeepEquals_0 = v8.Utils.getUseSelectorDeepEquals;
+local v12 = require(l_CorePackages_0.Packages.RoactGamepad);
+local v13 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
+local l_ItemTypeEnum_0 = v8.Enums.ItemTypeEnum;
+local v15 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v16 = require(l_Modules_0.AvatarExperience.Catalog.Hooks.useCatalogCategoryImpressionsInfo);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
-return function(v19) --[[ Line: 59 ]] --[[ Name: WidgetTileWithImpressionsTagging ]]
-    -- upvalues: l_useImpressionsTagger_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), l_ItemTypeEnum_0 (copy), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (copy), v17 (copy), l_AvatarScreen_0 (copy), v2 (copy), v13 (copy), v10 (copy), v14 (copy), v5 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), v16 (copy)
-    local v20 = v19.refCache[v19.index];
-    l_useImpressionsTagger_0(v20, v19.impressionsTag, v19.index);
-    local l_contentType_0 = v19.contentType;
-    local l_contentId_0 = v19.contentId;
-    local l_index_0 = v19.index;
-    local l_refCache_0 = v19.refCache;
-    local v27 = l_useSelector_0(function(v25) --[[ Line: 68 ]]
+return function(v18) --[[ Line: 57 ]] --[[ Name: WidgetTileWithImpressionsTagging ]]
+    -- upvalues: l_useImpressionsTagger_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), l_ItemTypeEnum_0 (copy), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (copy), v16 (copy), l_AvatarScreen_0 (copy), v2 (copy), v12 (copy), v9 (copy), v13 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), v15 (copy)
+    local v19 = v18.refCache[v18.index];
+    l_useImpressionsTagger_0(v19, v18.impressionsTag, v18.index);
+    local l_contentType_0 = v18.contentType;
+    local l_contentId_0 = v18.contentId;
+    local l_index_0 = v18.index;
+    local l_refCache_0 = v18.refCache;
+    local v26 = l_useSelector_0(function(v24) --[[ Line: 66 ]]
         -- upvalues: l_contentType_0 (copy), l_contentId_0 (copy)
-        local v26 = v25.AvatarExperience.Common.Widgets.HydratedWidgetData[l_contentType_0];
-        if v26 then
-            return v26[tostring(l_contentId_0)];
+        local v25 = v24.AvatarExperience.Common.Widgets.HydratedWidgetData[l_contentType_0];
+        if v25 then
+            return v25[tostring(l_contentId_0)];
         else
             return nil;
         end;
     end, l_getUseSelectorDeepEquals_0());
-    local v28 = v27 and v27.type == l_ItemTypeEnum_0.Look;
+    local v27 = v26 and v26.type == l_ItemTypeEnum_0.Look;
+    local v28 = nil;
     local v29 = nil;
     local v30 = nil;
-    local v31 = nil;
-    local v33 = l_useSelector_0(function(v32) --[[ Line: 77 ]]
-        return v32.AvatarExperience.AvatarScene.AvatarRoute.opaque.name;
+    local v32 = l_useSelector_0(function(v31) --[[ Line: 75 ]]
+        return v31.AvatarExperience.AvatarScene.AvatarRoute.opaque.name;
     end, l_getUseSelectorDeepEquals_0());
-    local v34 = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v17(v33 == l_AvatarScreen_0.CatalogSearch, v19.selectedCategory, v19.selectedSubcategory, v19.selectedCategoryInfo) else v17(v33 == l_AvatarScreen_0.CatalogSearch);
-    v29 = v34.impressionsCategory;
-    v30 = v34.impressionsSubcategory;
-    v31 = v34.impressionsTaxonomyId;
-    return v2.createElement(v13.Focusable.Frame, {
-        Size = UDim2.new(v19.size.X, UDim.new()), 
+    local v33 = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v16(v32 == l_AvatarScreen_0.CatalogSearch, v18.selectedCategory, v18.selectedSubcategory, v18.selectedCategoryInfo) else v16(v32 == l_AvatarScreen_0.CatalogSearch);
+    v28 = v33.impressionsCategory;
+    v29 = v33.impressionsSubcategory;
+    v30 = v33.impressionsTaxonomyId;
+    return v2.createElement(v12.Focusable.Frame, {
+        Size = UDim2.new(v18.size.X, UDim.new()), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
         ref = l_refCache_0[l_index_0], 
-        NextSelectionRight = if l_index_0 < v19.itemsPerRow then l_refCache_0[l_index_0 + 1] else nil, 
+        NextSelectionRight = if l_index_0 < v18.itemsPerRow then l_refCache_0[l_index_0 + 1] else nil, 
         NextSelectionLeft = if l_index_0 > 1 then l_refCache_0[l_index_0 - 1] else nil
     }, {
-        WidgetItemTile = v2.createElement(v10, {
-            itemId = if v27 then tostring(v27.id) else nil, 
-            itemType = if v27 then v27.type else nil, 
-            index = v19.index, 
-            analyticsItemCountPerPage = v19.analyticsItemCountPerPage, 
-            analyticsContext = v14.AnalyticsContext.Catalog, 
-            widgetAnalyticsInfo = v19.widgetAnalyticsInfo, 
-            itemDetailsPeekViewRefs = v19.itemDetailsPeekViewRefs, 
-            resultsListRef = v19.resultsListRef, 
-            itemCreatorNamesEnabled = v19.creatorNameFooterEnabled, 
-            creatorNameTileFooterEnabled = v19.creatorNameTileFooterEnabled, 
-            cardStyle = v19.cardStyle, 
-            tileWidth = v19.size.X.Offset, 
-            onThumbnailLoaded = if v5() and v19.onThumbnailLoaded then v19.onThumbnailLoaded else nil, 
-            isCreatorNameVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v19.isCreatorNameVisible else nil, 
-            isTitleVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v19.isTitleVisible else nil, 
-            isPriceVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v19.isPriceVisible else nil, 
-            lookData = if v28 then v27 else nil, 
-            hydratedContent = if not v28 then v27 else nil, 
-            tileContentType = v19.tileContentType, 
-            thumbailAspectRatio = if v28 then v16.LookTileAspectRatio else nil, 
-            thumbnailSize = v28 and "w=300&h=450" or nil, 
-            impressionsCategory = v29, 
-            impressionsSubcategory = v30, 
-            impressionsTaxonomyId = v31
+        WidgetItemTile = v2.createElement(v9, {
+            itemId = if v26 then tostring(v26.id) else nil, 
+            itemType = if v26 then v26.type else nil, 
+            index = v18.index, 
+            analyticsItemCountPerPage = v18.analyticsItemCountPerPage, 
+            analyticsContext = v13.AnalyticsContext.Catalog, 
+            widgetAnalyticsInfo = v18.widgetAnalyticsInfo, 
+            itemDetailsPeekViewRefs = v18.itemDetailsPeekViewRefs, 
+            resultsListRef = v18.resultsListRef, 
+            itemCreatorNamesEnabled = v18.creatorNameFooterEnabled, 
+            creatorNameTileFooterEnabled = v18.creatorNameTileFooterEnabled, 
+            cardStyle = v18.cardStyle, 
+            tileWidth = v18.size.X.Offset, 
+            onThumbnailLoaded = if v18.onThumbnailLoaded then v18.onThumbnailLoaded else nil, 
+            isCreatorNameVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v18.isCreatorNameVisible else nil, 
+            isTitleVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v18.isTitleVisible else nil, 
+            isPriceVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v18.isPriceVisible else nil, 
+            lookData = if v27 then v26 else nil, 
+            hydratedContent = if not v27 then v26 else nil, 
+            tileContentType = v18.tileContentType, 
+            thumbailAspectRatio = if v27 then v15.LookTileAspectRatio else nil, 
+            thumbnailSize = v27 and "w=300&h=450" or nil, 
+            impressionsCategory = v28, 
+            impressionsSubcategory = v29, 
+            impressionsTaxonomyId = v30
         })
     });
 end;

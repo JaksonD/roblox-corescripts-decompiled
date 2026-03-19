@@ -8,34 +8,39 @@ local l_useLocalUserId_0 = require(l_CorePackages_0.Workspace.Packages.RobloxApp
 local v7 = require(l_CorePackages_0.Packages.UIBlox);
 local l_Button_0 = v7.App.Button.Button;
 local l_StyledTextLabel_0 = v7.App.Text.StyledTextLabel;
-local v10 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v11 = require(l_Modules_0.LuaApp.Components.Subscription.MoreMenu);
-local v12 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v13 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
-local v14 = require(l_Modules_0.LuaApp.Http.Requests.EconomyAPI.PostReportSubscription);
-local v15 = require(l_Modules_0.LuaApp.Thunks.Subscription.NavigateDownToSubscriptionPurchase);
-local v16 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v17 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
-local l_Constants_0 = v17.Constants;
-local v19 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
-local v20 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableDevSubsInRobux);
-local v21 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
-local v22 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
+local v10 = require(l_CorePackages_0.Packages.Foundation);
+local l_Text_0 = v10.Text;
+local l_getIconRichText_0 = v10.Utility.getIconRichText;
+local l_Enums_0 = v10.Enums;
+local v14 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
+local v15 = require(l_Modules_0.LuaApp.Actions.Subscription.SetSubscriptionStatuses);
+local v16 = require(l_Modules_0.LuaApp.Components.Subscription.MoreMenu);
+local v17 = require(l_Modules_0.LuaApp.Enum.ToastType);
+local v18 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
+local v19 = require(l_Modules_0.LuaApp.Http.Requests.EconomyAPI.PostReportSubscription);
+local v20 = require(l_Modules_0.LuaApp.Thunks.Subscription.NavigateDownToSubscriptionPurchase);
+local v21 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
+local v22 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
+local l_Constants_0 = v22.Constants;
+local v24 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
+local v25 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableDevSubsInRobux);
+local v26 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
+local v27 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
 local l_ProductPurchaseSurface_0 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite).Enums.ProductPurchaseSurface;
 local l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUnifiedPurchaseFlowForDevSubs;
 local _ = require(l_Modules_0.LuaApp.Models.SubscriptionApi.SubscriptionProductInfoModel);
-return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
-    -- upvalues: v2 (copy), l_useDesignTokens_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), v20 (copy), l_useLocalUserId_0 (copy), v13 (copy), v16 (copy), v14 (copy), v10 (copy), v12 (copy), v22 (copy), v21 (copy), l_ProductPurchaseSurface_0 (copy), v19 (copy), v17 (copy), l_Constants_0 (copy), v15 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_StyledTextLabel_0 (copy), l_Button_0 (copy), v11 (copy)
-    local v27, v28 = v2.useState(0);
-    local v29, v30 = v2.useState(0);
-    local v31 = l_useDesignTokens_0();
-    local l_Semantic_0 = v31.Semantic;
+return function(v31) --[[ Line: 67 ]] --[[ Name: SubscriptionTile ]]
+    -- upvalues: v2 (copy), l_useDesignTokens_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), v25 (copy), l_useLocalUserId_0 (copy), v18 (copy), v21 (copy), v19 (copy), v14 (copy), v17 (copy), v27 (copy), v26 (copy), v15 (copy), l_ProductPurchaseSurface_0 (copy), v24 (copy), v22 (copy), l_Constants_0 (copy), v20 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_StyledTextLabel_0 (copy), l_Text_0 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), l_Button_0 (copy), v16 (copy)
+    local v32, v33 = v2.useState(0);
+    local v34, v35 = v2.useState(0);
+    local v36 = l_useDesignTokens_0();
+    local l_Semantic_0 = v36.Semantic;
     local l_Subheader_0 = l_Semantic_0.Typography.Subheader;
     local l_CaptionBody_0 = l_Semantic_0.Typography.CaptionBody;
     local l_Color_0 = l_Semantic_0.Color;
     local l_Medium_0 = l_Semantic_0.Radius.Medium;
     local l_XLarge_0 = l_Semantic_0.Icon.Size.XLarge;
-    local l_Global_0 = v31.Global;
+    local l_Global_0 = v36.Global;
     local l_Size_450_0 = l_Global_0.Size_450;
     local l_Space_300_0 = l_Global_0.Space_300;
     local l_Space_300_1 = l_Global_0.Space_300;
@@ -45,20 +50,20 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
     local l_LineHeight_1 = l_CaptionBody_0.LineHeight;
     local l_FontSize_0 = l_Subheader_0.FontSize;
     local l_FontSize_1 = l_CaptionBody_0.FontSize;
-    local v48 = l_LineHeight_0 * l_FontSize_0;
-    local v49 = v48 * 2;
-    local v50 = l_LineHeight_1 * l_FontSize_1;
-    local l_subscriptionProduct_0 = v26.subscriptionProduct;
-    local l_thumbnailString_0 = v26.thumbnailString;
-    local l_isSubscribed_0 = v26.isSubscribed;
-    local v54 = l_useDispatch_0();
-    local v55 = l_useLocalization_0({
+    local v53 = l_LineHeight_0 * l_FontSize_0;
+    local v54 = v53 * 2;
+    local v55 = l_LineHeight_1 * l_FontSize_1;
+    local l_subscriptionProduct_0 = v31.subscriptionProduct;
+    local l_thumbnailString_0 = v31.thumbnailString;
+    local l_isSubscribed_0 = v31.isSubscribed;
+    local v59 = l_useDispatch_0();
+    local v60 = l_useLocalization_0({
         subscribed = "Feature.Subscription.Text.Subscribed", 
         pricePerMonth = {
             "Feature.Subscription.Email.PricePerMonthLabel"; 
             purchasePrice = l_subscriptionProduct_0.displayPrice
         }, 
-        pricePerMonthRobux = if v20() and l_subscriptionProduct_0.priceInRobux ~= nil then {
+        pricePerMonthRobux = if v25() and l_subscriptionProduct_0.priceInRobux ~= nil then {
             "Feature.Subscription.Email.PricePerMonthLabel"; 
             purchasePrice = tostring(l_subscriptionProduct_0.priceInRobux)
         } else nil, 
@@ -68,33 +73,33 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
         somethingIsWrong = "Feature.Toast.NetworkingError.SomethingIsWrong", 
         subscribe = "Feature.Subscription.Action.Subscribe"
     });
-    local v56 = if l_isSubscribed_0 then v55.subscribed else v55.pricePerMonth;
-    local v57 = if l_isSubscribed_0 then v55.subscribed else v55.subscribe;
-    local v58 = v20() and l_subscriptionProduct_0.priceInRobux ~= nil and l_subscriptionProduct_0.priceInRobux > 0;
-    local v59, v60 = v2.useState(false);
-    local v61 = l_useLocalUserId_0();
-    local v62 = v13(v16);
-    local v65 = {
+    local v61 = if l_isSubscribed_0 then v60.subscribed else v60.pricePerMonth;
+    local v62 = if l_isSubscribed_0 then v60.subscribed else v60.subscribe;
+    local v63 = v25() and l_subscriptionProduct_0.priceInRobux ~= nil and l_subscriptionProduct_0.priceInRobux > 0;
+    local v64, v65 = v2.useState(false);
+    local v66 = l_useLocalUserId_0();
+    local v67 = v18(v21);
+    local v70 = {
         {
-            text = v55.reportSubscription, 
-            onActivated = function() --[[ Line: 130 ]] --[[ Name: onActivated ]]
-                -- upvalues: v14 (ref), v62 (copy), l_subscriptionProduct_0 (copy), v61 (copy), v54 (copy), v10 (ref), v55 (copy), v12 (ref), v60 (copy)
-                v14(v62, l_subscriptionProduct_0.subscriptionTargetKey, v61):andThen(function(_) --[[ Line: 132 ]]
-                    -- upvalues: v54 (ref), v10 (ref), v55 (ref), v12 (ref)
-                    v54(v10({
-                        toastMessage = v55.reportSubscriptionSubmitted, 
+            text = v60.reportSubscription, 
+            onActivated = function() --[[ Line: 136 ]] --[[ Name: onActivated ]]
+                -- upvalues: v19 (ref), v67 (copy), l_subscriptionProduct_0 (copy), v66 (copy), v59 (copy), v14 (ref), v60 (copy), v17 (ref), v65 (copy)
+                v19(v67, l_subscriptionProduct_0.subscriptionTargetKey, v66):andThen(function(_) --[[ Line: 138 ]]
+                    -- upvalues: v59 (ref), v14 (ref), v60 (ref), v17 (ref)
+                    v59(v14({
+                        toastMessage = v60.reportSubscriptionSubmitted, 
                         isLocalized = true, 
-                        toastType = v12.SuccessConfirmation
+                        toastType = v17.SuccessConfirmation
                     }));
-                end, function(_) --[[ Line: 139 ]]
-                    -- upvalues: v54 (ref), v10 (ref), v55 (ref), v12 (ref)
-                    v54(v10({
-                        toastMessage = v55.somethingIsWrong, 
+                end, function(_) --[[ Line: 145 ]]
+                    -- upvalues: v59 (ref), v14 (ref), v60 (ref), v17 (ref)
+                    v59(v14({
+                        toastMessage = v60.somethingIsWrong, 
                         isLocalized = true, 
-                        toastType = v12.NetworkingError
+                        toastType = v17.NetworkingError
                     }));
                 end);
-                v60(false);
+                v65(false);
             end, 
             fontStyle = {
                 Font = l_CaptionBody_0.Font, 
@@ -104,24 +109,33 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
             textOnlyPadding = l_Space_150_0
         }
     };
-    local v67 = v2.useCallback(function() --[[ Line: 154 ]]
-        -- upvalues: v54 (copy), v22 (ref), v21 (ref), l_subscriptionProduct_0 (copy), v58 (copy), l_ProductPurchaseSurface_0 (ref)
-        local function v66() --[[ Line: 155 ]] --[[ Name: onFlowComplete ]]
-            -- upvalues: v54 (ref), v22 (ref)
-            v54(v22());
+    local v72 = v2.useCallback(function() --[[ Line: 160 ]]
+        -- upvalues: v59 (copy), v27 (ref), v26 (ref), l_subscriptionProduct_0 (copy), v63 (copy), v15 (ref), l_ProductPurchaseSurface_0 (ref)
+        local function v71() --[[ Line: 161 ]] --[[ Name: onFlowComplete ]]
+            -- upvalues: v59 (ref), v27 (ref)
+            v59(v27());
         end;
-        v54(v21({
+        v59(v26({
             productPayload = {
                 kind = "DeveloperSubscription", 
                 subscriptionId = l_subscriptionProduct_0.subscriptionTargetKey, 
                 name = l_subscriptionProduct_0.name, 
                 expectedPrice = l_subscriptionProduct_0.priceInRobux or 0, 
                 iconImageAssetId = l_subscriptionProduct_0.iconImageAssetId, 
-                isSubscriptionInRobux = v58, 
-                displayPrice = if not v58 then l_subscriptionProduct_0.displayPrice else nil
+                isSubscriptionInRobux = v63, 
+                displayPrice = if not v63 then l_subscriptionProduct_0.displayPrice else nil
             }, 
             purchaseCallbacks = {
-                onFlowComplete = v66
+                onFlowComplete = v71, 
+                onPurchaseSuccess = function() --[[ Line: 177 ]] --[[ Name: onPurchaseSuccess ]]
+                    -- upvalues: v59 (ref), v15 (ref), l_subscriptionProduct_0 (ref)
+                    v59(v15({
+                        [l_subscriptionProduct_0.subscriptionTargetKey] = {
+                            isSubscribed = true, 
+                            isRenewing = true
+                        }
+                    }));
+                end
             }, 
             purchaseAnalyticsMetadata = {
                 surface = l_ProductPurchaseSurface_0.EDP, 
@@ -130,34 +144,34 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
         }));
     end, {
         l_subscriptionProduct_0, 
-        v58
+        v63
     });
-    local v68 = v2.useCallback(function() --[[ Line: 179 ]]
-        -- upvalues: v19 (ref), v17 (ref), l_Constants_0 (ref), l_subscriptionProduct_0 (copy), v54 (copy), v15 (ref), l_thumbnailString_0 (copy), l_isSubscribed_0 (copy), v26 (copy)
-        if v19() then
-            v17.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.PurchaseAttemptClick, l_Constants_0.StoreEnums.ProductType.Subscriptions, l_Constants_0.StoreEnums.LocationType.Store, tonumber(l_subscriptionProduct_0.subscriptionProviderId), nil, (tostring(l_subscriptionProduct_0.subscriptionTargetKey)));
+    local v73 = v2.useCallback(function() --[[ Line: 193 ]]
+        -- upvalues: v24 (ref), v22 (ref), l_Constants_0 (ref), l_subscriptionProduct_0 (copy), v59 (copy), v20 (ref), l_thumbnailString_0 (copy), l_isSubscribed_0 (copy), v31 (copy)
+        if v24() then
+            v22.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.PurchaseAttemptClick, l_Constants_0.StoreEnums.ProductType.Subscriptions, l_Constants_0.StoreEnums.LocationType.Store, tonumber(l_subscriptionProduct_0.subscriptionProviderId), nil, (tostring(l_subscriptionProduct_0.subscriptionTargetKey)));
         end;
-        v54(v15(l_subscriptionProduct_0, l_thumbnailString_0, l_isSubscribed_0, v26.creatorName, v26.creatorVerified));
+        v59(v20(l_subscriptionProduct_0, l_thumbnailString_0, l_isSubscribed_0, v31.creatorName, v31.creatorVerified));
     end, {
         l_subscriptionProduct_0, 
         l_thumbnailString_0, 
         l_isSubscribed_0
     });
-    local v69 = v2.useCallback(function() --[[ Line: 201 ]]
-        -- upvalues: l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v67 (copy), v68 (copy)
+    local v74 = v2.useCallback(function() --[[ Line: 215 ]]
+        -- upvalues: l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v72 (copy), v73 (copy)
         if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then
-            v67();
+            v72();
             return;
         else
-            v68();
+            v73();
             return;
         end;
     end, {
-        v68, 
-        v67
+        v73, 
+        v72
     });
-    if v20() then
-        local v70 = if v58 then v55.pricePerMonthRobux else v55.pricePerMonth;
+    if v25() then
+        local v75 = if v63 then v60.pricePerMonthRobux else v60.pricePerMonth;
         return v2.createElement("Frame", {
             Size = UDim2.fromScale(1, 1), 
             BackgroundColor3 = l_Color_0.BackgroundUi.Default.Color3, 
@@ -188,7 +202,7 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                     Text = "", 
                     AutoButtonColor = false, 
                     LayoutOrder = 0, 
-                    [v2.Event.Activated] = v68
+                    [v2.Event.Activated] = v73
                 }, {
                     UIListLayout = v2.createElement("UIListLayout", {
                         SortOrder = Enum.SortOrder.LayoutOrder, 
@@ -210,9 +224,9 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                         Size = UDim2.new(1, -84, 1, 0), 
                         BackgroundTransparency = 1, 
                         LayoutOrder = 1, 
-                        [v2.Change.AbsoluteSize] = function(v71) --[[ Line: 267 ]]
-                            -- upvalues: v28 (copy)
-                            v28(v71.AbsoluteSize.X);
+                        [v2.Change.AbsoluteSize] = function(v76) --[[ Line: 281 ]]
+                            -- upvalues: v33 (copy)
+                            v33(v76.AbsoluteSize.X);
                         end
                     }, {
                         UIListLayout = v2.createElement("UIListLayout", {
@@ -221,23 +235,23 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                             Padding = UDim.new(0, 6)
                         }), 
                         SubscriptionTitle = v2.createElement(l_StyledTextLabel_0, {
-                            maxSize = Vector2.new(v27, v49), 
+                            maxSize = Vector2.new(v32, v53), 
                             fontStyle = l_Subheader_0, 
                             colorStyle = l_Color_0.Text.Emphasis, 
                             fluidSizing = false, 
                             richText = false, 
-                            textWrapped = true, 
+                            textWrapped = false, 
                             lineHeight = l_Subheader_0.LineHeight, 
                             textTruncate = Enum.TextTruncate.AtEnd, 
                             text = l_subscriptionProduct_0.name, 
                             layoutOrder = 0, 
-                            onAbsoluteSizeChange = function(v72) --[[ Line: 287 ]] --[[ Name: onAbsoluteSizeChange ]]
-                                -- upvalues: v30 (copy), v48 (copy)
-                                v30(v72.AbsoluteSize.Y / v48);
+                            onAbsoluteSizeChange = function(v77) --[[ Line: 301 ]] --[[ Name: onAbsoluteSizeChange ]]
+                                -- upvalues: v35 (copy), v53 (copy)
+                                v35(v77.AbsoluteSize.Y / v53);
                             end
                         }), 
                         Description = v2.createElement(l_StyledTextLabel_0, {
-                            maxSize = Vector2.new(v27, v50), 
+                            maxSize = Vector2.new(v32, v55), 
                             fontStyle = l_CaptionBody_0, 
                             colorStyle = l_Color_0.Text.Muted, 
                             fluidSizing = false, 
@@ -248,38 +262,21 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                             text = l_subscriptionProduct_0.description, 
                             layoutOrder = 1
                         }), 
-                        PriceText = v2.createElement(l_StyledTextLabel_0, {
-                            maxSize = Vector2.new(v27, l_FontSize_1 * l_LineHeight_1), 
-                            fontStyle = l_CaptionBody_0, 
-                            colorStyle = l_Color_0.Text.Muted, 
-                            fluidSizing = false, 
-                            richText = false, 
-                            textWrapped = false, 
-                            text = v70, 
-                            layoutOrder = 2
+                        PriceText = v2.createElement(l_Text_0, {
+                            Text = if v63 then l_getIconRichText_0(l_Enums_0.IconName.Robux) .. " " .. v75 else v75, 
+                            RichText = v63, 
+                            tag = "auto-xy content-emphasis text-body-medium", 
+                            LayoutOrder = 2
                         })
                     })
                 }), 
                 SubscribeButton = v2.createElement(l_Button_0, {
                     size = UDim2.new(1, 0, 0, 32), 
-                    text = v57, 
+                    text = v62, 
                     isDisabled = l_isSubscribed_0, 
-                    onActivated = v69, 
+                    onActivated = v74, 
                     layoutOrder = 1
                 })
-            }), 
-            MoreMenuButton = v2.createElement(v11, {
-                screenSize = v26.screenSize, 
-                buttonProps = v65, 
-                showMenu = v59, 
-                onDismiss = function() --[[ Line: 328 ]] --[[ Name: onDismiss ]]
-                    -- upvalues: v60 (copy)
-                    v60(false);
-                end, 
-                onActivated = function() --[[ Line: 331 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v60 (copy), v59 (copy)
-                    v60(not v59);
-                end
             })
         });
     else
@@ -328,9 +325,9 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                     TextContent = v2.createElement("Frame", {
                         Size = UDim2.new(1, -l_XLarge_0 - l_Space_300_0, 0, 0), 
                         BackgroundTransparency = 1, 
-                        [v2.Change.AbsoluteSize] = function(v73) --[[ Line: 384 ]]
-                            -- upvalues: v28 (copy)
-                            v28(v73.AbsoluteSize.X);
+                        [v2.Change.AbsoluteSize] = function(v78) --[[ Line: 385 ]]
+                            -- upvalues: v33 (copy)
+                            v33(v78.AbsoluteSize.X);
                         end
                     }, {
                         UIListLayout = v2.createElement("UIListLayout", {
@@ -339,7 +336,7 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                             Padding = UDim.new(0, l_Space_150_0)
                         }), 
                         SubscriptionTitle = v2.createElement(l_StyledTextLabel_0, {
-                            maxSize = Vector2.new(v27, v49), 
+                            maxSize = Vector2.new(v32, v54), 
                             fontStyle = l_Subheader_0, 
                             colorStyle = l_Color_0.Text.Emphasis, 
                             fluidSizing = false, 
@@ -349,13 +346,13 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                             textTruncate = Enum.TextTruncate.AtEnd, 
                             text = l_subscriptionProduct_0.name, 
                             layoutOrder = 0, 
-                            onAbsoluteSizeChange = function(v74) --[[ Line: 405 ]] --[[ Name: onAbsoluteSizeChange ]]
-                                -- upvalues: v30 (copy), v48 (copy)
-                                v30(v74.AbsoluteSize.Y / v48);
+                            onAbsoluteSizeChange = function(v79) --[[ Line: 406 ]] --[[ Name: onAbsoluteSizeChange ]]
+                                -- upvalues: v35 (copy), v53 (copy)
+                                v35(v79.AbsoluteSize.Y / v53);
                             end
                         }), 
                         Description = v2.createElement(l_StyledTextLabel_0, {
-                            maxSize = Vector2.new(v27, v50 * (5 - v29)), 
+                            maxSize = Vector2.new(v32, v55 * (5 - v34)), 
                             fontStyle = l_CaptionBody_0, 
                             colorStyle = l_Color_0.Text.Emphasis, 
                             fluidSizing = false, 
@@ -368,7 +365,7 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                         }), 
                         SeeMore = v2.createElement("TextButton", {
                             Size = UDim2.new(1, 0, 0, 0), 
-                            Text = v55.seeMore, 
+                            Text = v60.seeMore, 
                             AutomaticSize = Enum.AutomaticSize.Y, 
                             TextXAlignment = Enum.TextXAlignment.Left, 
                             BackgroundTransparency = 1, 
@@ -376,29 +373,29 @@ return function(v26) --[[ Line: 61 ]] --[[ Name: SubscriptionTile ]]
                             TextSize = l_CaptionBody_0.FontSize, 
                             Font = l_CaptionBody_0.Font, 
                             LayoutOrder = 2, 
-                            [v2.Event.Activated] = v68
+                            [v2.Event.Activated] = v73
                         })
                     })
                 }), 
                 PurchaseButton = v2.createElement(l_Button_0, {
                     size = UDim2.new(1, 0, 0, l_Size_450_0), 
-                    text = v56, 
+                    text = v61, 
                     isDisabled = l_isSubscribed_0, 
-                    onActivated = v69, 
+                    onActivated = v74, 
                     layoutOrder = 1
                 })
             }), 
-            MoreMenuButton = v2.createElement(v11, {
-                screenSize = v26.screenSize, 
-                buttonProps = v65, 
-                showMenu = v59, 
-                onDismiss = function() --[[ Line: 452 ]] --[[ Name: onDismiss ]]
-                    -- upvalues: v60 (copy)
-                    v60(false);
+            MoreMenuButton = v2.createElement(v16, {
+                screenSize = v31.screenSize, 
+                buttonProps = v70, 
+                showMenu = v64, 
+                onDismiss = function() --[[ Line: 453 ]] --[[ Name: onDismiss ]]
+                    -- upvalues: v65 (copy)
+                    v65(false);
                 end, 
-                onActivated = function() --[[ Line: 455 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v60 (copy), v59 (copy)
-                    v60(not v59);
+                onActivated = function() --[[ Line: 456 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v65 (copy), v64 (copy)
+                    v65(not v64);
                 end
             })
         });

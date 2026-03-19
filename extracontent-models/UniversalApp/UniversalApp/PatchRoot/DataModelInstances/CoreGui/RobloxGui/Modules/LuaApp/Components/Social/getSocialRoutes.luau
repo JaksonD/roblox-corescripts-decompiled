@@ -12,16 +12,17 @@ local v10 = require(l_Modules_0.LuaApp.Components.DiscoverabilityModal.api);
 local l_SocialNetworksInEditProfileIXP_0 = require(l_CorePackages_0.Workspace.Packages.EditProfile).Flags.SocialNetworksInEditProfileIXP;
 local l_FFlagEnableSocialProofUserList_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialProofUserList;
 local l_FFlagProfilePlatformAddTC_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformAddTC;
+local l_FFlagTCVerifiedParentalControl_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagTCVerifiedParentalControl;
 local l_FFlagUseNewDiscoverabilityModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseNewDiscoverabilityModal;
 local l_FFlagCreateConnectionsHub_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagCreateConnectionsHub;
 local l_FFlagCiDeprecateFindFriendsModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagCiDeprecateFindFriendsModal;
 local l_FFlagEnableSocialProofVerticalUserListSheet_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialProofVerticalUserListSheet;
-return function() --[[ Line: 32 ]]
-    -- upvalues: l_AppPage_0 (copy), l_Modules_0 (copy), v5 (copy), l_CorePackages_0 (copy), l_SocialNetworksInEditProfileIXP_0 (copy), v6 (copy), l_ScreenKind_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_FFlagUseNewDiscoverabilityModal_0 (copy), v10 (copy), l_FFlagCiDeprecateFindFriendsModal_0 (copy), l_FFlagProfilePlatformAddTC_0 (copy), l_FFlagEnableSocialProofUserList_0 (copy), l_FFlagEnableSocialProofVerticalUserListSheet_0 (copy)
+return function() --[[ Line: 34 ]]
+    -- upvalues: l_AppPage_0 (copy), l_Modules_0 (copy), v5 (copy), l_CorePackages_0 (copy), l_SocialNetworksInEditProfileIXP_0 (copy), v6 (copy), l_ScreenKind_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_FFlagUseNewDiscoverabilityModal_0 (copy), v10 (copy), l_FFlagCiDeprecateFindFriendsModal_0 (copy), l_FFlagProfilePlatformAddTC_0 (copy), l_FFlagTCVerifiedParentalControl_0 (copy), l_FFlagEnableSocialProofUserList_0 (copy), l_FFlagEnableSocialProofVerticalUserListSheet_0 (copy)
     return {
         {
             [l_AppPage_0.SocialUnableToJoinExperience] = {
-                getScreen = function() --[[ Line: 36 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 38 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.SocialUnableToJoinExperience);
                 end, 
@@ -30,7 +31,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.SocialToast] = {
-                getScreen = function() --[[ Line: 44 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 46 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialToast).ToastScreen;
                 end, 
@@ -39,7 +40,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.SocialPurchaseExperience] = {
-                getScreen = function() --[[ Line: 52 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 54 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialExperienceJoin).PurchaseExperienceModal;
                 end, 
@@ -48,7 +49,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.SetNicknameModal] = {
-                getScreen = function() --[[ Line: 60 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 62 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.FriendRequestNicknames).SetNicknameModal;
                 end, 
@@ -57,7 +58,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.ContentFeed] = {
-                getScreen = function() --[[ Line: 68 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 70 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.ContentFeed).App;
                 end, 
@@ -66,7 +67,7 @@ return function() --[[ Line: 32 ]]
         }, 
         if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
             [l_AppPage_0.EditSocialNetworks] = {
-                getScreen = function() --[[ Line: 77 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 79 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.EditProfile).EditSocialLinksModal;
                 end, 
@@ -75,7 +76,7 @@ return function() --[[ Line: 32 ]]
         } else nil, 
         if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
             [l_AppPage_0.EditSocialNetworksError] = {
-                getScreen = function() --[[ Line: 87 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 89 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.EditProfile).EditSocialNetworksErrorModal;
                 end, 
@@ -84,7 +85,7 @@ return function() --[[ Line: 32 ]]
         } else nil, 
         {
             [l_AppPage_0.ViewFriends] = {
-                getScreen = function() --[[ Line: 96 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 98 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.FriendsLanding.FriendsLandingUniversalAppWrapper.Container);
                 end, 
@@ -98,7 +99,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.AddFriendsPage] = {
-                getScreen = function() --[[ Line: 110 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 112 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.AddFriends.AddFriendsUniversalAppWrapper);
                 end, 
@@ -114,14 +115,14 @@ return function() --[[ Line: 32 ]]
         }, 
         if l_FFlagCreateConnectionsHub_0 then {
             [l_AppPage_0.ConnectionsHub] = {
-                getScreen = function() --[[ Line: 126 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 128 ]] --[[ Name: getScreen ]]
                     return require(script.Parent.ConnectionsHub.ConnectionsHubNavigator);
                 end
             }
         } else nil, 
         {
             [l_AppPage_0.UserSearch] = {
-                getScreen = function() --[[ Line: 134 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 136 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.UserSearch.UserSearchScreenUniversalWrapper.UserSearchScreenUniversalWrapper);
                 end, 
@@ -132,7 +133,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.DiscoverabilityOverlay] = {
-                getScreen = function() --[[ Line: 146 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 148 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_FFlagUseNewDiscoverabilityModal_0 (ref), v10 (ref)
                     if l_FFlagUseNewDiscoverabilityModal_0 then
                         return v10.DiscoverabilityWithAudit;
@@ -145,7 +146,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.ContactImporter] = {
-                getScreen = function() --[[ Line: 159 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 161 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_FFlagCiDeprecateFindFriendsModal_0 (ref), l_Modules_0 (ref)
                     if l_FFlagCiDeprecateFindFriendsModal_0 then
                         return require(l_Modules_0.LuaApp.Components.ContactImporter.api).ContactImporterLandingPage;
@@ -158,7 +159,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.FindFriendsModal] = {
-                getScreen = function() --[[ Line: 171 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 173 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.ContactImporter.api).FindFriendsModal;
                 end, 
@@ -167,7 +168,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.ContactsList] = {
-                getScreen = function() --[[ Line: 179 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 181 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.ContactImporter.ContactsListUniversalAppWrapper);
                 end, 
@@ -176,7 +177,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.ContactsRevokedAccessDialog] = {
-                getScreen = function() --[[ Line: 188 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 190 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.ContactImporter.api).ContactsRevokedAccessDialog;
                 end, 
@@ -185,7 +186,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.TrustedContactsEducationModal] = {
-                getScreen = function() --[[ Line: 196 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 198 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.TrustedContacts).TrustedContactsEducationModal;
                 end, 
@@ -194,7 +195,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.SettingsPermissionInteractiveAlert] = {
-                getScreen = function() --[[ Line: 204 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 206 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialCommon).Components.SettingsPermissionInteractiveAlert;
                 end, 
@@ -203,16 +204,25 @@ return function() --[[ Line: 32 ]]
         }, 
         if l_FFlagProfilePlatformAddTC_0 then {
             [l_AppPage_0.TrustedContactsModal] = {
-                getScreen = function() --[[ Line: 213 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 215 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.TrustedContacts).TrustedContactsModal.Screen;
                 end, 
                 navigationOptions = v5[l_AppPage_0.TrustedContactsModal]
             }
         } else nil, 
+        if l_FFlagTCVerifiedParentalControl_0 then {
+            [l_AppPage_0.TrustedFriendsVPCPrologue] = {
+                getScreen = function() --[[ Line: 225 ]] --[[ Name: getScreen ]]
+                    -- upvalues: l_CorePackages_0 (ref)
+                    return require(l_CorePackages_0.Workspace.Packages.TrustedContacts).TrustedFriendsVPCPrologue.Screen;
+                end, 
+                navigationOptions = v5[l_AppPage_0.TrustedFriendsVPCPrologue]
+            }
+        } else nil, 
         {
             [l_AppPage_0.FriendsRenameInfoModal] = {
-                getScreen = function() --[[ Line: 222 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 234 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.TrustedContacts).FriendsRenameInfoModal;
                 end, 
@@ -221,7 +231,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.BlockingModal] = {
-                getScreen = function() --[[ Line: 230 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 242 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialBlockingModal).BlockingModal;
                 end, 
@@ -230,7 +240,7 @@ return function() --[[ Line: 32 ]]
         }, 
         if l_FFlagEnableSocialProofUserList_0 then {
             [l_AppPage_0.FriendsOwnedUserList] = {
-                getScreen = function() --[[ Line: 239 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 251 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialProof).UserLists.FriendsOwnedUserList;
                 end, 
@@ -239,7 +249,7 @@ return function() --[[ Line: 32 ]]
         } else nil, 
         {
             [l_AppPage_0.MutualConnectionList] = {
-                getScreen = function() --[[ Line: 248 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 260 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).UserLists.MutualConnectionList;
                 end, 
@@ -248,7 +258,7 @@ return function() --[[ Line: 32 ]]
         }, 
         {
             [l_AppPage_0.AboutDetailsSheet] = {
-                getScreen = function() --[[ Line: 257 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 269 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.ProfilePlatform).AboutDetailsSheet;
                 end, 
@@ -257,7 +267,7 @@ return function() --[[ Line: 32 ]]
         }, 
         if l_FFlagEnableSocialProofVerticalUserListSheet_0 then {
             [l_AppPage_0.SocialProofVerticalUserListSheet] = {
-                getScreen = function() --[[ Line: 266 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 278 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SocialProof).UserLists.SocialProofVerticalUserListSheet;
                 end, 

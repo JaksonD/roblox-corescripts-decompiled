@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AddGenericIllegalReportingToTwoStepFlow", false);
+return game:DefineFastFlag("AddGenericIllegalReportingToTwoStepFlow2", false);

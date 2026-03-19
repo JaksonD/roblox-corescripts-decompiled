@@ -147,7 +147,17 @@ local function v24(v21, v22) --[[ Line: 156 ]] --[[ Name: getItemDetails ]]
     });
     return v2.resolve(v23);
 end;
-local v25 = {
+local function v29(v25) --[[ Line: 161 ]] --[[ Name: getBatchItemDetails ]]
+    -- upvalues: v1 (copy), v11 (copy), v2 (copy)
+    local v26 = {};
+    for _, v28 in ipairs(v25) do
+        table.insert(v26, v1.Dictionary.join(v11, {
+            Id = v28
+        }));
+    end;
+    return v2.resolve(v26);
+end;
+local v30 = {
     data = {
         {
             assetId = 17, 
@@ -155,190 +165,192 @@ local v25 = {
         }
     }
 };
-local function v28(v26) --[[ Line: 175 ]] --[[ Name: getVersionInfo ]]
-    -- upvalues: v1 (copy), v25 (copy), v2 (copy)
-    local v27 = v1.Dictionary.join(v25, {
-        AssetId = v26
+local function v33(v31) --[[ Line: 183 ]] --[[ Name: getVersionInfo ]]
+    -- upvalues: v1 (copy), v30 (copy), v2 (copy)
+    local v32 = v1.Dictionary.join(v30, {
+        AssetId = v31
     });
-    return v2.resolve(v27);
+    return v2.resolve(v32);
 end;
-local function v31(v29) --[[ Line: 180 ]] --[[ Name: getExperiencePlayability ]]
+local function v36(v34) --[[ Line: 188 ]] --[[ Name: getExperiencePlayability ]]
     -- upvalues: v1 (copy), v13 (copy), v2 (copy)
-    local v30 = v1.Dictionary.join(v13, {
-        universeId = v29
+    local v35 = v1.Dictionary.join(v13, {
+        universeId = v34
     });
     return v2.resolve({
-        v30
+        v35
     });
 end;
-local function v34(v32) --[[ Line: 185 ]] --[[ Name: getExperienceInfo ]]
+local function v39(v37) --[[ Line: 193 ]] --[[ Name: getExperienceInfo ]]
     -- upvalues: v1 (copy), v14 (copy), v2 (copy)
-    local v33 = v1.Dictionary.join(v14, {
-        id = v32
+    local v38 = v1.Dictionary.join(v14, {
+        id = v37
     });
     return v2.resolve({
         data = {
-            v33
+            v38
         }
     });
 end;
-local function v36(_) --[[ Line: 190 ]] --[[ Name: getAssetBundles ]]
+local function v41(_) --[[ Line: 198 ]] --[[ Name: getAssetBundles ]]
     -- upvalues: v2 (copy), v5 (copy)
     return v2.resolve(v5);
 end;
-local function v38(_) --[[ Line: 194 ]] --[[ Name: getPlayerName ]]
+local function v43(_) --[[ Line: 202 ]] --[[ Name: getPlayerName ]]
     -- upvalues: v2 (copy)
     return v2.resolve("TEST");
 end;
-local function v40(_) --[[ Line: 198 ]] --[[ Name: createFavoriteForAsset ]]
+local function v45(_) --[[ Line: 206 ]] --[[ Name: createFavoriteForAsset ]]
     -- upvalues: v2 (copy)
     return v2.resolve();
 end;
-local function v42(_) --[[ Line: 202 ]] --[[ Name: createFavoriteForBundle ]]
+local function v47(_) --[[ Line: 210 ]] --[[ Name: createFavoriteForBundle ]]
     -- upvalues: v2 (copy)
     return v2.resolve();
 end;
-local function v44(_) --[[ Line: 206 ]] --[[ Name: deleteFavoriteForAsset ]]
+local function v49(_) --[[ Line: 214 ]] --[[ Name: deleteFavoriteForAsset ]]
     -- upvalues: v2 (copy)
     return v2.resolve();
 end;
-local function v46(_) --[[ Line: 210 ]] --[[ Name: deleteFavoriteForBundle ]]
+local function v51(_) --[[ Line: 218 ]] --[[ Name: deleteFavoriteForBundle ]]
     -- upvalues: v2 (copy)
     return v2.resolve();
 end;
-local function v48(_) --[[ Line: 214 ]] --[[ Name: getAssetFavoriteCount ]]
+local function v53(_) --[[ Line: 222 ]] --[[ Name: getAssetFavoriteCount ]]
     -- upvalues: v2 (copy)
     return v2.resolve(120);
 end;
-local function v50(_) --[[ Line: 218 ]] --[[ Name: getBundleFavoriteCount ]]
+local function v55(_) --[[ Line: 226 ]] --[[ Name: getBundleFavoriteCount ]]
     -- upvalues: v2 (copy)
     return v2.resolve(120);
 end;
-local function v52(v51) --[[ Line: 222 ]] --[[ Name: getFavoriteForAsset ]]
+local function v57(v56) --[[ Line: 230 ]] --[[ Name: getFavoriteForAsset ]]
     -- upvalues: v2 (copy), v9 (copy)
-    if v51 == "GetFavoriteModel" then
+    if v56 == "GetFavoriteModel" then
         return v2.resolve(v9);
     else
         return v2.resolve("null");
     end;
 end;
-local function v54(v53) --[[ Line: 230 ]] --[[ Name: getFavoriteForBundle ]]
+local function v59(v58) --[[ Line: 238 ]] --[[ Name: getFavoriteForBundle ]]
     -- upvalues: v2 (copy), v9 (copy)
-    if v53 == "GetFavoriteModel" then
+    if v58 == "GetFavoriteModel" then
         return v2.resolve(v9);
     else
         return v2.resolve("null");
     end;
 end;
-local function v56(_) --[[ Line: 238 ]] --[[ Name: getEconomyProductInfo ]]
+local function v61(_) --[[ Line: 246 ]] --[[ Name: getEconomyProductInfo ]]
     -- upvalues: v2 (copy), v12 (copy)
     return v2.resolve(v12);
 end;
-local function v58(_) --[[ Line: 242 ]] --[[ Name: getModelFromUserId ]]
+local function v63(_) --[[ Line: 250 ]] --[[ Name: getModelFromUserId ]]
     -- upvalues: v2 (copy)
     return v2.resolve();
 end;
-local function v61(_, _) --[[ Line: 246 ]] --[[ Name: networkFailure ]]
+local function v66(_, _) --[[ Line: 254 ]] --[[ Name: networkFailure ]]
     -- upvalues: v2 (copy)
     return v2.reject("Failed to access network service");
 end;
-local v62 = {};
-v62.__index = v62;
-v62.new = function(v63, v64) --[[ Line: 253 ]] --[[ Name: new ]]
-    -- upvalues: v61 (copy), v20 (copy), v17 (copy), v38 (copy), v36 (copy), v40 (copy), v42 (copy), v44 (copy), v46 (copy), v48 (copy), v50 (copy), v52 (copy), v54 (copy), v56 (copy), v58 (copy), v28 (copy), v31 (copy), v34 (copy), v24 (copy)
-    local v65 = nil;
-    v65 = if v63 then {
-        getProductInfo = v61, 
-        getPlayerName = v61, 
-        getAssetBundles = v61, 
-        createFavoriteForAsset = v61, 
-        createFavoriteForBundle = v61, 
-        deleteFavoriteForAsset = v61, 
-        deleteFavoriteForBundle = v61, 
-        getAssetFavoriteCount = v61, 
-        getBundleFavoriteCount = v61, 
-        getFavoriteForAsset = v61, 
-        getFavoriteForBundle = v61, 
-        getEconomyProductInfo = v61, 
-        getModelFromUserId = v61, 
-        getVersionInfo = v61, 
-        getExperiencePlayability = v61, 
-        getExperienceInfo = v61, 
-        getItemDetails = v61
+local v67 = {};
+v67.__index = v67;
+v67.new = function(v68, v69) --[[ Line: 261 ]] --[[ Name: new ]]
+    -- upvalues: v66 (copy), v20 (copy), v17 (copy), v43 (copy), v41 (copy), v45 (copy), v47 (copy), v49 (copy), v51 (copy), v53 (copy), v55 (copy), v57 (copy), v59 (copy), v61 (copy), v63 (copy), v33 (copy), v36 (copy), v39 (copy), v24 (copy), v29 (copy)
+    local v70 = nil;
+    v70 = if v68 then {
+        getProductInfo = v66, 
+        getPlayerName = v66, 
+        getAssetBundles = v66, 
+        createFavoriteForAsset = v66, 
+        createFavoriteForBundle = v66, 
+        deleteFavoriteForAsset = v66, 
+        deleteFavoriteForBundle = v66, 
+        getAssetFavoriteCount = v66, 
+        getBundleFavoriteCount = v66, 
+        getFavoriteForAsset = v66, 
+        getFavoriteForBundle = v66, 
+        getEconomyProductInfo = v66, 
+        getModelFromUserId = v66, 
+        getVersionInfo = v66, 
+        getExperiencePlayability = v66, 
+        getExperienceInfo = v66, 
+        getItemDetails = v66, 
+        getBatchItemDetails = v66
     } else {
-        getProductInfo = v64 and v20 or v17, 
-        getPlayerName = v38, 
-        getAssetBundles = v36, 
-        createFavoriteForAsset = v40, 
-        createFavoriteForBundle = v42, 
-        deleteFavoriteForAsset = v44, 
-        deleteFavoriteForBundle = v46, 
-        getAssetFavoriteCount = v48, 
-        getBundleFavoriteCount = v50, 
-        getFavoriteForAsset = v52, 
-        getFavoriteForBundle = v54, 
-        getEconomyProductInfo = v56, 
-        getModelFromUserId = v58, 
-        getVersionInfo = v28, 
-        getExperiencePlayability = v31, 
-        getExperienceInfo = v34, 
-        getItemDetails = v24
+        getProductInfo = v69 and v20 or v17, 
+        getPlayerName = v43, 
+        getAssetBundles = v41, 
+        createFavoriteForAsset = v45, 
+        createFavoriteForBundle = v47, 
+        deleteFavoriteForAsset = v49, 
+        deleteFavoriteForBundle = v51, 
+        getAssetFavoriteCount = v53, 
+        getBundleFavoriteCount = v55, 
+        getFavoriteForAsset = v57, 
+        getFavoriteForBundle = v59, 
+        getEconomyProductInfo = v61, 
+        getModelFromUserId = v63, 
+        getVersionInfo = v33, 
+        getExperiencePlayability = v36, 
+        getExperienceInfo = v39, 
+        getItemDetails = v24, 
+        getBatchItemDetails = v29
     };
-    setmetatable(v65, {
-        __tostring = function() --[[ Line: 299 ]] --[[ Name: __tostring ]]
+    setmetatable(v70, {
+        __tostring = function() --[[ Line: 309 ]] --[[ Name: __tostring ]]
             return "MockService(Network)";
         end
     });
-    return v65;
+    return v70;
 end;
-v62.GetMockAssetData = function() --[[ Line: 307 ]] --[[ Name: GetMockAssetData ]]
+v67.GetMockAssetData = function() --[[ Line: 317 ]] --[[ Name: GetMockAssetData ]]
     -- upvalues: v4 (copy)
     return v4;
 end;
-v62.GetMockHumanoidDescription = function() --[[ Line: 311 ]] --[[ Name: GetMockHumanoidDescription ]]
+v67.GetMockHumanoidDescription = function() --[[ Line: 321 ]] --[[ Name: GetMockHumanoidDescription ]]
     -- upvalues: l_HumanoidDescription_0 (copy)
     return l_HumanoidDescription_0;
 end;
-v62.GetMockHumanoidDescriptionEmpty = function() --[[ Line: 315 ]] --[[ Name: GetMockHumanoidDescriptionEmpty ]]
+v67.GetMockHumanoidDescriptionEmpty = function() --[[ Line: 325 ]] --[[ Name: GetMockHumanoidDescriptionEmpty ]]
     -- upvalues: l_HumanoidDescription_2 (copy)
     return l_HumanoidDescription_2;
 end;
-v62.GetMockPlayerName = function() --[[ Line: 319 ]] --[[ Name: GetMockPlayerName ]]
+v67.GetMockPlayerName = function() --[[ Line: 329 ]] --[[ Name: GetMockPlayerName ]]
     return "TEST";
 end;
-v62.GetMockAssetBundlesData = function() --[[ Line: 323 ]] --[[ Name: GetMockAssetBundlesData ]]
+v67.GetMockAssetBundlesData = function() --[[ Line: 333 ]] --[[ Name: GetMockAssetBundlesData ]]
     -- upvalues: v5 (copy)
     return v5;
 end;
-v62.GetMockFavoriteCount = function() --[[ Line: 327 ]] --[[ Name: GetMockFavoriteCount ]]
+v67.GetMockFavoriteCount = function() --[[ Line: 337 ]] --[[ Name: GetMockFavoriteCount ]]
     return 120;
 end;
-v62.GetFavoriteModelId = function() --[[ Line: 331 ]] --[[ Name: GetFavoriteModelId ]]
+v67.GetFavoriteModelId = function() --[[ Line: 341 ]] --[[ Name: GetFavoriteModelId ]]
     return "GetFavoriteModel";
 end;
-v62.GetProductInfo = function() --[[ Line: 335 ]] --[[ Name: GetProductInfo ]]
+v67.GetProductInfo = function() --[[ Line: 345 ]] --[[ Name: GetProductInfo ]]
     -- upvalues: v10 (copy)
     return v10;
 end;
-v62.GetEconomyProductInfo = function() --[[ Line: 339 ]] --[[ Name: GetEconomyProductInfo ]]
+v67.GetEconomyProductInfo = function() --[[ Line: 349 ]] --[[ Name: GetEconomyProductInfo ]]
     -- upvalues: v12 (copy)
     return v12;
 end;
-v62.GetMockHumanoidDescriptionEmotes = function() --[[ Line: 343 ]] --[[ Name: GetMockHumanoidDescriptionEmotes ]]
+v67.GetMockHumanoidDescriptionEmotes = function() --[[ Line: 353 ]] --[[ Name: GetMockHumanoidDescriptionEmotes ]]
     -- upvalues: l_HumanoidDescription_1 (copy)
     return l_HumanoidDescription_1;
 end;
-v62.GetVersionInfo = function() --[[ Line: 347 ]] --[[ Name: GetVersionInfo ]]
-    -- upvalues: v25 (copy)
-    return v25;
+v67.GetVersionInfo = function() --[[ Line: 357 ]] --[[ Name: GetVersionInfo ]]
+    -- upvalues: v30 (copy)
+    return v30;
 end;
-v62.GetExperiencePlayability = function() --[[ Line: 351 ]] --[[ Name: GetExperiencePlayability ]]
+v67.GetExperiencePlayability = function() --[[ Line: 361 ]] --[[ Name: GetExperiencePlayability ]]
     -- upvalues: v13 (copy)
     return {
         v13
     };
 end;
-v62.GetExperienceInfo = function() --[[ Line: 355 ]] --[[ Name: GetExperienceInfo ]]
+v67.GetExperienceInfo = function() --[[ Line: 365 ]] --[[ Name: GetExperienceInfo ]]
     -- upvalues: v14 (copy)
     return {
         data = {
@@ -346,4 +358,4 @@ v62.GetExperienceInfo = function() --[[ Line: 355 ]] --[[ Name: GetExperienceInf
         }
     };
 end;
-return v62;
+return v67;

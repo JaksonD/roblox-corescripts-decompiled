@@ -8,131 +8,139 @@ local l_Localization_0 = require(l_Parent_0.RobloxAppLocales).Localization;
 local l_useLocalization_0 = v5.Hooks.useLocalization;
 local l_useTokens_0 = v4.Hooks.useTokens;
 local l_CombinedFFlagShouldUseLegacyGamepadFocus_0 = v2.CombinedFFlagShouldUseLegacyGamepadFocus;
-local _ = function(v10) --[[ Line: 54 ]] --[[ Name: getPermanentPrice ]]
-    for _, v12 in v10 do
-        if v12.days == 0 then
-            return v12.price;
+local l_FFlagAXDurablesForMIS_0 = v2.FFlagAXDurablesForMIS;
+local _ = function(v11) --[[ Line: 56 ]] --[[ Name: getPermanentPrice ]]
+    for _, v13 in v11 do
+        if v13.days == 0 then
+            return v13.price;
         end;
     end;
     return 0;
 end;
-return function(v14) --[[ Line: 64 ]] --[[ Name: useWearTimeSelectedOptionViewModel ]]
-    -- upvalues: l_useTokens_0 (copy), v3 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_useLocalization_0 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy)
-    local v15 = false;
-    local v16 = l_useTokens_0();
-    local v17 = v3.useMemo(function() --[[ Line: 67 ]]
+return function(v15) --[[ Line: 66 ]] --[[ Name: useWearTimeSelectedOptionViewModel ]]
+    -- upvalues: l_useTokens_0 (copy), v3 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_useLocalization_0 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy)
+    local v16 = false;
+    local v17 = l_useTokens_0();
+    local v18 = v3.useMemo(function() --[[ Line: 69 ]]
         -- upvalues: l_Localization_0 (ref), l_LocalizationService_0 (ref)
         return l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
     end, {});
-    local v18, v19 = v3.useState(nil);
-    v3.useEffect(function() --[[ Line: 74 ]]
-        -- upvalues: v14 (copy), v19 (copy)
-        for v20, v21 in v14.options do
-            if v21.selected then
-                v19(v20);
-                return;
+    local v19, v20 = v3.useState(nil);
+    v3.useEffect(function() --[[ Line: 76 ]]
+        -- upvalues: l_FFlagAXDurablesForMIS_0 (ref), v15 (copy), v20 (copy)
+        if l_FFlagAXDurablesForMIS_0 and v15.selectedTimedOptionIndexInReducer ~= nil then
+            v20(v15.selectedTimedOptionIndexInReducer);
+            return;
+        else
+            for v21, v22 in v15.options do
+                if v22.selected then
+                    v20(v21);
+                    return;
+                end;
             end;
+            return;
         end;
     end, {
-        v14.options
+        v15.options, 
+        if l_FFlagAXDurablesForMIS_0 then v15.selectedTimedOptionIndexInReducer else nil
     });
-    local v22 = if v18 then v14.options[v18] else nil;
-    local v23 = if v22 then v22.days else 0;
-    local v24 = l_useLocalization_0({
+    local v23 = if v19 then v15.options[v19] else nil;
+    local v24 = if v23 then v23.days else 0;
+    local v25 = l_useLocalization_0({
         infinite = "Feature.Durables.ItemDetails.WearTimeOptions.Button.Infinite", 
         xDay = {
             "Feature.Durables.BottomBar.RentalDuration"; 
-            num = v23
+            num = v24
         }, 
         xDays = {
             "Feature.Durables.BottomBar.RentalDurationPlural"; 
-            num = v23
+            num = v24
         }, 
         xDayList = {
             "Feature.Durables.ItemDetails.WearTimeOptions.Button.XDay"; 
-            num = v23
+            num = v24
         }, 
         xDaysList = {
             "Feature.Durables.ItemDetails.WearTimeOptions.Button.XDays"; 
-            num = v23
+            num = v24
         }
     });
-    local v25, v26 = v3.useState(false);
-    local v27 = v3.useRef(nil);
-    if l_CombinedFFlagShouldUseLegacyGamepadFocus_0 and v14.triggerRef then
-        v27 = v14.triggerRef;
+    local v26, v27 = v3.useState(false);
+    local v28 = v3.useRef(nil);
+    if l_CombinedFFlagShouldUseLegacyGamepadFocus_0 and v15.triggerRef then
+        v28 = v15.triggerRef;
     end;
-    local v28;
-    if v22 then
-        v28 = v22.price;
+    local v29;
+    if v23 then
+        v29 = v23.price;
     else
-        for _, v30 in v14.options do
-            if v30.days == 0 then
-                v28 = v30.price;
-                v15 = true;
+        for _, v31 in v15.options do
+            if v31.days == 0 then
+                v29 = v31.price;
+                v16 = true;
             end;
-            if v15 then
+            if v16 then
                 break;
             end;
         end;
-        if not v15 then
-            v28 = 0;
+        if not v16 then
+            v29 = 0;
         end;
     end;
-    v15 = false;
-    local v31 = nil;
+    v16 = false;
     local v32 = nil;
-    if v23 == 0 then
-        v31 = v24.infinite;
-        v32 = v24.infinite;
-    elseif v23 == 1 then
-        v31 = v24.xDay;
-        v32 = v24.xDayList;
+    local v33 = nil;
+    if v24 == 0 then
+        v32 = v25.infinite;
+        v33 = v25.infinite;
+    elseif v24 == 1 then
+        v32 = v25.xDay;
+        v33 = v25.xDayList;
     else
-        v31 = v24.xDays;
-        v32 = v24.xDaysList;
+        v32 = v25.xDays;
+        v33 = v25.xDaysList;
     end;
-    local v34 = v3.useCallback(function(v33) --[[ Line: 114 ]]
-        -- upvalues: v19 (copy), v14 (copy), v26 (copy)
-        v19(v33);
-        if v14.onOptionActivated then
-            v14.onOptionActivated(v33);
+    local v35 = v3.useCallback(function(v34) --[[ Line: 120 ]]
+        -- upvalues: v20 (copy), v15 (copy), v27 (copy)
+        v20(v34);
+        if v15.onOptionActivated then
+            v15.onOptionActivated(v34);
         end;
-        v26(false);
+        v27(false);
     end, {
-        v14.onOptionActivated
+        v15.onOptionActivated
     });
-    local v38 = v3.useMemo(function() --[[ Line: 122 ]]
-        -- upvalues: v14 (copy), v18 (copy)
-        local v35 = {};
-        for v36, v37 in v14.options do
-            v35[v36] = {
-                days = v37.days, 
-                price = v37.price, 
-                selected = v36 == v18
+    local v39 = v3.useMemo(function() --[[ Line: 128 ]]
+        -- upvalues: v15 (copy), v19 (copy)
+        local v36 = {};
+        for v37, v38 in v15.options do
+            v36[v37] = {
+                days = v38.days, 
+                price = v38.price, 
+                selected = v37 == v19
             };
         end;
-        return v35;
+        return v36;
     end, {
-        v14.options, 
-        v18
+        v15.options, 
+        v19
     });
     return {
-        tokens = v16, 
-        localization = v17, 
-        selectedIndex = v18, 
-        setSelectedIndex = v19, 
-        selectedOption = v22, 
-        days = v23, 
-        localizedText = v24, 
-        isOpen = v25, 
-        setIsOpen = v26, 
-        anchorRef = v27, 
-        price = v28, 
-        subLabelText = v31, 
-        listLabelText = v32, 
-        handleOptionActivated = v34, 
-        updatedOptions = v38, 
-        disableOptionSelection = v14.disableOptionSelection
+        tokens = v17, 
+        localization = v18, 
+        selectedIndex = v19, 
+        setSelectedIndex = v20, 
+        selectedOption = v23, 
+        days = v24, 
+        localizedText = v25, 
+        isOpen = v26, 
+        setIsOpen = v27, 
+        anchorRef = v28, 
+        price = v29, 
+        subLabelText = v32, 
+        listLabelText = v33, 
+        handleOptionActivated = v35, 
+        updatedOptions = v39, 
+        disableOptionSelection = v15.disableOptionSelection
     };
 end;

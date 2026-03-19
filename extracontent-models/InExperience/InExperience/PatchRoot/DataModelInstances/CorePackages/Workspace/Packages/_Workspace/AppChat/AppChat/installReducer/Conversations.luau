@@ -44,160 +44,173 @@ local v42 = require(script.Parent.updateConversationReducer);
 local v43 = require(l_script_FirstAncestor_0.Utils.getOneToOneConversationIdFromFriendId);
 local v44 = require(l_script_FirstAncestor_0.Flags.getFFlagAppChatEnableManualTranslation);
 local l_FFlagAppChatEnableDoubleOptIn_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableDoubleOptIn;
-local function v52(v46, v47) --[[ Line: 58 ]] --[[ Name: markConversationAndMessagesAsRead ]]
+local v46 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUpdateConvAfterRecordModalSequence);
+local l_FFlagAppChatEnableU13ChatOptIn_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableU13ChatOptIn;
+local v48 = require(l_script_FirstAncestor_0.Constants);
+local v49 = {
+    [v48.OptInVariant.OsaContextCard] = if v46 then {
+        field = "osaAcknowledgementStatus", 
+        value = v32.OsaAcknowledgementStatus.Acknowledged
+    } else nil, 
+    [v48.OptInVariant.ChatOptInInfoCard] = if l_FFlagAppChatEnableU13ChatOptIn_0 then {
+        field = "userOptedIntoChatMessages", 
+        value = v32.UserOptedIntoChatMessagesStatus.OptedIn
+    } else nil
+};
+local function v56(v50, v51) --[[ Line: 78 ]] --[[ Name: markConversationAndMessagesAsRead ]]
     -- upvalues: l_Immutable_0 (copy)
-    local v48 = v46[v47];
-    if not v48 then
-        warn("Conversation " .. v47 .. " not found in ReadConversation reducer");
-        return v46;
+    local v52 = v50[v51];
+    if not v52 then
+        warn("Conversation " .. v51 .. " not found in ReadConversation reducer");
+        return v50;
     else
-        assert(v48, "FFlagLuauTinyControlFlowAnalysis");
-        local v50 = v48.messages:Map(function(v49) --[[ Line: 67 ]]
+        assert(v52, "FFlagLuauTinyControlFlowAnalysis");
+        local v54 = v52.messages:Map(function(v53) --[[ Line: 87 ]]
             -- upvalues: l_Immutable_0 (ref)
-            if v49.read then
-                return v49;
+            if v53.read then
+                return v53;
             else
-                return l_Immutable_0.Set(v49, "read", true);
+                return l_Immutable_0.Set(v53, "read", true);
             end;
         end);
-        local v51 = l_Immutable_0.Set(v48, "messages", v50);
-        v51 = l_Immutable_0.Set(v51, "hasUnreadMessages", false);
-        return (l_Immutable_0.Set(v46, v51.id, v51));
+        local v55 = l_Immutable_0.Set(v52, "messages", v54);
+        v55 = l_Immutable_0.Set(v55, "hasUnreadMessages", false);
+        return (l_Immutable_0.Set(v50, v55.id, v55));
     end;
 end;
-local function v71(v53, v54, v55) --[[ Line: 83 ]] --[[ Name: addMessagesToConversation ]]
+local function v75(v57, v58, v59) --[[ Line: 103 ]] --[[ Name: addMessagesToConversation ]]
     -- upvalues: l_Immutable_0 (copy), l_OrderedMap_0 (copy)
-    local v56 = v53[v54];
-    if v56 then
-        local v57 = nil;
-        local l_previewMessageId_0 = v56.previewMessageId;
-        local v59 = 0;
-        if l_previewMessageId_0 and v56.messages then
-            local v60 = v56.messages:Get(l_previewMessageId_0);
-            if v60 then
-                v59 = v60.sent:GetUnixTimestamp();
+    local v60 = v57[v58];
+    if v60 then
+        local v61 = nil;
+        local l_previewMessageId_0 = v60.previewMessageId;
+        local v63 = 0;
+        if l_previewMessageId_0 and v60.messages then
+            local v64 = v60.messages:Get(l_previewMessageId_0);
+            if v64 then
+                v63 = v64.sent:GetUnixTimestamp();
             end;
         end;
-        for v61 = 1, #v55.messages do
-            local v62 = v55.messages[v61];
-            local v63 = v56.messages:Get(v62.id);
-            if v63 then
-                if v57 then
-                    v57.previousMessageId = v63.id;
+        for v65 = 1, #v59.messages do
+            local v66 = v59.messages[v65];
+            local v67 = v60.messages:Get(v66.id);
+            if v67 then
+                if v61 then
+                    v61.previousMessageId = v67.id;
                 end;
-                if v62.previousMessageId == nil and v63.previousMessageId ~= nil then
-                    v62.previousMessageId = v63.previousMessageId;
+                if v66.previousMessageId == nil and v67.previousMessageId ~= nil then
+                    v66.previousMessageId = v67.previousMessageId;
                 end;
-                v62.read = v62.read or v63.read;
-            elseif v62.isPreviewable and v59 < v62.sent:GetUnixTimestamp() then
-                l_previewMessageId_0 = v62.id;
-                v59 = v62.sent:GetUnixTimestamp();
+                v66.read = v66.read or v67.read;
+            elseif v66.isPreviewable and v63 < v66.sent:GetUnixTimestamp() then
+                l_previewMessageId_0 = v66.id;
+                v63 = v66.sent:GetUnixTimestamp();
             end;
-            v57 = v62;
+            v61 = v66;
         end;
-        v56 = l_Immutable_0.JoinDictionaries(v56, {
+        v60 = l_Immutable_0.JoinDictionaries(v60, {
             previewMessageId = l_previewMessageId_0
         });
-        local v64 = l_OrderedMap_0.Insert(v56.messages, unpack(v55.messages));
-        if v55.exclusiveStartMessageId and #v55.messages > 0 and v64:Get(v55.exclusiveStartMessageId) then
-            local v65 = v55.messages[1];
-            local v66 = v64:Get(v55.exclusiveStartMessageId);
-            v64 = v64:Insert((l_Immutable_0.Set(v66, "previousMessageId", v65.id)));
+        local v68 = l_OrderedMap_0.Insert(v60.messages, unpack(v59.messages));
+        if v59.exclusiveStartMessageId and #v59.messages > 0 and v68:Get(v59.exclusiveStartMessageId) then
+            local v69 = v59.messages[1];
+            local v70 = v68:Get(v59.exclusiveStartMessageId);
+            v68 = v68:Insert((l_Immutable_0.Set(v70, "previousMessageId", v69.id)));
         end;
-        local v67 = l_previewMessageId_0 and v64 and v64:Get(l_previewMessageId_0);
-        local l_lastUpdated_0 = v56.lastUpdated;
-        if v67 then
-            l_lastUpdated_0 = (l_lastUpdated_0 and l_lastUpdated_0:GetUnixTimestamp() or 0) < v67.sent:GetUnixTimestamp() and v67.sent or v56.lastUpdated;
+        local v71 = l_previewMessageId_0 and v68 and v68:Get(l_previewMessageId_0);
+        local l_lastUpdated_0 = v60.lastUpdated;
+        if v71 then
+            l_lastUpdated_0 = (l_lastUpdated_0 and l_lastUpdated_0:GetUnixTimestamp() or 0) < v71.sent:GetUnixTimestamp() and v71.sent or v60.lastUpdated;
         end;
-        local v69 = v55.shouldMarkConversationUnread or v56.hasUnreadMessages;
-        local v70 = l_Immutable_0.JoinDictionaries(v56, {
-            messages = v64, 
+        local v73 = v59.shouldMarkConversationUnread or v60.hasUnreadMessages;
+        local v74 = l_Immutable_0.JoinDictionaries(v60, {
+            messages = v68, 
             lastUpdated = l_lastUpdated_0, 
-            hasUnreadMessages = v69, 
-            nextCursor = v55.nextCursor, 
-            previousCursor = v55.previousCursor
+            hasUnreadMessages = v73, 
+            nextCursor = v59.nextCursor, 
+            previousCursor = v59.previousCursor
         });
-        v70 = l_Immutable_0.Set(v70, "usersTyping", {});
-        return l_Immutable_0.Set(v53, v70.id, v70);
+        v74 = l_Immutable_0.Set(v74, "usersTyping", {});
+        return l_Immutable_0.Set(v57, v74.id, v74);
     else
-        return v53;
+        return v57;
     end;
 end;
-local function v81(v72, v73, v74, v75) --[[ Line: 168 ]] --[[ Name: updateMessageContentToDisplay ]]
+local function v85(v76, v77, v78, v79) --[[ Line: 188 ]] --[[ Name: updateMessageContentToDisplay ]]
     -- upvalues: l_Immutable_0 (copy)
-    local v76 = v72[v73];
-    if v76 then
-        local v77 = v76.messages:Get(v74);
-        if v77 then
-            local v78 = l_Immutable_0.Set(v77, "contentToDisplay", v75);
-            local v79 = v76.messages:Insert(v78);
-            local v80 = l_Immutable_0.Set(v76, "messages", v79);
-            return l_Immutable_0.Set(v72, v80.id, v80);
+    local v80 = v76[v77];
+    if v80 then
+        local v81 = v80.messages:Get(v78);
+        if v81 then
+            local v82 = l_Immutable_0.Set(v81, "contentToDisplay", v79);
+            local v83 = v80.messages:Insert(v82);
+            local v84 = l_Immutable_0.Set(v80, "messages", v83);
+            return l_Immutable_0.Set(v76, v84.id, v84);
         end;
     end;
-    return v72;
+    return v76;
 end;
-local function _(v82, v83) --[[ Line: 188 ]] --[[ Name: messagesFromResponse ]]
+local function _(v86, v87) --[[ Line: 208 ]] --[[ Name: messagesFromResponse ]]
     -- upvalues: l_Functional_0 (copy), v36 (copy)
-    if not v83 then
+    if not v87 then
         return {};
     else
-        local v84 = nil;
-        return (l_Functional_0.MapReverse(v83, function(v85) --[[ Line: 195 ]]
-            -- upvalues: v36 (ref), v82 (copy), v84 (ref)
-            local v86 = v36.fromWeb(v85, v82, v84);
-            v84 = v86.id;
-            return v86;
+        local v88 = nil;
+        return (l_Functional_0.MapReverse(v87, function(v89) --[[ Line: 215 ]]
+            -- upvalues: v36 (ref), v86 (copy), v88 (ref)
+            local v90 = v36.fromWeb(v89, v86, v88);
+            v88 = v90.id;
+            return v90;
         end));
     end;
 end;
-local function v95(v88, v89) --[[ Line: 203 ]] --[[ Name: messagesFromResponseOfChannelsApi ]]
+local function v99(v92, v93) --[[ Line: 223 ]] --[[ Name: messagesFromResponseOfChannelsApi ]]
     -- upvalues: v36 (copy)
-    if not v89 then
+    if not v93 then
         return {};
     else
-        local v90 = nil;
-        local v91 = {};
-        for v92 = #v89, 1, -1 do
-            local v93 = v89[v92];
-            local v94 = v36.fromChannelsApi(v93, v88, v90);
-            if v94 then
-                table.insert(v91, v94);
-                v90 = v94.id;
+        local v94 = nil;
+        local v95 = {};
+        for v96 = #v93, 1, -1 do
+            local v97 = v93[v96];
+            local v98 = v36.fromChannelsApi(v97, v92, v94);
+            if v98 then
+                table.insert(v95, v98);
+                v94 = v98.id;
             end;
         end;
-        return v91;
+        return v95;
     end;
 end;
-local function v98(v96) --[[ Line: 225 ]] --[[ Name: getMessagesFromConversationResponse ]]
+local function v102(v100) --[[ Line: 245 ]] --[[ Name: getMessagesFromConversationResponse ]]
     -- upvalues: l_FFlagAppChatExcludeSyntheticPreviewFromMessages_0 (copy), l_Immutable_0 (copy)
-    local v97 = v96.messages or {};
-    if v96.preview_message and not l_FFlagAppChatExcludeSyntheticPreviewFromMessages_0 then
-        v97 = l_Immutable_0.JoinLists({
-            v96.preview_message
-        }, v97);
+    local v101 = v100.messages or {};
+    if v100.preview_message and not l_FFlagAppChatExcludeSyntheticPreviewFromMessages_0 then
+        v101 = l_Immutable_0.JoinLists({
+            v100.preview_message
+        }, v101);
     end;
-    return v97;
+    return v101;
 end;
-local function _(v99) --[[ Line: 236 ]] --[[ Name: isMessageFromSelf ]]
+local function _(v103) --[[ Line: 256 ]] --[[ Name: isMessageFromSelf ]]
     -- upvalues: l_Players_0 (copy)
-    local v100 = v99 and v99[#v99] or nil;
-    return v100 and v100.senderTargetId == tostring(l_Players_0.LocalPlayer.UserId) or false;
+    local v104 = v103 and v103[#v103] or nil;
+    return v104 and v104.senderTargetId == tostring(l_Players_0.LocalPlayer.UserId) or false;
 end;
-local function v109(v102, v103) --[[ Line: 242 ]] --[[ Name: getShouldMarkConversationUnread ]]
+local function v113(v106, v107) --[[ Line: 262 ]] --[[ Name: getShouldMarkConversationUnread ]]
     -- upvalues: l_Players_0 (copy)
-    if not v102 or not v102.messages or not v103 then
+    if not v106 or not v106.messages or not v107 then
         return false;
     else
-        local v104 = v102.messages.keys[#v102.messages.keys];
-        local v105 = v102.messages.values[v104];
-        local v106 = v105 and v105.sent and v105.sent:GetUnixTimestamp() or 0;
-        for v107 = #v103, 1, -1 do
-            local v108 = v103[v107];
-            if v108 then
-                if v108.sent:GetUnixTimestamp() <= v106 then
+        local v108 = v106.messages.keys[#v106.messages.keys];
+        local v109 = v106.messages.values[v108];
+        local v110 = v109 and v109.sent and v109.sent:GetUnixTimestamp() or 0;
+        for v111 = #v107, 1, -1 do
+            local v112 = v107[v111];
+            if v112 then
+                if v112.sent:GetUnixTimestamp() <= v110 then
                     return false;
-                elseif v108.senderTargetId ~= tostring(l_Players_0.LocalPlayer.UserId) and v108.isBadgeable then
+                elseif v112.senderTargetId ~= tostring(l_Players_0.LocalPlayer.UserId) and v112.isBadgeable then
                     return true;
                 end;
             end;
@@ -206,503 +219,503 @@ local function v109(v102, v103) --[[ Line: 242 ]] --[[ Name: getShouldMarkConver
     end;
 end;
 return v4.createReducer({}, {
-    [v14.name] = function(v110, v111) --[[ Line: 279 ]]
+    [v14.name] = function(v114, v115) --[[ Line: 299 ]]
         -- upvalues: v42 (copy)
-        return v42(v110, v111.conversation);
+        return v42(v114, v115.conversation);
     end, 
-    [v29.StartGroupConversation.Succeeded.name] = function(v112, v113) --[[ Line: 282 ]]
+    [v29.StartGroupConversation.Succeeded.name] = function(v116, v117) --[[ Line: 302 ]]
         -- upvalues: v31 (copy), v42 (copy)
-        local l_responseBody_0 = v113.responseBody;
-        local v115 = v31.fromWeb(l_responseBody_0.conversation);
-        return v42(v112, v115);
-    end, 
-    [v29.StartOneToOneConversation.Succeeded.name] = function(v116, v117) --[[ Line: 287 ]]
-        -- upvalues: v31 (copy), v42 (copy)
-        local l_responseBody_1 = v117.responseBody;
-        local v119 = v31.fromWeb(l_responseBody_1.conversation);
+        local l_responseBody_0 = v117.responseBody;
+        local v119 = v31.fromWeb(l_responseBody_0.conversation);
         return v42(v116, v119);
     end, 
-    [v3.rodux.CreateConversation.Succeeded.name] = function(v120, v121) --[[ Line: 292 ]]
-        -- upvalues: v32 (copy), v42 (copy)
-        local l_responseBody_2 = v121.responseBody;
-        if l_responseBody_2 and l_responseBody_2.conversations and l_responseBody_2.conversations[1] and l_responseBody_2.conversations[1].status == "success" then
-            local v123 = v32.fromChannelsApi(l_responseBody_2.conversations[1]);
-            v120 = v42(v120, v123);
-        end;
-        return v120;
+    [v29.StartOneToOneConversation.Succeeded.name] = function(v120, v121) --[[ Line: 307 ]]
+        -- upvalues: v31 (copy), v42 (copy)
+        local l_responseBody_1 = v121.responseBody;
+        local v123 = v31.fromWeb(l_responseBody_1.conversation);
+        return v42(v120, v123);
     end, 
-    [v3.rodux.DuplicateConversation.Succeeded.name] = function(v124, v125) --[[ Line: 306 ]]
-        -- upvalues: v32 (copy), v38 (copy)
-        local l_responseBody_3 = v125.responseBody;
-        if l_responseBody_3 and l_responseBody_3.conversations and l_responseBody_3.conversations[1] then
-            local v127 = v32.fromChannelsApi(l_responseBody_3.conversations[1]);
-            v124 = v38(v124, v127);
+    [v3.rodux.CreateConversation.Succeeded.name] = function(v124, v125) --[[ Line: 312 ]]
+        -- upvalues: v32 (copy), v42 (copy)
+        local l_responseBody_2 = v125.responseBody;
+        if l_responseBody_2 and l_responseBody_2.conversations and l_responseBody_2.conversations[1] and l_responseBody_2.conversations[1].status == "success" then
+            local v127 = v32.fromChannelsApi(l_responseBody_2.conversations[1]);
+            v124 = v42(v124, v127);
         end;
         return v124;
     end, 
-    [l_ReceivedMessages_0.name] = function(v128, v129) --[[ Line: 315 ]]
-        -- upvalues: v71 (copy)
-        return v71(v128, v129.conversationId, v129);
+    [v3.rodux.DuplicateConversation.Succeeded.name] = function(v128, v129) --[[ Line: 326 ]]
+        -- upvalues: v32 (copy), v38 (copy)
+        local l_responseBody_3 = v129.responseBody;
+        if l_responseBody_3 and l_responseBody_3.conversations and l_responseBody_3.conversations[1] then
+            local v131 = v32.fromChannelsApi(l_responseBody_3.conversations[1]);
+            v128 = v38(v128, v131);
+        end;
+        return v128;
     end, 
-    [l_SendingMessage_0.name] = function(v130, v131) --[[ Line: 318 ]]
+    [l_ReceivedMessages_0.name] = function(v132, v133) --[[ Line: 335 ]]
+        -- upvalues: v75 (copy)
+        return v75(v132, v133.conversationId, v133);
+    end, 
+    [l_SendingMessage_0.name] = function(v134, v135) --[[ Line: 338 ]]
         -- upvalues: l_OrderedMap_0 (copy), l_Immutable_0 (copy)
-        local v132 = v130[v131.conversationId];
-        if v132 then
-            local v133 = l_OrderedMap_0.Insert(v132.sendingMessages, v131.message);
-            local v134 = l_Immutable_0.Set(v132, "sendingMessages", v133);
-            v130 = l_Immutable_0.Set(v130, v134.id, v134);
+        local v136 = v134[v135.conversationId];
+        if v136 then
+            local v137 = l_OrderedMap_0.Insert(v136.sendingMessages, v135.message);
+            local v138 = l_Immutable_0.Set(v136, "sendingMessages", v137);
+            v134 = l_Immutable_0.Set(v134, v138.id, v138);
         end;
-        return v130;
+        return v134;
     end, 
-    [l_SentMessage_0.name] = function(v135, v136) --[[ Line: 329 ]]
+    [l_SentMessage_0.name] = function(v139, v140) --[[ Line: 349 ]]
         -- upvalues: l_OrderedMap_0 (copy), l_Immutable_0 (copy)
-        local v137 = v135[v136.conversationId];
-        if v137 then
-            local v138 = l_OrderedMap_0.Delete(v137.sendingMessages, v136.messageId);
-            local v139 = l_Immutable_0.Set(v137, "sendingMessages", v138);
-            v135 = l_Immutable_0.Set(v135, v139.id, v139);
+        local v141 = v139[v140.conversationId];
+        if v141 then
+            local v142 = l_OrderedMap_0.Delete(v141.sendingMessages, v140.messageId);
+            local v143 = l_Immutable_0.Set(v141, "sendingMessages", v142);
+            v139 = l_Immutable_0.Set(v139, v143.id, v143);
         end;
-        return v135;
+        return v139;
     end, 
-    [v18.name] = function(v140, v141) --[[ Line: 340 ]]
+    [v18.name] = function(v144, v145) --[[ Line: 360 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local l_conversationId_0 = v141.conversationId;
-        local v143 = v140[l_conversationId_0];
-        if v143 then
-            local v144 = l_Immutable_0.JoinDictionaries(v143, {
-                lastUpdated = v141.lastUpdated, 
-                title = v141.title, 
-                isDefaultTitle = v141.isDefaultTitle
-            });
-            v140 = l_Immutable_0.Set(v140, l_conversationId_0, v144);
-        end;
-        return v140;
-    end, 
-    [v8.name] = function(v145, v146) --[[ Line: 355 ]]
-        -- upvalues: l_Immutable_0 (copy)
-        local v147 = v146.conversation and v145[v146.conversation.id];
+        local l_conversationId_0 = v145.conversationId;
+        local v147 = v144[l_conversationId_0];
         if v147 then
-            local v148 = l_Immutable_0.Set(v147, "hasUnreadMessages", true);
-            v145 = l_Immutable_0.Set(v145, v146.conversation.id, v148);
-        end;
-        return v145;
-    end, 
-    [v7.name] = function(v149, v150) --[[ Line: 364 ]]
-        -- upvalues: l_Immutable_0 (copy)
-        local l_conversationId_1 = v150.conversationId;
-        local l_participants_0 = v150.participants;
-        local v153 = v149[l_conversationId_1];
-        if v153 then
-            local v154 = l_Immutable_0.JoinDictionaries(v153, {
-                participants = l_participants_0, 
-                lastUpdated = v150.lastUpdated, 
-                title = v150.title
+            local v148 = l_Immutable_0.JoinDictionaries(v147, {
+                lastUpdated = v145.lastUpdated, 
+                title = v145.title, 
+                isDefaultTitle = v145.isDefaultTitle
             });
-            v149 = l_Immutable_0.Set(v149, l_conversationId_1, v154);
+            v144 = l_Immutable_0.Set(v144, l_conversationId_0, v148);
+        end;
+        return v144;
+    end, 
+    [v8.name] = function(v149, v150) --[[ Line: 375 ]]
+        -- upvalues: l_Immutable_0 (copy)
+        local v151 = v150.conversation and v149[v150.conversation.id];
+        if v151 then
+            local v152 = l_Immutable_0.Set(v151, "hasUnreadMessages", true);
+            v149 = l_Immutable_0.Set(v149, v150.conversation.id, v152);
         end;
         return v149;
     end, 
-    [v16.name] = function(v155, v156) --[[ Line: 380 ]]
+    [v7.name] = function(v153, v154) --[[ Line: 384 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local l_conversationId_2 = v156.conversationId;
-        return l_Immutable_0.Set(v155, l_conversationId_2, nil);
-    end, 
-    [v24.name] = function(v158, v159) --[[ Line: 384 ]]
-        -- upvalues: l_Immutable_0 (copy)
-        local v160 = v158[v159.conversationId];
-        if v160 then
-            local l_usersTyping_0 = v160.usersTyping;
-            local v162 = l_Immutable_0.Set(l_usersTyping_0, v159.userId, v159.value);
-            local v163 = l_Immutable_0.Set(v160, "usersTyping", v162);
-            v158 = l_Immutable_0.Set(v158, v163.id, v163);
+        local l_conversationId_1 = v154.conversationId;
+        local l_participants_0 = v154.participants;
+        local v157 = v153[l_conversationId_1];
+        if v157 then
+            local v158 = l_Immutable_0.JoinDictionaries(v157, {
+                participants = l_participants_0, 
+                lastUpdated = v154.lastUpdated, 
+                title = v154.title
+            });
+            v153 = l_Immutable_0.Set(v153, l_conversationId_1, v158);
         end;
-        return v158;
+        return v153;
     end, 
-    [v10.name] = function(v164, v165) --[[ Line: 395 ]]
+    [v16.name] = function(v159, v160) --[[ Line: 400 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local v166 = v164[v165.conversationId];
-        if v166 then
-            local v167 = l_Immutable_0.Set(v166, "fetchingOlderMessages", v165.fetchingOlderMessages);
-            v164 = l_Immutable_0.Set(v164, v167.id, v167);
-        end;
-        return v164;
+        local l_conversationId_2 = v160.conversationId;
+        return l_Immutable_0.Set(v159, l_conversationId_2, nil);
     end, 
-    [v9.name] = function(v168, v169) --[[ Line: 404 ]]
+    [v24.name] = function(v162, v163) --[[ Line: 404 ]]
+        -- upvalues: l_Immutable_0 (copy)
+        local v164 = v162[v163.conversationId];
+        if v164 then
+            local l_usersTyping_0 = v164.usersTyping;
+            local v166 = l_Immutable_0.Set(l_usersTyping_0, v163.userId, v163.value);
+            local v167 = l_Immutable_0.Set(v164, "usersTyping", v166);
+            v162 = l_Immutable_0.Set(v162, v167.id, v167);
+        end;
+        return v162;
+    end, 
+    [v10.name] = function(v168, v169) --[[ Line: 415 ]]
         -- upvalues: l_Immutable_0 (copy)
         local v170 = v168[v169.conversationId];
         if v170 then
-            local v171 = l_Immutable_0.Set(v170, "fetchedOldestMessage", v169.fetchedOldestMessage);
-            return l_Immutable_0.Set(v168, v171.id, v171);
+            local v171 = l_Immutable_0.Set(v170, "fetchingOlderMessages", v169.fetchingOlderMessages);
+            v168 = l_Immutable_0.Set(v168, v171.id, v171);
+        end;
+        return v168;
+    end, 
+    [v9.name] = function(v172, v173) --[[ Line: 424 ]]
+        -- upvalues: l_Immutable_0 (copy)
+        local v174 = v172[v173.conversationId];
+        if v174 then
+            local v175 = l_Immutable_0.Set(v174, "fetchedOldestMessage", v173.fetchedOldestMessage);
+            return l_Immutable_0.Set(v172, v175.id, v175);
         else
-            return v168;
+            return v172;
         end;
     end, 
-    [v13.name] = function(v172, v173) --[[ Line: 413 ]]
-        -- upvalues: v52 (copy)
-        return (v52(v172, v173.conversationId));
+    [v13.name] = function(v176, v177) --[[ Line: 433 ]]
+        -- upvalues: v56 (copy)
+        return (v56(v176, v177.conversationId));
     end, 
-    [l_MessageModerated_0.name] = function(v174, v175) --[[ Line: 416 ]]
+    [l_MessageModerated_0.name] = function(v178, v179) --[[ Line: 436 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local v176 = v174[v175.conversationId];
-        if v176 then
-            local v177 = v176.sendingMessages:Get(v175.messageId);
-            if v177 then
-                local v178 = l_Immutable_0.Set(v177, "moderated", true);
-                local v179 = v176.sendingMessages:Insert(v178);
-                local v180 = l_Immutable_0.Set(v176, "sendingMessages", v179);
-                v174 = l_Immutable_0.Set(v174, v180.id, v180);
+        local v180 = v178[v179.conversationId];
+        if v180 then
+            local v181 = v180.sendingMessages:Get(v179.messageId);
+            if v181 then
+                local v182 = l_Immutable_0.Set(v181, "moderated", true);
+                local v183 = v180.sendingMessages:Insert(v182);
+                local v184 = l_Immutable_0.Set(v180, "sendingMessages", v183);
+                v178 = l_Immutable_0.Set(v178, v184.id, v184);
             end;
         end;
-        return v174;
+        return v178;
     end, 
-    [l_MessageFailedToSend_0.name] = function(v181, v182) --[[ Line: 430 ]]
+    [l_MessageFailedToSend_0.name] = function(v185, v186) --[[ Line: 450 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local v183 = v181[v182.conversationId];
-        if v183 then
-            local v184 = v183.sendingMessages:Get(v182.messageId);
-            if v184 then
-                local v185 = l_Immutable_0.Set(v184, "failed", true);
-                local v186 = v183.sendingMessages:Insert(v185);
-                local v187 = l_Immutable_0.Set(v183, "sendingMessages", v186);
-                v181 = l_Immutable_0.Set(v181, v187.id, v187);
+        local v187 = v185[v186.conversationId];
+        if v187 then
+            local v188 = v187.sendingMessages:Get(v186.messageId);
+            if v188 then
+                local v189 = l_Immutable_0.Set(v188, "failed", true);
+                local v190 = v187.sendingMessages:Insert(v189);
+                local v191 = l_Immutable_0.Set(v187, "sendingMessages", v190);
+                v185 = l_Immutable_0.Set(v185, v191.id, v191);
             end;
         end;
-        return v181;
+        return v185;
     end, 
-    [v21.name] = function(v188, v189) --[[ Line: 444 ]]
+    [v21.name] = function(v192, v193) --[[ Line: 464 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local v190 = v188[v189.conversationId];
-        if v190 then
-            local v191 = l_Immutable_0.Set(v190, "initialLoadingStatus", v189.value);
-            return l_Immutable_0.Set(v188, v191.id, v191);
-        else
-            return v188;
-        end;
-    end, 
-    [v23.name] = function(v192, v193) --[[ Line: 453 ]]
-        -- upvalues: l_Immutable_0 (copy)
-        local v194 = v192[v193.id];
+        local v194 = v192[v193.conversationId];
         if v194 then
-            local v195 = l_Immutable_0.Set(v194, "isUserLeaving", v193.isLeaving);
-            v192 = l_Immutable_0.Set(v192, v195.id, v195);
+            local v195 = l_Immutable_0.Set(v194, "initialLoadingStatus", v193.value);
+            return l_Immutable_0.Set(v192, v195.id, v195);
+        else
+            return v192;
         end;
-        return v192;
     end, 
-    [v22.name] = function(v196, v197) --[[ Line: 461 ]]
+    [v23.name] = function(v196, v197) --[[ Line: 473 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local l_conversationId_3 = v197.conversationId;
-        local v199 = v196[l_conversationId_3];
-        if v199 then
-            local v200 = {
-                rootPlaceId = v197.rootPlaceId, 
-                universeId = v197.universeId
-            };
-            local v201 = l_Immutable_0.JoinDictionaries(v199, {
-                pinnedGame = v200
-            });
-            v196 = l_Immutable_0.Set(v196, l_conversationId_3, v201);
+        local v198 = v196[v197.id];
+        if v198 then
+            local v199 = l_Immutable_0.Set(v198, "isUserLeaving", v197.isLeaving);
+            v196 = l_Immutable_0.Set(v196, v199.id, v199);
         end;
         return v196;
     end, 
-    [v29.GetUserConversations.Succeeded.name] = function(v202, v203) --[[ Line: 479 ]]
-        -- upvalues: v31 (copy), v42 (copy)
-        local l_responseBody_4 = v203.responseBody;
-        for _, v206 in ipairs(l_responseBody_4) do
-            local v207 = v31.fromWeb(v206);
-            v202 = v42(v202, v207);
+    [v22.name] = function(v200, v201) --[[ Line: 481 ]]
+        -- upvalues: l_Immutable_0 (copy)
+        local l_conversationId_3 = v201.conversationId;
+        local v203 = v200[l_conversationId_3];
+        if v203 then
+            local v204 = {
+                rootPlaceId = v201.rootPlaceId, 
+                universeId = v201.universeId
+            };
+            local v205 = l_Immutable_0.JoinDictionaries(v203, {
+                pinnedGame = v204
+            });
+            v200 = l_Immutable_0.Set(v200, l_conversationId_3, v205);
         end;
-        return v202;
+        return v200;
     end, 
-    [v3.rodux.GetUserConversations.Succeeded.name] = function(v208, v209) --[[ Line: 488 ]]
-        -- upvalues: v32 (copy), v42 (copy), v98 (copy), v5 (copy), v36 (copy), v71 (copy)
-        local l_responseBody_5 = v209.responseBody;
+    [v29.GetUserConversations.Succeeded.name] = function(v206, v207) --[[ Line: 499 ]]
+        -- upvalues: v31 (copy), v42 (copy)
+        local l_responseBody_4 = v207.responseBody;
+        for _, v210 in ipairs(l_responseBody_4) do
+            local v211 = v31.fromWeb(v210);
+            v206 = v42(v206, v211);
+        end;
+        return v206;
+    end, 
+    [v3.rodux.GetUserConversations.Succeeded.name] = function(v212, v213) --[[ Line: 508 ]]
+        -- upvalues: v32 (copy), v42 (copy), v102 (copy), v5 (copy), v36 (copy), v75 (copy)
+        local l_responseBody_5 = v213.responseBody;
         if l_responseBody_5 and l_responseBody_5.conversations then
-            for _, v212 in l_responseBody_5.conversations do
-                local v213 = v32.fromChannelsApi(v212);
-                v208 = v42(v208, v213);
-                local v214 = v98(v212);
-                if v214 and #v214 > 0 then
-                    local v216 = {
-                        messages = v5.Array.map(v214, function(v215) --[[ Line: 498 ]]
-                            -- upvalues: v36 (ref), v213 (copy)
-                            return v36.fromChannelsApi(v215, v213.id);
+            for _, v216 in l_responseBody_5.conversations do
+                local v217 = v32.fromChannelsApi(v216);
+                v212 = v42(v212, v217);
+                local v218 = v102(v216);
+                if v218 and #v218 > 0 then
+                    local v220 = {
+                        messages = v5.Array.map(v218, function(v219) --[[ Line: 518 ]]
+                            -- upvalues: v36 (ref), v217 (copy)
+                            return v36.fromChannelsApi(v219, v217.id);
                         end)
                     };
-                    v208 = v71(v208, v213.id, v216);
+                    v212 = v75(v212, v217.id, v220);
                 end;
             end;
         end;
-        return v208;
+        return v212;
     end, 
-    [v29.GetConversations.Succeeded.name] = function(v217, v218) --[[ Line: 513 ]]
+    [v29.GetConversations.Succeeded.name] = function(v221, v222) --[[ Line: 533 ]]
         -- upvalues: v31 (copy), v42 (copy)
-        local l_responseBody_6 = v218.responseBody;
-        for _, v221 in ipairs(l_responseBody_6) do
-            local v222 = v31.fromWeb(v221);
-            v217 = v42(v217, v222);
+        local l_responseBody_6 = v222.responseBody;
+        for _, v225 in ipairs(l_responseBody_6) do
+            local v226 = v31.fromWeb(v225);
+            v221 = v42(v221, v226);
         end;
-        return v217;
+        return v221;
     end, 
-    [v3.rodux.GetOlderMessages.Succeeded.name] = function(v223, v224) --[[ Line: 522 ]]
-        -- upvalues: v95 (copy), v71 (copy), l_Immutable_0 (copy)
-        local l_conversation_id_0 = v224.queryArgs.conversation_id;
-        local l_responseBody_7 = v224.responseBody;
-        local v227 = {};
-        local v228 = v223[l_conversation_id_0];
-        if not v228 then
-            return v223;
+    [v3.rodux.GetOlderMessages.Succeeded.name] = function(v227, v228) --[[ Line: 542 ]]
+        -- upvalues: v99 (copy), v75 (copy), l_Immutable_0 (copy)
+        local l_conversation_id_0 = v228.queryArgs.conversation_id;
+        local l_responseBody_7 = v228.responseBody;
+        local v231 = {};
+        local v232 = v227[l_conversation_id_0];
+        if not v232 then
+            return v227;
         else
-            assert(v228, "FFlagLuauTinyControlFlowAnalysis");
-            local v229 = v228.previousCursor or nil;
-            local v230 = v228.nextCursor or nil;
+            assert(v232, "FFlagLuauTinyControlFlowAnalysis");
+            local v233 = v232.previousCursor or nil;
+            local v234 = v232.nextCursor or nil;
             if not l_responseBody_7 then
-                return v223;
+                return v227;
             else
-                v227 = v95(l_conversation_id_0, l_responseBody_7.messages);
-                local v231 = if l_responseBody_7.next_cursor == "" then nil else l_responseBody_7.next_cursor;
-                if v231 then
-                    v230 = v231;
+                v231 = v99(l_conversation_id_0, l_responseBody_7.messages);
+                local v235 = if l_responseBody_7.next_cursor == "" then nil else l_responseBody_7.next_cursor;
+                if v235 then
+                    v234 = v235;
                 end;
-                if v229 == nil then
-                    v229 = if l_responseBody_7.previous_cursor == "" then nil else l_responseBody_7.previous_cursor;
+                if v233 == nil then
+                    v233 = if l_responseBody_7.previous_cursor == "" then nil else l_responseBody_7.previous_cursor;
                 end;
-                local v232 = {
-                    messages = v227, 
-                    nextCursor = v230, 
-                    previousCursor = v229
+                local v236 = {
+                    messages = v231, 
+                    nextCursor = v234, 
+                    previousCursor = v233
                 };
-                v223 = v71(v223, l_conversation_id_0, v232);
-                if not v231 then
-                    local v233 = v223[l_conversation_id_0];
-                    if v233 then
-                        local v234 = l_Immutable_0.Set(v233, "fetchedOldestMessage", true);
-                        v223 = l_Immutable_0.Set(v223, v234.id, v234);
+                v227 = v75(v227, l_conversation_id_0, v236);
+                if not v235 then
+                    local v237 = v227[l_conversation_id_0];
+                    if v237 then
+                        local v238 = l_Immutable_0.Set(v237, "fetchedOldestMessage", true);
+                        v227 = l_Immutable_0.Set(v227, v238.id, v238);
                     end;
                 end;
-                return v223;
+                return v227;
             end;
         end;
     end, 
-    [v3.rodux.GetNewerMessages.Succeeded.name] = function(v235, v236) --[[ Line: 575 ]]
-        -- upvalues: v95 (copy), v109 (copy), v71 (copy)
-        local l_conversation_id_1 = v236.queryArgs.conversation_id;
-        local l_responseBody_8 = v236.responseBody;
-        local v239 = v235[l_conversation_id_1];
-        if not v239 then
-            return v235;
+    [v3.rodux.GetNewerMessages.Succeeded.name] = function(v239, v240) --[[ Line: 595 ]]
+        -- upvalues: v99 (copy), v113 (copy), v75 (copy)
+        local l_conversation_id_1 = v240.queryArgs.conversation_id;
+        local l_responseBody_8 = v240.responseBody;
+        local v243 = v239[l_conversation_id_1];
+        if not v243 then
+            return v239;
         else
-            assert(v239, "FFlagLuauTinyControlFlowAnalysis");
-            local v240 = v239.previousCursor or nil;
-            local v241 = v239.nextCursor or nil;
+            assert(v243, "FFlagLuauTinyControlFlowAnalysis");
+            local v244 = v243.previousCursor or nil;
+            local v245 = v243.nextCursor or nil;
             if not l_responseBody_8 then
-                return v235;
+                return v239;
             else
-                local v242 = v95(l_conversation_id_1, l_responseBody_8.messages);
-                if v241 == nil then
-                    v241 = if l_responseBody_8.next_cursor == "" then nil else l_responseBody_8.next_cursor;
+                local v246 = v99(l_conversation_id_1, l_responseBody_8.messages);
+                if v245 == nil then
+                    v245 = if l_responseBody_8.next_cursor == "" then nil else l_responseBody_8.next_cursor;
                 end;
-                local v243 = if l_responseBody_8.previous_cursor == "" then nil else l_responseBody_8.previous_cursor;
-                if v243 then
-                    v240 = v243;
+                local v247 = if l_responseBody_8.previous_cursor == "" then nil else l_responseBody_8.previous_cursor;
+                if v247 then
+                    v244 = v247;
                 end;
-                local v244 = v109(v239, v242);
-                local v245 = {
-                    messages = v242, 
-                    nextCursor = v241, 
-                    previousCursor = v240, 
-                    shouldMarkConversationUnread = v244
+                local v248 = v113(v243, v246);
+                local v249 = {
+                    messages = v246, 
+                    nextCursor = v245, 
+                    previousCursor = v244, 
+                    shouldMarkConversationUnread = v248
                 };
-                return (v71(v235, l_conversation_id_1, v245));
+                return (v75(v239, l_conversation_id_1, v249));
             end;
         end;
     end, 
-    [v29.GetMessages.Succeeded.name] = function(v246, v247) --[[ Line: 617 ]]
-        -- upvalues: l_Functional_0 (copy), v36 (copy), l_Players_0 (copy), v71 (copy), l_Immutable_0 (copy)
-        local l_conversationId_4 = v247.queryArgs.conversationId;
-        local l_responseBody_9 = v247.responseBody;
-        local v250;
+    [v29.GetMessages.Succeeded.name] = function(v250, v251) --[[ Line: 637 ]]
+        -- upvalues: l_Functional_0 (copy), v36 (copy), l_Players_0 (copy), v75 (copy), l_Immutable_0 (copy)
+        local l_conversationId_4 = v251.queryArgs.conversationId;
+        local l_responseBody_9 = v251.responseBody;
+        local v254;
         if not l_responseBody_9 then
-            v250 = {};
+            v254 = {};
         else
-            local v251 = nil;
+            local v255 = nil;
             do
-                local l_v251_0 = v251;
-                v250 = l_Functional_0.MapReverse(l_responseBody_9, function(v253) --[[ Line: 195 ]]
-                    -- upvalues: v36 (ref), l_conversationId_4 (copy), l_v251_0 (ref)
-                    local v254 = v36.fromWeb(v253, l_conversationId_4, l_v251_0);
-                    l_v251_0 = v254.id;
-                    return v254;
+                local l_v255_0 = v255;
+                v254 = l_Functional_0.MapReverse(l_responseBody_9, function(v257) --[[ Line: 215 ]]
+                    -- upvalues: v36 (ref), l_conversationId_4 (copy), l_v255_0 (ref)
+                    local v258 = v36.fromWeb(v257, l_conversationId_4, l_v255_0);
+                    l_v255_0 = v258.id;
+                    return v258;
                 end);
             end;
         end;
         l_responseBody_9 = {
-            messages = v250
+            messages = v254
         };
-        local v255 = v250 and v250[#v250] or nil;
-        l_responseBody_9.shouldMarkConversationUnread = not (v255 and v255.senderTargetId == tostring(l_Players_0.LocalPlayer.UserId) or false);
-        v246 = v71(v246, l_conversationId_4, l_responseBody_9);
-        local l_pageSize_0 = v247.queryArgs.pageSize;
-        if l_pageSize_0 and #v250 < l_pageSize_0 then
-            local v257 = v246[l_conversationId_4];
-            if not v257 then
-                return v246;
+        local v259 = v254 and v254[#v254] or nil;
+        l_responseBody_9.shouldMarkConversationUnread = not (v259 and v259.senderTargetId == tostring(l_Players_0.LocalPlayer.UserId) or false);
+        v250 = v75(v250, l_conversationId_4, l_responseBody_9);
+        local l_pageSize_0 = v251.queryArgs.pageSize;
+        if l_pageSize_0 and #v254 < l_pageSize_0 then
+            local v261 = v250[l_conversationId_4];
+            if not v261 then
+                return v250;
             else
-                assert(v257, "FFlagLuauTinyControlFlowAnalysis");
-                v255 = v246[l_conversationId_4];
-                if v255 then
-                    local v258 = l_Immutable_0.Set(v255, "fetchedOldestMessage", true);
-                    v246 = l_Immutable_0.Set(v246, v258.id, v258);
+                assert(v261, "FFlagLuauTinyControlFlowAnalysis");
+                v259 = v250[l_conversationId_4];
+                if v259 then
+                    local v262 = l_Immutable_0.Set(v259, "fetchedOldestMessage", true);
+                    v250 = l_Immutable_0.Set(v250, v262.id, v262);
                 end;
             end;
         end;
-        return v246;
+        return v250;
     end, 
-    [v29.GetLatestMessages.Succeeded.name] = function(v259, v260) --[[ Line: 643 ]]
-        -- upvalues: l_Functional_0 (copy), v36 (copy), v71 (copy)
-        local l_responseBody_10 = v260.responseBody;
-        for _, v263 in ipairs(l_responseBody_10) do
-            local v264 = tostring(v263.conversationId);
-            local l_chatMessages_0 = v263.chatMessages;
-            local v266;
+    [v29.GetLatestMessages.Succeeded.name] = function(v263, v264) --[[ Line: 663 ]]
+        -- upvalues: l_Functional_0 (copy), v36 (copy), v75 (copy)
+        local l_responseBody_10 = v264.responseBody;
+        for _, v267 in ipairs(l_responseBody_10) do
+            local v268 = tostring(v267.conversationId);
+            local l_chatMessages_0 = v267.chatMessages;
+            local v270;
             if not l_chatMessages_0 then
-                v266 = {};
+                v270 = {};
             else
-                local v267 = nil;
+                local v271 = nil;
                 do
-                    local l_v267_0 = v267;
-                    v266 = l_Functional_0.MapReverse(l_chatMessages_0, function(v269) --[[ Line: 195 ]]
-                        -- upvalues: v36 (ref), v264 (copy), l_v267_0 (ref)
-                        local v270 = v36.fromWeb(v269, v264, l_v267_0);
-                        l_v267_0 = v270.id;
-                        return v270;
+                    local l_v271_0 = v271;
+                    v270 = l_Functional_0.MapReverse(l_chatMessages_0, function(v273) --[[ Line: 215 ]]
+                        -- upvalues: v36 (ref), v268 (copy), l_v271_0 (ref)
+                        local v274 = v36.fromWeb(v273, v268, l_v271_0);
+                        l_v271_0 = v274.id;
+                        return v274;
                     end);
                 end;
             end;
             l_chatMessages_0 = {
-                messages = v266
+                messages = v270
             };
-            v259 = v71(v259, v264, l_chatMessages_0);
+            v263 = v75(v263, v268, l_chatMessages_0);
         end;
-        return v259;
+        return v263;
     end, 
-    [v3.rodux.GetConversationDetails.Succeeded.name] = function(v271, v272) --[[ Line: 655 ]]
-        -- upvalues: v32 (copy), v42 (copy), v98 (copy), v5 (copy), v36 (copy), v71 (copy)
-        local v273 = v272.responseBody.conversations[1];
-        if not v273 then
-            return v271;
+    [v3.rodux.GetConversationDetails.Succeeded.name] = function(v275, v276) --[[ Line: 675 ]]
+        -- upvalues: v32 (copy), v42 (copy), v102 (copy), v5 (copy), v36 (copy), v75 (copy)
+        local v277 = v276.responseBody.conversations[1];
+        if not v277 then
+            return v275;
         else
-            local v274 = v32.fromChannelsApi(v273);
-            v271 = v42(v271, v274);
-            local v275 = v98(v273);
-            if v275 and #v275 > 0 then
-                local v277 = {
-                    messages = v5.Array.map(v275, function(v276) --[[ Line: 669 ]]
-                        -- upvalues: v36 (ref), v274 (copy)
-                        return v36.fromChannelsApi(v276, v274.id);
+            local v278 = v32.fromChannelsApi(v277);
+            v275 = v42(v275, v278);
+            local v279 = v102(v277);
+            if v279 and #v279 > 0 then
+                local v281 = {
+                    messages = v5.Array.map(v279, function(v280) --[[ Line: 689 ]]
+                        -- upvalues: v36 (ref), v278 (copy)
+                        return v36.fromChannelsApi(v280, v278.id);
                     end)
                 };
-                v271 = v71(v271, v274.id, v277);
+                v275 = v75(v275, v278.id, v281);
             end;
-            return v271;
+            return v275;
         end;
     end, 
-    [v3.rodux.MultiGetConversationDetails.Succeeded.name] = function(v278, v279) --[[ Line: 682 ]]
-        -- upvalues: v32 (copy), v42 (copy), v98 (copy), v5 (copy), v36 (copy), v71 (copy)
-        local l_responseBody_11 = v279.responseBody;
+    [v3.rodux.MultiGetConversationDetails.Succeeded.name] = function(v282, v283) --[[ Line: 702 ]]
+        -- upvalues: v32 (copy), v42 (copy), v102 (copy), v5 (copy), v36 (copy), v75 (copy)
+        local l_responseBody_11 = v283.responseBody;
         if not l_responseBody_11 or not l_responseBody_11.conversations then
-            return v278;
+            return v282;
         else
-            for _, v282 in l_responseBody_11.conversations do
-                local v283 = v32.fromChannelsApi(v282);
-                v278 = v42(v278, v283);
-                local v284 = v98(v282);
-                if v284 and #v284 > 0 then
-                    local v286 = {
-                        messages = v5.Array.map(v284, function(v285) --[[ Line: 694 ]]
-                            -- upvalues: v36 (ref), v283 (copy)
-                            return v36.fromChannelsApi(v285, v283.id);
+            for _, v286 in l_responseBody_11.conversations do
+                local v287 = v32.fromChannelsApi(v286);
+                v282 = v42(v282, v287);
+                local v288 = v102(v286);
+                if v288 and #v288 > 0 then
+                    local v290 = {
+                        messages = v5.Array.map(v288, function(v289) --[[ Line: 714 ]]
+                            -- upvalues: v36 (ref), v287 (copy)
+                            return v36.fromChannelsApi(v289, v287.id);
                         end)
                     };
-                    v278 = v71(v278, v283.id, v286);
+                    v282 = v75(v282, v287.id, v290);
                 end;
             end;
-            return v278;
+            return v282;
         end;
     end, 
-    [v3.rodux.MarkConversation.Succeeded.name] = function(v287, v288) --[[ Line: 707 ]]
-        -- upvalues: v52 (copy)
-        local v289 = v288.postBody.conversation_ids[1];
-        return (v52(v287, v289));
+    [v3.rodux.MarkConversation.Succeeded.name] = function(v291, v292) --[[ Line: 727 ]]
+        -- upvalues: v56 (copy)
+        local v293 = v292.postBody.conversation_ids[1];
+        return (v56(v291, v293));
     end, 
-    [v29.MarkAsRead.Succeeded.name] = function(v290, v291) --[[ Line: 711 ]]
-        -- upvalues: v52 (copy)
-        local l_conversationId_5 = v291.postBody.conversationId;
-        return (v52(v290, l_conversationId_5));
+    [v29.MarkAsRead.Succeeded.name] = function(v294, v295) --[[ Line: 731 ]]
+        -- upvalues: v56 (copy)
+        local l_conversationId_5 = v295.postBody.conversationId;
+        return (v56(v294, l_conversationId_5));
     end, 
-    [v3.rodux.TranslateUserMessage.Succeeded.name] = v44() and function(v293, v294) --[[ Line: 716 ]]
-        -- upvalues: v81 (copy)
-        local l_content_to_display_0 = v294.responseBody.content_to_display;
-        if v294.postBody.conversation_id and v294.postBody.message_id then
-            return v81(v293, v294.postBody.conversation_id, v294.postBody.message_id, l_content_to_display_0);
+    [v3.rodux.TranslateUserMessage.Succeeded.name] = v44() and function(v297, v298) --[[ Line: 736 ]]
+        -- upvalues: v85 (copy)
+        local l_content_to_display_0 = v298.responseBody.content_to_display;
+        if v298.postBody.conversation_id and v298.postBody.message_id then
+            return v85(v297, v298.postBody.conversation_id, v298.postBody.message_id, l_content_to_display_0);
         else
-            return v293;
+            return v297;
         end;
     end or nil, 
-    [v17.name] = function(_, _) --[[ Line: 732 ]]
+    [v17.name] = function(_, _) --[[ Line: 752 ]]
         return {};
     end, 
-    [v25.name] = function(v298, v299) --[[ Line: 735 ]]
+    [v25.name] = function(v302, v303) --[[ Line: 755 ]]
         -- upvalues: l_Immutable_0 (copy)
-        if v298[v299.oldFriendConversationId] then
-            return l_Immutable_0.Set(v298, v299.oldFriendConversationId, nil);
+        if v302[v303.oldFriendConversationId] then
+            return l_Immutable_0.Set(v302, v303.oldFriendConversationId, nil);
         else
-            return v298;
+            return v302;
         end;
     end, 
-    [v26.name] = function(v300, v301) --[[ Line: 742 ]]
+    [v26.name] = function(v304, v305) --[[ Line: 762 ]]
         -- upvalues: v32 (copy), l_Immutable_0 (copy)
-        local v302 = if v301.userId1 ~= "localUserId" then v301.userId1 else if v301.userId2 ~= "localUserId" then v301.userId2 else nil;
-        if not v302 then
-            return v300;
-        else
-            assert(v302, "FFlagLuauTinyControlFlowAnalysis");
-            local v303 = v32.getFriendConversationId({
-                v302
-            });
-            if v300[v303] then
-                return l_Immutable_0.Set(v300, v303, nil);
-            else
-                return v300;
-            end;
-        end;
-    end, 
-    [v30.BlockUserById.Succeeded.name] = l_getFFlagAppChatPCMFixBlocking_0() and function(v304, v305) --[[ Line: 760 ]]
-        -- upvalues: v43 (copy), l_Immutable_0 (copy), v32 (copy)
-        local v306 = tostring(v305.namedIds.users);
+        local v306 = if v305.userId1 ~= "localUserId" then v305.userId1 else if v305.userId2 ~= "localUserId" then v305.userId2 else nil;
         if not v306 then
             return v304;
         else
-            local v307 = v43(v304, v306);
-            local l_v304_0 = v304;
-            if v307 and v304[v307] then
-                l_v304_0 = l_Immutable_0.Set(l_v304_0, v307, nil);
-            end;
-            local v309 = v32.getFriendConversationId({
+            assert(v306, "FFlagLuauTinyControlFlowAnalysis");
+            local v307 = v32.getFriendConversationId({
                 v306
             });
-            if v309 and v304[v309] then
-                l_v304_0 = l_Immutable_0.Set(v304, v309, nil);
+            if v304[v307] then
+                return l_Immutable_0.Set(v304, v307, nil);
+            else
+                return v304;
             end;
-            return l_v304_0;
+        end;
+    end, 
+    [v30.BlockUserById.Succeeded.name] = l_getFFlagAppChatPCMFixBlocking_0() and function(v308, v309) --[[ Line: 780 ]]
+        -- upvalues: v43 (copy), l_Immutable_0 (copy), v32 (copy)
+        local v310 = tostring(v309.namedIds.users);
+        if not v310 then
+            return v308;
+        else
+            local v311 = v43(v308, v310);
+            local l_v308_0 = v308;
+            if v311 and v308[v311] then
+                l_v308_0 = l_Immutable_0.Set(l_v308_0, v311, nil);
+            end;
+            local v313 = v32.getFriendConversationId({
+                v310
+            });
+            if v313 and v308[v313] then
+                l_v308_0 = l_Immutable_0.Set(v308, v313, nil);
+            end;
+            return l_v308_0;
         end;
     end or nil, 
-    [v27.name] = v40 and function(v310, v311) --[[ Line: 784 ]]
+    [v27.name] = v40 and function(v314, v315) --[[ Line: 804 ]]
         -- upvalues: v37 (copy), v32 (copy)
-        local l_v310_0 = v310;
-        for _, v314 in v311.conversationIds do
-            local v315 = l_v310_0[v314];
-            l_v310_0 = v37.Dictionary.join(l_v310_0, {
-                [v314] = v37.Dictionary.join(v315, {
+        local l_v314_0 = v314;
+        for _, v318 in v315.conversationIds do
+            local v319 = l_v314_0[v318];
+            l_v314_0 = v37.Dictionary.join(l_v314_0, {
+                [v318] = v37.Dictionary.join(v319, {
                     messages = v32.getEmptyMessages(), 
                     sendingMessages = v32.getEmptySendingMessages(), 
                     previousCursor = v37.None, 
@@ -711,18 +724,40 @@ return v4.createReducer({}, {
                 })
             });
         end;
-        return l_v310_0;
+        return l_v314_0;
     end or nil, 
-    [v28.name] = l_FFlagAppChatEnableDoubleOptIn_0 and function(v316, v317) --[[ Line: 802 ]]
+    [v28.name] = l_FFlagAppChatEnableDoubleOptIn_0 and function(v320, v321) --[[ Line: 822 ]]
         -- upvalues: l_Immutable_0 (copy)
-        local l_conversationId_6 = v317.conversationId;
-        local l_moderationType_0 = v317.moderationType;
-        local v320 = v316[l_conversationId_6];
-        if v320 then
-            local v321 = l_Immutable_0.Set(v320, "moderationType", l_moderationType_0);
-            return l_Immutable_0.Set(v316, l_conversationId_6, v321);
+        local l_conversationId_6 = v321.conversationId;
+        local l_moderationType_0 = v321.moderationType;
+        local v324 = v320[l_conversationId_6];
+        if v324 then
+            local v325 = l_Immutable_0.Set(v324, "moderationType", l_moderationType_0);
+            return l_Immutable_0.Set(v320, l_conversationId_6, v325);
         else
-            return v316;
+            return v320;
+        end;
+    end or nil, 
+    [v3.rodux.RecordModalSequenceResponse.Succeeded.name] = (not not v46 or l_FFlagAppChatEnableU13ChatOptIn_0) and function(v326, v327) --[[ Line: 835 ]]
+        -- upvalues: v48 (copy), v49 (copy), v32 (copy), l_Immutable_0 (copy)
+        local l_postBody_0 = v327.postBody;
+        if l_postBody_0.action_type ~= v48.ModalAction.Accept then
+            return v326;
+        else
+            local v329 = v49[l_postBody_0.modal_variant];
+            if not v329 then
+                return v326;
+            else
+                local v330 = l_postBody_0.conversation_id or v32.getFriendConversationId({
+                    l_postBody_0.friend_id
+                });
+                local v331 = v330 and v326[v330];
+                if not v331 then
+                    return v326;
+                else
+                    return l_Immutable_0.Set(v326, v330, l_Immutable_0.Set(v331, v329.field, v329.value));
+                end;
+            end;
         end;
     end or nil
 });

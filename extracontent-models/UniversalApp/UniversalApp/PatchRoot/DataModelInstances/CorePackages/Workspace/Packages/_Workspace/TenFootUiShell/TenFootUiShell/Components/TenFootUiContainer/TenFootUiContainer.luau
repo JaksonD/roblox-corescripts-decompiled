@@ -18,61 +18,59 @@ local l_SduiAvatarExperienceRegister_0 = require(l_Parent_0.AvatarExperienceServ
 local l_SduiSharedRegister_0 = require(l_Parent_0.SduiSharedContent).SduiSharedRegister;
 local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
 local v19 = require(l_Parent_0.SharedFlags);
-local l_FFlagSduiActionHandlerSharedRegistry_0 = v19.FFlagSduiActionHandlerSharedRegistry;
 local l_FFlagEnableAvatarExperienceSdui_0 = v19.FFlagEnableAvatarExperienceSdui;
-local l_FFlagSduiV2PaginationSupport_0 = v19.FFlagSduiV2PaginationSupport;
-local v23 = game:DefineFastFlag("EnableSduiRegistriesforTenFootUiContainer", false);
+local v21 = game:DefineFastFlag("EnableSduiRegistriesforTenFootUiContainer", false);
 local l_FFlagLuaAppUseOverlayInAppContainer_0 = v19.FFlagLuaAppUseOverlayInAppContainer;
-local function v30(v25) --[[ Line: 44 ]] --[[ Name: RootViewContainer ]]
+local function v28(v23) --[[ Line: 42 ]] --[[ Name: RootViewContainer ]]
     -- upvalues: v4 (copy), v5 (copy), l_useNavigation_0 (copy), v3 (copy), v2 (copy)
-    local v26 = v4();
-    local v27 = v5();
-    local v28 = l_useNavigation_0();
-    local v29 = v3.createElement(v25.dependencies.RootNavigator, {
-        navigation = v28, 
+    local v24 = v4();
+    local v25 = v5();
+    local v26 = l_useNavigation_0();
+    local v27 = v3.createElement(v23.dependencies.RootNavigator, {
+        navigation = v26, 
         screenProps = {
-            surfaceGuiContainer = v26, 
-            worldContainer = v27
+            surfaceGuiContainer = v24, 
+            worldContainer = v25
         }
     });
     return (v3.createElement(v3.Fragment, nil, {
         ResponsiveContainerFrame = v3.createElement(v2.ResponsiveContainerFrame), 
-        NavigatorView = v29
+        NavigatorView = v27
     }));
 end;
-return function(v31) --[[ Line: 63 ]] --[[ Name: TenFootUiContainer ]]
-    -- upvalues: l_FFlagLuaAppUseOverlayInAppContainer_0 (copy), l_useOverlay_0 (copy), v4 (copy), v5 (copy), v3 (copy), v12 (copy), v30 (copy), l_GlobalNavContainer_0 (copy), l_AppShortcutBarContainer_0 (copy), v6 (copy), l_FFlagSduiV2PaginationSupport_0 (copy), l_SduiSharedRegister_0 (copy), v23 (copy), l_FFlagSduiActionHandlerSharedRegistry_0 (copy), l_SduiDiscoveryDependencyUpdater_0 (copy), l_FFlagEnableAvatarExperienceSdui_0 (copy), l_SduiAvatarExperienceRegister_0 (copy), l_TenFootUiContext_0 (copy), l_AppShortcutBarContext_0 (copy), l_ProviderContainer_0 (copy)
+return function(v29) --[[ Line: 61 ]] --[[ Name: TenFootUiContainer ]]
+    -- upvalues: l_FFlagLuaAppUseOverlayInAppContainer_0 (copy), l_useOverlay_0 (copy), v4 (copy), v5 (copy), v3 (copy), v12 (copy), v28 (copy), l_GlobalNavContainer_0 (copy), l_AppShortcutBarContainer_0 (copy), v6 (copy), l_SduiSharedRegister_0 (copy), v21 (copy), l_SduiDiscoveryDependencyUpdater_0 (copy), l_FFlagEnableAvatarExperienceSdui_0 (copy), l_SduiAvatarExperienceRegister_0 (copy), l_TenFootUiContext_0 (copy), l_AppShortcutBarContext_0 (copy), l_ProviderContainer_0 (copy)
     if l_FFlagLuaAppUseOverlayInAppContainer_0 then
         l_useOverlay_0();
     end;
-    local v32 = v4();
-    local v33 = v5();
-    local v34 = v3.createElement(v3.Fragment, nil, {
-        Toast = v31.toast, 
-        CentralOverlay = v31.centralOverlay, 
+    local v30 = v4();
+    local v31 = v5();
+    local v32 = v3.createElement(v3.Fragment, nil, {
+        Toast = v29.toast, 
+        CentralOverlay = v29.centralOverlay, 
         TenFootUiLayout = v3.createElement(v12, {
-            adorneeParent = v33, 
-            surfaceGuiParent = v32, 
-            rootViewSlot = v3.createElement(v30, v31), 
+            adorneeParent = v31, 
+            surfaceGuiParent = v30, 
+            rootViewSlot = v3.createElement(v28, v29), 
             globalNavSlot = v3.createElement(l_GlobalNavContainer_0), 
             controllerBarSlot = v3.createElement(l_AppShortcutBarContainer_0)
         }), 
         GlobalEffects = v3.createElement(v6), 
-        SduiSharedRegister = if l_FFlagSduiV2PaginationSupport_0 then v3.createElement(l_SduiSharedRegister_0) else nil, 
-        SduiDiscoveryDependencyUpdater = if v23 and l_FFlagSduiActionHandlerSharedRegistry_0 then v3.createElement(l_SduiDiscoveryDependencyUpdater_0) else nil, 
-        SduiAvatarExperienceRegister = if v23 and l_FFlagEnableAvatarExperienceSdui_0 then v3.createElement(l_SduiAvatarExperienceRegister_0) else nil
+        SduiSharedRegister = v3.createElement(l_SduiSharedRegister_0), 
+        SduiDiscoveryDependencyUpdater = if v21 then v3.createElement(l_SduiDiscoveryDependencyUpdater_0) else nil, 
+        SduiAvatarExperienceRegister = if v21 and l_FFlagEnableAvatarExperienceSdui_0 then v3.createElement(l_SduiAvatarExperienceRegister_0) else nil
     });
-    local v35 = {};
-    table.insert(v35, {
+    local v33 = {};
+    table.insert(v33, {
         class = l_TenFootUiContext_0.Provider, 
         props = {
-            value = v31.dependencies
+            value = v29.dependencies
         }
     });
-    table.insert(v35, {
+    table.insert(v33, {
         class = l_AppShortcutBarContext_0.Provider
     });
     return v3.createElement(l_ProviderContainer_0, {
-        providers = v35
-    }, v34);
+        providers = v33
+    }, v32);
 end;

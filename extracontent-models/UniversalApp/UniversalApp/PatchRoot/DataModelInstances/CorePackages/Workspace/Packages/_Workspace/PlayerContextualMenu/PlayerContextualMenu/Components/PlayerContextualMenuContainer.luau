@@ -99,7 +99,6 @@ local v64 = {
     PendingRequest = "Feature.Friends.Action.PendingRequest", 
     Report = "Feature.Catalog.Action.Report", 
     ViewDetails = "Feature.Profile.Label.ViewDetails", 
-    ViewGamerCardWord = "Xbox.Old.ViewGamerCardWord", 
     ViewPlatformProfile = "Feature.Friends.Action.ViewPlatformProfile", 
     ConnectionAdded = "Feature.Friends.Action.ConnectionAdded", 
     ConnectionRequestSent = "Feature.Friends.Action.ConnectionRequestSent", 
@@ -108,7 +107,7 @@ local v64 = {
     SomethingIsWrong = "Feature.Toast.NetworkingError.SomethingIsWrong", 
     UserBlocked = "Feature.Profile.Action.UserBlocked"
 };
-return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer ]]
+return function(v65) --[[ Line: 197 ]] --[[ Name: PlayerContextualMenuContainer ]]
     -- upvalues: v3 (copy), v63 (copy), l_RoactRodux_0 (copy), v9 (copy), v16 (copy), l_AppSessionService_0 (copy), l_useLocalization_0 (copy), v64 (copy), v14 (copy), v4 (copy), l_setupFireEvent_0 (copy), l_AnalyticsService_0 (copy), l_dependencyArray_0 (copy), v43 (copy), l_Url_0 (copy), l_getFFlagAppChatPCMFixBlocking_0 (copy), v51 (copy), v41 (copy), v24 (copy), l_useDesignTokens_0 (copy), v5 (copy), v54 (copy), l_RecommendationContextType_0 (copy), v29 (copy), v30 (copy), l_useRecommendationContextualInfoDisplay_0 (copy), l_EventNames_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v15 (copy), l_getCurrentRouteState_0 (copy), l_AppPage_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v62 (copy), v45 (copy), v49 (ref), v48 (ref), v46 (ref), l_FFlagSkipBlockModal_0 (copy), v40 (copy), l_Images_0 (copy), v50 (copy), v55 (copy), v21 (copy), v42 (copy), v52 (copy)
     local v66 = v3.Dictionary.union(v63, v65);
     local v67 = l_RoactRodux_0.useDispatch();
@@ -121,7 +120,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         isLocalized = true, 
         toastType = v14.Enums.ToastType.NetworkingError
     };
-    local v73 = v4.useMemo(function() --[[ Line: 214 ]]
+    local v73 = v4.useMemo(function() --[[ Line: 213 ]]
         -- upvalues: l_setupFireEvent_0 (ref), l_AnalyticsService_0 (ref), v68 (copy)
         return l_setupFireEvent_0({
             analytics = l_AnalyticsService_0, 
@@ -135,14 +134,14 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         status = "NotStarted", 
         isPlayable = false
     });
-    v4.useEffect(function() --[[ Line: 230 ]]
+    v4.useEffect(function() --[[ Line: 229 ]]
         -- upvalues: v66 (copy), v76 (copy), v74 (copy), l_Url_0 (ref)
         if v66.subjectPresence and v66.subjectPresence.locationUniverseId then
             v76({
                 status = "Fetching", 
                 isPlayable = false
             });
-            v74(l_Url_0.GAME_URL .. "v1/games/multiget-playability-status?universeIds=" .. v66.subjectPresence.locationUniverseId, "GET"):andThen(function(v77) --[[ Line: 242 ]]
+            v74(l_Url_0.GAME_URL .. "v1/games/multiget-playability-status?universeIds=" .. v66.subjectPresence.locationUniverseId, "GET"):andThen(function(v77) --[[ Line: 241 ]]
                 -- upvalues: v76 (ref)
                 if v77.responseBody and v77.responseBody[1] then
                     v76({
@@ -150,7 +149,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                         isPlayable = v77.responseBody[1].isPlayable
                     });
                 end;
-            end):catch(function(_) --[[ Line: 250 ]]
+            end):catch(function(_) --[[ Line: 249 ]]
                 -- upvalues: v76 (ref)
                 v76({
                     status = "Failed", 
@@ -163,18 +162,18 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
     });
     local v79 = nil;
     if l_getFFlagAppChatPCMFixBlocking_0() then
-        v79 = l_RoactRodux_0.useSelector(function(v80) --[[ Line: 262 ]]
+        v79 = l_RoactRodux_0.useSelector(function(v80) --[[ Line: 261 ]]
             -- upvalues: v51 (ref), v66 (copy)
             return (if v51 then v80.PlayerContextualMenu.UserBlocking.isBlockedByMe else v80.PlayerContextualMenu.IsBlockedByMe)[v66.subjectUserId] == nil;
         end);
-        v4.useEffect(function() --[[ Line: 270 ]]
+        v4.useEffect(function() --[[ Line: 269 ]]
             -- upvalues: v79 (ref), v67 (copy), v41 (ref), v66 (copy), v24 (ref)
             if v79 then
                 v67(v41.IsBlockedById.API({
                     userId = v66.subjectUserId
-                })):andThen(function() --[[ Line: 275 ]]
+                })):andThen(function() --[[ Line: 274 ]]
 
-                end):catch(function() --[[ Line: 276 ]]
+                end):catch(function() --[[ Line: 275 ]]
                     -- upvalues: v24 (ref)
                     v24:warning("Failed to check if subject user is blocked");
                 end);
@@ -185,7 +184,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
             v66.subjectUserId
         });
     end;
-    local v82 = l_useDesignTokens_0(function(v81) --[[ Line: 283 ]]
+    local v82 = l_useDesignTokens_0(function(v81) --[[ Line: 282 ]]
         return {
             iconEmphasis = v81.Semantic.Icon.Emphasis, 
             onlinePresence = v81.Semantic.Color.Common.Online, 
@@ -228,7 +227,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v91 = v92.text;
         v89 = v92.icon;
     end;
-    local v94 = v4.useCallback(function() --[[ Line: 334 ]]
+    local v94 = v4.useCallback(function() --[[ Line: 333 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v70 (copy), l_SetGamePlaySession_0 (ref), l_SessionType_0 (ref), v15 (ref), l_AnalyticsService_0 (ref), l_getCurrentRouteState_0 (ref), v69 (copy), l_AppPage_0 (ref)
         v73(l_EventNames_0.ViewExperienceDetails, {
             profileUserId = v66.subjectUserId
@@ -257,11 +256,11 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v69, 
         v70
     });
-    local v95 = v4.useMemo(function() --[[ Line: 372 ]]
+    local v95 = v4.useMemo(function() --[[ Line: 371 ]]
         -- upvalues: v66 (copy), v75 (copy), v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v94 (copy), v82 (copy), v71 (copy)
         if v66.enableExperienceCTAs then
             if (if v66.subjectPresence then v66.subjectPresence.status == "InGame" else false) and not v75.isPlayable then
-                return function() --[[ Line: 380 ]]
+                return function() --[[ Line: 379 ]]
                     -- upvalues: v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v94 (ref), v82 (ref), v71 (ref)
                     return v4.createElement(l_Button_0, {
                         buttonType = l_ButtonType_0.PrimarySystem, 
@@ -276,7 +275,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 return nil;
             end;
         else
-            return function() --[[ Line: 397 ]]
+            return function() --[[ Line: 396 ]]
                 -- upvalues: v4 (ref)
                 return v4.createElement("Folder");
             end;
@@ -287,11 +286,11 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v66.enableExperienceCTAs
     });
     local v96 = if v66.robloxFriendshipStatus == Enum.FriendStatus.Friend and v66.subjectPresence and v66.subjectPresence.status == "InGame" then v71.Join else nil;
-    local v97 = v4.useCallback(function() --[[ Line: 415 ]]
+    local v97 = v4.useCallback(function() --[[ Line: 414 ]]
         -- upvalues: v62 (ref), v73 (copy), l_getCurrentRouteState_0 (ref), v69 (copy), v66 (copy), v70 (copy)
         v62(v73, l_getCurrentRouteState_0(v69).routeName, v66.subjectUserId, v66.subjectPresence, v70);
     end, l_dependencyArray_0(v73, v69, v66.subjectUserId, v66.subjectPresence, v70));
-    local v98 = v4.useCallback(function() --[[ Line: 426 ]]
+    local v98 = v4.useCallback(function() --[[ Line: 425 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v45 (ref), v49 (ref), v48 (ref), v46 (ref), v69 (copy), l_AppPage_0 (ref)
         v73(l_EventNames_0.ReportPlayer, {
             profileUserId = v66.subjectUserId
@@ -305,7 +304,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 v67(v49({
                     abuseVector = v48.UserProfile, 
                     targetId = v66.subjectUserId, 
-                    onClose = function() --[[ Line: 437 ]] --[[ Name: onClose ]]
+                    onClose = function() --[[ Line: 436 ]] --[[ Name: onClose ]]
                         -- upvalues: v67 (ref), v46 (ref)
                         v67(v46());
                     end
@@ -324,7 +323,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
             end;
         end;
     end, l_dependencyArray_0(v67, v69, v66.subjectUserId, v66.closeCentralOverlayThunk, v66.onReportActivated));
-    local v99 = if v54 then v4.useCallback(function() --[[ Line: 464 ]]
+    local v99 = if v54 then v4.useCallback(function() --[[ Line: 463 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v54 (ref), v87 (ref)
         v73(l_EventNames_0.ViewPlatformProfile, {
             profileUserId = v66.subjectUserId
@@ -337,7 +336,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v66.subjectUserId, 
         v66.closeCentralOverlayThunk
     }) else nil;
-    local v101 = v4.useCallback(function() --[[ Line: 473 ]]
+    local v101 = v4.useCallback(function() --[[ Line: 472 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), l_FFlagSkipBlockModal_0 (ref), v67 (copy), v69 (copy), l_AppPage_0 (ref), v14 (ref), v71 (copy), v41 (ref), v68 (copy), v72 (copy)
         v73(l_EventNames_0.BlockPlayer, {
             profileUserId = v66.subjectUserId
@@ -351,7 +350,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 v69.push(l_AppPage_0.BlockingModal, {
                     navProps = {
                         userId = v66.subjectUserId, 
-                        onBlockSuccess = function() --[[ Line: 484 ]] --[[ Name: onBlockSuccess ]]
+                        onBlockSuccess = function() --[[ Line: 483 ]] --[[ Name: onBlockSuccess ]]
                             -- upvalues: v67 (ref), v14 (ref), v71 (ref)
                             v67(v14.Actions.SetCurrentToastMessage({
                                 toastMessage = v71.UserBlocked, 
@@ -367,7 +366,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
             v67(v41.BlockUserById.API({
                 userId = v66.subjectUserId, 
                 currentUserId = v68
-            })):andThen(function() --[[ Line: 499 ]]
+            })):andThen(function() --[[ Line: 498 ]]
                 -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
                 v67(v14.Actions.SetCurrentToastMessage({
                     toastMessage = v71.UserBlocked, 
@@ -375,27 +374,27 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                     toastType = v14.Enums.ToastType.SuccessConfirmation
                 }));
                 v67(v66.closeCentralOverlayThunk());
-            end):catch(function(_) --[[ Line: 507 ]]
+            end):catch(function(_) --[[ Line: 506 ]]
                 -- upvalues: v67 (ref), v14 (ref), v72 (ref)
                 v67(v14.Actions.SetCurrentToastMessage(v72));
             end);
             return;
         end;
     end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId, v66.onBlockActivated, if l_FFlagSkipBlockModal_0 then v66.skipBlockModal else nil));
-    local v103 = v4.useCallback(function() --[[ Line: 523 ]]
+    local v103 = v4.useCallback(function() --[[ Line: 522 ]]
         -- upvalues: v67 (copy), v41 (ref), v66 (copy), v68 (copy), v14 (ref), v72 (copy)
         v67(v41.UnblockUserById.API({
             userId = v66.subjectUserId, 
             currentUserId = v68
-        })):andThen(function() --[[ Line: 528 ]]
+        })):andThen(function() --[[ Line: 527 ]]
             -- upvalues: v67 (ref), v66 (ref)
             v67(v66.closeCentralOverlayThunk());
-        end):catch(function(_) --[[ Line: 531 ]]
+        end):catch(function(_) --[[ Line: 530 ]]
             -- upvalues: v67 (ref), v14 (ref), v72 (ref)
             v67(v14.Actions.SetCurrentToastMessage(v72));
         end);
     end, l_dependencyArray_0(v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v104 = v4.useCallback(function() --[[ Line: 536 ]]
+    local v104 = v4.useCallback(function() --[[ Line: 535 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
         v73(l_EventNames_0.Unfriend, {
             profileUserId = v66.subjectUserId
@@ -403,7 +402,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v67(v40.UnfriendTargetUserId.API({
             targetUserId = v66.subjectUserId, 
             currentUserId = v68
-        })):andThen(function() --[[ Line: 543 ]]
+        })):andThen(function() --[[ Line: 542 ]]
             -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
             v67(v14.Actions.SetCurrentToastMessage({
                 toastMessage = v71.ConnectionRemoved, 
@@ -411,12 +410,12 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
             v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 551 ]]
+        end):catch(function() --[[ Line: 550 ]]
             -- upvalues: v67 (ref), v14 (ref), v72 (ref)
             v67(v14.Actions.SetCurrentToastMessage(v72));
         end);
     end, l_dependencyArray_0(v71, v68, v67, v66.subjectUserId, v66.closeCentralOverlayThunk));
-    local v105 = v4.useCallback(function() --[[ Line: 557 ]]
+    local v105 = v4.useCallback(function() --[[ Line: 556 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), l_RecommendationContextType_0 (ref), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
         v73(l_EventNames_0.RequestFriendship, {
             profileUserId = v66.subjectUserId
@@ -428,7 +427,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
             targetUserId = v66.subjectUserId, 
             currentUserId = v68, 
             friendshipOriginSourceType = v66.friendshipOriginSourceType
-        })):andThen(function() --[[ Line: 569 ]]
+        })):andThen(function() --[[ Line: 568 ]]
             -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
             v67(v14.Actions.SetCurrentToastMessage({
                 toastMessage = v71.ConnectionRequestSent, 
@@ -436,7 +435,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
             v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 577 ]]
+        end):catch(function() --[[ Line: 576 ]]
             -- upvalues: v67 (ref), v14 (ref), v72 (ref)
             v67(v14.Actions.SetCurrentToastMessage(v72));
         end);
@@ -450,7 +449,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v66.contactId, 
         v66.friendshipOriginSourceType
     });
-    local v106 = v4.useCallback(function() --[[ Line: 593 ]]
+    local v106 = v4.useCallback(function() --[[ Line: 592 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
         v73(l_EventNames_0.AcceptFriendRequest, {
             profileUserId = v66.subjectUserId
@@ -458,7 +457,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v67(v40.AcceptFriendRequestFromUserId.API({
             targetUserId = v66.subjectUserId, 
             currentUserId = v68
-        })):andThen(function() --[[ Line: 600 ]]
+        })):andThen(function() --[[ Line: 599 ]]
             -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
             v67(v14.Actions.SetCurrentToastMessage({
                 toastMessage = v71.ConnectionAdded, 
@@ -466,12 +465,12 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
             v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 608 ]]
+        end):catch(function() --[[ Line: 607 ]]
             -- upvalues: v67 (ref), v14 (ref), v72 (ref)
             v67(v14.Actions.SetCurrentToastMessage(v72));
         end);
     end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v107 = v4.useCallback(function() --[[ Line: 613 ]]
+    local v107 = v4.useCallback(function() --[[ Line: 612 ]]
         -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
         v73(l_EventNames_0.IgnoreFriendRequest, {
             profileUserId = v66.subjectUserId
@@ -479,7 +478,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v67(v40.DeclineFriendRequestFromUserId.API({
             targetUserId = v66.subjectUserId, 
             currentUserId = v68
-        })):andThen(function() --[[ Line: 620 ]]
+        })):andThen(function() --[[ Line: 619 ]]
             -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
             v67(v14.Actions.SetCurrentToastMessage({
                 toastMessage = v71.FriendRequestIgnored, 
@@ -487,16 +486,16 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
             v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 628 ]]
+        end):catch(function() --[[ Line: 627 ]]
             -- upvalues: v67 (ref), v14 (ref), v72 (ref)
             v67(v14.Actions.SetCurrentToastMessage(v72));
         end);
     end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v109 = l_RoactRodux_0.useSelector(function(v108) --[[ Line: 633 ]]
+    local v109 = l_RoactRodux_0.useSelector(function(v108) --[[ Line: 632 ]]
         -- upvalues: v51 (ref), v66 (copy)
         return (if v51 then v108.PlayerContextualMenu.UserBlocking.isBlockedByMe else v108.PlayerContextualMenu.IsBlockedByMe)[v66.subjectUserId] or false;
     end);
-    local v122 = v4.useMemo(function() --[[ Line: 642 ]]
+    local v122 = v4.useMemo(function() --[[ Line: 641 ]]
         -- upvalues: l_Images_0 (ref), v71 (copy), v98 (copy), v50 (ref), v99 (copy), v101 (copy), v79 (ref), v103 (copy), v104 (copy), v105 (copy), v55 (ref), v106 (copy), v107 (copy), v109 (copy), v66 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v3 (ref), v54 (ref), v87 (ref), v21 (ref)
         local v110 = {
             icon = l_Images_0["icons/actions/feedback"], 
@@ -544,7 +543,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
             text = v71.IgnoreConnectionRequest, 
             onActivated = v107
         };
-        local function v121() --[[ Line: 698 ]] --[[ Name: makeCtas ]]
+        local function v121() --[[ Line: 697 ]] --[[ Name: makeCtas ]]
             -- upvalues: v109 (ref), v113 (copy), v112 (copy), v66 (ref), v110 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v114 (copy), v115 (copy), v116 (copy), v117 (copy), v118 (copy), v3 (ref)
             local v119 = if v109 then v113 else v112;
             local v120 = {};
@@ -598,7 +597,7 @@ return function(v65) --[[ Line: 198 ]] --[[ Name: PlayerContextualMenuContainer 
         v79
     } else {}));
     return v4.createElement(v42, {
-        headerProps = v4.useMemo(function() --[[ Line: 776 ]]
+        headerProps = v4.useMemo(function() --[[ Line: 775 ]]
             -- upvalues: v85 (ref), v83 (copy), v66 (copy), l_RecommendationContextType_0 (ref), v84 (ref), v86 (ref), v88 (copy), v50 (ref), v91 (ref), v89 (ref), v90 (ref), v96 (copy), v97 (copy), v95 (copy)
             return {
                 displayNameItem = {

@@ -93,7 +93,12 @@ v19.fromMessageAndStack = function(v28, v29, v30) --[[ Line: 193 ]] --[[ Name: f
     local v31 = v19.new();
     v31.message = v28;
     v31.level = v30 or v4.DEFAULT_ERROR_LEVEL;
-    local v32, _ = v3(v29);
+    local v32, v33 = v3(v29);
+    for _, v35 in v32 do
+        if v35.sourceCode and v33[v35.sourceCode] then
+            v35.sourceCode = v33[v35.sourceCode].path;
+        end;
+    end;
     v31.threads = {
         main = {
             name = "main", 
@@ -102,19 +107,19 @@ v19.fromMessageAndStack = function(v28, v29, v30) --[[ Line: 193 ]] --[[ Name: f
     };
     return v31;
 end;
-v19.fromDetails = function(v34) --[[ Line: 217 ]] --[[ Name: fromDetails ]]
+v19.fromDetails = function(v36) --[[ Line: 225 ]] --[[ Name: fromDetails ]]
     -- upvalues: v19 (copy), v4 (copy)
-    local v35 = nil;
-    if v34.stack then
-        v35 = v19.fromMessageAndStack(v34.message, v34.stack, v34.level);
+    local v37 = nil;
+    if v36.stack then
+        v37 = v19.fromMessageAndStack(v36.message, v36.stack, v36.level);
     else
-        v35 = v19.new();
-        v35.message = v34.message;
-        v35.level = v34.level or v4.DEFAULT_ERROR_LEVEL;
+        v37 = v19.new();
+        v37.message = v36.message;
+        v37.level = v36.level or v4.DEFAULT_ERROR_LEVEL;
     end;
-    if v34.annotations then
-        v35:addAnnotations(v34.annotations);
+    if v36.annotations then
+        v37:addAnnotations(v36.annotations);
     end;
-    return v35;
+    return v37;
 end;
 return v19;

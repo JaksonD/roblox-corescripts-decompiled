@@ -3,7 +3,7 @@ local v1 = require(l_Parent_0.Roact);
 local l_Interactable_0 = require(l_Parent_0.UIBlox).Core.Control.Interactable;
 local l_LinkingProtocol_0 = require(l_Parent_0.LinkingProtocol).LinkingProtocol;
 local v4 = require(l_Parent_0.RobloxTranslator):FormatByKey("CoreScripts.Ads.Label.IllegalContentReportingLink");
-ReportAdFooter = function(v5) --[[ Line: 22 ]] --[[ Name: ReportAdFooter ]]
+ReportAdFooter = function(v5) --[[ Line: 18 ]] --[[ Name: ReportAdFooter ]]
     -- upvalues: l_LinkingProtocol_0 (copy), v1 (copy), l_Interactable_0 (copy), v4 (copy)
     local l_default_0 = l_LinkingProtocol_0.default;
     local v7 = "https://www.roblox.com/illegal-content-reporting?contentURL=" .. "https://create.roblox.com/store/asset/" .. v5.assetId;
@@ -30,7 +30,7 @@ ReportAdFooter = function(v5) --[[ Line: 22 ]] --[[ Name: ReportAdFooter ]]
             AutomaticSize = Enum.AutomaticSize.XY, 
             BackgroundTransparency = 1, 
             LayoutOrder = 2, 
-            [v1.Event.Activated] = function() --[[ Line: 50 ]]
+            [v1.Event.Activated] = function() --[[ Line: 46 ]]
                 -- upvalues: l_default_0 (copy), v7 (copy)
                 l_default_0:openURL(v7);
             end

@@ -33,6 +33,7 @@ return v2.memo(function(v13) --[[ Line: 26 ]] --[[ Name: UnderstandRuleContinueC
             isDisabled = not v15, 
             LogoutThunk = v13.LogoutThunk, 
             goToNextPage = v13.goToNextPage, 
+            hasNavigatedForward = v13.hasNavigatedForward, 
             layoutOrder = 2
         })
     });

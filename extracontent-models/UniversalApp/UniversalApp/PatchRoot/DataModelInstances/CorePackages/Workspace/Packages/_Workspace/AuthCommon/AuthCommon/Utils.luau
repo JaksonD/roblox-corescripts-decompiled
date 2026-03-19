@@ -18,6 +18,5 @@ return {
     record2svCompletion = require(script.record2svCompletion), 
     PreviousAccountEntry = require(script.PreviousAccountEntry), 
     parseCredentialsProtocolIsAvailableResponse = require(script.parseCredentialsProtocolIsAvailableResponse), 
-    getTwoStepLoginErrorKey = require(script.getTwoStepLoginErrorKey), 
-    utf8String = require(script.utf8String)
+    getTwoStepLoginErrorKey = require(script.getTwoStepLoginErrorKey)
 };

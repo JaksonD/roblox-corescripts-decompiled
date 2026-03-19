@@ -1,6 +1,7 @@
 return {
     ScheduledSquadHappeningNowJoinParty = "ScheduledSquadHappeningNowJoinParty", 
     SquadInviteAccept = "SquadInviteAccept", 
+    SquadInviteViewOsa = "SquadInviteViewOsa", 
     ExpInvAccept = "ExpInvAccept", 
     ExpInvDismiss = "ExpInvDismiss", 
     ExpInvDecline = "ExpInvDecline", 

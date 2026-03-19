@@ -4,8 +4,9 @@ local v2 = require(l_CorePackages_0.Packages.Roact);
 local v3 = require(l_CorePackages_0.Packages.RoactRodux);
 local l_Focusable_0 = require(l_CorePackages_0.Packages.RoactGamepad).Focusable;
 local v5 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_withNavigation_0 = require(l_CorePackages_0.Packages.RoactNavigation).withNavigation;
-local v7 = require(l_CorePackages_0.Packages.t);
+local v8 = require(l_CorePackages_0.Packages.t);
 local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
 local l_NumberLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).NumberLocalization;
 local l_withStyle_0 = v5.Core.Style.withStyle;
@@ -13,7 +14,6 @@ local l_ItemTile_0 = v5.Tile.ItemTile;
 local l_ItemTileEnums_0 = v5.Tile.ItemTileEnums;
 local l_Images_0 = v5.App.ImageSet.Images;
 local l_ImageSetLabel_0 = v5.Core.ImageSet.ImageSetLabel;
-local l_ShimmerPanel_0 = v5.App.Loading.ShimmerPanel;
 local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
 local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServices).RoactServices;
@@ -33,30 +33,30 @@ local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.OutfitTryOn);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local v33 = l_Images_0["icons/common/robux"];
 local v34 = v2.PureComponent:extend("TryOnManagerElement");
-v34.validateProps = v7.strictInterface({
-    tryOnItem = v7.optional(v7.table), 
-    layoutOrder = v7.optional(v7.number), 
-    elementRef = v7.optional(v7.table), 
-    updatePeekViewState = v7.optional(v7.callback), 
-    allowAutomaticPeekViewStateChanges = v7.optional(v7.boolean), 
-    NextSelectionDown = v7.optional(v7.table), 
-    NextSelectionUp = v7.optional(v7.table), 
-    NextSelectionLeft = v7.optional(v7.table), 
-    NextSelectionRight = v7.optional(v7.table), 
-    itemData = v7.optional(v7.table), 
-    playerMembership = v7.optional(v7.enum(Enum.MembershipType)), 
-    fetchItemData = v7.callback, 
-    setEquippedInTryOnManager = v7.callback, 
-    setTryOnManagerPeekViewState = v7.optional(v7.callback), 
-    networking = v7.callback, 
-    appAnalytics = v7.table, 
-    catalogAnalytics = v7.table, 
-    localization = v7.table, 
-    navigation = v7.table
+v34.validateProps = v8.strictInterface({
+    tryOnItem = v8.optional(v8.table), 
+    layoutOrder = v8.optional(v8.number), 
+    elementRef = v8.optional(v8.table), 
+    updatePeekViewState = v8.optional(v8.callback), 
+    allowAutomaticPeekViewStateChanges = v8.optional(v8.boolean), 
+    NextSelectionDown = v8.optional(v8.table), 
+    NextSelectionUp = v8.optional(v8.table), 
+    NextSelectionLeft = v8.optional(v8.table), 
+    NextSelectionRight = v8.optional(v8.table), 
+    itemData = v8.optional(v8.table), 
+    playerMembership = v8.optional(v8.enum(Enum.MembershipType)), 
+    fetchItemData = v8.callback, 
+    setEquippedInTryOnManager = v8.callback, 
+    setTryOnManagerPeekViewState = v8.optional(v8.callback), 
+    networking = v8.callback, 
+    appAnalytics = v8.table, 
+    catalogAnalytics = v8.table, 
+    localization = v8.table, 
+    navigation = v8.table
 });
-v34.init = function(v35) --[[ Line: 92 ]] --[[ Name: init ]]
+v34.init = function(v35) --[[ Line: 94 ]] --[[ Name: init ]]
     -- upvalues: l_PeekViewState_0 (copy)
-    v35.onTileActivated = function() --[[ Line: 93 ]]
+    v35.onTileActivated = function() --[[ Line: 95 ]]
         -- upvalues: v35 (copy), l_PeekViewState_0 (ref)
         local l_tryOnItem_0 = v35.props.tryOnItem;
         if not l_tryOnItem_0 then
@@ -72,7 +72,7 @@ v34.init = function(v35) --[[ Line: 92 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v34.getItemIconType = function(v39) --[[ Line: 117 ]] --[[ Name: getItemIconType ]]
+v34.getItemIconType = function(v39) --[[ Line: 119 ]] --[[ Name: getItemIconType ]]
     -- upvalues: v22 (copy), l_ItemTileEnums_0 (copy)
     local l_tryOnItem_1 = v39.props.tryOnItem;
     if l_tryOnItem_1.itemType == v22.ItemType.Bundle then
@@ -85,7 +85,7 @@ v34.getItemIconType = function(v39) --[[ Line: 117 ]] --[[ Name: getItemIconType
         return l_tryOnItem_1.itemType == v22.ItemType.Bundle and l_ItemTileEnums_0.ItemIconType.Bundle or nil;
     end;
 end;
-v34.getElementTextAndIcon = function(v41, v42, v43) --[[ Line: 134 ]] --[[ Name: getElementTextAndIcon ]]
+v34.getElementTextAndIcon = function(v41, v42, v43) --[[ Line: 136 ]] --[[ Name: getElementTextAndIcon ]]
     -- upvalues: l_NumberLocalization_0 (copy)
     local v44 = v42 and (v42.lowestPrice or v42.priceInRobux) or nil;
     local v45 = v42 and v42.isOwned;
@@ -103,8 +103,8 @@ v34.getElementTextAndIcon = function(v41, v42, v43) --[[ Line: 134 ]] --[[ Name:
     end;
     return v47, v46;
 end;
-v34.renderElement = function(v48, v49, v50) --[[ Line: 155 ]] --[[ Name: renderElement ]]
-    -- upvalues: v23 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), v2 (copy), l_ItemTile_0 (copy), l_ShimmerPanel_0 (copy), l_ImageSetLabel_0 (copy), v33 (copy)
+v34.renderElement = function(v48, v49, v50) --[[ Line: 157 ]] --[[ Name: renderElement ]]
+    -- upvalues: v23 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), v2 (copy), l_ItemTile_0 (copy), l_Skeleton_0 (copy), l_ImageSetLabel_0 (copy), v33 (copy)
     local l_tryOnItem_2 = v48.props.tryOnItem;
     local l_Theme_0 = v49.Theme;
     local l_Font_0 = v49.Font;
@@ -190,7 +190,7 @@ v34.renderElement = function(v48, v49, v50) --[[ Line: 155 ]] --[[ Name: renderE
                     VerticalAlignment = Enum.VerticalAlignment.Bottom, 
                     Padding = UDim.new(0, 0)
                 }), 
-                Shimmer = not v58 and v2.createElement(l_ShimmerPanel_0, {
+                Shimmer = not v58 and v2.createElement(l_Skeleton_0, {
                     Size = UDim2.new(0.8, 0, 0, 22)
                 }) or nil, 
                 Icon = v58 and v60 and v2.createElement(l_ImageSetLabel_0, {
@@ -218,7 +218,7 @@ v34.renderElement = function(v48, v49, v50) --[[ Line: 155 ]] --[[ Name: renderE
         })
     });
 end;
-v34.renderWithProviders = function(v64, v65, v66) --[[ Line: 278 ]] --[[ Name: renderWithProviders ]]
+v34.renderWithProviders = function(v64, v65, v66) --[[ Line: 280 ]] --[[ Name: renderWithProviders ]]
     -- upvalues: v2 (copy), l_Focusable_0 (copy)
     return v2.createElement(l_Focusable_0.Frame, {
         BackgroundTransparency = 1, 
@@ -242,28 +242,28 @@ v34.renderWithProviders = function(v64, v65, v66) --[[ Line: 278 ]] --[[ Name: r
         TryOnManagerElement = v64:renderElement(v65, v66)
     });
 end;
-v34.render = function(v67) --[[ Line: 305 ]] --[[ Name: render ]]
+v34.render = function(v67) --[[ Line: 307 ]] --[[ Name: render ]]
     -- upvalues: l_withStyle_0 (copy), l_withLocalization_0 (copy)
-    return l_withStyle_0(function(v68) --[[ Line: 306 ]]
+    return l_withStyle_0(function(v68) --[[ Line: 308 ]]
         -- upvalues: l_withLocalization_0 (ref), v67 (copy)
         return l_withLocalization_0({
             ownedText = "Feature.Catalog.Label.Owned", 
             freeText = "Feature.Catalog.Label.FreeUpperCase", 
             getPremiumText = "Feature.PremiumUpsell.Title.GetPremium", 
             offSaleText = "Feature.Catalog.LabelOffSale"
-        })(function(v69) --[[ Line: 312 ]]
+        })(function(v69) --[[ Line: 314 ]]
             -- upvalues: v67 (ref), v68 (copy)
             return v67:renderWithProviders(v68, v69);
         end);
     end);
 end;
-v34.didMount = function(v70) --[[ Line: 318 ]] --[[ Name: didMount ]]
+v34.didMount = function(v70) --[[ Line: 320 ]] --[[ Name: didMount ]]
     if not v70.props.itemData or not v70.props.itemData.receivedCatalogData then
         local l_tryOnItem_3 = v70.props.tryOnItem;
         v70.props.fetchItemData(v70.props.networking, v70.props.appAnalytics, l_tryOnItem_3.itemId, l_tryOnItem_3.itemType);
     end;
 end;
-local function v76(v72, v73) --[[ Line: 328 ]] --[[ Name: mapStateToProps ]]
+local function v76(v72, v73) --[[ Line: 330 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: v24 (copy)
     local v74 = v24(v72.AvatarExperience.Common, v73.tryOnItem.itemId, v73.tryOnItem.itemType);
     local l_LocalUserId_0 = v72.LocalUserId;
@@ -272,19 +272,19 @@ local function v76(v72, v73) --[[ Line: 328 ]] --[[ Name: mapStateToProps ]]
         playerMembership = v72.Users[l_LocalUserId_0] and v72.Users[l_LocalUserId_0].membership or Enum.MembershipType.None
     };
 end;
-local function v88(v77) --[[ Line: 339 ]] --[[ Name: mapDispatchToProps ]]
+local function v88(v77) --[[ Line: 341 ]] --[[ Name: mapDispatchToProps ]]
     -- upvalues: v25 (copy), l_AvatarScreen_0 (copy), v26 (copy), v27 (copy)
     return {
-        fetchItemData = function(v78, v79, v80, v81) --[[ Line: 341 ]] --[[ Name: fetchItemData ]]
+        fetchItemData = function(v78, v79, v80, v81) --[[ Line: 343 ]] --[[ Name: fetchItemData ]]
             -- upvalues: v77 (copy), v25 (ref)
             return v77(v25(v78, v79, v80, v81));
         end, 
-        setEquippedInTryOnManager = function(v82, v83, v84, v85) --[[ Line: 345 ]] --[[ Name: setEquippedInTryOnManager ]]
+        setEquippedInTryOnManager = function(v82, v83, v84, v85) --[[ Line: 347 ]] --[[ Name: setEquippedInTryOnManager ]]
             -- upvalues: l_AvatarScreen_0 (ref), v77 (copy), v26 (ref)
             local l_TryOnManager_0 = l_AvatarScreen_0.TryOnManager;
             return v77(v26(v82, v83, v84, v85, l_TryOnManager_0));
         end, 
-        setTryOnManagerPeekViewState = function(v87) --[[ Line: 352 ]] --[[ Name: setTryOnManagerPeekViewState ]]
+        setTryOnManagerPeekViewState = function(v87) --[[ Line: 354 ]] --[[ Name: setTryOnManagerPeekViewState ]]
             -- upvalues: v77 (copy), v27 (ref)
             v77(v27(v87));
         end

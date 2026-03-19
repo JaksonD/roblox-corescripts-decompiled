@@ -9,5 +9,8 @@ return {
     didMountUpdateFullPageModal = l_UIBlox_0.GetFFlagUIBloxDidMountUpdateFullPageModal(), 
     enablePanel3DSurfaceGuiRef = v1.FFlagLuaAppSupportFoundationOverlayInVR, 
     useTokenizedShortcutBar = v1.FFlagEnableConsoleExpControls, 
-    useProvidedRefForButton = true
+    useProvidedRefForButton = true, 
+    useFoundationCheckbox = l_UIBlox_0.FFlagLuaAppUseFoundationCheckbox, 
+    useFoundationLoading = l_UIBlox_0.FFlagLuaAppUseFoundationLoading, 
+    disableTokenScaling = l_UIBlox_0.FFlagUIBloxDisableTokenScaling
 };

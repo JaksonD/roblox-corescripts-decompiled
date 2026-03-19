@@ -7,5 +7,10 @@ return (v2.createContext({
     onActivated = nil, 
     size = v4.Medium, 
     hasLeading = nil, 
-    setHasLeading = nil
+    setHasLeading = nil, 
+    hoverOpenPath = {}, 
+    hoverOpenAtDepth = nil, 
+    hoverCloseAtDepth = nil, 
+    hoverReset = nil, 
+    depth = 1
 }));

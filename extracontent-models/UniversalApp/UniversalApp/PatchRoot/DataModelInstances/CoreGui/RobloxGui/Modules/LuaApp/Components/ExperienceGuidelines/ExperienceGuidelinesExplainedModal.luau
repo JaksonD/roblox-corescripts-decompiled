@@ -22,9 +22,8 @@ local v20 = require(l_CorePackages_0.Packages.InputHandlers);
 local l_FocusNavigationEventNameEnum_0 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils).FocusNavigationEventNameEnum;
 local l_GetFFlagUseExternalBrowserForAgeGuidelines10ft_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagUseExternalBrowserForAgeGuidelines10ft;
 local v23 = game:DefineFastFlag("FixGuidelinesExplainedClose", false);
-local v24 = game:DefineFastFlag("LuaAppFixEdpMaturityConsoleFocus", false);
-local v25 = v2.PureComponent:extend("ExperienceGuidelinesExplainedModal");
-v25.validateProps = v5.strictInterface({
+local v24 = v2.PureComponent:extend("ExperienceGuidelinesExplainedModal");
+v24.validateProps = v5.strictInterface({
     ageRecommendations = v5.optional(l_AgeRecommendationDetails_0.validateModel), 
     ageRecommendationHeader = v5.optional(v5.string), 
     hideCloseButton = v5.optional(v5.boolean), 
@@ -38,65 +37,65 @@ v25.validateProps = v5.strictInterface({
     linking = v5.table, 
     useExternalBrowserForAgeGuidelines = v5.optional(v5.boolean)
 });
-v25.init = function(v26) --[[ Line: 53 ]] --[[ Name: init ]]
+v24.init = function(v25) --[[ Line: 52 ]] --[[ Name: init ]]
     -- upvalues: v19 (copy), v10 (copy), v13 (copy), v15 (copy), l_FocusNavigationEventNameEnum_0 (copy), v20 (copy), v23 (copy)
     local l_FStringExperienceGuidelinesExplainedPageUrl_0 = v19.FStringExperienceGuidelinesExplainedPageUrl;
-    v26.onLearnMoreActivated = function() --[[ Line: 56 ]]
-        -- upvalues: v26 (copy), v10 (ref), l_FStringExperienceGuidelinesExplainedPageUrl_0 (copy), v13 (ref), v15 (ref)
-        if v26.props.useExternalBrowserForAgeGuidelines then
-            v10(v26.props.linking, l_FStringExperienceGuidelinesExplainedPageUrl_0);
+    v25.onLearnMoreActivated = function() --[[ Line: 55 ]]
+        -- upvalues: v25 (copy), v10 (ref), l_FStringExperienceGuidelinesExplainedPageUrl_0 (copy), v13 (ref), v15 (ref)
+        if v25.props.useExternalBrowserForAgeGuidelines then
+            v10(v25.props.linking, l_FStringExperienceGuidelinesExplainedPageUrl_0);
             return;
         else
-            local l_localization_0 = v26.props.localization;
-            v26.props.navigateDown({
+            local l_localization_0 = v25.props.localization;
+            v25.props.navigateDown({
                 name = v13.GenericWebPage, 
                 detail = l_FStringExperienceGuidelinesExplainedPageUrl_0, 
                 extraProps = {
-                    title = if v26.props.ageRecommendationHeader then v26.props.ageRecommendationHeader else l_localization_0:Format("Feature.GameDetails.Label.ContentMaturity"), 
+                    title = if v25.props.ageRecommendationHeader then v25.props.ageRecommendationHeader else l_localization_0:Format("Feature.GameDetails.Label.ContentMaturity"), 
                     transitionAnimation = v15.SlideInFromRight
                 }
             });
             return;
         end;
     end;
-    v26.closeModal = function() --[[ Line: 74 ]]
-        -- upvalues: v26 (copy)
-        if v26.props.closeModal then
-            v26.props.closeModal();
+    v25.closeModal = function() --[[ Line: 73 ]]
+        -- upvalues: v25 (copy)
+        if v25.props.closeModal then
+            v25.props.closeModal();
             return;
         else
-            v26.props.navigateBack();
+            v25.props.navigateBack();
             return;
         end;
     end;
-    v26.focusEventHandlers = {
+    v25.focusEventHandlers = {
         [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-            handler = v20.onRelease(function(v29) --[[ Line: 84 ]]
-                -- upvalues: v23 (ref), v26 (copy)
+            handler = v20.onRelease(function(v28) --[[ Line: 83 ]]
+                -- upvalues: v23 (ref), v25 (copy)
                 if v23 then
-                    if not v26.props.hideCloseButton then
-                        v26.closeModal();
-                        v29:cancel();
+                    if not v25.props.hideCloseButton then
+                        v25.closeModal();
+                        v28:cancel();
                         return;
                     end;
                 else
-                    v26.closeModal();
-                    v29:cancel();
+                    v25.closeModal();
+                    v28:cancel();
                 end;
             end)
         }
     };
 end;
-v25.render = function(v30) --[[ Line: 99 ]] --[[ Name: render ]]
-    -- upvalues: v2 (copy), l_PartialPageModal_0 (copy), l_ButtonType_0 (copy), v14 (copy), v24 (copy)
-    local l_localization_1 = v30.props.localization;
-    local l_ageRecommendations_0 = v30.props.ageRecommendations;
-    local l_screenSize_0 = v30.props.screenSize;
-    local v34 = v2.createElement(l_PartialPageModal_0, {
-        title = if v30.props.ageRecommendationHeader then v30.props.ageRecommendationHeader else l_localization_1:Format("Feature.GameDetails.Label.ContentMaturity"), 
+v24.render = function(v29) --[[ Line: 98 ]] --[[ Name: render ]]
+    -- upvalues: v2 (copy), l_PartialPageModal_0 (copy), l_ButtonType_0 (copy), v14 (copy)
+    local l_localization_1 = v29.props.localization;
+    local l_ageRecommendations_0 = v29.props.ageRecommendations;
+    local l_screenSize_0 = v29.props.screenSize;
+    local v33 = v2.createElement(l_PartialPageModal_0, {
+        title = if v29.props.ageRecommendationHeader then v29.props.ageRecommendationHeader else l_localization_1:Format("Feature.GameDetails.Label.ContentMaturity"), 
         screenSize = l_screenSize_0, 
-        onCloseClicked = if v30.props.hideCloseButton then nil else v30.closeModal, 
-        buttonStackProps = if v30.props.webViewSupport then {
+        onCloseClicked = if v29.props.hideCloseButton then nil else v29.closeModal, 
+        buttonStackProps = if v29.props.webViewSupport then {
             forcedFillDirection = Enum.FillDirection.Vertical, 
             buttonHeight = 48, 
             buttons = {
@@ -104,7 +103,7 @@ v25.render = function(v30) --[[ Line: 99 ]] --[[ Name: render ]]
                     buttonType = l_ButtonType_0.Secondary, 
                     props = {
                         isDisabled = false, 
-                        onActivated = v30.onLearnMoreActivated, 
+                        onActivated = v29.onLearnMoreActivated, 
                         text = l_localization_1:Format("Feature.GameDetails.Label.LearnMore")
                     }
                 }
@@ -131,40 +130,40 @@ v25.render = function(v30) --[[ Line: 99 ]] --[[ Name: render ]]
         BackgroundColor3 = Color3.new(0, 0, 0), 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        Selectable = if v24 then v30.props.hideCloseButton else false
+        Selectable = v29.props.hideCloseButton
     }, {
-        Content = v34
+        Content = v33
     });
 end;
-v25 = v3.connect(function(v35, v36) --[[ Line: 155 ]]
+v24 = v3.connect(function(v34, v35) --[[ Line: 154 ]]
     return {
-        screenSize = v35.ScreenSize, 
-        ageRecommendations = v35.AgeRecommendations[v36.universeId], 
-        ageRecommendationHeader = v35.AgeRecommendationHeaders.headerDisplayName
+        screenSize = v34.ScreenSize, 
+        ageRecommendations = v34.AgeRecommendations[v35.universeId], 
+        ageRecommendationHeader = v34.AgeRecommendationHeaders.headerDisplayName
     };
-end, function(v37) --[[ Line: 161 ]]
+end, function(v36) --[[ Line: 160 ]]
     -- upvalues: v11 (copy), v12 (copy)
     return {
-        navigateDown = function(v38) --[[ Line: 163 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v37 (copy), v11 (ref)
-            return v37(v11(v38));
+        navigateDown = function(v37) --[[ Line: 162 ]] --[[ Name: navigateDown ]]
+            -- upvalues: v36 (copy), v11 (ref)
+            return v36(v11(v37));
         end, 
-        navigateBack = function() --[[ Line: 166 ]] --[[ Name: navigateBack ]]
-            -- upvalues: v37 (copy), v12 (ref)
-            return v37(v12());
+        navigateBack = function() --[[ Line: 165 ]] --[[ Name: navigateBack ]]
+            -- upvalues: v36 (copy), v12 (ref)
+            return v36(v12());
         end
     };
-end)(v25);
-v25 = l_RoactServices_0.connect({
+end)(v24);
+v24 = l_RoactServices_0.connect({
     localization = v7, 
     linking = l_AppLinking_0
-})(v25);
-return (l_RoactAppPolicy_0.connect(function(v39) --[[ Line: 177 ]]
+})(v24);
+return (l_RoactAppPolicy_0.connect(function(v38) --[[ Line: 176 ]]
     -- upvalues: l_GetFFlagUseExternalBrowserForAgeGuidelines10ft_0 (copy)
-    local v40 = v39.getWebViewSupport();
-    local v41 = if l_GetFFlagUseExternalBrowserForAgeGuidelines10ft_0() then v39.getUseExternalBrowserForAgeGuidelines() else nil;
+    local v39 = v38.getWebViewSupport();
+    local v40 = if l_GetFFlagUseExternalBrowserForAgeGuidelines10ft_0() then v38.getUseExternalBrowserForAgeGuidelines() else nil;
     return {
-        webViewSupport = v40, 
-        useExternalBrowserForAgeGuidelines = v41
+        webViewSupport = v39, 
+        useExternalBrowserForAgeGuidelines = v40
     };
-end)(v25));
+end)(v24));

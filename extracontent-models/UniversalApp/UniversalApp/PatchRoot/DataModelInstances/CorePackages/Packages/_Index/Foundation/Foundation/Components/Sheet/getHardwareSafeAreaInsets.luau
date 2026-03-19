@@ -27,7 +27,7 @@ return function() --[[ Line: 19 ]] --[[ Name: getHardwareSafeAreaInsets ]]
         local l_ScreenGui_1 = Instance.new("ScreenGui");
         l_ScreenGui_1.Name = "_DeviceTestGui";
         l_ScreenGui_1.Parent = v11;
-        l_ScreenGui_1.ScreenInsets = if v1.FoundationOverlayLuaAppInsetsFix then Enum.ScreenInsets.CoreUISafeInsets else Enum.ScreenInsets.DeviceSafeInsets;
+        l_ScreenGui_1.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets;
         local v14 = l_ScreenGui_1.AbsolutePosition - l_ScreenGui_0.AbsolutePosition;
         local v15 = l_ScreenGui_0.AbsolutePosition + l_ScreenGui_0.AbsoluteSize - (l_ScreenGui_1.AbsolutePosition + l_ScreenGui_1.AbsoluteSize);
         local v16 = {

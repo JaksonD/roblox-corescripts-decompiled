@@ -2,36 +2,32 @@ local l_Parent_0 = script.Parent;
 local v1 = require(l_Parent_0.Parent.Cryo);
 local v2 = require(l_Parent_0.util.ValidationRulesUtil);
 local v3 = require(l_Parent_0.validationSystem.ValidationEnums);
-local v4 = require(l_Parent_0.flags.getFFlagFixPackageIDFieldName);
-local v5 = require(l_Parent_0.flags.getFFlagUGCValidateWrapLayersEnabled);
-local v6 = require(l_Parent_0.flags.getFFlagUGCValidationConsolidateGetMeshInfos);
-local v7 = require(l_Parent_0.flags.getFFlagUGCValidationFixConstantsTypoLeg);
-local v8 = require(l_Parent_0.flags.getFFlagUGCValidateBindOffset);
-local v9 = require(l_Parent_0.flags.getFFlagUGCValidationEyebrowEyelashSupport);
-local v10 = require(l_Parent_0.flags.getFFlagUGCValidateCheckHSROwner);
-local v11 = require(l_Parent_0.flags.getFFlagUGCValidateCheckTexturePackOwner);
-local v12 = require(l_Parent_0.flags.getFFlagUGCValidationMakeupSupport);
-local v13 = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false);
-local _ = function(v14) --[[ Line: 22 ]] --[[ Name: convertArrayToTable ]]
-    local v15 = {};
-    for _, v17 in pairs(v14) do
-        v15[v17] = true;
+local v4 = require(l_Parent_0.flags.getFFlagUGCValidationFixConstantsTypoLeg);
+local v5 = require(l_Parent_0.flags.getFFlagUGCValidationEyebrowEyelashSupport);
+local v6 = require(l_Parent_0.flags.getFFlagUGCValidateCheckHSROwner);
+local v7 = require(l_Parent_0.flags.getFFlagUGCValidateCheckTexturePackOwner);
+local v8 = require(l_Parent_0.flags.getFFlagUGCValidationMakeupSupport);
+local v9 = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false);
+local _ = function(v10) --[[ Line: 18 ]] --[[ Name: convertArrayToTable ]]
+    local v11 = {};
+    for _, v13 in pairs(v10) do
+        v11[v13] = true;
     end;
-    return v15;
+    return v11;
 end;
-local v19 = {
+local v15 = {
     MAX_HAT_TRIANGLES = v2:getRules().MeshRules.AccessoryMaxTriangles, 
     MAX_TEXTURE_SIZE = v2:getRules().TextureRules.MaxTextureSize
 };
-local v20 = {
+local v16 = {
     Enum.Material.Plastic
 };
-local v21 = {};
-for _, v23 in pairs(v20) do
-    v21[v23] = true;
+local v17 = {};
+for _, v19 in pairs(v16) do
+    v17[v19] = true;
 end;
-v19.MATERIAL_WHITELIST = v21;
-v19.BANNED_CLASS_NAMES = {
+v15.MATERIAL_WHITELIST = v17;
+v15.BANNED_CLASS_NAMES = {
     "Script", 
     "LocalScript", 
     "ModuleScript", 
@@ -40,14 +36,14 @@ v19.BANNED_CLASS_NAMES = {
     "Smoke", 
     "Sparkles"
 };
-v19.R6_BODY_PARTS = {
+v15.R6_BODY_PARTS = {
     "Torso", 
     "Left Leg", 
     "Right Leg", 
     "Left Arm", 
     "Right Arm"
 };
-v19.R15_BODY_PARTS = {
+v15.R15_BODY_PARTS = {
     "Head", 
     "UpperTorso", 
     "LowerTorso", 
@@ -64,18 +60,18 @@ v19.R15_BODY_PARTS = {
     "RightLowerArm", 
     "RightHand"
 };
-v19.NAMED_R15_BODY_PARTS = {};
-for _, v25 in v19.R15_BODY_PARTS do
-    v19.NAMED_R15_BODY_PARTS[v25] = v25;
+v15.NAMED_R15_BODY_PARTS = {};
+for _, v21 in v15.R15_BODY_PARTS do
+    v15.NAMED_R15_BODY_PARTS[v21] = v21;
 end;
-v19.NAMED_R15_BODY_PARTS.Head = "Head";
-setmetatable(v19.NAMED_R15_BODY_PARTS, {
-    __index = function() --[[ Line: 88 ]] --[[ Name: __index ]]
+v15.NAMED_R15_BODY_PARTS.Head = "Head";
+setmetatable(v15.NAMED_R15_BODY_PARTS, {
+    __index = function() --[[ Line: 84 ]] --[[ Name: __index ]]
         error("NAMED_R15_BODY_PARTS key does not exist");
         return nil;
     end
 });
-v19.R15_STANDARD_JOINT_NAMES = {
+v15.R15_STANDARD_JOINT_NAMES = {
     Root = true, 
     HumanoidRootNode = true, 
     DynamicHead = true, 
@@ -95,10 +91,10 @@ v19.R15_STANDARD_JOINT_NAMES = {
     RightLowerArm = true, 
     RightHand = true
 };
-for _, v27 in v19.R15_BODY_PARTS do
-    v19.R15_STANDARD_JOINT_NAMES[v27] = true;
+for _, v23 in v15.R15_BODY_PARTS do
+    v15.R15_STANDARD_JOINT_NAMES[v23] = true;
 end;
-v19.UGC_BODY_PARTS = {
+v15.UGC_BODY_PARTS = {
     "Head", 
     "UpperTorso", 
     "LowerTorso", 
@@ -118,7 +114,7 @@ v19.UGC_BODY_PARTS = {
     "EyelashAccessory", 
     "HairAccessory"
 };
-v19.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
+v15.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
     Head = Enum.AssetType.DynamicHead, 
     UpperTorso = Enum.AssetType.Torso, 
     LowerTorso = Enum.AssetType.Torso, 
@@ -138,31 +134,31 @@ v19.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
     EyelashAccessory = Enum.AssetType.EyelashAccessory, 
     HairAccessory = Enum.AssetType.HairAccessory
 };
-v19.UGC_SHOE_NAMES_TO_ASSET_TYPE = {
+v15.UGC_SHOE_NAMES_TO_ASSET_TYPE = {
     LeftShoeAccessory = Enum.AssetType.LeftShoeAccessory, 
     RightShoeAccessory = Enum.AssetType.RightShoeAccessory
 };
-v19.BUNDLE_TO_ASSET_MAPPING = {
-    [Enum.BundleType.BodyParts] = v19.UGC_BODY_PART_NAMES_TO_ASSET_TYPE, 
-    [Enum.BundleType.BodyParts] = v19.UGC_SHOE_NAMES_TO_ASSET_TYPE
+v15.BUNDLE_TO_ASSET_MAPPING = {
+    [Enum.BundleType.BodyParts] = v15.UGC_BODY_PART_NAMES_TO_ASSET_TYPE, 
+    [Enum.BundleType.BodyParts] = v15.UGC_SHOE_NAMES_TO_ASSET_TYPE
 };
-v19.ASSET_TYPES_THAT_SKIP_FOLDER = {
+v15.ASSET_TYPES_THAT_SKIP_FOLDER = {
     Enum.AssetType.DynamicHead, 
     Enum.AssetType.EyebrowAccessory, 
     Enum.AssetType.EyelashAccessory, 
     Enum.AssetType.HairAccessory
 };
-v19.FOLDER_NAMES = {
+v15.FOLDER_NAMES = {
     R6 = "R6", 
     R15ArtistIntent = "R15ArtistIntent", 
     R15Fixed = "R15Fixed"
 };
-v19.EXTRA_BANNED_NAMES = {
+v15.EXTRA_BANNED_NAMES = {
     "Head", 
     "HumanoidRootPart", 
     "Humanoid"
 };
-for _, v29 in ipairs({
+for _, v25 in ipairs({
     "Body Colors", 
     "Shirt Graphic", 
     "Shirt", 
@@ -170,36 +166,36 @@ for _, v29 in ipairs({
     "Health", 
     "Animate"
 }) do
-    table.insert(v19.EXTRA_BANNED_NAMES, v29);
+    table.insert(v15.EXTRA_BANNED_NAMES, v25);
 end;
-v19.BANNED_NAMES = {};
-for _, v31 in {
-    v19.R6_BODY_PARTS, 
-    v19.R15_BODY_PARTS, 
-    v19.EXTRA_BANNED_NAMES
+v15.BANNED_NAMES = {};
+for _, v27 in {
+    v15.R6_BODY_PARTS, 
+    v15.R15_BODY_PARTS, 
+    v15.EXTRA_BANNED_NAMES
 } do
-    for _, v33 in v31 do
-        v19.BANNED_NAMES[v33] = true;
+    for _, v29 in v27 do
+        v15.BANNED_NAMES[v29] = true;
     end;
 end;
-v19.ASSET_STATUS = {
+v15.ASSET_STATUS = {
     UNKNOWN = "Unknown", 
     REVIEW_PENDING = "ReviewPending", 
     MODERATED = "Moderated"
 };
-if v12() then
-    v19.MAKEUP_INFO = v2:getMakeupRules();
+if v8() then
+    v15.MAKEUP_INFO = v2:getMakeupRules();
 end;
-v19.ASSET_TYPE_INFO = {};
-v2:getAccessoryRules(v19.ASSET_TYPE_INFO);
-v19.FULL_BODY_BOUNDS = v2:getFullBodyRulesBounds();
-v19.AvatarPartScaleTypes = {
+v15.ASSET_TYPE_INFO = {};
+v2:getAccessoryRules(v15.ASSET_TYPE_INFO);
+v15.FULL_BODY_BOUNDS = v2:getFullBodyRulesBounds();
+v15.AvatarPartScaleTypes = {
     Classic = true, 
     ProportionsSlender = true, 
     ProportionsNormal = true
 };
-v2:getBodyPartRules(v19.ASSET_TYPE_INFO);
-v19.BODYPART_TO_PARENT = {
+v2:getBodyPartRules(v15.ASSET_TYPE_INFO);
+v15.BODYPART_TO_PARENT = {
     Head = nil, 
     LowerTorso = nil, 
     UpperTorso = "LowerTorso", 
@@ -214,15 +210,15 @@ v19.BODYPART_TO_PARENT = {
     RightUpperLeg = nil, 
     RightLowerLeg = "RightUpperLeg"
 };
-if v7() then
-    v19.BODYPART_TO_PARENT.RightFoot = "RightLowerLeg";
-    v19.BODYPART_TO_PARENT.LeftFoot = "LeftLowerLeg";
+if v4() then
+    v15.BODYPART_TO_PARENT.RightFoot = "RightLowerLeg";
+    v15.BODYPART_TO_PARENT.LeftFoot = "LeftLowerLeg";
 else
-    v19.BODYPART_TO_PARENT.RightLeg = "RightLowerLeg";
-    v19.BODYPART_TO_PARENT.LeftLeg = "LeftLowerLeg";
+    v15.BODYPART_TO_PARENT.RightLeg = "RightLowerLeg";
+    v15.BODYPART_TO_PARENT.LeftLeg = "LeftLowerLeg";
 end;
-v19.RenderVsWrapMeshMaxDiff = v2:getRules().MeshRules.CageMeshMaxDistanceFromRenderMesh;
-v19.COMPARISON_METHODS = {
+v15.RenderVsWrapMeshMaxDiff = v2:getRules().MeshRules.CageMeshMaxDistanceFromRenderMesh;
+v15.COMPARISON_METHODS = {
     SMALLER = "<", 
     SMALLER_EQ = "<=", 
     FUZZY_EQ = "=", 
@@ -231,33 +227,33 @@ v19.COMPARISON_METHODS = {
     GREATER = ">", 
     FOUND_IN = "one of the following:"
 };
-setmetatable(v19.COMPARISON_METHODS, {
-    __index = function(_, v35) --[[ Line: 284 ]] --[[ Name: __index ]]
-        return error("Invalid COMPARISON_METHOD " .. tostring(v35));
+setmetatable(v15.COMPARISON_METHODS, {
+    __index = function(_, v31) --[[ Line: 280 ]] --[[ Name: __index ]]
+        return error("Invalid COMPARISON_METHOD " .. tostring(v31));
     end
 });
-v19.INCLUSION_METHODS = {
+v15.INCLUSION_METHODS = {
     RUN_ON_ALL = "RUN_ON_ALL", 
     INCLUSION_LIST = "INCLUSION_LIST", 
     EXCLUSION_LIST = "EXCLUSION_LIST"
 };
-setmetatable(v19.INCLUSION_METHODS, {
-    __index = function(_, v37) --[[ Line: 299 ]] --[[ Name: __index ]]
-        return error("Invalid INCLUSION_METHOD " .. tostring(v37));
+setmetatable(v15.INCLUSION_METHODS, {
+    __index = function(_, v33) --[[ Line: 295 ]] --[[ Name: __index ]]
+        return error("Invalid INCLUSION_METHOD " .. tostring(v33));
     end
 });
-v19.PROPERTIES = {
+v15.PROPERTIES = {
     Instance = {
         Archivable = true
     }, 
     Attachment = {
         Visible = false
     }, 
-    Decal = if v12() then {
+    Decal = if v8() then {
         Color3 = Color3.new(1, 1, 1), 
         Transparency = 0, 
-        UVOffset = if v13 then Vector2.new(0, 0) else nil, 
-        UVScale = if v13 then Vector2.new(1, 1) else nil
+        UVOffset = if v9 then Vector2.new(0, 0) else nil, 
+        UVScale = if v9 then Vector2.new(1, 1) else nil
     } else nil, 
     SpecialMesh = {
         MeshType = Enum.MeshType.FileMesh, 
@@ -301,11 +297,11 @@ v19.PROPERTIES = {
         RightSurface = Enum.SurfaceType.Smooth, 
         TopSurface = Enum.SurfaceType.Smooth, 
         Transparency = {
-            [v19.COMPARISON_METHODS.EXACT_EQ] = 0
+            [v15.COMPARISON_METHODS.EXACT_EQ] = 0
         }, 
         Color = {
-            [v19.COMPARISON_METHODS.FUZZY_EQ] = BrickColor.new("Medium stone grey").Color, 
-            [v19.INCLUSION_METHODS.EXCLUSION_LIST] = {
+            [v15.COMPARISON_METHODS.FUZZY_EQ] = BrickColor.new("Medium stone grey").Color, 
+            [v15.INCLUSION_METHODS.EXCLUSION_LIST] = {
                 Enum.AssetType.DynamicHead, 
                 Enum.AssetType.Torso, 
                 Enum.AssetType.LeftArm, 
@@ -319,20 +315,20 @@ v19.PROPERTIES = {
         Shape = Enum.PartType.Block
     }, 
     SurfaceAppearance = {
-        AlphaMode = if v9() then {
+        AlphaMode = if v5() then {
             {
-                [v19.COMPARISON_METHODS.FOUND_IN] = {
+                [v15.COMPARISON_METHODS.FOUND_IN] = {
                     Enum.AlphaMode.Overlay, 
                     Enum.AlphaMode.Transparency
                 }, 
-                [v19.INCLUSION_METHODS.INCLUSION_LIST] = {
+                [v15.INCLUSION_METHODS.INCLUSION_LIST] = {
                     Enum.AssetType.EyelashAccessory, 
                     Enum.AssetType.EyebrowAccessory
                 }
             }, 
             {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Enum.AlphaMode.Overlay, 
-                [v19.INCLUSION_METHODS.EXCLUSION_LIST] = {
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Enum.AlphaMode.Overlay, 
+                [v15.INCLUSION_METHODS.EXCLUSION_LIST] = {
                     Enum.AssetType.EyelashAccessory, 
                     Enum.AssetType.EyebrowAccessory
                 }
@@ -343,54 +339,54 @@ v19.PROPERTIES = {
         EmissiveTint = Color3.new(1, 1, 1)
     }, 
     WrapLayer = {
-        Enabled = v5() and true or nil, 
+        Enabled = true, 
         CageOrigin = {
             PositionMagnitude = {
-                [v19.COMPARISON_METHODS.SMALLER_EQ] = 10
+                [v15.COMPARISON_METHODS.SMALLER_EQ] = 10
             }, 
             Orientation = {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
             }
         }, 
         ReferenceOrigin = {
             PositionMagnitude = {
-                [v19.COMPARISON_METHODS.SMALLER_EQ] = 10
+                [v15.COMPARISON_METHODS.SMALLER_EQ] = 10
             }, 
             Orientation = {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
             }
         }, 
         ImportOrigin = {
             PositionMagnitude = {
-                [v19.COMPARISON_METHODS.SMALLER_EQ] = 8
+                [v15.COMPARISON_METHODS.SMALLER_EQ] = 8
             }
         }, 
-        BindOffset = if v8() then {
+        BindOffset = {
             Position = {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
             }, 
             Orientation = {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
             }
-        } else nil
+        }
     }, 
     WrapTarget = {
         CageOrigin = {
             PositionMagnitude = {
-                [v19.COMPARISON_METHODS.SMALLER_EQ] = 10
+                [v15.COMPARISON_METHODS.SMALLER_EQ] = 10
             }, 
             Orientation = {
-                [v19.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
+                [v15.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0, 0)
             }
         }, 
         ImportOrigin = {
             PositionMagnitude = {
-                [v19.COMPARISON_METHODS.SMALLER_EQ] = 8
+                [v15.COMPARISON_METHODS.SMALLER_EQ] = 8
             }
         }
     }
 };
-v19.CONTENT_ID_FIELDS = {
+v15.CONTENT_ID_FIELDS = {
     SpecialMesh = {
         "MeshId", 
         "TextureId"
@@ -405,7 +401,7 @@ v19.CONTENT_ID_FIELDS = {
         "NormalMap", 
         "RoughnessMap"
     }, 
-    Decal = if v12() then {
+    Decal = if v8() then {
         "ColorMap", 
         "MetalnessMap", 
         "NormalMap", 
@@ -422,13 +418,13 @@ v19.CONTENT_ID_FIELDS = {
         "AnimationId"
     }
 };
-if v11() then
-    table.insert(v19.CONTENT_ID_FIELDS.SurfaceAppearance, "TexturePack");
+if v7() then
+    table.insert(v15.CONTENT_ID_FIELDS.SurfaceAppearance, "TexturePack");
 end;
-if v10() then
-    table.insert(v19.CONTENT_ID_FIELDS.WrapLayer, "HSRAssetId");
+if v6() then
+    table.insert(v15.CONTENT_ID_FIELDS.WrapLayer, "HSRAssetId");
 end;
-v19.CONTENT_ID_REQUIRED_FIELDS = {
+v15.CONTENT_ID_REQUIRED_FIELDS = {
     SpecialMesh = {
         MeshId = true, 
         TextureId = true
@@ -443,7 +439,7 @@ v19.CONTENT_ID_REQUIRED_FIELDS = {
         AnimationId = true
     }
 };
-v19.MESH_CONTENT_ID_FIELDS = {
+v15.MESH_CONTENT_ID_FIELDS = {
     SpecialMesh = {
         "MeshId"
     }, 
@@ -458,7 +454,7 @@ v19.MESH_CONTENT_ID_FIELDS = {
         "ReferenceMeshId"
     }
 };
-v19.TEXTURE_CONTENT_ID_FIELDS = {
+v15.TEXTURE_CONTENT_ID_FIELDS = {
     SpecialMesh = {
         "TextureId"
     }, 
@@ -471,14 +467,14 @@ v19.TEXTURE_CONTENT_ID_FIELDS = {
         "NormalMap", 
         "RoughnessMap"
     }, 
-    Decal = if v12() then {
+    Decal = if v8() then {
         "ColorMap", 
         "MetalnessMap", 
         "NormalMap", 
         "RoughnessMap"
     } else nil
 };
-v19.ASSET_RENDER_MESH_MAX_TRIANGLES = {
+v15.ASSET_RENDER_MESH_MAX_TRIANGLES = {
     DynamicHead = v2:getBodyPartMaxTrianglesRule(Enum.AssetType.DynamicHead), 
     LeftArm = v2:getBodyPartMaxTrianglesRule(Enum.AssetType.LeftArm), 
     RightArm = v2:getBodyPartMaxTrianglesRule(Enum.AssetType.RightArm), 
@@ -486,7 +482,7 @@ v19.ASSET_RENDER_MESH_MAX_TRIANGLES = {
     LeftLeg = v2:getBodyPartMaxTrianglesRule(Enum.AssetType.LeftLeg), 
     RightLeg = v2:getBodyPartMaxTrianglesRule(Enum.AssetType.RightLeg)
 };
-v19.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
+v15.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
     Head = 343, 
     LeftUpperArm = 77, 
     LeftLowerArm = 77, 
@@ -503,46 +499,7 @@ v19.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
     RightLowerLeg = 88, 
     RightFoot = 86
 };
-v19.PACKAGE_CONTENT_ID_FIELDS = v1.Dictionary.join(v19.CONTENT_ID_FIELDS, if v4() then {
-    Sound = {
-        "SoundId"
-    }, 
-    Decal = {
-        "Texture"
-    }, 
-    VideoFrame = {
-        "Video"
-    }, 
-    PackageLink = {
-        "PackageId"
-    }, 
-    CharacterMesh = {
-        "OverlayTextureId", 
-        "MeshId", 
-        "BaseTextureId"
-    }, 
-    Tool = {
-        "TextureId"
-    }, 
-    Trail = {
-        "Texture"
-    }, 
-    Beam = {
-        "Texture"
-    }, 
-    ShirtGraphic = {
-        "Graphic"
-    }, 
-    Shirt = {
-        "ShirtTemplate"
-    }, 
-    Pants = {
-        "PantsTemplate"
-    }, 
-    AdGui = {
-        "FallbackImage"
-    }
-} else {
+v15.PACKAGE_CONTENT_ID_FIELDS = v1.Dictionary.join(v15.CONTENT_ID_FIELDS, {
     Sound = {
         "SoundId"
     }, 
@@ -592,48 +549,46 @@ v19.PACKAGE_CONTENT_ID_FIELDS = v1.Dictionary.join(v19.CONTENT_ID_FIELDS, if v4(
         "FallbackImage"
     }
 });
-v19.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization";
-v19.ContentType = "Content-Type";
-v19.ApplicationJson = "application/json";
-v19.GUIDAttributeName = "RBXGUID";
-v19.GUIDAttributeMaxLength = 100;
-v19.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID";
-if v6() then
-    v19.MESH_CONTENT_TYPE = {
-        RENDER_MESH = "RenderMesh", 
-        OUTER_CAGE = "OuterCage", 
-        INNER_CAGE = "InnerCage"
-    };
-    v19.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
-        [v19.MESH_CONTENT_TYPE.RENDER_MESH] = "MeshId", 
-        [v19.MESH_CONTENT_TYPE.OUTER_CAGE] = "CageMeshId", 
-        [v19.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId"
-    };
-end;
-v19.AllAssetUploadCategories = {
+v15.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization";
+v15.ContentType = "Content-Type";
+v15.ApplicationJson = "application/json";
+v15.GUIDAttributeName = "RBXGUID";
+v15.GUIDAttributeMaxLength = 100;
+v15.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID";
+v15.MESH_CONTENT_TYPE = {
+    RENDER_MESH = "RenderMesh", 
+    OUTER_CAGE = "OuterCage", 
+    INNER_CAGE = "InnerCage"
+};
+v15.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
+    [v15.MESH_CONTENT_TYPE.RENDER_MESH] = "MeshId", 
+    [v15.MESH_CONTENT_TYPE.OUTER_CAGE] = "CageMeshId", 
+    [v15.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId"
+};
+v15.AllAssetUploadCategories = {
     v3.UploadCategory.TORSO_AND_LIMBS, 
     v3.UploadCategory.DYNAMIC_HEAD, 
     v3.UploadCategory.LAYERED_CLOTHING, 
     v3.UploadCategory.RIGID_ACCESSORY, 
     v3.UploadCategory.EMOTE_ANIMATION
 };
-v19.AllBundleUploadCategories = {
+v15.AllBundleUploadCategories = {
     v3.UploadCategory.FULL_BODY, 
     v3.UploadCategory.BOTH_SHOES
 };
-v19.AllUploadCategories = {};
-for _, v39 in v3.UploadCategory do
-    table.insert(v19.AllUploadCategories, v39);
+v15.AllUploadCategories = {};
+for _, v35 in v3.UploadCategory do
+    table.insert(v15.AllUploadCategories, v35);
 end;
-v19.AssetUploadsWithFolderStructure = {
+v15.AssetUploadsWithFolderStructure = {
     [Enum.AssetType.Torso] = true, 
     [Enum.AssetType.LeftArm] = true, 
     [Enum.AssetType.RightArm] = true, 
     [Enum.AssetType.LeftLeg] = true, 
     [Enum.AssetType.RightLeg] = true
 };
-v19.SkinningTransferRequiredTypes = {
+v15.SkinningTransferRequiredTypes = {
     [Enum.AssetType.EyebrowAccessory] = true, 
     [Enum.AssetType.EyelashAccessory] = true
 };
-return v19;
+return v15;

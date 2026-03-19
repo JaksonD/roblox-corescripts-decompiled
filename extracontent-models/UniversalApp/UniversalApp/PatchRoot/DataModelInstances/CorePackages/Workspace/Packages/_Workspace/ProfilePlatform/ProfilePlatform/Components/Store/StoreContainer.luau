@@ -27,107 +27,120 @@ local v25 = game:DefineFastFlag("ProfilePlatformAddStoreHeaderAnalytics", false)
 local v26 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUseCatalogItemOpenedNewFields);
 local v27 = game:DefineFastInt("ProfilePlatformStoreItemLimit", 3);
 local v28 = game:DefineFastFlag("ProfilePlatformHideStoreIfNoAssets", false);
+local v29 = require(l_script_FirstAncestor_0.Flags.FFlagEnableCommunityProfileLoadingSkeletons);
 local l_HttpService_0 = game:GetService("HttpService");
-local v30 = require(script.Parent.StoreGrid);
-local v39 = l_memoize_0(function(v31, v32, v33) --[[ Line: 46 ]]
+local v31 = require(script.Parent.StoreGrid);
+local v32 = require(script.Parent.StoreGridSkeleton);
+local v41 = l_memoize_0(function(v33, v34, v35) --[[ Line: 49 ]]
     -- upvalues: v10 (copy)
-    local v34 = {};
-    local v35 = 1;
-    for _, v37 in v31 do
-        local v38 = nil;
-        v38 = if v37.itemType == v10.ItemTypes.Bundle then v32[tostring(v37.assetId)] else v33[tostring(v37.assetId)];
-        if v38 then
-            v38.itemType = v37.itemType;
-            v34[v35] = v38;
-            v35 = v35 + 1;
+    local v36 = {};
+    local v37 = 1;
+    for _, v39 in v33 do
+        local v40 = nil;
+        v40 = if v39.itemType == v10.ItemTypes.Bundle then v34[tostring(v39.assetId)] else v35[tostring(v39.assetId)];
+        if v40 then
+            v40.itemType = v39.itemType;
+            v36[v37] = v40;
+            v37 = v37 + 1;
         end;
     end;
-    return v34;
+    return v36;
 end);
-return function(v40) --[[ Line: 69 ]] --[[ Name: StoreContainer ]]
-    -- upvalues: v13 (copy), v14 (copy), l_useDispatch_0 (copy), v16 (copy), v2 (copy), v11 (copy), v26 (copy), v10 (copy), v15 (copy), v4 (copy), v39 (copy), l_useSelector_0 (copy), v23 (copy), v24 (copy), l_HttpService_0 (copy), v18 (copy), v25 (copy), l_Url_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v20 (copy), l_dependencyArray_0 (copy), v12 (copy), v28 (copy), v30 (copy), v3 (copy), v27 (copy)
-    local v41 = v13();
-    local v42 = v14();
-    local v43 = l_useDispatch_0();
-    local v44 = v16();
-    local v48 = v2.useCallback(function(v45, v46, v47) --[[ Line: 77 ]]
-        -- upvalues: v41 (copy), v42 (copy), v11 (ref), v26 (ref), v10 (ref), v44 (copy)
-        v41.navigateTo.itemOrBundleDetails(v45, v46);
-        v42.fireAnalyticsEvent(v11.CatalogItemOpened, if v26 then {
+return function(v42) --[[ Line: 72 ]] --[[ Name: StoreContainer ]]
+    -- upvalues: v13 (copy), v14 (copy), l_useDispatch_0 (copy), v2 (copy), v29 (copy), v16 (copy), v11 (copy), v26 (copy), v10 (copy), v15 (copy), v4 (copy), v41 (copy), l_useSelector_0 (copy), v23 (copy), v24 (copy), l_HttpService_0 (copy), v18 (copy), v25 (copy), l_Url_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v20 (copy), l_dependencyArray_0 (copy), v12 (copy), v32 (copy), v28 (copy), v31 (copy), v3 (copy), v27 (copy)
+    local v43 = v13();
+    local v44 = v14();
+    local v45 = l_useDispatch_0();
+    local v46, v47 = v2.useState(v29 and true or false);
+    local v48 = v16();
+    local v52 = v2.useCallback(function(v49, v50, v51) --[[ Line: 81 ]]
+        -- upvalues: v43 (copy), v44 (copy), v11 (ref), v26 (ref), v10 (ref), v48 (copy)
+        v43.navigateTo.itemOrBundleDetails(v49, v50);
+        v44.fireAnalyticsEvent(v11.CatalogItemOpened, if v26 then {
             btnContext = tostring(v10.Components.Store), 
-            btnUnitId = tostring(v45), 
-            btnSortPosition = tostring(v47)
+            btnUnitId = tostring(v49), 
+            btnSortPosition = tostring(v51)
         } else {
             source = tostring(v10.Components.Store), 
-            positionInComponent = tostring(v47), 
+            positionInComponent = tostring(v51), 
             component = tostring(v10.Components.Store), 
-            itemId = tostring(v45)
+            itemId = tostring(v49)
         });
-        v41.externalAnalytics.catalogAnalytics.clickCatalogItemFromProfile(v44, v45, v46, tostring(v10.Components.Store), v47);
+        v43.externalAnalytics.catalogAnalytics.clickCatalogItemFromProfile(v48, v49, v50, tostring(v10.Components.Store), v51);
     end, {
-        v42, 
-        v41.navigateTo.itemOrBundleDetails, 
-        v41.externalAnalytics.catalogAnalytics
+        v44, 
+        v43.navigateTo.itemOrBundleDetails, 
+        v43.externalAnalytics.catalogAnalytics
     });
-    local v49 = v15(v10.Components.Store).assets or {};
-    local v53 = v2.useCallback(function(v50) --[[ Line: 111 ]]
-        -- upvalues: v4 (ref), v39 (ref), v49 (copy)
-        local v51 = v50[v4.RODUX_KEY].BundleDetails or {};
-        local v52 = v50[v4.RODUX_KEY].AssetDetails or {};
-        return v39(v49, v51, v52);
+    local v53 = v15(v10.Components.Store).assets or {};
+    local v57 = v2.useCallback(function(v54) --[[ Line: 115 ]]
+        -- upvalues: v4 (ref), v41 (ref), v53 (copy)
+        local v55 = v54[v4.RODUX_KEY].BundleDetails or {};
+        local v56 = v54[v4.RODUX_KEY].AssetDetails or {};
+        return v41(v53, v55, v56);
     end, {
-        v49
+        v53
     });
-    local v54 = l_useSelector_0(v53);
+    local v58 = l_useSelector_0(v57);
     local l_name_0 = v15(v10.Components.Store).name;
-    local v56 = if v23 then v41.profileType else nil;
-    local v57 = if v24 then v41.profileId else nil;
-    local v58 = if v23 and v56 == v10.ProfileTypes.Community then l_HttpService_0:UrlEncode(l_name_0) else l_name_0;
-    local v60 = if v18 then v2.useCallback(function() --[[ Line: 136 ]]
-        -- upvalues: v25 (ref), v42 (copy), v11 (ref), v24 (ref), v56 (copy), v10 (ref), l_Url_0 (ref), v57 (copy), v58 (copy), v43 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v20 (ref), l_name_0 (copy)
+    local v60 = if v23 then v43.profileType else nil;
+    local v61 = if v24 then v43.profileId else nil;
+    local v62 = if v23 and v60 == v10.ProfileTypes.Community then l_HttpService_0:UrlEncode(l_name_0) else l_name_0;
+    local v64 = if v18 then v2.useCallback(function() --[[ Line: 140 ]]
+        -- upvalues: v25 (ref), v44 (copy), v11 (ref), v24 (ref), v60 (copy), v10 (ref), l_Url_0 (ref), v61 (copy), v62 (copy), v45 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v20 (ref), l_name_0 (copy)
         if v25 then
-            v42.fireAnalyticsEvent(v11.StoreHeaderButton);
+            v44.fireAnalyticsEvent(v11.StoreHeaderButton);
         end;
-        local v59 = nil;
-        v59 = if v24 and v56 == v10.ProfileTypes.Community then string.format("%scommunities/%s/CommunityName/#!/store", l_Url_0.BASE_URL, v57) else string.format("%scatalog?CreatorName=%s", l_Url_0.BASE_URL, v58);
-        v43(l_NavigateDown_0({
+        local v63 = nil;
+        v63 = if v24 and v60 == v10.ProfileTypes.Community then string.format("%scommunities/%s/CommunityName/#!/store", l_Url_0.BASE_URL, v61) else string.format("%scatalog?CreatorName=%s", l_Url_0.BASE_URL, v62);
+        v45(l_NavigateDown_0({
             name = l_AppPage_0.GenericWebPage, 
-            detail = v59, 
+            detail = v63, 
             extraProps = {
                 titleKey = v20.Store
             }
         }, if not not v25 or v24 then nil else {
             l_name_0
         }));
-    end, if not not v25 or v24 then l_dependencyArray_0(v42, l_name_0, v56, v57) else nil) else nil;
-    local v61 = v2.useCallback(function() --[[ Line: 175 ]]
-        -- upvalues: v25 (ref), v42 (copy), v11 (ref), v41 (copy), l_name_0 (copy)
+    end, if not not v25 or v24 then l_dependencyArray_0(v44, l_name_0, v60, v61) else nil) else nil;
+    local v65 = v2.useCallback(function() --[[ Line: 179 ]]
+        -- upvalues: v25 (ref), v44 (copy), v11 (ref), v43 (copy), l_name_0 (copy)
         if v25 then
-            v42.fireAnalyticsEvent(v11.StoreHeaderButton);
+            v44.fireAnalyticsEvent(v11.StoreHeaderButton);
         end;
-        v41.navigateTo.catalogSearch(l_name_0);
+        v43.navigateTo.catalogSearch(l_name_0);
     end, {
-        v41.navigateTo.catalogSearch, 
+        v43.navigateTo.catalogSearch, 
         l_name_0, 
-        if v25 then v42 else nil
+        if v25 then v44 else nil
     });
-    v2.useEffect(function() --[[ Line: 189 ]]
-        -- upvalues: v43 (copy), v12 (ref), v49 (copy)
-        v43(v12.GetItemAndBundleDetails.API(v49)):catch(function(_) --[[ Line: 190 ]]
+    v2.useEffect(function() --[[ Line: 193 ]]
+        -- upvalues: v45 (copy), v12 (ref), v53 (copy), v29 (ref), v47 (copy)
+        v45(v12.GetItemAndBundleDetails.API(v53)):catch(function(_) --[[ Line: 194 ]]
 
+        end):finally(function() --[[ Line: 194 ]]
+            -- upvalues: v29 (ref), v47 (ref)
+            if v29 then
+                v47(false);
+            end;
         end);
     end, {
-        v49, 
-        v43
+        v53, 
+        v45
     });
-    if v28 and #v54 == 0 then
+    if v29 and v46 then
+        return v2.createElement(v32, {
+            layoutOrder = v42.layoutOrder, 
+            numSkeletons = #v53
+        });
+    elseif v28 and #v58 == 0 then
         return nil;
     else
-        return v2.createElement(v30, {
-            layoutOrder = v40.layoutOrder, 
-            assets = v3.slice(v54, 1, v27), 
-            openItemDetails = v48, 
-            navigateToCatalogSearch = if v18 then v60 else v61
+        return v2.createElement(v31, {
+            layoutOrder = v42.layoutOrder, 
+            assets = v3.slice(v58, 1, v27), 
+            openItemDetails = v52, 
+            navigateToCatalogSearch = if v18 then v64 else v65
         });
     end;
 end;

@@ -206,11 +206,22 @@ local v2 = {
         TOP_BAR_HEIGHT = "topBarHeight", 
         SET_SCREEN_TOP_BAR = "setScreenTopBar"
     }, 
+    OptInVariant = {
+        OsaContextCard = "OsaContextCard", 
+        ChatOptInInfoCard = "ChatOptInInfoCard"
+    }, 
+    ModalAction = {
+        Accept = "record_has_accepted", 
+        Decline = "record_dont_show_again"
+    }, 
+    ModalSequence = {
+        ConversationListOverlay = "conversation_list_overlay"
+    }, 
     RobuxIcon = "rbxasset://textures/ui/common/robux.png", 
     SmallRobuxIcon = "rbxasset://textures/ui/common/robux_small.png", 
     ColorRobuxIcon = "rbxasset://textures/ui/common/robux_color.png"
 };
-v2.GetFormFactorSpecific = function(_, v4) --[[ Line: 232 ]] --[[ Name: GetFormFactorSpecific ]]
+v2.GetFormFactorSpecific = function(_, v4) --[[ Line: 246 ]] --[[ Name: GetFormFactorSpecific ]]
     -- upvalues: l_FormFactor_0 (copy), v2 (copy)
     if v4 == l_FormFactor_0.WIDE then
         return v2.FormFactor.WIDE;
@@ -218,7 +229,7 @@ v2.GetFormFactorSpecific = function(_, v4) --[[ Line: 232 ]] --[[ Name: GetFormF
         return v2.FormFactor.COMPACT;
     end;
 end;
-v2.GetPresenceIndicatorSizeKey = function(v5, v6) --[[ Line: 240 ]] --[[ Name: GetPresenceIndicatorSizeKey ]]
+v2.GetPresenceIndicatorSizeKey = function(v5, v6) --[[ Line: 254 ]] --[[ Name: GetPresenceIndicatorSizeKey ]]
     local _ = nil;
     if v6 == 6 then
         return v5.PresenceIndicatorSize.Size6x6;
@@ -234,7 +245,7 @@ v2.GetPresenceIndicatorSizeKey = function(v5, v6) --[[ Line: 240 ]] --[[ Name: G
         return v5.PresenceIndicatorSize.DEFAULT;
     end;
 end;
-v2.GetIconButtonWidth = function(_, v9) --[[ Line: 258 ]] --[[ Name: GetIconButtonWidth ]]
+v2.GetIconButtonWidth = function(_, v9) --[[ Line: 272 ]] --[[ Name: GetIconButtonWidth ]]
     if v9 then
         return 44;
     else

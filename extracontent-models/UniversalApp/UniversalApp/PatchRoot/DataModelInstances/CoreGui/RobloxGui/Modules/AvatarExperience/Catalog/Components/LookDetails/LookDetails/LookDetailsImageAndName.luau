@@ -8,16 +8,16 @@ local _ = require(l_Common_0.Types);
 local v7 = require(l_AvatarExperience_0.Catalog.Components.LookDetails.LookDetails.LookImageFrame);
 local l_FitFrameVertical_0 = v3.RoactFitComponents.FitFrameVertical;
 local v9 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_useStyle_0 = v9.Core.Style.useStyle;
-local l_ShimmerPanel_0 = v9.App.Loading.ShimmerPanel;
 local v12 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagLooksAvatarPDPImageDimensions);
-return function(v13) --[[ Line: 37 ]] --[[ Name: LookDetailsImageAndName ]]
-    -- upvalues: l_useStyle_0 (copy), v2 (copy), l_FitFrameVertical_0 (copy), v7 (copy), v12 (copy), l_ShimmerPanel_0 (copy)
+return function(v13) --[[ Line: 39 ]] --[[ Name: LookDetailsImageAndName ]]
+    -- upvalues: l_useStyle_0 (copy), v2 (copy), l_FitFrameVertical_0 (copy), v7 (copy), v12 (copy), l_Skeleton_0 (copy)
     local v14 = l_useStyle_0();
     local l_Theme_0 = v14.Theme;
     local l_Font_0 = v14.Font;
     local l_Space_150_0 = v14.Tokens.Global.Space_150;
-    local function _() --[[ Line: 44 ]]
+    local function _() --[[ Line: 46 ]]
         -- upvalues: l_Font_0 (copy)
         return l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize;
     end;
@@ -50,7 +50,7 @@ return function(v13) --[[ Line: 37 ]] --[[ Name: LookDetailsImageAndName ]]
                 PaddingLeft = UDim.new(0, v13.innerPadding), 
                 PaddingRight = UDim.new(0, v13.innerPadding)
             }), 
-            LookName = if l_isLoading_0 then v2.createElement(l_ShimmerPanel_0, {
+            LookName = if l_isLoading_0 then v2.createElement(l_Skeleton_0, {
                 Size = UDim2.new(1, 0, 0, v20)
             }) else v2.createElement("TextLabel", {
                 BackgroundTransparency = 1, 
@@ -65,7 +65,7 @@ return function(v13) --[[ Line: 37 ]] --[[ Name: LookDetailsImageAndName ]]
                 TextWrapped = true
             })
         }) else nil, 
-        LookName = if v12() then nil else if l_isLoading_0 then v2.createElement(l_ShimmerPanel_0, {
+        LookName = if v12() then nil else if l_isLoading_0 then v2.createElement(l_Skeleton_0, {
             Size = UDim2.new(1, 0, 0, v20), 
             LayoutOrder = 2
         }) else if l_name_0 then v2.createElement("TextLabel", {
@@ -80,7 +80,7 @@ return function(v13) --[[ Line: 37 ]] --[[ Name: LookDetailsImageAndName ]]
             TextColor3 = l_Theme_0.TextEmphasis.Color, 
             TextWrapped = true, 
             LayoutOrder = 2
-        }) or v2.createElement(l_ShimmerPanel_0, {
+        }) or v2.createElement(l_Skeleton_0, {
             Size = UDim2.new(1, 0, 0, v20), 
             LayoutOrder = 2
         }) else nil

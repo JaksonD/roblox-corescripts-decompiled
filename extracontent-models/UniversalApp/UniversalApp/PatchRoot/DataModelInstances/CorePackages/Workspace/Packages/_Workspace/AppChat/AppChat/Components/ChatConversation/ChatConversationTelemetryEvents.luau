@@ -8,22 +8,21 @@ local v6 = require(l_script_FirstAncestor_0.Telemetry.DefaultTelemetryEvents);
 local v7 = require(l_script_FirstAncestor_0.Flags.getFFlagAppChatEnableRepliesUI);
 local v8 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableMessageContextMenu);
 local v9 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableHiddenMessages);
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableNewGameCardUI);
-local v11 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseSwipeForReplies);
+local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseSwipeForReplies);
 local l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 = require(l_script_FirstAncestor_0.Flags).FFlagAppChatTelemetryCounterWithEmittedInfo;
 local l_namedCounterConfigurationNoEmittedInfo_0 = v6.namedCounterConfigurationNoEmittedInfo;
 local l_namedCounterConfigurationAndFormat_0 = v6.namedCounterConfigurationAndFormat;
 local l_EVENT_INGEST_NO_EMITTED_INFO_0 = v6.EVENT_INGEST_NO_EMITTED_INFO;
-local function v17() --[[ Line: 27 ]] --[[ Name: targetMessageFormatFunction ]]
+local function v16() --[[ Line: 26 ]] --[[ Name: targetMessageFormatFunction ]]
     -- upvalues: v6 (copy), v9 (copy)
-    return v6.eventIngestWithFormatFunction(function(v16) --[[ Line: 28 ]]
+    return v6.eventIngestWithFormatFunction(function(v15) --[[ Line: 27 ]]
         -- upvalues: v9 (ref)
         return {
-            targetMessageId = v16.targetMessageId, 
-            targetMessageSenderId = v16.targetMessageSenderId, 
-            targetMessageSentAt = v16.targetMessageSentAt, 
-            targetMessageLength = v16.targetMessageLength, 
-            targetMessageVisibility = if v9 then v16.targetMessageVisibility else nil
+            targetMessageId = v15.targetMessageId, 
+            targetMessageSenderId = v15.targetMessageSenderId, 
+            targetMessageSentAt = v15.targetMessageSentAt, 
+            targetMessageLength = v15.targetMessageLength, 
+            targetMessageVisibility = if v9 then v15.targetMessageVisibility else nil
         };
     end);
 end;
@@ -38,9 +37,9 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Rendered"), 
-            v6.eventIngestWithFormatFunction(function(v18) --[[ Line: 54 ]]
+            v6.eventIngestWithFormatFunction(function(v17) --[[ Line: 53 ]]
                 return {
-                    loadedMessageCount = v18.loadedMessageCount
+                    loadedMessageCount = v17.loadedMessageCount
                 };
             end)
         }
@@ -54,14 +53,14 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Exit", function(v19) --[[ Line: 67 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Exit", function(v18) --[[ Line: 66 ]]
                 return {
-                    conversationExitType = v19.conversationExitType
+                    conversationExitType = v18.conversationExitType
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Exit"), 
-            v6.eventIngestWithFormatFunction(function(v20) --[[ Line: 76 ]]
+            v6.eventIngestWithFormatFunction(function(v19) --[[ Line: 75 ]]
                 return {
-                    conversationExitType = v20.conversationExitType
+                    conversationExitType = v19.conversationExitType
                 };
             end)
         }
@@ -88,20 +87,20 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.Sent", function(v21) --[[ Line: 99 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.Sent", function(v20) --[[ Line: 98 ]]
                 return {
-                    messageSentResult = v21.messageSentResult
+                    messageSentResult = v20.messageSentResult
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.Sent"), 
-            v6.eventIngestWithFormatFunction(function(v22) --[[ Line: 115 ]]
+            v6.eventIngestWithFormatFunction(function(v21) --[[ Line: 114 ]]
                 return {
-                    messageSentResult = v22.messageSentResult, 
-                    messageId = v22.messageId, 
-                    recipientIds = v22.recipientIds, 
-                    targetMessageId = v22.targetMessageId, 
-                    targetMessageSenderId = v22.targetMessageSenderId, 
-                    targetMessageSentAt = v22.targetMessageSentAt, 
-                    targetMessageLength = v22.targetMessageLength
+                    messageSentResult = v21.messageSentResult, 
+                    messageId = v21.messageId, 
+                    recipientIds = v21.recipientIds, 
+                    targetMessageId = v21.targetMessageId, 
+                    targetMessageSenderId = v21.targetMessageSenderId, 
+                    targetMessageSentAt = v21.targetMessageSentAt, 
+                    targetMessageLength = v21.targetMessageLength
                 };
             end)
         }
@@ -115,14 +114,14 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Button.MoreMenu", function(v23) --[[ Line: 144 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Button.MoreMenu", function(v22) --[[ Line: 143 ]]
                 return {
-                    action = v23.action
+                    action = v22.action
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Button.MoreMenu"), 
-            v6.eventIngestWithFormatFunction(function(v24) --[[ Line: 154 ]]
+            v6.eventIngestWithFormatFunction(function(v23) --[[ Line: 153 ]]
                 return {
-                    action = v24.action
+                    action = v23.action
                 };
             end)
         }
@@ -136,14 +135,14 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Button.Send", function(v25) --[[ Line: 168 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Button.Send", function(v24) --[[ Line: 167 ]]
                 return {
-                    sendBtnClickResult = v25.sendBtnClickResult
+                    sendBtnClickResult = v24.sendBtnClickResult
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Button.Send"), 
-            v6.eventIngestWithFormatFunction(function(v26) --[[ Line: 178 ]]
+            v6.eventIngestWithFormatFunction(function(v25) --[[ Line: 177 ]]
                 return {
-                    sendBtnClickResult = v26.sendBtnClickResult
+                    sendBtnClickResult = v25.sendBtnClickResult
                 };
             end)
         }
@@ -158,7 +157,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.Pressed"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationMessageLongPressed = if v7() then v2.new({
@@ -171,10 +170,10 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.LongPressed"), 
-            v17()
+            v16()
         }
     }) else nil, 
-    ConversationMessageSwiped = if v7() and v11 then v2.new({
+    ConversationMessageSwiped = if v7() and v10 then v2.new({
         name = "chatMessageSwiped", 
         description = "", 
         lastUpdated = {
@@ -184,7 +183,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.Swiped"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationMessageReplyIconImpression = if v7() then v2.new({
@@ -197,7 +196,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.ReplyIcon.Impression"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationMessageReplyIconClicked = if v7() then v2.new({
@@ -210,7 +209,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.ReplyIcon.Clicked"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationMessageOpenMenuIconClicked = if v8 then v2.new({
@@ -223,7 +222,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.OpenMenuIcon.Clicked"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationInputBarReplyComposeRendered = if v7() then v2.new({
@@ -236,7 +235,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.ReplyComposeBar.Rendered"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationInputBarReplyComposeCancelBtnActivated = if v7() then v2.new({
@@ -249,7 +248,7 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.ReplyComposeBar.Button.Cancel"), 
-            v17()
+            v16()
         }
     }) else nil, 
     ConversationMessageFtuxTooltipImpression = if v7() then v2.new({
@@ -261,14 +260,14 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.FtuxTooltip.Impression", function(v27) --[[ Line: 282 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.FtuxTooltip.Impression", function(v26) --[[ Line: 281 ]]
                 return {
-                    tooltipVariant = v27.tooltipVariant
+                    tooltipVariant = v26.tooltipVariant
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.FtuxTooltip.Impression"), 
-            v6.eventIngestWithFormatFunction(function(v28) --[[ Line: 293 ]]
+            v6.eventIngestWithFormatFunction(function(v27) --[[ Line: 292 ]]
                 return {
-                    tooltipVariant = v28.tooltipVariant
+                    tooltipVariant = v27.tooltipVariant
                 };
             end)
         }
@@ -282,19 +281,19 @@ return {
             27
         }, 
         backendsList = {
-            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.FtuxTooltip.Dismissed", function(v29) --[[ Line: 312 ]]
+            if l_FFlagAppChatTelemetryCounterWithEmittedInfo_0 then l_namedCounterConfigurationAndFormat_0("AppChat.ChatConversation.Message.FtuxTooltip.Dismissed", function(v28) --[[ Line: 311 ]]
                 return {
-                    tooltipVariant = v29.tooltipVariant
+                    tooltipVariant = v28.tooltipVariant
                 };
             end) else l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.Message.FtuxTooltip.Dismissed"), 
-            v6.eventIngestWithFormatFunction(function(v30) --[[ Line: 323 ]]
+            v6.eventIngestWithFormatFunction(function(v29) --[[ Line: 322 ]]
                 return {
-                    tooltipVariant = v30.tooltipVariant
+                    tooltipVariant = v29.tooltipVariant
                 };
             end)
         }
     }) else nil, 
-    GameCardThumbnailClicked = if v10 then v2.new({
+    GameCardThumbnailClicked = v2.new({
         name = "gameCardThumbnailClicked", 
         description = "", 
         lastUpdated = {
@@ -304,15 +303,15 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.GameCard.Thumbnail.Clicked"), 
-            v6.eventIngestWithFormatFunction(function(v31) --[[ Line: 340 ]]
+            v6.eventIngestWithFormatFunction(function(v30) --[[ Line: 338 ]]
                 return {
-                    universeId = v31.universeId, 
-                    placeId = v31.placeId
+                    universeId = v30.universeId, 
+                    placeId = v30.placeId
                 };
             end)
         }
-    }) else nil, 
-    GameCardPlayButtonClicked = if v10 then v2.new({
+    }), 
+    GameCardPlayButtonClicked = v2.new({
         name = "gameCardPlayButtonClicked", 
         description = "", 
         lastUpdated = {
@@ -322,15 +321,15 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.GameCard.Button.Play"), 
-            v6.eventIngestWithFormatFunction(function(v32) --[[ Line: 359 ]]
+            v6.eventIngestWithFormatFunction(function(v31) --[[ Line: 355 ]]
                 return {
-                    universeId = v32.universeId, 
-                    placeId = v32.placeId
+                    universeId = v31.universeId, 
+                    placeId = v31.placeId
                 };
             end)
         }
-    }) else nil, 
-    GameCardMetadataClicked = if v10 then v2.new({
+    }), 
+    GameCardMetadataClicked = v2.new({
         name = "gameCardMetadataClicked", 
         description = "", 
         lastUpdated = {
@@ -340,12 +339,12 @@ return {
         }, 
         backendsList = {
             l_namedCounterConfigurationNoEmittedInfo_0("AppChat.ChatConversation.GameCard.Metadata.Clicked"), 
-            v6.eventIngestWithFormatFunction(function(v33) --[[ Line: 378 ]]
+            v6.eventIngestWithFormatFunction(function(v32) --[[ Line: 372 ]]
                 return {
-                    universeId = v33.universeId, 
-                    placeId = v33.placeId
+                    universeId = v32.universeId, 
+                    placeId = v32.placeId
                 };
             end)
         }
-    }) else nil
+    })
 };

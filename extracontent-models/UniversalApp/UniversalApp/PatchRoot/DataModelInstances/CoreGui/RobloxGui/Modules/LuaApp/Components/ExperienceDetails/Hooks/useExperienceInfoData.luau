@@ -43,15 +43,15 @@ local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Wor
 local l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveDefault;
 local l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveIxp;
 local l_FFlagHideCloseButtonEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagHideCloseButtonEdp;
-local l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddTestIdsForEdpInfoTable;
 local l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppUpdateContentDescriptorsTranslation;
 local l_FFlagLuaAppBadgesSeeAllEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllEnabled;
-local v48 = game:DefineFastFlag("LuaAppHideBadgesRowFix", false);
+local v47 = game:DefineFastFlag("LuaAppHideBadgesRowFix", false);
+local l_FFlagLuaAppHideEdpStoreForUnplayable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppHideEdpStoreForUnplayable;
 return function(v49, v50, v51) --[[ Line: 96 ]]
-    -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_useNavigation_0 (copy), l_useSelector_0 (copy), v21 (copy), v37 (copy), v12 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v35 (copy), l_ApiFetchGameDetails_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), v31 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v1 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v25 (copy), v26 (copy), v29 (copy), v27 (copy), v23 (copy), l_useLocalization_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (copy), v20 (copy), v22 (copy), v39 (copy), v24 (copy), v38 (copy), l_navigateToBadgesSeeAll_0 (copy), v48 (copy), v28 (copy), v32 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_RetrievalStatus_0 (copy), v2 (copy)
+    -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_useNavigation_0 (copy), l_useSelector_0 (copy), v21 (copy), v37 (copy), v12 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v35 (copy), l_ApiFetchGameDetails_0 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v18 (copy), v31 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v1 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v25 (copy), v26 (copy), v29 (copy), v27 (copy), v23 (copy), l_useLocalization_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), v20 (copy), v22 (copy), v39 (copy), v24 (copy), v38 (copy), l_navigateToBadgesSeeAll_0 (copy), v47 (copy), v28 (copy), v32 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_RetrievalStatus_0 (copy), v2 (copy)
     local v52 = if l_FFlagLuaAppBadgesSeeAllEnabled_0 then l_useNavigation_0() else nil;
     local v63 = l_useSelector_0(function(v53) --[[ Line: 98 ]]
-        -- upvalues: v49 (copy), v21 (ref), v37 (ref), v12 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v50 (copy), v35 (ref), l_ApiFetchGameDetails_0 (ref)
+        -- upvalues: v49 (copy), v21 (ref), v37 (ref), v12 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v50 (copy), v35 (ref), l_ApiFetchGameDetails_0 (ref), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref)
         local v54 = v53.GamePasses[v49];
         local v55 = v53.GameBadges[v49];
         local v56 = v53.VoiceChatOptInStatus.isUserOptIn or false;
@@ -81,7 +81,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             communityLink = v62, 
             isLocalUserUnder13 = v53.IsLocalUserUnder13, 
             ageRecommendations = v53.AgeRecommendations[v49], 
-            ageRecommendationHeader = v53.AgeRecommendationHeaders.headerDisplayName
+            ageRecommendationHeader = v53.AgeRecommendationHeaders.headerDisplayName, 
+            isPlayable = if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v53.PlayabilityStatus and v53.PlayabilityStatus[v49] and v53.PlayabilityStatus[v49].isPlayable else nil
         };
     end);
     local v64 = l_useDispatch_0();
@@ -93,7 +94,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
     local v67 = if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then l_EnableCommunityProfilePageIXP_0.useIsFeatureActive({
         isExposureEnabled = false
     }) else nil;
-    local v68 = v1.useCallback(function() --[[ Line: 163 ]]
+    local v68 = v1.useCallback(function() --[[ Line: 168 ]]
         -- upvalues: v66 (copy), v49 (copy), l_FFlagHideCloseButtonEdp_0 (ref), v51 (copy)
         v66.openExperienceGuidelinesExplained(v49, if l_FFlagHideCloseButtonEdp_0 then v51 else false);
     end, {
@@ -102,7 +103,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v66
     });
     local v69 = v25(v26);
-    local v70 = v1.useCallback(function() --[[ Line: 173 ]]
+    local v70 = v1.useCallback(function() --[[ Line: 178 ]]
         -- upvalues: v64 (copy), v29 (ref), v69 (copy), v49 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v50 (copy)
         v64(v29(v69, v49, nil, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v50 else nil));
     end, {
@@ -112,7 +113,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v50 else nil
     });
     local v71 = v25(v27);
-    local v73 = v23(function(v72) --[[ Line: 193 ]]
+    local v73 = v23(function(v72) --[[ Line: 198 ]]
         return {
             showBadgesRow = v72.getGameInfoShowBadges(), 
             showCreatedRow = v72.getGameInfoShowCreated(), 
@@ -178,12 +179,12 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
     });
     local v77 = l_useUserExperiment_0({
         l_AppUserLayers_0.EDPCommunityLinksLayer
-    }, function(v76) --[[ Line: 270 ]]
+    }, function(v76) --[[ Line: 275 ]]
         -- upvalues: l_AppUserLayers_0 (ref)
         return (v76[l_AppUserLayers_0.EDPCommunityLinksLayer] or {}).communityLinkDisplayConfig or {};
     end, false);
-    local v80 = v1.useMemo(function() --[[ Line: 278 ]]
-        -- upvalues: v77 (copy), v63 (copy), v74 (copy), l_GuildedLogoWhiteAsset_0 (ref), l_getCommunityUrl_0 (ref), l_clickCommunityLinkEvent_0 (ref), v71 (copy), l_Constants_0 (ref), v49 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v80 = v1.useMemo(function() --[[ Line: 283 ]]
+        -- upvalues: v77 (copy), v63 (copy), v74 (copy), l_GuildedLogoWhiteAsset_0 (ref), l_getCommunityUrl_0 (ref), l_clickCommunityLinkEvent_0 (ref), v71 (copy), l_Constants_0 (ref), v49 (copy)
         local l_inTreatment_0 = v77.inTreatment;
         local l_linkVariant_0 = v77.linkVariant;
         if l_inTreatment_0 and v63.communityLink and l_linkVariant_0 == "infolist" then
@@ -191,7 +192,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 infoName = v74.community, 
                 infoIcon = l_GuildedLogoWhiteAsset_0, 
                 linkUrl = l_getCommunityUrl_0(v63.communityLink.communityId), 
-                linkClickCallback = function() --[[ Line: 287 ]] --[[ Name: linkClickCallback ]]
+                linkClickCallback = function() --[[ Line: 292 ]] --[[ Name: linkClickCallback ]]
                     -- upvalues: l_clickCommunityLinkEvent_0 (ref), v71 (ref), l_Constants_0 (ref), v63 (ref), v49 (ref)
                     l_clickCommunityLinkEvent_0(v71, l_Constants_0.Context.ExperienceInfoList, {
                         guildedServerId = v63.communityLink.communityId, 
@@ -199,7 +200,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                         entityId = v49
                     });
                 end, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--community-row-tail" or nil
+                testId = "--community-row-tail"
             };
         else
             return;
@@ -208,8 +209,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v74.community, 
         v63.communityLink
     });
-    local v82 = v1.useMemo(function() --[[ Line: 311 ]]
-        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy), v68 (copy), v20 (ref), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v82 = v1.useMemo(function() --[[ Line: 316 ]]
+        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy), v68 (copy), v20 (ref)
         if v73.showAgeRecommendationRow then
             local v81 = v21(v63.ageRecommendations, "summary", "ageRecommendation", "displayName");
             return {
@@ -217,7 +218,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 infoData = v81 or v74.unavailable, 
                 navigateOverride = if v81 then v68 else nil, 
                 analyticsSubPage = if v81 then v20.ExperienceGuidelinesExplained else nil, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--content-maturity-row-tail" or nil
+                testId = "--content-maturity-row-tail"
             };
         else
             return;
@@ -230,15 +231,15 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v63.ageRecommendationHeader, 
         v68
     });
-    local v84 = v1.useMemo(function() --[[ Line: 337 ]]
-        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v84 = v1.useMemo(function() --[[ Line: 342 ]]
+        -- upvalues: v73 (copy), v21 (ref), v63 (copy), v74 (copy)
         if v73.showAgeRecommendationRow then
             local v83 = v21(v63.ageRecommendations, "summary", "ageRecommendation", "minimumAgeDisplay");
             if v83 and v83 ~= "" then
                 return {
                     infoName = v74.age, 
                     infoData = v83, 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--age-row-tail" or nil
+                    testId = "--age-row-tail"
                 };
             end;
         end;
@@ -247,8 +248,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v74.age, 
         v63.ageRecommendations
     });
-    local v93 = v1.useMemo(function() --[[ Line: 359 ]]
-        -- upvalues: v63 (copy), v73 (copy), v37 (ref), l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v74 (copy), v49 (copy), v66 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref), v22 (ref)
+    local v93 = v1.useMemo(function() --[[ Line: 364 ]]
+        -- upvalues: v63 (copy), v73 (copy), v37 (ref), l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v74 (copy), v49 (copy), v66 (copy), v22 (ref)
         local l_creator_0 = v63.gameDetail.creator;
         if l_creator_0 and (v73.showDeveloperRow or v73.showRNVDeveloper and l_creator_0.isRNVAccount) then
             local l_id_0 = l_creator_0.id;
@@ -259,37 +260,37 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 return {
                     infoName = v74.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v90) --[[ Line: 376 ]] --[[ Name: infoDataOverride ]]
+                    infoDataOverride = function(v90) --[[ Line: 381 ]] --[[ Name: infoDataOverride ]]
                         -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
                         return v90(l_name_0, l_id_0, v49, v89);
                     end, 
-                    navigateOverride = function() --[[ Line: 379 ]] --[[ Name: navigateOverride ]]
+                    navigateOverride = function() --[[ Line: 384 ]] --[[ Name: navigateOverride ]]
                         -- upvalues: v66 (ref), l_id_0 (copy)
                         v66.openCommunityProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
                     end, 
                     analyticsSubPage = "Developer", 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                    testId = "--developer-row-tail"
                 };
             elseif l_type_0 == Enum.CreatorType.User.Name then
                 return {
                     infoName = v74.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v91) --[[ Line: 393 ]] --[[ Name: infoDataOverride ]]
+                    infoDataOverride = function(v91) --[[ Line: 398 ]] --[[ Name: infoDataOverride ]]
                         -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
                         return v91(l_name_0, l_id_0, v49, v89);
                     end, 
-                    navigateOverride = function() --[[ Line: 396 ]] --[[ Name: navigateOverride ]]
+                    navigateOverride = function() --[[ Line: 401 ]] --[[ Name: navigateOverride ]]
                         -- upvalues: v66 (ref), l_id_0 (copy)
                         v66.openUserProfilePage(l_id_0, "ExperienceDetailsPage:Developer");
                     end, 
                     analyticsSubPage = "Developer", 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                    testId = "--developer-row-tail"
                 };
             else
                 return {
                     infoName = v74.developer, 
                     infoData = l_name_0, 
-                    infoDataOverride = function(v92) --[[ Line: 409 ]] --[[ Name: infoDataOverride ]]
+                    infoDataOverride = function(v92) --[[ Line: 414 ]] --[[ Name: infoDataOverride ]]
                         -- upvalues: l_name_0 (copy), l_id_0 (copy), v49 (ref), v89 (copy)
                         return v92(l_name_0, l_id_0, v49, v89);
                     end, 
@@ -298,7 +299,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                         creatorId = l_id_0
                     }) else nil, 
                     analyticsSubPage = "Developer", 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                    testId = "--developer-row-tail"
                 };
             end;
         else
@@ -314,13 +315,13 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v63.creatorVerified, 
         if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then v67 else nil
     });
-    local v94 = v1.useMemo(function() --[[ Line: 439 ]]
-        -- upvalues: v73 (copy), v74 (copy), v63 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v94 = v1.useMemo(function() --[[ Line: 444 ]]
+        -- upvalues: v73 (copy), v74 (copy), v63 (copy)
         if v73.showMaxPlayersRow then
             return {
                 infoName = v74.maxPlayers, 
                 infoData = tostring(v63.gameDetail.maxPlayers or "--"), 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--server-size-row-tail" or nil
+                testId = "--server-size-row-tail"
             };
         else
             return;
@@ -329,8 +330,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v73.showMaxPlayersRow, 
         v63.gameDetail
     });
-    local v97 = v1.useMemo(function() --[[ Line: 456 ]]
-        -- upvalues: v63 (copy), v39 (ref), v74 (copy), v75 (copy), v73 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v97 = v1.useMemo(function() --[[ Line: 461 ]]
+        -- upvalues: v63 (copy), v39 (ref), v74 (copy), v75 (copy), v73 (copy)
         local v95 = nil;
         if v63.gameDetail.genre_l1 and v63.gameDetail.genre_l1 ~= "" then
             v95 = v63.gameDetail.genre_l1;
@@ -344,7 +345,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return {
                 infoName = v74.genre, 
                 infoData = v96 or "--", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--genre-row-tail" or nil
+                testId = "--genre-row-tail"
             };
         else
             return;
@@ -353,13 +354,13 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v73.showGenreRow, 
         v63.gameDetail
     });
-    local v98 = v1.useMemo(function() --[[ Line: 485 ]]
-        -- upvalues: v73 (copy), v63 (copy), v74 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v98 = v1.useMemo(function() --[[ Line: 490 ]]
+        -- upvalues: v73 (copy), v63 (copy), v74 (copy)
         if v73.showSubgenreRow and v63.gameDetail.genre_l2 and v63.gameDetail.genre_l2 ~= "" then
             return {
                 infoName = v74.subgenre, 
                 infoData = v63.gameDetail.genre_l2, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--subgenre-row-tail" or nil
+                testId = "--subgenre-row-tail"
             };
         else
             return;
@@ -369,13 +370,13 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v63.gameDetail
     });
     local v99 = v24(v63.gameDetail.created);
-    local v100 = v1.useMemo(function() --[[ Line: 504 ]]
-        -- upvalues: v73 (copy), v74 (copy), v99 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v100 = v1.useMemo(function() --[[ Line: 509 ]]
+        -- upvalues: v73 (copy), v74 (copy), v99 (copy)
         if v73.showCreatedRow then
             return {
                 infoName = v74.created, 
                 infoData = v99 or "--", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--created-row-tail" or nil
+                testId = "--created-row-tail"
             };
         else
             return;
@@ -385,13 +386,13 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v99
     });
     local v101 = v24(v63.gameDetail.updated);
-    local v102 = v1.useMemo(function() --[[ Line: 522 ]]
-        -- upvalues: v73 (copy), v74 (copy), v101 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v102 = v1.useMemo(function() --[[ Line: 527 ]]
+        -- upvalues: v73 (copy), v74 (copy), v101 (copy)
         if v73.showUpdatedRow then
             return {
                 infoName = v74.updated, 
                 infoData = v101 or "--", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--updated-row-tail" or nil
+                testId = "--updated-row-tail"
             };
         else
             return;
@@ -404,8 +405,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
     local v104 = nil;
     local v105 = nil;
     if v38() then
-        v104 = v1.useMemo(function() --[[ Line: 543 ]]
-            -- upvalues: v74 (copy), v63 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+        v104 = v1.useMemo(function() --[[ Line: 548 ]]
+            -- upvalues: v74 (copy), v63 (copy)
             local l_notSupported_0 = v74.notSupported;
             if v63.isLocalUserUnder13 then
                 return nil;
@@ -416,15 +417,15 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 return {
                     infoName = v74.voiceChat, 
                     infoData = l_notSupported_0, 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--voice-chat-row-tail" or nil
+                    testId = "--voice-chat-row-tail"
                 };
             end;
         end, {
             v63.experienceVoiceEnabled, 
             v63.isLocalUserUnder13
         });
-        v105 = v1.useMemo(function() --[[ Line: 566 ]]
-            -- upvalues: v74 (copy), v63 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+        v105 = v1.useMemo(function() --[[ Line: 571 ]]
+            -- upvalues: v74 (copy), v63 (copy)
             local l_notSupported_1 = v74.notSupported;
             if v63.experienceVideoEnabled then
                 l_notSupported_1 = v74.supported;
@@ -432,14 +433,14 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return {
                 infoName = v74.camera, 
                 infoData = l_notSupported_1, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--camera-row-tail" or nil
+                testId = "--camera-row-tail"
             };
         end, {
             v63.experienceVideoEnabled
         });
     else
-        v103 = v1.useMemo(function() --[[ Line: 585 ]]
-            -- upvalues: v63 (copy), v74 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+        v103 = v1.useMemo(function() --[[ Line: 590 ]]
+            -- upvalues: v63 (copy), v74 (copy)
             local v108 = {};
             if v63.experienceVoiceEnabled and not v63.isLocalUserUnder13 then
                 table.insert(v108, v74.microphone);
@@ -453,7 +454,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             return {
                 infoName = v74.communication, 
                 infoData = table.concat(v108, ", "), 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--communication-row-tail" or nil
+                testId = "--communication-row-tail"
             };
         end, {
             v63.experienceVoiceEnabled, 
@@ -461,16 +462,16 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             v63.isLocalUserUnder13
         });
     end;
-    local v109 = v1.useMemo(function() --[[ Line: 612 ]]
-        -- upvalues: v73 (copy), v63 (copy), v74 (copy), v22 (ref), v49 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
-        if v73.webViewSupport and v73.showGamepassesRow and v63.showPasses then
+    local v109 = v1.useMemo(function() --[[ Line: 617 ]]
+        -- upvalues: v73 (copy), v63 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (ref), v74 (copy), v22 (ref), v49 (copy)
+        if v73.webViewSupport and v73.showGamepassesRow and v63.showPasses and (not l_FFlagLuaAppHideEdpStoreForUnplayable_0 or v63.isPlayable) then
             return {
                 infoName = v74.passesAndGear, 
                 linkPage = v22.game.info.store({
                     universeId = v49
                 }), 
                 analyticsSubPage = "PassesAndGear", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--store-row-tail" or nil
+                testId = "--store-row-tail"
             };
         else
             return;
@@ -479,19 +480,20 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v49, 
         v73.webViewSupport, 
         v73.showGamepassesRow, 
-        v63.showPasses
+        v63.showPasses, 
+        if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v63.isPlayable else nil
     });
-    local v110 = v1.useMemo(function() --[[ Line: 634 ]]
-        -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), v73 (copy), v63 (copy), v74 (copy), l_navigateToBadgesSeeAll_0 (ref), v52 (copy), v49 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref), v22 (ref)
+    local v110 = v1.useMemo(function() --[[ Line: 645 ]]
+        -- upvalues: l_FFlagLuaAppBadgesSeeAllEnabled_0 (ref), v73 (copy), v63 (copy), v74 (copy), l_navigateToBadgesSeeAll_0 (ref), v52 (copy), v49 (copy), v22 (ref)
         if l_FFlagLuaAppBadgesSeeAllEnabled_0 and v73.showBadgesRow and v63.showBadges then
             return {
                 infoName = v74.badges, 
-                navigateOverride = function() --[[ Line: 638 ]] --[[ Name: navigateOverride ]]
+                navigateOverride = function() --[[ Line: 649 ]] --[[ Name: navigateOverride ]]
                     -- upvalues: l_navigateToBadgesSeeAll_0 (ref), v52 (ref), v49 (ref)
                     l_navigateToBadgesSeeAll_0(v52, v49);
                 end, 
                 analyticsSubPage = "Badges", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--badges-row-tail" or nil
+                testId = "--badges-row-tail"
             };
         elseif v73.webViewSupport and v73.showBadgesRow and v63.showBadges then
             return {
@@ -500,7 +502,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                     universeId = v49
                 }), 
                 analyticsSubPage = "Badges", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--badges-row-tail" or nil
+                testId = "--badges-row-tail"
             };
         else
             return;
@@ -511,10 +513,10 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v73.showBadgesRow, 
         v63.showPasses, 
         v52, 
-        if v48 then v63.showBadges else nil
+        if v47 then v63.showBadges else nil
     });
-    local v111 = v1.useMemo(function() --[[ Line: 667 ]]
-        -- upvalues: v73 (copy), v74 (copy), v22 (ref), v49 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v111 = v1.useMemo(function() --[[ Line: 678 ]]
+        -- upvalues: v73 (copy), v74 (copy), v22 (ref), v49 (copy)
         if v73.webViewSupport and v73.showServersRow then
             return {
                 infoName = v74.servers, 
@@ -522,7 +524,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                     universeId = v49
                 }), 
                 analyticsSubPage = "Servers", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--servers-row-tail" or nil
+                testId = "--servers-row-tail"
             };
         else
             return;
@@ -532,26 +534,26 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
         v73.webViewSupport, 
         v73.showServersRow
     });
-    local v112 = v1.useMemo(function() --[[ Line: 688 ]]
-        -- upvalues: l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v73 (copy), v63 (copy), v74 (copy), v66 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+    local v112 = v1.useMemo(function() --[[ Line: 699 ]]
+        -- upvalues: l_EnableCommunityProfilePageIXP_0 (ref), v67 (copy), v73 (copy), v63 (copy), v74 (copy), v66 (copy)
         if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled and v67 then
             if v73.enableGroupLinks and v63.groupLink then
                 if v63.groupLink.communityId ~= nil then
                     return {
                         infoName = v74.group, 
-                        navigateOverride = function() --[[ Line: 694 ]] --[[ Name: navigateOverride ]]
+                        navigateOverride = function() --[[ Line: 705 ]] --[[ Name: navigateOverride ]]
                             -- upvalues: v66 (ref), v63 (ref)
                             v66.openCommunityProfilePage(v63.groupLink.communityId, "ExperienceDetailsPage:Group");
                         end, 
                         analyticsSubPage = "Group", 
-                        testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--group-row-tail" or nil
+                        testId = "--group-row-tail"
                     };
                 elseif v73.webViewSupport then
                     return {
                         infoName = v74.group, 
                         linkPage = v63.groupLink.url, 
                         analyticsSubPage = "Group", 
-                        testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--group-row-tail" or nil
+                        testId = "--group-row-tail"
                     };
                 end;
             end;
@@ -560,7 +562,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 infoName = v74.group, 
                 linkPage = v63.groupLink.url, 
                 analyticsSubPage = "Group", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--group-row-tail" or nil
+                testId = "--group-row-tail"
             };
         end;
     end, {
@@ -574,8 +576,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
     local v114 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
         local l_Locale_0 = v25(v28):GetLocale();
-        v114 = v1.useMemo(function() --[[ Line: 740 ]]
-            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_abbreviateCount_0 (ref), l_Locale_0 (copy), v74 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+        v114 = v1.useMemo(function() --[[ Line: 751 ]]
+            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_abbreviateCount_0 (ref), l_Locale_0 (copy), v74 (copy)
             if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showVisitsInInfoList == true then
                 local l_gameDetail_0 = v63.gameDetail;
                 local v117 = l_gameDetail_0 and l_gameDetail_0.visits or 0;
@@ -583,7 +585,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                 return {
                     infoName = v74.visits, 
                     infoData = v118, 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--visits-row-tail" or nil
+                    testId = "--visits-row-tail"
                 };
             else
                 return;
@@ -594,8 +596,8 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             v74.visits, 
             l_Locale_0
         });
-        v113 = v1.useMemo(function() --[[ Line: 772 ]]
-            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (ref), v74 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
+        v113 = v1.useMemo(function() --[[ Line: 783 ]]
+            -- upvalues: l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v32 (ref), v65 (ref), v63 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (ref), v74 (copy)
             if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v32.getShouldInterleaveSdui()) and v65 and v65.showContentDescriptorsInInfoList == true and v63.ageRecommendations then
                 local l_descriptorUsages_0 = v63.ageRecommendations.descriptorUsages;
                 if l_descriptorUsages_0 and #l_descriptorUsages_0 > 0 then
@@ -604,7 +606,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
                             return {
                                 infoName = if l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 then v74.creatorEnabled else v74.communication, 
                                 infoData = v74.strongLanguage, 
-                                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--content-descriptors-row-tail" or nil
+                                testId = "--content-descriptors-row-tail"
                             };
                         end;
                     end;
@@ -617,7 +619,7 @@ return function(v49, v50, v51) --[[ Line: 96 ]]
             v74.containsStrongLanguage
         });
     end;
-    v1.useEffect(function() --[[ Line: 814 ]]
+    v1.useEffect(function() --[[ Line: 823 ]]
         -- upvalues: v63 (copy), l_RetrievalStatus_0 (ref), v70 (copy)
         if v63.dataStatus == l_RetrievalStatus_0.NotStarted then
             v70();

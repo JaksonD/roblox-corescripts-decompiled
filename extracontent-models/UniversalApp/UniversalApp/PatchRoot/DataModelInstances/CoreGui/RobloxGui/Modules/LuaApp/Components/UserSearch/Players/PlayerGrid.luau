@@ -14,9 +14,11 @@ local l_useTextSizeOffset_0 = v2.Core.Style.useTextSizeOffset;
 local v13 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
 local v14 = require(l_Modules_0.LuaApp.Components.UserSearch.UserSearchTileUniversalWrapper.Container);
 local l_getTileRowInSort_0 = require(l_Modules_0.LuaApp.Components.UserSearch.api).Analytics.getTileRowInSort;
+local l_calculateRowPositionFields_0 = require(l_CorePackages_0.Workspace.Packages.UnifiedLogging).calculateRowPositionFields;
+local l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSearchPeopleUnifiedSchemaFields;
 local l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0 = v6.PLAYER_GRID_TILE_FOOTER_HEIGHT;
-local v17 = v3.PureComponent:extend("PlayerGrid");
-v17.validateProps = v5.strictInterface({
+local v19 = v3.PureComponent:extend("PlayerGrid");
+v19.validateProps = v5.strictInterface({
     entries = v5.table, 
     LayoutOrder = v5.optional(v5.integer), 
     numberOfRowsToShow = v5.optional(v5.integer), 
@@ -39,106 +41,112 @@ v17.validateProps = v5.strictInterface({
     enablePresenceIndicator = v5.optional(v5.boolean), 
     enableOnlineFrequents = v5.optional(v5.boolean)
 });
-v17.defaultProps = {
+v19.defaultProps = {
     horizontalAlignment = Enum.HorizontalAlignment.Center, 
     mappedProfilesInsights = {}
 };
-v17.renderItem = function(v18, v19, v20, v21) --[[ Line: 63 ]] --[[ Name: renderItem ]]
-    -- upvalues: v3 (copy), v14 (copy), l_getTileRowInSort_0 (copy)
+v19.renderItem = function(v20, v21, v22, v23) --[[ Line: 67 ]] --[[ Name: renderItem ]]
+    -- upvalues: l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 (copy), l_calculateRowPositionFields_0 (copy), v3 (copy), v14 (copy), l_getTileRowInSort_0 (copy)
+    local v24 = nil;
+    if l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 then
+        v24 = l_calculateRowPositionFields_0(v23, v20.props.itemsPerRow, v20.props.startRowNumber);
+    end;
     return v3.createElement(v14, {
-        index = v21, 
-        user = v19, 
-        size = UDim2.new(0, v20.X, 0, v20.Y), 
-        searchParameters = v18.props.searchParameters, 
-        hasEmphasis = v19.featured or false, 
-        impressionsTag = v18.props.impressionsTag, 
-        profileInsight = v18.props.mappedProfilesInsights[v19.id], 
-        Analytics = v18.props.Analytics, 
-        shouldUseCompactTiles = v18.props.shouldUseCompactTiles, 
-        enablePresenceIndicator = v18.props.enablePresenceIndicator, 
-        subpage = v18.props.subpage, 
-        rowInSort = l_getTileRowInSort_0(v21, v18.props.startRowNumber, v18.props.itemsPerRow)
+        index = v23, 
+        user = v21, 
+        size = UDim2.new(0, v22.X, 0, v22.Y), 
+        searchParameters = v20.props.searchParameters, 
+        hasEmphasis = v21.featured or false, 
+        impressionsTag = v20.props.impressionsTag, 
+        profileInsight = v20.props.mappedProfilesInsights[v21.id], 
+        Analytics = v20.props.Analytics, 
+        shouldUseCompactTiles = v20.props.shouldUseCompactTiles, 
+        enablePresenceIndicator = v20.props.enablePresenceIndicator, 
+        subpage = v20.props.subpage, 
+        rowInSort = if l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 then v24.rowInSort else l_getTileRowInSort_0(v23, v20.props.startRowNumber, v20.props.itemsPerRow), 
+        positionInRow = if l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 then v24.positionInRow else nil, 
+        feedRowNumber = if l_FFlagLuaAppSearchPeopleUnifiedSchemaFields_0 then v24.rowOnPage else nil
     });
 end;
-v17.getCardWidthForCompactTiles = function(v22, v23) --[[ Line: 80 ]] --[[ Name: getCardWidthForCompactTiles ]]
+v19.getCardWidthForCompactTiles = function(v25, v26) --[[ Line: 93 ]] --[[ Name: getCardWidthForCompactTiles ]]
     -- upvalues: l_GridMetrics_0 (copy)
-    local l_windowSize_0 = v22.props.windowSize;
-    local v25 = l_GridMetrics_0.getSmallMetrics(l_windowSize_0.X, v23);
+    local l_windowSize_0 = v25.props.windowSize;
+    local v28 = l_GridMetrics_0.getSmallMetrics(l_windowSize_0.X, v26);
     if l_windowSize_0.X < l_windowSize_0.Y then
-        return v25.itemWidth;
+        return v28.itemWidth;
     else
-        local v26 = v25.itemsPerRow + 1;
-        return (math.floor((l_windowSize_0.X - (v26 - 1) * v23) / v26));
+        local v29 = v28.itemsPerRow + 1;
+        return (math.floor((l_windowSize_0.X - (v29 - 1) * v26) / v29));
     end;
 end;
-v17.render = function(v27) --[[ Line: 93 ]] --[[ Name: render ]]
+v19.render = function(v30) --[[ Line: 106 ]] --[[ Name: render ]]
     -- upvalues: v13 (copy), l_GridMetrics_0 (copy), l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0 (copy), v4 (copy), l_UiMode_0 (copy), v3 (copy), l_GridView_0 (copy)
-    local l_entries_0 = v27.props.entries;
-    local l_LayoutOrder_0 = v27.props.LayoutOrder;
-    local l_numberOfRowsToShow_0 = v27.props.numberOfRowsToShow;
-    local l_windowSize_1 = v27.props.windowSize;
-    local l_horizontalAlignment_0 = v27.props.horizontalAlignment;
-    local v33 = nil;
-    local v34 = nil;
-    local v35 = nil;
+    local l_entries_0 = v30.props.entries;
+    local l_LayoutOrder_0 = v30.props.LayoutOrder;
+    local l_numberOfRowsToShow_0 = v30.props.numberOfRowsToShow;
+    local l_windowSize_1 = v30.props.windowSize;
+    local l_horizontalAlignment_0 = v30.props.horizontalAlignment;
     local v36 = nil;
     local v37 = nil;
-    if v27.props.shouldUseCompactTiles then
-        v36 = v27.props.cellSpacingHorizontal;
-        v35 = Vector2.new(v36, v27.props.cellSpacingVertical);
-        v34 = v27:getCardWidthForCompactTiles(v36);
-        v37 = 60;
+    local v38 = nil;
+    local v39 = nil;
+    local v40 = nil;
+    if v30.props.shouldUseCompactTiles then
+        v39 = v30.props.cellSpacingHorizontal;
+        v38 = Vector2.new(v39, v30.props.cellSpacingVertical);
+        v37 = v30:getCardWidthForCompactTiles(v39);
+        v40 = 60;
     else
-        v36 = v13.Constants.GAME_GRID_CHILD_PADDING;
-        v35 = Vector2.new(v36, v36 * 2);
-        v34 = l_GridMetrics_0.getMediumMetrics(l_windowSize_1.X, v36).itemWidth;
-        v37 = l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0;
+        v39 = v13.Constants.GAME_GRID_CHILD_PADDING;
+        v38 = Vector2.new(v39, v39 * 2);
+        v37 = l_GridMetrics_0.getMediumMetrics(l_windowSize_1.X, v39).itemWidth;
+        v40 = l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0;
     end;
-    local v38 = math.floor(v34 + v37);
-    local v39 = Vector2.new(v34, v38);
-    if not v27.props.shouldUseCompactTiles and #l_entries_0 == 1 then
-        v33 = {
+    local v41 = math.floor(v37 + v40);
+    local v42 = Vector2.new(v37, v41);
+    if not v30.props.shouldUseCompactTiles and #l_entries_0 == 1 then
+        v36 = {
             v4.Dictionary.join(l_entries_0[1], {
                 featured = true
             })
         };
-        local l_itemWidth_0 = l_GridMetrics_0.getLargeMetrics(l_windowSize_1.X, v36).itemWidth;
-        v39 = Vector2.new(l_itemWidth_0, l_itemWidth_0 + l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0);
+        local l_itemWidth_0 = l_GridMetrics_0.getLargeMetrics(l_windowSize_1.X, v39).itemWidth;
+        v42 = Vector2.new(l_itemWidth_0, l_itemWidth_0 + l_PLAYER_GRID_TILE_FOOTER_HEIGHT_0);
     end;
-    if v27.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-        v34 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_1.X, v27.props.cellSpacingHorizontal, 6).itemWidth;
-        v38 = math.floor(v34 + v27.props.tileHeightOffset);
-        v39 = Vector2.new(v34, v38);
-        v35 = Vector2.new(v27.props.cellSpacingHorizontal, v27.props.cellSpacingVertical);
+    if v30.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+        v37 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_1.X, v30.props.cellSpacingHorizontal, 6).itemWidth;
+        v41 = math.floor(v37 + v30.props.tileHeightOffset);
+        v42 = Vector2.new(v37, v41);
+        v38 = Vector2.new(v30.props.cellSpacingHorizontal, v30.props.cellSpacingVertical);
     end;
-    v39 = Vector2.new(v39.X, v39.Y + v27.props.textSizeOffset * 3);
+    v42 = Vector2.new(v42.X, v42.Y + v30.props.textSizeOffset * 3);
     return v3.createElement(l_GridView_0, {
         layoutOrder = l_LayoutOrder_0, 
-        items = v33 or l_entries_0, 
-        renderItem = function(...) --[[ Line: 151 ]] --[[ Name: renderItem ]]
-            -- upvalues: v27 (copy)
-            return v27:renderItem(...);
+        items = v36 or l_entries_0, 
+        renderItem = function(...) --[[ Line: 164 ]] --[[ Name: renderItem ]]
+            -- upvalues: v30 (copy)
+            return v30:renderItem(...);
         end, 
         windowAbsoluteSize = l_windowSize_1, 
-        itemAbsoluteSize = v39, 
-        cellPaddingOffset = v35, 
+        itemAbsoluteSize = v42, 
+        cellPaddingOffset = v38, 
         numberOfRowsToShow = l_numberOfRowsToShow_0, 
         horizontalAlignment = l_horizontalAlignment_0, 
-        onItemsPerRowChanged = v27.props.onItemsPerRowChanged
+        onItemsPerRowChanged = v30.props.onItemsPerRowChanged
     });
 end;
-local l_v17_0 = v17;
-return function(v42) --[[ Line: 164 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useUiModeInfo_0 (copy), l_useTextSizeOffset_0 (copy), v4 (copy), v3 (copy), l_v17_0 (copy)
-    local v43 = l_useDesignTokens_0();
-    local v44 = l_useUiModeInfo_0();
-    local v45 = l_useTextSizeOffset_0();
-    local v46 = v4.Dictionary.join(v42, {
-        uiModeInfo = v44, 
-        cellSpacingHorizontal = v43.Global.Space_300, 
-        cellSpacingVertical = if v42.shouldUseCompactTiles then v43.Global.Space_200 else v43.Global.Space_400, 
-        tileHeightOffset = v43.Global.Space_800, 
-        textSizeOffset = v45
+local l_v19_0 = v19;
+return function(v45) --[[ Line: 177 ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useUiModeInfo_0 (copy), l_useTextSizeOffset_0 (copy), v4 (copy), v3 (copy), l_v19_0 (copy)
+    local v46 = l_useDesignTokens_0();
+    local v47 = l_useUiModeInfo_0();
+    local v48 = l_useTextSizeOffset_0();
+    local v49 = v4.Dictionary.join(v45, {
+        uiModeInfo = v47, 
+        cellSpacingHorizontal = v46.Global.Space_300, 
+        cellSpacingVertical = if v45.shouldUseCompactTiles then v46.Global.Space_200 else v46.Global.Space_400, 
+        tileHeightOffset = v46.Global.Space_800, 
+        textSizeOffset = v48
     });
-    return v3.createElement(l_v17_0, v46);
+    return v3.createElement(l_v19_0, v49);
 end;

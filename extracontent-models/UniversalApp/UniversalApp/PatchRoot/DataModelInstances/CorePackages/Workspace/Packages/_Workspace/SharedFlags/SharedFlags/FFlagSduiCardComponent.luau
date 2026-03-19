@@ -1,1 +1,1 @@
-return game:DefineFastFlag("SduiCardComponent_v2", false);
+return game:DefineFastFlag("SduiCardComponent_v3", false);

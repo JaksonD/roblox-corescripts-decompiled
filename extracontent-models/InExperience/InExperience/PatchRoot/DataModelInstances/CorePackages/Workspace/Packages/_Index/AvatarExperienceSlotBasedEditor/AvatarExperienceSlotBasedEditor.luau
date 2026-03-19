@@ -13,8 +13,9 @@ local v11 = require(script.Enums.SlotType);
 local v12 = require(script.Stores.createCategoryInventoryStore);
 local v13 = require(script.Stores.createSortAndFiltersStore);
 local v14 = require(script.Stores.createAvatarEditorStores);
-local v15 = require(script.Context.SlotBasedEditorContext);
-local v16 = require(script.Context.AvatarEditorStores);
+local v15 = require(script.Stores.createSlotBasedEditorStore);
+local v16 = require(script.Context.SlotBasedEditorContext);
+local v17 = require(script.Context.AvatarEditorStores);
 return {
     Components = {
         SlotItemCard = require(script.Components.SlotItemCard), 
@@ -30,15 +31,16 @@ return {
         useSlotCustomizeFtux = require(script.Hooks.useSlotCustomizeFtux)
     }, 
     Context = {
-        SlotBasedEditorContext = v15, 
+        SlotBasedEditorContext = v16, 
         useSlotBasedEditorContext = require(script.Context.useSlotBasedEditorContext), 
-        AvatarEditorStores = v16, 
+        AvatarEditorStores = v17, 
         useAvatarEditorStores = require(script.Context.useAvatarEditorStores)
     }, 
     Stores = {
         createCategoryInventoryStore = v12, 
         createSortAndFiltersStore = v13, 
-        createAvatarEditorStores = v14
+        createAvatarEditorStores = v14, 
+        createSlotBasedEditorStore = v15
     }, 
     Enums = {
         ScreenLayout = v4, 

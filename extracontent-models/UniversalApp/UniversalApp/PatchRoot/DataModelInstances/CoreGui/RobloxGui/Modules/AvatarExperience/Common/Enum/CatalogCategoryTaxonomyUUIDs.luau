@@ -1,40 +1,51 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Packages.enumerate);
-if require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXCatalogMakeupTaxonomy then
-    return v1(script.Name, {
-        Clothing = "5G3bZScC9Hxp2D2EUtGSNm", 
-        Shirts = "pJ71PxerdfEuarTNRtSZYs", 
-        TShirts = "fLRqNzGqjX7MzcqeMro9hc", 
-        Sweaters = "31M6WgEMmyq9TTfk3pUUpZ", 
-        Jackets = "kPZpEVNdProGcqMbj1jDKJ", 
-        Pants = "1MvRtnnsy2FJWmkErSBxBa", 
-        DressesAndSkirts = "oSSCBSqkQPZu6HataAUAxB", 
-        Shorts = "etAPg889P243JyjdbZCXhw", 
-        Shoes = "uLRgNoJ1awZkhpVw9WyvKo", 
-        ClassicShirts = "2a2rf9qyeTd8W5iegK2Prc", 
-        ClassicTShirts = "43H35nJKHzCQM63q3wPaJG", 
-        ClassicPants = "49cFNAJWuwiJJVUSADG6DR", 
-        Bodysuits = "u5jaNLyf2ZhvR95GS37ui5", 
-        Eyebrows = "1cMbsG373EMD4ncRqGhtyZ", 
-        Eyelashes = "4zqsNnG4Tp7xZThAEpv2dN", 
-        FaceMakeup = "tm9VSS61JdHJGtKvbjKa4D", 
-        LipMakeup = "c3PEmGVddwsc6bKqtuR7rC", 
-        EyeMakeup = "1e7vNivWk2To6BdYJt5RGF"
-    });
-else
-    return v1(script.Name, {
-        Clothing = "5G3bZScC9Hxp2D2EUtGSNm", 
-        Shirts = "pJ71PxerdfEuarTNRtSZYs", 
-        TShirts = "fLRqNzGqjX7MzcqeMro9hc", 
-        Sweaters = "31M6WgEMmyq9TTfk3pUUpZ", 
-        Jackets = "kPZpEVNdProGcqMbj1jDKJ", 
-        Pants = "1MvRtnnsy2FJWmkErSBxBa", 
-        DressesAndSkirts = "oSSCBSqkQPZu6HataAUAxB", 
-        Shorts = "etAPg889P243JyjdbZCXhw", 
-        Shoes = "uLRgNoJ1awZkhpVw9WyvKo", 
-        ClassicShirts = "2a2rf9qyeTd8W5iegK2Prc", 
-        ClassicTShirts = "43H35nJKHzCQM63q3wPaJG", 
-        ClassicPants = "49cFNAJWuwiJJVUSADG6DR", 
-        Bodysuits = "u5jaNLyf2ZhvR95GS37ui5"
-    });
-end;
+local v2 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local l_FFlagAXCatalogMakeupTaxonomy_0 = v2.FFlagAXCatalogMakeupTaxonomy;
+local l_FFlagAXCatalogM41Props_0 = v2.FFlagAXCatalogM41Props;
+local l_FFlagAXCatalogM41FullMasks_0 = v2.FFlagAXCatalogM41FullMasks;
+local l_FFlagAXCatalogM41HandAndArm_0 = v2.FFlagAXCatalogM41HandAndArm;
+local l_FFlagAXM41AllCategoriesToTaxonomy_0 = v2.FFlagAXM41AllCategoriesToTaxonomy;
+return v1(script.Name, {
+    AllItems = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "tZsUsd2BqGViQrJ9Vs3Wah" or nil, 
+    Body = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "mwkR3QvDBVzYk4o9RAVVa2" or nil, 
+    FullBodies = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "kfHzJwaNYM8s2CWRqYUhRa" or nil, 
+    Hair = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "d6a7M7r9MMrpf7z7VxW9ZS" or nil, 
+    DynamicHeads = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "s5NLP7BS9PRLKvUVca4XKg" or nil, 
+    ClassicHeads = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "1JiaNPKxcc5RL2X6b4VQwv" or nil, 
+    ClassicFaces = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "9atv5s8UMicJWBZXYMTjWH" or nil, 
+    Makeup = l_FFlagAXCatalogMakeupTaxonomy_0 and "dBM565GC3YYTdi9UKvr87Z" or nil, 
+    EyeMakeup = l_FFlagAXCatalogMakeupTaxonomy_0 and "1e7vNivWk2To6BdYJt5RGF" or nil, 
+    LipMakeup = l_FFlagAXCatalogMakeupTaxonomy_0 and "c3PEmGVddwsc6bKqtuR7rC" or nil, 
+    FaceMakeup = l_FFlagAXCatalogMakeupTaxonomy_0 and "tm9VSS61JdHJGtKvbjKa4D" or nil, 
+    Eyelashes = l_FFlagAXCatalogMakeupTaxonomy_0 and "4zqsNnG4Tp7xZThAEpv2dN" or nil, 
+    Eyebrows = l_FFlagAXCatalogMakeupTaxonomy_0 and "1cMbsG373EMD4ncRqGhtyZ" or nil, 
+    Props = l_FFlagAXCatalogM41Props_0 and "gCkG9kjqiv3Hfg4H3pkUoy" or nil, 
+    Clothing = "5G3bZScC9Hxp2D2EUtGSNm", 
+    Shirts = "pJ71PxerdfEuarTNRtSZYs", 
+    TShirts = "fLRqNzGqjX7MzcqeMro9hc", 
+    Sweaters = "31M6WgEMmyq9TTfk3pUUpZ", 
+    Jackets = "kPZpEVNdProGcqMbj1jDKJ", 
+    Pants = "1MvRtnnsy2FJWmkErSBxBa", 
+    DressesAndSkirts = "oSSCBSqkQPZu6HataAUAxB", 
+    Bodysuits = "u5jaNLyf2ZhvR95GS37ui5", 
+    Shorts = "etAPg889P243JyjdbZCXhw", 
+    Shoes = "uLRgNoJ1awZkhpVw9WyvKo", 
+    ClassicShirts = "2a2rf9qyeTd8W5iegK2Prc", 
+    ClassicTShirts = "43H35nJKHzCQM63q3wPaJG", 
+    ClassicPants = "49cFNAJWuwiJJVUSADG6DR", 
+    Accessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "wNYJso48d1XnhMyFWT3oX3" or nil, 
+    HeadAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "thukPQUFe5EHxRrtsgq43u" or nil, 
+    FaceAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "b5rkQhGSfwhfTK177y6ERa" or nil, 
+    FullMasks = l_FFlagAXCatalogM41FullMasks_0 and "pdftcazVqwGjmgpC29ELFY" or nil, 
+    NeckAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "tvckLAbtDAGwF9Y2sph2Ce" or nil, 
+    ShoulderAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "8i1sggNTrxoN799hpRrR1S" or nil, 
+    HandAndArm = l_FFlagAXCatalogM41HandAndArm_0 and "gFxqvTwUAxkggrRJz3NPZg" or nil, 
+    FrontAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "kj535RzJxHTCnXPBLo5KaE" or nil, 
+    BackAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "7yGywzp5JeDsNjhXWJqSw3" or nil, 
+    WaistAccessories = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "6jYQPDtkVwQZcKtvVpyYAN" or nil, 
+    Gear = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "gUtxkR951g3VPgRkb5ay8u" or nil, 
+    Animations = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "9fPpW3SJ6UkieQU5jJ4dgP" or nil, 
+    AnimationBundles = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "whf6kUVBwk2xdwKUmRYN6G" or nil, 
+    Emotes = l_FFlagAXM41AllCategoriesToTaxonomy_0 and "ioNxAT977DFP2hMnAJbsbF" or nil
+});

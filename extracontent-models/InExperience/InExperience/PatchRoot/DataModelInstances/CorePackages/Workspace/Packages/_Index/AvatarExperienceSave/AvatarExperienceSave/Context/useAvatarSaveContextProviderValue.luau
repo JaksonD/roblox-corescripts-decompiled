@@ -267,7 +267,6 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             -- upvalues: l_FFlagAXAvatarTimeoutFlow_0 (ref), v99 (ref), v118 (ref), v22 (ref), v63 (ref), v65 (ref), v67 (ref), v71 (ref), v45 (ref), v70 (ref), v72 (ref), l_buildHumanoidDescription_0 (ref), v34 (ref), l_getGearAssetIdFromEquippedAssets_0 (ref), v28 (ref), v74 (ref), v116 (ref)
             if l_FFlagAXAvatarTimeoutFlow_0 and v99 and v99.getIsTimedOut(false) then
                 v118(v22.TimedOut);
-                v120();
                 return;
             else
                 local v121 = v63(false);
@@ -291,15 +290,15 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
                         local v127 = Enum.HumanoidRigType[v124.equipped.AvatarType];
                         local v128 = v34(v124, v123);
                         local v129 = l_getGearAssetIdFromEquippedAssets_0(v124.equipped.EquippedAssets);
-                        v28(v126, v127, v128, v129):andThen(function(v130) --[[ Line: 358 ]]
+                        v28(v126, v127, v128, v129):andThen(function(v130) --[[ Line: 357 ]]
                             -- upvalues: v74 (ref), v116 (ref), v126 (copy), v124 (copy), v123 (copy), v128 (copy), v119 (copy)
                             v74(false);
                             v116(v126, v130.humanoidDescriptionWithValidAssets, v124, v123, v128);
                             v119();
-                        end):catch(function(v131) --[[ Line: 370 ]]
+                        end):catch(function(_) --[[ Line: 369 ]]
                             -- upvalues: v74 (ref), l_FFlagAXAvatarTimeoutFlow_0 (ref), v99 (ref), v118 (ref), v22 (ref), v120 (copy)
                             v74(false);
-                            if l_FFlagAXAvatarTimeoutFlow_0 and v99 and v131 and v131.avatarPromptResult == Enum.AvatarPromptResult.PermissionDenied then
+                            if l_FFlagAXAvatarTimeoutFlow_0 and v99 then
                                 v99.fetchStatus();
                             end;
                             v118(v22.Failure);
@@ -322,11 +321,11 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
         v74
     });
     if l_FFlagAXEnableManualSavingBlockingPrompt_0 then
-        local v134 = v2.useCallback(function(v133) --[[ Line: 402 ]]
+        local v134 = v2.useCallback(function(v133) --[[ Line: 401 ]]
             -- upvalues: v132 (copy), v59 (copy), l_NavigateToRoute_0 (ref)
-            return function() --[[ Line: 403 ]]
+            return function() --[[ Line: 402 ]]
                 -- upvalues: v132 (ref), v59 (ref), l_NavigateToRoute_0 (ref), v133 (copy)
-                v132():finally(function() --[[ Line: 404 ]]
+                v132():finally(function() --[[ Line: 403 ]]
                     -- upvalues: v59 (ref), l_NavigateToRoute_0 (ref), v133 (ref)
                     v59(l_NavigateToRoute_0({
                         {
@@ -340,11 +339,11 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             v132, 
             v59
         });
-        local v137 = v2.useCallback(function(v135) --[[ Line: 410 ]]
+        local v137 = v2.useCallback(function(v135) --[[ Line: 409 ]]
             -- upvalues: v67 (copy), v59 (copy), l_CharacterHistoryStateChangeButtonActivated_0 (ref), l_NavigateToRoute_0 (ref)
-            return function() --[[ Line: 411 ]]
+            return function() --[[ Line: 410 ]]
                 -- upvalues: v67 (ref), v59 (ref), l_CharacterHistoryStateChangeButtonActivated_0 (ref), l_NavigateToRoute_0 (ref), v135 (copy)
-                task.spawn(function() --[[ Line: 412 ]]
+                task.spawn(function() --[[ Line: 411 ]]
                     -- upvalues: v67 (ref), v59 (ref), l_CharacterHistoryStateChangeButtonActivated_0 (ref), l_NavigateToRoute_0 (ref), v135 (ref)
                     local v136 = v67(false);
                     v59(l_CharacterHistoryStateChangeButtonActivated_0(v136));
@@ -362,7 +361,7 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             v67
         });
         local l_v134_0 = v134 --[[ copy: 24 -> 27 ]];
-        local v144 = v2.useCallback(function(v139, v140) --[[ Line: 429 ]]
+        local v144 = v2.useCallback(function(v139, v140) --[[ Line: 428 ]]
             -- upvalues: l_Actions_0 (ref), l_AvatarScreen_0 (ref), v56 (ref), v8 (ref), v106 (copy), v22 (ref), v5 (ref), l_v134_0 (copy), v137 (copy)
             local l_routeName_0 = (v139 or {}).routeName;
             local l_params_0 = (v139 or {}).params;
@@ -395,7 +394,7 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             v134, 
             v137
         });
-        v2.useEffect(function() --[[ Line: 492 ]]
+        v2.useEffect(function() --[[ Line: 491 ]]
             -- upvalues: v60 (copy), l_RegisterCustomGetStateForAction_0 (ref), l_CustomGetStateForAction_0 (ref), v144 (copy)
             v60.dispatch(l_RegisterCustomGetStateForAction_0(l_CustomGetStateForAction_0.HandlerId.BlockAXExitOnUnsavedChanges, v144));
         end, {
@@ -403,9 +402,9 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             v144
         });
     end;
-    v2.useEffect(function() --[[ Line: 505 ]]
+    v2.useEffect(function() --[[ Line: 504 ]]
         -- upvalues: v6 (ref), v63 (copy), v73 (copy), v106 (copy), v22 (ref), v132 (copy)
-        return v6.createEffect(function(v145) --[[ Line: 506 ]]
+        return v6.createEffect(function(v145) --[[ Line: 505 ]]
             -- upvalues: v63 (ref), v73 (ref), v106 (ref), v22 (ref), v132 (ref)
             local v146 = v63(v145);
             if v146[#v146] and v73(false) then
@@ -416,13 +415,13 @@ return function() --[[ Line: 111 ]] --[[ Name: useAvatarSaveContextProviderValue
             end;
         end);
     end, {});
-    local v148 = v2.useCallback(function() --[[ Line: 523 ]]
+    local v148 = v2.useCallback(function() --[[ Line: 522 ]]
         -- upvalues: v74 (copy)
         v74(true);
     end, {
         v74
     });
-    return v2.useMemo(function() --[[ Line: 528 ]]
+    return v2.useMemo(function() --[[ Line: 527 ]]
         -- upvalues: v63 (copy), v65 (copy), v90 (copy), v67 (copy), v106 (copy), v132 (copy), v148 (copy)
         return {
             getHistorySignal = v63, 

@@ -9,13 +9,13 @@ local v7 = require(l_script_FirstAncestor_0.Stores.TimeoutStatusStore.getTimeout
 local v8 = require(l_script_FirstAncestor_0.Utils.formatTimeoutEndTime);
 return function(v9) --[[ Line: 28 ]] --[[ Name: useTimeoutBannerProps ]]
     -- upvalues: v7 (copy), l_useSignalState_0 (copy), l_useNavigation_0 (copy), v2 (copy), v8 (copy), l_useLocalization_0 (copy), l_AvatarScreen_0 (copy)
-    local v10 = not v9 or v9.shouldFetch ~= false;
-    local v11 = v9 == nil or v9.shouldNavigateOnClick ~= false;
+    local v10 = if v9 then v9.shouldFetch ~= nil and v9.shouldFetch else false;
+    local v11 = not v9 or not (v9.shouldNavigateOnClick ~= nil) or v9.shouldNavigateOnClick;
     local v12 = v7();
     local v13 = l_useSignalState_0(v12.getStatus);
     local v14 = l_useSignalState_0(v12.getIsTimedOut);
     local v15 = l_useNavigation_0();
-    v2.useEffect(function() --[[ Line: 37 ]]
+    v2.useEffect(function() --[[ Line: 39 ]]
         -- upvalues: v10 (copy), v12 (copy)
         if v10 then
             v12.fetchStatus();
@@ -32,7 +32,7 @@ return function(v9) --[[ Line: 28 ]] --[[ Name: useTimeoutBannerProps ]]
             time = v17
         } else "Feature.Timeout.WarningBanner.DisabledMessage"
     });
-    local v19 = v2.useCallback(function() --[[ Line: 52 ]]
+    local v19 = v2.useCallback(function() --[[ Line: 54 ]]
         -- upvalues: v15 (copy), l_AvatarScreen_0 (ref)
         v15.navigate(l_AvatarScreen_0.TimeoutStatusPrompt);
     end, {

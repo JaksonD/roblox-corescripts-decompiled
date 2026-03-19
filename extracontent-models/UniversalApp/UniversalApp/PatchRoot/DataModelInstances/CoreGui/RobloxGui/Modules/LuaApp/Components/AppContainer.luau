@@ -107,10 +107,8 @@ local v96 = {
     FFlagAppIaScrollAway = v39.FFlagAppIaScrollAway, 
     GetFFlagLuaAppPersistentMusicPlayer = v39.GetFFlagLuaAppPersistentMusicPlayer, 
     FFlagEnableSystemTrayModals = v39.FFlagEnableSystemTrayModals, 
-    FFlagSduiActionHandlerSharedRegistry = v39.FFlagSduiActionHandlerSharedRegistry, 
     FFlagAppIaHomeSubTab = v39.FFlagAppIaHomeSubTab, 
     FFlagEnableAvatarExperienceSdui = v39.FFlagEnableAvatarExperienceSdui, 
-    FFlagSduiV2PaginationSupport = v39.FFlagSduiV2PaginationSupport, 
     FFlagLuaAppUseOverlayInAppContainer = v39.FFlagLuaAppUseOverlayInAppContainer, 
     FFlagLuaAppForceVrAppPanelWidthRollout = v39.FFlagLuaAppForceVrAppPanelWidthRollout
 };
@@ -119,7 +117,7 @@ local v98 = game:DefineFastFlag("AXEnablePercievedTTIForAX", false);
 local v99 = game:DefineFastFlag("RemoveUpdatePromptChild", false);
 local v100 = game:DefineFastInt("PartyTabBadgeMaxCount", 49);
 local v101 = v39.FFlagLuaAppUseDeviceSafeInsetsForAppContainer and v96.GetFFlagLuaAppFixStudioNotchSupport();
-local function _() --[[ Line: 146 ]] --[[ Name: getDevicePlatform ]]
+local function _() --[[ Line: 144 ]] --[[ Name: getDevicePlatform ]]
     -- upvalues: l_UserInputService_0 (copy)
     if _G.__TESTEZ_RUNNING_TEST__ then
         return Enum.Platform.None;
@@ -131,14 +129,14 @@ local v103 = if _G.__TESTEZ_RUNNING_TEST__ then Enum.Platform.None else l_UserIn
 local v104 = l_GuiService_0:IsTenFootInterface() and not l_FFlagEnableLeftNavOnConsole_0;
 local v105, v106 = v68();
 local v107 = v6.Component:extend("AppContainer");
-v107.init = function(v108) --[[ Line: 162 ]] --[[ Name: init ]]
+v107.init = function(v108) --[[ Line: 160 ]] --[[ Name: init ]]
     -- upvalues: l_Logger_0 (copy), v60 (copy), v103 (copy), v12 (copy), v96 (copy), v19 (copy), v38 (copy), v104 (copy), l_AvatarScreen_0 (copy), v98 (copy), v83 (copy), l_ChatEntryPointNames_0 (copy), v34 (copy), v41 (copy), v9 (copy), v11 (copy)
     v108.props.loggingProtocol:logEventOnce("app_container_init_begin");
     l_Logger_0:info("Initializing App Container");
     local l_store_0 = v108.props.store;
     local l_bottomBarAnalytics_0 = v108.props.bottomBarAnalytics;
     l_store_0:dispatch(v60(v103));
-    v108.bottomBarButtonActivated = function(v111, v112) --[[ Line: 172 ]]
+    v108.bottomBarButtonActivated = function(v111, v112) --[[ Line: 170 ]]
         -- upvalues: v108 (copy), v12 (ref), v96 (ref), v19 (ref), v38 (ref), v104 (ref), l_AvatarScreen_0 (ref), v98 (ref), l_store_0 (copy), v83 (ref), l_ChatEntryPointNames_0 (ref), v34 (ref), v41 (ref), l_Logger_0 (ref), l_bottomBarAnalytics_0 (copy)
         local l_currentPage_0 = v108.props.currentPage;
         local l_selectedBottomBarItemIndex_0 = v108.props.selectedBottomBarItemIndex;
@@ -169,7 +167,7 @@ v107.init = function(v108) --[[ Line: 162 ]] --[[ Name: init ]]
             elseif v111 == v38.Chat then
                 v108.props.enteredChatFromEntryPoint(l_ChatEntryPointNames_0.SystemBar);
                 v34(v108.props.analytics.EventStream, "AppContainer", v108.props.chatBadgeCount);
-                l_store_0:dispatch(v41.rodux.ClearGlobalUnreadCount.API()):catch(function(v117) --[[ Line: 210 ]]
+                l_store_0:dispatch(v41.rodux.ClearGlobalUnreadCount.API()):catch(function(v117) --[[ Line: 208 ]]
                     -- upvalues: l_Logger_0 (ref)
                     l_Logger_0:error("Error in ClearGlobalUnreadCount request. Error: {}", (tostring(v117)));
                 end);
@@ -187,7 +185,7 @@ v107.init = function(v108) --[[ Line: 162 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v108.getBottomBarLayoutInfo = v9(function(v118, v119, _) --[[ Line: 227 ]]
+    v108.getBottomBarLayoutInfo = v9(function(v118, v119, _) --[[ Line: 225 ]]
         -- upvalues: v11 (ref)
         local v121 = math.max(v118.X - v119.left - v119.right - 600, 0);
         local l_BOTTOM_BAR_SIZE_0 = v11.BOTTOM_BAR_SIZE;
@@ -207,14 +205,14 @@ v107.init = function(v108) --[[ Line: 162 ]] --[[ Name: init ]]
     end);
     v108.props.loggingProtocol:logEventOnce("app_container_init_end");
 end;
-v107.didMount = function(v124) --[[ Line: 251 ]] --[[ Name: didMount ]]
+v107.didMount = function(v124) --[[ Line: 249 ]] --[[ Name: didMount ]]
     -- upvalues: v58 (copy), v96 (copy)
     v124.props.store:dispatch(v58(false));
     if v96.GetFFlagEnableAccessBlockAtAppContainerLevel() and v124.props.userLoggedIn and v124.props.policyShouldBlockUAppAccess then
         v124.props.resetNavigationHistoryToBlockPage();
     end;
 end;
-v107.willUpdate = function(v125, v126) --[[ Line: 267 ]] --[[ Name: willUpdate ]]
+v107.willUpdate = function(v125, v126) --[[ Line: 265 ]] --[[ Name: willUpdate ]]
     -- upvalues: v53 (copy), v36 (copy), v96 (copy), v81 (copy), l_VisibilityControl_0 (copy), v93 (copy), v95 (ref)
     local v127 = v53[v126.currentPage] or {};
     local v128 = nil;
@@ -244,7 +242,7 @@ v107.willUpdate = function(v125, v126) --[[ Line: 267 ]] --[[ Name: willUpdate ]
         end;
     end;
 end;
-v107.didUpdate = function(v132, _, _) --[[ Line: 314 ]] --[[ Name: didUpdate ]]
+v107.didUpdate = function(v132, _, _) --[[ Line: 312 ]] --[[ Name: didUpdate ]]
     -- upvalues: v96 (copy), v38 (copy)
     if v132.props.userLoggedIn and v132.props.appPolicy.getVNGFormRequired() and not v96.GetFFlagUseUpdatedVNGAgreementsWorkflow() then
         v132.props.showVngForm();
@@ -257,8 +255,8 @@ v107.didUpdate = function(v132, _, _) --[[ Line: 314 ]] --[[ Name: didUpdate ]]
         end;
     end;
 end;
-v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
-    -- upvalues: v104 (copy), v6 (copy), v66 (copy), l_HardwareSafeAreaInsets_0 (copy), l_withStyle_0 (copy), v101 (copy), v96 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), v24 (copy), v47 (copy), v84 (copy), v25 (copy), v11 (copy), v52 (copy), l_AppShortcutBarContext_0 (copy), l_AppShortcutBarContainer_0 (copy), v85 (copy), v86 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v88 (copy), l_VRReadyWrapper_0 (copy), l_VRConstants_0 (copy), l_IsVRAppBuild_0 (copy), v38 (copy), l_CoreGui_0 (copy), v22 (copy), v97 (copy), l_AppToastNotificationContainer_0 (copy), l_GameInviteModal_0 (copy), l_GameInviteConstants_0 (copy), v23 (copy), v43 (copy), v26 (copy), v93 (copy), v94 (ref), l_GetFFlagLuaAppPostAppInteractiveLoader_0 (copy), v45 (copy), v42 (copy), v99 (copy), v44 (copy), v70 (copy), v74 (copy), l_SduiDiscoveryDependencyUpdater_0 (copy), l_SduiAvatarExperienceRegister_0 (copy), l_SduiSharedRegister_0 (copy)
+v107.render = function(v137) --[[ Line: 331 ]] --[[ Name: render ]]
+    -- upvalues: v104 (copy), v6 (copy), v66 (copy), l_HardwareSafeAreaInsets_0 (copy), l_withStyle_0 (copy), v101 (copy), v96 (copy), v78 (copy), v38 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), v24 (copy), v47 (copy), v84 (copy), v25 (copy), v11 (copy), v52 (copy), l_AppShortcutBarContext_0 (copy), l_AppShortcutBarContainer_0 (copy), v85 (copy), v86 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v88 (copy), l_VRReadyWrapper_0 (copy), l_VRConstants_0 (copy), l_IsVRAppBuild_0 (copy), l_CoreGui_0 (copy), v22 (copy), v97 (copy), l_AppToastNotificationContainer_0 (copy), l_GameInviteModal_0 (copy), l_GameInviteConstants_0 (copy), v23 (copy), v43 (copy), v26 (copy), v93 (copy), v94 (ref), l_GetFFlagLuaAppPostAppInteractiveLoader_0 (copy), v45 (copy), v42 (copy), v99 (copy), v44 (copy), v70 (copy), v74 (copy), l_SduiDiscoveryDependencyUpdater_0 (copy), l_SduiAvatarExperienceRegister_0 (copy), l_SduiSharedRegister_0 (copy)
     local l_screenSize_0 = v137.props.screenSize;
     local l_globalGuiInset_0 = v137.props.globalGuiInset;
     local l_bottomBarVisible_0 = v137.props.bottomBarVisible;
@@ -269,8 +267,8 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
     local v145 = nil;
     local v146 = v6.createElement(v66);
     local v147 = l_HardwareSafeAreaInsets_0.deviceInsets();
-    v145 = l_withStyle_0(function(v148) --[[ Line: 350 ]]
-        -- upvalues: v101 (ref), v96 (ref), v6 (ref), l_globalGuiInset_0 (copy), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v24 (ref), v47 (ref), v137 (copy), v84 (ref), v25 (ref), l_bottomBarVisible_0 (copy), v11 (ref), l_screenSize_0 (copy), l_selectedBottomBarItemIndex_1 (copy), l_bottomBarItems_0 (copy), v52 (ref), l_AppShortcutBarContext_0 (ref), l_AppShortcutBarContainer_0 (ref), v85 (ref), v86 (ref), l_FFlagEnableLeftNavOnConsole_0 (ref), v88 (ref), v147 (copy), l_VRReadyWrapper_0 (ref), l_VRConstants_0 (ref), l_IsVRAppBuild_0 (ref), v38 (ref)
+    v145 = l_withStyle_0(function(v148) --[[ Line: 348 ]]
+        -- upvalues: v101 (ref), v96 (ref), v6 (ref), l_globalGuiInset_0 (copy), v147 (copy), v137 (copy), v78 (ref), v38 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v24 (ref), v47 (ref), v84 (ref), v25 (ref), l_bottomBarVisible_0 (copy), v11 (ref), l_screenSize_0 (copy), l_selectedBottomBarItemIndex_1 (copy), l_bottomBarItems_0 (copy), v52 (ref), l_AppShortcutBarContext_0 (ref), l_AppShortcutBarContainer_0 (ref), v85 (ref), v86 (ref), l_FFlagEnableLeftNavOnConsole_0 (ref), v88 (ref), l_VRReadyWrapper_0 (ref), l_VRConstants_0 (ref), l_IsVRAppBuild_0 (ref)
         local v149 = nil;
         if not v101 and v96.GetFFlagLuaAppFixStudioNotchSupport() then
             v149 = v6.createElement("UIPadding", {
@@ -279,7 +277,8 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
                 PaddingLeft = UDim.new(0, l_globalGuiInset_0.left)
             });
         end;
-        local v150 = {
+        local v150 = v101 and (not (v147.top <= 0 and v147.bottom <= 0 and v147.left <= 0 and v147.right <= 0) or v137.props.usePreferredInput == v78.Input.Touch) and v137.props.currentPage ~= v38.AvatarExperienceRoot;
+        local v151 = {
             RNAppContainer = v6.createElement(l_FocusNavigableSurfaceWrapper_0, {
                 surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.RouterView, 
                 shouldRestoreFocus = false
@@ -311,18 +310,18 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
                 onNativeCloseEvent = v86
             }) else nil, 
             TenFootUiGlobalEffects = if l_FFlagEnableLeftNavOnConsole_0 then v6.createElement(v88) else nil, 
-            DeviceInsetBackground = if v101 and v147.top > 0 then v6.createElement("Frame", {
+            DeviceInsetBackground = if v150 then v6.createElement("Frame", {
                 Position = UDim2.new(0, -v147.left, 0, -v147.top), 
-                Size = UDim2.new(0, l_screenSize_0.X, 0, l_screenSize_0.Y), 
+                Size = UDim2.new(0, l_screenSize_0.X + v147.left + v147.right, 0, l_screenSize_0.Y + v147.top + v147.bottom), 
                 BackgroundColor3 = v148.Theme.BackgroundDefault.Color, 
                 BackgroundTransparency = v148.Theme.BackgroundDefault.Transparency, 
                 BorderSizePixel = 0, 
                 ZIndex = 0
             }) else nil
         };
-        local v151 = nil;
+        local v152 = nil;
         if v96.GetFFlagLuaAppFixStudioNotchSupport() then
-            v151 = if v101 then Enum.ScreenInsets.DeviceSafeInsets else Enum.ScreenInsets.None;
+            v152 = if v101 then Enum.ScreenInsets.DeviceSafeInsets else Enum.ScreenInsets.None;
         end;
         return v6.createElement(l_VRReadyWrapper_0, {
             component = "ScreenGui", 
@@ -330,7 +329,7 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
                 Enabled = true, 
                 ZIndexBehavior = Enum.ZIndexBehavior.Sibling, 
                 DisplayOrder = 1, 
-                ScreenInsets = v151, 
+                ScreenInsets = v152, 
                 ClipToDeviceSafeArea = not v101 and nil
             }, 
             vrProps = {
@@ -342,14 +341,14 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
                 hidden = l_IsVRAppBuild_0() and v137.props.currentPage == v38.AvatarExperienceRoot, 
                 roundedCornersFrameColor = v148.Theme.BackgroundDefault.Color
             }
-        }, v150);
+        }, v151);
     end);
-    local v152 = v6.createElement(v6.Portal, {
+    local v153 = v6.createElement(v6.Portal, {
         target = l_CoreGui_0
     }, {
         LuaAppScreenGui = v145
     });
-    local v153 = {
+    local v154 = {
         Toast = v6.createElement(v22, {
             displayOrder = v11.DisplayOrder.Toast
         }), 
@@ -367,7 +366,7 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
         GamepadBottomBar = v144 and v6.createElement(v43, {
             displayOrder = v11.DisplayOrder.GamepadBottomBar
         }), 
-        RNBypassTree = v152, 
+        RNBypassTree = v153, 
         TopBanner = if v96.GetFFlagLuaAppEnableTopBanner() then v6.createElement(v26, {
             displayOrder = v11.DisplayOrder.TopBanner
         }) else nil, 
@@ -387,96 +386,96 @@ v107.render = function(v137) --[[ Line: 333 ]] --[[ Name: render ]]
         ShellEventsContainer = v6.createElement(v74, {
             currentPage = v137.props.currentPage
         }), 
-        SduiDiscoveryDependencyUpdater = if v96.FFlagSduiActionHandlerSharedRegistry then v6.createElement(l_SduiDiscoveryDependencyUpdater_0) else nil, 
+        SduiDiscoveryDependencyUpdater = v6.createElement(l_SduiDiscoveryDependencyUpdater_0), 
         SduiAvatarExperienceRegister = if v96.FFlagEnableAvatarExperienceSdui then v6.createElement(l_SduiAvatarExperienceRegister_0) else nil, 
-        SduiSharedRegister = if v96.FFlagSduiV2PaginationSupport then v6.createElement(l_SduiSharedRegister_0) else nil
+        SduiSharedRegister = v6.createElement(l_SduiSharedRegister_0)
     };
-    return v6.createElement("Folder", {}, v153);
+    return v6.createElement("Folder", {}, v154);
 end;
-local v161 = v9(function(v154, _, v156) --[[ Line: 542 ]]
+local v162 = v9(function(v155, _, v157) --[[ Line: 549 ]]
     -- upvalues: v105 (ref), v106 (ref), v68 (copy), v33 (copy), v100 (copy), l_BadgeVariant_0 (copy), v38 (copy), v5 (copy)
-    local v157, v158 = v68();
-    v105 = v157;
-    v106 = v158;
-    v157 = v154;
-    v158 = nil;
-    if typeof(v154) == "number" and v154 > 0 then
-        if v156 and v156.EventStream then
-            v33(v156.EventStream, "AppContainer", v154);
+    local v158, v159 = v68();
+    v105 = v158;
+    v106 = v159;
+    v158 = v155;
+    v159 = nil;
+    if typeof(v155) == "number" and v155 > 0 then
+        if v157 and v157.EventStream then
+            v33(v157.EventStream, "AppContainer", v155);
         end;
-        v157 = if v100 < v154 then tostring(v100) .. "+" else tostring(v154);
-        v158 = l_BadgeVariant_0.Alert;
+        v158 = if v100 < v155 then tostring(v100) .. "+" else tostring(v155);
+        v159 = l_BadgeVariant_0.Alert;
     end;
     local l_v105_0 = v105;
-    local v160 = v106[v38.Chat];
-    if v160 ~= nil then
+    local v161 = v106[v38.Chat];
+    if v161 ~= nil then
         l_v105_0 = v5.List.join(v105);
-        l_v105_0[v160].badgeCount = v157;
-        l_v105_0[v160].badgeVariant = v158;
+        l_v105_0[v161].badgeCount = v158;
+        l_v105_0[v161].badgeVariant = v159;
     end;
     return l_v105_0;
 end);
-v107 = v7.connect(function(v162, v163) --[[ Line: 570 ]]
-    -- upvalues: v53 (copy), v36 (copy), v106 (ref), v161 (copy), v35 (copy)
-    local l_history_0 = v162.Navigation.history;
-    local v165 = l_history_0[#l_history_0];
-    local v166 = v162.SocialTab.UnreadConversationCount or 0;
-    local v167 = nil;
-    v167 = (function(v168) --[[ Line: 575 ]]
-        -- upvalues: v53 (ref), v165 (copy), v36 (ref)
-        for v169 = #v168, 1, -1 do
-            local v170 = v53[v165[v169].name] or {};
-            if v170.tabBarHidden then
-                return v170.tabBarHidden;
+v107 = v7.connect(function(v163, v164) --[[ Line: 577 ]]
+    -- upvalues: v53 (copy), v36 (copy), v106 (ref), v162 (copy), v35 (copy)
+    local l_history_0 = v163.Navigation.history;
+    local v166 = l_history_0[#l_history_0];
+    local v167 = v163.SocialTab.UnreadConversationCount or 0;
+    local v168 = nil;
+    v168 = (function(v169) --[[ Line: 582 ]]
+        -- upvalues: v53 (ref), v166 (copy), v36 (ref)
+        for v170 = #v169, 1, -1 do
+            local v171 = v53[v166[v170].name] or {};
+            if v171.tabBarHidden then
+                return v171.tabBarHidden;
             end;
         end;
         return v36.Visible;
-    end)(v165);
+    end)(v166);
     return {
-        screenSize = v162.ScreenSize, 
-        globalGuiInset = v162.GlobalGuiInset, 
-        bottomBarVisible = v162.TabBarVisible, 
-        selectedBottomBarItemIndex = v106[v165[1].name], 
-        currentPage = v165[#v165].name, 
-        tabBarVisibility = v167, 
-        bottomBarItems = v161(v166, v163.canSeeChatTab, v163.analytics), 
-        chatBadgeCount = v166, 
-        userLoggedIn = v162.AuthenticationStatus.status == v35.LOGGED_IN, 
-        formFactor = v162.FormFactor, 
-        localUserId = v162.LocalUserId
+        screenSize = v163.ScreenSize, 
+        globalGuiInset = v163.GlobalGuiInset, 
+        bottomBarVisible = v163.TabBarVisible, 
+        selectedBottomBarItemIndex = v106[v166[1].name], 
+        currentPage = v166[#v166].name, 
+        tabBarVisibility = v168, 
+        bottomBarItems = v162(v167, v164.canSeeChatTab, v164.analytics), 
+        chatBadgeCount = v167, 
+        userLoggedIn = v163.AuthenticationStatus.status == v35.LOGGED_IN, 
+        formFactor = v163.FormFactor, 
+        localUserId = v163.LocalUserId
     };
-end, function(v171) --[[ Line: 602 ]]
+end, function(v172) --[[ Line: 609 ]]
     -- upvalues: v57 (copy), v59 (copy), v38 (copy), l_SetTabBarVisible_0 (copy), v64 (copy), v63 (copy), l_EnteredChatFromEntryPoint_0 (copy)
     return {
-        navigateToPage = function(v172) --[[ Line: 604 ]] --[[ Name: navigateToPage ]]
-            -- upvalues: v171 (copy), v57 (ref)
-            v171(v57({
+        navigateToPage = function(v173) --[[ Line: 611 ]] --[[ Name: navigateToPage ]]
+            -- upvalues: v172 (copy), v57 (ref)
+            v172(v57({
                 {
-                    name = v172
+                    name = v173
                 }
             }));
         end, 
-        resetNavigationHistoryToBlockPage = function() --[[ Line: 607 ]] --[[ Name: resetNavigationHistoryToBlockPage ]]
-            -- upvalues: v171 (copy), v59 (ref), v38 (ref)
-            v171(v59({
+        resetNavigationHistoryToBlockPage = function() --[[ Line: 614 ]] --[[ Name: resetNavigationHistoryToBlockPage ]]
+            -- upvalues: v172 (copy), v59 (ref), v38 (ref)
+            v172(v59({
                 {
                     name = v38.UAppBlock
                 }
             }));
         end, 
-        setTabBarVisible = function(v173) --[[ Line: 610 ]] --[[ Name: setTabBarVisible ]]
-            -- upvalues: v171 (copy), l_SetTabBarVisible_0 (ref)
-            v171(l_SetTabBarVisible_0(v173));
+        setTabBarVisible = function(v174) --[[ Line: 617 ]] --[[ Name: setTabBarVisible ]]
+            -- upvalues: v172 (copy), l_SetTabBarVisible_0 (ref)
+            v172(l_SetTabBarVisible_0(v174));
         end, 
-        showVngForm = function() --[[ Line: 616 ]] --[[ Name: showVngForm ]]
-            -- upvalues: v171 (copy), v64 (ref), v63 (ref)
-            v171(v64(v63.VngContactInfoFormWebviewPopup, {}, {
+        showVngForm = function() --[[ Line: 623 ]] --[[ Name: showVngForm ]]
+            -- upvalues: v172 (copy), v64 (ref), v63 (ref)
+            v172(v64(v63.VngContactInfoFormWebviewPopup, {}, {
                 DisableBackButtonClose = true
             }));
         end, 
-        enteredChatFromEntryPoint = function(v174) --[[ Line: 621 ]] --[[ Name: enteredChatFromEntryPoint ]]
-            -- upvalues: v171 (copy), l_EnteredChatFromEntryPoint_0 (ref)
-            v171(l_EnteredChatFromEntryPoint_0(v174));
+        enteredChatFromEntryPoint = function(v175) --[[ Line: 628 ]] --[[ Name: enteredChatFromEntryPoint ]]
+            -- upvalues: v172 (copy), l_EnteredChatFromEntryPoint_0 (ref)
+            v172(l_EnteredChatFromEntryPoint_0(v175));
         end
     };
 end)(v107);
@@ -487,12 +486,12 @@ v107 = l_RoactServices_0.connect({
     analytics = v32, 
     loggingProtocol = l_AppLogging_0
 })(v107);
-v107 = l_withIsGamepadInput_0((l_RoactAppPolicy_0.connect(function(v175) --[[ Line: 635 ]]
+v107 = l_withIsGamepadInput_0((l_RoactAppPolicy_0.connect(function(v176) --[[ Line: 642 ]]
     -- upvalues: v96 (copy), v92 (copy)
     return {
-        appPolicy = v175, 
-        policyShouldBlockUAppAccess = if v96.GetFFlagEnableAccessBlockAtAppContainerLevel() then v175.getEnableUAppAccessBlock() or v175.getEnableHomePageAgeBlock() else nil, 
-        shouldSystemBarUsuallyBePresent = v175.getShouldSystemBarUsuallyBePresent(), 
+        appPolicy = v176, 
+        policyShouldBlockUAppAccess = if v96.GetFFlagEnableAccessBlockAtAppContainerLevel() then v176.getEnableUAppAccessBlock() or v176.getEnableHomePageAgeBlock() else nil, 
+        shouldSystemBarUsuallyBePresent = v176.getShouldSystemBarUsuallyBePresent(), 
         canSeeChatTab = v92.getAppFeaturePolicies().getCanSeeChatTab()
     };
 end)(v107)));
@@ -500,10 +499,10 @@ v107 = v15.withNavigation(v107);
 v107 = v61.connectUserLayer({
     l_AppUserLayers_0.SocialFriendsLayer, 
     "PlatformExcellence.QualityImprovement.App"
-}, function(v176, _) --[[ Line: 653 ]]
+}, function(v177, _) --[[ Line: 660 ]]
     -- upvalues: l_AppUserLayers_0 (copy)
     return {
-        luaAddFriendsPageEnabled = (v176[l_AppUserLayers_0.SocialFriendsLayer] or {}).show_lua_add_friends_page == "True"
+        luaAddFriendsPageEnabled = (v177[l_AppUserLayers_0.SocialFriendsLayer] or {}).show_lua_add_friends_page == "True"
     };
 end)(v107);
 if not v96.FFlagLuaAppForceVrAppPanelWidthRollout then
@@ -512,14 +511,14 @@ if not v96.FFlagLuaAppForceVrAppPanelWidthRollout then
         vrPanelCurvature = l_VRPanelWidthIXP_0.VrAppPanelCurvature
     })(v107);
 end;
-return function(v178) --[[ Line: 667 ]]
+return function(v179) --[[ Line: 674 ]]
     -- upvalues: v96 (copy), l_useOverlay_0 (copy), l_useIsSpatial_0 (copy), v5 (copy), v6 (copy), v107 (ref)
     if v96.FFlagLuaAppUseOverlayInAppContainer then
         l_useOverlay_0();
     end;
-    local v179 = l_useIsSpatial_0();
-    local v180 = v5.Dictionary.join(v178, {
-        use3DPanels = v179
+    local v180 = l_useIsSpatial_0();
+    local v181 = v5.Dictionary.join(v179, {
+        use3DPanels = v180
     });
-    return v6.createElement(v107, v180);
+    return v6.createElement(v107, v181);
 end;

@@ -16,9 +16,10 @@ local v14 = require(script.Utils.getFooterVisibilityFromItemFooters);
 local v15 = require(script.State.Actions.PurchaseItemsSuccess);
 local v16 = require(script.State.Actions.FetchAssetOrBundleInfoBatchedSuccess);
 local v17 = require(script.State.Actions.FetchCollectibleItemDataBatchedSuccess);
-local v18 = require(script.Api.GetCatalogCategories.getCatalogCategories);
-local v19 = require(script.State.Thunks.SaveAsMakeupLookThunk);
-local v20 = require(script.Stores.GetAXMarketplaceWidgetStore);
+local v18 = require(script.State.Actions.SetSelectedTimedOption);
+local v19 = require(script.Api.GetCatalogCategories.getCatalogCategories);
+local v20 = require(script.State.Thunks.SaveAsMakeupLookThunk);
+local v21 = require(script.Stores.GetAXMarketplaceWidgetStore);
 local _ = require(script.Stores);
 return {
     Api = {
@@ -27,7 +28,7 @@ return {
         getLooksFromWidgetListInfo = v2, 
         getCatalogV2SearchItemDetails = v3.getCatalogV2SearchItemDetails, 
         CatalogSearchAXPages = v4, 
-        getCatalogCategories = v18.getCatalogCategories
+        getCatalogCategories = v19.getCatalogCategories
     }, 
     Components = {
         Checkout = {
@@ -87,17 +88,18 @@ return {
     }, 
     Stores = {
         getCatalogStores = require(script.Stores), 
-        getAXMarketplaceWidgetStore = v20
+        getAXMarketplaceWidgetStore = v21
     }, 
     State = {
         Actions = {
             PurchaseItemsSuccess = v15, 
             FetchAssetOrBundleInfoBatchedSuccess = v16, 
-            FetchCollectibleItemDataBatchedSuccess = v17
+            FetchCollectibleItemDataBatchedSuccess = v17, 
+            SetSelectedTimedOption = v18
         }
     }, 
     Thunks = {
-        SaveAsMakeupLookThunk = v19
+        SaveAsMakeupLookThunk = v20
     }, 
     ["jest.config"] = script["jest.config"]
 };

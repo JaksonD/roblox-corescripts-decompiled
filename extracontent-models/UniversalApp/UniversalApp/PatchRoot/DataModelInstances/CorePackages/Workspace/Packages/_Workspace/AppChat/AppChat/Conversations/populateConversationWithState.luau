@@ -53,6 +53,7 @@ return function(v15, v16) --[[ Line: 41 ]]
         moderationType = v16.moderationType, 
         userPendingStatus = v16.userPendingStatus, 
         conversationType = v16.conversationType, 
-        osaAcknowledgementStatus = if v13 then v16.osaAcknowledgementStatus else nil
+        osaAcknowledgementStatus = if v13 then v16.osaAcknowledgementStatus else nil, 
+        userOptedIntoChatMessages = v16.userOptedIntoChatMessages
     }, v27);
 end;

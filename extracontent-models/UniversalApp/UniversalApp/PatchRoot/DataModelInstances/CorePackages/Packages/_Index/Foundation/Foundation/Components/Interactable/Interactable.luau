@@ -3,127 +3,146 @@ local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.Dash);
 local v3 = require(l_Parent_0.React);
 local v4 = require(l_Parent_0.ReactIs);
+local v5 = require(l_script_FirstAncestor_0.Utility.Flags);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v6 = require(l_script_FirstAncestor_0.Utility.blendColors);
-local v7 = require(script.Parent.getOriginalBackgroundStyle);
-local v8 = require(script.Parent.getStateLayerStyle);
-local v9 = require(l_script_FirstAncestor_0.Providers.Cursor.useCursor);
-local v10 = require(l_script_FirstAncestor_0.Utility.Control.useGuiControlState);
-local v11 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v12 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local v13 = require(l_script_FirstAncestor_0.Enums.StateLayerAffordance);
+local v7 = require(l_script_FirstAncestor_0.Utility.blendColors);
+local v8 = require(script.Parent.getOriginalBackgroundStyle);
+local v9 = require(script.Parent.getStateLayerStyle);
+local v10 = require(l_script_FirstAncestor_0.Utility.joinBindables);
+local v11 = require(l_script_FirstAncestor_0.Utility.mapBindable);
+local v12 = require(l_script_FirstAncestor_0.Providers.Cursor.useCursor);
+local v13 = require(l_script_FirstAncestor_0.Utility.Control.useGuiControlState);
+local v14 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
+local v15 = require(l_script_FirstAncestor_0.Utility.withDefaults);
+local v16 = require(l_script_FirstAncestor_0.Enums.StateLayerAffordance);
 local _ = require(l_script_FirstAncestor_0.Enums.StateLayerMode);
-local v15 = require(l_script_FirstAncestor_0.Enums.ControlState);
-local v16 = {
+local v18 = require(l_script_FirstAncestor_0.Enums.ControlState);
+local v19 = {
     component = "ImageButton", 
     isDisabled = false
 };
-local v17 = Color3.fromRGB(163, 162, 165);
-return v3.memo(v3.forwardRef(function(v18, v19) --[[ Line: 44 ]] --[[ Name: Interactable ]]
-    -- upvalues: v12 (copy), v16 (copy), v3 (copy), v11 (copy), v9 (copy), v15 (copy), v17 (copy), v7 (copy), v13 (copy), v8 (copy), v6 (copy), v4 (copy), v10 (copy), v2 (copy)
-    local v20 = v12(v18, v16);
-    local v21 = v3.useRef(nil);
-    local v22 = v11();
-    local v23 = v9(v20.cursor);
-    local v24, v25 = v3.useBinding(v15.Initialize);
-    local v26 = v3.useRef(nil);
-    local v30 = v3.useCallback(function(v27) --[[ Line: 52 ]]
-        -- upvalues: v24 (copy), v15 (ref), v21 (copy), v17 (ref), v26 (copy), v25 (copy), v20 (copy)
-        if v24:getValue() == v15.Default and v21.current ~= nil then
-            local l_Styled_0 = v21.current:GetStyled("BackgroundColor3");
-            local l_Styled_1 = v21.current:GetStyled("BackgroundTransparency");
-            if l_Styled_0 ~= v17 or l_Styled_1 ~= 0 then
-                v26.current = {
+local v20 = Color3.fromRGB(163, 162, 165);
+return v3.memo(v3.forwardRef(function(v21, v22) --[[ Line: 50 ]] --[[ Name: Interactable ]]
+    -- upvalues: v15 (copy), v19 (copy), v3 (copy), v14 (copy), v12 (copy), v18 (copy), v20 (copy), v8 (copy), v5 (copy), v16 (copy), v9 (copy), v7 (copy), v10 (copy), v4 (copy), v13 (copy), v11 (copy), v2 (copy)
+    local v23 = v15(v21, v19);
+    local v24 = v3.useRef(nil);
+    local v25 = v14();
+    local v26 = v12(v23.cursor);
+    local v27, v28 = v3.useBinding(v18.Initialize);
+    local v29 = v3.useRef(nil);
+    local v33 = v3.useCallback(function(v30) --[[ Line: 58 ]]
+        -- upvalues: v27 (copy), v18 (ref), v24 (copy), v20 (ref), v29 (copy), v28 (copy), v23 (copy)
+        if v27:getValue() == v18.Default and v24.current ~= nil then
+            local l_Styled_0 = v24.current:GetStyled("BackgroundColor3");
+            local l_Styled_1 = v24.current:GetStyled("BackgroundTransparency");
+            if l_Styled_0 ~= v20 or l_Styled_1 ~= 0 then
+                v29.current = {
                     Color3 = l_Styled_0, 
                     Transparency = l_Styled_1
                 };
             end;
         end;
-        v25(v27);
-        if v20.onStateChanged ~= nil then
-            v20.onStateChanged(v27);
+        v28(v30);
+        if v23.onStateChanged ~= nil then
+            v23.onStateChanged(v30);
         end;
     end, {
-        v20.onStateChanged
+        v23.onStateChanged
     });
-    local v31 = v3.useMemo(function() --[[ Line: 69 ]]
-        -- upvalues: v7 (ref), v20 (copy)
-        return v7(v20.BackgroundColor3, v20.BackgroundTransparency);
+    local v34 = v3.useMemo(function() --[[ Line: 75 ]]
+        -- upvalues: v8 (ref), v23 (copy)
+        return v8(v23.BackgroundColor3, v23.BackgroundTransparency);
     end, {
-        v20.BackgroundColor3, 
-        v20.BackgroundTransparency
+        v23.BackgroundColor3, 
+        v23.BackgroundTransparency
     });
-    local v36 = v3.useCallback(function(v32, v33) --[[ Line: 74 ]]
-        -- upvalues: v15 (ref), v20 (copy), v13 (ref), v26 (copy), v8 (ref), v22 (copy), v6 (ref)
-        if v32 == v15.Initialize or v32 == v15.Default or v32 == v15.Disabled or v20.stateLayer and v20.stateLayer.affordance == v13.None then
-            return v33;
+    local v41 = v3.useCallback(function(v35, v36, v37, v38) --[[ Line: 80 ]]
+        -- upvalues: v18 (ref), v5 (ref), v16 (ref), v23 (copy), v29 (copy), v9 (ref), v25 (copy), v7 (ref)
+        if v35 == v18.Initialize or v35 == v18.Default or v35 == v18.Disabled or if v5.FoundationBindableStateLayer then v38 == v16.None else v23.stateLayer and v23.stateLayer.affordance == v16.None then
+            return v36;
         else
-            local v34 = {
-                Color3 = v33.Color3, 
-                Transparency = v33.Transparency
+            local v39 = {
+                Color3 = v36.Color3, 
+                Transparency = v36.Transparency
             };
-            if v33.Color3 == nil then
-                v34.Color3 = if v26.current then v26.current.Color3 else nil;
+            if v36.Color3 == nil then
+                v39.Color3 = if v29.current then v29.current.Color3 else nil;
             end;
-            if v33.Transparency == nil then
-                v34.Transparency = if v26.current then v26.current.Transparency else nil;
+            if v36.Transparency == nil then
+                v39.Transparency = if v29.current then v29.current.Transparency else nil;
             end;
-            local v35 = v8(v22, v20.stateLayer, v32);
-            return v6(v34, v35);
+            local v40 = if v5.FoundationBindableStateLayer then v9(v25, v37, v35) else v9(v25, v23.stateLayer, v35);
+            return v7(v39, v40);
         end;
     end, {
-        v22, 
-        v20.BackgroundColor3, 
-        v20.BackgroundTransparency, 
-        v20.stateLayer
+        v25, 
+        v23.BackgroundColor3, 
+        v23.BackgroundTransparency, 
+        if v5.FoundationBindableStateLayer then nil else v23.stateLayer
     });
-    local v39 = v3.useMemo(function() --[[ Line: 112 ]]
-        -- upvalues: v4 (ref), v31 (copy), v3 (ref), v24 (copy), v36 (copy)
-        if v4.isBinding(v31) then
+    local v45 = v3.useMemo(function() --[[ Line: 130 ]]
+        -- upvalues: v5 (ref), v10 (ref), v27 (copy), v34 (copy), v23 (copy), v41 (copy), v4 (ref), v3 (ref)
+        if v5.FoundationBindableStateLayer then
+            return v10({
+                controlState = v27, 
+                backgroundStyle = v34, 
+                mode = if v23.stateLayer then v23.stateLayer.mode else nil, 
+                affordance = if v23.stateLayer then v23.stateLayer.affordance else nil
+            }, function(v42) --[[ Line: 137 ]]
+                -- upvalues: v41 (ref)
+                return v41(v42.controlState, v42.backgroundStyle, v42.mode, v42.affordance);
+            end);
+        elseif v4.isBinding(v34) then
             return v3.joinBindings({
-                controlState = v24, 
-                backgroundStyle = v31
-            }):map(function(v37) --[[ Line: 117 ]]
-                -- upvalues: v36 (ref)
-                return v36(v37.controlState, v37.backgroundStyle);
+                controlState = v27, 
+                backgroundStyle = v34
+            }):map(function(v43) --[[ Line: 150 ]]
+                -- upvalues: v41 (ref)
+                return v41(v43.controlState, v43.backgroundStyle);
             end);
         else
-            return v24:map(function(v38) --[[ Line: 122 ]]
-                -- upvalues: v36 (ref), v31 (ref)
-                return v36(v38, v31);
+            return v27:map(function(v44) --[[ Line: 155 ]]
+                -- upvalues: v41 (ref), v34 (ref)
+                return v41(v44, v34);
             end);
         end;
     end, {
-        v31, 
-        v24, 
-        v36
+        v34, 
+        v27, 
+        v41, 
+        if v5.FoundationBindableStateLayer and v23.stateLayer then v23.stateLayer.mode else nil, 
+        if v5.FoundationBindableStateLayer and v23.stateLayer then v23.stateLayer.affordance else nil
     });
-    local v40 = v10(v21, v30);
-    v3.useImperativeHandle(v19, function() --[[ Line: 129 ]]
-        -- upvalues: v21 (copy)
-        return v21.current;
+    local v46 = v13(v24, v33);
+    v3.useImperativeHandle(v22, function() --[[ Line: 171 ]]
+        -- upvalues: v24 (copy)
+        return v24.current;
     end, {});
-    local v43 = {
-        BackgroundColor3 = v39:map(function(v41) --[[ Line: 134 ]]
-            return v41.Color3;
+    local v51 = {
+        BackgroundColor3 = if v5.FoundationBindableStateLayer then v11(v45, function(v47) --[[ Line: 177 ]]
+            return v47.Color3;
+        end) else v45:map(function(v48) --[[ Line: 180 ]]
+            return v48.Color3;
         end), 
-        BackgroundTransparency = v39:map(function(v42) --[[ Line: 137 ]]
-            return v42.Transparency;
+        BackgroundTransparency = if v5.FoundationBindableStateLayer then v11(v45, function(v49) --[[ Line: 184 ]]
+            return v49.Transparency;
+        end) else v45:map(function(v50) --[[ Line: 187 ]]
+            return v50.Transparency;
         end), 
-        Active = not v20.isDisabled, 
-        Interactable = not v20.isDisabled, 
-        [v3.Event.Activated] = if not v20.isDisabled then v20.onActivated else nil, 
-        [v3.Event.MouseButton2Click] = if not v20.isDisabled then v20.onSecondaryActivated else nil, 
-        ref = v40, 
-        SelectionImageObject = v20.SelectionImageObject or v23
+        Active = not v23.isDisabled, 
+        Interactable = not v23.isDisabled, 
+        [v3.Event.Activated] = if not v23.isDisabled then v23.onActivated else nil, 
+        [v3.Event.MouseButton2Click] = if not v23.isDisabled then v23.onSecondaryActivated else nil, 
+        ref = v46, 
+        SelectionImageObject = v23.SelectionImageObject or v26
     };
-    local v44 = v2.union(v20, v43);
-    v44.component = nil;
-    v44.isDisabled = nil;
-    v44.onActivated = nil;
-    v44.onSecondaryActivated = nil;
-    v44.onStateChanged = nil;
-    v44.stateLayer = nil;
-    v44.cursor = nil;
-    return v3.createElement(v20.component, v44);
+    local v52 = v2.union(v23, v51);
+    v52.component = nil;
+    v52.isDisabled = nil;
+    v52.onActivated = nil;
+    v52.onSecondaryActivated = nil;
+    v52.onStateChanged = nil;
+    v52.stateLayer = nil;
+    v52.cursor = nil;
+    return v3.createElement(v23.component, v52);
 end));

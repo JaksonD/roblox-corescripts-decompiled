@@ -1,1 +1,1 @@
-return game:DefineFastFlag("LegacyProfileTCIndicator_V2", false);
+return game:DefineFastFlag("LegacyProfileTCIndicator_V3", false);

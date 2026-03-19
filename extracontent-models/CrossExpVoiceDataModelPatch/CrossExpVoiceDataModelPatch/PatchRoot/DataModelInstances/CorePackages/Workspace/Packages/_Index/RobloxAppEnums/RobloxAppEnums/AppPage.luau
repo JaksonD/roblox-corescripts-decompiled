@@ -140,6 +140,7 @@ return {
     DiscoverabilityOverlay = "DiscoverabilityOverlay", 
     TrustedContactsEducationModal = "TrustedContactsEducationModal", 
     TrustedContactsModal = "TrustedContactsModal", 
+    TrustedFriendsVPCPrologue = "TrustedFriendsVPCPrologue", 
     SongDetail = "SongDetail", 
     SongList = "SongList", 
     FAE = "FAE", 

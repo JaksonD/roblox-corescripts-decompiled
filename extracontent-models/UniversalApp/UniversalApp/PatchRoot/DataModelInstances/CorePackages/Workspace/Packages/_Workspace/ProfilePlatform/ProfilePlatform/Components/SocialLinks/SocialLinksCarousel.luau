@@ -10,7 +10,7 @@ local v8 = require(l_script_FirstAncestor_0.Components.SocialLinks.SocialLinkTil
 local v9 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
 local v10 = require(l_script_FirstAncestor_0.Common.TextKeys);
 local v11 = require(l_script_FirstAncestor_0.Hooks.useDynamicSizeMargin);
-local v12 = require(l_script_FirstAncestor_0.Analytics.sendSocialLinkClickEvent);
+local l_sendSocialLinkClickEvent_0 = require(l_Parent_0.DiscoveryAnalytics).Events.sendSocialLinkClickEvent;
 local l_CollectionCarousel_0 = v4.CollectionCarousel;
 local l_CollectionViewTypes_0 = v4.CollectionViewTypes;
 local l_useCollectionLayoutParams_0 = v4.useCollectionLayoutParams;
@@ -18,7 +18,7 @@ local l_CollectionItemSize_0 = l_CollectionViewTypes_0.CollectionItemSize;
 local l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSocialLinkClickTelemetryToEdp;
 local v18 = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then nil else game:DefineFastInt("SocialLinkClickTelemetryThrottlePermyriad", 0);
 return function(v19) --[[ Line: 42 ]]
-    -- upvalues: v9 (copy), l_useRoactService_0 (copy), l_AppLinking_0 (copy), v3 (copy), l_useLocalization_0 (copy), v10 (copy), v11 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), v12 (copy), v18 (copy), l_TelemetryService_0 (copy), v8 (copy), l_CollectionCarousel_0 (copy)
+    -- upvalues: v9 (copy), l_useRoactService_0 (copy), l_AppLinking_0 (copy), v3 (copy), l_useLocalization_0 (copy), v10 (copy), v11 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), l_sendSocialLinkClickEvent_0 (copy), v18 (copy), l_TelemetryService_0 (copy), v8 (copy), l_CollectionCarousel_0 (copy)
     local v20 = v9();
     local l_openLeaveRobloxAlertUIBlox_0 = v20.navigateTo.openLeaveRobloxAlertUIBlox;
     local l_closeLeaveRobloxAlert_0 = v20.navigateTo.closeLeaveRobloxAlert;
@@ -37,11 +37,11 @@ return function(v19) --[[ Line: 42 ]]
         return v32 + 36;
     end, {});
     local function _(v34, v35) --[[ Line: 62 ]]
-        -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v12 (ref), v20 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (copy), l_closeLeaveRobloxAlert_0 (copy)
+        -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), l_sendSocialLinkClickEvent_0 (ref), v20 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (copy), l_closeLeaveRobloxAlert_0 (copy)
         return function() --[[ Line: 63 ]]
-            -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v12 (ref), v20 (ref), v34 (copy), v35 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (ref), l_closeLeaveRobloxAlert_0 (ref)
+            -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), l_sendSocialLinkClickEvent_0 (ref), v20 (ref), v34 (copy), v35 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (ref), l_closeLeaveRobloxAlert_0 (ref)
             if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then
-                v12({
+                l_sendSocialLinkClickEvent_0({
                     assignment_id = v20.profileId, 
                     assignment_type = "group", 
                     social_link_type = v34, 
@@ -88,16 +88,16 @@ return function(v19) --[[ Line: 42 ]]
         end;
     end;
     local v46 = v3.useCallback(function(v40) --[[ Line: 106 ]]
-        -- upvalues: l_openLeaveRobloxAlertUIBlox_0 (copy), v23 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v12 (ref), v20 (copy), v18 (ref), l_TelemetryService_0 (ref), l_closeLeaveRobloxAlert_0 (copy)
+        -- upvalues: l_openLeaveRobloxAlertUIBlox_0 (copy), v23 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), l_sendSocialLinkClickEvent_0 (ref), v20 (copy), v18 (ref), l_TelemetryService_0 (ref), l_closeLeaveRobloxAlert_0 (copy)
         return function() --[[ Line: 107 ]]
-            -- upvalues: l_openLeaveRobloxAlertUIBlox_0 (ref), v23 (ref), v40 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v12 (ref), v20 (ref), v18 (ref), l_TelemetryService_0 (ref), l_closeLeaveRobloxAlert_0 (ref)
+            -- upvalues: l_openLeaveRobloxAlertUIBlox_0 (ref), v23 (ref), v40 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), l_sendSocialLinkClickEvent_0 (ref), v20 (ref), v18 (ref), l_TelemetryService_0 (ref), l_closeLeaveRobloxAlert_0 (ref)
             if l_openLeaveRobloxAlertUIBlox_0 and v23 and v40.url then
                 local l_key_0 = v40.key;
                 local l_url_0 = v40.url;
                 l_openLeaveRobloxAlertUIBlox_0(function() --[[ Line: 63 ]]
-                    -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v12 (ref), v20 (ref), l_key_0 (copy), l_url_0 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (ref), l_closeLeaveRobloxAlert_0 (ref)
+                    -- upvalues: l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), l_sendSocialLinkClickEvent_0 (ref), v20 (ref), l_key_0 (copy), l_url_0 (copy), v18 (ref), l_TelemetryService_0 (ref), v23 (ref), l_closeLeaveRobloxAlert_0 (ref)
                     if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then
-                        v12({
+                        l_sendSocialLinkClickEvent_0({
                             assignment_id = v20.profileId, 
                             assignment_type = "group", 
                             social_link_type = l_key_0, 

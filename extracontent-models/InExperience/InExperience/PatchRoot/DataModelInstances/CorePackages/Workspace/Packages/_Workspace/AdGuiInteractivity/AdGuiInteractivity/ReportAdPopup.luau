@@ -18,17 +18,16 @@ local l_default_0 = v15.default;
 local v17 = require(l_Parent_0.ReportAdFooter);
 local v18 = require(script.Parent.Flags);
 local v19 = v18.GetEnableHideReportAdModalDuringScreenshot();
-local l_FFlagAddGenericIllegalReportingToTwoStepFlow_0 = require(l_Parent_1.SharedFlags).FFlagAddGenericIllegalReportingToTwoStepFlow;
-local v21 = require(l_Parent_0.AdsInteractivityTelemetry);
-local v22 = {
+local v20 = require(l_Parent_0.AdsInteractivityTelemetry);
+local v21 = {
     {
         localizationKey = "CoreScripts.Ads.Label.InappropriateAd", 
         value = "ABUSE_CATEGORY_INAPPROPRIATE_AD"
     }
 };
-buildReport = function(v23, v24, v25, v26, v27) --[[ Line: 57 ]] --[[ Name: buildReport ]]
+buildReport = function(v22, v23, v24, v25, v26) --[[ Line: 55 ]] --[[ Name: buildReport ]]
     -- upvalues: l_HttpService_0 (copy)
-    local v28 = {
+    local v27 = {
         tags = {
             ENTRY_POINT = {
                 valueList = {
@@ -40,14 +39,14 @@ buildReport = function(v23, v24, v25, v26, v27) --[[ Line: 57 ]] --[[ Name: buil
             SUBMITTER_USER_ID = {
                 valueList = {
                     {
-                        data = tostring(v23)
+                        data = tostring(v22)
                     }
                 }
             }, 
             REPORTED_ABUSE_CATEGORY = {
                 valueList = {
                     {
-                        data = v25
+                        data = v24
                     }
                 }
             }, 
@@ -61,7 +60,7 @@ buildReport = function(v23, v24, v25, v26, v27) --[[ Line: 57 ]] --[[ Name: buil
             REPORTER_COMMENT = {
                 valueList = {
                     {
-                        data = v26
+                        data = v25
                     }
                 }
             }, 
@@ -75,37 +74,37 @@ buildReport = function(v23, v24, v25, v26, v27) --[[ Line: 57 ]] --[[ Name: buil
             SCREENSHOT_ID = {
                 valueList = {
                     {
-                        data = v24
+                        data = v23
                     }
                 }
             }, 
             IDENTIFIED_ADS = {
                 valueList = {
                     {
-                        data = v27
+                        data = v26
                     }
                 }
             }
         }
     };
-    return l_HttpService_0:JSONEncode(v28);
+    return l_HttpService_0:JSONEncode(v27);
 end;
-ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
-    -- upvalues: l_HttpService_0 (copy), l_getAppFeaturePolicies_0 (copy), l_default_0 (copy), v15 (copy), v18 (copy), v2 (copy), v19 (copy), l_ScreenshotManager_0 (copy), l_Players_0 (copy), v21 (copy), v3 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_AppStyleProvider_0 (copy), l_DefaultTwoStepReportFlow_0 (copy), v22 (copy), l_FFlagAddGenericIllegalReportingToTwoStepFlow_0 (copy), v17 (copy), v5 (copy)
-    local v30 = "";
-    local v31 = {
-        table.clone(v29.adInfo)
+ReportAdPopup = function(v28) --[[ Line: 110 ]] --[[ Name: ReportAdPopup ]]
+    -- upvalues: l_HttpService_0 (copy), l_getAppFeaturePolicies_0 (copy), l_default_0 (copy), v15 (copy), v18 (copy), v2 (copy), v19 (copy), l_ScreenshotManager_0 (copy), l_Players_0 (copy), v20 (copy), v3 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_AppStyleProvider_0 (copy), l_DefaultTwoStepReportFlow_0 (copy), v21 (copy), v17 (copy), v5 (copy)
+    local v29 = "";
+    local v30 = {
+        table.clone(v28.adInfo)
     };
-    local v32 = l_HttpService_0:JSONEncode(v31);
-    local v33 = true;
-    local v34 = l_getAppFeaturePolicies_0();
-    if v34 ~= nil then
-        local v35 = v34.getShowIllegalContentReportingUI();
-        local v36 = false;
-        if v35 ~= nil then
-            v36 = v35;
+    local v31 = l_HttpService_0:JSONEncode(v30);
+    local v32 = true;
+    local v33 = l_getAppFeaturePolicies_0();
+    if v33 ~= nil then
+        local v34 = v33.getShowIllegalContentReportingUI();
+        local v35 = false;
+        if v34 ~= nil then
+            v35 = v34;
         end;
-        v33 = v36;
+        v32 = v35;
     else
         l_default_0:logRobloxTelemetryEvent({
             eventName = "UniversalAppPolicyCallFailed", 
@@ -120,31 +119,31 @@ ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
             }, 
             description = "Call to UniversalAppPolicy (GUAC) failed in Report Ad popup"
         }, nil, {
-            assetId = v31[1].assetId, 
-            encryptedAdTrackingData = v31[1].encryptedAdTrackingData, 
-            encryptionMetadata = v31[1].encryptionMetadata
+            assetId = v30[1].assetId, 
+            encryptedAdTrackingData = v30[1].encryptedAdTrackingData, 
+            encryptionMetadata = v30[1].encryptionMetadata
         });
     end;
-    local v41 = v2.useCallback(function(v37, v38) --[[ Line: 143 ]]
-        -- upvalues: v19 (ref), v29 (copy), l_ScreenshotManager_0 (ref), l_Players_0 (ref), v30 (ref), v32 (copy), v21 (ref)
+    local v40 = v2.useCallback(function(v36, v37) --[[ Line: 140 ]]
+        -- upvalues: v19 (ref), v28 (copy), l_ScreenshotManager_0 (ref), l_Players_0 (ref), v29 (ref), v31 (copy), v20 (ref)
         if v19 then
-            v29.onClose();
+            v28.onClose();
         end;
-        l_ScreenshotManager_0:TakeScreenshotWithCallback(function(v39) --[[ Line: 147 ]]
-            -- upvalues: l_Players_0 (ref), v30 (ref), v37 (copy), v38 (copy), v32 (ref), v21 (ref)
+        l_ScreenshotManager_0:TakeScreenshotWithCallback(function(v38) --[[ Line: 144 ]]
+            -- upvalues: l_Players_0 (ref), v29 (ref), v36 (copy), v37 (copy), v31 (ref), v20 (ref)
             local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
             if l_LocalPlayer_0 ~= nil then
-                v30 = buildReport(l_LocalPlayer_0.UserId, v39, v37, v38, v32);
-                l_Players_0:ReportAbuseV3(l_LocalPlayer_0, v30);
-                v21.logReportAdEvent("submit");
+                v29 = buildReport(l_LocalPlayer_0.UserId, v38, v36, v37, v31);
+                l_Players_0:ReportAbuseV3(l_LocalPlayer_0, v29);
+                v20.logReportAdEvent("submit");
             end;
         end, nil);
-        if v19 and v29.onOpen then
-            v29.onOpen();
+        if v19 and v28.onOpen then
+            v28.onOpen();
         end;
         return true;
     end, {});
-    local v42 = v3.createElement(l_LocalizationProvider_0, {
+    local v41 = v3.createElement(l_LocalizationProvider_0, {
         localization = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId)
     }, {
         v3.createElement("UIPadding", {
@@ -160,19 +159,19 @@ ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
                 analyticsContext = "Ad", 
                 onCloseProps = {
                     hasPreviousSteps = false, 
-                    onAbandon = function() --[[ Line: 179 ]] --[[ Name: onAbandon ]]
-                        -- upvalues: v21 (ref), v29 (copy)
-                        v21.logReportAdEvent("close");
-                        v29.onClose();
+                    onAbandon = function() --[[ Line: 176 ]] --[[ Name: onAbandon ]]
+                        -- upvalues: v20 (ref), v28 (copy)
+                        v20.logReportAdEvent("close");
+                        v28.onClose();
                     end
                 }, 
                 onSubmitProps = {
                     hasNextSteps = false, 
-                    onSubmit = v41
+                    onSubmit = v40
                 }, 
-                onComplete = v29.onClose, 
-                reportCategories = v22, 
-                reportCategoryDefaultKey = v22[1].value, 
+                onComplete = v28.onClose, 
+                reportCategories = v21, 
+                reportCategoryDefaultKey = v21[1].value, 
                 isReportCategoryReadonly = true, 
                 localizationKeys = {
                     formTitle = "CoreScripts.Ads.Label.ReportAd", 
@@ -183,11 +182,11 @@ ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
                     X = 0.8, 
                     Y = 1
                 }, 
-                footerContent = if l_FFlagAddGenericIllegalReportingToTwoStepFlow_0 then nil else function() --[[ Line: 204 ]]
-                    -- upvalues: v33 (ref), v3 (ref), v17 (ref), v31 (copy)
-                    if v33 then
+                footerContent = function() --[[ Line: 199 ]] --[[ Name: footerContent ]]
+                    -- upvalues: v32 (ref), v3 (ref), v17 (ref), v30 (copy)
+                    if v32 then
                         return v3.createElement(v17, {
-                            assetId = v31[1].assetId
+                            assetId = v30[1].assetId
                         });
                     else
                         return nil;
@@ -202,7 +201,7 @@ ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
         DisplayOrder = v5.Modal, 
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling, 
         AutoLocalize = false, 
-        Enabled = v29.showReportAdPopup
+        Enabled = v28.showReportAdPopup
     }, v3.createElement("Frame", {
         Position = UDim2.new(0, 0, 0, 0), 
         AnchorPoint = Vector2.new(0, 0), 
@@ -217,7 +216,7 @@ ReportAdPopup = function(v29) --[[ Line: 112 ]] --[[ Name: ReportAdPopup ]]
             AutomaticSize = Enum.AutomaticSize.Y, 
             BackgroundTransparency = 1
         }, {
-            v42
+            v41
         })
     }));
 end;

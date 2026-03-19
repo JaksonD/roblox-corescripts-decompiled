@@ -2,7 +2,8 @@ local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local l_FFlagAddIEMProfilePage_0 = require(l_Parent_0.SharedFlags).FFlagAddIEMProfilePage;
 local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer;
-local v4 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableEditAppearanceMenu);
+local l_FFlagEnableProfileCompletion_0 = require(l_Parent_0.SharedFlags).FFlagEnableProfileCompletion;
+local v5 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableEditAppearanceMenu);
 return {
     Components = {
         About = "About", 
@@ -22,6 +23,7 @@ return {
         ContactDescription = "ContactDescription", 
         CommunityLocked = "CommunityLocked", 
         ProfileBackground = "ProfileBackground", 
+        ProfileCompletion = l_FFlagEnableProfileCompletion_0 and "ProfileCompletion" or "", 
         Events = "Events", 
         CurrentlyPlaying = "CurrentlyPlaying"
     }, 
@@ -39,10 +41,10 @@ return {
         CannotAddFriend = "CannotAddFriend", 
         Chat = "Chat", 
         EditAlias = "EditAlias", 
-        EditAppearance = v4 and "EditAppearance" or "", 
+        EditAppearance = v5 and "EditAppearance" or "", 
         EditAvatar = "EditAvatar", 
-        EditEmotes = v4 and "EditEmotes" or "", 
-        SwitchAvatar = v4 and "SwitchAvatar" or "", 
+        EditEmotes = v5 and "EditEmotes" or "", 
+        SwitchAvatar = v5 and "SwitchAvatar" or "", 
         EditProfile = "EditProfile", 
         IgnoreFriendRequest = "IgnoreFriendRequest", 
         JoinExperience = "JoinExperience", 

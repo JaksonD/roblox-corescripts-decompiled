@@ -47,6 +47,7 @@ return function(v24) --[[ Line: 43 ]] --[[ Name: AvatarSwitcherContainer ]]
             tag = "auto-y size-full-0 bg-surface-200"
         }, {
             Banner = v3.createElement(l_TimeoutBanner_0, {
+                shouldFetch = true, 
                 shouldNavigateOnClick = false
             })
         })

@@ -14,22 +14,22 @@ local v12 = v4.Component:extend(script.Name);
 local l_Generic_0 = l_Parent_1.Generic;
 local v14 = require(l_Generic_0.PurchaseFlowType);
 local l_VerifiedParentalConsentDialog_0 = require(l_Parent_2.VerifiedParentalConsentDialog).VerifiedParentalConsentDialog;
-v12.init = function(v16) --[[ Line: 76 ]] --[[ Name: init ]]
+v12.init = function(v16) --[[ Line: 79 ]] --[[ Name: init ]]
     -- upvalues: l_HttpService_0 (copy)
     v16.state = {
         analyticId = l_HttpService_0:GenerateGUID(false)
     };
 end;
-v12.didUpdate = function(v17, v18, _) --[[ Line: 82 ]] --[[ Name: didUpdate ]]
+v12.didUpdate = function(v17, v18, _) --[[ Line: 85 ]] --[[ Name: didUpdate ]]
     local l_props_0 = v17.props;
     if v18.purchaseState ~= l_props_0.purchaseState then
         v17:reportPurchaseEvent("ViewShown");
     end;
 end;
-v12.reportUserInput = function(v21, v22) --[[ Line: 90 ]] --[[ Name: reportUserInput ]]
+v12.reportUserInput = function(v21, v22) --[[ Line: 93 ]] --[[ Name: reportUserInput ]]
     v21:reportPurchaseEvent("UserInput", v22);
 end;
-v12.reportPurchaseEvent = function(v23, v24, v25) --[[ Line: 94 ]] --[[ Name: reportPurchaseEvent ]]
+v12.reportPurchaseEvent = function(v23, v24, v25) --[[ Line: 97 ]] --[[ Name: reportPurchaseEvent ]]
     -- upvalues: v11 (copy), v6 (copy)
     local l_props_1 = v23.props;
     if not l_props_1.onAnalyticEvent then
@@ -40,7 +40,7 @@ v12.reportPurchaseEvent = function(v23, v24, v25) --[[ Line: 94 ]] --[[ Name: re
         return;
     end;
 end;
-v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
+v12.render = function(v28) --[[ Line: 121 ]] --[[ Name: render ]]
     -- upvalues: l_getPartialPageModalMiddleContentWidth_0 (copy), v4 (copy), v7 (copy), v6 (copy), v9 (copy), v10 (copy), v8 (copy), v14 (copy), l_VerifiedParentalConsentDialog_0 (copy)
     local l_props_2 = v28.props;
     local l_purchaseState_0 = l_props_2.purchaseState;
@@ -53,7 +53,7 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
             shouldShow = l_purchaseState_0 == v6.PurchaseModal, 
             shouldAnimate = true, 
             animateDown = v31 == 492, 
-            renderChildren = function() --[[ Line: 132 ]] --[[ Name: renderChildren ]]
+            renderChildren = function() --[[ Line: 135 ]] --[[ Name: renderChildren ]]
                 -- upvalues: v4 (ref), v9 (ref), l_props_2 (copy), v10 (ref), v28 (copy)
                 return v4.createElement(v9, {
                     name = l_props_2.name, 
@@ -63,8 +63,8 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
                     disclaimerText = l_props_2.disclaimerText, 
                     description = l_props_2.description, 
                     itemIcon = l_props_2.itemIcon, 
-                    disablePurchase = if v10() then l_props_2.disablePurchase else nil, 
-                    disablePurchaseText = if v10() then l_props_2.disablePurchaseText else nil, 
+                    disablePurchase = if not not v10() or l_props_2.shouldUseNewModalDesign then l_props_2.disablePurchase else nil, 
+                    disablePurchaseText = if not not v10() or l_props_2.shouldUseNewModalDesign then l_props_2.disablePurchaseText else nil, 
                     shouldUseNewModalDesign = l_props_2.shouldUseNewModalDesign, 
                     isRobuxSubscription = l_props_2.isRobuxSubscription, 
                     creatorName = l_props_2.creatorName, 
@@ -73,7 +73,7 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
                     secondaryPaymentMethod = l_props_2.secondaryPaymentMethod, 
                     isTestingMode = l_props_2.isTestingMode, 
                     screenSize = l_props_2.screenSize, 
-                    purchaseSubscriptionActivated = function(v32) --[[ Line: 154 ]] --[[ Name: purchaseSubscriptionActivated ]]
+                    purchaseSubscriptionActivated = function(v32) --[[ Line: 161 ]] --[[ Name: purchaseSubscriptionActivated ]]
                         -- upvalues: v28 (ref), l_props_2 (ref)
                         v28:reportUserInput("Subscribe");
                         l_props_2.purchaseSubscription(v32);
@@ -81,18 +81,20 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
                             l_props_2.flowComplete();
                         end;
                     end, 
-                    cancelPurchaseActivated = function() --[[ Line: 161 ]] --[[ Name: cancelPurchaseActivated ]]
+                    cancelPurchaseActivated = function() --[[ Line: 168 ]] --[[ Name: cancelPurchaseActivated ]]
                         -- upvalues: v28 (ref), l_props_2 (ref)
                         v28:reportUserInput("Cancel");
                         l_props_2.cancelPurchase();
-                    end
+                    end, 
+                    onReport = if l_props_2.shouldUseNewModalDesign then l_props_2.onReport else nil, 
+                    onShare = if l_props_2.shouldUseNewModalDesign then l_props_2.onShare else nil
                 });
             end
         }), 
         PurchaseErrorPromptAnimator = v4.createElement(v7, {
             shouldShow = l_purchaseState_0 == v6.Error, 
             shouldAnimate = true, 
-            renderChildren = function() --[[ Line: 171 ]] --[[ Name: renderChildren ]]
+            renderChildren = function() --[[ Line: 180 ]] --[[ Name: renderChildren ]]
                 -- upvalues: v4 (ref), v8 (ref), l_props_2 (copy), v14 (ref), v28 (copy)
                 return v4.createElement(v8, {
                     screenSize = l_props_2.screenSize, 
@@ -100,7 +102,7 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
                     economicRestrictionError = l_props_2.economicRestrictionError, 
                     flowType = v14.Subscription, 
                     doneControllerIcon = l_props_2.acceptControllerIcon, 
-                    doneActivated = function() --[[ Line: 180 ]] --[[ Name: doneActivated ]]
+                    doneActivated = function() --[[ Line: 189 ]] --[[ Name: doneActivated ]]
                         -- upvalues: v28 (ref), l_props_2 (ref)
                         v28:reportUserInput("Done");
                         l_props_2.flowComplete();
@@ -111,19 +113,19 @@ v12.render = function(v28) --[[ Line: 118 ]] --[[ Name: render ]]
         PurchaseVPCPromptAnimator = v4.createElement(v7, {
             shouldShow = l_purchaseState_0 == v6.PurchaseVPCModal, 
             shouldAnimate = true, 
-            renderChildren = function() --[[ Line: 190 ]] --[[ Name: renderChildren ]]
+            renderChildren = function() --[[ Line: 199 ]] --[[ Name: renderChildren ]]
                 -- upvalues: v4 (ref), l_VerifiedParentalConsentDialog_0 (ref), l_props_2 (copy), v28 (copy)
                 return v4.createElement(l_VerifiedParentalConsentDialog_0, {
                     screenSize = l_props_2.screenSize, 
                     isActionable = l_props_2.openSettingsPage ~= nil, 
                     modalType = l_props_2.purchaseVPCType, 
-                    onAction = l_props_2.openSettingsPage and function() --[[ Line: 195 ]]
+                    onAction = l_props_2.openSettingsPage and function() --[[ Line: 204 ]]
                         -- upvalues: v28 (ref), l_props_2 (ref)
                         v28:reportUserInput("Confirm");
                         l_props_2.openSettingsPage();
                         l_props_2.flowComplete();
                     end, 
-                    onDismiss = function() --[[ Line: 200 ]] --[[ Name: onDismiss ]]
+                    onDismiss = function() --[[ Line: 209 ]] --[[ Name: onDismiss ]]
                         -- upvalues: v28 (ref), l_props_2 (ref)
                         v28:reportUserInput("Cancel");
                         l_props_2.cancelPurchase();

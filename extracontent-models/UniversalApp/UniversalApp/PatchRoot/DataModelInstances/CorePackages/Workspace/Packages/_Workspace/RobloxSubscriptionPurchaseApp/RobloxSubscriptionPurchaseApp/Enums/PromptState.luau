@@ -3,5 +3,6 @@ return {
     SubscriptionPurchaseRequested = "SubscriptionPurchaseRequested", 
     SubscriptionPurchaseUIReady = "SubscriptionPurchaseUIReady", 
     SubscriptionPurchaseInProgress = "SubscriptionPurchaseInProgress", 
+    SubscriptionStatusPolling = "SubscriptionStatusPolling", 
     SubscriptionPurchaseCompleted = "SubscriptionPurchaseCompleted"
 };

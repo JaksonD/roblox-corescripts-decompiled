@@ -19,6 +19,8 @@ return {
     discoveryVideoPlayEvent = require(script.Video.discoveryVideoPlayEvent), 
     gameDetailsPeekViewEvents = require(script.gameDetailsPeekViewEvents), 
     reportGameAttributionError = require(script.reportGameAttributionError), 
+    sendSocialLinkClickEvent = require(script.sendSocialLinkClickEvent), 
+    sendOpenLeavingRobloxModalEvent = require(script.sendOpenLeavingRobloxModalEvent), 
     fireInExperienceDetailsPromptOpenedEvent = require(script.fireInExperienceDetailsPromptOpenedEvent), 
     fireInExperienceDetailsPromptPlayButtonClickedEvent = require(script.fireInExperienceDetailsPromptPlayButtonClickedEvent), 
     fireInExperienceDetailsPromptClosedEvent = require(script.fireInExperienceDetailsPromptClosedEvent), 

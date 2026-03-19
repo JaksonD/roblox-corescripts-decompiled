@@ -56,7 +56,7 @@ isJoinExperience = function(v25) --[[ Line: 73 ]] --[[ Name: isJoinExperience ]]
     return false;
 end;
 return function(v28) --[[ Line: 82 ]]
-    -- upvalues: l_useDispatch_0 (copy), v13 (copy), v11 (copy), l_useSelector_0 (copy), v6 (copy), l_NetworkStatus_0 (copy), v12 (copy), l_useEffectOnce_0 (copy), v19 (copy), v23 (copy), v24 (copy), v22 (copy), l_FFlagEnableProfilePlatformDisabledActions_0 (copy), v16 (copy), v17 (copy), l_IconName_0 (copy), l_NavigateDown_0 (copy), v18 (copy)
+    -- upvalues: l_useDispatch_0 (copy), v13 (copy), v11 (copy), l_useSelector_0 (copy), v6 (copy), l_NetworkStatus_0 (copy), v12 (copy), l_useEffectOnce_0 (copy), v19 (copy), v23 (copy), v24 (copy), v22 (copy), l_FFlagEnableProfilePlatformDisabledActions_0 (copy), v16 (copy), v17 (copy), l_IconName_0 (copy), l_NavigateDown_0 (copy), v18 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy)
     local v29 = l_useDispatch_0();
     local v30 = v13(v11.Components.Actions) or {};
     local v32 = l_useSelector_0(function(v31) --[[ Line: 86 ]]
@@ -127,5 +127,8 @@ return function(v28) --[[ Line: 82 ]]
     if #v36 > 0 then
         v34.secondary = v36;
     end;
-    return v34, v30.contextual and true or false;
+    return v34, v30.contextual and true or false, l_FFlagProfilePlatformEnableCurrencyTransfer_0 and v30.contextual ~= nil and v23.find(v30.contextual, function(v46) --[[ Line: 188 ]]
+        -- upvalues: v11 (ref)
+        return v46 == v11.ProfileActions.CurrencyTransfer;
+    end) ~= nil;
 end;

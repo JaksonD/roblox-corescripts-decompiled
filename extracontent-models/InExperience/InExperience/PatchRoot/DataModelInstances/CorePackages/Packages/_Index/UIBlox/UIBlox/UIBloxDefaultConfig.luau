@@ -15,5 +15,8 @@ return {
     enableShortcutCustomization = false, 
     enableScalingForSomeEdpIcons = false, 
     enablePanel3DSurfaceGuiRef = false, 
-    enableTooltipRichText = false
+    enableTooltipRichText = false, 
+    useFoundationCheckbox = false, 
+    useFoundationLoading = false, 
+    disableTokenScaling = false
 };

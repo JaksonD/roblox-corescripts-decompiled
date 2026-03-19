@@ -4,120 +4,107 @@ local _ = require(l_script_FirstAncestor_0.Enums.PopoverAlign);
 local _ = require(l_script_FirstAncestor_0.Enums.PopoverSide);
 local v4 = require(l_Parent_0.React);
 local v5 = require(script.Parent.positioning);
-local l_Services_0 = require(l_script_FirstAncestor_0.Utility.Wrappers).Services;
-local l_UserInputService_0 = l_Services_0.UserInputService;
-local l_GuiService_0 = l_Services_0.GuiService;
-local v9 = require(l_script_FirstAncestor_0.Utility.Flags);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local function v20(v11, v12, v13) --[[ Line: 30 ]] --[[ Name: useConnectSignals ]]
+local function v16(v7, v8, v9) --[[ Line: 26 ]] --[[ Name: useConnectSignals ]]
     -- upvalues: v4 (copy)
-    local v14 = v4.useRef({});
-    v4.useLayoutEffect(function() --[[ Line: 37 ]]
-        -- upvalues: v11 (copy), v12 (copy), v14 (copy), v13 (copy)
-        if v11 ~= nil then
-            for _, v16 in v12 do
-                local v17 = if typeof(v11) == "Instance" then v11:GetPropertyChangedSignal(v16) else v11:GetPropertyChangedSignal(v16);
-                v14.current[v16] = v17:Connect(type(v13) == "table" and function() --[[ Line: 46 ]]
-                    -- upvalues: v13 (ref)
-                    v13.current();
-                end or v13);
+    local v10 = v4.useRef({});
+    v4.useLayoutEffect(function() --[[ Line: 33 ]]
+        -- upvalues: v7 (copy), v8 (copy), v10 (copy), v9 (copy)
+        if v7 ~= nil then
+            for _, v12 in v8 do
+                local v13 = if typeof(v7) == "Instance" then v7:GetPropertyChangedSignal(v12) else v7:GetPropertyChangedSignal(v12);
+                v10.current[v12] = v13:Connect(type(v9) == "table" and function() --[[ Line: 42 ]]
+                    -- upvalues: v9 (ref)
+                    v9.current();
+                end or v9);
             end;
         end;
-        return function() --[[ Line: 54 ]]
-            -- upvalues: v14 (ref)
-            for _, v19 in v14.current do
-                v19:Disconnect();
+        return function() --[[ Line: 50 ]]
+            -- upvalues: v10 (ref)
+            for _, v15 in v10.current do
+                v15:Disconnect();
             end;
         end;
     end, {
-        v11, 
-        v13
+        v7, 
+        v9
     });
 end;
-return function(v21, v22, v23, v24, v25, v26, v27) --[[ Line: 62 ]] --[[ Name: useFloating ]]
-    -- upvalues: v4 (copy), v9 (copy), l_UserInputService_0 (copy), v5 (copy), l_GuiService_0 (copy), v20 (copy)
-    local v28, v29 = v4.useBinding(Vector2.new());
-    local v30, v31 = v4.useBinding(true);
-    local v32, v33 = v4.useBinding(UDim2.new());
-    local v34, v35 = v4.useBinding(Vector2.new());
-    local v36, v37 = v4.useBinding(Vector2.new());
-    local v38, v39 = v4.useBinding(Vector2.new(0, 0));
-    local v40 = v4.useRef(function() --[[ Line: 77 ]]
+return function(v17, v18, v19, v20, v21, v22, v23) --[[ Line: 58 ]] --[[ Name: useFloating ]]
+    -- upvalues: v4 (copy), v5 (copy), v16 (copy)
+    local v24, v25 = v4.useBinding(Vector2.new());
+    local v26, v27 = v4.useBinding(true);
+    local v28, v29 = v4.useBinding(UDim2.new());
+    local v30, v31 = v4.useBinding(Vector2.new());
+    local v32, v33 = v4.useBinding(Vector2.new());
+    local v34, v35 = v4.useBinding(Vector2.new(0, 0));
+    local v36 = v4.useRef(function() --[[ Line: 73 ]]
 
     end);
-    local v58 = v4.useCallback(function() --[[ Line: 79 ]]
-        -- upvalues: v21 (copy), v22 (copy), v23 (copy), v24 (copy), v31 (copy), v9 (ref), l_UserInputService_0 (ref), v5 (ref), l_GuiService_0 (ref), v25 (copy), v26 (copy), v27 (copy), v33 (copy), v35 (copy), v37 (copy), v29 (copy), v39 (copy)
-        if not v21 or not v22 or not v23 or not v24 then
-            v31(false);
+    local v54 = v4.useCallback(function() --[[ Line: 75 ]]
+        -- upvalues: v17 (copy), v18 (copy), v19 (copy), v20 (copy), v27 (copy), v5 (ref), v21 (copy), v22 (copy), v23 (copy), v29 (copy), v31 (copy), v33 (copy), v25 (copy), v35 (copy)
+        if not v17 or not v18 or not v19 or not v20 then
+            v27(false);
             return;
         else
-            local l_AbsolutePosition_0 = v22.AbsolutePosition;
-            local l_AbsoluteSize_0 = v22.AbsoluteSize;
-            local l_AbsoluteSize_1 = v23.AbsoluteSize;
-            local l_AbsoluteSize_2 = v24.AbsoluteSize;
-            local l_AbsolutePosition_1 = v24.AbsolutePosition;
-            local v46 = Rect.new(l_AbsolutePosition_0, l_AbsolutePosition_0 + l_AbsoluteSize_0);
-            local v47 = Rect.new(l_AbsolutePosition_1, l_AbsolutePosition_1 + l_AbsoluteSize_2);
-            if v9.FoundationPopoverOnScreenKeyboard and l_UserInputService_0.OnScreenKeyboardVisible then
-                v47 = v5.adjustForOnScreenKeyboard(v47, l_UserInputService_0.OnScreenKeyboardPosition, l_GuiService_0:GetGuiInset());
-            end;
-            if not v5.isOnScreen(v46, v47) then
-                v31(false);
+            local l_AbsolutePosition_0 = v18.AbsolutePosition;
+            local l_AbsoluteSize_0 = v18.AbsoluteSize;
+            local l_AbsoluteSize_1 = v19.AbsoluteSize;
+            local l_AbsoluteSize_2 = v20.AbsoluteSize;
+            local l_AbsolutePosition_1 = v20.AbsolutePosition;
+            local v42 = Rect.new(l_AbsolutePosition_0, l_AbsolutePosition_0 + l_AbsoluteSize_0);
+            local v43 = Rect.new(l_AbsolutePosition_1, l_AbsolutePosition_1 + l_AbsoluteSize_2);
+            if not v5.isOnScreen(v42, v43) then
+                v27(false);
                 return;
             else
-                local v48 = if type(v25) == "table" then v25.position else v25;
-                local v49 = if type(v25) == "table" then v25.offset else 0;
-                local l_v26_0 = v26;
-                local v51 = 0;
-                if type(v26) == "table" then
-                    l_v26_0 = v26.position;
-                    v51 = v26.offset;
+                local v44 = if type(v21) == "table" then v21.position else v21;
+                local v45 = if type(v21) == "table" then v21.offset else 0;
+                local l_v22_0 = v22;
+                local v47 = 0;
+                if type(v22) == "table" then
+                    l_v22_0 = v22.position;
+                    v47 = v22.offset;
                 end;
-                local v52 = v27 or 0;
-                local v53 = v5.calculatePopoverBounds(v48, v49, v51, v52, l_AbsoluteSize_1);
-                v48 = v5.calculateSide(v48, v46, v47, v53);
-                local v54, v55, v56 = v5.calculatePositions(v48, v49, l_v26_0, v51, v46, v47, v52, l_AbsoluteSize_1);
-                v33(UDim2.fromOffset(l_AbsoluteSize_1.X, l_AbsoluteSize_1.Y));
-                v35(l_AbsoluteSize_2);
-                v37(v55 + v54);
-                v29(v54);
-                v39(v56);
-                v31(true);
-                local _ = v23.AbsolutePosition;
+                local v48 = v23 or 0;
+                local v49 = v5.calculatePopoverBounds(v44, v45, v47, v48, l_AbsoluteSize_1);
+                v44 = v5.calculateSide(v44, v42, v43, v49);
+                local v50, v51, v52 = v5.calculatePositions(v44, v45, l_v22_0, v47, v42, v43, v48, l_AbsoluteSize_1);
+                v29(UDim2.fromOffset(l_AbsoluteSize_1.X, l_AbsoluteSize_1.Y));
+                v31(l_AbsoluteSize_2);
+                v33(v51 + v50);
+                v25(v50);
+                v35(v52);
+                v27(true);
+                local _ = v19.AbsolutePosition;
                 return;
             end;
         end;
     end, {
+        v17, 
+        v18, 
+        v19, 
+        v20, 
         v21, 
         v22, 
-        v23, 
-        v24, 
-        v25, 
-        v26, 
-        v27
+        v23
     });
-    v40.current = v58;
-    v20(v22, {
+    v36.current = v54;
+    v16(v18, {
         "AbsolutePosition", 
         "AbsoluteSize"
-    }, v40);
-    v20(v23, {
+    }, v36);
+    v16(v19, {
         "AbsoluteSize"
-    }, v40);
-    v20(v24, {
+    }, v36);
+    v16(v20, {
         "AbsoluteSize"
-    }, v40);
-    if v9.FoundationPopoverOnScreenKeyboard then
-        v20(l_UserInputService_0, {
-            "OnScreenKeyboardVisible", 
-            "OnScreenKeyboardPosition"
-        }, v40);
-    end;
-    v4.useLayoutEffect(function() --[[ Line: 165 ]]
-        -- upvalues: v58 (copy)
-        v58();
+    }, v36);
+    v4.useLayoutEffect(function() --[[ Line: 146 ]]
+        -- upvalues: v54 (copy)
+        v54();
     end, {
-        v58
+        v54
     });
-    return v28, v30, v32, v36, v34, v38;
+    return v24, v26, v28, v32, v30, v34;
 end;

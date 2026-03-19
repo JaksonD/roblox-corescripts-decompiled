@@ -15,25 +15,27 @@ local l_SquadPromptType_0 = v7.SquadsCore.Enums.SquadPromptType;
 local l_encodeSquadMembers_0 = v7.SquadsCore.Common.encodeSquadMembers;
 local l_FFlagEncodeSquadMembersUpdated_0 = v7.SquadsCore.Flags.FFlagEncodeSquadMembersUpdated;
 local l_FFlagEnableSquadRegroupExperimentation_0 = v7.SharedFlags.FFlagEnableSquadRegroupExperimentation;
-local v17 = nil;
-return function(v18, v19, v20) --[[ Line: 25 ]]
-    -- upvalues: l_FFlagEncodeSquadMembersUpdated_0 (copy), l_encodeSquadMembers_0 (ref), l_Cryo_0 (copy), l_HttpService_0 (copy), v4 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_RoduxSquads_0 (copy), v17 (ref), l_FFlagEnableSquadRegroupExperimentation_0 (copy), l_SquadExperienceInviteSource_0 (copy), l_NetworkingSquads_0 (copy), l_EventNames_0 (copy), v2 (copy), l_SquadPromptType_0 (copy)
-    return function(v21) --[[ Line: 26 ]]
-        -- upvalues: l_FFlagEncodeSquadMembersUpdated_0 (ref), l_encodeSquadMembers_0 (ref), l_Cryo_0 (ref), l_HttpService_0 (ref), v4 (ref), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), l_RoduxSquads_0 (ref), v17 (ref), v18 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (ref), v20 (copy), l_SquadExperienceInviteSource_0 (ref), l_NetworkingSquads_0 (ref), v19 (copy), l_EventNames_0 (ref), v2 (ref), l_SquadPromptType_0 (ref)
-        local v22 = v21:getState();
-        local v23 = v22.Squad and v22.Squad.Squad and v22.Squad.Squad.currentSquad;
-        local v24 = v23 and v23.squadId;
-        local v25 = v23 and v23.parentChannelId;
-        local v26 = if v23 and v23.members then v23.members else {};
+local l_FFlagEnablePrivatePartyStartJoin_0 = v7.SharedFlags.FFlagEnablePrivatePartyStartJoin;
+local l_SquadExperienceInviteType_0 = v7.SquadsCore.Enums.SquadExperienceInviteType;
+local v19 = nil;
+return function(v20, v21, v22, v23) --[[ Line: 30 ]]
+    -- upvalues: l_FFlagEncodeSquadMembersUpdated_0 (copy), l_encodeSquadMembers_0 (ref), l_Cryo_0 (copy), l_HttpService_0 (copy), v4 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_RoduxSquads_0 (copy), v19 (ref), l_FFlagEnableSquadRegroupExperimentation_0 (copy), l_SquadExperienceInviteSource_0 (copy), l_FFlagEnablePrivatePartyStartJoin_0 (copy), l_SquadExperienceInviteType_0 (copy), l_NetworkingSquads_0 (copy), l_EventNames_0 (copy), v2 (copy), l_SquadPromptType_0 (copy)
+    return function(v24) --[[ Line: 31 ]]
+        -- upvalues: l_FFlagEncodeSquadMembersUpdated_0 (ref), l_encodeSquadMembers_0 (ref), l_Cryo_0 (ref), l_HttpService_0 (ref), v4 (ref), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), l_RoduxSquads_0 (ref), v19 (ref), v20 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (ref), v22 (copy), l_SquadExperienceInviteSource_0 (ref), l_FFlagEnablePrivatePartyStartJoin_0 (ref), v23 (copy), l_SquadExperienceInviteType_0 (ref), l_NetworkingSquads_0 (ref), v21 (copy), l_EventNames_0 (ref), v2 (ref), l_SquadPromptType_0 (ref)
+        local v25 = v24:getState();
+        local v26 = v25.Squad and v25.Squad.Squad and v25.Squad.Squad.currentSquad;
+        local v27 = v26 and v26.squadId;
+        local v28 = v26 and v26.parentChannelId;
+        local v29 = if v26 and v26.members then v26.members else {};
         if not l_FFlagEncodeSquadMembersUpdated_0 then
-            l_encodeSquadMembers_0 = function(v27) --[[ Line: 36 ]]
-                -- upvalues: l_Cryo_0 (ref), v26 (copy), l_HttpService_0 (ref)
-                v27 = l_Cryo_0.List.map(v26, function(v28) --[[ Line: 37 ]]
-                    return v28.userId;
+            l_encodeSquadMembers_0 = function(v30) --[[ Line: 41 ]]
+                -- upvalues: l_Cryo_0 (ref), v29 (copy), l_HttpService_0 (ref)
+                v30 = l_Cryo_0.List.map(v29, function(v31) --[[ Line: 42 ]]
+                    return v31.userId;
                 end);
-                local l_status_0, l_result_0 = pcall(function() --[[ Line: 41 ]]
-                    -- upvalues: l_HttpService_0 (ref), v27 (ref)
-                    return l_HttpService_0:JSONEncode(v27);
+                local l_status_0, l_result_0 = pcall(function() --[[ Line: 46 ]]
+                    -- upvalues: l_HttpService_0 (ref), v30 (ref)
+                    return l_HttpService_0:JSONEncode(v30);
                 end);
                 if l_status_0 then
                     return l_result_0;
@@ -42,96 +44,99 @@ return function(v18, v19, v20) --[[ Line: 25 ]]
                 end;
             end;
         end;
-        local v31 = l_encodeSquadMembers_0(v26);
-        if not v24 then
+        local v34 = l_encodeSquadMembers_0(v29);
+        if not v27 then
             return v4.resolve();
         else
-            local l_status_1, l_result_1 = pcall(function() --[[ Line: 59 ]]
+            local l_status_1, l_result_1 = pcall(function() --[[ Line: 64 ]]
                 -- upvalues: l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
                 return l_AppStorageService_0:GetItem(l_LocalStorageKey_0.BrowserTrackerId);
             end);
-            local v34 = if l_status_1 then l_result_1 else "";
-            local function _(v35) --[[ Line: 64 ]] --[[ Name: updateCurrentExperienceInviteStatus ]]
-                -- upvalues: v21 (copy), l_RoduxSquads_0 (ref)
-                v21:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
-                    isExperienceInvitePending = v35
+            local v37 = if l_status_1 then l_result_1 else "";
+            local function _(v38) --[[ Line: 69 ]] --[[ Name: updateCurrentExperienceInviteStatus ]]
+                -- upvalues: v24 (copy), l_RoduxSquads_0 (ref)
+                v24:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
+                    isExperienceInvitePending = v38
                 }));
             end;
-            local function v47(v37) --[[ Line: 70 ]] --[[ Name: CreateExperienceInvite ]]
-                -- upvalues: v17 (ref), v21 (copy), l_RoduxSquads_0 (ref), v24 (copy), v18 (ref), v34 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (ref), v20 (ref), l_SquadExperienceInviteSource_0 (ref), l_NetworkingSquads_0 (ref), v19 (ref), l_EventNames_0 (ref), v25 (copy), v31 (copy), v26 (copy), l_HttpService_0 (ref), v2 (ref), l_SquadPromptType_0 (ref)
-                if v17 then
-                    task.cancel(v17);
-                    v17 = nil;
+            local function v50(v40) --[[ Line: 75 ]] --[[ Name: CreateExperienceInvite ]]
+                -- upvalues: v19 (ref), v24 (copy), l_RoduxSquads_0 (ref), v27 (copy), v20 (ref), v37 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (ref), v22 (ref), l_SquadExperienceInviteSource_0 (ref), l_FFlagEnablePrivatePartyStartJoin_0 (ref), v23 (ref), l_SquadExperienceInviteType_0 (ref), l_NetworkingSquads_0 (ref), v21 (ref), l_EventNames_0 (ref), v28 (copy), v34 (copy), v29 (copy), l_HttpService_0 (ref), v2 (ref), l_SquadPromptType_0 (ref)
+                if v19 then
+                    task.cancel(v19);
+                    v19 = nil;
                 end;
-                v21:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
+                v24:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
                     isExperienceInvitePending = true
                 }));
-                local v38 = {
-                    membershipEntityId = v24, 
-                    placeId = v18, 
-                    voteIdentifier = v34
+                local v41 = {
+                    membershipEntityId = v27, 
+                    placeId = v20, 
+                    voteIdentifier = v37
                 };
-                local v39 = if l_FFlagEnableSquadRegroupExperimentation_0 then v20 or l_SquadExperienceInviteSource_0.Default else nil;
-                if v39 then
-                    v38.source = v39;
+                local v42 = if l_FFlagEnableSquadRegroupExperimentation_0 then v22 or l_SquadExperienceInviteSource_0.Default else nil;
+                if v42 then
+                    v41.source = v42;
                 end;
-                return v21:dispatch(l_NetworkingSquads_0.CreateExperienceInvite.API(v38)):andThen(function(v40) --[[ Line: 94 ]]
-                    -- upvalues: v19 (ref), l_EventNames_0 (ref), v25 (ref), v18 (ref), v31 (ref), v26 (ref), v17 (ref), v21 (ref), l_RoduxSquads_0 (ref)
-                    local l_experienceInviteId_0 = v40.responseBody.experienceInviteId;
-                    v19.fireSquadAnalytics(l_EventNames_0.SquadExperienceInviteApiCall, {
-                        parentChannelId = v25, 
+                if l_FFlagEnablePrivatePartyStartJoin_0 then
+                    v41.inviteType = v23 or l_SquadExperienceInviteType_0.PlayWithPartyInPublicServer;
+                end;
+                return v24:dispatch(l_NetworkingSquads_0.CreateExperienceInvite.API(v41)):andThen(function(v43) --[[ Line: 103 ]]
+                    -- upvalues: v21 (ref), l_EventNames_0 (ref), v28 (ref), v20 (ref), v34 (ref), v29 (ref), v19 (ref), v24 (ref), l_RoduxSquads_0 (ref)
+                    local l_experienceInviteId_0 = v43.responseBody.experienceInviteId;
+                    v21.fireSquadAnalytics(l_EventNames_0.SquadExperienceInviteApiCall, {
+                        parentChannelId = v28, 
                         experienceInviteId = l_experienceInviteId_0, 
                         isSuccess = true, 
-                        invitationPlaceId = tonumber(v18), 
-                        squadMembers = v31, 
-                        squadMembersCount = #v26
+                        invitationPlaceId = tonumber(v20), 
+                        squadMembers = v34, 
+                        squadMembersCount = #v29
                     });
-                    v17 = task.delay(2, function() --[[ Line: 105 ]]
-                        -- upvalues: v21 (ref), l_RoduxSquads_0 (ref), v17 (ref)
-                        v21:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
+                    v19 = task.delay(2, function() --[[ Line: 114 ]]
+                        -- upvalues: v24 (ref), l_RoduxSquads_0 (ref), v19 (ref)
+                        v24:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
                             isExperienceInvitePending = false
                         }));
-                        v17 = nil;
+                        v19 = nil;
                     end);
                     return l_experienceInviteId_0;
-                end):catch(function(v42) --[[ Line: 111 ]]
-                    -- upvalues: v21 (ref), l_RoduxSquads_0 (ref), l_HttpService_0 (ref), v19 (ref), l_EventNames_0 (ref), v25 (ref), v18 (ref), v31 (ref), v26 (ref), v2 (ref), v37 (copy), l_SquadPromptType_0 (ref)
-                    v21:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
+                end):catch(function(v45) --[[ Line: 120 ]]
+                    -- upvalues: v24 (ref), l_RoduxSquads_0 (ref), l_HttpService_0 (ref), v21 (ref), l_EventNames_0 (ref), v28 (ref), v20 (ref), v34 (ref), v29 (ref), v2 (ref), v40 (copy), l_SquadPromptType_0 (ref)
+                    v24:dispatch(l_RoduxSquads_0.Actions.CurrentExperienceInviteStatusUpdated({
                         isExperienceInvitePending = false
                     }));
-                    local l_Body_0 = v42.Body;
-                    local l_status_2, l_result_2 = pcall(function() --[[ Line: 115 ]]
+                    local l_Body_0 = v45.Body;
+                    local l_status_2, l_result_2 = pcall(function() --[[ Line: 124 ]]
                         -- upvalues: l_HttpService_0 (ref), l_Body_0 (copy)
                         return l_HttpService_0:JSONDecode(l_Body_0);
                     end);
-                    local v46 = if l_status_2 then l_result_2.errorType else nil;
-                    v19.fireSquadAnalytics(l_EventNames_0.SquadExperienceInviteApiCall, {
-                        parentChannelId = v25, 
+                    local v49 = if l_status_2 then l_result_2.errorType else nil;
+                    v21.fireSquadAnalytics(l_EventNames_0.SquadExperienceInviteApiCall, {
+                        parentChannelId = v28, 
                         isSuccess = false, 
-                        errorMessage = v46, 
-                        errorType = if v42.StatusCode then tostring(v42.StatusCode) else nil, 
-                        invitationPlaceId = tonumber(v18), 
-                        squadMembers = v31, 
-                        squadMembersCount = #v26
+                        errorMessage = v49, 
+                        errorType = if v45.StatusCode then tostring(v45.StatusCode) else nil, 
+                        invitationPlaceId = tonumber(v20), 
+                        squadMembers = v34, 
+                        squadMembersCount = #v29
                     });
-                    if v42.StatusCode == v2.StatusCodes.CONFLICT then
-                        v19.setSquadPrompt(v21, {
-                            onConfirm = function() --[[ Line: 133 ]] --[[ Name: onConfirm ]]
-                                -- upvalues: v37 (ref)
-                                v37(v37);
+                    if v45.StatusCode == v2.StatusCodes.CONFLICT then
+                        v21.setSquadPrompt(v24, {
+                            onConfirm = function() --[[ Line: 142 ]] --[[ Name: onConfirm ]]
+                                -- upvalues: v40 (ref)
+                                v40(v40);
                             end, 
                             promptType = l_SquadPromptType_0.InvitedToExperience
                         });
                         return;
                     else
-                        v19.setSquadPrompt(v21, {
+                        v21.setSquadPrompt(v24, {
                             promptType = l_SquadPromptType_0.Error
                         });
                         return;
                     end;
                 end);
             end;
-            return v47(v47);
+            return v50(v50);
         end;
     end;
 end;

@@ -7,14 +7,14 @@ local v5 = require(script.Parent.component_shared);
 local v6 = {};
 v6.__index = v6;
 local l_v6_0 = v6 --[[ copy: 6 -> 7 ]];
-v6.new = function(v8) --[[ Line: 87 ]] --[[ Name: new ]]
+v6.new = function(v8) --[[ Line: 89 ]] --[[ Name: new ]]
     -- upvalues: l_v6_0 (copy)
     return (setmetatable({
         props = if not (v8 ~= nil) or v8.props == nil then nil else v8.props, 
         shared = if not (v8 ~= nil) or v8.shared == nil then nil else v8.shared
     }, l_v6_0));
 end;
-v6.encode = function(v9) --[[ Line: 94 ]] --[[ Name: encode ]]
+v6.encode = function(v9) --[[ Line: 96 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v10 = buffer.create(0);
     local v11 = 0;
@@ -36,7 +36,7 @@ v6.encode = function(v9) --[[ Line: 94 ]] --[[ Name: encode ]]
     buffer.copy(v18, 0, v10, 0, v11);
     return v18;
 end;
-v6.decode = function(v19) --[[ Line: 115 ]] --[[ Name: decode ]]
+v6.decode = function(v19) --[[ Line: 117 ]] --[[ Name: decode ]]
     -- upvalues: l_v6_0 (copy), v0 (copy), v2 (copy), v5 (copy)
     local v20 = l_v6_0.new();
     local v21 = 0;
@@ -86,7 +86,7 @@ v6.decode = function(v19) --[[ Line: 115 ]] --[[ Name: decode ]]
     end;
     return v20;
 end;
-v6.jsonEncode = function(v27) --[[ Line: 163 ]] --[[ Name: jsonEncode ]]
+v6.jsonEncode = function(v27) --[[ Line: 165 ]] --[[ Name: jsonEncode ]]
     local v28 = {};
     if v27.props ~= nil then
         v28.props = v27.props:jsonEncode();
@@ -96,7 +96,7 @@ v6.jsonEncode = function(v27) --[[ Line: 163 ]] --[[ Name: jsonEncode ]]
     end;
     return v28;
 end;
-v6.jsonDecode = function(v29) --[[ Line: 177 ]] --[[ Name: jsonDecode ]]
+v6.jsonDecode = function(v29) --[[ Line: 179 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v6_0 (copy), v2 (copy), v5 (copy)
     local v30 = l_v6_0.new();
     if v29.props ~= nil then
@@ -115,7 +115,7 @@ v2.CardSchema = v6;
 v1.default:register(v2.CardSchema);
 v6 = {};
 v6.__index = v6;
-v6.new = function(v31) --[[ Line: 206 ]] --[[ Name: new ]]
+v6.new = function(v31) --[[ Line: 208 ]] --[[ Name: new ]]
     -- upvalues: v6 (copy)
     return (setmetatable({
         title_text = if not (v31 ~= nil) or v31.title_text == nil then nil else v31.title_text, 
@@ -123,15 +123,16 @@ v6.new = function(v31) --[[ Line: 206 ]] --[[ Name: new ]]
         cta_text = if not (v31 ~= nil) or v31.cta_text == nil then nil else v31.cta_text, 
         cta_variant = if not (v31 ~= nil) or v31.cta_variant == nil then nil else v31.cta_variant, 
         cta_size = if not (v31 ~= nil) or v31.cta_size == nil then nil else v31.cta_size, 
-        on_cta_activated = if not (v31 ~= nil) or v31.on_cta_activated == nil then nil else v31.on_cta_activated, 
+        cta_on_activated = if not (v31 ~= nil) or v31.cta_on_activated == nil then nil else v31.cta_on_activated, 
         is_cta_disabled = if not (v31 ~= nil) or v31.is_cta_disabled == nil then nil else v31.is_cta_disabled, 
         image = if not (v31 ~= nil) or v31.image == nil then nil else v31.image, 
         background_style = if not (v31 ~= nil) or v31.background_style == nil then nil else v31.background_style, 
         corner_radius = if not (v31 ~= nil) or v31.corner_radius == nil then nil else v31.corner_radius, 
-        focus_navigation_actions_component = if not (v31 ~= nil) or v31.focus_navigation_actions_component == nil then nil else v31.focus_navigation_actions_component
+        focus_navigation_actions_component = if not (v31 ~= nil) or v31.focus_navigation_actions_component == nil then nil else v31.focus_navigation_actions_component, 
+        image_style = if not (v31 ~= nil) or v31.image_style == nil then nil else v31.image_style
     }, v6));
 end;
-v6.encode = function(v32) --[[ Line: 225 ]] --[[ Name: encode ]]
+v6.encode = function(v32) --[[ Line: 228 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v33 = buffer.create(0);
     local v34 = 0;
@@ -170,8 +171,8 @@ v6.encode = function(v32) --[[ Line: 225 ]] --[[ Name: encode ]]
         v33 = v48;
         v34 = v49;
     end;
-    if v32.on_cta_activated ~= nil then
-        local v50 = v32.on_cta_activated:encode();
+    if v32.cta_on_activated ~= nil then
+        local v50 = v32.cta_on_activated:encode();
         local v51, v52 = v0.writeTag(v33, v34, 6, v0.wireTypes.lengthDelimited);
         v51, v52 = v0.writeBuffer(v51, v52, v50, buffer.len(v50));
         v33 = v51;
@@ -212,218 +213,240 @@ v6.encode = function(v32) --[[ Line: 225 ]] --[[ Name: encode ]]
         v33 = v66;
         v34 = v67;
     end;
-    local v68 = buffer.create(v34);
-    buffer.copy(v68, 0, v33, 0, v34);
-    return v68;
+    if v32.image_style ~= nil then
+        local v68 = v32.image_style:encode();
+        local v69, v70 = v0.writeTag(v33, v34, 12, v0.wireTypes.lengthDelimited);
+        v69, v70 = v0.writeBuffer(v69, v70, v68, buffer.len(v68));
+        v33 = v69;
+        v34 = v70;
+    end;
+    local v71 = buffer.create(v34);
+    buffer.copy(v71, 0, v33, 0, v34);
+    return v71;
 end;
-v6.decode = function(v69) --[[ Line: 300 ]] --[[ Name: decode ]]
+v6.decode = function(v72) --[[ Line: 309 ]] --[[ Name: decode ]]
     -- upvalues: v6 (copy), v0 (copy), v3 (copy), v4 (copy)
-    local v70 = v6.new();
-    local v71 = 0;
-    while v71 < buffer.len(v69) do
-        local v72 = nil;
-        local v73 = nil;
-        local v74, v75, v76 = v0.readTag(v69, v71);
-        v72 = v74;
-        v73 = v75;
-        v71 = v76;
-        if v73 == v0.wireTypes.varint then
-            v74 = nil;
-            v75, v76 = v0.readVarInt(v69, v71);
-            v74 = v75;
-            v71 = v76;
-        elseif v73 == v0.wireTypes.lengthDelimited then
-            if v72 == 1 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.title_text = v3.StringProp.decode(v74);
-            elseif v72 == 2 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.description_text = v3.StringProp.decode(v74);
-            elseif v72 == 3 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.cta_text = v3.StringProp.decode(v74);
-            elseif v72 == 4 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.cta_variant = v3.StringProp.decode(v74);
-            elseif v72 == 5 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.cta_size = v3.StringProp.decode(v74);
-            elseif v72 == 6 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.on_cta_activated = v4.ActionProp.decode(v74);
-            elseif v72 == 7 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.is_cta_disabled = v3.BoolProp.decode(v74);
-            elseif v72 == 8 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.image = v3.ImageStringProp.decode(v74);
-            elseif v72 == 9 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.background_style = v3.ColorStyleProp.decode(v74);
-            elseif v72 == 10 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.corner_radius = v3.Int32Prop.decode(v74);
-            elseif v72 == 11 then
-                v74 = nil;
-                v75, v76 = v0.readBuffer(v69, v71);
-                v74 = v75;
-                v71 = v76;
-                v70.focus_navigation_actions_component = v3.NestedComponentProp.decode(v74);
+    local v73 = v6.new();
+    local v74 = 0;
+    while v74 < buffer.len(v72) do
+        local v75 = nil;
+        local v76 = nil;
+        local v77, v78, v79 = v0.readTag(v72, v74);
+        v75 = v77;
+        v76 = v78;
+        v74 = v79;
+        if v76 == v0.wireTypes.varint then
+            v77 = nil;
+            v78, v79 = v0.readVarInt(v72, v74);
+            v77 = v78;
+            v74 = v79;
+        elseif v76 == v0.wireTypes.lengthDelimited then
+            if v75 == 1 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.title_text = v3.StringProp.decode(v77);
+            elseif v75 == 2 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.description_text = v3.StringProp.decode(v77);
+            elseif v75 == 3 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.cta_text = v3.StringProp.decode(v77);
+            elseif v75 == 4 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.cta_variant = v3.StringProp.decode(v77);
+            elseif v75 == 5 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.cta_size = v3.StringProp.decode(v77);
+            elseif v75 == 6 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.cta_on_activated = v4.ActionProp.decode(v77);
+            elseif v75 == 7 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.is_cta_disabled = v3.BoolProp.decode(v77);
+            elseif v75 == 8 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.image = v3.ImageStringProp.decode(v77);
+            elseif v75 == 9 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.background_style = v3.ColorStyleProp.decode(v77);
+            elseif v75 == 10 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.corner_radius = v3.Int32Prop.decode(v77);
+            elseif v75 == 11 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.focus_navigation_actions_component = v3.NestedComponentProp.decode(v77);
+            elseif v75 == 12 then
+                v77 = nil;
+                v78, v79 = v0.readBuffer(v72, v74);
+                v77 = v78;
+                v74 = v79;
+                v73.image_style = v3.ColorStyleProp.decode(v77);
             else
-                v74 = nil;
-                v75, v76 = v0.readVarInt(v69, v71);
-                v71 = v76 + v75;
+                v77 = nil;
+                v78, v79 = v0.readVarInt(v72, v74);
+                v74 = v79 + v78;
             end;
-        elseif v73 == v0.wireTypes.i32 then
-            v74 = nil;
-            v75, v76 = v0.readFixed32(v69, v71);
-            v74 = v75;
-            v71 = v76;
-        elseif v73 == v0.wireTypes.i64 then
-            v74 = nil;
-            v75, v76 = v0.readFixed64(v69, v71);
-            v74 = v75;
-            v71 = v76;
+        elseif v76 == v0.wireTypes.i32 then
+            v77 = nil;
+            v78, v79 = v0.readFixed32(v72, v74);
+            v77 = v78;
+            v74 = v79;
+        elseif v76 == v0.wireTypes.i64 then
+            v77 = nil;
+            v78, v79 = v0.readFixed64(v72, v74);
+            v77 = v78;
+            v74 = v79;
         else
-            error("Unsupported wire type: " .. v73);
+            error("Unsupported wire type: " .. v76);
         end;
     end;
-    return v70;
+    return v73;
 end;
-v6.jsonEncode = function(v77) --[[ Line: 395 ]] --[[ Name: jsonEncode ]]
-    local v78 = {};
-    if v77.title_text ~= nil then
-        v78.titleText = v77.title_text:jsonEncode();
+v6.jsonEncode = function(v80) --[[ Line: 409 ]] --[[ Name: jsonEncode ]]
+    local v81 = {};
+    if v80.title_text ~= nil then
+        v81.titleText = v80.title_text:jsonEncode();
     end;
-    if v77.description_text ~= nil then
-        v78.descriptionText = v77.description_text:jsonEncode();
+    if v80.description_text ~= nil then
+        v81.descriptionText = v80.description_text:jsonEncode();
     end;
-    if v77.cta_text ~= nil then
-        v78.ctaText = v77.cta_text:jsonEncode();
+    if v80.cta_text ~= nil then
+        v81.ctaText = v80.cta_text:jsonEncode();
     end;
-    if v77.cta_variant ~= nil then
-        v78.ctaVariant = v77.cta_variant:jsonEncode();
+    if v80.cta_variant ~= nil then
+        v81.ctaVariant = v80.cta_variant:jsonEncode();
     end;
-    if v77.cta_size ~= nil then
-        v78.ctaSize = v77.cta_size:jsonEncode();
+    if v80.cta_size ~= nil then
+        v81.ctaSize = v80.cta_size:jsonEncode();
     end;
-    if v77.on_cta_activated ~= nil then
-        v78.onCtaActivated = v77.on_cta_activated:jsonEncode();
+    if v80.cta_on_activated ~= nil then
+        v81.ctaOnActivated = v80.cta_on_activated:jsonEncode();
     end;
-    if v77.is_cta_disabled ~= nil then
-        v78.isCtaDisabled = v77.is_cta_disabled:jsonEncode();
+    if v80.is_cta_disabled ~= nil then
+        v81.isCtaDisabled = v80.is_cta_disabled:jsonEncode();
     end;
-    if v77.image ~= nil then
-        v78.image = v77.image:jsonEncode();
+    if v80.image ~= nil then
+        v81.image = v80.image:jsonEncode();
     end;
-    if v77.background_style ~= nil then
-        v78.backgroundStyle = v77.background_style:jsonEncode();
+    if v80.background_style ~= nil then
+        v81.backgroundStyle = v80.background_style:jsonEncode();
     end;
-    if v77.corner_radius ~= nil then
-        v78.cornerRadius = v77.corner_radius:jsonEncode();
+    if v80.corner_radius ~= nil then
+        v81.cornerRadius = v80.corner_radius:jsonEncode();
     end;
-    if v77.focus_navigation_actions_component ~= nil then
-        v78.focusNavigationActionsComponent = v77.focus_navigation_actions_component:jsonEncode();
+    if v80.focus_navigation_actions_component ~= nil then
+        v81.focusNavigationActionsComponent = v80.focus_navigation_actions_component:jsonEncode();
     end;
-    return v78;
+    if v80.image_style ~= nil then
+        v81.imageStyle = v80.image_style:jsonEncode();
+    end;
+    return v81;
 end;
-v6.jsonDecode = function(v79) --[[ Line: 445 ]] --[[ Name: jsonDecode ]]
+v6.jsonDecode = function(v82) --[[ Line: 463 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v6 (copy), v3 (copy), v4 (copy)
-    local v80 = v6.new();
-    if v79.title_text ~= nil then
-        v80.title_text = v3.StringProp.jsonDecode(v79.title_text);
+    local v83 = v6.new();
+    if v82.title_text ~= nil then
+        v83.title_text = v3.StringProp.jsonDecode(v82.title_text);
     end;
-    if v79.titleText ~= nil then
-        v80.title_text = v3.StringProp.jsonDecode(v79.titleText);
+    if v82.titleText ~= nil then
+        v83.title_text = v3.StringProp.jsonDecode(v82.titleText);
     end;
-    if v79.description_text ~= nil then
-        v80.description_text = v3.StringProp.jsonDecode(v79.description_text);
+    if v82.description_text ~= nil then
+        v83.description_text = v3.StringProp.jsonDecode(v82.description_text);
     end;
-    if v79.descriptionText ~= nil then
-        v80.description_text = v3.StringProp.jsonDecode(v79.descriptionText);
+    if v82.descriptionText ~= nil then
+        v83.description_text = v3.StringProp.jsonDecode(v82.descriptionText);
     end;
-    if v79.cta_text ~= nil then
-        v80.cta_text = v3.StringProp.jsonDecode(v79.cta_text);
+    if v82.cta_text ~= nil then
+        v83.cta_text = v3.StringProp.jsonDecode(v82.cta_text);
     end;
-    if v79.ctaText ~= nil then
-        v80.cta_text = v3.StringProp.jsonDecode(v79.ctaText);
+    if v82.ctaText ~= nil then
+        v83.cta_text = v3.StringProp.jsonDecode(v82.ctaText);
     end;
-    if v79.cta_variant ~= nil then
-        v80.cta_variant = v3.StringProp.jsonDecode(v79.cta_variant);
+    if v82.cta_variant ~= nil then
+        v83.cta_variant = v3.StringProp.jsonDecode(v82.cta_variant);
     end;
-    if v79.ctaVariant ~= nil then
-        v80.cta_variant = v3.StringProp.jsonDecode(v79.ctaVariant);
+    if v82.ctaVariant ~= nil then
+        v83.cta_variant = v3.StringProp.jsonDecode(v82.ctaVariant);
     end;
-    if v79.cta_size ~= nil then
-        v80.cta_size = v3.StringProp.jsonDecode(v79.cta_size);
+    if v82.cta_size ~= nil then
+        v83.cta_size = v3.StringProp.jsonDecode(v82.cta_size);
     end;
-    if v79.ctaSize ~= nil then
-        v80.cta_size = v3.StringProp.jsonDecode(v79.ctaSize);
+    if v82.ctaSize ~= nil then
+        v83.cta_size = v3.StringProp.jsonDecode(v82.ctaSize);
     end;
-    if v79.on_cta_activated ~= nil then
-        v80.on_cta_activated = v4.ActionProp.jsonDecode(v79.on_cta_activated);
+    if v82.cta_on_activated ~= nil then
+        v83.cta_on_activated = v4.ActionProp.jsonDecode(v82.cta_on_activated);
     end;
-    if v79.onCtaActivated ~= nil then
-        v80.on_cta_activated = v4.ActionProp.jsonDecode(v79.onCtaActivated);
+    if v82.ctaOnActivated ~= nil then
+        v83.cta_on_activated = v4.ActionProp.jsonDecode(v82.ctaOnActivated);
     end;
-    if v79.is_cta_disabled ~= nil then
-        v80.is_cta_disabled = v3.BoolProp.jsonDecode(v79.is_cta_disabled);
+    if v82.is_cta_disabled ~= nil then
+        v83.is_cta_disabled = v3.BoolProp.jsonDecode(v82.is_cta_disabled);
     end;
-    if v79.isCtaDisabled ~= nil then
-        v80.is_cta_disabled = v3.BoolProp.jsonDecode(v79.isCtaDisabled);
+    if v82.isCtaDisabled ~= nil then
+        v83.is_cta_disabled = v3.BoolProp.jsonDecode(v82.isCtaDisabled);
     end;
-    if v79.image ~= nil then
-        v80.image = v3.ImageStringProp.jsonDecode(v79.image);
+    if v82.image ~= nil then
+        v83.image = v3.ImageStringProp.jsonDecode(v82.image);
     end;
-    if v79.background_style ~= nil then
-        v80.background_style = v3.ColorStyleProp.jsonDecode(v79.background_style);
+    if v82.background_style ~= nil then
+        v83.background_style = v3.ColorStyleProp.jsonDecode(v82.background_style);
     end;
-    if v79.backgroundStyle ~= nil then
-        v80.background_style = v3.ColorStyleProp.jsonDecode(v79.backgroundStyle);
+    if v82.backgroundStyle ~= nil then
+        v83.background_style = v3.ColorStyleProp.jsonDecode(v82.backgroundStyle);
     end;
-    if v79.corner_radius ~= nil then
-        v80.corner_radius = v3.Int32Prop.jsonDecode(v79.corner_radius);
+    if v82.corner_radius ~= nil then
+        v83.corner_radius = v3.Int32Prop.jsonDecode(v82.corner_radius);
     end;
-    if v79.cornerRadius ~= nil then
-        v80.corner_radius = v3.Int32Prop.jsonDecode(v79.cornerRadius);
+    if v82.cornerRadius ~= nil then
+        v83.corner_radius = v3.Int32Prop.jsonDecode(v82.cornerRadius);
     end;
-    if v79.focus_navigation_actions_component ~= nil then
-        v80.focus_navigation_actions_component = v3.NestedComponentProp.jsonDecode(v79.focus_navigation_actions_component);
+    if v82.focus_navigation_actions_component ~= nil then
+        v83.focus_navigation_actions_component = v3.NestedComponentProp.jsonDecode(v82.focus_navigation_actions_component);
     end;
-    if v79.focusNavigationActionsComponent ~= nil then
-        v80.focus_navigation_actions_component = v3.NestedComponentProp.jsonDecode(v79.focusNavigationActionsComponent);
+    if v82.focusNavigationActionsComponent ~= nil then
+        v83.focus_navigation_actions_component = v3.NestedComponentProp.jsonDecode(v82.focusNavigationActionsComponent);
     end;
-    return v80;
+    if v82.image_style ~= nil then
+        v83.image_style = v3.ColorStyleProp.jsonDecode(v82.image_style);
+    end;
+    if v82.imageStyle ~= nil then
+        v83.image_style = v3.ColorStyleProp.jsonDecode(v82.imageStyle);
+    end;
+    return v83;
 end;
 v6.descriptor = {
     name = "CardSchema_Props", 

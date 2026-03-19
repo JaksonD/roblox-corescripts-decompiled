@@ -3,17 +3,17 @@ local v1 = require(l_Parent_0.React);
 local l_Focusable_0 = require(l_Parent_0.RoactGamepad).Focusable;
 local v3 = require(l_Parent_0.VerifiedBadges);
 local v4 = require(l_Parent_0.UIBlox);
+local l_Skeleton_0 = require(l_Parent_0.Foundation).Skeleton;
 local l_useStyle_0 = v4.Core.Style.useStyle;
 local l_useSelectionCursor_0 = v4.App.SelectionImage.useSelectionCursor;
 local l_CursorKind_0 = v4.App.SelectionImage.CursorKind;
 local l_Images_0 = v4.App.ImageSet.Images;
-local l_ShimmerPanel_0 = v4.App.Loading.ShimmerPanel;
 local l_ImageSetLabel_0 = v4.Core.ImageSet.ImageSetLabel;
 local v11 = l_Images_0["icons/navigation/pushRight_small"] or "LuaApp/icons/GameDetails/navigation/pushRight_small";
 local v12 = Vector2.new(14, 14);
 local v13 = UDim2.new(0.3, 0, 0.8, 0);
-return (v1.forwardRef(function(v14, v15) --[[ Line: 45 ]]
-    -- upvalues: l_useStyle_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), v12 (copy), l_Focusable_0 (copy), v1 (copy), v3 (copy), l_ShimmerPanel_0 (copy), v13 (copy), l_ImageSetLabel_0 (copy), v11 (copy)
+return (v1.forwardRef(function(v14, v15) --[[ Line: 47 ]]
+    -- upvalues: l_useStyle_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), v12 (copy), l_Focusable_0 (copy), v1 (copy), v3 (copy), l_Skeleton_0 (copy), v13 (copy), l_ImageSetLabel_0 (copy), v11 (copy)
     local l_LayoutOrder_0 = v14.LayoutOrder;
     local l_infoName_0 = v14.infoName;
     local l_infoData_0 = v14.infoData;
@@ -101,7 +101,7 @@ return (v1.forwardRef(function(v14, v15) --[[ Line: 45 ]]
                     MaxTextSize = v27
                 })
             }), 
-            LoadingShimmer = l_isLoading_0 and v1.createElement(l_ShimmerPanel_0, {
+            LoadingShimmer = l_isLoading_0 and v1.createElement(l_Skeleton_0, {
                 AnchorPoint = Vector2.new(1, 0.5), 
                 Position = UDim2.new(1, 0, 0.5, 0), 
                 Size = v13

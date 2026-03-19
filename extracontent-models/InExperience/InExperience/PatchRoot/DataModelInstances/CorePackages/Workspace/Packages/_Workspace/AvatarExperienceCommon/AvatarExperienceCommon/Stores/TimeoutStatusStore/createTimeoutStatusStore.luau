@@ -162,114 +162,103 @@ return function() --[[ Line: 88 ]] --[[ Name: createTimeoutStatusStore ]]
             return;
         end;
     end;
-    local _ = function() --[[ Line: 258 ]] --[[ Name: resolvePendingFetches ]]
-        -- upvalues: v17 (ref)
-        for _, v50 in v17 do
-            v50();
+    local function v52() --[[ Line: 258 ]] --[[ Name: resolvePendingFetches ]]
+        -- upvalues: v9 (copy), v17 (ref)
+        local v49 = v9(false);
+        for _, v51 in v17 do
+            v51(v49);
         end;
         v17 = {};
     end;
-    local function v80(v52, v53) --[[ Line: 265 ]] --[[ Name: doFetchStatus ]]
-        -- upvalues: v11 (ref), l_Url_0 (ref), v13 (copy), v14 (ref), v17 (ref), v2 (ref), l_HttpService_0 (ref), v24 (copy), v10 (copy), v48 (copy), l_mutedError_0 (ref)
+    local function v73(v53, v54) --[[ Line: 266 ]] --[[ Name: doFetchStatus ]]
+        -- upvalues: v11 (ref), l_Url_0 (ref), v13 (copy), v14 (ref), v52 (copy), v2 (ref), l_HttpService_0 (ref), v24 (copy), v10 (copy), v48 (copy), l_mutedError_0 (ref)
         if v11 then
             return;
         else
             v11 = true;
-            local v54 = v52 or "AvatarChange";
-            local v55 = v53 or "avatar_marketplace/AvatarMarketPlace";
-            local v56 = {
-                featureNames = v54, 
-                nameSpace = v55
+            local v55 = v53 or "AvatarChange";
+            local v56 = v54 or "avatar_marketplace/AvatarMarketPlace";
+            local v57 = {
+                featureNames = v55, 
+                nameSpace = v56
             };
-            local v57 = string.format("%saccess-management/v1/feature-access?%s", l_Url_0.APIS_URL, l_Url_0:makeQueryString(v56));
-            local v58, _ = v13.fetch("TimeoutStatus_" .. v54, {
-                Url = v57, 
+            local v58 = string.format("%saccess-management/v1/feature-access?%s", l_Url_0.APIS_URL, l_Url_0:makeQueryString(v57));
+            local v59, _ = v13.fetch("TimeoutStatus_" .. v55, {
+                Url = v58, 
                 Method = "GET"
             });
             if v14 then
                 v14();
             end;
-            local function v62() --[[ Line: 294 ]] --[[ Name: complete ]]
-                -- upvalues: v17 (ref)
-                for _, v61 in v17 do
-                    v61();
-                end;
-                v17 = {};
+            local function v61() --[[ Line: 295 ]] --[[ Name: complete ]]
+                -- upvalues: v52 (ref)
+                v52();
             end;
-            v14 = v2.createEffect(function(v63) --[[ Line: 298 ]]
-                -- upvalues: v58 (copy), l_HttpService_0 (ref), v24 (ref), v54 (copy), v10 (ref), v11 (ref), v48 (ref), v62 (copy), v17 (ref), l_mutedError_0 (ref)
-                local v64 = v58(v63);
-                if v64.status == "Success" then
-                    local l_Body_1 = v64.response.Body;
-                    local l_status_2, l_result_2 = pcall(function() --[[ Line: 302 ]]
+            v14 = v2.createEffect(function(v62) --[[ Line: 299 ]]
+                -- upvalues: v59 (copy), l_HttpService_0 (ref), v24 (ref), v55 (copy), v10 (ref), v11 (ref), v48 (ref), v61 (copy), v52 (ref), l_mutedError_0 (ref)
+                local v63 = v59(v62);
+                if v63.status == "Success" then
+                    local l_Body_1 = v63.response.Body;
+                    local l_status_2, l_result_2 = pcall(function() --[[ Line: 303 ]]
                         -- upvalues: l_HttpService_0 (ref), l_Body_1 (copy)
                         return l_HttpService_0:JSONDecode(l_Body_1);
                     end);
                     if l_status_2 and l_result_2 then
-                        local v68 = v24(l_result_2, v54);
-                        local v69 = v68 ~= nil;
-                        local v70 = nil;
+                        local v67 = v24(l_result_2, v55);
+                        local v68 = v67 ~= nil;
+                        local v69 = nil;
                         if l_result_2.features then
-                            for _, v72 in l_result_2.features do
-                                if v72.featureName == v54 then
-                                    v70 = v72.access;
+                            for _, v71 in l_result_2.features do
+                                if v71.featureName == v55 then
+                                    v69 = v71.access;
                                     break;
                                 end;
                             end;
                         end;
                         v10({
-                            isTimedOut = v69, 
-                            featureName = v54, 
-                            access = v70, 
-                            timeoutAction = v68, 
+                            isTimedOut = v68, 
+                            featureName = v55, 
+                            access = v69, 
+                            timeoutAction = v67, 
                             details = nil, 
                             error = nil
                         });
                         v11 = false;
-                        if v69 and v68 then
-                            local v73 = v68.featureVector or "avatar_change";
-                            v48(v73, v62);
+                        if v68 and v67 then
+                            local v72 = v67.featureVector or "avatar_change";
+                            v48(v72, v61);
                             return;
                         else
-                            for _, v75 in v17 do
-                                v75();
-                            end;
-                            v17 = {};
+                            v52();
                             return;
                         end;
                     else
                         l_mutedError_0("Failed to decode timeout status JSON response");
                         v10({
                             isTimedOut = false, 
-                            featureName = v54, 
+                            featureName = v55, 
                             access = nil, 
                             timeoutAction = nil, 
                             details = nil, 
                             error = "Failed to decode timeout status"
                         });
                         v11 = false;
-                        for _, v77 in v17 do
-                            v77();
-                        end;
-                        v17 = {};
+                        v52();
                         return;
                     end;
                 else
-                    if v64.status == "Failed" then
+                    if v63.status == "Failed" then
                         l_mutedError_0("Failed to fetch timeout status");
                         v10({
                             isTimedOut = false, 
-                            featureName = v54, 
+                            featureName = v55, 
                             access = nil, 
                             timeoutAction = nil, 
                             details = nil, 
                             error = "Failed to fetch timeout status"
                         });
                         v11 = false;
-                        for _, v79 in v17 do
-                            v79();
-                        end;
-                        v17 = {};
+                        v52();
                     end;
                     return;
                 end;
@@ -277,31 +266,31 @@ return function() --[[ Line: 88 ]] --[[ Name: createTimeoutStatusStore ]]
             return;
         end;
     end;
-    local function v83(v81, v82) --[[ Line: 367 ]] --[[ Name: fetchStatus ]]
-        -- upvalues: v80 (copy)
-        v80(v81, v82);
+    local function v76(v74, v75) --[[ Line: 368 ]] --[[ Name: fetchStatus ]]
+        -- upvalues: v73 (copy)
+        v73(v74, v75);
     end;
-    local function v87(v84, v85) --[[ Line: 371 ]] --[[ Name: fetchStatusAsync ]]
-        -- upvalues: v3 (ref), v17 (ref), v80 (copy)
-        return v3.new(function(v86) --[[ Line: 372 ]]
-            -- upvalues: v17 (ref), v80 (ref), v84 (copy), v85 (copy)
-            table.insert(v17, v86);
-            v80(v84, v85);
+    local function v80(v77, v78) --[[ Line: 372 ]] --[[ Name: fetchStatusAsync ]]
+        -- upvalues: v3 (ref), v17 (ref), v73 (copy)
+        return v3.new(function(v79) --[[ Line: 373 ]]
+            -- upvalues: v17 (ref), v73 (ref), v77 (copy), v78 (copy)
+            table.insert(v17, v79);
+            v73(v77, v78);
         end);
     end;
-    local v89 = l_createComputed_0(function(v88) --[[ Line: 379 ]]
+    local v82 = l_createComputed_0(function(v81) --[[ Line: 380 ]]
         -- upvalues: v9 (copy)
-        return v9(v88).isTimedOut;
+        return v9(v81).isTimedOut;
     end);
-    local v91 = l_createComputed_0(function(v90) --[[ Line: 383 ]]
+    local v84 = l_createComputed_0(function(v83) --[[ Line: 384 ]]
         -- upvalues: v9 (copy)
-        return v9(v90).details;
+        return v9(v83).details;
     end);
-    local function v93(v92) --[[ Line: 388 ]] --[[ Name: setStatusAction ]]
+    local function v86(v85) --[[ Line: 389 ]] --[[ Name: setStatusAction ]]
         -- upvalues: v10 (copy)
-        v10(v92);
+        v10(v85);
     end;
-    v25 = function() --[[ Line: 394 ]]
+    v25 = function() --[[ Line: 395 ]]
         -- upvalues: v10 (copy)
         v10({
             isTimedOut = false, 
@@ -314,11 +303,12 @@ return function() --[[ Line: 88 ]] --[[ Name: createTimeoutStatusStore ]]
     end;
     return {
         getStatus = v9, 
-        getIsTimedOut = v89, 
-        getTimeoutDetails = v91, 
-        fetchStatus = v83, 
-        fetchStatusAsync = v87, 
-        setStatus = v93, 
-        clearStatus = v25
+        getIsTimedOut = v82, 
+        getTimeoutDetails = v84, 
+        fetchStatus = v76, 
+        fetchStatusAsync = v80, 
+        setStatus = v86, 
+        clearStatus = v25, 
+        effectDispose = v16
     };
 end;

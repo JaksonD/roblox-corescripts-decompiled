@@ -10,5 +10,6 @@ return {
     SquadState = require(script.SquadState), 
     SquadToastActionsAndStates = require(script.SquadToastActionsAndStates), 
     SquadToastType = require(script.SquadToastType), 
-    SquadRegroupEntryPoint = require(script.SquadRegroupEntryPoint)
+    SquadRegroupEntryPoint = require(script.SquadRegroupEntryPoint), 
+    SquadExperienceInviteType = require(script.SquadExperienceInviteType)
 };

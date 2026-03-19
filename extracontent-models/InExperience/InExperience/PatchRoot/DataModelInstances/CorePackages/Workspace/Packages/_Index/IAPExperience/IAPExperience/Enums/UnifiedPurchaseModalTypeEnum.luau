@@ -1,5 +1,6 @@
 return {
     SingleItem = "SingleItem", 
     Experience = "Experience", 
-    MultiItem = "MultiItem"
+    MultiItem = "MultiItem", 
+    DeveloperSubscription = "DeveloperSubscription"
 };

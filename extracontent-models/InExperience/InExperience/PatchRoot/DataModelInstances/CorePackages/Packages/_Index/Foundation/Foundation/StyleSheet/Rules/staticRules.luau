@@ -79,10 +79,16 @@ local function v12() --[[ Line: 86 ]] --[[ Name: EngineDefaultBypassRules ]]
             properties = {
                 BackgroundTransparency = 0
             }
+        }, 
+        {
+            tag = "x-default-text-size", 
+            properties = {
+                TextSize = 8
+            }
         }
     };
 end;
-local function v23() --[[ Line: 97 ]] --[[ Name: ListLayoutRules ]]
+local function v23() --[[ Line: 103 ]] --[[ Name: ListLayoutRules ]]
     -- upvalues: v2 (copy)
     local v13 = {
         {
@@ -212,7 +218,7 @@ local function v23() --[[ Line: 97 ]] --[[ Name: ListLayoutRules ]]
     end;
     return v2.joinArrays(v13, v14, v15, v16, v20);
 end;
-local function v32(v24, v25) --[[ Line: 241 ]] --[[ Name: ListLayoutSpacingRules ]]
+local function v32(v24, v25) --[[ Line: 247 ]] --[[ Name: ListLayoutSpacingRules ]]
     -- upvalues: v2 (copy)
     local v26 = {};
     for _, v28 in v24 do
@@ -236,7 +242,7 @@ local function v32(v24, v25) --[[ Line: 241 ]] --[[ Name: ListLayoutSpacingRules
     end;
     return v2.joinArrays(v26, v29);
 end;
-local function v42() --[[ Line: 269 ]] --[[ Name: FlexItemRules ]]
+local function v42() --[[ Line: 275 ]] --[[ Name: FlexItemRules ]]
     -- upvalues: v2 (copy)
     local v33 = {
         {
@@ -314,7 +320,7 @@ local function v42() --[[ Line: 269 ]] --[[ Name: FlexItemRules ]]
     end;
     return v2.joinArrays(v33, v35, v36, v39);
 end;
-local function v47(v43) --[[ Line: 348 ]] --[[ Name: CornerRules ]]
+local function v47(v43) --[[ Line: 354 ]] --[[ Name: CornerRules ]]
     local v44 = {};
     for _, v46 in v43 do
         table.insert(v44, {
@@ -327,7 +333,7 @@ local function v47(v43) --[[ Line: 348 ]] --[[ Name: CornerRules ]]
     end;
     return v44;
 end;
-local function v54(v48) --[[ Line: 364 ]] --[[ Name: SizeRules ]]
+local function v54(v48) --[[ Line: 370 ]] --[[ Name: SizeRules ]]
     local v49 = {};
     for _, v51 in v48 do
         table.insert(v49, {
@@ -347,7 +353,7 @@ local function v54(v48) --[[ Line: 364 ]] --[[ Name: SizeRules ]]
     end;
     return v49;
 end;
-local function v64(v55, v56) --[[ Line: 387 ]] --[[ Name: BackgroundRules ]]
+local function v64(v55, v56) --[[ Line: 393 ]] --[[ Name: BackgroundRules ]]
     -- upvalues: v5 (copy)
     local v57 = {};
     for v58, v59 in v55 do
@@ -374,7 +380,7 @@ local function v64(v55, v56) --[[ Line: 387 ]] --[[ Name: BackgroundRules ]]
     end;
     return v57;
 end;
-local function v69(v65) --[[ Line: 417 ]] --[[ Name: StrokeSizeRules ]]
+local function v69(v65) --[[ Line: 423 ]] --[[ Name: StrokeSizeRules ]]
     local v66 = {};
     for _, v68 in v65 do
         if v68.name ~= "none" then
@@ -389,7 +395,7 @@ local function v69(v65) --[[ Line: 417 ]] --[[ Name: StrokeSizeRules ]]
     end;
     return v66;
 end;
-local function v81(v70, v71) --[[ Line: 438 ]] --[[ Name: StrokeRules ]]
+local function v81(v70, v71) --[[ Line: 444 ]] --[[ Name: StrokeRules ]]
     -- upvalues: v5 (copy)
     local v72 = {};
     for v73, v74 in v70 do
@@ -431,7 +437,7 @@ local function v81(v70, v71) --[[ Line: 438 ]] --[[ Name: StrokeRules ]]
     end;
     return v72;
 end;
-local function v91(v82, v83) --[[ Line: 486 ]] --[[ Name: ContentRules ]]
+local function v91(v82, v83) --[[ Line: 492 ]] --[[ Name: ContentRules ]]
     -- upvalues: v5 (copy)
     local v84 = {};
     for v85, v86 in v82 do
@@ -462,7 +468,7 @@ local function v91(v82, v83) --[[ Line: 486 ]] --[[ Name: ContentRules ]]
     end;
     return v84;
 end;
-local function v99(v92, v93) --[[ Line: 520 ]] --[[ Name: TypographyRules ]]
+local function v99(v92, v93) --[[ Line: 526 ]] --[[ Name: TypographyRules ]]
     local v94 = {};
     for v95, v96 in v92 do
         local v97 = v96.TextSize / v93 * (v96.LineHeight * v93) - v96.TextSize;
@@ -484,7 +490,7 @@ local function v99(v92, v93) --[[ Line: 520 ]] --[[ Name: TypographyRules ]]
     end;
     return v94;
 end;
-local function v107() --[[ Line: 548 ]] --[[ Name: TextRules ]]
+local function v107() --[[ Line: 554 ]] --[[ Name: TextRules ]]
     local v100 = {};
     for v101, v102 in {
         left = Enum.TextXAlignment.Left, 
@@ -536,7 +542,7 @@ local function v107() --[[ Line: 548 ]] --[[ Name: TextRules ]]
     });
     return v100;
 end;
-local function v128(v108, v109) --[[ Line: 613 ]] --[[ Name: PaddingRules ]]
+local function v128(v108, v109) --[[ Line: 619 ]] --[[ Name: PaddingRules ]]
     local v110 = {};
     local v111 = {
         x = {
@@ -610,7 +616,7 @@ local function v128(v108, v109) --[[ Line: 613 ]] --[[ Name: PaddingRules ]]
     end;
     return v110;
 end;
-local function v133() --[[ Line: 680 ]] --[[ Name: AutomaticSizeRules ]]
+local function v133() --[[ Line: 686 ]] --[[ Name: AutomaticSizeRules ]]
     local v129 = {
         none = Enum.AutomaticSize.None, 
         x = Enum.AutomaticSize.X, 
@@ -628,7 +634,7 @@ local function v133() --[[ Line: 680 ]] --[[ Name: AutomaticSizeRules ]]
     end;
     return v130;
 end;
-local function v141() --[[ Line: 702 ]] --[[ Name: PositionRules ]]
+local function v141() --[[ Line: 708 ]] --[[ Name: PositionRules ]]
     local v134 = {};
     local v135 = {
         left = 0, 
@@ -652,7 +658,7 @@ local function v141() --[[ Line: 702 ]] --[[ Name: PositionRules ]]
     end;
     return v134;
 end;
-local function v149() --[[ Line: 720 ]] --[[ Name: AnchorPointRules ]]
+local function v149() --[[ Line: 726 ]] --[[ Name: AnchorPointRules ]]
     local v142 = {};
     local v143 = {
         left = 0, 
@@ -676,7 +682,7 @@ local function v149() --[[ Line: 720 ]] --[[ Name: AnchorPointRules ]]
     end;
     return v142;
 end;
-local function v150() --[[ Line: 738 ]] --[[ Name: ClipsDescendantRules ]]
+local function v150() --[[ Line: 744 ]] --[[ Name: ClipsDescendantRules ]]
     return {
         {
             tag = "clip", 
@@ -692,11 +698,11 @@ local function v150() --[[ Line: 738 ]] --[[ Name: ClipsDescendantRules ]]
         }
     };
 end;
-local function _(v151, v152) --[[ Line: 755 ]] --[[ Name: roundDecimals ]]
+local function _(v151, v152) --[[ Line: 761 ]] --[[ Name: roundDecimals ]]
     local v153 = 10 ^ v152;
     return math.round(v151 * v153) / v153;
 end;
-local function v158() --[[ Line: 760 ]] --[[ Name: AspectRatioRules ]]
+local function v158() --[[ Line: 766 ]] --[[ Name: AspectRatioRules ]]
     local v155 = {};
     for _, v157 in {
         {
@@ -743,7 +749,7 @@ local function v158() --[[ Line: 760 ]] --[[ Name: AspectRatioRules ]]
     end;
     return v155;
 end;
-local function v164(v159) --[[ Line: 788 ]] --[[ Name: DeprecatedColorRules ]]
+local function v164(v159) --[[ Line: 794 ]] --[[ Name: DeprecatedColorRules ]]
     local v160 = {};
     for v161, v162 in v159.System do
         local v163 = v161:sub(8);
@@ -779,7 +785,7 @@ local function v164(v159) --[[ Line: 788 ]] --[[ Name: DeprecatedColorRules ]]
     end;
     return v160;
 end;
-local _ = function(v165) --[[ Line: 835 ]] --[[ Name: _addModifiers ]]
+local _ = function(v165) --[[ Line: 841 ]] --[[ Name: _addModifiers ]]
     local v166 = {};
     for _, v168 in v165 do
         local v169 = table.clone(v168);
@@ -791,7 +797,7 @@ local _ = function(v165) --[[ Line: 835 ]] --[[ Name: _addModifiers ]]
     return v166;
 end;
 return {
-    rulesGenerator = function(v171, v172) --[[ Line: 855 ]] --[[ Name: rulesGenerator ]]
+    rulesGenerator = function(v171, v172) --[[ Line: 861 ]] --[[ Name: rulesGenerator ]]
         -- upvalues: v2 (copy), v7 (copy), v12 (copy), v42 (copy), v107 (copy), v133 (copy), v141 (copy), v149 (copy), v150 (copy), v158 (copy), v9 (copy), v23 (copy), v32 (copy), v47 (copy), v54 (copy), v69 (copy), v99 (copy), v128 (copy), v11 (copy), v164 (copy), v64 (copy), v81 (copy), v91 (copy)
         local l_colors_0 = v172.colors;
         local l_variants_0 = v172.variants;

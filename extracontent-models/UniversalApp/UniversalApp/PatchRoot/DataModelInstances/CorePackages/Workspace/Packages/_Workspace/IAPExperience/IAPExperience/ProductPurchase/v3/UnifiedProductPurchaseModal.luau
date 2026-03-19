@@ -34,126 +34,136 @@ local l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 = require(l_Parent_0
 local l_FFlagAddUnifiedTestPurchaseDisclaimer_0 = require(l_Parent_0.Parent.SharedFlags).FFlagAddUnifiedTestPurchaseDisclaimer;
 local l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 = require(l_Parent_0.Parent.SharedFlags).FFlagEnableDiscountInfoInUnifiedPurchaseModal;
 local _ = require(l_Parent_0.ProductPurchase.PricingTypes);
-local function v63(v36) --[[ Line: 94 ]] --[[ Name: UnifiedProductPurchaseModal ]]
-    -- upvalues: l_useLocalization_0 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (copy), l_FFlagAddUnifiedTestPurchaseDisclaimer_0 (copy), v2 (copy), v16 (copy), v24 (copy), v30 (copy), v31 (copy), v17 (copy), l_Checkbox_0 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0 (copy), l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_V2_0 (copy), l_Sheet_0 (copy), v29 (copy), l_useScaledValue_0 (copy), v15 (copy), l_View_0 (copy), v13 (copy), v12 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), v14 (copy), l_Button_0 (copy), l_FillBehavior_0 (copy), l_ButtonVariant_0 (copy), l_Text_0 (copy)
-    local v37 = l_useLocalization_0({
+local l_BlackbirdUpsellBanner_0 = require(l_Parent_1.RobloxSubscriptionPurchaseApp).Components.BlackbirdUpsellBanner;
+local l_FFlagUnifiedPurchaseModalLayoutRefactor_0 = require(l_Parent_0.Parent.SharedFlags).FFlagUnifiedPurchaseModalLayoutRefactor;
+local function v67(v38) --[[ Line: 106 ]] --[[ Name: UnifiedProductPurchaseModal ]]
+    -- upvalues: l_useLocalization_0 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (copy), l_FFlagAddUnifiedTestPurchaseDisclaimer_0 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), v24 (copy), v2 (copy), v16 (copy), v30 (copy), v31 (copy), v17 (copy), l_Checkbox_0 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0 (copy), l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_V2_0 (copy), l_Sheet_0 (copy), v29 (copy), l_useScaledValue_0 (copy), v15 (copy), l_View_0 (copy), v13 (copy), v12 (copy), v14 (copy), l_FFlagUnifiedPurchaseModalLayoutRefactor_0 (copy), l_Button_0 (copy), l_FillBehavior_0 (copy), l_ButtonVariant_0 (copy), l_BlackbirdUpsellBanner_0 (copy), l_Text_0 (copy)
+    local v39 = l_useLocalization_0({
         Buy = "IAPExperience.PurchasePrompt.Action.Buy", 
+        Subscribe = "Feature.Subscription.Action.Subscribe", 
         BuyItem = "IAPExperience.PurchasePrompt.Title.BuyItem", 
         BuyItemV2 = l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "IAPExperience.PurchasePrompt.Title.BuyItemV2" or nil, 
+        GetSubscription = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription", 
         BuyExperience = "IAPExperience.PurchasePrompt.Title.BuyExperience", 
         BuyItems = "IAPExperience.PurchasePrompt.Title.BuyItems", 
         BuyAvatar = l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "IAPExperience.PurchasePrompt.Header.BuyAvatar" or nil, 
-        TestPurchaseDisclaimer = l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and "IAPExperience.PurchasePrompt.Text.TestPurchase" or nil
+        TestPurchaseDisclaimer = l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and "IAPExperience.PurchasePrompt.Text.TestPurchase" or nil, 
+        PerMonth = l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and "Feature.Subscription.Text.PerMonth" or nil
     });
-    local v38, v39 = v2.useState(v36.postPurchaseActions or {});
-    local v40, v41 = v2.useState(v37.BuyItem);
-    local v42 = v16(v36.buttons.isDisabled);
-    v2.useEffect(function() --[[ Line: 117 ]]
-        -- upvalues: v36 (copy), v24 (ref), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (ref), v41 (copy), v37 (copy)
-        local l_purchaseModalType_0 = v36.purchaseModalType;
-        if l_purchaseModalType_0 == v24.MultiItem then
+    local v40 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v38.purchaseModalType == v24.DeveloperSubscription then v39.PerMonth else nil;
+    local v41, v42 = v2.useState(v38.postPurchaseActions or {});
+    local v43, v44 = v2.useState(v39.BuyItem);
+    local v45 = v16(v38.buttons.isDisabled);
+    v2.useEffect(function() --[[ Line: 137 ]]
+        -- upvalues: v38 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v24 (ref), v44 (copy), v39 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (ref)
+        local l_purchaseModalType_0 = v38.purchaseModalType;
+        if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and l_purchaseModalType_0 == v24.DeveloperSubscription then
+            v44(v39.GetSubscription);
+            return;
+        elseif l_purchaseModalType_0 == v24.MultiItem then
             if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then
-                v41(v37.BuyAvatar);
+                v44(v39.BuyAvatar);
                 return;
             else
-                v41(v37.BuyItems);
+                v44(v39.BuyItems);
                 return;
             end;
         elseif l_purchaseModalType_0 == v24.Experience then
-            v41(v37.BuyExperience);
+            v44(v39.BuyExperience);
             return;
         elseif l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then
-            v41(v37.BuyItemV2);
+            v44(v39.BuyItemV2);
             return;
         else
-            v41(v37.BuyItem);
+            v44(v39.BuyItem);
             return;
         end;
     end, {
-        v36.purchaseModalType
+        v38.purchaseModalType
     });
-    local v45 = v2.useCallback(function(v44) --[[ Line: 136 ]]
-        -- upvalues: v36 (copy)
-        if v44 and v36.onBuyItemButtonMounted then
-            v36.onBuyItemButtonMounted(v44);
+    local v48 = v2.useCallback(function(v47) --[[ Line: 161 ]]
+        -- upvalues: v38 (copy)
+        if v47 and v38.onBuyItemButtonMounted then
+            v38.onBuyItemButtonMounted(v47);
         end;
     end, {
-        v36.onBuyItemButtonMounted
+        v38.onBuyItemButtonMounted
     });
     if v30 then
-        v45 = v2.useCallback(function(v46) --[[ Line: 145 ]]
-            -- upvalues: v36 (copy), v42 (copy)
-            if v46 and v36.onBuyItemButtonMounted and not v42 then
-                v36.onBuyItemButtonMounted(v46);
+        v48 = v2.useCallback(function(v49) --[[ Line: 170 ]]
+            -- upvalues: v38 (copy), v45 (copy)
+            if v49 and v38.onBuyItemButtonMounted and not v45 then
+                v38.onBuyItemButtonMounted(v49);
             end;
         end, {
-            v36.onBuyItemButtonMounted, 
-            v42
+            v38.onBuyItemButtonMounted, 
+            v45
         });
     end;
-    local v47 = nil;
-    local v48 = nil;
+    local v50 = nil;
+    local v51 = nil;
     if v31 then
-        local v49, v50 = v17(v36.buttons.cancelActivated, v36.onBuyItemButtonMounted);
-        v47 = v49;
-        v48 = v50;
+        local v52, v53 = v17(v38.buttons.cancelActivated, v38.onBuyItemButtonMounted);
+        v50 = v52;
+        v51 = v53;
     end;
-    local v51 = v2.useCallback(function() --[[ Line: 159 ]]
-        -- upvalues: v38 (copy), v36 (copy)
-        if v38 and v36.setPostPurchaseActions then
-            v36.setPostPurchaseActions(v38);
+    local v54 = v2.useCallback(function() --[[ Line: 184 ]]
+        -- upvalues: v41 (copy), v38 (copy)
+        if v41 and v38.setPostPurchaseActions then
+            v38.setPostPurchaseActions(v41);
         end;
-        v36.buttons.buyItemActivated();
+        v38.buttons.buyItemActivated();
     end, {
-        v36.buttons.buyItemActivated, 
-        v38
+        v38.buttons.buyItemActivated, 
+        v41
     });
-    v2.useEffect(function() --[[ Line: 167 ]]
-        -- upvalues: v39 (copy), v36 (copy)
-        v39(v36.postPurchaseActions or {});
+    v2.useEffect(function() --[[ Line: 192 ]]
+        -- upvalues: v42 (copy), v38 (copy)
+        v42(v38.postPurchaseActions or {});
     end, {
-        v36.postPurchaseActions
+        v38.postPurchaseActions
     });
-    local v59 = v2.useMemo(function() --[[ Line: 171 ]]
-        -- upvalues: v38 (copy), v2 (ref), l_Checkbox_0 (ref), v42 (copy), v39 (copy)
-        local v52 = {};
+    local v55 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v38.purchaseModalType == v24.DeveloperSubscription then v39.Subscribe else v39.Buy;
+    local v63 = v2.useMemo(function() --[[ Line: 201 ]]
+        -- upvalues: v41 (copy), v2 (ref), l_Checkbox_0 (ref), v45 (copy), v42 (copy)
+        local v56 = {};
         local l_ipairs_0 = ipairs;
-        local v54 = v38 or {};
-        for v55, v56 in l_ipairs_0(v54) do
-            v52["PostPurchaseActionCheckBox_" .. tostring(v55)] = v2.createElement(l_Checkbox_0, {
-                LayoutOrder = v55, 
+        local v58 = v41 or {};
+        for v59, v60 in l_ipairs_0(v58) do
+            v56["PostPurchaseActionCheckBox_" .. tostring(v59)] = v2.createElement(l_Checkbox_0, {
+                LayoutOrder = v59, 
                 size = "XSmall", 
-                label = v56.label, 
-                isChecked = not v42 and v56.isActionSelected, 
-                isDisabled = v42, 
-                onActivated = function() --[[ Line: 180 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v39 (ref), v55 (copy), v56 (copy)
-                    v39(function(v57) --[[ Line: 181 ]]
-                        -- upvalues: v55 (ref), v56 (ref)
-                        local v58 = table.clone(v57);
-                        v58[v55] = {
-                            label = v56.label, 
-                            isActionSelected = not v56.isActionSelected, 
-                            actionKey = v56.actionKey
+                label = v60.label, 
+                isChecked = not v45 and v60.isActionSelected, 
+                isDisabled = v45, 
+                onActivated = function() --[[ Line: 210 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v42 (ref), v59 (copy), v60 (copy)
+                    v42(function(v61) --[[ Line: 211 ]]
+                        -- upvalues: v59 (ref), v60 (ref)
+                        local v62 = table.clone(v61);
+                        v62[v59] = {
+                            label = v60.label, 
+                            isActionSelected = not v60.isActionSelected, 
+                            actionKey = v60.actionKey
                         };
-                        return v58;
+                        return v62;
                     end);
                 end
             });
         end;
-        return v52;
+        return v56;
     end, {
-        v38, 
-        v42
+        v41, 
+        v45
     });
-    local v60 = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then v36.product.itemPrice else nil;
-    local v61 = if v60 then v60.priceInRobux else v36.product.itemRobuxCost;
+    local v64 = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then v38.product.itemPrice else nil;
+    local v65 = if v64 then v64.priceInRobux else v38.product.itemRobuxCost;
     local l_l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0_0 = l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0;
     if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then
         l_l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0_0 = l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_V2_0;
     end;
     return v2.createElement(l_Sheet_0.Root, {
-        onClose = v36.buttons.cancelActivated, 
+        onClose = v38.buttons.cancelActivated, 
         snapPoints = if v29 then {
             l_useScaledValue_0(l_l_UNIFIED_PRODUCT_PURCHASE_MODAL_MIN_HEIGHT_PIXELS_DEFAULT_0_0), 
             0.8
@@ -162,15 +172,15 @@ local function v63(v36) --[[ Line: 94 ]] --[[ Name: UnifiedProductPurchaseModal 
             0.8
         }, 
         preferCenterSheet = true, 
-        ref = if v42 then nil else if v31 then v47 else nil
+        ref = if v45 then nil else if v31 then v50 else nil
     }, {
         Header = v2.createElement(l_Sheet_0.Header, {
-            hasCloseAffordance = if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then v36.hideUserRobuxBalance and true or nil else nil
+            hasCloseAffordance = if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then v38.hideUserRobuxBalance and true or nil else nil
         }, {
             ModalHeader = v2.createElement(v15, {
-                titleText = v40, 
-                robuxBalanceAmount = v36.robuxBalanceAmount, 
-                hideUserRobuxBalance = if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then v36.hideUserRobuxBalance else nil
+                titleText = v43, 
+                robuxBalanceAmount = v38.robuxBalanceAmount, 
+                hideUserRobuxBalance = if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then v38.hideUserRobuxBalance else nil
             })
         }), 
         Content = v2.createElement(l_Sheet_0.Content, {
@@ -183,73 +193,108 @@ local function v63(v36) --[[ Line: 94 ]] --[[ Name: UnifiedProductPurchaseModal 
                     tag = "col gap-medium auto-y size-full-0 align-x-center align-y-center", 
                     LayoutOrder = 1
                 }, {
-                    ProductDetails = if v36.purchaseModalType == v24.MultiItem then v2.createElement(v13, {
-                        amount = v61, 
-                        itemPrice = v60
+                    ProductDetails = if v38.purchaseModalType == v24.MultiItem then v2.createElement(v13, {
+                        amount = v65, 
+                        itemPrice = v64
                     }) else v2.createElement(v12, {
                         isPortrait = false, 
-                        itemIcon = v36.product.itemIcon, 
-                        itemName = v36.product.itemName, 
-                        itemRobuxCost = v61, 
-                        itemPrice = v60, 
-                        itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v36.product.itemDisplayPrice else nil, 
-                        model = v36.product.model
+                        itemIcon = v38.product.itemIcon, 
+                        itemName = v38.product.itemName, 
+                        itemRobuxCost = v65, 
+                        itemPrice = v64, 
+                        itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v38.product.itemDisplayPrice else nil, 
+                        priceSuffix = v40, 
+                        model = v38.product.model
                     })
                 }), 
-                DiscountSummary = if v60 then v2.createElement(l_View_0, {
+                DiscountSummary = if v64 then v2.createElement(l_View_0, {
                     tag = "auto-y size-full-0 padding-top-small", 
                     LayoutOrder = 2
                 }, {
                     Discount = v2.createElement(v14, {
-                        itemPrice = v60
+                        itemPrice = v64
                     })
                 }) else nil, 
-                PostPurchaseActions = if next(v59) then v2.createElement(l_View_0, {
+                PostPurchaseActions = if next(v63) then v2.createElement(l_View_0, {
                     tag = l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "col gap-medium auto-y size-full-0 align-x-start align-y-start padding-top-small" or "col gap-medium auto-y size-full-0 align-x-start align-y-start", 
                     LayoutOrder = 3
                 }, {
-                    v59
+                    v63
                 }) else nil
             })
         }), 
-        Actions = v2.createElement(l_Sheet_0.Actions, {
+        Actions = if l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v2.createElement(l_Sheet_0.Actions, {
             LayoutOrder = 3
         }, {
-            if l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and v36.isTestPurchase then v2.createElement(l_View_0, {
+            v2.createElement(l_View_0, {
+                tag = "row wrap auto-xy align-y-center align-x-center size-full-0 gap-medium", 
+                LayoutOrder = 1
+            }, {
+                BuyButton = v2.createElement(l_Button_0, {
+                    text = v55, 
+                    onActivated = v54, 
+                    inputDelay = (not v38.buttons.buyItemEnableInputDelayed or v45) and 0 or 2.5, 
+                    isDisabled = v45, 
+                    ref = if v31 then v51 else v48, 
+                    fillBehavior = l_FillBehavior_0.Fill, 
+                    variant = l_ButtonVariant_0.Emphasis, 
+                    LayoutOrder = 1
+                }), 
+                BlackbirdUpsellBanner = if v38.BlackbirdUpsellBannerProductInfo and v38.onBlackbirdUpsellActivated then v2.createElement(l_BlackbirdUpsellBanner_0, {
+                    productInfo = v38.BlackbirdUpsellBannerProductInfo, 
+                    onActivated = v38.onBlackbirdUpsellActivated, 
+                    LayoutOrder = 2
+                }) else nil, 
+                TestPurchaseDisclaimer = if l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and v38.isTestPurchase then v2.createElement(l_Text_0, {
+                    Text = v39.TestPurchaseDisclaimer, 
+                    tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap", 
+                    LayoutOrder = 3
+                }) else nil
+            })
+        }) else v2.createElement(l_Sheet_0.Actions, {
+            LayoutOrder = 3
+        }, {
+            if l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and v38.isTestPurchase then v2.createElement(l_View_0, {
                 LayoutOrder = 1, 
                 tag = "row wrap auto-xy align-y-center align-x-center size-full-0 gap-medium"
             }, {
                 BuyButton = v2.createElement(l_Button_0, {
-                    text = v37.Buy, 
-                    onActivated = v51, 
-                    inputDelay = (not v36.buttons.buyItemEnableInputDelayed or v42) and 0 or 2.5, 
-                    isDisabled = v42, 
-                    ref = if v31 then v48 else v45, 
+                    text = v55, 
+                    onActivated = v54, 
+                    inputDelay = (not v38.buttons.buyItemEnableInputDelayed or v45) and 0 or 2.5, 
+                    isDisabled = v45, 
+                    ref = if v31 then v51 else v48, 
                     fillBehavior = l_FillBehavior_0.Fill, 
-                    variant = l_ButtonVariant_0.Emphasis
+                    variant = l_ButtonVariant_0.Emphasis, 
+                    LayoutOrder = 1
                 }), 
-                TestPurchaseDisclaimer = if v36.isTestPurchase then v2.createElement(l_Text_0, {
-                    Text = v37.TestPurchaseDisclaimer, 
-                    tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap", 
+                BlackbirdUpsellBanner = if v38.BlackbirdUpsellBannerProductInfo and v38.onBlackbirdUpsellActivated then v2.createElement(l_BlackbirdUpsellBanner_0, {
+                    productInfo = v38.BlackbirdUpsellBannerProductInfo, 
+                    onActivated = v38.onBlackbirdUpsellActivated, 
                     LayoutOrder = 2
+                }) else nil, 
+                TestPurchaseDisclaimer = if v38.isTestPurchase then v2.createElement(l_Text_0, {
+                    Text = v39.TestPurchaseDisclaimer, 
+                    tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap", 
+                    LayoutOrder = 3
                 }) else nil
             }) else v2.createElement(l_Button_0, {
-                text = v37.Buy, 
-                onActivated = v51, 
-                inputDelay = (not v36.buttons.buyItemEnableInputDelayed or v42) and 0 or 2.5, 
-                isDisabled = v42, 
-                ref = if v31 then v48 else v45, 
+                text = v55, 
+                onActivated = v54, 
+                inputDelay = (not v38.buttons.buyItemEnableInputDelayed or v45) and 0 or 2.5, 
+                isDisabled = v45, 
+                ref = if v31 then v51 else v48, 
                 fillBehavior = l_FillBehavior_0.Fill, 
                 variant = l_ButtonVariant_0.Emphasis
             })
         })
     });
 end;
-return function(v64) --[[ Line: 315 ]] --[[ Name: UnifiedProductPurchaseModalContainer ]]
-    -- upvalues: v2 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v63 (copy)
+return function(v68) --[[ Line: 397 ]] --[[ Name: UnifiedProductPurchaseModalContainer ]]
+    -- upvalues: v2 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v67 (copy)
     return v2.createElement(l_LocalizationProvider_0, {
         localization = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId)
     }, {
-        ProductPurchaseModal = v2.createElement(v63, v64)
+        ProductPurchaseModal = v2.createElement(v67, v68)
     });
 end;

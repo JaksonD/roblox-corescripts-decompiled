@@ -20,9 +20,10 @@ local v16 = {
         MULTI_USER_CONVERSATION = "MultiUserConversation", 
         ONE_TO_ONE_CONVERSATION = "OneToOneConversation"
     }, 
-    OsaAcknowledgementStatus = v6.Constants.OsaAcknowledgementStatusResponse
+    OsaAcknowledgementStatus = v6.Constants.OsaAcknowledgementStatusResponse, 
+    UserOptedIntoChatMessagesStatus = v6.Constants.UserOptedIntoChatMessagesStatusResponse
 };
-v16.IdForFakeOneOnOne = function(v17) --[[ Line: 37 ]] --[[ Name: IdForFakeOneOnOne ]]
+v16.IdForFakeOneOnOne = function(v17) --[[ Line: 38 ]] --[[ Name: IdForFakeOneOnOne ]]
     -- upvalues: v16 (copy)
     local l_ONE_TO_ONE_CONVERSATION_0 = v16.Type.ONE_TO_ONE_CONVERSATION;
     table.sort(v17);
@@ -31,10 +32,10 @@ v16.IdForFakeOneOnOne = function(v17) --[[ Line: 37 ]] --[[ Name: IdForFakeOneOn
     end;
     return l_ONE_TO_ONE_CONVERSATION_0;
 end;
-v16.new = function() --[[ Line: 49 ]] --[[ Name: new ]]
+v16.new = function() --[[ Line: 50 ]] --[[ Name: new ]]
     return {};
 end;
-v16.fromUser = function(v21) --[[ Line: 55 ]] --[[ Name: fromUser ]]
+v16.fromUser = function(v21) --[[ Line: 56 ]] --[[ Name: fromUser ]]
     -- upvalues: v16 (copy), l_OrderedMap_0 (copy), v9 (copy), v12 (copy), v15 (copy), l_GenerateStringId_0 (copy), l_Players_0 (copy), v4 (copy)
     local v22 = v16.new();
     v22.messages = l_OrderedMap_0.new(v9, v12);
@@ -58,7 +59,7 @@ v16.fromUser = function(v21) --[[ Line: 55 ]] --[[ Name: fromUser ]]
     v22.title = v21.displayName or v21.name;
     return v22;
 end;
-v16.empty = function(v23) --[[ Line: 81 ]] --[[ Name: empty ]]
+v16.empty = function(v23) --[[ Line: 82 ]] --[[ Name: empty ]]
     -- upvalues: v16 (copy), l_OrderedMap_0 (copy), v9 (copy), v12 (copy), v15 (copy), v4 (copy), l_DateTime_0 (copy)
     local v24 = v16.new();
     v24.id = "-1";
@@ -77,6 +78,7 @@ v16.empty = function(v23) --[[ Line: 81 ]] --[[ Name: empty ]]
     v24.lastUpdated = l_DateTime_0.now();
     v24.isDefaultTitle = true;
     v24.osaAcknowledgementStatus = v16.OsaAcknowledgementStatus.NotApplicable;
+    v24.userOptedIntoChatMessages = v16.UserOptedIntoChatMessagesStatus.NotApplicable;
     if v23 ~= nil then
         for v25, v26 in pairs(v23) do
             v24[v25] = v26;
@@ -84,7 +86,7 @@ v16.empty = function(v23) --[[ Line: 81 ]] --[[ Name: empty ]]
     end;
     return v24;
 end;
-v16.fromWeb = function(v27, v28) --[[ Line: 114 ]] --[[ Name: fromWeb ]]
+v16.fromWeb = function(v27, v28) --[[ Line: 116 ]] --[[ Name: fromWeb ]]
     -- upvalues: v16 (copy), l_OrderedMap_0 (copy), v9 (copy), v12 (copy), v15 (copy), l_GenerateStringId_0 (copy), v4 (copy), l_DateTime_0 (copy)
     local v29 = v16.new();
     v29.messages = l_OrderedMap_0.new(v9, v12);

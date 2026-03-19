@@ -33,18 +33,18 @@ return function(v8) --[[ Line: 37 ]] --[[ Name: createTrustedConnectionEventList
             local v13 = tostring(v12.Actor);
             local v14 = tostring(v12.Target);
             local v15 = tostring(v9);
-            if v12.eventType == v7.EventTypes.TrustedConnectionCreated then
+            if v12.EventType == v7.EventTypes.TrustedConnectionCreated then
                 local v16 = if v13 == v15 then v14 else v13;
                 v8(v16, v6.TrustedFriends);
             end;
-            if v12.eventType == v7.EventTypes.TrustedConnectionDeleted then
+            if v12.EventType == v7.EventTypes.TrustedConnectionDeleted then
                 if v15 == v13 then
                     v8(v14, v6.RequestReceived);
                 else
                     v8(v13, v6.RequestSent);
                 end;
             end;
-            if v12.eventType == v7.EventTypes.TrustedConnectionRequestSent then
+            if v12.EventType == v7.EventTypes.TrustedConnectionRequestSent then
                 if v15 == v13 then
                     v8(v14, v6.RequestSent);
                     return;

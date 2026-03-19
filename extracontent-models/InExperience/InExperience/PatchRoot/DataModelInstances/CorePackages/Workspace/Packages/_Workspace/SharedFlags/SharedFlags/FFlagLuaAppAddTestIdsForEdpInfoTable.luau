@@ -1,1 +1,0 @@
-return require(script.Parent.UIBlox).FFlagUIBloxAddTestIdToComboButtonAndCellTailDescription and game:DefineFastFlag("LuaAppAddTestIdsForEdpInfoTable", false);

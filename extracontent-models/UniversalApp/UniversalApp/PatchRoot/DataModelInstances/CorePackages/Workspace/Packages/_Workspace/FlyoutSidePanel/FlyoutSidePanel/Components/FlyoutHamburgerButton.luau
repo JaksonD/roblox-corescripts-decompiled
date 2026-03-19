@@ -21,119 +21,116 @@ local l_StatusIndicator_0 = v3.StatusIndicator;
 local l_StatusIndicatorVariant_0 = v3.Enums.StatusIndicatorVariant;
 local l_Flags_0 = v3.Utility.Flags;
 local l_useTokens_0 = v3.Hooks.useTokens;
-local v23 = game:DefineFastFlag("FlyoutTooltipShownCountEvent", false);
-local function _(v24) --[[ Line: 35 ]] --[[ Name: getTotalNotificationCount ]]
-    local v25 = 0;
-    if v24.MorePageSettings and v24.MorePageSettings > 0 then
-        v25 = v25 + v24.MorePageSettings;
+local function _(v23) --[[ Line: 33 ]] --[[ Name: getTotalNotificationCount ]]
+    local v24 = 0;
+    if v23.MorePageSettings and v23.MorePageSettings > 0 then
+        v24 = v24 + v23.MorePageSettings;
     end;
-    if v24.MorePageFriends and v24.MorePageFriends > 0 then
-        v25 = v25 + v24.MorePageFriends;
+    if v23.MorePageFriends and v23.MorePageFriends > 0 then
+        v24 = v24 + v23.MorePageFriends;
     end;
-    if v24.MorePageMessages and v24.MorePageMessages > 0 then
-        v25 = v25 + v24.MorePageMessages;
+    if v23.MorePageMessages and v23.MorePageMessages > 0 then
+        v24 = v24 + v23.MorePageMessages;
     end;
-    return v25;
+    return v24;
 end;
-return function(v27) --[[ Line: 49 ]] --[[ Name: FlyoutHamburgerButton ]]
-    -- upvalues: l_useSetDrawerVisible_0 (copy), l_useRoactService_0 (copy), l_AppEventIngestService_0 (copy), l_useSelector_0 (copy), l_useTokens_0 (copy), v1 (copy), v15 (copy), v14 (copy), l_useLocalization_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), v23 (copy), l_UserInputService_0 (copy), v3 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy), v8 (copy), l_Icon_0 (copy), v2 (copy), l_IconSize_0 (copy), l_withTooltip_0 (copy)
-    local v28 = l_useSetDrawerVisible_0();
-    local v29 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v31 = l_useSelector_0(function(v30) --[[ Line: 52 ]]
-        return v30.NotificationBadgeCounts or {};
+return function(v26) --[[ Line: 47 ]] --[[ Name: FlyoutHamburgerButton ]]
+    -- upvalues: l_useSetDrawerVisible_0 (copy), l_useRoactService_0 (copy), l_AppEventIngestService_0 (copy), l_useSelector_0 (copy), l_useTokens_0 (copy), v1 (copy), v15 (copy), v14 (copy), l_useLocalization_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), l_UserInputService_0 (copy), v3 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy), v8 (copy), l_Icon_0 (copy), v2 (copy), l_IconSize_0 (copy), l_withTooltip_0 (copy)
+    local v27 = l_useSetDrawerVisible_0();
+    local v28 = l_useRoactService_0(l_AppEventIngestService_0);
+    local v30 = l_useSelector_0(function(v29) --[[ Line: 50 ]]
+        return v29.NotificationBadgeCounts or {};
     end);
-    local v32 = 0;
-    if v31.MorePageSettings and v31.MorePageSettings > 0 then
-        v32 = v32 + v31.MorePageSettings;
+    local v31 = 0;
+    if v30.MorePageSettings and v30.MorePageSettings > 0 then
+        v31 = v31 + v30.MorePageSettings;
     end;
-    if v31.MorePageFriends and v31.MorePageFriends > 0 then
-        v32 = v32 + v31.MorePageFriends;
+    if v30.MorePageFriends and v30.MorePageFriends > 0 then
+        v31 = v31 + v30.MorePageFriends;
     end;
-    if v31.MorePageMessages and v31.MorePageMessages > 0 then
-        v32 = v32 + v31.MorePageMessages;
+    if v30.MorePageMessages and v30.MorePageMessages > 0 then
+        v31 = v31 + v30.MorePageMessages;
     end;
-    local l_v32_0 = v32;
-    v32 = l_useTokens_0();
-    local v34 = v1.useCallback(function() --[[ Line: 57 ]]
-        -- upvalues: v15 (ref), v29 (copy), v27 (copy), v28 (copy), v14 (ref)
-        v15.sendPageLoadEvent(v29, v27.titleText);
-        v28(true);
+    local l_v31_0 = v31;
+    v31 = l_useTokens_0();
+    local v33 = v1.useCallback(function() --[[ Line: 55 ]]
+        -- upvalues: v15 (ref), v28 (copy), v26 (copy), v27 (copy), v14 (ref)
+        v15.sendPageLoadEvent(v28, v26.titleText);
+        v27(true);
         v14:flyoutSidePanelOpened();
     end, {});
-    local v35, v36 = v1.useState(v14:isTooltipActive());
-    local v37 = l_useLocalization_0({
+    local v34, v35 = v1.useState(v14:isTooltipActive());
+    local v36 = l_useLocalization_0({
         itemName = "CommonUI.Features.Label.More"
     });
-    local v38 = l_useLocalization_0({
+    local v37 = l_useLocalization_0({
         title = {
             "Feature.FlyoutSidePanel.Label.TooltipTitle"; 
-            itemName = v37.itemName
+            itemName = v36.itemName
         }, 
         body = "Feature.FlyoutSidePanel.Label.TooltipBody"
     });
+    local v38 = nil;
     local v39 = nil;
-    local v40 = nil;
-    if v35 then
-        v39 = {
+    if v34 then
+        v38 = {
             active = true, 
             guiTarget = l_CoreGui_0, 
             DisplayOrder = 10, 
             preferredOrientation = l_TooltipOrientation_0.Top
         };
-        v40 = {
-            headerText = v38.title, 
-            bodyText = v38.body, 
+        v39 = {
+            headerText = v37.title, 
+            bodyText = v37.body, 
             textAlignment = Enum.TextXAlignment.Left, 
             useLargeDropShadow = false, 
             headerRichText = true
         };
     end;
-    local v42 = v1.useCallback(function(_) --[[ Line: 89 ]]
-        -- upvalues: v35 (copy), v36 (copy), v15 (ref)
-        if v35 then
-            v36(false);
+    local v41 = v1.useCallback(function(_) --[[ Line: 87 ]]
+        -- upvalues: v34 (copy), v35 (copy), v15 (ref)
+        if v34 then
+            v35(false);
             v15.onFlyoutTooltipDismissed({
                 source = "click"
             });
         end;
     end, {
-        v35
+        v34
     });
-    v1.useEffect(function() --[[ Line: 97 ]]
-        -- upvalues: v35 (copy), v23 (ref), v14 (ref), v15 (ref), l_UserInputService_0 (ref), v42 (copy)
-        local v43 = nil;
-        if v35 then
-            if v23 then
-                local v44 = v14:getTooltipCount();
-                v15.onFlyoutTooltipShown({
-                    count = v44
-                });
-            end;
-            v43 = l_UserInputService_0.InputBegan:Connect(v42);
+    v1.useEffect(function() --[[ Line: 95 ]]
+        -- upvalues: v34 (copy), v14 (ref), v15 (ref), l_UserInputService_0 (ref), v41 (copy)
+        local v42 = nil;
+        if v34 then
+            local v43 = v14:getTooltipCount();
+            v15.onFlyoutTooltipShown({
+                count = v43
+            });
+            v42 = l_UserInputService_0.InputBegan:Connect(v41);
         end;
-        return function() --[[ Line: 106 ]]
-            -- upvalues: v43 (ref)
-            if v43 then
-                v43:Disconnect();
-                v43 = nil;
+        return function() --[[ Line: 102 ]]
+            -- upvalues: v42 (ref)
+            if v42 then
+                v42:Disconnect();
+                v42 = nil;
             end;
         end;
     end, {
-        v35, 
-        v42
+        v34, 
+        v41
     });
-    local v45 = if v27.isAlternateEntryPointEnabled then UDim2.new(1, -v32.Size.Size_100, 0, v32.Size.Size_100) else UDim2.new(1, -v32.Size.Size_300, 0, v32.Size.Size_150);
+    local v44 = if v26.isAlternateEntryPointEnabled then UDim2.new(1, -v31.Size.Size_100, 0, v31.Size.Size_100) else UDim2.new(1, -v31.Size.Size_300, 0, v31.Size.Size_150);
     return v1.createElement("TextButton", {
         AutoButtonColor = false, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
         Text = "", 
-        Size = UDim2.fromOffset(v32.Size.Size_1000, v32.Size.Size_1000), 
-        [v1.Event.Activated] = v34, 
-        ref = v27.buttonRef
+        Size = UDim2.fromOffset(v31.Size.Size_1000, v31.Size.Size_1000), 
+        [v1.Event.Activated] = v33, 
+        ref = v26.buttonRef
     }, {
-        StatusIndicatorContainer = if l_v32_0 > 0 then v1.createElement(v3.View, {
-            Position = v45, 
+        StatusIndicatorContainer = if l_v31_0 > 0 then v1.createElement(v3.View, {
+            Position = v44, 
             AnchorPoint = Vector2.new(1, 0), 
             tag = "auto-xy padding-xxsmall radius-circle bg-surface-0", 
             ZIndex = 2
@@ -147,19 +144,19 @@ return function(v27) --[[ Line: 49 ]] --[[ Name: FlyoutHamburgerButton ]]
             AnchorPoint = Vector2.new(0, 0.5), 
             tag = "auto-xy"
         }, {
-            Hamburger = if v27.isAlternateEntryPointEnabled then v1.createElement(v8) else v1.createElement(l_Icon_0, {
+            Hamburger = if v26.isAlternateEntryPointEnabled then v1.createElement(v8) else v1.createElement(l_Icon_0, {
                 name = v2.Icon.ThreeBarsHorizontal, 
                 size = l_IconSize_0.Large
             }), 
-            Tooltip = if v35 then l_withTooltip_0(v40, v39, function(v46) --[[ Line: 153 ]]
+            Tooltip = if v34 then l_withTooltip_0(v39, v38, function(v45) --[[ Line: 149 ]]
                 -- upvalues: v1 (ref)
                 return v1.createElement("Frame", {
                     Visible = false, 
                     Size = UDim2.new(1, 0, 1, 0), 
                     BackgroundTransparency = 1, 
                     BorderSizePixel = 0, 
-                    [v1.Change.AbsolutePosition] = v46, 
-                    [v1.Change.AbsoluteSize] = v46
+                    [v1.Change.AbsolutePosition] = v45, 
+                    [v1.Change.AbsoluteSize] = v45
                 });
             end) else nil
         })

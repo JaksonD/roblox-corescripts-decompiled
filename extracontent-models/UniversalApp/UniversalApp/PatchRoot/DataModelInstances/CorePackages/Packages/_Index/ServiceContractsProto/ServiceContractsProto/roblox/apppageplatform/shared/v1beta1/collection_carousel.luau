@@ -7,14 +7,14 @@ local v5 = require(script.Parent.component_shared);
 local v6 = {};
 v6.__index = v6;
 local l_v6_0 = v6 --[[ copy: 6 -> 7 ]];
-v6.new = function(v8) --[[ Line: 110 ]] --[[ Name: new ]]
+v6.new = function(v8) --[[ Line: 112 ]] --[[ Name: new ]]
     -- upvalues: l_v6_0 (copy)
     return (setmetatable({
         props = if not (v8 ~= nil) or v8.props == nil then nil else v8.props, 
         shared = if not (v8 ~= nil) or v8.shared == nil then nil else v8.shared
     }, l_v6_0));
 end;
-v6.encode = function(v9) --[[ Line: 117 ]] --[[ Name: encode ]]
+v6.encode = function(v9) --[[ Line: 119 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v10 = buffer.create(0);
     local v11 = 0;
@@ -36,7 +36,7 @@ v6.encode = function(v9) --[[ Line: 117 ]] --[[ Name: encode ]]
     buffer.copy(v18, 0, v10, 0, v11);
     return v18;
 end;
-v6.decode = function(v19) --[[ Line: 138 ]] --[[ Name: decode ]]
+v6.decode = function(v19) --[[ Line: 140 ]] --[[ Name: decode ]]
     -- upvalues: l_v6_0 (copy), v0 (copy), v2 (copy), v5 (copy)
     local v20 = l_v6_0.new();
     local v21 = 0;
@@ -86,7 +86,7 @@ v6.decode = function(v19) --[[ Line: 138 ]] --[[ Name: decode ]]
     end;
     return v20;
 end;
-v6.jsonEncode = function(v27) --[[ Line: 186 ]] --[[ Name: jsonEncode ]]
+v6.jsonEncode = function(v27) --[[ Line: 188 ]] --[[ Name: jsonEncode ]]
     local v28 = {};
     if v27.props ~= nil then
         v28.props = v27.props:jsonEncode();
@@ -96,7 +96,7 @@ v6.jsonEncode = function(v27) --[[ Line: 186 ]] --[[ Name: jsonEncode ]]
     end;
     return v28;
 end;
-v6.jsonDecode = function(v29) --[[ Line: 200 ]] --[[ Name: jsonDecode ]]
+v6.jsonDecode = function(v29) --[[ Line: 202 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v6_0 (copy), v2 (copy), v5 (copy)
     local v30 = l_v6_0.new();
     if v29.props ~= nil then
@@ -115,7 +115,7 @@ v2.CollectionCarouselSchema = v6;
 v1.default:register(v2.CollectionCarouselSchema);
 v6 = {};
 v6.__index = v6;
-v6.new = function(v31) --[[ Line: 229 ]] --[[ Name: new ]]
+v6.new = function(v31) --[[ Line: 231 ]] --[[ Name: new ]]
     -- upvalues: v6 (copy)
     return (setmetatable({
         collection_item_size = if not (v31 ~= nil) or v31.collection_item_size == nil then nil else v31.collection_item_size, 
@@ -135,10 +135,11 @@ v6.new = function(v31) --[[ Line: 229 ]] --[[ Name: new ]]
         focus_nav_actions_component = if not (v31 ~= nil) or v31.focus_nav_actions_component == nil then nil else v31.focus_nav_actions_component, 
         disable_selection_order = if not (v31 ~= nil) or v31.disable_selection_order == nil then nil else v31.disable_selection_order, 
         num_items_to_render_off_screen = if not (v31 ~= nil) or v31.num_items_to_render_off_screen == nil then nil else v31.num_items_to_render_off_screen, 
-        items = if not (v31 ~= nil) or v31.items == nil then nil else v31.items
+        items = if not (v31 ~= nil) or v31.items == nil then nil else v31.items, 
+        item_height_mode = if not (v31 ~= nil) or v31.item_height_mode == nil then nil else v31.item_height_mode
     }, v6));
 end;
-v6.encode = function(v32) --[[ Line: 273 ]] --[[ Name: encode ]]
+v6.encode = function(v32) --[[ Line: 276 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v33 = buffer.create(0);
     local v34 = 0;
@@ -268,317 +269,339 @@ v6.encode = function(v32) --[[ Line: 273 ]] --[[ Name: encode ]]
         v33 = v87;
         v34 = v88;
     end;
-    local v89 = buffer.create(v34);
-    buffer.copy(v89, 0, v33, 0, v34);
-    return v89;
+    if v32.item_height_mode ~= nil then
+        local v89 = v32.item_height_mode:encode();
+        local v90, v91 = v0.writeTag(v33, v34, 19, v0.wireTypes.lengthDelimited);
+        v90, v91 = v0.writeBuffer(v90, v91, v89, buffer.len(v89));
+        v33 = v90;
+        v34 = v91;
+    end;
+    local v92 = buffer.create(v34);
+    buffer.copy(v92, 0, v33, 0, v34);
+    return v92;
 end;
-v6.decode = function(v90) --[[ Line: 390 ]] --[[ Name: decode ]]
+v6.decode = function(v93) --[[ Line: 399 ]] --[[ Name: decode ]]
     -- upvalues: v6 (copy), v0 (copy), v3 (copy), v4 (copy)
-    local v91 = v6.new();
-    local v92 = 0;
-    while v92 < buffer.len(v90) do
-        local v93 = nil;
-        local v94 = nil;
-        local v95, v96, v97 = v0.readTag(v90, v92);
-        v93 = v95;
-        v94 = v96;
-        v92 = v97;
-        if v94 == v0.wireTypes.varint then
-            v95 = nil;
-            v96, v97 = v0.readVarInt(v90, v92);
-            v95 = v96;
-            v92 = v97;
-        elseif v94 == v0.wireTypes.lengthDelimited then
-            if v93 == 1 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.collection_item_size = v3.StringProp.decode(v95);
-            elseif v93 == 2 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.item_height_from_width = v3.UDimProp.decode(v95);
-            elseif v93 == 3 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.header_component = v3.NestedComponentProp.decode(v95);
-            elseif v93 == 4 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.position = v3.UDim2Prop.decode(v95);
-            elseif v93 == 5 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.size = v3.UDim2Prop.decode(v95);
-            elseif v93 == 6 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.anchor_point = v3.Vector2Prop.decode(v95);
-            elseif v93 == 7 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.scrolling_enabled_override = v3.BoolProp.decode(v95);
-            elseif v93 == 8 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.force_scrollable = v3.BoolProp.decode(v95);
-            elseif v93 == 9 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.max_items_to_show = v3.FloatProp.decode(v95);
-            elseif v93 == 10 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.should_use_frame_bounds_for_impressions = v3.BoolProp.decode(v95);
-            elseif v93 == 11 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.background_mural_url = v3.ImageStringProp.decode(v95);
-            elseif v93 == 12 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.on_scroll_to_end = v4.ActionProp.decode(v95);
-            elseif v93 == 13 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.scroll_threshold_from_end = v3.FloatProp.decode(v95);
-            elseif v93 == 14 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.item_template_key = v3.StringProp.decode(v95);
-            elseif v93 == 15 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.focus_nav_actions_component = v3.NestedComponentProp.decode(v95);
-            elseif v93 == 16 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.disable_selection_order = v3.BoolProp.decode(v95);
-            elseif v93 == 17 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.num_items_to_render_off_screen = v3.FloatProp.decode(v95);
-            elseif v93 == 18 then
-                v95 = nil;
-                v96, v97 = v0.readBuffer(v90, v92);
-                v95 = v96;
-                v92 = v97;
-                v91.items = v3.LazyNestedComponentListProp.decode(v95);
+    local v94 = v6.new();
+    local v95 = 0;
+    while v95 < buffer.len(v93) do
+        local v96 = nil;
+        local v97 = nil;
+        local v98, v99, v100 = v0.readTag(v93, v95);
+        v96 = v98;
+        v97 = v99;
+        v95 = v100;
+        if v97 == v0.wireTypes.varint then
+            v98 = nil;
+            v99, v100 = v0.readVarInt(v93, v95);
+            v98 = v99;
+            v95 = v100;
+        elseif v97 == v0.wireTypes.lengthDelimited then
+            if v96 == 1 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.collection_item_size = v3.StringProp.decode(v98);
+            elseif v96 == 2 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.item_height_from_width = v3.UDimProp.decode(v98);
+            elseif v96 == 3 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.header_component = v3.NestedComponentProp.decode(v98);
+            elseif v96 == 4 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.position = v3.UDim2Prop.decode(v98);
+            elseif v96 == 5 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.size = v3.UDim2Prop.decode(v98);
+            elseif v96 == 6 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.anchor_point = v3.Vector2Prop.decode(v98);
+            elseif v96 == 7 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.scrolling_enabled_override = v3.BoolProp.decode(v98);
+            elseif v96 == 8 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.force_scrollable = v3.BoolProp.decode(v98);
+            elseif v96 == 9 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.max_items_to_show = v3.FloatProp.decode(v98);
+            elseif v96 == 10 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.should_use_frame_bounds_for_impressions = v3.BoolProp.decode(v98);
+            elseif v96 == 11 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.background_mural_url = v3.ImageStringProp.decode(v98);
+            elseif v96 == 12 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.on_scroll_to_end = v4.ActionProp.decode(v98);
+            elseif v96 == 13 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.scroll_threshold_from_end = v3.FloatProp.decode(v98);
+            elseif v96 == 14 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.item_template_key = v3.StringProp.decode(v98);
+            elseif v96 == 15 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.focus_nav_actions_component = v3.NestedComponentProp.decode(v98);
+            elseif v96 == 16 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.disable_selection_order = v3.BoolProp.decode(v98);
+            elseif v96 == 17 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.num_items_to_render_off_screen = v3.FloatProp.decode(v98);
+            elseif v96 == 18 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.items = v3.LazyNestedComponentListProp.decode(v98);
+            elseif v96 == 19 then
+                v98 = nil;
+                v99, v100 = v0.readBuffer(v93, v95);
+                v98 = v99;
+                v95 = v100;
+                v94.item_height_mode = v3.StringProp.decode(v98);
             else
-                v95 = nil;
-                v96, v97 = v0.readVarInt(v90, v92);
-                v92 = v97 + v96;
+                v98 = nil;
+                v99, v100 = v0.readVarInt(v93, v95);
+                v95 = v100 + v99;
             end;
-        elseif v94 == v0.wireTypes.i32 then
-            v95 = nil;
-            v96, v97 = v0.readFixed32(v90, v92);
-            v95 = v96;
-            v92 = v97;
-        elseif v94 == v0.wireTypes.i64 then
-            v95 = nil;
-            v96, v97 = v0.readFixed64(v90, v92);
-            v95 = v96;
-            v92 = v97;
+        elseif v97 == v0.wireTypes.i32 then
+            v98 = nil;
+            v99, v100 = v0.readFixed32(v93, v95);
+            v98 = v99;
+            v95 = v100;
+        elseif v97 == v0.wireTypes.i64 then
+            v98 = nil;
+            v99, v100 = v0.readFixed64(v93, v95);
+            v98 = v99;
+            v95 = v100;
         else
-            error("Unsupported wire type: " .. v94);
+            error("Unsupported wire type: " .. v97);
         end;
     end;
-    return v91;
+    return v94;
 end;
-v6.jsonEncode = function(v98) --[[ Line: 529 ]] --[[ Name: jsonEncode ]]
-    local v99 = {};
-    if v98.collection_item_size ~= nil then
-        v99.collectionItemSize = v98.collection_item_size:jsonEncode();
+v6.jsonEncode = function(v101) --[[ Line: 543 ]] --[[ Name: jsonEncode ]]
+    local v102 = {};
+    if v101.collection_item_size ~= nil then
+        v102.collectionItemSize = v101.collection_item_size:jsonEncode();
     end;
-    if v98.item_height_from_width ~= nil then
-        v99.itemHeightFromWidth = v98.item_height_from_width:jsonEncode();
+    if v101.item_height_from_width ~= nil then
+        v102.itemHeightFromWidth = v101.item_height_from_width:jsonEncode();
     end;
-    if v98.header_component ~= nil then
-        v99.headerComponent = v98.header_component:jsonEncode();
+    if v101.header_component ~= nil then
+        v102.headerComponent = v101.header_component:jsonEncode();
     end;
-    if v98.position ~= nil then
-        v99.position = v98.position:jsonEncode();
+    if v101.position ~= nil then
+        v102.position = v101.position:jsonEncode();
     end;
-    if v98.size ~= nil then
-        v99.size = v98.size:jsonEncode();
+    if v101.size ~= nil then
+        v102.size = v101.size:jsonEncode();
     end;
-    if v98.anchor_point ~= nil then
-        v99.anchorPoint = v98.anchor_point:jsonEncode();
+    if v101.anchor_point ~= nil then
+        v102.anchorPoint = v101.anchor_point:jsonEncode();
     end;
-    if v98.scrolling_enabled_override ~= nil then
-        v99.scrollingEnabledOverride = v98.scrolling_enabled_override:jsonEncode();
+    if v101.scrolling_enabled_override ~= nil then
+        v102.scrollingEnabledOverride = v101.scrolling_enabled_override:jsonEncode();
     end;
-    if v98.force_scrollable ~= nil then
-        v99.forceScrollable = v98.force_scrollable:jsonEncode();
+    if v101.force_scrollable ~= nil then
+        v102.forceScrollable = v101.force_scrollable:jsonEncode();
     end;
-    if v98.max_items_to_show ~= nil then
-        v99.maxItemsToShow = v98.max_items_to_show:jsonEncode();
+    if v101.max_items_to_show ~= nil then
+        v102.maxItemsToShow = v101.max_items_to_show:jsonEncode();
     end;
-    if v98.should_use_frame_bounds_for_impressions ~= nil then
-        v99.shouldUseFrameBoundsForImpressions = v98.should_use_frame_bounds_for_impressions:jsonEncode();
+    if v101.should_use_frame_bounds_for_impressions ~= nil then
+        v102.shouldUseFrameBoundsForImpressions = v101.should_use_frame_bounds_for_impressions:jsonEncode();
     end;
-    if v98.background_mural_url ~= nil then
-        v99.backgroundMuralUrl = v98.background_mural_url:jsonEncode();
+    if v101.background_mural_url ~= nil then
+        v102.backgroundMuralUrl = v101.background_mural_url:jsonEncode();
     end;
-    if v98.on_scroll_to_end ~= nil then
-        v99.onScrollToEnd = v98.on_scroll_to_end:jsonEncode();
+    if v101.on_scroll_to_end ~= nil then
+        v102.onScrollToEnd = v101.on_scroll_to_end:jsonEncode();
     end;
-    if v98.scroll_threshold_from_end ~= nil then
-        v99.scrollThresholdFromEnd = v98.scroll_threshold_from_end:jsonEncode();
+    if v101.scroll_threshold_from_end ~= nil then
+        v102.scrollThresholdFromEnd = v101.scroll_threshold_from_end:jsonEncode();
     end;
-    if v98.item_template_key ~= nil then
-        v99.itemTemplateKey = v98.item_template_key:jsonEncode();
+    if v101.item_template_key ~= nil then
+        v102.itemTemplateKey = v101.item_template_key:jsonEncode();
     end;
-    if v98.focus_nav_actions_component ~= nil then
-        v99.focusNavActionsComponent = v98.focus_nav_actions_component:jsonEncode();
+    if v101.focus_nav_actions_component ~= nil then
+        v102.focusNavActionsComponent = v101.focus_nav_actions_component:jsonEncode();
     end;
-    if v98.disable_selection_order ~= nil then
-        v99.disableSelectionOrder = v98.disable_selection_order:jsonEncode();
+    if v101.disable_selection_order ~= nil then
+        v102.disableSelectionOrder = v101.disable_selection_order:jsonEncode();
     end;
-    if v98.num_items_to_render_off_screen ~= nil then
-        v99.numItemsToRenderOffScreen = v98.num_items_to_render_off_screen:jsonEncode();
+    if v101.num_items_to_render_off_screen ~= nil then
+        v102.numItemsToRenderOffScreen = v101.num_items_to_render_off_screen:jsonEncode();
     end;
-    if v98.items ~= nil then
-        v99.items = v98.items:jsonEncode();
+    if v101.items ~= nil then
+        v102.items = v101.items:jsonEncode();
     end;
-    return v99;
+    if v101.item_height_mode ~= nil then
+        v102.itemHeightMode = v101.item_height_mode:jsonEncode();
+    end;
+    return v102;
 end;
-v6.jsonDecode = function(v100) --[[ Line: 607 ]] --[[ Name: jsonDecode ]]
+v6.jsonDecode = function(v103) --[[ Line: 625 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v6 (copy), v3 (copy), v4 (copy)
-    local v101 = v6.new();
-    if v100.collection_item_size ~= nil then
-        v101.collection_item_size = v3.StringProp.jsonDecode(v100.collection_item_size);
+    local v104 = v6.new();
+    if v103.collection_item_size ~= nil then
+        v104.collection_item_size = v3.StringProp.jsonDecode(v103.collection_item_size);
     end;
-    if v100.collectionItemSize ~= nil then
-        v101.collection_item_size = v3.StringProp.jsonDecode(v100.collectionItemSize);
+    if v103.collectionItemSize ~= nil then
+        v104.collection_item_size = v3.StringProp.jsonDecode(v103.collectionItemSize);
     end;
-    if v100.item_height_from_width ~= nil then
-        v101.item_height_from_width = v3.UDimProp.jsonDecode(v100.item_height_from_width);
+    if v103.item_height_from_width ~= nil then
+        v104.item_height_from_width = v3.UDimProp.jsonDecode(v103.item_height_from_width);
     end;
-    if v100.itemHeightFromWidth ~= nil then
-        v101.item_height_from_width = v3.UDimProp.jsonDecode(v100.itemHeightFromWidth);
+    if v103.itemHeightFromWidth ~= nil then
+        v104.item_height_from_width = v3.UDimProp.jsonDecode(v103.itemHeightFromWidth);
     end;
-    if v100.header_component ~= nil then
-        v101.header_component = v3.NestedComponentProp.jsonDecode(v100.header_component);
+    if v103.header_component ~= nil then
+        v104.header_component = v3.NestedComponentProp.jsonDecode(v103.header_component);
     end;
-    if v100.headerComponent ~= nil then
-        v101.header_component = v3.NestedComponentProp.jsonDecode(v100.headerComponent);
+    if v103.headerComponent ~= nil then
+        v104.header_component = v3.NestedComponentProp.jsonDecode(v103.headerComponent);
     end;
-    if v100.position ~= nil then
-        v101.position = v3.UDim2Prop.jsonDecode(v100.position);
+    if v103.position ~= nil then
+        v104.position = v3.UDim2Prop.jsonDecode(v103.position);
     end;
-    if v100.size ~= nil then
-        v101.size = v3.UDim2Prop.jsonDecode(v100.size);
+    if v103.size ~= nil then
+        v104.size = v3.UDim2Prop.jsonDecode(v103.size);
     end;
-    if v100.anchor_point ~= nil then
-        v101.anchor_point = v3.Vector2Prop.jsonDecode(v100.anchor_point);
+    if v103.anchor_point ~= nil then
+        v104.anchor_point = v3.Vector2Prop.jsonDecode(v103.anchor_point);
     end;
-    if v100.anchorPoint ~= nil then
-        v101.anchor_point = v3.Vector2Prop.jsonDecode(v100.anchorPoint);
+    if v103.anchorPoint ~= nil then
+        v104.anchor_point = v3.Vector2Prop.jsonDecode(v103.anchorPoint);
     end;
-    if v100.scrolling_enabled_override ~= nil then
-        v101.scrolling_enabled_override = v3.BoolProp.jsonDecode(v100.scrolling_enabled_override);
+    if v103.scrolling_enabled_override ~= nil then
+        v104.scrolling_enabled_override = v3.BoolProp.jsonDecode(v103.scrolling_enabled_override);
     end;
-    if v100.scrollingEnabledOverride ~= nil then
-        v101.scrolling_enabled_override = v3.BoolProp.jsonDecode(v100.scrollingEnabledOverride);
+    if v103.scrollingEnabledOverride ~= nil then
+        v104.scrolling_enabled_override = v3.BoolProp.jsonDecode(v103.scrollingEnabledOverride);
     end;
-    if v100.force_scrollable ~= nil then
-        v101.force_scrollable = v3.BoolProp.jsonDecode(v100.force_scrollable);
+    if v103.force_scrollable ~= nil then
+        v104.force_scrollable = v3.BoolProp.jsonDecode(v103.force_scrollable);
     end;
-    if v100.forceScrollable ~= nil then
-        v101.force_scrollable = v3.BoolProp.jsonDecode(v100.forceScrollable);
+    if v103.forceScrollable ~= nil then
+        v104.force_scrollable = v3.BoolProp.jsonDecode(v103.forceScrollable);
     end;
-    if v100.max_items_to_show ~= nil then
-        v101.max_items_to_show = v3.FloatProp.jsonDecode(v100.max_items_to_show);
+    if v103.max_items_to_show ~= nil then
+        v104.max_items_to_show = v3.FloatProp.jsonDecode(v103.max_items_to_show);
     end;
-    if v100.maxItemsToShow ~= nil then
-        v101.max_items_to_show = v3.FloatProp.jsonDecode(v100.maxItemsToShow);
+    if v103.maxItemsToShow ~= nil then
+        v104.max_items_to_show = v3.FloatProp.jsonDecode(v103.maxItemsToShow);
     end;
-    if v100.should_use_frame_bounds_for_impressions ~= nil then
-        v101.should_use_frame_bounds_for_impressions = v3.BoolProp.jsonDecode(v100.should_use_frame_bounds_for_impressions);
+    if v103.should_use_frame_bounds_for_impressions ~= nil then
+        v104.should_use_frame_bounds_for_impressions = v3.BoolProp.jsonDecode(v103.should_use_frame_bounds_for_impressions);
     end;
-    if v100.shouldUseFrameBoundsForImpressions ~= nil then
-        v101.should_use_frame_bounds_for_impressions = v3.BoolProp.jsonDecode(v100.shouldUseFrameBoundsForImpressions);
+    if v103.shouldUseFrameBoundsForImpressions ~= nil then
+        v104.should_use_frame_bounds_for_impressions = v3.BoolProp.jsonDecode(v103.shouldUseFrameBoundsForImpressions);
     end;
-    if v100.background_mural_url ~= nil then
-        v101.background_mural_url = v3.ImageStringProp.jsonDecode(v100.background_mural_url);
+    if v103.background_mural_url ~= nil then
+        v104.background_mural_url = v3.ImageStringProp.jsonDecode(v103.background_mural_url);
     end;
-    if v100.backgroundMuralUrl ~= nil then
-        v101.background_mural_url = v3.ImageStringProp.jsonDecode(v100.backgroundMuralUrl);
+    if v103.backgroundMuralUrl ~= nil then
+        v104.background_mural_url = v3.ImageStringProp.jsonDecode(v103.backgroundMuralUrl);
     end;
-    if v100.on_scroll_to_end ~= nil then
-        v101.on_scroll_to_end = v4.ActionProp.jsonDecode(v100.on_scroll_to_end);
+    if v103.on_scroll_to_end ~= nil then
+        v104.on_scroll_to_end = v4.ActionProp.jsonDecode(v103.on_scroll_to_end);
     end;
-    if v100.onScrollToEnd ~= nil then
-        v101.on_scroll_to_end = v4.ActionProp.jsonDecode(v100.onScrollToEnd);
+    if v103.onScrollToEnd ~= nil then
+        v104.on_scroll_to_end = v4.ActionProp.jsonDecode(v103.onScrollToEnd);
     end;
-    if v100.scroll_threshold_from_end ~= nil then
-        v101.scroll_threshold_from_end = v3.FloatProp.jsonDecode(v100.scroll_threshold_from_end);
+    if v103.scroll_threshold_from_end ~= nil then
+        v104.scroll_threshold_from_end = v3.FloatProp.jsonDecode(v103.scroll_threshold_from_end);
     end;
-    if v100.scrollThresholdFromEnd ~= nil then
-        v101.scroll_threshold_from_end = v3.FloatProp.jsonDecode(v100.scrollThresholdFromEnd);
+    if v103.scrollThresholdFromEnd ~= nil then
+        v104.scroll_threshold_from_end = v3.FloatProp.jsonDecode(v103.scrollThresholdFromEnd);
     end;
-    if v100.item_template_key ~= nil then
-        v101.item_template_key = v3.StringProp.jsonDecode(v100.item_template_key);
+    if v103.item_template_key ~= nil then
+        v104.item_template_key = v3.StringProp.jsonDecode(v103.item_template_key);
     end;
-    if v100.itemTemplateKey ~= nil then
-        v101.item_template_key = v3.StringProp.jsonDecode(v100.itemTemplateKey);
+    if v103.itemTemplateKey ~= nil then
+        v104.item_template_key = v3.StringProp.jsonDecode(v103.itemTemplateKey);
     end;
-    if v100.focus_nav_actions_component ~= nil then
-        v101.focus_nav_actions_component = v3.NestedComponentProp.jsonDecode(v100.focus_nav_actions_component);
+    if v103.focus_nav_actions_component ~= nil then
+        v104.focus_nav_actions_component = v3.NestedComponentProp.jsonDecode(v103.focus_nav_actions_component);
     end;
-    if v100.focusNavActionsComponent ~= nil then
-        v101.focus_nav_actions_component = v3.NestedComponentProp.jsonDecode(v100.focusNavActionsComponent);
+    if v103.focusNavActionsComponent ~= nil then
+        v104.focus_nav_actions_component = v3.NestedComponentProp.jsonDecode(v103.focusNavActionsComponent);
     end;
-    if v100.disable_selection_order ~= nil then
-        v101.disable_selection_order = v3.BoolProp.jsonDecode(v100.disable_selection_order);
+    if v103.disable_selection_order ~= nil then
+        v104.disable_selection_order = v3.BoolProp.jsonDecode(v103.disable_selection_order);
     end;
-    if v100.disableSelectionOrder ~= nil then
-        v101.disable_selection_order = v3.BoolProp.jsonDecode(v100.disableSelectionOrder);
+    if v103.disableSelectionOrder ~= nil then
+        v104.disable_selection_order = v3.BoolProp.jsonDecode(v103.disableSelectionOrder);
     end;
-    if v100.num_items_to_render_off_screen ~= nil then
-        v101.num_items_to_render_off_screen = v3.FloatProp.jsonDecode(v100.num_items_to_render_off_screen);
+    if v103.num_items_to_render_off_screen ~= nil then
+        v104.num_items_to_render_off_screen = v3.FloatProp.jsonDecode(v103.num_items_to_render_off_screen);
     end;
-    if v100.numItemsToRenderOffScreen ~= nil then
-        v101.num_items_to_render_off_screen = v3.FloatProp.jsonDecode(v100.numItemsToRenderOffScreen);
+    if v103.numItemsToRenderOffScreen ~= nil then
+        v104.num_items_to_render_off_screen = v3.FloatProp.jsonDecode(v103.numItemsToRenderOffScreen);
     end;
-    if v100.items ~= nil then
-        v101.items = v3.LazyNestedComponentListProp.jsonDecode(v100.items);
+    if v103.items ~= nil then
+        v104.items = v3.LazyNestedComponentListProp.jsonDecode(v103.items);
     end;
-    return v101;
+    if v103.item_height_mode ~= nil then
+        v104.item_height_mode = v3.StringProp.jsonDecode(v103.item_height_mode);
+    end;
+    if v103.itemHeightMode ~= nil then
+        v104.item_height_mode = v3.StringProp.jsonDecode(v103.itemHeightMode);
+    end;
+    return v104;
 end;
 v6.descriptor = {
     name = "CollectionCarouselSchema_Props", 

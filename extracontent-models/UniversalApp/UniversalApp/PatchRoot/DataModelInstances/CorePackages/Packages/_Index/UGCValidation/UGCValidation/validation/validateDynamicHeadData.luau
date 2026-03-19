@@ -14,8 +14,9 @@ local _ = require(l_Parent_0.util.Types);
 local v13 = require(l_Parent_0.util.pcallDeferred);
 local v14 = require(l_Parent_0.util.getEditableMeshFromContext);
 local v15 = require(l_Parent_0.flags.getFFlagUGCValidationUpdateHeadIsDynamic);
-local v16 = nil;
-v16 = if v15() then {
+local v16 = require(l_Parent_0.flags.getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs);
+local v17 = nil;
+v17 = if v15() then {
     "LeftEyeClosed", 
     "EyesLookDown", 
     "RightEyeClosed", 
@@ -52,132 +53,134 @@ v16 = if v15() then {
     "EyesLookUp", 
     "EyesLookDown"
 };
-local function v21(v17, v18, v19) --[[ Line: 77 ]] --[[ Name: downloadFailure ]]
+local function v22(v18, v19, v20) --[[ Line: 78 ]] --[[ Name: downloadFailure ]]
     -- upvalues: v2 (copy)
-    local v20 = string.format("Failed to load model for dynamic head '%s'. Make sure model exists and try again.", v18);
-    if v17 then
-        error(v20);
+    local v21 = string.format("Failed to load model for dynamic head '%s'. Make sure model exists and try again.", v19);
+    if v18 then
+        error(v21);
     end;
-    v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_FailedToLoadMesh, nil, v19);
+    v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_FailedToLoadMesh, nil, v20);
     return false, {
-        v20
+        v21
     };
 end;
-local function v31(v22, v23) --[[ Line: 104 ]] --[[ Name: validateFacialBounds ]]
+local function v32(v23, v24) --[[ Line: 105 ]] --[[ Name: validateFacialBounds ]]
     -- upvalues: v13 (copy), v11 (copy), v14 (copy), l_UGCValidationService_0 (copy), v8 (copy)
-    local l_isServer_0 = v23.isServer;
-    local v28, v29 = v13(function() --[[ Line: 110 ]]
-        -- upvalues: v11 (ref), v22 (copy), v23 (copy), v14 (ref), l_UGCValidationService_0 (ref), v8 (ref)
-        local v25 = v11(v22, v23);
-        local v26, v27 = v14(v22, "MeshId", v23);
-        if not v26 then
+    local l_isServer_0 = v24.isServer;
+    local v29, v30 = v13(function() --[[ Line: 111 ]]
+        -- upvalues: v11 (ref), v23 (copy), v24 (copy), v14 (ref), l_UGCValidationService_0 (ref), v8 (ref)
+        local v26 = v11(v23, v24);
+        local v27, v28 = v14(v23, "MeshId", v24);
+        if not v27 then
             error("Failed to retrieve MeshContent");
         end;
-        return l_UGCValidationService_0:ValidateEditableMeshFacialBounds(v27, v8, v25);
-    end, v23);
-    if not v28 then
-        local v30 = string.format("Failed to load mesh data for '%s'. Make sure the mesh exists and try again.", v22:GetFullName());
+        return l_UGCValidationService_0:ValidateEditableMeshFacialBounds(v28, v8, v26);
+    end, v24);
+    if not v29 then
+        local v31 = string.format("Failed to load mesh data for '%s'. Make sure the mesh exists and try again.", v23:GetFullName());
         if l_isServer_0 ~= nil and l_isServer_0 then
-            error(v30);
+            error(v31);
         end;
         return false, {
-            v30
+            v31
         };
-    elseif not v29 then
+    elseif not v30 then
         return false, {
-            string.format("DynamicHead (%s) when emoting surpasses the expected bounding box", v22:GetFullName())
+            string.format("DynamicHead (%s) when emoting surpasses the expected bounding box", v23:GetFullName())
         };
     else
         return true;
     end;
 end;
-local function v41(v32, v33) --[[ Line: 144 ]] --[[ Name: validateFacialExpressiveness ]]
+local function v42(v33, v34) --[[ Line: 145 ]] --[[ Name: validateFacialExpressiveness ]]
     -- upvalues: v13 (copy), v11 (copy), v14 (copy), l_UGCValidationService_0 (copy), v10 (copy), v9 (copy)
-    local l_isServer_1 = v33.isServer;
-    local v38, v39 = v13(function() --[[ Line: 150 ]]
-        -- upvalues: v11 (ref), v32 (copy), v33 (copy), v14 (ref), l_UGCValidationService_0 (ref), v10 (ref)
-        local v35 = v11(v32, v33);
-        local v36, v37 = v14(v32, "MeshId", v33);
-        if not v36 then
+    local l_isServer_1 = v34.isServer;
+    local v39, v40 = v13(function() --[[ Line: 151 ]]
+        -- upvalues: v11 (ref), v33 (copy), v34 (copy), v14 (ref), l_UGCValidationService_0 (ref), v10 (ref)
+        local v36 = v11(v33, v34);
+        local v37, v38 = v14(v33, "MeshId", v34);
+        if not v37 then
             error("Failed to retrieve MeshContent");
         end;
-        return l_UGCValidationService_0:ValidateEditableMeshFacialExpressiveness(v37, v10, v35);
-    end, v33);
-    if not v38 then
-        local v40 = string.format("Failed to load mesh data for '%s'. Make sure the mesh exists and try again.", v32:GetFullName());
+        return l_UGCValidationService_0:ValidateEditableMeshFacialExpressiveness(v38, v10, v36);
+    end, v34);
+    if not v39 then
+        local v41 = string.format("Failed to load mesh data for '%s'. Make sure the mesh exists and try again.", v33:GetFullName());
         if l_isServer_1 ~= nil and l_isServer_1 then
-            error(v40);
+            error(v41);
         end;
         return false, {
-            v40
+            v41
         };
-    elseif v39 < v9 then
+    elseif v40 < v9 then
         return false, {
-            string.format("DynamicHead (%s) did not pass threshold (%f < %f) for percent change when emoting", v32:GetFullName(), v39, v9)
+            string.format("DynamicHead (%s) did not pass threshold (%f < %f) for percent change when emoting", v33:GetFullName(), v40, v9)
         };
     else
         return true;
     end;
 end;
-return function(v42, v43) --[[ Line: 186 ]] --[[ Name: validateDynamicHeadData ]]
-    -- upvalues: v6 (copy), v14 (copy), l_UGCValidationService_0 (copy), v21 (copy), v2 (copy), v3 (copy), v7 (copy), v16 (ref), v41 (copy), v31 (copy), v5 (copy), v4 (copy)
-    local v44 = tick();
+return function(v43, v44) --[[ Line: 187 ]] --[[ Name: validateDynamicHeadData ]]
+    -- upvalues: v6 (copy), v14 (copy), l_UGCValidationService_0 (copy), v22 (copy), v2 (copy), v3 (copy), v7 (copy), v17 (ref), v42 (copy), v16 (copy), v32 (copy), v5 (copy), v4 (copy)
+    local v45 = tick();
     if not v6() then
         return true;
     else
-        local l_isServer_2 = v43.isServer;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 198 ]]
-            -- upvalues: v14 (ref), v42 (copy), v43 (copy), l_UGCValidationService_0 (ref)
-            local v46, v47 = v14(v42, "MeshId", v43);
-            if not v46 then
+        local l_isServer_2 = v44.isServer;
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 199 ]]
+            -- upvalues: v14 (ref), v43 (copy), v44 (copy), l_UGCValidationService_0 (ref)
+            local v47, v48 = v14(v43, "MeshId", v44);
+            if not v47 then
                 error("Failed to retrieve MeshContent");
             end;
-            return l_UGCValidationService_0:ValidateDynamicHeadEditableMesh(v47);
+            return l_UGCValidationService_0:ValidateDynamicHeadEditableMesh(v48);
         end);
         if not l_status_0 then
-            return v21(l_isServer_2, v42.Name, v43);
+            return v22(l_isServer_2, v43.Name, v44);
         elseif not l_result_0 then
-            v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh, nil, v43);
+            v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh, nil, v44);
             return false, {
-                string.format("Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).", v42.Name)
+                string.format("Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).", v43.Name)
             };
         else
             l_status_0 = v3.new();
             if v7() then
-                local v50, v51;
-                l_result_0, v50, v51 = pcall(function() --[[ Line: 230 ]]
-                    -- upvalues: v14 (ref), v42 (copy), v43 (copy), l_UGCValidationService_0 (ref), v16 (ref)
-                    local v52, v53 = v14(v42, "MeshId", v43);
-                    if not v52 then
+                local v51, v52;
+                l_result_0, v51, v52 = pcall(function() --[[ Line: 231 ]]
+                    -- upvalues: v14 (ref), v43 (copy), v44 (copy), l_UGCValidationService_0 (ref), v17 (ref)
+                    local v53, v54 = v14(v43, "MeshId", v44);
+                    if not v53 then
                         error("Failed to retrieve MeshContent");
                     end;
-                    return l_UGCValidationService_0:GetDynamicHeadEditableMeshInactiveControls(v53, v16);
+                    return l_UGCValidationService_0:GetDynamicHeadEditableMeshInactiveControls(v54, v17);
                 end);
                 if not l_result_0 then
-                    if string.find(v50, "Download Error") == 1 then
-                        return v21(l_isServer_2, v42.Name, v43);
+                    if string.find(v51, "Download Error") == 1 then
+                        return v22(l_isServer_2, v43.Name, v44);
                     else
-                        assert(false, v50);
+                        assert(false, v51);
                     end;
                 end;
-                local v54 = #v50 == 0;
                 local v55 = #v51 == 0;
-                if not v54 or not v55 then
-                    v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls, nil, v43);
-                    l_status_0:updateReasons(v54, {
-                        (("%*.MeshId (%*) is missing FACS controls: %*"):format(v42.Name, v42.MeshId, (table.concat(v50, ", "))))
-                    });
+                local v56 = #v52 == 0;
+                if not v55 or not v56 then
+                    v2.reportFailure(v2.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls, nil, v44);
                     l_status_0:updateReasons(v55, {
-                        (("%*.MeshId (%*) has inactive FACS controls: %*"):format(v42.Name, v42.MeshId, (table.concat(v51, ", "))))
+                        (("%*.MeshId (%*) is missing FACS controls: %*"):format(v43.Name, v43.MeshId, (table.concat(v51, ", "))))
+                    });
+                    l_status_0:updateReasons(v56, {
+                        (("%*.MeshId (%*) has inactive FACS controls: %*"):format(v43.Name, v43.MeshId, (table.concat(v52, ", "))))
                     });
                 end;
             end;
-            l_status_0:updateReasons(v41(v42, v43));
-            l_status_0:updateReasons(v31(v42, v43));
-            if v5() then
-                l_status_0:updateReasons(v4(v42, v43));
+            l_status_0:updateReasons(v42(v43, v44));
+            if not v16() then
+                l_status_0:updateReasons(v32(v43, v44));
             end;
-            v2.recordScriptTime(script.Name, v44, v43);
+            if v5() then
+                l_status_0:updateReasons(v4(v43, v44));
+            end;
+            v2.recordScriptTime(script.Name, v45, v44);
             return l_status_0:getFinalResults();
         end;
     end;

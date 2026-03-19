@@ -15,92 +15,96 @@ local v13 = game:DefineFastFlag("UserTileAddSizeProp", false);
 local l_FFlagAppChatUserTileCustomTitleTruncation_0 = require(l_Parent_0.SharedFlags).FFlagAppChatUserTileCustomTitleTruncation;
 local v15 = require(l_script_FirstAncestor_0.Flags.FFlagCleanupTCIndicatorRing);
 local l_FFlagUserTileTextTCIndicator_0 = require(l_Parent_0.SharedFlags).FFlagUserTileTextTCIndicator;
+local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
 local l_FFlagUserTileShowBadges_0 = require(l_Parent_0.SharedFlags).FFlagUserTileShowBadges;
-return function(v18) --[[ Line: 53 ]] --[[ Name: UserTile ]]
-    -- upvalues: v2 (copy), l_ControlState_0 (copy), l_View_0 (copy), v10 (copy), l_Enums_0 (copy), v13 (copy), v6 (copy), v5 (copy), v12 (copy), v15 (copy), v4 (copy), l_FFlagUserTileShowBadges_0 (copy), l_FFlagProfilePlatformNewProfileHeader_0 (copy), l_FFlagAppChatUserTileCustomTitleTruncation_0 (copy), l_FFlagUserTileTextTCIndicator_0 (copy)
-    local v19, v20 = v2.useState(false);
-    local v21 = v18.onActivated ~= nil;
-    local v23 = v2.useCallback(function(v22) --[[ Line: 56 ]]
-        -- upvalues: v20 (copy), v21 (copy), l_ControlState_0 (ref)
-        v20(v21 and (v22 == l_ControlState_0.Hover or v22 == l_ControlState_0.Pressed));
+return function(v19) --[[ Line: 55 ]] --[[ Name: UserTile ]]
+    -- upvalues: v2 (copy), l_ControlState_0 (copy), l_View_0 (copy), v10 (copy), l_Enums_0 (copy), v13 (copy), v6 (copy), v5 (copy), v12 (copy), v15 (copy), v4 (copy), l_FFlagUserTileShowBadges_0 (copy), l_FFlagProfilePlatformNewProfileHeader_0 (copy), l_FFlagAppChatUserTileCustomTitleTruncation_0 (copy), l_FFlagUserTileTextTCIndicator_0 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy)
+    local v20, v21 = v2.useState(false);
+    local v22 = v19.onActivated ~= nil;
+    local v24 = v2.useCallback(function(v23) --[[ Line: 58 ]]
+        -- upvalues: v21 (copy), v22 (copy), l_ControlState_0 (ref)
+        v21(v22 and (v23 == l_ControlState_0.Hover or v23 == l_ControlState_0.Pressed));
     end, {
-        v18.onActivated
+        v19.onActivated
     });
     return v2.createElement(l_View_0, {
         tag = {
             ["size-full"] = true, 
-            ["col align-x-center gap-small"] = v18.layoutMode == v10.compact, 
-            ["row align-y-center gap-medium"] = v18.layoutMode == v10.wide
+            ["col align-x-center gap-small"] = v19.layoutMode == v10.compact, 
+            ["row align-y-center gap-medium"] = v19.layoutMode == v10.wide
         }, 
         selection = {
-            Selectable = v18.selectable
+            Selectable = v19.selectable
         }, 
-        onStateChanged = v23, 
-        onActivated = v18.onActivated, 
+        onStateChanged = v24, 
+        onActivated = v19.onActivated, 
         stateLayer = {
             affordance = l_Enums_0.StateLayerAffordance.None
         }
     }, {
         AvatarThumbnail = if v13 then v2.createElement(l_View_0, {
             tag = "size-full aspect-1-1", 
-            Size = v18.avatarSize, 
+            Size = v19.avatarSize, 
             LayoutOrder = 1
         }, {
-            AvatarComponent = if v18.facePileSecondUserId then v2.createElement(v6, {
+            AvatarComponent = if v19.facePileSecondUserId then v2.createElement(v6, {
                 layoutOrder = 1, 
-                primaryUserId = v18.userId, 
-                secondUserId = v18.facePileSecondUserId, 
+                primaryUserId = v19.userId, 
+                secondUserId = v19.facePileSecondUserId, 
+                userPresenceType = v19.userPresenceType, 
                 ZIndex = 2, 
-                hover = v19
+                hover = v20
             }) else v2.createElement(v5, {
-                avatarThumbnailUrl = if v12 then v18.avatarThumbnailUrl else nil, 
+                avatarThumbnailUrl = if v12 then v19.avatarThumbnailUrl else nil, 
                 layoutOrder = 1, 
-                userId = v18.userId, 
-                isTrustedConnection = v18.isTrustedConnection, 
-                userPresenceType = v18.userPresenceType, 
-                triggerAnimation = if v15 then nil else v18.triggerAnimation, 
-                altSurfaceBackground = if v15 then nil else v18.altSurfaceBackground, 
+                userId = v19.userId, 
+                isTrustedConnection = v19.isTrustedConnection, 
+                userPresenceType = v19.userPresenceType, 
+                triggerAnimation = if v15 then nil else v19.triggerAnimation, 
+                altSurfaceBackground = if v15 then nil else v19.altSurfaceBackground, 
                 ZIndex = 2, 
-                hover = v19
+                hover = v20
             })
-        }) else if v18.facePileSecondUserId then v2.createElement(v6, {
+        }) else if v19.facePileSecondUserId then v2.createElement(v6, {
             layoutOrder = 1, 
-            primaryUserId = v18.userId, 
-            secondUserId = v18.facePileSecondUserId, 
+            primaryUserId = v19.userId, 
+            secondUserId = v19.facePileSecondUserId, 
+            userPresenceType = v19.userPresenceType, 
             ZIndex = 2, 
-            hover = v19
+            hover = v20
         }) else v2.createElement(v5, {
-            avatarThumbnailUrl = if v12 then v18.avatarThumbnailUrl else nil, 
+            avatarThumbnailUrl = if v12 then v19.avatarThumbnailUrl else nil, 
             layoutOrder = 1, 
-            userId = v18.userId, 
-            isTrustedConnection = v18.isTrustedConnection, 
-            userPresenceType = v18.userPresenceType, 
-            triggerAnimation = if v15 then nil else v18.triggerAnimation, 
-            altSurfaceBackground = if v15 then nil else v18.altSurfaceBackground, 
+            userId = v19.userId, 
+            isTrustedConnection = v19.isTrustedConnection, 
+            userPresenceType = v19.userPresenceType, 
+            triggerAnimation = if v15 then nil else v19.triggerAnimation, 
+            altSurfaceBackground = if v15 then nil else v19.altSurfaceBackground, 
             ZIndex = 2, 
-            hover = v19
+            hover = v20
         }), 
         TitleStack = v2.createElement(v4, {
             layoutOrder = 2, 
-            title = v18.title, 
-            isVerified = if l_FFlagUserTileShowBadges_0 then v18.isVerified else nil, 
-            isPremium = if l_FFlagUserTileShowBadges_0 then v18.isPremium else nil, 
-            isRobloxAdmin = if l_FFlagUserTileShowBadges_0 then v18.isRobloxAdmin else nil, 
-            subtitle = v18.subtitle, 
-            contextualInfo = v18.contextualInfo, 
-            layoutMode = v18.layoutMode, 
-            titleStyle = v18.titleStyle, 
-            subtitleStyle = v18.subtitleStyle, 
-            contextualInfoStyle = v18.contextualInfoStyle, 
+            title = v19.title, 
+            isVerified = if l_FFlagUserTileShowBadges_0 then v19.isVerified else nil, 
+            isPremium = if l_FFlagUserTileShowBadges_0 then v19.isPremium else nil, 
+            isRobloxAdmin = if l_FFlagUserTileShowBadges_0 then v19.isRobloxAdmin else nil, 
+            subtitle = v19.subtitle, 
+            contextualInfo = v19.contextualInfo, 
+            layoutMode = v19.layoutMode, 
+            titleStyle = v19.titleStyle, 
+            subtitleStyle = v19.subtitleStyle, 
+            contextualInfoStyle = v19.contextualInfoStyle, 
             ZIndex = 1, 
-            titleIcon = v18.titleIcon, 
-            onSubtitleClicked = if l_FFlagProfilePlatformNewProfileHeader_0 then v18.onSubtitleClicked else nil, 
-            isTitleLoading = if v12 then v18.isTitleLoading else nil, 
-            isSubtitleLoading = if v12 then v18.isSubtitleLoading else nil, 
-            isContextualInfoLoading = if v12 then v18.isContextualInfoLoading else nil, 
-            customTextTruncation = if l_FFlagAppChatUserTileCustomTitleTruncation_0 then v18.customTextTruncation else nil, 
-            isTrustedConnection = if l_FFlagUserTileTextTCIndicator_0 then v18.isTrustedConnection else nil, 
-            trustedConnectionIndicatorEnabled = if l_FFlagUserTileTextTCIndicator_0 then v18.trustedConnectionIndicatorEnabled else nil
+            titleIcon = v19.titleIcon, 
+            onSubtitleClicked = if l_FFlagProfilePlatformNewProfileHeader_0 then v19.onSubtitleClicked else nil, 
+            isTitleLoading = if v12 then v19.isTitleLoading else nil, 
+            isSubtitleLoading = if v12 then v19.isSubtitleLoading else nil, 
+            isContextualInfoLoading = if v12 then v19.isContextualInfoLoading else nil, 
+            customTextTruncation = if l_FFlagAppChatUserTileCustomTitleTruncation_0 then v19.customTextTruncation else nil, 
+            isTrustedConnection = if l_FFlagUserTileTextTCIndicator_0 then v19.isTrustedConnection else nil, 
+            trustedConnectionIndicatorEnabled = if l_FFlagUserTileTextTCIndicator_0 then v19.trustedConnectionIndicatorEnabled else nil, 
+            isRobloxSubscriber = if l_FFlagEnableBlackbirdCheckDev_0 then v19.isRobloxSubscriber else nil
         })
     });
 end;

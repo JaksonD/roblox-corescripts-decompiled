@@ -5,7 +5,8 @@ return {
         EditProfileSubScreen = "EditProfileSubScreen", 
         UsernameInsufficientFundsModal = "UsernameInsufficientFundsModal", 
         EditProfileToast = "EditProfileToast", 
-        AvatarCatalog = "Catalog"
+        AvatarCatalog = "Catalog", 
+        ProfilePictureEditorCamera = "ProfilePictureEditorCamera"
     }, 
     RequestMethods = {
         GET = "GET", 

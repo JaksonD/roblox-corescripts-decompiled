@@ -2,48 +2,45 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v2 = require(l_CorePackages_0.Packages.React);
 local _ = require(l_Modules_0.AvatarExperience.Common.Components.WidgetList.Types);
-local v4 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableWidgetsTTI);
-local v5 = require(l_Modules_0.AvatarExperience.Common.Hooks.TileLatency.useTileLoadingLatencyInitializer);
+local v4 = require(l_Modules_0.AvatarExperience.Common.Hooks.TileLatency.useTileLoadingLatencyInitializer);
 local l_usePrevious_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.usePrevious;
-local v7 = game:DefineFastFlag("AXFixOrganicTTILogging", false);
-return function(v8, v9, v10) --[[ Line: 17 ]] --[[ Name: useTileLatencyTracker ]]
-    -- upvalues: v5 (copy), l_usePrevious_0 (copy), v2 (copy), v4 (copy), v7 (copy)
-    local v11 = v5(v8);
-    local v12 = l_usePrevious_0(v9);
-    local v13, v14 = v2.useState(v11.currentCategory);
-    local v15, v16 = v2.useState(v11.currentSubcategory);
-    if v4() then
-        v2.useEffect(function() --[[ Line: 28 ]]
-            -- upvalues: v10 (copy), v11 (copy)
-            if not v10 or not v11 then
-                return;
-            else
-                v11.fireTileLoadingLatencyTracker(v11, nil, true);
-                return;
-            end;
-        end, {
-            v10
-        });
-    end;
-    v2.useEffect(function() --[[ Line: 37 ]]
-        -- upvalues: v9 (copy), v11 (copy), v12 (copy), v13 (copy), v15 (copy), v7 (ref), v14 (copy), v16 (copy)
-        if not v9 or #v9 == 0 then
+local v6 = game:DefineFastFlag("AXFixOrganicTTILogging", false);
+return function(v7, v8, v9) --[[ Line: 16 ]] --[[ Name: useTileLatencyTracker ]]
+    -- upvalues: v4 (copy), l_usePrevious_0 (copy), v2 (copy), v6 (copy)
+    local v10 = v4(v7);
+    local v11 = l_usePrevious_0(v8);
+    local v12, v13 = v2.useState(v10.currentCategory);
+    local v14, v15 = v2.useState(v10.currentSubcategory);
+    v2.useEffect(function() --[[ Line: 26 ]]
+        -- upvalues: v9 (copy), v10 (copy)
+        if not v9 or not v10 then
             return;
         else
-            if v11.trackerStartTime ~= nil and #v9 > 0 and v12 ~= v9 and (v13 ~= v11.currentCategory or v15 ~= v11.currentSubcategory or v7 and (not v12 or #v12 == 0)) then
-                v11.fireTileLoadingLatencyTracker(v11);
-            end;
-            v14(v11.currentCategory);
-            v16(v11.currentSubcategory);
+            v10.fireTileLoadingLatencyTracker(v10, nil, true);
             return;
         end;
     end, {
-        v11.currentPageName, 
+        v9
+    });
+    v2.useEffect(function() --[[ Line: 34 ]]
+        -- upvalues: v8 (copy), v10 (copy), v11 (copy), v12 (copy), v14 (copy), v6 (ref), v13 (copy), v15 (copy)
+        if not v8 or #v8 == 0 then
+            return;
+        else
+            if v10.trackerStartTime ~= nil and #v8 > 0 and v11 ~= v8 and (v12 ~= v10.currentCategory or v14 ~= v10.currentSubcategory or v6 and (not v11 or #v11 == 0)) then
+                v10.fireTileLoadingLatencyTracker(v10);
+            end;
+            v13(v10.currentCategory);
+            v15(v10.currentSubcategory);
+            return;
+        end;
+    end, {
+        v10.currentPageName, 
+        v7, 
+        v10.trackerStartTime, 
+        v10.currentCategory, 
+        v10.currentSubcategory, 
         v8, 
-        v11.trackerStartTime, 
-        v11.currentCategory, 
-        v11.currentSubcategory, 
-        v9, 
-        v13
+        v12
     });
 end;

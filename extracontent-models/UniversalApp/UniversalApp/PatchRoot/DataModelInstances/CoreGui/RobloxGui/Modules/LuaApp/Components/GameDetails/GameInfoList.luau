@@ -43,21 +43,21 @@ local l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 = require(l_CorePackage
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyDefault;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
 local v44 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.ExperienceLogoTray);
-local l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddTestIdsForEdpInfoTable;
 local l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppUpdateContentDescriptorsTranslation;
-local v47 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
-local l_Constants_1 = v47.Constants;
-local l_EdpStoreImpressionsDetector_0 = v47.EdpStoreImpressionsDetector;
-local v50 = require(l_Modules_0.LuaApp.Flags.FFlagEnableEdpStoreImpressionsLogging);
-local v51 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
+local v46 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
+local l_Constants_1 = v46.Constants;
+local l_EdpStoreImpressionsDetector_0 = v46.EdpStoreImpressionsDetector;
+local v49 = require(l_Modules_0.LuaApp.Flags.FFlagEnableEdpStoreImpressionsLogging);
+local v50 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
 local l_abbreviateCount_0 = require(l_CorePackages_0.Workspace.Packages.Localization).abbreviateCount;
 local l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveDefault;
 local l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2SduiInterleaveIxp;
-local v55 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.Hooks.useEdpServerIxpVariables);
-local v56 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
+local v54 = require(l_Modules_0.LuaApp.Components.ExperienceDetails.Hooks.useEdpServerIxpVariables);
+local v55 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
 local l_FFlagLuaAppBadgesSeeAllEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllEnabled;
 local l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp;
 local l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddSocialLinkClickTelemetryToEdp;
+local l_FFlagLuaAppHideEdpStoreForUnplayable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppHideEdpStoreForUnplayable;
 local v60 = v3.PureComponent:extend("GameInfoList");
 local v61 = {
     All = "Feature.GameDetails.Label.GenreAll", 
@@ -81,9 +81,9 @@ v60.defaultProps = {
     rightPadding = 0
 };
 v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
-    -- upvalues: v50 (copy), v3 (copy), v11 (copy), l_EdpStoreImpressionsDetector_0 (copy), l_Constants_1 (copy), l_ImpressionsTagUtility_0 (copy), v17 (copy), v56 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (copy), v18 (copy), v51 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy)
+    -- upvalues: v49 (copy), v3 (copy), v11 (copy), l_EdpStoreImpressionsDetector_0 (copy), l_Constants_1 (copy), l_ImpressionsTagUtility_0 (copy), v17 (copy), v55 (copy), v18 (copy), v50 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy)
     v62.createGamePassPreviewRow = function(v63, v64, v65, v66) --[[ Line: 121 ]]
-        -- upvalues: v62 (copy), v50 (ref), v3 (ref), v11 (ref), l_EdpStoreImpressionsDetector_0 (ref), l_Constants_1 (ref), l_ImpressionsTagUtility_0 (ref), v17 (ref), v56 (ref), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref), v18 (ref), v51 (ref)
+        -- upvalues: v62 (copy), v49 (ref), v3 (ref), v11 (ref), l_EdpStoreImpressionsDetector_0 (ref), l_Constants_1 (ref), l_ImpressionsTagUtility_0 (ref), v17 (ref), v55 (ref), v18 (ref), v50 (ref)
         local v67 = v62.props.gameDetail and v62.props.gameDetail.rootPlaceId;
         local l_passes_0 = v62.props.passes;
         if not l_passes_0 or not v67 then
@@ -97,7 +97,7 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
             local v74 = nil;
             local v75 = nil;
             local v76 = nil;
-            if v50 then
+            if v49 then
                 v72 = v3.createRef();
                 v73 = v3.createRef();
                 v73.current = v11.Signal.new();
@@ -136,7 +136,7 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
                     Size = UDim2.new(1, 0, 0, 57), 
                     useVerifiedBadgeEmojiWrapper = v65.useVerifiedBadgeEmojiWrapper, 
                     LayoutOrder = 1, 
-                    viewWidth = if v56() then l_width_0 else nil, 
+                    viewWidth = if v55() then l_width_0 else nil, 
                     placeId = v67, 
                     infoName = v65.infoName, 
                     infoData = v65.infoData, 
@@ -148,7 +148,7 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
                     topPadding = 10, 
                     bottomPadding = 10, 
                     analyticsSubPage = v65.analyticsSubPage, 
-                    testId = if l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 then v65.testId else nil
+                    testId = v65.testId
                 }), 
                 GamePassPreview = v3.createElement("Frame", {
                     LayoutOrder = 2, 
@@ -156,8 +156,8 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
                     BorderSizePixel = 0, 
                     AutomaticSize = Enum.AutomaticSize.Y, 
                     BackgroundTransparency = 1, 
-                    [v3.Ref] = if v50 then v76 else nil, 
-                    [v3.Change.AbsolutePosition] = if v50 then v74 else nil
+                    [v3.Ref] = if v49 then v76 else nil, 
+                    [v3.Change.AbsolutePosition] = if v49 then v74 else nil
                 }, {
                     Layout = v3.createElement("UIListLayout", {
                         SortOrder = Enum.SortOrder.LayoutOrder, 
@@ -175,10 +175,10 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
                         numRows = 1, 
                         viewWidth = l_width_0, 
                         textSizeOffset = v66, 
-                        locationType = if v51() then l_Constants_1.StoreEnums.LocationType.Edp else nil
+                        locationType = if v50() then l_Constants_1.StoreEnums.LocationType.Edp else nil
                     })
                 }), 
-                ImpressionsDetecter = if v50 then v75 else nil
+                ImpressionsDetecter = if v49 then v75 else nil
             });
         end;
     end;
@@ -190,7 +190,7 @@ v60.init = function(v62) --[[ Line: 120 ]] --[[ Name: init ]]
     end;
 end;
 v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameInfoListData ]]
-    -- upvalues: v38 (copy), v13 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v36 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v29 (copy), v39 (copy), v61 (copy), v37 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy)
+    -- upvalues: v38 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (copy), v13 (copy), l_GuildedLogoWhiteAsset_0 (copy), l_getCommunityUrl_0 (copy), l_clickCommunityLinkEvent_0 (copy), l_Constants_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v36 (copy), l_abbreviateCount_0 (copy), l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 (copy), l_EnableCommunityProfilePageIXP_0 (copy), v29 (copy), v39 (copy), v61 (copy), v37 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy)
     local l_localization_0 = v79.props.localization;
     local l_universeId_0 = v79.props.universeId;
     local l_maxPlayers_0 = v79.props.gameDetail.maxPlayers;
@@ -242,7 +242,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
     local l_l_localization_0_Locale_0 = l_localization_0:GetLocale();
     local v116 = v91:FormatLocalTime("l", l_l_localization_0_Locale_0);
     local v117 = v92:FormatLocalTime("l", l_l_localization_0_Locale_0);
-    if l_showPasses_0 and l_enableGamePassPreview_0 then
+    if l_showPasses_0 and l_enableGamePassPreview_0 and (not l_FFlagLuaAppHideEdpStoreForUnplayable_0 or v79.props.isPlayable) then
         table.insert(v79.gameInfoListData, {
             renderFunction = v79.createGamePassPreviewRow, 
             itemInfo = {
@@ -250,7 +250,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 infoData = "", 
                 linkView = v13.PassesPage, 
                 analyticsSubPage = "PassesAndGear", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--store-row-tail" or nil
+                testId = "--store-row-tail"
             }
         });
     end;
@@ -263,7 +263,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
             infoData = "", 
             infoIcon = l_GuildedLogoWhiteAsset_0, 
             linkUrl = l_getCommunityUrl_0(l_communityLink_0.communityId), 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--community-row-tail" or nil, 
+            testId = "--community-row-tail", 
             linkClickCallback = function() --[[ Line: 333 ]] --[[ Name: linkClickCallback ]]
                 -- upvalues: l_clickCommunityLinkEvent_0 (ref), v79 (copy), l_Constants_0 (ref), l_communityLink_0 (copy), l_universeId_0 (copy)
                 l_clickCommunityLinkEvent_0(v79.props.eventIngest, l_Constants_0.Context.ExperienceInfoList, {
@@ -280,7 +280,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Visits", 
             infoData = l_abbreviateCount_0(v122, l_l_localization_0_Locale_0) or "--", 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--visits-row-tail" or nil
+            testId = "--visits-row-tail"
         });
     end;
     table.insert(v79.gameInfoListData, {
@@ -289,13 +289,13 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
         linkView = if v98 then v13.ExperienceGuidelinesExplained else nil, 
         analyticsSubPage = v13.ExperienceGuidelinesExplained, 
         disableInfoNameLocalization = v79.props.ageRecommendationHeader ~= nil, 
-        testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--content-maturity-row-tail" or nil
+        testId = "--content-maturity-row-tail"
     });
     if v99 and v99 ~= "" then
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Age", 
             infoData = v99, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--age-row-tail" or nil
+            testId = "--age-row-tail"
         });
     end;
     if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v36.getShouldInterleaveSdui()) and l_edpServerIxpVariables_0 and l_edpServerIxpVariables_0.showContentDescriptorsInInfoList == true and v79.props.ageRecommendations and v79.props.ageRecommendations.descriptorUsages and #v79.props.ageRecommendations.descriptorUsages > 0 then
@@ -304,7 +304,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 table.insert(v79.gameInfoListData, {
                     infoName = l_FFlagLuaAppUpdateContentDescriptorsTranslation_0 and "Feature.AgeGuidelines.Label.CreatorEnabled" or "Feature.AccountSettings.Heading.Communication", 
                     infoData = l_localization_0:Format("Feature.AgeGuidelines.DisplayName.StrongLanguage"), 
-                    testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--content-descriptors-row-tail" or nil
+                    testId = "--content-descriptors-row-tail"
                 });
                 break;
             end;
@@ -319,7 +319,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 linkViewData = l_id_0, 
                 analyticsSubPage = "Developer", 
                 useVerifiedBadgeEmojiWrapper = l_creatorVerified_0, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                testId = "--developer-row-tail"
             });
         elseif l_type_0 == Enum.CreatorType.User.Name then
             table.insert(v79.gameInfoListData, {
@@ -329,7 +329,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 linkViewData = l_id_0, 
                 analyticsSubPage = "Developer", 
                 useVerifiedBadgeEmojiWrapper = l_creatorVerified_0, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                testId = "--developer-row-tail"
             });
         else
             table.insert(v79.gameInfoListData, {
@@ -341,7 +341,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 }), 
                 analyticsSubPage = "Developer", 
                 useVerifiedBadgeEmojiWrapper = l_creatorVerified_0, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--developer-row-tail" or nil
+                testId = "--developer-row-tail"
             });
         end;
     end;
@@ -349,7 +349,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.MaxPlayers", 
             infoData = tostring(l_maxPlayers_0), 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--server-size-row-tail" or nil
+            testId = "--server-size-row-tail"
         });
     end;
     local v125 = nil;
@@ -370,28 +370,28 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Genre", 
             infoData = l_genre_0, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--genre-row-tail" or nil
+            testId = "--genre-row-tail"
         });
     end;
     if l_showSubgenreRow_0 and l_genre_l2_0 and l_genre_l2_0 ~= "" then
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Subgenre", 
             infoData = l_genre_l2_0, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--subgenre-row-tail" or nil
+            testId = "--subgenre-row-tail"
         });
     end;
     if l_showCreatedRow_0 then
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Created", 
             infoData = v116, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--created-row-tail" or nil
+            testId = "--created-row-tail"
         });
     end;
     if l_showUpdatedRow_0 then
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Updated", 
             infoData = v117, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--updated-row-tail" or nil
+            testId = "--updated-row-tail"
         });
     end;
     if v37() then
@@ -407,13 +407,13 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
             table.insert(v79.gameInfoListData, {
                 infoName = "Feature.GameDetails.Label.VoiceChat", 
                 infoData = v127, 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--voice-chat-row-tail" or nil
+                testId = "--voice-chat-row-tail"
             });
         end;
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Camera", 
             infoData = v128, 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--camera-row-tail" or nil
+            testId = "--camera-row-tail"
         });
     else
         local v129 = {};
@@ -429,16 +429,16 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.AccountSettings.Heading.Communication", 
             infoData = table.concat(v129, ", "), 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--communication-row-tail" or nil
+            testId = "--communication-row-tail"
         });
     end;
-    if not l_enableGamePassPreview_0 and (l_showPasses_0 or l_showSubscriptionProducts_0 or l_showDeveloperProducts_0) then
+    if not l_enableGamePassPreview_0 and (l_showPasses_0 or l_showSubscriptionProducts_0 or l_showDeveloperProducts_0) and (not l_FFlagLuaAppHideEdpStoreForUnplayable_0 or v79.props.isPlayable) then
         table.insert(v79.gameInfoListData, {
             infoName = "Feature.GameDetails.Label.Store", 
             infoData = "", 
             linkView = v13.PassesPage, 
             analyticsSubPage = "PassesAndGear", 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--store-row-tail" or nil
+            testId = "--store-row-tail"
         });
     end;
     if l_showBadges_0 then
@@ -450,7 +450,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
             }), 
             linkView = if l_FFlagLuaAppBadgesSeeAllEnabled_0 then v13.BadgesSeeAll else nil, 
             analyticsSubPage = "Badges", 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--badges-row-tail" or nil
+            testId = "--badges-row-tail"
         });
     end;
     if v110 then
@@ -461,7 +461,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 universeId = l_universeId_0
             }), 
             analyticsSubPage = "Servers", 
-            testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--servers-row-tail" or nil
+            testId = "--servers-row-tail"
         });
     end;
     if l_groupLink_0 and l_enableGroupLinks_0 then
@@ -472,7 +472,7 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 linkView = "CommunityProfilePlatform", 
                 linkViewData = l_groupLink_0.communityId, 
                 analyticsSubPage = "Group", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--group-row-tail" or nil
+                testId = "--group-row-tail"
             });
             return;
         else
@@ -481,17 +481,17 @@ v60.makeGameInfoListData = function(v79) --[[ Line: 242 ]] --[[ Name: makeGameIn
                 infoData = "", 
                 linkPage = l_groupLink_0.url, 
                 analyticsSubPage = "Group", 
-                testId = l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 and "--group-row-tail" or nil
+                testId = "--group-row-tail"
             });
         end;
     end;
 end;
-v60.createSocialMediaRow = function(v130, v131, v132) --[[ Line: 615 ]] --[[ Name: createSocialMediaRow ]]
+v60.createSocialMediaRow = function(v130, v131, v132) --[[ Line: 619 ]] --[[ Name: createSocialMediaRow ]]
     -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), v3 (copy), v11 (copy), v19 (copy), v13 (copy), l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 (copy), v44 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), v31 (copy)
     local v133 = if l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 then ("EXPERIENCE_SOCIAL_LINKS_%*"):format(v131) else nil;
     local v134 = if l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 then v3.createRef() else nil;
     local v135 = if l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 then v11.Signal.new() else nil;
-    local v137 = l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 and function(_) --[[ Line: 631 ]]
+    local v137 = l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 and function(_) --[[ Line: 635 ]]
         -- upvalues: v135 (copy)
         v135:fire();
     end or nil;
@@ -538,7 +538,7 @@ v60.createSocialMediaRow = function(v130, v131, v132) --[[ Line: 615 ]] --[[ Nam
         })
     });
 end;
-v60.createCommunityRow = function(v140, v141) --[[ Line: 688 ]] --[[ Name: createCommunityRow ]]
+v60.createCommunityRow = function(v140, v141) --[[ Line: 692 ]] --[[ Name: createCommunityRow ]]
     -- upvalues: v3 (copy), l_ExperienceCommunityLink_0 (copy)
     local l_leftPadding_2 = v140.props.leftPadding;
     local l_rightPadding_2 = v140.props.rightPadding;
@@ -562,8 +562,8 @@ v60.createCommunityRow = function(v140, v141) --[[ Line: 688 ]] --[[ Name: creat
         })
     });
 end;
-v60.render = function(v144) --[[ Line: 713 ]] --[[ Name: render ]]
-    -- upvalues: v3 (copy), l_withStyle_0 (copy), v17 (copy), l_EnableCommunityProfilePageIXP_0 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (copy)
+v60.render = function(v144) --[[ Line: 717 ]] --[[ Name: render ]]
+    -- upvalues: v3 (copy), l_withStyle_0 (copy), v17 (copy), l_EnableCommunityProfilePageIXP_0 (copy)
     local l_textSizeOffset_0 = v144.props.textSizeOffset;
     v144:makeGameInfoListData();
     local l_rootPlaceId_0 = v144.props.gameDetail.rootPlaceId;
@@ -578,8 +578,8 @@ v60.render = function(v144) --[[ Line: 713 ]] --[[ Name: render ]]
             HorizontalAlignment = Enum.HorizontalAlignment.Right
         })
     };
-    return l_withStyle_0(function(v153) --[[ Line: 732 ]]
-        -- upvalues: v144 (copy), v152 (copy), l_universeId_1 (copy), l_textSizeOffset_0 (copy), v3 (ref), v17 (ref), l_rootPlaceId_0 (copy), l_EnableCommunityProfilePageIXP_0 (ref), l_leftPadding_3 (copy), l_rightPadding_3 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref), l_showSocial_0 (copy), l_LayoutOrder_0 (copy)
+    return l_withStyle_0(function(v153) --[[ Line: 736 ]]
+        -- upvalues: v144 (copy), v152 (copy), l_universeId_1 (copy), l_textSizeOffset_0 (copy), v3 (ref), v17 (ref), l_rootPlaceId_0 (copy), l_EnableCommunityProfilePageIXP_0 (ref), l_leftPadding_3 (copy), l_rightPadding_3 (copy), l_showSocial_0 (copy), l_LayoutOrder_0 (copy)
         local l_Color_0 = v153.Theme.Divider.Color;
         local l_Transparency_0 = v153.Theme.Divider.Transparency;
         local v156 = 0;
@@ -610,7 +610,7 @@ v60.render = function(v144) --[[ Line: 713 ]] --[[ Name: render ]]
                     bottomPadding = 10, 
                     analyticsSubPage = v159.analyticsSubPage, 
                     disableInfoNameLocalization = v159.disableInfoNameLocalization, 
-                    testId = if l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 then v159.testId else nil
+                    testId = v159.testId
                 });
             end;
             v156 = v156 + 1;
@@ -647,10 +647,10 @@ v60.render = function(v144) --[[ Line: 713 ]] --[[ Name: render ]]
         }, v152);
     end);
 end;
-v60.didMount = function(v166) --[[ Line: 809 ]] --[[ Name: didMount ]]
+v60.didMount = function(v166) --[[ Line: 813 ]] --[[ Name: didMount ]]
     v166.checkCommunityLinkExposureLogging();
 end;
-v60.didUpdate = function(v167, v168, _) --[[ Line: 813 ]] --[[ Name: didUpdate ]]
+v60.didUpdate = function(v167, v168, _) --[[ Line: 817 ]] --[[ Name: didUpdate ]]
     -- upvalues: v13 (copy)
     local l_topPage_0 = v167.props.topPage;
     local l_topPage_1 = v168.topPage;
@@ -661,7 +661,7 @@ v60.didUpdate = function(v167, v168, _) --[[ Line: 813 ]] --[[ Name: didUpdate ]
         v167.checkCommunityLinkExposureLogging();
     end;
 end;
-local v176 = v6(function(v172) --[[ Line: 830 ]]
+local v176 = v6(function(v172) --[[ Line: 834 ]]
     local v173 = {};
     if not v172 then
         return v173;
@@ -674,13 +674,13 @@ local v176 = v6(function(v172) --[[ Line: 830 ]]
         return v173;
     end;
 end);
-local function _(v177) --[[ Line: 846 ]] --[[ Name: getTopPageInfo ]]
+local function _(v177) --[[ Line: 850 ]] --[[ Name: getTopPageInfo ]]
     local l_history_0 = v177.Navigation.history;
     local v179 = l_history_0[#l_history_0];
     return v179[#v179];
 end;
-v60 = v5.connect(function(v181, v182) --[[ Line: 853 ]]
-    -- upvalues: v176 (copy), v32 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 (copy)
+v60 = v5.connect(function(v181, v182) --[[ Line: 857 ]]
+    -- upvalues: v176 (copy), v32 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 (copy), l_FFlagLuaAppHideEdpStoreForUnplayable_0 (copy)
     local v183 = v181.GamePasses and v176(v181.GamePasses[v182.universeId]);
     local v184 = v181.GameSubscriptionProducts[v182.universeId];
     local v185 = v181.GameDeveloperProducts[v182.universeId];
@@ -729,19 +729,20 @@ v60 = v5.connect(function(v181, v182) --[[ Line: 853 ]]
     v198.topPage = v200[#v200];
     v198.ageRecommendationHeader = v181.AgeRecommendationHeaders.headerDisplayName;
     v198.socialLinks = if not not l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 or l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 then v191 else nil;
+    v198.isPlayable = if l_FFlagLuaAppHideEdpStoreForUnplayable_0 then v181.PlayabilityStatus and v181.PlayabilityStatus[v182.universeId] and v181.PlayabilityStatus[v182.universeId].isPlayable else nil;
     return v198;
-end, function(v201) --[[ Line: 918 ]]
+end, function(v201) --[[ Line: 927 ]]
     -- upvalues: v14 (copy), l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 (copy), v15 (copy), v16 (copy)
     return {
-        fetchGamePasses = function(v202, v203) --[[ Line: 920 ]] --[[ Name: fetchGamePasses ]]
+        fetchGamePasses = function(v202, v203) --[[ Line: 929 ]] --[[ Name: fetchGamePasses ]]
             -- upvalues: v201 (copy), v14 (ref)
             return v201(v14(v202, v203));
         end, 
-        openLeaveRobloxAlertUIBlox = l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 and function(v204) --[[ Line: 924 ]]
+        openLeaveRobloxAlertUIBlox = l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 and function(v204) --[[ Line: 933 ]]
             -- upvalues: v201 (copy), v15 (ref)
             v201(v15(v204));
         end or nil, 
-        closeAlert = l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 and function() --[[ Line: 929 ]]
+        closeAlert = l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 and function() --[[ Line: 938 ]]
             -- upvalues: v201 (copy), v16 (ref)
             v201(v16());
         end or nil
@@ -750,7 +751,7 @@ end)(v60);
 v60 = v26.connectUserLayer({
     l_AppUserLayers_0.EDPCommunityLinksLayer, 
     l_EnableCommunityProfilePageIXP_0.EnableCommunityProfilePageExperimentLayer
-}, function(v205) --[[ Line: 939 ]]
+}, function(v205) --[[ Line: 948 ]]
     -- upvalues: l_AppUserLayers_0 (copy), l_EnableCommunityProfilePageIXP_0 (copy)
     local v206 = (v205[l_AppUserLayers_0.EDPCommunityLinksLayer] or {}).communityLinkDisplayConfig or {};
     local v207 = if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then l_EnableCommunityProfilePageIXP_0.isFeatureActive(v205) else nil;
@@ -760,7 +761,7 @@ v60 = v26.connectUserLayer({
         communityProfilePageEnabled = if l_EnableCommunityProfilePageIXP_0.FFlagIsSetupEnabled then v207 else nil
     };
 end, false)(v60);
-v60 = l_RoactAppPolicy_0.connect(function(v208, _) --[[ Line: 955 ]]
+v60 = l_RoactAppPolicy_0.connect(function(v208, _) --[[ Line: 964 ]]
     return {
         enableGroupLinks = v208.getSocialGroupLinks(), 
         showBadgesRow = v208.getGameInfoShowBadges(), 
@@ -781,12 +782,12 @@ v60 = l_RoactServices_0.connect({
     eventIngest = v9, 
     linking = if l_FFlagLuaAppUseExperienceLogoTrayInGameInfoList_0 then l_AppLinking_0 else nil
 })(v60);
-return function(v210) --[[ Line: 977 ]]
-    -- upvalues: l_useTextSizeOffset_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v55 (copy), v10 (copy), v36 (copy), v3 (copy), v60 (ref)
+return function(v210) --[[ Line: 986 ]]
+    -- upvalues: l_useTextSizeOffset_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v54 (copy), v10 (copy), v36 (copy), v3 (copy), v60 (ref)
     local v211 = l_useTextSizeOffset_0();
     local v212 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-        v212 = v55();
+        v212 = v54();
     end;
     local v213 = v10.Dictionary.join(v210, {
         textSizeOffset = v211, 

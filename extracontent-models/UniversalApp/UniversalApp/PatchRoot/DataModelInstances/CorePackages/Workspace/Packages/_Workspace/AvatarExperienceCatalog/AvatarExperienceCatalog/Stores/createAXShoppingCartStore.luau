@@ -33,7 +33,7 @@ local v19 = {
     SUCCEEDED = "SUCCEEDED", 
     FAILED = "FAILED"
 };
-local function v43(v20, v21) --[[ Line: 104 ]] --[[ Name: getItemCartData ]]
+local function v44(v20, v21) --[[ Line: 105 ]] --[[ Name: getItemCartData ]]
     -- upvalues: l_Constants_0 (copy), v5 (copy), v3 (copy), l_getItemPurchaseActionType_0 (copy), l_ItemPurchaseActionTypeEnum_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_ItemTileEnums_0 (copy)
     if v20.itemId == l_Constants_0.AVATAR_BLOCKY_DEFAULT_BUNDLE_ID then
         return {
@@ -76,192 +76,201 @@ local function v43(v20, v21) --[[ Line: 104 ]] --[[ Name: getItemCartData ]]
         end;
         local v38 = nil;
         if l_FFlagAXDurablesForMIS_0 and l_itemData_0.timedOptions then
-            for _, v40 in l_itemData_0.timedOptions do
-                if v40.selected then
-                    v38 = v40.days;
-                    v30 = v40.price;
-                    break;
+            if v20.selectedTimedOptionIndex ~= nil then
+                local v39 = l_itemData_0.timedOptions[v20.selectedTimedOptionIndex];
+                if v39 then
+                    v38 = v39.days;
+                    v30 = v39.price;
+                end;
+            else
+                for _, v41 in l_itemData_0.timedOptions do
+                    if v41.selected then
+                        v38 = v41.days;
+                        v30 = v41.price;
+                        break;
+                    end;
                 end;
             end;
         end;
-        local v41 = {
+        local v42 = {
             itemId = v20.itemId, 
             itemType = v20.itemType, 
             itemSubType = v32
         };
-        local v42 = if l_itemData_0 then l_itemData_0.tileRestrictionsMap else nil;
-        v41.itemRestriction = if v42 then v42[l_ItemTileEnums_0.Restriction.Limited] and "Limited" or (v42[l_ItemTileEnums_0.Restriction.LimitedUnique] or v42[l_ItemTileEnums_0.Restriction.Collectible]) and "Collectible" or nil else nil;
-        v41.ordering = v20.ordering;
-        v41.creatorName = l_name_0;
-        v41.creatorVerified = l_hasVerifiedBadge_0;
-        v41.collectibleProductId = v31;
-        v41.status = v37;
-        v41.priceInRobux = v30;
-        v41.name = l_name_1;
-        v41.timedOptions = if l_FFlagAXDurablesForMIS_0 then l_itemData_0.timedOptions else nil;
-        v41.selectedTimedOptionDays = if l_FFlagAXDurablesForMIS_0 then v38 else nil;
-        return v41;
+        local v43 = if l_itemData_0 then l_itemData_0.tileRestrictionsMap else nil;
+        v42.itemRestriction = if v43 then v43[l_ItemTileEnums_0.Restriction.Limited] and "Limited" or (v43[l_ItemTileEnums_0.Restriction.LimitedUnique] or v43[l_ItemTileEnums_0.Restriction.Collectible]) and "Collectible" or nil else nil;
+        v42.ordering = v20.ordering;
+        v42.creatorName = l_name_0;
+        v42.creatorVerified = l_hasVerifiedBadge_0;
+        v42.collectibleProductId = v31;
+        v42.status = v37;
+        v42.priceInRobux = v30;
+        v42.name = l_name_1;
+        v42.timedOptions = if l_FFlagAXDurablesForMIS_0 then l_itemData_0.timedOptions else nil;
+        v42.selectedTimedOptionDays = if l_FFlagAXDurablesForMIS_0 then v38 else nil;
+        v42.selectedTimedOptionIndexInReducer = if l_FFlagAXDurablesForMIS_0 then v20.selectedTimedOptionIndex else nil;
+        return v42;
     end;
 end;
-local _ = function(v44, v45) --[[ Line: 191 ]] --[[ Name: areCartItemsDifferent ]]
+local _ = function(v45, v46) --[[ Line: 202 ]] --[[ Name: areCartItemsDifferent ]]
     -- upvalues: v3 (copy)
-    if v3.fieldCount(v44) ~= v3.fieldCount(v45) then
+    if v3.fieldCount(v45) ~= v3.fieldCount(v46) then
         return true;
     else
-        for v46, _ in v45 do
-            if v44[v46] == nil then
+        for v47, _ in v46 do
+            if v45[v47] == nil then
                 return true;
             end;
         end;
         return false;
     end;
 end;
-return function() --[[ Line: 206 ]] --[[ Name: createAXShoppingCartStore ]]
-    -- upvalues: l_createSignal_0 (copy), l_createComputed_0 (copy), v5 (copy), v3 (copy), l_getTryOnItemReducerKey_0 (copy), v43 (copy), v6 (copy), v19 (copy), l_FFlagAXDurablesForMIS_0 (copy)
-    local v49, v50 = l_createSignal_0({});
-    local v51, v52 = l_createSignal_0(0);
-    local v54 = l_createComputed_0(function(v53) --[[ Line: 210 ]]
-        -- upvalues: v51 (copy)
-        return v51(v53);
+return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
+    -- upvalues: l_createSignal_0 (copy), l_createComputed_0 (copy), v5 (copy), v3 (copy), l_getTryOnItemReducerKey_0 (copy), v44 (copy), v6 (copy), v19 (copy), l_FFlagAXDurablesForMIS_0 (copy)
+    local v50, v51 = l_createSignal_0({});
+    local v52, v53 = l_createSignal_0(0);
+    local v55 = l_createComputed_0(function(v54) --[[ Line: 221 ]]
+        -- upvalues: v52 (copy)
+        return v52(v54);
     end);
-    local v62 = l_createComputed_0(function(v55) --[[ Line: 214 ]]
-        -- upvalues: v49 (copy), v5 (ref)
-        local v56 = v49(v55);
-        local v57 = {};
-        for _, v59 in v56 do
-            table.insert(v57, v59);
+    local v63 = l_createComputed_0(function(v56) --[[ Line: 225 ]]
+        -- upvalues: v50 (copy), v5 (ref)
+        local v57 = v50(v56);
+        local v58 = {};
+        for _, v60 in v57 do
+            table.insert(v58, v60);
         end;
-        table.sort(v57, function(v60, v61) --[[ Line: 222 ]]
+        table.sort(v58, function(v61, v62) --[[ Line: 233 ]]
             -- upvalues: v5 (ref)
-            if v60.status == v5.ALREADY_OWNED and v61.status ~= v5.ALREADY_OWNED then
+            if v61.status == v5.ALREADY_OWNED and v62.status ~= v5.ALREADY_OWNED then
                 return false;
-            elseif v61.status == v5.ALREADY_OWNED and v60.status ~= v5.ALREADY_OWNED then
+            elseif v62.status == v5.ALREADY_OWNED and v61.status ~= v5.ALREADY_OWNED then
                 return true;
             else
-                return v60.ordering < v61.ordering;
+                return v61.ordering < v62.ordering;
             end;
         end);
-        return v57;
+        return v58;
     end, v3.deepEqual);
-    local v68 = l_createComputed_0(function(v63) --[[ Line: 240 ]]
-        -- upvalues: v49 (copy), v5 (ref), v3 (ref)
-        local v64 = v49(v63);
-        local v65 = 0;
-        for _, v67 in v64 do
-            if v67.status == v5.ALREADY_OWNED then
-                v65 = v65 + 1;
+    local v69 = l_createComputed_0(function(v64) --[[ Line: 251 ]]
+        -- upvalues: v50 (copy), v5 (ref), v3 (ref)
+        local v65 = v50(v64);
+        local v66 = 0;
+        for _, v68 in v65 do
+            if v68.status == v5.ALREADY_OWNED then
+                v66 = v66 + 1;
             end;
-            if v67.status ~= nil and v67.status ~= v5.ALREADY_OWNED and v67.status ~= v5.PRICE_MISMATCH then
+            if v68.status ~= nil and v68.status ~= v5.ALREADY_OWNED and v68.status ~= v5.PRICE_MISMATCH then
                 return false;
             end;
         end;
-        if v65 == v3.fieldCount(v64) then
+        if v66 == v3.fieldCount(v65) then
             return false;
         else
             return true;
         end;
     end);
-    local v74 = l_createComputed_0(function(v69) --[[ Line: 274 ]]
-        -- upvalues: v49 (copy), v5 (ref)
-        local v70 = v49(v69);
-        local v71 = 0;
-        for _, v73 in v70 do
-            if v73.status ~= v5.ALREADY_OWNED then
-                v71 = v71 + v73.priceInRobux;
+    local v75 = l_createComputed_0(function(v70) --[[ Line: 285 ]]
+        -- upvalues: v50 (copy), v5 (ref)
+        local v71 = v50(v70);
+        local v72 = 0;
+        for _, v74 in v71 do
+            if v74.status ~= v5.ALREADY_OWNED then
+                v72 = v72 + v74.priceInRobux;
             end;
         end;
-        return v71;
+        return v72;
     end);
-    local function v88(v75, v76) --[[ Line: 287 ]] --[[ Name: syncFromTryOns ]]
-        -- upvalues: v49 (copy), l_getTryOnItemReducerKey_0 (ref), v43 (ref), v6 (ref), v3 (ref), v50 (copy), v52 (copy)
-        local v77 = false;
-        local v78 = v49(false);
-        local v79 = {};
-        for _, v81 in v75 do
-            local v82 = l_getTryOnItemReducerKey_0(v81.itemId, v81.itemType);
-            local v83 = v78[v82];
-            local v84 = v43(v81, v76);
-            v79[v82] = if v83 then v6.Dictionary.join(v83, v84) else v84;
+    local function v89(v76, v77) --[[ Line: 298 ]] --[[ Name: syncFromTryOns ]]
+        -- upvalues: v50 (copy), l_getTryOnItemReducerKey_0 (ref), v44 (ref), v6 (ref), v3 (ref), v51 (copy), v53 (copy)
+        local v78 = false;
+        local v79 = v50(false);
+        local v80 = {};
+        for _, v82 in v76 do
+            local v83 = l_getTryOnItemReducerKey_0(v82.itemId, v82.itemType);
+            local v84 = v79[v83];
+            local v85 = v44(v82, v77);
+            v80[v83] = if v84 then v6.Dictionary.join(v84, v85) else v85;
         end;
-        if not v3.deepEqual(v78, v79) then
-            v50(v79);
+        if not v3.deepEqual(v79, v80) then
+            v51(v80);
         end;
-        local v85;
-        if v3.fieldCount(v78) ~= v3.fieldCount(v79) then
-            v85 = true;
+        local v86;
+        if v3.fieldCount(v79) ~= v3.fieldCount(v80) then
+            v86 = true;
         else
-            for v86, _ in v79 do
-                if v78[v86] == nil then
-                    v85 = true;
-                    v77 = true;
+            for v87, _ in v80 do
+                if v79[v87] == nil then
+                    v86 = true;
+                    v78 = true;
                 end;
-                if v77 then
+                if v78 then
                     break;
                 end;
             end;
-            if not v77 then
-                v85 = false;
+            if not v78 then
+                v86 = false;
             end;
         end;
-        v77 = false;
-        if v85 then
-            v52(0);
+        v78 = false;
+        if v86 then
+            v53(0);
         end;
     end;
-    local function v103(v89) --[[ Line: 309 ]] --[[ Name: updateCartFromPurchaseResponse ]]
-        -- upvalues: v49 (copy), v5 (ref), v19 (ref), v6 (ref), v50 (copy), v52 (copy)
-        local v90 = v49(false);
-        local v91 = {};
+    local function v104(v90) --[[ Line: 320 ]] --[[ Name: updateCartFromPurchaseResponse ]]
+        -- upvalues: v50 (copy), v5 (ref), v19 (ref), v6 (ref), v51 (copy), v53 (copy)
+        local v91 = v50(false);
         local v92 = {};
         local v93 = {};
         local v94 = {};
-        local v95 = 0;
-        local l_lineItems_0 = v89.lineItems;
-        for v97, v98 in v90 do
-            local v99 = l_lineItems_0[v97];
-            local v100 = v98.status == v5.ALREADY_OWNED;
-            if v99 and v99.status ~= v19.SUCCEEDED and not v100 then
-                local v101 = v5[v99.errorReason] or v5.UNKNOWN;
-                local v102 = nil;
-                if v101 == v5.PRICE_MISMATCH then
-                    v102 = {
-                        oldPriceInRobux = v98.priceInRobux
+        local v95 = {};
+        local v96 = 0;
+        local l_lineItems_0 = v90.lineItems;
+        for v98, v99 in v91 do
+            local v100 = l_lineItems_0[v98];
+            local v101 = v99.status == v5.ALREADY_OWNED;
+            if v100 and v100.status ~= v19.SUCCEEDED and not v101 then
+                local v102 = v5[v100.errorReason] or v5.UNKNOWN;
+                local v103 = nil;
+                if v102 == v5.PRICE_MISMATCH then
+                    v103 = {
+                        oldPriceInRobux = v99.priceInRobux
                     };
-                    table.insert(v94, v98);
+                    table.insert(v95, v99);
                 end;
-                v91[v97] = v6.Dictionary.join(v98, {
-                    status = v101, 
-                    priceMismatchMetadata = v102
+                v92[v98] = v6.Dictionary.join(v99, {
+                    status = v102, 
+                    priceMismatchMetadata = v103
                 });
-                v95 = v95 + 1;
+                v96 = v96 + 1;
             else
-                table.insert(v93, v98);
-                if not v100 then
-                    table.insert(v92, v98);
+                table.insert(v94, v99);
+                if not v101 then
+                    table.insert(v93, v99);
                 end;
             end;
         end;
-        v50(v91);
-        v52(v95);
+        v51(v92);
+        v53(v96);
         return {
-            boughtItems = v92, 
-            equippableItems = v93, 
-            needDataRefeshItems = v94
+            boughtItems = v93, 
+            equippableItems = v94, 
+            needDataRefeshItems = v95
         };
     end;
-    local function v111(v104, v105, v106, v107) --[[ Line: 359 ]] --[[ Name: updateItemPrice ]]
-        -- upvalues: l_FFlagAXDurablesForMIS_0 (ref), v49 (copy), l_getTryOnItemReducerKey_0 (ref), v50 (copy), v6 (ref)
+    local function v112(v105, v106, v107, v108) --[[ Line: 370 ]] --[[ Name: updateItemPrice ]]
+        -- upvalues: l_FFlagAXDurablesForMIS_0 (ref), v50 (copy), l_getTryOnItemReducerKey_0 (ref), v51 (copy), v6 (ref)
         if not l_FFlagAXDurablesForMIS_0 then
             return;
         else
-            local v108 = v49(false);
-            local v109 = l_getTryOnItemReducerKey_0(v104, v105);
-            local v110 = v108[v109];
-            if v110 and (v110.priceInRobux ~= v106 or v110.selectedTimedOptionDays ~= v107) then
-                v50(v6.Dictionary.join(v108, {
-                    [v109] = v6.Dictionary.join(v110, {
-                        priceInRobux = v106, 
-                        selectedTimedOptionDays = if v107 == nil then v6.None else v107
+            local v109 = v50(false);
+            local v110 = l_getTryOnItemReducerKey_0(v105, v106);
+            local v111 = v109[v110];
+            if v111 and (v111.priceInRobux ~= v107 or v111.selectedTimedOptionDays ~= v108) then
+                v51(v6.Dictionary.join(v109, {
+                    [v110] = v6.Dictionary.join(v111, {
+                        priceInRobux = v107, 
+                        selectedTimedOptionDays = if v108 == nil then v6.None else v108
                     })
                 }));
             end;
@@ -269,12 +278,12 @@ return function() --[[ Line: 206 ]] --[[ Name: createAXShoppingCartStore ]]
         end;
     end;
     return {
-        getCanPurchase = v68, 
-        getErroredItemCount = v54, 
-        getItems = v62, 
-        getPurchasableItemsTotalPriceInRobux = v74, 
-        syncFromTryOns = v88, 
-        updateCartFromPurchaseResponse = v103, 
-        updateItemPrice = if l_FFlagAXDurablesForMIS_0 then v111 else nil
+        getCanPurchase = v69, 
+        getErroredItemCount = v55, 
+        getItems = v63, 
+        getPurchasableItemsTotalPriceInRobux = v75, 
+        syncFromTryOns = v89, 
+        updateCartFromPurchaseResponse = v104, 
+        updateItemPrice = if l_FFlagAXDurablesForMIS_0 then v112 else nil
     };
 end;

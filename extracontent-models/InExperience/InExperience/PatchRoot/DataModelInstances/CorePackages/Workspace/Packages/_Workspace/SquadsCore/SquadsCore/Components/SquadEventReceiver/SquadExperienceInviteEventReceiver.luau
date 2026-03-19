@@ -33,345 +33,352 @@ local l_clearInterval_0 = v24.clearInterval;
 local l_setInterval_0 = v24.setInterval;
 local l_ExperienceInviteState_0 = v11.Enums.ExperienceInviteState;
 local l_ExperienceInviteVoteType_0 = v11.Enums.ExperienceInviteVoteType;
+local l_ExperienceInviteType_0 = v11.Enums.ExperienceInviteType;
 local l_Sounds_0 = v20.Sounds;
 local l_SoundManager_0 = v20.SoundManager;
-local v37 = require(l_script_FirstAncestor_0.Components.SquadExternalContractProvider.SquadExternalContractContext);
-local v38 = require(l_script_FirstAncestor_0.Analytics.EventNames);
+local v38 = require(l_script_FirstAncestor_0.Components.SquadExternalContractProvider.SquadExternalContractContext);
+local v39 = require(l_script_FirstAncestor_0.Analytics.EventNames);
 local l_LifecycleEvents_0 = v22.LifecycleEvents;
 local l_NotificationTypeEnum_0 = v22.ToastNotificationTypeModule.NotificationTypeEnum;
-local v41 = game:DefineFastInt("SquadExperienceInvitePollingIntervalSeconds", 4);
-local v42 = game:DefineFastInt("SquadExperienceInviteTimeoutSeconds", 30);
+local v42 = game:DefineFastInt("SquadExperienceInvitePollingIntervalSeconds", 4);
+local v43 = game:DefineFastInt("SquadExperienceInviteTimeoutSeconds", 30);
 local l_FFlagDebugSquadLogsEnabled_0 = v19.FFlagDebugSquadLogsEnabled;
 local l_FFlagSplitSquadJoinOriginSources_0 = v19.FFlagSplitSquadJoinOriginSources;
 local l_FFlagSquadLaunchExperienceMobileFix_0 = v19.FFlagSquadLaunchExperienceMobileFix;
+local l_FFlagEnablePrivatePartyAcceptInvite_0 = v19.FFlagEnablePrivatePartyAcceptInvite;
 local l_l_MessageBusService_0_MessageId_0 = l_MessageBusService_0:GetMessageId("ToastNotifications", "userActionOnToastNotification");
-local function _(v47) --[[ Line: 76 ]]
+local function _(v49) --[[ Line: 78 ]]
     -- upvalues: l_FFlagDebugSquadLogsEnabled_0 (copy), l_HttpService_0 (copy)
     if l_FFlagDebugSquadLogsEnabled_0 then
-        return l_HttpService_0:JSONEncode(v47);
-    elseif v47.StatusCode then
-        return v47.StatusCode;
+        return l_HttpService_0:JSONEncode(v49);
+    elseif v49.StatusCode then
+        return v49.StatusCode;
     else
         return -1;
     end;
 end;
-return function(v49) --[[ Line: 84 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v17 (copy), v37 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), v23 (copy), l_useSelector_0 (copy), v13 (copy), l_ExperienceInviteVoteType_0 (copy), v11 (copy), v10 (copy), v9 (copy), l_FFlagDebugSquadLogsEnabled_0 (copy), l_HttpService_0 (copy), v38 (copy), v14 (copy), l_dependencyArray_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), v42 (copy), l_ExperienceInviteState_0 (copy), v6 (copy), l_FFlagSquadLaunchExperienceMobileFix_0 (copy), l_FFlagSplitSquadJoinOriginSources_0 (copy), l_GameParams_0 (copy), l_ExperienceService_0 (copy), v41 (copy), l_setInterval_0 (copy), l_clearInterval_0 (copy), l_FFlagEnableRecordSquadExperienceInviteChanges_0 (copy), v12 (copy), v7 (copy), v8 (copy), v18 (copy), l_NotificationTypeEnum_0 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_LifecycleEvents_0 (copy), l_SoundManager_0 (copy), l_Sounds_0 (copy)
-    local v50 = l_useDispatch_0();
-    local v51 = tonumber(l_useLocalUserId_0()) or 0;
-    local v52 = v17.useContext(v37);
-    local v53, v54 = v17.useState("");
-    v17.useEffect(function() --[[ Line: 92 ]]
-        -- upvalues: l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), v54 (copy)
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 94 ]]
+return function(v51) --[[ Line: 86 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v17 (copy), v38 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), v23 (copy), l_useSelector_0 (copy), v13 (copy), l_ExperienceInviteVoteType_0 (copy), v11 (copy), v10 (copy), v9 (copy), l_FFlagDebugSquadLogsEnabled_0 (copy), l_HttpService_0 (copy), v39 (copy), v14 (copy), l_dependencyArray_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), v43 (copy), l_ExperienceInviteState_0 (copy), l_FFlagEnablePrivatePartyAcceptInvite_0 (copy), l_ExperienceInviteType_0 (copy), v6 (copy), l_FFlagSquadLaunchExperienceMobileFix_0 (copy), l_FFlagSplitSquadJoinOriginSources_0 (copy), l_GameParams_0 (copy), l_ExperienceService_0 (copy), v42 (copy), l_setInterval_0 (copy), l_clearInterval_0 (copy), l_FFlagEnableRecordSquadExperienceInviteChanges_0 (copy), v12 (copy), v7 (copy), v8 (copy), v18 (copy), l_NotificationTypeEnum_0 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_LifecycleEvents_0 (copy), l_SoundManager_0 (copy), l_Sounds_0 (copy)
+    local v52 = l_useDispatch_0();
+    local v53 = tonumber(l_useLocalUserId_0()) or 0;
+    local v54 = v17.useContext(v38);
+    local v55, v56 = v17.useState("");
+    v17.useEffect(function() --[[ Line: 94 ]]
+        -- upvalues: l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref), v56 (copy)
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 96 ]]
             -- upvalues: l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
             return l_AppStorageService_0:GetItem(l_LocalStorageKey_0.BrowserTrackerId);
         end);
         if l_status_0 then
-            v54(l_result_0);
+            v56(l_result_0);
         end;
-        local v59 = l_AppStorageService_0.ItemWasSet:Connect(function(v57, v58) --[[ Line: 101 ]]
-            -- upvalues: l_LocalStorageKey_0 (ref), v54 (ref)
-            if v57 == l_LocalStorageKey_0.BrowserTrackerId then
-                v54(v58);
+        local v61 = l_AppStorageService_0.ItemWasSet:Connect(function(v59, v60) --[[ Line: 103 ]]
+            -- upvalues: l_LocalStorageKey_0 (ref), v56 (ref)
+            if v59 == l_LocalStorageKey_0.BrowserTrackerId then
+                v56(v60);
             end;
         end);
-        return function() --[[ Line: 106 ]]
-            -- upvalues: v59 (copy)
-            v59:Disconnect();
+        return function() --[[ Line: 108 ]]
+            -- upvalues: v61 (copy)
+            v61:Disconnect();
         end;
     end, {
-        v54
+        v56
     });
     local l_default_0 = v23.ToastNotificationProtocol.default;
-    local v61 = v17.useRef(false);
-    local v63 = v17.useCallback(function(v62) --[[ Line: 114 ]]
-        if v62.Squad and v62.Squad.Squad then
-            return v62.Squad.Squad.currentExperienceInvite;
+    local v63 = v17.useRef(false);
+    local v65 = v17.useCallback(function(v64) --[[ Line: 116 ]]
+        if v64.Squad and v64.Squad.Squad then
+            return v64.Squad.Squad.currentExperienceInvite;
         else
             return nil;
         end;
     end, {});
-    local v64 = l_useSelector_0(v63);
-    local v65 = v13();
-    local v66 = v64 and v64.model;
-    local v67 = v66 and v66.experienceInviteId or "";
-    local v68 = v66 and v66.state or "";
-    local v69 = v66 and v66.experienceDetail.gameInstanceId or "";
-    local v70 = v66 and v66.experienceDetail.placeId or 0;
-    local v71 = v66 and v66.inviterId or 0;
-    local v75, v76 = v17.useMemo(function() --[[ Line: 134 ]]
-        -- upvalues: v64 (copy), l_ExperienceInviteVoteType_0 (ref), v51 (copy), v53 (copy)
-        if not v64 or not v64.model then
-            if v64 and v64.notification.isInviter then
+    local v66 = l_useSelector_0(v65);
+    local v67 = v13();
+    local v68 = v66 and v66.model;
+    local v69 = v68 and v68.experienceInviteId or "";
+    local v70 = v68 and v68.state or "";
+    local v71 = v68 and v68.experienceDetail.gameInstanceId or "";
+    local v72 = v68 and v68.experienceDetail.placeId or 0;
+    local v73 = v68 and v68.inviterId or 0;
+    local v77, v78 = v17.useMemo(function() --[[ Line: 136 ]]
+        -- upvalues: v66 (copy), l_ExperienceInviteVoteType_0 (ref), v53 (copy), v55 (copy)
+        if not v66 or not v66.model then
+            if v66 and v66.notification.isInviter then
                 return l_ExperienceInviteVoteType_0.Accept, false;
             else
                 return l_ExperienceInviteVoteType_0.Invalid, false;
             end;
         else
-            for _, v73 in ipairs(v64.model.votes) do
-                if v73.userId == v51 then
-                    local v74 = false;
-                    if v73.voteIdentifier and v73.voteIdentifier ~= "" then
-                        v74 = v73.voteIdentifier ~= v53;
+            for _, v75 in ipairs(v66.model.votes) do
+                if v75.userId == v53 then
+                    local v76 = false;
+                    if v75.voteIdentifier and v75.voteIdentifier ~= "" then
+                        v76 = v75.voteIdentifier ~= v55;
                     end;
-                    return v73.voteType, v74;
+                    return v75.voteType, v76;
                 end;
             end;
             return l_ExperienceInviteVoteType_0.NoVote, false;
         end;
     end, {
-        v64, 
-        v51, 
-        v53
+        v66, 
+        v53, 
+        v55
     });
-    local v79 = v17.useCallback(function(v77, v78) --[[ Line: 161 ]]
-        -- upvalues: l_default_0 (copy), v50 (copy), v11 (ref), v61 (copy)
-        if v78 then
-            l_default_0:dismissNotification(v77);
+    local v81 = v17.useCallback(function(v79, v80) --[[ Line: 163 ]]
+        -- upvalues: l_default_0 (copy), v52 (copy), v11 (ref), v63 (copy)
+        if v80 then
+            l_default_0:dismissNotification(v79);
         end;
-        v50(v11.Actions.CurrentExperienceInviteDismissed(v77));
-        v61.current = false;
+        v52(v11.Actions.CurrentExperienceInviteDismissed(v79));
+        v63.current = false;
     end, {
-        v50
+        v52
     });
-    local v83 = v17.useCallback(function(v80, v81) --[[ Line: 172 ]]
-        -- upvalues: v50 (copy), v10 (ref), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), l_HttpService_0 (ref)
-        return v50(v10.GetExperienceInvite.API({
-            experienceInviteId = v80, 
-            membershipEntityId = v81
-        })):catch(function(v82) --[[ Line: 176 ]]
-            -- upvalues: v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), l_HttpService_0 (ref), v80 (copy), v81 (copy)
-            v9:warning("Error getting experience invite. Error: {}, ExperienceInviteId: {}, MembershipEntityId: {}", if l_FFlagDebugSquadLogsEnabled_0 then l_HttpService_0:JSONEncode(v82) else if v82.StatusCode then v82.StatusCode else -1, v80, v81);
+    local v85 = v17.useCallback(function(v82, v83) --[[ Line: 174 ]]
+        -- upvalues: v52 (copy), v10 (ref), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), l_HttpService_0 (ref)
+        return v52(v10.GetExperienceInvite.API({
+            experienceInviteId = v82, 
+            membershipEntityId = v83
+        })):catch(function(v84) --[[ Line: 178 ]]
+            -- upvalues: v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), l_HttpService_0 (ref), v82 (copy), v83 (copy)
+            v9:warning("Error getting experience invite. Error: {}, ExperienceInviteId: {}, MembershipEntityId: {}", if l_FFlagDebugSquadLogsEnabled_0 then l_HttpService_0:JSONEncode(v84) else if v84.StatusCode then v84.StatusCode else -1, v82, v83);
         end);
     end, {
-        v50
+        v52
     });
-    local v93 = v17.useCallback(function(v84, v85, v86) --[[ Line: 185 ]]
-        -- upvalues: v65 (copy), v50 (copy), v10 (ref), v53 (copy), v52 (copy), v38 (ref), v14 (ref), l_HttpService_0 (ref), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref)
-        local v87 = {
-            parentChannelId = v65, 
-            experienceInviteId = v84, 
-            voteType = v85
+    local v95 = v17.useCallback(function(v86, v87, v88) --[[ Line: 187 ]]
+        -- upvalues: v67 (copy), v52 (copy), v10 (ref), v55 (copy), v54 (copy), v39 (ref), v14 (ref), l_HttpService_0 (ref), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref)
+        local v89 = {
+            parentChannelId = v67, 
+            experienceInviteId = v86, 
+            voteType = v87
         };
-        return v50(v10.VoteForExperienceInvite.API({
-            experienceInviteId = v84, 
-            membershipEntityId = v86, 
-            voteIdentifier = v53, 
-            voteType = v85
-        })):andThen(function() --[[ Line: 198 ]]
-            -- upvalues: v52 (ref), v38 (ref), v14 (ref), v87 (copy)
-            v52.fireSquadAnalytics(v38.SquadVoteApiCall, v14.Dictionary.union(v87, {
+        return v52(v10.VoteForExperienceInvite.API({
+            experienceInviteId = v86, 
+            membershipEntityId = v88, 
+            voteIdentifier = v55, 
+            voteType = v87
+        })):andThen(function() --[[ Line: 200 ]]
+            -- upvalues: v54 (ref), v39 (ref), v14 (ref), v89 (copy)
+            v54.fireSquadAnalytics(v39.SquadVoteApiCall, v14.Dictionary.union(v89, {
                 isSuccess = true
             }));
-        end):catch(function(v88) --[[ Line: 206 ]]
-            -- upvalues: l_HttpService_0 (ref), v52 (ref), v38 (ref), v14 (ref), v87 (copy), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), v84 (copy), v86 (copy), v85 (copy)
-            local l_Body_0 = v88.Body;
-            local l_status_1, l_result_1 = pcall(function() --[[ Line: 208 ]]
+        end):catch(function(v90) --[[ Line: 208 ]]
+            -- upvalues: l_HttpService_0 (ref), v54 (ref), v39 (ref), v14 (ref), v89 (copy), v9 (ref), l_FFlagDebugSquadLogsEnabled_0 (ref), v86 (copy), v88 (copy), v87 (copy)
+            local l_Body_0 = v90.Body;
+            local l_status_1, l_result_1 = pcall(function() --[[ Line: 210 ]]
                 -- upvalues: l_HttpService_0 (ref), l_Body_0 (copy)
                 return l_HttpService_0:JSONDecode(l_Body_0);
             end);
-            local v92 = if l_status_1 then l_result_1.errorType else nil;
-            v52.fireSquadAnalytics(v38.SquadVoteApiCall, v14.Dictionary.union(v87, {
+            local v94 = if l_status_1 then l_result_1.errorType else nil;
+            v54.fireSquadAnalytics(v39.SquadVoteApiCall, v14.Dictionary.union(v89, {
                 isSuccess = false, 
-                errorMessage = v92, 
-                errorType = if v88.StatusCode then tostring(v88.StatusCode) else nil
+                errorMessage = v94, 
+                errorType = if v90.StatusCode then tostring(v90.StatusCode) else nil
             }));
-            v9:warning("Error voting for experience invite. Error: {}, ExperienceInviteId: {}, MembershipEntityId: {}, VoteType: {}", if l_FFlagDebugSquadLogsEnabled_0 then l_HttpService_0:JSONEncode(v88) else if v88.StatusCode then v88.StatusCode else -1, v84, v86, v85);
+            v9:warning("Error voting for experience invite. Error: {}, ExperienceInviteId: {}, MembershipEntityId: {}, VoteType: {}", if l_FFlagDebugSquadLogsEnabled_0 then l_HttpService_0:JSONEncode(v90) else if v90.StatusCode then v90.StatusCode else -1, v86, v88, v87);
         end);
-    end, l_dependencyArray_0(v50, v53));
-    local v95 = v17.useCallback(function(v94) --[[ Line: 234 ]]
-        -- upvalues: v52 (copy), v38 (ref), v67 (copy), v69 (copy), v70 (copy), v71 (copy), v68 (copy), v65 (copy)
-        v52.fireSquadAnalytics(v38.SquadExperienceInviteStateChange, {
-            experienceInviteId = v67, 
-            invitationGameInstanceId = v69, 
-            invitationPlaceId = v70, 
-            inviterId = v71, 
-            inviteState = v68, 
-            parentChannelId = v65, 
-            joinAttemptId = v94
+    end, l_dependencyArray_0(v52, v55));
+    local v97 = v17.useCallback(function(v96) --[[ Line: 236 ]]
+        -- upvalues: v54 (copy), v39 (ref), v69 (copy), v71 (copy), v72 (copy), v73 (copy), v70 (copy), v67 (copy)
+        v54.fireSquadAnalytics(v39.SquadExperienceInviteStateChange, {
+            experienceInviteId = v69, 
+            invitationGameInstanceId = v71, 
+            invitationPlaceId = v72, 
+            inviterId = v73, 
+            inviteState = v70, 
+            parentChannelId = v67, 
+            joinAttemptId = v96
         });
-    end, l_dependencyArray_0(v69, v67, v71, v70, v68, v65, if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v52.fireSquadAnalytics else nil));
-    v17.useEffect(function() --[[ Line: 261 ]]
-        -- upvalues: v64 (copy), v42 (ref), v79 (copy)
-        local v96 = nil;
-        if v64 then
-            v96 = task.delay(v42, function() --[[ Line: 264 ]]
-                -- upvalues: v79 (ref), v64 (ref)
-                v79(v64.notification.notificationId, true);
+    end, l_dependencyArray_0(v71, v69, v73, v72, v70, v67, if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v54.fireSquadAnalytics else nil));
+    v17.useEffect(function() --[[ Line: 263 ]]
+        -- upvalues: v66 (copy), v43 (ref), v81 (copy)
+        local v98 = nil;
+        if v66 then
+            v98 = task.delay(v43, function() --[[ Line: 266 ]]
+                -- upvalues: v81 (ref), v66 (ref)
+                v81(v66.notification.notificationId, true);
             end);
         end;
-        return function() --[[ Line: 268 ]]
-            -- upvalues: v96 (ref)
-            if v96 then
-                task.cancel(v96);
+        return function() --[[ Line: 270 ]]
+            -- upvalues: v98 (ref)
+            if v98 then
+                task.cancel(v98);
             end;
         end;
     end, {
-        v79, 
-        v64
+        v81, 
+        v66
     });
-    v17.useEffect(function() --[[ Line: 277 ]]
-        -- upvalues: v64 (copy), v75 (copy), l_ExperienceInviteVoteType_0 (ref), v61 (copy), l_ExperienceInviteState_0 (ref), v9 (ref), v79 (copy), v52 (copy), v6 (ref), l_FFlagSquadLaunchExperienceMobileFix_0 (ref), l_FFlagSplitSquadJoinOriginSources_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), l_HttpService_0 (ref), v95 (copy), l_GameParams_0 (ref), l_ExperienceService_0 (ref)
-        if not v64 or v75 ~= l_ExperienceInviteVoteType_0.Accept or v61.current then
+    v17.useEffect(function() --[[ Line: 279 ]]
+        -- upvalues: v66 (copy), v77 (copy), l_ExperienceInviteVoteType_0 (ref), v63 (copy), l_ExperienceInviteState_0 (ref), l_FFlagEnablePrivatePartyAcceptInvite_0 (ref), l_ExperienceInviteType_0 (ref), v9 (ref), v81 (copy), v54 (copy), v6 (ref), l_FFlagSquadLaunchExperienceMobileFix_0 (ref), l_FFlagSplitSquadJoinOriginSources_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), l_HttpService_0 (ref), v97 (copy), l_GameParams_0 (ref), l_ExperienceService_0 (ref)
+        if not v66 or v77 ~= l_ExperienceInviteVoteType_0.Accept or v63.current then
             return;
         else
-            local l_model_0 = v64.model;
-            local l_notification_0 = v64.notification;
+            local l_model_0 = v66.model;
+            local l_notification_0 = v66.notification;
             if l_model_0 and l_model_0.state == l_ExperienceInviteState_0.ReservationSuccessful then
                 local l_gameInstanceId_0 = l_model_0.experienceDetail.gameInstanceId;
                 local l_placeId_0 = l_model_0.experienceDetail.placeId;
-                assert(l_gameInstanceId_0, "Game instance id should exist.");
-                v61.current = true;
+                if not l_FFlagEnablePrivatePartyAcceptInvite_0 or v66.model.inviteType ~= l_ExperienceInviteType_0.PlayWithPartyInPrivatePartyServer then
+                    assert(l_gameInstanceId_0, "Game instance id should exist.");
+                end;
+                v63.current = true;
                 v9:debug("Launching experience. GameInstanceId: {}, PlaceId: {}", l_gameInstanceId_0, l_placeId_0);
-                local v104 = task.delay(1, function() --[[ Line: 297 ]]
-                    -- upvalues: v79 (ref), l_notification_0 (copy), v52 (ref), v6 (ref), l_FFlagSquadLaunchExperienceMobileFix_0 (ref), l_FFlagSplitSquadJoinOriginSources_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), l_HttpService_0 (ref), v95 (ref), l_GameParams_0 (ref), l_placeId_0 (copy), l_gameInstanceId_0 (copy), l_ExperienceService_0 (ref)
-                    v79(l_notification_0.notificationId, true);
-                    if v52.squadLocation == v6.InExperience and l_FFlagSquadLaunchExperienceMobileFix_0 then
+                local v106 = task.delay(1, function() --[[ Line: 306 ]]
+                    -- upvalues: v81 (ref), l_notification_0 (copy), v54 (ref), v6 (ref), l_FFlagSquadLaunchExperienceMobileFix_0 (ref), l_FFlagSplitSquadJoinOriginSources_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), l_HttpService_0 (ref), v97 (ref), l_GameParams_0 (ref), l_placeId_0 (copy), l_gameInstanceId_0 (copy), l_FFlagEnablePrivatePartyAcceptInvite_0 (ref), v66 (ref), l_ExperienceInviteType_0 (ref), l_ExperienceService_0 (ref)
+                    v81(l_notification_0.notificationId, true);
+                    if v54.squadLocation == v6.InExperience and l_FFlagSquadLaunchExperienceMobileFix_0 then
                         game:Shutdown();
                     end;
-                    local v101 = "SquadExperienceInvite";
+                    local v103 = "SquadExperienceInvite";
                     if l_FFlagSplitSquadJoinOriginSources_0 then
-                        if v52.squadLocation == v6.UniversalApp then
-                            v101 = "SquadExperienceInviteFromUA";
-                        elseif v52.squadLocation == v6.InExperience then
-                            v101 = "SquadExperienceInviteFromInExp";
+                        if v54.squadLocation == v6.UniversalApp then
+                            v103 = "SquadExperienceInviteFromUA";
+                        elseif v54.squadLocation == v6.InExperience then
+                            v103 = "SquadExperienceInviteFromInExp";
                         end;
                     end;
-                    local v102 = nil;
+                    local v104 = nil;
                     if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then
-                        v102 = l_HttpService_0:GenerateGUID(false);
-                        v95(v102);
+                        v104 = l_HttpService_0:GenerateGUID(false);
+                        v97(v104);
                     end;
-                    local v103 = l_GameParams_0.fromPlaceInstance(l_placeId_0, l_gameInstanceId_0);
+                    local v105 = l_GameParams_0.fromPlaceInstance(l_placeId_0, l_gameInstanceId_0);
                     if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then
-                        v103.joinAttemptId = v102;
+                        v105.joinAttemptId = v104;
                     end;
-                    l_ExperienceService_0:LaunchExperience(v103, v101, nil);
+                    if l_FFlagEnablePrivatePartyAcceptInvite_0 and v66.model.inviteType == l_ExperienceInviteType_0.PlayWithPartyInPrivatePartyServer then
+                        v105.isPrivateParty = true;
+                    end;
+                    l_ExperienceService_0:LaunchExperience(v105, v103, nil);
                 end);
-                return function() --[[ Line: 328 ]]
-                    -- upvalues: v104 (copy)
-                    task.cancel(v104);
+                return function() --[[ Line: 344 ]]
+                    -- upvalues: v106 (copy)
+                    task.cancel(v106);
                 end;
             else
                 return;
             end;
         end;
-    end, l_dependencyArray_0(v52.squadLocation, v64, v79, v75, if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v95 else nil));
-    v17.useEffect(function() --[[ Line: 346 ]]
-        -- upvalues: v41 (ref), v64 (copy), l_ExperienceInviteState_0 (ref), l_setInterval_0 (ref), v83 (copy), l_clearInterval_0 (ref)
-        local l_v41_0 = v41;
-        local v106 = nil;
-        if v64 and (not v64.model or v64.model.state == l_ExperienceInviteState_0.Active or v64.model.state == l_ExperienceInviteState_0.Reserving) then
-            v106 = l_setInterval_0(function() --[[ Line: 357 ]]
-                -- upvalues: v83 (ref), v64 (ref)
-                v83(v64.notification.experienceInviteId, v64.notification.membershipEntityId);
-            end, l_v41_0 * 1000);
+    end, l_dependencyArray_0(v54.squadLocation, v66, v81, v77, if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v97 else nil));
+    v17.useEffect(function() --[[ Line: 362 ]]
+        -- upvalues: v42 (ref), v66 (copy), l_ExperienceInviteState_0 (ref), l_setInterval_0 (ref), v85 (copy), l_clearInterval_0 (ref)
+        local l_v42_0 = v42;
+        local v108 = nil;
+        if v66 and (not v66.model or v66.model.state == l_ExperienceInviteState_0.Active or v66.model.state == l_ExperienceInviteState_0.Reserving) then
+            v108 = l_setInterval_0(function() --[[ Line: 373 ]]
+                -- upvalues: v85 (ref), v66 (ref)
+                v85(v66.notification.experienceInviteId, v66.notification.membershipEntityId);
+            end, l_v42_0 * 1000);
         end;
-        return function() --[[ Line: 365 ]]
-            -- upvalues: v106 (ref), l_clearInterval_0 (ref)
-            if v106 then
-                l_clearInterval_0(v106);
+        return function() --[[ Line: 381 ]]
+            -- upvalues: v108 (ref), l_clearInterval_0 (ref)
+            if v108 then
+                l_clearInterval_0(v108);
             end;
         end;
     end, {
-        v64, 
-        v83
+        v66, 
+        v85
     });
-    v17.useEffect(function() --[[ Line: 374 ]]
-        -- upvalues: v64 (copy), v49 (copy), v76 (copy), v79 (copy)
-        if v64 and (v49.currentSquadId ~= v64.notification.membershipEntityId or v76) then
-            v79(v64.notification.notificationId, true);
+    v17.useEffect(function() --[[ Line: 390 ]]
+        -- upvalues: v66 (copy), v51 (copy), v78 (copy), v81 (copy)
+        if v66 and (v51.currentSquadId ~= v66.notification.membershipEntityId or v78) then
+            v81(v66.notification.notificationId, true);
         end;
     end, {
-        v64, 
-        v79, 
-        v49.currentSquadId, 
-        v76
+        v66, 
+        v81, 
+        v51.currentSquadId, 
+        v78
     });
     if l_FFlagEnableRecordSquadExperienceInviteChanges_0 then
-        v17.useEffect(function() --[[ Line: 387 ]]
-            -- upvalues: l_ExperienceInviteState_0 (ref), v68 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v95 (copy)
-            if l_ExperienceInviteState_0[v68] then
+        v17.useEffect(function() --[[ Line: 403 ]]
+            -- upvalues: l_ExperienceInviteState_0 (ref), v70 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v97 (copy)
+            if l_ExperienceInviteState_0[v70] then
                 if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then
-                    if l_ExperienceInviteState_0[v68] ~= l_ExperienceInviteState_0.ReservationSuccessful then
-                        v95();
+                    if l_ExperienceInviteState_0[v70] ~= l_ExperienceInviteState_0.ReservationSuccessful then
+                        v97();
                         return;
                     end;
                 else
-                    v95();
+                    v97();
                 end;
             end;
         end, {
-            v68, 
-            v95
+            v70, 
+            v97
         });
     end;
-    v17.useEffect(function() --[[ Line: 406 ]]
-        -- upvalues: v64 (copy), v9 (ref), v12 (ref), v51 (copy), l_ExperienceInviteState_0 (ref), l_default_0 (copy), v79 (copy), v75 (copy), l_ExperienceInviteVoteType_0 (ref), v52 (copy), v38 (ref), v65 (copy), v7 (ref), v8 (ref)
-        if not v64 or not v64.model then
+    v17.useEffect(function() --[[ Line: 422 ]]
+        -- upvalues: v66 (copy), v9 (ref), v12 (ref), v53 (copy), l_ExperienceInviteState_0 (ref), l_default_0 (copy), v81 (copy), v77 (copy), l_ExperienceInviteVoteType_0 (ref), v54 (copy), v39 (ref), v67 (copy), v7 (ref), v8 (ref)
+        if not v66 or not v66.model then
             return;
         else
-            v9:debug("Current experience invite updated: {}", v12(v64.model));
-            local l_notificationId_0 = v64.notification.notificationId;
-            local l_state_0 = v64.model.state;
-            if v64.model.inviterId == v51 then
+            v9:debug("Current experience invite updated: {}", v12(v66.model));
+            local l_notificationId_0 = v66.notification.notificationId;
+            local l_state_0 = v66.model.state;
+            if v66.model.inviterId == v53 then
                 if l_state_0 == l_ExperienceInviteState_0.Active then
-                    if v64.model.spotsTaken > 1 then
-                        l_default_0:updateNotification(l_notificationId_0, v64.model.spotsTaken .. "SpotsFilled");
+                    if v66.model.spotsTaken > 1 then
+                        l_default_0:updateNotification(l_notificationId_0, v66.model.spotsTaken .. "SpotsFilled");
                         return;
                     end;
                 elseif l_state_0 == l_ExperienceInviteState_0.Reserving or l_state_0 == l_ExperienceInviteState_0.ReservationSuccessful then
                     l_default_0:updateNotification(l_notificationId_0, "launching");
                     return;
                 else
-                    v79(l_notificationId_0, true);
+                    v81(l_notificationId_0, true);
                     if l_state_0 ~= l_ExperienceInviteState_0.Cancelled and l_state_0 ~= l_ExperienceInviteState_0.ReservationFailed then
                         v9:warning("Invitee unexpected squad experience invite state: {}", l_state_0);
                         return;
                     end;
                 end;
             elseif l_state_0 == l_ExperienceInviteState_0.Active then
-                if v75 == l_ExperienceInviteVoteType_0.Invalid or v75 == l_ExperienceInviteVoteType_0.NoVote then
-                    if v64.model.spotsTaken >= v64.model.totalSpots then
-                        v52.fireSquadAnalytics(v38.SquadToastActions, {
-                            parentChannelId = v65, 
-                            experienceInviteId = v64.model.experienceInviteId, 
+                if v77 == l_ExperienceInviteVoteType_0.Invalid or v77 == l_ExperienceInviteVoteType_0.NoVote then
+                    if v66.model.spotsTaken >= v66.model.totalSpots then
+                        v54.fireSquadAnalytics(v39.SquadToastActions, {
+                            parentChannelId = v67, 
+                            experienceInviteId = v66.model.experienceInviteId, 
                             toastAction = v7.ExpInvSlotsFull, 
                             toastType = v8.ExperienceInvite
                         });
                         l_default_0:updateNotification(l_notificationId_0, "slotsFull");
                         return;
                     end;
-                elseif v75 == l_ExperienceInviteVoteType_0.Accept then
+                elseif v77 == l_ExperienceInviteVoteType_0.Accept then
                     l_default_0:updateNotification(l_notificationId_0, "waiting");
                     return;
-                elseif v75 == l_ExperienceInviteVoteType_0.Decline or v75 == l_ExperienceInviteVoteType_0.Dismiss then
-                    v79(l_notificationId_0, true);
+                elseif v77 == l_ExperienceInviteVoteType_0.Decline or v77 == l_ExperienceInviteVoteType_0.Dismiss then
+                    v81(l_notificationId_0, true);
                     return;
                 end;
             elseif l_state_0 == l_ExperienceInviteState_0.Reserving or l_state_0 == l_ExperienceInviteState_0.ReservationSuccessful then
-                if v75 == l_ExperienceInviteVoteType_0.Invalid or v75 == l_ExperienceInviteVoteType_0.NoVote then
-                    v52.fireSquadAnalytics(v38.SquadToastActions, {
-                        parentChannelId = v65, 
-                        experienceInviteId = v64.model.experienceInviteId, 
+                if v77 == l_ExperienceInviteVoteType_0.Invalid or v77 == l_ExperienceInviteVoteType_0.NoVote then
+                    v54.fireSquadAnalytics(v39.SquadToastActions, {
+                        parentChannelId = v67, 
+                        experienceInviteId = v66.model.experienceInviteId, 
                         toastAction = v7.ExpInvExpired, 
                         toastType = v8.ExperienceInvite
                     });
                     l_default_0:updateNotification(l_notificationId_0, "expired");
                     return;
-                elseif v75 == l_ExperienceInviteVoteType_0.Accept then
+                elseif v77 == l_ExperienceInviteVoteType_0.Accept then
                     l_default_0:updateNotification(l_notificationId_0, "waiting");
                     return;
-                elseif v75 == l_ExperienceInviteVoteType_0.Decline or v75 == l_ExperienceInviteVoteType_0.Dismiss then
-                    v79(l_notificationId_0, true);
+                elseif v77 == l_ExperienceInviteVoteType_0.Decline or v77 == l_ExperienceInviteVoteType_0.Dismiss then
+                    v81(l_notificationId_0, true);
                     return;
                 end;
             elseif l_state_0 == l_ExperienceInviteState_0.Cancelled then
                 l_default_0:updateNotification(l_notificationId_0, "cancelled");
                 return;
             else
-                v79(l_notificationId_0, true);
+                v81(l_notificationId_0, true);
                 if l_state_0 ~= l_ExperienceInviteState_0.ReservationFailed then
                     v9:warning("Inviter unexpected squad experience invite state: {}", l_state_0);
                 end;
@@ -379,189 +386,189 @@ return function(v49) --[[ Line: 84 ]]
             return;
         end;
     end, {
-        v64, 
-        v65, 
-        v79, 
-        v51, 
-        v52.fireSquadAnalytics, 
-        v75
+        v66, 
+        v67, 
+        v81, 
+        v53, 
+        v54.fireSquadAnalytics, 
+        v77
     });
-    v18.useRealtimeNamespace("ExperienceInviteUpdate", function(v109) --[[ Line: 498 ]]
-        -- upvalues: v9 (ref), v12 (ref), v50 (copy), v11 (ref)
-        v9:debug("Experience invite RTN received. Detail: {}", v12(v109));
-        v50(v11.Actions.CurrentExperienceInviteUpdated(v109));
+    v18.useRealtimeNamespace("ExperienceInviteUpdate", function(v111) --[[ Line: 514 ]]
+        -- upvalues: v9 (ref), v12 (ref), v52 (copy), v11 (ref)
+        v9:debug("Experience invite RTN received. Detail: {}", v12(v111));
+        v52(v11.Actions.CurrentExperienceInviteUpdated(v111));
     end, {
-        v50
+        v52
     });
-    v17.useEffect(function() --[[ Line: 510 ]]
-        -- upvalues: l_default_0 (copy), v64 (copy), v75 (copy), l_ExperienceInviteVoteType_0 (ref), v79 (copy), l_ExperienceInviteState_0 (ref), v52 (copy), v38 (ref), v65 (copy), v7 (ref), v8 (ref), v93 (copy)
-        local v111 = l_default_0:listenToDismissNotification(function(v110) --[[ Line: 512 ]]
-            -- upvalues: v64 (ref), v75 (ref), l_ExperienceInviteVoteType_0 (ref), v79 (ref), l_ExperienceInviteState_0 (ref), v52 (ref), v38 (ref), v65 (ref), v7 (ref), v8 (ref), v93 (ref)
-            if v64 and v64.notification.notificationId == v110.notificationId then
-                if v75 ~= l_ExperienceInviteVoteType_0.Accept then
-                    v79(v110.notificationId, false);
+    v17.useEffect(function() --[[ Line: 526 ]]
+        -- upvalues: l_default_0 (copy), v66 (copy), v77 (copy), l_ExperienceInviteVoteType_0 (ref), v81 (copy), l_ExperienceInviteState_0 (ref), v54 (copy), v39 (ref), v67 (copy), v7 (ref), v8 (ref), v95 (copy)
+        local v113 = l_default_0:listenToDismissNotification(function(v112) --[[ Line: 528 ]]
+            -- upvalues: v66 (ref), v77 (ref), l_ExperienceInviteVoteType_0 (ref), v81 (ref), l_ExperienceInviteState_0 (ref), v54 (ref), v39 (ref), v67 (ref), v7 (ref), v8 (ref), v95 (ref)
+            if v66 and v66.notification.notificationId == v112.notificationId then
+                if v77 ~= l_ExperienceInviteVoteType_0.Accept then
+                    v81(v112.notificationId, false);
                 end;
-                if (not v64.model or v64.model.state == l_ExperienceInviteState_0.Active) and (v75 == l_ExperienceInviteVoteType_0.Invalid or v75 == l_ExperienceInviteVoteType_0.NoVote) then
-                    v52.fireSquadAnalytics(v38.SquadToastActions, {
-                        parentChannelId = v65, 
-                        experienceInviteId = v64.notification.experienceInviteId, 
+                if (not v66.model or v66.model.state == l_ExperienceInviteState_0.Active) and (v77 == l_ExperienceInviteVoteType_0.Invalid or v77 == l_ExperienceInviteVoteType_0.NoVote) then
+                    v54.fireSquadAnalytics(v39.SquadToastActions, {
+                        parentChannelId = v67, 
+                        experienceInviteId = v66.notification.experienceInviteId, 
                         toastAction = v7.ExpInvDismiss, 
                         toastType = v8.ExperienceInvite
                     });
-                    v93(v64.notification.experienceInviteId, l_ExperienceInviteVoteType_0.Dismiss, v64.notification.membershipEntityId);
+                    v95(v66.notification.experienceInviteId, l_ExperienceInviteVoteType_0.Dismiss, v66.notification.membershipEntityId);
                 end;
             end;
         end);
-        return function() --[[ Line: 553 ]]
-            -- upvalues: v111 (copy)
-            if v111 then
-                v111:Disconnect();
+        return function() --[[ Line: 569 ]]
+            -- upvalues: v113 (copy)
+            if v113 then
+                v113:Disconnect();
             end;
         end;
     end, {
-        v64, 
-        v65, 
-        v79, 
-        v50, 
-        v52.fireSquadAnalytics, 
-        v75, 
-        v93
+        v66, 
+        v67, 
+        v81, 
+        v52, 
+        v54.fireSquadAnalytics, 
+        v77, 
+        v95
     });
-    v17.useEffect(function() --[[ Line: 569 ]]
-        -- upvalues: l_default_0 (copy), v51 (copy), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v50 (copy), v11 (ref)
-        local v114 = l_default_0:listenToDisplayNotification(function(v112) --[[ Line: 571 ]]
-            -- upvalues: v51 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v50 (ref), v11 (ref)
-            if not v112 then
+    v17.useEffect(function() --[[ Line: 585 ]]
+        -- upvalues: l_default_0 (copy), v53 (copy), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v52 (copy), v11 (ref)
+        local v116 = l_default_0:listenToDisplayNotification(function(v114) --[[ Line: 587 ]]
+            -- upvalues: v53 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v52 (ref), v11 (ref)
+            if not v114 then
                 return;
-            elseif v51 <= 0 then
+            elseif v53 <= 0 then
                 return;
             else
-                if v112.notificationType == l_NotificationTypeEnum_0.SquadExperienceInvitation then
-                    local v113 = l_HttpService_0:JSONDecode(v112.lifecycleData);
-                    v50(v11.Actions.CurrentExperienceInviteReceived(v113.experienceInviteId, v113.membershipEntityId, v112.notificationId, v113.isInviter));
+                if v114.notificationType == l_NotificationTypeEnum_0.SquadExperienceInvitation then
+                    local v115 = l_HttpService_0:JSONDecode(v114.lifecycleData);
+                    v52(v11.Actions.CurrentExperienceInviteReceived(v115.experienceInviteId, v115.membershipEntityId, v114.notificationId, v115.isInviter));
                 end;
                 return;
             end;
         end);
-        return function() --[[ Line: 592 ]]
-            -- upvalues: v114 (copy)
-            if v114 then
-                v114:Disconnect();
+        return function() --[[ Line: 608 ]]
+            -- upvalues: v116 (copy)
+            if v116 then
+                v116:Disconnect();
             end;
         end;
     end, {
-        v51
+        v53
     });
-    v17.useEffect(function() --[[ Line: 601 ]]
-        -- upvalues: l_MessageBusService_0 (ref), l_l_MessageBusService_0_MessageId_0 (ref), l_NotificationTypeEnum_0 (ref), v64 (copy), l_HttpService_0 (ref), v50 (copy), v11 (ref), l_default_0 (copy), l_ExperienceInviteState_0 (ref), v75 (copy), l_ExperienceInviteVoteType_0 (ref)
-        local v117 = l_MessageBusService_0:Subscribe(l_l_MessageBusService_0_MessageId_0, function(v115) --[[ Line: 604 ]]
-            -- upvalues: l_NotificationTypeEnum_0 (ref), v64 (ref), l_HttpService_0 (ref), v50 (ref), v11 (ref), l_default_0 (ref), l_ExperienceInviteState_0 (ref), v75 (ref), l_ExperienceInviteVoteType_0 (ref)
-            if v115.notificationType == l_NotificationTypeEnum_0.SquadExperienceInvitation and v115.userActionType == "timerElapsed" then
-                if not v64 then
-                    local v116 = l_HttpService_0:JSONDecode(v115.parameters);
-                    v50(v11.Actions.CurrentExperienceInviteReceived(v116.experienceInviteId, v116.membershipEntityId, v115.notificationId, v116.isInviter));
-                    v50(function() --[[ Line: 619 ]]
-                        -- upvalues: l_default_0 (ref), v115 (copy)
-                        l_default_0:updateNotification(v115.notificationId, "expired");
+    v17.useEffect(function() --[[ Line: 617 ]]
+        -- upvalues: l_MessageBusService_0 (ref), l_l_MessageBusService_0_MessageId_0 (ref), l_NotificationTypeEnum_0 (ref), v66 (copy), l_HttpService_0 (ref), v52 (copy), v11 (ref), l_default_0 (copy), l_ExperienceInviteState_0 (ref), v77 (copy), l_ExperienceInviteVoteType_0 (ref)
+        local v119 = l_MessageBusService_0:Subscribe(l_l_MessageBusService_0_MessageId_0, function(v117) --[[ Line: 620 ]]
+            -- upvalues: l_NotificationTypeEnum_0 (ref), v66 (ref), l_HttpService_0 (ref), v52 (ref), v11 (ref), l_default_0 (ref), l_ExperienceInviteState_0 (ref), v77 (ref), l_ExperienceInviteVoteType_0 (ref)
+            if v117.notificationType == l_NotificationTypeEnum_0.SquadExperienceInvitation and v117.userActionType == "timerElapsed" then
+                if not v66 then
+                    local v118 = l_HttpService_0:JSONDecode(v117.parameters);
+                    v52(v11.Actions.CurrentExperienceInviteReceived(v118.experienceInviteId, v118.membershipEntityId, v117.notificationId, v118.isInviter));
+                    v52(function() --[[ Line: 635 ]]
+                        -- upvalues: l_default_0 (ref), v117 (copy)
+                        l_default_0:updateNotification(v117.notificationId, "expired");
                     end);
                     return;
                 else
-                    assert(v64, "Experience invite must exist to perform actions.");
-                    if (not v64.model or v64.model.state == l_ExperienceInviteState_0.Active) and (v75 == l_ExperienceInviteVoteType_0.Invalid or v75 == l_ExperienceInviteVoteType_0.NoVote) then
-                        l_default_0:updateNotification(v115.notificationId, "expired");
+                    assert(v66, "Experience invite must exist to perform actions.");
+                    if (not v66.model or v66.model.state == l_ExperienceInviteState_0.Active) and (v77 == l_ExperienceInviteVoteType_0.Invalid or v77 == l_ExperienceInviteVoteType_0.NoVote) then
+                        l_default_0:updateNotification(v117.notificationId, "expired");
                     end;
                 end;
             end;
         end, false, true);
-        return function() --[[ Line: 649 ]]
-            -- upvalues: v117 (copy)
-            if v117 then
-                v117:Disconnect();
+        return function() --[[ Line: 665 ]]
+            -- upvalues: v119 (copy)
+            if v119 then
+                v119:Disconnect();
             end;
         end;
     end, {
-        v64, 
-        v75, 
-        v93
+        v66, 
+        v77, 
+        v95
     });
-    v17.useEffect(function() --[[ Line: 657 ]]
-        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v65 (copy), v8 (ref), v64 (copy), v50 (copy), v11 (ref), v52 (copy), v38 (ref), v14 (ref), v7 (ref), v93 (copy), l_ExperienceInviteVoteType_0 (ref)
-        local v121 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadExperienceInvitation, function(v118) --[[ Line: 661 ]]
-            -- upvalues: l_HttpService_0 (ref), v65 (ref), v8 (ref), v64 (ref), v50 (ref), v11 (ref), v52 (ref), v38 (ref), v14 (ref), v7 (ref), v93 (ref), l_ExperienceInviteVoteType_0 (ref)
-            if v118 and v118.userActionType == "click" and v118.visualItem and v118.visualItem.actionEventParams then
-                local v119 = l_HttpService_0:JSONDecode(v118.visualItem.actionEventParams);
-                local v120 = {
-                    parentChannelId = v65, 
-                    experienceInviteId = v119.experienceInviteId, 
+    v17.useEffect(function() --[[ Line: 673 ]]
+        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v67 (copy), v8 (ref), v66 (copy), v52 (copy), v11 (ref), v54 (copy), v39 (ref), v14 (ref), v7 (ref), v95 (copy), l_ExperienceInviteVoteType_0 (ref)
+        local v123 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadExperienceInvitation, function(v120) --[[ Line: 677 ]]
+            -- upvalues: l_HttpService_0 (ref), v67 (ref), v8 (ref), v66 (ref), v52 (ref), v11 (ref), v54 (ref), v39 (ref), v14 (ref), v7 (ref), v95 (ref), l_ExperienceInviteVoteType_0 (ref)
+            if v120 and v120.userActionType == "click" and v120.visualItem and v120.visualItem.actionEventParams then
+                local v121 = l_HttpService_0:JSONDecode(v120.visualItem.actionEventParams);
+                local v122 = {
+                    parentChannelId = v67, 
+                    experienceInviteId = v121.experienceInviteId, 
                     toastType = v8.ExperienceInvite
                 };
-                if not v64 then
-                    v50(v11.Actions.CurrentExperienceInviteReceived(v119.experienceInviteId, v119.membershipEntityId, v118.notificationData.id, v119.isInviter));
+                if not v66 then
+                    v52(v11.Actions.CurrentExperienceInviteReceived(v121.experienceInviteId, v121.membershipEntityId, v120.notificationData.id, v121.isInviter));
                 end;
-                if v118.visualItem.eventName == "GroupUpSquadExperience" then
-                    v52.fireSquadAnalytics(v38.SquadToastActions, v14.Dictionary.union(v120, {
+                if v120.visualItem.eventName == "GroupUpSquadExperience" then
+                    v54.fireSquadAnalytics(v39.SquadToastActions, v14.Dictionary.union(v122, {
                         toastAction = v7.ExpInvAccept
                     }));
-                    v93(v119.experienceInviteId, l_ExperienceInviteVoteType_0.Accept, v119.membershipEntityId);
+                    v95(v121.experienceInviteId, l_ExperienceInviteVoteType_0.Accept, v121.membershipEntityId);
                     return;
-                elseif v118.visualItem.eventName == "DismissSquadExperienceInvited" then
-                    v52.fireSquadAnalytics(v38.SquadToastActions, v14.Dictionary.union(v120, {
+                elseif v120.visualItem.eventName == "DismissSquadExperienceInvited" then
+                    v54.fireSquadAnalytics(v39.SquadToastActions, v14.Dictionary.union(v122, {
                         toastAction = v7.ExpInvDecline
                     }));
-                    v93(v119.experienceInviteId, l_ExperienceInviteVoteType_0.Decline, v119.membershipEntityId);
+                    v95(v121.experienceInviteId, l_ExperienceInviteVoteType_0.Decline, v121.membershipEntityId);
                     return;
-                elseif v118.visualItem.eventName == "CancelSquadExperienceSpotsFilled" then
-                    v52.fireSquadAnalytics(v38.SquadToastActions, v14.Dictionary.union(v120, {
+                elseif v120.visualItem.eventName == "CancelSquadExperienceSpotsFilled" then
+                    v54.fireSquadAnalytics(v39.SquadToastActions, v14.Dictionary.union(v122, {
                         toastAction = v7.ExpInvCancel
                     }));
-                    v93(v119.experienceInviteId, l_ExperienceInviteVoteType_0.Cancel, v119.membershipEntityId);
+                    v95(v121.experienceInviteId, l_ExperienceInviteVoteType_0.Cancel, v121.membershipEntityId);
                 end;
             end;
         end);
-        return function() --[[ Line: 729 ]]
-            -- upvalues: v121 (copy)
-            v121();
+        return function() --[[ Line: 745 ]]
+            -- upvalues: v123 (copy)
+            v123();
         end;
     end, {
-        v64, 
-        v65, 
-        v50, 
-        v52.fireSquadAnalytics, 
-        v93
+        v66, 
+        v67, 
+        v52, 
+        v54.fireSquadAnalytics, 
+        v95
     });
-    v17.useEffect(function() --[[ Line: 741 ]]
-        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v52 (copy), v38 (ref)
-        local v125 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadExperienceInvitation, function(v122) --[[ Line: 745 ]]
-            -- upvalues: l_HttpService_0 (ref), v52 (ref), v38 (ref)
-            local v123 = v122 and v122.state and v122.state.visualItems and v122.state.visualItems.button and v122.state.visualItems.button[1] and v122.state.visualItems.button[1].actionEventParams;
-            if v123 then
-                local l_experienceInviteId_0 = l_HttpService_0:JSONDecode(v123).experienceInviteId;
-                v52.fireSquadAnalytics(v38.SquadExperienceInviteImpression, {
+    v17.useEffect(function() --[[ Line: 757 ]]
+        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_HttpService_0 (ref), v54 (copy), v39 (ref)
+        local v127 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadExperienceInvitation, function(v124) --[[ Line: 761 ]]
+            -- upvalues: l_HttpService_0 (ref), v54 (ref), v39 (ref)
+            local v125 = v124 and v124.state and v124.state.visualItems and v124.state.visualItems.button and v124.state.visualItems.button[1] and v124.state.visualItems.button[1].actionEventParams;
+            if v125 then
+                local l_experienceInviteId_0 = l_HttpService_0:JSONDecode(v125).experienceInviteId;
+                v54.fireSquadAnalytics(v39.SquadExperienceInviteImpression, {
                     experienceInviteId = l_experienceInviteId_0, 
-                    notificationId = v122.id, 
+                    notificationId = v124.id, 
                     clientTimestamp = os.time()
                 });
             end;
         end);
-        return function() --[[ Line: 765 ]]
-            -- upvalues: v125 (copy)
-            v125();
+        return function() --[[ Line: 781 ]]
+            -- upvalues: v127 (copy)
+            v127();
         end;
-    end, l_dependencyArray_0(v52.fireSquadAnalytics));
-    v17.useEffect(function() --[[ Line: 771 ]]
+    end, l_dependencyArray_0(v54.fireSquadAnalytics));
+    v17.useEffect(function() --[[ Line: 787 ]]
         -- upvalues: l_SoundManager_0 (ref), l_Sounds_0 (ref), l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref)
-        local function v127(v126) --[[ Line: 772 ]]
+        local function v129(v128) --[[ Line: 788 ]]
             -- upvalues: l_SoundManager_0 (ref), l_Sounds_0 (ref)
-            if v126.currentState == "invited" then
+            if v128.currentState == "invited" then
                 l_SoundManager_0:PlaySound(l_Sounds_0.PartyToast.Name);
             end;
         end;
-        local v128 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadExperienceInvitation, v127);
-        local v129 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Update, l_NotificationTypeEnum_0.SquadExperienceInvitation, v127);
-        return function() --[[ Line: 790 ]]
-            -- upvalues: v128 (copy), v129 (copy)
-            v128();
-            v129();
+        local v130 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadExperienceInvitation, v129);
+        local v131 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Update, l_NotificationTypeEnum_0.SquadExperienceInvitation, v129);
+        return function() --[[ Line: 806 ]]
+            -- upvalues: v130 (copy), v131 (copy)
+            v130();
+            v131();
         end;
     end, {});
     return nil;

@@ -26,204 +26,203 @@ local l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 = require(l_Parent_0.SharedFl
 local v25 = game:DefineFastFlag("LuaAppJoinTextPlayableButton", false) or l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0;
 local v26 = game:DefineFastFlag("LuaAppIconPlayButton", false) or l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0;
 local v27 = game:DefineFastFlag("LuaAppFixPlayButtonDefaultLaunchSource", false);
-local l_FFlagUIBloxAddTestIdToComboButtonAndCellTailDescription_0 = require(l_Parent_0.SharedFlags).UIBlox.FFlagUIBloxAddTestIdToComboButtonAndCellTailDescription;
-local v29 = v26 and "play-xlarge" or nil;
-local v30 = l_Images_0["icons/common/play"];
-local v31 = l_Images_0["icons/actions/truncationCollapse"];
-local function v32() --[[ Line: 52 ]]
+local v28 = v26 and "play-xlarge" or nil;
+local v29 = l_Images_0["icons/common/play"];
+local v30 = l_Images_0["icons/actions/truncationCollapse"];
+local function v31() --[[ Line: 50 ]]
 
 end;
-return v2.memo(function(v33) --[[ Line: 114 ]] --[[ Name: PlayButton ]]
-    -- upvalues: v2 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useSelector_0 (copy), l_GamesProductInfoReducer_0 (copy), v1 (copy), v19 (copy), v17 (copy), v27 (copy), v18 (copy), l_MenuDirection_0 (copy), v20 (copy), l_useLocalization_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_ButtonSize_0 (copy), l_ButtonVariant_0 (copy), v25 (copy), v26 (copy), v29 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v30 (copy), l_ComboButton_0 (copy), v31 (copy), l_FFlagUIBloxAddTestIdToComboButtonAndCellTailDescription_0 (copy), l_IconButton_0 (copy), v32 (copy), l_Button_0 (copy)
-    local v34 = v2.useRef(false);
-    v2.useEffect(function() --[[ Line: 116 ]]
-        -- upvalues: v34 (copy)
-        v34.current = true;
-        return function() --[[ Line: 118 ]]
-            -- upvalues: v34 (ref)
-            v34.current = false;
+return v2.memo(function(v32) --[[ Line: 112 ]] --[[ Name: PlayButton ]]
+    -- upvalues: v2 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useSelector_0 (copy), l_GamesProductInfoReducer_0 (copy), v1 (copy), v19 (copy), v17 (copy), v27 (copy), v18 (copy), l_MenuDirection_0 (copy), v20 (copy), l_useLocalization_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_ButtonSize_0 (copy), l_ButtonVariant_0 (copy), v25 (copy), v26 (copy), v28 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v29 (copy), l_ComboButton_0 (copy), v30 (copy), l_IconButton_0 (copy), v31 (copy), l_Button_0 (copy)
+    local v33 = v2.useRef(false);
+    v2.useEffect(function() --[[ Line: 114 ]]
+        -- upvalues: v33 (copy)
+        v33.current = true;
+        return function() --[[ Line: 116 ]]
+            -- upvalues: v33 (ref)
+            v33.current = false;
         end;
     end, {});
-    local v35 = l_useRoactService_0(l_RoactNetworking_0);
-    local v37 = l_useSelector_0(function(v36) --[[ Line: 124 ]]
-        -- upvalues: v33 (copy), l_GamesProductInfoReducer_0 (ref)
-        if v33.universeId then
-            return v36[l_GamesProductInfoReducer_0.key][v33.universeId];
+    local v34 = l_useRoactService_0(l_RoactNetworking_0);
+    local v36 = l_useSelector_0(function(v35) --[[ Line: 122 ]]
+        -- upvalues: v32 (copy), l_GamesProductInfoReducer_0 (ref)
+        if v32.universeId then
+            return v35[l_GamesProductInfoReducer_0.key][v32.universeId];
         else
             return nil;
         end;
     end, v1.shallowEqual);
-    local l_playButtonState_0 = v19(v35, v33.universeId, v33.fetchDelayInSeconds, v33.isPlayableWhenLoading).playButtonState;
-    local v39 = v17(v33.universeId, v33.referralSource, v33.eventContext or "PlayButton", nil, v33.launchSource or v27 and "UnknownLaunchSource" or "LuaGameCard", v33.experienceJoinData, v33.placeId);
-    local v40 = v18(l_MenuDirection_0.Up, l_playButtonState_0, v33.referralSource, v33.universeId);
-    local v41 = v2.useCallback(function() --[[ Line: 150 ]]
-        -- upvalues: v34 (copy), v33 (copy), l_playButtonState_0 (copy), v20 (ref), v39 (copy)
-        if not v34.current then
+    local l_playButtonState_0 = v19(v34, v32.universeId, v32.fetchDelayInSeconds, v32.isPlayableWhenLoading).playButtonState;
+    local v38 = v17(v32.universeId, v32.referralSource, v32.eventContext or "PlayButton", nil, v32.launchSource or v27 and "UnknownLaunchSource" or "LuaGameCard", v32.experienceJoinData, v32.placeId);
+    local v39 = v18(l_MenuDirection_0.Up, l_playButtonState_0, v32.referralSource, v32.universeId);
+    local v40 = v2.useCallback(function() --[[ Line: 148 ]]
+        -- upvalues: v33 (copy), v32 (copy), l_playButtonState_0 (copy), v20 (ref), v38 (copy)
+        if not v33.current then
             return;
         else
-            if v33.onActivated then
-                v33.onActivated();
+            if v32.onActivated then
+                v32.onActivated();
             end;
-            if v33.onPurchaseRequiredCallback and (l_playButtonState_0 == v20.PaidAccess or l_playButtonState_0 == v20.FiatPaidAccess) then
-                v33.onPurchaseRequiredCallback();
+            if v32.onPurchaseRequiredCallback and (l_playButtonState_0 == v20.PaidAccess or l_playButtonState_0 == v20.FiatPaidAccess) then
+                v32.onPurchaseRequiredCallback();
                 return;
             else
-                v39(l_playButtonState_0, v33.reportExperienceLaunched);
+                v38(l_playButtonState_0, v32.reportExperienceLaunched);
                 return;
             end;
+        end;
+    end, {
+        v38, 
+        l_playButtonState_0, 
+        v32.onPurchaseRequiredCallback, 
+        v32.reportExperienceLaunched, 
+        v32.onActivated
+    });
+    local v42 = v2.useCallback(function(v41) --[[ Line: 178 ]]
+        -- upvalues: v33 (copy), v32 (copy), v39 (copy)
+        if not v33.current then
+            return;
+        else
+            if v32.onActivated then
+                v32.onActivated();
+            end;
+            v39(v41);
+            return;
         end;
     end, {
         v39, 
-        l_playButtonState_0, 
-        v33.onPurchaseRequiredCallback, 
-        v33.reportExperienceLaunched, 
-        v33.onActivated
+        v32.onActivated
     });
-    local v43 = v2.useCallback(function(v42) --[[ Line: 180 ]]
-        -- upvalues: v34 (copy), v33 (copy), v40 (copy)
-        if not v34.current then
-            return;
-        else
-            if v33.onActivated then
-                v33.onActivated();
-            end;
-            v40(v42);
-            return;
-        end;
-    end, {
-        v40, 
-        v33.onActivated
-    });
-    local v44 = l_useLocalization_0({
+    local v43 = l_useLocalization_0({
         join = "Feature.ExperienceDetails.PlayButtonText.ActionNeeded", 
         joinWithParty = "Feature.Squads.Action.JoinWithParty", 
         unavailable = "Feature.ExperienceDetails.PlayButtonText.Unavailable", 
         waitingForParty = "Feature.Squads.Action.WaitingForParty"
     });
+    local v44 = nil;
     local v45 = nil;
-    local v46 = nil;
     if l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 then
-        local v49, v50 = l_useUserExperiment_0({
+        local v48, v49 = l_useUserExperiment_0({
             l_AppUserLayers_0.PlayButtonUXExposureLayer
-        }, function(v47) --[[ Line: 201 ]]
+        }, function(v46) --[[ Line: 199 ]]
             -- upvalues: l_AppUserLayers_0 (ref)
-            local v48 = v47[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {};
-            return v48.HasJoinTextButton, v48.HasIconPlayButton;
+            local v47 = v46[l_AppUserLayers_0.PlayButtonUXExposureLayer] or {};
+            return v47.HasJoinTextButton, v47.HasIconPlayButton;
         end, true);
+        v44 = v48;
         v45 = v49;
-        v46 = v50;
     end;
+    local v50 = false;
     local v51 = false;
     local v52 = false;
-    local v53 = false;
-    local v54 = v33.buttonSize or l_ButtonSize_0.Medium;
-    local l_fillBehavior_0 = v33.fillBehavior;
+    local v53 = v32.buttonSize or l_ButtonSize_0.Medium;
+    local l_fillBehavior_0 = v32.fillBehavior;
+    local v55 = nil;
     local v56 = nil;
     local v57 = nil;
-    local v58 = nil;
     if l_playButtonState_0 == v20.Loading then
-        if v33.hideIfLoading then
+        if v32.hideIfLoading then
             return nil;
         else
-            v56 = l_ButtonVariant_0.Emphasis;
+            v55 = l_ButtonVariant_0.Emphasis;
         end;
     elseif l_playButtonState_0 == v20.Playable then
-        v56 = l_ButtonVariant_0.Emphasis;
-        if v25 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v45) then
-            v58 = v33.playableText or v44.join;
+        v55 = l_ButtonVariant_0.Emphasis;
+        if v25 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v44) then
+            v57 = v32.playableText or v43.join;
         else
-            if not v26 and not v33.hidePlayableIcon then
-                v57 = "icons/common/play";
+            if not v26 and not v32.hidePlayableIcon then
+                v56 = "icons/common/play";
             end;
-            v58 = v33.playableText;
-            if v26 and not v33.hidePlayableIcon then
-                v57 = v58 and v58 ~= "" and "icons/common/play" or v29;
+            v57 = v32.playableText;
+            if v26 and not v32.hidePlayableIcon then
+                v56 = v57 and v57 ~= "" and "icons/common/play" or v28;
             end;
         end;
     elseif l_GetFFlagIsSquadEnabled_0() and l_playButtonState_0 == v20.PlayableWithParty then
-        v57 = v30;
-        v58 = if v33.hideOptionalText then nil else v44.joinWithParty;
-        v51 = true;
+        v56 = v29;
+        v57 = if v32.hideOptionalText then nil else v43.joinWithParty;
+        v50 = true;
     elseif l_GetFFlagIsSquadEnabled_0() and l_playButtonState_0 == v20.WaitingForParty then
-        v57 = v30;
-        v58 = if v33.hideOptionalText then nil else v44.waitingForParty;
-        v53 = true;
+        v56 = v29;
+        v57 = if v32.hideOptionalText then nil else v43.waitingForParty;
         v52 = true;
         v51 = true;
+        v50 = true;
     elseif l_playButtonState_0 == v20.PaidAccess then
-        v58 = tostring(v37 and v37.price or 0);
-        v56 = l_ButtonVariant_0.Emphasis;
-        v57 = "icons/common/robux";
+        v57 = tostring(v36 and v36.price or 0);
+        v55 = l_ButtonVariant_0.Emphasis;
+        v56 = "icons/common/robux";
     elseif l_playButtonState_0 == v20.FiatPaidAccess then
-        v56 = l_ButtonVariant_0.Emphasis;
-        local v59 = v37 and v37.localizedFiatPrice or "";
-        v58 = v33.fiatText or v59;
+        v55 = l_ButtonVariant_0.Emphasis;
+        local v58 = v36 and v36.localizedFiatPrice or "";
+        v57 = v32.fiatText or v58;
     elseif l_playButtonState_0 == v20.ActionNeeded then
-        v56 = l_ButtonVariant_0.SubEmphasis;
-        v57 = "icons/status/private";
-        v58 = if v33.hideOptionalText then nil else v44.join;
+        v55 = l_ButtonVariant_0.SubEmphasis;
+        v56 = "icons/status/private";
+        v57 = if v32.hideOptionalText then nil else v43.join;
     elseif l_playButtonState_0 == v20.UnplayableOther then
-        if v33.hideIfUnplayable then
+        if v32.hideIfUnplayable then
             return nil;
         else
-            v56 = l_ButtonVariant_0.Subtle;
-            v57 = "icons/status/unavailable";
-            v58 = if v33.hideOptionalText then nil else v44.unavailable;
-            v53 = true;
+            v55 = l_ButtonVariant_0.Subtle;
+            v56 = "icons/status/unavailable";
+            v57 = if v32.hideOptionalText then nil else v43.unavailable;
+            v52 = true;
         end;
     else
         error("invalid play button state!");
     end;
-    if v51 then
+    if v50 then
         return v2.createElement(l_ComboButton_0, {
-            layoutOrder = v33.LayoutOrder, 
-            position = v33.Position, 
-            size = UDim2.new(v33.width or UDim.new(1, 0), v33.squadButtonHeight or UDim.new(1, 0)), 
+            layoutOrder = v32.LayoutOrder, 
+            position = v32.Position, 
+            size = UDim2.new(v32.width or UDim.new(1, 0), v32.squadButtonHeight or UDim.new(1, 0)), 
             button = {
-                icon = v57, 
-                text = v58, 
-                isDisabled = v53, 
-                onActivated = if not v53 then v41 else function() --[[ Line: 282 ]]
+                icon = v56, 
+                text = v57, 
+                isDisabled = v52, 
+                onActivated = if not v52 then v40 else function() --[[ Line: 280 ]]
 
                 end
             }, 
             overflow = {
-                icon = v31, 
-                isDisabled = v52, 
-                onActivated = if not v52 then v43 else function() --[[ Line: 287 ]]
+                icon = v30, 
+                isDisabled = v51, 
+                onActivated = if not v51 then v42 else function() --[[ Line: 285 ]]
 
                 end
             }, 
-            testId = if l_FFlagUIBloxAddTestIdToComboButtonAndCellTailDescription_0 then v33.testId else nil
+            testId = v32.testId
         });
     else
-        local v60 = if v26 then (not (v58 ~= nil) or v58 == "") and v57 ~= nil else nil;
-        if v26 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v46) and v60 then
+        local v59 = if v26 then (not (v57 ~= nil) or v57 == "") and v56 ~= nil else nil;
+        if v26 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v45) and v59 then
             return v2.createElement(l_IconButton_0, {
-                LayoutOrder = v33.LayoutOrder, 
-                Position = v33.Position, 
-                icon = v57, 
-                variant = v56, 
-                size = v54, 
-                width = v33.width, 
+                LayoutOrder = v32.LayoutOrder, 
+                Position = v32.Position, 
+                icon = v56, 
+                variant = v55, 
+                size = v53, 
+                width = v32.width, 
                 fillBehavior = l_fillBehavior_0, 
-                isDisabled = v53, 
-                onActivated = if not v53 then v41 else v32, 
-                testId = v33.testId
+                isDisabled = v52, 
+                onActivated = if not v52 then v40 else v31, 
+                testId = v32.testId
             });
         else
             return v2.createElement(l_Button_0, {
-                LayoutOrder = v33.LayoutOrder, 
-                Position = v33.Position, 
-                icon = v57, 
-                text = v58, 
-                variant = v56, 
-                size = v54, 
-                width = v33.width, 
+                LayoutOrder = v32.LayoutOrder, 
+                Position = v32.Position, 
+                icon = v56, 
+                text = v57, 
+                variant = v55, 
+                size = v53, 
+                width = v32.width, 
                 fillBehavior = l_fillBehavior_0, 
-                isDisabled = v53, 
-                onActivated = if not v53 then v41 else v32, 
-                testId = v33.testId
+                isDisabled = v52, 
+                onActivated = if not v52 then v40 else v31, 
+                testId = v32.testId
             });
         end;
     end;

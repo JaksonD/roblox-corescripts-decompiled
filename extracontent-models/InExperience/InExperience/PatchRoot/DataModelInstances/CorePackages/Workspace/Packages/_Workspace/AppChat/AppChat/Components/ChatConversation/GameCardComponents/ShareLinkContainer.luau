@@ -8,18 +8,17 @@ local v6 = require(l_script_FirstAncestor_0.Logger):new(script.Name);
 local l_useEffect_0 = v2.useEffect;
 local l_useDispatch_0 = v3.Hooks.RoactRodux.useDispatch;
 local v9 = require(l_script_FirstAncestor_0.Stores.GetShareLinkStore);
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableNewChatBubbleUI);
-return function(v11) --[[ Line: 39 ]] --[[ Name: ShareLinkContainer ]]
-    -- upvalues: v9 (copy), l_useSignalState_0 (copy), l_useDispatch_0 (copy), l_useEffect_0 (copy), v6 (copy), v2 (copy), v5 (copy), v10 (copy)
-    local l_linkId_0 = v11.shareLink.linkId;
-    local l_linkType_0 = v11.shareLink.linkType;
-    local v14 = v9(false);
-    local v15 = l_useSignalState_0(v14.getShareLinkMetadataComputed(l_linkId_0));
-    local v16 = l_useDispatch_0();
-    l_useEffect_0(function() --[[ Line: 46 ]]
-        -- upvalues: v15 (copy), v14 (copy), v16 (copy), l_linkId_0 (copy), l_linkType_0 (copy), v6 (ref)
-        if not v15 then
-            v14.fetchShareLinkMetadata(v16, l_linkId_0, l_linkType_0);
+return function(v10) --[[ Line: 37 ]] --[[ Name: ShareLinkContainer ]]
+    -- upvalues: v9 (copy), l_useSignalState_0 (copy), l_useDispatch_0 (copy), l_useEffect_0 (copy), v6 (copy), v2 (copy), v5 (copy)
+    local l_linkId_0 = v10.shareLink.linkId;
+    local l_linkType_0 = v10.shareLink.linkType;
+    local v13 = v9(false);
+    local v14 = l_useSignalState_0(v13.getShareLinkMetadataComputed(l_linkId_0));
+    local v15 = l_useDispatch_0();
+    l_useEffect_0(function() --[[ Line: 44 ]]
+        -- upvalues: v14 (copy), v13 (copy), v15 (copy), l_linkId_0 (copy), l_linkType_0 (copy), v6 (ref)
+        if not v14 then
+            v13.fetchShareLinkMetadata(v15, l_linkId_0, l_linkType_0);
             return;
         else
             v6:warning("ShareLinkContainer: Missing linkId or linkType in props.");
@@ -28,23 +27,23 @@ return function(v11) --[[ Line: 39 ]] --[[ Name: ShareLinkContainer ]]
     end, {
         l_linkId_0, 
         l_linkType_0, 
-        v15
+        v14
     });
     return v2.createElement(v5, {
-        universeId = if v15 then v15.universeId else nil, 
-        placeId = if v15 then v15.placeId else nil, 
-        conversationId = v11.conversationId, 
-        senderUserId = v11.senderUserId, 
-        onDetailsOpened = v11.onDetailsOpened, 
-        openGameDetailsPage = v11.openGameDetailsPage, 
-        networkImpl = v11.networkImpl, 
-        eventStream = v11.eventStream, 
-        eventIngest = v11.eventIngest, 
-        luaChatPlayTogetherEnabled = v11.luaChatPlayTogetherEnabled, 
-        isStartOfGroup = if v10 then v11.isStartOfGroup else nil, 
-        isIncoming = if v10 then v11.isIncoming else nil, 
-        isUnfiltered = if v10 then v11.isUnfiltered else nil, 
-        isPending = if v10 then v11.isPending else nil, 
-        isRepliedTo = if v10 then v11.isRepliedTo else nil
+        universeId = if v14 then v14.universeId else nil, 
+        placeId = if v14 then v14.placeId else nil, 
+        conversationId = v10.conversationId, 
+        senderUserId = v10.senderUserId, 
+        onDetailsOpened = v10.onDetailsOpened, 
+        openGameDetailsPage = v10.openGameDetailsPage, 
+        networkImpl = v10.networkImpl, 
+        eventStream = v10.eventStream, 
+        eventIngest = v10.eventIngest, 
+        luaChatPlayTogetherEnabled = v10.luaChatPlayTogetherEnabled, 
+        isStartOfGroup = v10.isStartOfGroup, 
+        isIncoming = v10.isIncoming, 
+        isUnfiltered = v10.isUnfiltered, 
+        isPending = v10.isPending, 
+        isRepliedTo = v10.isRepliedTo
     });
 end;

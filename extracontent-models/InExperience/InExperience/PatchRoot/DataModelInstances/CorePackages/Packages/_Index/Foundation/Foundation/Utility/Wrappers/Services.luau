@@ -1,4 +1,5 @@
 return {
+    ContentProvider = game:GetService("ContentProvider"), 
     CoreGui = game:GetService("CoreGui"), 
     GuiService = game:GetService("GuiService"), 
     LocalizationService = game:GetService("LocalizationService"), 

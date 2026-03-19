@@ -34,107 +34,109 @@ local v32 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBased
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local l_FFlagAXEnableResponsiveHeadRefinementMenu_0 = v29.FFlagAXEnableResponsiveHeadRefinementMenu;
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
+local v36 = game:DefineFastFlag("AXHeadRefinementResizeFix", false);
 local l_DeviceOrientationMode_0 = v10.DeviceOrientationMode;
-local function v38(v37) --[[ Line: 65 ]] --[[ Name: selectGlobalGuiInset ]]
-    return v37.GlobalGuiInset;
+local function v39(v38) --[[ Line: 66 ]] --[[ Name: selectGlobalGuiInset ]]
+    return v38.GlobalGuiInset;
 end;
-local function v40(v39) --[[ Line: 69 ]] --[[ Name: selectScreenSize ]]
-    return v39.ScreenSize;
+local function v41(v40) --[[ Line: 70 ]] --[[ Name: selectScreenSize ]]
+    return v40.ScreenSize;
 end;
-return (v28((v27(function(v41) --[[ Line: 78 ]] --[[ Name: HeadRefinementPage ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_FFlagAXEnableResponsiveHeadRefinementMenu_0 (copy), l_useTokens_0 (copy), l_getFoundationMappedStyleTokens_0 (copy), l_getMappedStyleTokens_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v3 (copy), l_useLocalization_0 (copy), l_useSelector_0 (copy), v19 (copy), v38 (copy), l_useDeviceOrientation_0 (copy), l_DeviceOrientationMode_0 (copy), l_useTopBarHeight_0 (copy), v2 (copy), v15 (copy), v40 (copy), l_getHeadShapeListHeight_0 (copy), v32 (copy), l_AvatarScreen_0 (copy), l_Focusable_0 (copy), v31 (copy), v22 (copy), v24 (copy), v26 (copy), v25 (copy), v23 (copy), l_HeadShapePicker_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy)
-    local v42 = l_useDesignTokens_0();
-    local v43 = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 then l_useTokens_0() else nil;
-    local v44 = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 then l_getFoundationMappedStyleTokens_0(v43) else l_getMappedStyleTokens_0(v42);
-    local v45 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v3.useRootFocusController();
-    local v46 = l_useLocalization_0({
+return (v28((v27(function(v42) --[[ Line: 79 ]] --[[ Name: HeadRefinementPage ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_FFlagAXEnableResponsiveHeadRefinementMenu_0 (copy), l_useTokens_0 (copy), l_getFoundationMappedStyleTokens_0 (copy), l_getMappedStyleTokens_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v3 (copy), l_useLocalization_0 (copy), l_useSelector_0 (copy), v19 (copy), v39 (copy), v36 (copy), l_DeviceOrientationMode_0 (copy), l_useDeviceOrientation_0 (copy), l_useTopBarHeight_0 (copy), v2 (copy), v15 (copy), v41 (copy), l_getHeadShapeListHeight_0 (copy), v32 (copy), l_AvatarScreen_0 (copy), l_Focusable_0 (copy), v31 (copy), v22 (copy), v24 (copy), v26 (copy), v25 (copy), v23 (copy), l_HeadShapePicker_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy)
+    local v43 = l_useDesignTokens_0();
+    local v44 = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 then l_useTokens_0() else nil;
+    local v45 = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 then l_getFoundationMappedStyleTokens_0(v44) else l_getMappedStyleTokens_0(v43);
+    local v46 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v3.useRootFocusController();
+    local v47 = l_useLocalization_0({
         topBarTitle = "Feature.Avatar.Label.HeadRefinement.Adjust.Title"
     });
-    local v47 = l_useSelector_0(v19);
-    local v48 = l_useSelector_0(v38);
-    local v49 = l_useDeviceOrientation_0() or l_DeviceOrientationMode_0.Portrait;
-    local v50 = l_useTopBarHeight_0();
-    local v51 = v44.largeTileContainerSize * 4 + v44.tileListPaddingBetweenItems * 3 + v44.tileListPaddingLeft + v44.tileListPaddingRight;
-    local v52 = v2.useRef(nil);
+    local v48 = l_useSelector_0(v19);
+    local v49 = l_useSelector_0(v39);
+    local v50 = if v36 then if v48 then l_DeviceOrientationMode_0.Portrait else l_DeviceOrientationMode_0.Landscape else l_useDeviceOrientation_0() or l_DeviceOrientationMode_0.Portrait;
+    local v51 = l_useTopBarHeight_0();
+    local v52 = v45.largeTileContainerSize * 4 + v45.tileListPaddingBetweenItems * 3 + v45.tileListPaddingLeft + v45.tileListPaddingRight;
     local v53 = v2.useRef(nil);
-    local v54, v55, v56, v57, v58 = v15();
-    local v59 = nil;
+    local v54 = v2.useRef(nil);
+    local v55, v56, v57, v58, v59 = v15();
+    local v60 = nil;
     if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 then
-        local v60 = l_useSelector_0(v40);
-        v59 = l_getHeadShapeListHeight_0({
-            tokens = v43, 
-            itemCount = if v54 then #v54 else 0, 
-            availableViewportHeight = v60.Y - v50 - v48.bottom
+        local v61 = l_useSelector_0(v41);
+        v60 = l_getHeadShapeListHeight_0({
+            tokens = v44, 
+            itemCount = if v55 then #v55 else 0, 
+            availableViewportHeight = v61.Y - v51 - v49.bottom
         });
     end;
-    local function v61() --[[ Line: 118 ]] --[[ Name: onBackButtonPressed ]]
-        -- upvalues: v32 (ref), v41 (copy), l_AvatarScreen_0 (ref)
+    local function v62() --[[ Line: 120 ]] --[[ Name: onBackButtonPressed ]]
+        -- upvalues: v32 (ref), v42 (copy), l_AvatarScreen_0 (ref)
         if v32() then
-            v41.navigation.pop();
+            v42.navigation.pop();
             return;
         else
-            v41.navigation.navigate(l_AvatarScreen_0.AvatarRefinement);
+            v42.navigation.navigate(l_AvatarScreen_0.AvatarRefinement);
             return;
         end;
     end;
     return v2.createElement(l_Focusable_0.Frame, {
         Size = UDim2.fromScale(1, 1), 
         BackgroundTransparency = 1, 
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v45, 
-        defaultChild = v52, 
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v46, 
+        defaultChild = v53, 
         inputBindings = if v31 then nil else {
-            Back = v3.Input.onBegin(Enum.KeyCode.ButtonB, v61)
+            Back = v3.Input.onBegin(Enum.KeyCode.ButtonB, v62)
         }
     }, {
         GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v2.createElement(v22, {
-            focusController = v45, 
+            focusController = v46, 
             captureFocusOnMount = true
         }), 
         HeadRefinementPageTopBar = v2.createElement(v24.Container, {
-            titleText = v46.topBarTitle, 
+            titleText = v47.topBarTitle, 
             transparentBackground = true, 
-            leftItem = v24.makeBackButton(v61), 
-            ref = v52, 
-            NextSelectionDown = v53, 
+            leftItem = v24.makeBackButton(v62), 
+            ref = v53, 
+            NextSelectionDown = v54, 
             ZIndex = 3
         }), 
-        RefinementNavBar = if v47 then v2.createElement(if v32() then v26 else v25, {}) else nil, 
+        RefinementNavBar = if v48 then v2.createElement(if v32() then v26 else v25, {}) else nil, 
         HeadRefinementPageContainer = v2.createElement("Frame", {
-            Size = UDim2.new(1, 0, 1, -v50 + v48.bottom), 
-            Position = UDim2.fromOffset(0, v50), 
+            Size = UDim2.new(1, 0, 1, -v51 + v49.bottom), 
+            Position = UDim2.fromOffset(0, v51), 
             BackgroundTransparency = 1
         }, {
-            HeadShapePickerUIListLayout = if v47 then v2.createElement("UIListLayout", {
+            HeadShapePickerUIListLayout = if not v36 and v48 then v2.createElement("UIListLayout", {
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 VerticalAlignment = Enum.VerticalAlignment.Bottom
             }) else nil, 
             HeadRefinementPageSceneInteractionFrame = v2.createElement(v23), 
             HeadRefinementPageControlPanel = v2.createElement(l_Focusable_0.Frame, {
                 BackgroundTransparency = 1, 
-                AnchorPoint = if v47 then Vector2.new(0, 1) else Vector2.new(0, 0.5), 
-                Position = if v47 then UDim2.new(0, 0, 1, 0) else UDim2.new(0, v42.Global.Size_450, 0.5, 0), 
-                Size = if v47 then UDim2.new(1, 0, 0, 0) else UDim2.new(0, v51, 0, 0), 
+                AnchorPoint = if v48 then Vector2.new(0, 1) else Vector2.new(0, 0.5), 
+                Position = if v48 then UDim2.new(0, 0, 1, 0) else UDim2.new(0, v43.Global.Size_450, 0.5, 0), 
+                Size = if v48 then UDim2.new(1, 0, 0, 0) else UDim2.new(0, v52, 0, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 ZIndex = 3
             }, {
                 HeadShapePicker = v2.createElement(l_Focusable_0[l_HeadShapePicker_0], {
-                    isUnsupported = v55, 
-                    items = v54, 
-                    orientation = v49, 
-                    tileSize = v49 == l_DeviceOrientationMode_0.Portrait and "small" or "large", 
-                    isLoading = v56, 
-                    containerRef = v53, 
-                    NextSelectionUp = v52, 
-                    isFacialAnimationEnabled = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v57 else nil, 
-                    onFacialAnimationToggle = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v58 else nil, 
-                    headShapeListMaxHeight = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 and v49 == l_DeviceOrientationMode_0.Landscape then v59 else nil
+                    isUnsupported = v56, 
+                    items = v55, 
+                    orientation = v50, 
+                    tileSize = v50 == l_DeviceOrientationMode_0.Portrait and "small" or "large", 
+                    isLoading = v57, 
+                    containerRef = v54, 
+                    NextSelectionUp = v53, 
+                    isFacialAnimationEnabled = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v58 else nil, 
+                    onFacialAnimationToggle = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v59 else nil, 
+                    headShapeListMaxHeight = if l_FFlagAXEnableResponsiveHeadRefinementMenu_0 and v50 == l_DeviceOrientationMode_0.Landscape then v60 else nil
                 }), 
-                HeadRefinementPageBottomFiller = if v47 then v2.createElement("Frame", {
+                HeadRefinementPageBottomFiller = if v48 then v2.createElement("Frame", {
                     BorderSizePixel = 0, 
-                    Size = UDim2.new(1, 0, 1, 0), 
-                    Position = UDim2.new(0, 0, 0, v48.bottom), 
-                    BackgroundColor3 = v42.Semantic.Color.Background.Default.Color3, 
-                    BackgroundTransparency = v42.Semantic.Color.Background.Default.Transparency
+                    Size = if v36 then UDim2.new(1, 0, 0, v49.bottom) else UDim2.new(1, 0, 1, 0), 
+                    Position = if v36 then UDim2.new(0, 0, 1, 0) else UDim2.new(0, 0, 0, v49.bottom), 
+                    BackgroundColor3 = v43.Semantic.Color.Background.Default.Color3, 
+                    BackgroundTransparency = v43.Semantic.Color.Background.Default.Transparency, 
+                    ZIndex = v36 and 0 or nil
                 }) else nil
             })
         })

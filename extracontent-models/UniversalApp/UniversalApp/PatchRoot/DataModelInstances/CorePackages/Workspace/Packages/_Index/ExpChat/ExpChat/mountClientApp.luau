@@ -87,14 +87,13 @@ local v85 = game:DefineFastFlag("ExpChatShowBubblesOnMeshParts", false);
 local v86 = game:DefineFastFlag("ExpChatMigrateMessageResponse", false);
 local v87 = game:DefineFastInt("ExpChatMessageResponseThrottlePermyriad", 0);
 local v88 = game:DefineFastInt("ExpChatMessageResponseUserSamplePermyriad", 0);
-local v89 = game:DefineFastFlag("ExpChatUpdateEnabledCopyWithTC", false);
-local v90 = game:DefineFastFlag("ExpChatEnableNewFOMOSystemMessages", false);
-local v91 = game:DefineFastInt("ExpChatHiddenMessagesPromptThresholdLowerBound", 10);
-local v92 = game:DefineFastInt("ExpChatHiddenMessagesPromptThresholdUpperBound", 45);
-local v93 = require(l_Flags_0.FFlagExpChatEnableFOMOUpsell);
-local v94 = require(l_Flags_0.FFlagExpChatClearHiddenMessagesPostAgeCheck);
-local v95 = require(l_Flags_0.FFlagExpChatEnableCrossAgeChatActivity);
-local v96 = game:DefineFastInt("MaxExpChatUserMessageIntentImpressionCount", 9999999);
+local v89 = game:DefineFastFlag("ExpChatEnableNewFOMOSystemMessages", false);
+local v90 = game:DefineFastInt("ExpChatHiddenMessagesPromptThresholdLowerBound", 10);
+local v91 = game:DefineFastInt("ExpChatHiddenMessagesPromptThresholdUpperBound", 45);
+local v92 = require(l_Flags_0.FFlagExpChatEnableFOMOUpsell);
+local v93 = require(l_Flags_0.FFlagExpChatClearHiddenMessagesPostAgeCheck);
+local v94 = require(l_Flags_0.FFlagExpChatEnableCrossAgeChatActivity);
+local v95 = game:DefineFastInt("MaxExpChatUserMessageIntentImpressionCount", 9999999);
 local l_GetFFlagExpChatUserMessageIntentSentCooldown_0 = v16.GetFFlagExpChatUserMessageIntentSentCooldown;
 local l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0 = v16.GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled;
 local l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 = v16.FIntMaxExpChatUnlockChatButtonImpressionsCount;
@@ -107,15 +106,15 @@ local l_FFlagExpChatUseChatConfigStore_0 = v16.FFlagExpChatUseChatConfigStore;
 local l_FFlagEnableModerateChatRemoteEvent_0 = v16.FFlagEnableModerateChatRemoteEvent;
 local l_FFlagExpChatPerfTracking_0 = v16.FFlagExpChatPerfTracking;
 local l_ExpChatNewHiddenMessagesExperimentation_0 = require(l_Parent_0.SocialExperiments).ExpChatNewHiddenMessagesExperimentation;
-getChatTranslationEnabled = function() --[[ Line: 133 ]] --[[ Name: getChatTranslationEnabled ]]
+getChatTranslationEnabled = function() --[[ Line: 132 ]] --[[ Name: getChatTranslationEnabled ]]
     -- upvalues: l_TextChatService_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 134 ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 133 ]]
         -- upvalues: l_TextChatService_0 (ref)
         return l_TextChatService_0.ChatTranslationEnabled;
     end);
     return l_status_0 and l_result_0;
 end;
-local v111 = {
+local v110 = {
     eventName = "MessageResponse", 
     backends = {
         "EventIngest"
@@ -130,405 +129,405 @@ local v111 = {
     links = "https://github.rbx.com/Roblox/proto-schemas/blob/master/production/eventstream/social/message_response.proto"
 };
 local l_helpers_0 = script.helpers;
-local v113 = require(l_helpers_0.setUpConfigurationObjects);
-local v114 = require(l_helpers_0.setUpClientSettings);
-local v115 = require(l_helpers_0.waitForFirst);
+local v112 = require(l_helpers_0.setUpConfigurationObjects);
+local v113 = require(l_helpers_0.setUpClientSettings);
+local v114 = require(l_helpers_0.waitForFirst);
 local l_context_0 = v13.context;
-local v117 = require(script.reportVersionLoaded);
+local v116 = require(script.reportVersionLoaded);
 local l_Version_0 = v13.Version;
-local v119 = require(l_script_FirstAncestor_0.AtomicBinding);
-local function v158(v120, v121, v122) --[[ Line: 162 ]] --[[ Name: watchPlayersService ]]
-    -- upvalues: v31 (copy), v68 (copy), l_PlayerAdded_0 (copy), l_Players_0 (copy), l_LocalTeamChanged_0 (copy), v85 (copy), l_FFlagExpChatUseAdorneeStore_0 (copy), l_context_0 (copy), v57 (copy), v56 (copy), v119 (copy), v115 (copy), l_LocalCharacterLoaded_0 (copy), l_getFFlagUseCharacterStore_0 (copy), l_CharacterAdded_0 (copy), v9 (copy), v64 (copy), l_PlayerRemoved_0 (copy), l_FFlagExpChatUseMessagesStore_0 (copy)
+local v118 = require(l_script_FirstAncestor_0.AtomicBinding);
+local function v157(v119, v120, v121) --[[ Line: 161 ]] --[[ Name: watchPlayersService ]]
+    -- upvalues: v31 (copy), v68 (copy), l_PlayerAdded_0 (copy), l_Players_0 (copy), l_LocalTeamChanged_0 (copy), v85 (copy), l_FFlagExpChatUseAdorneeStore_0 (copy), l_context_0 (copy), v57 (copy), v56 (copy), v118 (copy), v114 (copy), l_LocalCharacterLoaded_0 (copy), l_getFFlagUseCharacterStore_0 (copy), l_CharacterAdded_0 (copy), v9 (copy), v64 (copy), l_PlayerRemoved_0 (copy), l_FFlagExpChatUseMessagesStore_0 (copy)
     v31:trace("Watching Players service");
-    local v123 = {};
-    local function v147(v124) --[[ Line: 166 ]] --[[ Name: onPlayerAdded ]]
-        -- upvalues: v31 (ref), v68 (ref), v121 (copy), l_PlayerAdded_0 (ref), l_Players_0 (ref), l_LocalTeamChanged_0 (ref), v85 (ref), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v57 (ref), v56 (ref), v119 (ref), v115 (ref), l_LocalCharacterLoaded_0 (ref), l_getFFlagUseCharacterStore_0 (ref), l_CharacterAdded_0 (ref), v123 (copy)
-        v31:trace("Player added: {} {}", v124.Name, (tostring(v124.UserId)));
-        local v125 = v68(v124) and true or nil;
-        v121:dispatch(l_PlayerAdded_0(v124.UserId, v124.Name, v124.DisplayName, v125));
-        if v124 == l_Players_0.LocalPlayer then
+    local v122 = {};
+    local function v146(v123) --[[ Line: 165 ]] --[[ Name: onPlayerAdded ]]
+        -- upvalues: v31 (ref), v68 (ref), v120 (copy), l_PlayerAdded_0 (ref), l_Players_0 (ref), l_LocalTeamChanged_0 (ref), v85 (ref), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v57 (ref), v56 (ref), v118 (ref), v114 (ref), l_LocalCharacterLoaded_0 (ref), l_getFFlagUseCharacterStore_0 (ref), l_CharacterAdded_0 (ref), v122 (copy)
+        v31:trace("Player added: {} {}", v123.Name, (tostring(v123.UserId)));
+        local v124 = v68(v123) and true or nil;
+        v120:dispatch(l_PlayerAdded_0(v123.UserId, v123.Name, v123.DisplayName, v124));
+        if v123 == l_Players_0.LocalPlayer then
             v31:trace("Found local player");
-            v124:GetPropertyChangedSignal("Team"):Connect(function() --[[ Line: 175 ]]
-                -- upvalues: v121 (ref), l_LocalTeamChanged_0 (ref), v124 (copy)
-                v121:dispatch(l_LocalTeamChanged_0(v124.Team));
+            v123:GetPropertyChangedSignal("Team"):Connect(function() --[[ Line: 174 ]]
+                -- upvalues: v120 (ref), l_LocalTeamChanged_0 (ref), v123 (copy)
+                v120:dispatch(l_LocalTeamChanged_0(v123.Team));
             end);
         end;
-        local function _() --[[ Line: 180 ]] --[[ Name: getHumanoidBinding ]]
-            -- upvalues: v85 (ref), v124 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v121 (ref), v57 (ref), v56 (ref), v119 (ref)
-            local function v132(v126) --[[ Line: 183 ]] --[[ Name: dispatchBubbleChatAdornee ]]
-                -- upvalues: v85 (ref), v124 (ref), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v121 (ref), v57 (ref), v56 (ref)
-                local l_root_0 = v126.root;
-                local l_humanoid_0 = v126.humanoid;
-                local l_humanoidRootPart_0 = v126.humanoidRootPart;
-                local v130 = v85 and "BasePart" or "Part";
-                if l_humanoid_0:IsA("Humanoid") and l_humanoidRootPart_0:IsA(v130) then
-                    if l_root_0 and l_humanoidRootPart_0 and v124.Character == l_root_0 then
+        local function _() --[[ Line: 179 ]] --[[ Name: getHumanoidBinding ]]
+            -- upvalues: v85 (ref), v123 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v120 (ref), v57 (ref), v56 (ref), v118 (ref)
+            local function v131(v125) --[[ Line: 182 ]] --[[ Name: dispatchBubbleChatAdornee ]]
+                -- upvalues: v85 (ref), v123 (ref), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v120 (ref), v57 (ref), v56 (ref)
+                local l_root_0 = v125.root;
+                local l_humanoid_0 = v125.humanoid;
+                local l_humanoidRootPart_0 = v125.humanoidRootPart;
+                local v129 = v85 and "BasePart" or "Part";
+                if l_humanoid_0:IsA("Humanoid") and l_humanoidRootPart_0:IsA(v129) then
+                    if l_root_0 and l_humanoidRootPart_0 and v123.Character == l_root_0 then
                         if l_FFlagExpChatUseAdorneeStore_0 then
-                            l_context_0.adorneeStore.handleAdorneeAdded(v124.UserId, l_root_0, l_humanoid_0);
+                            l_context_0.adorneeStore.handleAdorneeAdded(v123.UserId, l_root_0, l_humanoid_0);
                         else
-                            v121:dispatch(v57(v124.UserId, l_root_0, l_humanoid_0));
+                            v120:dispatch(v57(v123.UserId, l_root_0, l_humanoid_0));
                         end;
                     end;
-                    local v131 = l_humanoid_0.Died:Connect(function() --[[ Line: 198 ]]
-                        -- upvalues: l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v124 (ref), v121 (ref), v56 (ref)
+                    local v130 = l_humanoid_0.Died:Connect(function() --[[ Line: 197 ]]
+                        -- upvalues: l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v123 (ref), v120 (ref), v56 (ref)
                         if l_FFlagExpChatUseAdorneeStore_0 then
-                            l_context_0.adorneeStore.handleHumanoidDied(v124.UserId);
+                            l_context_0.adorneeStore.handleHumanoidDied(v123.UserId);
                             return;
                         else
-                            v121:dispatch(v56(v124.UserId));
+                            v120:dispatch(v56(v123.UserId));
                             return;
                         end;
                     end);
-                    return function() --[[ Line: 206 ]] --[[ Name: disconnectHumanoidDied ]]
-                        -- upvalues: v131 (copy)
-                        if v131 then
-                            v131:Disconnect();
+                    return function() --[[ Line: 205 ]] --[[ Name: disconnectHumanoidDied ]]
+                        -- upvalues: v130 (copy)
+                        if v130 then
+                            v130:Disconnect();
                         end;
                     end;
                 else
-                    return function() --[[ Line: 217 ]]
+                    return function() --[[ Line: 216 ]]
 
                     end;
                 end;
             end;
-            return (v119.new({
+            return (v118.new({
                 humanoid = "Humanoid", 
                 humanoidRootPart = "HumanoidRootPart"
-            }, v132));
+            }, v131));
         end;
-        local function v140(v134) --[[ Line: 183 ]] --[[ Name: dispatchBubbleChatAdornee ]]
-            -- upvalues: v85 (ref), v124 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v121 (ref), v57 (ref), v56 (ref)
-            local l_root_1 = v134.root;
-            local l_humanoid_1 = v134.humanoid;
-            local l_humanoidRootPart_1 = v134.humanoidRootPart;
-            local v138 = v85 and "BasePart" or "Part";
-            if l_humanoid_1:IsA("Humanoid") and l_humanoidRootPart_1:IsA(v138) then
-                if l_root_1 and l_humanoidRootPart_1 and v124.Character == l_root_1 then
+        local function v139(v133) --[[ Line: 182 ]] --[[ Name: dispatchBubbleChatAdornee ]]
+            -- upvalues: v85 (ref), v123 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v120 (ref), v57 (ref), v56 (ref)
+            local l_root_1 = v133.root;
+            local l_humanoid_1 = v133.humanoid;
+            local l_humanoidRootPart_1 = v133.humanoidRootPart;
+            local v137 = v85 and "BasePart" or "Part";
+            if l_humanoid_1:IsA("Humanoid") and l_humanoidRootPart_1:IsA(v137) then
+                if l_root_1 and l_humanoidRootPart_1 and v123.Character == l_root_1 then
                     if l_FFlagExpChatUseAdorneeStore_0 then
-                        l_context_0.adorneeStore.handleAdorneeAdded(v124.UserId, l_root_1, l_humanoid_1);
+                        l_context_0.adorneeStore.handleAdorneeAdded(v123.UserId, l_root_1, l_humanoid_1);
                     else
-                        v121:dispatch(v57(v124.UserId, l_root_1, l_humanoid_1));
+                        v120:dispatch(v57(v123.UserId, l_root_1, l_humanoid_1));
                     end;
                 end;
-                local v139 = l_humanoid_1.Died:Connect(function() --[[ Line: 198 ]]
-                    -- upvalues: l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v124 (ref), v121 (ref), v56 (ref)
+                local v138 = l_humanoid_1.Died:Connect(function() --[[ Line: 197 ]]
+                    -- upvalues: l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), v123 (ref), v120 (ref), v56 (ref)
                     if l_FFlagExpChatUseAdorneeStore_0 then
-                        l_context_0.adorneeStore.handleHumanoidDied(v124.UserId);
+                        l_context_0.adorneeStore.handleHumanoidDied(v123.UserId);
                         return;
                     else
-                        v121:dispatch(v56(v124.UserId));
+                        v120:dispatch(v56(v123.UserId));
                         return;
                     end;
                 end);
-                return function() --[[ Line: 206 ]] --[[ Name: disconnectHumanoidDied ]]
-                    -- upvalues: v139 (copy)
-                    if v139 then
-                        v139:Disconnect();
+                return function() --[[ Line: 205 ]] --[[ Name: disconnectHumanoidDied ]]
+                    -- upvalues: v138 (copy)
+                    if v138 then
+                        v138:Disconnect();
                     end;
                 end;
             else
-                return function() --[[ Line: 217 ]]
+                return function() --[[ Line: 216 ]]
 
                 end;
             end;
         end;
-        local v141 = v119.new({
+        local v140 = v118.new({
             humanoid = "Humanoid", 
             humanoidRootPart = "HumanoidRootPart"
-        }, v140);
-        v140 = function(v142) --[[ Line: 228 ]] --[[ Name: onCharacterAdded ]]
-            -- upvalues: v115 (ref), v124 (copy), v31 (ref), l_Players_0 (ref), v121 (ref), l_LocalCharacterLoaded_0 (ref), l_getFFlagUseCharacterStore_0 (ref), l_context_0 (ref), l_CharacterAdded_0 (ref), v141 (copy)
-            if not v142.Parent then
-                v115(v142.AncestryChanged, v124.CharacterAdded);
+        }, v139);
+        v139 = function(v141) --[[ Line: 227 ]] --[[ Name: onCharacterAdded ]]
+            -- upvalues: v114 (ref), v123 (copy), v31 (ref), l_Players_0 (ref), v120 (ref), l_LocalCharacterLoaded_0 (ref), l_getFFlagUseCharacterStore_0 (ref), l_context_0 (ref), l_CharacterAdded_0 (ref), v140 (copy)
+            if not v141.Parent then
+                v114(v141.AncestryChanged, v123.CharacterAdded);
             end;
-            if v124.Character ~= v142 or not v142.Parent then
-                v31:debug("Mismatched or unparented character in onCharacterAdded for {}", (tostring(v124.UserId)));
+            if v123.Character ~= v141 or not v141.Parent then
+                v31:debug("Mismatched or unparented character in onCharacterAdded for {}", (tostring(v123.UserId)));
                 return;
             else
-                if v124 == l_Players_0.LocalPlayer then
-                    v31:debug("Local character loaded: {}", v142.Name);
-                    v121:dispatch(l_LocalCharacterLoaded_0(v142));
+                if v123 == l_Players_0.LocalPlayer then
+                    v31:debug("Local character loaded: {}", v141.Name);
+                    v120:dispatch(l_LocalCharacterLoaded_0(v141));
                 end;
                 if l_getFFlagUseCharacterStore_0() then
-                    l_context_0.characterStore.handleCharacterAdded(v124.UserId, v142);
+                    l_context_0.characterStore.handleCharacterAdded(v123.UserId, v141);
                 else
-                    v121:dispatch(l_CharacterAdded_0(v124.UserId, v142));
+                    v120:dispatch(l_CharacterAdded_0(v123.UserId, v141));
                 end;
-                v141:bindRoot(v142);
+                v140:bindRoot(v141);
                 return;
             end;
         end;
-        local function v144(v143) --[[ Line: 252 ]] --[[ Name: onCharacterRemoving ]]
-            -- upvalues: v141 (copy)
-            v141:unbindRoot(v143);
+        local function v143(v142) --[[ Line: 251 ]] --[[ Name: onCharacterRemoving ]]
+            -- upvalues: v140 (copy)
+            v140:unbindRoot(v142);
         end;
-        if v124.Character then
-            v140(v124.Character);
+        if v123.Character then
+            v139(v123.Character);
         end;
-        local v145 = v124.CharacterAdded:Connect(v140);
-        local v146 = v124.CharacterRemoving:Connect(v144);
-        if not v123[v124.UserId] then
-            v123[v124.UserId] = {
-                v145, 
-                v146
+        local v144 = v123.CharacterAdded:Connect(v139);
+        local v145 = v123.CharacterRemoving:Connect(v143);
+        if not v122[v123.UserId] then
+            v122[v123.UserId] = {
+                v144, 
+                v145
             };
         end;
     end;
-    local function v151(v148) --[[ Line: 270 ]] --[[ Name: onNewPlayerAdded ]]
-        -- upvalues: v147 (copy), l_Players_0 (ref), v9 (ref), v64 (ref), v120 (copy), v31 (ref)
-        v147(v148);
+    local function v150(v147) --[[ Line: 269 ]] --[[ Name: onNewPlayerAdded ]]
+        -- upvalues: v146 (copy), l_Players_0 (ref), v9 (ref), v64 (ref), v119 (copy), v31 (ref)
+        v146(v147);
         if l_Players_0.LocalPlayer then
-            v9.try(function() --[[ Line: 274 ]]
-                -- upvalues: v148 (copy), l_Players_0 (ref)
+            v9.try(function() --[[ Line: 273 ]]
+                -- upvalues: v147 (copy), l_Players_0 (ref)
                 if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-                    return v148:IsFriendsWithAsync(l_Players_0.LocalPlayer.UserId);
+                    return v147:IsFriendsWithAsync(l_Players_0.LocalPlayer.UserId);
                 else
-                    return v148:IsFriendsWith(l_Players_0.LocalPlayer.UserId);
+                    return v147:IsFriendsWith(l_Players_0.LocalPlayer.UserId);
                 end;
-            end):andThen(function(v149) --[[ Line: 281 ]]
-                -- upvalues: v64 (ref), v148 (copy), v120 (ref)
-                if v149 then
+            end):andThen(function(v148) --[[ Line: 280 ]]
+                -- upvalues: v64 (ref), v147 (copy), v119 (ref)
+                if v148 then
                     v64("InGame.UnknownNamespace.GameChat_FriendChatNotifier_JoinMessage", {
-                        RBX_NAME = v148.DisplayName
-                    }, "Roblox.Notification.Friend.Joined", v120.translator, v120.defaultSystemTextChannel);
+                        RBX_NAME = v147.DisplayName
+                    }, "Roblox.Notification.Friend.Joined", v119.translator, v119.defaultSystemTextChannel);
                 end;
-            end):catch(function(v150) --[[ Line: 292 ]]
+            end):catch(function(v149) --[[ Line: 291 ]]
                 -- upvalues: v31 (ref)
-                v31:error("Could not fetch friendship status. Error: {}", (tostring(v150)));
+                v31:error("Could not fetch friendship status. Error: {}", (tostring(v149)));
             end);
         end;
     end;
-    for _, v153 in pairs(l_Players_0:GetPlayers()) do
-        if v153:IsA("Player") then
-            v147(v153);
+    for _, v152 in pairs(l_Players_0:GetPlayers()) do
+        if v152:IsA("Player") then
+            v146(v152);
         end;
     end;
-    l_Players_0.PlayerAdded:Connect(v151);
-    l_Players_0.PlayerRemoving:Connect(function(v154) --[[ Line: 307 ]]
-        -- upvalues: v31 (ref), v121 (copy), l_PlayerRemoved_0 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v122 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), l_getFFlagUseCharacterStore_0 (ref), v123 (copy)
-        v31:trace("Player removed: {} {}", v154.Name, (tostring(v154.UserId)));
-        v121:dispatch(l_PlayerRemoved_0(v154.UserId));
+    l_Players_0.PlayerAdded:Connect(v150);
+    l_Players_0.PlayerRemoving:Connect(function(v153) --[[ Line: 306 ]]
+        -- upvalues: v31 (ref), v120 (copy), l_PlayerRemoved_0 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v121 (copy), l_FFlagExpChatUseAdorneeStore_0 (ref), l_context_0 (ref), l_getFFlagUseCharacterStore_0 (ref), v122 (copy)
+        v31:trace("Player removed: {} {}", v153.Name, (tostring(v153.UserId)));
+        v120:dispatch(l_PlayerRemoved_0(v153.UserId));
         if l_FFlagExpChatUseMessagesStore_0 then
-            v122.handlePlayerRemoved(v154.UserId);
+            v121.handlePlayerRemoved(v153.UserId);
         end;
         if l_FFlagExpChatUseAdorneeStore_0 then
-            l_context_0.adorneeStore.handlePlayerRemoved(v154.UserId);
+            l_context_0.adorneeStore.handlePlayerRemoved(v153.UserId);
         end;
         if l_getFFlagUseCharacterStore_0() then
-            l_context_0.characterStore.handlePlayerRemoved(v154.UserId);
+            l_context_0.characterStore.handlePlayerRemoved(v153.UserId);
         end;
-        local v155 = v123[v154.UserId];
-        if v155 then
-            for _, v157 in ipairs(v155) do
-                v157:Disconnect();
+        local v154 = v122[v153.UserId];
+        if v154 then
+            for _, v156 in ipairs(v154) do
+                v156:Disconnect();
             end;
-            v123[v154.UserId] = nil;
+            v122[v153.UserId] = nil;
         end;
     end);
 end;
-local v160 = {
-    canUserChatAsync = function(v159) --[[ Line: 360 ]] --[[ Name: canUserChatAsync ]]
+local v159 = {
+    canUserChatAsync = function(v158) --[[ Line: 359 ]] --[[ Name: canUserChatAsync ]]
         -- upvalues: l_Chat_0 (copy)
-        return l_Chat_0:CanUserChatAsync(v159);
+        return l_Chat_0:CanUserChatAsync(v158);
     end
 };
-local function v163(v161) --[[ Line: 365 ]]
+local function v162(v160) --[[ Line: 364 ]]
     -- upvalues: v31 (copy), v11 (copy)
-    v31:trace("System OnIncomingMessage started: {} {}", v161.PrefixText, v161.Text);
+    v31:trace("System OnIncomingMessage started: {} {}", v160.PrefixText, v160.Text);
     local l_TextChatMessageProperties_0 = Instance.new("TextChatMessageProperties");
-    l_TextChatMessageProperties_0.Text = string.format("<font color=\"#%s\">%s</font>", if string.find(v161.Metadata, "Error") then v11.App.Style.Colors.Red:ToHex() else v11.App.Style.Colors.LightGrey:ToHex(), v161.Text);
+    l_TextChatMessageProperties_0.Text = string.format("<font color=\"#%s\">%s</font>", if string.find(v160.Metadata, "Error") then v11.App.Style.Colors.Red:ToHex() else v11.App.Style.Colors.LightGrey:ToHex(), v160.Text);
     v31:trace("System OnIncomingMessage finished: {} {}", l_TextChatMessageProperties_0.PrefixText, l_TextChatMessageProperties_0.Text);
     return l_TextChatMessageProperties_0;
 end;
-return function(v164) --[[ Line: 381 ]]
-    -- upvalues: v31 (copy), l_Dictionary_0 (copy), v160 (copy), v34 (copy), v32 (copy), v33 (copy), l_watchForErrors_0 (copy), l_context_0 (copy), l_FFlagExpChatUseAdorneeStore_0 (copy), v18 (copy), l_FFlagExpChatUseProximityStore_0 (copy), v27 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v19 (copy), l_FFlagExpChatUseChannelTabsStore_0 (copy), v20 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v23 (copy), v84 (copy), v24 (copy), l_getFFlagUseCharacterStore_0 (copy), v22 (copy), l_Analytics_0 (copy), v78 (copy), l_UserInputService_0 (copy), v52 (copy), v163 (copy), l_Chat_0 (copy), l_TextChatService_0 (copy), v113 (copy), v114 (copy), l_GetFFlagExpChatFOMOUpsellImpressionsCountEnabled_0 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_HttpService_0 (copy), l_FStringExpChatFOMOUpsellImpressionsCountKey_0 (copy), l_Players_0 (copy), v64 (copy), l_TextChannelCreated_0 (copy), v79 (copy), v35 (copy), v81 (copy), v66 (copy), l_FFlagExpChatPerfTracking_0 (copy), v75 (copy), v36 (copy), v67 (copy), v80 (copy), v21 (copy), v41 (copy), v86 (copy), v72 (copy), v88 (copy), v111 (copy), l_TextChannelRemoved_0 (copy), v43 (copy), l_countParticipantsInTextChannel_0 (copy), v60 (copy), l_LocalTextChannelParticipantRemoved_0 (copy), v42 (copy), v58 (copy), v59 (copy), v77 (copy), l_Commands_0 (copy), l_CommandAliasChanged_0 (copy), v9 (copy), v53 (copy), v54 (copy), v158 (copy), v11 (copy), v10 (copy), v30 (copy), v83 (copy), l_ClientAppLoaded_0 (copy), l_StarterGui_0 (copy), v117 (copy), l_Version_0 (copy), v69 (copy), v90 (copy), v37 (copy), l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0 (copy), l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 (copy), v71 (copy), v89 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v91 (copy), v92 (copy), v62 (copy), v70 (copy), v93 (copy), v73 (copy), v95 (copy), v74 (copy), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (copy), v96 (copy), l_FFlagEnableModerateChatRemoteEvent_0 (copy), v65 (copy), v25 (copy), v17 (copy), v15 (copy), v94 (copy), v63 (copy)
+return function(v163) --[[ Line: 380 ]]
+    -- upvalues: v31 (copy), l_Dictionary_0 (copy), v159 (copy), v34 (copy), v32 (copy), v33 (copy), l_watchForErrors_0 (copy), l_context_0 (copy), l_FFlagExpChatUseAdorneeStore_0 (copy), v18 (copy), l_FFlagExpChatUseProximityStore_0 (copy), v27 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v19 (copy), l_FFlagExpChatUseChannelTabsStore_0 (copy), v20 (copy), l_FFlagExpChatUseChatConfigStore_0 (copy), v23 (copy), v84 (copy), v24 (copy), l_getFFlagUseCharacterStore_0 (copy), v22 (copy), l_Analytics_0 (copy), v78 (copy), l_UserInputService_0 (copy), v52 (copy), v162 (copy), l_Chat_0 (copy), l_TextChatService_0 (copy), v112 (copy), v113 (copy), l_GetFFlagExpChatFOMOUpsellImpressionsCountEnabled_0 (copy), l_AppStorageService_0 (copy), l_LocalStorageKey_0 (copy), l_HttpService_0 (copy), l_FStringExpChatFOMOUpsellImpressionsCountKey_0 (copy), l_Players_0 (copy), v64 (copy), l_TextChannelCreated_0 (copy), v79 (copy), v35 (copy), v81 (copy), v66 (copy), l_FFlagExpChatPerfTracking_0 (copy), v75 (copy), v36 (copy), v67 (copy), v80 (copy), v21 (copy), v41 (copy), v86 (copy), v72 (copy), v88 (copy), v110 (copy), l_TextChannelRemoved_0 (copy), v43 (copy), l_countParticipantsInTextChannel_0 (copy), v60 (copy), l_LocalTextChannelParticipantRemoved_0 (copy), v42 (copy), v58 (copy), v59 (copy), v77 (copy), l_Commands_0 (copy), l_CommandAliasChanged_0 (copy), v9 (copy), v53 (copy), v54 (copy), v157 (copy), v11 (copy), v10 (copy), v30 (copy), v83 (copy), l_ClientAppLoaded_0 (copy), l_StarterGui_0 (copy), v116 (copy), l_Version_0 (copy), v69 (copy), v89 (copy), v37 (copy), l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0 (copy), l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 (copy), v71 (copy), l_ExpChatNewHiddenMessagesExperimentation_0 (copy), v90 (copy), v91 (copy), v62 (copy), v70 (copy), v92 (copy), v73 (copy), v94 (copy), v74 (copy), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (copy), v95 (copy), l_FFlagEnableModerateChatRemoteEvent_0 (copy), v65 (copy), v25 (copy), v17 (copy), v15 (copy), v93 (copy), v63 (copy)
     v31:trace("mountClientApp started");
-    v164 = l_Dictionary_0.join(v160, v164);
-    local v165 = v34();
-    v32(v165);
+    v163 = l_Dictionary_0.join(v159, v163);
+    local v164 = v34();
+    v32(v164);
     v33:flush();
-    l_watchForErrors_0(game:GetService("ScriptContext"), v164.script, false);
-    l_context_0.translator = v164.translator;
-    l_context_0.store = v165;
+    l_watchForErrors_0(game:GetService("ScriptContext"), v163.script, false);
+    l_context_0.translator = v163.translator;
+    l_context_0.store = v164;
     if l_FFlagExpChatUseAdorneeStore_0 then
         l_context_0.adorneeStore = v18(false);
     end;
     if l_FFlagExpChatUseProximityStore_0 then
         l_context_0.proximityStore = v27(false);
     end;
-    local v166 = if l_FFlagExpChatUseMessagesStore_0 then v19(false) else nil;
-    local v167 = if l_FFlagExpChatUseChannelTabsStore_0 then v20(false) else nil;
-    local v168 = if l_FFlagExpChatUseChatConfigStore_0 then v23(false) else nil;
-    local v169 = if v84 then v24(false) else nil;
+    local v165 = if l_FFlagExpChatUseMessagesStore_0 then v19(false) else nil;
+    local v166 = if l_FFlagExpChatUseChannelTabsStore_0 then v20(false) else nil;
+    local v167 = if l_FFlagExpChatUseChatConfigStore_0 then v23(false) else nil;
+    local v168 = if v84 then v24(false) else nil;
     if l_FFlagExpChatUseMessagesStore_0 then
-        l_context_0.messagesStore = v166;
+        l_context_0.messagesStore = v165;
     end;
     if l_getFFlagUseCharacterStore_0() then
         l_context_0.characterStore = v22(false);
     end;
-    if v164.analytics then
-        l_Analytics_0.with(v164.analytics);
+    if v163.analytics then
+        l_Analytics_0.with(v163.analytics);
     end;
     if not v78() then
-        l_UserInputService_0.LastInputTypeChanged:Connect(function(v170) --[[ Line: 424 ]]
-            -- upvalues: v165 (copy), v52 (ref)
-            v165:dispatch(v52(v170));
+        l_UserInputService_0.LastInputTypeChanged:Connect(function(v169) --[[ Line: 423 ]]
+            -- upvalues: v164 (copy), v52 (ref)
+            v164:dispatch(v52(v169));
         end);
     end;
-    if v164.defaultSystemTextChannel then
-        v164.defaultSystemTextChannel.OnIncomingMessage = v163;
+    if v163.defaultSystemTextChannel then
+        v163.defaultSystemTextChannel.OnIncomingMessage = v162;
     else
-        l_Chat_0:GetPropertyChangedSignal("IsAutoMigrated"):Once(function() --[[ Line: 432 ]]
-            -- upvalues: l_TextChatService_0 (ref), v164 (ref), v163 (ref)
+        l_Chat_0:GetPropertyChangedSignal("IsAutoMigrated"):Once(function() --[[ Line: 431 ]]
+            -- upvalues: l_TextChatService_0 (ref), v163 (ref), v162 (ref)
             local l_l_TextChatService_0_FirstChild_0 = l_TextChatService_0:FindFirstChild("RBXSystem", true);
             if l_l_TextChatService_0_FirstChild_0 and l_l_TextChatService_0_FirstChild_0:IsA("TextChannel") then
-                v164.defaultSystemTextChannel = l_l_TextChatService_0_FirstChild_0;
-                l_l_TextChatService_0_FirstChild_0.OnIncomingMessage = v163;
+                v163.defaultSystemTextChannel = l_l_TextChatService_0_FirstChild_0;
+                l_l_TextChatService_0_FirstChild_0.OnIncomingMessage = v162;
             end;
         end);
     end;
-    v113(v165, v164);
-    v114(v165);
-    local v172 = 1;
+    v112(v164, v163);
+    v113(v164);
+    local v171 = 1;
     if l_GetFFlagExpChatFOMOUpsellImpressionsCountEnabled_0() then
-        local v173 = {};
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 452 ]]
+        local v172 = {};
+        local l_status_1, l_result_1 = pcall(function() --[[ Line: 451 ]]
             -- upvalues: l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
             return l_AppStorageService_0:GetItem(l_LocalStorageKey_0.ExpChatFOMOUpsellImpressionsCount);
         end);
         if l_status_1 and l_result_1 ~= "" then
             local l_l_result_1_0 = l_result_1 --[[ copy: 9 -> 35 ]];
-            local l_status_2, l_result_2 = pcall(function() --[[ Line: 457 ]]
+            local l_status_2, l_result_2 = pcall(function() --[[ Line: 456 ]]
                 -- upvalues: l_HttpService_0 (ref), l_l_result_1_0 (copy)
                 return l_HttpService_0:JSONDecode(l_l_result_1_0);
             end);
             if l_status_2 then
-                v173 = l_result_2;
+                v172 = l_result_2;
             end;
         end;
-        if v173[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] then
-            v172 = v173[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] + 1;
+        if v172[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] then
+            v171 = v172[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] + 1;
         end;
-        v173[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] = v172;
-        l_AppStorageService_0:SetItem(l_LocalStorageKey_0.ExpChatFOMOUpsellImpressionsCount, l_HttpService_0:JSONEncode(v173));
+        v172[l_FStringExpChatFOMOUpsellImpressionsCountKey_0] = v171;
+        l_AppStorageService_0:SetItem(l_LocalStorageKey_0.ExpChatFOMOUpsellImpressionsCount, l_HttpService_0:JSONEncode(v172));
         l_AppStorageService_0:Flush();
     end;
     local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
     if l_LocalPlayer_0 then
-        l_LocalPlayer_0:GetPropertyChangedSignal("Team"):Connect(function() --[[ Line: 479 ]]
-            -- upvalues: l_LocalPlayer_0 (copy), v64 (ref), v164 (ref)
+        l_LocalPlayer_0:GetPropertyChangedSignal("Team"):Connect(function() --[[ Line: 478 ]]
+            -- upvalues: l_LocalPlayer_0 (copy), v64 (ref), v163 (ref)
             local l_Team_0 = l_LocalPlayer_0.Team;
             if l_Team_0 then
                 v64("InGame.UnknownNamespace.GameChat_TeamChat_NowInTeam", {
                     RBX_NAME = l_Team_0.Name
-                }, "Roblox.Team.Success.NowInTeam", v164.translator, v164.defaultSystemTextChannel);
+                }, "Roblox.Team.Success.NowInTeam", v163.translator, v163.defaultSystemTextChannel);
             end;
         end);
     end;
-    local function v200(v181) --[[ Line: 493 ]] --[[ Name: handleMessageReceived ]]
-        -- upvalues: v165 (copy), l_TextChannelCreated_0 (ref), v79 (ref), l_TextChatService_0 (ref), v35 (ref), v81 (ref), v31 (ref), l_Players_0 (ref), l_LocalPlayer_0 (copy), v66 (ref), v164 (ref), l_FFlagExpChatPerfTracking_0 (ref), v75 (ref), v36 (ref), v67 (ref), v64 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v21 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (copy), v41 (ref), v86 (ref), v72 (ref), v88 (ref), l_Analytics_0 (ref), v111 (ref)
-        v165:dispatch(l_TextChannelCreated_0(v181));
-        local v182 = false;
+    local function v199(v180) --[[ Line: 492 ]] --[[ Name: handleMessageReceived ]]
+        -- upvalues: v164 (copy), l_TextChannelCreated_0 (ref), v79 (ref), l_TextChatService_0 (ref), v35 (ref), v81 (ref), v31 (ref), l_Players_0 (ref), l_LocalPlayer_0 (copy), v66 (ref), v163 (ref), l_FFlagExpChatPerfTracking_0 (ref), v75 (ref), v36 (ref), v67 (ref), v64 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v21 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (copy), v41 (ref), v86 (ref), v72 (ref), v88 (ref), l_Analytics_0 (ref), v110 (ref)
+        v164:dispatch(l_TextChannelCreated_0(v180));
+        local v181 = false;
         if v79() then
             local l_ChannelTabsConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChannelTabsConfiguration");
             if l_ChannelTabsConfiguration_0 then
-                v182 = l_ChannelTabsConfiguration_0.Enabled;
+                v181 = l_ChannelTabsConfiguration_0.Enabled;
             end;
         end;
-        if string.find(v181.Name, "RBXGeneral") then
-            v181.OnIncomingMessage = function(v184) --[[ Line: 505 ]]
+        if string.find(v180.Name, "RBXGeneral") then
+            v180.OnIncomingMessage = function(v183) --[[ Line: 504 ]]
                 -- upvalues: v35 (ref), v81 (ref)
                 local l_TextChatMessageProperties_1 = Instance.new("TextChatMessageProperties");
-                if v184.TextSource then
-                    local v186 = v35(v184.TextSource.UserId);
-                    if not v81() or not v184.ChatWindowMessageProperties then
-                        l_TextChatMessageProperties_1.PrefixText = string.format("<font color=\"#%s\">%s</font>", v186:ToHex(), v184.PrefixText);
+                if v183.TextSource then
+                    local v185 = v35(v183.TextSource.UserId);
+                    if not v81() or not v183.ChatWindowMessageProperties then
+                        l_TextChatMessageProperties_1.PrefixText = string.format("<font color=\"#%s\">%s</font>", v185:ToHex(), v183.PrefixText);
                     end;
                 end;
                 return l_TextChatMessageProperties_1;
             end;
-        elseif string.find(v181.Name, "^RBXTeam") then
-            v181.OnIncomingMessage = function(v187) --[[ Line: 519 ]]
-                -- upvalues: v31 (ref), l_Players_0 (ref), v182 (ref)
-                v31:trace("Team OnIncomingMessage started: {} {}", v187.PrefixText, v187.Text);
+        elseif string.find(v180.Name, "^RBXTeam") then
+            v180.OnIncomingMessage = function(v186) --[[ Line: 518 ]]
+                -- upvalues: v31 (ref), l_Players_0 (ref), v181 (ref)
+                v31:trace("Team OnIncomingMessage started: {} {}", v186.PrefixText, v186.Text);
                 local l_TextChatMessageProperties_2 = Instance.new("TextChatMessageProperties");
                 if l_Players_0.LocalPlayer then
                     local l_Color_0 = l_Players_0.LocalPlayer.TeamColor.Color;
-                    local v190 = v182 and "" or "[Team] ";
-                    l_TextChatMessageProperties_2.PrefixText = string.format("<font color=\"#%s\">%s%s</font>", l_Color_0:ToHex(), v190, v187.PrefixText);
+                    local v189 = v181 and "" or "[Team] ";
+                    l_TextChatMessageProperties_2.PrefixText = string.format("<font color=\"#%s\">%s%s</font>", l_Color_0:ToHex(), v189, v186.PrefixText);
                 end;
                 v31:trace("Team OnIncomingMessage finished: {} {}", l_TextChatMessageProperties_2.PrefixText, l_TextChatMessageProperties_2.Text);
                 return l_TextChatMessageProperties_2;
             end;
-        elseif string.find(v181.Name, "^RBXWhisper") and l_LocalPlayer_0 then
-            v181.OnIncomingMessage = function(v191) --[[ Line: 540 ]]
-                -- upvalues: v66 (ref), v181 (copy), l_LocalPlayer_0 (ref), v182 (ref), v164 (ref), v35 (ref)
-                local l_TextSource_0 = v191.TextSource;
+        elseif string.find(v180.Name, "^RBXWhisper") and l_LocalPlayer_0 then
+            v180.OnIncomingMessage = function(v190) --[[ Line: 539 ]]
+                -- upvalues: v66 (ref), v180 (copy), l_LocalPlayer_0 (ref), v181 (ref), v163 (ref), v35 (ref)
+                local l_TextSource_0 = v190.TextSource;
                 if l_TextSource_0 then
-                    local v193 = v66(v181, l_LocalPlayer_0);
-                    if v193 then
-                        local v194 = nil;
-                        if not v182 then
-                            v194 = if l_TextSource_0.UserId == l_LocalPlayer_0.UserId then v164.translator:FormatByKey("CoreScripts.TextChat.WhisperChat.PrefixText.Outgoing", {
-                                RBX_NAME = v193
-                            }) else v164.translator:FormatByKey("CoreScripts.TextChat.WhisperChat.PrefixText.Incoming", {
-                                RBX_NAME = v193
+                    local v192 = v66(v180, l_LocalPlayer_0);
+                    if v192 then
+                        local v193 = nil;
+                        if not v181 then
+                            v193 = if l_TextSource_0.UserId == l_LocalPlayer_0.UserId then v163.translator:FormatByKey("CoreScripts.TextChat.WhisperChat.PrefixText.Outgoing", {
+                                RBX_NAME = v192
+                            }) else v163.translator:FormatByKey("CoreScripts.TextChat.WhisperChat.PrefixText.Incoming", {
+                                RBX_NAME = v192
                             });
                         end;
                         local l_TextChatMessageProperties_3 = Instance.new("TextChatMessageProperties");
-                        local v196 = v35(l_TextSource_0.UserId);
-                        l_TextChatMessageProperties_3.PrefixText = string.format("%s<font color=\"#%s\">%s</font>", if v194 then v194 .. " " else "", v196:ToHex(), v191.PrefixText);
+                        local v195 = v35(l_TextSource_0.UserId);
+                        l_TextChatMessageProperties_3.PrefixText = string.format("%s<font color=\"#%s\">%s</font>", if v193 then v193 .. " " else "", v195:ToHex(), v190.PrefixText);
                         return l_TextChatMessageProperties_3;
                     end;
                 end;
                 return nil;
             end;
         end;
-        v181.MessageReceived:Connect(function(v197) --[[ Line: 577 ]]
-            -- upvalues: v31 (ref), l_FFlagExpChatPerfTracking_0 (ref), l_LocalPlayer_0 (ref), v75 (ref), v36 (ref), v67 (ref), v64 (ref), v164 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (ref), v21 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (ref), v165 (ref), v41 (ref), v86 (ref), v72 (ref), v88 (ref), l_Analytics_0 (ref), v111 (ref)
-            v31:debug("Incoming MessageReceived Status: {} Text: {}", v197.Status.Name, v197.Text);
-            if l_FFlagExpChatPerfTracking_0 and (v197.TextSource and v197.TextSource.UserId or "UNKNOWN_TEXT_SOURCE_USER_ID") ~= (l_LocalPlayer_0 and l_LocalPlayer_0.UserId or "UNKNOWN_LOCAL_USER_ID") then
+        v180.MessageReceived:Connect(function(v196) --[[ Line: 576 ]]
+            -- upvalues: v31 (ref), l_FFlagExpChatPerfTracking_0 (ref), l_LocalPlayer_0 (ref), v75 (ref), v36 (ref), v67 (ref), v64 (ref), v163 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (ref), v21 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (ref), v164 (ref), v41 (ref), v86 (ref), v72 (ref), v88 (ref), l_Analytics_0 (ref), v110 (ref)
+            v31:debug("Incoming MessageReceived Status: {} Text: {}", v196.Status.Name, v196.Text);
+            if l_FFlagExpChatPerfTracking_0 and (v196.TextSource and v196.TextSource.UserId or "UNKNOWN_TEXT_SOURCE_USER_ID") ~= (l_LocalPlayer_0 and l_LocalPlayer_0.UserId or "UNKNOWN_LOCAL_USER_ID") then
                 v75.start(v75.Events.MessageReceiveToWindowRenderInterval, {
-                    messageId = v197.MessageId
+                    messageId = v196.MessageId
                 });
             end;
             if l_LocalPlayer_0 then
-                v36(l_LocalPlayer_0.UserId, v197);
+                v36(l_LocalPlayer_0.UserId, v196);
             end;
-            if l_LocalPlayer_0 and v197.TextSource and v197.TextSource.UserId ~= l_LocalPlayer_0.UserId then
-                local v198 = v67(v197, l_LocalPlayer_0);
-                if v198 then
-                    v64(v198.key, v198.args, v198.metadata, v164.translator, if v80() then v197.TextChannel else v164.defaultSystemTextChannel);
+            if l_LocalPlayer_0 and v196.TextSource and v196.TextSource.UserId ~= l_LocalPlayer_0.UserId then
+                local v197 = v67(v196, l_LocalPlayer_0);
+                if v197 then
+                    v64(v197.key, v197.args, v197.metadata, v163.translator, if v80() then v196.TextChannel else v163.defaultSystemTextChannel);
                 end;
             end;
-            local v199 = l_LocalPlayer_0 and v197.TextSource and v197.TextSource.UserId == l_LocalPlayer_0.UserId;
+            local v198 = l_LocalPlayer_0 and v196.TextSource and v196.TextSource.UserId == l_LocalPlayer_0.UserId;
             if l_FFlagExpChatUseMessagesStore_0 then
-                v166.handleIncomingOrOutgoingMessage(v197, v199);
+                v165.handleIncomingOrOutgoingMessage(v196, v198);
                 v21(false).resetTextTransparency();
-                if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                    v167.handleIncomingOrOutgoingMessage(v197, v199);
+                if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                    v166.handleIncomingOrOutgoingMessage(v196, v198);
                 end;
             else
-                v165:dispatch(v41(v197, v199));
+                v164:dispatch(v41(v196, v198));
                 v21(false).resetTextTransparency();
             end;
-            if v197.Status == Enum.TextChatMessageStatus.Floodchecked then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.Floodchecked", nil, "Roblox.MessageStatus.Warning.Floodchecked", v164.translator, v164.defaultSystemTextChannel);
-            elseif v197.Status == Enum.TextChatMessageStatus.TextFilterFailed then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.TextFilterFailed", nil, "Roblox.MessageStatus.Warning.TextFilterFailed", v164.translator, v164.defaultSystemTextChannel);
-            elseif v197.Status == Enum.TextChatMessageStatus.InvalidPrivacySettings then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.InvalidPrivacySettings", nil, "Roblox.MessageStatus.Warning.InvalidPrivacySettings", v164.translator, v164.defaultSystemTextChannel);
-            elseif v197.Status == Enum.TextChatMessageStatus.MessageTooLong then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.MessageTooLong", nil, "Roblox.MessageStatus.Warning.MessageTooLong", v164.translator, v164.defaultSystemTextChannel);
-            elseif v197.Status == Enum.TextChatMessageStatus.ModerationTimeout then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.ModerationTimeout", nil, "Roblox.MessageStatus.Warning.ModerationTimeout", v164.translator, v164.defaultSystemTextChannel);
-            elseif v197.Status == Enum.TextChatMessageStatus.Unknown then
-                v64("CoreScripts.TextChat.MessageStatus.Warning.Unknown", nil, "Roblox.MessageStatus.Warning.Unknown", v164.translator, v164.defaultSystemTextChannel);
+            if v196.Status == Enum.TextChatMessageStatus.Floodchecked then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.Floodchecked", nil, "Roblox.MessageStatus.Warning.Floodchecked", v163.translator, v163.defaultSystemTextChannel);
+            elseif v196.Status == Enum.TextChatMessageStatus.TextFilterFailed then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.TextFilterFailed", nil, "Roblox.MessageStatus.Warning.TextFilterFailed", v163.translator, v163.defaultSystemTextChannel);
+            elseif v196.Status == Enum.TextChatMessageStatus.InvalidPrivacySettings then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.InvalidPrivacySettings", nil, "Roblox.MessageStatus.Warning.InvalidPrivacySettings", v163.translator, v163.defaultSystemTextChannel);
+            elseif v196.Status == Enum.TextChatMessageStatus.MessageTooLong then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.MessageTooLong", nil, "Roblox.MessageStatus.Warning.MessageTooLong", v163.translator, v163.defaultSystemTextChannel);
+            elseif v196.Status == Enum.TextChatMessageStatus.ModerationTimeout then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.ModerationTimeout", nil, "Roblox.MessageStatus.Warning.ModerationTimeout", v163.translator, v163.defaultSystemTextChannel);
+            elseif v196.Status == Enum.TextChatMessageStatus.Unknown then
+                v64("CoreScripts.TextChat.MessageStatus.Warning.Unknown", nil, "Roblox.MessageStatus.Warning.Unknown", v163.translator, v163.defaultSystemTextChannel);
             end;
             if v86 then
                 if v72(v88) then
-                    l_Analytics_0:TelemetryLogEvent(v111, {
-                        messageStatus = v197.Status.Name
+                    l_Analytics_0:TelemetryLogEvent(v110, {
+                        messageStatus = v196.Status.Name
                     }, {
                         "addOsInfo", 
                         "addSessionId", 
@@ -539,78 +538,78 @@ return function(v164) --[[ Line: 381 ]]
                 end;
             else
                 l_Analytics_0.FireClientAnalyticsWithEventName("MessageResponse", {
-                    messageStatus = v197.Status.Name
+                    messageStatus = v196.Status.Name
                 });
             end;
         end);
     end;
-    local function _(v201) --[[ Line: 700 ]] --[[ Name: watchTextChatCommand ]]
+    local function _(v200) --[[ Line: 699 ]] --[[ Name: watchTextChatCommand ]]
         -- upvalues: l_Analytics_0 (ref)
-        v201.Triggered:Connect(function() --[[ Line: 701 ]]
-            -- upvalues: l_Analytics_0 (ref), v201 (copy)
+        v200.Triggered:Connect(function() --[[ Line: 700 ]]
+            -- upvalues: l_Analytics_0 (ref), v200 (copy)
             l_Analytics_0.FireClientAnalyticsWithEventName("CommandSent", {
-                commandName = v201.Name
+                commandName = v200.Name
             });
         end);
     end;
-    for _, v204 in pairs(l_TextChatService_0:GetDescendants()) do
-        if v204:IsA("TextChannel") then
-            v200(v204);
-        elseif v204:IsA("TextChatCommand") then
-            v204.Triggered:Connect(function() --[[ Line: 701 ]]
-                -- upvalues: l_Analytics_0 (ref), v204 (copy)
+    for _, v203 in pairs(l_TextChatService_0:GetDescendants()) do
+        if v203:IsA("TextChannel") then
+            v199(v203);
+        elseif v203:IsA("TextChatCommand") then
+            v203.Triggered:Connect(function() --[[ Line: 700 ]]
+                -- upvalues: l_Analytics_0 (ref), v203 (copy)
                 l_Analytics_0.FireClientAnalyticsWithEventName("CommandSent", {
-                    commandName = v204.Name
+                    commandName = v203.Name
                 });
             end);
         end;
     end;
-    l_TextChatService_0.DescendantAdded:Connect(function(v205) --[[ Line: 717 ]]
-        -- upvalues: v200 (copy), l_Analytics_0 (ref)
-        if v205:IsA("TextChannel") then
-            v200(v205);
+    l_TextChatService_0.DescendantAdded:Connect(function(v204) --[[ Line: 716 ]]
+        -- upvalues: v199 (copy), l_Analytics_0 (ref)
+        if v204:IsA("TextChannel") then
+            v199(v204);
             return;
         else
-            if v205:IsA("TextChatCommand") then
-                v205.Triggered:Connect(function() --[[ Line: 701 ]]
-                    -- upvalues: l_Analytics_0 (ref), v205 (copy)
+            if v204:IsA("TextChatCommand") then
+                v204.Triggered:Connect(function() --[[ Line: 700 ]]
+                    -- upvalues: l_Analytics_0 (ref), v204 (copy)
                     l_Analytics_0.FireClientAnalyticsWithEventName("CommandSent", {
-                        commandName = v205.Name
+                        commandName = v204.Name
                     });
                 end);
             end;
             return;
         end;
     end);
-    l_TextChatService_0.DescendantRemoving:Connect(function(v206) --[[ Line: 725 ]]
-        -- upvalues: v165 (copy), l_TextChannelRemoved_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (copy)
-        if v206:IsA("TextChannel") then
-            v165:dispatch(l_TextChannelRemoved_0(v206));
-            if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                v167.handleChannelRemoved(v206);
+    l_TextChatService_0.DescendantRemoving:Connect(function(v205) --[[ Line: 724 ]]
+        -- upvalues: v164 (copy), l_TextChannelRemoved_0 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (copy)
+        if v205:IsA("TextChannel") then
+            v164:dispatch(l_TextChannelRemoved_0(v205));
+            if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                v166.handleChannelRemoved(v205);
             end;
         end;
     end);
-    l_TextChatService_0.SendingMessage:Connect(function(v207) --[[ Line: 735 ]]
-        -- upvalues: l_FFlagExpChatPerfTracking_0 (ref), v75 (ref), v31 (ref), l_LocalPlayer_0 (copy), v67 (ref), v64 (ref), v164 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v43 (ref), l_Analytics_0 (ref), l_countParticipantsInTextChannel_0 (ref)
+    l_TextChatService_0.SendingMessage:Connect(function(v206) --[[ Line: 734 ]]
+        -- upvalues: l_FFlagExpChatPerfTracking_0 (ref), v75 (ref), v31 (ref), l_LocalPlayer_0 (copy), v67 (ref), v64 (ref), v163 (ref), v80 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v43 (ref), l_Analytics_0 (ref), l_countParticipantsInTextChannel_0 (ref)
         if l_FFlagExpChatPerfTracking_0 then
             v75.start(v75.Events.MessageSendToWindowRenderInterval, {
-                messageId = v207.MessageId
+                messageId = v206.MessageId
             });
         end;
-        v31:debug("Outgoing SendingMessage Status: {} Text: {}", v207.Status.Name, v207.Text);
+        v31:debug("Outgoing SendingMessage Status: {} Text: {}", v206.Status.Name, v206.Text);
         if l_LocalPlayer_0 then
-            local v208 = v67(v207, l_LocalPlayer_0);
-            if v208 and v208.key then
-                v64(v208.key, v208.args, v208.metadata, v164.translator, if v80() then v207.TextChannel else v164.defaultSystemTextChannel);
+            local v207 = v67(v206, l_LocalPlayer_0);
+            if v207 and v207.key then
+                v64(v207.key, v207.args, v207.metadata, v163.translator, if v80() then v206.TextChannel else v163.defaultSystemTextChannel);
             end;
         end;
         if l_FFlagExpChatUseMessagesStore_0 then
-            v166.handleIncomingOrOutgoingMessage(v207, true);
+            v165.handleIncomingOrOutgoingMessage(v206, true);
         else
-            v165:dispatch(v43(v207));
+            v164:dispatch(v43(v206));
         end;
-        local l_TextChannel_0 = v207.TextChannel;
+        local l_TextChannel_0 = v206.TextChannel;
         if l_TextChannel_0 then
             l_Analytics_0.FireClientAnalyticsWithEventName("MessageSent", {
                 channelName = l_TextChannel_0.Name, 
@@ -618,159 +617,159 @@ return function(v164) --[[ Line: 381 ]]
             });
         end;
     end);
-    local function _(v210) --[[ Line: 773 ]] --[[ Name: isInstanceALocalTextChannelParticipant ]]
+    local function _(v209) --[[ Line: 772 ]] --[[ Name: isInstanceALocalTextChannelParticipant ]]
         -- upvalues: l_Players_0 (ref)
-        return v210 and v210:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v210.UserId;
+        return v209 and v209:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v209.UserId;
     end;
     if v79() then
-        for _, v213 in pairs(l_TextChatService_0:GetDescendants()) do
-            if v213.Parent and v213.Parent:IsA("TextChannel") and v213 and v213:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v213.UserId then
-                v165:dispatch(v60(v213.Parent));
-                if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                    local l_Name_0 = v213.Parent.Name;
+        for _, v212 in pairs(l_TextChatService_0:GetDescendants()) do
+            if v212.Parent and v212.Parent:IsA("TextChannel") and v212 and v212:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v212.UserId then
+                v164:dispatch(v60(v212.Parent));
+                if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                    local l_Name_0 = v212.Parent.Name;
                     if l_Name_0 ~= "RBXSystem" then
-                        local v215 = l_Name_0 == "RBXGeneral" and 1 or 2;
-                        v167.addChannelTab(l_Name_0, v215);
+                        local v214 = l_Name_0 == "RBXGeneral" and 1 or 2;
+                        v166.addChannelTab(l_Name_0, v214);
                     end;
                 end;
             end;
-            if v213:IsA("TextChannel") then
-                v213.DescendantRemoving:Connect(function(v216) --[[ Line: 803 ]]
-                    -- upvalues: l_Players_0 (ref), v165 (copy), l_LocalTextChannelParticipantRemoved_0 (ref), v213 (copy), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (copy)
-                    if v216 and v216:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v216.UserId then
-                        v165:dispatch(l_LocalTextChannelParticipantRemoved_0(v213));
-                        if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                            local l_Name_1 = v213.Name;
-                            v167.removeChannelTab(l_Name_1);
+            if v212:IsA("TextChannel") then
+                v212.DescendantRemoving:Connect(function(v215) --[[ Line: 802 ]]
+                    -- upvalues: l_Players_0 (ref), v164 (copy), l_LocalTextChannelParticipantRemoved_0 (ref), v212 (copy), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (copy)
+                    if v215 and v215:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v215.UserId then
+                        v164:dispatch(l_LocalTextChannelParticipantRemoved_0(v212));
+                        if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                            local l_Name_1 = v212.Name;
+                            v166.removeChannelTab(l_Name_1);
                         end;
                     end;
                 end);
             end;
         end;
-        l_TextChatService_0.DescendantAdded:Connect(function(v218) --[[ Line: 817 ]]
-            -- upvalues: l_Players_0 (ref), v165 (copy), v60 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (copy), l_LocalTextChannelParticipantRemoved_0 (ref)
-            if v218.Parent and v218.Parent:IsA("TextChannel") and v218 and v218:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v218.UserId then
-                v165:dispatch(v60(v218.Parent));
-                if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                    local l_Name_2 = v218.Parent.Name;
+        l_TextChatService_0.DescendantAdded:Connect(function(v217) --[[ Line: 816 ]]
+            -- upvalues: l_Players_0 (ref), v164 (copy), v60 (ref), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (copy), l_LocalTextChannelParticipantRemoved_0 (ref)
+            if v217.Parent and v217.Parent:IsA("TextChannel") and v217 and v217:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v217.UserId then
+                v164:dispatch(v60(v217.Parent));
+                if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                    local l_Name_2 = v217.Parent.Name;
                     if l_Name_2 ~= "RBXSystem" then
-                        local v220 = l_Name_2 == "RBXGeneral" and 1 or 2;
-                        v167.addChannelTab(l_Name_2, v220);
+                        local v219 = l_Name_2 == "RBXGeneral" and 1 or 2;
+                        v166.addChannelTab(l_Name_2, v219);
                     end;
                 end;
             end;
-            if v218:IsA("TextChannel") then
-                v218.DescendantRemoving:Connect(function(v221) --[[ Line: 839 ]]
-                    -- upvalues: l_Players_0 (ref), v165 (ref), l_LocalTextChannelParticipantRemoved_0 (ref), v218 (copy), l_FFlagExpChatUseChannelTabsStore_0 (ref), v167 (ref)
-                    if v221 and v221:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v221.UserId then
-                        v165:dispatch(l_LocalTextChannelParticipantRemoved_0(v218));
-                        if l_FFlagExpChatUseChannelTabsStore_0 and v167 then
-                            local l_Name_3 = v218.Name;
-                            v167.removeChannelTab(l_Name_3);
+            if v217:IsA("TextChannel") then
+                v217.DescendantRemoving:Connect(function(v220) --[[ Line: 838 ]]
+                    -- upvalues: l_Players_0 (ref), v164 (ref), l_LocalTextChannelParticipantRemoved_0 (ref), v217 (copy), l_FFlagExpChatUseChannelTabsStore_0 (ref), v166 (ref)
+                    if v220 and v220:IsA("TextSource") and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId == v220.UserId then
+                        v164:dispatch(l_LocalTextChannelParticipantRemoved_0(v217));
+                        if l_FFlagExpChatUseChannelTabsStore_0 and v166 then
+                            local l_Name_3 = v217.Name;
+                            v166.removeChannelTab(l_Name_3);
                         end;
                     end;
                 end);
             end;
         end);
     end;
-    local function v232(v223, v224, v225) --[[ Line: 854 ]] --[[ Name: runOnBubbleDisplayed ]]
-        -- upvalues: l_Players_0 (ref), l_HttpService_0 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v42 (ref)
-        local v226 = nil;
-        if v223:IsA("Model") then
-            v226 = l_Players_0:GetPlayerFromCharacter(v223);
+    local function v231(v222, v223, v224) --[[ Line: 853 ]] --[[ Name: runOnBubbleDisplayed ]]
+        -- upvalues: l_Players_0 (ref), l_HttpService_0 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v42 (ref)
+        local v225 = nil;
+        if v222:IsA("Model") then
+            v225 = l_Players_0:GetPlayerFromCharacter(v222);
         end;
-        local v227 = l_HttpService_0:GenerateGUID(false);
+        local v226 = l_HttpService_0:GenerateGUID(false);
+        local v227 = nil;
         local v228 = nil;
-        local v229 = nil;
-        if v225 then
-            v227 = v225.MessageId;
-            v228 = v225.BubbleChatMessageProperties;
-            v229 = v225.Translation;
+        if v224 then
+            v226 = v224.MessageId;
+            v227 = v224.BubbleChatMessageProperties;
+            v228 = v224.Translation;
         end;
-        local v230 = DateTime.fromUnixTimestampMillis(workspace:GetServerTimeNow() * 1000);
-        local v231 = {
-            message = v224, 
-            translation = v229, 
-            bubbleChatMessageId = v227, 
-            bubbleChatMessageUserId = v226 and tostring(v226.UserId) or nil, 
-            partOrModel = v223, 
-            timestamp = v230, 
-            bubbleChatMessageProperties = v228
+        local v229 = DateTime.fromUnixTimestampMillis(workspace:GetServerTimeNow() * 1000);
+        local v230 = {
+            message = v223, 
+            translation = v228, 
+            bubbleChatMessageId = v226, 
+            bubbleChatMessageUserId = v225 and tostring(v225.UserId) or nil, 
+            partOrModel = v222, 
+            timestamp = v229, 
+            bubbleChatMessageProperties = v227
         };
         if l_FFlagExpChatUseMessagesStore_0 then
-            v166.handleIncomingBubbleChatMessage(v231);
+            v165.handleIncomingBubbleChatMessage(v230);
             return;
         else
-            v165:dispatch(v42(v231));
+            v164:dispatch(v42(v230));
             return;
         end;
     end;
-    l_Chat_0.Chatted:Connect(function(v233, v234) --[[ Line: 887 ]]
-        -- upvalues: l_TextChatService_0 (ref), l_Chat_0 (ref), v232 (copy)
+    l_Chat_0.Chatted:Connect(function(v232, v233) --[[ Line: 886 ]]
+        -- upvalues: l_TextChatService_0 (ref), l_Chat_0 (ref), v231 (copy)
         if l_TextChatService_0.ChatVersion ~= Enum.ChatVersion.LegacyChatService or l_Chat_0.BubbleChatEnabled then
-            v232(v233, v234);
+            v231(v232, v233);
         end;
     end);
-    local function v236() --[[ Line: 894 ]]
-        -- upvalues: l_Chat_0 (ref), v165 (copy), v58 (ref)
+    local function v235() --[[ Line: 893 ]]
+        -- upvalues: l_Chat_0 (ref), v164 (copy), v58 (ref)
         local l_BubbleChatEnabled_0 = l_Chat_0.BubbleChatEnabled;
-        v165:dispatch(v58("Enabled", l_BubbleChatEnabled_0));
+        v164:dispatch(v58("Enabled", l_BubbleChatEnabled_0));
     end;
-    l_Chat_0:GetPropertyChangedSignal("BubbleChatEnabled"):Connect(v236);
+    l_Chat_0:GetPropertyChangedSignal("BubbleChatEnabled"):Connect(v235);
     local l_BubbleChatEnabled_1 = l_Chat_0.BubbleChatEnabled;
-    v165:dispatch(v58("Enabled", l_BubbleChatEnabled_1));
-    l_Chat_0.BubbleChatSettingsChanged:Connect(function(v238) --[[ Line: 903 ]]
-        -- upvalues: v164 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v168 (copy), v165 (copy), v59 (ref)
-        if v164.validateLegacyBubbleChatSettings then
-            local v239, v240 = v164.validateLegacyBubbleChatSettings(v238);
-            assert(v239, "Bad settings object passed to Chat:SetBubbleChatSettings:\n inside consolidated BubbleChat " .. (v240 or ""));
-            if l_FFlagExpChatUseMessagesStore_0 and v168 then
-                v168.setBubbleChatSettings(v238);
+    v164:dispatch(v58("Enabled", l_BubbleChatEnabled_1));
+    l_Chat_0.BubbleChatSettingsChanged:Connect(function(v237) --[[ Line: 902 ]]
+        -- upvalues: v163 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v167 (copy), v164 (copy), v59 (ref)
+        if v163.validateLegacyBubbleChatSettings then
+            local v238, v239 = v163.validateLegacyBubbleChatSettings(v237);
+            assert(v238, "Bad settings object passed to Chat:SetBubbleChatSettings:\n inside consolidated BubbleChat " .. (v239 or ""));
+            if l_FFlagExpChatUseMessagesStore_0 and v167 then
+                v167.setBubbleChatSettings(v237);
                 return;
             else
-                v165:dispatch(v59(v238));
+                v164:dispatch(v59(v237));
             end;
         end;
     end);
     if v77() then
-        l_TextChatService_0.BubbleDisplayed:Connect(function(v241, v242) --[[ Line: 921 ]]
-            -- upvalues: v232 (copy)
-            v232(v241, v242 and v242.Text, v242);
+        l_TextChatService_0.BubbleDisplayed:Connect(function(v240, v241) --[[ Line: 920 ]]
+            -- upvalues: v231 (copy)
+            v231(v240, v241 and v241.Text, v241);
         end);
     end;
-    l_BubbleChatEnabled_1 = function(v243) --[[ Line: 926 ]] --[[ Name: findCommandInstance ]]
+    l_BubbleChatEnabled_1 = function(v242) --[[ Line: 925 ]] --[[ Name: findCommandInstance ]]
         -- upvalues: l_TextChatService_0 (ref)
-        for _, v245 in ipairs(l_TextChatService_0:GetDescendants()) do
-            if v245.Name == v243 and v245:IsA("TextChatCommand") then
-                return v245;
+        for _, v244 in ipairs(l_TextChatService_0:GetDescendants()) do
+            if v244.Name == v242 and v244:IsA("TextChatCommand") then
+                return v244;
             end;
         end;
         return nil;
     end;
-    local v246 = {};
-    local function v254() --[[ Line: 937 ]] --[[ Name: setupTextChatCommands ]]
-        -- upvalues: l_Commands_0 (ref), l_BubbleChatEnabled_1 (copy), v246 (copy), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), l_context_0 (ref), v64 (ref), v164 (ref), l_CommandAliasChanged_0 (ref)
-        for _, v248 in ipairs(l_Commands_0.enabledCommands) do
-            if v248.clientRun then
-                local v249 = l_BubbleChatEnabled_1(v248.name);
-                if v249 and not v246[v249] then
-                    v246[v249] = true;
-                    v249.Triggered:Connect(function(v250, ...) --[[ Line: 948 ]]
-                        -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v248 (copy), v165 (ref), l_context_0 (ref), v64 (ref), v164 (ref)
-                        local v251 = nil;
-                        v251 = if l_FFlagExpChatUseMessagesStore_0 then v248.clientRun(v165, v250.UserId, ..., l_context_0) else v248.clientRun(v165, v250.UserId, ...);
-                        if v251 then
-                            v64(v251.key, v251.args, v251.metadata, v164.translator, v164.defaultSystemTextChannel);
+    local v245 = {};
+    local function v253() --[[ Line: 936 ]] --[[ Name: setupTextChatCommands ]]
+        -- upvalues: l_Commands_0 (ref), l_BubbleChatEnabled_1 (copy), v245 (copy), l_FFlagExpChatUseMessagesStore_0 (ref), v164 (copy), l_context_0 (ref), v64 (ref), v163 (ref), l_CommandAliasChanged_0 (ref)
+        for _, v247 in ipairs(l_Commands_0.enabledCommands) do
+            if v247.clientRun then
+                local v248 = l_BubbleChatEnabled_1(v247.name);
+                if v248 and not v245[v248] then
+                    v245[v248] = true;
+                    v248.Triggered:Connect(function(v249, ...) --[[ Line: 947 ]]
+                        -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v247 (copy), v164 (ref), l_context_0 (ref), v64 (ref), v163 (ref)
+                        local v250 = nil;
+                        v250 = if l_FFlagExpChatUseMessagesStore_0 then v247.clientRun(v164, v249.UserId, ..., l_context_0) else v247.clientRun(v164, v249.UserId, ...);
+                        if v250 then
+                            v64(v250.key, v250.args, v250.metadata, v163.translator, v163.defaultSystemTextChannel);
                         end;
                     end);
-                    if string.find(v249.Name, "RBXTeamCommand") or string.find(v249.Name, "RBXWhisperCommand") then
-                        for _, v253 in {
+                    if string.find(v248.Name, "RBXTeamCommand") or string.find(v248.Name, "RBXWhisperCommand") then
+                        for _, v252 in {
                             "PrimaryAlias", 
                             "SecondaryAlias"
                         } do
-                            v249:GetPropertyChangedSignal(v253):Connect(function() --[[ Line: 971 ]]
-                                -- upvalues: v165 (ref), l_CommandAliasChanged_0 (ref), v249 (copy)
-                                v165:dispatch(l_CommandAliasChanged_0(v249.Name, v249.PrimaryAlias, v249.SecondaryAlias));
+                            v248:GetPropertyChangedSignal(v252):Connect(function() --[[ Line: 970 ]]
+                                -- upvalues: v164 (ref), l_CommandAliasChanged_0 (ref), v248 (copy)
+                                v164:dispatch(l_CommandAliasChanged_0(v248.Name, v248.PrimaryAlias, v248.SecondaryAlias));
                             end);
                         end;
                     end;
@@ -778,238 +777,238 @@ return function(v164) --[[ Line: 381 ]]
             end;
         end;
     end;
-    v254();
-    l_Chat_0:GetPropertyChangedSignal("IsAutoMigrated"):Once(v254);
-    if v164.canUserChatAsync and l_Players_0.LocalPlayer then
-        v9.try(function() --[[ Line: 991 ]]
-            -- upvalues: v164 (ref), l_Players_0 (ref)
-            return v164.canUserChatAsync(l_Players_0.LocalPlayer.UserId);
-        end):andThen(function(v255) --[[ Line: 994 ]]
-            -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v53 (ref)
+    v253();
+    l_Chat_0:GetPropertyChangedSignal("IsAutoMigrated"):Once(v253);
+    if v163.canUserChatAsync and l_Players_0.LocalPlayer then
+        v9.try(function() --[[ Line: 990 ]]
+            -- upvalues: v163 (ref), l_Players_0 (ref)
+            return v163.canUserChatAsync(l_Players_0.LocalPlayer.UserId);
+        end):andThen(function(v254) --[[ Line: 993 ]]
+            -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v53 (ref)
             if l_FFlagExpChatUseMessagesStore_0 then
-                v166.setCanLocalUserChat(v255);
+                v165.setCanLocalUserChat(v254);
                 return;
             else
-                v165:dispatch(v53(v255));
+                v164:dispatch(v53(v254));
                 return;
             end;
-        end):catch(function() --[[ Line: 1001 ]]
-            -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v54 (ref)
+        end):catch(function() --[[ Line: 1000 ]]
+            -- upvalues: l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v54 (ref)
             if l_FFlagExpChatUseMessagesStore_0 then
-                v166.setCanLocalUserChat(false);
+                v165.setCanLocalUserChat(false);
                 return;
             else
-                v165:dispatch(v54());
+                v164:dispatch(v54());
                 return;
             end;
         end);
     end;
-    v158(v164, v165, v166);
+    v157(v163, v164, v165);
     local l_AppStyleProvider_0 = v11.App.Style.AppStyleProvider;
     local l_Constants_0 = v11.App.Style.Constants;
     local l_Dark_0 = l_Constants_0.ThemeName.Dark;
     local l_Gotham_0 = l_Constants_0.FontName.Gotham;
-    local v260 = {
+    local v259 = {
         Dark = {
             themeName = l_Dark_0, 
             fontName = l_Gotham_0
         }
     };
-    local v261 = v10.createElement(l_AppStyleProvider_0, {
-        style = v260.Dark
+    local v260 = v10.createElement(l_AppStyleProvider_0, {
+        style = v259.Dark
     }, {
         app = v10.createElement(v30, {
-            store = v165, 
-            translator = v164.translator, 
-            gameTranslator = if v79() then v164.gameTranslator else nil, 
+            store = v164, 
+            translator = v163.translator, 
+            gameTranslator = if v79() then v163.gameTranslator else nil, 
             isChatWindowVisible = true, 
             isChatInputBarVisible = true, 
             isChannelBarVisible = false, 
             isDefaultChatEnabled = true, 
-            getIconVoiceIndicator = v164.getIconVoiceIndicator, 
-            onClickedVoiceIndicator = v164.onClickedVoiceIndicator, 
-            onClickedCameraIndicator = v164.onClickedCameraIndicator, 
-            selfViewListenerChanged = v164.selfViewListenerChanged, 
-            getPermissions = v164.getPermissions, 
-            displayCameraDeniedToast = v164.displayCameraDeniedToast, 
-            isCamEnabledForUserAndPlace = v164.isCamEnabledForUserAndPlace, 
-            isCameraOnlyUser = v164.isCameraOnlyUser, 
-            isVoiceServiceInitialized = v164.isVoiceServiceInitialized, 
-            onClickedLikelySpeakingBubble = v164.onClickedLikelySpeakingBubble, 
-            isSpatialUIEnabled = v164.isSpatialUIEnabled, 
+            getIconVoiceIndicator = v163.getIconVoiceIndicator, 
+            onClickedVoiceIndicator = v163.onClickedVoiceIndicator, 
+            onClickedCameraIndicator = v163.onClickedCameraIndicator, 
+            selfViewListenerChanged = v163.selfViewListenerChanged, 
+            getPermissions = v163.getPermissions, 
+            displayCameraDeniedToast = v163.displayCameraDeniedToast, 
+            isCamEnabledForUserAndPlace = v163.isCamEnabledForUserAndPlace, 
+            isCameraOnlyUser = v163.isCameraOnlyUser, 
+            isVoiceServiceInitialized = v163.isVoiceServiceInitialized, 
+            onClickedLikelySpeakingBubble = v163.onClickedLikelySpeakingBubble, 
+            isSpatialUIEnabled = v163.isSpatialUIEnabled, 
             expChatLoadStartTime = if v83() then os.clock() else nil
         })
     });
-    v165:dispatch(l_ClientAppLoaded_0({
+    v164:dispatch(l_ClientAppLoaded_0({
         team = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.Team, 
         isChatCoreGuiEnabled = l_StarterGui_0:GetCoreGuiEnabled(Enum.CoreGuiType.Chat), 
         isTouchEnabled = l_UserInputService_0.TouchEnabled, 
         isGamepadEnabled = l_UserInputService_0.PreferredInput == Enum.PreferredInput.Gamepad
     }));
-    v117(l_Analytics_0, l_Version_0[1]);
-    v31:trace("Roact.mount to {}", (tostring(v164.parent)));
-    local v262 = v10.mount(v261, v164.parent, "ExperienceChat");
-    local function v264(v263) --[[ Line: 1061 ]] --[[ Name: updateChatStatus ]]
-        -- upvalues: v169 (copy), v69 (ref), v64 (ref), v90 (ref), v164 (ref), v37 (ref), l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0 (ref), v172 (ref), l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 (ref), v71 (ref), v89 (ref)
-        v169.setChatStatus(v263);
-        if v263 == "GeoBlocked" or v263 ~= "Unknown" and v69() then
-            v64(v90 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionIsntAvailable" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionUnavailable", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, v90 and "You can only view system messages here. Chat isn\226\128\153t available in your region." or "You can only view system messages here. Chat is not available in your region.");
+    v116(l_Analytics_0, l_Version_0[1]);
+    v31:trace("Roact.mount to {}", (tostring(v163.parent)));
+    local v261 = v10.mount(v260, v163.parent, "ExperienceChat");
+    local function v263(v262) --[[ Line: 1060 ]] --[[ Name: updateChatStatus ]]
+        -- upvalues: v168 (copy), v69 (ref), v64 (ref), v89 (ref), v163 (ref), v37 (ref), l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0 (ref), v171 (ref), l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 (ref), v71 (ref)
+        v168.setChatStatus(v262);
+        if v262 == "GeoBlocked" or v262 ~= "Unknown" and v69() then
+            v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionIsntAvailable" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionUnavailable", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, v89 and "You can only view system messages here. Chat isn\226\128\153t available in your region." or "You can only view system messages here. Chat is not available in your region.");
             return;
-        elseif v263 == "AgeCheckGateExperiment" then
-            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.CheckAgeInAccountInfo", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "You can only view system messages here. Unlock chat with an age check at Settings > Account info.");
+        elseif v262 == "AgeCheckGateExperiment" then
+            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.CheckAgeInAccountInfo", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "You can only view system messages here. Unlock chat with an age check at Settings > Account info.");
             return;
-        elseif v263 == "SettingsDisabled" then
-            v64(v90 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessagesUpdateCommsSettings" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.SettingOff", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, v90 and "You can only view system messages here. Update your communication settings to turn on chat." or "You can only view system messages here. Update your Communication settings to turn on chat.");
+        elseif v262 == "SettingsDisabled" then
+            v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessagesUpdateCommsSettings" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.SettingOff", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, v89 and "You can only view system messages here. Update your communication settings to turn on chat." or "You can only view system messages here. Update your Communication settings to turn on chat.");
             return;
-        elseif v263 == "SettingsDisabledVpc" then
-            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.AskForPermission", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "You can only view system messages here. Ask your parent for permission to chat in Communication settings.");
+        elseif v262 == "SettingsDisabledVpc" then
+            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.AskForPermission", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "You can only view system messages here. Ask your parent for permission to chat in Communication settings.");
             return;
-        elseif v263 == "AgeCheckVpc" then
-            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.AskForPermissionToAgeCheck", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "You can only view system messages here. Ask your parent for permission to age check in Communication settings.");
+        elseif v262 == "AgeCheckVpc" then
+            v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.AskForPermissionToAgeCheck", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "You can only view system messages here. Ask your parent for permission to age check in Communication settings.");
             return;
-        elseif not v37() and v263 == "AgeVerificationRequired" or v263 == "IdVerificationRequired" then
-            v64(v90 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheckInCommsSetting" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.CheckAgeInSettings", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, v90 and "Don\226\128\153t miss messages. Unlock chat with an age check in your communication settings." or "You can only view system messages here. To chat, get an age check in your Communication settings.");
+        elseif not v37() and v262 == "AgeVerificationRequired" or v262 == "IdVerificationRequired" then
+            v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheckInCommsSetting" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.CheckAgeInSettings", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, v89 and "Don\226\128\153t miss messages. Unlock chat with an age check in your communication settings." or "You can only view system messages here. To chat, get an age check in your Communication settings.");
             return;
-        elseif v263 == "AgeVerificationRequired" then
-            if l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0() and l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 < v172 then
-                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheckInCommsSetting", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "Don\226\128\153t miss messages. Unlock chat with an age check in your communication settings.");
+        elseif v262 == "AgeVerificationRequired" then
+            if l_GetFFlagExpChatFOMOUpsellUnlockChatButtonCooldownEnabled_0() and l_FIntMaxExpChatUnlockChatButtonImpressionsCount_0 < v171 then
+                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheckInCommsSetting", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "Don\226\128\153t miss messages. Unlock chat with an age check in your communication settings.");
                 return;
             else
-                v64(v90 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessages" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheck", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, v90 and "Don\226\128\153t miss messages. Unlock chat with an age check." or "You can only view system messages here. Get an age check to chat.");
+                v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessages" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.GetAnAgeCheck", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, v89 and "Don\226\128\153t miss messages. Unlock chat with an age check." or "You can only view system messages here. Get an age check to chat.");
                 return;
             end;
-        elseif v263 == "EnabledBubble" or v263 == "Enabled" and v71() then
-            v64("CoreScripts.TextChat.ChatWindow.ChatEnabled.ChatInRegion", nil, "Roblox.ChatEnabled.Info", v164.translator, v164.defaultSystemTextChannel, "You can view system messages and chat with users in your region only.");
+        elseif v262 == "EnabledBubble" or v262 == "Enabled" and v71() then
+            v64("CoreScripts.TextChat.ChatWindow.ChatEnabled.ChatInRegion", nil, "Roblox.ChatEnabled.Info", v163.translator, v163.defaultSystemTextChannel, "You can view system messages and chat with users in your region only.");
             return;
-        elseif v263 == "Enabled" then
-            v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatEnabled.ChatWithAgeGroupAndTC" or "CoreScripts.TextChat.ChatWindow.ChatEnabled.VerifiedUser", nil, "Roblox.ChatEnabled.Info", v164.translator, v164.defaultSystemTextChannel, v89 and "Only people in similar age groups and your Trusted Connections can chat with you." or "Only people in similar age groups can chat with you.");
+        elseif v262 == "Enabled" then
+            v64("CoreScripts.TextChat.ChatWindow.ChatEnabled.ChatWithAgeGroupAndTC", nil, "Roblox.ChatEnabled.Info", v163.translator, v163.defaultSystemTextChannel, "Only people in similar age groups and your Trusted Connections can chat with you.");
             return;
         else
-            if v263 == "AllUsers" or v263 == "NoOne" then
+            if v262 == "AllUsers" or v262 == "NoOne" then
                 if getChatTranslationEnabled() then
-                    v64("CoreScripts.TextChat.ChatTranslation.ChatWindow.SystemMessageNew", nil, "Roblox.ChatTranslation.ChatWindow.SystemMessage", v164.translator, v164.defaultSystemTextChannel, "Roblox automatically translates supported languages in chat");
+                    v64("CoreScripts.TextChat.ChatTranslation.ChatWindow.SystemMessageNew", nil, "Roblox.ChatTranslation.ChatWindow.SystemMessage", v163.translator, v163.defaultSystemTextChannel, "Roblox automatically translates supported languages in chat");
                     return;
                 end;
-            elseif v263 == "Ineligible" or v263 ~= "Unknown" then
-                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.OnlyViewSystemMessages", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "You can only view system messages here.");
+            elseif v262 == "Ineligible" or v262 ~= "Unknown" then
+                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.OnlyViewSystemMessages", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "You can only view system messages here.");
             end;
             return;
         end;
     end;
-    local v265 = l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatNewHiddenMessagesSystemMessageNudgeEnabled() and 0 or nil;
-    local v266 = if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatNewHiddenMessagesSystemMessageNudgeEnabled() then math.random(v91, v92) else nil;
-    local function v268(v267) --[[ Line: 1237 ]] --[[ Name: handleUserMessageIntentSent ]]
-        -- upvalues: v31 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v62 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v70 (ref), l_LocalPlayer_0 (copy), v265 (ref), v266 (ref), v91 (ref), v92 (ref), v64 (ref), v164 (ref), v21 (ref)
+    local v264 = l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatNewHiddenMessagesSystemMessageNudgeEnabled() and 0 or nil;
+    local v265 = if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatNewHiddenMessagesSystemMessageNudgeEnabled() then math.random(v90, v91) else nil;
+    local function v267(v266) --[[ Line: 1232 ]] --[[ Name: handleUserMessageIntentSent ]]
+        -- upvalues: v31 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v62 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), v70 (ref), l_LocalPlayer_0 (copy), v264 (ref), v265 (ref), v90 (ref), v91 (ref), v64 (ref), v163 (ref), v21 (ref)
         v31:debug("Handling a message from UserMessageIntentSent");
         if l_FFlagExpChatUseMessagesStore_0 then
-            v166.handleHiddenMessageReceived(v267);
+            v165.handleHiddenMessageReceived(v266);
         else
-            v165:dispatch(v62(v267));
+            v164:dispatch(v62(v266));
         end;
         if l_ExpChatNewHiddenMessagesExperimentation_0.getExpChatNewHiddenMessagesSystemMessageNudgeEnabled() and not v70(l_LocalPlayer_0.ChatAvailabilityStatus) then
-            v265 = v265 + 1;
-            if v265 == v266 then
-                v266 = v266 + math.random(v91, v92);
-                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessages", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, "Don\226\128\153t miss messages. Unlock chat with an age check.");
+            v264 = v264 + 1;
+            if v264 == v265 then
+                v265 = v265 + math.random(v90, v91);
+                v64("CoreScripts.TextChat.ChatWindow.ChatDisabled.DontMissMessages", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, "Don\226\128\153t miss messages. Unlock chat with an age check.");
             end;
         end;
         v21(false).resetTextTransparency();
     end;
-    local function _() --[[ Line: 1271 ]] --[[ Name: shouldConnectToUserMessageIntentSent ]]
-        -- upvalues: v93 (ref), v73 (ref), v95 (ref), v74 (ref), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (ref), v172 (ref), v96 (ref)
-        local v269 = v93 and v73();
-        local v270 = v95 and v74();
+    local function _() --[[ Line: 1266 ]] --[[ Name: shouldConnectToUserMessageIntentSent ]]
+        -- upvalues: v92 (ref), v73 (ref), v94 (ref), v74 (ref), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (ref), v171 (ref), v95 (ref)
+        local v268 = v92 and v73();
+        local v269 = v94 and v74();
         if l_GetFFlagExpChatUserMessageIntentSentCooldown_0() then
-            return v270 or v269 and v172 <= v96;
+            return v269 or v268 and v171 <= v95;
         else
-            return v269 or v270;
+            return v268 or v269;
         end;
     end;
     if v84 and l_LocalPlayer_0 then
         if l_FFlagEnableModerateChatRemoteEvent_0 then
-            local v272 = v65();
-            local v273 = v25(false);
-            local v274 = false;
-            local l_v273_0 = v273 --[[ copy: 29 -> 33 ]];
-            local l_v272_0 = v272 --[[ copy: 28 -> 34 ]];
+            local v271 = v65();
+            local v272 = v25(false);
+            local v273 = false;
+            local l_v272_0 = v272 --[[ copy: 29 -> 33 ]];
+            local l_v271_0 = v271 --[[ copy: 28 -> 34 ]];
             do
-                local l_v274_0 = v274;
-                v164.moderateChatStoreDisposeEffect = v17.createEffect(function(v278) --[[ Line: 1290 ]]
-                    -- upvalues: l_v273_0 (copy), l_v274_0 (ref), v64 (ref), v164 (ref), v15 (ref), v11 (ref), l_v272_0 (copy)
-                    local v279 = l_v273_0.getIsSettingEnabled(v278);
-                    if v279 ~= l_v274_0 then
-                        if v279 then
-                            v64("CoreScripts.TextChat.MessageStatus.Warning.ModerateChatOn", nil, "Roblox.MessageStatus.Warning.ModerateChatOn", v164.translator, v164.defaultSystemTextChannel);
+                local l_v273_0 = v273;
+                v163.moderateChatStoreDisposeEffect = v17.createEffect(function(v277) --[[ Line: 1285 ]]
+                    -- upvalues: l_v272_0 (copy), l_v273_0 (ref), v64 (ref), v163 (ref), v15 (ref), v11 (ref), l_v271_0 (copy)
+                    local v278 = l_v272_0.getIsSettingEnabled(v277);
+                    if v278 ~= l_v273_0 then
+                        if v278 then
+                            v64("CoreScripts.TextChat.MessageStatus.Warning.ModerateChatOn", nil, "Roblox.MessageStatus.Warning.ModerateChatOn", v163.translator, v163.defaultSystemTextChannel);
                             v15.SetUIBloxToast({
-                                iconImage = v11.App.ImageSet.Images[l_v272_0.icon.off], 
-                                toastSubtitle = v164.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOn.Subtitle"), 
-                                toastTitle = v164.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOn.Title")
+                                iconImage = v11.App.ImageSet.Images[l_v271_0.icon.off], 
+                                toastSubtitle = v163.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOn.Subtitle"), 
+                                toastTitle = v163.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOn.Title")
                             });
                         else
-                            v64("CoreScripts.TextChat.MessageStatus.Warning.ModerateChatOff", nil, "Roblox.MessageStatus.Warning.ModerateChatOff", v164.translator, v164.defaultSystemTextChannel);
+                            v64("CoreScripts.TextChat.MessageStatus.Warning.ModerateChatOff", nil, "Roblox.MessageStatus.Warning.ModerateChatOff", v163.translator, v163.defaultSystemTextChannel);
                             v15.SetUIBloxToast({
-                                iconImage = v11.App.ImageSet.Images[l_v272_0.icon.off], 
-                                toastSubtitle = v164.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOff.Subtitle"), 
-                                toastTitle = v164.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOff.Title")
+                                iconImage = v11.App.ImageSet.Images[l_v271_0.icon.off], 
+                                toastSubtitle = v163.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOff.Subtitle"), 
+                                toastTitle = v163.translator:FormatByKey("CoreScripts.TextChat.Toast.ModerateChatOff.Title")
                             });
                         end;
-                        l_v274_0 = v279;
+                        l_v273_0 = v278;
                     end;
                 end);
             end;
         end;
         local l_ChatAvailabilityStatus_0 = l_LocalPlayer_0.ChatAvailabilityStatus;
         v31:debug("Local player's initial ChatAvailabilityStatus is {}", l_ChatAvailabilityStatus_0);
-        v264(l_ChatAvailabilityStatus_0);
-        local v281 = nil;
-        local v282 = v93 and v73();
-        local v283 = v95 and v74();
-        if if l_GetFFlagExpChatUserMessageIntentSentCooldown_0() then v283 or v282 and v172 <= v96 else v282 or v283 then
+        v263(l_ChatAvailabilityStatus_0);
+        local v280 = nil;
+        local v281 = v92 and v73();
+        local v282 = v94 and v74();
+        if if l_GetFFlagExpChatUserMessageIntentSentCooldown_0() then v282 or v281 and v171 <= v95 else v281 or v282 then
             l_ExpChatNewHiddenMessagesExperimentation_0.logExposure();
             v31:debug("Connecting to UserMessageIntentSent");
-            v281 = l_TextChatService_0.UserMessageIntentSent:Connect(v268);
+            v280 = l_TextChatService_0.UserMessageIntentSent:Connect(v267);
         end;
         do
-            local l_l_ChatAvailabilityStatus_0_0, l_v281_0 = l_ChatAvailabilityStatus_0, v281;
-            l_LocalPlayer_0:GetPropertyChangedSignal("ChatAvailabilityStatus"):Connect(function() --[[ Line: 1352 ]]
-                -- upvalues: l_l_ChatAvailabilityStatus_0_0 (ref), l_LocalPlayer_0 (copy), v31 (ref), v264 (copy), v93 (ref), v73 (ref), v95 (ref), v74 (ref), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (ref), v172 (ref), v96 (ref), l_v281_0 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), l_TextChatService_0 (ref), v268 (copy), v70 (ref), v94 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v166 (copy), v165 (copy), v63 (ref), v21 (ref), v53 (ref)
+            local l_l_ChatAvailabilityStatus_0_0, l_v280_0 = l_ChatAvailabilityStatus_0, v280;
+            l_LocalPlayer_0:GetPropertyChangedSignal("ChatAvailabilityStatus"):Connect(function() --[[ Line: 1347 ]]
+                -- upvalues: l_l_ChatAvailabilityStatus_0_0 (ref), l_LocalPlayer_0 (copy), v31 (ref), v263 (copy), v92 (ref), v73 (ref), v94 (ref), v74 (ref), l_GetFFlagExpChatUserMessageIntentSentCooldown_0 (ref), v171 (ref), v95 (ref), l_v280_0 (ref), l_ExpChatNewHiddenMessagesExperimentation_0 (ref), l_TextChatService_0 (ref), v267 (copy), v70 (ref), v93 (ref), l_FFlagExpChatUseMessagesStore_0 (ref), v165 (copy), v164 (copy), v63 (ref), v21 (ref), v53 (ref)
                 l_l_ChatAvailabilityStatus_0_0 = l_LocalPlayer_0.ChatAvailabilityStatus;
                 v31:debug("Local player's ChatAvailabilityStatus has changed to {}", l_l_ChatAvailabilityStatus_0_0);
-                v264(l_l_ChatAvailabilityStatus_0_0);
-                local v286 = v93 and v73();
-                local v287 = v95 and v74();
-                if (if l_GetFFlagExpChatUserMessageIntentSentCooldown_0() then v287 or v286 and v172 <= v96 else v286 or v287) and not l_v281_0 then
+                v263(l_l_ChatAvailabilityStatus_0_0);
+                local v285 = v92 and v73();
+                local v286 = v94 and v74();
+                if (if l_GetFFlagExpChatUserMessageIntentSentCooldown_0() then v286 or v285 and v171 <= v95 else v285 or v286) and not l_v280_0 then
                     l_ExpChatNewHiddenMessagesExperimentation_0.logExposure();
                     v31:debug("Connecting to UserMessageIntentSent");
-                    l_v281_0 = l_TextChatService_0.UserMessageIntentSent:Connect(v268);
+                    l_v280_0 = l_TextChatService_0.UserMessageIntentSent:Connect(v267);
                 end;
-                if v93 and v70(l_l_ChatAvailabilityStatus_0_0) and l_v281_0 and (not v95 or not v74()) then
+                if v92 and v70(l_l_ChatAvailabilityStatus_0_0) and l_v280_0 and (not v94 or not v74()) then
                     v31:debug("Disconnecting from UserMessageIntentSent");
-                    l_v281_0:Disconnect();
-                    if v94 then
+                    l_v280_0:Disconnect();
+                    if v93 then
                         if l_FFlagExpChatUseMessagesStore_0 then
-                            v166.handleHiddenMessagesCleared();
+                            v165.handleHiddenMessagesCleared();
                         else
-                            v165:dispatch(v63());
+                            v164:dispatch(v63());
                         end;
                         v21(false).resetTextTransparency();
                     end;
                 end;
                 if l_FFlagExpChatUseMessagesStore_0 then
-                    v166.setCanLocalUserChat(v70(l_l_ChatAvailabilityStatus_0_0));
+                    v165.setCanLocalUserChat(v70(l_l_ChatAvailabilityStatus_0_0));
                     return;
                 else
-                    v165:dispatch(v53(v70(l_l_ChatAvailabilityStatus_0_0)));
+                    v164:dispatch(v53(v70(l_l_ChatAvailabilityStatus_0_0)));
                     return;
                 end;
             end);
         end;
     elseif v69() then
-        v64(v90 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionIsntAvailable" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionUnavailable", nil, "Roblox.ChatDisabled.Info", v164.translator, v164.defaultSystemTextChannel, if v84 then v90 and "You can only view system messages here. Chat isn\226\128\153t available in your region." or "You can only view system messages here. Chat is currently unavailable in your region." else "Chat is unavailable in your region. You can still receive system messages.");
+        v64(v89 and "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionIsntAvailable" or "CoreScripts.TextChat.ChatWindow.ChatDisabled.RegionUnavailable", nil, "Roblox.ChatDisabled.Info", v163.translator, v163.defaultSystemTextChannel, if v84 then v89 and "You can only view system messages here. Chat isn\226\128\153t available in your region." or "You can only view system messages here. Chat is currently unavailable in your region." else "Chat is unavailable in your region. You can still receive system messages.");
     elseif not v84 and getChatTranslationEnabled() then
-        v64("CoreScripts.TextChat.ChatTranslation.ChatWindow.SystemMessageNew", nil, "Roblox.ChatTranslation.ChatWindow.SystemMessage", v164.translator, v164.defaultSystemTextChannel, "Roblox automatically translates supported languages in chat");
+        v64("CoreScripts.TextChat.ChatTranslation.ChatWindow.SystemMessageNew", nil, "Roblox.ChatTranslation.ChatWindow.SystemMessage", v163.translator, v163.defaultSystemTextChannel, "Roblox automatically translates supported languages in chat");
     end;
     return {
-        roactInstance = v262
+        roactInstance = v261
     };
 end;

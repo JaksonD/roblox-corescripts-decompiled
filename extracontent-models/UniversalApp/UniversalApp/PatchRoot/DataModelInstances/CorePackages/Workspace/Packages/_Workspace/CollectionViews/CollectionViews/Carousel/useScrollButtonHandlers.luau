@@ -1,134 +1,151 @@
 local l_TweenService_0 = game:GetService("TweenService");
 local l_UserGameSettings_0 = UserSettings():GetService("UserGameSettings");
-local l_Parent_0 = script:FindFirstAncestor("CollectionViews").Parent;
-local v3 = require(l_Parent_0.React);
-local v4 = require(l_Parent_0.ArgCheck);
-return function(v5, v6, v7, v8, v9, v10, v11) --[[ Line: 10 ]] --[[ Name: useScrollButtonHandlers ]]
-    -- upvalues: v4 (copy), v3 (copy), l_UserGameSettings_0 (copy), l_TweenService_0 (copy)
-    v4.assert(v8 >= 1);
-    v4.assert(v6 >= 0);
-    local v12, v13 = v3.useState(false);
-    local v14, v15 = v3.useState(v7);
-    local v16 = v3.useRef(0);
-    local v17 = math.max(0, v6 - v8);
-    local v18 = v3.useRef(nil);
-    local v20 = v3.useCallback(function(v19) --[[ Line: 31 ]]
-        -- upvalues: v16 (copy), v17 (copy)
-        v16.current = math.max(0, (math.min(v17, v19)));
-        return v16.current;
-    end, {
-        v17, 
-        v16
-    });
-    local v21 = v3.useCallback(function() --[[ Line: 38 ]]
-        -- upvalues: v7 (copy), v13 (copy), v15 (copy), v16 (copy), v17 (copy)
-        if not v7 then
-            v13(false);
-            v15(false);
-            return;
-        else
-            v13(v16.current > 0);
-            v15(v16.current < v17);
-            return;
-        end;
-    end, {
-        v7, 
-        v17, 
-        v16
-    });
-    local v28 = v3.useCallback(function(v22, v23) --[[ Line: 56 ]]
-        -- upvalues: v5 (copy), v9 (copy), v10 (copy), l_UserGameSettings_0 (ref), v18 (copy), l_TweenService_0 (ref), v11 (copy), v21 (copy)
-        local l_current_0 = v5.current;
-        if l_current_0 ~= nil then
-            local v25 = v22 * (v9:getValue().X + v10);
-            local l_CanvasPosition_0 = l_current_0.CanvasPosition;
-            local v27 = Vector2.new(v25, l_CanvasPosition_0.Y);
-            if v23 and not l_UserGameSettings_0.ReducedMotion then
-                if v18.current then
-                    v18.current:Cancel();
-                end;
-                v18.current = l_TweenService_0:Create(l_current_0, TweenInfo.new(v11 or 0.75, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {
-                    CanvasPosition = v27
-                }):Play();
-                return;
-            else
-                l_current_0.CanvasPosition = v27;
-                v21();
-            end;
-        end;
+local l_script_FirstAncestor_0 = script:FindFirstAncestor("CollectionViews");
+local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local v4 = require(l_Parent_0.React);
+local v5 = require(l_Parent_0.ArgCheck);
+local l_FFlagCollectionViewMathChanges_0 = require(l_Parent_0.SharedFlags).FFlagCollectionViewMathChanges;
+local _ = require(l_script_FirstAncestor_0.Carousel.calculateCarouselSpacingMetrics);
+return function(v8, v9, v10, v11, v12, v13, v14, v15) --[[ Line: 16 ]] --[[ Name: useScrollButtonHandlers ]]
+    -- upvalues: v5 (copy), v4 (copy), l_FFlagCollectionViewMathChanges_0 (copy), l_UserGameSettings_0 (copy), l_TweenService_0 (copy)
+    v5.assert(v11 >= 1);
+    v5.assert(v9 >= 0);
+    local v16, v17 = v4.useState(false);
+    local v18, v19 = v4.useState(v10);
+    local v20 = v4.useRef(0);
+    local v21 = math.max(0, v9 - v11);
+    local v22 = v4.useRef(nil);
+    local v24 = v4.useCallback(function(v23) --[[ Line: 38 ]]
+        -- upvalues: v20 (copy), v21 (copy)
+        v20.current = math.max(0, (math.min(v21, v23)));
+        return v20.current;
     end, {
         v21, 
-        v9, 
-        v10, 
-        v18, 
-        v11, 
-        v5
+        v20
     });
-    local v30 = v3.useCallback(function() --[[ Line: 86 ]]
-        -- upvalues: v20 (copy), v16 (copy), v8 (copy), v28 (copy)
-        local v29 = v20(v16.current - v8);
-        v28(v29, true);
-    end, {
-        v28, 
-        v20, 
-        v8, 
-        v16
-    });
-    local v32 = v3.useCallback(function() --[[ Line: 91 ]]
-        -- upvalues: v20 (copy), v16 (copy), v8 (copy), v28 (copy)
-        local v31 = v20(v16.current + v8);
-        v28(v31, true);
-    end, {
-        v28, 
-        v20, 
-        v8, 
-        v16
-    });
-    v3.useEffect(function() --[[ Line: 99 ]]
-        -- upvalues: v20 (copy), v16 (copy), v7 (copy), v28 (copy), v21 (copy)
-        v20(v16.current);
-        if v7 then
-            v28(v16.current);
-        end;
-        v21();
-    end, {
-        v20, 
-        v28, 
-        v7
-    });
-    v3.useEffect(function() --[[ Line: 115 ]]
-        -- upvalues: v7 (copy), v5 (copy), v20 (copy), v16 (copy), v28 (copy), v21 (copy)
-        if not v7 then
-            return nil;
+    local v25 = v4.useCallback(function() --[[ Line: 45 ]]
+        -- upvalues: v10 (copy), v17 (copy), v19 (copy), v20 (copy), v21 (copy)
+        if not v10 then
+            v17(false);
+            v19(false);
+            return;
         else
-            local v33 = {};
-            if v5.current ~= nil then
-                local l_current_1 = v5.current;
-                table.insert(v33, l_current_1:GetPropertyChangedSignal("CanvasSize"):Connect(function() --[[ Line: 125 ]]
-                    -- upvalues: v20 (ref), v16 (ref), v28 (ref), v21 (ref)
-                    v20(v16.current);
-                    v28(v16.current);
-                    v21();
-                end));
-                table.insert(v33, l_current_1:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 134 ]]
-                    -- upvalues: v20 (ref), v16 (ref), v21 (ref)
-                    v20(v16.current);
-                    v21();
-                end));
+            v17(v20.current > 0);
+            v19(v20.current < v21);
+            return;
+        end;
+    end, {
+        v10, 
+        v21, 
+        v20
+    });
+    local v33 = v4.useCallback(function(v26, v27) --[[ Line: 63 ]]
+        -- upvalues: v8 (copy), l_FFlagCollectionViewMathChanges_0 (ref), v11 (copy), v15 (copy), v12 (copy), v13 (copy), l_UserGameSettings_0 (ref), v22 (copy), l_TweenService_0 (ref), v14 (copy), v25 (copy)
+        local l_current_0 = v8.current;
+        if l_current_0 ~= nil then
+            local _ = nil;
+            local v30 = nil;
+            if l_FFlagCollectionViewMathChanges_0 then
+                if v11 < 1 then
+                    return;
+                else
+                    v30 = math.floor(v26 * v15:getValue().stride + 0.5);
+                end;
+            else
+                v30 = v26 * (v12:getValue().X + v13);
             end;
-            return function() --[[ Line: 141 ]]
-                -- upvalues: v33 (copy)
-                for _, v36 in v33 do
-                    v36:Disconnect();
+            local l_CanvasPosition_0 = l_current_0.CanvasPosition;
+            if l_FFlagCollectionViewMathChanges_0 and math.abs(l_CanvasPosition_0.X - v30) < 1 then
+                return;
+            else
+                local v32 = Vector2.new(v30, l_CanvasPosition_0.Y);
+                if v27 and not l_UserGameSettings_0.ReducedMotion then
+                    if v22.current then
+                        v22.current:Cancel();
+                    end;
+                    v22.current = l_TweenService_0:Create(l_current_0, TweenInfo.new(v14 or 0.75, Enum.EasingStyle.Cubic, Enum.EasingDirection.InOut), {
+                        CanvasPosition = v32
+                    }):Play();
+                    return;
+                else
+                    l_current_0.CanvasPosition = v32;
+                    v25();
                 end;
             end;
         end;
     end, {
-        v28, 
-        v16, 
-        v5, 
-        v7, 
+        v25, 
+        if l_FFlagCollectionViewMathChanges_0 then v15 else v12, 
+        if l_FFlagCollectionViewMathChanges_0 then v11 else v13, 
+        v22, 
+        v14, 
+        v8
+    });
+    local v35 = v4.useCallback(function() --[[ Line: 113 ]]
+        -- upvalues: v24 (copy), v20 (copy), v11 (copy), v33 (copy)
+        local v34 = v24(v20.current - v11);
+        v33(v34, true);
+    end, {
+        v33, 
+        v24, 
+        v11, 
         v20
     });
-    return v30, v32, v12, v14;
+    local v37 = v4.useCallback(function() --[[ Line: 118 ]]
+        -- upvalues: v24 (copy), v20 (copy), v11 (copy), v33 (copy)
+        local v36 = v24(v20.current + v11);
+        v33(v36, true);
+    end, {
+        v33, 
+        v24, 
+        v11, 
+        v20
+    });
+    v4.useEffect(function() --[[ Line: 126 ]]
+        -- upvalues: v24 (copy), v20 (copy), v10 (copy), v33 (copy), v25 (copy)
+        v24(v20.current);
+        if v10 then
+            v33(v20.current);
+        end;
+        v25();
+    end, {
+        v24, 
+        v33, 
+        v10
+    });
+    v4.useEffect(function() --[[ Line: 142 ]]
+        -- upvalues: v10 (copy), v8 (copy), v24 (copy), v20 (copy), v33 (copy), v25 (copy)
+        if not v10 then
+            return nil;
+        else
+            local v38 = {};
+            if v8.current ~= nil then
+                local l_current_1 = v8.current;
+                table.insert(v38, l_current_1:GetPropertyChangedSignal("CanvasSize"):Connect(function() --[[ Line: 152 ]]
+                    -- upvalues: v24 (ref), v20 (ref), v33 (ref), v25 (ref)
+                    v24(v20.current);
+                    v33(v20.current);
+                    v25();
+                end));
+                table.insert(v38, l_current_1:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 161 ]]
+                    -- upvalues: v24 (ref), v20 (ref), v25 (ref)
+                    v24(v20.current);
+                    v25();
+                end));
+            end;
+            return function() --[[ Line: 168 ]]
+                -- upvalues: v38 (copy)
+                for _, v41 in v38 do
+                    v41:Disconnect();
+                end;
+            end;
+        end;
+    end, {
+        v33, 
+        v20, 
+        v8, 
+        v10, 
+        v24
+    });
+    return v35, v37, v16, v18;
 end;

@@ -1,6 +1,7 @@
 local l_TelemetryService_0 = game:GetService("TelemetryService");
 local l_Parent_0 = script:FindFirstAncestor("GameCollections").Parent;
-local v2 = require(l_Parent_0.t);
+local v2 = require(l_Parent_0.Cryo);
+local v3 = require(l_Parent_0.t);
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
 local l_DiscoveryEventErrorLogger_0 = require(l_Parent_0.DiscoveryUtils).DiscoveryEventErrorLogger;
 local l_FFlagSearchOmniAutocompletePage_0 = require(l_Parent_0.SharedFlags).FFlagSearchOmniAutocompletePage;
@@ -8,22 +9,22 @@ local l_FFlagLuaAppGameImpressionsMobileAdsId_0 = require(l_Parent_0.SharedFlags
 local l_FFlagLuaAppGameTileWideVideoThumbnail_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppGameTileWideVideoThumbnail;
 local l_FFlagEnableInGameExitModalNextUpUi_0 = require(l_Parent_0.SharedFlags).FFlagEnableInGameExitModalNextUpUi;
 local l_FFlagTraversalHistoryDiscoveryTelemetry_0 = require(l_Parent_0.SharedFlags).FFlagTraversalHistoryDiscoveryTelemetry;
-local l_FFlagLuaAppSearchGridTiles_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSearchGridTiles;
 local l_FFlagLuaAppAddComponentTypeToSearchImpressions_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddComponentTypeToSearchImpressions;
 local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableHomepageTwoByOneTile;
 local l_FFlagLuaAppAddSubIdToHomeEvents_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSubIdToHomeEvents;
+local l_FFlagLuaAppLogOmniAnalyticsData_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppLogOmniAnalyticsData;
 local l_FFlagLuaAppMigrateGameEventsTelemetryService_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppMigrateGameEventsTelemetryService;
 local l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppGameEventsTelemetryServiceShadowTraffic;
-local v16 = game:DefineFastInt("LuaAppGameImpressionsEventThrottlingHundredthsPercent", 10000);
-local v17 = game:DefineFastInt("LuaAppGameImpressionsShadowThrottlingHundredthsPercent", 10000);
-local v18 = nil;
+local v17 = game:DefineFastInt("LuaAppGameImpressionsEventThrottlingHundredthsPercent", 10000);
+local v18 = game:DefineFastInt("LuaAppGameImpressionsShadowThrottlingHundredthsPercent", 10000);
+local v19 = nil;
 if l_FFlagLuaAppMigrateGameEventsTelemetryService_0 then
-    v18 = {
+    v19 = {
         eventName = "gameImpressions", 
         backends = {
             "EventIngest"
         }, 
-        throttlingPercentage = v16, 
+        throttlingPercentage = v17, 
         lastUpdated = {
             26, 
             2, 
@@ -32,14 +33,14 @@ if l_FFlagLuaAppMigrateGameEventsTelemetryService_0 then
         description = "Fires when game tiles become visible to the user"
     };
 end;
-local v19 = nil;
+local v20 = nil;
 if l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 then
-    v19 = {
+    v20 = {
         eventName = "gameImpressionsShadow", 
         backends = {
             "EventIngest"
         }, 
-        throttlingPercentage = v17, 
+        throttlingPercentage = v18, 
         lastUpdated = {
             26, 
             3, 
@@ -48,177 +49,184 @@ if l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 then
         description = "Shadow traffic for gameImpressions event recovery percentage"
     };
 end;
-local v20 = v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    gameSetTypeId = v2.string, 
-    sortPos = v2.number, 
-    locale = v2.string, 
-    thumbnailAssetIds = v2.optional(v2.string), 
-    thumbnailListIds = v2.optional(v2.string), 
-    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v2.optional(v2.string) else nil, 
-    componentType = v2.optional(v2.string), 
-    gameSetTargetId = v2.optional(v2.number), 
-    pageId = v2.optional(v2.string), 
-    adFlags = v2.optional(v2.string), 
-    adIds = v2.optional(v2.string), 
-    rows = v2.optional(v2.string), 
-    rowsOnPage = v2.optional(v2.string), 
-    positionsInRows = v2.optional(v2.string), 
-    tileBadgeContexts = v2.optional(v2.string), 
-    appliedFilters = v2.optional(v2.string), 
-    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v2.optional(v2.string) else nil, 
-    footerTextLiterals = v2.optional(v2.string), 
-    footerLocalizationKeys = v2.optional(v2.string), 
-    loadSource = v2.optional(v2.string), 
-    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v2.optional(v2.string) else nil, 
-    sortSubId = if l_FFlagLuaAppAddSubIdToHomeEvents_0 then v2.optional(v2.string) else nil
+local v21 = v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    gameSetTypeId = v3.string, 
+    sortPos = v3.number, 
+    locale = v3.string, 
+    thumbnailAssetIds = v3.optional(v3.string), 
+    thumbnailListIds = v3.optional(v3.string), 
+    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v3.optional(v3.string) else nil, 
+    componentType = v3.optional(v3.string), 
+    gameSetTargetId = v3.optional(v3.number), 
+    pageId = v3.optional(v3.string), 
+    adFlags = v3.optional(v3.string), 
+    adIds = v3.optional(v3.string), 
+    rows = v3.optional(v3.string), 
+    rowsOnPage = v3.optional(v3.string), 
+    positionsInRows = v3.optional(v3.string), 
+    tileBadgeContexts = v3.optional(v3.string), 
+    appliedFilters = v3.optional(v3.string), 
+    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v3.optional(v3.string) else nil, 
+    footerTextLiterals = v3.optional(v3.string), 
+    footerLocalizationKeys = v3.optional(v3.string), 
+    loadSource = v3.optional(v3.string), 
+    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v3.optional(v3.string) else nil, 
+    sortSubId = if l_FFlagLuaAppAddSubIdToHomeEvents_0 then v3.optional(v3.string) else nil, 
+    analyticsData = if l_FFlagLuaAppLogOmniAnalyticsData_0 then v3.optional(v3.table) else nil
 });
-local v21 = v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    gameSetTypeId = v2.string, 
-    locale = v2.string, 
-    seeAllFlag = v2.number, 
-    gameSetTargetId = v2.optional(v2.number), 
-    pageId = v2.optional(v2.string), 
-    adFlags = v2.optional(v2.string), 
-    adIds = v2.optional(v2.string), 
-    thumbnailAssetIds = v2.optional(v2.string), 
-    thumbnailListIds = v2.optional(v2.string), 
-    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v2.optional(v2.string) else nil, 
-    tileBadgeContexts = v2.optional(v2.string), 
-    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v2.optional(v2.string) else nil, 
-    appliedFilters = v2.optional(v2.string), 
-    footerTextLiterals = v2.optional(v2.string), 
-    footerLocalizationKeys = v2.optional(v2.string), 
-    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v2.optional(v2.string) else nil
+local v22 = v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    gameSetTypeId = v3.string, 
+    locale = v3.string, 
+    seeAllFlag = v3.number, 
+    gameSetTargetId = v3.optional(v3.number), 
+    pageId = v3.optional(v3.string), 
+    adFlags = v3.optional(v3.string), 
+    adIds = v3.optional(v3.string), 
+    thumbnailAssetIds = v3.optional(v3.string), 
+    thumbnailListIds = v3.optional(v3.string), 
+    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v3.optional(v3.string) else nil, 
+    tileBadgeContexts = v3.optional(v3.string), 
+    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v3.optional(v3.string) else nil, 
+    appliedFilters = v3.optional(v3.string), 
+    footerTextLiterals = v3.optional(v3.string), 
+    footerLocalizationKeys = v3.optional(v3.string), 
+    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v3.optional(v3.string) else nil
 });
-local v22 = v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    searchUuid = v2.string, 
-    emphasisFlag = v2.number, 
-    seeAllFlag = v2.number, 
-    sortPos = v2.optional(v2.number), 
-    gameSetTypeId = v2.optional(v2.string), 
-    locale = v2.optional(v2.string), 
-    adFlags = v2.optional(v2.string), 
-    adIds = v2.optional(v2.string), 
-    rows = v2.optional(v2.string), 
-    rowsOnPage = v2.optional(v2.string), 
-    positionsInRows = v2.optional(v2.string), 
-    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v2.optional(v2.string) else nil, 
-    thumbnailAssetIds = if l_FFlagLuaAppSearchGridTiles_0 then v2.optional(v2.string) else nil, 
-    thumbnailListIds = if l_FFlagLuaAppSearchGridTiles_0 then v2.optional(v2.string) else nil, 
-    footerTextLiterals = if l_FFlagLuaAppSearchGridTiles_0 then v2.optional(v2.string) else nil, 
-    footerLocalizationKeys = if l_FFlagLuaAppSearchGridTiles_0 then v2.optional(v2.string) else nil, 
-    tileBadgeContexts = if l_FFlagLuaAppSearchGridTiles_0 then v2.optional(v2.string) else nil, 
-    componentType = if l_FFlagLuaAppAddComponentTypeToSearchImpressions_0 then v2.optional(v2.string) else nil, 
-    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v2.optional(v2.string) else nil
+local v23 = v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    searchUuid = v3.string, 
+    emphasisFlag = v3.number, 
+    seeAllFlag = v3.number, 
+    sortPos = v3.optional(v3.number), 
+    gameSetTypeId = v3.optional(v3.string), 
+    locale = v3.optional(v3.string), 
+    adFlags = v3.optional(v3.string), 
+    adIds = v3.optional(v3.string), 
+    rows = v3.optional(v3.string), 
+    rowsOnPage = v3.optional(v3.string), 
+    positionsInRows = v3.optional(v3.string), 
+    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v3.optional(v3.string) else nil, 
+    thumbnailAssetIds = v3.optional(v3.string), 
+    thumbnailListIds = v3.optional(v3.string), 
+    footerTextLiterals = v3.optional(v3.string), 
+    footerLocalizationKeys = v3.optional(v3.string), 
+    tileBadgeContexts = v3.optional(v3.string), 
+    componentType = if l_FFlagLuaAppAddComponentTypeToSearchImpressions_0 then v3.optional(v3.string) else nil, 
+    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v3.optional(v3.string) else nil
 });
-local v23 = v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    refId = v2.string, 
-    adFlags = v2.optional(v2.string), 
-    adIds = v2.optional(v2.string), 
-    locale = v2.optional(v2.string), 
-    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v2.optional(v2.string) else nil
+local v24 = v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    refId = v3.string, 
+    adFlags = v3.optional(v3.string), 
+    adIds = v3.optional(v3.string), 
+    locale = v3.optional(v3.string), 
+    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v3.optional(v3.string) else nil
 });
-local v24 = if l_FFlagSearchOmniAutocompletePage_0 then v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    sortPos = v2.number, 
-    gameSetTypeId = v2.optional(v2.string), 
-    locale = v2.optional(v2.string), 
-    thumbnailAssetIds = v2.optional(v2.string), 
-    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v2.optional(v2.string) else nil, 
-    componentType = v2.optional(v2.string), 
-    rowsOnPage = v2.optional(v2.string), 
-    positionsInRows = v2.optional(v2.string), 
-    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v2.optional(v2.string) else nil, 
-    gameSetTargetId = v2.optional(v2.number), 
-    adFlags = v2.optional(v2.string), 
-    adIds = v2.optional(v2.string), 
-    tileBadgeContexts = v2.optional(v2.string), 
-    thumbnailListIds = v2.optional(v2.string), 
-    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v2.optional(v2.string) else nil
+local v25 = if l_FFlagSearchOmniAutocompletePage_0 then v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    sortPos = v3.number, 
+    gameSetTypeId = v3.optional(v3.string), 
+    locale = v3.optional(v3.string), 
+    thumbnailAssetIds = v3.optional(v3.string), 
+    videoThumbnailAssetIds = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v3.optional(v3.string) else nil, 
+    componentType = v3.optional(v3.string), 
+    rowsOnPage = v3.optional(v3.string), 
+    positionsInRows = v3.optional(v3.string), 
+    mobileAdvertisingId = if l_FFlagLuaAppGameImpressionsMobileAdsId_0 then v3.optional(v3.string) else nil, 
+    gameSetTargetId = v3.optional(v3.number), 
+    adFlags = v3.optional(v3.string), 
+    adIds = v3.optional(v3.string), 
+    tileBadgeContexts = v3.optional(v3.string), 
+    thumbnailListIds = v3.optional(v3.string), 
+    tileTypes = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v3.optional(v3.string) else nil
 }) else nil;
-local v25 = if l_FFlagEnableInGameExitModalNextUpUi_0 then v2.strictInterface({
-    absPositions = v2.string, 
-    topicDataPositions = v2.string, 
-    rootPlaceIds = v2.string, 
-    universeIds = v2.string, 
-    gameSetTypeId = v2.string, 
-    locale = v2.optional(v2.string)
+local v26 = if l_FFlagEnableInGameExitModalNextUpUi_0 then v3.strictInterface({
+    absPositions = v3.string, 
+    topicDataPositions = v3.string, 
+    rootPlaceIds = v3.string, 
+    universeIds = v3.string, 
+    gameSetTypeId = v3.string, 
+    locale = v3.optional(v3.string)
 }) else nil;
-local v26 = if l_FFlagTraversalHistoryDiscoveryTelemetry_0 then v2.strictInterface({
-    absPositions = v2.string, 
-    positionsInRows = v2.optional(v2.string), 
-    rootPlaceIds = v2.string, 
-    rows = v2.string, 
-    rowsOnPage = v2.string, 
-    topicDataPositions = v2.string, 
-    universeIds = v2.string, 
-    locale = v2.optional(v2.string)
+local v27 = if l_FFlagTraversalHistoryDiscoveryTelemetry_0 then v3.strictInterface({
+    absPositions = v3.string, 
+    positionsInRows = v3.optional(v3.string), 
+    rootPlaceIds = v3.string, 
+    rows = v3.string, 
+    rowsOnPage = v3.string, 
+    topicDataPositions = v3.string, 
+    universeIds = v3.string, 
+    locale = v3.optional(v3.string)
 }) else nil;
-local v27 = {
-    [l_AppPage_0.Home] = v20, 
-    [l_AppPage_0.Games] = v20, 
-    [l_AppPage_0.SearchPage] = v22, 
-    [l_AppPage_0.SearchLandingPage] = if l_FFlagSearchOmniAutocompletePage_0 then v24 else nil, 
-    recommended = v23, 
-    Deeplink = v21, 
-    InExpHistoryPage = v26, 
-    InGameExitPage = if l_FFlagEnableInGameExitModalNextUpUi_0 then v25 else nil
+local v28 = {
+    [l_AppPage_0.Home] = v21, 
+    [l_AppPage_0.Games] = v21, 
+    [l_AppPage_0.SearchPage] = v23, 
+    [l_AppPage_0.SearchLandingPage] = if l_FFlagSearchOmniAutocompletePage_0 then v25 else nil, 
+    recommended = v24, 
+    Deeplink = v22, 
+    InExpHistoryPage = v27, 
+    InGameExitPage = if l_FFlagEnableInGameExitModalNextUpUi_0 then v26 else nil
 };
-return function(v28, v29, v30) --[[ Line: 205 ]]
-    -- upvalues: l_AppPage_0 (copy), v21 (copy), v27 (copy), l_DiscoveryEventErrorLogger_0 (copy), l_FFlagLuaAppMigrateGameEventsTelemetryService_0 (copy), l_TelemetryService_0 (copy), v18 (ref), l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 (copy), v19 (ref)
-    local v31 = nil;
-    v31 = if v30.seeAllFlag and (not (v29 ~= l_AppPage_0.Home) or v29 == l_AppPage_0.Games) then v21 else v27[v29];
-    if v31 then
-        local v32, v33 = v31(v30);
-        if not v32 then
-            l_DiscoveryEventErrorLogger_0.reportError("GameImpressionsEventInvalidInterface", v33);
+return function(v29, v30, v31) --[[ Line: 207 ]]
+    -- upvalues: l_AppPage_0 (copy), v22 (copy), v28 (copy), l_DiscoveryEventErrorLogger_0 (copy), l_FFlagLuaAppLogOmniAnalyticsData_0 (copy), v2 (copy), l_FFlagLuaAppMigrateGameEventsTelemetryService_0 (copy), l_TelemetryService_0 (copy), v19 (ref), l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 (copy), v20 (ref)
+    local v32 = nil;
+    v32 = if v31.seeAllFlag and (not (v30 ~= l_AppPage_0.Home) or v30 == l_AppPage_0.Games) then v22 else v28[v30];
+    if v32 then
+        local v33, v34 = v32(v31);
+        if not v33 then
+            l_DiscoveryEventErrorLogger_0.reportError("GameImpressionsEventInvalidInterface", v34);
         end;
     else
-        l_DiscoveryEventErrorLogger_0.reportError("GameImpressionsEventMissingInterface", ("Missing interface for eventContext %* to type check gameImpressions event parameters"):format(v29), {
-            eventContext = v29
+        l_DiscoveryEventErrorLogger_0.reportError("GameImpressionsEventMissingInterface", ("Missing interface for eventContext %* to type check gameImpressions event parameters"):format(v30), {
+            eventContext = v30
+        });
+    end;
+    if l_FFlagLuaAppLogOmniAnalyticsData_0 and v31.analyticsData then
+        local l_analyticsData_0 = v31.analyticsData;
+        v31 = v2.Dictionary.join(l_analyticsData_0, v31, {
+            analyticsData = v2.None
         });
     end;
     if l_FFlagLuaAppMigrateGameEventsTelemetryService_0 then
-        l_TelemetryService_0:LogEvent(v18, {
-            eventContext = v29, 
+        l_TelemetryService_0:LogEvent(v19, {
+            eventContext = v30, 
             standardizedFields = {
                 "addSessionInfo", 
                 "addSessionId", 
                 "addOSInfo"
             }, 
-            customFields = v30
+            customFields = v31
         });
     else
-        v28:sendEventDeferred(v29, "gameImpressions", v30);
+        v29:sendEventDeferred(v30, "gameImpressions", v31);
     end;
     if l_FFlagLuaAppGameEventsTelemetryServiceShadowTraffic_0 then
-        l_TelemetryService_0:LogEvent(v19, {
-            eventContext = v29, 
+        l_TelemetryService_0:LogEvent(v20, {
+            eventContext = v30, 
             standardizedFields = {
                 "addSessionInfo", 
                 "addSessionId", 
                 "addOSInfo"
             }, 
-            customFields = v30
+            customFields = v31
         });
     end;
 end;

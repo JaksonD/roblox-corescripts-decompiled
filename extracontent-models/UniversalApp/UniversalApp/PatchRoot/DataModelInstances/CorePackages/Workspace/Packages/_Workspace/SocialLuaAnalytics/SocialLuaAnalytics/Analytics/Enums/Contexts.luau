@@ -34,5 +34,6 @@ return {
     TCUpsellModal = "TCUpsellModal", 
     TCEducationModal = "TCEducationModal", 
     StreamNotification = "StreamNotification", 
-    ToastNotification = "ToastNotification"
+    ToastNotification = "ToastNotification", 
+    TrustedFriendsVPCPrologue = "TrustedFriendsVPCPrologue"
 };

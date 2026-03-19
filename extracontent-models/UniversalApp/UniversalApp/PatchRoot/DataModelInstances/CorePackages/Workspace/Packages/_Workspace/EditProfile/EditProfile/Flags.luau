@@ -6,5 +6,6 @@ return {
     FFlagEditProfileNavigateToAvatar = require(script.FFlagEditProfileNavigateToAvatar), 
     FStringEditProfileToAvatarLayerName = require(script.FStringEditProfileToAvatarLayerName), 
     SocialNetworksInEditProfileIXP = require(script.SocialNetworksInEditProfileIXP), 
-    FFlagEditProfileMigration = require(script.FFlagEditProfileMigration)
+    FFlagEditProfileMigration = require(script.FFlagEditProfileMigration), 
+    FFlagEditProfileNavigateToProfilePictureEditor = require(script.FFlagEditProfileNavigateToProfilePictureEditor)
 };

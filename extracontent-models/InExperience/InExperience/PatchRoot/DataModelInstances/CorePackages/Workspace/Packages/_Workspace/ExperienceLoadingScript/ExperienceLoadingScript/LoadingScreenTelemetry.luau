@@ -46,5 +46,24 @@ return {
                 errorType = v3.errorType
             }
         }, 1);
+    end, 
+    countAutoTranslateZeroUniverseId = function() --[[ Line: 34 ]] --[[ Name: countAutoTranslateZeroUniverseId ]]
+        -- upvalues: l_TelemetryService_0 (copy), v1 (copy)
+        local v5 = {
+            eventName = "AutoTranslateZeroUniverseId", 
+            backends = {
+                "RobloxTelemetryCounter"
+            }, 
+            lastUpdated = {
+                2026, 
+                3, 
+                11
+            }, 
+            description = "Counter to track when AutoTranslateBadge skips the API request because universeId is 0.", 
+            links = "https://grafana.rbx.com/goto/cfe9j31p1wge8a?orgId=1"
+        };
+        l_TelemetryService_0:LogCounter(v5, {
+            standardizedFields = v1
+        }, 1);
     end
 };

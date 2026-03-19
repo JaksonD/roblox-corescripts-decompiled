@@ -8,38 +8,54 @@ local v6 = require(l_Parent_0.Thunks.RetrieveCaptures);
 local v7 = require(l_Parent_0.Actions.ToastTriggered);
 local v8 = require(l_Parent_0.Enums.TriggerSourceType);
 local _ = require(l_Parent_0.Types);
-local v10 = require(l_Parent_0.Utils.waitForFlashOverlay);
-local v11 = require(l_Parent_0.Flags.FFlagEnableUpdatedCaptureControls);
-local v12 = require(l_Parent_0.Enums.CaptureType);
-local v13 = require(l_Parent_0.Flags.FFlagEnableCapturesGalleryRetrievalCoreScript);
-return function(v14, _, v16) --[[ Line: 24 ]] --[[ Name: makeCaptureSavedHandler ]]
-    -- upvalues: v13 (copy), v12 (copy), v8 (copy), v11 (copy), v2 (copy), v5 (copy), v6 (copy), v10 (copy), v3 (copy), v7 (copy), v4 (copy)
-    return function(v17, v18) --[[ Line: 25 ]] --[[ Name: captureSavedHandler ]]
-        -- upvalues: v13 (ref), v12 (ref), v8 (ref), v11 (ref), v2 (ref), v16 (copy), v5 (ref), v14 (copy), v6 (ref), v10 (ref), v3 (ref), v7 (ref), v4 (ref)
-        local v19 = if v13 then v17.CaptureType == Enum.CaptureType.Video else v17.type == v12.Video;
-        if v18 == v8.UserSave and (not v11 or not v19) then
-            local v20 = v2.Stopwatch.stop(v2.Events.CaptureTaken);
-            v16(v5.CapturesEntrypointLatency, {
-                statValue = if v20 then v20.timeElapsed else nil
+local v10 = require(l_Parent_0.Utils.getCaptureObject);
+local v11 = require(l_Parent_0.Utils.waitForFlashOverlay);
+local v12 = require(l_Parent_0.Flags.FFlagCreateMomentsToast);
+local v13 = require(l_Parent_0.Flags.FFlagEnableUpdatedCaptureControls);
+local v14 = require(l_Parent_0.Enums.CaptureType);
+local v15 = require(l_Parent_0.Flags.FFlagEnableCapturesGalleryRetrievalCoreScript);
+return function(v16, _, v18) --[[ Line: 27 ]] --[[ Name: makeCaptureSavedHandler ]]
+    -- upvalues: v15 (copy), v14 (copy), v8 (copy), v13 (copy), v2 (copy), v5 (copy), v6 (copy), v11 (copy), v3 (copy), v10 (copy), v12 (copy), v7 (copy), v4 (copy)
+    return function(v19, v20) --[[ Line: 28 ]] --[[ Name: captureSavedHandler ]]
+        -- upvalues: v15 (ref), v14 (ref), v8 (ref), v13 (ref), v2 (ref), v18 (copy), v5 (ref), v16 (copy), v6 (ref), v11 (ref), v3 (ref), v10 (ref), v12 (ref), v7 (ref), v4 (ref)
+        local v21 = if v15 then v19.CaptureType == Enum.CaptureType.Video else v19.type == v14.Video;
+        if v20 == v8.UserSave and (not v13 or not v21) then
+            local v22 = v2.Stopwatch.stop(v2.Events.CaptureTaken);
+            v18(v5.CapturesEntrypointLatency, {
+                statValue = if v22 then v22.timeElapsed else nil
             });
         end;
-        v14:dispatch(v6());
-        v10(v14);
-        if v18 == v8.PromptedShare then
+        v16:dispatch(v6());
+        v11(v16);
+        if v20 == v8.PromptedShare then
             return;
         else
-            local v21 = v3.PolicyImplementation.read();
-            if if v21 then v3.Mapper(v21).enableShareCaptureCTA() else false then
-                v14:dispatch(v7(v4.CaptureTaken, {
-                    captureInfo = v17
+            local v23 = v3.PolicyImplementation.read();
+            local v24 = if v23 then v3.Mapper(v23).enableShareCaptureCTA() else false;
+            local v25 = false;
+            local v26 = v10(v19);
+            if v12 then
+                local v27 = false;
+                if v26 ~= nil then
+                    v27 = v21 and v26.TimeLength >= 6 or not v21;
+                end;
+                v25 = v27;
+            end;
+            if v25 then
+                v16:dispatch(v7(v4.CaptureTakenWithMomentsCTA, {
+                    captureInfo = v26
+                }));
+            elseif v24 then
+                v16:dispatch(v7(v4.CaptureTaken, {
+                    captureInfo = v19
                 }));
             else
-                v14:dispatch(v7(v4.ViewCapture));
+                v16:dispatch(v7(v4.ViewCapture));
             end;
-            if v19 then
-                v16(v5.CapturesVideoShareToastViewed);
+            if v21 then
+                v18(v5.CapturesVideoShareToastViewed);
             end;
-            v16(v5.CapturesShareToastViewed);
+            v18(v5.CapturesShareToastViewed);
             return;
         end;
     end;

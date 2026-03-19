@@ -8,9 +8,10 @@ local v6 = require(l_Parent_0.AvatarExperienceFlags);
 local l_FFlagAXEditorSubcategoryFilters_0 = v6.FFlagAXEditorSubcategoryFilters;
 local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXEnableExpiredUserLookCheckout_0 = v6.FFlagAXEnableExpiredUserLookCheckout;
-local v10 = game:DefineFastFlag("AXEnableMultiTryOnUI", false);
-local v11 = game:DefineFastFlag("AXKeepTryOnsInAvatarEditor", false);
-local v12 = {
+local l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 = v6.FFlagAXFixGamepadNavigationOnOutfitManagement;
+local v11 = game:DefineFastFlag("AXEnableMultiTryOnUI", false);
+local v12 = game:DefineFastFlag("AXKeepTryOnsInAvatarEditor", false);
+local v13 = {
     isTransparent = false, 
     coversSceneWhenExpanded = false, 
     isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else false, 
@@ -20,10 +21,10 @@ local v12 = {
     VRPanelRoundedCorners = false, 
     VRPanelPlacement = "Center"
 };
-local v13 = {
+local v14 = {
     [v2.AccessoryAdjustment] = {
         isRefinementPage = true, 
-        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v10, 
+        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v11, 
         analyticsData = {
             unifiedLoggingSurface = v3.CUSTOMIZE
         }
@@ -39,7 +40,7 @@ local v13 = {
         refinementButtonVisible = true, 
         VRPanelPlacement = "None", 
         VRPanelRoundedCorners = true, 
-        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v10, 
+        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v11, 
         analyticsData = {
             unifiedLoggingSurface = v3.CATALOG
         }
@@ -51,7 +52,7 @@ local v13 = {
         refinementButtonVisible = true, 
         VRPanelPlacement = "None", 
         VRPanelRoundedCorners = true, 
-        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v10, 
+        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v11, 
         analyticsData = {
             unifiedLoggingSurface = v3.SEARCH_RESULTS
         }
@@ -60,7 +61,7 @@ local v13 = {
         refinementButtonVisible = true, 
         VRPanelPlacement = "None", 
         VRPanelRoundedCorners = true, 
-        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v10, 
+        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v11, 
         analyticsData = {
             unifiedLoggingSurface = v3.SEARCH_LANDING_PAGE
         }
@@ -95,7 +96,7 @@ local v13 = {
     [v2.LayeredClothingSort] = {
         isRefinementPage = true, 
         VRPanelPlacement = "Center", 
-        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v10, 
+        isMultiTryOn = if l_FFlagAXMISEnableMultiShopping_0 then nil else v11, 
         analyticsData = {
             unifiedLoggingSurface = v3.CUSTOMIZE
         }
@@ -104,7 +105,7 @@ local v13 = {
         VRPanelPlacement = "Right"
     }, 
     [v2.AvatarEditor] = {
-        isTryOnOutfitResetPage = not v11 or false, 
+        isTryOnOutfitResetPage = not v12 or false, 
         refinementButtonVisible = true, 
         VRPanelPlacement = "None", 
         VRPanelRoundedCorners = true, 
@@ -120,7 +121,7 @@ local v13 = {
         }
     }, 
     [v2.ManageOutfitPage] = {
-        isTransparent = true, 
+        isTransparent = not l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 or false, 
         analyticsData = {
             unifiedLoggingSurface = v3.CUSTOMIZE
         }
@@ -228,13 +229,13 @@ local v13 = {
     }
 };
 if l_FFlagAXEditorSubcategoryFilters_0 then
-    v13[v2.SubcategoryFiltersDropdown] = {
+    v14[v2.SubcategoryFiltersDropdown] = {
         isTransparent = true, 
         VRPanelPlacement = "Left"
     };
 end;
 if l_FFlagAXMISEnableMultiShopping_0 then
-    v13[v2.Checkout] = {
+    v14[v2.Checkout] = {
         isTransparent = true, 
         coversSceneWhenExpanded = true, 
         VRPanelPlacement = "Right", 
@@ -242,15 +243,15 @@ if l_FFlagAXMISEnableMultiShopping_0 then
     };
 end;
 if l_FFlagAXEnableExpiredUserLookCheckout_0 then
-    v13[v2.ExpiredUserLookCheckout] = {
+    v14[v2.ExpiredUserLookCheckout] = {
         isTransparent = true, 
         coversSceneWhenExpanded = true, 
         VRPanelPlacement = "Right", 
         VRPanelRoundedCorners = true
     };
 end;
-local v14 = {};
-for _, v16 in v2 do
-    v14[v16] = v4.Dictionary.join(v12, v13[v16] or {});
+local v15 = {};
+for _, v17 in v2 do
+    v15[v17] = v4.Dictionary.join(v13, v14[v17] or {});
 end;
-return v14;
+return v15;

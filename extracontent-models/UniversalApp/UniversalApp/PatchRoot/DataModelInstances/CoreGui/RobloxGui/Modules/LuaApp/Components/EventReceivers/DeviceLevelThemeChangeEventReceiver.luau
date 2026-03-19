@@ -29,7 +29,7 @@ local v27 = require(l_Modules_0.LuaApp.Flags.GetFFlagUseNonYieldGetSystemTheme);
 local v28 = require(l_Modules_0.LuaApp.Components.EventReceivers.GetSystemTheme);
 local v29 = v12.Component:extend("DeviceLevelThemeUpdater");
 v29.init = function(v30) --[[ Line: 47 ]] --[[ Name: init ]]
-    -- upvalues: v19 (copy), l_TelemetryService_0 (copy), v18 (copy), l_Logger_0 (copy), v15 (copy), l_NotificationService_0 (copy), v21 (copy), v26 (copy), l_HttpService_0 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_l_MessageBusService_0_MessageId_1 (copy), l_l_MessageBusService_0_MessageId_2 (copy), l_IXPServiceWrapper_0 (copy), v28 (copy), v25 (copy)
+    -- upvalues: v19 (copy), l_TelemetryService_0 (copy), v18 (copy), l_Logger_0 (copy), v15 (copy), l_NotificationService_0 (copy), v21 (copy), v26 (copy), l_HttpService_0 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_l_MessageBusService_0_MessageId_1 (copy), l_l_MessageBusService_0_MessageId_2 (copy), l_IXPServiceWrapper_0 (copy), l_AppBtidLayers_0 (copy), v28 (copy), v25 (copy)
     v30.deviceLevelThemeAnalytics = v30.props.deviceLevelThemeAnalytics or v19.new(l_TelemetryService_0);
     v30.getCachedDeviceLevelThemeName = function() --[[ Line: 51 ]]
         -- upvalues: v30 (copy), v18 (ref), l_Logger_0 (ref)
@@ -118,11 +118,11 @@ v29.init = function(v30) --[[ Line: 47 ]] --[[ Name: init ]]
         };
     end;
     v30.getDefaultDeviceLevelTheme = function(v46) --[[ Line: 186 ]]
-        -- upvalues: v30 (copy), l_Logger_0 (ref), l_IXPServiceWrapper_0 (ref), v28 (ref)
+        -- upvalues: v30 (copy), l_Logger_0 (ref), l_IXPServiceWrapper_0 (ref), l_AppBtidLayers_0 (ref), v28 (ref)
         local l_ixpDefaultThemeSelection_0 = v30.props.ixpDefaultThemeSelection;
         if v30.props.ixpDefaultThemeEnabled and l_ixpDefaultThemeSelection_0 and l_ixpDefaultThemeSelection_0 ~= "" then
             l_Logger_0:info("No cached theme found, using default theme from IXP: " .. tostring(l_ixpDefaultThemeSelection_0));
-            (v30.props.IXPServiceWrapper or l_IXPServiceWrapper_0):LogFlagLinkedUserLayerExposure("DefaultThemeLayerValues");
+            (v30.props.IXPServiceWrapper or l_IXPServiceWrapper_0):LogFlagLinkedUserLayerExposure(l_AppBtidLayers_0.DefaultThemeLayer);
             if l_ixpDefaultThemeSelection_0 == "system" then
                 v30.deviceLevelThemeAnalytics:onRequestSystemTheme();
                 local v48 = v30.props.systemThemeService and v28(v30.props.systemThemeService) or v30.props.systemThemeEnum.Error;

@@ -2,23 +2,23 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Packages.Roact);
 local l_Focusable_0 = require(l_CorePackages_0.Packages.RoactGamepad).Focusable;
 local v3 = require(l_CorePackages_0.Packages.UIBlox);
-local v4 = require(l_CorePackages_0.Packages.t);
-local v5 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
+local v5 = require(l_CorePackages_0.Packages.t);
+local v6 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
 local l_ExpandableTextArea_0 = v3.App.Text.ExpandableTextArea;
-local l_ShimmerPanel_0 = v3.App.Loading.ShimmerPanel;
 local l_useStyle_0 = v3.Core.Style.useStyle;
 local l_useSelectionCursor_0 = v3.App.SelectionImage.useSelectionCursor;
 local l_CursorKind_0 = v3.App.SelectionImage.CursorKind;
-local v11 = v5.wrap(v4.strictInterface({
-    compactNumberOfLines = v4.optional(v4.integer), 
-    isLoading = v4.boolean, 
-    descriptionText = v4.optional(v4.string), 
-    width = v4.optional(v4.integer), 
-    Position = v4.optional(v4.UDim2), 
-    LayoutOrder = v4.optional(v4.integer)
+local v11 = v6.wrap(v5.strictInterface({
+    compactNumberOfLines = v5.optional(v5.integer), 
+    isLoading = v5.boolean, 
+    descriptionText = v5.optional(v5.string), 
+    width = v5.optional(v5.integer), 
+    Position = v5.optional(v5.UDim2), 
+    LayoutOrder = v5.optional(v5.integer)
 }));
-return function(v12) --[[ Line: 36 ]] --[[ Name: LookDescription ]]
-    -- upvalues: v11 (copy), l_useStyle_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), v1 (copy), l_Focusable_0 (copy), l_ShimmerPanel_0 (copy), l_ExpandableTextArea_0 (copy)
+return function(v12) --[[ Line: 38 ]] --[[ Name: LookDescription ]]
+    -- upvalues: v11 (copy), l_useStyle_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), v1 (copy), l_Focusable_0 (copy), l_Skeleton_0 (copy), l_ExpandableTextArea_0 (copy)
     assert(v11(v12));
     local l_LayoutOrder_0 = v12.LayoutOrder;
     local v14 = l_useStyle_0();
@@ -44,7 +44,7 @@ return function(v12) --[[ Line: 36 ]] --[[ Name: LookDescription ]]
             BackgroundTransparency = 1, 
             Size = UDim2.new(1, 0, 0, v24)
         }, {
-            ShimmerPanel = v1.createElement(l_ShimmerPanel_0, {
+            ShimmerPanel = v1.createElement(l_Skeleton_0, {
                 AnchorPoint = Vector2.new(0, 1), 
                 Position = UDim2.new(0, 0, 1, 0), 
                 Size = UDim2.new(1, 0, 0, v23)

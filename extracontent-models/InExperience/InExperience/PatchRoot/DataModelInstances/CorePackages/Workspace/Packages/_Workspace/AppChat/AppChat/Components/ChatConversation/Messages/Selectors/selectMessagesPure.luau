@@ -7,7 +7,7 @@ local v5 = require(l_script_FirstAncestor_0.Components.ChatConversation.Utils.fi
 local v6 = require(l_script_FirstAncestor_0.Conversations.populateMessageWithState);
 local _ = require(l_Parent_0.AppChatNetworking);
 local v8 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatHandleAgeChange);
-return function(v9, v10) --[[ Line: 83 ]] --[[ Name: selectMessagesPure ]]
+return function(v9, v10) --[[ Line: 85 ]] --[[ Name: selectMessagesPure ]]
     -- upvalues: v2 (copy), v3 (copy), v4 (copy), v5 (copy), v6 (copy), v8 (copy)
     local l_conversation_0 = v9.conversation;
     if not l_conversation_0 then

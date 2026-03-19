@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ReportIPInfringement", false);
+return game:DefineFastFlag("ReportIPInfringement_v2", false);

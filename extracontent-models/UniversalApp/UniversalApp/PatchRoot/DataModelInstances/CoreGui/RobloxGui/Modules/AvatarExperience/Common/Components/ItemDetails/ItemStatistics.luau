@@ -8,7 +8,7 @@ local v6 = require(l_CorePackages_0.Workspace.Packages.ArgCheck);
 local v7 = require(l_Modules_0.LuaApp.Hooks.useRoactService);
 local v8 = require(l_Modules_0.LuaApp.Services.RoactLocalization);
 local v9 = require(l_CorePackages_0.Packages.UIBlox);
-local l_ShimmerPanel_0 = v9.App.Loading.ShimmerPanel;
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_StatWidget_0 = v9.App.Indicator.StatWidget;
 local v12 = v9.App.ImageSet.Images["icons/actions/favoriteOn"];
 local v13 = v6.wrap(v3.strictInterface({
@@ -18,8 +18,8 @@ local v13 = v6.wrap(v3.strictInterface({
     Position = v3.optional(v3.UDim2), 
     LayoutOrder = v3.optional(v3.integer)
 }));
-return function(v14) --[[ Line: 40 ]] --[[ Name: ItemStatistics ]]
-    -- upvalues: v13 (copy), v7 (copy), v8 (copy), v2 (copy), l_ShimmerPanel_0 (copy), l_NumberLocalization_0 (copy), l_FitFrameVertical_0 (copy), l_StatWidget_0 (copy), v12 (copy)
+return function(v14) --[[ Line: 42 ]] --[[ Name: ItemStatistics ]]
+    -- upvalues: v13 (copy), v7 (copy), v8 (copy), v2 (copy), l_Skeleton_0 (copy), l_NumberLocalization_0 (copy), l_FitFrameVertical_0 (copy), l_StatWidget_0 (copy), v12 (copy)
     assert(v13(v14));
     local v15 = v14.LayoutOrder or 0;
     local v16 = v14.Position or UDim2.new(0, 0, 0, 0);
@@ -28,11 +28,11 @@ return function(v14) --[[ Line: 40 ]] --[[ Name: ItemStatistics ]]
     local l_favoritesCount_0 = v14.favoritesCount;
     local v20 = v7(v8);
     if not l_favoritesCount_0 then
-        return v2.createElement(l_ShimmerPanel_0, {
+        return (v2.createElement(l_Skeleton_0, {
             Position = v16, 
             Size = UDim2.new(0, v17, 0, 70), 
             LayoutOrder = v15
-        });
+        }));
     else
         local v21 = v17 - v18 * 2;
         local v22 = v20:Format("Feature.Catalog.Label.Favorites");

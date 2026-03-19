@@ -21,17 +21,18 @@ local l_FFlagPasskeyUpsellEnabled_0 = v5.FFlagPasskeyUpsellEnabled;
 local l_FFlagTutorialUpsellEnabled_0 = v5.FFlagTutorialUpsellEnabled;
 local l_FFlagEnableSocialProofUserList_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialProofUserList;
 local l_FFlagProfilePlatformAddTC_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformAddTC;
+local l_FFlagTCVerifiedParentalControl_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagTCVerifiedParentalControl;
 local l_FFlagAppIaScrollAway_0 = v5.FFlagAppIaScrollAway;
 local l_FFlagAddVideoToCommunityProfile_0 = v5.FFlagAddVideoToCommunityProfile;
 local l_FFlagLuaAppSortDeeplinkFix_0 = v5.FFlagLuaAppSortDeeplinkFix;
-local v26 = game:DefineFastFlag("WebViewHideLuaSideBar", false);
+local v27 = game:DefineFastFlag("WebViewHideLuaSideBar", false);
 local l_FFlagFixMoreSubMenuTitleFlash_0 = v5.FFlagFixMoreSubMenuTitleFlash;
 local l_FFlagEnableNapDedicatedPage_0 = v5.FFlagEnableNapDedicatedPage;
 local l_FFlagEnableSocialProofVerticalUserListSheet_0 = v5.FFlagEnableSocialProofVerticalUserListSheet;
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole;
-local v31 = game:DefineFastFlag("TCEducationModalSideBarPolicy", false);
+local v32 = game:DefineFastFlag("TCEducationModalSideBarPolicy", false);
 local l_FFlagEnableBlackbird_0 = v5.FFlagEnableBlackbird;
-local v33 = {
+local v34 = {
     [v3.None] = {
         nameLocalizationKey = "CommonUI.Features.Label.Nil", 
         disableAppTopBanner = true
@@ -178,7 +179,7 @@ local v33 = {
     [v3.AccountInfo] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.About] = {
@@ -228,7 +229,7 @@ local v33 = {
     [v3.BuildersClub] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.InviteLinkExpiredModal] = {
@@ -271,12 +272,12 @@ local v33 = {
         webView = true, 
         nativeWrapper = true, 
         renderUnderlyingPage = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent
     }, 
     [v3.SettingsSubPage] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.SecurityAlertInfo] = {
@@ -288,19 +289,19 @@ local v33 = {
     [v3.YouTubePlayer] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.PurchaseRobux] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = not l_IsVRAppBuild_0() or false
     }, 
     [v3.Payment] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.RobuxUpsell] = {
@@ -329,19 +330,19 @@ local v33 = {
     [v3.AddFriends] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.ViewUserProfile] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.ViewProfile] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.AccountSelectorPeekView] = {
@@ -386,7 +387,7 @@ local v33 = {
     [v3.ReportAbuse] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
     [v3.ScanQrCode] = {
@@ -461,12 +462,12 @@ local v33 = {
     } else nil, 
     [v3.PhoneVerification] = {
         webView = not v11 or nil, 
-        tabBarHidden = if not v26 or v11 then v4.PolicyDependent else v4.Hidden, 
+        tabBarHidden = if not v27 or v11 then v4.PolicyDependent else v4.Hidden, 
         renderUnderlyingPage = true
     }, 
     [v3.EditUsername] = {
         webView = not v11 or nil, 
-        tabBarHidden = if not v26 or v11 then v4.PolicyDependent else v4.Hidden, 
+        tabBarHidden = if not v27 or v11 then v4.PolicyDependent else v4.Hidden, 
         renderUnderlyingPage = true
     }, 
     [v3.ExperienceGuidelinesExplained] = {
@@ -535,11 +536,11 @@ local v33 = {
     }, 
     [v3.ParentVerification] = {
         webView = true, 
-        tabBarHidden = if v26 then v4.Hidden else nil
+        tabBarHidden = if v27 then v4.Hidden else nil
     }, 
     [v3.EmailVerification] = {
         webView = true, 
-        tabBarHidden = if v26 then v4.Hidden else nil
+        tabBarHidden = if v27 then v4.Hidden else nil
     }, 
     [v3.AddAuthMethodPage] = {
         tabBarHidden = v4.Hidden
@@ -595,31 +596,31 @@ local v33 = {
     } else nil
 };
 if l_GetFFlagLuaAppChallengeDialogContainerPageEnabled_0() then
-    v33[v3.ChallengeDialogModalContainer] = {
+    v34[v3.ChallengeDialogModalContainer] = {
         tabBarHidden = v4.Hidden, 
         renderUnderlyingPage = true
     };
 end;
 if l_GetFFlagEnableAbuseReport10ft_0() then
-    v33[v3.ReportScreen] = {
+    v34[v3.ReportScreen] = {
         nameLocalizationKey = "Feature.GameDetails.Label.ReportAbuse", 
         tabBarHidden = v4.Visible, 
         renderUnderlyingPage = false
     };
 end;
 if v12() then
-    v33[v3.ChallengeNativeWrapper] = {
+    v34[v3.ChallengeNativeWrapper] = {
         nativeWrapper = true, 
         tabBarHidden = v4.Hidden, 
         renderUnderlyingPage = true
     };
 end;
 if v13() then
-    v33[v3.PlatformAccountRouter] = {
+    v34[v3.PlatformAccountRouter] = {
         tabBarHidden = v4.Hidden
     };
 end;
-v33[v3.DiscoverabilityOverlay] = {
+v34[v3.DiscoverabilityOverlay] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -627,7 +628,7 @@ v33[v3.DiscoverabilityOverlay] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v33[v3.FindFriendsModal] = {
+v34[v3.FindFriendsModal] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -635,7 +636,7 @@ v33[v3.FindFriendsModal] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v33[v3.ContactsRevokedAccessDialog] = {
+v34[v3.ContactsRevokedAccessDialog] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -643,7 +644,7 @@ v33[v3.ContactsRevokedAccessDialog] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v33[v3.SettingsPermissionInteractiveAlert] = {
+v34[v3.SettingsPermissionInteractiveAlert] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -651,27 +652,34 @@ v33[v3.SettingsPermissionInteractiveAlert] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v33[v3.TrustedContactsEducationModal] = {
-    tabBarHidden = if v31 then nil else v4.Hidden, 
-    bottomTabBarHidden = not v31 or nil, 
-    sideTabBarHidden = not v31 or nil, 
+v34[v3.TrustedContactsEducationModal] = {
+    tabBarHidden = if v32 then nil else v4.Hidden, 
+    bottomTabBarHidden = not v32 or nil, 
+    sideTabBarHidden = not v32 or nil, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
 if l_FFlagProfilePlatformAddTC_0 then
-    v33[v3.TrustedContactsModal] = {
+    v34[v3.TrustedContactsModal] = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     };
 end;
-v33[v3.FAEUpsell] = {
+if l_FFlagTCVerifiedParentalControl_0 then
+    v34[v3.TrustedFriendsVPCPrologue] = {
+        renderUnderlyingPage = true, 
+        disableBackButton = true, 
+        overlayEnabled = true
+    };
+end;
+v34[v3.FAEUpsell] = {
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v33[v3.FriendsRenameInfoModal] = {
+v34[v3.FriendsRenameInfoModal] = {
     tabBarHidden = v4.PolicyDependent, 
     isPeekView = true, 
     renderUnderlyingPage = true, 
@@ -680,51 +688,51 @@ v33[v3.FriendsRenameInfoModal] = {
     absorbInput = true
 };
 if l_FFlagEnableSocialProofUserList_0 then
-    v33[v3.FriendsOwnedUserList] = {
+    v34[v3.FriendsOwnedUserList] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
 if l_FFlagEnableSocialProofVerticalUserListSheet_0 then
-    v33[v3.SocialProofVerticalUserListSheet] = {
+    v34[v3.SocialProofVerticalUserListSheet] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
-v33[v3.MutualConnectionList] = {
+v34[v3.MutualConnectionList] = {
     renderUnderlyingPage = true, 
     isPeekView = true, 
     overlayEnabled = true
 };
-v33[v3.BlockingModal] = {
+v34[v3.BlockingModal] = {
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
-v33[v3.AboutDetailsSheet] = {
+v34[v3.AboutDetailsSheet] = {
     isPeekView = true, 
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
 if l_FFlagEnableNapDedicatedPage_0 then
-    v33[v3.NotApprovedPage] = {
+    v34[v3.NotApprovedPage] = {
         tabBarHidden = v4.Hidden, 
         disableBackButton = true, 
         disableAppTopBanner = true
     };
 end;
 if l_FFlagEnableLeftNavOnConsole_0 then
-    v33[v3.AdjustScreen] = {
+    v34[v3.AdjustScreen] = {
         tabBarHidden = v4.Hidden
     };
 end;
 if l_FFlagEnableBlackbird_0 then
-    v33[v3.Blackbird] = {
+    v34[v3.Blackbird] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v26 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     };
 end;
-return v33;
+return v34;

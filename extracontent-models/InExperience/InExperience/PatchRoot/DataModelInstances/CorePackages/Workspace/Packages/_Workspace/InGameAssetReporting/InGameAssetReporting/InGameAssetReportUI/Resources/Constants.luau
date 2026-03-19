@@ -56,6 +56,11 @@ return {
         did_user_resize = false, 
         variant = ""
     }, 
+    IpErrorCodes = {
+        ClientNoAssetsExtracted = "client_no_assets_extracted", 
+        NoEligibleContents = "no_eligible_contents", 
+        Unknown = "unknown"
+    }, 
     HighlightModeVariants = {
         Default = "default", 
         NoPreview = "no_preview"

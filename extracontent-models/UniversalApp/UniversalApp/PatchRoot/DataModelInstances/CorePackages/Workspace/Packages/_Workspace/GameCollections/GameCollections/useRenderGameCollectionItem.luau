@@ -19,221 +19,217 @@ local l_FFlagLuaAppEnableWhyThisAdModal_0 = require(l_Parent_0.SharedFlags).FFla
 local l_FFlagLuaAppEnableSponsoredReportAd_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableSponsoredReportAd;
 local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableHomepageTwoByOneTile;
 local l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppRemoveSponsoredReportHiddenState;
-local l_FFlagLuaAppSearchGridTiles_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSearchGridTiles;
 local l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportSponsoredExplicitFeedback;
 local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooter;
 local l_FFlagLuaAppTwoByOneTileExperimentVariants_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileExperimentVariants;
 local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
 local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
-local v27 = if l_FFlagLuaAppSearchGridTiles_0 then l_GameCollectionItemTypes_0.GameCollectionItemType else {
-    GameTile = "GameTile", 
-    SeeAllTile = "SeeAllTile"
-};
-return function(v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69) --[[ Line: 48 ]] --[[ Name: useRenderGameCollectionItem ]]
-    -- upvalues: l_usePreferredInput_0 (copy), l_useNavigateToGameDetails_0 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), v10 (copy), v3 (copy), l_useBreakpointXOrSmaller_0 (copy), l_GameTileConstants_0 (copy), l_GameTileLayoutType_0 (copy), v2 (copy), v11 (copy), l_FFlagSduiServerCompat_0 (copy), v27 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (copy), l_FFlagLuaAppSearchGridTiles_0 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), l_AppGameTile_0 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy)
-    local v70 = l_usePreferredInput_0();
-    local v71 = l_useNavigateToGameDetails_0();
+local l_GameCollectionItemType_0 = l_GameCollectionItemTypes_0.GameCollectionItemType;
+return function(v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68) --[[ Line: 42 ]] --[[ Name: useRenderGameCollectionItem ]]
+    -- upvalues: l_usePreferredInput_0 (copy), l_useNavigateToGameDetails_0 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), v10 (copy), v3 (copy), l_useBreakpointXOrSmaller_0 (copy), l_GameTileConstants_0 (copy), l_GameTileLayoutType_0 (copy), v2 (copy), v11 (copy), l_FFlagSduiServerCompat_0 (copy), l_GameCollectionItemType_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), l_AppGameTile_0 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy)
+    local v69 = l_usePreferredInput_0();
+    local v70 = l_useNavigateToGameDetails_0();
+    local v71 = nil;
     local v72 = nil;
-    local v73 = nil;
     if l_FFlagLuaAppGameTileInteractionFeedback_0 then
-        local v74, v75 = v10();
+        local v73, v74 = v10();
+        v71 = v73;
         v72 = v74;
-        v73 = v75;
     end;
-    local v76 = v34 and v70 == v3.Input.Pointer;
-    local v77 = true;
-    if v30 ~= "Wide" then
-        v77 = v30 == "Event";
+    local v75 = v33 and v69 == v3.Input.Pointer;
+    local v76 = true;
+    if v29 ~= "Wide" then
+        v76 = v29 == "Event";
     end;
-    local v78 = nil;
+    local v77 = nil;
     local _ = nil;
-    local v80 = nil;
-    v78 = l_useBreakpointXOrSmaller_0(v3.Keys.Small);
-    local v81 = l_useBreakpointXOrSmaller_0(v3.Keys.XSmall);
-    v80 = if v78 and v51 > 0 then l_GameTileConstants_0.TileTextLines[v30 or l_GameTileLayoutType_0.Narrow].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v30 or l_GameTileLayoutType_0.Narrow].metadataTextLines;
-    return (v2.useCallback(function(v82, v83, v84, v85) --[[ Line: 170 ]]
-        -- upvalues: v42 (copy), v40 (copy), v2 (ref), v11 (ref), l_FFlagSduiServerCompat_0 (ref), v27 (ref), v50 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (ref), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (ref), v59 (copy), v57 (copy), l_FFlagLuaAppSearchGridTiles_0 (ref), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (ref), v65 (copy), v48 (copy), v49 (copy), v41 (copy), v39 (copy), v38 (copy), v28 (copy), v43 (copy), v30 (copy), v76 (copy), v45 (copy), v35 (copy), v36 (copy), v37 (copy), v56 (copy), v71 (copy), v33 (copy), v51 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), v61 (copy), v60 (copy), v62 (copy), v63 (copy), v64 (copy), v58 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (ref), l_AppGameTile_0 (ref), v31 (copy), v32 (copy), v77 (copy), v29 (copy), v44 (copy), v46 (copy), v47 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), v72 (ref), v73 (ref), v52 (copy), v80 (ref), v53 (copy), v54 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), v55 (copy), v81 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (ref), l_FFlagLuaAppSupportAdRatingFooter_0 (ref), v66 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (ref), v67 (copy), v68 (copy), v69 (copy)
-        if v42 and v83 == v42 and v40 then
+    local v79 = nil;
+    v77 = l_useBreakpointXOrSmaller_0(v3.Keys.Small);
+    local v80 = l_useBreakpointXOrSmaller_0(v3.Keys.XSmall);
+    v79 = if v77 and v50 > 0 then l_GameTileConstants_0.TileTextLines[v29 or l_GameTileLayoutType_0.Narrow].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v29 or l_GameTileLayoutType_0.Narrow].metadataTextLines;
+    return (v2.useCallback(function(v81, v82, v83, v84) --[[ Line: 164 ]]
+        -- upvalues: v41 (copy), v39 (copy), v2 (ref), v11 (ref), l_FFlagSduiServerCompat_0 (ref), l_GameCollectionItemType_0 (ref), v49 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (ref), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (ref), v58 (copy), v56 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (ref), v64 (copy), v47 (copy), v48 (copy), v40 (copy), v38 (copy), v37 (copy), v27 (copy), v42 (copy), v29 (copy), v75 (copy), v44 (copy), v34 (copy), v35 (copy), v36 (copy), v55 (copy), v70 (copy), v32 (copy), v50 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (ref), v60 (copy), v59 (copy), v61 (copy), v62 (copy), v63 (copy), v57 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (ref), l_AppGameTile_0 (ref), v30 (copy), v31 (copy), v76 (copy), v28 (copy), v43 (copy), v45 (copy), v46 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), v71 (ref), v72 (ref), v51 (copy), v79 (ref), v52 (copy), v53 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), v54 (copy), v80 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (ref), l_FFlagLuaAppSupportAdRatingFooter_0 (ref), v65 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (ref), v66 (copy), v67 (copy), v68 (copy)
+        if v41 and v82 == v41 and v39 then
             return v2.createElement(v11, {
-                onActivated = v40, 
-                Size = if not l_FFlagSduiServerCompat_0 then v84 else nil, 
-                size = if l_FFlagSduiServerCompat_0 then v84 else nil, 
-                LayoutOrder = if not l_FFlagSduiServerCompat_0 then v83 else nil, 
-                layoutOrder = if l_FFlagSduiServerCompat_0 then v83 else nil
-            }), v27.SeeAllTile;
+                onActivated = v39, 
+                Size = if not l_FFlagSduiServerCompat_0 then v83 else nil, 
+                size = if l_FFlagSduiServerCompat_0 then v83 else nil, 
+                LayoutOrder = if not l_FFlagSduiServerCompat_0 then v82 else nil, 
+                layoutOrder = if l_FFlagSduiServerCompat_0 then v82 else nil
+            }), l_GameCollectionItemType_0.SeeAllTile;
         else
-            local v86 = nil;
-            if v50 then
-                v86 = v50(v83);
+            local v85 = nil;
+            if v49 then
+                v85 = v49(v82);
             end;
+            local v86 = nil;
             local v87 = nil;
-            local v88 = nil;
             if l_FFlagLuaAppEnableSponsoredReportAd_0 and not l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 then
-                local v89 = v59 and v59[v82.universeId];
-                if v89 then
-                    v87 = v89.isHidden;
-                    v88 = v89.hiddenTileType;
+                local v88 = v58 and v58[v81.universeId];
+                if v88 then
+                    v86 = v88.isHidden;
+                    v87 = v88.hiddenTileType;
                 end;
             else
-                v87 = v59 and v59[v82.universeId];
+                v86 = v58 and v58[v81.universeId];
             end;
-            local v90 = if v57 then v57 + v83 else nil;
-            if l_FFlagLuaAppSearchGridTiles_0 and v82.customRenderFunction then
-                return v82.customRenderFunction({
-                    item = v82, 
-                    index = v83, 
-                    itemSize = v84, 
-                    rowNum = v85, 
-                    zIndex = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then -v83 else nil, 
-                    maxItemIndex = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v65 else nil, 
-                    selectionOrder = v90, 
-                    isDisabled = v86, 
-                    onSelectionGained = v48, 
-                    onSelectionLost = v49, 
-                    topicId = v41, 
-                    source = v39, 
-                    referralSource = v38, 
-                    playerCountStyle = v28, 
-                    hideGameStats = v43, 
-                    gameTileLayoutType = v30, 
-                    hoverTileEnabled = v76, 
-                    isContained = v45, 
-                    reportGameDetailOpened = v35, 
-                    reportExperienceLaunched = v36, 
-                    launchExperienceEventContext = v37, 
-                    onPeekViewClosed = v56, 
-                    navigateToGameDetails = v71, 
-                    impressionsTag = v33, 
-                    textSizeOffset = v51, 
-                    appPage = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v61 else nil, 
-                    setGameHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v60 else nil, 
-                    isHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v87 else nil, 
-                    sponsoredUserCohort = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v62 else nil, 
-                    enableSponsoredFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v63 else nil, 
-                    enableReportAd = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v64 else nil, 
-                    enableExplicitFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v58 else nil
+            local v89 = if v56 then v56 + v82 else nil;
+            if v81.customRenderFunction then
+                return v81.customRenderFunction({
+                    item = v81, 
+                    index = v82, 
+                    itemSize = v83, 
+                    rowNum = v84, 
+                    zIndex = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then -v82 else nil, 
+                    maxItemIndex = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v64 else nil, 
+                    selectionOrder = v89, 
+                    isDisabled = v85, 
+                    onSelectionGained = v47, 
+                    onSelectionLost = v48, 
+                    topicId = v40, 
+                    source = v38, 
+                    referralSource = v37, 
+                    playerCountStyle = v27, 
+                    hideGameStats = v42, 
+                    gameTileLayoutType = v29, 
+                    hoverTileEnabled = v75, 
+                    isContained = v44, 
+                    reportGameDetailOpened = v34, 
+                    reportExperienceLaunched = v35, 
+                    launchExperienceEventContext = v36, 
+                    onPeekViewClosed = v55, 
+                    navigateToGameDetails = v70, 
+                    impressionsTag = v32, 
+                    textSizeOffset = v50, 
+                    appPage = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v60 else nil, 
+                    setGameHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v59 else nil, 
+                    isHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v86 else nil, 
+                    sponsoredUserCohort = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v61 else nil, 
+                    enableSponsoredFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v62 else nil, 
+                    enableReportAd = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v63 else nil, 
+                    enableExplicitFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v57 else nil
                 });
             else
-                local v91 = nil;
-                if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 and v82.badgePosition and v82.badgeAnalyticsId and v82.badgeType and (v82.badgeText or v82.badgeIcon) then
-                    v91 = {
-                        [v82.badgePosition] = {
+                local v90 = nil;
+                if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 and v81.badgePosition and v81.badgeAnalyticsId and v81.badgeType and (v81.badgeText or v81.badgeIcon) then
+                    v90 = {
+                        [v81.badgePosition] = {
                             {
-                                analyticsId = v82.badgeAnalyticsId, 
-                                tileBadgeType = v82.badgeType, 
-                                text = v82.badgeText, 
-                                icons = if v82.badgeIcon then {
-                                    v82.badgeIcon
+                                analyticsId = v81.badgeAnalyticsId, 
+                                tileBadgeType = v81.badgeType, 
+                                text = v81.badgeText, 
+                                icons = if v81.badgeIcon then {
+                                    v81.badgeIcon
                                 } else nil, 
-                                tileBadgeComponentType = v82.badgeComponentType
+                                tileBadgeComponentType = v81.badgeComponentType
                             }
                         }
                     };
                 end;
                 return v2.createElement(l_AppGameTile_0, {
-                    Size = v84, 
-                    entry = v82, 
-                    layoutOrder = v83, 
-                    ZIndex = -v83, 
-                    reportGameDetailOpened = v35, 
-                    reportExperienceLaunched = v36, 
-                    index = if l_FFlagLuaAppSearchGridTiles_0 then v83 else v82.realGameEntryIndex or v83, 
-                    friendFooterEnabled = v31, 
-                    showFriendActivity = v32, 
-                    impressionsTag = v33, 
-                    useGridTile = v77, 
-                    playerCountStyle = v28, 
-                    isSponsoredFooterAllowed = v29, 
-                    gameTileLayoutType = v30, 
-                    useHoverTile = v76, 
-                    topicId = v41, 
-                    launchExperienceEventContext = v37, 
-                    referralSource = v38, 
-                    source = v39, 
-                    rowNum = v85, 
-                    navigateToGameDetails = v71, 
-                    hideGameStats = v43, 
-                    playButtonStyle = v44, 
-                    isContained = v45, 
-                    hideTitle = v46, 
-                    hideMetadata = v47, 
-                    onGuiStateChanged = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v72 else nil, 
-                    onActivated = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v73 else nil, 
-                    isDisabled = v86, 
-                    onSelectionGained = v48, 
-                    onSelectionLost = v49, 
-                    textSizeOffset = v51, 
-                    contentTextLineCount = v52, 
-                    metadataTextLineCount = v80, 
-                    useExperienceTileMetadata = v53, 
-                    forceHideAgeRatings = v54, 
-                    videoAnalytics = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v55 else nil, 
-                    onPeekViewClosed = v56, 
-                    SelectionOrder = v90, 
-                    enableExplicitFeedback = v58, 
-                    setGameHidden = v60, 
-                    appPage = v61, 
-                    isHidden = v87, 
-                    isNarrowScreenXSmall = v81, 
-                    sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v62 else nil, 
-                    enableSponsoredFeedback = v63, 
-                    hiddenTileType = if not l_FFlagLuaAppEnableSponsoredReportAd_0 or l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 then nil else v88, 
-                    enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v64 else nil, 
-                    isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v66 else nil, 
-                    sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v67 else nil, 
-                    sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v68 else nil, 
-                    sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v69 else nil, 
-                    badgeOverride = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v91 else nil
-                }), v27.GameTile;
+                    Size = v83, 
+                    entry = v81, 
+                    layoutOrder = v82, 
+                    ZIndex = -v82, 
+                    reportGameDetailOpened = v34, 
+                    reportExperienceLaunched = v35, 
+                    index = v82, 
+                    friendFooterEnabled = v30, 
+                    showFriendActivity = v31, 
+                    impressionsTag = v32, 
+                    useGridTile = v76, 
+                    playerCountStyle = v27, 
+                    isSponsoredFooterAllowed = v28, 
+                    gameTileLayoutType = v29, 
+                    useHoverTile = v75, 
+                    topicId = v40, 
+                    launchExperienceEventContext = v36, 
+                    referralSource = v37, 
+                    source = v38, 
+                    rowNum = v84, 
+                    navigateToGameDetails = v70, 
+                    hideGameStats = v42, 
+                    playButtonStyle = v43, 
+                    isContained = v44, 
+                    hideTitle = v45, 
+                    hideMetadata = v46, 
+                    onGuiStateChanged = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v71 else nil, 
+                    onActivated = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v72 else nil, 
+                    isDisabled = v85, 
+                    onSelectionGained = v47, 
+                    onSelectionLost = v48, 
+                    textSizeOffset = v50, 
+                    contentTextLineCount = v51, 
+                    metadataTextLineCount = v79, 
+                    useExperienceTileMetadata = v52, 
+                    forceHideAgeRatings = v53, 
+                    videoAnalytics = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v54 else nil, 
+                    onPeekViewClosed = v55, 
+                    SelectionOrder = v89, 
+                    enableExplicitFeedback = v57, 
+                    setGameHidden = v59, 
+                    appPage = v60, 
+                    isHidden = v86, 
+                    isNarrowScreenXSmall = v80, 
+                    sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v61 else nil, 
+                    enableSponsoredFeedback = v62, 
+                    hiddenTileType = if not l_FFlagLuaAppEnableSponsoredReportAd_0 or l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 then nil else v87, 
+                    enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v63 else nil, 
+                    isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v65 else nil, 
+                    sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v66 else nil, 
+                    sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v67 else nil, 
+                    sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v68 else nil, 
+                    badgeOverride = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v90 else nil
+                }), l_GameCollectionItemType_0.GameTile;
             end;
         end;
     end, {
-        v77, 
+        v76, 
+        v30, 
+        v42, 
         v31, 
-        v43, 
         v32, 
-        v33, 
+        v27, 
         v28, 
         v29, 
-        v30, 
-        v41, 
-        v35, 
-        v36, 
         v40, 
-        v37, 
+        v34, 
+        v35, 
         v39, 
+        v36, 
         v38, 
-        v42, 
-        v76, 
+        v37, 
+        v41, 
+        v75, 
+        v43, 
         v44, 
         v45, 
         v46, 
-        v47, 
-        v51, 
+        v50, 
+        if l_FFlagLuaAppGameTileInteractionFeedback_0 then v71 else nil, 
         if l_FFlagLuaAppGameTileInteractionFeedback_0 then v72 else nil, 
-        if l_FFlagLuaAppGameTileInteractionFeedback_0 then v73 else nil, 
+        v47, 
         v48, 
         v49, 
-        v50, 
+        v51, 
         v52, 
         v53, 
-        v54, 
-        if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v55 else nil, 
+        if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v54 else nil, 
+        v55, 
         v56, 
+        v79, 
         v57, 
-        v80, 
         v58, 
         v59, 
         v60, 
-        v61, 
-        v81, 
-        if l_FFlagLuaAppEnableWhyThisAdModal_0 then v62 else nil, 
-        v63, 
-        if l_FFlagLuaAppEnableSponsoredReportAd_0 then v64 else nil, 
-        if l_FFlagLuaAppSearchGridTiles_0 then v71 else nil, 
-        if l_FFlagLuaAppSupportAdRatingFooter_0 then v66 else nil, 
+        v80, 
+        if l_FFlagLuaAppEnableWhyThisAdModal_0 then v61 else nil, 
+        v62, 
+        if l_FFlagLuaAppEnableSponsoredReportAd_0 then v63 else nil, 
+        v70, 
+        if l_FFlagLuaAppSupportAdRatingFooter_0 then v65 else nil, 
+        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v66 else nil, 
         if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v67 else nil, 
-        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v68 else nil, 
-        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v69 else nil
+        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v68 else nil
     }));
 end;

@@ -1,4 +1,6 @@
-local v0 = {
+local l_CorePackages_0 = game:GetService("CorePackages");
+local l_FFlagAXTallTilesForMakeupLooks_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXTallTilesForMakeupLooks;
+local v2 = {
     Templates = {
         ItemGroup = "ItemGroup", 
         Carousel = "Carousel", 
@@ -16,6 +18,7 @@ local v0 = {
         SortsPersonalizedAvatarLooksWidget = "SortsPersonalizedAvatarLooksWidget", 
         MySharedAvatarsWidget = "MySharedAvatarsWidget", 
         OrganicContent = "OrganicContent", 
+        MakeupLooksWidget = l_FFlagAXTallTilesForMakeupLooks_0 and "MakeupTabWidget" or nil, 
         SearchLandingPageRecentlyViewedWidget = "SearchLandingPageRecentlyViewedWidget"
     }, 
     ActionType = {
@@ -33,8 +36,8 @@ local v0 = {
         Look = "Look"
     }
 };
-v0.TypeToImageInfo = {
-    [v0.Types.ProfilePictureEditorWidget] = {
+v2.TypeToImageInfo = {
+    [v2.Types.ProfilePictureEditorWidget] = {
         backgroundImageDark = "rbxasset://textures/AvatarEditorImages/AvatarEditor.png", 
         backgroundImageLight = "rbxasset://textures/AvatarEditorImages/AvatarEditor_LightTheme.png", 
         contentImageDark = "rbxasset://textures/ui/AvatarExperience/Profile_Picture_Group.png", 
@@ -43,7 +46,7 @@ v0.TypeToImageInfo = {
         widthHeightRatio = 1.91
     }
 };
-v0.ContextWidgets = {
+v2.ContextWidgets = {
     MySharedAvatars = {
         Title = "Feature.Avatar.Heading.MySharedAvatarsTitle", 
         RequestId = "4e42a6c6-84d9-4a0c-863d-8c1c12158645", 
@@ -57,8 +60,8 @@ v0.ContextWidgets = {
         Context = "SearchLandingPageRecentlyViewedWidget"
     }
 };
-v0.WidgetExposureMetadata = {
+v2.WidgetExposureMetadata = {
     AttributeKey = "IXP_LAYER", 
     TagName = "WIDGET"
 };
-return v0;
+return v2;

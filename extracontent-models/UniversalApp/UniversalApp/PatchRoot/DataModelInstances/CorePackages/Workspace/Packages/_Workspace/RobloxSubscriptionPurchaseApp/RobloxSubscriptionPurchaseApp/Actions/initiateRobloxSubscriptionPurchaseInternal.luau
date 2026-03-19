@@ -4,31 +4,35 @@ local v2 = require(l_Parent_0.Promise);
 local v3 = require(l_script_FirstAncestor_0.Store.RobloxSubscriptionStore);
 local v4 = require(l_script_FirstAncestor_0.Enums.PromptState);
 local _ = require(l_script_FirstAncestor_0.types);
-local v6 = require(l_script_FirstAncestor_0.Network.createPaymentSession);
-local v7 = require(l_script_FirstAncestor_0.Utils.logRobloxSubscriptionUpsellCounter);
-local v8 = require(l_script_FirstAncestor_0.Events.RobloxSubscriptionUpsellTelemetry);
-initiateRobloxSubscriptionPurchaseInternal = function(v9) --[[ Line: 17 ]] --[[ Name: initiateRobloxSubscriptionPurchaseInternal ]]
-    -- upvalues: v7 (copy), v8 (copy), v3 (copy), v4 (copy), v6 (copy), v2 (copy)
-    v7(v8.RobloxSubscriptionUpsellModalInitiatedCounter);
-    local v10 = v3.get();
-    v10.setPromptState(v4.SubscriptionPurchaseRequested);
-    local v11 = v6(v9);
-    local v12 = v2.resolve(true);
+local _ = require(l_script_FirstAncestor_0.Models.GetRobloxSubscriptionProductsModel);
+local v7 = require(l_script_FirstAncestor_0.Network.createPaymentSession);
+local v8 = require(l_script_FirstAncestor_0.Network.getRobloxSubscriptionProducts);
+local v9 = require(l_script_FirstAncestor_0.Utils.logRobloxSubscriptionUpsellCounter);
+local v10 = require(l_script_FirstAncestor_0.Events.RobloxSubscriptionUpsellTelemetry);
+initiateRobloxSubscriptionPurchaseInternal = function(v11) --[[ Line: 19 ]] --[[ Name: initiateRobloxSubscriptionPurchaseInternal ]]
+    -- upvalues: v9 (copy), v10 (copy), v3 (copy), v4 (copy), v7 (copy), v8 (copy), v2 (copy)
+    v9(v10.RobloxSubscriptionUpsellModalInitiatedCounter);
+    local v12 = v3.get();
+    v12.setPromptState(v4.SubscriptionPurchaseRequested);
+    local v13 = v7(v11);
+    local v14 = v8();
     v2.all({
-        v11, 
-        v12
-    }):andThen(function(v13) --[[ Line: 28 ]]
-        -- upvalues: v10 (copy), v4 (ref)
-        local v14 = v13[1];
-        local v15 = v13[2];
-        v10.setPaymentSessionId(v14);
-        v10.setPromptState(v4.SubscriptionPurchaseUIReady);
-        v10.setRobloxSubscriptionProduct({
-            productId = "8429606799668938154"
-        });
-        print("fetchRobloxSubscriptionProducts success", v15);
-    end, function(v16) --[[ Line: 37 ]]
-        print("fetchRobloxSubscriptionProducts error", v16);
+        v13, 
+        v14
+    }):andThen(function(v15) --[[ Line: 30 ]]
+        -- upvalues: v12 (copy), v4 (ref)
+        local v16 = v15[1];
+        local v17 = v15[2];
+        v12.setPaymentSessionId(v16);
+        if #v17 > 0 then
+            local v18 = v17[1];
+            v12.setRobloxSubscriptionProduct(v18);
+        else
+            error("No Roblox subscription products found");
+        end;
+        v12.setPromptState(v4.SubscriptionPurchaseUIReady);
+    end, function(_) --[[ Line: 45 ]]
+
     end);
 end;
 return initiateRobloxSubscriptionPurchaseInternal;

@@ -3,8 +3,8 @@ local v1 = require(l_CorePackages_0.Packages.Roact);
 local v2 = require(l_CorePackages_0.Packages.React);
 local v3 = require(l_CorePackages_0.Packages.AvatarExperienceDeps);
 local v4 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_IsVRAppBuild_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).IsVRAppBuild;
-local l_ShimmerPanel_0 = v4.App.Loading.ShimmerPanel;
 local l_Images_0 = v4.App.ImageSet.Images;
 local l_IconSize_0 = v4.App.Constant.IconSize;
 local l_ImageSetLabel_0 = v4.Core.ImageSet.ImageSetLabel;
@@ -14,7 +14,7 @@ local l_FitFrameVertical_0 = l_RoactFitComponents_0.FitFrameVertical;
 local l_FitTextLabel_0 = l_RoactFitComponents_0.FitTextLabel;
 local v14 = l_Images_0["icons/status/premium_small"];
 return function(v15) --[[ Line: 37 ]] --[[ Name: NameLabel ]]
-    -- upvalues: l_useStyle_0 (copy), v2 (copy), l_IconSize_0 (copy), v1 (copy), l_FitFrameVertical_0 (copy), l_IsVRAppBuild_0 (copy), l_FitTextLabel_0 (copy), l_ImageSetLabel_0 (copy), v14 (copy), l_ShimmerPanel_0 (copy)
+    -- upvalues: l_useStyle_0 (copy), v2 (copy), l_IconSize_0 (copy), v1 (copy), l_FitFrameVertical_0 (copy), l_IsVRAppBuild_0 (copy), l_FitTextLabel_0 (copy), l_ImageSetLabel_0 (copy), v14 (copy), l_Skeleton_0 (copy)
     local v16 = l_useStyle_0();
     local l_Theme_0 = v16.Theme;
     local l_Font_0 = v16.Font;
@@ -74,7 +74,7 @@ return function(v15) --[[ Line: 37 ]] --[[ Name: NameLabel ]]
                 ImageTransparency = l_Theme_0.IconEmphasis.Transparency, 
                 BackgroundTransparency = 1
             }) else nil
-        }) else v1.createElement(l_ShimmerPanel_0, {
+        }) else v1.createElement(l_Skeleton_0, {
             Size = UDim2.new(1, 0, 0, v30)
         }), 
         RefUpdater = v1.createElement("Frame", {

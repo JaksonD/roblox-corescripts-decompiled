@@ -46,132 +46,133 @@ local l_UndoRedoBar_0 = v6.UndoRedoBar;
 local l_FFlagAXResetAvatarButton_0 = v8.FFlagAXResetAvatarButton;
 local l_FFlagAXMoveContextualActionButtons_0 = v8.FFlagAXMoveContextualActionButtons;
 local l_FFlagAXFixContextualActionVisibility_0 = v8.FFlagAXFixContextualActionVisibility;
+local l_FFlagAXMigrateSlotsSignals_0 = v8.FFlagAXMigrateSlotsSignals;
 local l_AvatarHeadShot_0 = l_Constants_0.RbxthumbTypes.AvatarHeadShot;
-local function v50(v49) --[[ Line: 71 ]] --[[ Name: selectUserId ]]
-    return v49.LocalUserId;
+local function v51(v50) --[[ Line: 76 ]] --[[ Name: selectUserId ]]
+    return v50.LocalUserId;
 end;
-return v4.memo(v4.forwardRef(function(v51, v52) --[[ Line: 87 ]] --[[ Name: SlotControlBar ]]
-    -- upvalues: l_useTokens_0 (copy), l_useNavigationFocus_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), l_useDispatch_0 (copy), v34 (copy), v28 (copy), l_useSlotBasedEditorContext_0 (copy), l_FFlagAXMoveContextualActionButtons_0 (copy), l_useSelector_0 (copy), v39 (copy), l_selectColorAdjustmentButtonColor_0 (copy), v16 (copy), l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0 (copy), v36 (copy), v50 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_AvatarHeadShot_0 (copy), v4 (copy), v27 (copy), v21 (copy), l_AvatarEditorCategories_0 (copy), v19 (copy), v38 (copy), l_AvatarScreen_0 (copy), l_NavigationParams_0 (copy), l_ItemView_0 (copy), l_CustomizeControlBar_0 (copy), v37 (copy), l_FFlagAXResetAvatarButton_0 (copy), l_UndoRedoBar_0 (copy), l_FFlagAXFixContextualActionVisibility_0 (copy), v40 (copy), l_ContextualActionButton_0 (copy), l_ColorGradientCircle_0 (copy), v20 (copy), v5 (copy)
-    local v53 = l_useTokens_0();
-    local v54 = l_useNavigationFocus_0();
-    local v55 = l_useAvatarRoute_0();
-    local v56 = l_useNavigation_0();
-    local v57 = l_useDispatch_0();
-    local v58 = v34(v28);
-    local v59 = l_useSlotBasedEditorContext_0();
-    local v60 = if v59 then v59.setSlotCategory else nil;
-    local v61 = if l_FFlagAXMoveContextualActionButtons_0 then l_useSelector_0(v39) else nil;
-    local v62 = if l_FFlagAXMoveContextualActionButtons_0 then nil else l_useSelector_0(l_selectColorAdjustmentButtonColor_0);
-    local v63 = if l_FFlagAXMoveContextualActionButtons_0 then nil else l_useSelector_0(v16);
-    local v64 = nil;
+return v4.memo(v4.forwardRef(function(v52, v53) --[[ Line: 92 ]] --[[ Name: SlotControlBar ]]
+    -- upvalues: l_useTokens_0 (copy), l_useNavigationFocus_0 (copy), l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), l_useDispatch_0 (copy), v34 (copy), v28 (copy), l_useSlotBasedEditorContext_0 (copy), l_FFlagAXMigrateSlotsSignals_0 (copy), l_FFlagAXMoveContextualActionButtons_0 (copy), l_useSelector_0 (copy), v39 (copy), l_selectColorAdjustmentButtonColor_0 (copy), v16 (copy), l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0 (copy), v36 (copy), v51 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_AvatarHeadShot_0 (copy), v4 (copy), v27 (copy), v21 (copy), l_AvatarEditorCategories_0 (copy), v19 (copy), v38 (copy), l_AvatarScreen_0 (copy), l_NavigationParams_0 (copy), l_ItemView_0 (copy), l_CustomizeControlBar_0 (copy), v37 (copy), l_FFlagAXResetAvatarButton_0 (copy), l_UndoRedoBar_0 (copy), l_FFlagAXFixContextualActionVisibility_0 (copy), v40 (copy), l_ContextualActionButton_0 (copy), l_ColorGradientCircle_0 (copy), v20 (copy), v5 (copy)
+    local v54 = l_useTokens_0();
+    local v55 = l_useNavigationFocus_0();
+    local v56 = l_useAvatarRoute_0();
+    local v57 = l_useNavigation_0();
+    local v58 = l_useDispatch_0();
+    local v59 = v34(v28);
+    local v60 = l_useSlotBasedEditorContext_0();
+    local v61 = if v60 then if l_FFlagAXMigrateSlotsSignals_0 then v60.signalStore.setSlotCategory else v60.setSlotCategory else nil;
+    local v62 = if l_FFlagAXMoveContextualActionButtons_0 then l_useSelector_0(v39) else nil;
+    local v63 = if l_FFlagAXMoveContextualActionButtons_0 then nil else l_useSelector_0(l_selectColorAdjustmentButtonColor_0);
+    local v64 = if l_FFlagAXMoveContextualActionButtons_0 then nil else l_useSelector_0(v16);
     local v65 = nil;
     local v66 = nil;
+    local v67 = nil;
     if not l_FFlagAXMoveContextualActionButtons_0 and l_AXEnableAccessoryAdjustmentDuringTryOnIXP_0.isEnabled() then
-        local v67 = v36();
-        v64 = v67.shouldEnableAccessoryAdjustmentDuringTryOn;
-        v65 = v67.adjustableLastTryOnItemId;
-        v66 = v67.accessoryAdjustmentQuickButtonFtux;
+        local v68 = v36();
+        v65 = v68.shouldEnableAccessoryAdjustmentDuringTryOn;
+        v66 = v68.adjustableLastTryOnItemId;
+        v67 = v68.accessoryAdjustmentQuickButtonFtux;
     end;
-    local v68 = l_useSelector_0(v50);
-    local v69 = l_getRbxthumbWithTypeSizeAndOptions_0(v68, l_AvatarHeadShot_0, 150);
-    local v70 = v4.useMemo(function() --[[ Line: 122 ]]
-        -- upvalues: v51 (copy), v27 (ref), v55 (copy), v54 (copy), v56 (copy)
-        return v51.showControlBar and v27.isAvatarSceneButtonsVisible(v55, v54, v51.isUIFullView, v51.isSceneFullView, v56);
+    local v69 = l_useSelector_0(v51);
+    local v70 = l_getRbxthumbWithTypeSizeAndOptions_0(v69, l_AvatarHeadShot_0, 150);
+    local v71 = v4.useMemo(function() --[[ Line: 131 ]]
+        -- upvalues: v52 (copy), v27 (ref), v56 (copy), v55 (copy), v57 (copy)
+        return v52.showControlBar and v27.isAvatarSceneButtonsVisible(v56, v55, v52.isUIFullView, v52.isSceneFullView, v57);
     end, {
-        v55, 
-        v54, 
-        v51.isUIFullView, 
-        v51.isSceneFullView, 
         v56, 
-        v51.showControlBar
+        v55, 
+        v52.isUIFullView, 
+        v52.isSceneFullView, 
+        v57, 
+        v52.showControlBar
     });
-    local v77 = v4.useCallback(function() --[[ Line: 142 ]]
-        -- upvalues: v21 (ref), l_AvatarEditorCategories_0 (ref), v60 (copy), v57 (copy), v19 (ref), v58 (copy), v59 (copy), v55 (copy), v38 (ref), v56 (copy), l_AvatarScreen_0 (ref), l_NavigationParams_0 (ref), l_ItemView_0 (ref)
-        for _, v72 in (v21()) do
-            if v72.NavigationKey == l_AvatarEditorCategories_0.All then
-                if v60 then
-                    v60(v72.NavigationKey);
+    local v78 = v4.useCallback(function() --[[ Line: 151 ]]
+        -- upvalues: v21 (ref), l_AvatarEditorCategories_0 (ref), v61 (copy), v58 (copy), v19 (ref), v59 (copy), v60 (copy), v56 (copy), v38 (ref), v57 (copy), l_AvatarScreen_0 (ref), l_NavigationParams_0 (ref), l_ItemView_0 (ref)
+        for _, v73 in (v21()) do
+            if v73.NavigationKey == l_AvatarEditorCategories_0.All then
+                if v61 then
+                    v61(v73.NavigationKey);
                 end;
-                v57(v19(v72.Category, nil, v58));
+                v58(v19(v73.Category, nil, v59));
                 break;
             end;
         end;
-        local v73 = if v59 then nil else v55.opaque.name;
-        local v74 = if v38 then v56.state and v56.state.params else nil;
-        local v75 = v55.current.name == l_AvatarScreen_0.LookDetails;
-        local v76 = v55.opaque.name == l_AvatarScreen_0.AvatarEditor;
-        v56.navigate(l_AvatarScreen_0.AvatarEditor, {
+        local v74 = if v60 then nil else v56.opaque.name;
+        local v75 = if v38 then v57.state and v57.state.params else nil;
+        local v76 = v56.current.name == l_AvatarScreen_0.LookDetails;
+        local v77 = v56.opaque.name == l_AvatarScreen_0.AvatarEditor;
+        v57.navigate(l_AvatarScreen_0.AvatarEditor, {
             [l_NavigationParams_0.itemView] = l_ItemView_0.AllItems, 
-            [l_NavigationParams_0.fromScreen] = v73, 
-            [l_NavigationParams_0.params] = if v38 then v74 or {} else nil
+            [l_NavigationParams_0.fromScreen] = v74, 
+            [l_NavigationParams_0.params] = if v38 then v75 or {} else nil
         });
-        if v76 and v75 then
-            v56.navigate(l_AvatarScreen_0.LookDetails);
+        if v77 and v76 then
+            v57.navigate(l_AvatarScreen_0.LookDetails);
         end;
     end, {
-        v57, 
         v58, 
         v59, 
-        v56, 
-        v55
+        v60, 
+        v57, 
+        v56
     });
     return v4.createElement("Frame", {
         AutomaticSize = Enum.AutomaticSize.XY, 
         BackgroundTransparency = 1, 
-        ref = v52, 
-        NextSelectionLeft = v51.NextSelectionLeft, 
-        LayoutOrder = v51.LayoutOrder
+        ref = v53, 
+        NextSelectionLeft = v52.NextSelectionLeft, 
+        LayoutOrder = v52.LayoutOrder
     }, {
         Layout = v4.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-            Padding = UDim.new(0, v53.Gap.Small)
+            Padding = UDim.new(0, v54.Gap.Small)
         }), 
-        ControlBar = if v70 then v4.createElement(l_CustomizeControlBar_0, {
-            onActiveMenuItemChanged = v51.onActiveMenuItemChanged, 
-            onInventoryActivated = v77, 
-            thumbnailUrl = v69, 
+        ControlBar = if v71 then v4.createElement(l_CustomizeControlBar_0, {
+            onActiveMenuItemChanged = v52.onActiveMenuItemChanged, 
+            onInventoryActivated = v78, 
+            thumbnailUrl = v70, 
             LayoutOrder = 1, 
-            focusAnimation = if v37 then v51.focusAnimation else nil, 
-            showUndoRedo = if l_FFlagAXResetAvatarButton_0 then v51.showUndoRedo else nil
+            focusAnimation = if v37 then v52.focusAnimation else nil, 
+            showUndoRedo = if l_FFlagAXResetAvatarButton_0 then v52.showUndoRedo else nil
         }) else nil, 
-        UndoRedoBar = if not v51.showUndoRedo or l_FFlagAXResetAvatarButton_0 then nil else v4.createElement(l_UndoRedoBar_0, {
+        UndoRedoBar = if not v52.showUndoRedo or l_FFlagAXResetAvatarButton_0 then nil else v4.createElement(l_UndoRedoBar_0, {
             direction = "vertical", 
             LayoutOrder = 2
         }), 
-        ContextualActions = if not (l_FFlagAXMoveContextualActionButtons_0 and (not l_FFlagAXFixContextualActionVisibility_0 or v70)) or v61 then nil else v4.createElement(v40, {
+        ContextualActions = if not (l_FFlagAXMoveContextualActionButtons_0 and (not l_FFlagAXFixContextualActionVisibility_0 or v71)) or v62 then nil else v4.createElement(v40, {
             LayoutOrder = 3
         }), 
-        SkinColorButton = if not l_FFlagAXMoveContextualActionButtons_0 and v63 and v62 then v4.createElement(l_ContextualActionButton_0, {
-            size = UDim.new(0, v53.Size.Size_1100), 
-            onActivated = function() --[[ Line: 217 ]] --[[ Name: onActivated ]]
-                -- upvalues: v56 (copy), l_AvatarScreen_0 (ref)
-                v56.navigate(l_AvatarScreen_0.ColorAdjustment);
+        SkinColorButton = if not l_FFlagAXMoveContextualActionButtons_0 and v64 and v63 then v4.createElement(l_ContextualActionButton_0, {
+            size = UDim.new(0, v54.Size.Size_1100), 
+            onActivated = function() --[[ Line: 226 ]] --[[ Name: onActivated ]]
+                -- upvalues: v57 (copy), l_AvatarScreen_0 (ref)
+                v57.navigate(l_AvatarScreen_0.ColorAdjustment);
             end, 
             LayoutOrder = 3, 
             Selectable = true
         }, v4.createElement(l_ColorGradientCircle_0, {
             Colors = {
-                v62
+                v63
             }, 
-            Size = UDim2.fromOffset(v53.Size.Size_500, v53.Size.Size_500), 
+            Size = UDim2.fromOffset(v54.Size.Size_500, v54.Size.Size_500), 
             Position = UDim2.fromScale(0.5, 0.5), 
             AnchorPoint = Vector2.new(0.5, 0.5)
         })) else nil, 
-        AccessoryAdjustmentButton = if not l_FFlagAXMoveContextualActionButtons_0 and v64 and v55.opaque.name == l_AvatarScreen_0.Catalog and v65 then v4.createElement(l_ContextualActionButton_0, {
-            size = UDim.new(0, v53.Size.Size_1100), 
-            onActivated = function() --[[ Line: 237 ]] --[[ Name: onActivated ]]
-                -- upvalues: v66 (ref), v56 (copy), l_AvatarScreen_0 (ref), v55 (copy), v57 (copy), v20 (ref), v65 (ref)
-                if v66 and v66.shouldShowFirstTimeGlow() then
-                    v66.completeFirstTimeGlow();
+        AccessoryAdjustmentButton = if not l_FFlagAXMoveContextualActionButtons_0 and v65 and v56.opaque.name == l_AvatarScreen_0.Catalog and v66 then v4.createElement(l_ContextualActionButton_0, {
+            size = UDim.new(0, v54.Size.Size_1100), 
+            onActivated = function() --[[ Line: 246 ]] --[[ Name: onActivated ]]
+                -- upvalues: v67 (ref), v57 (copy), l_AvatarScreen_0 (ref), v56 (copy), v58 (copy), v20 (ref), v66 (ref)
+                if v67 and v67.shouldShowFirstTimeGlow() then
+                    v67.completeFirstTimeGlow();
                 end;
-                v56.navigate(l_AvatarScreen_0.AdjustAccessoryView, {
-                    fromRoute = v55.opaque.name
+                v57.navigate(l_AvatarScreen_0.AdjustAccessoryView, {
+                    fromRoute = v56.opaque.name
                 });
-                v57(v20(v65));
+                v58(v20(v66));
             end, 
-            enableFocusAnimation = v66 and v66.shouldShowFirstTimeGlow(), 
+            enableFocusAnimation = v67 and v67.shouldShowFirstTimeGlow(), 
             LayoutOrder = 4, 
             Selectable = true, 
             GroupTransparencyOverwrite = 0
@@ -183,10 +184,10 @@ return v4.memo(v4.forwardRef(function(v51, v52) --[[ Line: 87 ]] --[[ Name: Slot
             }, {
                 IconImage = v4.createElement(v5.Image, {
                     Image = "icons/menu/transform", 
-                    Size = UDim2.fromOffset(v53.Size.Size_800, v53.Size.Size_800), 
+                    Size = UDim2.fromOffset(v54.Size.Size_800, v54.Size.Size_800), 
                     imageStyle = {
-                        Color3 = v53.Color.Content.Emphasis.Color3, 
-                        Transparency = v53.Color.Content.Emphasis.Transparency
+                        Color3 = v54.Color.Content.Emphasis.Color3, 
+                        Transparency = v54.Color.Content.Emphasis.Transparency
                     }, 
                     tag = "position-center-center anchor-center-center radius-circle content-emphasis"
                 })

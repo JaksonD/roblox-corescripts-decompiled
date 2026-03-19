@@ -19,7 +19,8 @@ return {
         FocusNavigation = "focusNavigation", 
         SquadLobbyPageUASessionInfo = "squadLobbyPageUASessionInfo", 
         SquadLobbyPageInExpSessionInfo = "squadLobbyPageInExpSessionInfo", 
-        ProfilePlatformPage = "ProfilePlatformPage"
+        ProfilePlatformPage = "ProfilePlatformPage", 
+        AddFriendsPage = "AddFriendsPage"
     }, 
     Tag = {
         Level1 = {
@@ -119,6 +120,9 @@ return {
         }, 
         ProfilePlatformPage = {
             ProfileSessionId = "profileSessionId"
+        }, 
+        AddFriendsPage = {
+            AddFriendsSessionId = "addFriendsSessionId"
         }
     }
 };

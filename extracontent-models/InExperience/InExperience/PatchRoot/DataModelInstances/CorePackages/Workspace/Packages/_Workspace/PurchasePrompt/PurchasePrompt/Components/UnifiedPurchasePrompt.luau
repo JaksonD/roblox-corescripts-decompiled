@@ -10,34 +10,43 @@ local v8 = require(l_script_FirstAncestor_0.Actions.SetPurchaseAnalyticsMetadata
 local v9 = require(l_script_FirstAncestor_0.Actions.SetPurchaseOptions);
 local v10 = require(l_script_FirstAncestor_0.Thunks.initiatePurchase);
 local v11 = require(l_script_FirstAncestor_0.Thunks.initiateBundlePurchase);
+local v12 = require(l_script_FirstAncestor_0.Utils.dispatchPurchaseForProductPayload);
 local l_ProductTypeEnum_0 = require(l_script_FirstAncestor_0.types).ProductTypeEnum;
-local v13 = require(l_Parent_0.SharedFlags);
-local l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 = v13.FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow;
-local l_FFlagPurchasePromptSubtitleForTimedOptions_0 = v13.FFlagPurchasePromptSubtitleForTimedOptions;
+local v14 = require(l_Parent_0.SharedFlags);
+local l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 = v14.FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow;
+local l_FFlagPurchasePromptSubtitleForTimedOptions_0 = v14.FFlagPurchasePromptSubtitleForTimedOptions;
+local _ = v14.FFlagEnableBlackbirdUpsellInUnifiedPurchaseModal;
+local v18 = require(l_script_FirstAncestor_0.Flags.FFlagRefactorUnifiedPurchasePrompt);
 local _ = require(l_script_FirstAncestor_0.types);
-return function(v17) --[[ Line: 34 ]] --[[ Name: UnifiedPurchasePrompt ]]
-    -- upvalues: v2 (copy), v7 (copy), v5 (copy), v6 (copy), v8 (copy), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (copy), v9 (copy), l_ProductTypeEnum_0 (copy), v10 (copy), v11 (copy), v4 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy)
-    local l_store_0 = v17.store;
-    v2.useEffect(function() --[[ Line: 36 ]]
-        -- upvalues: v17 (copy), l_store_0 (copy), v7 (ref), v5 (ref), v6 (ref), v8 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), v9 (ref), l_ProductTypeEnum_0 (ref), v10 (ref), v11 (ref)
-        local l_productPayload_0 = v17.productPayload;
+return function(v20) --[[ Line: 37 ]] --[[ Name: UnifiedPurchasePrompt ]]
+    -- upvalues: v2 (copy), v7 (copy), v5 (copy), v6 (copy), v8 (copy), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (copy), v9 (copy), v18 (copy), v12 (copy), l_ProductTypeEnum_0 (copy), v10 (copy), v11 (copy), v4 (copy), l_FFlagPurchasePromptSubtitleForTimedOptions_0 (copy)
+    local l_store_0 = v20.store;
+    v2.useEffect(function() --[[ Line: 39 ]]
+        -- upvalues: v20 (copy), l_store_0 (copy), v7 (ref), v5 (ref), v6 (ref), v8 (ref), l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 (ref), v9 (ref), v18 (ref), v12 (ref), l_ProductTypeEnum_0 (ref), v10 (ref), v11 (ref)
+        local l_productPayload_0 = v20.productPayload;
         l_store_0:dispatch(v7(l_productPayload_0));
-        if v17.purchaseCallbacks then
-            l_store_0:dispatch(v5(v17.purchaseCallbacks));
+        if v20.purchaseCallbacks then
+            l_store_0:dispatch(v5(v20.purchaseCallbacks));
         end;
-        if v17.postPurchaseActions then
-            l_store_0:dispatch(v6(v17.postPurchaseActions));
+        if v20.postPurchaseActions then
+            l_store_0:dispatch(v6(v20.postPurchaseActions));
         end;
-        if v17.purchaseAnalyticsMetadata then
+        if v20.purchaseAnalyticsMetadata then
             l_store_0:dispatch(v8({
-                surface = v17.purchaseAnalyticsMetadata.surface, 
-                productUniverseId = v17.purchaseAnalyticsMetadata.productUniverseId
+                surface = v20.purchaseAnalyticsMetadata.surface, 
+                productUniverseId = v20.purchaseAnalyticsMetadata.productUniverseId
             }));
         end;
-        if l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 and v17.purchaseOptions then
-            l_store_0:dispatch(v9(v17.purchaseOptions));
+        if l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 and v20.purchaseOptions then
+            l_store_0:dispatch(v9(v20.purchaseOptions));
         end;
-        if l_productPayload_0.kind == l_ProductTypeEnum_0.Asset then
+        if v18 then
+            v12(function(v23) --[[ Line: 64 ]]
+                -- upvalues: l_store_0 (ref)
+                l_store_0:dispatch(v23);
+            end, l_productPayload_0, nil, false);
+            return;
+        elseif l_productPayload_0.kind == l_ProductTypeEnum_0.Asset then
             l_store_0:dispatch(v10(l_productPayload_0.id, Enum.InfoType.Asset, l_productPayload_0.equipIfPurchased, l_productPayload_0.isRobloxPurchase, l_productPayload_0.idempotencyKey, nil, l_productPayload_0.collectibleItemId, l_productPayload_0.collectibleItemInstanceId, l_productPayload_0.collectibleProductId, l_productPayload_0.expectedPrice));
             return;
         elseif l_productPayload_0.kind == l_ProductTypeEnum_0.Gamepass then
@@ -72,12 +81,12 @@ return function(v17) --[[ Line: 34 ]] --[[ Name: UnifiedPurchasePrompt ]]
             return;
         end;
     end, {
-        v17.productPayload, 
-        v17.purchaseCallbacks, 
-        v17.postPurchaseActions
+        v20.productPayload, 
+        v20.purchaseCallbacks, 
+        v20.postPurchaseActions
     });
     return v2.createElement(v4, {
         store = l_store_0, 
-        subtitleView = if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v17.subtitleView else nil
+        subtitleView = if l_FFlagPurchasePromptSubtitleForTimedOptions_0 then v20.subtitleView else nil
     });
 end;

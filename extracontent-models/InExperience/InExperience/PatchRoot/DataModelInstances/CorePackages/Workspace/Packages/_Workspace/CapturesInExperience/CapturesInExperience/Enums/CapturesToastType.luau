@@ -2,6 +2,7 @@ return {
     CapturesActivated = "CapturesActivated", 
     CaptureSavedToDevice = "CaptureSavedToDevice", 
     CaptureTaken = "CaptureTaken", 
+    CaptureTakenWithMomentsCTA = "CaptureTakenWithMomentsCTA", 
     None = "None", 
     VideoCaptureFailed = "VideoCaptureFailed", 
     VideoCaptureInitializationCapturingAlreadyError = "VideoCaptureInitializationCapturingAlreadyError", 

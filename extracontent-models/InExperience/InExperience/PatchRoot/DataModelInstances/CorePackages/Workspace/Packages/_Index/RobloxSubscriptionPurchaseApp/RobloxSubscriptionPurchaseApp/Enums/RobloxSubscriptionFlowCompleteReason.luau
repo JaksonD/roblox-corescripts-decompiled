@@ -1,5 +1,8 @@
 return {
     UpsellDismissed = "UpsellDismissed", 
     PurchaseWebviewOpened = "PurchaseWebviewOpened", 
-    NativePurchaseCompleted = "NativePurchaseCompleted"
+    NativePurchaseCompleted = "NativePurchaseCompleted", 
+    UpsellPurchaseSucceeded = "UpsellPurchaseSucceeded", 
+    UpsellPurchaseFailed = "UpsellPurchaseFailed", 
+    UpsellPurchaseAttempted = "UpsellPurchaseAttempted"
 };

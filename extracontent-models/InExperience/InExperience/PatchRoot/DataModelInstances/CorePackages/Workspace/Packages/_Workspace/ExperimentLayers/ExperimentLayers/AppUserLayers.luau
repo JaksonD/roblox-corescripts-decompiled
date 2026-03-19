@@ -106,6 +106,7 @@ return {
     ProfileQRCodeScannerLayer = "ProfileQRCodeScannerLayer", 
     NotificationsExperienceInvitationNotificationLayer = "Notifications.ExperienceInvitationNotification", 
     NotificationsStreamNotificationUXLayer = "Notifications.StreamNotificationUX", 
+    NotificationsStreamNotificationUXExposureLayer = "Notifications.StreamNotificationUXExposure", 
     NotificationsDeliveryLayer = "Notifications.Delivery", 
     PhoneVerificationEntryLayer = "PlayerApp.HomepageUpsell.PhoneVerificationEntry", 
     AndroidPhoneVerificationLayer = l_GetFStringAndroidPhoneVerificationLayer_0(), 

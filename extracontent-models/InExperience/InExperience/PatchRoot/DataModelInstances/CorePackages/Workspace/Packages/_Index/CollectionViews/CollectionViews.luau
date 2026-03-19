@@ -17,5 +17,10 @@ return {
     maybeForceDarkTheme = require(script.maybeForceDarkTheme), 
     CarouselScrollButtons = require(script.Carousel.CarouselScrollButtons), 
     CollectionHeader = require(script.CollectionHeader), 
-    checkAndFormatPossibleLink = require(script.checkAndFormatPossibleLink)
+    checkAndFormatPossibleLink = require(script.checkAndFormatPossibleLink), 
+    CollectionItemSize = v0.CollectionItemSize, 
+    useCollectionLayout = require(script.CollectionLayoutStore.useCollectionLayout), 
+    CollectionLayoutStoreProvider = require(script.CollectionLayoutStore.CollectionLayoutStoreProvider), 
+    getItemsPerRow = require(script.CollectionLayoutStore.getItemsPerRow), 
+    getMainCollectionLayoutStore = require(script.CollectionLayoutStore.getMainCollectionLayoutStore)
 };

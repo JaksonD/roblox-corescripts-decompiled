@@ -1,6 +1,6 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
-local v2 = require(script.Parent.getIgrsImage);
+local l_getIgrsImage_0 = require(l_CorePackages_0.Workspace.Packages.DataHydration).Game.AgeRecommendationUtils.getIgrsImage;
 local l_EnumIgrsRating_0 = v1.EnumIgrsRating;
 local v4 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local v5 = require(l_CorePackages_0.Packages.React);
@@ -13,14 +13,14 @@ local l_useTokens_0 = v6.Hooks.useTokens;
 local l_FFlagLuaAppAllowNoIgrsImage_0 = v4.FFlagLuaAppAllowNoIgrsImage;
 local l_FFlagLuaAppAddUnratedIgrsImage_0 = v4.FFlagLuaAppAddUnratedIgrsImage;
 local v14 = l_FFlagLuaAppAddUnratedIgrsImage_0 and 0.8775804128660586 or nil;
-return function(v15) --[[ Line: 33 ]] --[[ Name: IgrsRatingLabel ]]
-    -- upvalues: l_useScaledValue_0 (copy), l_FFlagLuaAppAllowNoIgrsImage_0 (copy), l_useTokens_0 (copy), v2 (copy), v5 (copy), l_View_0 (copy), v6 (copy), l_Image_0 (copy), l_FFlagLuaAppAddUnratedIgrsImage_0 (copy), l_EnumIgrsRating_0 (copy), v14 (copy), l_Text_0 (copy)
+return function(v15) --[[ Line: 34 ]] --[[ Name: IgrsRatingLabel ]]
+    -- upvalues: l_useScaledValue_0 (copy), l_FFlagLuaAppAllowNoIgrsImage_0 (copy), l_useTokens_0 (copy), l_getIgrsImage_0 (copy), v5 (copy), l_View_0 (copy), v6 (copy), l_Image_0 (copy), l_FFlagLuaAppAddUnratedIgrsImage_0 (copy), l_EnumIgrsRating_0 (copy), v14 (copy), l_Text_0 (copy)
     local v16 = l_useScaledValue_0(402);
     local v17 = nil;
     local v18 = nil;
     if l_FFlagLuaAppAllowNoIgrsImage_0 then
         v17 = l_useTokens_0();
-        v18 = v2(v15.igrsRating);
+        v18 = l_getIgrsImage_0(v15.igrsRating);
     end;
     return v5.createElement(l_View_0, {
         tag = "padding-medium gap-large radius-medium row align-y-center stroke-default size-full-0 auto-y", 
@@ -45,7 +45,7 @@ return function(v15) --[[ Line: 33 ]] --[[ Name: IgrsRatingLabel ]]
                 DominantAxis = Enum.DominantAxis.Height
             }) else nil
         }) else nil else v5.createElement(l_Image_0, {
-            Image = v2(v15.igrsRating), 
+            Image = l_getIgrsImage_0(v15.igrsRating), 
             tag = "size-1700-1700", 
             LayoutOrder = 1
         }), 

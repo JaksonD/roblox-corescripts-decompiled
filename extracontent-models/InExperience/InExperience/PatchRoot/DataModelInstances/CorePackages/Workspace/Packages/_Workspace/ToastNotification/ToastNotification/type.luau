@@ -52,6 +52,7 @@ local v10 = {
     ScheduledSquadReminder = "ScheduledSquadReminder", 
     ScheduledSquadHappeningNow = "ScheduledSquadHappeningNow", 
     SquadInvitation = "SquadInvitation", 
+    SquadInvitationV2 = "SquadInvitationV2", 
     SquadExperienceInvitation = "SquadExperienceInvitation", 
     SquadJoinRequestPrompt = "SquadJoinRequestPrompt", 
     SquadAcceptJoinRequest = "SquadAcceptJoinRequest", 

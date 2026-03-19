@@ -22,52 +22,54 @@ local v20 = require(l_script_FirstAncestor_0.Components.SocialMetadataSection);
 local v21 = game:DefineFastInt("TCMountMinLoadingTimeMs", 0);
 local l_FFlagTCShareLinkSenderUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkSenderUI;
 local v23 = game:DefineFastFlag("TCFixNotifBackground", false);
-return function(v24) --[[ Line: 50 ]]
-    -- upvalues: l_useLayerCollector_0 (copy), l_useScreenSize_0 (copy), v10 (copy), v2 (copy), v21 (copy), l_useTokens_0 (copy), l_LoadingSpinner_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_Text_0 (copy), v20 (copy), l_ButtonVariant_0 (copy), l_FFlagTCShareLinkSenderUI_0 (copy), l_FullPageModal_0 (copy), l_PartialPageModal_0 (copy), l_ButtonType_0 (copy), l_ScrollView_0 (copy), l_View_0 (copy), v11 (copy), l_Sources_0 (copy), v23 (copy)
-    local l_isVerticallyConstrained_0 = v24.isVerticallyConstrained;
-    local v26 = l_useLayerCollector_0();
-    local v27 = l_useScreenSize_0();
-    local v28 = v10.useOrientation();
-    local v29 = v28 == v10.DefaultKey;
-    local v30, v31 = v2.useState(v29);
-    local v32 = v2.useRef(os.clock());
-    v2.useEffect(function() --[[ Line: 60 ]]
-        -- upvalues: v29 (copy), v32 (copy), v21 (ref), v31 (copy)
-        if not v29 then
-            local v33 = os.clock() - v32.current;
-            local v34 = v21 / 1000;
-            if v33 < v34 then
-                delay(v34 - v33, function() --[[ Line: 66 ]]
-                    -- upvalues: v31 (ref)
-                    v31(false);
+local v24 = game:DefineFastFlag("TCDialogCloseBtn", false);
+return function(v25) --[[ Line: 51 ]]
+    -- upvalues: l_useLayerCollector_0 (copy), l_useScreenSize_0 (copy), v10 (copy), v2 (copy), v21 (copy), l_useTokens_0 (copy), l_LoadingSpinner_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), v24 (copy), l_Text_0 (copy), v20 (copy), l_ButtonVariant_0 (copy), l_FFlagTCShareLinkSenderUI_0 (copy), l_FullPageModal_0 (copy), l_PartialPageModal_0 (copy), l_ButtonType_0 (copy), l_ScrollView_0 (copy), l_View_0 (copy), v11 (copy), l_Sources_0 (copy), v23 (copy)
+    local l_isVerticallyConstrained_0 = v25.isVerticallyConstrained;
+    local v27 = l_useLayerCollector_0();
+    local v28 = l_useScreenSize_0();
+    local v29 = v10.useOrientation();
+    local v30 = v29 == v10.DefaultKey;
+    local v31, v32 = v2.useState(v30);
+    local v33 = v2.useRef(os.clock());
+    v2.useEffect(function() --[[ Line: 61 ]]
+        -- upvalues: v30 (copy), v33 (copy), v21 (ref), v32 (copy)
+        if not v30 then
+            local v34 = os.clock() - v33.current;
+            local v35 = v21 / 1000;
+            if v34 < v35 then
+                delay(v35 - v34, function() --[[ Line: 67 ]]
+                    -- upvalues: v32 (ref)
+                    v32(false);
                 end);
                 return;
             else
-                v31(false);
+                v32(false);
             end;
         end;
     end, {
-        v29, 
-        v31
+        v30, 
+        v32
     });
-    if v26 and v26.absoluteSize and v26.absoluteSize ~= Vector2.new(0, 0) then
-        v27 = v26.absoluteSize;
+    if v27 and v27.absoluteSize and v27.absoluteSize ~= Vector2.new(0, 0) then
+        v28 = v27.absoluteSize;
     end;
-    local v35 = v28 == v10.BreakpointConfig.Enum.Landscape;
-    local v36 = l_useTokens_0();
-    if v30 then
+    local v36 = v29 == v10.BreakpointConfig.Enum.Landscape;
+    local v37 = l_useTokens_0();
+    if v31 then
         return v2.createElement(l_LoadingSpinner_0, {
             size = UDim2.fromOffset(50, 50), 
             anchorPoint = Vector2.new(0.5, 0.5), 
             position = UDim2.fromScale(0.5, 0.5)
         });
     else
-        local v37 = if v35 then v2.createElement(l_Dialog_0.Root, {
-            size = l_DialogSize_0.Medium
+        local v38 = if v36 then v2.createElement(l_Dialog_0.Root, {
+            size = l_DialogSize_0.Medium, 
+            onClose = if v24 then v25.onCloseModal else nil
         }, {
             Title = v2.createElement(l_Dialog_0.Title, {
                 LayoutOrder = 1, 
-                text = v24.headerText
+                text = v25.headerText
             }), 
             Contents = v2.createElement("ScrollingFrame", {
                 LayoutOrder = 2, 
@@ -88,10 +90,10 @@ return function(v24) --[[ Line: 50 ]]
                 TextIntro = v2.createElement(l_Text_0, {
                     LayoutOrder = 1, 
                     tag = "auto-y size-full-0 text-align-x-left text-wrap padding-bottom-large", 
-                    Text = v24.descriptionText
+                    Text = v25.descriptionText
                 }), 
                 Insights = v2.createElement(v20, {
-                    userId = v24.userId, 
+                    userId = v25.userId, 
                     layoutOrder = 2
                 })
             }), 
@@ -99,45 +101,45 @@ return function(v24) --[[ Line: 50 ]]
                 LayoutOrder = 4, 
                 actions = {
                     {
-                        text = v24.primaryButtonText, 
+                        text = v25.primaryButtonText, 
                         variant = l_ButtonVariant_0.Emphasis, 
-                        onActivated = v24.onPrimaryButtonPress
+                        onActivated = v25.onPrimaryButtonPress
                     }, 
-                    if l_FFlagTCShareLinkSenderUI_0 then if v24.secondaryButtonText then {
-                        text = v24.secondaryButtonText, 
+                    if l_FFlagTCShareLinkSenderUI_0 then if v25.secondaryButtonText then {
+                        text = v25.secondaryButtonText, 
                         variant = l_ButtonVariant_0.Standard, 
-                        onActivated = v24.onSecondaryButtonPress
+                        onActivated = v25.onSecondaryButtonPress
                     } else nil else {
-                        text = v24.secondaryButtonText, 
+                        text = v25.secondaryButtonText, 
                         variant = l_ButtonVariant_0.Standard, 
-                        onActivated = v24.onSecondaryButtonPress
+                        onActivated = v25.onSecondaryButtonPress
                     }
                 }
             })
         }) else v2.createElement(l_isVerticallyConstrained_0 and l_FullPageModal_0 or l_PartialPageModal_0, {
-            title = v24.headerText, 
-            screenSize = v27, 
-            onCloseClicked = v24.onCloseModal, 
+            title = v25.headerText, 
+            screenSize = v28, 
+            onCloseClicked = v25.onCloseModal, 
             buttonStackProps = {
                 buttons = {
                     {
                         buttonType = l_ButtonType_0.PrimaryContextual, 
                         props = {
-                            onActivated = v24.onPrimaryButtonPress, 
-                            text = v24.primaryButtonText
+                            onActivated = v25.onPrimaryButtonPress, 
+                            text = v25.primaryButtonText
                         }
                     }, 
-                    if l_FFlagTCShareLinkSenderUI_0 then if v24.secondaryButtonText then {
+                    if l_FFlagTCShareLinkSenderUI_0 then if v25.secondaryButtonText then {
                         buttonType = l_ButtonType_0.Secondary, 
                         props = {
-                            onActivated = v24.onSecondaryButtonPress, 
-                            text = v24.secondaryButtonText
+                            onActivated = v25.onSecondaryButtonPress, 
+                            text = v25.secondaryButtonText
                         }
                     } else nil else {
                         buttonType = l_ButtonType_0.Secondary, 
                         props = {
-                            onActivated = v24.onSecondaryButtonPress, 
-                            text = v24.secondaryButtonText
+                            onActivated = v25.onSecondaryButtonPress, 
+                            text = v25.secondaryButtonText
                         }
                     }
                 }, 
@@ -156,8 +158,8 @@ return function(v24) --[[ Line: 50 ]]
                 }
             }, {
                 OuterPadding = v2.createElement("UIPadding", {
-                    PaddingTop = UDim.new(0, l_isVerticallyConstrained_0 and v36.Padding.XSmall or v36.Padding.Large), 
-                    PaddingBottom = UDim.new(0, l_isVerticallyConstrained_0 and v36.Padding.Small or v36.Padding.XXLarge)
+                    PaddingTop = UDim.new(0, l_isVerticallyConstrained_0 and v37.Padding.XSmall or v37.Padding.Large), 
+                    PaddingBottom = UDim.new(0, l_isVerticallyConstrained_0 and v37.Padding.Small or v37.Padding.XXLarge)
                 }), 
                 TextIntro = v2.createElement(l_Text_0, {
                     LayoutOrder = 1, 
@@ -165,30 +167,30 @@ return function(v24) --[[ Line: 50 ]]
                         ["auto-y size-full-0 text-align-x-left text-wrap"] = true, 
                         grow = not l_isVerticallyConstrained_0
                     }, 
-                    Text = v24.descriptionText
+                    Text = v25.descriptionText
                 }), 
                 Insights = v2.createElement(v20, {
-                    userId = v24.userId, 
+                    userId = v25.userId, 
                     layoutOrder = 2, 
                     isVerticallyConstrained = l_isVerticallyConstrained_0
                 })
             })
         });
-        if v24.source == l_Sources_0.StreamNotification then
+        if v25.source == l_Sources_0.StreamNotification then
             return v2.createElement("TextButton", {
                 Selectable = false, 
                 AutoButtonColor = false, 
                 Size = UDim2.new(1, 0, 1, 0), 
                 Position = UDim2.new(0.5, 0, 0.5, 0), 
                 AnchorPoint = Vector2.new(0.5, 0.5), 
-                BackgroundColor3 = v36.Color.Common.Scrim.Color3, 
-                BackgroundTransparency = v36.Color.Common.Scrim.Transparency, 
+                BackgroundColor3 = v37.Color.Common.Scrim.Color3, 
+                BackgroundTransparency = v37.Color.Common.Scrim.Transparency, 
                 Text = v23 and "" or nil
             }, {
-                TrustedContactModalComponent = v37
+                TrustedContactModalComponent = v38
             });
         else
-            return v37;
+            return v38;
         end;
     end;
 end;

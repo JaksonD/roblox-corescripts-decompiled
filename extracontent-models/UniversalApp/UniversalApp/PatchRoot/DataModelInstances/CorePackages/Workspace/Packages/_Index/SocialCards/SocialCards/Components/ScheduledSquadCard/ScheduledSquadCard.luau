@@ -14,56 +14,90 @@ local l_useTokens_0 = v3.Hooks.useTokens;
 local l_ScheduledSquadActionEnum_0 = v5.Enums.ScheduledSquadActionEnum;
 local l_ScheduledSquadActionSourceEnum_0 = v5.Enums.ScheduledSquadActionSourceEnum;
 local l_ScheduledSquadsMoreInfoSheet_0 = v5.ScheduledSquadsMoreInfoSheet;
+local l_getScheduledSquadStatus_0 = v6.NetworkRequests.getScheduledSquadStatus;
 local l_SquadExternalContractContext_0 = v6.SquadExternalContractProvider.SquadExternalContractContext;
 local l_EventNames_0 = v6.Analytics.EventNames;
 local l_useCurrentSquadId_0 = v6.Hooks.useCurrentSquadId;
-return function(v19) --[[ Line: 32 ]]
-    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadId_0 (copy), v2 (copy), l_UserProfileStore_0 (copy), l_useLocalization_0 (copy), l_LocalizationService_0 (copy), l_EventNames_0 (copy), l_ScheduledSquadActionEnum_0 (copy), l_ScheduledSquadActionSourceEnum_0 (copy), v3 (copy), l_AvatarGroup_0 (copy), l_InputSize_0 (copy), l_AvatarGroupType_0 (copy), l_ScheduledSquadsMoreInfoSheet_0 (copy)
-    local v20 = l_useTokens_0();
-    local v21 = v4.useContext(l_SquadExternalContractContext_0);
-    local v22 = l_useCurrentSquadId_0();
-    local v23 = v19.startTime == nil;
-    local v24, v25 = v4.useState(false);
-    local v26, v27 = v4.useState(true);
-    local v28, v29 = v4.useState("");
-    local v30 = v4.useMemo(function() --[[ Line: 42 ]]
-        -- upvalues: v19 (copy)
-        if v19.startTime then
-            return (DateTime.fromIsoDate(v19.startTime));
+return function(v20) --[[ Line: 33 ]]
+    -- upvalues: l_useTokens_0 (copy), v4 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadId_0 (copy), v2 (copy), l_getScheduledSquadStatus_0 (copy), l_UserProfileStore_0 (copy), l_useLocalization_0 (copy), l_LocalizationService_0 (copy), l_EventNames_0 (copy), l_ScheduledSquadActionEnum_0 (copy), l_ScheduledSquadActionSourceEnum_0 (copy), v3 (copy), l_AvatarGroup_0 (copy), l_InputSize_0 (copy), l_AvatarGroupType_0 (copy), l_ScheduledSquadsMoreInfoSheet_0 (copy)
+    local v21 = l_useTokens_0();
+    local v22 = v4.useContext(l_SquadExternalContractContext_0);
+    local v23 = l_useCurrentSquadId_0();
+    local v24 = v20.startTime == nil;
+    local v25, v26 = v4.useState(false);
+    local v27, v28 = v4.useState(true);
+    local v29, v30 = v4.useState(true);
+    local v31, v32 = v4.useState("");
+    local v33, v34 = v4.useState(nil);
+    local v35 = v27 or v29;
+    local v36 = v4.useMemo(function() --[[ Line: 51 ]]
+        -- upvalues: v20 (copy)
+        if v20.startTime then
+            return (DateTime.fromIsoDate(v20.startTime));
         else
             return nil;
         end;
     end, {
-        v19.startTime
+        v20.startTime
     });
-    local v31 = v30 and v30.UnixTimestamp < DateTime.now().UnixTimestamp;
-    local v33 = v4.useMemo(function() --[[ Line: 47 ]]
-        -- upvalues: v2 (ref), v19 (copy)
-        return v2.List.map(v19.subscribers, function(v32) --[[ Line: 48 ]]
-            return v32.userId;
+    local v37 = v36 and v36.UnixTimestamp < DateTime.now().UnixTimestamp;
+    local v39 = v4.useMemo(function() --[[ Line: 57 ]]
+        -- upvalues: v2 (ref), v33 (copy), v20 (copy)
+        return v2.List.map(if v33 then v33.subscribers else v20.subscribers, function(v38) --[[ Line: 60 ]]
+            return v38.userId;
         end);
     end, {
-        v19.subscribers
+        v20 and v20.subscribers, 
+        v33 and v33.subscribers
     });
-    v4.useEffect(function() --[[ Line: 53 ]]
-        -- upvalues: v23 (copy), v31 (copy), v27 (copy), l_UserProfileStore_0 (ref), v19 (copy), v29 (copy)
-        if v23 or v31 then
-            v27(false);
+    local v41 = v4.useCallback(function() --[[ Line: 68 ]]
+        -- upvalues: v30 (copy), l_getScheduledSquadStatus_0 (ref), v20 (copy), v34 (copy)
+        v30(true);
+        l_getScheduledSquadStatus_0(v20.scheduledGroupUpId, function(v40) --[[ Line: 70 ]]
+            -- upvalues: v34 (ref), v30 (ref)
+            v34(v40);
+            v30(false);
+        end, function() --[[ Line: 73 ]]
+            -- upvalues: v30 (ref)
+            v30(false);
+        end);
+    end, {
+        l_getScheduledSquadStatus_0, 
+        v20.scheduledGroupUpId
+    });
+    v4.useEffect(function() --[[ Line: 81 ]]
+        -- upvalues: v24 (copy), v37 (copy), v41 (copy), v30 (copy)
+        if not v24 and not v37 then
+            v41();
+            return;
+        else
+            v30(false);
+            return;
+        end;
+    end, {
+        v41, 
+        v20 and v20.scheduledGroupUpId, 
+        v20.scheduledGroupUpId
+    });
+    v4.useEffect(function() --[[ Line: 96 ]]
+        -- upvalues: v24 (copy), v37 (copy), v28 (copy), l_UserProfileStore_0 (ref), v33 (copy), v20 (copy), v32 (copy)
+        if v24 or v37 then
+            v28(false);
             return;
         else
             l_UserProfileStore_0.get().fetchNamesByUserIds({
-                (tostring(v19.initiatorId))
-            }, function(v34) --[[ Line: 57 ]]
-                -- upvalues: v29 (ref), v27 (ref)
-                local l_status_0 = v34.status;
-                local l_data_0 = v34.data;
+                (tostring(if v33 then v33.initiatorId else v20.initiatorId))
+            }, function(v42) --[[ Line: 102 ]]
+                -- upvalues: v32 (ref), v28 (ref)
+                local l_status_0 = v42.status;
+                local l_data_0 = v42.data;
                 if l_status_0 == "success" then
-                    v29(l_data_0[1].names.getDisplayName(false));
-                    v27(false);
+                    v32(l_data_0[1].names.getDisplayName(false));
+                    v28(false);
                     return;
                 else
                     if l_status_0 == "failed" then
-                        v27(false);
+                        v28(false);
                     end;
                     return;
                 end;
@@ -71,58 +105,62 @@ return function(v19) --[[ Line: 32 ]]
             return;
         end;
     end, {
-        v23, 
-        v31, 
-        v19.initiatorId
+        v20 and v20.initiatorId, 
+        v24, 
+        v37, 
+        v33 and v33.initiatorId
     });
-    local v37 = l_useLocalization_0({
+    local v45 = l_useLocalization_0({
         deletedScheduledPartyText = "Feature.Squads.Label.DeletedScheduledParty", 
         goingText = "Feature.Squads.Description.Going", 
         partyText = "Feature.Squads.Label.Party", 
         scheduledPartyText = "Feature.Squads.Label.ScheduledParty", 
         usersPartyText = {
             "Feature.Squads.Label.UsersParty"; 
-            displayName = v28
+            displayName = v31
         }
     });
-    local v38 = if v30 then v30:FormatLocalTime("llll", l_LocalizationService_0.RobloxLocaleId) else "";
-    local v39 = v4.useCallback(function() --[[ Line: 82 ]]
-        -- upvalues: v25 (copy), v21 (copy), l_EventNames_0 (ref), l_ScheduledSquadActionEnum_0 (ref), v19 (copy), l_ScheduledSquadActionSourceEnum_0 (ref), v22 (copy)
-        v25(true);
-        v21.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
+    local v46 = if v36 then v36:FormatLocalTime("llll", l_LocalizationService_0.RobloxLocaleId) else "";
+    local v47 = v4.useCallback(function() --[[ Line: 134 ]]
+        -- upvalues: v26 (copy), v22 (copy), l_EventNames_0 (ref), l_ScheduledSquadActionEnum_0 (ref), v20 (copy), v33 (copy), v20 (copy), l_ScheduledSquadActionSourceEnum_0 (ref), v23 (copy)
+        v26(true);
+        v22.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
             actionType = l_ScheduledSquadActionEnum_0.SeeMoreDetails, 
-            conversationId = v19.parentChannelId, 
-            scheduledSquadId = v19.scheduledGroupUpId, 
+            conversationId = v20.parentChannelId, 
+            scheduledSquadId = if v33 then v33.scheduledGroupUpId else v20.scheduledGroupUpId, 
             source = l_ScheduledSquadActionSourceEnum_0.ScheduledSquadCard, 
-            squadId = v22, 
-            squadLocation = v21.squadLocation
+            squadId = v23, 
+            squadLocation = v22.squadLocation
         });
     end, {
-        v22, 
-        v19.parentChannelId, 
-        v19.scheduledGroupUpId, 
-        v25, 
-        v21.fireSquadAnalytics, 
-        v21.squadLocation
+        v23, 
+        v20 and v20.scheduledGroupUpId, 
+        v20.parentChannelId, 
+        v33 and v33.scheduledGroupUpId, 
+        v26, 
+        v22.fireSquadAnalytics, 
+        v22.squadLocation
     });
-    local v40 = v4.useCallback(function() --[[ Line: 104 ]]
-        -- upvalues: v25 (copy)
-        v25(false);
+    local v48 = v4.useCallback(function() --[[ Line: 159 ]]
+        -- upvalues: v41 (copy), v26 (copy)
+        v41();
+        v26(false);
     end, {
-        v25
+        v41, 
+        v26
     });
-    if v26 then
+    if v35 then
         return v4.createElement(v3.View, {
             tag = "size-full-800"
         }, {
             Skeleton = v4.createElement(v3.Skeleton, {
-                Size = UDim2.new(0, 280, 0, v20.Size.Size_2500), 
+                Size = UDim2.new(0, 280, 0, v21.Size.Size_2500), 
                 radius = v3.Enums.Radius.Large
             })
         });
     else
         return v4.createElement(v3.View, {
-            onActivated = v39, 
+            onActivated = v47, 
             Size = UDim2.new(0, 280, 0, 0), 
             tag = "auto-y bg-shift-200 radius-large col padding-y-medium padding-x-large align-x-center gap-medium flex-fill"
         }, {
@@ -133,23 +171,23 @@ return function(v19) --[[ Line: 32 ]]
                 Title = v4.createElement(v3.Text, {
                     LayoutOrder = 1, 
                     tag = "auto-y size-full-0 text-title-large text-align-x-left content-emphasis text-wrap", 
-                    Text = if v23 then v37.deletedScheduledPartyText else if v31 then v37.partyText else v37.usersPartyText
+                    Text = if v24 then v45.deletedScheduledPartyText else if v37 then v45.partyText else v45.usersPartyText
                 }), 
-                Date = if not v23 then v4.createElement(v3.Text, {
+                Date = if not v24 then v4.createElement(v3.Text, {
                     LayoutOrder = 2, 
                     tag = "auto-y size-full-0 text-body-medium text-align-x-left content-default text-wrap", 
-                    Text = v38
+                    Text = v46
                 }) else nil
             }), 
-            Interested = if not v23 then v4.createElement(v3.View, {
+            Interested = if not v24 then v4.createElement(v3.View, {
                 LayoutOrder = 2, 
                 tag = "row size-full-0 auto-y gap-small align-x-left align-y-center"
             }, {
                 AvatarGroup = v4.createElement(l_AvatarGroup_0, {
-                    avatars = v33, 
+                    avatars = v39, 
                     backplateStyle = {
-                        Color3 = v20.Color.Shift.Shift_200.Color3, 
-                        Transparency = v20.Color.Shift.Shift_200.Transparency
+                        Color3 = v21.Color.Shift.Shift_200.Color3, 
+                        Transparency = v21.Color.Shift.Shift_200.Transparency
                     }, 
                     LayoutOrder = 1, 
                     max = 4, 
@@ -159,13 +197,13 @@ return function(v19) --[[ Line: 32 ]]
                 InterestedCount = v4.createElement(v3.Text, {
                     LayoutOrder = 2, 
                     tag = "auto-xy text-body-medium content-default", 
-                    Text = ("%*"):format(v37.goingText)
+                    Text = ("%*"):format(v45.goingText)
                 })
             }) else nil, 
-            Sheet = if not v23 then v4.createElement(l_ScheduledSquadsMoreInfoSheet_0, {
-                isOpen = v24, 
-                onClose = v40, 
-                scheduledSquad = v19
+            Sheet = if not v24 then v4.createElement(l_ScheduledSquadsMoreInfoSheet_0, {
+                isOpen = v25, 
+                onClose = v48, 
+                scheduledSquad = v33 or v20
             }) else nil
         });
     end;

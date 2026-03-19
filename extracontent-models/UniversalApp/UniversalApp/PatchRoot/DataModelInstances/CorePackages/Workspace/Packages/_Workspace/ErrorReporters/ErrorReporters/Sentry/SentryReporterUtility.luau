@@ -24,6 +24,7 @@ local function v8(v6) --[[ Line: 184 ]] --[[ Name: convertErrorStackToSentryFram
     end;
     if v6.sourceCode then
         v7.filename = v6.sourceCode;
+        v7.abs_path = v6.sourceCode;
     end;
     if v6.column then
         v7.colno = tonumber(v6.column);
@@ -39,7 +40,7 @@ local function v8(v6) --[[ Line: 184 ]] --[[ Name: convertErrorStackToSentryFram
     end;
     return v7;
 end;
-v2.parseThreadsToSentry = function(v9) --[[ Line: 285 ]] --[[ Name: parseThreadsToSentry ]]
+v2.parseThreadsToSentry = function(v9) --[[ Line: 286 ]] --[[ Name: parseThreadsToSentry ]]
     -- upvalues: v8 (copy)
     if not v9 then
         return nil;
@@ -82,7 +83,7 @@ v2.parseThreadsToSentry = function(v9) --[[ Line: 285 ]] --[[ Name: parseThreads
         end;
     end;
 end;
-local function v23(v20) --[[ Line: 370 ]] --[[ Name: parseAppContext ]]
+local function v23(v20) --[[ Line: 371 ]] --[[ Name: parseAppContext ]]
     local v21 = {};
     local l_attributes_0 = v20.attributes;
     if l_attributes_0.appVersion ~= nil then
@@ -114,14 +115,14 @@ local function v23(v20) --[[ Line: 370 ]] --[[ Name: parseAppContext ]]
     end;
     return v21;
 end;
-local function _(v24) --[[ Line: 435 ]] --[[ Name: parseNetworkContext ]]
+local function _(v24) --[[ Line: 436 ]] --[[ Name: parseNetworkContext ]]
     local v25 = {};
     if v24.attributes.networkType ~= nil then
         v25.network_type = v24.attributes.networkType;
     end;
     return v25;
 end;
-local function _(v27) --[[ Line: 469 ]] --[[ Name: parseOSContext ]]
+local function _(v27) --[[ Line: 470 ]] --[[ Name: parseOSContext ]]
     local v28 = {};
     local l_attributes_1 = v27.attributes;
     if l_attributes_1.baseOs ~= nil then
@@ -135,7 +136,7 @@ local function _(v27) --[[ Line: 469 ]] --[[ Name: parseOSContext ]]
     end;
     return v28;
 end;
-local function v53(v31) --[[ Line: 540 ]] --[[ Name: parseDeviceContext ]]
+local function v53(v31) --[[ Line: 541 ]] --[[ Name: parseDeviceContext ]]
     local v32 = {};
     local l_attributes_2 = v31.attributes;
     if l_attributes_2.deviceName ~= nil then
@@ -239,7 +240,7 @@ local function v53(v31) --[[ Line: 540 ]] --[[ Name: parseDeviceContext ]]
     end;
     return v32;
 end;
-v2.parseErrorToContext = function(v54) --[[ Line: 654 ]] --[[ Name: parseErrorToContext ]]
+v2.parseErrorToContext = function(v54) --[[ Line: 655 ]] --[[ Name: parseErrorToContext ]]
     -- upvalues: v23 (copy), v53 (copy)
     local v55 = {
         app = v23(v54)

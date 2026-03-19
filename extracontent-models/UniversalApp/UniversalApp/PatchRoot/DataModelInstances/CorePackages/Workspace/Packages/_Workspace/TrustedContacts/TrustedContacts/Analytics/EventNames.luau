@@ -14,5 +14,8 @@ return {
     TCUpsellCancelClicked = "TCUpsellCancelClicked", 
     TCUpsellAddViaLinkClicked = "TCUpsellAddViaLinkClicked", 
     TCStreamNotificationAcceptClicked = "TCStreamNotificationAcceptClicked", 
-    TCToastNotificationAcceptClicked = "TCToastNotificationAcceptClicked"
+    TCToastNotificationAcceptClicked = "TCToastNotificationAcceptClicked", 
+    TrustedFriendsVPCPrologueOpened = "TrustedFriendsVPCPrologueOpened", 
+    TrustedFriendsVPCAskClicked = "TrustedFriendsVPCAskClicked", 
+    TrustedFriendsVPCCancelClicked = "TrustedFriendsVPCCancelClicked"
 };

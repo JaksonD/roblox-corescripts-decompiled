@@ -16,7 +16,7 @@ local v7 = {
     Importance = "policy-importance-"
 };
 return {
-    renderPageItemsFromList = function(v8, v9, v10, v11, v12, v13, v14, v15) --[[ Line: 73 ]] --[[ Name: renderPageItemsFromList ]]
+    renderPageItemsFromList = function(v8, v9, v10, v11, v12, v13, v14, v15) --[[ Line: 74 ]] --[[ Name: renderPageItemsFromList ]]
         -- upvalues: v5 (copy), v3 (copy), l_View_0 (copy)
         local v16 = {};
         for v17, v18 in ipairs(v8) do

@@ -29,7 +29,8 @@ return v3.memo(function(v9) --[[ Line: 30 ]] --[[ Name: CtaButtonsContainer ]]
             dispatch = v12, 
             LogoutThunk = v9.LogoutThunk, 
             goToNextPage = v10.goToNextPage, 
-            sendPageEvent = v11.sendPageEvent
+            sendPageEvent = v11.sendPageEvent, 
+            hasNavigatedForward = v10.hasNavigatedForward
         }));
     end;
 end);

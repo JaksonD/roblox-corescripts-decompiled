@@ -22,7 +22,12 @@ return {
         DynamicHeadHappyNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadHappyNotShown", 
         DynamicHeadSadNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadSadNotShown", 
         AQSInternalError = "Common.UGCValidation.ErrorLabel.AQSInternalError", 
-        FaceControlsOverrideFACSNotEmpty = "Common.UGCValidation.ErrorLabel.FaceControlsOverrideFACSNotEmpty"
+        FaceControlsOverrideFACSNotEmpty = "Common.UGCValidation.ErrorLabel.FaceControlsOverrideFACSNotEmpty", 
+        TagsFoundOnSingleInstance = "Common.UGCValidation.TagsFoundOnSingleInstance", 
+        FacsShrinksHead = "Common.UGCValidation.ErrorLabel.FacsShrinksHead", 
+        FacsExpandsHead = "Common.UGCValidation.ErrorLabel.FacsExpandsHead", 
+        UnallowedJointSkinned = "Common.UGCValidation.ErrorLabel.UnallowedJointSkinned", 
+        UnallowedFacsJoints = "Common.UGCValidation.ErrorLabel.UnallowedFacsJoints"
     }, 
     Values = {
         SelectionCountNotOne = "To upload an asset to Roblox, you must select exactly 1 instance and the associated upload type.", 
@@ -47,6 +52,11 @@ return {
         DynamicHeadHappyNotShown = "Cannot detect smile expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show smile expression.", 
         DynamicHeadSadNotShown = "Cannot detect frown expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show frown expression.", 
         AQSInternalError = "Score cannot be generated due to Asset Quality Error. Please check input data correctness and try again, or file a bug report.", 
-        FaceControlsOverrideFACSNotEmpty = "The InternalOverrideFACSData property on FaceControls must be empty on upload."
+        FaceControlsOverrideFACSNotEmpty = "The InternalOverrideFACSData property on FaceControls must be empty on upload.", 
+        TagsFoundOnSingleInstance = "Instance {ProblematicDescendantPath} should not have tags.", 
+        FacsShrinksHead = "FACs was detected shrinking your head to {modPercent}%, but altering the head is against marketplace policy for facial animations.", 
+        FacsExpandsHead = "FACs was detected expanding your head to {modPercent}%, but altering the head is against marketplace policy for facial animations.", 
+        UnallowedJointSkinned = "Bodypart {partName} is skinned to virtual joint {jointName}, which is not part of the R15plus schema.", 
+        UnallowedFacsJoints = "Head meshpart has facial animations for {jointName}, which cannot be used in FACs. Please rename this joint then reimport your head."
     }
 };

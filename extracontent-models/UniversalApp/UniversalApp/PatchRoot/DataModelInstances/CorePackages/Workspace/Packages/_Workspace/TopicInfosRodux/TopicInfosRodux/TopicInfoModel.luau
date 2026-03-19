@@ -2,8 +2,8 @@ local l_Parent_0 = script:FindFirstAncestor("TopicInfosRodux").Parent;
 local v1 = require(l_Parent_0.DiscoveryTypes);
 local l_FFlagSearchOmniAutocompletePage_0 = require(l_Parent_0.SharedFlags).FFlagSearchOmniAutocompletePage;
 local l_FFlagEnableTopSongsSort_0 = require(l_Parent_0.SharedFlags).FFlagEnableTopSongsSort;
-local l_FFlagLuaAppSearchGridTiles_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSearchGridTiles;
 local l_FFlagLuaAppAddSubIdToHomeEvents_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSubIdToHomeEvents;
+local l_FFlagLuaAppLogOmniAnalyticsData_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppLogOmniAnalyticsData;
 local v6 = {
     default = "LuaApp/category/filter_default", 
     Featured = "LuaApp/category/filter_featured", 
@@ -73,20 +73,21 @@ v7.fromExploreJsonData = function(v13) --[[ Line: 71 ]] --[[ Name: fromExploreJs
     return v14;
 end;
 v7.fromOmniApi = function(v15) --[[ Line: 103 ]] --[[ Name: fromOmniApi ]]
-    -- upvalues: v7 (copy), v1 (copy), l_FFlagLuaAppAddSubIdToHomeEvents_0 (copy)
+    -- upvalues: v7 (copy), v1 (copy), l_FFlagLuaAppAddSubIdToHomeEvents_0 (copy), l_FFlagLuaAppLogOmniAnalyticsData_0 (copy)
     local v16 = v7.new();
     v16.dataSource = v1.DataSourceType.DiscoveryApi;
     v16.displayName = v15.topic;
     v16.topicId = tostring(v15.topicId);
     v16.subtitle = v15.subtitle;
     v16.sortSubId = if l_FFlagLuaAppAddSubIdToHomeEvents_0 then v15.sortSubId else nil;
+    v16.analyticsData = if l_FFlagLuaAppLogOmniAnalyticsData_0 then v15.analyticsData else nil;
     v16.treatmentType = v15.treatmentType;
     v16.uniqueKey = v16.topicId;
     v16.analyticsTypeId = v16.topicId;
     return v16;
 end;
 if l_FFlagSearchOmniAutocompletePage_0 then
-    v7.fromOmniAutocompleteApi = function(v17) --[[ Line: 119 ]] --[[ Name: fromOmniAutocompleteApi ]]
+    v7.fromOmniAutocompleteApi = function(v17) --[[ Line: 120 ]] --[[ Name: fromOmniAutocompleteApi ]]
         -- upvalues: v7 (copy), v1 (copy)
         local v18 = v7.new();
         v18.dataSource = v1.DataSourceType.OmniAutocompleteApi;
@@ -99,10 +100,10 @@ if l_FFlagSearchOmniAutocompletePage_0 then
         return v18;
     end;
 end;
-v7.makeTopSearchTopicKey = function(v19, v20) --[[ Line: 134 ]] --[[ Name: makeTopSearchTopicKey ]]
+v7.makeTopSearchTopicKey = function(v19, v20) --[[ Line: 135 ]] --[[ Name: makeTopSearchTopicKey ]]
     return (("%*_%*"):format(v19, v20));
 end;
-v7.fromTopSearchApi = function(v21, v22) --[[ Line: 138 ]] --[[ Name: fromTopSearchApi ]]
+v7.fromTopSearchApi = function(v21, v22) --[[ Line: 139 ]] --[[ Name: fromTopSearchApi ]]
     -- upvalues: v7 (copy), v1 (copy)
     local v23 = v7.new();
     v23.dataSource = v1.DataSourceType.SearchApi;
@@ -114,15 +115,15 @@ v7.fromTopSearchApi = function(v21, v22) --[[ Line: 138 ]] --[[ Name: fromTopSea
     v23.analyticsTypeId = v23.uniqueKey;
     return v23;
 end;
-v7.makeSearchTopicKey = l_FFlagLuaAppSearchGridTiles_0 and function(v24, v25) --[[ Line: 153 ]]
+v7.makeSearchTopicKey = function(v24, v25) --[[ Line: 153 ]]
     -- upvalues: v7 (copy)
     return v7.makeTopSearchTopicKey(v24, v25);
-end or nil;
-v7.fromSearchApi = l_FFlagLuaAppSearchGridTiles_0 and function(v26, v27) --[[ Line: 159 ]]
+end;
+v7.fromSearchApi = function(v26, v27) --[[ Line: 157 ]]
     -- upvalues: v7 (copy)
     return v7.fromTopSearchApi(v26, v27);
-end or nil;
-v7.isOmni = function(v28) --[[ Line: 164 ]] --[[ Name: isOmni ]]
+end;
+v7.isOmni = function(v28) --[[ Line: 161 ]] --[[ Name: isOmni ]]
     -- upvalues: v1 (copy)
     if v28.dataSource == v1.DataSourceType.DiscoveryApi then
         return true;
@@ -130,7 +131,7 @@ v7.isOmni = function(v28) --[[ Line: 164 ]] --[[ Name: isOmni ]]
         return false;
     end;
 end;
-v7.isSponsored = function(v29) --[[ Line: 172 ]] --[[ Name: isSponsored ]]
+v7.isSponsored = function(v29) --[[ Line: 169 ]] --[[ Name: isSponsored ]]
     if v29.topicId == "400000000" then
         return true;
     elseif v29.gameSetTypeId == "27" then

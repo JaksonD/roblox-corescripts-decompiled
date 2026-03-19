@@ -224,55 +224,35 @@ return v2.memo(v2.forwardRef(function(v27, v28) --[[ Line: 96 ]] --[[ Name: Numb
         l_controlsVariant_0
     });
     local v81 = v2.useCallback(function(_, v79) --[[ Line: 264 ]]
-        -- upvalues: v9 (ref), v29 (copy), v61 (copy), v35 (copy)
-        if not v9.FoundationDontCreateUIDDForNumberInput and not v29.isScrubbable then
-            return;
-        else
-            local v80 = tonumber(v61.current);
-            if v80 then
-                v35.current = {
-                    position = v79.X, 
-                    value = v80
-                };
-            end;
-            return;
+        -- upvalues: v61 (copy), v35 (copy)
+        local v80 = tonumber(v61.current);
+        if v80 then
+            v35.current = {
+                position = v79.X, 
+                value = v80
+            };
+        end;
+    end, {});
+    local v87 = v2.useCallback(function(_, v83) --[[ Line: 271 ]]
+        -- upvalues: v35 (copy), v20 (ref), v29 (copy)
+        if v35.current then
+            local v84 = v20(v35.current.value, v35.current.position, v83.X, v29.step);
+            local v85 = 10 ^ (v29.precision or 0);
+            local v86 = math.clamp(math.floor(v84 * v85 + 0.5) / v85, v29.minimum, v29.maximum);
+            v29.onChanged(v86);
         end;
     end, {
-        v29.isScrubbable
-    });
-    local v87 = v2.useCallback(function(_, v83) --[[ Line: 276 ]]
-        -- upvalues: v9 (ref), v29 (copy), v35 (copy), v20 (ref)
-        if not v9.FoundationDontCreateUIDDForNumberInput and not v29.isScrubbable then
-            return;
-        else
-            if v35.current then
-                local v84 = v20(v35.current.value, v35.current.position, v83.X, v29.step);
-                local v85 = 10 ^ (v29.precision or 0);
-                local v86 = math.clamp(math.floor(v84 * v85 + 0.5) / v85, v29.minimum, v29.maximum);
-                v29.onChanged(v86);
-            end;
-            return;
-        end;
-    end, {
-        v29.isScrubbable, 
         v29.onChanged
     });
-    local v88 = v2.useCallback(function() --[[ Line: 294 ]]
-        -- upvalues: v9 (ref), v29 (copy), v35 (copy)
-        if not v9.FoundationDontCreateUIDDForNumberInput and not v29.isScrubbable then
-            return;
-        else
-            if v35.current then
-                v35.current = nil;
-            end;
-            return;
+    local v88 = v2.useCallback(function() --[[ Line: 284 ]]
+        -- upvalues: v35 (copy)
+        if v35.current then
+            v35.current = nil;
         end;
-    end, {
-        v29.isScrubbable
-    });
+    end, {});
     local l_Transparency_0 = v30.Color.Shift.Shift_300.Transparency;
     local l_Transparency_1 = v30.Color.Shift.Shift_100.Transparency;
-    local v92 = v2.useMemo(function() --[[ Line: 307 ]]
+    local v92 = v2.useMemo(function() --[[ Line: 292 ]]
         -- upvalues: v64 (copy), l_Transparency_1 (copy), l_Transparency_0 (copy)
         if v64 == 0 then
             return NumberSequence.new(l_Transparency_1);
@@ -305,8 +285,8 @@ return v2.memo(v2.forwardRef(function(v27, v28) --[[ Line: 96 ]] --[[ Name: Numb
         isRequired = v29.isRequired, 
         hint = v29.hint, 
         textBoxRef = v29.textBoxRef, 
-        input = function(v93) --[[ Line: 338 ]] --[[ Name: input ]]
-            -- upvalues: l_controlsVariant_0 (copy), v8 (ref), v2 (ref), v12 (ref), v60 (copy), v38 (copy), v29 (copy), v31 (copy), v73 (copy), v70 (copy), v65 (copy), v9 (ref), v81 (copy), v87 (copy), v88 (copy), v92 (copy), v30 (copy), v76 (copy), v14 (ref), v10 (ref), v62 (copy), v77 (copy)
+        input = function(v93) --[[ Line: 323 ]] --[[ Name: input ]]
+            -- upvalues: l_controlsVariant_0 (copy), v8 (ref), v2 (ref), v12 (ref), v60 (copy), v38 (copy), v29 (copy), v31 (copy), v73 (copy), v70 (copy), v65 (copy), v81 (copy), v87 (copy), v88 (copy), v92 (copy), v30 (copy), v76 (copy), v14 (ref), v10 (ref), v62 (copy), v77 (copy)
             local v94 = l_controlsVariant_0 == v8.Split;
             local v95 = v2.createElement(v12, {
                 text = v60, 
@@ -318,9 +298,9 @@ return v2.memo(v2.forwardRef(function(v27, v28) --[[ Line: 96 ]] --[[ Name: Numb
                 onChanged = v73, 
                 onFocusLost = v70, 
                 onFocus = v65, 
-                onDragStarted = if v9.FoundationDontCreateUIDDForNumberInput then if v29.isScrubbable then v81 else nil else v81, 
-                onDrag = if v9.FoundationDontCreateUIDDForNumberInput then if v29.isScrubbable then v87 else nil else v87, 
-                onDragEnded = if v9.FoundationDontCreateUIDDForNumberInput then if v29.isScrubbable then v88 else nil else v88, 
+                onDragStarted = if v29.isScrubbable then v81 else nil, 
+                onDrag = if v29.isScrubbable then v87 else nil, 
+                onDragEnded = if v29.isScrubbable then v88 else nil, 
                 onReturnPressed = v29.onReturnPressed, 
                 ref = v93, 
                 backgroundGradient = if v29.isScrubbable and v92 then v2.createElement("UIGradient", {

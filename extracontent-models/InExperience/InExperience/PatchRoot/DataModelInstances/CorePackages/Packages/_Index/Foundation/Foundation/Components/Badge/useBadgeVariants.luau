@@ -14,7 +14,7 @@ variantsFactory = function(v8) --[[ Line: 27 ]] --[[ Name: variantsFactory ]]
         }, 
         text = {
             tag = {
-                ["auto-xy text-label-small text-align-x-left text-truncate-end"] = v7.FoundationTruncateBadgeText, 
+                ["auto-xy text-label-small text-align-x-left text-truncate-split"] = v7.FoundationTruncateBadgeText, 
                 ["auto-xy text-label-small text-align-x-left"] = not v7.FoundationTruncateBadgeText
             }
         }

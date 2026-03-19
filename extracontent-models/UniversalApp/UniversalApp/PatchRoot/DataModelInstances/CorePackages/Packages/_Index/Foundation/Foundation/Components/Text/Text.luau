@@ -20,7 +20,7 @@ local v15 = {
     isDisabled = false
 };
 return v3.memo(v3.forwardRef(function(v16, v17) --[[ Line: 52 ]] --[[ Name: Text ]]
-    -- upvalues: v11 (copy), v15 (copy), v10 (copy), v13 (copy), v3 (copy), v4 (copy), v14 (copy), v12 (copy), v9 (copy), v5 (copy), v6 (copy), v7 (copy), v2 (copy)
+    -- upvalues: v11 (copy), v15 (copy), v5 (copy), v10 (copy), v13 (copy), v3 (copy), v4 (copy), v14 (copy), v12 (copy), v9 (copy), v6 (copy), v7 (copy), v2 (copy)
     local v18 = v11(v16, v15);
     local v19 = true;
     if v18.onStateChanged == nil then
@@ -30,9 +30,12 @@ return v3.memo(v3.forwardRef(function(v16, v17) --[[ Line: 52 ]] --[[ Name: Text
         end;
     end;
     local v20 = v18.backgroundStyle ~= nil and "gui-object-defaults text-defaults text-size-defaults text-color-defaults x-default-transparency" or "gui-object-defaults text-defaults text-size-defaults text-color-defaults";
+    if v5.FoundationTextSizeDefaults and v18.fontStyle and v18.fontStyle.FontSize then
+        v20 = v20 .. " x-default-text-size";
+    end;
     local v21 = v10(v18.tag, v20);
     local v22 = v13(v21);
-    local v24 = v3.useMemo(function() --[[ Line: 62 ]]
+    local v24 = v3.useMemo(function() --[[ Line: 65 ]]
         -- upvalues: v18 (copy), v4 (ref)
         local v23 = if v18.fontStyle ~= nil then v18.fontStyle.Font else nil;
         if typeof(v23) == "table" and not v4.isBinding(v23) then
@@ -45,7 +48,7 @@ return v3.memo(v3.forwardRef(function(v16, v17) --[[ Line: 52 ]] --[[ Name: Text
     end, {
         v18.fontStyle
     });
-    local v27 = v3.useMemo(function() --[[ Line: 76 ]]
+    local v27 = v3.useMemo(function() --[[ Line: 79 ]]
         -- upvalues: v18 (copy), v24 (copy), v4 (ref), v14 (ref)
         if v18.fontStyle == nil or v18.fontStyle.LineHeight == nil or v18.fontStyle.FontSize == nil or v24 == nil then
             return 0;

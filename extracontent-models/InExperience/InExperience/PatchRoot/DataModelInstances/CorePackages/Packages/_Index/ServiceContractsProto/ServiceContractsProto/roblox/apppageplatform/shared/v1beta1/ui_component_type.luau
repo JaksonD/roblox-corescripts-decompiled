@@ -3,7 +3,7 @@ local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
 return {
     UiComponentType = ({
         UiComponentType = {
-            fromNumber = function(v2) --[[ Line: 59 ]] --[[ Name: fromNumber ]]
+            fromNumber = function(v2) --[[ Line: 64 ]] --[[ Name: fromNumber ]]
                 if v2 == 0 then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v2 == 1 then
@@ -76,19 +76,29 @@ return {
                     return "UI_COMPONENT_TYPE_CARD";
                 elseif v2 == 226 then
                     return "UI_COMPONENT_TYPE_TABS";
+                elseif v2 == 227 then
+                    return "UI_COMPONENT_TYPE_ACTION_BAR";
                 elseif v2 == 300 then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v2 == 400 then
                     return "UI_COMPONENT_TYPE_FRAGMENT";
                 elseif v2 == 500 then
                     return "UI_COMPONENT_TYPE_VERTICAL_FEED";
+                elseif v2 == 600 then
+                    return "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED";
+                elseif v2 == 601 then
+                    return "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP";
+                elseif v2 == 602 then
+                    return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL";
+                elseif v2 == 603 then
+                    return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU";
                 elseif v2 == 9999 then
                     return "UI_COMPONENT_TYPE_MOCK_COMPONENT";
                 else
                     return nil;
                 end;
             end, 
-            toNumber = function(v3) --[[ Line: 145 ]] --[[ Name: toNumber ]]
+            toNumber = function(v3) --[[ Line: 160 ]] --[[ Name: toNumber ]]
                 if v3 == "UI_COMPONENT_TYPE_INVALID" then
                     return 0;
                 elseif v3 == "UI_COMPONENT_TYPE_FEED" then
@@ -161,19 +171,29 @@ return {
                     return 225;
                 elseif v3 == "UI_COMPONENT_TYPE_TABS" then
                     return 226;
+                elseif v3 == "UI_COMPONENT_TYPE_ACTION_BAR" then
+                    return 227;
                 elseif v3 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return 300;
                 elseif v3 == "UI_COMPONENT_TYPE_FRAGMENT" then
                     return 400;
                 elseif v3 == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
                     return 500;
+                elseif v3 == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then
+                    return 600;
+                elseif v3 == "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP" then
+                    return 601;
+                elseif v3 == "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL" then
+                    return 602;
+                elseif v3 == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
+                    return 603;
                 elseif v3 == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
                     return 9999;
                 else
                     return v3;
                 end;
             end, 
-            fromName = function(v4) --[[ Line: 231 ]] --[[ Name: fromName ]]
+            fromName = function(v4) --[[ Line: 256 ]] --[[ Name: fromName ]]
                 if v4 == "UI_COMPONENT_TYPE_INVALID" then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v4 == "UI_COMPONENT_TYPE_FEED" then
@@ -246,12 +266,22 @@ return {
                     return "UI_COMPONENT_TYPE_CARD";
                 elseif v4 == "UI_COMPONENT_TYPE_TABS" then
                     return "UI_COMPONENT_TYPE_TABS";
+                elseif v4 == "UI_COMPONENT_TYPE_ACTION_BAR" then
+                    return "UI_COMPONENT_TYPE_ACTION_BAR";
                 elseif v4 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v4 == "UI_COMPONENT_TYPE_FRAGMENT" then
                     return "UI_COMPONENT_TYPE_FRAGMENT";
                 elseif v4 == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
                     return "UI_COMPONENT_TYPE_VERTICAL_FEED";
+                elseif v4 == "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED" then
+                    return "UI_COMPONENT_TYPE_CATALOG_VIRTUALIZED_FEED";
+                elseif v4 == "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP" then
+                    return "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP";
+                elseif v4 == "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL" then
+                    return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL";
+                elseif v4 == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
+                    return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU";
                 elseif v4 == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
                     return "UI_COMPONENT_TYPE_MOCK_COMPONENT";
                 else

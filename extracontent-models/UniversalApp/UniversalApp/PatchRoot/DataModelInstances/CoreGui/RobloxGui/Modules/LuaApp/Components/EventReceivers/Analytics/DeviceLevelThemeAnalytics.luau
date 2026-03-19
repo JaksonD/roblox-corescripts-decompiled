@@ -23,9 +23,10 @@ v8.ThemeName = {
     ThemeSystemLight = "SystemLight", 
     ThemeSystem = "System", 
     ThemeDark = "Dark", 
-    ThemeLight = "Light"
+    ThemeLight = "Light", 
+    ThemeError = "Error"
 };
-v8.onThemeSnapshot = function(v10, v11) --[[ Line: 39 ]] --[[ Name: onThemeSnapshot ]]
+v8.onThemeSnapshot = function(v10, v11) --[[ Line: 40 ]] --[[ Name: onThemeSnapshot ]]
     -- upvalues: l_AppStorageService_0 (copy), v0 (copy), v8 (copy), v7 (copy), v9 (copy), v5 (copy), v4 (copy)
     if not game:GetEngineFeature("SystemThemeSnapshotTimeKeyAvailble") then
         return;
@@ -54,7 +55,16 @@ v8.onThemeSnapshot = function(v10, v11) --[[ Line: 39 ]] --[[ Name: onThemeSnaps
                 };
                 local v15 = nil;
                 if v5() then
-                    v15 = v8.ThemeName[v11];
+                    v15 = v8.ThemeName.ThemeError;
+                    if v11 == v4.Light then
+                        v15 = v8.ThemeName.ThemeLight;
+                    elseif v11 == v4.Dark then
+                        v15 = v8.ThemeName.ThemeDark;
+                    elseif v11 == v4.SystemLight then
+                        v15 = v8.ThemeName.ThemeSystemLight;
+                    elseif v11 == v4.SystemDark then
+                        v15 = v8.ThemeName.ThemeSystemDark;
+                    end;
                 else
                     v15 = v8.ThemeName.ThemeSystem;
                     if v11 == v4.Light then
@@ -76,7 +86,7 @@ v8.onThemeSnapshot = function(v10, v11) --[[ Line: 39 ]] --[[ Name: onThemeSnaps
         end;
     end;
 end;
-v8.onThemeChanged = function(v17, v18) --[[ Line: 89 ]] --[[ Name: onThemeChanged ]]
+v8.onThemeChanged = function(v17, v18) --[[ Line: 99 ]] --[[ Name: onThemeChanged ]]
     -- upvalues: v8 (copy), v7 (copy), v9 (copy), v4 (copy)
     local v19 = {
         eventName = v8.EventName.ThemeChanged, 
@@ -105,7 +115,7 @@ v8.onThemeChanged = function(v17, v18) --[[ Line: 89 ]] --[[ Name: onThemeChange
         customFields = v21
     });
 end;
-v8.onReceivedSystemThemeUpdated = function(v22) --[[ Line: 112 ]] --[[ Name: onReceivedSystemThemeUpdated ]]
+v8.onReceivedSystemThemeUpdated = function(v22) --[[ Line: 122 ]] --[[ Name: onReceivedSystemThemeUpdated ]]
     -- upvalues: v8 (copy)
     local v23 = {
         eventName = v8.EventName.SystemThemeUpdated, 
@@ -121,7 +131,7 @@ v8.onReceivedSystemThemeUpdated = function(v22) --[[ Line: 112 ]] --[[ Name: onR
     };
     v22.telemetryService:LogCounter(v23);
 end;
-v8.onRequestSystemTheme = function(v24) --[[ Line: 122 ]] --[[ Name: onRequestSystemTheme ]]
+v8.onRequestSystemTheme = function(v24) --[[ Line: 132 ]] --[[ Name: onRequestSystemTheme ]]
     -- upvalues: v8 (copy)
     local v25 = {
         eventName = v8.EventName.SystemThemeRequest, 
@@ -137,7 +147,7 @@ v8.onRequestSystemTheme = function(v24) --[[ Line: 122 ]] --[[ Name: onRequestSy
     };
     v24.telemetryService:LogCounter(v25);
 end;
-v8.onGetSystemTheme = function(v26, v27) --[[ Line: 132 ]] --[[ Name: onGetSystemTheme ]]
+v8.onGetSystemTheme = function(v26, v27) --[[ Line: 142 ]] --[[ Name: onGetSystemTheme ]]
     -- upvalues: v4 (copy), v8 (copy)
     if v27 == v4.Error then
         local v28 = {
@@ -171,7 +181,7 @@ v8.onGetSystemTheme = function(v26, v27) --[[ Line: 132 ]] --[[ Name: onGetSyste
         return;
     end;
 end;
-v8.onSetNativeTheme = function(v30) --[[ Line: 152 ]] --[[ Name: onSetNativeTheme ]]
+v8.onSetNativeTheme = function(v30) --[[ Line: 162 ]] --[[ Name: onSetNativeTheme ]]
     -- upvalues: v8 (copy)
     local v31 = {
         eventName = v8.EventName.SystemThemeChangeRequest, 
@@ -187,7 +197,7 @@ v8.onSetNativeTheme = function(v30) --[[ Line: 152 ]] --[[ Name: onSetNativeThem
     };
     v30.telemetryService:LogCounter(v31);
 end;
-v8.new = function(v32) --[[ Line: 162 ]]
+v8.new = function(v32) --[[ Line: 172 ]]
     -- upvalues: v8 (copy)
     local v33 = {
         telemetryService = v32

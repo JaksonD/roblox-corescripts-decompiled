@@ -15,14 +15,7 @@ return v3.memo(function(v7) --[[ Line: 9 ]]
             IgnoreGuiInset = true, 
             ScreenInsets = Enum.ScreenInsets.None
         }, {
-            DrawerContent = v3.createElement(v5, {
-                menuWidth = v7.menuWidth, 
-                topOffset = v7.topOffset, 
-                backgroundColor = v7.backgroundColor, 
-                backgroundTransparency = v7.backgroundTransparency, 
-                children = v7.children, 
-                onDrawerClosedAnalytics = v7.onDrawerClosedAnalytics
-            })
+            DrawerContent = v3.createElement(v5, v7)
         })
     }, l_CoreGui_0);
 end);

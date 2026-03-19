@@ -1,17 +1,19 @@
 local l_Parent_0 = script:FindFirstAncestor("RobloxSubscriptionPurchaseApp").Parent;
 local v1 = require(l_Parent_0.React);
 local v2 = {
-    ["Feature.RobloxSubscription.Action.Subscribe"] = "Lorem ipsum dolor sit amet   ", 
+    ["Feature.RobloxSubscription.Action.Subscribe"] = "Lorem", 
     ["Feature.RobloxSubscription.Title.GetBlackbird"] = "Lorem ipsum dolor sit amet", 
-    ["Feature.RobloxSubscription.Label.BlackbirdDiscountFirst"] = "Lorem ipsum dolor sit amet", 
-    ["Feature.RobloxSubscription.Label.BlackbirdDiscountSecond"] = "Lorem ipsum dolor sit amet", 
+    ["Feature.RobloxSubscription.Label.BlackbirdDiscountFirst"] = "{discountPercent}% Lorem ipsum dolor sit amet", 
+    ["Feature.RobloxSubscription.Label.BlackbirdDiscountSecond"] = "{discountPercent}% Lorem ipsum dolor {periodIndex} {periodType} sit amet", 
     ["Feature.RobloxSubscription.Label.BlackbirdTr"] = "Lorem ipsum dolor sit amet", 
     ["Feature.RobloxSubscription.Label.BlackbirdFPS"] = "Lorem ipsum dolor sit amet", 
-    ["Feature.RobloxSubscription.Label.BlackbirdPriceTag"] = "Lorem ipsum dolor sit amet"
+    ["Feature.RobloxSubscription.Label.BlackbirdUpsellBanner"] = "Tempus {discountPercentage}% leo eu aenean", 
+    ["Feature.RobloxSubscription.Label.BlackbirdPriceTag"] = "{price}/{periodType}", 
+    ["Feature.RobloxSubscription.Label.FreeTrialText"] = "sit amet dolor"
 };
-return function(v3) --[[ Line: 24 ]] --[[ Name: usePlaceholderLocalization ]]
+return function(v3) --[[ Line: 26 ]] --[[ Name: usePlaceholderLocalization ]]
     -- upvalues: v1 (copy), v2 (copy)
-    return v1.useMemo(function() --[[ Line: 25 ]]
+    return v1.useMemo(function() --[[ Line: 27 ]]
         -- upvalues: v3 (copy), v2 (ref)
         local v4 = {};
         for v5, v6 in pairs(v3) do
@@ -20,7 +22,7 @@ return function(v3) --[[ Line: 24 ]] --[[ Name: usePlaceholderLocalization ]]
             if typeof(v6) == "table" then
                 for v9, v10 in pairs(v6) do
                     if typeof(v9) == "string" then
-                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 33 ]]
+                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 35 ]]
                             -- upvalues: v10 (copy)
                             return (tostring(v10));
                         end);

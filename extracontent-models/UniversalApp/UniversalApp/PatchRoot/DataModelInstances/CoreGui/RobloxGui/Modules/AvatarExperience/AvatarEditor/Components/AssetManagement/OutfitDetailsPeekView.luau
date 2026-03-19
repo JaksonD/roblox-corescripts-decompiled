@@ -41,84 +41,88 @@ local v39 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils);
 local v40 = require(l_CorePackages_0.Packages.ReactFocusNavigation);
 local v41 = require(l_CorePackages_0.Packages.InputHandlers);
 local l_FocusNavigationEventNameEnum_0 = v39.FocusNavigationEventNameEnum;
-local l_useTableWrappedCallbackRef_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.RoactGamepadMigration.useTableWrappedCallbackRef;
-local v44 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXFocusBehaviorRoot and game:DefineFastFlag("AXMigrateOutfitDetailsPeekViewToFocusNavigation", false);
+local v43 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local l_useTableWrappedCallbackRef_0 = v43.Utils.RoactGamepadMigration.useTableWrappedCallbackRef;
+local l_useAXAnimateScrollFrame_0 = v43.Components.AnimatedScrollingFrame.useAXAnimateScrollFrame;
+local v46 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXFocusBehaviorRoot and game:DefineFastFlag("AXMigrateOutfitDetailsPeekViewToFocusNavigation", false);
+local l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXFixGamepadNavigationOnOutfitManagement;
+local v48 = require(script.Parent.AssetManagementConstants);
 local l_withStyle_0 = v9.Style.withStyle;
 local l_Images_0 = v9.App.ImageSet.Images;
 local l_IconButton_0 = v9.App.Button.IconButton;
 local l_IconSize_0 = v9.App.ImageSet.Enum.IconSize;
-local v49 = l_Images_0["icons/navigation/close"];
-local v50 = UDim.new(1, 0);
-local v51 = l_GuiService_0:IsTenFootInterface();
+local v53 = l_Images_0["icons/navigation/close"];
+local v54 = UDim.new(1, 0);
+local v55 = l_GuiService_0:IsTenFootInterface();
 local l_Focusable_0 = v10.Focusable;
-local v53 = {
+local v57 = {
     [Enum.KeyCode.ButtonB] = l_FocusNavigationEventNameEnum_0.NavigateBack, 
     [Enum.KeyCode.Escape] = l_FocusNavigationEventNameEnum_0.NavigateBack
 };
-local function v59(v54, v55) --[[ Line: 96 ]] --[[ Name: useFocusNavigationBindings ]]
-    -- upvalues: v40 (copy), v53 (copy), v11 (copy), l_FocusNavigationEventNameEnum_0 (copy), v41 (copy)
-    local v56 = v40.useEventMap(v53, v54);
-    local v58 = v11.useMemo(function() --[[ Line: 98 ]]
-        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v41 (ref), v55 (copy)
+local function v63(v58, v59) --[[ Line: 100 ]] --[[ Name: useFocusNavigationBindings ]]
+    -- upvalues: v40 (copy), v57 (copy), v11 (copy), l_FocusNavigationEventNameEnum_0 (copy), v41 (copy)
+    local v60 = v40.useEventMap(v57, v58);
+    local v62 = v11.useMemo(function() --[[ Line: 102 ]]
+        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v41 (ref), v59 (copy)
         return {
             [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-                handler = v41.onRelease(function(v57) --[[ Line: 101 ]]
-                    -- upvalues: v55 (ref)
-                    v57.cancelled = true;
-                    v55();
+                handler = v41.onRelease(function(v61) --[[ Line: 105 ]]
+                    -- upvalues: v59 (ref)
+                    v61.cancelled = true;
+                    v59();
                 end)
             }
         };
     end, {
-        v55
+        v59
     });
-    return v40.useEventHandlerMap(v58, v56);
+    return v40.useEventHandlerMap(v62, v60);
 end;
-local _ = function(v60, v61) --[[ Line: 111 ]] --[[ Name: useOnScrollEffect ]]
+local _ = function(v64, v65) --[[ Line: 115 ]] --[[ Name: useOnScrollEffect ]]
     -- upvalues: v11 (copy), l_RunService_0 (copy), l_UserInputService_0 (copy)
-    v11.useEffect(function() --[[ Line: 115 ]]
-        -- upvalues: v61 (copy), l_RunService_0 (ref), v60 (copy), l_UserInputService_0 (ref)
-        local v62 = nil;
-        local v63 = nil;
-        if v61 then
-            local v64 = nil;
+    v11.useEffect(function() --[[ Line: 119 ]]
+        -- upvalues: v65 (copy), l_RunService_0 (ref), v64 (copy), l_UserInputService_0 (ref)
+        local v66 = nil;
+        local v67 = nil;
+        if v65 then
+            local v68 = nil;
             do
-                local l_v64_0 = v64;
-                v62 = l_RunService_0.Heartbeat:Connect(function(v66) --[[ Line: 121 ]]
-                    -- upvalues: l_v64_0 (ref), v60 (ref)
-                    if l_v64_0 and l_v64_0.KeyCode == Enum.KeyCode.Thumbstick2 then
-                        v60(l_v64_0, v66);
+                local l_v68_0 = v68;
+                v66 = l_RunService_0.Heartbeat:Connect(function(v70) --[[ Line: 125 ]]
+                    -- upvalues: l_v68_0 (ref), v64 (ref)
+                    if l_v68_0 and l_v68_0.KeyCode == Enum.KeyCode.Thumbstick2 then
+                        v64(l_v68_0, v70);
                     end;
                 end);
-                v63 = l_UserInputService_0.InputChanged:Connect(function(v67, _) --[[ Line: 126 ]]
-                    -- upvalues: l_v64_0 (ref)
-                    if v67.KeyCode == Enum.KeyCode.Thumbstick2 then
-                        if v67.UserInputState == Enum.UserInputState.Change then
-                            l_v64_0 = v67;
+                v67 = l_UserInputService_0.InputChanged:Connect(function(v71, _) --[[ Line: 130 ]]
+                    -- upvalues: l_v68_0 (ref)
+                    if v71.KeyCode == Enum.KeyCode.Thumbstick2 then
+                        if v71.UserInputState == Enum.UserInputState.Change then
+                            l_v68_0 = v71;
                             return;
-                        elseif v67.UserInputState == Enum.UserInputState.End then
-                            l_v64_0 = nil;
+                        elseif v71.UserInputState == Enum.UserInputState.End then
+                            l_v68_0 = nil;
                         end;
                     end;
                 end);
             end;
         end;
-        return function() --[[ Line: 137 ]]
-            -- upvalues: v62 (ref), v63 (ref)
-            if v62 then
-                v62:Disconnect();
+        return function() --[[ Line: 141 ]]
+            -- upvalues: v66 (ref), v67 (ref)
+            if v66 then
+                v66:Disconnect();
             end;
-            if v63 then
-                v63:Disconnect();
+            if v67 then
+                v67:Disconnect();
             end;
         end;
     end, {
-        v60, 
-        v61
+        v64, 
+        v65
     });
 end;
-local v70 = v6.PureComponent:extend("OutfitDetailsPeekView");
-v70.validateProps = v8.strictInterface({
+local v74 = v6.PureComponent:extend("OutfitDetailsPeekView");
+v74.validateProps = v8.strictInterface({
     outfitId = v8.string, 
     focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v8.optional(v8.table), 
     ZIndex = v8.optional(v8.integer), 
@@ -133,8 +137,8 @@ v70.validateProps = v8.strictInterface({
     navigation = v8.table, 
     avatarRoute = l_AvatarRoute_0.Interface, 
     overlayClosedCallback = v8.callback, 
-    peekViewContainerFocusNavigationRef = if v44 then v8.callback else nil, 
-    swipeScrollingFrameRef = if v44 then v8.table else nil, 
+    peekViewContainerFocusNavigationRef = if v46 then v8.callback else nil, 
+    swipeScrollingFrameRef = if v46 then v8.table else nil, 
     isPortrait = v8.boolean, 
     topBarHeight = v8.number, 
     itemDetailsExpanded = v8.boolean, 
@@ -144,237 +148,240 @@ v70.validateProps = v8.strictInterface({
     fetchOutfitDetails = v8.callback, 
     avatarEditorAnalytics = v8.table
 });
-v70.defaultProps = {
+v74.defaultProps = {
     showFullWithNoPeekView = false, 
     renderBottomBar = true
 };
-v70.init = function(v71) --[[ Line: 197 ]] --[[ Name: init ]]
-    -- upvalues: v6 (copy), v44 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_PeekViewState_0 (copy), v33 (copy), l_IsVRAppBuild_0 (copy)
-    v71.actionBarRef = v6.createRef();
-    v71.exitButtonRef = v6.createRef();
-    if not v44 then
-        v71.swipeScrollingFrameRef = v6.createRef();
+v74.init = function(v75) --[[ Line: 201 ]] --[[ Name: init ]]
+    -- upvalues: v6 (copy), v46 (copy), l_UserInputService_0 (copy), l_isGamepadInput_0 (copy), l_PeekViewState_0 (copy), v33 (copy), l_IsVRAppBuild_0 (copy)
+    v75.actionBarRef = v6.createRef();
+    v75.exitButtonRef = v6.createRef();
+    if not v46 then
+        v75.swipeScrollingFrameRef = v6.createRef();
     end;
-    v71.itemsGridRef = v6.createRef();
+    v75.itemsGridRef = v6.createRef();
     local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-    v71:setState({
+    v75:setState({
         isGamepad = l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0)
     });
-    v71.viewStateChanged = function(v73, _) --[[ Line: 213 ]]
-        -- upvalues: l_PeekViewState_0 (ref), v71 (copy), v33 (ref)
-        if v73 == l_PeekViewState_0.Closed then
-            if v71.props.onPeekViewClosed then
-                v71.props.onPeekViewClosed();
+    v75.viewStateChanged = function(v77, _) --[[ Line: 217 ]]
+        -- upvalues: l_PeekViewState_0 (ref), v75 (copy), v33 (ref)
+        if v77 == l_PeekViewState_0.Closed then
+            if v75.props.onPeekViewClosed then
+                v75.props.onPeekViewClosed();
             end;
-            v33.closeFiltersAndItemDetails(v71.props.navigation);
+            v33.closeFiltersAndItemDetails(v75.props.navigation);
         end;
-        if v73 == l_PeekViewState_0.Full or v73 == l_PeekViewState_0.Extended then
-            v71.props.setItemDetailsExpanded(true);
+        if v77 == l_PeekViewState_0.Full or v77 == l_PeekViewState_0.Extended then
+            v75.props.setItemDetailsExpanded(true);
             return;
         else
-            v71.props.setItemDetailsExpanded(false);
+            v75.props.setItemDetailsExpanded(false);
             return;
         end;
     end;
-    v71.lastInputTypeChangedCallback = function() --[[ Line: 229 ]]
-        -- upvalues: l_UserInputService_0 (ref), l_isGamepadInput_0 (ref), v71 (copy)
+    v75.lastInputTypeChangedCallback = function() --[[ Line: 233 ]]
+        -- upvalues: l_UserInputService_0 (ref), l_isGamepadInput_0 (ref), v75 (copy)
         local l_l_UserInputService_0_LastInputType_1 = l_UserInputService_0:GetLastInputType();
-        local v76 = l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_1);
-        if v76 ~= v71.state.isGamepad then
-            v71:setState({
-                isGamepad = v76
+        local v80 = l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_1);
+        if v80 ~= v75.state.isGamepad then
+            v75:setState({
+                isGamepad = v80
             });
         end;
     end;
-    v71.onExitButtonPressed = function() --[[ Line: 239 ]]
-        -- upvalues: v71 (copy), v33 (ref)
-        if v71.props.onPeekViewClosed then
-            v71.props.onPeekViewClosed();
+    v75.onExitButtonPressed = function() --[[ Line: 243 ]]
+        -- upvalues: v75 (copy), v33 (ref)
+        if v75.props.onPeekViewClosed then
+            v75.props.onPeekViewClosed();
         end;
-        v33.closeFiltersAndItemDetails(v71.props.navigation);
+        v33.closeFiltersAndItemDetails(v75.props.navigation);
     end;
-    local v77;
-    l_l_UserInputService_0_LastInputType_0, v77 = v6.createBinding(Vector2.new(0, 0));
-    v71.absolutePositionBinding = l_l_UserInputService_0_LastInputType_0;
-    v71.updateAbsolutePositionBinding = v77;
-    v71.containerPositionChanged = function(v78) --[[ Line: 248 ]]
-        -- upvalues: v71 (copy)
-        v71.updateAbsolutePositionBinding(v78.AbsolutePosition);
+    local v81;
+    l_l_UserInputService_0_LastInputType_0, v81 = v6.createBinding(Vector2.new(0, 0));
+    v75.absolutePositionBinding = l_l_UserInputService_0_LastInputType_0;
+    v75.updateAbsolutePositionBinding = v81;
+    v75.containerPositionChanged = function(v82) --[[ Line: 252 ]]
+        -- upvalues: v75 (copy)
+        v75.updateAbsolutePositionBinding(v82.AbsolutePosition);
     end;
-    v71.getExitButtonUDim2Pos = function() --[[ Line: 252 ]]
-        -- upvalues: v71 (copy)
-        if v71.props.isPortrait then
-            return UDim2.fromScale(15, v71.props.statusBarHeight);
+    v75.getExitButtonUDim2Pos = function() --[[ Line: 256 ]]
+        -- upvalues: v75 (copy)
+        if v75.props.isPortrait then
+            return UDim2.fromScale(15, v75.props.statusBarHeight);
         else
-            return UDim2.new(0, 15, 0, -44 - (v71.props.topBarHeight - 44) / 2);
+            return UDim2.new(0, 15, 0, -44 - (v75.props.topBarHeight - 44) / 2);
         end;
     end;
-    v71.getRef = function() --[[ Line: 266 ]]
-        -- upvalues: v71 (copy)
-        local l_key_0 = v71.props.navigation.state.key;
-        local v80 = v71:getOutfitDetailsPeekViewRefs();
-        if v80 and l_key_0 then
-            return v80[l_key_0];
+    v75.getRef = function() --[[ Line: 270 ]]
+        -- upvalues: v75 (copy)
+        local l_key_0 = v75.props.navigation.state.key;
+        local v84 = v75:getOutfitDetailsPeekViewRefs();
+        if v84 and l_key_0 then
+            return v84[l_key_0];
         else
             return nil;
         end;
     end;
-    v71.shouldRenderFullScreen = function() --[[ Line: 276 ]]
-        -- upvalues: v71 (copy), l_IsVRAppBuild_0 (ref)
-        return v71.props.showFullWithNoPeekView or l_IsVRAppBuild_0();
+    v75.shouldRenderFullScreen = function() --[[ Line: 280 ]]
+        -- upvalues: v75 (copy), l_IsVRAppBuild_0 (ref)
+        return v75.props.showFullWithNoPeekView or l_IsVRAppBuild_0();
     end;
 end;
-v70.getOutfitDetailsPeekViewRefs = function(v81) --[[ Line: 281 ]] --[[ Name: getOutfitDetailsPeekViewRefs ]]
+v74.getOutfitDetailsPeekViewRefs = function(v85) --[[ Line: 285 ]] --[[ Name: getOutfitDetailsPeekViewRefs ]]
     -- upvalues: v10 (copy)
-    if v81.props.outfitDetailsPeekViewRefs then
-        return v81.props.outfitDetailsPeekViewRefs;
+    if v85.props.outfitDetailsPeekViewRefs then
+        return v85.props.outfitDetailsPeekViewRefs;
     else
-        if not v81.outfitDetailsPeekViewRefs then
-            v81.outfitDetailsPeekViewRefs = v10.createRefCache();
+        if not v85.outfitDetailsPeekViewRefs then
+            v85.outfitDetailsPeekViewRefs = v10.createRefCache();
         end;
-        return v81.outfitDetailsPeekViewRefs;
+        return v85.outfitDetailsPeekViewRefs;
     end;
 end;
-v70.renderActionBar = function(v82, v83) --[[ Line: 292 ]] --[[ Name: renderActionBar ]]
+v74.renderActionBar = function(v86, v87) --[[ Line: 296 ]] --[[ Name: renderActionBar ]]
     -- upvalues: v6 (copy), v27 (copy)
     return v6.createElement(v27, {
         gradientFade = true, 
         multiSelect = false, 
         selectedOutfits = {
-            v82.props.outfitId
+            v86.props.outfitId
         }, 
         ZIndex = 2, 
-        bottomPadding = v83, 
-        deleteOutfit = v82.props.deleteOutfit, 
-        renameOutfit = v82.props.renameOutfit, 
-        NextSelectionUp = v82.props.isPortrait and v82.exitButtonRef or nil, 
-        [v6.Ref] = v82.actionBarRef
+        bottomPadding = v87, 
+        deleteOutfit = v86.props.deleteOutfit, 
+        renameOutfit = v86.props.renameOutfit, 
+        NextSelectionUp = v86.props.isPortrait and v86.exitButtonRef or nil, 
+        [v6.Ref] = v86.actionBarRef
     });
 end;
-v70.renderWithProviders = function(v84, v85) --[[ Line: 309 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_IsVRAppBuild_0 (copy), v26 (copy), v51 (copy), v16 (copy), v6 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v44 (copy), v10 (copy), v33 (copy), l_GamepadUtils_0 (copy), v50 (copy), v34 (copy), v35 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), l_IconButton_0 (copy), v49 (copy), l_IconSize_0 (copy), l_PeekView_0 (copy), v28 (copy)
-    local l_Theme_0 = v85.Theme;
-    local v87 = UDim2.fromOffset(0, v84.props.topBarHeight);
-    local v88 = UDim2.new(1, 0, 1, -v84.props.topBarHeight);
-    local v89 = not v84.props.isPortrait and not l_IsVRAppBuild_0();
-    if v89 then
-        v87 = UDim2.new(v26.LandscapeNavWidth, 0, 0, v84.props.topBarHeight);
-        v88 = UDim2.new(v26.LandscapeSceneWidth, 0, 1, -v84.props.topBarHeight);
+v74.renderWithProviders = function(v88, v89) --[[ Line: 313 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: l_IsVRAppBuild_0 (copy), v26 (copy), v48 (copy), v55 (copy), v16 (copy), v6 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), v46 (copy), v10 (copy), v33 (copy), l_GamepadUtils_0 (copy), v54 (copy), v34 (copy), v35 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), l_IconButton_0 (copy), v53 (copy), l_IconSize_0 (copy), l_PeekView_0 (copy), v28 (copy)
+    local l_Theme_0 = v89.Theme;
+    local v91 = UDim2.fromOffset(0, v88.props.topBarHeight);
+    local v92 = UDim2.new(1, 0, 1, -v88.props.topBarHeight);
+    local v93 = not v88.props.isPortrait and not l_IsVRAppBuild_0();
+    if v93 then
+        v91 = UDim2.new(v26.LandscapeNavWidth, 0, 0, v88.props.topBarHeight);
+        v92 = UDim2.new(v26.LandscapeSceneWidth, 0, 1, -v88.props.topBarHeight);
     end;
-    local v90 = 64;
-    if not v89 then
-        v90 = v90 + 24;
-    end;
-    local v91 = nil;
-    if v84.state.isGamepad and v51 then
-        v91 = v16.GAMEPAD_BOTTOM_BAR_SIZE;
-        v90 = v90 + v16.GAMEPAD_BOTTOM_BAR_SIZE;
-    end;
-    local l_exitButtonPosition_0 = v84.props.exitButtonPosition;
-    local v93 = nil;
-    if l_exitButtonPosition_0 then
-        v93 = v84.absolutePositionBinding:map(function(v94) --[[ Line: 334 ]]
-            -- upvalues: l_exitButtonPosition_0 (copy)
-            return UDim2.fromOffset(l_exitButtonPosition_0.X - v94.X, l_exitButtonPosition_0.Y - v94.Y);
-        end);
+    local l_ActionBarHeight_0 = v48.ActionBarHeight;
+    if not v93 then
+        l_ActionBarHeight_0 = l_ActionBarHeight_0 + 24;
     end;
     local v95 = nil;
-    if not l_exitButtonPosition_0 then
-        v95 = v84.getExitButtonUDim2Pos();
+    if v88.state.isGamepad and v55 then
+        v95 = v16.GAMEPAD_BOTTOM_BAR_SIZE;
+        l_ActionBarHeight_0 = l_ActionBarHeight_0 + v16.GAMEPAD_BOTTOM_BAR_SIZE;
     end;
-    local v96 = v84.props.itemDetailsExpanded and (v84.props.isPortrait or v84.shouldRenderFullScreen());
-    local v97 = v84.getRef();
+    local l_exitButtonPosition_0 = v88.props.exitButtonPosition;
+    local v97 = nil;
+    if l_exitButtonPosition_0 then
+        v97 = v88.absolutePositionBinding:map(function(v98) --[[ Line: 338 ]]
+            -- upvalues: l_exitButtonPosition_0 (copy)
+            return UDim2.fromOffset(l_exitButtonPosition_0.X - v98.X, l_exitButtonPosition_0.Y - v98.Y);
+        end);
+    end;
+    local v99 = nil;
+    if not l_exitButtonPosition_0 then
+        v99 = v88.getExitButtonUDim2Pos();
+    end;
+    local v100 = v88.props.itemDetailsExpanded and (v88.props.isPortrait or v88.shouldRenderFullScreen());
+    local v101 = v88.getRef();
     return v6.createElement(l_FFlagAXMigrateAXToGlobalAutofocus_0 and "Frame" or l_Focusable_0.Frame, {
-        ZIndex = v84.props.ZIndex, 
+        ZIndex = v88.props.ZIndex, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        Size = v88, 
-        Position = v87, 
-        NextSelectionLeft = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v84.props.NextSelectionLeft, 
-        [v6.Ref] = v97, 
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v84.props.focusController, 
-        defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else if v84.props.renderBottomBar then v84.actionBarRef else nil, 
+        Size = v92, 
+        Position = v91, 
+        SelectionGroup = l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 and true or nil, 
+        NextSelectionLeft = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v88.props.NextSelectionLeft, 
+        [v6.Ref] = v101, 
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v88.props.focusController, 
+        defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else if v88.props.renderBottomBar then v88.actionBarRef else nil, 
         restorePreviousChildFocus = not l_FFlagAXMigrateAXToGlobalAutofocus_0 or nil, 
-        inputBindings = if not not l_FFlagAXMigrateAXToGlobalAutofocus_0 or v44 then nil else {
-            Close = v10.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 370 ]]
-                -- upvalues: v33 (ref), v84 (copy)
-                v33.closeFiltersAndItemDetails(v84.props.navigation);
-                if v84.props.onPeekViewClosed then
-                    v84.props.onPeekViewClosed();
+        inputBindings = if not not l_FFlagAXMigrateAXToGlobalAutofocus_0 or v46 then nil else {
+            Close = v10.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 375 ]]
+                -- upvalues: v33 (ref), v88 (copy)
+                v33.closeFiltersAndItemDetails(v88.props.navigation);
+                if v88.props.onPeekViewClosed then
+                    v88.props.onPeekViewClosed();
                 end;
             end), 
-            ScrollPeekView = if v84.swipeScrollingFrameRef and v84.swipeScrollingFrameRef.current ~= nil then v10.Input.onStep(Enum.KeyCode.Thumbstick2, function(v98, v99) --[[ Line: 378 ]]
-                -- upvalues: v84 (copy), l_GamepadUtils_0 (ref), v50 (ref)
-                local l_Position_0 = v98.Position;
-                local l_current_0 = v84.swipeScrollingFrameRef.current;
-                local v102 = l_current_0.CanvasPosition.Y + v99 * -l_GamepadUtils_0.normalizeStickByDeadzone(l_Position_0).Y * 1000;
-                if v102 <= l_current_0.AbsoluteCanvasSize.Y * v50.Scale + v50.Offset then
-                    l_current_0.CanvasPosition = Vector2.new(0, v102);
+            ScrollPeekView = if v88.swipeScrollingFrameRef and v88.swipeScrollingFrameRef.current ~= nil then v10.Input.onStep(Enum.KeyCode.Thumbstick2, function(v102, v103) --[[ Line: 383 ]]
+                -- upvalues: v88 (copy), l_GamepadUtils_0 (ref), v54 (ref)
+                local l_Position_0 = v102.Position;
+                local l_current_0 = v88.swipeScrollingFrameRef.current;
+                local v106 = l_current_0.CanvasPosition.Y + v103 * -l_GamepadUtils_0.normalizeStickByDeadzone(l_Position_0).Y * 1000;
+                if v106 <= l_current_0.AbsoluteCanvasSize.Y * v54.Scale + v54.Offset then
+                    l_current_0.CanvasPosition = Vector2.new(0, v106);
                 end;
             end) else nil
         }, 
-        [v6.Change.AbsolutePosition] = v84.containerPositionChanged
+        [v6.Change.AbsolutePosition] = v88.containerPositionChanged
     }, {
         GamepadFocusHandlerForPage = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.createElement(v34, {
-            focusController = v84.props.focusController
+            focusController = v88.props.focusController
         }), 
         BoundInputsUpdater = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.createElement(v35), 
         LastInputTypeChangedConnection = v6.createElement(l_ExternalEventConnection_0, {
             event = l_UserInputService_0.LastInputTypeChanged, 
-            callback = v84.lastInputTypeChangedCallback
+            callback = v88.lastInputTypeChangedCallback
         }), 
-        Background = if v84.props.itemDetailsExpanded then v6.createElement("TextButton", {
-            BackgroundTransparency = v84.props.isPortrait and l_Theme_0.Overlay.Transparency or 1, 
+        Background = if v88.props.itemDetailsExpanded then v6.createElement("TextButton", {
+            BackgroundTransparency = v88.props.isPortrait and l_Theme_0.Overlay.Transparency or 1, 
             BackgroundColor3 = l_Theme_0.Overlay.Color, 
-            Size = UDim2.new(1, 0, 1, v84.props.topBarHeight), 
-            Position = UDim2.fromOffset(0, -v84.props.topBarHeight), 
+            Size = UDim2.new(1, 0, 1, v88.props.topBarHeight), 
+            Position = UDim2.fromOffset(0, -v88.props.topBarHeight), 
             ZIndex = 1, 
             Text = "", 
             AutoButtonColor = false
         }) else nil, 
-        ExitButton = v96 and v6.createElement(l_IconButton_0, {
-            position = if l_exitButtonPosition_0 then v93 else v95, 
+        ExitButton = v100 and v6.createElement(l_IconButton_0, {
+            position = if l_exitButtonPosition_0 then v97 else v99, 
             size = UDim2.fromOffset(44, 44), 
-            icon = v49, 
+            icon = v53, 
             iconSize = l_IconSize_0.Medium, 
             iconColor3 = l_Theme_0.SystemPrimaryDefault.Color, 
             iconTransparency = l_Theme_0.SystemPrimaryDefault.Transparency, 
-            onActivated = v84.onExitButtonPressed, 
-            buttonRef = v84.exitButtonRef, 
-            NextSelectionDown = if v84.props.renderBottomBar then v84.actionBarRef else v84.itemsGridRef
+            onActivated = v88.onExitButtonPressed, 
+            buttonRef = v88.exitButtonRef, 
+            NextSelectionDown = if v88.props.renderBottomBar then v88.actionBarRef else v88.itemsGridRef
         }), 
-        PeekViewContainer = if not v84.shouldRenderFullScreen() then v6.createElement("Frame", {
+        PeekViewContainer = if not v88.shouldRenderFullScreen() then v6.createElement("Frame", {
             BackgroundTransparency = 1, 
             Size = UDim2.fromScale(1, 1), 
             ClipsDescendants = true, 
             ZIndex = 3, 
-            [v6.Ref] = if v44 then v84.props.peekViewContainerFocusNavigationRef else nil
+            [v6.Ref] = if v46 then v88.props.peekViewContainerFocusNavigationRef else nil
         }, {
             PeekView = v6.createElement(l_PeekView_0, {
-                briefViewContentHeight = UDim.new(0, v90), 
+                briefViewContentHeight = UDim.new(0, l_ActionBarHeight_0), 
                 mountAnimation = true, 
                 mountAsFullView = true, 
                 canDragFullViewToBrief = true, 
                 showDraggerInClosedState = false, 
                 returnToFullView = true, 
                 thumbstickScrollEnabled = true, 
-                viewStateChanged = v84.viewStateChanged, 
-                bottomDockedContainerHeight = v90, 
-                bottomDockedContainerContent = if v84.props.renderBottomBar then v84:renderActionBar(v91) else nil, 
+                viewStateChanged = v88.viewStateChanged, 
+                bottomDockedContainerHeight = l_ActionBarHeight_0, 
+                bottomDockedContainerContent = if v88.props.renderBottomBar then v88:renderActionBar(v95) else nil, 
                 backgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
                 backgroundTransparency = l_Theme_0.BackgroundUIDefault.Transparency, 
                 peekHeaderClose = true, 
                 isScrollingEnabled = true, 
-                shouldCaptureFocus = not l_FFlagAXMigrateAXToGlobalAutofocus_0 and nil
+                shouldCaptureFocus = not l_FFlagAXMigrateAXToGlobalAutofocus_0 and nil, 
+                scrollingFrameRef = if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 then v88.props.swipeScrollingFrameRef else nil
             }, {
                 OutfitDetailsContainer = v6.createElement(v28, {
-                    outfitId = v84.props.outfitId, 
-                    itemsGridRef = v84.itemsGridRef, 
-                    NextSelectionUp = v84.exitButtonRef
+                    outfitId = v88.props.outfitId, 
+                    itemsGridRef = v88.itemsGridRef, 
+                    NextSelectionUp = if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 then nil else v88.exitButtonRef, 
+                    bottomPadding = if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 then v48.ActionBarHeight + (v95 or 0) else nil
                 })
             })
         }) else nil, 
-        ScrollingContent = if v84.shouldRenderFullScreen() then v6.createElement("ScrollingFrame", {
+        ScrollingContent = if v88.shouldRenderFullScreen() then v6.createElement("ScrollingFrame", {
             ScrollingDirection = Enum.ScrollingDirection.Y, 
             BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
             BackgroundTransparency = l_Theme_0.BackgroundDefault.Transparency, 
@@ -386,207 +393,210 @@ v70.renderWithProviders = function(v84, v85) --[[ Line: 309 ]] --[[ Name: render
             AutomaticCanvasSize = Enum.AutomaticSize.Y, 
             ElasticBehavior = Enum.ElasticBehavior.Never, 
             ZIndex = 3, 
-            [v6.Ref] = if v44 then v84.props.swipeScrollingFrameRef else v84.swipeScrollingFrameRef
+            [v6.Ref] = if v46 then v88.props.swipeScrollingFrameRef else v88.swipeScrollingFrameRef
         }, {
             OutfitDetailsContainer = v6.createElement(v28, {
-                outfitId = v84.props.outfitId, 
-                itemsGridRef = v84.itemsGridRef, 
-                NextSelectionUp = v84.exitButtonRef
+                outfitId = v88.props.outfitId, 
+                itemsGridRef = v88.itemsGridRef, 
+                NextSelectionUp = v88.exitButtonRef
             })
         }) else nil
     });
 end;
-v70.render = function(v103) --[[ Line: 502 ]] --[[ Name: render ]]
+v74.render = function(v107) --[[ Line: 515 ]] --[[ Name: render ]]
     -- upvalues: l_withStyle_0 (copy)
-    return l_withStyle_0(function(v104) --[[ Line: 503 ]]
-        -- upvalues: v103 (copy)
-        return v103:renderWithProviders(v104);
+    return l_withStyle_0(function(v108) --[[ Line: 516 ]]
+        -- upvalues: v107 (copy)
+        return v107:renderWithProviders(v108);
     end);
 end;
-local function _(v105) --[[ Line: 508 ]] --[[ Name: isOutfitInfoEmpty ]]
-    return not v105 or not v105.assets or #v105.assets == 0;
+local function _(v109) --[[ Line: 521 ]] --[[ Name: isOutfitInfoEmpty ]]
+    return not v109 or not v109.assets or #v109.assets == 0;
 end;
-v70.didMount = function(v107) --[[ Line: 512 ]] --[[ Name: didMount ]]
+v74.didMount = function(v111) --[[ Line: 525 ]] --[[ Name: didMount ]]
     -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
-    local v108 = v107.getRef();
-    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v107.state.isGamepad and v107.props.isPortrait then
-        v107.props.focusController.moveFocusTo(v108);
+    local v112 = v111.getRef();
+    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v111.state.isGamepad and v111.props.isPortrait then
+        v111.props.focusController.moveFocusTo(v112);
     end;
-    if v108:getValue() then
-        v107.containerPositionChanged(v108:getValue());
+    if v112:getValue() then
+        v111.containerPositionChanged(v112:getValue());
     end;
-    v107.props.setItemDetailsExpanded(true);
-    local l_outfitInfo_0 = v107.props.outfitInfo;
+    v111.props.setItemDetailsExpanded(true);
+    local l_outfitInfo_0 = v111.props.outfitInfo;
     if not l_outfitInfo_0 or not l_outfitInfo_0.assets or #l_outfitInfo_0.assets == 0 then
-        v107.props.fetchOutfitDetails(v107.props.outfitId);
+        v111.props.fetchOutfitDetails(v111.props.outfitId);
     end;
 end;
-v70.didUpdate = function(v110, v111, v112) --[[ Line: 531 ]] --[[ Name: didUpdate ]]
+v74.didUpdate = function(v114, v115, v116) --[[ Line: 544 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-        local v113 = v110.getRef();
-        if v110.state.isGamepad and not v112.isGamepad and v110.props.isPortrait then
-            v110.props.focusController.moveFocusTo(v113);
+        local v117 = v114.getRef();
+        if v114.state.isGamepad and not v116.isGamepad and v114.props.isPortrait then
+            v114.props.focusController.moveFocusTo(v117);
         end;
-        if v110.props.isPortrait and v111.isPortrait and v110.state.isGamepad then
-            v110.props.focusController.moveFocusTo(v113);
+        if v114.props.isPortrait and v115.isPortrait and v114.state.isGamepad then
+            v114.props.focusController.moveFocusTo(v117);
         end;
     end;
-    if v110.props.outfitId ~= v111.outfitId then
-        local l_outfitInfo_1 = v110.props.outfitInfo;
+    if v114.props.outfitId ~= v115.outfitId then
+        local l_outfitInfo_1 = v114.props.outfitInfo;
         if not l_outfitInfo_1 or not l_outfitInfo_1.assets or #l_outfitInfo_1.assets == 0 then
-            v110.props.fetchOutfitDetails(v110.props.outfitId);
+            v114.props.fetchOutfitDetails(v114.props.outfitId);
         end;
     end;
 end;
-v70.willUnmount = function(v115) --[[ Line: 552 ]] --[[ Name: willUnmount ]]
+v74.willUnmount = function(v119) --[[ Line: 565 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    if v115.props.avatarRoute.current.name ~= l_AvatarScreen_0.OutfitDetails or v115.props.avatarRoute.current.key == v115.props.navigation.state.key then
-        v115.props.setItemDetailsExpanded(false);
+    if v119.props.avatarRoute.current.name ~= l_AvatarScreen_0.OutfitDetails or v119.props.avatarRoute.current.key == v119.props.navigation.state.key then
+        v119.props.setItemDetailsExpanded(false);
     end;
 end;
-v70 = v7.connect(function(v116, v117) --[[ Line: 561 ]] --[[ Name: mapStateToProps ]]
+v74 = v7.connect(function(v120, v121) --[[ Line: 574 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: l_DeviceOrientationMode_0 (copy), v37 (copy)
-    local v118 = v116.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
+    local v122 = v120.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
     return {
-        outfitInfo = v116.AvatarExperience.AvatarEditor.OutfitInfos[v117.outfitId], 
-        isPortrait = v118, 
-        topBarHeight = v37.getTopBarHeightAvatarScene(v116), 
-        itemDetailsExpanded = v116.AvatarExperience.Common.ItemDetailsExpanded, 
-        statusBarHeight = v116.TopBar.statusBarHeight
+        outfitInfo = v120.AvatarExperience.AvatarEditor.OutfitInfos[v121.outfitId], 
+        isPortrait = v122, 
+        topBarHeight = v37.getTopBarHeightAvatarScene(v120), 
+        itemDetailsExpanded = v120.AvatarExperience.Common.ItemDetailsExpanded, 
+        statusBarHeight = v120.TopBar.statusBarHeight
     };
-end, function(v119) --[[ Line: 576 ]] --[[ Name: mapDispatchToProps ]]
+end, function(v123) --[[ Line: 589 ]] --[[ Name: mapDispatchToProps ]]
     -- upvalues: v36 (copy), v15 (copy)
     return {
-        setItemDetailsExpanded = function(v120) --[[ Line: 578 ]] --[[ Name: setItemDetailsExpanded ]]
-            -- upvalues: v119 (copy), v36 (ref)
-            v119(v36(v120));
+        setItemDetailsExpanded = function(v124) --[[ Line: 591 ]] --[[ Name: setItemDetailsExpanded ]]
+            -- upvalues: v123 (copy), v36 (ref)
+            v123(v36(v124));
         end, 
-        fetchOutfitDetails = function(v121) --[[ Line: 581 ]] --[[ Name: fetchOutfitDetails ]]
-            -- upvalues: v119 (copy), v15 (ref)
-            v119(v15(v121));
+        fetchOutfitDetails = function(v125) --[[ Line: 594 ]] --[[ Name: fetchOutfitDetails ]]
+            -- upvalues: v123 (copy), v15 (ref)
+            v123(v15(v125));
         end
     };
-end)(v70);
-if not v44 then
-    v70 = v32(v70);
+end)(v74);
+if not v46 then
+    v74 = v32(v74);
 end;
-v70 = l_RoactServices_0.connect({
+v74 = l_RoactServices_0.connect({
     avatarEditorAnalytics = v29
-})(v70);
-local function v127(v122) --[[ Line: 597 ]] --[[ Name: OutfitDetailsPageContainer ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v11 (copy), v10 (copy), v31 (copy), v30 (copy), v5 (copy), v6 (copy), v70 (ref)
-    local v123 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v11.useRef(v10.createFocusController()).current;
-    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v122.focusController then
-        v123 = v122.focusController;
+})(v74);
+local function v131(v126) --[[ Line: 610 ]] --[[ Name: OutfitDetailsPageContainer ]]
+    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v11 (copy), v10 (copy), v31 (copy), v30 (copy), v5 (copy), v6 (copy), v74 (ref)
+    local v127 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v11.useRef(v10.createFocusController()).current;
+    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v126.focusController then
+        v127 = v126.focusController;
     end;
-    local v124 = v31(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v123);
-    local v125 = v30({
-        overlayClosedCallback = v124
+    local v128 = v31(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v127);
+    local v129 = v30({
+        overlayClosedCallback = v128
     });
-    local v126 = v5.Dictionary.join(v122, {
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v123, 
-        overlayClosedCallback = v124
+    local v130 = v5.Dictionary.join(v126, {
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v127, 
+        overlayClosedCallback = v128
     });
     return v6.createElement("Frame", {
-        [v6.Ref] = v125, 
+        [v6.Ref] = v129, 
         BackgroundTransparency = 1, 
         Size = UDim2.fromScale(1, 1)
     }, {
-        OutfitDetailsPeekView = v11.createElement(v70, v126)
+        OutfitDetailsPeekView = v11.createElement(v74, v130)
     });
 end;
-local function v151(v128) --[[ Line: 624 ]] --[[ Name: OutfitDetailsPageContainerNew ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v11 (copy), v10 (copy), v31 (copy), v30 (copy), v33 (copy), l_GamepadUtils_0 (copy), v50 (copy), l_IsVRAppBuild_0 (copy), l_RunService_0 (copy), l_UserInputService_0 (copy), v59 (copy), l_useTableWrappedCallbackRef_0 (copy), v5 (copy), v6 (copy), v70 (ref)
-    local v129 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v11.useRef(v10.createFocusController()).current;
-    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v128.focusController then
-        v129 = v128.focusController;
+local function v155(v132) --[[ Line: 637 ]] --[[ Name: OutfitDetailsPageContainerNew ]]
+    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v11 (copy), v10 (copy), v31 (copy), v30 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), l_useAXAnimateScrollFrame_0 (copy), v33 (copy), l_GamepadUtils_0 (copy), v54 (copy), l_IsVRAppBuild_0 (copy), l_RunService_0 (copy), l_UserInputService_0 (copy), v63 (copy), l_useTableWrappedCallbackRef_0 (copy), v5 (copy), v6 (copy), v74 (ref)
+    local v133 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v11.useRef(v10.createFocusController()).current;
+    if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v132.focusController then
+        v133 = v132.focusController;
     end;
-    local v130 = v31(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v129);
-    local v131 = v30({
-        overlayClosedCallback = v130
+    local v134 = v31(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v133);
+    local v135 = v30({
+        overlayClosedCallback = v134
     });
-    local v132 = v11.useRef(nil);
-    local v133 = v11.useCallback(function() --[[ Line: 640 ]]
-        -- upvalues: v33 (ref), v128 (copy)
-        v33.closeFiltersAndItemDetails(v128.navigation);
-        if v128.onPeekViewClosed then
-            v128.onPeekViewClosed();
+    local v136 = v11.useRef(nil);
+    if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 then
+        l_useAXAnimateScrollFrame_0(v136);
+    end;
+    local v137 = v11.useCallback(function() --[[ Line: 655 ]]
+        -- upvalues: v33 (ref), v132 (copy)
+        v33.closeFiltersAndItemDetails(v132.navigation);
+        if v132.onPeekViewClosed then
+            v132.onPeekViewClosed();
         end;
     end, {
-        v128.navigation, 
-        v128.onPeekViewClosed
+        v132.navigation, 
+        v132.onPeekViewClosed
     });
-    local v138 = v11.useCallback(function(v134, v135) --[[ Line: 647 ]]
-        -- upvalues: v132 (copy), l_GamepadUtils_0 (ref), v50 (ref)
-        local v136 = Vector2.new(v134.Position.X, v134.Position.Y);
-        if v132.current then
-            local v137 = v132.current.CanvasPosition.Y + v135 * -l_GamepadUtils_0.normalizeStickByDeadzone(v136).Y * 1000;
-            if v137 <= v132.current.AbsoluteCanvasSize.Y * v50.Scale + v50.Offset then
-                v132.current.CanvasPosition = Vector2.new(0, v137);
+    local v142 = v11.useCallback(function(v138, v139) --[[ Line: 662 ]]
+        -- upvalues: v136 (copy), l_GamepadUtils_0 (ref), v54 (ref)
+        local v140 = Vector2.new(v138.Position.X, v138.Position.Y);
+        if v136.current then
+            local v141 = v136.current.CanvasPosition.Y + v139 * -l_GamepadUtils_0.normalizeStickByDeadzone(v140).Y * 1000;
+            if v141 <= v136.current.AbsoluteCanvasSize.Y * v54.Scale + v54.Offset then
+                v136.current.CanvasPosition = Vector2.new(0, v141);
             end;
         end;
     end, {});
-    local v139 = v128.showFullWithNoPeekView or l_IsVRAppBuild_0();
-    v11.useEffect(function() --[[ Line: 115 ]]
-        -- upvalues: v139 (copy), l_RunService_0 (ref), v138 (copy), l_UserInputService_0 (ref)
-        local v140 = nil;
-        local v141 = nil;
-        if v139 then
-            local v142 = nil;
+    local v143 = v132.showFullWithNoPeekView or l_IsVRAppBuild_0();
+    v11.useEffect(function() --[[ Line: 119 ]]
+        -- upvalues: v143 (copy), l_RunService_0 (ref), v142 (copy), l_UserInputService_0 (ref)
+        local v144 = nil;
+        local v145 = nil;
+        if v143 then
+            local v146 = nil;
             do
-                local l_v142_0 = v142;
-                v140 = l_RunService_0.Heartbeat:Connect(function(v144) --[[ Line: 121 ]]
-                    -- upvalues: l_v142_0 (ref), v138 (ref)
-                    if l_v142_0 and l_v142_0.KeyCode == Enum.KeyCode.Thumbstick2 then
-                        v138(l_v142_0, v144);
+                local l_v146_0 = v146;
+                v144 = l_RunService_0.Heartbeat:Connect(function(v148) --[[ Line: 125 ]]
+                    -- upvalues: l_v146_0 (ref), v142 (ref)
+                    if l_v146_0 and l_v146_0.KeyCode == Enum.KeyCode.Thumbstick2 then
+                        v142(l_v146_0, v148);
                     end;
                 end);
-                v141 = l_UserInputService_0.InputChanged:Connect(function(v145, _) --[[ Line: 126 ]]
-                    -- upvalues: l_v142_0 (ref)
-                    if v145.KeyCode == Enum.KeyCode.Thumbstick2 then
-                        if v145.UserInputState == Enum.UserInputState.Change then
-                            l_v142_0 = v145;
+                v145 = l_UserInputService_0.InputChanged:Connect(function(v149, _) --[[ Line: 130 ]]
+                    -- upvalues: l_v146_0 (ref)
+                    if v149.KeyCode == Enum.KeyCode.Thumbstick2 then
+                        if v149.UserInputState == Enum.UserInputState.Change then
+                            l_v146_0 = v149;
                             return;
-                        elseif v145.UserInputState == Enum.UserInputState.End then
-                            l_v142_0 = nil;
+                        elseif v149.UserInputState == Enum.UserInputState.End then
+                            l_v146_0 = nil;
                         end;
                     end;
                 end);
             end;
         end;
-        return function() --[[ Line: 137 ]]
-            -- upvalues: v140 (ref), v141 (ref)
-            if v140 then
-                v140:Disconnect();
+        return function() --[[ Line: 141 ]]
+            -- upvalues: v144 (ref), v145 (ref)
+            if v144 then
+                v144:Disconnect();
             end;
-            if v141 then
-                v141:Disconnect();
+            if v145 then
+                v145:Disconnect();
             end;
         end;
     end, {
-        v138, 
-        v139
+        v142, 
+        v143
     });
-    local v147 = v59(v132, v133);
-    local v148 = l_useTableWrappedCallbackRef_0(v147);
-    local v149 = v59(nil, v133);
-    local v150 = v5.Dictionary.join(v128, {
-        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v129, 
-        overlayClosedCallback = v130, 
-        peekViewContainerFocusNavigationRef = v149, 
-        swipeScrollingFrameRef = v148
+    local v151 = v63(v136, v137);
+    local v152 = l_useTableWrappedCallbackRef_0(v151);
+    local v153 = v63(nil, v137);
+    local v154 = v5.Dictionary.join(v132, {
+        focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v133, 
+        overlayClosedCallback = v134, 
+        peekViewContainerFocusNavigationRef = v153, 
+        swipeScrollingFrameRef = v152
     });
     return v6.createElement("Frame", {
-        [v6.Ref] = v131, 
+        [v6.Ref] = v135, 
         BackgroundTransparency = 1, 
         Size = UDim2.fromScale(1, 1)
     }, {
-        OutfitDetailsPeekView = v11.createElement(v70, v150)
+        OutfitDetailsPeekView = v11.createElement(v74, v154)
     });
 end;
-if v44 then
-    return v32(v151);
+if v46 then
+    return v32(v155);
 else
-    return v127;
+    return v131;
 end;

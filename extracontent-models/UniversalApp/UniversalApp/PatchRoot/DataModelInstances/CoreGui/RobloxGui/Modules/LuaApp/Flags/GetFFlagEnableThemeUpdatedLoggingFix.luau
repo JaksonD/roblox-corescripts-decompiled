@@ -1,4 +1,4 @@
-game:DefineFastFlag("EnableThemeUpdatedLoggingFix", false);
+game:DefineFastFlag("EnableThemeUpdatedLoggingFix1", false);
 return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("EnableThemeUpdatedLoggingFix");
+    return game:GetFastFlag("EnableThemeUpdatedLoggingFix1");
 end;

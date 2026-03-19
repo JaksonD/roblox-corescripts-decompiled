@@ -9,9 +9,8 @@ local v2 = {
     BUBBLE_MIDDLE = "chat_bubble/chat-bubble-middle", 
     BUBBLE_BOTTOM = "chat_bubble/chat-bubble-bottom"
 };
-local v3 = Rect.new(21, 21, 21, 21);
-local v4 = Rect.new(20, 20, 21, 21);
-local v5 = {
+local v3 = Rect.new(20, 20, 21, 21);
+local v4 = {
     SINGLE = "single", 
     TOP = "top", 
     MIDDLE = "middle", 
@@ -30,7 +29,6 @@ return {
     GROUPED_BUBBLE_SINGLE = "chat_bubble/chat-bubble-single", 
     GROUPED_OUTGOING_BUBBLES = v1, 
     GROUPED_RECEIVED_BUBBLES = v2, 
-    GROUPED_BUBBLE_SLICE_CENTER = v4, 
-    GROUPED_BUBBLE_SLICE_CENTER_DEPRECATED = v3, 
-    BUBBLE_VARIANTS = v5
+    GROUPED_BUBBLE_SLICE_CENTER = v3, 
+    BUBBLE_VARIANTS = v4
 };

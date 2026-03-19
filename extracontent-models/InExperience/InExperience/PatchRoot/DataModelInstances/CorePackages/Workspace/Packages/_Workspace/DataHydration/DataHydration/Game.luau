@@ -20,6 +20,7 @@ local _ = require(script.Votes.VotesStoreTypes);
 local v19 = require(script.Votes.VotesUtils);
 local _ = require(script.Favorites.FavoritesStoreTypes);
 local _ = require(script.AgeRecommendations.AgeRecommendationStoreTypes);
+local v22 = require(script.AgeRecommendations.AgeRecommendationUtils);
 local _ = require(script.GameInfo.GameInfoStoreTypes);
 local _ = require(script.Playability.PlayabilityStoreTypes);
 local _ = require(script.Votes.UserVoteFeedbackMetadataStoreTypes);
@@ -44,5 +45,6 @@ return {
     getVotesStore = v11, 
     getUserVoteFeedbackMetadataStore = if l_FFlagLuaAppDataHydrationUserVoteFeedbackMetadataStore_0 then v12 else nil, 
     VotesUtils = v19, 
+    AgeRecommendationUtils = v22, 
     getConnectionsPlayedStore = if l_FFlagLuaAppDataHydrationConnectionsPlayedStore_0 then v15 else nil
 };

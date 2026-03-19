@@ -5,9 +5,9 @@ local v3 = require(l_CorePackages_0.Packages.RoactGamepad);
 local v4 = require(l_CorePackages_0.Packages.RoactRodux);
 local v5 = require(l_CorePackages_0.Packages.t);
 local v6 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_VerticalScrollViewWithMargin_0 = v6.App.Container.VerticalScrollViewWithMargin;
 local l_withStyle_0 = v6.Style.withStyle;
-local l_ShimmerPanel_0 = v6.App.Loading.ShimmerPanel;
 local l_EmptyState_0 = v6.App.Indicator.EmptyState;
 local v11 = require(script.ListSection);
 local l_Parent_0 = script.Parent.Parent;
@@ -23,7 +23,7 @@ v17.validateProps = v5.strictInterface({
     itemListScrollableUpdated = v5.optional(v5.callback), 
     addAnalyticsInfo = v5.callback
 });
-v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
+v17.init = function(v18) --[[ Line: 42 ]] --[[ Name: init ]]
     -- upvalues: v2 (copy), v13 (copy)
     v18:setState({
         canvasSizeY = 0, 
@@ -43,7 +43,7 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
     v18.removedSectionRef = v2.createRef();
     v18.noChangedAssetsRef = v2.createRef();
     v18.lastWasScrollable = nil;
-    v18.checkIsScrollable = function() --[[ Line: 59 ]]
+    v18.checkIsScrollable = function() --[[ Line: 61 ]]
         -- upvalues: v18 (copy)
         local v21 = v18.frameRef:getValue();
         if not v21 then
@@ -59,13 +59,13 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v18.onContentSizeChanged = function(v23) --[[ Line: 77 ]]
+    v18.onContentSizeChanged = function(v23) --[[ Line: 79 ]]
         -- upvalues: v18 (copy)
         v18:setState({
             canvasSizeY = v23.AbsoluteContentSize.Y
         });
     end;
-    v18.firstEntryPositionChanged = function(v24) --[[ Line: 83 ]]
+    v18.firstEntryPositionChanged = function(v24) --[[ Line: 85 ]]
         -- upvalues: v18 (copy)
         local v25 = v18.frameRef:getValue();
         if not v25 then
@@ -78,7 +78,7 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v18.lastEntryPositionChanged = function(v26) --[[ Line: 96 ]]
+    v18.lastEntryPositionChanged = function(v26) --[[ Line: 98 ]]
         -- upvalues: v18 (copy)
         local v27 = v18.frameRef:getValue();
         if not v27 then
@@ -91,11 +91,11 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v18.loadAssetNames = function() --[[ Line: 111 ]]
+    v18.loadAssetNames = function() --[[ Line: 113 ]]
         -- upvalues: v13 (ref), v18 (copy)
-        coroutine.wrap(function() --[[ Line: 112 ]]
+        coroutine.wrap(function() --[[ Line: 114 ]]
             -- upvalues: v13 (ref), v18 (ref)
-            v13(v18.props.humanoidDescription):andThen(function(v28) --[[ Line: 113 ]]
+            v13(v18.props.humanoidDescription):andThen(function(v28) --[[ Line: 115 ]]
                 -- upvalues: v18 (ref)
                 if v18.mounted then
                     v18.props.addAnalyticsInfo(v28.addedAssetIds, v28.removedAssetIds);
@@ -105,7 +105,7 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
                         removedAssetNames = v28.removedNames
                     });
                 end;
-            end, function(_) --[[ Line: 123 ]]
+            end, function(_) --[[ Line: 125 ]]
                 -- upvalues: v18 (ref)
                 if v18.mounted then
                     v18:setState({
@@ -115,7 +115,7 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
             end);
         end)();
     end;
-    v18.onRetryLoading = function() --[[ Line: 133 ]]
+    v18.onRetryLoading = function() --[[ Line: 135 ]]
         -- upvalues: v18 (copy)
         v18:setState({
             loading = true
@@ -129,7 +129,7 @@ v17.init = function(v18) --[[ Line: 40 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v17.createEntriesList = function(v30) --[[ Line: 146 ]] --[[ Name: createEntriesList ]]
+v17.createEntriesList = function(v30) --[[ Line: 148 ]] --[[ Name: createEntriesList ]]
     -- upvalues: v16 (copy), v2 (copy), v3 (copy), v11 (copy)
     local v31 = {};
     if #v30.state.addedAssetNames > 0 then
@@ -180,9 +180,9 @@ v17.createEntriesList = function(v30) --[[ Line: 146 ]] --[[ Name: createEntries
     end;
     return v31;
 end;
-v17.renderItemsList = function(v36) --[[ Line: 215 ]] --[[ Name: renderItemsList ]]
+v17.renderItemsList = function(v36) --[[ Line: 217 ]] --[[ Name: renderItemsList ]]
     -- upvalues: l_withStyle_0 (copy), v2 (copy), v3 (copy), l_VerticalScrollViewWithMargin_0 (copy)
-    return l_withStyle_0(function(v37) --[[ Line: 216 ]]
+    return l_withStyle_0(function(v37) --[[ Line: 218 ]]
         -- upvalues: v36 (copy), v2 (ref), v3 (ref), l_VerticalScrollViewWithMargin_0 (ref)
         local l_Theme_0 = v37.Theme;
         local v39 = v36:createEntriesList();
@@ -247,15 +247,15 @@ v17.renderItemsList = function(v36) --[[ Line: 215 ]] --[[ Name: renderItemsList
         });
     end);
 end;
-v17.renderLoading = function(_) --[[ Line: 292 ]] --[[ Name: renderLoading ]]
-    -- upvalues: v2 (copy), l_ShimmerPanel_0 (copy)
-    return v2.createElement(l_ShimmerPanel_0, {
+v17.renderLoading = function(_) --[[ Line: 294 ]] --[[ Name: renderLoading ]]
+    -- upvalues: v2 (copy), l_Skeleton_0 (copy)
+    return v2.createElement(l_Skeleton_0, {
         Size = UDim2.fromScale(1, 1), 
         Position = UDim2.fromScale(0.5, 0.5), 
         AnchorPoint = Vector2.new(0.5, 0.5)
     });
 end;
-v17.renderFailed = function(v41) --[[ Line: 300 ]] --[[ Name: renderFailed ]]
+v17.renderFailed = function(v41) --[[ Line: 302 ]] --[[ Name: renderFailed ]]
     -- upvalues: v2 (copy), l_EmptyState_0 (copy), v16 (copy)
     return v2.createElement(l_EmptyState_0, {
         text = v16:FormatByKey("CoreScripts.AvatarEditorPrompts.ItemsListLoadingFailed"), 
@@ -263,7 +263,7 @@ v17.renderFailed = function(v41) --[[ Line: 300 ]] --[[ Name: renderFailed ]]
         onActivated = v41.onRetryLoading
     });
 end;
-v17.render = function(v42) --[[ Line: 308 ]] --[[ Name: render ]]
+v17.render = function(v42) --[[ Line: 310 ]] --[[ Name: render ]]
     if v42.state.loading and not v42.props.loadingFailed then
         return v42:renderLoading();
     elseif v42.state.addedAssetNames then
@@ -272,14 +272,14 @@ v17.render = function(v42) --[[ Line: 308 ]] --[[ Name: render ]]
         return v42:renderFailed();
     end;
 end;
-v17.didMount = function(v43) --[[ Line: 320 ]] --[[ Name: didMount ]]
+v17.didMount = function(v43) --[[ Line: 322 ]] --[[ Name: didMount ]]
     v43.mounted = true;
     if v43.props.humanoidDescription then
         v43.loadAssetNames();
     end;
     v43.checkIsScrollable();
 end;
-v17.didUpdate = function(v44, v45, _) --[[ Line: 329 ]] --[[ Name: didUpdate ]]
+v17.didUpdate = function(v44, v45, _) --[[ Line: 331 ]] --[[ Name: didUpdate ]]
     -- upvalues: v2 (copy)
     v44.checkIsScrollable();
     if v45.humanoidDescription ~= v44.props.humanoidDescription then
@@ -291,13 +291,13 @@ v17.didUpdate = function(v44, v45, _) --[[ Line: 329 ]] --[[ Name: didUpdate ]]
         v44.loadAssetNames();
     end;
 end;
-v17.willUnmount = function(v47) --[[ Line: 343 ]] --[[ Name: willUnmount ]]
+v17.willUnmount = function(v47) --[[ Line: 345 ]] --[[ Name: willUnmount ]]
     v47.mounted = false;
 end;
-return v4.connect(nil, function(v48) --[[ Line: 347 ]] --[[ Name: mapDispatchToProps ]]
+return v4.connect(nil, function(v48) --[[ Line: 349 ]] --[[ Name: mapDispatchToProps ]]
     -- upvalues: v14 (copy)
     return {
-        addAnalyticsInfo = function(v49) --[[ Line: 349 ]] --[[ Name: addAnalyticsInfo ]]
+        addAnalyticsInfo = function(v49) --[[ Line: 351 ]] --[[ Name: addAnalyticsInfo ]]
             -- upvalues: v48 (copy), v14 (ref)
             return v48(v14(v49));
         end

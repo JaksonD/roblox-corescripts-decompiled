@@ -3,7 +3,7 @@ return {
     AcceptConnection = "CommonUI.Features.Label.AcceptConnection", 
     Description = "Feature.Profile.Description.QrCodeScanning", 
     ScanQRText = "Feature.Profile.Description.ScanQR", 
-    QrCodeDescription = "Feature.Profile.Description.QrCodeDescription", 
+    TrustedConnectionDescription = "Feature.Profile.Description.QrCodeDescription", 
     FailedToLoad = "Feature.Profile.Message.QRLoadFailed", 
     FriendAdded = "Feature.Profile.Message.FriendAdded", 
     ConnectionAdded = "Feature.Friends.Action.ConnectionAdded", 

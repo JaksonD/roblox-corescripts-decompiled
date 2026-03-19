@@ -49,7 +49,7 @@ local v18 = {
 local v19 = {
     [v12.DynamicHead] = v16.DYNAMIC_HEAD
 };
-return (v2.forwardRef(function(v20, v21) --[[ Line: 112 ]]
+return (v2.forwardRef(function(v20, v21) --[[ Line: 113 ]]
     -- upvalues: l_useTokens_0 (copy), v19 (copy), v18 (copy), v17 (copy), v2 (copy), l_ItemCardHeader_0 (copy), l_ItemCardHeaderCornersOverlay_0 (copy), l_ItemCardBadge_0 (copy), l_ItemCardStatus_0 (copy), l_ItemCardIcon_0 (copy), v10 (copy), l_FFlagAXDurablesForMIS_0 (copy)
     local v22 = l_useTokens_0();
     local v23 = if v20.itemInfo then v19[v20.itemInfo] else nil;
@@ -120,6 +120,7 @@ return (v2.forwardRef(function(v20, v21) --[[ Line: 112 ]]
             onTimedOptionPriceChanged = if l_FFlagAXDurablesForMIS_0 then v20.onTimedOptionPriceChanged else nil, 
             selectedTimedOptionPrice = if l_FFlagAXDurablesForMIS_0 then v20.selectedTimedOptionPrice else nil, 
             setSelectedTimedOptionPrice = if l_FFlagAXDurablesForMIS_0 then v20.setSelectedTimedOptionPrice else nil, 
+            selectedTimedOptionIndexInReducer = if l_FFlagAXDurablesForMIS_0 then v20.selectedTimedOptionIndexInReducer else nil, 
             LayoutOrder = 2, 
             Size = v20.footerSize, 
             AutomaticSize = if v20.footerAutomaticSize then v20.footerAutomaticSize else Enum.AutomaticSize.Y

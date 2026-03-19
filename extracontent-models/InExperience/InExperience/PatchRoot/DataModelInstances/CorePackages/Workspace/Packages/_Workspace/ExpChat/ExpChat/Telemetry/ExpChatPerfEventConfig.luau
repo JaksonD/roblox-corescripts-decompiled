@@ -1,112 +1,137 @@
-local v0 = nil;
-local v1 = {};
-local v2 = {};
-local v3 = {
+local l_script_FirstAncestor_0 = script:FindFirstAncestor("ExpChat");
+local v1 = require(l_script_FirstAncestor_0.Flags.FFlagExpChatScrollPerfTracking);
+local v2 = nil;
+local v3 = {};
+local v4 = {};
+local v5 = {
     TTI = "TTI", 
     Interval = "Interval"
 };
-local v4 = {
+local v6 = {
     ChatWindowMountTTI = "ChatWindowMountTTI", 
     ChatWindowTabSwitchTTI = "ChatWindowTabSwitchTTI", 
     MessageSendToWindowRenderInterval = "MessageSendToWindowRenderInterval", 
-    MessageReceiveToWindowRenderInterval = "MessageReceiveToWindowRenderInterval"
+    MessageReceiveToWindowRenderInterval = "MessageReceiveToWindowRenderInterval", 
+    ChatWindowScrollInterval = "ChatWindowScrollInterval"
 };
-local v21 = {
-    [v4.ChatWindowMountTTI] = {
-        type = v3.TTI, 
+local v23 = {
+    [v6.ChatWindowMountTTI] = {
+        type = v5.TTI, 
         baseName = "ChatWindowMountTTI", 
-        canFinish = function(_) --[[ Line: 54 ]] --[[ Name: canFinish ]]
+        canFinish = function(_) --[[ Line: 57 ]] --[[ Name: canFinish ]]
             return true;
         end, 
-        onStart = function(_) --[[ Line: 57 ]] --[[ Name: onStart ]]
+        onStart = function(_) --[[ Line: 60 ]] --[[ Name: onStart ]]
 
         end
     }, 
-    [v4.ChatWindowTabSwitchTTI] = {
-        type = v3.TTI, 
+    [v6.ChatWindowTabSwitchTTI] = {
+        type = v5.TTI, 
         baseName = "ChatWindowTabSwitchTTI", 
-        canFinish = function(v7) --[[ Line: 62 ]] --[[ Name: canFinish ]]
-            -- upvalues: v0 (ref)
-            return (v7 and v7.tabId) == v0;
+        canFinish = function(v9) --[[ Line: 65 ]] --[[ Name: canFinish ]]
+            -- upvalues: v2 (ref)
+            return (v9 and v9.tabId) == v2;
         end, 
-        onStart = function(v8) --[[ Line: 66 ]] --[[ Name: onStart ]]
-            -- upvalues: v0 (ref)
-            v0 = if v8 then v8.tabId else nil;
+        onStart = function(v10) --[[ Line: 69 ]] --[[ Name: onStart ]]
+            -- upvalues: v2 (ref)
+            v2 = if v10 then v10.tabId else nil;
         end
     }, 
-    [v4.MessageSendToWindowRenderInterval] = {
-        type = v3.Interval, 
+    [v6.MessageSendToWindowRenderInterval] = {
+        type = v5.Interval, 
         name = "MessageSendToWindowRenderInterval", 
         intervalMetrics = {
             "duration", 
             "averageFPS", 
             "longestFrameTime"
         }, 
-        canStart = function(_) --[[ Line: 74 ]] --[[ Name: canStart ]]
-            -- upvalues: v2 (ref)
-            local v10 = v2.timestamp or 0;
-            local v11 = true;
-            if v2.id ~= nil then
-                v11 = v10 + 5 < os.clock();
+        canStart = function(_) --[[ Line: 77 ]] --[[ Name: canStart ]]
+            -- upvalues: v4 (ref)
+            local v12 = v4.timestamp or 0;
+            local v13 = true;
+            if v4.id ~= nil then
+                v13 = v12 + 5 < os.clock();
             end;
-            return v11;
+            return v13;
         end, 
-        canFinish = function(v12) --[[ Line: 78 ]] --[[ Name: canFinish ]]
-            -- upvalues: v2 (ref)
-            return v12 and v12.messageId == v2.id;
+        canFinish = function(v14) --[[ Line: 81 ]] --[[ Name: canFinish ]]
+            -- upvalues: v4 (ref)
+            return v14 and v14.messageId == v4.id;
         end, 
-        onStart = function(v13) --[[ Line: 81 ]] --[[ Name: onStart ]]
-            -- upvalues: v2 (ref)
-            if v13 then
-                v2 = {
-                    id = v13.messageId, 
+        onStart = function(v15) --[[ Line: 84 ]] --[[ Name: onStart ]]
+            -- upvalues: v4 (ref)
+            if v15 then
+                v4 = {
+                    id = v15.messageId, 
                     timestamp = os.clock()
                 };
             end;
         end, 
-        onFinish = function(_) --[[ Line: 89 ]] --[[ Name: onFinish ]]
-            -- upvalues: v2 (ref)
-            v2 = {};
+        onFinish = function(_) --[[ Line: 92 ]] --[[ Name: onFinish ]]
+            -- upvalues: v4 (ref)
+            v4 = {};
         end
     }, 
-    [v4.MessageReceiveToWindowRenderInterval] = {
-        type = v3.Interval, 
+    [v6.MessageReceiveToWindowRenderInterval] = {
+        type = v5.Interval, 
         name = "MessageReceiveToWindowRenderInterval", 
         intervalMetrics = {
             "duration", 
             "averageFPS", 
             "longestFrameTime"
         }, 
-        canStart = function(_) --[[ Line: 97 ]] --[[ Name: canStart ]]
-            -- upvalues: v1 (ref)
-            local v16 = v1.timestamp or 0;
-            local v17 = true;
-            if v1.id ~= nil then
-                v17 = v16 + 5 < os.clock();
+        canStart = function(_) --[[ Line: 100 ]] --[[ Name: canStart ]]
+            -- upvalues: v3 (ref)
+            local v18 = v3.timestamp or 0;
+            local v19 = true;
+            if v3.id ~= nil then
+                v19 = v18 + 5 < os.clock();
             end;
-            return v17;
+            return v19;
         end, 
-        canFinish = function(v18) --[[ Line: 101 ]] --[[ Name: canFinish ]]
-            -- upvalues: v1 (ref)
-            return v18 and v18.messageId == v1.id;
+        canFinish = function(v20) --[[ Line: 104 ]] --[[ Name: canFinish ]]
+            -- upvalues: v3 (ref)
+            return v20 and v20.messageId == v3.id;
         end, 
-        onStart = function(v19) --[[ Line: 104 ]] --[[ Name: onStart ]]
-            -- upvalues: v1 (ref)
-            if v19 then
-                v1 = {
-                    id = v19.messageId, 
+        onStart = function(v21) --[[ Line: 107 ]] --[[ Name: onStart ]]
+            -- upvalues: v3 (ref)
+            if v21 then
+                v3 = {
+                    id = v21.messageId, 
                     timestamp = os.clock()
                 };
             end;
         end, 
-        onFinish = function(_) --[[ Line: 112 ]] --[[ Name: onFinish ]]
-            -- upvalues: v1 (ref)
-            v1 = {};
+        onFinish = function(_) --[[ Line: 115 ]] --[[ Name: onFinish ]]
+            -- upvalues: v3 (ref)
+            v3 = {};
         end
     }
 };
+if v1 then
+    v23[v6.ChatWindowScrollInterval] = {
+        type = v5.Interval, 
+        name = "ChatWindowScrollInterval", 
+        intervalMetrics = {
+            "averageFPS", 
+            "longestFrameTime"
+        }, 
+        canStart = function() --[[ Line: 126 ]] --[[ Name: canStart ]]
+            return true;
+        end, 
+        canFinish = function() --[[ Line: 129 ]] --[[ Name: canFinish ]]
+            return true;
+        end, 
+        onStart = function() --[[ Line: 132 ]] --[[ Name: onStart ]]
+
+        end, 
+        onFinish = function() --[[ Line: 133 ]] --[[ Name: onFinish ]]
+
+        end
+    };
+end;
 return {
-    EventTypes = v3, 
-    Events = v4, 
-    EventConfig = v21
+    EventTypes = v5, 
+    Events = v6, 
+    EventConfig = v23
 };

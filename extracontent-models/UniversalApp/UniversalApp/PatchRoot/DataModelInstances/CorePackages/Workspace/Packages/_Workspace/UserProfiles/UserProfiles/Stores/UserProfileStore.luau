@@ -9,29 +9,30 @@ local v7 = game:DefineFastInt("UserProfileStoreHttpTimeout", 1500);
 local v8 = game:DefineFastInt("UserProfileStoreBatchSize", 50);
 local v9 = game:DefineFastInt("UserProfileStoreQueueProcessDelay", 1);
 local l_FFlagEnableVerifiedBadgeStore_0 = v2.FFlagEnableVerifiedBadgeStore;
-local v11 = require(script.Parent.UserProfileModel);
-local v104 = l_createComputed_0(function(_) --[[ Line: 32 ]]
-    -- upvalues: l_Parent_0 (copy), v1 (copy), v6 (copy), v7 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy), v11 (copy), v8 (copy), l_createSignal_0 (copy), v9 (copy)
-    local v13 = require(l_Parent_0.UrlBuilder);
-    local l_UrlBuilder_0 = v13.UrlBuilder;
-    local l_UrlBase_0 = v13.UrlBase;
-    local v16 = v1.Logger.new(nil, "UserProfileStore");
-    v16:setContext({
+local l_FFlagEnableBlackbirdCheckDev_0 = v2.FFlagEnableBlackbirdCheckDev;
+local v12 = require(script.Parent.UserProfileModel);
+local v105 = l_createComputed_0(function(_) --[[ Line: 33 ]]
+    -- upvalues: l_Parent_0 (copy), v1 (copy), v6 (copy), v7 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), v12 (copy), v8 (copy), l_createSignal_0 (copy), v9 (copy)
+    local v14 = require(l_Parent_0.UrlBuilder);
+    local l_UrlBuilder_0 = v14.UrlBuilder;
+    local l_UrlBase_0 = v14.UrlBase;
+    local v17 = v1.Logger.new(nil, "UserProfileStore");
+    v17:setContext({
         prefix = "[UserProfileStore] "
     });
-    v16:addSink({
+    v17:addSink({
         maxLevel = v6, 
-        log = function(_, _, _) --[[ Line: 50 ]] --[[ Name: log ]]
+        log = function(_, _, _) --[[ Line: 51 ]] --[[ Name: log ]]
 
         end
     });
     local l_HttpService_0 = game:GetService("HttpService");
-    local v21 = l_UrlBuilder_0.new({
+    local v22 = l_UrlBuilder_0.new({
         base = l_UrlBase_0.APIS, 
         path = "user-profile-api/v1/user/profiles/get-profiles"
     })();
     local l_v7_0 = v7;
-    local v23 = {
+    local v24 = {
         USERNAME = "names.username", 
         DISPLAY_NAME = "names.displayName", 
         COMBINED_NAME = "names.combinedName", 
@@ -40,76 +41,77 @@ local v104 = l_createComputed_0(function(_) --[[ Line: 32 ]]
         CONTACT_NAME = "names.contactName", 
         ALIAS = "names.alias", 
         PLATFORM_PROFILE_ID = "platformProfileId", 
-        IS_VERIFIED = l_FFlagEnableVerifiedBadgeStore_0 and "isVerified" or nil
+        IS_VERIFIED = l_FFlagEnableVerifiedBadgeStore_0 and "isVerified" or nil, 
+        HAS_ROBLOX_SUBSCRIPTION = l_FFlagEnableBlackbirdCheckDev_0 and "hasRobloxSubscription" or nil
     };
-    local v24 = {};
     local v25 = {};
     local v26 = {};
-    local v27 = false;
-    local function _(v28) --[[ Line: 80 ]] --[[ Name: getOrCreateByUserId ]]
-        -- upvalues: v24 (copy), v16 (copy), v11 (ref)
-        local v29 = v24[v28];
-        if v29 ~= nil then
-            v16:trace("Found profile: {}", v28);
-            return v29;
+    local v27 = {};
+    local v28 = false;
+    local function _(v29) --[[ Line: 82 ]] --[[ Name: getOrCreateByUserId ]]
+        -- upvalues: v25 (copy), v17 (copy), v12 (ref)
+        local v30 = v25[v29];
+        if v30 ~= nil then
+            v17:trace("Found profile: {}", v29);
+            return v30;
         else
-            v16:trace("Creating profile: {}", v28);
-            v29 = v11.create(v28);
-            v24[v28] = v29;
-            return v29;
+            v17:trace("Creating profile: {}", v29);
+            v30 = v12.create(v29);
+            v25[v29] = v30;
+            return v30;
         end;
     end;
-    local function v31(v32, v33, v34, v35) --[[ Line: 93 ]] --[[ Name: performBatchFetch ]]
-        -- upvalues: v16 (copy), v25 (copy), v8 (ref), l_HttpService_0 (copy), v21 (copy), l_v7_0 (copy), v24 (copy), v11 (ref), v31 (copy)
-        if #v32 == 0 then
-            v16:trace("No more ids to fetch. Setting result.");
-            for _, v37 in ipairs(v34) do
-                local v38 = {};
-                local v39 = v25[v33];
-                for _, v41 in v37.userIds do
-                    local v42 = v39[v41];
-                    if v42 then
-                        v16:trace("Found cached profile: {}", v41);
-                        table.insert(v38, v42);
+    local function v32(v33, v34, v35, v36) --[[ Line: 95 ]] --[[ Name: performBatchFetch ]]
+        -- upvalues: v17 (copy), v26 (copy), v8 (ref), l_HttpService_0 (copy), v22 (copy), l_v7_0 (copy), v25 (copy), v12 (ref), v32 (copy)
+        if #v33 == 0 then
+            v17:trace("No more ids to fetch. Setting result.");
+            for _, v38 in ipairs(v35) do
+                local v39 = {};
+                local v40 = v26[v34];
+                for _, v42 in v38.userIds do
+                    local v43 = v40[v42];
+                    if v43 then
+                        v17:trace("Found cached profile: {}", v42);
+                        table.insert(v39, v43);
                     else
-                        v16:debug("Expected cached profile: {}", v41);
+                        v17:debug("Expected cached profile: {}", v42);
                     end;
                 end;
-                local v43 = {
-                    status = v35 and "success" or "failed", 
-                    data = v38
+                local v44 = {
+                    status = v36 and "success" or "failed", 
+                    data = v39
                 };
-                v37.setResult(v43);
-                local l_callback_0 = v37.callback;
+                v38.setResult(v44);
+                local l_callback_0 = v38.callback;
                 if l_callback_0 ~= nil then
-                    l_callback_0(v43);
+                    l_callback_0(v44);
                 end;
             end;
             return;
         else
-            local v45 = {};
             local v46 = {};
-            if #v32 > v8 then
-                v45 = {};
-                for v47 = 1, v8 do
-                    table.insert(v45, v32[v47]);
+            local v47 = {};
+            if #v33 > v8 then
+                v46 = {};
+                for v48 = 1, v8 do
+                    table.insert(v46, v33[v48]);
                 end;
-                for v48 = v8 + 1, #v32 do
-                    table.insert(v46, v32[v48]);
+                for v49 = v8 + 1, #v33 do
+                    table.insert(v47, v33[v49]);
                 end;
             else
-                v45 = v32;
+                v46 = v33;
             end;
-            local v49 = string.split(v33, ",");
-            local v50 = l_HttpService_0:JSONEncode({
-                userIds = v45, 
-                fields = v49
+            local v50 = string.split(v34, ",");
+            local v51 = l_HttpService_0:JSONEncode({
+                userIds = v46, 
+                fields = v50
             });
-            v16:debug("Fetching: {}", v50);
+            v17:debug("Fetching: {}", v51);
             l_HttpService_0:RequestInternal({
-                Url = v21, 
+                Url = v22, 
                 Method = "POST", 
-                Body = v50, 
+                Body = v51, 
                 Timeout = l_v7_0, 
                 CachePolicy = Enum.HttpCachePolicy.None, 
                 Priority = 0, 
@@ -118,198 +120,209 @@ local v104 = l_createComputed_0(function(_) --[[ Line: 32 ]]
                     Accept = "application/json"
                 }, 
                 RequestType = Enum.HttpRequestType.Default
-            }):Start(function(v51, v52) --[[ Line: 163 ]]
-                -- upvalues: l_HttpService_0 (ref), v16 (ref), v50 (copy), v25 (ref), v33 (copy), v24 (ref), v11 (ref), v31 (ref), v46 (copy), v34 (copy), v35 (copy)
-                if v51 == true then
-                    local l_Body_0 = v52.Body;
+            }):Start(function(v52, v53) --[[ Line: 165 ]]
+                -- upvalues: l_HttpService_0 (ref), v17 (ref), v51 (copy), v26 (ref), v34 (copy), v25 (ref), v12 (ref), v32 (ref), v47 (copy), v35 (copy), v36 (copy)
+                if v52 == true then
+                    local l_Body_0 = v53.Body;
                     if l_Body_0 ~= nil then
-                        local _, l_result_0 = pcall(function() --[[ Line: 167 ]]
+                        local _, l_result_0 = pcall(function() --[[ Line: 169 ]]
                             -- upvalues: l_HttpService_0 (ref), l_Body_0 (copy)
                             return l_HttpService_0:JSONDecode(l_Body_0);
                         end);
                         if l_result_0 ~= nil then
-                            v16:trace("Fetched: {}\nresponse: {}", v50, l_Body_0);
+                            v17:trace("Fetched: {}\nresponse: {}", v51, l_Body_0);
                             local l_profileDetails_0 = l_result_0.profileDetails;
                             if l_profileDetails_0 ~= nil then
-                                local v57 = v25[v33];
-                                for _, v59 in ipairs(l_profileDetails_0) do
-                                    local v60 = tostring(v59.userId);
-                                    local v61 = v24[v60];
-                                    local v62;
-                                    if v61 ~= nil then
-                                        v16:trace("Found profile: {}", v60);
-                                        v62 = v61;
+                                local v58 = v26[v34];
+                                for _, v60 in ipairs(l_profileDetails_0) do
+                                    local v61 = tostring(v60.userId);
+                                    local v62 = v25[v61];
+                                    local v63;
+                                    if v62 ~= nil then
+                                        v17:trace("Found profile: {}", v61);
+                                        v63 = v62;
                                     else
-                                        v16:trace("Creating profile: {}", v60);
-                                        v61 = v11.create(v60);
-                                        v24[v60] = v61;
-                                        v62 = v61;
+                                        v17:trace("Creating profile: {}", v61);
+                                        v62 = v12.create(v61);
+                                        v25[v61] = v62;
+                                        v63 = v62;
                                     end;
-                                    if v59 then
-                                        v16:trace("Updating profile: {}", v60);
-                                        v11.update(v62, v59);
+                                    if v60 then
+                                        v17:trace("Updating profile: {}", v61);
+                                        v12.update(v63, v60);
                                     end;
-                                    v57[v60] = v62;
+                                    v58[v61] = v63;
                                 end;
                             end;
                         end;
                     end;
                 else
-                    v16:error("Error fetching");
+                    v17:error("Error fetching");
                 end;
-                v31(v46, v33, v34, v51 ~= false and v35);
+                v32(v47, v34, v35, v52 ~= false and v36);
             end);
             return;
         end;
     end;
-    local function v72() --[[ Line: 195 ]] --[[ Name: processQueuedRequests ]]
-        -- upvalues: v26 (ref), v16 (copy), v25 (copy), v31 (copy)
-        for v63, v64 in pairs(v26) do
-            v16:trace("Processing requests ({}) for fields: {}", #v64, v63);
-            local v65 = {};
+    local function v73() --[[ Line: 197 ]] --[[ Name: processQueuedRequests ]]
+        -- upvalues: v27 (ref), v17 (copy), v26 (copy), v32 (copy)
+        for v64, v65 in pairs(v27) do
+            v17:trace("Processing requests ({}) for fields: {}", #v65, v64);
             local v66 = {};
-            local v67 = v25[v63];
-            for _, v69 in ipairs(v64) do
-                for _, v71 in ipairs(v69.userIds) do
-                    if v65[v71] == nil then
-                        v65[v71] = v71;
-                        if v67[v71] == nil then
-                            table.insert(v66, v71);
+            local v67 = {};
+            local v68 = v26[v64];
+            for _, v70 in ipairs(v65) do
+                for _, v72 in ipairs(v70.userIds) do
+                    if v66[v72] == nil then
+                        v66[v72] = v72;
+                        if v68[v72] == nil then
+                            table.insert(v67, v72);
                         end;
                     end;
                 end;
             end;
-            v31(v66, v63, table.clone(v64), true);
+            v32(v67, v64, table.clone(v65), true);
         end;
-        v26 = {};
+        v27 = {};
     end;
-    local function v91(v73, v74, v75) --[[ Line: 217 ]] --[[ Name: fetchByUserIds ]]
-        -- upvalues: v25 (copy), v24 (copy), v16 (copy), v11 (ref), l_createSignal_0 (ref), v26 (ref), v27 (ref), v9 (ref), v72 (copy)
-        table.sort(v74);
-        local v76 = table.concat(v74, ",");
-        local v77 = v25[v76];
-        if v77 == nil then
-            v77 = {};
-            v25[v76] = v77;
+    local function v92(v74, v75, v76) --[[ Line: 219 ]] --[[ Name: fetchByUserIds ]]
+        -- upvalues: v26 (copy), v25 (copy), v17 (copy), v12 (ref), l_createSignal_0 (ref), v27 (ref), v28 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), v73 (copy), v9 (ref)
+        table.sort(v75);
+        local v77 = table.concat(v75, ",");
+        local v78 = v26[v77];
+        if v78 == nil then
+            v78 = {};
+            v26[v77] = v78;
         end;
-        local v78 = {};
-        local v79 = false;
-        for _, v81 in v73 do
-            local v82 = v77[v81];
-            if v82 == nil and v79 == false then
-                v79 = true;
+        local v79 = {};
+        local v80 = false;
+        for _, v82 in v74 do
+            local v83 = v78[v82];
+            if v83 == nil and v80 == false then
+                v80 = true;
             end;
-            local l_v82_0 = v82;
-            if not l_v82_0 then
-                local v84 = v24[v81];
-                if v84 ~= nil then
-                    v16:trace("Found profile: {}", v81);
-                    l_v82_0 = v84;
+            local l_v83_0 = v83;
+            if not l_v83_0 then
+                local v85 = v25[v82];
+                if v85 ~= nil then
+                    v17:trace("Found profile: {}", v82);
+                    l_v83_0 = v85;
                 else
-                    v16:trace("Creating profile: {}", v81);
-                    v84 = v11.create(v81);
-                    v24[v81] = v84;
-                    l_v82_0 = v84;
+                    v17:trace("Creating profile: {}", v82);
+                    v85 = v12.create(v82);
+                    v25[v82] = v85;
+                    l_v83_0 = v85;
                 end;
             end;
-            table.insert(v78, l_v82_0);
+            table.insert(v79, l_v83_0);
         end;
-        if v79 == false then
-            v16:trace("All requested profiles are cached. Calling back early");
-            local v85 = {
+        if v80 == false then
+            v17:trace("All requested profiles are cached. Calling back early");
+            local v86 = {
                 status = "success", 
-                data = v78
+                data = v79
             };
-            local v86 = l_createSignal_0(v85);
-            if v75 ~= nil then
-                v75(v85);
+            local v87 = l_createSignal_0(v86);
+            if v76 ~= nil then
+                v76(v86);
             end;
-            return v86;
+            return v87;
         else
-            local v87 = {
+            local v88 = {
                 status = "fetching", 
-                data = v78
+                data = v79
             };
-            local v88, v89 = l_createSignal_0(v87);
-            local v90 = v26[v76];
-            if v90 == nil then
-                v90 = {};
-                v26[v76] = v90;
+            local v89, v90 = l_createSignal_0(v88);
+            local v91 = v27[v77];
+            if v91 == nil then
+                v91 = {};
+                v27[v77] = v91;
             end;
-            table.insert(v90, {
-                userIds = v73, 
-                getResult = v88, 
-                setResult = v89, 
-                callback = v75
+            table.insert(v91, {
+                userIds = v74, 
+                getResult = v89, 
+                setResult = v90, 
+                callback = v76
             });
-            if not v27 then
-                v27 = true;
-                task.delay(v9, function() --[[ Line: 279 ]]
-                    -- upvalues: v72 (ref), v27 (ref)
-                    v72();
-                    v27 = false;
-                end);
+            if not v28 then
+                v28 = true;
+                if l_FFlagEnableBlackbirdCheckDev_0 then
+                    task.defer(function() --[[ Line: 282 ]]
+                        -- upvalues: v73 (ref), v28 (ref)
+                        v73();
+                        v28 = false;
+                    end);
+                else
+                    task.delay(v9, function() --[[ Line: 287 ]]
+                        -- upvalues: v73 (ref), v28 (ref)
+                        v73();
+                        v28 = false;
+                    end);
+                end;
             end;
-            if v75 ~= nil then
-                v75(v87);
+            if v76 ~= nil then
+                v76(v88);
             end;
-            return v88;
+            return v89;
         end;
     end;
-    local function v95(v92, v93) --[[ Line: 290 ]] --[[ Name: fetchNamesByUserIds ]]
-        -- upvalues: v23 (copy), l_FFlagEnableVerifiedBadgeStore_0 (ref), v91 (copy)
-        local v94 = {
-            v23.COMBINED_NAME, 
-            v23.DISPLAY_NAME, 
-            v23.USERNAME, 
-            v23.IN_EXPERIENCE_COMBINED_NAME, 
-            v23.CONTACT_NAME, 
-            v23.ALIAS, 
-            v23.PLATFORM_NAME, 
-            v23.PLATFORM_PROFILE_ID
+    local function v96(v93, v94) --[[ Line: 299 ]] --[[ Name: fetchNamesByUserIds ]]
+        -- upvalues: v24 (copy), l_FFlagEnableVerifiedBadgeStore_0 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), v92 (copy)
+        local v95 = {
+            v24.COMBINED_NAME, 
+            v24.DISPLAY_NAME, 
+            v24.USERNAME, 
+            v24.IN_EXPERIENCE_COMBINED_NAME, 
+            v24.CONTACT_NAME, 
+            v24.ALIAS, 
+            v24.PLATFORM_NAME, 
+            v24.PLATFORM_PROFILE_ID
         };
         if l_FFlagEnableVerifiedBadgeStore_0 then
-            table.insert(v94, v23.IS_VERIFIED);
+            table.insert(v95, v24.IS_VERIFIED);
         end;
-        return (v91(v92, v94, v93));
+        if l_FFlagEnableBlackbirdCheckDev_0 then
+            table.insert(v95, v24.HAS_ROBLOX_SUBSCRIPTION);
+        end;
+        return (v92(v93, v95, v94));
     end;
-    local function v101(v96, v97) --[[ Line: 312 ]] --[[ Name: invalidateCachedProfiles ]]
-        -- upvalues: v25 (copy)
-        table.sort(v96);
-        local v98 = v25[table.concat(v96, ",")];
-        if v98 == nil then
+    local function v102(v97, v98) --[[ Line: 325 ]] --[[ Name: invalidateCachedProfiles ]]
+        -- upvalues: v26 (copy)
+        table.sort(v97);
+        local v99 = v26[table.concat(v97, ",")];
+        if v99 == nil then
             return;
-        elseif v97 ~= nil then
-            for _, v100 in v97 do
-                v98[v100] = nil;
+        elseif v98 ~= nil then
+            for _, v101 in v98 do
+                v99[v101] = nil;
             end;
             return;
         else
-            v98 = {};
+            v99 = {};
             return;
         end;
     end;
     return {
-        fetchNamesByUserIds = v95, 
-        invalidateCachedNamesForUserIds = function(v102) --[[ Line: 330 ]] --[[ Name: invalidateCachedNamesForUserIds ]]
-            -- upvalues: v23 (copy), v101 (copy)
-            local v103 = {
-                v23.COMBINED_NAME, 
-                v23.DISPLAY_NAME, 
-                v23.USERNAME, 
-                v23.IN_EXPERIENCE_COMBINED_NAME, 
-                v23.CONTACT_NAME, 
-                v23.ALIAS, 
-                v23.PLATFORM_NAME, 
-                v23.PLATFORM_PROFILE_ID
+        fetchNamesByUserIds = v96, 
+        invalidateCachedNamesForUserIds = function(v103) --[[ Line: 343 ]] --[[ Name: invalidateCachedNamesForUserIds ]]
+            -- upvalues: v24 (copy), v102 (copy)
+            local v104 = {
+                v24.COMBINED_NAME, 
+                v24.DISPLAY_NAME, 
+                v24.USERNAME, 
+                v24.IN_EXPERIENCE_COMBINED_NAME, 
+                v24.CONTACT_NAME, 
+                v24.ALIAS, 
+                v24.PLATFORM_NAME, 
+                v24.PLATFORM_PROFILE_ID
             };
-            v101(v103, v102);
+            v102(v104, v103);
         end
     };
 end);
 return {
-    get = function() --[[ Line: 351 ]] --[[ Name: get ]]
-        -- upvalues: v104 (copy)
-        return v104(false);
+    get = function() --[[ Line: 364 ]] --[[ Name: get ]]
+        -- upvalues: v105 (copy)
+        return v105(false);
     end
 };

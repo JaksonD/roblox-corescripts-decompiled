@@ -130,6 +130,9 @@ else
         require(l_CorePackages_0.Workspace.Packages.DataModelStreaming).initDataModelStreamWsClient();
     end;
     l_SoundManager_0.init();
+    if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagDebugForceConsoleSafeInsets and UserSettings().GameSettings:InStudioMode() then
+        require(l_CorePackages_0.Workspace.Packages.Display).GetDisplayStore().forceConsoleSafeInsets();
+    end;
     v6.default:logEventOnce("lua_app_starter_script_end");
     return;
 end;

@@ -83,10 +83,11 @@ return function(v17) --[[ Line: 33 ]]
         end, {
             v18
         }), 
-        shouldShowOSAForConversation = v17.contract.shouldShowOSAForConversation
+        shouldShowOSAForConversation = v17.contract.shouldShowOSAForConversation, 
+        showGroupOSADialog = v17.contract.showGroupOSADialog
     };
     if l_FFlagEnableSquadRegroupExperimentation_0 and v17.contract.createExperienceInvite then
-        v32.createExperienceInvite = function(v33, v34) --[[ Line: 100 ]]
+        v32.createExperienceInvite = function(v33, v34) --[[ Line: 101 ]]
             -- upvalues: v17 (copy), v32 (copy)
             return v17.contract.createExperienceInvite(v33, v32, v34);
         end;

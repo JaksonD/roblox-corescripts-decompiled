@@ -1,88 +1,67 @@
 local l_Parent_0 = script:FindFirstAncestor("CollectionViews").Parent;
 local v1 = require(l_Parent_0.React);
-return function(v2, v3, v4, v5) --[[ Line: 6 ]] --[[ Name: useHorizontalScrolledToEndThreshold ]]
-    -- upvalues: v1 (copy)
-    local v6 = v1.useRef(false);
-    v1.useEffect(function() --[[ Line: 21 ]]
-        -- upvalues: v5 (copy), v2 (copy), v4 (copy), v3 (copy), v6 (copy)
-        if not v5 then
+local l_FFlagCollectionViewMathChanges_0 = require(l_Parent_0.SharedFlags).FFlagCollectionViewMathChanges;
+return function(v3, v4, v5, v6) --[[ Line: 8 ]] --[[ Name: useHorizontalScrolledToEndThreshold ]]
+    -- upvalues: v1 (copy), l_FFlagCollectionViewMathChanges_0 (copy)
+    local v7 = v1.useRef(false);
+    v1.useEffect(function() --[[ Line: 23 ]]
+        -- upvalues: v6 (copy), v3 (copy), l_FFlagCollectionViewMathChanges_0 (ref), v5 (copy), v4 (copy), v7 (copy)
+        if not v6 then
             return nil;
         else
-            local v7 = {};
-            if v2.current ~= nil and v4 ~= nil and v3 ~= nil then
-                local l_current_0 = v2.current;
-                local function _() --[[ Line: 30 ]] --[[ Name: checkThreshold ]]
-                    -- upvalues: l_current_0 (copy), v3 (ref), v6 (ref), v4 (ref)
-                    local v9 = l_current_0.AbsoluteCanvasSize.X - l_current_0.AbsoluteWindowSize.X - v3;
+            local v8 = {};
+            local v9 = false;
+            if v3.current ~= nil then
+                v9 = l_FFlagCollectionViewMathChanges_0 or v5 ~= nil and v4 ~= nil;
+            end;
+            if v9 then
+                local l_current_0 = v3.current;
+                local function v13() --[[ Line: 34 ]] --[[ Name: checkThreshold ]]
+                    -- upvalues: l_current_0 (copy), l_FFlagCollectionViewMathChanges_0 (ref), v4 (ref), v7 (ref), v5 (ref)
+                    local v11 = l_current_0.AbsoluteCanvasSize.X - l_current_0.AbsoluteWindowSize.X - if l_FFlagCollectionViewMathChanges_0 then v4 or 0 else v4;
                     local l_X_0 = l_current_0.CanvasPosition.X;
-                    if l_X_0 < v9 and v6.current then
-                        v6.current = false;
+                    if l_X_0 < v11 and v7.current then
+                        v7.current = false;
                         return;
                     else
-                        if v9 < l_X_0 and not v6.current then
-                            v6.current = true;
-                            v4();
+                        if v11 < l_X_0 and not v7.current then
+                            v7.current = true;
+                            if l_FFlagCollectionViewMathChanges_0 then
+                                if v5 then
+                                    v5();
+                                    return;
+                                end;
+                            else
+                                v5();
+                            end;
                         end;
                         return;
                     end;
                 end;
-                table.insert(v7, l_current_0:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(function() --[[ Line: 44 ]]
-                    -- upvalues: l_current_0 (copy), v3 (ref), v6 (ref), v4 (ref)
-                    local v12 = l_current_0.AbsoluteCanvasSize.X - l_current_0.AbsoluteWindowSize.X - v3;
-                    local l_X_1 = l_current_0.CanvasPosition.X;
-                    if l_X_1 < v12 and v6.current then
-                        v6.current = false;
-                        return;
-                    else
-                        if v12 < l_X_1 and not v6.current then
-                            v6.current = true;
-                            v4();
-                        end;
-                        return;
-                    end;
+                table.insert(v8, l_current_0:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(function() --[[ Line: 54 ]]
+                    -- upvalues: v13 (copy)
+                    v13();
                 end));
-                table.insert(v7, l_current_0:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(function() --[[ Line: 51 ]]
-                    -- upvalues: l_current_0 (copy), v3 (ref), v6 (ref), v4 (ref)
-                    local v14 = l_current_0.AbsoluteCanvasSize.X - l_current_0.AbsoluteWindowSize.X - v3;
-                    local l_X_2 = l_current_0.CanvasPosition.X;
-                    if l_X_2 < v14 and v6.current then
-                        v6.current = false;
-                        return;
-                    else
-                        if v14 < l_X_2 and not v6.current then
-                            v6.current = true;
-                            v4();
-                        end;
-                        return;
-                    end;
+                table.insert(v8, l_current_0:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(function() --[[ Line: 61 ]]
+                    -- upvalues: v13 (copy)
+                    v13();
                 end));
-                table.insert(v7, l_current_0:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 57 ]]
-                    -- upvalues: l_current_0 (copy), v3 (ref), v6 (ref), v4 (ref)
-                    local v16 = l_current_0.AbsoluteCanvasSize.X - l_current_0.AbsoluteWindowSize.X - v3;
-                    local l_X_3 = l_current_0.CanvasPosition.X;
-                    if l_X_3 < v16 and v6.current then
-                        v6.current = false;
-                        return;
-                    else
-                        if v16 < l_X_3 and not v6.current then
-                            v6.current = true;
-                            v4();
-                        end;
-                        return;
-                    end;
+                table.insert(v8, l_current_0:GetPropertyChangedSignal("CanvasPosition"):Connect(function() --[[ Line: 67 ]]
+                    -- upvalues: v13 (copy)
+                    v13();
                 end));
             end;
-            return function() --[[ Line: 62 ]]
-                -- upvalues: v7 (copy)
-                for _, v19 in v7 do
-                    v19:Disconnect();
+            return function() --[[ Line: 72 ]]
+                -- upvalues: v8 (copy)
+                for _, v15 in v8 do
+                    v15:Disconnect();
                 end;
             end;
         end;
     end, {
-        v2, 
-        v5, 
         v3, 
-        v4
+        v6, 
+        v4, 
+        v5
     });
 end;

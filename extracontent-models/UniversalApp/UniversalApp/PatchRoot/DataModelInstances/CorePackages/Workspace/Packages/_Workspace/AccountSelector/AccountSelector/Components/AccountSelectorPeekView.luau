@@ -16,102 +16,98 @@ local v14 = require(script.Parent.AccountSelectionList);
 local _ = require(script.Parent.AccountSelection);
 local v16 = require(l_Parent_0.Analytics.AnalyticsEvents);
 local v17 = game:DefineFastFlag("MoveAccountSelectorClosingAfterOperation", false);
-local v18 = game:DefineFastFlag("AddMaxLimitToAccountSelector", false);
-local v19 = game:DefineFastInt("AccountSelectorInitialRowsShown", 6);
-local v20 = game:DefineFastFlag("EnableAccountSelectorPeekviewRemoveSuperBriefState", false);
+local v18 = game:DefineFastInt("AccountSelectorInitialRowsShown", 6);
+local v19 = game:DefineFastFlag("EnableAccountSelectorPeekviewRemoveSuperBriefState", false);
 local l_GetFFlagLuaAppEnableTopBanner_0 = v1.SharedFlags.GetFFlagLuaAppEnableTopBanner;
 local l_useStyle_0 = l_UIBlox_0.Core.Style.useStyle;
-local v56 = l_RoactNavigation_0.withNavigationFocus(function(v23) --[[ Line: 55 ]] --[[ Name: AccountSelectorPeekView ]]
-    -- upvalues: l_useStyle_0 (copy), l_useNavigation_0 (copy), l_useState_0 (copy), l_PeekViewState_0 (copy), l_useDesignTokens_0 (copy), v18 (copy), v19 (copy), l_useLocalization_0 (copy), l_useSelector_0 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_React_0 (copy), l_useEffect_0 (copy), v16 (copy), v17 (copy), l_PeekView_0 (copy), v20 (copy), v14 (copy)
-    local v24 = l_useStyle_0();
-    local v25 = l_useNavigation_0();
-    local v26, v27 = l_useState_0(false);
-    local v28, v29 = l_useState_0(l_PeekViewState_0.Full);
-    local l_BaseSize_0 = v24.Font.BaseSize;
-    local v31 = v24.Font.Header1.RelativeSize * l_BaseSize_0;
-    local v32 = l_useDesignTokens_0();
-    local v33 = #v23.users;
-    local l_Size_800_0 = v32.Global.Size_800;
-    local v35 = l_Size_800_0 * 100.5;
-    local v36 = l_Size_800_0 * (v33 + 1.25 + 1);
-    if v18 then
-        v36 = l_Size_800_0 * (math.min(v19, v33) + 1.25 + 1);
-    end;
-    local v37 = v33 < 100 and l_Size_800_0 * v33 or v35;
-    local v38 = l_useLocalization_0({
-        titleText = v23.titleTextKey, 
-        helpText = v23.helpTextKey
+local v55 = l_RoactNavigation_0.withNavigationFocus(function(v22) --[[ Line: 54 ]] --[[ Name: AccountSelectorPeekView ]]
+    -- upvalues: l_useStyle_0 (copy), l_useNavigation_0 (copy), l_useState_0 (copy), l_PeekViewState_0 (copy), l_useDesignTokens_0 (copy), v18 (copy), l_useLocalization_0 (copy), l_useSelector_0 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_React_0 (copy), l_useEffect_0 (copy), v16 (copy), v17 (copy), l_PeekView_0 (copy), v19 (copy), v14 (copy)
+    local v23 = l_useStyle_0();
+    local v24 = l_useNavigation_0();
+    local v25, v26 = l_useState_0(false);
+    local v27, v28 = l_useState_0(l_PeekViewState_0.Full);
+    local l_BaseSize_0 = v23.Font.BaseSize;
+    local v30 = v23.Font.Header1.RelativeSize * l_BaseSize_0;
+    local v31 = l_useDesignTokens_0();
+    local v32 = #v22.users;
+    local l_Size_800_0 = v31.Global.Size_800;
+    local v34 = l_Size_800_0 * 100.5;
+    local v35 = l_Size_800_0 * (math.min(v18, v32) + 1.25 + 1);
+    local v36 = v32 < 100 and l_Size_800_0 * v32 or v34;
+    local v37 = l_useLocalization_0({
+        titleText = v22.titleTextKey, 
+        helpText = v22.helpTextKey
     });
-    local v40 = l_useSelector_0(function(v39) --[[ Line: 96 ]]
-        return v39.ScreenSize;
+    local v39 = l_useSelector_0(function(v38) --[[ Line: 88 ]]
+        return v38.ScreenSize;
     end);
-    local v42 = if l_GetFFlagLuaAppEnableTopBanner_0() then l_useSelector_0(function(v41) --[[ Line: 101 ]]
-        return v41.GlobalGuiInset.top;
+    local v41 = if l_GetFFlagLuaAppEnableTopBanner_0() then l_useSelector_0(function(v40) --[[ Line: 93 ]]
+        return v40.GlobalGuiInset.top;
     end) else 0;
-    local v43 = v40.X - 48;
-    local v44 = l_React_0.useRef(false);
-    local l_Color_0 = v24.Theme.BackgroundContrast.Color;
-    l_useEffect_0(function() --[[ Line: 110 ]]
-        -- upvalues: v23 (copy), v16 (ref), v44 (copy)
-        local v46 = "";
-        for _, v48 in v23.users do
-            v46 = v46 .. tostring(v48.id) .. ",";
+    local v42 = v39.X - 48;
+    local v43 = l_React_0.useRef(false);
+    local l_Color_0 = v23.Theme.BackgroundContrast.Color;
+    l_useEffect_0(function() --[[ Line: 102 ]]
+        -- upvalues: v22 (copy), v16 (ref), v43 (copy)
+        local v45 = "";
+        for _, v47 in v22.users do
+            v45 = v45 .. tostring(v47.id) .. ",";
         end;
-        v46 = v46:sub(1, -2);
-        v16.sendPageLoadEvent(v23.context, v23.origin, v46);
-        return function() --[[ Line: 119 ]]
-            -- upvalues: v44 (ref), v23 (ref)
-            if not v44.current then
-                v23.onAccountSelectionAbandoned();
+        v45 = v45:sub(1, -2);
+        v16.sendPageLoadEvent(v22.context, v22.origin, v45);
+        return function() --[[ Line: 111 ]]
+            -- upvalues: v43 (ref), v22 (ref)
+            if not v43.current then
+                v22.onAccountSelectionAbandoned();
             end;
         end;
     end, {});
-    local function v50(v49) --[[ Line: 128 ]] --[[ Name: handleAccountSelection ]]
-        -- upvalues: v17 (ref), v29 (copy), l_PeekViewState_0 (ref), v27 (copy), v23 (copy), v16 (ref), v44 (copy)
+    local function v49(v48) --[[ Line: 120 ]] --[[ Name: handleAccountSelection ]]
+        -- upvalues: v17 (ref), v28 (copy), l_PeekViewState_0 (ref), v26 (copy), v22 (copy), v16 (ref), v43 (copy)
         if not v17 then
-            v29(l_PeekViewState_0.Closed);
+            v28(l_PeekViewState_0.Closed);
         end;
-        v27(true);
-        v23.onAccountSelection(v49);
-        v16.sendSelectEvent(v23.context, v23.origin, (tostring(v49)));
-        v44.current = true;
+        v26(true);
+        v22.onAccountSelection(v48);
+        v16.sendSelectEvent(v22.context, v22.origin, (tostring(v48)));
+        v43.current = true;
         if v17 then
-            v29(l_PeekViewState_0.Closed);
+            v28(l_PeekViewState_0.Closed);
         end;
     end;
-    local function v53(v51, _) --[[ Line: 141 ]] --[[ Name: viewStateChanged ]]
-        -- upvalues: v29 (copy), l_PeekViewState_0 (ref), v25 (copy)
-        v29(v51);
-        if v51 == l_PeekViewState_0.Closed or v51 == l_PeekViewState_0.Hidden then
-            v25.goBack();
+    local function v52(v50, _) --[[ Line: 133 ]] --[[ Name: viewStateChanged ]]
+        -- upvalues: v28 (copy), l_PeekViewState_0 (ref), v24 (copy)
+        v28(v50);
+        if v50 == l_PeekViewState_0.Closed or v50 == l_PeekViewState_0.Hidden then
+            v24.goBack();
         end;
     end;
-    local function v55(v54) --[[ Line: 148 ]] --[[ Name: peekHeaderPositionYChange ]]
-        -- upvalues: v29 (copy), l_PeekViewState_0 (ref)
-        if v54 < 10 then
-            v29(l_PeekViewState_0.Closed);
+    local function v54(v53) --[[ Line: 140 ]] --[[ Name: peekHeaderPositionYChange ]]
+        -- upvalues: v28 (copy), l_PeekViewState_0 (ref)
+        if v53 < 10 then
+            v28(l_PeekViewState_0.Closed);
         end;
     end;
     return l_React_0.createElement("Frame", {
-        Size = if l_GetFFlagLuaAppEnableTopBanner_0() then UDim2.new(1, 0, 0, v40.Y - v42) else UDim2.new(1, 0, 0, v40.Y), 
-        BackgroundColor3 = v24.Theme.Overlay.Color, 
+        Size = if l_GetFFlagLuaAppEnableTopBanner_0() then UDim2.new(1, 0, 0, v39.Y - v41) else UDim2.new(1, 0, 0, v39.Y), 
+        BackgroundColor3 = v23.Theme.Overlay.Color, 
         BackgroundTransparency = 1
     }, {
         PeekView = l_React_0.createElement(l_PeekView_0, {
             hasScrim = true, 
-            briefViewContentHeight = UDim.new(0, v36), 
-            superBriefViewContentHeight = if v20 then nil else UDim.new(0, 40), 
+            briefViewContentHeight = UDim.new(0, v35), 
+            superBriefViewContentHeight = if v19 then nil else UDim.new(0, 40), 
             peekHeaderClose = false, 
-            style = v24, 
+            style = v23, 
             canDragFullViewToBrief = true, 
             stateOnMount = l_PeekViewState_0.Brief, 
             mountAnimation = true, 
             returnToFullView = true, 
-            peekHeaderPositionYChange = v55, 
+            peekHeaderPositionYChange = v54, 
             thumbstickScrollEnabled = true, 
             showDraggerInClosedState = true, 
-            viewStateChanged = v53, 
-            peekViewState = v28
+            viewStateChanged = v52, 
+            peekViewState = v27
         }, {
             Content = l_React_0.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, 0), 
@@ -141,14 +137,14 @@ local v56 = l_RoactNavigation_0.withNavigationFocus(function(v23) --[[ Line: 55 
                     }), 
                     TitleText = l_React_0.createElement("TextLabel", {
                         BackgroundTransparency = 1, 
-                        Text = v38.titleText, 
-                        TextSize = v31, 
-                        TextColor3 = v24.Theme.TextEmphasis.Color, 
-                        TextTransparency = v24.Theme.TextDefault.Transparency, 
-                        Font = v24.Font.Header2.Font, 
+                        Text = v37.titleText, 
+                        TextSize = v30, 
+                        TextColor3 = v23.Theme.TextEmphasis.Color, 
+                        TextTransparency = v23.Theme.TextDefault.Transparency, 
+                        Font = v23.Font.Header2.Font, 
                         TextXAlignment = Enum.TextXAlignment.Center, 
                         TextWrapped = true, 
-                        Size = UDim2.new(0, v43, 0, 0), 
+                        Size = UDim2.new(0, v42, 0, 0), 
                         AutomaticSize = Enum.AutomaticSize.Y
                     })
                 }), 
@@ -156,20 +152,20 @@ local v56 = l_RoactNavigation_0.withNavigationFocus(function(v23) --[[ Line: 55 
                     LayoutOrder = 1, 
                     Size = UDim2.new(1, 0, 0, 1), 
                     BorderSizePixel = 0, 
-                    BackgroundColor3 = v24.Theme.Divider.Color, 
-                    BackgroundTransparency = v24.Theme.Divider.Transparency
+                    BackgroundColor3 = v23.Theme.Divider.Color, 
+                    BackgroundTransparency = v23.Theme.Divider.Transparency
                 }), 
-                HelpText = if v38.helpText then l_React_0.createElement("TextLabel", {
+                HelpText = if v37.helpText then l_React_0.createElement("TextLabel", {
                     LayoutOrder = 2, 
                     BackgroundTransparency = 1, 
-                    Text = v38.helpText, 
+                    Text = v37.helpText, 
                     TextSize = l_BaseSize_0, 
-                    TextColor3 = v24.Theme.TextDefault.Color, 
-                    TextTransparency = v24.Theme.TextDefault.Transparency, 
-                    Font = v24.Font.Body.Font, 
+                    TextColor3 = v23.Theme.TextDefault.Color, 
+                    TextTransparency = v23.Theme.TextDefault.Transparency, 
+                    Font = v23.Font.Body.Font, 
                     TextXAlignment = Enum.TextXAlignment.Left, 
                     TextWrapped = true, 
-                    Size = UDim2.new(0, v43, 0, 0), 
+                    Size = UDim2.new(0, v42, 0, 0), 
                     AutomaticSize = Enum.AutomaticSize.Y
                 }) else nil, 
                 AccountSelectionContent = l_React_0.createElement("Frame", {
@@ -184,30 +180,30 @@ local v56 = l_RoactNavigation_0.withNavigationFocus(function(v23) --[[ Line: 55 
                         HorizontalAlignment = Enum.HorizontalAlignment.Center
                     }), 
                     AccountSelectionList = l_React_0.createElement(v14, {
-                        users = v23.users, 
-                        onAccountSelection = v50, 
-                        height = v37, 
-                        isDisabled = v26, 
+                        users = v22.users, 
+                        onAccountSelection = v49, 
+                        height = v36, 
+                        isDisabled = v25, 
                         LayoutOrder = 0, 
                         isScrollable = false
                     }), 
                     FooterContent = l_React_0.createElement("Frame", {
                         Size = UDim2.new(1, 0, 0, 0), 
-                        BackgroundColor3 = v24.Theme.BackgroundUIDefault.Color, 
+                        BackgroundColor3 = v23.Theme.BackgroundUIDefault.Color, 
                         BackgroundTransparency = 1, 
                         LayoutOrder = 1, 
                         AutomaticSize = Enum.AutomaticSize.Y
                     }, {
-                        Contents = if v23.renderFooterComponent then v23.renderFooterComponent() else nil
+                        Contents = if v22.renderFooterComponent then v22.renderFooterComponent() else nil
                     })
                 })
             })
         })
     });
 end);
-return l_React_0.forwardRef(function(v57, v58) --[[ Line: 286 ]]
-    -- upvalues: l_React_0 (copy), v56 (ref), l_Cryo_0 (copy)
-    return l_React_0.createElement(v56, l_Cryo_0.Dictionary.join(v57, {
-        defaultChildRef = v58
+return l_React_0.forwardRef(function(v56, v57) --[[ Line: 278 ]]
+    -- upvalues: l_React_0 (copy), v55 (ref), l_Cryo_0 (copy)
+    return l_React_0.createElement(v55, l_Cryo_0.Dictionary.join(v56, {
+        defaultChildRef = v57
     }));
 end);

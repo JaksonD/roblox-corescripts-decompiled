@@ -53,7 +53,7 @@ local v51 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.Prom
 local v52 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.SaveAvatarOnLeaveAvatarExperiencePrompt);
 local v53 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.Prompts.SlotsAvatarSwitcherFtuxPrompt);
 local v54 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.Prompts.SlotsCustomizeFtuxPrompt);
-local v55 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.Prompts.EnhancedAvatarHeadsFtuxPrompt);
+local l_EnhancedAvatarHeadsFtuxPrompt_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Components.Prompts.EnhancedAvatarHeadsFtuxPrompt;
 local v56 = require(l_Modules_0.AvatarExperience.Common.Components.ItemDetails.Prompts.ItemInfoRowPrompt);
 local l_TryOnMultipleItemsFtuxPrompt_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog).Components.Prompts.TryOnMultipleItemsFtuxPrompt;
 local l_WearAvatarReplaceAllItemsPrompt_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog).Components.Prompts.WearAvatarReplaceAllItemsPrompt;
@@ -71,7 +71,7 @@ local l_GetFFlagLuafiedReportEntryPoints_0 = v3.GetFFlagLuafiedReportEntryPoints
 local v70 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXEnableClearAllConfirmationPrompt);
 local l_FFlagAXEnableManualSavingBlockingPrompt_0 = v67.FFlagAXEnableManualSavingBlockingPrompt;
 local v72 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXEnableSlotsFtux);
-local v73 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXEnableEnhancedAvatarHeadsFtux);
+local l_FFlagAXEnableEnhancedAvatarHeadsFtux_0 = v67.FFlagAXEnableEnhancedAvatarHeadsFtux;
 local l_FFlagAXMISEnableMultiShopping_0 = v67.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXAvatarTimeoutFlow_0 = v67.FFlagAXAvatarTimeoutFlow;
 local l_FFlagAXCatalogMakeupSupport_0 = v67.FFlagAXCatalogMakeupSupport;
@@ -249,9 +249,9 @@ if v72 then
         [l_AvatarScreen_0.SlotsCustomizeFtuxPrompt] = v54
     });
 end;
-if v73 then
+if l_FFlagAXEnableEnhancedAvatarHeadsFtux_0 then
     table.insert(v78, {
-        [l_AvatarScreen_0.EnhancedAvatarHeadsFtuxPrompt] = v55
+        [l_AvatarScreen_0.EnhancedAvatarHeadsFtuxPrompt] = l_EnhancedAvatarHeadsFtuxPrompt_0
     });
 end;
 if l_FFlagAXMISEnableMultiShopping_0 then
@@ -276,10 +276,10 @@ if l_FFlagAXMakeupReleaseFTUX_0 then
         [l_AvatarScreen_0.MakeupReleaseFtuxPrompt] = l_MakeupReleaseFtuxPrompt_0
     });
 end;
-local v80 = v4.connect(nil, function(v79) --[[ Line: 351 ]]
+local v80 = v4.connect(nil, function(v79) --[[ Line: 350 ]]
     -- upvalues: v7 (copy), v6 (copy), v5 (copy)
     return {
-        navigateDown = function() --[[ Line: 353 ]] --[[ Name: navigateDown ]]
+        navigateDown = function() --[[ Line: 352 ]] --[[ Name: navigateDown ]]
             -- upvalues: v79 (copy), v7 (ref), v6 (ref), v5 (ref)
             return v79(v7({
                 name = v6.GenericWebPage, 

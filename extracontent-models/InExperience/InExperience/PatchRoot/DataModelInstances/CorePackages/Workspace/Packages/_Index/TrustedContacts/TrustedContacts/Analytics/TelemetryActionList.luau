@@ -8,6 +8,7 @@ local v6 = require(script.Parent.ButtonNames);
 local l_FFlagTCStreamNotifEventReceiver_0 = require(l_Parent_0.SharedFlags).FFlagTCStreamNotifEventReceiver;
 local l_FFlagTCNotifFixEventName_0 = require(l_Parent_0.SharedFlags).FFlagTCNotifFixEventName;
 local l_FFlagTCShareLinkSenderUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkSenderUI;
+local l_FFlagTCVerifiedParentalControl_0 = require(l_Parent_0.SharedFlags).FFlagTCVerifiedParentalControl;
 return {
     defaults = {
         throttlingThousandths = game:DefineFastInt("TrustedContactsAnalyticsThrottlingThousandths", 10000), 
@@ -23,7 +24,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 27 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 28 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.UserSeen;
                 end, 
@@ -46,7 +47,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 45 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 46 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.UserSeen;
                 end, 
@@ -54,22 +55,22 @@ return {
                     eventContext = l_Contexts_0.TCUpsellModal
                 }, 
                 dynamicCustomFields = {
-                    modalVariant = function(v10) --[[ Line: 52 ]] --[[ Name: modalVariant ]]
-                        return v10;
-                    end, 
-                    source = function(v11) --[[ Line: 55 ]] --[[ Name: source ]]
+                    modalVariant = function(v11) --[[ Line: 53 ]] --[[ Name: modalVariant ]]
                         return v11;
+                    end, 
+                    source = function(v12) --[[ Line: 56 ]] --[[ Name: source ]]
+                        return v12;
                     end
                 }
             }, 
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    modalVariant = function(v12) --[[ Line: 63 ]] --[[ Name: modalVariant ]]
-                        return v12;
-                    end, 
-                    source = function(v13) --[[ Line: 66 ]] --[[ Name: source ]]
+                    modalVariant = function(v13) --[[ Line: 64 ]] --[[ Name: modalVariant ]]
                         return v13;
+                    end, 
+                    source = function(v14) --[[ Line: 67 ]] --[[ Name: source ]]
+                        return v14;
                     end
                 }
             }
@@ -85,7 +86,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 79 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 80 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.UserSeen;
                 end, 
@@ -108,7 +109,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 97 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 98 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -132,7 +133,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 116 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 117 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -156,7 +157,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 135 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 136 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -165,22 +166,22 @@ return {
                     btn = v6.Close
                 }, 
                 dynamicCustomFields = {
-                    modalVariant = function(v14) --[[ Line: 143 ]] --[[ Name: modalVariant ]]
-                        return v14;
-                    end, 
-                    source = function(v15) --[[ Line: 146 ]] --[[ Name: source ]]
+                    modalVariant = function(v15) --[[ Line: 144 ]] --[[ Name: modalVariant ]]
                         return v15;
+                    end, 
+                    source = function(v16) --[[ Line: 147 ]] --[[ Name: source ]]
+                        return v16;
                     end
                 }
             }, 
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    modalVariant = function(v16) --[[ Line: 154 ]] --[[ Name: modalVariant ]]
-                        return v16;
-                    end, 
-                    source = function(v17) --[[ Line: 157 ]] --[[ Name: source ]]
+                    modalVariant = function(v17) --[[ Line: 155 ]] --[[ Name: modalVariant ]]
                         return v17;
+                    end, 
+                    source = function(v18) --[[ Line: 158 ]] --[[ Name: source ]]
+                        return v18;
                     end
                 }
             }
@@ -196,7 +197,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 170 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 171 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -220,7 +221,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 189 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 190 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -244,7 +245,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 208 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 209 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -268,7 +269,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 227 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 228 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -292,7 +293,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 246 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 247 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -316,7 +317,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 265 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 266 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -325,22 +326,22 @@ return {
                     btn = v6.Cancel
                 }, 
                 dynamicCustomFields = {
-                    modalVariant = function(v18) --[[ Line: 273 ]] --[[ Name: modalVariant ]]
-                        return v18;
-                    end, 
-                    source = function(v19) --[[ Line: 276 ]] --[[ Name: source ]]
+                    modalVariant = function(v19) --[[ Line: 274 ]] --[[ Name: modalVariant ]]
                         return v19;
+                    end, 
+                    source = function(v20) --[[ Line: 277 ]] --[[ Name: source ]]
+                        return v20;
                     end
                 }
             }, 
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    modalVariant = function(v20) --[[ Line: 284 ]] --[[ Name: modalVariant ]]
-                        return v20;
-                    end, 
-                    source = function(v21) --[[ Line: 287 ]] --[[ Name: source ]]
+                    modalVariant = function(v21) --[[ Line: 285 ]] --[[ Name: modalVariant ]]
                         return v21;
+                    end, 
+                    source = function(v22) --[[ Line: 288 ]] --[[ Name: source ]]
+                        return v22;
                     end
                 }
             }
@@ -356,7 +357,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 301 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 302 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -365,24 +366,112 @@ return {
                     btn = v6.AddViaLink
                 }, 
                 dynamicCustomFields = {
-                    modalVariant = function(v22) --[[ Line: 309 ]] --[[ Name: modalVariant ]]
-                        return v22;
-                    end, 
-                    source = function(v23) --[[ Line: 312 ]] --[[ Name: source ]]
+                    modalVariant = function(v23) --[[ Line: 310 ]] --[[ Name: modalVariant ]]
                         return v23;
+                    end, 
+                    source = function(v24) --[[ Line: 313 ]] --[[ Name: source ]]
+                        return v24;
                     end
                 }
             }, 
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    modalVariant = function(v24) --[[ Line: 320 ]] --[[ Name: modalVariant ]]
-                        return v24;
-                    end, 
-                    source = function(v25) --[[ Line: 323 ]] --[[ Name: source ]]
+                    modalVariant = function(v25) --[[ Line: 321 ]] --[[ Name: modalVariant ]]
                         return v25;
+                    end, 
+                    source = function(v26) --[[ Line: 324 ]] --[[ Name: source ]]
+                        return v26;
                     end
                 }
+            }
+        }
+    } else nil, 
+    [v5.TrustedFriendsVPCPrologueOpened] = if l_FFlagTCVerifiedParentalControl_0 then {
+        description = "Trusted Friends VPC Prologue open button clicked in TC modal", 
+        lastUpdated = {
+            26, 
+            2, 
+            26
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.EventIngest, 
+                overrideName = function() --[[ Line: 339 ]] --[[ Name: overrideName ]]
+                    -- upvalues: l_EventTypes_0 (copy)
+                    return l_EventTypes_0.ButtonClick;
+                end, 
+                staticCustomFields = {
+                    eventContext = l_Contexts_0.TCUpsellModal, 
+                    btn = v6.OpenVPCPrologue
+                }, 
+                dynamicCustomFields = {
+                    modalVariant = function(v27) --[[ Line: 347 ]] --[[ Name: modalVariant ]]
+                        return v27;
+                    end, 
+                    source = function(v28) --[[ Line: 350 ]] --[[ Name: source ]]
+                        return v28;
+                    end
+                }
+            }, 
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
+                dynamicCustomFields = {
+                    modalVariant = function(v29) --[[ Line: 358 ]] --[[ Name: modalVariant ]]
+                        return v29;
+                    end, 
+                    source = function(v30) --[[ Line: 361 ]] --[[ Name: source ]]
+                        return v30;
+                    end
+                }
+            }
+        }
+    } else nil, 
+    [v5.TrustedFriendsVPCAskClicked] = if l_FFlagTCVerifiedParentalControl_0 then {
+        description = "Trusted Friends VPC Prologue Ask button clicked", 
+        lastUpdated = {
+            26, 
+            2, 
+            26
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.EventIngest, 
+                overrideName = function() --[[ Line: 376 ]] --[[ Name: overrideName ]]
+                    -- upvalues: l_EventTypes_0 (copy)
+                    return l_EventTypes_0.ButtonClick;
+                end, 
+                staticCustomFields = {
+                    eventContext = l_Contexts_0.TrustedFriendsVPCPrologue, 
+                    btn = v6.Ask
+                }
+            }, 
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
+            }
+        }
+    } else nil, 
+    [v5.TrustedFriendsVPCCancelClicked] = if l_FFlagTCVerifiedParentalControl_0 then {
+        description = "Trusted Friends VPC Prologue Cancel button clicked", 
+        lastUpdated = {
+            26, 
+            2, 
+            26
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.EventIngest, 
+                overrideName = function() --[[ Line: 397 ]] --[[ Name: overrideName ]]
+                    -- upvalues: l_EventTypes_0 (copy)
+                    return l_EventTypes_0.ButtonClick;
+                end, 
+                staticCustomFields = {
+                    eventContext = l_Contexts_0.TrustedFriendsVPCPrologue, 
+                    btn = v6.Cancel
+                }
+            }, 
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
             }
         }
     } else nil, 
@@ -396,7 +485,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 337 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 417 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -420,7 +509,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 357 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 437 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 
@@ -444,7 +533,7 @@ return {
         backendsList = {
             {
                 type = l_SupportedTelemetryBackends_0.EventIngest, 
-                overrideName = function() --[[ Line: 378 ]] --[[ Name: overrideName ]]
+                overrideName = function() --[[ Line: 458 ]] --[[ Name: overrideName ]]
                     -- upvalues: l_EventTypes_0 (copy)
                     return l_EventTypes_0.ButtonClick;
                 end, 

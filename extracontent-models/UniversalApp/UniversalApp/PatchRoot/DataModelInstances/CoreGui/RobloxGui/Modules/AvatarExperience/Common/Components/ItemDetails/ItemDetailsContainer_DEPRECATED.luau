@@ -23,19 +23,19 @@ local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localiz
 local v22 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
 local v23 = require(l_Modules_0.AvatarExperience.Common.Components.ItemViewport.ItemViewport);
 local v24 = require(l_CorePackages_0.Packages.Foundation);
-local v25 = require(l_CorePackages_0.Packages.UIBlox);
-local l_withStyle_0 = v25.Style.withStyle;
-local l_LoadableImage_0 = v25.App.Loading.LoadableImage;
-local l_ShimmerPanel_0 = v25.App.Loading.ShimmerPanel;
-local l_GetCanExpand_0 = v25.Core.Text.ExpandableText.GetCanExpand;
-local l_LoadingStateContainer_0 = v25.App.Container.LoadingStateContainer;
-local l_RetrievalStatus_0 = v25.App.Loading.Enum.RetrievalStatus;
-local l_EmptyState_0 = v25.App.Indicator.EmptyState;
-local l_Button_0 = v25.App.Button.Button;
-local l_ButtonType_0 = v25.App.Button.Enum.ButtonType;
-local l_LinkButton_0 = v25.App.Button.LinkButton;
-local l_MenuDirection_0 = v25.App.Menu.MenuDirection;
-local l_StyledTextLabel_0 = v25.App.Text.StyledTextLabel;
+local l_Skeleton_0 = v24.Skeleton;
+local v26 = require(l_CorePackages_0.Packages.UIBlox);
+local l_withStyle_0 = v26.Style.withStyle;
+local l_LoadableImage_0 = v26.App.Loading.LoadableImage;
+local l_GetCanExpand_0 = v26.Core.Text.ExpandableText.GetCanExpand;
+local l_LoadingStateContainer_0 = v26.App.Container.LoadingStateContainer;
+local l_RetrievalStatus_0 = v26.App.Loading.Enum.RetrievalStatus;
+local l_EmptyState_0 = v26.App.Indicator.EmptyState;
+local l_Button_0 = v26.App.Button.Button;
+local l_ButtonType_0 = v26.App.Button.Enum.ButtonType;
+local l_LinkButton_0 = v26.App.Button.LinkButton;
+local l_MenuDirection_0 = v26.App.Menu.MenuDirection;
+local l_StyledTextLabel_0 = v26.App.Text.StyledTextLabel;
 local l_FitTextLabel_0 = l_RoactFitComponents_0.FitTextLabel;
 local l_getSafeAreaSize_0 = require(l_CorePackages_0.Workspace.Packages.InputUi).getSafeAreaSize;
 local l_RoactAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy;
@@ -146,7 +146,7 @@ v93.defaultProps = {
     clipDetails = false, 
     listPadding = 24
 };
-v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
+v93.init = function(v94) --[[ Line: 210 ]] --[[ Name: init ]]
     -- upvalues: l_FFlagAXItemDetailsIxpExposure_0 (copy), l_Signal_0 (copy), v3 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy), v72 (copy), l_FFlagEnableSocialProofOnItemDetails_0 (copy), v75 (copy), v12 (copy), v76 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v44 (copy)
     if l_FFlagAXItemDetailsIxpExposure_0 then
         v94.requestImpressionsSignal = l_Signal_0.new();
@@ -165,7 +165,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
         fetchRecommendationsFailed = not v76() and nil, 
         socialProofChipRendered = not l_FFlagEnableSocialProofOnItemDetails_0 and nil
     };
-    v94.fetchAssetOrBundleInfo = function() --[[ Line: 243 ]]
+    v94.fetchAssetOrBundleInfo = function() --[[ Line: 244 ]]
         -- upvalues: v94 (copy)
         local l_networking_0 = v94.props.networking;
         local l_appAnalytics_0 = v94.props.appAnalytics;
@@ -174,7 +174,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
         return v94.props.fetchAssetOrBundleInfo(l_networking_0, l_appAnalytics_0, v97, l_itemType_0);
     end;
     if v75.isEnabled() then
-        v94.onItemViewportLoadingFailed = function() --[[ Line: 253 ]]
+        v94.onItemViewportLoadingFailed = function() --[[ Line: 254 ]]
             -- upvalues: v94 (copy)
             v94:setState({
                 is3DPreviewEnabled = false
@@ -185,7 +185,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
     local v99, v100 = v3.createBinding(false);
     v94.itemHeaderVisibleBinding = v99;
     v94.updateItemHeaderVisibleBinding = v100;
-    v94.onTryOnActivated = function() --[[ Line: 263 ]]
+    v94.onTryOnActivated = function() --[[ Line: 264 ]]
         -- upvalues: v94 (copy), l_FFlagAXTryOnScreenImprovements_0 (ref), l_AvatarScreen_0 (ref)
         local v101 = {
             itemId = v94.props.itemId, 
@@ -204,7 +204,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
         v94.props.navigateDownToAvatarScreen(l_AvatarScreen_0.TryOnItem, v102, v101);
     end;
     if l_FFlagAXMISEnableMultiShopping_0 then
-        v94.onRecommendedItemDetailsTryOnButtonActivated = function() --[[ Line: 293 ]]
+        v94.onRecommendedItemDetailsTryOnButtonActivated = function() --[[ Line: 294 ]]
             -- upvalues: v44 (ref), v94 (copy), l_AvatarScreen_0 (ref)
             local v103 = v44.GetItemSubType(v94.props.itemType, v94.props.itemData);
             v94.props.toggleTryOnThunk(v94.props.networking, v94.props.catalogAnalytics, v94.props.itemType, v103, v94.props.itemId, true, v94.props.avatarRoute, v94.props.navigation);
@@ -214,7 +214,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
             });
         end;
     end;
-    v94.onItemOwnershipButtonActivated = function() --[[ Line: 314 ]]
+    v94.onItemOwnershipButtonActivated = function() --[[ Line: 315 ]]
         -- upvalues: v94 (copy), l_AvatarScreen_0 (ref)
         local l_collectibleItemId_0 = v94.props.itemData.collectibleItemId;
         v94.props.navigation.navigate(l_AvatarScreen_0.ItemOwnershipPage, {
@@ -223,7 +223,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
             itemType = v94.props.itemType
         });
     end;
-    v94.onItemHeaderMoved = function(v105) --[[ Line: 324 ]]
+    v94.onItemHeaderMoved = function(v105) --[[ Line: 325 ]]
         -- upvalues: v94 (copy)
         if not v94.props.actionBarHeaderRef then
             return;
@@ -241,7 +241,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
     end;
     v94.hasCalledOnItemInvalid = false;
     if v76() then
-        v94.onFetchRecommendationsFailed = function() --[[ Line: 346 ]]
+        v94.onFetchRecommendationsFailed = function() --[[ Line: 347 ]]
             -- upvalues: v94 (copy)
             v94:setState({
                 fetchRecommendationsFailed = true
@@ -249,7 +249,7 @@ v93.init = function(v94) --[[ Line: 209 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v93.canItemDescriptionExpand = function(v108, v109) --[[ Line: 354 ]] --[[ Name: canItemDescriptionExpand ]]
+v93.canItemDescriptionExpand = function(v108, v109) --[[ Line: 355 ]] --[[ Name: canItemDescriptionExpand ]]
     -- upvalues: l_GetCanExpand_0 (copy)
     local l_itemData_0 = v108.props.itemData;
     local v111 = nil;
@@ -261,16 +261,16 @@ v93.canItemDescriptionExpand = function(v108, v109) --[[ Line: 354 ]] --[[ Name:
         return l_GetCanExpand_0(v109, v112, v111, 3);
     end;
 end;
-v93.updateDurability = function(v113) --[[ Line: 366 ]] --[[ Name: updateDurability ]]
+v93.updateDurability = function(v113) --[[ Line: 367 ]] --[[ Name: updateDurability ]]
     -- upvalues: l_FFlagAXDurablesSupport_0 (copy)
     if l_FFlagAXDurablesSupport_0 and v113.props.itemData and v113.props.itemData.timedOptions then
         v113.wearTimeOptions = v113.props.itemData.timedOptions;
     end;
 end;
-v93.didMount = function(v114) --[[ Line: 372 ]] --[[ Name: didMount ]]
+v93.didMount = function(v114) --[[ Line: 373 ]] --[[ Name: didMount ]]
     v114.fetchAssetOrBundleInfo();
 end;
-v93.didUpdate = function(v115, v116) --[[ Line: 376 ]] --[[ Name: didUpdate ]]
+v93.didUpdate = function(v115, v116) --[[ Line: 377 ]] --[[ Name: didUpdate ]]
     -- upvalues: v19 (copy), v76 (copy)
     v115:updateDurability();
     local l_itemData_1 = v115.props.itemData;
@@ -292,13 +292,13 @@ v93.didUpdate = function(v115, v116) --[[ Line: 376 ]] --[[ Name: didUpdate ]]
     end;
 end;
 if l_FFlagEnableSocialProofOnItemDetails_0 then
-    v93.setSocialProofChipRendered = function(v122, v123) --[[ Line: 404 ]] --[[ Name: setSocialProofChipRendered ]]
+    v93.setSocialProofChipRendered = function(v122, v123) --[[ Line: 405 ]] --[[ Name: setSocialProofChipRendered ]]
         v122:setState({
             socialProofChipRendered = v123
         });
     end;
 end;
-v93.shouldShowRecommendedItems = function(v124, v125) --[[ Line: 418 ]] --[[ Name: shouldShowRecommendedItems ]]
+v93.shouldShowRecommendedItems = function(v124, v125) --[[ Line: 419 ]] --[[ Name: shouldShowRecommendedItems ]]
     -- upvalues: v44 (copy), v76 (copy)
     if v125 then
         return false;
@@ -315,8 +315,8 @@ v93.shouldShowRecommendedItems = function(v124, v125) --[[ Line: 418 ]] --[[ Nam
         end;
     end;
 end;
-v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Name: renderDetailsWithProviders ]]
-    -- upvalues: v44 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_FFlagAXRemoveExpiredItemsFromInventory_0 (copy), l_isDurableItemExpired_0 (copy), v75 (copy), v46 (copy), v77 (copy), v70 (copy), l_withStyle_0 (copy), l_PeekViewState_0 (copy), v72 (copy), l_FFlagEnableSocialProofOnItemDetails_0 (copy), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v42 (copy), l_AvatarScreen_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_TextService_0 (copy), v3 (copy), l_LinkButton_0 (copy), v91 (copy), l_MenuDirection_0 (copy), l_Focusable_0 (copy), l_FitFrameVertical_0 (copy), l_RoactFitComponents_0 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v8 (copy), l_IsVRAppBuild_0 (copy), l_FitTextLabel_0 (copy), l_ShimmerPanel_0 (copy), l_StyledTextLabel_0 (copy), v23 (copy), v74 (copy), l_LoadableImage_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v24 (copy), v52 (copy), l_FriendsOwnedChip_0 (copy), v47 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy), v4 (copy), l_ItemExpirationDisplay_0 (copy), l_WearTimeOptionsCarousel_0 (copy), v48 (copy), v49 (copy), v50 (copy), v51 (copy), v76 (copy), l_TagBasedImpressionsDetector_0 (copy)
+v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 443 ]] --[[ Name: renderDetailsWithProviders ]]
+    -- upvalues: v44 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), l_FFlagAXRemoveExpiredItemsFromInventory_0 (copy), l_isDurableItemExpired_0 (copy), v75 (copy), v46 (copy), v77 (copy), v70 (copy), l_withStyle_0 (copy), l_PeekViewState_0 (copy), v72 (copy), l_FFlagEnableSocialProofOnItemDetails_0 (copy), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v42 (copy), l_AvatarScreen_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_TextService_0 (copy), v3 (copy), l_LinkButton_0 (copy), v91 (copy), l_MenuDirection_0 (copy), l_Focusable_0 (copy), l_FitFrameVertical_0 (copy), l_RoactFitComponents_0 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v8 (copy), l_IsVRAppBuild_0 (copy), l_FitTextLabel_0 (copy), l_Skeleton_0 (copy), l_StyledTextLabel_0 (copy), v23 (copy), v74 (copy), l_LoadableImage_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v24 (copy), v52 (copy), l_FriendsOwnedChip_0 (copy), v47 (copy), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (copy), v4 (copy), l_ItemExpirationDisplay_0 (copy), l_WearTimeOptionsCarousel_0 (copy), v48 (copy), v49 (copy), v50 (copy), v51 (copy), v76 (copy), l_TagBasedImpressionsDetector_0 (copy)
     local v129 = tostring(v127.props.itemId);
     local l_itemType_1 = v127.props.itemType;
     local l_listPadding_0 = v127.props.listPadding;
@@ -366,8 +366,8 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
     end;
     local v153 = v127.state.width * 9 / 16;
     local v154 = v127.props.showFullWithNoPeekView and v127.props.bottomDockedContainerHeight > 0;
-    return l_withStyle_0(function(v155) --[[ Line: 513 ]]
-        -- upvalues: l_itemData_3 (copy), l_peekViewState_0 (copy), l_PeekViewState_0 (ref), v127 (copy), v72 (ref), v141 (ref), v139 (copy), v140 (copy), l_FFlagEnableSocialProofOnItemDetails_0 (ref), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v42 (ref), l_AvatarScreen_0 (ref), l_FFlagAXEnableHomeTryOnComplexView_0 (ref), l_FFlagAXTryOnScreenImprovements_0 (ref), v128 (copy), l_TextService_0 (ref), v3 (ref), l_LinkButton_0 (ref), v91 (ref), v44 (ref), l_MenuDirection_0 (ref), l_Focusable_0 (ref), l_FitFrameVertical_0 (ref), l_listPadding_0 (copy), l_RoactFitComponents_0 (ref), l_FFlagAXItemDetailsIxpExposure_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v8 (ref), l_IsVRAppBuild_0 (ref), l_FitTextLabel_0 (ref), l_ShimmerPanel_0 (ref), l_StyledTextLabel_0 (ref), v153 (copy), v75 (ref), v146 (ref), v23 (ref), v129 (copy), l_itemType_1 (copy), v148 (ref), v77 (ref), v149 (ref), v150 (ref), v74 (ref), l_LoadableImage_0 (ref), v138 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), v24 (ref), v46 (ref), v52 (ref), l_FriendsOwnedChip_0 (ref), v47 (ref), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (ref), v142 (ref), l_FFlagAXInventoryDurablesSupport_0 (ref), l_FFlagAXRemoveExpiredItemsFromInventory_0 (ref), v145 (copy), v4 (ref), l_ItemExpirationDisplay_0 (ref), l_FFlagAXDurablesSupport_0 (ref), l_WearTimeOptionsCarousel_0 (ref), v48 (ref), l_width_0 (copy), v49 (ref), v134 (copy), v50 (ref), v51 (ref), l_itemSubType_0 (copy), v76 (ref), v154 (copy), l_TagBasedImpressionsDetector_0 (ref)
+    return l_withStyle_0(function(v155) --[[ Line: 514 ]]
+        -- upvalues: l_itemData_3 (copy), l_peekViewState_0 (copy), l_PeekViewState_0 (ref), v127 (copy), v72 (ref), v141 (ref), v139 (copy), v140 (copy), l_FFlagEnableSocialProofOnItemDetails_0 (ref), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v42 (ref), l_AvatarScreen_0 (ref), l_FFlagAXEnableHomeTryOnComplexView_0 (ref), l_FFlagAXTryOnScreenImprovements_0 (ref), v128 (copy), l_TextService_0 (ref), v3 (ref), l_LinkButton_0 (ref), v91 (ref), v44 (ref), l_MenuDirection_0 (ref), l_Focusable_0 (ref), l_FitFrameVertical_0 (ref), l_listPadding_0 (copy), l_RoactFitComponents_0 (ref), l_FFlagAXItemDetailsIxpExposure_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v8 (ref), l_IsVRAppBuild_0 (ref), l_FitTextLabel_0 (ref), l_Skeleton_0 (ref), l_StyledTextLabel_0 (ref), v153 (copy), v75 (ref), v146 (ref), v23 (ref), v129 (copy), l_itemType_1 (copy), v148 (ref), v77 (ref), v149 (ref), v150 (ref), v74 (ref), l_LoadableImage_0 (ref), v138 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), v24 (ref), v46 (ref), v52 (ref), l_FriendsOwnedChip_0 (ref), v47 (ref), l_CombinedFFlagShouldUseLegacyGamepadFocus_0 (ref), v142 (ref), l_FFlagAXInventoryDurablesSupport_0 (ref), l_FFlagAXRemoveExpiredItemsFromInventory_0 (ref), v145 (copy), v4 (ref), l_ItemExpirationDisplay_0 (ref), l_FFlagAXDurablesSupport_0 (ref), l_WearTimeOptionsCarousel_0 (ref), v48 (ref), l_width_0 (copy), v49 (ref), v134 (copy), v50 (ref), v51 (ref), l_itemSubType_0 (copy), v76 (ref), v154 (copy), l_TagBasedImpressionsDetector_0 (ref)
         local l_Theme_0 = v155.Theme;
         local l_Font_0 = v155.Font;
         local v158 = l_Font_0.BaseSize * l_Font_0.Header1.RelativeSize;
@@ -387,7 +387,7 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
         end;
         local v166 = if v164 then v163 else nil;
         local v167 = if l_FFlagEnableSocialProofOnItemDetails_0 and v127.state.socialProofChipRendered then v127.socialProofRef else v127.props.NextSelectionUp;
-        local v169 = l_FFlagEnableSocialProofOnItemDetails_0 and l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 and function(v168) --[[ Line: 548 ]]
+        local v169 = l_FFlagEnableSocialProofOnItemDetails_0 and l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 and function(v168) --[[ Line: 549 ]]
             -- upvalues: v127 (ref)
             v127:setSocialProofChipRendered(v168);
         end or nil;
@@ -407,7 +407,7 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
         if v127.props.experiences then
             v179 = v3.createElement(l_LinkButton_0, {
                 text = if v127.props.experiences and #v127.props.experiences == 1 and v127.props.experiences[1].name then if v91 then v128.inSpecificExperience else v128.inSpecificExperience:gsub("{EXPERIENCE_NAME}", v127.props.experiences[1].name) else if v91 then v128.inMultipleExperiences else v128.inMultipleExperiences:gsub("{NUM_EXPERIENCES}", #v127.props.experiences), 
-                onActivated = function() --[[ Line: 594 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 595 ]] --[[ Name: onActivated ]]
                     -- upvalues: v127 (ref), l_AvatarScreen_0 (ref), v44 (ref), l_itemData_3 (ref), l_MenuDirection_0 (ref)
                     v127.props.navigation.navigate(l_AvatarScreen_0.ItemExperiencesMenu, {
                         collectibleData = v127.props.collectibleData, 
@@ -434,11 +434,11 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
             restorePreviousChildFocus = true, 
             [v3.Ref] = if l_FFlagAXItemDetailsIxpExposure_0 then v127.itemDetailsContainerRef else nil, 
             inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-                MoveToTop = v8.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 626 ]]
+                MoveToTop = v8.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 627 ]]
                     -- upvalues: v127 (ref), v166 (copy)
                     v127.props.peekViewFocusController.moveFocusTo(v166);
                 end), 
-                MoveToRecItemsGrid = v8.Input.onBegin(Enum.KeyCode.ButtonR2, function() --[[ Line: 629 ]]
+                MoveToRecItemsGrid = v8.Input.onBegin(Enum.KeyCode.ButtonR2, function() --[[ Line: 630 ]]
                     -- upvalues: v127 (ref)
                     v127.props.peekViewFocusController.moveFocusTo(v127.recommendedItemsGridRef);
                 end)
@@ -469,13 +469,13 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         TextColor3 = l_Theme_0.TextEmphasis.Color, 
                         TextWrapped = true
-                    }, {}) else v3.createElement(l_ShimmerPanel_0, {
+                    }, {}) else v3.createElement(l_Skeleton_0, {
                         Size = UDim2.new(1, 0, 0, v158)
                     }), 
                     RefUpdater = v3.createElement("Frame", {
                         Size = UDim2.new(0, 0, 0, 0), 
                         BackgroundTransparency = 1, 
-                        [v3.Ref] = function(v180) --[[ Line: 672 ]]
+                        [v3.Ref] = function(v180) --[[ Line: 673 ]]
                             -- upvalues: v127 (ref)
                             if v180 and v180.Parent then
                                 v127.onItemHeaderMoved(v180.Parent);
@@ -681,7 +681,7 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
             }), 
             UnifiedImpressionsReporter = if l_FFlagAXItemDetailsIxpExposure_0 then v3.createElement(l_TagBasedImpressionsDetector_0, {
                 parentRef = v127.itemDetailsContainerRef, 
-                pageFilter = function() --[[ Line: 1020 ]] --[[ Name: pageFilter ]]
+                pageFilter = function() --[[ Line: 1021 ]] --[[ Name: pageFilter ]]
                     -- upvalues: v127 (ref)
                     return v127.props.navigation.state.key == v127.props.avatarRoute.current.key;
                 end, 
@@ -691,7 +691,7 @@ v93.renderDetailsWithProviders = function(v127, v128) --[[ Line: 442 ]] --[[ Nam
         });
     end);
 end;
-v93.renderDetails = function(v181) --[[ Line: 1034 ]] --[[ Name: renderDetails ]]
+v93.renderDetails = function(v181) --[[ Line: 1035 ]] --[[ Name: renderDetails ]]
     -- upvalues: l_withLocalization_0 (copy), v91 (copy)
     return l_withLocalization_0({
         recommendedLabel = "Feature.Catalog.Label.Recommendations", 
@@ -706,12 +706,12 @@ v93.renderDetails = function(v181) --[[ Line: 1034 ]] --[[ Name: renderDetails ]
             EXPERIENCE_NAME = if v181.props.experiences then v181.props.experiences[1].name else ""
         } else "Feature.Catalog.Label.InSpecificExperience", 
         soldOut = "Feature.Catalog.Label.SoldOut"
-    })(function(v182) --[[ Line: 1052 ]]
+    })(function(v182) --[[ Line: 1053 ]]
         -- upvalues: v181 (copy)
         return v181:renderDetailsWithProviders(v182);
     end);
 end;
-v93.renderOnFailed = function(v183) --[[ Line: 1057 ]] --[[ Name: renderOnFailed ]]
+v93.renderOnFailed = function(v183) --[[ Line: 1058 ]] --[[ Name: renderOnFailed ]]
     -- upvalues: l_getSafeAreaSize_0 (copy), v45 (copy), l_withLocalization_0 (copy), v3 (copy), l_EmptyState_0 (copy)
     local l_fetchAssetOrBundleInfo_0 = v183.fetchAssetOrBundleInfo;
     local l_globalGuiInset_0 = v183.props.globalGuiInset;
@@ -720,7 +720,7 @@ v93.renderOnFailed = function(v183) --[[ Line: 1057 ]] --[[ Name: renderOnFailed
     local v188 = v45.ActionBar.ActionBarHeight + v45.ActionBar.ActionBarGradientHeight;
     local v190 = l_withLocalization_0({
         emptyText = "Feature.EmptyStatePage.Message.NoInternet"
-    })(function(v189) --[[ Line: 1068 ]]
+    })(function(v189) --[[ Line: 1069 ]]
         -- upvalues: v3 (ref), l_EmptyState_0 (ref), l_fetchAssetOrBundleInfo_0 (copy)
         return v3.createElement(l_EmptyState_0, {
             onActivated = l_fetchAssetOrBundleInfo_0, 
@@ -734,11 +734,11 @@ v93.renderOnFailed = function(v183) --[[ Line: 1057 ]] --[[ Name: renderOnFailed
         EmptyStatePage = v190
     });
 end;
-v93.render = function(v191) --[[ Line: 1083 ]] --[[ Name: render ]]
+v93.render = function(v191) --[[ Line: 1084 ]] --[[ Name: render ]]
     -- upvalues: l_FitFrameVertical_0 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v3 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_0 (copy), l_withStyle_0 (copy)
     local l_clipDetails_0 = v191.props.clipDetails;
     local l_fetchingState_1 = v191.props.fetchingState;
-    return l_withStyle_0(function(v194) --[[ Line: 1087 ]]
+    return l_withStyle_0(function(v194) --[[ Line: 1088 ]]
         -- upvalues: l_clipDetails_0 (copy), l_FitFrameVertical_0 (ref), l_FFlagAXCustomizeMakeupSupport_0 (ref), v3 (ref), v191 (copy), l_FFlagAXItemDetailsIxpExposure_0 (ref), l_LoadingStateContainer_0 (ref), l_RetrievalStatus_0 (ref), l_fetchingState_1 (copy)
         local l_Theme_1 = v194.Theme;
         local v196 = l_clipDetails_0 and "Frame" or l_FitFrameVertical_0;
@@ -755,7 +755,7 @@ v93.render = function(v191) --[[ Line: 1083 ]] --[[ Name: render ]]
             BorderSizePixel = 0, 
             Position = UDim2.new(0, 0, 0, 0), 
             [v3.Ref] = v191.props.forwardRef, 
-            [v3.Change.AbsoluteSize] = function(v197) --[[ Line: 1113 ]]
+            [v3.Change.AbsoluteSize] = function(v197) --[[ Line: 1114 ]]
                 -- upvalues: v191 (ref)
                 if v191.state.width ~= v197.AbsoluteSize.X then
                     v191:setState({
@@ -763,22 +763,22 @@ v93.render = function(v191) --[[ Line: 1083 ]] --[[ Name: render ]]
                     });
                 end;
             end, 
-            [v3.Change.AbsolutePosition] = l_FFlagAXItemDetailsIxpExposure_0 and function(_) --[[ Line: 1122 ]]
+            [v3.Change.AbsolutePosition] = l_FFlagAXItemDetailsIxpExposure_0 and function(_) --[[ Line: 1123 ]]
                 -- upvalues: v191 (ref)
                 v191.requestImpressionsSignal:fire();
             end or nil
         }, {
             LoadingState = v3.createElement(l_LoadingStateContainer_0, {
                 dataStatus = l_RetrievalStatus_0.fromRawValue(l_fetchingState_1), 
-                renderOnLoading = function() --[[ Line: 1129 ]] --[[ Name: renderOnLoading ]]
+                renderOnLoading = function() --[[ Line: 1130 ]] --[[ Name: renderOnLoading ]]
                     -- upvalues: v191 (ref)
                     return v191:renderDetails();
                 end, 
-                renderOnLoaded = function() --[[ Line: 1132 ]] --[[ Name: renderOnLoaded ]]
+                renderOnLoaded = function() --[[ Line: 1133 ]] --[[ Name: renderOnLoaded ]]
                     -- upvalues: v191 (ref)
                     return v191:renderDetails();
                 end, 
-                renderOnFailed = function() --[[ Line: 1135 ]] --[[ Name: renderOnFailed ]]
+                renderOnFailed = function() --[[ Line: 1136 ]] --[[ Name: renderOnFailed ]]
                     -- upvalues: v191 (ref)
                     return v191:renderOnFailed();
                 end
@@ -786,7 +786,7 @@ v93.render = function(v191) --[[ Line: 1083 ]] --[[ Name: render ]]
         });
     end);
 end;
-v93 = v7.connect(function(v199, v200) --[[ Line: 1144 ]]
+v93 = v7.connect(function(v199, v200) --[[ Line: 1145 ]]
     -- upvalues: l_PerformFetch_0 (copy), v44 (copy), v19 (copy), v68 (copy), l_AvatarScreen_0 (copy), v70 (copy)
     local v201 = l_PerformFetch_0.GetStatus(v199, v44.GetItemDetailsKey(v200.itemId, v200.itemType));
     local v202 = nil;
@@ -819,32 +819,32 @@ v93 = v7.connect(function(v199, v200) --[[ Line: 1144 ]]
         isCollectiblesEnabled = v204, 
         isLimitedCollectible = v207
     };
-end, function(v208, _) --[[ Line: 1189 ]]
+end, function(v208, _) --[[ Line: 1190 ]]
     -- upvalues: v66 (copy), v41 (copy), v55 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v56 (copy)
     return {
-        fetchAssetOrBundleInfo = function(v210, v211, v212, v213) --[[ Line: 1191 ]] --[[ Name: fetchAssetOrBundleInfo ]]
+        fetchAssetOrBundleInfo = function(v210, v211, v212, v213) --[[ Line: 1192 ]] --[[ Name: fetchAssetOrBundleInfo ]]
             -- upvalues: v208 (copy), v66 (ref)
             return v208(v66(v210, v211, v212, v213));
         end, 
-        navigateDownToAvatarScreen = function(v214, v215, v216) --[[ Line: 1194 ]] --[[ Name: navigateDownToAvatarScreen ]]
+        navigateDownToAvatarScreen = function(v214, v215, v216) --[[ Line: 1195 ]] --[[ Name: navigateDownToAvatarScreen ]]
             -- upvalues: v208 (copy), v41 (ref)
             return v208(v41(v214, v215, v216));
         end, 
-        toggleTryOn = function(v217, v218, v219, v220, v221, v222, v223, v224) --[[ Line: 1197 ]] --[[ Name: toggleTryOn ]]
+        toggleTryOn = function(v217, v218, v219, v220, v221, v222, v223, v224) --[[ Line: 1198 ]] --[[ Name: toggleTryOn ]]
             -- upvalues: v208 (copy), v55 (ref)
             v208(v55(v217, v218, v219, v220, v221, v222, v223, v224));
         end, 
-        toggleTryOnThunk = l_FFlagAXMISEnableMultiShopping_0 and function(v225, v226, v227, v228, v229, v230, v231, v232) --[[ Line: 1221 ]]
+        toggleTryOnThunk = l_FFlagAXMISEnableMultiShopping_0 and function(v225, v226, v227, v228, v229, v230, v231, v232) --[[ Line: 1222 ]]
             -- upvalues: v208 (copy), v55 (ref)
             v208(v55(v225, v226, v227, v228, v229, v230, v231, v232));
         end or nil, 
-        closeMatchingScreens = l_FFlagAXMISEnableMultiShopping_0 and function(v233, v234) --[[ Line: 1246 ]]
+        closeMatchingScreens = l_FFlagAXMISEnableMultiShopping_0 and function(v233, v234) --[[ Line: 1247 ]]
             -- upvalues: v208 (copy), v56 (ref)
             v208(v56(v233, v234));
         end or nil
     };
 end)(v93);
-v93 = l_RoactAppPolicy_0.connect(function(v235, _) --[[ Line: 1255 ]]
+v93 = l_RoactAppPolicy_0.connect(function(v235, _) --[[ Line: 1256 ]]
     return {
         enableAggregateLikesFavoritesCount = v235.getEnableAggregateLikesFavoritesCount()
     };
@@ -858,12 +858,12 @@ v93 = l_RoactServices_0.connect({
     catalogAnalytics = v22, 
     networking = v18
 })(v93);
-return v3.forwardRef(function(v237, v238) --[[ Line: 1273 ]]
+return v3.forwardRef(function(v237, v238) --[[ Line: 1274 ]]
     -- upvalues: l_FFlagAXItemDetailsIxpExposure_0 (copy), l_useUnifiedEventImpressionsReporter_0 (copy), v4 (copy), v53 (copy), v3 (copy), v93 (ref), v5 (copy)
     local v239 = nil;
     if l_FFlagAXItemDetailsIxpExposure_0 then
         local v240 = l_useUnifiedEventImpressionsReporter_0();
-        v239 = v4.useMemo(function() --[[ Line: 1277 ]]
+        v239 = v4.useMemo(function() --[[ Line: 1278 ]]
             -- upvalues: v240 (copy), v53 (ref)
             return {
                 v240, 

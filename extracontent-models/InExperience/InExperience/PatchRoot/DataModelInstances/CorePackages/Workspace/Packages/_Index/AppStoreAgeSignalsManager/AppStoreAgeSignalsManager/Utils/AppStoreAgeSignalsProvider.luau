@@ -9,14 +9,14 @@ local l_fetch_0 = v5.fetch;
 local l_Response_0 = v5.Response;
 local v9 = l_UrlBuilder_0.new({
     base = l_UrlBase_0.APIS, 
-    path = "app-age-signals-service/v1/app-signals/eligibility", 
+    path = "app-signals-service/v1/app-signals/get-eligibility", 
     query = {
         signalSource = "{signalSource}"
     }
 });
 local v10 = l_UrlBuilder_0.new({
     base = l_UrlBase_0.APIS, 
-    path = "app-age-signals-service/v1/app-signals/result"
+    path = "app-signals-service/v1/app-signals/store-result"
 });
 return {
     checkEligibility = function() --[[ Line: 27 ]] --[[ Name: checkEligibility ]]
@@ -46,17 +46,18 @@ return {
                     return;
                 else
                     v13({
-                        eligible = v17.eligible
+                        eligible = v17.eligible, 
+                        signalSource = l_Name_0
                     });
                     return;
                 end;
             end;
         end);
     end, 
-    publishResult = function(v18, v19, v20) --[[ Line: 61 ]] --[[ Name: publishResult ]]
+    publishResult = function(v18, v19, v20) --[[ Line: 62 ]] --[[ Name: publishResult ]]
         -- upvalues: l_fetch_0 (copy), v6 (copy), v10 (copy), l_HttpService_0 (copy), l_Response_0 (copy)
         local l_l_fetch_0_1 = l_fetch_0;
-        return v6.new(function(v22, v23) --[[ Line: 63 ]]
+        return v6.new(function(v22, v23) --[[ Line: 64 ]]
             -- upvalues: v10 (ref), l_l_fetch_0_1 (copy), l_HttpService_0 (ref), v18 (copy), v19 (copy), v20 (copy), l_Response_0 (ref)
             local v24 = v10();
             local v25 = l_l_fetch_0_1(v24, {
@@ -70,7 +71,7 @@ return {
                     ["Content-Type"] = "application/json", 
                     Accept = "application/json"
                 }
-            }):catch(function() --[[ Line: 77 ]]
+            }):catch(function() --[[ Line: 78 ]]
                 -- upvalues: l_Response_0 (ref)
                 return l_Response_0.error();
             end):expect();

@@ -92,7 +92,6 @@ return function(v13, v14, v15, v16) --[[ Line: 17 ]] --[[ Name: getProductInfo ]
                     IconImageAssetId = v27.IconImageAssetId, 
                     IsForSale = v27.IsForSale, 
                     DisplayPrice = v27.DisplayPrice, 
-                    DisplaySubscriptionPeriod = v27.DisplaySubscriptionPeriod, 
                     SubscriptionProviderName = v27.SubscriptionProviderName, 
                     PriceInRobux = v27.PriceInRobux, 
                     PriceTier = v27.PriceTier, 
@@ -101,12 +100,12 @@ return function(v13, v14, v15, v16) --[[ Line: 17 ]] --[[ Name: getProductInfo ]
             else
                 return v2.reject(v1.UnknownFailureNoItemName);
             end;
-        end):catch(function(_) --[[ Line: 116 ]]
+        end):catch(function(_) --[[ Line: 115 ]]
             -- upvalues: v2 (ref), v1 (ref)
             return v2.reject(v1.UnknownFailureNoItemName);
         end);
     else
-        return v13.getProductInfo(v14, v15):catch(function(_) --[[ Line: 120 ]]
+        return v13.getProductInfo(v14, v15):catch(function(_) --[[ Line: 119 ]]
             -- upvalues: v2 (ref), v1 (ref)
             return v2.reject(v1.UnknownFailureNoItemName);
         end);

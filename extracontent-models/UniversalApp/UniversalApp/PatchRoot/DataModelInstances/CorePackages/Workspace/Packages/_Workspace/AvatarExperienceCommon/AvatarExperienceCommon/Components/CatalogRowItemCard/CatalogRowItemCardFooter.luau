@@ -14,7 +14,7 @@ local l_FFlagAXDurablesForMIS_0 = require(l_Parent_0.AvatarExperienceFlags).FFla
 local _ = require(l_script_FirstAncestor_0.Types.TimedOptionType);
 local l_Icon_0 = v3.Icon;
 local l_IconSize_0 = v3.Enums.IconSize;
-return function(v16) --[[ Line: 48 ]] --[[ Name: CatalogRowItemCardFooter ]]
+return function(v16) --[[ Line: 49 ]] --[[ Name: CatalogRowItemCardFooter ]]
     -- upvalues: l_useTokens_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), v2 (copy), v10 (copy), v3 (copy), l_ItemCardPriceLine_0 (copy), l_ItemCardTitle_0 (copy), l_Text_0 (copy), l_Icon_0 (copy), l_IconSize_0 (copy), v6 (copy), v11 (copy)
     local v17 = l_useTokens_0();
     local v18 = nil;
@@ -23,7 +23,7 @@ return function(v16) --[[ Line: 48 ]] --[[ Name: CatalogRowItemCardFooter ]]
         v18 = v16.selectedTimedOptionPrice;
         v19 = v16.setSelectedTimedOptionPrice;
     end;
-    local v24 = v2.useMemo(function() --[[ Line: 59 ]]
+    local v24 = v2.useMemo(function() --[[ Line: 60 ]]
         -- upvalues: v16 (copy), v10 (ref), l_FFlagAXDurablesForMIS_0 (ref), v18 (ref), v2 (ref), v3 (ref), l_ItemCardPriceLine_0 (ref)
         local v20 = {};
         if v16.priceLineContent and #v16.priceLineContent > 0 then
@@ -154,7 +154,8 @@ return function(v16) --[[ Line: 48 ]] --[[ Name: CatalogRowItemCardFooter ]]
             }, {
                 WearTimeSelectedOptionInList = v2.createElement(v11, {
                     options = v16.timedOptions, 
-                    onOptionActivated = function(v26) --[[ Line: 216 ]] --[[ Name: onOptionActivated ]]
+                    selectedTimedOptionIndexInReducer = if l_FFlagAXDurablesForMIS_0 then v16.selectedTimedOptionIndexInReducer else nil, 
+                    onOptionActivated = function(v26) --[[ Line: 220 ]] --[[ Name: onOptionActivated ]]
                         -- upvalues: v16 (copy), v19 (ref)
                         local v27 = v16.timedOptions[v26];
                         if v27 then

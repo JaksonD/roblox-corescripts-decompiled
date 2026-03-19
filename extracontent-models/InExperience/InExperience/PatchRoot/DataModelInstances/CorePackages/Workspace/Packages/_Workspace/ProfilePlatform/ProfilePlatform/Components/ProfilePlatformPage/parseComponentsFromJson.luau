@@ -20,121 +20,124 @@ local v18 = require(l_script_FirstAncestor_0.Components.SocialLinks);
 local v19 = require(l_script_FirstAncestor_0.Components.Videos);
 local v20 = require(l_script_FirstAncestor_0.Components.CommunityLocked);
 local v21 = require(l_script_FirstAncestor_0.Components.Events);
-local v22 = require(l_script_FirstAncestor_0.Components.CurrentlyPlaying);
-local v23 = require(l_Parent_0.ProfilePlatform.Common.Constants);
-local v24 = require(l_Parent_0.ProfilePlatform.Common.Enums);
-local v25 = require(l_script_FirstAncestor_0.Utils.getPeekViewOpenHeightByProfileType);
-local v26 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableFavoriteExperiences);
+local v22 = require(l_script_FirstAncestor_0.Components.ProfileCompletion);
+local v23 = require(l_script_FirstAncestor_0.Components.CurrentlyPlaying);
+local v24 = require(l_Parent_0.ProfilePlatform.Common.Constants);
+local v25 = require(l_Parent_0.ProfilePlatform.Common.Enums);
+local v26 = require(l_script_FirstAncestor_0.Utils.getPeekViewOpenHeightByProfileType);
+local v27 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableFavoriteExperiences);
 local l_FFlagProfilePlatformEnableStore_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableStore;
-local v28 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableCommunityProfilePage);
+local v29 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableCommunityProfilePage);
 local l_FFlagProfilePlatformEnableInventory_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableInventory;
 local l_FFlagAddSocialLinksToCommunityProfile_0 = require(l_Parent_0.SharedFlags).FFlagAddSocialLinksToCommunityProfile;
 local l_FFlagAddVideoToCommunityProfile_0 = require(l_Parent_0.SharedFlags).FFlagAddVideoToCommunityProfile;
-local v32 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableCoverPhoto);
+local v33 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableCoverPhoto);
 local l_FFlagAddCommunityLockedToCommunityProfile_0 = require(l_Parent_0.SharedFlags).FFlagAddCommunityLockedToCommunityProfile;
 local l_FFlagExperiencesOnProfile_0 = require(l_Parent_0.SharedFlags).FFlagExperiencesOnProfile;
-local v35 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLazyLoadingComponents);
-local v36 = require(l_script_FirstAncestor_0.Flags.FFlagAddEventsToCommunityProfile);
-local v37 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformAddCurrentlyPlaying);
-local v38 = require(l_script_FirstAncestor_0.Flags.FFlagAboutBeforeActionClient);
-local function v47(v39) --[[ Line: 49 ]] --[[ Name: orderWithAboutBeforeActions ]]
-    -- upvalues: v38 (copy), v24 (copy), v2 (copy)
-    if not v38 then
-        return v39;
+local l_FFlagEnableProfileCompletion_0 = require(l_Parent_0.SharedFlags).FFlagEnableProfileCompletion;
+local v37 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLazyLoadingComponents);
+local v38 = require(l_script_FirstAncestor_0.Flags.FFlagAddEventsToCommunityProfile);
+local v39 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformAddCurrentlyPlaying);
+local v40 = require(l_script_FirstAncestor_0.Flags.FFlagAboutBeforeActionClient);
+local function v49(v41) --[[ Line: 51 ]] --[[ Name: orderWithAboutBeforeActions ]]
+    -- upvalues: v40 (copy), v25 (copy), v2 (copy)
+    if not v40 then
+        return v41;
     else
-        local v40 = nil;
-        local v41 = nil;
-        for v42, v43 in ipairs(v39) do
-            if v43 == v24.Components.About then
-                v40 = v42;
-            elseif v43 == v24.Components.Actions then
-                v41 = v42;
+        local v42 = nil;
+        local v43 = nil;
+        for v44, v45 in ipairs(v41) do
+            if v45 == v25.Components.About then
+                v42 = v44;
+            elseif v45 == v25.Components.Actions then
+                v43 = v44;
             end;
         end;
-        if v40 == nil or v41 == nil or v40 < v41 then
-            return v39;
+        if v42 == nil or v43 == nil or v42 < v43 then
+            return v41;
         else
-            local v44 = v2.List.join({}, v39);
-            local v45 = v44[v41];
-            local v46 = v44[v40];
-            v44[v40] = v45;
-            v44[v41] = v46;
-            return v44;
+            local v46 = v2.List.join({}, v41);
+            local v47 = v46[v43];
+            local v48 = v46[v42];
+            v46[v42] = v47;
+            v46[v43] = v48;
+            return v46;
         end;
     end;
 end;
-local v48 = {
-    [v24.Components.UserProfileHeader] = v4, 
-    [v24.Components.CurrentlyWearing] = v10, 
-    [v24.Components.Actions] = v7, 
-    [v24.Components.Experiences] = if l_FFlagExperiencesOnProfile_0 then v17 else v16, 
-    [v24.Components.ViewFullProfile] = v12, 
-    [v24.Components.About] = v5.About, 
-    [v24.Components.FavoriteExperiences] = if v26 then v14 else nil, 
-    [v24.Components.Inventory] = if l_FFlagProfilePlatformEnableInventory_0 then v13 else nil, 
-    [v24.Components.Store] = if l_FFlagProfilePlatformEnableStore_0 then v11 else nil, 
-    [v24.Components.CurrentlyPlaying] = if v37 then v22 else nil
-};
-local v49 = if v28 then {
-    [v24.Components.CoverPhoto] = if v32 then v9 else nil, 
-    [v24.Components.CommunityProfileHeader] = v8, 
-    [v24.Components.About] = v5.About, 
-    [v24.Components.Actions] = v7, 
-    [v24.Components.Experiences] = v16, 
-    [v24.Components.Store] = v11, 
-    [v24.Components.SocialLinks] = if l_FFlagAddSocialLinksToCommunityProfile_0 then v18 else nil, 
-    [v24.Components.Videos] = if l_FFlagAddVideoToCommunityProfile_0 then v19 else nil, 
-    [v24.Components.ViewFullProfile] = v12, 
-    [v24.Components.CommunityLocked] = if l_FFlagAddCommunityLockedToCommunityProfile_0 then v20 else nil, 
-    [v24.Components.Events] = if v36 then v21 else nil
-} else nil;
 local v50 = {
-    [v24.Components.ContactProfileHeader] = v15, 
-    [v24.Components.ContactDescription] = v6, 
-    [v24.Components.Actions] = v7
+    [v25.Components.UserProfileHeader] = v4, 
+    [v25.Components.CurrentlyWearing] = v10, 
+    [v25.Components.Actions] = v7, 
+    [v25.Components.Experiences] = if l_FFlagExperiencesOnProfile_0 then v17 else v16, 
+    [v25.Components.ViewFullProfile] = v12, 
+    [v25.Components.About] = v5.About, 
+    [v25.Components.FavoriteExperiences] = if v27 then v14 else nil, 
+    [v25.Components.Inventory] = if l_FFlagProfilePlatformEnableInventory_0 then v13 else nil, 
+    [v25.Components.Store] = if l_FFlagProfilePlatformEnableStore_0 then v11 else nil, 
+    [v25.Components.ProfileCompletion] = if l_FFlagEnableProfileCompletion_0 then v22 else nil, 
+    [v25.Components.CurrentlyPlaying] = if v39 then v23 else nil
 };
-return function(v51, v52, v53) --[[ Line: 106 ]]
-    -- upvalues: v3 (copy), v23 (copy), v2 (copy), v25 (copy), v24 (copy), v48 (copy), v28 (copy), v49 (copy), v50 (copy), v38 (copy), v47 (copy), v35 (copy)
-    local v54 = v52 or {};
-    local v55 = {
+local v51 = if v29 then {
+    [v25.Components.CoverPhoto] = if v33 then v9 else nil, 
+    [v25.Components.CommunityProfileHeader] = v8, 
+    [v25.Components.About] = v5.About, 
+    [v25.Components.Actions] = v7, 
+    [v25.Components.Experiences] = v16, 
+    [v25.Components.Store] = v11, 
+    [v25.Components.SocialLinks] = if l_FFlagAddSocialLinksToCommunityProfile_0 then v18 else nil, 
+    [v25.Components.Videos] = if l_FFlagAddVideoToCommunityProfile_0 then v19 else nil, 
+    [v25.Components.ViewFullProfile] = v12, 
+    [v25.Components.CommunityLocked] = if l_FFlagAddCommunityLockedToCommunityProfile_0 then v20 else nil, 
+    [v25.Components.Events] = if v38 then v21 else nil
+} else nil;
+local v52 = {
+    [v25.Components.ContactProfileHeader] = v15, 
+    [v25.Components.ContactDescription] = v6, 
+    [v25.Components.Actions] = v7
+};
+return function(v53, v54, v55) --[[ Line: 109 ]]
+    -- upvalues: v3 (copy), v24 (copy), v2 (copy), v26 (copy), v25 (copy), v50 (copy), v29 (copy), v51 (copy), v52 (copy), v40 (copy), v49 (copy), v37 (copy)
+    local v56 = v54 or {};
+    local v57 = {
         Layout = v3.createElement("UIListLayout", {
             SortOrder = Enum.SortOrder.LayoutOrder, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             FillDirection = Enum.FillDirection.Vertical, 
-            Padding = UDim.new(0, v23.PAGE_PADDING)
+            Padding = UDim.new(0, v24.PAGE_PADDING)
         })
     };
-    if v2.isEmpty(v54) then
-        v55.loadingView = v3.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, v25(v53)), 
+    if v2.isEmpty(v56) then
+        v57.loadingView = v3.createElement("Frame", {
+            Size = UDim2.new(1, 0, 0, v26(v55)), 
             BackgroundTransparency = 1, 
             BorderSizePixel = 0
         });
-        return v55;
+        return v57;
     else
-        local v56 = {};
-        if v53 == v24.ProfileTypes.User then
-            v56 = v48;
-        elseif v28 and v53 == v24.ProfileTypes.Community then
-            v56 = v49;
-        elseif v53 == v24.ProfileTypes.Contact then
-            v56 = v50;
+        local v58 = {};
+        if v55 == v25.ProfileTypes.User then
+            v58 = v50;
+        elseif v29 and v55 == v25.ProfileTypes.Community then
+            v58 = v51;
+        elseif v55 == v25.ProfileTypes.Contact then
+            v58 = v52;
         end;
-        local v57 = if v38 and v53 == v24.ProfileTypes.User then v47(v54) else v54;
-        for v58, v59 in v57 do
-            local v60 = v56[v59];
-            if v35 then
-                if v60 ~= nil and v51[v59] ~= nil then
-                    v55[v59] = v3.createElement(v60, {
-                        layoutOrder = v58
+        local v59 = if v40 and v55 == v25.ProfileTypes.User then v49(v56) else v56;
+        for v60, v61 in v59 do
+            local v62 = v58[v61];
+            if v37 then
+                if v62 ~= nil and v53[v61] ~= nil then
+                    v57[v61] = v3.createElement(v62, {
+                        layoutOrder = v60
                     });
                 end;
-            elseif v60 ~= nil then
-                v55[v59] = v3.createElement(v60, {
-                    layoutOrder = v58
+            elseif v62 ~= nil then
+                v57[v61] = v3.createElement(v62, {
+                    layoutOrder = v60
                 });
             end;
         end;
-        return v55;
+        return v57;
     end;
 end;

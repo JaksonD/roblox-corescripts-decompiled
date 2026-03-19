@@ -35,7 +35,7 @@ local v11 = {
     paddingLeft = 0, 
     paddingRight = 0
 };
-return v2.memo(function(v12) --[[ Line: 73 ]] --[[ Name: StyledCell ]]
+return v2.memo(function(v12) --[[ Line: 74 ]] --[[ Name: StyledCell ]]
     -- upvalues: l_useTokens_0 (copy), v3 (copy), v11 (copy), v2 (copy), v9 (copy), v8 (copy), l_FFlagAppChatEnableHandheldScalingFixes_0 (copy)
     local v13 = l_useTokens_0();
     local v14 = v3.Dictionary.join(v11, v12);
@@ -87,6 +87,7 @@ return v2.memo(function(v12) --[[ Line: 73 ]] --[[ Name: StyledCell ]]
         avatarCircleCellWidth = if l_FFlagAppChatEnableHandheldScalingFixes_0 then v13.Size.Size_1200 else v14.hideLeftAvatarPadding and 48 or nil, 
         hideLeftAvatarPadding = v14.hideLeftAvatarPadding, 
         paddingLeft = v14.paddingLeft, 
-        paddingRight = v14.paddingRight
+        paddingRight = v14.paddingRight, 
+        isRobloxSubscriber = v14.isRobloxSubscriber
     }, v14.children or {});
 end);

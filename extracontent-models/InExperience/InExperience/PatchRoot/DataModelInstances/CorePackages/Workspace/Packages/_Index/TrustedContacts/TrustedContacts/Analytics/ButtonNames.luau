@@ -7,5 +7,7 @@ return {
     AddTrustedConnection = "AddTrustedConnection", 
     AcceptTrustedConnection = "AcceptTrustedConnection", 
     AddViaLink = "AddViaLink", 
-    Cancel = "Cancel"
+    Cancel = "Cancel", 
+    OpenVPCPrologue = "OpenVPCPrologue", 
+    Ask = "Ask"
 };

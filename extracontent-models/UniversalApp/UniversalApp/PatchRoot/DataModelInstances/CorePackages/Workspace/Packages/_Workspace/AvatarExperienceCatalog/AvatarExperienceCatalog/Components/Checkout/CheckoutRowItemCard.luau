@@ -47,100 +47,106 @@ local function _(v23) --[[ Line: 46 ]] --[[ Name: getThumbnailType ]]
         return "Asset";
     end;
 end;
-return v2.memo(function(v25) --[[ Line: 61 ]] --[[ Name: CheckoutRowItemCard ]]
+return v2.memo(function(v25) --[[ Line: 62 ]] --[[ Name: CheckoutRowItemCard ]]
     -- upvalues: v3 (copy), l_FFlagAXDurablesForMIS_0 (copy), v2 (copy), l_useLocalization_0 (copy), l_ASSET_TYPE_LOCALIZED_0 (copy), l_BUNDLE_TYPE_LOCALIZED_0 (copy), v14 (copy), v9 (copy), l_CatalogRowItemCard_0 (copy), l_ItemCardThumbnail_0 (copy)
     local v26 = v3.Hooks.useTokens();
     local v27 = v25.thumbnailSize or v26.Size.Size_2100;
     local v28 = nil;
     local v29 = nil;
     if l_FFlagAXDurablesForMIS_0 then
-        local v32, v33 = v2.useState(function() --[[ Line: 69 ]]
+        local v33, v34 = v2.useState(function() --[[ Line: 70 ]]
             -- upvalues: v25 (copy)
+            if v25.selectedTimedOptionIndexInReducer ~= nil then
+                local v30 = v25.timedOptions and v25.timedOptions[v25.selectedTimedOptionIndexInReducer];
+                if v30 then
+                    return v30.price;
+                end;
+            end;
             if v25.timedOptions then
-                for _, v31 in v25.timedOptions do
-                    if v31.selected then
-                        return v31.price;
+                for _, v32 in v25.timedOptions do
+                    if v32.selected then
+                        return v32.price;
                     end;
                 end;
             end;
             return nil;
         end);
-        v28 = v32;
-        v29 = v33;
+        v28 = v33;
+        v29 = v34;
     end;
-    local v34 = l_useLocalization_0(l_ASSET_TYPE_LOCALIZED_0);
-    local v35 = l_useLocalization_0(l_BUNDLE_TYPE_LOCALIZED_0);
-    local v36 = l_useLocalization_0(v14);
-    local v37 = v25.itemType == Enum.AvatarItemType.Bundle.Name and "BundleThumbnail" or "Asset";
-    local v41 = v2.useMemo(function() --[[ Line: 87 ]]
-        -- upvalues: v25 (copy), l_ASSET_TYPE_LOCALIZED_0 (ref), v34 (copy), l_BUNDLE_TYPE_LOCALIZED_0 (ref), v35 (copy)
+    local v35 = l_useLocalization_0(l_ASSET_TYPE_LOCALIZED_0);
+    local v36 = l_useLocalization_0(l_BUNDLE_TYPE_LOCALIZED_0);
+    local v37 = l_useLocalization_0(v14);
+    local v38 = v25.itemType == Enum.AvatarItemType.Bundle.Name and "BundleThumbnail" or "Asset";
+    local v42 = v2.useMemo(function() --[[ Line: 95 ]]
+        -- upvalues: v25 (copy), l_ASSET_TYPE_LOCALIZED_0 (ref), v35 (copy), l_BUNDLE_TYPE_LOCALIZED_0 (ref), v36 (copy)
         local l_itemType_0 = v25.itemType;
         local l_itemSubType_0 = v25.itemSubType;
-        local v40 = false;
+        local v41 = false;
         if l_itemType_0 == Enum.AvatarItemType.Asset.Name then
-            v40 = l_ASSET_TYPE_LOCALIZED_0[tostring(l_itemSubType_0)] ~= nil;
+            v41 = l_ASSET_TYPE_LOCALIZED_0[tostring(l_itemSubType_0)] ~= nil;
         end;
-        if v40 then
-            return v34[tostring(l_itemSubType_0)];
+        if v41 then
+            return v35[tostring(l_itemSubType_0)];
         else
-            v40 = false;
+            v41 = false;
             if l_itemType_0 == Enum.AvatarItemType.Bundle.Name then
-                v40 = l_BUNDLE_TYPE_LOCALIZED_0[tostring(l_itemSubType_0)] ~= nil;
+                v41 = l_BUNDLE_TYPE_LOCALIZED_0[tostring(l_itemSubType_0)] ~= nil;
             end;
-            if v40 then
-                return v35[tostring(l_itemSubType_0)];
+            if v41 then
+                return v36[tostring(l_itemSubType_0)];
             else
                 return "";
             end;
         end;
     end, {
-        v34, 
         v35, 
+        v36, 
         v25.itemType, 
         v25.itemSubType
     });
-    local v43 = v2.useMemo(function() --[[ Line: 99 ]]
-        -- upvalues: v25 (copy), v9 (ref), v26 (copy), v36 (copy), v14 (ref)
-        local v42 = {};
+    local v44 = v2.useMemo(function() --[[ Line: 107 ]]
+        -- upvalues: v25 (copy), v9 (ref), v26 (copy), v37 (copy), v14 (ref)
+        local v43 = {};
         if v25.status == nil then
-            table.insert(v42, {
+            table.insert(v43, {
                 type = "price", 
                 price = v25.priceInRobux
             });
-            return v42;
+            return v43;
         elseif v25.status == v9.PRICE_MISMATCH then
             if v25.priceMismatchMetadata then
-                table.insert(v42, {
+                table.insert(v43, {
                     type = "price", 
                     price = v25.priceMismatchMetadata.oldPriceInRobux, 
                     strikethrough = true
                 });
-                table.insert(v42, {
+                table.insert(v43, {
                     type = "price", 
                     price = v25.priceInRobux, 
                     colorStyle = v26.Color.System.Warning
                 });
-                return v42;
+                return v43;
             else
-                table.insert(v42, {
+                table.insert(v43, {
                     type = "text", 
-                    text = v36[tostring(v9.PRICE_MISMATCH)]
+                    text = v37[tostring(v9.PRICE_MISMATCH)]
                 });
-                return v42;
+                return v43;
             end;
         elseif v25.status == v9.ALREADY_OWNED then
-            table.insert(v42, {
+            table.insert(v43, {
                 type = "text", 
-                text = v36[tostring(v9.ALREADY_OWNED)]
+                text = v37[tostring(v9.ALREADY_OWNED)]
             });
-            return v42;
+            return v43;
         else
-            table.insert(v42, {
+            table.insert(v43, {
                 type = "text", 
-                text = if v14[tostring(v25.status)] then v36[tostring(v25.status)] else v36.Unvailable, 
+                text = if v14[tostring(v25.status)] then v37[tostring(v25.status)] else v37.Unvailable, 
                 colorStyle = v26.Color.System.Warning
             });
-            return v42;
+            return v43;
         end;
     end, {
         v25.priceInRobux, 
@@ -159,20 +165,21 @@ return v2.memo(function(v25) --[[ Line: 61 ]] --[[ Name: CheckoutRowItemCard ]]
             CatalogRowItemCard = v2.createElement(l_CatalogRowItemCard_0, {
                 title = v25.name, 
                 presentationSlot = v2.createElement(l_ItemCardThumbnail_0, {
-                    url = ("rbxthumb://type=%*&id=%*&w=150&h=150"):format(v37, v25.itemId)
+                    url = ("rbxthumb://type=%*&id=%*&w=150&h=150"):format(v38, v25.itemId)
                 }), 
                 onActivated = v25.onActivated, 
                 creator = {
                     name = v25.creatorName, 
                     verified = v25.creatorVerified
                 }, 
-                priceLineContent = v43, 
+                priceLineContent = v44, 
                 itemType = v25.itemRestriction, 
-                itemSubType = v41, 
+                itemSubType = v42, 
                 timedOptions = if l_FFlagAXDurablesForMIS_0 then v25.timedOptions else nil, 
                 onTimedOptionPriceChanged = if l_FFlagAXDurablesForMIS_0 then v25.onTimedOptionPriceChanged else nil, 
                 selectedTimedOptionPrice = if l_FFlagAXDurablesForMIS_0 then v28 else nil, 
                 setSelectedTimedOptionPrice = if l_FFlagAXDurablesForMIS_0 then v29 else nil, 
+                selectedTimedOptionIndexInReducer = if l_FFlagAXDurablesForMIS_0 then v25.selectedTimedOptionIndexInReducer else nil, 
                 headerSize = UDim2.fromOffset(v27, v27), 
                 footerSize = UDim2.fromScale(0, 1), 
                 footerAutomaticSize = Enum.AutomaticSize.XY, 

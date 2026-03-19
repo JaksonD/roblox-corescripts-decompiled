@@ -8,14 +8,14 @@ local v6 = require(script.Parent.share_link_data);
 local v7 = {};
 v7.__index = v7;
 local l_v7_0 = v7 --[[ copy: 7 -> 8 ]];
-v7.new = function(v9) --[[ Line: 1506 ]] --[[ Name: new ]]
+v7.new = function(v9) --[[ Line: 1894 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_0 (copy)
     return (setmetatable({
         action_type = if not (v9 ~= nil) or v9.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v9.action_type, 
         action_params = if not (v9 ~= nil) or v9.action_params == nil then nil else v9.action_params
     }, l_v7_0));
 end;
-v7.encode = function(v10) --[[ Line: 1515 ]] --[[ Name: encode ]]
+v7.encode = function(v10) --[[ Line: 1903 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v11 = buffer.create(0);
     local v12 = 0;
@@ -36,7 +36,7 @@ v7.encode = function(v10) --[[ Line: 1515 ]] --[[ Name: encode ]]
     buffer.copy(v18, 0, v11, 0, v12);
     return v18;
 end;
-v7.decode = function(v19) --[[ Line: 1541 ]] --[[ Name: decode ]]
+v7.decode = function(v19) --[[ Line: 1929 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_0 (copy), v0 (copy), v2 (copy)
     local v20 = l_v7_0.new();
     local v21 = 0;
@@ -88,7 +88,7 @@ v7.decode = function(v19) --[[ Line: 1541 ]] --[[ Name: decode ]]
     end;
     return v20;
 end;
-v7.jsonEncode = function(v27) --[[ Line: 1589 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v27) --[[ Line: 1977 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v28 = {};
     if v27.action_type ~= nil and (v27.action_type ~= nil and v27.action_type ~= 0 or v27.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -99,7 +99,7 @@ v7.jsonEncode = function(v27) --[[ Line: 1589 ]] --[[ Name: jsonEncode ]]
     end;
     return v28;
 end;
-v7.jsonDecode = function(v29) --[[ Line: 1611 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v29) --[[ Line: 1999 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_0 (copy), v2 (copy)
     local v30 = l_v7_0.new();
     if v29.action_type ~= nil then
@@ -125,13 +125,13 @@ v1.default:register(v2.DismissDialogAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_1 = v7 --[[ copy: 7 -> 9 ]];
-v7.new = function(v32) --[[ Line: 1651 ]] --[[ Name: new ]]
+v7.new = function(v32) --[[ Line: 2039 ]] --[[ Name: new ]]
     -- upvalues: l_v7_1 (copy)
     return (setmetatable({
         dialog_type = if not (v32 ~= nil) or v32.dialog_type == nil then nil else v32.dialog_type
     }, l_v7_1));
 end;
-v7.encode = function(v33) --[[ Line: 1659 ]] --[[ Name: encode ]]
+v7.encode = function(v33) --[[ Line: 2047 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v34 = buffer.create(0);
     local v35 = 0;
@@ -146,7 +146,7 @@ v7.encode = function(v33) --[[ Line: 1659 ]] --[[ Name: encode ]]
     buffer.copy(v39, 0, v34, 0, v35);
     return v39;
 end;
-v7.decode = function(v40) --[[ Line: 1674 ]] --[[ Name: decode ]]
+v7.decode = function(v40) --[[ Line: 2062 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_1 (copy), v0 (copy), v5 (copy)
     local v41 = l_v7_1.new();
     local v42 = 0;
@@ -190,14 +190,14 @@ v7.decode = function(v40) --[[ Line: 1674 ]] --[[ Name: decode ]]
     end;
     return v41;
 end;
-v7.jsonEncode = function(v48) --[[ Line: 1717 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v48) --[[ Line: 2105 ]] --[[ Name: jsonEncode ]]
     local v49 = {};
     if v48.dialog_type ~= nil then
         v49.dialogType = v48.dialog_type:jsonEncode();
     end;
     return v49;
 end;
-v7.jsonDecode = function(v50) --[[ Line: 1727 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v50) --[[ Line: 2115 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_1 (copy), v5 (copy)
     local v51 = l_v7_1.new();
     if v50.dialog_type ~= nil then
@@ -217,14 +217,14 @@ v1.default:register(v2.DismissDialogAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_2 = v7 --[[ copy: 7 -> 10 ]];
-v7.new = function(v53) --[[ Line: 1756 ]] --[[ Name: new ]]
+v7.new = function(v53) --[[ Line: 2144 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_2 (copy)
     return (setmetatable({
         action_type = if not (v53 ~= nil) or v53.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v53.action_type, 
         action_params = if not (v53 ~= nil) or v53.action_params == nil then nil else v53.action_params
     }, l_v7_2));
 end;
-v7.encode = function(v54) --[[ Line: 1765 ]] --[[ Name: encode ]]
+v7.encode = function(v54) --[[ Line: 2153 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v55 = buffer.create(0);
     local v56 = 0;
@@ -245,7 +245,7 @@ v7.encode = function(v54) --[[ Line: 1765 ]] --[[ Name: encode ]]
     buffer.copy(v62, 0, v55, 0, v56);
     return v62;
 end;
-v7.decode = function(v63) --[[ Line: 1791 ]] --[[ Name: decode ]]
+v7.decode = function(v63) --[[ Line: 2179 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_2 (copy), v0 (copy), v2 (copy)
     local v64 = l_v7_2.new();
     local v65 = 0;
@@ -297,7 +297,7 @@ v7.decode = function(v63) --[[ Line: 1791 ]] --[[ Name: decode ]]
     end;
     return v64;
 end;
-v7.jsonEncode = function(v71) --[[ Line: 1839 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v71) --[[ Line: 2227 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v72 = {};
     if v71.action_type ~= nil and (v71.action_type ~= nil and v71.action_type ~= 0 or v71.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -308,7 +308,7 @@ v7.jsonEncode = function(v71) --[[ Line: 1839 ]] --[[ Name: jsonEncode ]]
     end;
     return v72;
 end;
-v7.jsonDecode = function(v73) --[[ Line: 1861 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v73) --[[ Line: 2249 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_2 (copy), v2 (copy)
     local v74 = l_v7_2.new();
     if v73.action_type ~= nil then
@@ -334,13 +334,13 @@ v1.default:register(v2.LinkAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_3 = v7 --[[ copy: 7 -> 11 ]];
-v7.new = function(v76) --[[ Line: 1901 ]] --[[ Name: new ]]
+v7.new = function(v76) --[[ Line: 2289 ]] --[[ Name: new ]]
     -- upvalues: l_v7_3 (copy)
     return (setmetatable({
         url = if not (v76 ~= nil) or v76.url == nil then nil else v76.url
     }, l_v7_3));
 end;
-v7.encode = function(v77) --[[ Line: 1907 ]] --[[ Name: encode ]]
+v7.encode = function(v77) --[[ Line: 2295 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v78 = buffer.create(0);
     local v79 = 0;
@@ -355,7 +355,7 @@ v7.encode = function(v77) --[[ Line: 1907 ]] --[[ Name: encode ]]
     buffer.copy(v83, 0, v78, 0, v79);
     return v83;
 end;
-v7.decode = function(v84) --[[ Line: 1922 ]] --[[ Name: decode ]]
+v7.decode = function(v84) --[[ Line: 2310 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_3 (copy), v0 (copy), v5 (copy)
     local v85 = l_v7_3.new();
     local v86 = 0;
@@ -399,14 +399,14 @@ v7.decode = function(v84) --[[ Line: 1922 ]] --[[ Name: decode ]]
     end;
     return v85;
 end;
-v7.jsonEncode = function(v92) --[[ Line: 1965 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v92) --[[ Line: 2353 ]] --[[ Name: jsonEncode ]]
     local v93 = {};
     if v92.url ~= nil then
         v93.url = v92.url:jsonEncode();
     end;
     return v93;
 end;
-v7.jsonDecode = function(v94) --[[ Line: 1975 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v94) --[[ Line: 2363 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_3 (copy), v5 (copy)
     local v95 = l_v7_3.new();
     if v94.url ~= nil then
@@ -423,14 +423,14 @@ v1.default:register(v2.LinkAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_4 = v7 --[[ copy: 7 -> 12 ]];
-v7.new = function(v97) --[[ Line: 1999 ]] --[[ Name: new ]]
+v7.new = function(v97) --[[ Line: 2387 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_4 (copy)
     return (setmetatable({
         action_type = if not (v97 ~= nil) or v97.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v97.action_type, 
         action_params = if not (v97 ~= nil) or v97.action_params == nil then nil else v97.action_params
     }, l_v7_4));
 end;
-v7.encode = function(v98) --[[ Line: 2008 ]] --[[ Name: encode ]]
+v7.encode = function(v98) --[[ Line: 2396 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v99 = buffer.create(0);
     local v100 = 0;
@@ -451,7 +451,7 @@ v7.encode = function(v98) --[[ Line: 2008 ]] --[[ Name: encode ]]
     buffer.copy(v106, 0, v99, 0, v100);
     return v106;
 end;
-v7.decode = function(v107) --[[ Line: 2034 ]] --[[ Name: decode ]]
+v7.decode = function(v107) --[[ Line: 2422 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_4 (copy), v0 (copy), v2 (copy)
     local v108 = l_v7_4.new();
     local v109 = 0;
@@ -503,7 +503,7 @@ v7.decode = function(v107) --[[ Line: 2034 ]] --[[ Name: decode ]]
     end;
     return v108;
 end;
-v7.jsonEncode = function(v115) --[[ Line: 2082 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v115) --[[ Line: 2470 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v116 = {};
     if v115.action_type ~= nil and (v115.action_type ~= nil and v115.action_type ~= 0 or v115.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -514,7 +514,7 @@ v7.jsonEncode = function(v115) --[[ Line: 2082 ]] --[[ Name: jsonEncode ]]
     end;
     return v116;
 end;
-v7.jsonDecode = function(v117) --[[ Line: 2104 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v117) --[[ Line: 2492 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_4 (copy), v2 (copy)
     local v118 = l_v7_4.new();
     if v117.action_type ~= nil then
@@ -540,14 +540,14 @@ v1.default:register(v2.OpenGameDetailsAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_5 = v7 --[[ copy: 7 -> 13 ]];
-v7.new = function(v120) --[[ Line: 2144 ]] --[[ Name: new ]]
+v7.new = function(v120) --[[ Line: 2532 ]] --[[ Name: new ]]
     -- upvalues: l_v7_5 (copy)
     return (setmetatable({
         place_id = if not (v120 ~= nil) or v120.place_id == nil then nil else v120.place_id, 
         universe_id = if not (v120 ~= nil) or v120.universe_id == nil then nil else v120.universe_id
     }, l_v7_5));
 end;
-v7.encode = function(v121) --[[ Line: 2153 ]] --[[ Name: encode ]]
+v7.encode = function(v121) --[[ Line: 2541 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v122 = buffer.create(0);
     local v123 = 0;
@@ -569,7 +569,7 @@ v7.encode = function(v121) --[[ Line: 2153 ]] --[[ Name: encode ]]
     buffer.copy(v130, 0, v122, 0, v123);
     return v130;
 end;
-v7.decode = function(v131) --[[ Line: 2174 ]] --[[ Name: decode ]]
+v7.decode = function(v131) --[[ Line: 2562 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_5 (copy), v0 (copy), v5 (copy)
     local v132 = l_v7_5.new();
     local v133 = 0;
@@ -619,7 +619,7 @@ v7.decode = function(v131) --[[ Line: 2174 ]] --[[ Name: decode ]]
     end;
     return v132;
 end;
-v7.jsonEncode = function(v139) --[[ Line: 2222 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v139) --[[ Line: 2610 ]] --[[ Name: jsonEncode ]]
     local v140 = {};
     if v139.place_id ~= nil then
         v140.placeId = v139.place_id:jsonEncode();
@@ -629,7 +629,7 @@ v7.jsonEncode = function(v139) --[[ Line: 2222 ]] --[[ Name: jsonEncode ]]
     end;
     return v140;
 end;
-v7.jsonDecode = function(v141) --[[ Line: 2236 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v141) --[[ Line: 2624 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_5 (copy), v5 (copy)
     local v142 = l_v7_5.new();
     if v141.place_id ~= nil then
@@ -655,14 +655,14 @@ v1.default:register(v2.OpenGameDetailsAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_6 = v7 --[[ copy: 7 -> 14 ]];
-v7.new = function(v144) --[[ Line: 2273 ]] --[[ Name: new ]]
+v7.new = function(v144) --[[ Line: 2661 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_6 (copy)
     return (setmetatable({
         action_type = if not (v144 ~= nil) or v144.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v144.action_type, 
         action_params = if not (v144 ~= nil) or v144.action_params == nil then nil else v144.action_params
     }, l_v7_6));
 end;
-v7.encode = function(v145) --[[ Line: 2282 ]] --[[ Name: encode ]]
+v7.encode = function(v145) --[[ Line: 2670 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v146 = buffer.create(0);
     local v147 = 0;
@@ -683,7 +683,7 @@ v7.encode = function(v145) --[[ Line: 2282 ]] --[[ Name: encode ]]
     buffer.copy(v153, 0, v146, 0, v147);
     return v153;
 end;
-v7.decode = function(v154) --[[ Line: 2308 ]] --[[ Name: decode ]]
+v7.decode = function(v154) --[[ Line: 2696 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_6 (copy), v0 (copy), v2 (copy)
     local v155 = l_v7_6.new();
     local v156 = 0;
@@ -735,7 +735,7 @@ v7.decode = function(v154) --[[ Line: 2308 ]] --[[ Name: decode ]]
     end;
     return v155;
 end;
-v7.jsonEncode = function(v162) --[[ Line: 2356 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v162) --[[ Line: 2744 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v163 = {};
     if v162.action_type ~= nil and (v162.action_type ~= nil and v162.action_type ~= 0 or v162.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -746,7 +746,7 @@ v7.jsonEncode = function(v162) --[[ Line: 2356 ]] --[[ Name: jsonEncode ]]
     end;
     return v163;
 end;
-v7.jsonDecode = function(v164) --[[ Line: 2378 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v164) --[[ Line: 2766 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_6 (copy), v2 (copy)
     local v165 = l_v7_6.new();
     if v164.action_type ~= nil then
@@ -772,14 +772,14 @@ v1.default:register(v2.OpenJoinFriendsAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_7 = v7 --[[ copy: 7 -> 15 ]];
-v7.new = function(v167) --[[ Line: 2418 ]] --[[ Name: new ]]
+v7.new = function(v167) --[[ Line: 2806 ]] --[[ Name: new ]]
     -- upvalues: l_v7_7 (copy)
     return (setmetatable({
         place_id = if not (v167 ~= nil) or v167.place_id == nil then nil else v167.place_id, 
         universe_id = if not (v167 ~= nil) or v167.universe_id == nil then nil else v167.universe_id
     }, l_v7_7));
 end;
-v7.encode = function(v168) --[[ Line: 2427 ]] --[[ Name: encode ]]
+v7.encode = function(v168) --[[ Line: 2815 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v169 = buffer.create(0);
     local v170 = 0;
@@ -801,7 +801,7 @@ v7.encode = function(v168) --[[ Line: 2427 ]] --[[ Name: encode ]]
     buffer.copy(v177, 0, v169, 0, v170);
     return v177;
 end;
-v7.decode = function(v178) --[[ Line: 2448 ]] --[[ Name: decode ]]
+v7.decode = function(v178) --[[ Line: 2836 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_7 (copy), v0 (copy), v5 (copy)
     local v179 = l_v7_7.new();
     local v180 = 0;
@@ -851,7 +851,7 @@ v7.decode = function(v178) --[[ Line: 2448 ]] --[[ Name: decode ]]
     end;
     return v179;
 end;
-v7.jsonEncode = function(v186) --[[ Line: 2496 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v186) --[[ Line: 2884 ]] --[[ Name: jsonEncode ]]
     local v187 = {};
     if v186.place_id ~= nil then
         v187.placeId = v186.place_id:jsonEncode();
@@ -861,7 +861,7 @@ v7.jsonEncode = function(v186) --[[ Line: 2496 ]] --[[ Name: jsonEncode ]]
     end;
     return v187;
 end;
-v7.jsonDecode = function(v188) --[[ Line: 2510 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v188) --[[ Line: 2898 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_7 (copy), v5 (copy)
     local v189 = l_v7_7.new();
     if v188.place_id ~= nil then
@@ -887,14 +887,14 @@ v1.default:register(v2.OpenJoinFriendsAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_8 = v7 --[[ copy: 7 -> 16 ]];
-v7.new = function(v191) --[[ Line: 2547 ]] --[[ Name: new ]]
+v7.new = function(v191) --[[ Line: 2935 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_8 (copy)
     return (setmetatable({
         action_type = if not (v191 ~= nil) or v191.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v191.action_type, 
         action_params = if not (v191 ~= nil) or v191.action_params == nil then nil else v191.action_params
     }, l_v7_8));
 end;
-v7.encode = function(v192) --[[ Line: 2558 ]] --[[ Name: encode ]]
+v7.encode = function(v192) --[[ Line: 2946 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v193 = buffer.create(0);
     local v194 = 0;
@@ -915,7 +915,7 @@ v7.encode = function(v192) --[[ Line: 2558 ]] --[[ Name: encode ]]
     buffer.copy(v200, 0, v193, 0, v194);
     return v200;
 end;
-v7.decode = function(v201) --[[ Line: 2584 ]] --[[ Name: decode ]]
+v7.decode = function(v201) --[[ Line: 2972 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_8 (copy), v0 (copy), v2 (copy)
     local v202 = l_v7_8.new();
     local v203 = 0;
@@ -967,7 +967,7 @@ v7.decode = function(v201) --[[ Line: 2584 ]] --[[ Name: decode ]]
     end;
     return v202;
 end;
-v7.jsonEncode = function(v209) --[[ Line: 2632 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v209) --[[ Line: 3020 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v210 = {};
     if v209.action_type ~= nil and (v209.action_type ~= nil and v209.action_type ~= 0 or v209.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -978,7 +978,7 @@ v7.jsonEncode = function(v209) --[[ Line: 2632 ]] --[[ Name: jsonEncode ]]
     end;
     return v210;
 end;
-v7.jsonDecode = function(v211) --[[ Line: 2654 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v211) --[[ Line: 3042 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_8 (copy), v2 (copy)
     local v212 = l_v7_8.new();
     if v211.action_type ~= nil then
@@ -1004,7 +1004,7 @@ v1.default:register(v2.OpenMarketplaceTryOnAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_9 = v7 --[[ copy: 7 -> 17 ]];
-v7.new = function(v214) --[[ Line: 2694 ]] --[[ Name: new ]]
+v7.new = function(v214) --[[ Line: 3082 ]] --[[ Name: new ]]
     -- upvalues: l_v7_9 (copy)
     return (setmetatable({
         item_id = if not (v214 ~= nil) or v214.item_id == nil then nil else v214.item_id, 
@@ -1012,7 +1012,7 @@ v7.new = function(v214) --[[ Line: 2694 ]] --[[ Name: new ]]
         item_sub_type_name = if not (v214 ~= nil) or v214.item_sub_type_name == nil then nil else v214.item_sub_type_name
     }, l_v7_9));
 end;
-v7.encode = function(v215) --[[ Line: 2704 ]] --[[ Name: encode ]]
+v7.encode = function(v215) --[[ Line: 3092 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v216 = buffer.create(0);
     local v217 = 0;
@@ -1041,7 +1041,7 @@ v7.encode = function(v215) --[[ Line: 2704 ]] --[[ Name: encode ]]
     buffer.copy(v227, 0, v216, 0, v217);
     return v227;
 end;
-v7.decode = function(v228) --[[ Line: 2731 ]] --[[ Name: decode ]]
+v7.decode = function(v228) --[[ Line: 3119 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_9 (copy), v0 (copy), v5 (copy)
     local v229 = l_v7_9.new();
     local v230 = 0;
@@ -1097,7 +1097,7 @@ v7.decode = function(v228) --[[ Line: 2731 ]] --[[ Name: decode ]]
     end;
     return v229;
 end;
-v7.jsonEncode = function(v236) --[[ Line: 2784 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v236) --[[ Line: 3172 ]] --[[ Name: jsonEncode ]]
     local v237 = {};
     if v236.item_id ~= nil then
         v237.itemId = v236.item_id:jsonEncode();
@@ -1110,7 +1110,7 @@ v7.jsonEncode = function(v236) --[[ Line: 2784 ]] --[[ Name: jsonEncode ]]
     end;
     return v237;
 end;
-v7.jsonDecode = function(v238) --[[ Line: 2802 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v238) --[[ Line: 3190 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_9 (copy), v5 (copy)
     local v239 = l_v7_9.new();
     if v238.item_id ~= nil then
@@ -1142,14 +1142,14 @@ v1.default:register(v2.OpenMarketplaceTryOnAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_10 = v7 --[[ copy: 7 -> 18 ]];
-v7.new = function(v241) --[[ Line: 2850 ]] --[[ Name: new ]]
+v7.new = function(v241) --[[ Line: 3238 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_10 (copy)
     return (setmetatable({
         action_type = if not (v241 ~= nil) or v241.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v241.action_type, 
         action_params = if not (v241 ~= nil) or v241.action_params == nil then nil else v241.action_params
     }, l_v7_10));
 end;
-v7.encode = function(v242) --[[ Line: 2859 ]] --[[ Name: encode ]]
+v7.encode = function(v242) --[[ Line: 3247 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v243 = buffer.create(0);
     local v244 = 0;
@@ -1170,7 +1170,7 @@ v7.encode = function(v242) --[[ Line: 2859 ]] --[[ Name: encode ]]
     buffer.copy(v250, 0, v243, 0, v244);
     return v250;
 end;
-v7.decode = function(v251) --[[ Line: 2885 ]] --[[ Name: decode ]]
+v7.decode = function(v251) --[[ Line: 3273 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_10 (copy), v0 (copy), v2 (copy)
     local v252 = l_v7_10.new();
     local v253 = 0;
@@ -1222,7 +1222,7 @@ v7.decode = function(v251) --[[ Line: 2885 ]] --[[ Name: decode ]]
     end;
     return v252;
 end;
-v7.jsonEncode = function(v259) --[[ Line: 2933 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v259) --[[ Line: 3321 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v260 = {};
     if v259.action_type ~= nil and (v259.action_type ~= nil and v259.action_type ~= 0 or v259.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -1233,7 +1233,7 @@ v7.jsonEncode = function(v259) --[[ Line: 2933 ]] --[[ Name: jsonEncode ]]
     end;
     return v260;
 end;
-v7.jsonDecode = function(v261) --[[ Line: 2955 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v261) --[[ Line: 3343 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_10 (copy), v2 (copy)
     local v262 = l_v7_10.new();
     if v261.action_type ~= nil then
@@ -1259,7 +1259,7 @@ v1.default:register(v2.OpenSeeAllAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_11 = v7 --[[ copy: 7 -> 19 ]];
-v7.new = function(v264) --[[ Line: 2995 ]] --[[ Name: new ]]
+v7.new = function(v264) --[[ Line: 3383 ]] --[[ Name: new ]]
     -- upvalues: l_v7_11 (copy)
     return (setmetatable({
         collection_id = if not (v264 ~= nil) or v264.collection_id == nil then nil else v264.collection_id, 
@@ -1267,7 +1267,7 @@ v7.new = function(v264) --[[ Line: 2995 ]] --[[ Name: new ]]
         collection_position = if not (v264 ~= nil) or v264.collection_position == nil then nil else v264.collection_position
     }, l_v7_11));
 end;
-v7.encode = function(v265) --[[ Line: 3005 ]] --[[ Name: encode ]]
+v7.encode = function(v265) --[[ Line: 3393 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v266 = buffer.create(0);
     local v267 = 0;
@@ -1296,7 +1296,7 @@ v7.encode = function(v265) --[[ Line: 3005 ]] --[[ Name: encode ]]
     buffer.copy(v277, 0, v266, 0, v267);
     return v277;
 end;
-v7.decode = function(v278) --[[ Line: 3032 ]] --[[ Name: decode ]]
+v7.decode = function(v278) --[[ Line: 3420 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_11 (copy), v0 (copy), v5 (copy)
     local v279 = l_v7_11.new();
     local v280 = 0;
@@ -1352,7 +1352,7 @@ v7.decode = function(v278) --[[ Line: 3032 ]] --[[ Name: decode ]]
     end;
     return v279;
 end;
-v7.jsonEncode = function(v286) --[[ Line: 3086 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v286) --[[ Line: 3474 ]] --[[ Name: jsonEncode ]]
     local v287 = {};
     if v286.collection_id ~= nil then
         v287.collectionId = v286.collection_id:jsonEncode();
@@ -1365,7 +1365,7 @@ v7.jsonEncode = function(v286) --[[ Line: 3086 ]] --[[ Name: jsonEncode ]]
     end;
     return v287;
 end;
-v7.jsonDecode = function(v288) --[[ Line: 3104 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v288) --[[ Line: 3492 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_11 (copy), v5 (copy)
     local v289 = l_v7_11.new();
     if v288.collection_id ~= nil then
@@ -1397,14 +1397,14 @@ v1.default:register(v2.OpenSeeAllAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_12 = v7 --[[ copy: 7 -> 20 ]];
-v7.new = function(v291) --[[ Line: 3154 ]] --[[ Name: new ]]
+v7.new = function(v291) --[[ Line: 3542 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_12 (copy)
     return (setmetatable({
         action_type = if not (v291 ~= nil) or v291.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v291.action_type, 
         action_params = if not (v291 ~= nil) or v291.action_params == nil then nil else v291.action_params
     }, l_v7_12));
 end;
-v7.encode = function(v292) --[[ Line: 3165 ]] --[[ Name: encode ]]
+v7.encode = function(v292) --[[ Line: 3553 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v293 = buffer.create(0);
     local v294 = 0;
@@ -1425,7 +1425,7 @@ v7.encode = function(v292) --[[ Line: 3165 ]] --[[ Name: encode ]]
     buffer.copy(v300, 0, v293, 0, v294);
     return v300;
 end;
-v7.decode = function(v301) --[[ Line: 3191 ]] --[[ Name: decode ]]
+v7.decode = function(v301) --[[ Line: 3579 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_12 (copy), v0 (copy), v2 (copy)
     local v302 = l_v7_12.new();
     local v303 = 0;
@@ -1477,7 +1477,7 @@ v7.decode = function(v301) --[[ Line: 3191 ]] --[[ Name: decode ]]
     end;
     return v302;
 end;
-v7.jsonEncode = function(v309) --[[ Line: 3239 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v309) --[[ Line: 3627 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v310 = {};
     if v309.action_type ~= nil and (v309.action_type ~= nil and v309.action_type ~= 0 or v309.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -1488,7 +1488,7 @@ v7.jsonEncode = function(v309) --[[ Line: 3239 ]] --[[ Name: jsonEncode ]]
     end;
     return v310;
 end;
-v7.jsonDecode = function(v311) --[[ Line: 3261 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v311) --[[ Line: 3649 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_12 (copy), v2 (copy)
     local v312 = l_v7_12.new();
     if v311.action_type ~= nil then
@@ -1514,17 +1514,17 @@ v1.default:register(v2.OpenSponsoredTooltipAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_13 = v7 --[[ copy: 7 -> 21 ]];
-v7.new = function(_) --[[ Line: 3301 ]] --[[ Name: new ]]
+v7.new = function(_) --[[ Line: 3689 ]] --[[ Name: new ]]
     -- upvalues: l_v7_13 (copy)
     return (setmetatable({}, l_v7_13));
 end;
-v7.encode = function(_) --[[ Line: 3307 ]] --[[ Name: encode ]]
+v7.encode = function(_) --[[ Line: 3695 ]] --[[ Name: encode ]]
     local v316 = buffer.create(0);
     local v317 = buffer.create(0);
     buffer.copy(v317, 0, v316, 0, 0);
     return v317;
 end;
-v7.decode = function(v318) --[[ Line: 3316 ]] --[[ Name: decode ]]
+v7.decode = function(v318) --[[ Line: 3704 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_13 (copy), v0 (copy)
     local v319 = l_v7_13.new();
     local v320 = 0;
@@ -1560,10 +1560,10 @@ v7.decode = function(v318) --[[ Line: 3316 ]] --[[ Name: decode ]]
     end;
     return v319;
 end;
-v7.jsonEncode = function(_) --[[ Line: 3354 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(_) --[[ Line: 3742 ]] --[[ Name: jsonEncode ]]
     return {};
 end;
-v7.jsonDecode = function(_) --[[ Line: 3360 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(_) --[[ Line: 3748 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_13 (copy)
     return (l_v7_13.new());
 end;
@@ -1576,14 +1576,14 @@ v1.default:register(v2.OpenSponsoredTooltipAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_14 = v7 --[[ copy: 7 -> 22 ]];
-v7.new = function(v329) --[[ Line: 3382 ]] --[[ Name: new ]]
+v7.new = function(v329) --[[ Line: 3770 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_14 (copy)
     return (setmetatable({
         action_type = if not (v329 ~= nil) or v329.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v329.action_type, 
         action_params = if not (v329 ~= nil) or v329.action_params == nil then nil else v329.action_params
     }, l_v7_14));
 end;
-v7.encode = function(v330) --[[ Line: 3391 ]] --[[ Name: encode ]]
+v7.encode = function(v330) --[[ Line: 3779 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v331 = buffer.create(0);
     local v332 = 0;
@@ -1604,7 +1604,7 @@ v7.encode = function(v330) --[[ Line: 3391 ]] --[[ Name: encode ]]
     buffer.copy(v338, 0, v331, 0, v332);
     return v338;
 end;
-v7.decode = function(v339) --[[ Line: 3417 ]] --[[ Name: decode ]]
+v7.decode = function(v339) --[[ Line: 3805 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_14 (copy), v0 (copy), v2 (copy)
     local v340 = l_v7_14.new();
     local v341 = 0;
@@ -1656,7 +1656,7 @@ v7.decode = function(v339) --[[ Line: 3417 ]] --[[ Name: decode ]]
     end;
     return v340;
 end;
-v7.jsonEncode = function(v347) --[[ Line: 3465 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v347) --[[ Line: 3853 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v348 = {};
     if v347.action_type ~= nil and (v347.action_type ~= nil and v347.action_type ~= 0 or v347.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -1667,7 +1667,7 @@ v7.jsonEncode = function(v347) --[[ Line: 3465 ]] --[[ Name: jsonEncode ]]
     end;
     return v348;
 end;
-v7.jsonDecode = function(v349) --[[ Line: 3487 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v349) --[[ Line: 3875 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_14 (copy), v2 (copy)
     local v350 = l_v7_14.new();
     if v349.action_type ~= nil then
@@ -1693,17 +1693,17 @@ v1.default:register(v2.PlayButtonClickAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_15 = v7 --[[ copy: 7 -> 23 ]];
-v7.new = function(_) --[[ Line: 3527 ]] --[[ Name: new ]]
+v7.new = function(_) --[[ Line: 3915 ]] --[[ Name: new ]]
     -- upvalues: l_v7_15 (copy)
     return (setmetatable({}, l_v7_15));
 end;
-v7.encode = function(_) --[[ Line: 3533 ]] --[[ Name: encode ]]
+v7.encode = function(_) --[[ Line: 3921 ]] --[[ Name: encode ]]
     local v354 = buffer.create(0);
     local v355 = buffer.create(0);
     buffer.copy(v355, 0, v354, 0, 0);
     return v355;
 end;
-v7.decode = function(v356) --[[ Line: 3542 ]] --[[ Name: decode ]]
+v7.decode = function(v356) --[[ Line: 3930 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_15 (copy), v0 (copy)
     local v357 = l_v7_15.new();
     local v358 = 0;
@@ -1739,10 +1739,10 @@ v7.decode = function(v356) --[[ Line: 3542 ]] --[[ Name: decode ]]
     end;
     return v357;
 end;
-v7.jsonEncode = function(_) --[[ Line: 3580 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(_) --[[ Line: 3968 ]] --[[ Name: jsonEncode ]]
     return {};
 end;
-v7.jsonDecode = function(_) --[[ Line: 3586 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(_) --[[ Line: 3974 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_15 (copy)
     return (l_v7_15.new());
 end;
@@ -1755,14 +1755,14 @@ v1.default:register(v2.PlayButtonClickAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_16 = v7 --[[ copy: 7 -> 24 ]];
-v7.new = function(v367) --[[ Line: 3606 ]] --[[ Name: new ]]
+v7.new = function(v367) --[[ Line: 3994 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_16 (copy)
     return (setmetatable({
         action_type = if not (v367 ~= nil) or v367.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v367.action_type, 
         action_params = if not (v367 ~= nil) or v367.action_params == nil then nil else v367.action_params
     }, l_v7_16));
 end;
-v7.encode = function(v368) --[[ Line: 3615 ]] --[[ Name: encode ]]
+v7.encode = function(v368) --[[ Line: 4003 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v369 = buffer.create(0);
     local v370 = 0;
@@ -1783,7 +1783,7 @@ v7.encode = function(v368) --[[ Line: 3615 ]] --[[ Name: encode ]]
     buffer.copy(v376, 0, v369, 0, v370);
     return v376;
 end;
-v7.decode = function(v377) --[[ Line: 3641 ]] --[[ Name: decode ]]
+v7.decode = function(v377) --[[ Line: 4029 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_16 (copy), v0 (copy), v2 (copy)
     local v378 = l_v7_16.new();
     local v379 = 0;
@@ -1835,7 +1835,7 @@ v7.decode = function(v377) --[[ Line: 3641 ]] --[[ Name: decode ]]
     end;
     return v378;
 end;
-v7.jsonEncode = function(v385) --[[ Line: 3689 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v385) --[[ Line: 4077 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v386 = {};
     if v385.action_type ~= nil and (v385.action_type ~= nil and v385.action_type ~= 0 or v385.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -1846,7 +1846,7 @@ v7.jsonEncode = function(v385) --[[ Line: 3689 ]] --[[ Name: jsonEncode ]]
     end;
     return v386;
 end;
-v7.jsonDecode = function(v387) --[[ Line: 3711 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v387) --[[ Line: 4099 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_16 (copy), v2 (copy)
     local v388 = l_v7_16.new();
     if v387.action_type ~= nil then
@@ -1872,14 +1872,14 @@ v1.default:register(v2.UpdateUserSettingsAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_17 = v7 --[[ copy: 7 -> 25 ]];
-v7.new = function(v390) --[[ Line: 3751 ]] --[[ Name: new ]]
+v7.new = function(v390) --[[ Line: 4139 ]] --[[ Name: new ]]
     -- upvalues: l_v7_17 (copy)
     return (setmetatable({
         settings = if not (v390 ~= nil) or v390.settings == nil then nil else v390.settings, 
         audit_data = if not (v390 ~= nil) or v390.audit_data == nil then nil else v390.audit_data
     }, l_v7_17));
 end;
-v7.encode = function(v391) --[[ Line: 3760 ]] --[[ Name: encode ]]
+v7.encode = function(v391) --[[ Line: 4148 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v392 = buffer.create(0);
     local v393 = 0;
@@ -1901,7 +1901,7 @@ v7.encode = function(v391) --[[ Line: 3760 ]] --[[ Name: encode ]]
     buffer.copy(v400, 0, v392, 0, v393);
     return v400;
 end;
-v7.decode = function(v401) --[[ Line: 3781 ]] --[[ Name: decode ]]
+v7.decode = function(v401) --[[ Line: 4169 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_17 (copy), v0 (copy), v5 (copy)
     local v402 = l_v7_17.new();
     local v403 = 0;
@@ -1951,7 +1951,7 @@ v7.decode = function(v401) --[[ Line: 3781 ]] --[[ Name: decode ]]
     end;
     return v402;
 end;
-v7.jsonEncode = function(v409) --[[ Line: 3829 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v409) --[[ Line: 4217 ]] --[[ Name: jsonEncode ]]
     local v410 = {};
     if v409.settings ~= nil then
         v410.settings = v409.settings:jsonEncode();
@@ -1961,7 +1961,7 @@ v7.jsonEncode = function(v409) --[[ Line: 3829 ]] --[[ Name: jsonEncode ]]
     end;
     return v410;
 end;
-v7.jsonDecode = function(v411) --[[ Line: 3843 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v411) --[[ Line: 4231 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_17 (copy), v5 (copy)
     local v412 = l_v7_17.new();
     if v411.settings ~= nil then
@@ -1984,14 +1984,14 @@ v1.default:register(v2.UpdateUserSettingsAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_18 = v7 --[[ copy: 7 -> 26 ]];
-v7.new = function(v414) --[[ Line: 3875 ]] --[[ Name: new ]]
+v7.new = function(v414) --[[ Line: 4263 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_18 (copy)
     return (setmetatable({
         action_type = if not (v414 ~= nil) or v414.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v414.action_type, 
         action_params = if not (v414 ~= nil) or v414.action_params == nil then nil else v414.action_params
     }, l_v7_18));
 end;
-v7.encode = function(v415) --[[ Line: 3884 ]] --[[ Name: encode ]]
+v7.encode = function(v415) --[[ Line: 4272 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v416 = buffer.create(0);
     local v417 = 0;
@@ -2012,7 +2012,7 @@ v7.encode = function(v415) --[[ Line: 3884 ]] --[[ Name: encode ]]
     buffer.copy(v423, 0, v416, 0, v417);
     return v423;
 end;
-v7.decode = function(v424) --[[ Line: 3910 ]] --[[ Name: decode ]]
+v7.decode = function(v424) --[[ Line: 4298 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_18 (copy), v0 (copy), v2 (copy)
     local v425 = l_v7_18.new();
     local v426 = 0;
@@ -2064,7 +2064,7 @@ v7.decode = function(v424) --[[ Line: 3910 ]] --[[ Name: decode ]]
     end;
     return v425;
 end;
-v7.jsonEncode = function(v432) --[[ Line: 3958 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v432) --[[ Line: 4346 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v433 = {};
     if v432.action_type ~= nil and (v432.action_type ~= nil and v432.action_type ~= 0 or v432.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -2075,7 +2075,7 @@ v7.jsonEncode = function(v432) --[[ Line: 3958 ]] --[[ Name: jsonEncode ]]
     end;
     return v433;
 end;
-v7.jsonDecode = function(v434) --[[ Line: 3980 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v434) --[[ Line: 4368 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_18 (copy), v2 (copy)
     local v435 = l_v7_18.new();
     if v434.action_type ~= nil then
@@ -2101,14 +2101,14 @@ v1.default:register(v2.OpenTooltipAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_19 = v7 --[[ copy: 7 -> 27 ]];
-v7.new = function(v437) --[[ Line: 4020 ]] --[[ Name: new ]]
+v7.new = function(v437) --[[ Line: 4408 ]] --[[ Name: new ]]
     -- upvalues: l_v7_19 (copy)
     return (setmetatable({
         tooltip_title = if not (v437 ~= nil) or v437.tooltip_title == nil then nil else v437.tooltip_title, 
         tooltip_info_text = if not (v437 ~= nil) or v437.tooltip_info_text == nil then nil else v437.tooltip_info_text
     }, l_v7_19));
 end;
-v7.encode = function(v438) --[[ Line: 4027 ]] --[[ Name: encode ]]
+v7.encode = function(v438) --[[ Line: 4415 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v439 = buffer.create(0);
     local v440 = 0;
@@ -2130,7 +2130,7 @@ v7.encode = function(v438) --[[ Line: 4027 ]] --[[ Name: encode ]]
     buffer.copy(v447, 0, v439, 0, v440);
     return v447;
 end;
-v7.decode = function(v448) --[[ Line: 4048 ]] --[[ Name: decode ]]
+v7.decode = function(v448) --[[ Line: 4436 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_19 (copy), v0 (copy), v5 (copy)
     local v449 = l_v7_19.new();
     local v450 = 0;
@@ -2180,7 +2180,7 @@ v7.decode = function(v448) --[[ Line: 4048 ]] --[[ Name: decode ]]
     end;
     return v449;
 end;
-v7.jsonEncode = function(v456) --[[ Line: 4096 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v456) --[[ Line: 4484 ]] --[[ Name: jsonEncode ]]
     local v457 = {};
     if v456.tooltip_title ~= nil then
         v457.tooltipTitle = v456.tooltip_title:jsonEncode();
@@ -2190,7 +2190,7 @@ v7.jsonEncode = function(v456) --[[ Line: 4096 ]] --[[ Name: jsonEncode ]]
     end;
     return v457;
 end;
-v7.jsonDecode = function(v458) --[[ Line: 4110 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v458) --[[ Line: 4498 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_19 (copy), v5 (copy)
     local v459 = l_v7_19.new();
     if v458.tooltip_title ~= nil then
@@ -2216,14 +2216,14 @@ v1.default:register(v2.OpenTooltipAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_20 = v7 --[[ copy: 7 -> 28 ]];
-v7.new = function(v461) --[[ Line: 4150 ]] --[[ Name: new ]]
+v7.new = function(v461) --[[ Line: 4538 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_20 (copy)
     return (setmetatable({
         action_type = if not (v461 ~= nil) or v461.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v461.action_type, 
         action_params = if not (v461 ~= nil) or v461.action_params == nil then nil else v461.action_params
     }, l_v7_20));
 end;
-v7.encode = function(v462) --[[ Line: 4159 ]] --[[ Name: encode ]]
+v7.encode = function(v462) --[[ Line: 4547 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v463 = buffer.create(0);
     local v464 = 0;
@@ -2244,7 +2244,7 @@ v7.encode = function(v462) --[[ Line: 4159 ]] --[[ Name: encode ]]
     buffer.copy(v470, 0, v463, 0, v464);
     return v470;
 end;
-v7.decode = function(v471) --[[ Line: 4185 ]] --[[ Name: decode ]]
+v7.decode = function(v471) --[[ Line: 4573 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_20 (copy), v0 (copy), v2 (copy)
     local v472 = l_v7_20.new();
     local v473 = 0;
@@ -2296,7 +2296,7 @@ v7.decode = function(v471) --[[ Line: 4185 ]] --[[ Name: decode ]]
     end;
     return v472;
 end;
-v7.jsonEncode = function(v479) --[[ Line: 4233 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v479) --[[ Line: 4621 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v480 = {};
     if v479.action_type ~= nil and (v479.action_type ~= nil and v479.action_type ~= 0 or v479.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -2307,7 +2307,7 @@ v7.jsonEncode = function(v479) --[[ Line: 4233 ]] --[[ Name: jsonEncode ]]
     end;
     return v480;
 end;
-v7.jsonDecode = function(v481) --[[ Line: 4255 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v481) --[[ Line: 4643 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_20 (copy), v2 (copy)
     local v482 = l_v7_20.new();
     if v481.action_type ~= nil then
@@ -2333,14 +2333,14 @@ v1.default:register(v2.OpenBadgeDetailsAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_21 = v7 --[[ copy: 7 -> 29 ]];
-v7.new = function(v484) --[[ Line: 4295 ]] --[[ Name: new ]]
+v7.new = function(v484) --[[ Line: 4683 ]] --[[ Name: new ]]
     -- upvalues: l_v7_21 (copy)
     return (setmetatable({
         badge_id = if not (v484 ~= nil) or v484.badge_id == nil then nil else v484.badge_id, 
         title_text = if not (v484 ~= nil) or v484.title_text == nil then nil else v484.title_text
     }, l_v7_21));
 end;
-v7.encode = function(v485) --[[ Line: 4304 ]] --[[ Name: encode ]]
+v7.encode = function(v485) --[[ Line: 4692 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v486 = buffer.create(0);
     local v487 = 0;
@@ -2362,7 +2362,7 @@ v7.encode = function(v485) --[[ Line: 4304 ]] --[[ Name: encode ]]
     buffer.copy(v494, 0, v486, 0, v487);
     return v494;
 end;
-v7.decode = function(v495) --[[ Line: 4325 ]] --[[ Name: decode ]]
+v7.decode = function(v495) --[[ Line: 4713 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_21 (copy), v0 (copy), v5 (copy)
     local v496 = l_v7_21.new();
     local v497 = 0;
@@ -2412,7 +2412,7 @@ v7.decode = function(v495) --[[ Line: 4325 ]] --[[ Name: decode ]]
     end;
     return v496;
 end;
-v7.jsonEncode = function(v503) --[[ Line: 4373 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v503) --[[ Line: 4761 ]] --[[ Name: jsonEncode ]]
     local v504 = {};
     if v503.badge_id ~= nil then
         v504.badgeId = v503.badge_id:jsonEncode();
@@ -2422,7 +2422,7 @@ v7.jsonEncode = function(v503) --[[ Line: 4373 ]] --[[ Name: jsonEncode ]]
     end;
     return v504;
 end;
-v7.jsonDecode = function(v505) --[[ Line: 4387 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v505) --[[ Line: 4775 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_21 (copy), v5 (copy)
     local v506 = l_v7_21.new();
     if v505.badge_id ~= nil then
@@ -2448,14 +2448,14 @@ v1.default:register(v2.OpenBadgeDetailsAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_22 = v7 --[[ copy: 7 -> 30 ]];
-v7.new = function(v508) --[[ Line: 4423 ]] --[[ Name: new ]]
+v7.new = function(v508) --[[ Line: 4811 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_22 (copy)
     return (setmetatable({
         action_type = if not (v508 ~= nil) or v508.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v508.action_type, 
         action_params = if not (v508 ~= nil) or v508.action_params == nil then nil else v508.action_params
     }, l_v7_22));
 end;
-v7.encode = function(v509) --[[ Line: 4432 ]] --[[ Name: encode ]]
+v7.encode = function(v509) --[[ Line: 4820 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v510 = buffer.create(0);
     local v511 = 0;
@@ -2476,7 +2476,7 @@ v7.encode = function(v509) --[[ Line: 4432 ]] --[[ Name: encode ]]
     buffer.copy(v517, 0, v510, 0, v511);
     return v517;
 end;
-v7.decode = function(v518) --[[ Line: 4458 ]] --[[ Name: decode ]]
+v7.decode = function(v518) --[[ Line: 4846 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_22 (copy), v0 (copy), v2 (copy)
     local v519 = l_v7_22.new();
     local v520 = 0;
@@ -2528,7 +2528,7 @@ v7.decode = function(v518) --[[ Line: 4458 ]] --[[ Name: decode ]]
     end;
     return v519;
 end;
-v7.jsonEncode = function(v526) --[[ Line: 4506 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v526) --[[ Line: 4894 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v527 = {};
     if v526.action_type ~= nil and (v526.action_type ~= nil and v526.action_type ~= 0 or v526.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -2539,7 +2539,7 @@ v7.jsonEncode = function(v526) --[[ Line: 4506 ]] --[[ Name: jsonEncode ]]
     end;
     return v527;
 end;
-v7.jsonDecode = function(v528) --[[ Line: 4528 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v528) --[[ Line: 4916 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_22 (copy), v2 (copy)
     local v529 = l_v7_22.new();
     if v528.action_type ~= nil then
@@ -2565,14 +2565,14 @@ v1.default:register(v2.LoadMoreFromApiAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_23 = v7 --[[ copy: 7 -> 31 ]];
-v7.new = function(v531) --[[ Line: 4568 ]] --[[ Name: new ]]
+v7.new = function(v531) --[[ Line: 4956 ]] --[[ Name: new ]]
     -- upvalues: l_v7_23 (copy)
     return (setmetatable({
         surface_key = if not (v531 ~= nil) or v531.surface_key == nil then nil else v531.surface_key, 
         config_key = if not (v531 ~= nil) or v531.config_key == nil then nil else v531.config_key
     }, l_v7_23));
 end;
-v7.encode = function(v532) --[[ Line: 4577 ]] --[[ Name: encode ]]
+v7.encode = function(v532) --[[ Line: 4965 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v533 = buffer.create(0);
     local v534 = 0;
@@ -2594,7 +2594,7 @@ v7.encode = function(v532) --[[ Line: 4577 ]] --[[ Name: encode ]]
     buffer.copy(v541, 0, v533, 0, v534);
     return v541;
 end;
-v7.decode = function(v542) --[[ Line: 4598 ]] --[[ Name: decode ]]
+v7.decode = function(v542) --[[ Line: 4986 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_23 (copy), v0 (copy), v5 (copy)
     local v543 = l_v7_23.new();
     local v544 = 0;
@@ -2644,7 +2644,7 @@ v7.decode = function(v542) --[[ Line: 4598 ]] --[[ Name: decode ]]
     end;
     return v543;
 end;
-v7.jsonEncode = function(v550) --[[ Line: 4646 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v550) --[[ Line: 5034 ]] --[[ Name: jsonEncode ]]
     local v551 = {};
     if v550.surface_key ~= nil then
         v551.surfaceKey = v550.surface_key:jsonEncode();
@@ -2654,7 +2654,7 @@ v7.jsonEncode = function(v550) --[[ Line: 4646 ]] --[[ Name: jsonEncode ]]
     end;
     return v551;
 end;
-v7.jsonDecode = function(v552) --[[ Line: 4660 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v552) --[[ Line: 5048 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_23 (copy), v5 (copy)
     local v553 = l_v7_23.new();
     if v552.surface_key ~= nil then
@@ -2680,14 +2680,14 @@ v1.default:register(v2.LoadMoreFromApiAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_24 = v7 --[[ copy: 7 -> 32 ]];
-v7.new = function(v555) --[[ Line: 4697 ]] --[[ Name: new ]]
+v7.new = function(v555) --[[ Line: 5085 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_24 (copy)
     return (setmetatable({
         action_type = if not (v555 ~= nil) or v555.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v555.action_type, 
         action_params = if not (v555 ~= nil) or v555.action_params == nil then nil else v555.action_params
     }, l_v7_24));
 end;
-v7.encode = function(v556) --[[ Line: 4706 ]] --[[ Name: encode ]]
+v7.encode = function(v556) --[[ Line: 5094 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v557 = buffer.create(0);
     local v558 = 0;
@@ -2708,7 +2708,7 @@ v7.encode = function(v556) --[[ Line: 4706 ]] --[[ Name: encode ]]
     buffer.copy(v564, 0, v557, 0, v558);
     return v564;
 end;
-v7.decode = function(v565) --[[ Line: 4732 ]] --[[ Name: decode ]]
+v7.decode = function(v565) --[[ Line: 5120 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_24 (copy), v0 (copy), v2 (copy)
     local v566 = l_v7_24.new();
     local v567 = 0;
@@ -2760,7 +2760,7 @@ v7.decode = function(v565) --[[ Line: 4732 ]] --[[ Name: decode ]]
     end;
     return v566;
 end;
-v7.jsonEncode = function(v573) --[[ Line: 4780 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v573) --[[ Line: 5168 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v574 = {};
     if v573.action_type ~= nil and (v573.action_type ~= nil and v573.action_type ~= 0 or v573.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -2771,7 +2771,7 @@ v7.jsonEncode = function(v573) --[[ Line: 4780 ]] --[[ Name: jsonEncode ]]
     end;
     return v574;
 end;
-v7.jsonDecode = function(v575) --[[ Line: 4802 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v575) --[[ Line: 5190 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_24 (copy), v2 (copy)
     local v576 = l_v7_24.new();
     if v575.action_type ~= nil then
@@ -2797,13 +2797,13 @@ v1.default:register(v2.ShareAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_25 = v7 --[[ copy: 7 -> 33 ]];
-v7.new = function(v578) --[[ Line: 4842 ]] --[[ Name: new ]]
+v7.new = function(v578) --[[ Line: 5230 ]] --[[ Name: new ]]
     -- upvalues: l_v7_25 (copy)
     return (setmetatable({
         oneof_prop = if not (v578 ~= nil) or v578.oneof_prop == nil then nil else v578.oneof_prop
     }, l_v7_25));
 end;
-v7.encode = function(v579) --[[ Line: 4850 ]] --[[ Name: encode ]]
+v7.encode = function(v579) --[[ Line: 5238 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v580 = buffer.create(0);
     local v581 = 0;
@@ -2818,7 +2818,7 @@ v7.encode = function(v579) --[[ Line: 4850 ]] --[[ Name: encode ]]
     buffer.copy(v585, 0, v580, 0, v581);
     return v585;
 end;
-v7.decode = function(v586) --[[ Line: 4867 ]] --[[ Name: decode ]]
+v7.decode = function(v586) --[[ Line: 5255 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_25 (copy), v0 (copy), v6 (copy)
     local v587 = l_v7_25.new();
     local v588 = 0;
@@ -2865,14 +2865,14 @@ v7.decode = function(v586) --[[ Line: 4867 ]] --[[ Name: decode ]]
     end;
     return v587;
 end;
-v7.jsonEncode = function(v594) --[[ Line: 4915 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v594) --[[ Line: 5303 ]] --[[ Name: jsonEncode ]]
     local v595 = {};
     if v594.oneof_prop ~= nil and v594.oneof_prop.type == "generic_share_link_data" then
         v595.genericShareLinkData = v594.oneof_prop.value:jsonEncode();
     end;
     return v595;
 end;
-v7.jsonDecode = function(v596) --[[ Line: 4927 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v596) --[[ Line: 5315 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_25 (copy), v6 (copy)
     local v597 = l_v7_25.new();
     if v596.generic_share_link_data ~= nil then
@@ -2898,7 +2898,7 @@ v1.default:register(v2.ShareAction_ShareLinkData);
 v7 = {};
 v7.__index = v7;
 local l_v7_26 = v7 --[[ copy: 7 -> 34 ]];
-v7.new = function(v599) --[[ Line: 4965 ]] --[[ Name: new ]]
+v7.new = function(v599) --[[ Line: 5353 ]] --[[ Name: new ]]
     -- upvalues: l_v7_26 (copy)
     return (setmetatable({
         share_link_type = if not (v599 ~= nil) or v599.share_link_type == nil then nil else v599.share_link_type, 
@@ -2906,7 +2906,7 @@ v7.new = function(v599) --[[ Line: 4965 ]] --[[ Name: new ]]
         entry_point_key = if not (v599 ~= nil) or v599.entry_point_key == nil then nil else v599.entry_point_key
     }, l_v7_26));
 end;
-v7.encode = function(v600) --[[ Line: 4973 ]] --[[ Name: encode ]]
+v7.encode = function(v600) --[[ Line: 5361 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v601 = buffer.create(0);
     local v602 = 0;
@@ -2935,7 +2935,7 @@ v7.encode = function(v600) --[[ Line: 4973 ]] --[[ Name: encode ]]
     buffer.copy(v612, 0, v601, 0, v602);
     return v612;
 end;
-v7.decode = function(v613) --[[ Line: 5000 ]] --[[ Name: decode ]]
+v7.decode = function(v613) --[[ Line: 5388 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_26 (copy), v0 (copy), v5 (copy), v2 (copy)
     local v614 = l_v7_26.new();
     local v615 = 0;
@@ -2991,7 +2991,7 @@ v7.decode = function(v613) --[[ Line: 5000 ]] --[[ Name: decode ]]
     end;
     return v614;
 end;
-v7.jsonEncode = function(v621) --[[ Line: 5053 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v621) --[[ Line: 5441 ]] --[[ Name: jsonEncode ]]
     local v622 = {};
     if v621.share_link_type ~= nil then
         v622.shareLinkType = v621.share_link_type:jsonEncode();
@@ -3004,7 +3004,7 @@ v7.jsonEncode = function(v621) --[[ Line: 5053 ]] --[[ Name: jsonEncode ]]
     end;
     return v622;
 end;
-v7.jsonDecode = function(v623) --[[ Line: 5071 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v623) --[[ Line: 5459 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_26 (copy), v5 (copy), v2 (copy)
     local v624 = l_v7_26.new();
     if v623.share_link_type ~= nil then
@@ -3036,14 +3036,14 @@ v1.default:register(v2.ShareAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_27 = v7 --[[ copy: 7 -> 35 ]];
-v7.new = function(v626) --[[ Line: 5119 ]] --[[ Name: new ]]
+v7.new = function(v626) --[[ Line: 5507 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_27 (copy)
     return (setmetatable({
         action_type = if not (v626 ~= nil) or v626.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v626.action_type, 
         action_params = if not (v626 ~= nil) or v626.action_params == nil then nil else v626.action_params
     }, l_v7_27));
 end;
-v7.encode = function(v627) --[[ Line: 5128 ]] --[[ Name: encode ]]
+v7.encode = function(v627) --[[ Line: 5516 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v628 = buffer.create(0);
     local v629 = 0;
@@ -3064,7 +3064,7 @@ v7.encode = function(v627) --[[ Line: 5128 ]] --[[ Name: encode ]]
     buffer.copy(v635, 0, v628, 0, v629);
     return v635;
 end;
-v7.decode = function(v636) --[[ Line: 5154 ]] --[[ Name: decode ]]
+v7.decode = function(v636) --[[ Line: 5542 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_27 (copy), v0 (copy), v2 (copy)
     local v637 = l_v7_27.new();
     local v638 = 0;
@@ -3116,7 +3116,7 @@ v7.decode = function(v636) --[[ Line: 5154 ]] --[[ Name: decode ]]
     end;
     return v637;
 end;
-v7.jsonEncode = function(v644) --[[ Line: 5202 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v644) --[[ Line: 5590 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v645 = {};
     if v644.action_type ~= nil and (v644.action_type ~= nil and v644.action_type ~= 0 or v644.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -3127,7 +3127,7 @@ v7.jsonEncode = function(v644) --[[ Line: 5202 ]] --[[ Name: jsonEncode ]]
     end;
     return v645;
 end;
-v7.jsonDecode = function(v646) --[[ Line: 5224 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v646) --[[ Line: 5612 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_27 (copy), v2 (copy)
     local v647 = l_v7_27.new();
     if v646.action_type ~= nil then
@@ -3153,7 +3153,7 @@ v1.default:register(v2.OpenAbuseReportAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_28 = v7 --[[ copy: 7 -> 36 ]];
-v7.new = function(v649) --[[ Line: 5264 ]] --[[ Name: new ]]
+v7.new = function(v649) --[[ Line: 5652 ]] --[[ Name: new ]]
     -- upvalues: l_v7_28 (copy)
     return (setmetatable({
         target_id = if not (v649 ~= nil) or v649.target_id == nil then nil else v649.target_id, 
@@ -3162,7 +3162,7 @@ v7.new = function(v649) --[[ Line: 5264 ]] --[[ Name: new ]]
         universe_id = if not (v649 ~= nil) or v649.universe_id == nil then nil else v649.universe_id
     }, l_v7_28));
 end;
-v7.encode = function(v650) --[[ Line: 5275 ]] --[[ Name: encode ]]
+v7.encode = function(v650) --[[ Line: 5663 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v651 = buffer.create(0);
     local v652 = 0;
@@ -3198,7 +3198,7 @@ v7.encode = function(v650) --[[ Line: 5275 ]] --[[ Name: encode ]]
     buffer.copy(v665, 0, v651, 0, v652);
     return v665;
 end;
-v7.decode = function(v666) --[[ Line: 5308 ]] --[[ Name: decode ]]
+v7.decode = function(v666) --[[ Line: 5696 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_28 (copy), v0 (copy), v5 (copy)
     local v667 = l_v7_28.new();
     local v668 = 0;
@@ -3260,7 +3260,7 @@ v7.decode = function(v666) --[[ Line: 5308 ]] --[[ Name: decode ]]
     end;
     return v667;
 end;
-v7.jsonEncode = function(v674) --[[ Line: 5366 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v674) --[[ Line: 5754 ]] --[[ Name: jsonEncode ]]
     local v675 = {};
     if v674.target_id ~= nil then
         v675.targetId = v674.target_id:jsonEncode();
@@ -3276,7 +3276,7 @@ v7.jsonEncode = function(v674) --[[ Line: 5366 ]] --[[ Name: jsonEncode ]]
     end;
     return v675;
 end;
-v7.jsonDecode = function(v676) --[[ Line: 5388 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v676) --[[ Line: 5776 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_28 (copy), v5 (copy)
     local v677 = l_v7_28.new();
     if v676.target_id ~= nil then
@@ -3314,14 +3314,14 @@ v1.default:register(v2.OpenAbuseReportAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_29 = v7 --[[ copy: 7 -> 37 ]];
-v7.new = function(v679) --[[ Line: 5445 ]] --[[ Name: new ]]
+v7.new = function(v679) --[[ Line: 5833 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_29 (copy)
     return (setmetatable({
         action_type = if not (v679 ~= nil) or v679.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v679.action_type, 
         action_params = if not (v679 ~= nil) or v679.action_params == nil then nil else v679.action_params
     }, l_v7_29));
 end;
-v7.encode = function(v680) --[[ Line: 5456 ]] --[[ Name: encode ]]
+v7.encode = function(v680) --[[ Line: 5844 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v681 = buffer.create(0);
     local v682 = 0;
@@ -3342,7 +3342,7 @@ v7.encode = function(v680) --[[ Line: 5456 ]] --[[ Name: encode ]]
     buffer.copy(v688, 0, v681, 0, v682);
     return v688;
 end;
-v7.decode = function(v689) --[[ Line: 5482 ]] --[[ Name: decode ]]
+v7.decode = function(v689) --[[ Line: 5870 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_29 (copy), v0 (copy), v2 (copy)
     local v690 = l_v7_29.new();
     local v691 = 0;
@@ -3394,7 +3394,7 @@ v7.decode = function(v689) --[[ Line: 5482 ]] --[[ Name: decode ]]
     end;
     return v690;
 end;
-v7.jsonEncode = function(v697) --[[ Line: 5530 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v697) --[[ Line: 5918 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v698 = {};
     if v697.action_type ~= nil and (v697.action_type ~= nil and v697.action_type ~= 0 or v697.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -3405,7 +3405,7 @@ v7.jsonEncode = function(v697) --[[ Line: 5530 ]] --[[ Name: jsonEncode ]]
     end;
     return v698;
 end;
-v7.jsonDecode = function(v699) --[[ Line: 5552 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v699) --[[ Line: 5940 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_29 (copy), v2 (copy)
     local v700 = l_v7_29.new();
     if v699.action_type ~= nil then
@@ -3431,13 +3431,13 @@ v1.default:register(v2.RemoveBadgeFromInventoryAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_30 = v7 --[[ copy: 7 -> 38 ]];
-v7.new = function(v702) --[[ Line: 5592 ]] --[[ Name: new ]]
+v7.new = function(v702) --[[ Line: 5980 ]] --[[ Name: new ]]
     -- upvalues: l_v7_30 (copy)
     return (setmetatable({
         asset_id = if not (v702 ~= nil) or v702.asset_id == nil then nil else v702.asset_id
     }, l_v7_30));
 end;
-v7.encode = function(v703) --[[ Line: 5600 ]] --[[ Name: encode ]]
+v7.encode = function(v703) --[[ Line: 5988 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v704 = buffer.create(0);
     local v705 = 0;
@@ -3452,7 +3452,7 @@ v7.encode = function(v703) --[[ Line: 5600 ]] --[[ Name: encode ]]
     buffer.copy(v709, 0, v704, 0, v705);
     return v709;
 end;
-v7.decode = function(v710) --[[ Line: 5615 ]] --[[ Name: decode ]]
+v7.decode = function(v710) --[[ Line: 6003 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_30 (copy), v0 (copy), v5 (copy)
     local v711 = l_v7_30.new();
     local v712 = 0;
@@ -3496,14 +3496,14 @@ v7.decode = function(v710) --[[ Line: 5615 ]] --[[ Name: decode ]]
     end;
     return v711;
 end;
-v7.jsonEncode = function(v718) --[[ Line: 5658 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v718) --[[ Line: 6046 ]] --[[ Name: jsonEncode ]]
     local v719 = {};
     if v718.asset_id ~= nil then
         v719.assetId = v718.asset_id:jsonEncode();
     end;
     return v719;
 end;
-v7.jsonDecode = function(v720) --[[ Line: 5668 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v720) --[[ Line: 6056 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_30 (copy), v5 (copy)
     local v721 = l_v7_30.new();
     if v720.asset_id ~= nil then
@@ -3523,14 +3523,14 @@ v1.default:register(v2.RemoveBadgeFromInventoryAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_31 = v7 --[[ copy: 7 -> 39 ]];
-v7.new = function(v723) --[[ Line: 5698 ]] --[[ Name: new ]]
+v7.new = function(v723) --[[ Line: 6086 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_31 (copy)
     return (setmetatable({
         action_type = if not (v723 ~= nil) or v723.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v723.action_type, 
         action_params = if not (v723 ~= nil) or v723.action_params == nil then nil else v723.action_params
     }, l_v7_31));
 end;
-v7.encode = function(v724) --[[ Line: 5707 ]] --[[ Name: encode ]]
+v7.encode = function(v724) --[[ Line: 6095 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v725 = buffer.create(0);
     local v726 = 0;
@@ -3551,7 +3551,7 @@ v7.encode = function(v724) --[[ Line: 5707 ]] --[[ Name: encode ]]
     buffer.copy(v732, 0, v725, 0, v726);
     return v732;
 end;
-v7.decode = function(v733) --[[ Line: 5733 ]] --[[ Name: decode ]]
+v7.decode = function(v733) --[[ Line: 6121 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_31 (copy), v0 (copy), v2 (copy)
     local v734 = l_v7_31.new();
     local v735 = 0;
@@ -3603,7 +3603,7 @@ v7.decode = function(v733) --[[ Line: 5733 ]] --[[ Name: decode ]]
     end;
     return v734;
 end;
-v7.jsonEncode = function(v741) --[[ Line: 5781 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v741) --[[ Line: 6169 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v742 = {};
     if v741.action_type ~= nil and (v741.action_type ~= nil and v741.action_type ~= 0 or v741.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -3614,7 +3614,7 @@ v7.jsonEncode = function(v741) --[[ Line: 5781 ]] --[[ Name: jsonEncode ]]
     end;
     return v742;
 end;
-v7.jsonDecode = function(v743) --[[ Line: 5803 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v743) --[[ Line: 6191 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_31 (copy), v2 (copy)
     local v744 = l_v7_31.new();
     if v743.action_type ~= nil then
@@ -3640,7 +3640,7 @@ v1.default:register(v2.OpenProfileAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_32 = v7 --[[ copy: 7 -> 40 ]];
-v7.new = function(v746) --[[ Line: 5843 ]] --[[ Name: new ]]
+v7.new = function(v746) --[[ Line: 6231 ]] --[[ Name: new ]]
     -- upvalues: l_v7_32 (copy)
     return (setmetatable({
         profile_id = if not (v746 ~= nil) or v746.profile_id == nil then nil else v746.profile_id, 
@@ -3648,7 +3648,7 @@ v7.new = function(v746) --[[ Line: 5843 ]] --[[ Name: new ]]
         source = if not (v746 ~= nil) or v746.source == nil then nil else v746.source
     }, l_v7_32));
 end;
-v7.encode = function(v747) --[[ Line: 5851 ]] --[[ Name: encode ]]
+v7.encode = function(v747) --[[ Line: 6239 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v748 = buffer.create(0);
     local v749 = 0;
@@ -3677,7 +3677,7 @@ v7.encode = function(v747) --[[ Line: 5851 ]] --[[ Name: encode ]]
     buffer.copy(v759, 0, v748, 0, v749);
     return v759;
 end;
-v7.decode = function(v760) --[[ Line: 5878 ]] --[[ Name: decode ]]
+v7.decode = function(v760) --[[ Line: 6266 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_32 (copy), v0 (copy), v5 (copy)
     local v761 = l_v7_32.new();
     local v762 = 0;
@@ -3733,7 +3733,7 @@ v7.decode = function(v760) --[[ Line: 5878 ]] --[[ Name: decode ]]
     end;
     return v761;
 end;
-v7.jsonEncode = function(v768) --[[ Line: 5931 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v768) --[[ Line: 6319 ]] --[[ Name: jsonEncode ]]
     local v769 = {};
     if v768.profile_id ~= nil then
         v769.profileId = v768.profile_id:jsonEncode();
@@ -3746,7 +3746,7 @@ v7.jsonEncode = function(v768) --[[ Line: 5931 ]] --[[ Name: jsonEncode ]]
     end;
     return v769;
 end;
-v7.jsonDecode = function(v770) --[[ Line: 5949 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v770) --[[ Line: 6337 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_32 (copy), v5 (copy)
     local v771 = l_v7_32.new();
     if v770.profile_id ~= nil then
@@ -3775,14 +3775,14 @@ v1.default:register(v2.OpenProfileAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_33 = v7 --[[ copy: 7 -> 41 ]];
-v7.new = function(v773) --[[ Line: 5991 ]] --[[ Name: new ]]
+v7.new = function(v773) --[[ Line: 6379 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_33 (copy)
     return (setmetatable({
         action_type = if not (v773 ~= nil) or v773.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v773.action_type, 
         action_params = if not (v773 ~= nil) or v773.action_params == nil then nil else v773.action_params
     }, l_v7_33));
 end;
-v7.encode = function(v774) --[[ Line: 6000 ]] --[[ Name: encode ]]
+v7.encode = function(v774) --[[ Line: 6390 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v775 = buffer.create(0);
     local v776 = 0;
@@ -3803,7 +3803,7 @@ v7.encode = function(v774) --[[ Line: 6000 ]] --[[ Name: encode ]]
     buffer.copy(v782, 0, v775, 0, v776);
     return v782;
 end;
-v7.decode = function(v783) --[[ Line: 6026 ]] --[[ Name: decode ]]
+v7.decode = function(v783) --[[ Line: 6416 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_33 (copy), v0 (copy), v2 (copy)
     local v784 = l_v7_33.new();
     local v785 = 0;
@@ -3833,7 +3833,7 @@ v7.decode = function(v783) --[[ Line: 6026 ]] --[[ Name: decode ]]
                 v789, v790 = v0.readBuffer(v783, v785);
                 v788 = v789;
                 v785 = v790;
-                v784.action_params = v2.OpenFaeAction_Params.decode(v788);
+                v784.action_params = v2.OpenFacialAgeEstimationAction_Params.decode(v788);
             else
                 v788 = nil;
                 v789, v790 = v0.readVarInt(v783, v785);
@@ -3855,7 +3855,7 @@ v7.decode = function(v783) --[[ Line: 6026 ]] --[[ Name: decode ]]
     end;
     return v784;
 end;
-v7.jsonEncode = function(v791) --[[ Line: 6074 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v791) --[[ Line: 6464 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v792 = {};
     if v791.action_type ~= nil and (v791.action_type ~= nil and v791.action_type ~= 0 or v791.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -3866,7 +3866,7 @@ v7.jsonEncode = function(v791) --[[ Line: 6074 ]] --[[ Name: jsonEncode ]]
     end;
     return v792;
 end;
-v7.jsonDecode = function(v793) --[[ Line: 6096 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v793) --[[ Line: 6486 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_33 (copy), v2 (copy)
     local v794 = l_v7_33.new();
     if v793.action_type ~= nil then
@@ -3876,30 +3876,30 @@ v7.jsonDecode = function(v793) --[[ Line: 6096 ]] --[[ Name: jsonDecode ]]
         v794.action_type = if typeof(v793.actionType) == "number" then v2.ActionType.fromNumber(v793.actionType) or v793.actionType else v2.ActionType.fromName(v793.actionType) or v793.actionType;
     end;
     if v793.action_params ~= nil then
-        v794.action_params = v2.OpenFaeAction_Params.jsonDecode(v793.action_params);
+        v794.action_params = v2.OpenFacialAgeEstimationAction_Params.jsonDecode(v793.action_params);
     end;
     if v793.actionParams ~= nil then
-        v794.action_params = v2.OpenFaeAction_Params.jsonDecode(v793.actionParams);
+        v794.action_params = v2.OpenFacialAgeEstimationAction_Params.jsonDecode(v793.actionParams);
     end;
     return v794;
 end;
 v7.descriptor = {
-    name = "OpenFaeAction", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.OpenFaeAction"
+    name = "OpenFacialAgeEstimationAction", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.OpenFacialAgeEstimationAction"
 };
-v2.OpenFaeAction = v7;
-v1.default:register(v2.OpenFaeAction);
+v2.OpenFacialAgeEstimationAction = v7;
+v1.default:register(v2.OpenFacialAgeEstimationAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_34 = v7 --[[ copy: 7 -> 42 ]];
-v7.new = function(v796) --[[ Line: 6136 ]] --[[ Name: new ]]
+v7.new = function(v796) --[[ Line: 6526 ]] --[[ Name: new ]]
     -- upvalues: l_v7_34 (copy)
     return (setmetatable({
         user_id = if not (v796 ~= nil) or v796.user_id == nil then nil else v796.user_id, 
         source = if not (v796 ~= nil) or v796.source == nil then nil else v796.source
     }, l_v7_34));
 end;
-v7.encode = function(v797) --[[ Line: 6143 ]] --[[ Name: encode ]]
+v7.encode = function(v797) --[[ Line: 6535 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v798 = buffer.create(0);
     local v799 = 0;
@@ -3921,7 +3921,7 @@ v7.encode = function(v797) --[[ Line: 6143 ]] --[[ Name: encode ]]
     buffer.copy(v806, 0, v798, 0, v799);
     return v806;
 end;
-v7.decode = function(v807) --[[ Line: 6164 ]] --[[ Name: decode ]]
+v7.decode = function(v807) --[[ Line: 6556 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_34 (copy), v0 (copy), v5 (copy)
     local v808 = l_v7_34.new();
     local v809 = 0;
@@ -3971,7 +3971,7 @@ v7.decode = function(v807) --[[ Line: 6164 ]] --[[ Name: decode ]]
     end;
     return v808;
 end;
-v7.jsonEncode = function(v815) --[[ Line: 6212 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v815) --[[ Line: 6604 ]] --[[ Name: jsonEncode ]]
     local v816 = {};
     if v815.user_id ~= nil then
         v816.userId = v815.user_id:jsonEncode();
@@ -3981,7 +3981,7 @@ v7.jsonEncode = function(v815) --[[ Line: 6212 ]] --[[ Name: jsonEncode ]]
     end;
     return v816;
 end;
-v7.jsonDecode = function(v817) --[[ Line: 6226 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v817) --[[ Line: 6618 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_34 (copy), v5 (copy)
     local v818 = l_v7_34.new();
     if v817.user_id ~= nil then
@@ -3996,22 +3996,22 @@ v7.jsonDecode = function(v817) --[[ Line: 6226 ]] --[[ Name: jsonDecode ]]
     return v818;
 end;
 v7.descriptor = {
-    name = "OpenFaeAction_Params", 
+    name = "OpenFacialAgeEstimationAction_Params", 
     fullName = "roblox.apppageplatform.shared.v1beta1.Params"
 };
-v2.OpenFaeAction_Params = v7;
-v1.default:register(v2.OpenFaeAction_Params);
+v2.OpenFacialAgeEstimationAction_Params = v7;
+v1.default:register(v2.OpenFacialAgeEstimationAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_35 = v7 --[[ copy: 7 -> 43 ]];
-v7.new = function(v820) --[[ Line: 6258 ]] --[[ Name: new ]]
+v7.new = function(v820) --[[ Line: 6652 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_35 (copy)
     return (setmetatable({
         action_type = if not (v820 ~= nil) or v820.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v820.action_type, 
         action_params = if not (v820 ~= nil) or v820.action_params == nil then nil else v820.action_params
     }, l_v7_35));
 end;
-v7.encode = function(v821) --[[ Line: 6267 ]] --[[ Name: encode ]]
+v7.encode = function(v821) --[[ Line: 6663 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v822 = buffer.create(0);
     local v823 = 0;
@@ -4032,7 +4032,7 @@ v7.encode = function(v821) --[[ Line: 6267 ]] --[[ Name: encode ]]
     buffer.copy(v829, 0, v822, 0, v823);
     return v829;
 end;
-v7.decode = function(v830) --[[ Line: 6293 ]] --[[ Name: decode ]]
+v7.decode = function(v830) --[[ Line: 6689 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_35 (copy), v0 (copy), v2 (copy)
     local v831 = l_v7_35.new();
     local v832 = 0;
@@ -4062,7 +4062,7 @@ v7.decode = function(v830) --[[ Line: 6293 ]] --[[ Name: decode ]]
                 v836, v837 = v0.readBuffer(v830, v832);
                 v835 = v836;
                 v832 = v837;
-                v831.action_params = v2.OpenAddConnectionsAction_Params.decode(v835);
+                v831.action_params = v2.OpenAddConnectionsPageAction_Params.decode(v835);
             else
                 v835 = nil;
                 v836, v837 = v0.readVarInt(v830, v832);
@@ -4084,7 +4084,7 @@ v7.decode = function(v830) --[[ Line: 6293 ]] --[[ Name: decode ]]
     end;
     return v831;
 end;
-v7.jsonEncode = function(v838) --[[ Line: 6341 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v838) --[[ Line: 6737 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v839 = {};
     if v838.action_type ~= nil and (v838.action_type ~= nil and v838.action_type ~= 0 or v838.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -4095,7 +4095,7 @@ v7.jsonEncode = function(v838) --[[ Line: 6341 ]] --[[ Name: jsonEncode ]]
     end;
     return v839;
 end;
-v7.jsonDecode = function(v840) --[[ Line: 6363 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v840) --[[ Line: 6759 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_35 (copy), v2 (copy)
     local v841 = l_v7_35.new();
     if v840.action_type ~= nil then
@@ -4105,30 +4105,30 @@ v7.jsonDecode = function(v840) --[[ Line: 6363 ]] --[[ Name: jsonDecode ]]
         v841.action_type = if typeof(v840.actionType) == "number" then v2.ActionType.fromNumber(v840.actionType) or v840.actionType else v2.ActionType.fromName(v840.actionType) or v840.actionType;
     end;
     if v840.action_params ~= nil then
-        v841.action_params = v2.OpenAddConnectionsAction_Params.jsonDecode(v840.action_params);
+        v841.action_params = v2.OpenAddConnectionsPageAction_Params.jsonDecode(v840.action_params);
     end;
     if v840.actionParams ~= nil then
-        v841.action_params = v2.OpenAddConnectionsAction_Params.jsonDecode(v840.actionParams);
+        v841.action_params = v2.OpenAddConnectionsPageAction_Params.jsonDecode(v840.actionParams);
     end;
     return v841;
 end;
 v7.descriptor = {
-    name = "OpenAddConnectionsAction", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.OpenAddConnectionsAction"
+    name = "OpenAddConnectionsPageAction", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.OpenAddConnectionsPageAction"
 };
-v2.OpenAddConnectionsAction = v7;
-v1.default:register(v2.OpenAddConnectionsAction);
+v2.OpenAddConnectionsPageAction = v7;
+v1.default:register(v2.OpenAddConnectionsPageAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_36 = v7 --[[ copy: 7 -> 44 ]];
-v7.new = function(v843) --[[ Line: 6403 ]] --[[ Name: new ]]
+v7.new = function(v843) --[[ Line: 6799 ]] --[[ Name: new ]]
     -- upvalues: l_v7_36 (copy)
     return (setmetatable({
         user_id = if not (v843 ~= nil) or v843.user_id == nil then nil else v843.user_id, 
         source = if not (v843 ~= nil) or v843.source == nil then nil else v843.source
     }, l_v7_36));
 end;
-v7.encode = function(v844) --[[ Line: 6412 ]] --[[ Name: encode ]]
+v7.encode = function(v844) --[[ Line: 6808 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v845 = buffer.create(0);
     local v846 = 0;
@@ -4150,7 +4150,7 @@ v7.encode = function(v844) --[[ Line: 6412 ]] --[[ Name: encode ]]
     buffer.copy(v853, 0, v845, 0, v846);
     return v853;
 end;
-v7.decode = function(v854) --[[ Line: 6433 ]] --[[ Name: decode ]]
+v7.decode = function(v854) --[[ Line: 6829 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_36 (copy), v0 (copy), v5 (copy)
     local v855 = l_v7_36.new();
     local v856 = 0;
@@ -4200,7 +4200,7 @@ v7.decode = function(v854) --[[ Line: 6433 ]] --[[ Name: decode ]]
     end;
     return v855;
 end;
-v7.jsonEncode = function(v862) --[[ Line: 6481 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v862) --[[ Line: 6877 ]] --[[ Name: jsonEncode ]]
     local v863 = {};
     if v862.user_id ~= nil then
         v863.userId = v862.user_id:jsonEncode();
@@ -4210,7 +4210,7 @@ v7.jsonEncode = function(v862) --[[ Line: 6481 ]] --[[ Name: jsonEncode ]]
     end;
     return v863;
 end;
-v7.jsonDecode = function(v864) --[[ Line: 6495 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v864) --[[ Line: 6891 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_36 (copy), v5 (copy)
     local v865 = l_v7_36.new();
     if v864.user_id ~= nil then
@@ -4225,22 +4225,22 @@ v7.jsonDecode = function(v864) --[[ Line: 6495 ]] --[[ Name: jsonDecode ]]
     return v865;
 end;
 v7.descriptor = {
-    name = "OpenAddConnectionsAction_Params", 
+    name = "OpenAddConnectionsPageAction_Params", 
     fullName = "roblox.apppageplatform.shared.v1beta1.Params"
 };
-v2.OpenAddConnectionsAction_Params = v7;
-v1.default:register(v2.OpenAddConnectionsAction_Params);
+v2.OpenAddConnectionsPageAction_Params = v7;
+v1.default:register(v2.OpenAddConnectionsPageAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_37 = v7 --[[ copy: 7 -> 45 ]];
-v7.new = function(v867) --[[ Line: 6527 ]] --[[ Name: new ]]
+v7.new = function(v867) --[[ Line: 6925 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_37 (copy)
     return (setmetatable({
         action_type = if not (v867 ~= nil) or v867.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v867.action_type, 
         action_params = if not (v867 ~= nil) or v867.action_params == nil then nil else v867.action_params
     }, l_v7_37));
 end;
-v7.encode = function(v868) --[[ Line: 6536 ]] --[[ Name: encode ]]
+v7.encode = function(v868) --[[ Line: 6934 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v869 = buffer.create(0);
     local v870 = 0;
@@ -4261,7 +4261,7 @@ v7.encode = function(v868) --[[ Line: 6536 ]] --[[ Name: encode ]]
     buffer.copy(v876, 0, v869, 0, v870);
     return v876;
 end;
-v7.decode = function(v877) --[[ Line: 6562 ]] --[[ Name: decode ]]
+v7.decode = function(v877) --[[ Line: 6960 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_37 (copy), v0 (copy), v2 (copy)
     local v878 = l_v7_37.new();
     local v879 = 0;
@@ -4313,7 +4313,7 @@ v7.decode = function(v877) --[[ Line: 6562 ]] --[[ Name: decode ]]
     end;
     return v878;
 end;
-v7.jsonEncode = function(v885) --[[ Line: 6610 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v885) --[[ Line: 7008 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v886 = {};
     if v885.action_type ~= nil and (v885.action_type ~= nil and v885.action_type ~= 0 or v885.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -4324,7 +4324,7 @@ v7.jsonEncode = function(v885) --[[ Line: 6610 ]] --[[ Name: jsonEncode ]]
     end;
     return v886;
 end;
-v7.jsonDecode = function(v887) --[[ Line: 6632 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v887) --[[ Line: 7030 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_37 (copy), v2 (copy)
     local v888 = l_v7_37.new();
     if v887.action_type ~= nil then
@@ -4350,14 +4350,14 @@ v1.default:register(v2.OpenMarketplaceAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_38 = v7 --[[ copy: 7 -> 46 ]];
-v7.new = function(v890) --[[ Line: 6672 ]] --[[ Name: new ]]
+v7.new = function(v890) --[[ Line: 7070 ]] --[[ Name: new ]]
     -- upvalues: l_v7_38 (copy)
     return (setmetatable({
         user_id = if not (v890 ~= nil) or v890.user_id == nil then nil else v890.user_id, 
         source = if not (v890 ~= nil) or v890.source == nil then nil else v890.source
     }, l_v7_38));
 end;
-v7.encode = function(v891) --[[ Line: 6681 ]] --[[ Name: encode ]]
+v7.encode = function(v891) --[[ Line: 7079 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v892 = buffer.create(0);
     local v893 = 0;
@@ -4379,7 +4379,7 @@ v7.encode = function(v891) --[[ Line: 6681 ]] --[[ Name: encode ]]
     buffer.copy(v900, 0, v892, 0, v893);
     return v900;
 end;
-v7.decode = function(v901) --[[ Line: 6702 ]] --[[ Name: decode ]]
+v7.decode = function(v901) --[[ Line: 7100 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_38 (copy), v0 (copy), v5 (copy)
     local v902 = l_v7_38.new();
     local v903 = 0;
@@ -4429,7 +4429,7 @@ v7.decode = function(v901) --[[ Line: 6702 ]] --[[ Name: decode ]]
     end;
     return v902;
 end;
-v7.jsonEncode = function(v909) --[[ Line: 6750 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v909) --[[ Line: 7148 ]] --[[ Name: jsonEncode ]]
     local v910 = {};
     if v909.user_id ~= nil then
         v910.userId = v909.user_id:jsonEncode();
@@ -4439,7 +4439,7 @@ v7.jsonEncode = function(v909) --[[ Line: 6750 ]] --[[ Name: jsonEncode ]]
     end;
     return v910;
 end;
-v7.jsonDecode = function(v911) --[[ Line: 6764 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v911) --[[ Line: 7162 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_38 (copy), v5 (copy)
     local v912 = l_v7_38.new();
     if v911.user_id ~= nil then
@@ -4462,14 +4462,14 @@ v1.default:register(v2.OpenMarketplaceAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_39 = v7 --[[ copy: 7 -> 47 ]];
-v7.new = function(v914) --[[ Line: 6796 ]] --[[ Name: new ]]
+v7.new = function(v914) --[[ Line: 7194 ]] --[[ Name: new ]]
     -- upvalues: v2 (copy), l_v7_39 (copy)
     return (setmetatable({
         action_type = if not (v914 ~= nil) or v914.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v914.action_type, 
         action_params = if not (v914 ~= nil) or v914.action_params == nil then nil else v914.action_params
     }, l_v7_39));
 end;
-v7.encode = function(v915) --[[ Line: 6805 ]] --[[ Name: encode ]]
+v7.encode = function(v915) --[[ Line: 7205 ]] --[[ Name: encode ]]
     -- upvalues: v2 (copy), v0 (copy)
     local v916 = buffer.create(0);
     local v917 = 0;
@@ -4490,7 +4490,7 @@ v7.encode = function(v915) --[[ Line: 6805 ]] --[[ Name: encode ]]
     buffer.copy(v923, 0, v916, 0, v917);
     return v923;
 end;
-v7.decode = function(v924) --[[ Line: 6831 ]] --[[ Name: decode ]]
+v7.decode = function(v924) --[[ Line: 7231 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_39 (copy), v0 (copy), v2 (copy)
     local v925 = l_v7_39.new();
     local v926 = 0;
@@ -4520,7 +4520,7 @@ v7.decode = function(v924) --[[ Line: 6831 ]] --[[ Name: decode ]]
                 v930, v931 = v0.readBuffer(v924, v926);
                 v929 = v930;
                 v926 = v931;
-                v925.action_params = v2.SendPromptImpression_Params.decode(v929);
+                v925.action_params = v2.HideProfileCompletionAction_Params.decode(v929);
             else
                 v929 = nil;
                 v930, v931 = v0.readVarInt(v924, v926);
@@ -4542,7 +4542,7 @@ v7.decode = function(v924) --[[ Line: 6831 ]] --[[ Name: decode ]]
     end;
     return v925;
 end;
-v7.jsonEncode = function(v932) --[[ Line: 6879 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v932) --[[ Line: 7279 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v2 (copy)
     local v933 = {};
     if v932.action_type ~= nil and (v932.action_type ~= nil and v932.action_type ~= 0 or v932.action_type ~= v2.ActionType.fromNumber(0)) then
@@ -4553,7 +4553,7 @@ v7.jsonEncode = function(v932) --[[ Line: 6879 ]] --[[ Name: jsonEncode ]]
     end;
     return v933;
 end;
-v7.jsonDecode = function(v934) --[[ Line: 6901 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v934) --[[ Line: 7301 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_39 (copy), v2 (copy)
     local v935 = l_v7_39.new();
     if v934.action_type ~= nil then
@@ -4563,31 +4563,32 @@ v7.jsonDecode = function(v934) --[[ Line: 6901 ]] --[[ Name: jsonDecode ]]
         v935.action_type = if typeof(v934.actionType) == "number" then v2.ActionType.fromNumber(v934.actionType) or v934.actionType else v2.ActionType.fromName(v934.actionType) or v934.actionType;
     end;
     if v934.action_params ~= nil then
-        v935.action_params = v2.SendPromptImpression_Params.jsonDecode(v934.action_params);
+        v935.action_params = v2.HideProfileCompletionAction_Params.jsonDecode(v934.action_params);
     end;
     if v934.actionParams ~= nil then
-        v935.action_params = v2.SendPromptImpression_Params.jsonDecode(v934.actionParams);
+        v935.action_params = v2.HideProfileCompletionAction_Params.jsonDecode(v934.actionParams);
     end;
     return v935;
 end;
 v7.descriptor = {
-    name = "SendPromptImpression", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.SendPromptImpression"
+    name = "HideProfileCompletionAction", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.HideProfileCompletionAction"
 };
-v2.SendPromptImpression = v7;
-v1.default:register(v2.SendPromptImpression);
+v2.HideProfileCompletionAction = v7;
+v1.default:register(v2.HideProfileCompletionAction);
 v7 = {};
 v7.__index = v7;
 local l_v7_40 = v7 --[[ copy: 7 -> 48 ]];
-v7.new = function(v937) --[[ Line: 6941 ]] --[[ Name: new ]]
+v7.new = function(v937) --[[ Line: 7341 ]] --[[ Name: new ]]
     -- upvalues: l_v7_40 (copy)
     return (setmetatable({
         user_id = if not (v937 ~= nil) or v937.user_id == nil then nil else v937.user_id, 
-        modal_history_id = if not (v937 ~= nil) or v937.modal_history_id == nil then nil else v937.modal_history_id, 
-        source = if not (v937 ~= nil) or v937.source == nil then nil else v937.source
+        prompt_id = if not (v937 ~= nil) or v937.prompt_id == nil then nil else v937.prompt_id, 
+        source = if not (v937 ~= nil) or v937.source == nil then nil else v937.source, 
+        prompt_type = if not (v937 ~= nil) or v937.prompt_type == nil then nil else v937.prompt_type
     }, l_v7_40));
 end;
-v7.encode = function(v938) --[[ Line: 6951 ]] --[[ Name: encode ]]
+v7.encode = function(v938) --[[ Line: 7352 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v939 = buffer.create(0);
     local v940 = 0;
@@ -4598,8 +4599,8 @@ v7.encode = function(v938) --[[ Line: 6951 ]] --[[ Name: encode ]]
         v939 = v942;
         v940 = v943;
     end;
-    if v938.modal_history_id ~= nil then
-        local v944 = v938.modal_history_id:encode();
+    if v938.prompt_id ~= nil then
+        local v944 = v938.prompt_id:encode();
         local v945, v946 = v0.writeTag(v939, v940, 2, v0.wireTypes.lengthDelimited);
         v945, v946 = v0.writeBuffer(v945, v946, v944, buffer.len(v944));
         v939 = v945;
@@ -4612,773 +4613,2308 @@ v7.encode = function(v938) --[[ Line: 6951 ]] --[[ Name: encode ]]
         v939 = v948;
         v940 = v949;
     end;
-    local v950 = buffer.create(v940);
-    buffer.copy(v950, 0, v939, 0, v940);
-    return v950;
+    if v938.prompt_type ~= nil then
+        local v950 = v938.prompt_type:encode();
+        local v951, v952 = v0.writeTag(v939, v940, 4, v0.wireTypes.lengthDelimited);
+        v951, v952 = v0.writeBuffer(v951, v952, v950, buffer.len(v950));
+        v939 = v951;
+        v940 = v952;
+    end;
+    local v953 = buffer.create(v940);
+    buffer.copy(v953, 0, v939, 0, v940);
+    return v953;
 end;
-v7.decode = function(v951) --[[ Line: 6978 ]] --[[ Name: decode ]]
+v7.decode = function(v954) --[[ Line: 7385 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_40 (copy), v0 (copy), v5 (copy)
-    local v952 = l_v7_40.new();
-    local v953 = 0;
-    while v953 < buffer.len(v951) do
-        local v954 = nil;
-        local v955 = nil;
-        local v956, v957, v958 = v0.readTag(v951, v953);
-        v954 = v956;
-        v955 = v957;
-        v953 = v958;
-        if v955 == v0.wireTypes.varint then
-            v956 = nil;
-            v957, v958 = v0.readVarInt(v951, v953);
-            v956 = v957;
-            v953 = v958;
-        elseif v955 == v0.wireTypes.lengthDelimited then
-            if v954 == 1 then
-                v956 = nil;
-                v957, v958 = v0.readBuffer(v951, v953);
-                v956 = v957;
-                v953 = v958;
-                v952.user_id = v5.StringProp.decode(v956);
-            elseif v954 == 2 then
-                v956 = nil;
-                v957, v958 = v0.readBuffer(v951, v953);
-                v956 = v957;
-                v953 = v958;
-                v952.modal_history_id = v5.StringProp.decode(v956);
-            elseif v954 == 3 then
-                v956 = nil;
-                v957, v958 = v0.readBuffer(v951, v953);
-                v956 = v957;
-                v953 = v958;
-                v952.source = v5.StringProp.decode(v956);
+    local v955 = l_v7_40.new();
+    local v956 = 0;
+    while v956 < buffer.len(v954) do
+        local v957 = nil;
+        local v958 = nil;
+        local v959, v960, v961 = v0.readTag(v954, v956);
+        v957 = v959;
+        v958 = v960;
+        v956 = v961;
+        if v958 == v0.wireTypes.varint then
+            v959 = nil;
+            v960, v961 = v0.readVarInt(v954, v956);
+            v959 = v960;
+            v956 = v961;
+        elseif v958 == v0.wireTypes.lengthDelimited then
+            if v957 == 1 then
+                v959 = nil;
+                v960, v961 = v0.readBuffer(v954, v956);
+                v959 = v960;
+                v956 = v961;
+                v955.user_id = v5.StringProp.decode(v959);
+            elseif v957 == 2 then
+                v959 = nil;
+                v960, v961 = v0.readBuffer(v954, v956);
+                v959 = v960;
+                v956 = v961;
+                v955.prompt_id = v5.StringProp.decode(v959);
+            elseif v957 == 3 then
+                v959 = nil;
+                v960, v961 = v0.readBuffer(v954, v956);
+                v959 = v960;
+                v956 = v961;
+                v955.source = v5.StringProp.decode(v959);
+            elseif v957 == 4 then
+                v959 = nil;
+                v960, v961 = v0.readBuffer(v954, v956);
+                v959 = v960;
+                v956 = v961;
+                v955.prompt_type = v5.StringProp.decode(v959);
             else
-                v956 = nil;
-                v957, v958 = v0.readVarInt(v951, v953);
-                v953 = v958 + v957;
+                v959 = nil;
+                v960, v961 = v0.readVarInt(v954, v956);
+                v956 = v961 + v960;
             end;
-        elseif v955 == v0.wireTypes.i32 then
-            v956 = nil;
-            v957, v958 = v0.readFixed32(v951, v953);
-            v956 = v957;
-            v953 = v958;
-        elseif v955 == v0.wireTypes.i64 then
-            v956 = nil;
-            v957, v958 = v0.readFixed64(v951, v953);
-            v956 = v957;
-            v953 = v958;
+        elseif v958 == v0.wireTypes.i32 then
+            v959 = nil;
+            v960, v961 = v0.readFixed32(v954, v956);
+            v959 = v960;
+            v956 = v961;
+        elseif v958 == v0.wireTypes.i64 then
+            v959 = nil;
+            v960, v961 = v0.readFixed64(v954, v956);
+            v959 = v960;
+            v956 = v961;
         else
-            error("Unsupported wire type: " .. v955);
+            error("Unsupported wire type: " .. v958);
         end;
     end;
-    return v952;
+    return v955;
 end;
-v7.jsonEncode = function(v959) --[[ Line: 7031 ]] --[[ Name: jsonEncode ]]
-    local v960 = {};
-    if v959.user_id ~= nil then
-        v960.userId = v959.user_id:jsonEncode();
+v7.jsonEncode = function(v962) --[[ Line: 7443 ]] --[[ Name: jsonEncode ]]
+    local v963 = {};
+    if v962.user_id ~= nil then
+        v963.userId = v962.user_id:jsonEncode();
     end;
-    if v959.modal_history_id ~= nil then
-        v960.modalHistoryId = v959.modal_history_id:jsonEncode();
+    if v962.prompt_id ~= nil then
+        v963.promptId = v962.prompt_id:jsonEncode();
     end;
-    if v959.source ~= nil then
-        v960.source = v959.source:jsonEncode();
+    if v962.source ~= nil then
+        v963.source = v962.source:jsonEncode();
     end;
-    return v960;
+    if v962.prompt_type ~= nil then
+        v963.promptType = v962.prompt_type:jsonEncode();
+    end;
+    return v963;
 end;
-v7.jsonDecode = function(v961) --[[ Line: 7049 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v964) --[[ Line: 7465 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_40 (copy), v5 (copy)
-    local v962 = l_v7_40.new();
-    if v961.user_id ~= nil then
-        v962.user_id = v5.StringProp.jsonDecode(v961.user_id);
+    local v965 = l_v7_40.new();
+    if v964.user_id ~= nil then
+        v965.user_id = v5.StringProp.jsonDecode(v964.user_id);
     end;
-    if v961.userId ~= nil then
-        v962.user_id = v5.StringProp.jsonDecode(v961.userId);
+    if v964.userId ~= nil then
+        v965.user_id = v5.StringProp.jsonDecode(v964.userId);
     end;
-    if v961.modal_history_id ~= nil then
-        v962.modal_history_id = v5.StringProp.jsonDecode(v961.modal_history_id);
+    if v964.prompt_id ~= nil then
+        v965.prompt_id = v5.StringProp.jsonDecode(v964.prompt_id);
     end;
-    if v961.modalHistoryId ~= nil then
-        v962.modal_history_id = v5.StringProp.jsonDecode(v961.modalHistoryId);
+    if v964.promptId ~= nil then
+        v965.prompt_id = v5.StringProp.jsonDecode(v964.promptId);
     end;
-    if v961.source ~= nil then
-        v962.source = v5.StringProp.jsonDecode(v961.source);
+    if v964.source ~= nil then
+        v965.source = v5.StringProp.jsonDecode(v964.source);
     end;
-    return v962;
+    if v964.prompt_type ~= nil then
+        v965.prompt_type = v5.StringProp.jsonDecode(v964.prompt_type);
+    end;
+    if v964.promptType ~= nil then
+        v965.prompt_type = v5.StringProp.jsonDecode(v964.promptType);
+    end;
+    return v965;
 end;
 v7.descriptor = {
-    name = "SendPromptImpression_Params", 
+    name = "HideProfileCompletionAction_Params", 
     fullName = "roblox.apppageplatform.shared.v1beta1.Params"
 };
-v2.SendPromptImpression_Params = v7;
-v1.default:register(v2.SendPromptImpression_Params);
+v2.HideProfileCompletionAction_Params = v7;
+v1.default:register(v2.HideProfileCompletionAction_Params);
 v7 = {};
 v7.__index = v7;
 local l_v7_41 = v7 --[[ copy: 7 -> 49 ]];
-v7.new = function(v964) --[[ Line: 7091 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_41 (copy)
+v7.new = function(v967) --[[ Line: 7516 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_41 (copy)
     return (setmetatable({
-        kind = if not (v964 ~= nil) or v964.kind == nil then nil else v964.kind
+        action_type = if not (v967 ~= nil) or v967.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v967.action_type, 
+        action_params = if not (v967 ~= nil) or v967.action_params == nil then nil else v967.action_params
     }, l_v7_41));
 end;
-v7.encode = function(v965) --[[ Line: 7097 ]] --[[ Name: encode ]]
-    -- upvalues: v0 (copy)
-    local v966 = buffer.create(0);
-    local v967 = 0;
-    if v965.kind ~= nil then
-        if v965.kind.type == "dismiss_dialog_action" then
-            local v968 = v965.kind.value:encode();
-            local v969, v970 = v0.writeTag(v966, v967, 1, v0.wireTypes.lengthDelimited);
-            v969, v970 = v0.writeBuffer(v969, v970, v968, buffer.len(v968));
-            v966 = v969;
-            v967 = v970;
-        elseif v965.kind.type == "link_action" then
-            local v971 = v965.kind.value:encode();
-            local v972, v973 = v0.writeTag(v966, v967, 2, v0.wireTypes.lengthDelimited);
-            v972, v973 = v0.writeBuffer(v972, v973, v971, buffer.len(v971));
-            v966 = v972;
-            v967 = v973;
-        elseif v965.kind.type == "open_game_details_action" then
-            local v974 = v965.kind.value:encode();
-            local v975, v976 = v0.writeTag(v966, v967, 3, v0.wireTypes.lengthDelimited);
-            v975, v976 = v0.writeBuffer(v975, v976, v974, buffer.len(v974));
-            v966 = v975;
-            v967 = v976;
-        elseif v965.kind.type == "open_join_friends_action" then
-            local v977 = v965.kind.value:encode();
-            local v978, v979 = v0.writeTag(v966, v967, 4, v0.wireTypes.lengthDelimited);
-            v978, v979 = v0.writeBuffer(v978, v979, v977, buffer.len(v977));
-            v966 = v978;
-            v967 = v979;
-        elseif v965.kind.type == "open_marketplace_try_on_action" then
-            local v980 = v965.kind.value:encode();
-            local v981, v982 = v0.writeTag(v966, v967, 5, v0.wireTypes.lengthDelimited);
-            v981, v982 = v0.writeBuffer(v981, v982, v980, buffer.len(v980));
-            v966 = v981;
-            v967 = v982;
-        elseif v965.kind.type == "open_see_all_action" then
-            local v983 = v965.kind.value:encode();
-            local v984, v985 = v0.writeTag(v966, v967, 6, v0.wireTypes.lengthDelimited);
-            v984, v985 = v0.writeBuffer(v984, v985, v983, buffer.len(v983));
-            v966 = v984;
-            v967 = v985;
-        elseif v965.kind.type == "open_sponsored_tooltip_action" then
-            local v986 = v965.kind.value:encode();
-            local v987, v988 = v0.writeTag(v966, v967, 7, v0.wireTypes.lengthDelimited);
-            v987, v988 = v0.writeBuffer(v987, v988, v986, buffer.len(v986));
-            v966 = v987;
-            v967 = v988;
-        elseif v965.kind.type == "play_button_click_action" then
-            local v989 = v965.kind.value:encode();
-            local v990, v991 = v0.writeTag(v966, v967, 8, v0.wireTypes.lengthDelimited);
-            v990, v991 = v0.writeBuffer(v990, v991, v989, buffer.len(v989));
-            v966 = v990;
-            v967 = v991;
-        elseif v965.kind.type == "update_user_settings_action" then
-            local v992 = v965.kind.value:encode();
-            local v993, v994 = v0.writeTag(v966, v967, 9, v0.wireTypes.lengthDelimited);
-            v993, v994 = v0.writeBuffer(v993, v994, v992, buffer.len(v992));
-            v966 = v993;
-            v967 = v994;
-        elseif v965.kind.type == "open_tooltip_action" then
-            local v995 = v965.kind.value:encode();
-            local v996, v997 = v0.writeTag(v966, v967, 10, v0.wireTypes.lengthDelimited);
-            v996, v997 = v0.writeBuffer(v996, v997, v995, buffer.len(v995));
-            v966 = v996;
-            v967 = v997;
-        elseif v965.kind.type == "open_badge_details_action" then
-            local v998 = v965.kind.value:encode();
-            local v999, v1000 = v0.writeTag(v966, v967, 11, v0.wireTypes.lengthDelimited);
-            v999, v1000 = v0.writeBuffer(v999, v1000, v998, buffer.len(v998));
-            v966 = v999;
-            v967 = v1000;
-        elseif v965.kind.type == "load_more_from_api_action" then
-            local v1001 = v965.kind.value:encode();
-            local v1002, v1003 = v0.writeTag(v966, v967, 12, v0.wireTypes.lengthDelimited);
-            v1002, v1003 = v0.writeBuffer(v1002, v1003, v1001, buffer.len(v1001));
-            v966 = v1002;
-            v967 = v1003;
-        elseif v965.kind.type == "share_action" then
-            local v1004 = v965.kind.value:encode();
-            local v1005, v1006 = v0.writeTag(v966, v967, 13, v0.wireTypes.lengthDelimited);
-            v1005, v1006 = v0.writeBuffer(v1005, v1006, v1004, buffer.len(v1004));
-            v966 = v1005;
-            v967 = v1006;
-        elseif v965.kind.type == "open_abuse_report_action" then
-            local v1007 = v965.kind.value:encode();
-            local v1008, v1009 = v0.writeTag(v966, v967, 14, v0.wireTypes.lengthDelimited);
-            v1008, v1009 = v0.writeBuffer(v1008, v1009, v1007, buffer.len(v1007));
-            v966 = v1008;
-            v967 = v1009;
-        elseif v965.kind.type == "remove_badge_from_inventory_action" then
-            local v1010 = v965.kind.value:encode();
-            local v1011, v1012 = v0.writeTag(v966, v967, 15, v0.wireTypes.lengthDelimited);
-            v1011, v1012 = v0.writeBuffer(v1011, v1012, v1010, buffer.len(v1010));
-            v966 = v1011;
-            v967 = v1012;
-        elseif v965.kind.type == "open_profile_action" then
-            local v1013 = v965.kind.value:encode();
-            local v1014, v1015 = v0.writeTag(v966, v967, 16, v0.wireTypes.lengthDelimited);
-            v1014, v1015 = v0.writeBuffer(v1014, v1015, v1013, buffer.len(v1013));
-            v966 = v1014;
-            v967 = v1015;
-        elseif v965.kind.type == "open_fae_action" then
-            local v1016 = v965.kind.value:encode();
-            local v1017, v1018 = v0.writeTag(v966, v967, 17, v0.wireTypes.lengthDelimited);
-            v1017, v1018 = v0.writeBuffer(v1017, v1018, v1016, buffer.len(v1016));
-            v966 = v1017;
-            v967 = v1018;
-        elseif v965.kind.type == "open_add_connections_action" then
-            local v1019 = v965.kind.value:encode();
-            local v1020, v1021 = v0.writeTag(v966, v967, 18, v0.wireTypes.lengthDelimited);
-            v1020, v1021 = v0.writeBuffer(v1020, v1021, v1019, buffer.len(v1019));
-            v966 = v1020;
-            v967 = v1021;
-        elseif v965.kind.type == "open_marketplace_action" then
-            local v1022 = v965.kind.value:encode();
-            local v1023, v1024 = v0.writeTag(v966, v967, 19, v0.wireTypes.lengthDelimited);
-            v1023, v1024 = v0.writeBuffer(v1023, v1024, v1022, buffer.len(v1022));
-            v966 = v1023;
-            v967 = v1024;
-        elseif v965.kind.type == "send_prompt_impression_action" then
-            local v1025 = v965.kind.value:encode();
-            local v1026, v1027 = v0.writeTag(v966, v967, 20, v0.wireTypes.lengthDelimited);
-            v1026, v1027 = v0.writeBuffer(v1026, v1027, v1025, buffer.len(v1025));
-            v966 = v1026;
-            v967 = v1027;
+v7.encode = function(v968) --[[ Line: 7527 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v969 = buffer.create(0);
+    local v970 = 0;
+    if v968.action_type ~= nil and (v968.action_type ~= nil and v968.action_type ~= 0 or v968.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v971, v972 = v0.writeTag(v969, v970, 1, v0.wireTypes.varint);
+        v971, v972 = v0.writeVarInt(v971, v972, v2.ActionType.toNumber(v968.action_type));
+        v969 = v971;
+        v970 = v972;
+    end;
+    if v968.action_params ~= nil then
+        local v973 = v968.action_params:encode();
+        local v974, v975 = v0.writeTag(v969, v970, 2, v0.wireTypes.lengthDelimited);
+        v974, v975 = v0.writeBuffer(v974, v975, v973, buffer.len(v973));
+        v969 = v974;
+        v970 = v975;
+    end;
+    local v976 = buffer.create(v970);
+    buffer.copy(v976, 0, v969, 0, v970);
+    return v976;
+end;
+v7.decode = function(v977) --[[ Line: 7553 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_41 (copy), v0 (copy), v2 (copy)
+    local v978 = l_v7_41.new();
+    local v979 = 0;
+    while v979 < buffer.len(v977) do
+        local v980 = nil;
+        local v981 = nil;
+        local v982, v983, v984 = v0.readTag(v977, v979);
+        v980 = v982;
+        v981 = v983;
+        v979 = v984;
+        if v981 == v0.wireTypes.varint then
+            if v980 == 1 then
+                v982 = nil;
+                v983, v984 = v0.readVarIntI32(v977, v979);
+                v982 = v983;
+                v979 = v984;
+                v978.action_type = v2.ActionType.fromNumber(v982) or v982;
+            else
+                v982 = nil;
+                v983, v984 = v0.readVarInt(v977, v979);
+                v982 = v983;
+                v979 = v984;
+            end;
+        elseif v981 == v0.wireTypes.lengthDelimited then
+            if v980 == 2 then
+                v982 = nil;
+                v983, v984 = v0.readBuffer(v977, v979);
+                v982 = v983;
+                v979 = v984;
+                v978.action_params = v2.SelectMarketplaceCatalogCategory_Params.decode(v982);
+            else
+                v982 = nil;
+                v983, v984 = v0.readVarInt(v977, v979);
+                v979 = v984 + v983;
+            end;
+        elseif v981 == v0.wireTypes.i32 then
+            v982 = nil;
+            v983, v984 = v0.readFixed32(v977, v979);
+            v982 = v983;
+            v979 = v984;
+        elseif v981 == v0.wireTypes.i64 then
+            v982 = nil;
+            v983, v984 = v0.readFixed64(v977, v979);
+            v982 = v983;
+            v979 = v984;
+        else
+            error("Unsupported wire type: " .. v981);
         end;
     end;
-    local v1028 = buffer.create(v967);
-    buffer.copy(v1028, 0, v966, 0, v967);
-    return v1028;
+    return v978;
 end;
-v7.decode = function(v1029) --[[ Line: 7190 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_41 (copy), v0 (copy), v2 (copy)
-    local v1030 = l_v7_41.new();
-    local v1031 = 0;
-    while v1031 < buffer.len(v1029) do
-        local v1032 = nil;
-        local v1033 = nil;
-        local v1034, v1035, v1036 = v0.readTag(v1029, v1031);
-        v1032 = v1034;
-        v1033 = v1035;
-        v1031 = v1036;
-        if v1033 == v0.wireTypes.varint then
-            v1034 = nil;
-            v1035, v1036 = v0.readVarInt(v1029, v1031);
-            v1034 = v1035;
-            v1031 = v1036;
-        elseif v1033 == v0.wireTypes.lengthDelimited then
-            if v1032 == 1 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "dismiss_dialog_action", 
-                    value = v2.DismissDialogAction.decode(v1034)
-                };
-            elseif v1032 == 2 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "link_action", 
-                    value = v2.LinkAction.decode(v1034)
-                };
-            elseif v1032 == 3 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_game_details_action", 
-                    value = v2.OpenGameDetailsAction.decode(v1034)
-                };
-            elseif v1032 == 4 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_join_friends_action", 
-                    value = v2.OpenJoinFriendsAction.decode(v1034)
-                };
-            elseif v1032 == 5 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_marketplace_try_on_action", 
-                    value = v2.OpenMarketplaceTryOnAction.decode(v1034)
-                };
-            elseif v1032 == 6 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_see_all_action", 
-                    value = v2.OpenSeeAllAction.decode(v1034)
-                };
-            elseif v1032 == 7 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_sponsored_tooltip_action", 
-                    value = v2.OpenSponsoredTooltipAction.decode(v1034)
-                };
-            elseif v1032 == 8 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "play_button_click_action", 
-                    value = v2.PlayButtonClickAction.decode(v1034)
-                };
-            elseif v1032 == 9 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "update_user_settings_action", 
-                    value = v2.UpdateUserSettingsAction.decode(v1034)
-                };
-            elseif v1032 == 10 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_tooltip_action", 
-                    value = v2.OpenTooltipAction.decode(v1034)
-                };
-            elseif v1032 == 11 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_badge_details_action", 
-                    value = v2.OpenBadgeDetailsAction.decode(v1034)
-                };
-            elseif v1032 == 12 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "load_more_from_api_action", 
-                    value = v2.LoadMoreFromApiAction.decode(v1034)
-                };
-            elseif v1032 == 13 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "share_action", 
-                    value = v2.ShareAction.decode(v1034)
-                };
-            elseif v1032 == 14 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_abuse_report_action", 
-                    value = v2.OpenAbuseReportAction.decode(v1034)
-                };
-            elseif v1032 == 15 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "remove_badge_from_inventory_action", 
-                    value = v2.RemoveBadgeFromInventoryAction.decode(v1034)
-                };
-            elseif v1032 == 16 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_profile_action", 
-                    value = v2.OpenProfileAction.decode(v1034)
-                };
-            elseif v1032 == 17 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_fae_action", 
-                    value = v2.OpenFaeAction.decode(v1034)
-                };
-            elseif v1032 == 18 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_add_connections_action", 
-                    value = v2.OpenAddConnectionsAction.decode(v1034)
-                };
-            elseif v1032 == 19 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "open_marketplace_action", 
-                    value = v2.OpenMarketplaceAction.decode(v1034)
-                };
-            elseif v1032 == 20 then
-                v1034 = nil;
-                v1035, v1036 = v0.readBuffer(v1029, v1031);
-                v1034 = v1035;
-                v1031 = v1036;
-                v1030.kind = {
-                    type = "send_prompt_impression_action", 
-                    value = v2.SendPromptImpression.decode(v1034)
-                };
+v7.jsonEncode = function(v985) --[[ Line: 7601 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v986 = {};
+    if v985.action_type ~= nil and (v985.action_type ~= nil and v985.action_type ~= 0 or v985.action_type ~= v2.ActionType.fromNumber(0)) then
+        v986.actionType = if typeof(v985.action_type) == "number" then v985.action_type else v2.ActionType.toNumber(v985.action_type);
+    end;
+    if v985.action_params ~= nil then
+        v986.actionParams = v985.action_params:jsonEncode();
+    end;
+    return v986;
+end;
+v7.jsonDecode = function(v987) --[[ Line: 7623 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_41 (copy), v2 (copy)
+    local v988 = l_v7_41.new();
+    if v987.action_type ~= nil then
+        v988.action_type = if typeof(v987.action_type) == "number" then v2.ActionType.fromNumber(v987.action_type) or v987.action_type else v2.ActionType.fromName(v987.action_type) or v987.action_type;
+    end;
+    if v987.actionType ~= nil then
+        v988.action_type = if typeof(v987.actionType) == "number" then v2.ActionType.fromNumber(v987.actionType) or v987.actionType else v2.ActionType.fromName(v987.actionType) or v987.actionType;
+    end;
+    if v987.action_params ~= nil then
+        v988.action_params = v2.SelectMarketplaceCatalogCategory_Params.jsonDecode(v987.action_params);
+    end;
+    if v987.actionParams ~= nil then
+        v988.action_params = v2.SelectMarketplaceCatalogCategory_Params.jsonDecode(v987.actionParams);
+    end;
+    return v988;
+end;
+v7.descriptor = {
+    name = "SelectMarketplaceCatalogCategory", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceCatalogCategory"
+};
+v2.SelectMarketplaceCatalogCategory = v7;
+v1.default:register(v2.SelectMarketplaceCatalogCategory);
+v7 = {};
+v7.__index = v7;
+local l_v7_42 = v7 --[[ copy: 7 -> 50 ]];
+v7.new = function(v990) --[[ Line: 7665 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_42 (copy)
+    return (setmetatable({
+        category_id = if not (v990 ~= nil) or v990.category_id == nil then nil else v990.category_id
+    }, l_v7_42));
+end;
+v7.encode = function(v991) --[[ Line: 7673 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v992 = buffer.create(0);
+    local v993 = 0;
+    if v991.category_id ~= nil then
+        local v994 = v991.category_id:encode();
+        local v995, v996 = v0.writeTag(v992, v993, 1, v0.wireTypes.lengthDelimited);
+        v995, v996 = v0.writeBuffer(v995, v996, v994, buffer.len(v994));
+        v992 = v995;
+        v993 = v996;
+    end;
+    local v997 = buffer.create(v993);
+    buffer.copy(v997, 0, v992, 0, v993);
+    return v997;
+end;
+v7.decode = function(v998) --[[ Line: 7688 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_42 (copy), v0 (copy), v5 (copy)
+    local v999 = l_v7_42.new();
+    local v1000 = 0;
+    while v1000 < buffer.len(v998) do
+        local v1001 = nil;
+        local v1002 = nil;
+        local v1003, v1004, v1005 = v0.readTag(v998, v1000);
+        v1001 = v1003;
+        v1002 = v1004;
+        v1000 = v1005;
+        if v1002 == v0.wireTypes.varint then
+            v1003 = nil;
+            v1004, v1005 = v0.readVarInt(v998, v1000);
+            v1003 = v1004;
+            v1000 = v1005;
+        elseif v1002 == v0.wireTypes.lengthDelimited then
+            if v1001 == 1 then
+                v1003 = nil;
+                v1004, v1005 = v0.readBuffer(v998, v1000);
+                v1003 = v1004;
+                v1000 = v1005;
+                v999.category_id = v5.StringProp.decode(v1003);
             else
-                v1034 = nil;
-                v1035, v1036 = v0.readVarInt(v1029, v1031);
-                v1031 = v1036 + v1035;
+                v1003 = nil;
+                v1004, v1005 = v0.readVarInt(v998, v1000);
+                v1000 = v1005 + v1004;
             end;
-        elseif v1033 == v0.wireTypes.i32 then
-            v1034 = nil;
-            v1035, v1036 = v0.readFixed32(v1029, v1031);
-            v1034 = v1035;
-            v1031 = v1036;
-        elseif v1033 == v0.wireTypes.i64 then
-            v1034 = nil;
-            v1035, v1036 = v0.readFixed64(v1029, v1031);
-            v1034 = v1035;
-            v1031 = v1036;
+        elseif v1002 == v0.wireTypes.i32 then
+            v1003 = nil;
+            v1004, v1005 = v0.readFixed32(v998, v1000);
+            v1003 = v1004;
+            v1000 = v1005;
+        elseif v1002 == v0.wireTypes.i64 then
+            v1003 = nil;
+            v1004, v1005 = v0.readFixed64(v998, v1000);
+            v1003 = v1004;
+            v1000 = v1005;
         else
-            error("Unsupported wire type: " .. v1033);
+            error("Unsupported wire type: " .. v1002);
         end;
+    end;
+    return v999;
+end;
+v7.jsonEncode = function(v1006) --[[ Line: 7731 ]] --[[ Name: jsonEncode ]]
+    local v1007 = {};
+    if v1006.category_id ~= nil then
+        v1007.categoryId = v1006.category_id:jsonEncode();
+    end;
+    return v1007;
+end;
+v7.jsonDecode = function(v1008) --[[ Line: 7741 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_42 (copy), v5 (copy)
+    local v1009 = l_v7_42.new();
+    if v1008.category_id ~= nil then
+        v1009.category_id = v5.StringProp.jsonDecode(v1008.category_id);
+    end;
+    if v1008.categoryId ~= nil then
+        v1009.category_id = v5.StringProp.jsonDecode(v1008.categoryId);
+    end;
+    return v1009;
+end;
+v7.descriptor = {
+    name = "SelectMarketplaceCatalogCategory_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.SelectMarketplaceCatalogCategory_Params = v7;
+v1.default:register(v2.SelectMarketplaceCatalogCategory_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_43 = v7 --[[ copy: 7 -> 51 ]];
+v7.new = function(v1011) --[[ Line: 7772 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_43 (copy)
+    return (setmetatable({
+        action_type = if not (v1011 ~= nil) or v1011.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v1011.action_type, 
+        action_params = if not (v1011 ~= nil) or v1011.action_params == nil then nil else v1011.action_params
+    }, l_v7_43));
+end;
+v7.encode = function(v1012) --[[ Line: 7783 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v1013 = buffer.create(0);
+    local v1014 = 0;
+    if v1012.action_type ~= nil and (v1012.action_type ~= nil and v1012.action_type ~= 0 or v1012.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v1015, v1016 = v0.writeTag(v1013, v1014, 1, v0.wireTypes.varint);
+        v1015, v1016 = v0.writeVarInt(v1015, v1016, v2.ActionType.toNumber(v1012.action_type));
+        v1013 = v1015;
+        v1014 = v1016;
+    end;
+    if v1012.action_params ~= nil then
+        local v1017 = v1012.action_params:encode();
+        local v1018, v1019 = v0.writeTag(v1013, v1014, 2, v0.wireTypes.lengthDelimited);
+        v1018, v1019 = v0.writeBuffer(v1018, v1019, v1017, buffer.len(v1017));
+        v1013 = v1018;
+        v1014 = v1019;
+    end;
+    local v1020 = buffer.create(v1014);
+    buffer.copy(v1020, 0, v1013, 0, v1014);
+    return v1020;
+end;
+v7.decode = function(v1021) --[[ Line: 7809 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_43 (copy), v0 (copy), v2 (copy)
+    local v1022 = l_v7_43.new();
+    local v1023 = 0;
+    while v1023 < buffer.len(v1021) do
+        local v1024 = nil;
+        local v1025 = nil;
+        local v1026, v1027, v1028 = v0.readTag(v1021, v1023);
+        v1024 = v1026;
+        v1025 = v1027;
+        v1023 = v1028;
+        if v1025 == v0.wireTypes.varint then
+            if v1024 == 1 then
+                v1026 = nil;
+                v1027, v1028 = v0.readVarIntI32(v1021, v1023);
+                v1026 = v1027;
+                v1023 = v1028;
+                v1022.action_type = v2.ActionType.fromNumber(v1026) or v1026;
+            else
+                v1026 = nil;
+                v1027, v1028 = v0.readVarInt(v1021, v1023);
+                v1026 = v1027;
+                v1023 = v1028;
+            end;
+        elseif v1025 == v0.wireTypes.lengthDelimited then
+            if v1024 == 2 then
+                v1026 = nil;
+                v1027, v1028 = v0.readBuffer(v1021, v1023);
+                v1026 = v1027;
+                v1023 = v1028;
+                v1022.action_params = v2.SelectMarketplaceCatalogSubcategory_Params.decode(v1026);
+            else
+                v1026 = nil;
+                v1027, v1028 = v0.readVarInt(v1021, v1023);
+                v1023 = v1028 + v1027;
+            end;
+        elseif v1025 == v0.wireTypes.i32 then
+            v1026 = nil;
+            v1027, v1028 = v0.readFixed32(v1021, v1023);
+            v1026 = v1027;
+            v1023 = v1028;
+        elseif v1025 == v0.wireTypes.i64 then
+            v1026 = nil;
+            v1027, v1028 = v0.readFixed64(v1021, v1023);
+            v1026 = v1027;
+            v1023 = v1028;
+        else
+            error("Unsupported wire type: " .. v1025);
+        end;
+    end;
+    return v1022;
+end;
+v7.jsonEncode = function(v1029) --[[ Line: 7857 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v1030 = {};
+    if v1029.action_type ~= nil and (v1029.action_type ~= nil and v1029.action_type ~= 0 or v1029.action_type ~= v2.ActionType.fromNumber(0)) then
+        v1030.actionType = if typeof(v1029.action_type) == "number" then v1029.action_type else v2.ActionType.toNumber(v1029.action_type);
+    end;
+    if v1029.action_params ~= nil then
+        v1030.actionParams = v1029.action_params:jsonEncode();
     end;
     return v1030;
 end;
-v7.jsonEncode = function(v1037) --[[ Line: 7351 ]] --[[ Name: jsonEncode ]]
-    local v1038 = {};
-    if v1037.kind ~= nil then
-        if v1037.kind.type == "dismiss_dialog_action" then
-            v1038.dismissDialogAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "link_action" then
-            v1038.linkAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_game_details_action" then
-            v1038.openGameDetailsAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_join_friends_action" then
-            v1038.openJoinFriendsAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_marketplace_try_on_action" then
-            v1038.openMarketplaceTryOnAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_see_all_action" then
-            v1038.openSeeAllAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_sponsored_tooltip_action" then
-            v1038.openSponsoredTooltipAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "play_button_click_action" then
-            v1038.playButtonClickAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "update_user_settings_action" then
-            v1038.updateUserSettingsAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_tooltip_action" then
-            v1038.openTooltipAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_badge_details_action" then
-            v1038.openBadgeDetailsAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "load_more_from_api_action" then
-            v1038.loadMoreFromApiAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "share_action" then
-            v1038.shareAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_abuse_report_action" then
-            v1038.openAbuseReportAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "remove_badge_from_inventory_action" then
-            v1038.removeBadgeFromInventoryAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_profile_action" then
-            v1038.openProfileAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_fae_action" then
-            v1038.openFaeAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_add_connections_action" then
-            v1038.openAddConnectionsAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "open_marketplace_action" then
-            v1038.openMarketplaceAction = v1037.kind.value:jsonEncode();
-            return v1038;
-        elseif v1037.kind.type == "send_prompt_impression_action" then
-            v1038.sendPromptImpressionAction = v1037.kind.value:jsonEncode();
+v7.jsonDecode = function(v1031) --[[ Line: 7879 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_43 (copy), v2 (copy)
+    local v1032 = l_v7_43.new();
+    if v1031.action_type ~= nil then
+        v1032.action_type = if typeof(v1031.action_type) == "number" then v2.ActionType.fromNumber(v1031.action_type) or v1031.action_type else v2.ActionType.fromName(v1031.action_type) or v1031.action_type;
+    end;
+    if v1031.actionType ~= nil then
+        v1032.action_type = if typeof(v1031.actionType) == "number" then v2.ActionType.fromNumber(v1031.actionType) or v1031.actionType else v2.ActionType.fromName(v1031.actionType) or v1031.actionType;
+    end;
+    if v1031.action_params ~= nil then
+        v1032.action_params = v2.SelectMarketplaceCatalogSubcategory_Params.jsonDecode(v1031.action_params);
+    end;
+    if v1031.actionParams ~= nil then
+        v1032.action_params = v2.SelectMarketplaceCatalogSubcategory_Params.jsonDecode(v1031.actionParams);
+    end;
+    return v1032;
+end;
+v7.descriptor = {
+    name = "SelectMarketplaceCatalogSubcategory", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceCatalogSubcategory"
+};
+v2.SelectMarketplaceCatalogSubcategory = v7;
+v1.default:register(v2.SelectMarketplaceCatalogSubcategory);
+v7 = {};
+v7.__index = v7;
+local l_v7_44 = v7 --[[ copy: 7 -> 52 ]];
+v7.new = function(v1034) --[[ Line: 7921 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_44 (copy)
+    return (setmetatable({
+        subcategory_id = if not (v1034 ~= nil) or v1034.subcategory_id == nil then nil else v1034.subcategory_id
+    }, l_v7_44));
+end;
+v7.encode = function(v1035) --[[ Line: 7929 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v1036 = buffer.create(0);
+    local v1037 = 0;
+    if v1035.subcategory_id ~= nil then
+        local v1038 = v1035.subcategory_id:encode();
+        local v1039, v1040 = v0.writeTag(v1036, v1037, 1, v0.wireTypes.lengthDelimited);
+        v1039, v1040 = v0.writeBuffer(v1039, v1040, v1038, buffer.len(v1038));
+        v1036 = v1039;
+        v1037 = v1040;
+    end;
+    local v1041 = buffer.create(v1037);
+    buffer.copy(v1041, 0, v1036, 0, v1037);
+    return v1041;
+end;
+v7.decode = function(v1042) --[[ Line: 7946 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_44 (copy), v0 (copy), v5 (copy)
+    local v1043 = l_v7_44.new();
+    local v1044 = 0;
+    while v1044 < buffer.len(v1042) do
+        local v1045 = nil;
+        local v1046 = nil;
+        local v1047, v1048, v1049 = v0.readTag(v1042, v1044);
+        v1045 = v1047;
+        v1046 = v1048;
+        v1044 = v1049;
+        if v1046 == v0.wireTypes.varint then
+            v1047 = nil;
+            v1048, v1049 = v0.readVarInt(v1042, v1044);
+            v1047 = v1048;
+            v1044 = v1049;
+        elseif v1046 == v0.wireTypes.lengthDelimited then
+            if v1045 == 1 then
+                v1047 = nil;
+                v1048, v1049 = v0.readBuffer(v1042, v1044);
+                v1047 = v1048;
+                v1044 = v1049;
+                v1043.subcategory_id = v5.StringProp.decode(v1047);
+            else
+                v1047 = nil;
+                v1048, v1049 = v0.readVarInt(v1042, v1044);
+                v1044 = v1049 + v1048;
+            end;
+        elseif v1046 == v0.wireTypes.i32 then
+            v1047 = nil;
+            v1048, v1049 = v0.readFixed32(v1042, v1044);
+            v1047 = v1048;
+            v1044 = v1049;
+        elseif v1046 == v0.wireTypes.i64 then
+            v1047 = nil;
+            v1048, v1049 = v0.readFixed64(v1042, v1044);
+            v1047 = v1048;
+            v1044 = v1049;
+        else
+            error("Unsupported wire type: " .. v1046);
         end;
     end;
-    return v1038;
+    return v1043;
 end;
-v7.jsonDecode = function(v1039) --[[ Line: 7401 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_41 (copy), v2 (copy)
-    local v1040 = l_v7_41.new();
-    if v1039.dismiss_dialog_action ~= nil then
-        v1040.kind = {
+v7.jsonEncode = function(v1050) --[[ Line: 7991 ]] --[[ Name: jsonEncode ]]
+    local v1051 = {};
+    if v1050.subcategory_id ~= nil then
+        v1051.subcategoryId = v1050.subcategory_id:jsonEncode();
+    end;
+    return v1051;
+end;
+v7.jsonDecode = function(v1052) --[[ Line: 8003 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_44 (copy), v5 (copy)
+    local v1053 = l_v7_44.new();
+    if v1052.subcategory_id ~= nil then
+        v1053.subcategory_id = v5.StringProp.jsonDecode(v1052.subcategory_id);
+    end;
+    if v1052.subcategoryId ~= nil then
+        v1053.subcategory_id = v5.StringProp.jsonDecode(v1052.subcategoryId);
+    end;
+    return v1053;
+end;
+v7.descriptor = {
+    name = "SelectMarketplaceCatalogSubcategory_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.SelectMarketplaceCatalogSubcategory_Params = v7;
+v1.default:register(v2.SelectMarketplaceCatalogSubcategory_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_45 = v7 --[[ copy: 7 -> 53 ]];
+v7.new = function(v1055) --[[ Line: 8035 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_45 (copy)
+    return (setmetatable({
+        action_type = if not (v1055 ~= nil) or v1055.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v1055.action_type, 
+        action_params = if not (v1055 ~= nil) or v1055.action_params == nil then nil else v1055.action_params
+    }, l_v7_45));
+end;
+v7.encode = function(v1056) --[[ Line: 8046 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v1057 = buffer.create(0);
+    local v1058 = 0;
+    if v1056.action_type ~= nil and (v1056.action_type ~= nil and v1056.action_type ~= 0 or v1056.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v1059, v1060 = v0.writeTag(v1057, v1058, 1, v0.wireTypes.varint);
+        v1059, v1060 = v0.writeVarInt(v1059, v1060, v2.ActionType.toNumber(v1056.action_type));
+        v1057 = v1059;
+        v1058 = v1060;
+    end;
+    if v1056.action_params ~= nil then
+        local v1061 = v1056.action_params:encode();
+        local v1062, v1063 = v0.writeTag(v1057, v1058, 2, v0.wireTypes.lengthDelimited);
+        v1062, v1063 = v0.writeBuffer(v1062, v1063, v1061, buffer.len(v1061));
+        v1057 = v1062;
+        v1058 = v1063;
+    end;
+    local v1064 = buffer.create(v1058);
+    buffer.copy(v1064, 0, v1057, 0, v1058);
+    return v1064;
+end;
+v7.decode = function(v1065) --[[ Line: 8072 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_45 (copy), v0 (copy), v2 (copy)
+    local v1066 = l_v7_45.new();
+    local v1067 = 0;
+    while v1067 < buffer.len(v1065) do
+        local v1068 = nil;
+        local v1069 = nil;
+        local v1070, v1071, v1072 = v0.readTag(v1065, v1067);
+        v1068 = v1070;
+        v1069 = v1071;
+        v1067 = v1072;
+        if v1069 == v0.wireTypes.varint then
+            if v1068 == 1 then
+                v1070 = nil;
+                v1071, v1072 = v0.readVarIntI32(v1065, v1067);
+                v1070 = v1071;
+                v1067 = v1072;
+                v1066.action_type = v2.ActionType.fromNumber(v1070) or v1070;
+            else
+                v1070 = nil;
+                v1071, v1072 = v0.readVarInt(v1065, v1067);
+                v1070 = v1071;
+                v1067 = v1072;
+            end;
+        elseif v1069 == v0.wireTypes.lengthDelimited then
+            if v1068 == 2 then
+                v1070 = nil;
+                v1071, v1072 = v0.readBuffer(v1065, v1067);
+                v1070 = v1071;
+                v1067 = v1072;
+                v1066.action_params = v2.OpenMarketplaceCatalogSeeAll_Params.decode(v1070);
+            else
+                v1070 = nil;
+                v1071, v1072 = v0.readVarInt(v1065, v1067);
+                v1067 = v1072 + v1071;
+            end;
+        elseif v1069 == v0.wireTypes.i32 then
+            v1070 = nil;
+            v1071, v1072 = v0.readFixed32(v1065, v1067);
+            v1070 = v1071;
+            v1067 = v1072;
+        elseif v1069 == v0.wireTypes.i64 then
+            v1070 = nil;
+            v1071, v1072 = v0.readFixed64(v1065, v1067);
+            v1070 = v1071;
+            v1067 = v1072;
+        else
+            error("Unsupported wire type: " .. v1069);
+        end;
+    end;
+    return v1066;
+end;
+v7.jsonEncode = function(v1073) --[[ Line: 8120 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v1074 = {};
+    if v1073.action_type ~= nil and (v1073.action_type ~= nil and v1073.action_type ~= 0 or v1073.action_type ~= v2.ActionType.fromNumber(0)) then
+        v1074.actionType = if typeof(v1073.action_type) == "number" then v1073.action_type else v2.ActionType.toNumber(v1073.action_type);
+    end;
+    if v1073.action_params ~= nil then
+        v1074.actionParams = v1073.action_params:jsonEncode();
+    end;
+    return v1074;
+end;
+v7.jsonDecode = function(v1075) --[[ Line: 8142 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_45 (copy), v2 (copy)
+    local v1076 = l_v7_45.new();
+    if v1075.action_type ~= nil then
+        v1076.action_type = if typeof(v1075.action_type) == "number" then v2.ActionType.fromNumber(v1075.action_type) or v1075.action_type else v2.ActionType.fromName(v1075.action_type) or v1075.action_type;
+    end;
+    if v1075.actionType ~= nil then
+        v1076.action_type = if typeof(v1075.actionType) == "number" then v2.ActionType.fromNumber(v1075.actionType) or v1075.actionType else v2.ActionType.fromName(v1075.actionType) or v1075.actionType;
+    end;
+    if v1075.action_params ~= nil then
+        v1076.action_params = v2.OpenMarketplaceCatalogSeeAll_Params.jsonDecode(v1075.action_params);
+    end;
+    if v1075.actionParams ~= nil then
+        v1076.action_params = v2.OpenMarketplaceCatalogSeeAll_Params.jsonDecode(v1075.actionParams);
+    end;
+    return v1076;
+end;
+v7.descriptor = {
+    name = "OpenMarketplaceCatalogSeeAll", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.OpenMarketplaceCatalogSeeAll"
+};
+v2.OpenMarketplaceCatalogSeeAll = v7;
+v1.default:register(v2.OpenMarketplaceCatalogSeeAll);
+v7 = {};
+v7.__index = v7;
+local l_v7_46 = v7 --[[ copy: 7 -> 54 ]];
+v7.new = function(v1078) --[[ Line: 8182 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_46 (copy)
+    return (setmetatable({
+        sort_id = if not (v1078 ~= nil) or v1078.sort_id == nil then nil else v1078.sort_id, 
+        title = if not (v1078 ~= nil) or v1078.title == nil then nil else v1078.title, 
+        description = if not (v1078 ~= nil) or v1078.description == nil then nil else v1078.description, 
+        tooltip_text = if not (v1078 ~= nil) or v1078.tooltip_text == nil then nil else v1078.tooltip_text
+    }, l_v7_46));
+end;
+v7.encode = function(v1079) --[[ Line: 8193 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v1080 = buffer.create(0);
+    local v1081 = 0;
+    if v1079.sort_id ~= nil then
+        local v1082 = v1079.sort_id:encode();
+        local v1083, v1084 = v0.writeTag(v1080, v1081, 1, v0.wireTypes.lengthDelimited);
+        v1083, v1084 = v0.writeBuffer(v1083, v1084, v1082, buffer.len(v1082));
+        v1080 = v1083;
+        v1081 = v1084;
+    end;
+    if v1079.title ~= nil then
+        local v1085 = v1079.title:encode();
+        local v1086, v1087 = v0.writeTag(v1080, v1081, 2, v0.wireTypes.lengthDelimited);
+        v1086, v1087 = v0.writeBuffer(v1086, v1087, v1085, buffer.len(v1085));
+        v1080 = v1086;
+        v1081 = v1087;
+    end;
+    if v1079.description ~= nil then
+        local v1088 = v1079.description:encode();
+        local v1089, v1090 = v0.writeTag(v1080, v1081, 3, v0.wireTypes.lengthDelimited);
+        v1089, v1090 = v0.writeBuffer(v1089, v1090, v1088, buffer.len(v1088));
+        v1080 = v1089;
+        v1081 = v1090;
+    end;
+    if v1079.tooltip_text ~= nil then
+        local v1091 = v1079.tooltip_text:encode();
+        local v1092, v1093 = v0.writeTag(v1080, v1081, 4, v0.wireTypes.lengthDelimited);
+        v1092, v1093 = v0.writeBuffer(v1092, v1093, v1091, buffer.len(v1091));
+        v1080 = v1092;
+        v1081 = v1093;
+    end;
+    local v1094 = buffer.create(v1081);
+    buffer.copy(v1094, 0, v1080, 0, v1081);
+    return v1094;
+end;
+v7.decode = function(v1095) --[[ Line: 8226 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_46 (copy), v0 (copy), v5 (copy)
+    local v1096 = l_v7_46.new();
+    local v1097 = 0;
+    while v1097 < buffer.len(v1095) do
+        local v1098 = nil;
+        local v1099 = nil;
+        local v1100, v1101, v1102 = v0.readTag(v1095, v1097);
+        v1098 = v1100;
+        v1099 = v1101;
+        v1097 = v1102;
+        if v1099 == v0.wireTypes.varint then
+            v1100 = nil;
+            v1101, v1102 = v0.readVarInt(v1095, v1097);
+            v1100 = v1101;
+            v1097 = v1102;
+        elseif v1099 == v0.wireTypes.lengthDelimited then
+            if v1098 == 1 then
+                v1100 = nil;
+                v1101, v1102 = v0.readBuffer(v1095, v1097);
+                v1100 = v1101;
+                v1097 = v1102;
+                v1096.sort_id = v5.StringProp.decode(v1100);
+            elseif v1098 == 2 then
+                v1100 = nil;
+                v1101, v1102 = v0.readBuffer(v1095, v1097);
+                v1100 = v1101;
+                v1097 = v1102;
+                v1096.title = v5.StringProp.decode(v1100);
+            elseif v1098 == 3 then
+                v1100 = nil;
+                v1101, v1102 = v0.readBuffer(v1095, v1097);
+                v1100 = v1101;
+                v1097 = v1102;
+                v1096.description = v5.StringProp.decode(v1100);
+            elseif v1098 == 4 then
+                v1100 = nil;
+                v1101, v1102 = v0.readBuffer(v1095, v1097);
+                v1100 = v1101;
+                v1097 = v1102;
+                v1096.tooltip_text = v5.StringProp.decode(v1100);
+            else
+                v1100 = nil;
+                v1101, v1102 = v0.readVarInt(v1095, v1097);
+                v1097 = v1102 + v1101;
+            end;
+        elseif v1099 == v0.wireTypes.i32 then
+            v1100 = nil;
+            v1101, v1102 = v0.readFixed32(v1095, v1097);
+            v1100 = v1101;
+            v1097 = v1102;
+        elseif v1099 == v0.wireTypes.i64 then
+            v1100 = nil;
+            v1101, v1102 = v0.readFixed64(v1095, v1097);
+            v1100 = v1101;
+            v1097 = v1102;
+        else
+            error("Unsupported wire type: " .. v1099);
+        end;
+    end;
+    return v1096;
+end;
+v7.jsonEncode = function(v1103) --[[ Line: 8284 ]] --[[ Name: jsonEncode ]]
+    local v1104 = {};
+    if v1103.sort_id ~= nil then
+        v1104.sortId = v1103.sort_id:jsonEncode();
+    end;
+    if v1103.title ~= nil then
+        v1104.title = v1103.title:jsonEncode();
+    end;
+    if v1103.description ~= nil then
+        v1104.description = v1103.description:jsonEncode();
+    end;
+    if v1103.tooltip_text ~= nil then
+        v1104.tooltipText = v1103.tooltip_text:jsonEncode();
+    end;
+    return v1104;
+end;
+v7.jsonDecode = function(v1105) --[[ Line: 8306 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_46 (copy), v5 (copy)
+    local v1106 = l_v7_46.new();
+    if v1105.sort_id ~= nil then
+        v1106.sort_id = v5.StringProp.jsonDecode(v1105.sort_id);
+    end;
+    if v1105.sortId ~= nil then
+        v1106.sort_id = v5.StringProp.jsonDecode(v1105.sortId);
+    end;
+    if v1105.title ~= nil then
+        v1106.title = v5.StringProp.jsonDecode(v1105.title);
+    end;
+    if v1105.description ~= nil then
+        v1106.description = v5.StringProp.jsonDecode(v1105.description);
+    end;
+    if v1105.tooltip_text ~= nil then
+        v1106.tooltip_text = v5.StringProp.jsonDecode(v1105.tooltip_text);
+    end;
+    if v1105.tooltipText ~= nil then
+        v1106.tooltip_text = v5.StringProp.jsonDecode(v1105.tooltipText);
+    end;
+    return v1106;
+end;
+v7.descriptor = {
+    name = "OpenMarketplaceCatalogSeeAll_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.OpenMarketplaceCatalogSeeAll_Params = v7;
+v1.default:register(v2.OpenMarketplaceCatalogSeeAll_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_47 = v7 --[[ copy: 7 -> 55 ]];
+v7.new = function(v1108) --[[ Line: 8355 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_47 (copy)
+    return (setmetatable({
+        action_type = if not (v1108 ~= nil) or v1108.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v1108.action_type, 
+        action_params = if not (v1108 ~= nil) or v1108.action_params == nil then nil else v1108.action_params
+    }, l_v7_47));
+end;
+v7.encode = function(v1109) --[[ Line: 8366 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v1110 = buffer.create(0);
+    local v1111 = 0;
+    if v1109.action_type ~= nil and (v1109.action_type ~= nil and v1109.action_type ~= 0 or v1109.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v1112, v1113 = v0.writeTag(v1110, v1111, 1, v0.wireTypes.varint);
+        v1112, v1113 = v0.writeVarInt(v1112, v1113, v2.ActionType.toNumber(v1109.action_type));
+        v1110 = v1112;
+        v1111 = v1113;
+    end;
+    if v1109.action_params ~= nil then
+        local v1114 = v1109.action_params:encode();
+        local v1115, v1116 = v0.writeTag(v1110, v1111, 2, v0.wireTypes.lengthDelimited);
+        v1115, v1116 = v0.writeBuffer(v1115, v1116, v1114, buffer.len(v1114));
+        v1110 = v1115;
+        v1111 = v1116;
+    end;
+    local v1117 = buffer.create(v1111);
+    buffer.copy(v1117, 0, v1110, 0, v1111);
+    return v1117;
+end;
+v7.decode = function(v1118) --[[ Line: 8392 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_47 (copy), v0 (copy), v2 (copy)
+    local v1119 = l_v7_47.new();
+    local v1120 = 0;
+    while v1120 < buffer.len(v1118) do
+        local v1121 = nil;
+        local v1122 = nil;
+        local v1123, v1124, v1125 = v0.readTag(v1118, v1120);
+        v1121 = v1123;
+        v1122 = v1124;
+        v1120 = v1125;
+        if v1122 == v0.wireTypes.varint then
+            if v1121 == 1 then
+                v1123 = nil;
+                v1124, v1125 = v0.readVarIntI32(v1118, v1120);
+                v1123 = v1124;
+                v1120 = v1125;
+                v1119.action_type = v2.ActionType.fromNumber(v1123) or v1123;
+            else
+                v1123 = nil;
+                v1124, v1125 = v0.readVarInt(v1118, v1120);
+                v1123 = v1124;
+                v1120 = v1125;
+            end;
+        elseif v1122 == v0.wireTypes.lengthDelimited then
+            if v1121 == 2 then
+                v1123 = nil;
+                v1124, v1125 = v0.readBuffer(v1118, v1120);
+                v1123 = v1124;
+                v1120 = v1125;
+                v1119.action_params = v2.CloseMarketplaceCategoryTooltip_Params.decode(v1123);
+            else
+                v1123 = nil;
+                v1124, v1125 = v0.readVarInt(v1118, v1120);
+                v1120 = v1125 + v1124;
+            end;
+        elseif v1122 == v0.wireTypes.i32 then
+            v1123 = nil;
+            v1124, v1125 = v0.readFixed32(v1118, v1120);
+            v1123 = v1124;
+            v1120 = v1125;
+        elseif v1122 == v0.wireTypes.i64 then
+            v1123 = nil;
+            v1124, v1125 = v0.readFixed64(v1118, v1120);
+            v1123 = v1124;
+            v1120 = v1125;
+        else
+            error("Unsupported wire type: " .. v1122);
+        end;
+    end;
+    return v1119;
+end;
+v7.jsonEncode = function(v1126) --[[ Line: 8440 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v1127 = {};
+    if v1126.action_type ~= nil and (v1126.action_type ~= nil and v1126.action_type ~= 0 or v1126.action_type ~= v2.ActionType.fromNumber(0)) then
+        v1127.actionType = if typeof(v1126.action_type) == "number" then v1126.action_type else v2.ActionType.toNumber(v1126.action_type);
+    end;
+    if v1126.action_params ~= nil then
+        v1127.actionParams = v1126.action_params:jsonEncode();
+    end;
+    return v1127;
+end;
+v7.jsonDecode = function(v1128) --[[ Line: 8462 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_47 (copy), v2 (copy)
+    local v1129 = l_v7_47.new();
+    if v1128.action_type ~= nil then
+        v1129.action_type = if typeof(v1128.action_type) == "number" then v2.ActionType.fromNumber(v1128.action_type) or v1128.action_type else v2.ActionType.fromName(v1128.action_type) or v1128.action_type;
+    end;
+    if v1128.actionType ~= nil then
+        v1129.action_type = if typeof(v1128.actionType) == "number" then v2.ActionType.fromNumber(v1128.actionType) or v1128.actionType else v2.ActionType.fromName(v1128.actionType) or v1128.actionType;
+    end;
+    if v1128.action_params ~= nil then
+        v1129.action_params = v2.CloseMarketplaceCategoryTooltip_Params.jsonDecode(v1128.action_params);
+    end;
+    if v1128.actionParams ~= nil then
+        v1129.action_params = v2.CloseMarketplaceCategoryTooltip_Params.jsonDecode(v1128.actionParams);
+    end;
+    return v1129;
+end;
+v7.descriptor = {
+    name = "CloseMarketplaceCategoryTooltip", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.CloseMarketplaceCategoryTooltip"
+};
+v2.CloseMarketplaceCategoryTooltip = v7;
+v1.default:register(v2.CloseMarketplaceCategoryTooltip);
+v7 = {};
+v7.__index = v7;
+local l_v7_48 = v7 --[[ copy: 7 -> 56 ]];
+v7.new = function(v1131) --[[ Line: 8502 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_48 (copy)
+    return (setmetatable({
+        tooltip_id = if not (v1131 ~= nil) or v1131.tooltip_id == nil then nil else v1131.tooltip_id
+    }, l_v7_48));
+end;
+v7.encode = function(v1132) --[[ Line: 8510 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v1133 = buffer.create(0);
+    local v1134 = 0;
+    if v1132.tooltip_id ~= nil then
+        local v1135 = v1132.tooltip_id:encode();
+        local v1136, v1137 = v0.writeTag(v1133, v1134, 1, v0.wireTypes.lengthDelimited);
+        v1136, v1137 = v0.writeBuffer(v1136, v1137, v1135, buffer.len(v1135));
+        v1133 = v1136;
+        v1134 = v1137;
+    end;
+    local v1138 = buffer.create(v1134);
+    buffer.copy(v1138, 0, v1133, 0, v1134);
+    return v1138;
+end;
+v7.decode = function(v1139) --[[ Line: 8525 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_48 (copy), v0 (copy), v5 (copy)
+    local v1140 = l_v7_48.new();
+    local v1141 = 0;
+    while v1141 < buffer.len(v1139) do
+        local v1142 = nil;
+        local v1143 = nil;
+        local v1144, v1145, v1146 = v0.readTag(v1139, v1141);
+        v1142 = v1144;
+        v1143 = v1145;
+        v1141 = v1146;
+        if v1143 == v0.wireTypes.varint then
+            v1144 = nil;
+            v1145, v1146 = v0.readVarInt(v1139, v1141);
+            v1144 = v1145;
+            v1141 = v1146;
+        elseif v1143 == v0.wireTypes.lengthDelimited then
+            if v1142 == 1 then
+                v1144 = nil;
+                v1145, v1146 = v0.readBuffer(v1139, v1141);
+                v1144 = v1145;
+                v1141 = v1146;
+                v1140.tooltip_id = v5.StringProp.decode(v1144);
+            else
+                v1144 = nil;
+                v1145, v1146 = v0.readVarInt(v1139, v1141);
+                v1141 = v1146 + v1145;
+            end;
+        elseif v1143 == v0.wireTypes.i32 then
+            v1144 = nil;
+            v1145, v1146 = v0.readFixed32(v1139, v1141);
+            v1144 = v1145;
+            v1141 = v1146;
+        elseif v1143 == v0.wireTypes.i64 then
+            v1144 = nil;
+            v1145, v1146 = v0.readFixed64(v1139, v1141);
+            v1144 = v1145;
+            v1141 = v1146;
+        else
+            error("Unsupported wire type: " .. v1143);
+        end;
+    end;
+    return v1140;
+end;
+v7.jsonEncode = function(v1147) --[[ Line: 8568 ]] --[[ Name: jsonEncode ]]
+    local v1148 = {};
+    if v1147.tooltip_id ~= nil then
+        v1148.tooltipId = v1147.tooltip_id:jsonEncode();
+    end;
+    return v1148;
+end;
+v7.jsonDecode = function(v1149) --[[ Line: 8578 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_48 (copy), v5 (copy)
+    local v1150 = l_v7_48.new();
+    if v1149.tooltip_id ~= nil then
+        v1150.tooltip_id = v5.StringProp.jsonDecode(v1149.tooltip_id);
+    end;
+    if v1149.tooltipId ~= nil then
+        v1150.tooltip_id = v5.StringProp.jsonDecode(v1149.tooltipId);
+    end;
+    return v1150;
+end;
+v7.descriptor = {
+    name = "CloseMarketplaceCategoryTooltip_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.CloseMarketplaceCategoryTooltip_Params = v7;
+v1.default:register(v2.CloseMarketplaceCategoryTooltip_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_49 = v7 --[[ copy: 7 -> 57 ]];
+v7.new = function(v1152) --[[ Line: 8608 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_49 (copy)
+    return (setmetatable({
+        action_type = if not (v1152 ~= nil) or v1152.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v1152.action_type, 
+        action_params = if not (v1152 ~= nil) or v1152.action_params == nil then nil else v1152.action_params
+    }, l_v7_49));
+end;
+v7.encode = function(v1153) --[[ Line: 8617 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v1154 = buffer.create(0);
+    local v1155 = 0;
+    if v1153.action_type ~= nil and (v1153.action_type ~= nil and v1153.action_type ~= 0 or v1153.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v1156, v1157 = v0.writeTag(v1154, v1155, 1, v0.wireTypes.varint);
+        v1156, v1157 = v0.writeVarInt(v1156, v1157, v2.ActionType.toNumber(v1153.action_type));
+        v1154 = v1156;
+        v1155 = v1157;
+    end;
+    if v1153.action_params ~= nil then
+        local v1158 = v1153.action_params:encode();
+        local v1159, v1160 = v0.writeTag(v1154, v1155, 2, v0.wireTypes.lengthDelimited);
+        v1159, v1160 = v0.writeBuffer(v1159, v1160, v1158, buffer.len(v1158));
+        v1154 = v1159;
+        v1155 = v1160;
+    end;
+    local v1161 = buffer.create(v1155);
+    buffer.copy(v1161, 0, v1154, 0, v1155);
+    return v1161;
+end;
+v7.decode = function(v1162) --[[ Line: 8643 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_49 (copy), v0 (copy), v2 (copy)
+    local v1163 = l_v7_49.new();
+    local v1164 = 0;
+    while v1164 < buffer.len(v1162) do
+        local v1165 = nil;
+        local v1166 = nil;
+        local v1167, v1168, v1169 = v0.readTag(v1162, v1164);
+        v1165 = v1167;
+        v1166 = v1168;
+        v1164 = v1169;
+        if v1166 == v0.wireTypes.varint then
+            if v1165 == 1 then
+                v1167 = nil;
+                v1168, v1169 = v0.readVarIntI32(v1162, v1164);
+                v1167 = v1168;
+                v1164 = v1169;
+                v1163.action_type = v2.ActionType.fromNumber(v1167) or v1167;
+            else
+                v1167 = nil;
+                v1168, v1169 = v0.readVarInt(v1162, v1164);
+                v1167 = v1168;
+                v1164 = v1169;
+            end;
+        elseif v1166 == v0.wireTypes.lengthDelimited then
+            if v1165 == 2 then
+                v1167 = nil;
+                v1168, v1169 = v0.readBuffer(v1162, v1164);
+                v1167 = v1168;
+                v1164 = v1169;
+                v1163.action_params = v2.ResizeMarketplaceCatalog_Params.decode(v1167);
+            else
+                v1167 = nil;
+                v1168, v1169 = v0.readVarInt(v1162, v1164);
+                v1164 = v1169 + v1168;
+            end;
+        elseif v1166 == v0.wireTypes.i32 then
+            v1167 = nil;
+            v1168, v1169 = v0.readFixed32(v1162, v1164);
+            v1167 = v1168;
+            v1164 = v1169;
+        elseif v1166 == v0.wireTypes.i64 then
+            v1167 = nil;
+            v1168, v1169 = v0.readFixed64(v1162, v1164);
+            v1167 = v1168;
+            v1164 = v1169;
+        else
+            error("Unsupported wire type: " .. v1166);
+        end;
+    end;
+    return v1163;
+end;
+v7.jsonEncode = function(v1170) --[[ Line: 8691 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v1171 = {};
+    if v1170.action_type ~= nil and (v1170.action_type ~= nil and v1170.action_type ~= 0 or v1170.action_type ~= v2.ActionType.fromNumber(0)) then
+        v1171.actionType = if typeof(v1170.action_type) == "number" then v1170.action_type else v2.ActionType.toNumber(v1170.action_type);
+    end;
+    if v1170.action_params ~= nil then
+        v1171.actionParams = v1170.action_params:jsonEncode();
+    end;
+    return v1171;
+end;
+v7.jsonDecode = function(v1172) --[[ Line: 8713 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_49 (copy), v2 (copy)
+    local v1173 = l_v7_49.new();
+    if v1172.action_type ~= nil then
+        v1173.action_type = if typeof(v1172.action_type) == "number" then v2.ActionType.fromNumber(v1172.action_type) or v1172.action_type else v2.ActionType.fromName(v1172.action_type) or v1172.action_type;
+    end;
+    if v1172.actionType ~= nil then
+        v1173.action_type = if typeof(v1172.actionType) == "number" then v2.ActionType.fromNumber(v1172.actionType) or v1172.actionType else v2.ActionType.fromName(v1172.actionType) or v1172.actionType;
+    end;
+    if v1172.action_params ~= nil then
+        v1173.action_params = v2.ResizeMarketplaceCatalog_Params.jsonDecode(v1172.action_params);
+    end;
+    if v1172.actionParams ~= nil then
+        v1173.action_params = v2.ResizeMarketplaceCatalog_Params.jsonDecode(v1172.actionParams);
+    end;
+    return v1173;
+end;
+v7.descriptor = {
+    name = "ResizeMarketplaceCatalog", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.ResizeMarketplaceCatalog"
+};
+v2.ResizeMarketplaceCatalog = v7;
+v1.default:register(v2.ResizeMarketplaceCatalog);
+v7 = {};
+v7.__index = v7;
+local l_v7_50 = v7 --[[ copy: 7 -> 58 ]];
+v7.new = function(v1175) --[[ Line: 8753 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_50 (copy)
+    return (setmetatable({
+        category_id = if not (v1175 ~= nil) or v1175.category_id == nil then nil else v1175.category_id, 
+        subcategory_id = if not (v1175 ~= nil) or v1175.subcategory_id == nil then nil else v1175.subcategory_id, 
+        screen_size = if not (v1175 ~= nil) or v1175.screen_size == nil then nil else v1175.screen_size
+    }, l_v7_50));
+end;
+v7.encode = function(v1176) --[[ Line: 8763 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v1177 = buffer.create(0);
+    local v1178 = 0;
+    if v1176.category_id ~= nil then
+        local v1179 = v1176.category_id:encode();
+        local v1180, v1181 = v0.writeTag(v1177, v1178, 1, v0.wireTypes.lengthDelimited);
+        v1180, v1181 = v0.writeBuffer(v1180, v1181, v1179, buffer.len(v1179));
+        v1177 = v1180;
+        v1178 = v1181;
+    end;
+    if v1176.subcategory_id ~= nil then
+        local v1182 = v1176.subcategory_id:encode();
+        local v1183, v1184 = v0.writeTag(v1177, v1178, 2, v0.wireTypes.lengthDelimited);
+        v1183, v1184 = v0.writeBuffer(v1183, v1184, v1182, buffer.len(v1182));
+        v1177 = v1183;
+        v1178 = v1184;
+    end;
+    if v1176.screen_size ~= nil then
+        local v1185 = v1176.screen_size:encode();
+        local v1186, v1187 = v0.writeTag(v1177, v1178, 3, v0.wireTypes.lengthDelimited);
+        v1186, v1187 = v0.writeBuffer(v1186, v1187, v1185, buffer.len(v1185));
+        v1177 = v1186;
+        v1178 = v1187;
+    end;
+    local v1188 = buffer.create(v1178);
+    buffer.copy(v1188, 0, v1177, 0, v1178);
+    return v1188;
+end;
+v7.decode = function(v1189) --[[ Line: 8790 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_50 (copy), v0 (copy), v5 (copy)
+    local v1190 = l_v7_50.new();
+    local v1191 = 0;
+    while v1191 < buffer.len(v1189) do
+        local v1192 = nil;
+        local v1193 = nil;
+        local v1194, v1195, v1196 = v0.readTag(v1189, v1191);
+        v1192 = v1194;
+        v1193 = v1195;
+        v1191 = v1196;
+        if v1193 == v0.wireTypes.varint then
+            v1194 = nil;
+            v1195, v1196 = v0.readVarInt(v1189, v1191);
+            v1194 = v1195;
+            v1191 = v1196;
+        elseif v1193 == v0.wireTypes.lengthDelimited then
+            if v1192 == 1 then
+                v1194 = nil;
+                v1195, v1196 = v0.readBuffer(v1189, v1191);
+                v1194 = v1195;
+                v1191 = v1196;
+                v1190.category_id = v5.StringProp.decode(v1194);
+            elseif v1192 == 2 then
+                v1194 = nil;
+                v1195, v1196 = v0.readBuffer(v1189, v1191);
+                v1194 = v1195;
+                v1191 = v1196;
+                v1190.subcategory_id = v5.StringProp.decode(v1194);
+            elseif v1192 == 3 then
+                v1194 = nil;
+                v1195, v1196 = v0.readBuffer(v1189, v1191);
+                v1194 = v1195;
+                v1191 = v1196;
+                v1190.screen_size = v5.StringProp.decode(v1194);
+            else
+                v1194 = nil;
+                v1195, v1196 = v0.readVarInt(v1189, v1191);
+                v1191 = v1196 + v1195;
+            end;
+        elseif v1193 == v0.wireTypes.i32 then
+            v1194 = nil;
+            v1195, v1196 = v0.readFixed32(v1189, v1191);
+            v1194 = v1195;
+            v1191 = v1196;
+        elseif v1193 == v0.wireTypes.i64 then
+            v1194 = nil;
+            v1195, v1196 = v0.readFixed64(v1189, v1191);
+            v1194 = v1195;
+            v1191 = v1196;
+        else
+            error("Unsupported wire type: " .. v1193);
+        end;
+    end;
+    return v1190;
+end;
+v7.jsonEncode = function(v1197) --[[ Line: 8843 ]] --[[ Name: jsonEncode ]]
+    local v1198 = {};
+    if v1197.category_id ~= nil then
+        v1198.categoryId = v1197.category_id:jsonEncode();
+    end;
+    if v1197.subcategory_id ~= nil then
+        v1198.subcategoryId = v1197.subcategory_id:jsonEncode();
+    end;
+    if v1197.screen_size ~= nil then
+        v1198.screenSize = v1197.screen_size:jsonEncode();
+    end;
+    return v1198;
+end;
+v7.jsonDecode = function(v1199) --[[ Line: 8861 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_50 (copy), v5 (copy)
+    local v1200 = l_v7_50.new();
+    if v1199.category_id ~= nil then
+        v1200.category_id = v5.StringProp.jsonDecode(v1199.category_id);
+    end;
+    if v1199.categoryId ~= nil then
+        v1200.category_id = v5.StringProp.jsonDecode(v1199.categoryId);
+    end;
+    if v1199.subcategory_id ~= nil then
+        v1200.subcategory_id = v5.StringProp.jsonDecode(v1199.subcategory_id);
+    end;
+    if v1199.subcategoryId ~= nil then
+        v1200.subcategory_id = v5.StringProp.jsonDecode(v1199.subcategoryId);
+    end;
+    if v1199.screen_size ~= nil then
+        v1200.screen_size = v5.StringProp.jsonDecode(v1199.screen_size);
+    end;
+    if v1199.screenSize ~= nil then
+        v1200.screen_size = v5.StringProp.jsonDecode(v1199.screenSize);
+    end;
+    return v1200;
+end;
+v7.descriptor = {
+    name = "ResizeMarketplaceCatalog_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.ResizeMarketplaceCatalog_Params = v7;
+v1.default:register(v2.ResizeMarketplaceCatalog_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_51 = v7 --[[ copy: 7 -> 59 ]];
+v7.new = function(v1202) --[[ Line: 8909 ]] --[[ Name: new ]]
+    -- upvalues: v2 (copy), l_v7_51 (copy)
+    return (setmetatable({
+        action_type = if not (v1202 ~= nil) or v1202.action_type == nil then assert(v2.ActionType.fromNumber(0), "Enum has no 0 default") else v1202.action_type, 
+        action_params = if not (v1202 ~= nil) or v1202.action_params == nil then nil else v1202.action_params
+    }, l_v7_51));
+end;
+v7.encode = function(v1203) --[[ Line: 8920 ]] --[[ Name: encode ]]
+    -- upvalues: v2 (copy), v0 (copy)
+    local v1204 = buffer.create(0);
+    local v1205 = 0;
+    if v1203.action_type ~= nil and (v1203.action_type ~= nil and v1203.action_type ~= 0 or v1203.action_type ~= v2.ActionType.fromNumber(0)) then
+        local v1206, v1207 = v0.writeTag(v1204, v1205, 1, v0.wireTypes.varint);
+        v1206, v1207 = v0.writeVarInt(v1206, v1207, v2.ActionType.toNumber(v1203.action_type));
+        v1204 = v1206;
+        v1205 = v1207;
+    end;
+    if v1203.action_params ~= nil then
+        local v1208 = v1203.action_params:encode();
+        local v1209, v1210 = v0.writeTag(v1204, v1205, 2, v0.wireTypes.lengthDelimited);
+        v1209, v1210 = v0.writeBuffer(v1209, v1210, v1208, buffer.len(v1208));
+        v1204 = v1209;
+        v1205 = v1210;
+    end;
+    local v1211 = buffer.create(v1205);
+    buffer.copy(v1211, 0, v1204, 0, v1205);
+    return v1211;
+end;
+v7.decode = function(v1212) --[[ Line: 8946 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_51 (copy), v0 (copy), v2 (copy)
+    local v1213 = l_v7_51.new();
+    local v1214 = 0;
+    while v1214 < buffer.len(v1212) do
+        local v1215 = nil;
+        local v1216 = nil;
+        local v1217, v1218, v1219 = v0.readTag(v1212, v1214);
+        v1215 = v1217;
+        v1216 = v1218;
+        v1214 = v1219;
+        if v1216 == v0.wireTypes.varint then
+            if v1215 == 1 then
+                v1217 = nil;
+                v1218, v1219 = v0.readVarIntI32(v1212, v1214);
+                v1217 = v1218;
+                v1214 = v1219;
+                v1213.action_type = v2.ActionType.fromNumber(v1217) or v1217;
+            else
+                v1217 = nil;
+                v1218, v1219 = v0.readVarInt(v1212, v1214);
+                v1217 = v1218;
+                v1214 = v1219;
+            end;
+        elseif v1216 == v0.wireTypes.lengthDelimited then
+            if v1215 == 2 then
+                v1217 = nil;
+                v1218, v1219 = v0.readBuffer(v1212, v1214);
+                v1217 = v1218;
+                v1214 = v1219;
+                v1213.action_params = v2.OpenMarketplaceCatalogFilters_Params.decode(v1217);
+            else
+                v1217 = nil;
+                v1218, v1219 = v0.readVarInt(v1212, v1214);
+                v1214 = v1219 + v1218;
+            end;
+        elseif v1216 == v0.wireTypes.i32 then
+            v1217 = nil;
+            v1218, v1219 = v0.readFixed32(v1212, v1214);
+            v1217 = v1218;
+            v1214 = v1219;
+        elseif v1216 == v0.wireTypes.i64 then
+            v1217 = nil;
+            v1218, v1219 = v0.readFixed64(v1212, v1214);
+            v1217 = v1218;
+            v1214 = v1219;
+        else
+            error("Unsupported wire type: " .. v1216);
+        end;
+    end;
+    return v1213;
+end;
+v7.jsonEncode = function(v1220) --[[ Line: 8994 ]] --[[ Name: jsonEncode ]]
+    -- upvalues: v2 (copy)
+    local v1221 = {};
+    if v1220.action_type ~= nil and (v1220.action_type ~= nil and v1220.action_type ~= 0 or v1220.action_type ~= v2.ActionType.fromNumber(0)) then
+        v1221.actionType = if typeof(v1220.action_type) == "number" then v1220.action_type else v2.ActionType.toNumber(v1220.action_type);
+    end;
+    if v1220.action_params ~= nil then
+        v1221.actionParams = v1220.action_params:jsonEncode();
+    end;
+    return v1221;
+end;
+v7.jsonDecode = function(v1222) --[[ Line: 9016 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_51 (copy), v2 (copy)
+    local v1223 = l_v7_51.new();
+    if v1222.action_type ~= nil then
+        v1223.action_type = if typeof(v1222.action_type) == "number" then v2.ActionType.fromNumber(v1222.action_type) or v1222.action_type else v2.ActionType.fromName(v1222.action_type) or v1222.action_type;
+    end;
+    if v1222.actionType ~= nil then
+        v1223.action_type = if typeof(v1222.actionType) == "number" then v2.ActionType.fromNumber(v1222.actionType) or v1222.actionType else v2.ActionType.fromName(v1222.actionType) or v1222.actionType;
+    end;
+    if v1222.action_params ~= nil then
+        v1223.action_params = v2.OpenMarketplaceCatalogFilters_Params.jsonDecode(v1222.action_params);
+    end;
+    if v1222.actionParams ~= nil then
+        v1223.action_params = v2.OpenMarketplaceCatalogFilters_Params.jsonDecode(v1222.actionParams);
+    end;
+    return v1223;
+end;
+v7.descriptor = {
+    name = "OpenMarketplaceCatalogFilters", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.OpenMarketplaceCatalogFilters"
+};
+v2.OpenMarketplaceCatalogFilters = v7;
+v1.default:register(v2.OpenMarketplaceCatalogFilters);
+v7 = {};
+v7.__index = v7;
+local l_v7_52 = v7 --[[ copy: 7 -> 60 ]];
+v7.new = function(_) --[[ Line: 9056 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_52 (copy)
+    return (setmetatable({}, l_v7_52));
+end;
+v7.encode = function(_) --[[ Line: 9062 ]] --[[ Name: encode ]]
+    local v1227 = buffer.create(0);
+    local v1228 = buffer.create(0);
+    buffer.copy(v1228, 0, v1227, 0, 0);
+    return v1228;
+end;
+v7.decode = function(v1229) --[[ Line: 9071 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_52 (copy), v0 (copy)
+    local v1230 = l_v7_52.new();
+    local v1231 = 0;
+    while v1231 < buffer.len(v1229) do
+        local v1232 = nil;
+        local v1233 = nil;
+        local v1234, v1235, v1236 = v0.readTag(v1229, v1231);
+        v1232 = v1234;
+        v1233 = v1235;
+        v1231 = v1236;
+        if v1233 == v0.wireTypes.varint then
+            v1234 = nil;
+            v1235, v1236 = v0.readVarInt(v1229, v1231);
+            v1234 = v1235;
+            v1231 = v1236;
+        elseif v1233 == v0.wireTypes.lengthDelimited then
+            v1234 = nil;
+            v1235, v1236 = v0.readVarInt(v1229, v1231);
+            v1231 = v1236 + v1235;
+        elseif v1233 == v0.wireTypes.i32 then
+            v1234 = nil;
+            v1235, v1236 = v0.readFixed32(v1229, v1231);
+            v1234 = v1235;
+            v1231 = v1236;
+        elseif v1233 == v0.wireTypes.i64 then
+            v1234 = nil;
+            v1235, v1236 = v0.readFixed64(v1229, v1231);
+            v1234 = v1235;
+            v1231 = v1236;
+        else
+            error("Unsupported wire type: " .. v1233);
+        end;
+    end;
+    return v1230;
+end;
+v7.jsonEncode = function(_) --[[ Line: 9109 ]] --[[ Name: jsonEncode ]]
+    return {};
+end;
+v7.jsonDecode = function(_) --[[ Line: 9115 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_52 (copy)
+    return (l_v7_52.new());
+end;
+v7.descriptor = {
+    name = "OpenMarketplaceCatalogFilters_Params", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.Params"
+};
+v2.OpenMarketplaceCatalogFilters_Params = v7;
+v1.default:register(v2.OpenMarketplaceCatalogFilters_Params);
+v7 = {};
+v7.__index = v7;
+local l_v7_53 = v7 --[[ copy: 7 -> 61 ]];
+v7.new = function(v1240) --[[ Line: 9137 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_53 (copy)
+    return (setmetatable({
+        kind = if not (v1240 ~= nil) or v1240.kind == nil then nil else v1240.kind
+    }, l_v7_53));
+end;
+v7.encode = function(v1241) --[[ Line: 9143 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v1242 = buffer.create(0);
+    local v1243 = 0;
+    if v1241.kind ~= nil then
+        if v1241.kind.type == "dismiss_dialog_action" then
+            local v1244 = v1241.kind.value:encode();
+            local v1245, v1246 = v0.writeTag(v1242, v1243, 1, v0.wireTypes.lengthDelimited);
+            v1245, v1246 = v0.writeBuffer(v1245, v1246, v1244, buffer.len(v1244));
+            v1242 = v1245;
+            v1243 = v1246;
+        elseif v1241.kind.type == "link_action" then
+            local v1247 = v1241.kind.value:encode();
+            local v1248, v1249 = v0.writeTag(v1242, v1243, 2, v0.wireTypes.lengthDelimited);
+            v1248, v1249 = v0.writeBuffer(v1248, v1249, v1247, buffer.len(v1247));
+            v1242 = v1248;
+            v1243 = v1249;
+        elseif v1241.kind.type == "open_game_details_action" then
+            local v1250 = v1241.kind.value:encode();
+            local v1251, v1252 = v0.writeTag(v1242, v1243, 3, v0.wireTypes.lengthDelimited);
+            v1251, v1252 = v0.writeBuffer(v1251, v1252, v1250, buffer.len(v1250));
+            v1242 = v1251;
+            v1243 = v1252;
+        elseif v1241.kind.type == "open_join_friends_action" then
+            local v1253 = v1241.kind.value:encode();
+            local v1254, v1255 = v0.writeTag(v1242, v1243, 4, v0.wireTypes.lengthDelimited);
+            v1254, v1255 = v0.writeBuffer(v1254, v1255, v1253, buffer.len(v1253));
+            v1242 = v1254;
+            v1243 = v1255;
+        elseif v1241.kind.type == "open_marketplace_try_on_action" then
+            local v1256 = v1241.kind.value:encode();
+            local v1257, v1258 = v0.writeTag(v1242, v1243, 5, v0.wireTypes.lengthDelimited);
+            v1257, v1258 = v0.writeBuffer(v1257, v1258, v1256, buffer.len(v1256));
+            v1242 = v1257;
+            v1243 = v1258;
+        elseif v1241.kind.type == "open_see_all_action" then
+            local v1259 = v1241.kind.value:encode();
+            local v1260, v1261 = v0.writeTag(v1242, v1243, 6, v0.wireTypes.lengthDelimited);
+            v1260, v1261 = v0.writeBuffer(v1260, v1261, v1259, buffer.len(v1259));
+            v1242 = v1260;
+            v1243 = v1261;
+        elseif v1241.kind.type == "open_sponsored_tooltip_action" then
+            local v1262 = v1241.kind.value:encode();
+            local v1263, v1264 = v0.writeTag(v1242, v1243, 7, v0.wireTypes.lengthDelimited);
+            v1263, v1264 = v0.writeBuffer(v1263, v1264, v1262, buffer.len(v1262));
+            v1242 = v1263;
+            v1243 = v1264;
+        elseif v1241.kind.type == "play_button_click_action" then
+            local v1265 = v1241.kind.value:encode();
+            local v1266, v1267 = v0.writeTag(v1242, v1243, 8, v0.wireTypes.lengthDelimited);
+            v1266, v1267 = v0.writeBuffer(v1266, v1267, v1265, buffer.len(v1265));
+            v1242 = v1266;
+            v1243 = v1267;
+        elseif v1241.kind.type == "update_user_settings_action" then
+            local v1268 = v1241.kind.value:encode();
+            local v1269, v1270 = v0.writeTag(v1242, v1243, 9, v0.wireTypes.lengthDelimited);
+            v1269, v1270 = v0.writeBuffer(v1269, v1270, v1268, buffer.len(v1268));
+            v1242 = v1269;
+            v1243 = v1270;
+        elseif v1241.kind.type == "open_tooltip_action" then
+            local v1271 = v1241.kind.value:encode();
+            local v1272, v1273 = v0.writeTag(v1242, v1243, 10, v0.wireTypes.lengthDelimited);
+            v1272, v1273 = v0.writeBuffer(v1272, v1273, v1271, buffer.len(v1271));
+            v1242 = v1272;
+            v1243 = v1273;
+        elseif v1241.kind.type == "open_badge_details_action" then
+            local v1274 = v1241.kind.value:encode();
+            local v1275, v1276 = v0.writeTag(v1242, v1243, 11, v0.wireTypes.lengthDelimited);
+            v1275, v1276 = v0.writeBuffer(v1275, v1276, v1274, buffer.len(v1274));
+            v1242 = v1275;
+            v1243 = v1276;
+        elseif v1241.kind.type == "load_more_from_api_action" then
+            local v1277 = v1241.kind.value:encode();
+            local v1278, v1279 = v0.writeTag(v1242, v1243, 12, v0.wireTypes.lengthDelimited);
+            v1278, v1279 = v0.writeBuffer(v1278, v1279, v1277, buffer.len(v1277));
+            v1242 = v1278;
+            v1243 = v1279;
+        elseif v1241.kind.type == "share_action" then
+            local v1280 = v1241.kind.value:encode();
+            local v1281, v1282 = v0.writeTag(v1242, v1243, 13, v0.wireTypes.lengthDelimited);
+            v1281, v1282 = v0.writeBuffer(v1281, v1282, v1280, buffer.len(v1280));
+            v1242 = v1281;
+            v1243 = v1282;
+        elseif v1241.kind.type == "open_abuse_report_action" then
+            local v1283 = v1241.kind.value:encode();
+            local v1284, v1285 = v0.writeTag(v1242, v1243, 14, v0.wireTypes.lengthDelimited);
+            v1284, v1285 = v0.writeBuffer(v1284, v1285, v1283, buffer.len(v1283));
+            v1242 = v1284;
+            v1243 = v1285;
+        elseif v1241.kind.type == "remove_badge_from_inventory_action" then
+            local v1286 = v1241.kind.value:encode();
+            local v1287, v1288 = v0.writeTag(v1242, v1243, 15, v0.wireTypes.lengthDelimited);
+            v1287, v1288 = v0.writeBuffer(v1287, v1288, v1286, buffer.len(v1286));
+            v1242 = v1287;
+            v1243 = v1288;
+        elseif v1241.kind.type == "open_profile_action" then
+            local v1289 = v1241.kind.value:encode();
+            local v1290, v1291 = v0.writeTag(v1242, v1243, 16, v0.wireTypes.lengthDelimited);
+            v1290, v1291 = v0.writeBuffer(v1290, v1291, v1289, buffer.len(v1289));
+            v1242 = v1290;
+            v1243 = v1291;
+        elseif v1241.kind.type == "open_facial_age_estimation_action" then
+            local v1292 = v1241.kind.value:encode();
+            local v1293, v1294 = v0.writeTag(v1242, v1243, 17, v0.wireTypes.lengthDelimited);
+            v1293, v1294 = v0.writeBuffer(v1293, v1294, v1292, buffer.len(v1292));
+            v1242 = v1293;
+            v1243 = v1294;
+        elseif v1241.kind.type == "open_add_connections_page_action" then
+            local v1295 = v1241.kind.value:encode();
+            local v1296, v1297 = v0.writeTag(v1242, v1243, 18, v0.wireTypes.lengthDelimited);
+            v1296, v1297 = v0.writeBuffer(v1296, v1297, v1295, buffer.len(v1295));
+            v1242 = v1296;
+            v1243 = v1297;
+        elseif v1241.kind.type == "open_marketplace_action" then
+            local v1298 = v1241.kind.value:encode();
+            local v1299, v1300 = v0.writeTag(v1242, v1243, 19, v0.wireTypes.lengthDelimited);
+            v1299, v1300 = v0.writeBuffer(v1299, v1300, v1298, buffer.len(v1298));
+            v1242 = v1299;
+            v1243 = v1300;
+        elseif v1241.kind.type == "hide_profile_completion_action" then
+            local v1301 = v1241.kind.value:encode();
+            local v1302, v1303 = v0.writeTag(v1242, v1243, 20, v0.wireTypes.lengthDelimited);
+            v1302, v1303 = v0.writeBuffer(v1302, v1303, v1301, buffer.len(v1301));
+            v1242 = v1302;
+            v1243 = v1303;
+        elseif v1241.kind.type == "select_marketplace_catalog_category" then
+            local v1304 = v1241.kind.value:encode();
+            local v1305, v1306 = v0.writeTag(v1242, v1243, 21, v0.wireTypes.lengthDelimited);
+            v1305, v1306 = v0.writeBuffer(v1305, v1306, v1304, buffer.len(v1304));
+            v1242 = v1305;
+            v1243 = v1306;
+        elseif v1241.kind.type == "select_marketplace_catalog_subcategory" then
+            local v1307 = v1241.kind.value:encode();
+            local v1308, v1309 = v0.writeTag(v1242, v1243, 22, v0.wireTypes.lengthDelimited);
+            v1308, v1309 = v0.writeBuffer(v1308, v1309, v1307, buffer.len(v1307));
+            v1242 = v1308;
+            v1243 = v1309;
+        elseif v1241.kind.type == "open_marketplace_catalog_see_all" then
+            local v1310 = v1241.kind.value:encode();
+            local v1311, v1312 = v0.writeTag(v1242, v1243, 23, v0.wireTypes.lengthDelimited);
+            v1311, v1312 = v0.writeBuffer(v1311, v1312, v1310, buffer.len(v1310));
+            v1242 = v1311;
+            v1243 = v1312;
+        elseif v1241.kind.type == "close_marketplace_category_tooltip" then
+            local v1313 = v1241.kind.value:encode();
+            local v1314, v1315 = v0.writeTag(v1242, v1243, 24, v0.wireTypes.lengthDelimited);
+            v1314, v1315 = v0.writeBuffer(v1314, v1315, v1313, buffer.len(v1313));
+            v1242 = v1314;
+            v1243 = v1315;
+        elseif v1241.kind.type == "resize_marketplace_catalog" then
+            local v1316 = v1241.kind.value:encode();
+            local v1317, v1318 = v0.writeTag(v1242, v1243, 25, v0.wireTypes.lengthDelimited);
+            v1317, v1318 = v0.writeBuffer(v1317, v1318, v1316, buffer.len(v1316));
+            v1242 = v1317;
+            v1243 = v1318;
+        elseif v1241.kind.type == "open_marketplace_catalog_filters" then
+            local v1319 = v1241.kind.value:encode();
+            local v1320, v1321 = v0.writeTag(v1242, v1243, 26, v0.wireTypes.lengthDelimited);
+            v1320, v1321 = v0.writeBuffer(v1320, v1321, v1319, buffer.len(v1319));
+            v1242 = v1320;
+            v1243 = v1321;
+        end;
+    end;
+    local v1322 = buffer.create(v1243);
+    buffer.copy(v1322, 0, v1242, 0, v1243);
+    return v1322;
+end;
+v7.decode = function(v1323) --[[ Line: 9260 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_53 (copy), v0 (copy), v2 (copy)
+    local v1324 = l_v7_53.new();
+    local v1325 = 0;
+    while v1325 < buffer.len(v1323) do
+        local v1326 = nil;
+        local v1327 = nil;
+        local v1328, v1329, v1330 = v0.readTag(v1323, v1325);
+        v1326 = v1328;
+        v1327 = v1329;
+        v1325 = v1330;
+        if v1327 == v0.wireTypes.varint then
+            v1328 = nil;
+            v1329, v1330 = v0.readVarInt(v1323, v1325);
+            v1328 = v1329;
+            v1325 = v1330;
+        elseif v1327 == v0.wireTypes.lengthDelimited then
+            if v1326 == 1 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "dismiss_dialog_action", 
+                    value = v2.DismissDialogAction.decode(v1328)
+                };
+            elseif v1326 == 2 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "link_action", 
+                    value = v2.LinkAction.decode(v1328)
+                };
+            elseif v1326 == 3 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_game_details_action", 
+                    value = v2.OpenGameDetailsAction.decode(v1328)
+                };
+            elseif v1326 == 4 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_join_friends_action", 
+                    value = v2.OpenJoinFriendsAction.decode(v1328)
+                };
+            elseif v1326 == 5 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_marketplace_try_on_action", 
+                    value = v2.OpenMarketplaceTryOnAction.decode(v1328)
+                };
+            elseif v1326 == 6 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_see_all_action", 
+                    value = v2.OpenSeeAllAction.decode(v1328)
+                };
+            elseif v1326 == 7 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_sponsored_tooltip_action", 
+                    value = v2.OpenSponsoredTooltipAction.decode(v1328)
+                };
+            elseif v1326 == 8 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "play_button_click_action", 
+                    value = v2.PlayButtonClickAction.decode(v1328)
+                };
+            elseif v1326 == 9 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "update_user_settings_action", 
+                    value = v2.UpdateUserSettingsAction.decode(v1328)
+                };
+            elseif v1326 == 10 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_tooltip_action", 
+                    value = v2.OpenTooltipAction.decode(v1328)
+                };
+            elseif v1326 == 11 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_badge_details_action", 
+                    value = v2.OpenBadgeDetailsAction.decode(v1328)
+                };
+            elseif v1326 == 12 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "load_more_from_api_action", 
+                    value = v2.LoadMoreFromApiAction.decode(v1328)
+                };
+            elseif v1326 == 13 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "share_action", 
+                    value = v2.ShareAction.decode(v1328)
+                };
+            elseif v1326 == 14 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_abuse_report_action", 
+                    value = v2.OpenAbuseReportAction.decode(v1328)
+                };
+            elseif v1326 == 15 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "remove_badge_from_inventory_action", 
+                    value = v2.RemoveBadgeFromInventoryAction.decode(v1328)
+                };
+            elseif v1326 == 16 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_profile_action", 
+                    value = v2.OpenProfileAction.decode(v1328)
+                };
+            elseif v1326 == 17 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_facial_age_estimation_action", 
+                    value = v2.OpenFacialAgeEstimationAction.decode(v1328)
+                };
+            elseif v1326 == 18 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_add_connections_page_action", 
+                    value = v2.OpenAddConnectionsPageAction.decode(v1328)
+                };
+            elseif v1326 == 19 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_marketplace_action", 
+                    value = v2.OpenMarketplaceAction.decode(v1328)
+                };
+            elseif v1326 == 20 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "hide_profile_completion_action", 
+                    value = v2.HideProfileCompletionAction.decode(v1328)
+                };
+            elseif v1326 == 21 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "select_marketplace_catalog_category", 
+                    value = v2.SelectMarketplaceCatalogCategory.decode(v1328)
+                };
+            elseif v1326 == 22 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "select_marketplace_catalog_subcategory", 
+                    value = v2.SelectMarketplaceCatalogSubcategory.decode(v1328)
+                };
+            elseif v1326 == 23 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_marketplace_catalog_see_all", 
+                    value = v2.OpenMarketplaceCatalogSeeAll.decode(v1328)
+                };
+            elseif v1326 == 24 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "close_marketplace_category_tooltip", 
+                    value = v2.CloseMarketplaceCategoryTooltip.decode(v1328)
+                };
+            elseif v1326 == 25 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "resize_marketplace_catalog", 
+                    value = v2.ResizeMarketplaceCatalog.decode(v1328)
+                };
+            elseif v1326 == 26 then
+                v1328 = nil;
+                v1329, v1330 = v0.readBuffer(v1323, v1325);
+                v1328 = v1329;
+                v1325 = v1330;
+                v1324.kind = {
+                    type = "open_marketplace_catalog_filters", 
+                    value = v2.OpenMarketplaceCatalogFilters.decode(v1328)
+                };
+            else
+                v1328 = nil;
+                v1329, v1330 = v0.readVarInt(v1323, v1325);
+                v1325 = v1330 + v1329;
+            end;
+        elseif v1327 == v0.wireTypes.i32 then
+            v1328 = nil;
+            v1329, v1330 = v0.readFixed32(v1323, v1325);
+            v1328 = v1329;
+            v1325 = v1330;
+        elseif v1327 == v0.wireTypes.i64 then
+            v1328 = nil;
+            v1329, v1330 = v0.readFixed64(v1323, v1325);
+            v1328 = v1329;
+            v1325 = v1330;
+        else
+            error("Unsupported wire type: " .. v1327);
+        end;
+    end;
+    return v1324;
+end;
+v7.jsonEncode = function(v1331) --[[ Line: 9472 ]] --[[ Name: jsonEncode ]]
+    local v1332 = {};
+    if v1331.kind ~= nil then
+        if v1331.kind.type == "dismiss_dialog_action" then
+            v1332.dismissDialogAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "link_action" then
+            v1332.linkAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_game_details_action" then
+            v1332.openGameDetailsAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_join_friends_action" then
+            v1332.openJoinFriendsAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_marketplace_try_on_action" then
+            v1332.openMarketplaceTryOnAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_see_all_action" then
+            v1332.openSeeAllAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_sponsored_tooltip_action" then
+            v1332.openSponsoredTooltipAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "play_button_click_action" then
+            v1332.playButtonClickAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "update_user_settings_action" then
+            v1332.updateUserSettingsAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_tooltip_action" then
+            v1332.openTooltipAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_badge_details_action" then
+            v1332.openBadgeDetailsAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "load_more_from_api_action" then
+            v1332.loadMoreFromApiAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "share_action" then
+            v1332.shareAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_abuse_report_action" then
+            v1332.openAbuseReportAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "remove_badge_from_inventory_action" then
+            v1332.removeBadgeFromInventoryAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_profile_action" then
+            v1332.openProfileAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_facial_age_estimation_action" then
+            v1332.openFacialAgeEstimationAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_add_connections_page_action" then
+            v1332.openAddConnectionsPageAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_marketplace_action" then
+            v1332.openMarketplaceAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "hide_profile_completion_action" then
+            v1332.hideProfileCompletionAction = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "select_marketplace_catalog_category" then
+            v1332.selectMarketplaceCatalogCategory = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "select_marketplace_catalog_subcategory" then
+            v1332.selectMarketplaceCatalogSubcategory = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_marketplace_catalog_see_all" then
+            v1332.openMarketplaceCatalogSeeAll = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "close_marketplace_category_tooltip" then
+            v1332.closeMarketplaceCategoryTooltip = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "resize_marketplace_catalog" then
+            v1332.resizeMarketplaceCatalog = v1331.kind.value:jsonEncode();
+            return v1332;
+        elseif v1331.kind.type == "open_marketplace_catalog_filters" then
+            v1332.openMarketplaceCatalogFilters = v1331.kind.value:jsonEncode();
+        end;
+    end;
+    return v1332;
+end;
+v7.jsonDecode = function(v1333) --[[ Line: 9534 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_53 (copy), v2 (copy)
+    local v1334 = l_v7_53.new();
+    if v1333.dismiss_dialog_action ~= nil then
+        v1334.kind = {
             type = "dismiss_dialog_action", 
-            value = v2.DismissDialogAction.jsonDecode(v1039.dismiss_dialog_action)
+            value = v2.DismissDialogAction.jsonDecode(v1333.dismiss_dialog_action)
         };
     end;
-    if v1039.dismissDialogAction ~= nil then
-        v1040.kind = {
+    if v1333.dismissDialogAction ~= nil then
+        v1334.kind = {
             type = "dismiss_dialog_action", 
-            value = v2.DismissDialogAction.jsonDecode(v1039.dismissDialogAction)
+            value = v2.DismissDialogAction.jsonDecode(v1333.dismissDialogAction)
         };
     end;
-    if v1039.link_action ~= nil then
-        v1040.kind = {
+    if v1333.link_action ~= nil then
+        v1334.kind = {
             type = "link_action", 
-            value = v2.LinkAction.jsonDecode(v1039.link_action)
+            value = v2.LinkAction.jsonDecode(v1333.link_action)
         };
     end;
-    if v1039.linkAction ~= nil then
-        v1040.kind = {
+    if v1333.linkAction ~= nil then
+        v1334.kind = {
             type = "link_action", 
-            value = v2.LinkAction.jsonDecode(v1039.linkAction)
+            value = v2.LinkAction.jsonDecode(v1333.linkAction)
         };
     end;
-    if v1039.open_game_details_action ~= nil then
-        v1040.kind = {
+    if v1333.open_game_details_action ~= nil then
+        v1334.kind = {
             type = "open_game_details_action", 
-            value = v2.OpenGameDetailsAction.jsonDecode(v1039.open_game_details_action)
+            value = v2.OpenGameDetailsAction.jsonDecode(v1333.open_game_details_action)
         };
     end;
-    if v1039.openGameDetailsAction ~= nil then
-        v1040.kind = {
+    if v1333.openGameDetailsAction ~= nil then
+        v1334.kind = {
             type = "open_game_details_action", 
-            value = v2.OpenGameDetailsAction.jsonDecode(v1039.openGameDetailsAction)
+            value = v2.OpenGameDetailsAction.jsonDecode(v1333.openGameDetailsAction)
         };
     end;
-    if v1039.open_join_friends_action ~= nil then
-        v1040.kind = {
+    if v1333.open_join_friends_action ~= nil then
+        v1334.kind = {
             type = "open_join_friends_action", 
-            value = v2.OpenJoinFriendsAction.jsonDecode(v1039.open_join_friends_action)
+            value = v2.OpenJoinFriendsAction.jsonDecode(v1333.open_join_friends_action)
         };
     end;
-    if v1039.openJoinFriendsAction ~= nil then
-        v1040.kind = {
+    if v1333.openJoinFriendsAction ~= nil then
+        v1334.kind = {
             type = "open_join_friends_action", 
-            value = v2.OpenJoinFriendsAction.jsonDecode(v1039.openJoinFriendsAction)
+            value = v2.OpenJoinFriendsAction.jsonDecode(v1333.openJoinFriendsAction)
         };
     end;
-    if v1039.open_marketplace_try_on_action ~= nil then
-        v1040.kind = {
+    if v1333.open_marketplace_try_on_action ~= nil then
+        v1334.kind = {
             type = "open_marketplace_try_on_action", 
-            value = v2.OpenMarketplaceTryOnAction.jsonDecode(v1039.open_marketplace_try_on_action)
+            value = v2.OpenMarketplaceTryOnAction.jsonDecode(v1333.open_marketplace_try_on_action)
         };
     end;
-    if v1039.openMarketplaceTryOnAction ~= nil then
-        v1040.kind = {
+    if v1333.openMarketplaceTryOnAction ~= nil then
+        v1334.kind = {
             type = "open_marketplace_try_on_action", 
-            value = v2.OpenMarketplaceTryOnAction.jsonDecode(v1039.openMarketplaceTryOnAction)
+            value = v2.OpenMarketplaceTryOnAction.jsonDecode(v1333.openMarketplaceTryOnAction)
         };
     end;
-    if v1039.open_see_all_action ~= nil then
-        v1040.kind = {
+    if v1333.open_see_all_action ~= nil then
+        v1334.kind = {
             type = "open_see_all_action", 
-            value = v2.OpenSeeAllAction.jsonDecode(v1039.open_see_all_action)
+            value = v2.OpenSeeAllAction.jsonDecode(v1333.open_see_all_action)
         };
     end;
-    if v1039.openSeeAllAction ~= nil then
-        v1040.kind = {
+    if v1333.openSeeAllAction ~= nil then
+        v1334.kind = {
             type = "open_see_all_action", 
-            value = v2.OpenSeeAllAction.jsonDecode(v1039.openSeeAllAction)
+            value = v2.OpenSeeAllAction.jsonDecode(v1333.openSeeAllAction)
         };
     end;
-    if v1039.open_sponsored_tooltip_action ~= nil then
-        v1040.kind = {
+    if v1333.open_sponsored_tooltip_action ~= nil then
+        v1334.kind = {
             type = "open_sponsored_tooltip_action", 
-            value = v2.OpenSponsoredTooltipAction.jsonDecode(v1039.open_sponsored_tooltip_action)
+            value = v2.OpenSponsoredTooltipAction.jsonDecode(v1333.open_sponsored_tooltip_action)
         };
     end;
-    if v1039.openSponsoredTooltipAction ~= nil then
-        v1040.kind = {
+    if v1333.openSponsoredTooltipAction ~= nil then
+        v1334.kind = {
             type = "open_sponsored_tooltip_action", 
-            value = v2.OpenSponsoredTooltipAction.jsonDecode(v1039.openSponsoredTooltipAction)
+            value = v2.OpenSponsoredTooltipAction.jsonDecode(v1333.openSponsoredTooltipAction)
         };
     end;
-    if v1039.play_button_click_action ~= nil then
-        v1040.kind = {
+    if v1333.play_button_click_action ~= nil then
+        v1334.kind = {
             type = "play_button_click_action", 
-            value = v2.PlayButtonClickAction.jsonDecode(v1039.play_button_click_action)
+            value = v2.PlayButtonClickAction.jsonDecode(v1333.play_button_click_action)
         };
     end;
-    if v1039.playButtonClickAction ~= nil then
-        v1040.kind = {
+    if v1333.playButtonClickAction ~= nil then
+        v1334.kind = {
             type = "play_button_click_action", 
-            value = v2.PlayButtonClickAction.jsonDecode(v1039.playButtonClickAction)
+            value = v2.PlayButtonClickAction.jsonDecode(v1333.playButtonClickAction)
         };
     end;
-    if v1039.update_user_settings_action ~= nil then
-        v1040.kind = {
+    if v1333.update_user_settings_action ~= nil then
+        v1334.kind = {
             type = "update_user_settings_action", 
-            value = v2.UpdateUserSettingsAction.jsonDecode(v1039.update_user_settings_action)
+            value = v2.UpdateUserSettingsAction.jsonDecode(v1333.update_user_settings_action)
         };
     end;
-    if v1039.updateUserSettingsAction ~= nil then
-        v1040.kind = {
+    if v1333.updateUserSettingsAction ~= nil then
+        v1334.kind = {
             type = "update_user_settings_action", 
-            value = v2.UpdateUserSettingsAction.jsonDecode(v1039.updateUserSettingsAction)
+            value = v2.UpdateUserSettingsAction.jsonDecode(v1333.updateUserSettingsAction)
         };
     end;
-    if v1039.open_tooltip_action ~= nil then
-        v1040.kind = {
+    if v1333.open_tooltip_action ~= nil then
+        v1334.kind = {
             type = "open_tooltip_action", 
-            value = v2.OpenTooltipAction.jsonDecode(v1039.open_tooltip_action)
+            value = v2.OpenTooltipAction.jsonDecode(v1333.open_tooltip_action)
         };
     end;
-    if v1039.openTooltipAction ~= nil then
-        v1040.kind = {
+    if v1333.openTooltipAction ~= nil then
+        v1334.kind = {
             type = "open_tooltip_action", 
-            value = v2.OpenTooltipAction.jsonDecode(v1039.openTooltipAction)
+            value = v2.OpenTooltipAction.jsonDecode(v1333.openTooltipAction)
         };
     end;
-    if v1039.open_badge_details_action ~= nil then
-        v1040.kind = {
+    if v1333.open_badge_details_action ~= nil then
+        v1334.kind = {
             type = "open_badge_details_action", 
-            value = v2.OpenBadgeDetailsAction.jsonDecode(v1039.open_badge_details_action)
+            value = v2.OpenBadgeDetailsAction.jsonDecode(v1333.open_badge_details_action)
         };
     end;
-    if v1039.openBadgeDetailsAction ~= nil then
-        v1040.kind = {
+    if v1333.openBadgeDetailsAction ~= nil then
+        v1334.kind = {
             type = "open_badge_details_action", 
-            value = v2.OpenBadgeDetailsAction.jsonDecode(v1039.openBadgeDetailsAction)
+            value = v2.OpenBadgeDetailsAction.jsonDecode(v1333.openBadgeDetailsAction)
         };
     end;
-    if v1039.load_more_from_api_action ~= nil then
-        v1040.kind = {
+    if v1333.load_more_from_api_action ~= nil then
+        v1334.kind = {
             type = "load_more_from_api_action", 
-            value = v2.LoadMoreFromApiAction.jsonDecode(v1039.load_more_from_api_action)
+            value = v2.LoadMoreFromApiAction.jsonDecode(v1333.load_more_from_api_action)
         };
     end;
-    if v1039.loadMoreFromApiAction ~= nil then
-        v1040.kind = {
+    if v1333.loadMoreFromApiAction ~= nil then
+        v1334.kind = {
             type = "load_more_from_api_action", 
-            value = v2.LoadMoreFromApiAction.jsonDecode(v1039.loadMoreFromApiAction)
+            value = v2.LoadMoreFromApiAction.jsonDecode(v1333.loadMoreFromApiAction)
         };
     end;
-    if v1039.share_action ~= nil then
-        v1040.kind = {
+    if v1333.share_action ~= nil then
+        v1334.kind = {
             type = "share_action", 
-            value = v2.ShareAction.jsonDecode(v1039.share_action)
+            value = v2.ShareAction.jsonDecode(v1333.share_action)
         };
     end;
-    if v1039.shareAction ~= nil then
-        v1040.kind = {
+    if v1333.shareAction ~= nil then
+        v1334.kind = {
             type = "share_action", 
-            value = v2.ShareAction.jsonDecode(v1039.shareAction)
+            value = v2.ShareAction.jsonDecode(v1333.shareAction)
         };
     end;
-    if v1039.open_abuse_report_action ~= nil then
-        v1040.kind = {
+    if v1333.open_abuse_report_action ~= nil then
+        v1334.kind = {
             type = "open_abuse_report_action", 
-            value = v2.OpenAbuseReportAction.jsonDecode(v1039.open_abuse_report_action)
+            value = v2.OpenAbuseReportAction.jsonDecode(v1333.open_abuse_report_action)
         };
     end;
-    if v1039.openAbuseReportAction ~= nil then
-        v1040.kind = {
+    if v1333.openAbuseReportAction ~= nil then
+        v1334.kind = {
             type = "open_abuse_report_action", 
-            value = v2.OpenAbuseReportAction.jsonDecode(v1039.openAbuseReportAction)
+            value = v2.OpenAbuseReportAction.jsonDecode(v1333.openAbuseReportAction)
         };
     end;
-    if v1039.remove_badge_from_inventory_action ~= nil then
-        v1040.kind = {
+    if v1333.remove_badge_from_inventory_action ~= nil then
+        v1334.kind = {
             type = "remove_badge_from_inventory_action", 
-            value = v2.RemoveBadgeFromInventoryAction.jsonDecode(v1039.remove_badge_from_inventory_action)
+            value = v2.RemoveBadgeFromInventoryAction.jsonDecode(v1333.remove_badge_from_inventory_action)
         };
     end;
-    if v1039.removeBadgeFromInventoryAction ~= nil then
-        v1040.kind = {
+    if v1333.removeBadgeFromInventoryAction ~= nil then
+        v1334.kind = {
             type = "remove_badge_from_inventory_action", 
-            value = v2.RemoveBadgeFromInventoryAction.jsonDecode(v1039.removeBadgeFromInventoryAction)
+            value = v2.RemoveBadgeFromInventoryAction.jsonDecode(v1333.removeBadgeFromInventoryAction)
         };
     end;
-    if v1039.open_profile_action ~= nil then
-        v1040.kind = {
+    if v1333.open_profile_action ~= nil then
+        v1334.kind = {
             type = "open_profile_action", 
-            value = v2.OpenProfileAction.jsonDecode(v1039.open_profile_action)
+            value = v2.OpenProfileAction.jsonDecode(v1333.open_profile_action)
         };
     end;
-    if v1039.openProfileAction ~= nil then
-        v1040.kind = {
+    if v1333.openProfileAction ~= nil then
+        v1334.kind = {
             type = "open_profile_action", 
-            value = v2.OpenProfileAction.jsonDecode(v1039.openProfileAction)
+            value = v2.OpenProfileAction.jsonDecode(v1333.openProfileAction)
         };
     end;
-    if v1039.open_fae_action ~= nil then
-        v1040.kind = {
-            type = "open_fae_action", 
-            value = v2.OpenFaeAction.jsonDecode(v1039.open_fae_action)
+    if v1333.open_facial_age_estimation_action ~= nil then
+        v1334.kind = {
+            type = "open_facial_age_estimation_action", 
+            value = v2.OpenFacialAgeEstimationAction.jsonDecode(v1333.open_facial_age_estimation_action)
         };
     end;
-    if v1039.openFaeAction ~= nil then
-        v1040.kind = {
-            type = "open_fae_action", 
-            value = v2.OpenFaeAction.jsonDecode(v1039.openFaeAction)
+    if v1333.openFacialAgeEstimationAction ~= nil then
+        v1334.kind = {
+            type = "open_facial_age_estimation_action", 
+            value = v2.OpenFacialAgeEstimationAction.jsonDecode(v1333.openFacialAgeEstimationAction)
         };
     end;
-    if v1039.open_add_connections_action ~= nil then
-        v1040.kind = {
-            type = "open_add_connections_action", 
-            value = v2.OpenAddConnectionsAction.jsonDecode(v1039.open_add_connections_action)
+    if v1333.open_add_connections_page_action ~= nil then
+        v1334.kind = {
+            type = "open_add_connections_page_action", 
+            value = v2.OpenAddConnectionsPageAction.jsonDecode(v1333.open_add_connections_page_action)
         };
     end;
-    if v1039.openAddConnectionsAction ~= nil then
-        v1040.kind = {
-            type = "open_add_connections_action", 
-            value = v2.OpenAddConnectionsAction.jsonDecode(v1039.openAddConnectionsAction)
+    if v1333.openAddConnectionsPageAction ~= nil then
+        v1334.kind = {
+            type = "open_add_connections_page_action", 
+            value = v2.OpenAddConnectionsPageAction.jsonDecode(v1333.openAddConnectionsPageAction)
         };
     end;
-    if v1039.open_marketplace_action ~= nil then
-        v1040.kind = {
+    if v1333.open_marketplace_action ~= nil then
+        v1334.kind = {
             type = "open_marketplace_action", 
-            value = v2.OpenMarketplaceAction.jsonDecode(v1039.open_marketplace_action)
+            value = v2.OpenMarketplaceAction.jsonDecode(v1333.open_marketplace_action)
         };
     end;
-    if v1039.openMarketplaceAction ~= nil then
-        v1040.kind = {
+    if v1333.openMarketplaceAction ~= nil then
+        v1334.kind = {
             type = "open_marketplace_action", 
-            value = v2.OpenMarketplaceAction.jsonDecode(v1039.openMarketplaceAction)
+            value = v2.OpenMarketplaceAction.jsonDecode(v1333.openMarketplaceAction)
         };
     end;
-    if v1039.send_prompt_impression_action ~= nil then
-        v1040.kind = {
-            type = "send_prompt_impression_action", 
-            value = v2.SendPromptImpression.jsonDecode(v1039.send_prompt_impression_action)
+    if v1333.hide_profile_completion_action ~= nil then
+        v1334.kind = {
+            type = "hide_profile_completion_action", 
+            value = v2.HideProfileCompletionAction.jsonDecode(v1333.hide_profile_completion_action)
         };
     end;
-    if v1039.sendPromptImpressionAction ~= nil then
-        v1040.kind = {
-            type = "send_prompt_impression_action", 
-            value = v2.SendPromptImpression.jsonDecode(v1039.sendPromptImpressionAction)
+    if v1333.hideProfileCompletionAction ~= nil then
+        v1334.kind = {
+            type = "hide_profile_completion_action", 
+            value = v2.HideProfileCompletionAction.jsonDecode(v1333.hideProfileCompletionAction)
         };
     end;
-    return v1040;
+    if v1333.select_marketplace_catalog_category ~= nil then
+        v1334.kind = {
+            type = "select_marketplace_catalog_category", 
+            value = v2.SelectMarketplaceCatalogCategory.jsonDecode(v1333.select_marketplace_catalog_category)
+        };
+    end;
+    if v1333.selectMarketplaceCatalogCategory ~= nil then
+        v1334.kind = {
+            type = "select_marketplace_catalog_category", 
+            value = v2.SelectMarketplaceCatalogCategory.jsonDecode(v1333.selectMarketplaceCatalogCategory)
+        };
+    end;
+    if v1333.select_marketplace_catalog_subcategory ~= nil then
+        v1334.kind = {
+            type = "select_marketplace_catalog_subcategory", 
+            value = v2.SelectMarketplaceCatalogSubcategory.jsonDecode(v1333.select_marketplace_catalog_subcategory)
+        };
+    end;
+    if v1333.selectMarketplaceCatalogSubcategory ~= nil then
+        v1334.kind = {
+            type = "select_marketplace_catalog_subcategory", 
+            value = v2.SelectMarketplaceCatalogSubcategory.jsonDecode(v1333.selectMarketplaceCatalogSubcategory)
+        };
+    end;
+    if v1333.open_marketplace_catalog_see_all ~= nil then
+        v1334.kind = {
+            type = "open_marketplace_catalog_see_all", 
+            value = v2.OpenMarketplaceCatalogSeeAll.jsonDecode(v1333.open_marketplace_catalog_see_all)
+        };
+    end;
+    if v1333.openMarketplaceCatalogSeeAll ~= nil then
+        v1334.kind = {
+            type = "open_marketplace_catalog_see_all", 
+            value = v2.OpenMarketplaceCatalogSeeAll.jsonDecode(v1333.openMarketplaceCatalogSeeAll)
+        };
+    end;
+    if v1333.close_marketplace_category_tooltip ~= nil then
+        v1334.kind = {
+            type = "close_marketplace_category_tooltip", 
+            value = v2.CloseMarketplaceCategoryTooltip.jsonDecode(v1333.close_marketplace_category_tooltip)
+        };
+    end;
+    if v1333.closeMarketplaceCategoryTooltip ~= nil then
+        v1334.kind = {
+            type = "close_marketplace_category_tooltip", 
+            value = v2.CloseMarketplaceCategoryTooltip.jsonDecode(v1333.closeMarketplaceCategoryTooltip)
+        };
+    end;
+    if v1333.resize_marketplace_catalog ~= nil then
+        v1334.kind = {
+            type = "resize_marketplace_catalog", 
+            value = v2.ResizeMarketplaceCatalog.jsonDecode(v1333.resize_marketplace_catalog)
+        };
+    end;
+    if v1333.resizeMarketplaceCatalog ~= nil then
+        v1334.kind = {
+            type = "resize_marketplace_catalog", 
+            value = v2.ResizeMarketplaceCatalog.jsonDecode(v1333.resizeMarketplaceCatalog)
+        };
+    end;
+    if v1333.open_marketplace_catalog_filters ~= nil then
+        v1334.kind = {
+            type = "open_marketplace_catalog_filters", 
+            value = v2.OpenMarketplaceCatalogFilters.jsonDecode(v1333.open_marketplace_catalog_filters)
+        };
+    end;
+    if v1333.openMarketplaceCatalogFilters ~= nil then
+        v1334.kind = {
+            type = "open_marketplace_catalog_filters", 
+            value = v2.OpenMarketplaceCatalogFilters.jsonDecode(v1333.openMarketplaceCatalogFilters)
+        };
+    end;
+    return v1334;
 end;
 v7.descriptor = {
     name = "Action", 
@@ -5388,120 +6924,120 @@ v2.Action = v7;
 v1.default:register(v2.Action);
 v7 = {};
 v7.__index = v7;
-local l_v7_42 = v7 --[[ copy: 7 -> 50 ]];
-v7.new = function(v1042) --[[ Line: 7677 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_42 (copy)
+local l_v7_54 = v7 --[[ copy: 7 -> 62 ]];
+v7.new = function(v1336) --[[ Line: 9904 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_54 (copy)
     return (setmetatable({
-        kind = if not (v1042 ~= nil) or v1042.kind == nil then nil else v1042.kind
-    }, l_v7_42));
+        kind = if not (v1336 ~= nil) or v1336.kind == nil then nil else v1336.kind
+    }, l_v7_54));
 end;
-v7.encode = function(v1043) --[[ Line: 7683 ]] --[[ Name: encode ]]
+v7.encode = function(v1337) --[[ Line: 9910 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1044 = buffer.create(0);
-    local v1045 = 0;
-    if v1043.kind ~= nil then
-        if v1043.kind.type == "value" then
-            local v1046 = v1043.kind.value:encode();
-            local v1047, v1048 = v0.writeTag(v1044, v1045, 1, v0.wireTypes.lengthDelimited);
-            v1047, v1048 = v0.writeBuffer(v1047, v1048, v1046, buffer.len(v1046));
-            v1044 = v1047;
-            v1045 = v1048;
-        elseif v1043.kind.type == "conditional" then
-            local v1049 = v1043.kind.value:encode();
-            local v1050, v1051 = v0.writeTag(v1044, v1045, 2, v0.wireTypes.lengthDelimited);
-            v1050, v1051 = v0.writeBuffer(v1050, v1051, v1049, buffer.len(v1049));
-            v1044 = v1050;
-            v1045 = v1051;
+    local v1338 = buffer.create(0);
+    local v1339 = 0;
+    if v1337.kind ~= nil then
+        if v1337.kind.type == "value" then
+            local v1340 = v1337.kind.value:encode();
+            local v1341, v1342 = v0.writeTag(v1338, v1339, 1, v0.wireTypes.lengthDelimited);
+            v1341, v1342 = v0.writeBuffer(v1341, v1342, v1340, buffer.len(v1340));
+            v1338 = v1341;
+            v1339 = v1342;
+        elseif v1337.kind.type == "conditional" then
+            local v1343 = v1337.kind.value:encode();
+            local v1344, v1345 = v0.writeTag(v1338, v1339, 2, v0.wireTypes.lengthDelimited);
+            v1344, v1345 = v0.writeBuffer(v1344, v1345, v1343, buffer.len(v1343));
+            v1338 = v1344;
+            v1339 = v1345;
         end;
     end;
-    local v1052 = buffer.create(v1045);
-    buffer.copy(v1052, 0, v1044, 0, v1045);
-    return v1052;
+    local v1346 = buffer.create(v1339);
+    buffer.copy(v1346, 0, v1338, 0, v1339);
+    return v1346;
 end;
-v7.decode = function(v1053) --[[ Line: 7704 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_42 (copy), v0 (copy), v2 (copy)
-    local v1054 = l_v7_42.new();
-    local v1055 = 0;
-    while v1055 < buffer.len(v1053) do
-        local v1056 = nil;
-        local v1057 = nil;
-        local v1058, v1059, v1060 = v0.readTag(v1053, v1055);
-        v1056 = v1058;
-        v1057 = v1059;
-        v1055 = v1060;
-        if v1057 == v0.wireTypes.varint then
-            v1058 = nil;
-            v1059, v1060 = v0.readVarInt(v1053, v1055);
-            v1058 = v1059;
-            v1055 = v1060;
-        elseif v1057 == v0.wireTypes.lengthDelimited then
-            if v1056 == 1 then
-                v1058 = nil;
-                v1059, v1060 = v0.readBuffer(v1053, v1055);
-                v1058 = v1059;
-                v1055 = v1060;
-                v1054.kind = {
+v7.decode = function(v1347) --[[ Line: 9931 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_54 (copy), v0 (copy), v2 (copy)
+    local v1348 = l_v7_54.new();
+    local v1349 = 0;
+    while v1349 < buffer.len(v1347) do
+        local v1350 = nil;
+        local v1351 = nil;
+        local v1352, v1353, v1354 = v0.readTag(v1347, v1349);
+        v1350 = v1352;
+        v1351 = v1353;
+        v1349 = v1354;
+        if v1351 == v0.wireTypes.varint then
+            v1352 = nil;
+            v1353, v1354 = v0.readVarInt(v1347, v1349);
+            v1352 = v1353;
+            v1349 = v1354;
+        elseif v1351 == v0.wireTypes.lengthDelimited then
+            if v1350 == 1 then
+                v1352 = nil;
+                v1353, v1354 = v0.readBuffer(v1347, v1349);
+                v1352 = v1353;
+                v1349 = v1354;
+                v1348.kind = {
                     type = "value", 
-                    value = v2.Action.decode(v1058)
+                    value = v2.Action.decode(v1352)
                 };
-            elseif v1056 == 2 then
-                v1058 = nil;
-                v1059, v1060 = v0.readBuffer(v1053, v1055);
-                v1058 = v1059;
-                v1055 = v1060;
-                v1054.kind = {
+            elseif v1350 == 2 then
+                v1352 = nil;
+                v1353, v1354 = v0.readBuffer(v1347, v1349);
+                v1352 = v1353;
+                v1349 = v1354;
+                v1348.kind = {
                     type = "conditional", 
-                    value = v2.ActionProp_ConditionalOptions.decode(v1058)
+                    value = v2.ActionProp_ConditionalOptions.decode(v1352)
                 };
             else
-                v1058 = nil;
-                v1059, v1060 = v0.readVarInt(v1053, v1055);
-                v1055 = v1060 + v1059;
+                v1352 = nil;
+                v1353, v1354 = v0.readVarInt(v1347, v1349);
+                v1349 = v1354 + v1353;
             end;
-        elseif v1057 == v0.wireTypes.i32 then
-            v1058 = nil;
-            v1059, v1060 = v0.readFixed32(v1053, v1055);
-            v1058 = v1059;
-            v1055 = v1060;
-        elseif v1057 == v0.wireTypes.i64 then
-            v1058 = nil;
-            v1059, v1060 = v0.readFixed64(v1053, v1055);
-            v1058 = v1059;
-            v1055 = v1060;
+        elseif v1351 == v0.wireTypes.i32 then
+            v1352 = nil;
+            v1353, v1354 = v0.readFixed32(v1347, v1349);
+            v1352 = v1353;
+            v1349 = v1354;
+        elseif v1351 == v0.wireTypes.i64 then
+            v1352 = nil;
+            v1353, v1354 = v0.readFixed64(v1347, v1349);
+            v1352 = v1353;
+            v1349 = v1354;
         else
-            error("Unsupported wire type: " .. v1057);
+            error("Unsupported wire type: " .. v1351);
         end;
     end;
-    return v1054;
+    return v1348;
 end;
-v7.jsonEncode = function(v1061) --[[ Line: 7752 ]] --[[ Name: jsonEncode ]]
-    local v1062 = {};
-    if v1061.kind ~= nil then
-        if v1061.kind.type == "value" then
-            v1062.value = v1061.kind.value:jsonEncode();
-            return v1062;
-        elseif v1061.kind.type == "conditional" then
-            v1062.conditional = v1061.kind.value:jsonEncode();
+v7.jsonEncode = function(v1355) --[[ Line: 9979 ]] --[[ Name: jsonEncode ]]
+    local v1356 = {};
+    if v1355.kind ~= nil then
+        if v1355.kind.type == "value" then
+            v1356.value = v1355.kind.value:jsonEncode();
+            return v1356;
+        elseif v1355.kind.type == "conditional" then
+            v1356.conditional = v1355.kind.value:jsonEncode();
         end;
     end;
-    return v1062;
+    return v1356;
 end;
-v7.jsonDecode = function(v1063) --[[ Line: 7766 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_42 (copy), v2 (copy)
-    local v1064 = l_v7_42.new();
-    if v1063.value ~= nil then
-        v1064.kind = {
+v7.jsonDecode = function(v1357) --[[ Line: 9993 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_54 (copy), v2 (copy)
+    local v1358 = l_v7_54.new();
+    if v1357.value ~= nil then
+        v1358.kind = {
             type = "value", 
-            value = v2.Action.jsonDecode(v1063.value)
+            value = v2.Action.jsonDecode(v1357.value)
         };
     end;
-    if v1063.conditional ~= nil then
-        v1064.kind = {
+    if v1357.conditional ~= nil then
+        v1358.kind = {
             type = "conditional", 
-            value = v2.ActionProp_ConditionalOptions.jsonDecode(v1063.conditional)
+            value = v2.ActionProp_ConditionalOptions.jsonDecode(v1357.conditional)
         };
     end;
-    return v1064;
+    return v1358;
 end;
 v7.descriptor = {
     name = "ActionProp", 
@@ -5511,106 +7047,106 @@ v2.ActionProp = v7;
 v1.default:register(v2.ActionProp);
 v7 = {};
 v7.__index = v7;
-local l_v7_43 = v7 --[[ copy: 7 -> 51 ]];
-v7.new = function(v1066) --[[ Line: 7795 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_43 (copy)
+local l_v7_55 = v7 --[[ copy: 7 -> 63 ]];
+v7.new = function(v1360) --[[ Line: 10022 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_55 (copy)
     return (setmetatable({
-        condition = if not (v1066 ~= nil) or v1066.condition == nil then nil else v1066.condition, 
-        value = if not (v1066 ~= nil) or v1066.value == nil then nil else v1066.value
-    }, l_v7_43));
+        condition = if not (v1360 ~= nil) or v1360.condition == nil then nil else v1360.condition, 
+        value = if not (v1360 ~= nil) or v1360.value == nil then nil else v1360.value
+    }, l_v7_55));
 end;
-v7.encode = function(v1067) --[[ Line: 7804 ]] --[[ Name: encode ]]
+v7.encode = function(v1361) --[[ Line: 10031 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1068 = buffer.create(0);
-    local v1069 = 0;
-    if v1067.condition ~= nil then
-        local v1070 = v1067.condition:encode();
-        local v1071, v1072 = v0.writeTag(v1068, v1069, 1, v0.wireTypes.lengthDelimited);
-        v1071, v1072 = v0.writeBuffer(v1071, v1072, v1070, buffer.len(v1070));
-        v1068 = v1071;
-        v1069 = v1072;
+    local v1362 = buffer.create(0);
+    local v1363 = 0;
+    if v1361.condition ~= nil then
+        local v1364 = v1361.condition:encode();
+        local v1365, v1366 = v0.writeTag(v1362, v1363, 1, v0.wireTypes.lengthDelimited);
+        v1365, v1366 = v0.writeBuffer(v1365, v1366, v1364, buffer.len(v1364));
+        v1362 = v1365;
+        v1363 = v1366;
     end;
-    if v1067.value ~= nil then
-        local v1073 = v1067.value:encode();
-        local v1074, v1075 = v0.writeTag(v1068, v1069, 2, v0.wireTypes.lengthDelimited);
-        v1074, v1075 = v0.writeBuffer(v1074, v1075, v1073, buffer.len(v1073));
-        v1068 = v1074;
-        v1069 = v1075;
+    if v1361.value ~= nil then
+        local v1367 = v1361.value:encode();
+        local v1368, v1369 = v0.writeTag(v1362, v1363, 2, v0.wireTypes.lengthDelimited);
+        v1368, v1369 = v0.writeBuffer(v1368, v1369, v1367, buffer.len(v1367));
+        v1362 = v1368;
+        v1363 = v1369;
     end;
-    local v1076 = buffer.create(v1069);
-    buffer.copy(v1076, 0, v1068, 0, v1069);
-    return v1076;
+    local v1370 = buffer.create(v1363);
+    buffer.copy(v1370, 0, v1362, 0, v1363);
+    return v1370;
 end;
-v7.decode = function(v1077) --[[ Line: 7825 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_43 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v1078 = l_v7_43.new();
-    local v1079 = 0;
-    while v1079 < buffer.len(v1077) do
-        local v1080 = nil;
-        local v1081 = nil;
-        local v1082, v1083, v1084 = v0.readTag(v1077, v1079);
-        v1080 = v1082;
-        v1081 = v1083;
-        v1079 = v1084;
-        if v1081 == v0.wireTypes.varint then
-            v1082 = nil;
-            v1083, v1084 = v0.readVarInt(v1077, v1079);
-            v1082 = v1083;
-            v1079 = v1084;
-        elseif v1081 == v0.wireTypes.lengthDelimited then
-            if v1080 == 1 then
-                v1082 = nil;
-                v1083, v1084 = v0.readBuffer(v1077, v1079);
-                v1082 = v1083;
-                v1079 = v1084;
-                v1078.condition = v4.PropCondition.decode(v1082);
-            elseif v1080 == 2 then
-                v1082 = nil;
-                v1083, v1084 = v0.readBuffer(v1077, v1079);
-                v1082 = v1083;
-                v1079 = v1084;
-                v1078.value = v2.Action.decode(v1082);
+v7.decode = function(v1371) --[[ Line: 10052 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_55 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v1372 = l_v7_55.new();
+    local v1373 = 0;
+    while v1373 < buffer.len(v1371) do
+        local v1374 = nil;
+        local v1375 = nil;
+        local v1376, v1377, v1378 = v0.readTag(v1371, v1373);
+        v1374 = v1376;
+        v1375 = v1377;
+        v1373 = v1378;
+        if v1375 == v0.wireTypes.varint then
+            v1376 = nil;
+            v1377, v1378 = v0.readVarInt(v1371, v1373);
+            v1376 = v1377;
+            v1373 = v1378;
+        elseif v1375 == v0.wireTypes.lengthDelimited then
+            if v1374 == 1 then
+                v1376 = nil;
+                v1377, v1378 = v0.readBuffer(v1371, v1373);
+                v1376 = v1377;
+                v1373 = v1378;
+                v1372.condition = v4.PropCondition.decode(v1376);
+            elseif v1374 == 2 then
+                v1376 = nil;
+                v1377, v1378 = v0.readBuffer(v1371, v1373);
+                v1376 = v1377;
+                v1373 = v1378;
+                v1372.value = v2.Action.decode(v1376);
             else
-                v1082 = nil;
-                v1083, v1084 = v0.readVarInt(v1077, v1079);
-                v1079 = v1084 + v1083;
+                v1376 = nil;
+                v1377, v1378 = v0.readVarInt(v1371, v1373);
+                v1373 = v1378 + v1377;
             end;
-        elseif v1081 == v0.wireTypes.i32 then
-            v1082 = nil;
-            v1083, v1084 = v0.readFixed32(v1077, v1079);
-            v1082 = v1083;
-            v1079 = v1084;
-        elseif v1081 == v0.wireTypes.i64 then
-            v1082 = nil;
-            v1083, v1084 = v0.readFixed64(v1077, v1079);
-            v1082 = v1083;
-            v1079 = v1084;
+        elseif v1375 == v0.wireTypes.i32 then
+            v1376 = nil;
+            v1377, v1378 = v0.readFixed32(v1371, v1373);
+            v1376 = v1377;
+            v1373 = v1378;
+        elseif v1375 == v0.wireTypes.i64 then
+            v1376 = nil;
+            v1377, v1378 = v0.readFixed64(v1371, v1373);
+            v1376 = v1377;
+            v1373 = v1378;
         else
-            error("Unsupported wire type: " .. v1081);
+            error("Unsupported wire type: " .. v1375);
         end;
     end;
-    return v1078;
+    return v1372;
 end;
-v7.jsonEncode = function(v1085) --[[ Line: 7873 ]] --[[ Name: jsonEncode ]]
-    local v1086 = {};
-    if v1085.condition ~= nil then
-        v1086.condition = v1085.condition:jsonEncode();
+v7.jsonEncode = function(v1379) --[[ Line: 10100 ]] --[[ Name: jsonEncode ]]
+    local v1380 = {};
+    if v1379.condition ~= nil then
+        v1380.condition = v1379.condition:jsonEncode();
     end;
-    if v1085.value ~= nil then
-        v1086.value = v1085.value:jsonEncode();
+    if v1379.value ~= nil then
+        v1380.value = v1379.value:jsonEncode();
     end;
-    return v1086;
+    return v1380;
 end;
-v7.jsonDecode = function(v1087) --[[ Line: 7887 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_43 (copy), v4 (copy), v2 (copy)
-    local v1088 = l_v7_43.new();
-    if v1087.condition ~= nil then
-        v1088.condition = v4.PropCondition.jsonDecode(v1087.condition);
+v7.jsonDecode = function(v1381) --[[ Line: 10114 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_55 (copy), v4 (copy), v2 (copy)
+    local v1382 = l_v7_55.new();
+    if v1381.condition ~= nil then
+        v1382.condition = v4.PropCondition.jsonDecode(v1381.condition);
     end;
-    if v1087.value ~= nil then
-        v1088.value = v2.Action.jsonDecode(v1087.value);
+    if v1381.value ~= nil then
+        v1382.value = v2.Action.jsonDecode(v1381.value);
     end;
-    return v1088;
+    return v1382;
 end;
 v7.descriptor = {
     name = "ActionProp_ConditionalOption", 
@@ -5620,96 +7156,96 @@ v2.ActionProp_ConditionalOption = v7;
 v1.default:register(v2.ActionProp_ConditionalOption);
 v7 = {};
 v7.__index = v7;
-local l_v7_44 = v7 --[[ copy: 7 -> 52 ]];
-v7.new = function(v1090) --[[ Line: 7916 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_44 (copy)
+local l_v7_56 = v7 --[[ copy: 7 -> 64 ]];
+v7.new = function(v1384) --[[ Line: 10143 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_56 (copy)
     return (setmetatable({
-        options = if not (v1090 ~= nil) or v1090.options == nil then {} else v1090.options
-    }, l_v7_44));
+        options = if not (v1384 ~= nil) or v1384.options == nil then {} else v1384.options
+    }, l_v7_56));
 end;
-v7.encode = function(v1091) --[[ Line: 7924 ]] --[[ Name: encode ]]
+v7.encode = function(v1385) --[[ Line: 10151 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1092 = buffer.create(0);
-    local v1093 = 0;
-    if v1091.options ~= nil and #v1091.options > 0 then
-        for _, v1095 in v1091.options do
-            local v1096 = v1095:encode();
-            local v1097, v1098 = v0.writeTag(v1092, v1093, 1, v0.wireTypes.lengthDelimited);
-            v1097, v1098 = v0.writeBuffer(v1097, v1098, v1096, buffer.len(v1096));
-            v1092 = v1097;
-            v1093 = v1098;
+    local v1386 = buffer.create(0);
+    local v1387 = 0;
+    if v1385.options ~= nil and #v1385.options > 0 then
+        for _, v1389 in v1385.options do
+            local v1390 = v1389:encode();
+            local v1391, v1392 = v0.writeTag(v1386, v1387, 1, v0.wireTypes.lengthDelimited);
+            v1391, v1392 = v0.writeBuffer(v1391, v1392, v1390, buffer.len(v1390));
+            v1386 = v1391;
+            v1387 = v1392;
         end;
     end;
-    local v1099 = buffer.create(v1093);
-    buffer.copy(v1099, 0, v1092, 0, v1093);
-    return v1099;
+    local v1393 = buffer.create(v1387);
+    buffer.copy(v1393, 0, v1386, 0, v1387);
+    return v1393;
 end;
-v7.decode = function(v1100) --[[ Line: 7941 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_44 (copy), v0 (copy), v2 (copy)
-    local v1101 = l_v7_44.new();
-    local v1102 = 0;
-    while v1102 < buffer.len(v1100) do
-        local v1103 = nil;
-        local v1104 = nil;
-        local v1105, v1106, v1107 = v0.readTag(v1100, v1102);
-        v1103 = v1105;
-        v1104 = v1106;
-        v1102 = v1107;
-        if v1104 == v0.wireTypes.varint then
-            v1105 = nil;
-            v1106, v1107 = v0.readVarInt(v1100, v1102);
-            v1105 = v1106;
-            v1102 = v1107;
-        elseif v1104 == v0.wireTypes.lengthDelimited then
-            if v1103 == 1 then
-                v1105 = nil;
-                v1106, v1107 = v0.readBuffer(v1100, v1102);
-                v1105 = v1106;
-                v1102 = v1107;
-                table.insert(v1101.options, v2.ActionProp_ConditionalOption.decode(v1105));
+v7.decode = function(v1394) --[[ Line: 10168 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_56 (copy), v0 (copy), v2 (copy)
+    local v1395 = l_v7_56.new();
+    local v1396 = 0;
+    while v1396 < buffer.len(v1394) do
+        local v1397 = nil;
+        local v1398 = nil;
+        local v1399, v1400, v1401 = v0.readTag(v1394, v1396);
+        v1397 = v1399;
+        v1398 = v1400;
+        v1396 = v1401;
+        if v1398 == v0.wireTypes.varint then
+            v1399 = nil;
+            v1400, v1401 = v0.readVarInt(v1394, v1396);
+            v1399 = v1400;
+            v1396 = v1401;
+        elseif v1398 == v0.wireTypes.lengthDelimited then
+            if v1397 == 1 then
+                v1399 = nil;
+                v1400, v1401 = v0.readBuffer(v1394, v1396);
+                v1399 = v1400;
+                v1396 = v1401;
+                table.insert(v1395.options, v2.ActionProp_ConditionalOption.decode(v1399));
             else
-                v1105 = nil;
-                v1106, v1107 = v0.readVarInt(v1100, v1102);
-                v1102 = v1107 + v1106;
+                v1399 = nil;
+                v1400, v1401 = v0.readVarInt(v1394, v1396);
+                v1396 = v1401 + v1400;
             end;
-        elseif v1104 == v0.wireTypes.i32 then
-            v1105 = nil;
-            v1106, v1107 = v0.readFixed32(v1100, v1102);
-            v1105 = v1106;
-            v1102 = v1107;
-        elseif v1104 == v0.wireTypes.i64 then
-            v1105 = nil;
-            v1106, v1107 = v0.readFixed64(v1100, v1102);
-            v1105 = v1106;
-            v1102 = v1107;
+        elseif v1398 == v0.wireTypes.i32 then
+            v1399 = nil;
+            v1400, v1401 = v0.readFixed32(v1394, v1396);
+            v1399 = v1400;
+            v1396 = v1401;
+        elseif v1398 == v0.wireTypes.i64 then
+            v1399 = nil;
+            v1400, v1401 = v0.readFixed64(v1394, v1396);
+            v1399 = v1400;
+            v1396 = v1401;
         else
-            error("Unsupported wire type: " .. v1104);
+            error("Unsupported wire type: " .. v1398);
         end;
     end;
-    return v1101;
+    return v1395;
 end;
-v7.jsonEncode = function(v1108) --[[ Line: 7984 ]] --[[ Name: jsonEncode ]]
-    local v1109 = {};
-    if v1108.options ~= nil and #v1108.options > 0 then
-        local v1110 = {};
-        for _, v1112 in v1108.options do
-            table.insert(v1110, v1112:jsonEncode());
+v7.jsonEncode = function(v1402) --[[ Line: 10211 ]] --[[ Name: jsonEncode ]]
+    local v1403 = {};
+    if v1402.options ~= nil and #v1402.options > 0 then
+        local v1404 = {};
+        for _, v1406 in v1402.options do
+            table.insert(v1404, v1406:jsonEncode());
         end;
-        v1109.options = v1110;
+        v1403.options = v1404;
     end;
-    return v1109;
+    return v1403;
 end;
-v7.jsonDecode = function(v1113) --[[ Line: 7998 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_44 (copy), v2 (copy)
-    local v1114 = l_v7_44.new();
-    if v1113.options ~= nil then
-        local v1115 = {};
-        for _, v1117 in v1113.options do
-            table.insert(v1115, v2.ActionProp_ConditionalOption.jsonDecode(v1117));
+v7.jsonDecode = function(v1407) --[[ Line: 10225 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_56 (copy), v2 (copy)
+    local v1408 = l_v7_56.new();
+    if v1407.options ~= nil then
+        local v1409 = {};
+        for _, v1411 in v1407.options do
+            table.insert(v1409, v2.ActionProp_ConditionalOption.jsonDecode(v1411));
         end;
-        v1114.options = v1115;
+        v1408.options = v1409;
     end;
-    return v1114;
+    return v1408;
 end;
 v7.descriptor = {
     name = "ActionProp_ConditionalOptions", 
@@ -5719,120 +7255,120 @@ v2.ActionProp_ConditionalOptions = v7;
 v1.default:register(v2.ActionProp_ConditionalOptions);
 v7 = {};
 v7.__index = v7;
-local l_v7_45 = v7 --[[ copy: 7 -> 53 ]];
-v7.new = function(v1119) --[[ Line: 8027 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_45 (copy)
+local l_v7_57 = v7 --[[ copy: 7 -> 65 ]];
+v7.new = function(v1413) --[[ Line: 10254 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_57 (copy)
     return (setmetatable({
-        kind = if not (v1119 ~= nil) or v1119.kind == nil then nil else v1119.kind
-    }, l_v7_45));
+        kind = if not (v1413 ~= nil) or v1413.kind == nil then nil else v1413.kind
+    }, l_v7_57));
 end;
-v7.encode = function(v1120) --[[ Line: 8033 ]] --[[ Name: encode ]]
+v7.encode = function(v1414) --[[ Line: 10260 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1121 = buffer.create(0);
-    local v1122 = 0;
-    if v1120.kind ~= nil then
-        if v1120.kind.type == "value" then
-            local v1123 = v1120.kind.value:encode();
-            local v1124, v1125 = v0.writeTag(v1121, v1122, 1, v0.wireTypes.lengthDelimited);
-            v1124, v1125 = v0.writeBuffer(v1124, v1125, v1123, buffer.len(v1123));
-            v1121 = v1124;
-            v1122 = v1125;
-        elseif v1120.kind.type == "conditional" then
-            local v1126 = v1120.kind.value:encode();
-            local v1127, v1128 = v0.writeTag(v1121, v1122, 2, v0.wireTypes.lengthDelimited);
-            v1127, v1128 = v0.writeBuffer(v1127, v1128, v1126, buffer.len(v1126));
-            v1121 = v1127;
-            v1122 = v1128;
+    local v1415 = buffer.create(0);
+    local v1416 = 0;
+    if v1414.kind ~= nil then
+        if v1414.kind.type == "value" then
+            local v1417 = v1414.kind.value:encode();
+            local v1418, v1419 = v0.writeTag(v1415, v1416, 1, v0.wireTypes.lengthDelimited);
+            v1418, v1419 = v0.writeBuffer(v1418, v1419, v1417, buffer.len(v1417));
+            v1415 = v1418;
+            v1416 = v1419;
+        elseif v1414.kind.type == "conditional" then
+            local v1420 = v1414.kind.value:encode();
+            local v1421, v1422 = v0.writeTag(v1415, v1416, 2, v0.wireTypes.lengthDelimited);
+            v1421, v1422 = v0.writeBuffer(v1421, v1422, v1420, buffer.len(v1420));
+            v1415 = v1421;
+            v1416 = v1422;
         end;
     end;
-    local v1129 = buffer.create(v1122);
-    buffer.copy(v1129, 0, v1121, 0, v1122);
-    return v1129;
+    local v1423 = buffer.create(v1416);
+    buffer.copy(v1423, 0, v1415, 0, v1416);
+    return v1423;
 end;
-v7.decode = function(v1130) --[[ Line: 8054 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_45 (copy), v0 (copy), v2 (copy)
-    local v1131 = l_v7_45.new();
-    local v1132 = 0;
-    while v1132 < buffer.len(v1130) do
-        local v1133 = nil;
-        local v1134 = nil;
-        local v1135, v1136, v1137 = v0.readTag(v1130, v1132);
-        v1133 = v1135;
-        v1134 = v1136;
-        v1132 = v1137;
-        if v1134 == v0.wireTypes.varint then
-            v1135 = nil;
-            v1136, v1137 = v0.readVarInt(v1130, v1132);
-            v1135 = v1136;
-            v1132 = v1137;
-        elseif v1134 == v0.wireTypes.lengthDelimited then
-            if v1133 == 1 then
-                v1135 = nil;
-                v1136, v1137 = v0.readBuffer(v1130, v1132);
-                v1135 = v1136;
-                v1132 = v1137;
-                v1131.kind = {
+v7.decode = function(v1424) --[[ Line: 10281 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_57 (copy), v0 (copy), v2 (copy)
+    local v1425 = l_v7_57.new();
+    local v1426 = 0;
+    while v1426 < buffer.len(v1424) do
+        local v1427 = nil;
+        local v1428 = nil;
+        local v1429, v1430, v1431 = v0.readTag(v1424, v1426);
+        v1427 = v1429;
+        v1428 = v1430;
+        v1426 = v1431;
+        if v1428 == v0.wireTypes.varint then
+            v1429 = nil;
+            v1430, v1431 = v0.readVarInt(v1424, v1426);
+            v1429 = v1430;
+            v1426 = v1431;
+        elseif v1428 == v0.wireTypes.lengthDelimited then
+            if v1427 == 1 then
+                v1429 = nil;
+                v1430, v1431 = v0.readBuffer(v1424, v1426);
+                v1429 = v1430;
+                v1426 = v1431;
+                v1425.kind = {
                     type = "value", 
-                    value = v2.FocusNavActionsProp_FocusNavData.decode(v1135)
+                    value = v2.FocusNavActionsProp_FocusNavData.decode(v1429)
                 };
-            elseif v1133 == 2 then
-                v1135 = nil;
-                v1136, v1137 = v0.readBuffer(v1130, v1132);
-                v1135 = v1136;
-                v1132 = v1137;
-                v1131.kind = {
+            elseif v1427 == 2 then
+                v1429 = nil;
+                v1430, v1431 = v0.readBuffer(v1424, v1426);
+                v1429 = v1430;
+                v1426 = v1431;
+                v1425.kind = {
                     type = "conditional", 
-                    value = v2.FocusNavActionsProp_ConditionalOptions.decode(v1135)
+                    value = v2.FocusNavActionsProp_ConditionalOptions.decode(v1429)
                 };
             else
-                v1135 = nil;
-                v1136, v1137 = v0.readVarInt(v1130, v1132);
-                v1132 = v1137 + v1136;
+                v1429 = nil;
+                v1430, v1431 = v0.readVarInt(v1424, v1426);
+                v1426 = v1431 + v1430;
             end;
-        elseif v1134 == v0.wireTypes.i32 then
-            v1135 = nil;
-            v1136, v1137 = v0.readFixed32(v1130, v1132);
-            v1135 = v1136;
-            v1132 = v1137;
-        elseif v1134 == v0.wireTypes.i64 then
-            v1135 = nil;
-            v1136, v1137 = v0.readFixed64(v1130, v1132);
-            v1135 = v1136;
-            v1132 = v1137;
+        elseif v1428 == v0.wireTypes.i32 then
+            v1429 = nil;
+            v1430, v1431 = v0.readFixed32(v1424, v1426);
+            v1429 = v1430;
+            v1426 = v1431;
+        elseif v1428 == v0.wireTypes.i64 then
+            v1429 = nil;
+            v1430, v1431 = v0.readFixed64(v1424, v1426);
+            v1429 = v1430;
+            v1426 = v1431;
         else
-            error("Unsupported wire type: " .. v1134);
+            error("Unsupported wire type: " .. v1428);
         end;
     end;
-    return v1131;
+    return v1425;
 end;
-v7.jsonEncode = function(v1138) --[[ Line: 8103 ]] --[[ Name: jsonEncode ]]
-    local v1139 = {};
-    if v1138.kind ~= nil then
-        if v1138.kind.type == "value" then
-            v1139.value = v1138.kind.value:jsonEncode();
-            return v1139;
-        elseif v1138.kind.type == "conditional" then
-            v1139.conditional = v1138.kind.value:jsonEncode();
+v7.jsonEncode = function(v1432) --[[ Line: 10330 ]] --[[ Name: jsonEncode ]]
+    local v1433 = {};
+    if v1432.kind ~= nil then
+        if v1432.kind.type == "value" then
+            v1433.value = v1432.kind.value:jsonEncode();
+            return v1433;
+        elseif v1432.kind.type == "conditional" then
+            v1433.conditional = v1432.kind.value:jsonEncode();
         end;
     end;
-    return v1139;
+    return v1433;
 end;
-v7.jsonDecode = function(v1140) --[[ Line: 8117 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_45 (copy), v2 (copy)
-    local v1141 = l_v7_45.new();
-    if v1140.value ~= nil then
-        v1141.kind = {
+v7.jsonDecode = function(v1434) --[[ Line: 10344 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_57 (copy), v2 (copy)
+    local v1435 = l_v7_57.new();
+    if v1434.value ~= nil then
+        v1435.kind = {
             type = "value", 
-            value = v2.FocusNavActionsProp_FocusNavData.jsonDecode(v1140.value)
+            value = v2.FocusNavActionsProp_FocusNavData.jsonDecode(v1434.value)
         };
     end;
-    if v1140.conditional ~= nil then
-        v1141.kind = {
+    if v1434.conditional ~= nil then
+        v1435.kind = {
             type = "conditional", 
-            value = v2.FocusNavActionsProp_ConditionalOptions.jsonDecode(v1140.conditional)
+            value = v2.FocusNavActionsProp_ConditionalOptions.jsonDecode(v1434.conditional)
         };
     end;
-    return v1141;
+    return v1435;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp", 
@@ -5842,106 +7378,106 @@ v2.FocusNavActionsProp = v7;
 v1.default:register(v2.FocusNavActionsProp);
 v7 = {};
 v7.__index = v7;
-local l_v7_46 = v7 --[[ copy: 7 -> 54 ]];
-v7.new = function(v1143) --[[ Line: 8148 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_46 (copy)
+local l_v7_58 = v7 --[[ copy: 7 -> 66 ]];
+v7.new = function(v1437) --[[ Line: 10375 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_58 (copy)
     return (setmetatable({
-        condition = if not (v1143 ~= nil) or v1143.condition == nil then nil else v1143.condition, 
-        value = if not (v1143 ~= nil) or v1143.value == nil then nil else v1143.value
-    }, l_v7_46));
+        condition = if not (v1437 ~= nil) or v1437.condition == nil then nil else v1437.condition, 
+        value = if not (v1437 ~= nil) or v1437.value == nil then nil else v1437.value
+    }, l_v7_58));
 end;
-v7.encode = function(v1144) --[[ Line: 8157 ]] --[[ Name: encode ]]
+v7.encode = function(v1438) --[[ Line: 10384 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1145 = buffer.create(0);
-    local v1146 = 0;
-    if v1144.condition ~= nil then
-        local v1147 = v1144.condition:encode();
-        local v1148, v1149 = v0.writeTag(v1145, v1146, 1, v0.wireTypes.lengthDelimited);
-        v1148, v1149 = v0.writeBuffer(v1148, v1149, v1147, buffer.len(v1147));
-        v1145 = v1148;
-        v1146 = v1149;
+    local v1439 = buffer.create(0);
+    local v1440 = 0;
+    if v1438.condition ~= nil then
+        local v1441 = v1438.condition:encode();
+        local v1442, v1443 = v0.writeTag(v1439, v1440, 1, v0.wireTypes.lengthDelimited);
+        v1442, v1443 = v0.writeBuffer(v1442, v1443, v1441, buffer.len(v1441));
+        v1439 = v1442;
+        v1440 = v1443;
     end;
-    if v1144.value ~= nil then
-        local v1150 = v1144.value:encode();
-        local v1151, v1152 = v0.writeTag(v1145, v1146, 2, v0.wireTypes.lengthDelimited);
-        v1151, v1152 = v0.writeBuffer(v1151, v1152, v1150, buffer.len(v1150));
-        v1145 = v1151;
-        v1146 = v1152;
+    if v1438.value ~= nil then
+        local v1444 = v1438.value:encode();
+        local v1445, v1446 = v0.writeTag(v1439, v1440, 2, v0.wireTypes.lengthDelimited);
+        v1445, v1446 = v0.writeBuffer(v1445, v1446, v1444, buffer.len(v1444));
+        v1439 = v1445;
+        v1440 = v1446;
     end;
-    local v1153 = buffer.create(v1146);
-    buffer.copy(v1153, 0, v1145, 0, v1146);
-    return v1153;
+    local v1447 = buffer.create(v1440);
+    buffer.copy(v1447, 0, v1439, 0, v1440);
+    return v1447;
 end;
-v7.decode = function(v1154) --[[ Line: 8178 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_46 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v1155 = l_v7_46.new();
-    local v1156 = 0;
-    while v1156 < buffer.len(v1154) do
-        local v1157 = nil;
-        local v1158 = nil;
-        local v1159, v1160, v1161 = v0.readTag(v1154, v1156);
-        v1157 = v1159;
-        v1158 = v1160;
-        v1156 = v1161;
-        if v1158 == v0.wireTypes.varint then
-            v1159 = nil;
-            v1160, v1161 = v0.readVarInt(v1154, v1156);
-            v1159 = v1160;
-            v1156 = v1161;
-        elseif v1158 == v0.wireTypes.lengthDelimited then
-            if v1157 == 1 then
-                v1159 = nil;
-                v1160, v1161 = v0.readBuffer(v1154, v1156);
-                v1159 = v1160;
-                v1156 = v1161;
-                v1155.condition = v4.PropCondition.decode(v1159);
-            elseif v1157 == 2 then
-                v1159 = nil;
-                v1160, v1161 = v0.readBuffer(v1154, v1156);
-                v1159 = v1160;
-                v1156 = v1161;
-                v1155.value = v2.FocusNavActionsProp.decode(v1159);
+v7.decode = function(v1448) --[[ Line: 10405 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_58 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v1449 = l_v7_58.new();
+    local v1450 = 0;
+    while v1450 < buffer.len(v1448) do
+        local v1451 = nil;
+        local v1452 = nil;
+        local v1453, v1454, v1455 = v0.readTag(v1448, v1450);
+        v1451 = v1453;
+        v1452 = v1454;
+        v1450 = v1455;
+        if v1452 == v0.wireTypes.varint then
+            v1453 = nil;
+            v1454, v1455 = v0.readVarInt(v1448, v1450);
+            v1453 = v1454;
+            v1450 = v1455;
+        elseif v1452 == v0.wireTypes.lengthDelimited then
+            if v1451 == 1 then
+                v1453 = nil;
+                v1454, v1455 = v0.readBuffer(v1448, v1450);
+                v1453 = v1454;
+                v1450 = v1455;
+                v1449.condition = v4.PropCondition.decode(v1453);
+            elseif v1451 == 2 then
+                v1453 = nil;
+                v1454, v1455 = v0.readBuffer(v1448, v1450);
+                v1453 = v1454;
+                v1450 = v1455;
+                v1449.value = v2.FocusNavActionsProp.decode(v1453);
             else
-                v1159 = nil;
-                v1160, v1161 = v0.readVarInt(v1154, v1156);
-                v1156 = v1161 + v1160;
+                v1453 = nil;
+                v1454, v1455 = v0.readVarInt(v1448, v1450);
+                v1450 = v1455 + v1454;
             end;
-        elseif v1158 == v0.wireTypes.i32 then
-            v1159 = nil;
-            v1160, v1161 = v0.readFixed32(v1154, v1156);
-            v1159 = v1160;
-            v1156 = v1161;
-        elseif v1158 == v0.wireTypes.i64 then
-            v1159 = nil;
-            v1160, v1161 = v0.readFixed64(v1154, v1156);
-            v1159 = v1160;
-            v1156 = v1161;
+        elseif v1452 == v0.wireTypes.i32 then
+            v1453 = nil;
+            v1454, v1455 = v0.readFixed32(v1448, v1450);
+            v1453 = v1454;
+            v1450 = v1455;
+        elseif v1452 == v0.wireTypes.i64 then
+            v1453 = nil;
+            v1454, v1455 = v0.readFixed64(v1448, v1450);
+            v1453 = v1454;
+            v1450 = v1455;
         else
-            error("Unsupported wire type: " .. v1158);
+            error("Unsupported wire type: " .. v1452);
         end;
     end;
-    return v1155;
+    return v1449;
 end;
-v7.jsonEncode = function(v1162) --[[ Line: 8226 ]] --[[ Name: jsonEncode ]]
-    local v1163 = {};
-    if v1162.condition ~= nil then
-        v1163.condition = v1162.condition:jsonEncode();
+v7.jsonEncode = function(v1456) --[[ Line: 10453 ]] --[[ Name: jsonEncode ]]
+    local v1457 = {};
+    if v1456.condition ~= nil then
+        v1457.condition = v1456.condition:jsonEncode();
     end;
-    if v1162.value ~= nil then
-        v1163.value = v1162.value:jsonEncode();
+    if v1456.value ~= nil then
+        v1457.value = v1456.value:jsonEncode();
     end;
-    return v1163;
+    return v1457;
 end;
-v7.jsonDecode = function(v1164) --[[ Line: 8240 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_46 (copy), v4 (copy), v2 (copy)
-    local v1165 = l_v7_46.new();
-    if v1164.condition ~= nil then
-        v1165.condition = v4.PropCondition.jsonDecode(v1164.condition);
+v7.jsonDecode = function(v1458) --[[ Line: 10467 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_58 (copy), v4 (copy), v2 (copy)
+    local v1459 = l_v7_58.new();
+    if v1458.condition ~= nil then
+        v1459.condition = v4.PropCondition.jsonDecode(v1458.condition);
     end;
-    if v1164.value ~= nil then
-        v1165.value = v2.FocusNavActionsProp.jsonDecode(v1164.value);
+    if v1458.value ~= nil then
+        v1459.value = v2.FocusNavActionsProp.jsonDecode(v1458.value);
     end;
-    return v1165;
+    return v1459;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp_ConditionalOption", 
@@ -5951,96 +7487,96 @@ v2.FocusNavActionsProp_ConditionalOption = v7;
 v1.default:register(v2.FocusNavActionsProp_ConditionalOption);
 v7 = {};
 v7.__index = v7;
-local l_v7_47 = v7 --[[ copy: 7 -> 55 ]];
-v7.new = function(v1167) --[[ Line: 8271 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_47 (copy)
+local l_v7_59 = v7 --[[ copy: 7 -> 67 ]];
+v7.new = function(v1461) --[[ Line: 10498 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_59 (copy)
     return (setmetatable({
-        options = if not (v1167 ~= nil) or v1167.options == nil then {} else v1167.options
-    }, l_v7_47));
+        options = if not (v1461 ~= nil) or v1461.options == nil then {} else v1461.options
+    }, l_v7_59));
 end;
-v7.encode = function(v1168) --[[ Line: 8279 ]] --[[ Name: encode ]]
+v7.encode = function(v1462) --[[ Line: 10506 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1169 = buffer.create(0);
-    local v1170 = 0;
-    if v1168.options ~= nil and #v1168.options > 0 then
-        for _, v1172 in v1168.options do
-            local v1173 = v1172:encode();
-            local v1174, v1175 = v0.writeTag(v1169, v1170, 1, v0.wireTypes.lengthDelimited);
-            v1174, v1175 = v0.writeBuffer(v1174, v1175, v1173, buffer.len(v1173));
-            v1169 = v1174;
-            v1170 = v1175;
+    local v1463 = buffer.create(0);
+    local v1464 = 0;
+    if v1462.options ~= nil and #v1462.options > 0 then
+        for _, v1466 in v1462.options do
+            local v1467 = v1466:encode();
+            local v1468, v1469 = v0.writeTag(v1463, v1464, 1, v0.wireTypes.lengthDelimited);
+            v1468, v1469 = v0.writeBuffer(v1468, v1469, v1467, buffer.len(v1467));
+            v1463 = v1468;
+            v1464 = v1469;
         end;
     end;
-    local v1176 = buffer.create(v1170);
-    buffer.copy(v1176, 0, v1169, 0, v1170);
-    return v1176;
+    local v1470 = buffer.create(v1464);
+    buffer.copy(v1470, 0, v1463, 0, v1464);
+    return v1470;
 end;
-v7.decode = function(v1177) --[[ Line: 8296 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_47 (copy), v0 (copy), v2 (copy)
-    local v1178 = l_v7_47.new();
-    local v1179 = 0;
-    while v1179 < buffer.len(v1177) do
-        local v1180 = nil;
-        local v1181 = nil;
-        local v1182, v1183, v1184 = v0.readTag(v1177, v1179);
-        v1180 = v1182;
-        v1181 = v1183;
-        v1179 = v1184;
-        if v1181 == v0.wireTypes.varint then
-            v1182 = nil;
-            v1183, v1184 = v0.readVarInt(v1177, v1179);
-            v1182 = v1183;
-            v1179 = v1184;
-        elseif v1181 == v0.wireTypes.lengthDelimited then
-            if v1180 == 1 then
-                v1182 = nil;
-                v1183, v1184 = v0.readBuffer(v1177, v1179);
-                v1182 = v1183;
-                v1179 = v1184;
-                table.insert(v1178.options, v2.FocusNavActionsProp_ConditionalOption.decode(v1182));
+v7.decode = function(v1471) --[[ Line: 10523 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_59 (copy), v0 (copy), v2 (copy)
+    local v1472 = l_v7_59.new();
+    local v1473 = 0;
+    while v1473 < buffer.len(v1471) do
+        local v1474 = nil;
+        local v1475 = nil;
+        local v1476, v1477, v1478 = v0.readTag(v1471, v1473);
+        v1474 = v1476;
+        v1475 = v1477;
+        v1473 = v1478;
+        if v1475 == v0.wireTypes.varint then
+            v1476 = nil;
+            v1477, v1478 = v0.readVarInt(v1471, v1473);
+            v1476 = v1477;
+            v1473 = v1478;
+        elseif v1475 == v0.wireTypes.lengthDelimited then
+            if v1474 == 1 then
+                v1476 = nil;
+                v1477, v1478 = v0.readBuffer(v1471, v1473);
+                v1476 = v1477;
+                v1473 = v1478;
+                table.insert(v1472.options, v2.FocusNavActionsProp_ConditionalOption.decode(v1476));
             else
-                v1182 = nil;
-                v1183, v1184 = v0.readVarInt(v1177, v1179);
-                v1179 = v1184 + v1183;
+                v1476 = nil;
+                v1477, v1478 = v0.readVarInt(v1471, v1473);
+                v1473 = v1478 + v1477;
             end;
-        elseif v1181 == v0.wireTypes.i32 then
-            v1182 = nil;
-            v1183, v1184 = v0.readFixed32(v1177, v1179);
-            v1182 = v1183;
-            v1179 = v1184;
-        elseif v1181 == v0.wireTypes.i64 then
-            v1182 = nil;
-            v1183, v1184 = v0.readFixed64(v1177, v1179);
-            v1182 = v1183;
-            v1179 = v1184;
+        elseif v1475 == v0.wireTypes.i32 then
+            v1476 = nil;
+            v1477, v1478 = v0.readFixed32(v1471, v1473);
+            v1476 = v1477;
+            v1473 = v1478;
+        elseif v1475 == v0.wireTypes.i64 then
+            v1476 = nil;
+            v1477, v1478 = v0.readFixed64(v1471, v1473);
+            v1476 = v1477;
+            v1473 = v1478;
         else
-            error("Unsupported wire type: " .. v1181);
+            error("Unsupported wire type: " .. v1475);
         end;
     end;
-    return v1178;
+    return v1472;
 end;
-v7.jsonEncode = function(v1185) --[[ Line: 8339 ]] --[[ Name: jsonEncode ]]
-    local v1186 = {};
-    if v1185.options ~= nil and #v1185.options > 0 then
-        local v1187 = {};
-        for _, v1189 in v1185.options do
-            table.insert(v1187, v1189:jsonEncode());
+v7.jsonEncode = function(v1479) --[[ Line: 10566 ]] --[[ Name: jsonEncode ]]
+    local v1480 = {};
+    if v1479.options ~= nil and #v1479.options > 0 then
+        local v1481 = {};
+        for _, v1483 in v1479.options do
+            table.insert(v1481, v1483:jsonEncode());
         end;
-        v1186.options = v1187;
+        v1480.options = v1481;
     end;
-    return v1186;
+    return v1480;
 end;
-v7.jsonDecode = function(v1190) --[[ Line: 8353 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_47 (copy), v2 (copy)
-    local v1191 = l_v7_47.new();
-    if v1190.options ~= nil then
-        local v1192 = {};
-        for _, v1194 in v1190.options do
-            table.insert(v1192, v2.FocusNavActionsProp_ConditionalOption.jsonDecode(v1194));
+v7.jsonDecode = function(v1484) --[[ Line: 10580 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_59 (copy), v2 (copy)
+    local v1485 = l_v7_59.new();
+    if v1484.options ~= nil then
+        local v1486 = {};
+        for _, v1488 in v1484.options do
+            table.insert(v1486, v2.FocusNavActionsProp_ConditionalOption.jsonDecode(v1488));
         end;
-        v1191.options = v1192;
+        v1485.options = v1486;
     end;
-    return v1191;
+    return v1485;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp_ConditionalOptions", 
@@ -6050,145 +7586,145 @@ v2.FocusNavActionsProp_ConditionalOptions = v7;
 v1.default:register(v2.FocusNavActionsProp_ConditionalOptions);
 v7 = {};
 v7.__index = v7;
-local l_v7_48 = v7 --[[ copy: 7 -> 56 ]];
-v7.new = function(v1196) --[[ Line: 8384 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_48 (copy)
+local l_v7_60 = v7 --[[ copy: 7 -> 68 ]];
+v7.new = function(v1490) --[[ Line: 10611 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_60 (copy)
     return (setmetatable({
-        keys = if not (v1196 ~= nil) or v1196.keys == nil then {} else v1196.keys, 
-        events = if not (v1196 ~= nil) or v1196.events == nil then {} else v1196.events
-    }, l_v7_48));
+        keys = if not (v1490 ~= nil) or v1490.keys == nil then {} else v1490.keys, 
+        events = if not (v1490 ~= nil) or v1490.events == nil then {} else v1490.events
+    }, l_v7_60));
 end;
-v7.encode = function(v1197) --[[ Line: 8393 ]] --[[ Name: encode ]]
+v7.encode = function(v1491) --[[ Line: 10620 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1198 = buffer.create(0);
-    local v1199 = 0;
-    if v1197.keys ~= nil and next(v1197.keys) ~= nil then
-        for v1200, v1201 in v1197.keys do
-            local v1202 = buffer.create(0);
-            local v1203, v1204 = v0.writeTag(v1202, 0, 1, v0.wireTypes.lengthDelimited);
-            v1203, v1204 = v0.writeString(v1203, v1204, v1200);
-            v1203, v1204 = v0.writeTag(v1203, v1204, 2, v0.wireTypes.lengthDelimited);
-            v1203, v1204 = v0.writeString(v1203, v1204, v1201);
-            v1202 = v1203;
-            local l_v1204_0 = v1204;
-            v1203, v1204 = v0.writeTag(v1198, v1199, 1, v0.wireTypes.lengthDelimited);
-            v1203, v1204 = v0.writeBuffer(v1203, v1204, v1202, l_v1204_0);
-            v1198 = v1203;
-            v1199 = v1204;
+    local v1492 = buffer.create(0);
+    local v1493 = 0;
+    if v1491.keys ~= nil and next(v1491.keys) ~= nil then
+        for v1494, v1495 in v1491.keys do
+            local v1496 = buffer.create(0);
+            local v1497, v1498 = v0.writeTag(v1496, 0, 1, v0.wireTypes.lengthDelimited);
+            v1497, v1498 = v0.writeString(v1497, v1498, v1494);
+            v1497, v1498 = v0.writeTag(v1497, v1498, 2, v0.wireTypes.lengthDelimited);
+            v1497, v1498 = v0.writeString(v1497, v1498, v1495);
+            v1496 = v1497;
+            local l_v1498_0 = v1498;
+            v1497, v1498 = v0.writeTag(v1492, v1493, 1, v0.wireTypes.lengthDelimited);
+            v1497, v1498 = v0.writeBuffer(v1497, v1498, v1496, l_v1498_0);
+            v1492 = v1497;
+            v1493 = v1498;
         end;
     end;
-    if v1197.events ~= nil and next(v1197.events) ~= nil then
-        for v1206, v1207 in v1197.events do
-            local v1208 = buffer.create(0);
-            local v1209, v1210 = v0.writeTag(v1208, 0, 1, v0.wireTypes.lengthDelimited);
-            v1209, v1210 = v0.writeString(v1209, v1210, v1206);
-            v1208 = v1209;
-            local l_v1210_0 = v1210;
-            v1209 = v1207:encode();
-            local v1212;
-            v1210, v1212 = v0.writeTag(v1208, l_v1210_0, 2, v0.wireTypes.lengthDelimited);
-            v1210, v1212 = v0.writeBuffer(v1210, v1212, v1209, buffer.len(v1209));
-            v1208 = v1210;
-            l_v1210_0 = v1212;
-            v1210, v1212 = v0.writeTag(v1198, v1199, 2, v0.wireTypes.lengthDelimited);
-            v1210, v1212 = v0.writeBuffer(v1210, v1212, v1208, l_v1210_0);
-            v1198 = v1210;
-            v1199 = v1212;
+    if v1491.events ~= nil and next(v1491.events) ~= nil then
+        for v1500, v1501 in v1491.events do
+            local v1502 = buffer.create(0);
+            local v1503, v1504 = v0.writeTag(v1502, 0, 1, v0.wireTypes.lengthDelimited);
+            v1503, v1504 = v0.writeString(v1503, v1504, v1500);
+            v1502 = v1503;
+            local l_v1504_0 = v1504;
+            v1503 = v1501:encode();
+            local v1506;
+            v1504, v1506 = v0.writeTag(v1502, l_v1504_0, 2, v0.wireTypes.lengthDelimited);
+            v1504, v1506 = v0.writeBuffer(v1504, v1506, v1503, buffer.len(v1503));
+            v1502 = v1504;
+            l_v1504_0 = v1506;
+            v1504, v1506 = v0.writeTag(v1492, v1493, 2, v0.wireTypes.lengthDelimited);
+            v1504, v1506 = v0.writeBuffer(v1504, v1506, v1502, l_v1504_0);
+            v1492 = v1504;
+            v1493 = v1506;
         end;
     end;
-    local v1213 = buffer.create(v1199);
-    buffer.copy(v1213, 0, v1198, 0, v1199);
-    return v1213;
+    local v1507 = buffer.create(v1493);
+    buffer.copy(v1507, 0, v1492, 0, v1493);
+    return v1507;
 end;
-v7.decode = function(v1214) --[[ Line: 8429 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_48 (copy), v0 (copy), v2 (copy), v3 (copy)
-    local v1215 = l_v7_48.new();
-    local v1216 = 0;
-    while v1216 < buffer.len(v1214) do
-        local v1217 = nil;
-        local v1218 = nil;
-        local v1219, v1220, v1221 = v0.readTag(v1214, v1216);
-        v1217 = v1219;
-        v1218 = v1220;
-        v1216 = v1221;
-        if v1218 == v0.wireTypes.varint then
-            v1219 = nil;
-            v1220, v1221 = v0.readVarInt(v1214, v1216);
-            v1219 = v1220;
-            v1216 = v1221;
-        elseif v1218 == v0.wireTypes.lengthDelimited then
-            if v1217 == 1 then
-                v1219 = nil;
-                v1220, v1221 = v0.readBuffer(v1214, v1216);
-                v1219 = v1220;
-                v1216 = v1221;
-                v1220 = v2.FocusNavActionsProp_FocusNavData_KeysEntry.decode(v1219);
-                v1215.keys[v1220.key or ""] = v1220.value or "";
-            elseif v1217 == 2 then
-                v1219 = nil;
-                v1220, v1221 = v0.readBuffer(v1214, v1216);
-                v1219 = v1220;
-                v1216 = v1221;
-                v1220 = v2.FocusNavActionsProp_FocusNavData_EventsEntry.decode(v1219);
-                v1221 = v3.Struct.new();
-                v1215.events[v1220.key or ""] = v1220.value or v1221;
+v7.decode = function(v1508) --[[ Line: 10656 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_60 (copy), v0 (copy), v2 (copy), v3 (copy)
+    local v1509 = l_v7_60.new();
+    local v1510 = 0;
+    while v1510 < buffer.len(v1508) do
+        local v1511 = nil;
+        local v1512 = nil;
+        local v1513, v1514, v1515 = v0.readTag(v1508, v1510);
+        v1511 = v1513;
+        v1512 = v1514;
+        v1510 = v1515;
+        if v1512 == v0.wireTypes.varint then
+            v1513 = nil;
+            v1514, v1515 = v0.readVarInt(v1508, v1510);
+            v1513 = v1514;
+            v1510 = v1515;
+        elseif v1512 == v0.wireTypes.lengthDelimited then
+            if v1511 == 1 then
+                v1513 = nil;
+                v1514, v1515 = v0.readBuffer(v1508, v1510);
+                v1513 = v1514;
+                v1510 = v1515;
+                v1514 = v2.FocusNavActionsProp_FocusNavData_KeysEntry.decode(v1513);
+                v1509.keys[v1514.key or ""] = v1514.value or "";
+            elseif v1511 == 2 then
+                v1513 = nil;
+                v1514, v1515 = v0.readBuffer(v1508, v1510);
+                v1513 = v1514;
+                v1510 = v1515;
+                v1514 = v2.FocusNavActionsProp_FocusNavData_EventsEntry.decode(v1513);
+                v1515 = v3.Struct.new();
+                v1509.events[v1514.key or ""] = v1514.value or v1515;
             else
-                v1219 = nil;
-                v1220, v1221 = v0.readVarInt(v1214, v1216);
-                v1216 = v1221 + v1220;
+                v1513 = nil;
+                v1514, v1515 = v0.readVarInt(v1508, v1510);
+                v1510 = v1515 + v1514;
             end;
-        elseif v1218 == v0.wireTypes.i32 then
-            v1219 = nil;
-            v1220, v1221 = v0.readFixed32(v1214, v1216);
-            v1219 = v1220;
-            v1216 = v1221;
-        elseif v1218 == v0.wireTypes.i64 then
-            v1219 = nil;
-            v1220, v1221 = v0.readFixed64(v1214, v1216);
-            v1219 = v1220;
-            v1216 = v1221;
+        elseif v1512 == v0.wireTypes.i32 then
+            v1513 = nil;
+            v1514, v1515 = v0.readFixed32(v1508, v1510);
+            v1513 = v1514;
+            v1510 = v1515;
+        elseif v1512 == v0.wireTypes.i64 then
+            v1513 = nil;
+            v1514, v1515 = v0.readFixed64(v1508, v1510);
+            v1513 = v1514;
+            v1510 = v1515;
         else
-            error("Unsupported wire type: " .. v1218);
+            error("Unsupported wire type: " .. v1512);
         end;
     end;
-    return v1215;
+    return v1509;
 end;
-v7.jsonEncode = function(v1222) --[[ Line: 8491 ]] --[[ Name: jsonEncode ]]
-    local v1223 = {};
-    if v1222.keys ~= nil and next(v1222.keys) ~= nil then
-        local v1224 = {};
-        for v1225, v1226 in v1222.keys do
-            v1224[v1225] = v1226;
+v7.jsonEncode = function(v1516) --[[ Line: 10718 ]] --[[ Name: jsonEncode ]]
+    local v1517 = {};
+    if v1516.keys ~= nil and next(v1516.keys) ~= nil then
+        local v1518 = {};
+        for v1519, v1520 in v1516.keys do
+            v1518[v1519] = v1520;
         end;
-        v1223.keys = v1224;
+        v1517.keys = v1518;
     end;
-    if v1222.events ~= nil and next(v1222.events) ~= nil then
-        local v1227 = {};
-        for v1228, v1229 in v1222.events do
-            v1227[v1228] = v1229:jsonEncode();
+    if v1516.events ~= nil and next(v1516.events) ~= nil then
+        local v1521 = {};
+        for v1522, v1523 in v1516.events do
+            v1521[v1522] = v1523:jsonEncode();
         end;
-        v1223.events = v1227;
+        v1517.events = v1521;
     end;
-    return v1223;
+    return v1517;
 end;
-v7.jsonDecode = function(v1230) --[[ Line: 8513 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_48 (copy), v3 (copy)
-    local v1231 = l_v7_48.new();
-    if v1230.keys ~= nil then
-        local v1232 = {};
-        for v1233, v1234 in v1230.keys do
-            v1232[v1233] = v1234;
+v7.jsonDecode = function(v1524) --[[ Line: 10740 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_60 (copy), v3 (copy)
+    local v1525 = l_v7_60.new();
+    if v1524.keys ~= nil then
+        local v1526 = {};
+        for v1527, v1528 in v1524.keys do
+            v1526[v1527] = v1528;
         end;
-        v1231.keys = v1232;
+        v1525.keys = v1526;
     end;
-    if v1230.events ~= nil then
-        local v1235 = {};
-        for v1236, v1237 in v1230.events do
-            v1235[v1236] = v3.Struct.jsonDecode(v1237);
+    if v1524.events ~= nil then
+        local v1529 = {};
+        for v1530, v1531 in v1524.events do
+            v1529[v1530] = v3.Struct.jsonDecode(v1531);
         end;
-        v1231.events = v1235;
+        v1525.events = v1529;
     end;
-    return v1231;
+    return v1525;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp_FocusNavData", 
@@ -6198,104 +7734,104 @@ v2.FocusNavActionsProp_FocusNavData = v7;
 v1.default:register(v2.FocusNavActionsProp_FocusNavData);
 v7 = {};
 v7.__index = v7;
-local l_v7_49 = v7 --[[ copy: 7 -> 57 ]];
-v7.new = function(v1239) --[[ Line: 8553 ]] --[[ Name: new ]]
-    -- upvalues: l_v7_49 (copy)
+local l_v7_61 = v7 --[[ copy: 7 -> 69 ]];
+v7.new = function(v1533) --[[ Line: 10780 ]] --[[ Name: new ]]
+    -- upvalues: l_v7_61 (copy)
     return (setmetatable({
-        key = (not (v1239 ~= nil) or v1239.key == nil) and "" or v1239.key, 
-        value = (not (v1239 ~= nil) or v1239.value == nil) and "" or v1239.value
-    }, l_v7_49));
+        key = (not (v1533 ~= nil) or v1533.key == nil) and "" or v1533.key, 
+        value = (not (v1533 ~= nil) or v1533.value == nil) and "" or v1533.value
+    }, l_v7_61));
 end;
-v7.encode = function(v1240) --[[ Line: 8562 ]] --[[ Name: encode ]]
+v7.encode = function(v1534) --[[ Line: 10789 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1241 = buffer.create(0);
-    local v1242 = 0;
-    if v1240.key ~= nil and v1240.key ~= "" then
-        local v1243, v1244 = v0.writeTag(v1241, v1242, 1, v0.wireTypes.lengthDelimited);
-        v1243, v1244 = v0.writeString(v1243, v1244, v1240.key);
-        v1241 = v1243;
-        v1242 = v1244;
+    local v1535 = buffer.create(0);
+    local v1536 = 0;
+    if v1534.key ~= nil and v1534.key ~= "" then
+        local v1537, v1538 = v0.writeTag(v1535, v1536, 1, v0.wireTypes.lengthDelimited);
+        v1537, v1538 = v0.writeString(v1537, v1538, v1534.key);
+        v1535 = v1537;
+        v1536 = v1538;
     end;
-    if v1240.value ~= nil and v1240.value ~= "" then
-        local v1245, v1246 = v0.writeTag(v1241, v1242, 2, v0.wireTypes.lengthDelimited);
-        v1245, v1246 = v0.writeString(v1245, v1246, v1240.value);
-        v1241 = v1245;
-        v1242 = v1246;
+    if v1534.value ~= nil and v1534.value ~= "" then
+        local v1539, v1540 = v0.writeTag(v1535, v1536, 2, v0.wireTypes.lengthDelimited);
+        v1539, v1540 = v0.writeString(v1539, v1540, v1534.value);
+        v1535 = v1539;
+        v1536 = v1540;
     end;
-    local v1247 = buffer.create(v1242);
-    buffer.copy(v1247, 0, v1241, 0, v1242);
-    return v1247;
+    local v1541 = buffer.create(v1536);
+    buffer.copy(v1541, 0, v1535, 0, v1536);
+    return v1541;
 end;
-v7.decode = function(v1248) --[[ Line: 8583 ]] --[[ Name: decode ]]
-    -- upvalues: l_v7_49 (copy), v0 (copy)
-    local v1249 = l_v7_49.new();
-    local v1250 = 0;
-    while v1250 < buffer.len(v1248) do
-        local v1251 = nil;
-        local v1252 = nil;
-        local v1253, v1254, v1255 = v0.readTag(v1248, v1250);
-        v1251 = v1253;
-        v1252 = v1254;
-        v1250 = v1255;
-        if v1252 == v0.wireTypes.varint then
-            v1253 = nil;
-            v1254, v1255 = v0.readVarInt(v1248, v1250);
-            v1253 = v1254;
-            v1250 = v1255;
-        elseif v1252 == v0.wireTypes.lengthDelimited then
-            if v1251 == 1 then
-                v1253 = nil;
-                v1254, v1255 = v0.readBuffer(v1248, v1250);
-                v1253 = v1254;
-                v1250 = v1255;
-                v1249.key = buffer.tostring(v1253);
-            elseif v1251 == 2 then
-                v1253 = nil;
-                v1254, v1255 = v0.readBuffer(v1248, v1250);
-                v1253 = v1254;
-                v1250 = v1255;
-                v1249.value = buffer.tostring(v1253);
+v7.decode = function(v1542) --[[ Line: 10810 ]] --[[ Name: decode ]]
+    -- upvalues: l_v7_61 (copy), v0 (copy)
+    local v1543 = l_v7_61.new();
+    local v1544 = 0;
+    while v1544 < buffer.len(v1542) do
+        local v1545 = nil;
+        local v1546 = nil;
+        local v1547, v1548, v1549 = v0.readTag(v1542, v1544);
+        v1545 = v1547;
+        v1546 = v1548;
+        v1544 = v1549;
+        if v1546 == v0.wireTypes.varint then
+            v1547 = nil;
+            v1548, v1549 = v0.readVarInt(v1542, v1544);
+            v1547 = v1548;
+            v1544 = v1549;
+        elseif v1546 == v0.wireTypes.lengthDelimited then
+            if v1545 == 1 then
+                v1547 = nil;
+                v1548, v1549 = v0.readBuffer(v1542, v1544);
+                v1547 = v1548;
+                v1544 = v1549;
+                v1543.key = buffer.tostring(v1547);
+            elseif v1545 == 2 then
+                v1547 = nil;
+                v1548, v1549 = v0.readBuffer(v1542, v1544);
+                v1547 = v1548;
+                v1544 = v1549;
+                v1543.value = buffer.tostring(v1547);
             else
-                v1253 = nil;
-                v1254, v1255 = v0.readVarInt(v1248, v1250);
-                v1250 = v1255 + v1254;
+                v1547 = nil;
+                v1548, v1549 = v0.readVarInt(v1542, v1544);
+                v1544 = v1549 + v1548;
             end;
-        elseif v1252 == v0.wireTypes.i32 then
-            v1253 = nil;
-            v1254, v1255 = v0.readFixed32(v1248, v1250);
-            v1253 = v1254;
-            v1250 = v1255;
-        elseif v1252 == v0.wireTypes.i64 then
-            v1253 = nil;
-            v1254, v1255 = v0.readFixed64(v1248, v1250);
-            v1253 = v1254;
-            v1250 = v1255;
+        elseif v1546 == v0.wireTypes.i32 then
+            v1547 = nil;
+            v1548, v1549 = v0.readFixed32(v1542, v1544);
+            v1547 = v1548;
+            v1544 = v1549;
+        elseif v1546 == v0.wireTypes.i64 then
+            v1547 = nil;
+            v1548, v1549 = v0.readFixed64(v1542, v1544);
+            v1547 = v1548;
+            v1544 = v1549;
         else
-            error("Unsupported wire type: " .. v1252);
+            error("Unsupported wire type: " .. v1546);
         end;
     end;
-    return v1249;
+    return v1543;
 end;
-v7.jsonEncode = function(v1256) --[[ Line: 8633 ]] --[[ Name: jsonEncode ]]
-    local v1257 = {};
-    if v1256.key ~= nil and v1256.key ~= "" then
-        v1257.key = v1256.key;
+v7.jsonEncode = function(v1550) --[[ Line: 10860 ]] --[[ Name: jsonEncode ]]
+    local v1551 = {};
+    if v1550.key ~= nil and v1550.key ~= "" then
+        v1551.key = v1550.key;
     end;
-    if v1256.value ~= nil and v1256.value ~= "" then
-        v1257.value = v1256.value;
+    if v1550.value ~= nil and v1550.value ~= "" then
+        v1551.value = v1550.value;
     end;
-    return v1257;
+    return v1551;
 end;
-v7.jsonDecode = function(v1258) --[[ Line: 8649 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v7_49 (copy)
-    local v1259 = l_v7_49.new();
-    if v1258.key ~= nil then
-        v1259.key = v1258.key;
+v7.jsonDecode = function(v1552) --[[ Line: 10876 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v7_61 (copy)
+    local v1553 = l_v7_61.new();
+    if v1552.key ~= nil then
+        v1553.key = v1552.key;
     end;
-    if v1258.value ~= nil then
-        v1259.value = v1258.value;
+    if v1552.value ~= nil then
+        v1553.value = v1552.value;
     end;
-    return v1259;
+    return v1553;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp_FocusNavData_KeysEntry", 
@@ -6305,104 +7841,104 @@ v2.FocusNavActionsProp_FocusNavData_KeysEntry = v7;
 v1.default:register(v2.FocusNavActionsProp_FocusNavData_KeysEntry);
 v7 = {};
 v7.__index = v7;
-v7.new = function(v1260) --[[ Line: 8679 ]] --[[ Name: new ]]
+v7.new = function(v1554) --[[ Line: 10906 ]] --[[ Name: new ]]
     -- upvalues: v7 (copy)
     return (setmetatable({
-        key = (not (v1260 ~= nil) or v1260.key == nil) and "" or v1260.key, 
-        value = if not (v1260 ~= nil) or v1260.value == nil then nil else v1260.value
+        key = (not (v1554 ~= nil) or v1554.key == nil) and "" or v1554.key, 
+        value = if not (v1554 ~= nil) or v1554.value == nil then nil else v1554.value
     }, v7));
 end;
-v7.encode = function(v1261) --[[ Line: 8688 ]] --[[ Name: encode ]]
+v7.encode = function(v1555) --[[ Line: 10915 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v1262 = buffer.create(0);
-    local v1263 = 0;
-    if v1261.key ~= nil and v1261.key ~= "" then
-        local v1264, v1265 = v0.writeTag(v1262, v1263, 1, v0.wireTypes.lengthDelimited);
-        v1264, v1265 = v0.writeString(v1264, v1265, v1261.key);
-        v1262 = v1264;
-        v1263 = v1265;
+    local v1556 = buffer.create(0);
+    local v1557 = 0;
+    if v1555.key ~= nil and v1555.key ~= "" then
+        local v1558, v1559 = v0.writeTag(v1556, v1557, 1, v0.wireTypes.lengthDelimited);
+        v1558, v1559 = v0.writeString(v1558, v1559, v1555.key);
+        v1556 = v1558;
+        v1557 = v1559;
     end;
-    if v1261.value ~= nil then
-        local v1266 = v1261.value:encode();
-        local v1267, v1268 = v0.writeTag(v1262, v1263, 2, v0.wireTypes.lengthDelimited);
-        v1267, v1268 = v0.writeBuffer(v1267, v1268, v1266, buffer.len(v1266));
-        v1262 = v1267;
-        v1263 = v1268;
+    if v1555.value ~= nil then
+        local v1560 = v1555.value:encode();
+        local v1561, v1562 = v0.writeTag(v1556, v1557, 2, v0.wireTypes.lengthDelimited);
+        v1561, v1562 = v0.writeBuffer(v1561, v1562, v1560, buffer.len(v1560));
+        v1556 = v1561;
+        v1557 = v1562;
     end;
-    local v1269 = buffer.create(v1263);
-    buffer.copy(v1269, 0, v1262, 0, v1263);
-    return v1269;
+    local v1563 = buffer.create(v1557);
+    buffer.copy(v1563, 0, v1556, 0, v1557);
+    return v1563;
 end;
-v7.decode = function(v1270) --[[ Line: 8710 ]] --[[ Name: decode ]]
+v7.decode = function(v1564) --[[ Line: 10937 ]] --[[ Name: decode ]]
     -- upvalues: v7 (copy), v0 (copy), v3 (copy)
-    local v1271 = v7.new();
-    local v1272 = 0;
-    while v1272 < buffer.len(v1270) do
-        local v1273 = nil;
-        local v1274 = nil;
-        local v1275, v1276, v1277 = v0.readTag(v1270, v1272);
-        v1273 = v1275;
-        v1274 = v1276;
-        v1272 = v1277;
-        if v1274 == v0.wireTypes.varint then
-            v1275 = nil;
-            v1276, v1277 = v0.readVarInt(v1270, v1272);
-            v1275 = v1276;
-            v1272 = v1277;
-        elseif v1274 == v0.wireTypes.lengthDelimited then
-            if v1273 == 1 then
-                v1275 = nil;
-                v1276, v1277 = v0.readBuffer(v1270, v1272);
-                v1275 = v1276;
-                v1272 = v1277;
-                v1271.key = buffer.tostring(v1275);
-            elseif v1273 == 2 then
-                v1275 = nil;
-                v1276, v1277 = v0.readBuffer(v1270, v1272);
-                v1275 = v1276;
-                v1272 = v1277;
-                v1271.value = v3.Struct.decode(v1275);
+    local v1565 = v7.new();
+    local v1566 = 0;
+    while v1566 < buffer.len(v1564) do
+        local v1567 = nil;
+        local v1568 = nil;
+        local v1569, v1570, v1571 = v0.readTag(v1564, v1566);
+        v1567 = v1569;
+        v1568 = v1570;
+        v1566 = v1571;
+        if v1568 == v0.wireTypes.varint then
+            v1569 = nil;
+            v1570, v1571 = v0.readVarInt(v1564, v1566);
+            v1569 = v1570;
+            v1566 = v1571;
+        elseif v1568 == v0.wireTypes.lengthDelimited then
+            if v1567 == 1 then
+                v1569 = nil;
+                v1570, v1571 = v0.readBuffer(v1564, v1566);
+                v1569 = v1570;
+                v1566 = v1571;
+                v1565.key = buffer.tostring(v1569);
+            elseif v1567 == 2 then
+                v1569 = nil;
+                v1570, v1571 = v0.readBuffer(v1564, v1566);
+                v1569 = v1570;
+                v1566 = v1571;
+                v1565.value = v3.Struct.decode(v1569);
             else
-                v1275 = nil;
-                v1276, v1277 = v0.readVarInt(v1270, v1272);
-                v1272 = v1277 + v1276;
+                v1569 = nil;
+                v1570, v1571 = v0.readVarInt(v1564, v1566);
+                v1566 = v1571 + v1570;
             end;
-        elseif v1274 == v0.wireTypes.i32 then
-            v1275 = nil;
-            v1276, v1277 = v0.readFixed32(v1270, v1272);
-            v1275 = v1276;
-            v1272 = v1277;
-        elseif v1274 == v0.wireTypes.i64 then
-            v1275 = nil;
-            v1276, v1277 = v0.readFixed64(v1270, v1272);
-            v1275 = v1276;
-            v1272 = v1277;
+        elseif v1568 == v0.wireTypes.i32 then
+            v1569 = nil;
+            v1570, v1571 = v0.readFixed32(v1564, v1566);
+            v1569 = v1570;
+            v1566 = v1571;
+        elseif v1568 == v0.wireTypes.i64 then
+            v1569 = nil;
+            v1570, v1571 = v0.readFixed64(v1564, v1566);
+            v1569 = v1570;
+            v1566 = v1571;
         else
-            error("Unsupported wire type: " .. v1274);
+            error("Unsupported wire type: " .. v1568);
         end;
     end;
-    return v1271;
+    return v1565;
 end;
-v7.jsonEncode = function(v1278) --[[ Line: 8760 ]] --[[ Name: jsonEncode ]]
-    local v1279 = {};
-    if v1278.key ~= nil and v1278.key ~= "" then
-        v1279.key = v1278.key;
+v7.jsonEncode = function(v1572) --[[ Line: 10987 ]] --[[ Name: jsonEncode ]]
+    local v1573 = {};
+    if v1572.key ~= nil and v1572.key ~= "" then
+        v1573.key = v1572.key;
     end;
-    if v1278.value ~= nil then
-        v1279.value = v1278.value:jsonEncode();
+    if v1572.value ~= nil then
+        v1573.value = v1572.value:jsonEncode();
     end;
-    return v1279;
+    return v1573;
 end;
-v7.jsonDecode = function(v1280) --[[ Line: 8776 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v1574) --[[ Line: 11003 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v7 (copy), v3 (copy)
-    local v1281 = v7.new();
-    if v1280.key ~= nil then
-        v1281.key = v1280.key;
+    local v1575 = v7.new();
+    if v1574.key ~= nil then
+        v1575.key = v1574.key;
     end;
-    if v1280.value ~= nil then
-        v1281.value = v3.Struct.jsonDecode(v1280.value);
+    if v1574.value ~= nil then
+        v1575.value = v3.Struct.jsonDecode(v1574.value);
     end;
-    return v1281;
+    return v1575;
 end;
 v7.descriptor = {
     name = "FocusNavActionsProp_FocusNavData_EventsEntry", 
@@ -6411,143 +7947,179 @@ v7.descriptor = {
 v2.FocusNavActionsProp_FocusNavData_EventsEntry = v7;
 v1.default:register(v2.FocusNavActionsProp_FocusNavData_EventsEntry);
 v2.ActionType = {
-    fromNumber = function(v1282) --[[ Line: 8803 ]] --[[ Name: fromNumber ]]
-        if v1282 == 0 then
+    fromNumber = function(v1576) --[[ Line: 11030 ]] --[[ Name: fromNumber ]]
+        if v1576 == 0 then
             return "ACTION_TYPE_INVALID";
-        elseif v1282 == 1 then
+        elseif v1576 == 1 then
             return "ACTION_TYPE_DISMISS_DIALOG";
-        elseif v1282 == 2 then
+        elseif v1576 == 2 then
             return "ACTION_TYPE_LINK";
-        elseif v1282 == 3 then
+        elseif v1576 == 3 then
             return "ACTION_TYPE_OPEN_GAME_DETAILS";
-        elseif v1282 == 4 then
+        elseif v1576 == 4 then
             return "ACTION_TYPE_OPEN_JOIN_FRIENDS";
-        elseif v1282 == 5 then
+        elseif v1576 == 5 then
             return "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON";
-        elseif v1282 == 6 then
+        elseif v1576 == 6 then
             return "ACTION_TYPE_OPEN_SEE_ALL";
-        elseif v1282 == 7 then
+        elseif v1576 == 7 then
             return "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP";
-        elseif v1282 == 8 then
+        elseif v1576 == 8 then
             return "ACTION_TYPE_PLAY_BUTTON_CLICK";
-        elseif v1282 == 9 then
+        elseif v1576 == 9 then
             return "ACTION_TYPE_UPDATE_USER_SETTINGS";
-        elseif v1282 == 10 then
+        elseif v1576 == 10 then
             return "ACTION_TYPE_OPEN_TOOLTIP";
-        elseif v1282 == 11 then
+        elseif v1576 == 11 then
             return "ACTION_TYPE_OPEN_BADGE_DETAILS";
-        elseif v1282 == 12 then
+        elseif v1576 == 12 then
             return "ACTION_TYPE_LOAD_MORE_FROM_API";
-        elseif v1282 == 13 then
+        elseif v1576 == 13 then
             return "ACTION_TYPE_SHARE";
-        elseif v1282 == 14 then
+        elseif v1576 == 14 then
             return "ACTION_TYPE_OPEN_ABUSE_REPORT";
-        elseif v1282 == 15 then
+        elseif v1576 == 15 then
             return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY";
-        elseif v1282 == 16 then
+        elseif v1576 == 16 then
             return "ACTION_TYPE_OPEN_PROFILE";
-        elseif v1282 == 17 then
-            return "ACTION_TYPE_OPEN_FAE";
-        elseif v1282 == 18 then
-            return "ACTION_TYPE_OPEN_ADD_CONNECTIONS";
-        elseif v1282 == 19 then
+        elseif v1576 == 17 then
+            return "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION";
+        elseif v1576 == 18 then
+            return "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE";
+        elseif v1576 == 19 then
             return "ACTION_TYPE_OPEN_MARKETPLACE";
-        elseif v1282 == 20 then
-            return "ACTION_TYPE_SEND_PROMPT_IMPRESSION";
+        elseif v1576 == 20 then
+            return "ACTION_TYPE_HIDE_PROFILE_COMPLETION";
+        elseif v1576 == 21 then
+            return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY";
+        elseif v1576 == 22 then
+            return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY";
+        elseif v1576 == 23 then
+            return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL";
+        elseif v1576 == 24 then
+            return "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP";
+        elseif v1576 == 25 then
+            return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG";
+        elseif v1576 == 26 then
+            return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS";
         else
             return nil;
         end;
     end, 
-    toNumber = function(v1283) --[[ Line: 8851 ]] --[[ Name: toNumber ]]
-        if v1283 == "ACTION_TYPE_INVALID" then
+    toNumber = function(v1577) --[[ Line: 11090 ]] --[[ Name: toNumber ]]
+        if v1577 == "ACTION_TYPE_INVALID" then
             return 0;
-        elseif v1283 == "ACTION_TYPE_DISMISS_DIALOG" then
+        elseif v1577 == "ACTION_TYPE_DISMISS_DIALOG" then
             return 1;
-        elseif v1283 == "ACTION_TYPE_LINK" then
+        elseif v1577 == "ACTION_TYPE_LINK" then
             return 2;
-        elseif v1283 == "ACTION_TYPE_OPEN_GAME_DETAILS" then
+        elseif v1577 == "ACTION_TYPE_OPEN_GAME_DETAILS" then
             return 3;
-        elseif v1283 == "ACTION_TYPE_OPEN_JOIN_FRIENDS" then
+        elseif v1577 == "ACTION_TYPE_OPEN_JOIN_FRIENDS" then
             return 4;
-        elseif v1283 == "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON" then
+        elseif v1577 == "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON" then
             return 5;
-        elseif v1283 == "ACTION_TYPE_OPEN_SEE_ALL" then
+        elseif v1577 == "ACTION_TYPE_OPEN_SEE_ALL" then
             return 6;
-        elseif v1283 == "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP" then
+        elseif v1577 == "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP" then
             return 7;
-        elseif v1283 == "ACTION_TYPE_PLAY_BUTTON_CLICK" then
+        elseif v1577 == "ACTION_TYPE_PLAY_BUTTON_CLICK" then
             return 8;
-        elseif v1283 == "ACTION_TYPE_UPDATE_USER_SETTINGS" then
+        elseif v1577 == "ACTION_TYPE_UPDATE_USER_SETTINGS" then
             return 9;
-        elseif v1283 == "ACTION_TYPE_OPEN_TOOLTIP" then
+        elseif v1577 == "ACTION_TYPE_OPEN_TOOLTIP" then
             return 10;
-        elseif v1283 == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
+        elseif v1577 == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
             return 11;
-        elseif v1283 == "ACTION_TYPE_LOAD_MORE_FROM_API" then
+        elseif v1577 == "ACTION_TYPE_LOAD_MORE_FROM_API" then
             return 12;
-        elseif v1283 == "ACTION_TYPE_SHARE" then
+        elseif v1577 == "ACTION_TYPE_SHARE" then
             return 13;
-        elseif v1283 == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
+        elseif v1577 == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
             return 14;
-        elseif v1283 == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
+        elseif v1577 == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
             return 15;
-        elseif v1283 == "ACTION_TYPE_OPEN_PROFILE" then
+        elseif v1577 == "ACTION_TYPE_OPEN_PROFILE" then
             return 16;
-        elseif v1283 == "ACTION_TYPE_OPEN_FAE" then
+        elseif v1577 == "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION" then
             return 17;
-        elseif v1283 == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
+        elseif v1577 == "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE" then
             return 18;
-        elseif v1283 == "ACTION_TYPE_OPEN_MARKETPLACE" then
+        elseif v1577 == "ACTION_TYPE_OPEN_MARKETPLACE" then
             return 19;
-        elseif v1283 == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
+        elseif v1577 == "ACTION_TYPE_HIDE_PROFILE_COMPLETION" then
             return 20;
+        elseif v1577 == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY" then
+            return 21;
+        elseif v1577 == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY" then
+            return 22;
+        elseif v1577 == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL" then
+            return 23;
+        elseif v1577 == "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP" then
+            return 24;
+        elseif v1577 == "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG" then
+            return 25;
+        elseif v1577 == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
+            return 26;
         else
-            return v1283;
+            return v1577;
         end;
     end, 
-    fromName = function(v1284) --[[ Line: 8899 ]] --[[ Name: fromName ]]
-        if v1284 == "ACTION_TYPE_INVALID" then
+    fromName = function(v1578) --[[ Line: 11150 ]] --[[ Name: fromName ]]
+        if v1578 == "ACTION_TYPE_INVALID" then
             return "ACTION_TYPE_INVALID";
-        elseif v1284 == "ACTION_TYPE_DISMISS_DIALOG" then
+        elseif v1578 == "ACTION_TYPE_DISMISS_DIALOG" then
             return "ACTION_TYPE_DISMISS_DIALOG";
-        elseif v1284 == "ACTION_TYPE_LINK" then
+        elseif v1578 == "ACTION_TYPE_LINK" then
             return "ACTION_TYPE_LINK";
-        elseif v1284 == "ACTION_TYPE_OPEN_GAME_DETAILS" then
+        elseif v1578 == "ACTION_TYPE_OPEN_GAME_DETAILS" then
             return "ACTION_TYPE_OPEN_GAME_DETAILS";
-        elseif v1284 == "ACTION_TYPE_OPEN_JOIN_FRIENDS" then
+        elseif v1578 == "ACTION_TYPE_OPEN_JOIN_FRIENDS" then
             return "ACTION_TYPE_OPEN_JOIN_FRIENDS";
-        elseif v1284 == "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON" then
+        elseif v1578 == "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON" then
             return "ACTION_TYPE_OPEN_MARKETPLACE_TRY_ON";
-        elseif v1284 == "ACTION_TYPE_OPEN_SEE_ALL" then
+        elseif v1578 == "ACTION_TYPE_OPEN_SEE_ALL" then
             return "ACTION_TYPE_OPEN_SEE_ALL";
-        elseif v1284 == "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP" then
+        elseif v1578 == "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP" then
             return "ACTION_TYPE_OPEN_SPONSORED_TOOLTIP";
-        elseif v1284 == "ACTION_TYPE_PLAY_BUTTON_CLICK" then
+        elseif v1578 == "ACTION_TYPE_PLAY_BUTTON_CLICK" then
             return "ACTION_TYPE_PLAY_BUTTON_CLICK";
-        elseif v1284 == "ACTION_TYPE_UPDATE_USER_SETTINGS" then
+        elseif v1578 == "ACTION_TYPE_UPDATE_USER_SETTINGS" then
             return "ACTION_TYPE_UPDATE_USER_SETTINGS";
-        elseif v1284 == "ACTION_TYPE_OPEN_TOOLTIP" then
+        elseif v1578 == "ACTION_TYPE_OPEN_TOOLTIP" then
             return "ACTION_TYPE_OPEN_TOOLTIP";
-        elseif v1284 == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
+        elseif v1578 == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
             return "ACTION_TYPE_OPEN_BADGE_DETAILS";
-        elseif v1284 == "ACTION_TYPE_LOAD_MORE_FROM_API" then
+        elseif v1578 == "ACTION_TYPE_LOAD_MORE_FROM_API" then
             return "ACTION_TYPE_LOAD_MORE_FROM_API";
-        elseif v1284 == "ACTION_TYPE_SHARE" then
+        elseif v1578 == "ACTION_TYPE_SHARE" then
             return "ACTION_TYPE_SHARE";
-        elseif v1284 == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
+        elseif v1578 == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
             return "ACTION_TYPE_OPEN_ABUSE_REPORT";
-        elseif v1284 == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
+        elseif v1578 == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
             return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY";
-        elseif v1284 == "ACTION_TYPE_OPEN_PROFILE" then
+        elseif v1578 == "ACTION_TYPE_OPEN_PROFILE" then
             return "ACTION_TYPE_OPEN_PROFILE";
-        elseif v1284 == "ACTION_TYPE_OPEN_FAE" then
-            return "ACTION_TYPE_OPEN_FAE";
-        elseif v1284 == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
-            return "ACTION_TYPE_OPEN_ADD_CONNECTIONS";
-        elseif v1284 == "ACTION_TYPE_OPEN_MARKETPLACE" then
+        elseif v1578 == "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION" then
+            return "ACTION_TYPE_OPEN_FACIAL_AGE_ESTIMATION";
+        elseif v1578 == "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE" then
+            return "ACTION_TYPE_OPEN_ADD_CONNECTIONS_PAGE";
+        elseif v1578 == "ACTION_TYPE_OPEN_MARKETPLACE" then
             return "ACTION_TYPE_OPEN_MARKETPLACE";
-        elseif v1284 == "ACTION_TYPE_SEND_PROMPT_IMPRESSION" then
-            return "ACTION_TYPE_SEND_PROMPT_IMPRESSION";
+        elseif v1578 == "ACTION_TYPE_HIDE_PROFILE_COMPLETION" then
+            return "ACTION_TYPE_HIDE_PROFILE_COMPLETION";
+        elseif v1578 == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY" then
+            return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_CATEGORY";
+        elseif v1578 == "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY" then
+            return "ACTION_TYPE_SELECT_MARKETPLACE_CATALOG_SUBCATEGORY";
+        elseif v1578 == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL" then
+            return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_SEE_ALL";
+        elseif v1578 == "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP" then
+            return "ACTION_TYPE_CLOSE_MARKETPLACE_CATEGORY_TOOLTIP";
+        elseif v1578 == "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG" then
+            return "ACTION_TYPE_RESIZE_MARKETPLACE_CATALOG";
+        elseif v1578 == "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS" then
+            return "ACTION_TYPE_OPEN_MARKETPLACE_CATALOG_FILTERS";
         else
             return nil;
         end;
@@ -6587,14 +8159,26 @@ return {
     RemoveBadgeFromInventoryAction_Params = v2.RemoveBadgeFromInventoryAction_Params, 
     OpenProfileAction = v2.OpenProfileAction, 
     OpenProfileAction_Params = v2.OpenProfileAction_Params, 
-    OpenFaeAction = v2.OpenFaeAction, 
-    OpenFaeAction_Params = v2.OpenFaeAction_Params, 
-    OpenAddConnectionsAction = v2.OpenAddConnectionsAction, 
-    OpenAddConnectionsAction_Params = v2.OpenAddConnectionsAction_Params, 
+    OpenFacialAgeEstimationAction = v2.OpenFacialAgeEstimationAction, 
+    OpenFacialAgeEstimationAction_Params = v2.OpenFacialAgeEstimationAction_Params, 
+    OpenAddConnectionsPageAction = v2.OpenAddConnectionsPageAction, 
+    OpenAddConnectionsPageAction_Params = v2.OpenAddConnectionsPageAction_Params, 
     OpenMarketplaceAction = v2.OpenMarketplaceAction, 
     OpenMarketplaceAction_Params = v2.OpenMarketplaceAction_Params, 
-    SendPromptImpression = v2.SendPromptImpression, 
-    SendPromptImpression_Params = v2.SendPromptImpression_Params, 
+    HideProfileCompletionAction = v2.HideProfileCompletionAction, 
+    HideProfileCompletionAction_Params = v2.HideProfileCompletionAction_Params, 
+    SelectMarketplaceCatalogCategory = v2.SelectMarketplaceCatalogCategory, 
+    SelectMarketplaceCatalogCategory_Params = v2.SelectMarketplaceCatalogCategory_Params, 
+    SelectMarketplaceCatalogSubcategory = v2.SelectMarketplaceCatalogSubcategory, 
+    SelectMarketplaceCatalogSubcategory_Params = v2.SelectMarketplaceCatalogSubcategory_Params, 
+    OpenMarketplaceCatalogSeeAll = v2.OpenMarketplaceCatalogSeeAll, 
+    OpenMarketplaceCatalogSeeAll_Params = v2.OpenMarketplaceCatalogSeeAll_Params, 
+    CloseMarketplaceCategoryTooltip = v2.CloseMarketplaceCategoryTooltip, 
+    CloseMarketplaceCategoryTooltip_Params = v2.CloseMarketplaceCategoryTooltip_Params, 
+    ResizeMarketplaceCatalog = v2.ResizeMarketplaceCatalog, 
+    ResizeMarketplaceCatalog_Params = v2.ResizeMarketplaceCatalog_Params, 
+    OpenMarketplaceCatalogFilters = v2.OpenMarketplaceCatalogFilters, 
+    OpenMarketplaceCatalogFilters_Params = v2.OpenMarketplaceCatalogFilters_Params, 
     Action = v2.Action, 
     ActionProp = v2.ActionProp, 
     ActionProp_ConditionalOption = v2.ActionProp_ConditionalOption, 

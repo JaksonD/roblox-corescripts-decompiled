@@ -30,7 +30,10 @@ v0.ValidationModule = {
     SingleInstanceSelected = "SingleInstanceSelected", 
     NoExtraTags = "NoExtraTags", 
     HeadIsDynamic = "HeadIsDynamic", 
-    NoFACSOverrideData = "NoFACSOverrideData"
+    NoFACSOverrideData = "NoFACSOverrideData", 
+    FacsHeadConsistency = "FacsHeadConsistency", 
+    BodySkinnedToSchema = "BodySkinnedToSchema", 
+    FacsNotDrivingSchema = "FacsNotDrivingSchema"
 };
 v11("ValidationModule");
 v0.SharedDataMember = {

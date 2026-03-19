@@ -19,10 +19,12 @@ local l_IconButton_0 = v7.App.Button.IconButton;
 local l_IconSize_0 = v7.App.ImageSet.Enum.IconSize;
 local l_FitTextLabel_0 = v8.FitTextLabel;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local v21 = l_Images_0["icons/actions/edit/edit"];
-local v22 = l_Images_0["icons/actions/edit/delete"];
-local v23 = v3.PureComponent:extend("ManageActionBar");
-v23.validateProps = v5.strictInterface({
+local l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXFixGamepadNavigationOnOutfitManagement;
+local v22 = require(script.Parent.AssetManagementConstants);
+local v23 = l_Images_0["icons/actions/edit/edit"];
+local v24 = l_Images_0["icons/actions/edit/delete"];
+local v25 = v3.PureComponent:extend("ManageActionBar");
+v25.validateProps = v5.strictInterface({
     gradientFade = v5.optional(v5.boolean), 
     multiSelect = v5.optional(v5.boolean), 
     selectedOutfits = v5.array(v5.string), 
@@ -35,34 +37,34 @@ v23.validateProps = v5.strictInterface({
     showCustomOutfitNames = v5.boolean, 
     isPortrait = v5.boolean
 });
-v23.defaultProps = {
+v25.defaultProps = {
     gradientFade = false, 
     multiSelect = false
 };
-v23.init = function(v24) --[[ Line: 73 ]] --[[ Name: init ]]
+v25.init = function(v26) --[[ Line: 77 ]] --[[ Name: init ]]
     -- upvalues: v3 (copy), l_getPageMargin_0 (copy)
-    v24.renameButtonRef = v3.createRef();
-    v24.deleteButtonRef = v3.createRef();
-    local v25, v26 = v3.createBinding(UDim.new(0, 24));
-    v24.marginBinding = v25;
-    v24.updateMarginBinding = v26;
-    v24.absoluteSizeChanged = function(v27) --[[ Line: 79 ]]
-        -- upvalues: l_getPageMargin_0 (ref), v24 (copy)
-        local v28 = l_getPageMargin_0(v27.AbsoluteSize.X);
-        v24.updateMarginBinding(UDim.new(0, v28));
+    v26.renameButtonRef = v3.createRef();
+    v26.deleteButtonRef = v3.createRef();
+    local v27, v28 = v3.createBinding(UDim.new(0, 24));
+    v26.marginBinding = v27;
+    v26.updateMarginBinding = v28;
+    v26.absoluteSizeChanged = function(v29) --[[ Line: 83 ]]
+        -- upvalues: l_getPageMargin_0 (ref), v26 (copy)
+        local v30 = l_getPageMargin_0(v29.AbsoluteSize.X);
+        v26.updateMarginBinding(UDim.new(0, v30));
     end;
 end;
-v23.renderBarItems = function(v29, v30, v31, _) --[[ Line: 86 ]] --[[ Name: renderBarItems ]]
-    -- upvalues: v3 (copy), l_FitTextLabel_0 (copy), l_IconButton_0 (copy), v21 (copy), l_IconSize_0 (copy), v22 (copy)
-    local v33 = {
+v25.renderBarItems = function(v31, v32, v33, _) --[[ Line: 90 ]] --[[ Name: renderBarItems ]]
+    -- upvalues: v3 (copy), l_FitTextLabel_0 (copy), l_IconButton_0 (copy), v23 (copy), l_IconSize_0 (copy), v24 (copy)
+    local v35 = {
         UIPadding = v3.createElement("UIPadding", {
-            PaddingLeft = v29.marginBinding, 
-            PaddingRight = v29.marginBinding
+            PaddingLeft = v31.marginBinding, 
+            PaddingRight = v31.marginBinding
         })
     };
-    local l_Theme_0 = v31.Theme;
-    if v29.props.gradientFade then
-        v33.UIGradient = v3.createElement("UIGradient", {
+    local l_Theme_0 = v33.Theme;
+    if v31.props.gradientFade then
+        v35.UIGradient = v3.createElement("UIGradient", {
             Rotation = 270, 
             Transparency = NumberSequence.new({
                 NumberSequenceKeypoint.new(0, l_Theme_0.BackgroundDefault.Transparency), 
@@ -71,132 +73,140 @@ v23.renderBarItems = function(v29, v30, v31, _) --[[ Line: 86 ]] --[[ Name: rend
             })
         });
     end;
-    if v29.props.multiSelect then
-        local l_Font_0 = v31.Font.Header2.Font;
-        local v36 = v31.Font.BaseSize * v31.Font.Header2.RelativeSize;
-        local l_selectItem_0 = v30.selectItem;
-        if #v29.props.selectedOutfits > 0 then
-            l_selectItem_0 = v30.countSelected;
+    if v31.props.multiSelect then
+        local l_Font_0 = v33.Font.Header2.Font;
+        local v38 = v33.Font.BaseSize * v33.Font.Header2.RelativeSize;
+        local l_selectItem_0 = v32.selectItem;
+        if #v31.props.selectedOutfits > 0 then
+            l_selectItem_0 = v32.countSelected;
         end;
-        v33.SelectedCountTextLabel = v3.createElement(l_FitTextLabel_0, {
+        v35.SelectedCountTextLabel = v3.createElement(l_FitTextLabel_0, {
             width = l_FitTextLabel_0.Width.FitToText, 
             BackgroundTransparency = 1, 
             Text = l_selectItem_0, 
             Font = l_Font_0, 
             Position = UDim2.fromScale(0, 0.5), 
             AnchorPoint = Vector2.new(0, 0.5), 
-            TextColor3 = v31.Theme.TextEmphasis.Color, 
-            TextSize = v36
+            TextColor3 = v33.Theme.TextEmphasis.Color, 
+            TextSize = v38
         });
-    elseif v29.props.showCustomOutfitNames then
-        v33.RenameButton = v3.createElement(l_IconButton_0, {
+    elseif v31.props.showCustomOutfitNames then
+        v35.RenameButton = v3.createElement(l_IconButton_0, {
             anchorPoint = Vector2.new(0, 0.5), 
             position = UDim2.fromScale(0, 0.5), 
             size = UDim2.new(0, 44, 1, 0), 
-            icon = v21, 
+            icon = v23, 
             iconSize = l_IconSize_0.Medium, 
             iconColor3 = l_Theme_0.SystemPrimaryDefault.Color, 
             iconTransparency = l_Theme_0.SystemPrimaryDefault.Transparency, 
-            onActivated = v29.props.renameOutfit, 
-            buttonRef = v29.renameButtonRef, 
-            NextSelectionRight = v29.deleteButtonRef
+            onActivated = v31.props.renameOutfit, 
+            buttonRef = v31.renameButtonRef, 
+            NextSelectionRight = v31.deleteButtonRef
         });
     end;
-    local v38 = #v29.props.selectedOutfits > 0;
-    v33.DeleteButton = v3.createElement(l_IconButton_0, {
+    local v40 = #v31.props.selectedOutfits > 0;
+    v35.DeleteButton = v3.createElement(l_IconButton_0, {
         anchorPoint = Vector2.new(1, 0.5), 
         position = UDim2.fromScale(1, 0.5), 
         size = UDim2.new(0, 44, 1, 0), 
-        icon = v22, 
+        icon = v24, 
         iconSize = l_IconSize_0.Medium, 
         iconColor3 = l_Theme_0.SystemPrimaryDefault.Color, 
-        iconTransparency = v38 and l_Theme_0.SystemPrimaryDefault.Transparency or 0.5, 
-        onActivated = v38 and v29.props.deleteOutfit or nil, 
-        buttonRef = v29.deleteButtonRef, 
-        NextSelectionLeft = not v29.props.multiSelect and v29.renameButtonRef or nil
+        iconTransparency = v40 and l_Theme_0.SystemPrimaryDefault.Transparency or 0.5, 
+        onActivated = v40 and v31.props.deleteOutfit or nil, 
+        buttonRef = v31.deleteButtonRef, 
+        NextSelectionLeft = not v31.props.multiSelect and v31.renameButtonRef or nil
     });
-    return v33;
+    return v35;
 end;
-v23.renderWithProviders = function(v39, v40, v41, v42) --[[ Line: 159 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v3 (copy), l_Focusable_0 (copy)
-    local l_Theme_1 = v41.Theme;
-    local v44 = 64;
-    if v39.props.isPortrait then
-        v44 = v44 + 24;
+v25.renderWithProviders = function(v41, v42, v43, v44) --[[ Line: 163 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: v22 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), v3 (copy), l_Focusable_0 (copy)
+    local l_Theme_1 = v43.Theme;
+    local l_ActionBarHeight_0 = v22.ActionBarHeight;
+    if v41.props.isPortrait then
+        l_ActionBarHeight_0 = l_ActionBarHeight_0 + 24;
     end;
-    if v39.props.bottomPadding then
-        v44 = v44 + v39.props.bottomPadding;
+    if v41.props.bottomPadding then
+        l_ActionBarHeight_0 = l_ActionBarHeight_0 + v41.props.bottomPadding;
     end;
-    local v45 = v39:renderBarItems(v40, v41, if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v42);
-    local l_deleteButtonRef_0 = v39.deleteButtonRef;
-    if not v39.props.multiSelect and v39.props.showCustomOutfitNames then
-        l_deleteButtonRef_0 = v39.renameButtonRef;
+    local v47 = v41:renderBarItems(v42, v43, if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v44);
+    local l_deleteButtonRef_0 = v41.deleteButtonRef;
+    if not v41.props.multiSelect and v41.props.showCustomOutfitNames then
+        l_deleteButtonRef_0 = v41.renameButtonRef;
     end;
-    local l_forwardRef_0 = v39.props.forwardRef;
+    local l_forwardRef_0 = v41.props.forwardRef;
+    local v50 = if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 then v41.props.isPortrait and 24 or if v41.props.bottomPadding then v41.props.bottomPadding else nil else nil;
     return v3.createElement(l_FFlagAXMigrateAXToGlobalAutofocus_0 and "Frame" or l_Focusable_0.Frame, {
         BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, 0, v44), 
+        Size = UDim2.new(1, 0, 0, l_ActionBarHeight_0), 
         Position = UDim2.fromScale(0, 1), 
         AnchorPoint = Vector2.new(0, 1), 
-        ZIndex = v39.props.ZIndex, 
-        [v3.Change.AbsoluteSize] = v39.absoluteSizeChanged, 
+        ZIndex = v41.props.ZIndex, 
+        [v3.Change.AbsoluteSize] = v41.absoluteSizeChanged, 
         defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else l_deleteButtonRef_0, 
-        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v39.props.NextSelectionUp, 
+        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v41.props.NextSelectionUp, 
         [v3.Ref] = l_forwardRef_0
     }, {
         Background = v3.createElement("Frame", {
             BackgroundColor3 = l_Theme_1.BackgroundDefault.Color, 
             BackgroundTransparency = l_Theme_1.BackgroundDefault.Transparency, 
             BorderSizePixel = 0, 
-            Size = UDim2.new(1, 0, 0, 64)
-        }, v45), 
-        GapFiller = v39.props.isPortrait and v3.createElement("Frame", {
+            Size = UDim2.new(1, 0, 0, v22.ActionBarHeight)
+        }, v47), 
+        GapFiller = if l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 and v50 then v3.createElement("Frame", {
+            BackgroundColor3 = l_Theme_1.BackgroundDefault.Color, 
+            BackgroundTransparency = l_Theme_1.BackgroundDefault.Transparency, 
+            BorderSizePixel = 0, 
+            Size = UDim2.new(1, 0, 0, v50), 
+            Position = UDim2.fromScale(0, 1), 
+            AnchorPoint = Vector2.new(0, 1)
+        }) else if v41.props.isPortrait then v3.createElement("Frame", {
             BackgroundColor3 = l_Theme_1.BackgroundDefault.Color, 
             BackgroundTransparency = l_Theme_1.BackgroundDefault.Transparency, 
             BorderSizePixel = 0, 
             Size = UDim2.new(1, 0, 0, 24), 
             Position = UDim2.fromScale(0, 1), 
             AnchorPoint = Vector2.new(0, 1)
-        })
+        }) else nil
     });
 end;
-v23.render = function(v48) --[[ Line: 213 ]] --[[ Name: render ]]
+v25.render = function(v51) --[[ Line: 235 ]] --[[ Name: render ]]
     -- upvalues: l_withLocalization_0 (copy), l_withStyle_0 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v9 (copy)
     return l_withLocalization_0({
         countSelected = {
             "Feature.Avatar.Label.CountSelected"; 
-            itemCount = #v48.props.selectedOutfits
+            itemCount = #v51.props.selectedOutfits
         }, 
         selectItem = "Feature.Avatar.Label.SelectItem"
-    })(function(v49) --[[ Line: 220 ]]
-        -- upvalues: l_withStyle_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v48 (copy), v9 (ref)
-        return l_withStyle_0(function(v50) --[[ Line: 221 ]]
-            -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v48 (ref), v49 (copy), v9 (ref)
+    })(function(v52) --[[ Line: 242 ]]
+        -- upvalues: l_withStyle_0 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v51 (copy), v9 (ref)
+        return l_withStyle_0(function(v53) --[[ Line: 243 ]]
+            -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v51 (ref), v52 (copy), v9 (ref)
             if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                return v48:renderWithProviders(v49, v50);
+                return v51:renderWithProviders(v52, v53);
             else
-                return v9.withFocusController(function(v51) --[[ Line: 225 ]]
-                    -- upvalues: v48 (ref), v49 (ref), v50 (copy)
-                    return v48:renderWithProviders(v49, v50, v51);
+                return v9.withFocusController(function(v54) --[[ Line: 247 ]]
+                    -- upvalues: v51 (ref), v52 (ref), v53 (copy)
+                    return v51:renderWithProviders(v52, v53, v54);
                 end);
             end;
         end);
     end);
 end;
-v23 = l_RoactAppPolicy_0.connect(function(v52, _) --[[ Line: 232 ]]
+v25 = l_RoactAppPolicy_0.connect(function(v55, _) --[[ Line: 254 ]]
     return {
-        showCustomOutfitNames = v52.getCustomOutfitNames()
+        showCustomOutfitNames = v55.getCustomOutfitNames()
     };
-end)(v23);
-v23 = v4.connect(function(v54, _) --[[ Line: 238 ]] --[[ Name: mapStateToProps ]]
+end)(v25);
+v25 = v4.connect(function(v57, _) --[[ Line: 260 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: l_DeviceOrientationMode_0 (copy)
     return {
-        isPortrait = v54.DeviceOrientation == l_DeviceOrientationMode_0.Portrait
+        isPortrait = v57.DeviceOrientation == l_DeviceOrientationMode_0.Portrait
     };
-end, nil)(v23);
-return v3.forwardRef(function(v56, v57) --[[ Line: 249 ]]
-    -- upvalues: v3 (copy), v23 (ref), v2 (copy)
-    return v3.createElement(v23, v2.Dictionary.join(v56, {
-        forwardRef = v57
+end, nil)(v25);
+return v3.forwardRef(function(v59, v60) --[[ Line: 271 ]]
+    -- upvalues: v3 (copy), v25 (ref), v2 (copy)
+    return v3.createElement(v25, v2.Dictionary.join(v59, {
+        forwardRef = v60
     }));
 end);

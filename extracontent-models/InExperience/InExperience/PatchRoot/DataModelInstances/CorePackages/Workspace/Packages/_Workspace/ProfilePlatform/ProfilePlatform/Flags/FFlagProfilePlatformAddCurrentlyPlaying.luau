@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ProfilePlatformAddCurrentlyPlaying", false);
+return game:DefineFastFlag("ProfilePlatformAddCurrentlyPlaying_V2", false);

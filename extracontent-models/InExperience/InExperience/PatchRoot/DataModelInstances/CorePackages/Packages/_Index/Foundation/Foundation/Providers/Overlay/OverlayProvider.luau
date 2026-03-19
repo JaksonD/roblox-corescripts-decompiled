@@ -52,7 +52,7 @@ return function(v19) --[[ Line: 38 ]] --[[ Name: OverlayProvider ]]
             Enabled = true, 
             DisplayOrder = if v8.FoundationOverlayDisplayOrder then v20.DisplayOrder else v2.MAX_LAYOUT_ORDER - 1, 
             ZIndexBehavior = Enum.ZIndexBehavior.Sibling, 
-            ScreenInsets = if v8.FoundationOverlayLuaAppInsetsFix then Enum.ScreenInsets.CoreUISafeInsets else Enum.ScreenInsets.DeviceSafeInsets, 
+            ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets, 
             SafeAreaCompatibility = Enum.SafeAreaCompatibility.None, 
             ClipToDeviceSafeArea = false, 
             ref = if not v8.FoundationOverlayKeyboardAwareness then v22 else nil

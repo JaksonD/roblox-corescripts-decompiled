@@ -27,9 +27,11 @@ local v25 = require(script.Parent.ProductPayloadReducer);
 local v26 = require(script.Parent.UnifiedPurchaseEligibilityReducer);
 local v27 = require(script.Parent.PurchaseAnalyticsMetadataReducer);
 local v28 = require(script.Parent.PurchaseOptionsReducer);
-local v29 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableToastLiteRender);
+local v29 = require(script.Parent.RobloxSubscriptionProductsReducer);
+local v30 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnableToastLiteRender);
 local l_FFlagEnableUnifiedProductPurchaseFlow_0 = require(l_script_FirstAncestor_0.Parent.SharedFlags).FFlagEnableUnifiedProductPurchaseFlow;
 local l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 = require(l_script_FirstAncestor_0.Parent.SharedFlags).FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow;
+local l_FFlagEnableBlackbirdUpsellInUnifiedPurchaseModal_0 = require(l_script_FirstAncestor_0.Parent.SharedFlags).FFlagEnableBlackbirdUpsellInUnifiedPurchaseModal;
 return (l_Rodux_0.combineReducers({
     promptRequest = v5, 
     purchaseFlow = v6, 
@@ -48,11 +50,12 @@ return (l_Rodux_0.combineReducers({
     windowState = v18, 
     buttonState = v19, 
     subscriptionPurchaseInfo = v20, 
-    currentToastMessages = if v29() then l_CurrentToastMessagesReducer_0 else nil, 
+    currentToastMessages = if v30() then l_CurrentToastMessagesReducer_0 else nil, 
     purchaseCallbacks = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v23 else nil, 
     postPurchaseActions = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v24 else nil, 
     productPayload = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v25 else nil, 
     isUserEligibleForUnifiedPurchaseFlow = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v26 else nil, 
     purchaseAnalyticsMetadata = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v27 else nil, 
-    purchaseOptions = if l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 then v28 else nil
+    purchaseOptions = if l_FFlagAXSupportRentalPurchaseInUnifiedProductPurchaseFlow_0 then v28 else nil, 
+    robloxSubscriptionProducts = if l_FFlagEnableBlackbirdUpsellInUnifiedPurchaseModal_0 then v29 else nil
 }));

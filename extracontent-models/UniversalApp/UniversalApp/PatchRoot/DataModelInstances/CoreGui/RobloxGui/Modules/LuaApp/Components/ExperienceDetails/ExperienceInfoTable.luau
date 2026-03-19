@@ -21,81 +21,80 @@ local v19 = require(l_Modules_0.LuaApp.Thunks.NavigateDown);
 local v20 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForLeaveRobloxAlert);
 local v21 = require(l_Modules_0.LuaApp.Thunks.CloseCentralOverlay);
 local l_FFlagHideCloseButtonEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagHideCloseButtonEdp;
-local l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddTestIdsForEdpInfoTable;
 local l_ListTable_0 = v12.App.Table.ListTable;
-local v25 = require(script.Parent.ExperienceInfoTableRow);
-local v26 = require(script.Parent.ExperienceDetailsPanel);
-return v2.forwardRef(function(v27, v28) --[[ Line: 48 ]]
-    -- upvalues: v9 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v8 (copy), v14 (copy), l_useDispatch_0 (copy), v2 (copy), v19 (copy), l_AppLinking_0 (copy), v20 (copy), v21 (copy), v13 (copy), l_useLocalization_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_useTokens_0 (copy), l_ListTable_0 (copy), v3 (copy), v25 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (copy), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (copy), v26 (copy)
-    local v29 = v9(v27.universeId, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v27.shouldHydrateLegacyIxp else nil, if l_FFlagHideCloseButtonEdp_0 then v27.hideCloseButton else nil);
-    local v30 = v8(v14);
-    local v31 = l_useDispatch_0();
-    local v33 = v2.useCallback(function(v32) --[[ Line: 56 ]]
-        -- upvalues: v31 (copy), v19 (ref)
-        v31(v19(v32));
+local v24 = require(script.Parent.ExperienceInfoTableRow);
+local v25 = require(script.Parent.ExperienceDetailsPanel);
+return v2.forwardRef(function(v26, v27) --[[ Line: 46 ]]
+    -- upvalues: v9 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), v8 (copy), v14 (copy), l_useDispatch_0 (copy), v2 (copy), v19 (copy), l_AppLinking_0 (copy), v20 (copy), v21 (copy), v13 (copy), l_useLocalization_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_useTokens_0 (copy), l_ListTable_0 (copy), v3 (copy), v24 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (copy), v25 (copy)
+    local v28 = v9(v26.universeId, if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v26.shouldHydrateLegacyIxp else nil, if l_FFlagHideCloseButtonEdp_0 then v26.hideCloseButton else nil);
+    local v29 = v8(v14);
+    local v30 = l_useDispatch_0();
+    local v32 = v2.useCallback(function(v31) --[[ Line: 54 ]]
+        -- upvalues: v30 (copy), v19 (ref)
+        v30(v19(v31));
     end);
-    local v34 = v8(l_AppLinking_0);
-    local v36 = v2.useCallback(function(v35) --[[ Line: 62 ]]
-        -- upvalues: v31 (copy), v20 (ref)
-        v31(v20(v35));
+    local v33 = v8(l_AppLinking_0);
+    local v35 = v2.useCallback(function(v34) --[[ Line: 60 ]]
+        -- upvalues: v30 (copy), v20 (ref)
+        v30(v20(v34));
     end, {
-        v31
+        v30
     });
-    local v37 = v2.useCallback(function() --[[ Line: 66 ]]
-        -- upvalues: v31 (copy), v21 (ref)
-        v31(v21());
+    local v36 = v2.useCallback(function() --[[ Line: 64 ]]
+        -- upvalues: v30 (copy), v21 (ref)
+        v30(v21());
     end, {
-        v31
+        v30
     });
-    local v39 = v13(function(v38) --[[ Line: 70 ]]
-        return v38.enableExperienceDetailsPanel();
+    local v38 = v13(function(v37) --[[ Line: 68 ]]
+        return v37.enableExperienceDetailsPanel();
     end);
-    local v40 = l_useLocalization_0({
+    local v39 = l_useLocalization_0({
         StatsInfoTitle = "Feature.ExperienceDetails.Body.StatsInfoTitle"
     });
-    local v41 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    local v42 = l_useTokens_0();
-    local v44 = v2.createElement(l_ListTable_0, {
-        cells = v3.map(v29.rows, function(v43) --[[ Line: 84 ]]
-            -- upvalues: v2 (ref), v25 (ref), v39 (copy), v42 (copy), v27 (copy), v41 (copy), v30 (copy), v29 (copy), v33 (copy), v36 (copy), v37 (copy), v34 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref), l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 (ref)
-            return v2.createElement(v25, {
-                horizontalPadding = if not v39 then v42.Padding.Medium else nil, 
-                infoName = v43.infoName, 
-                infoData = v43.infoData or "", 
-                infoIcon = v43.infoIcon, 
-                renderTextOverride = v43.infoDataOverride and v27.renderTextOverride and function() --[[ Line: 91 ]]
-                    -- upvalues: v43 (copy), v27 (ref)
-                    return v43.infoDataOverride(v27.renderTextOverride);
+    local v40 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    local v41 = l_useTokens_0();
+    local v43 = v2.createElement(l_ListTable_0, {
+        cells = v3.map(v28.rows, function(v42) --[[ Line: 82 ]]
+            -- upvalues: v2 (ref), v24 (ref), v38 (copy), v41 (copy), v26 (copy), v40 (copy), v29 (copy), v28 (copy), v32 (copy), v35 (copy), v36 (copy), v33 (copy), l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 (ref)
+            return v2.createElement(v24, {
+                horizontalPadding = if not v38 then v41.Padding.Medium else nil, 
+                infoName = v42.infoName, 
+                infoData = v42.infoData or "", 
+                infoIcon = v42.infoIcon, 
+                renderTextOverride = v42.infoDataOverride and v26.renderTextOverride and function() --[[ Line: 89 ]]
+                    -- upvalues: v42 (copy), v26 (ref)
+                    return v42.infoDataOverride(v26.renderTextOverride);
                 end or nil, 
-                linkProps = if not (not not v43.linkPage or v43.navigateOverride) or v41 then nil else {
-                    eventIngest = v30, 
-                    rootPlaceId = v29.rootPlaceId, 
-                    linkPage = v43.linkPage, 
-                    linkUrl = v43.linkUrl, 
-                    navigate = v43.navigateOverride or v33, 
-                    analyticsSubPage = v43.analyticsSubPage
+                linkProps = if not (not not v42.linkPage or v42.navigateOverride) or v40 then nil else {
+                    eventIngest = v29, 
+                    rootPlaceId = v28.rootPlaceId, 
+                    linkPage = v42.linkPage, 
+                    linkUrl = v42.linkUrl, 
+                    navigate = v42.navigateOverride or v32, 
+                    analyticsSubPage = v42.analyticsSubPage
                 }, 
-                externalLinkProps = if not v43.linkUrl or v41 then nil else {
-                    linkUrl = v43.linkUrl, 
-                    openLeaveRobloxAlert = v36, 
-                    closeAlert = v37, 
-                    linking = v34, 
-                    clickCallback = v43.linkClickCallback
+                externalLinkProps = if not v42.linkUrl or v40 then nil else {
+                    linkUrl = v42.linkUrl, 
+                    openLeaveRobloxAlert = v35, 
+                    closeAlert = v36, 
+                    linking = v33, 
+                    clickCallback = v42.linkClickCallback
                 }, 
-                universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v27.universeId else nil, 
-                testId = if l_FFlagLuaAppAddTestIdsForEdpInfoTable_0 then v43.testId else nil
+                universeId = if l_FFlagLuaAppAddUniverseIdToGameDetailsEvents_0 then v26.universeId else nil, 
+                testId = v42.testId
             });
         end), 
         automaticSize = Enum.AutomaticSize.Y, 
-        dividerStartOffset = not v39 and 0 or nil
+        dividerStartOffset = not v38 and 0 or nil
     });
-    if v39 then
-        return v2.createElement(v26, {
-            ref = v28, 
-            title = v40.StatsInfoTitle, 
+    if v38 then
+        return v2.createElement(v25, {
+            ref = v27, 
+            title = v39.StatsInfoTitle, 
             roundContentCorners = true
-        }, v44);
+        }, v43);
     else
-        return v44;
+        return v43;
     end;
 end);

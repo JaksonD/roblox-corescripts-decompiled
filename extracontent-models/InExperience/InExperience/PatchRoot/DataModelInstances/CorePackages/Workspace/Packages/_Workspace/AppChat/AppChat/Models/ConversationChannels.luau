@@ -60,6 +60,7 @@ local v28 = {
         NotPending = "not_pending"
     }, 
     OsaAcknowledgementStatus = v3.Constants.OsaAcknowledgementStatusResponse, 
+    UserOptedIntoChatMessagesStatus = v3.Constants.UserOptedIntoChatMessagesStatusResponse, 
     Source = {
         Friends = "friends", 
         Channels = "channels", 
@@ -69,16 +70,16 @@ local v28 = {
         Group = "group", 
         OneToOne = "one_to_one"
     }, 
-    getEmptyMessages = function() --[[ Line: 91 ]] --[[ Name: getEmptyMessages ]]
+    getEmptyMessages = function() --[[ Line: 93 ]] --[[ Name: getEmptyMessages ]]
         -- upvalues: l_OrderedMap_0 (copy), v11 (copy), v16 (copy)
         return l_OrderedMap_0.new(v11, v16);
     end, 
-    getEmptySendingMessages = function() --[[ Line: 94 ]] --[[ Name: getEmptySendingMessages ]]
+    getEmptySendingMessages = function() --[[ Line: 96 ]] --[[ Name: getEmptySendingMessages ]]
         -- upvalues: l_OrderedMap_0 (copy), v11 (copy), v19 (copy)
         return l_OrderedMap_0.new(v11, v19);
     end
 };
-v28.mockBase = function() --[[ Line: 98 ]] --[[ Name: mockBase ]]
+v28.mockBase = function() --[[ Line: 100 ]] --[[ Name: mockBase ]]
     -- upvalues: v28 (copy), v7 (copy), v6 (copy), l_DateTime_0 (copy)
     return {
         source = "channels", 
@@ -110,16 +111,17 @@ v28.mockBase = function() --[[ Line: 98 ]] --[[ Name: mockBase ]]
             "1"
         }, 
         osaAcknowledgementStatus = v28.OsaAcknowledgementStatus.NotApplicable, 
+        userOptedIntoChatMessages = v28.UserOptedIntoChatMessagesStatus.NotApplicable, 
         previousCursor = nil, 
         nextCursor = nil, 
         fetchedOldestMessage = nil
     };
 end;
-v28.mock = function(v29) --[[ Line: 144 ]] --[[ Name: mock ]]
+v28.mock = function(v29) --[[ Line: 147 ]] --[[ Name: mock ]]
     -- upvalues: v4 (copy), v28 (copy)
     return v4.Dictionary.join(v28.mockBase(), v29 or {});
 end;
-v28.response = function(v30) --[[ Line: 148 ]] --[[ Name: response ]]
+v28.response = function(v30) --[[ Line: 151 ]] --[[ Name: response ]]
     return {
         source = if v30.source then v30.source else "channels", 
         type = if v30.type then v30.type else "one_to_one", 
@@ -139,10 +141,11 @@ v28.response = function(v30) --[[ Line: 148 ]] --[[ Name: response ]]
         success = if v30.success then v30.success else nil, 
         preview_message = if v30.preview_message then v30.preview_message else nil, 
         hasGroupUp = if v30.hasGroupUp then v30.hasGroupUp else false, 
-        osa_acknowledgement_status = if v30.osa_acknowledgement_status then v30.osa_acknowledgement_status else nil
+        osa_acknowledgement_status = if v30.osa_acknowledgement_status then v30.osa_acknowledgement_status else nil, 
+        user_opted_into_chat_messages = if v30.user_opted_into_chat_messages then v30.user_opted_into_chat_messages else nil
     };
 end;
-v28.fromChannelsApi = function(v31) --[[ Line: 193 ]] --[[ Name: fromChannelsApi ]]
+v28.fromChannelsApi = function(v31) --[[ Line: 200 ]] --[[ Name: fromChannelsApi ]]
     -- upvalues: v28 (copy), v27 (copy), v7 (copy), v6 (copy), l_FFlagAppChatExcludeSyntheticPreviewFromMessages_0 (copy), l_DateTime_0 (copy)
     local v32 = {
         source = v31.source, 
@@ -188,9 +191,12 @@ v28.fromChannelsApi = function(v31) --[[ Line: 193 ]] --[[ Name: fromChannelsApi
     if v31.osa_acknowledgement_status then
         v32.osaAcknowledgementStatus = v31.osa_acknowledgement_status;
     end;
+    if v31.user_opted_into_chat_messages then
+        v32.userOptedIntoChatMessages = v31.user_opted_into_chat_messages;
+    end;
     return v32;
 end;
-v28.getFriendConversationId = function(v37) --[[ Line: 249 ]] --[[ Name: getFriendConversationId ]]
+v28.getFriendConversationId = function(v37) --[[ Line: 260 ]] --[[ Name: getFriendConversationId ]]
     -- upvalues: v27 (copy)
     return (v27({
         participant_user_ids = v37

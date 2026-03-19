@@ -47,163 +47,160 @@ local v45 = game:DefineFastInt("AXCarouselLoadingBuffer", 1);
 local v46 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXAnimatedLooksThumbnails);
 local v47 = game:DefineFastFlag("AXCarouselFixMissingAnalytics2", false);
 local v48 = game:DefineFastFlag("AXCarouselMoreSeeAllAnalytics", false);
-local v49 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableWidgetsTTI);
 local l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXScrollingCarouselWidgetIndexBugfix;
-local v51 = game:DefineFastFlag("AXFixWidgetTileImpressions", false);
-local l_FFlagAXWidgetTypeAnalytics_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXWidgetTypeAnalytics;
-local l_FFlagAXWidgetImpressionThemeId_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXWidgetImpressionThemeId;
+local v50 = game:DefineFastFlag("AXSeeAllTreatmentType", false);
 local l_FFlagAXMoveAllTabToWidgetOnly_0 = v12.FFlagAXMoveAllTabToWidgetOnly;
 local l_FFlagAXCatalogCategoriesStoreImprovePerf_0 = v12.FFlagAXCatalogCategoriesStoreImprovePerf;
-local v56 = game:DefineFastInt("AXCarouselPeakFraction", 33);
-local v57 = game:DefineFastInt("AXCarouselItemsBasedOnFrameSize", 3);
-local v58 = v56 / 100;
-local v59 = {
+local l_FFlagAXAddLookTypeEnumForLogging_0 = v12.FFlagAXAddLookTypeEnumForLogging;
+local v54 = game:DefineFastInt("AXCarouselPeakFraction", 33);
+local v55 = game:DefineFastInt("AXCarouselItemsBasedOnFrameSize", 3);
+local v56 = v54 / 100;
+local v57 = {
     leftPosition = 28, 
     rightPosition = 15
 };
-local v60 = {};
-local function v81(v61, v62, v63, v64, v65) --[[ Line: 111 ]] --[[ Name: useItemCarouselWidgetViewModel ]]
+local v58 = {};
+local function v79(v59, v60, v61, v62, v63) --[[ Line: 107 ]] --[[ Name: useItemCarouselWidgetViewModel ]]
     -- upvalues: v3 (copy), v17 (copy), l_useDispatch_0 (copy), v33 (copy), v22 (copy), v31 (copy), v21 (copy), v24 (copy), l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 (copy)
-    local v66, v67 = v3.useState({
+    local v64, v65 = v3.useState({
         cardWindowStart = 1, 
         cardWindowIndex = 1
     });
-    local v68, v69 = v3.useState(v17.NotStarted);
-    local l_widgetInfo_0 = v61.widgetInfo;
-    local l_widgetConfiguration_0 = v61.widgetConfiguration;
-    local v72 = l_useDispatch_0();
-    local v73 = v33(v22);
-    local v74 = v61.displayAsItemGroupWidget and not v61.widgetFocused;
-    local v75 = v3.useMemo(function() --[[ Line: 131 ]]
-        -- upvalues: v74 (copy), l_widgetConfiguration_0 (copy), v31 (ref), l_widgetInfo_0 (copy), v62 (copy), v61 (copy)
-        if v74 and l_widgetConfiguration_0 and l_widgetConfiguration_0.customizedDataMap and l_widgetConfiguration_0.customizedDataMap.hydrateOnlyVisibleItems then
-            return v31(l_widgetInfo_0, v62, v61.itemsPerRow);
+    local v66, v67 = v3.useState(v17.NotStarted);
+    local l_widgetInfo_0 = v59.widgetInfo;
+    local l_widgetConfiguration_0 = v59.widgetConfiguration;
+    local v70 = l_useDispatch_0();
+    local v71 = v33(v22);
+    local v72 = v59.displayAsItemGroupWidget and not v59.widgetFocused;
+    local v73 = v3.useMemo(function() --[[ Line: 127 ]]
+        -- upvalues: v72 (copy), l_widgetConfiguration_0 (copy), v31 (ref), l_widgetInfo_0 (copy), v60 (copy), v59 (copy)
+        if v72 and l_widgetConfiguration_0 and l_widgetConfiguration_0.customizedDataMap and l_widgetConfiguration_0.customizedDataMap.hydrateOnlyVisibleItems then
+            return v31(l_widgetInfo_0, v60, v59.itemsPerRow);
         else
-            return v31(l_widgetInfo_0, v62);
+            return v31(l_widgetInfo_0, v60);
         end;
     end, {
-        v62, 
+        v60, 
         l_widgetInfo_0, 
-        v74, 
-        v61.itemsPerRow
-    });
-    v3.useEffect(function() --[[ Line: 151 ]]
-        -- upvalues: l_widgetInfo_0 (copy), v21 (ref), v75 (copy), v68 (copy), v17 (ref), v69 (copy), v72 (copy), v24 (ref), v73 (copy)
-        if l_widgetInfo_0.type ~= v21.Types.MySharedAvatarsWidget and v75 and #v75 > 0 and v68 == v17.NotStarted then
-            v69(v17.Fetching);
-            v72(v24(v73, v75, l_widgetInfo_0.id));
-        end;
-    end, {
-        v75, 
-        l_widgetInfo_0, 
-        v75, 
-        v68, 
         v72, 
-        v73
+        v59.itemsPerRow
     });
-    return v66, (v3.useCallback(function(v76) --[[ Line: 163 ]]
-        -- upvalues: v64 (copy), v65 (copy), l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 (ref), v66 (copy), v67 (copy), v63 (copy)
-        if not v76 then
+    v3.useEffect(function() --[[ Line: 147 ]]
+        -- upvalues: l_widgetInfo_0 (copy), v21 (ref), v73 (copy), v66 (copy), v17 (ref), v67 (copy), v70 (copy), v24 (ref), v71 (copy)
+        if l_widgetInfo_0.type ~= v21.Types.MySharedAvatarsWidget and v73 and #v73 > 0 and v66 == v17.NotStarted then
+            v67(v17.Fetching);
+            v70(v24(v71, v73, l_widgetInfo_0.id));
+        end;
+    end, {
+        v73, 
+        l_widgetInfo_0, 
+        v73, 
+        v66, 
+        v70, 
+        v71
+    });
+    return v64, (v3.useCallback(function(v74) --[[ Line: 159 ]]
+        -- upvalues: v62 (copy), v63 (copy), l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 (ref), v64 (copy), v65 (copy), v61 (copy)
+        if not v74 then
             return;
         else
-            local l_X_0 = v76.CanvasPosition.X;
-            local v78 = math.max(1, (math.floor(l_X_0 / ((v64 or 0) + (v65 or 0)))));
-            local v79 = nil;
-            v79 = if l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 then math.max(0, (math.floor(l_X_0 / ((v64 or 0) + (v65 or 0))))) + 1 else math.max(0, (math.floor(l_X_0 / ((v64 or 0) - (v65 or 0))))) + 1;
-            local v80 = true;
-            if v78 == v66.cardWindowStart then
-                v80 = v79 ~= v66.cardWindowIndex;
+            local l_X_0 = v74.CanvasPosition.X;
+            local v76 = math.max(1, (math.floor(l_X_0 / ((v62 or 0) + (v63 or 0)))));
+            local v77 = nil;
+            v77 = if l_FFlagAXScrollingCarouselWidgetIndexBugfix_0 then math.max(0, (math.floor(l_X_0 / ((v62 or 0) + (v63 or 0))))) + 1 else math.max(0, (math.floor(l_X_0 / ((v62 or 0) - (v63 or 0))))) + 1;
+            local v78 = true;
+            if v76 == v64.cardWindowStart then
+                v78 = v77 ~= v64.cardWindowIndex;
             end;
-            if v80 then
-                v67({
-                    cardWindowStart = v78, 
-                    cardWindowIndex = v79
+            if v78 then
+                v65({
+                    cardWindowStart = v76, 
+                    cardWindowIndex = v77
                 });
-                v63.current:fire();
+                v61.current:fire();
             end;
             return;
         end;
     end, {
-        v66, 
         v64, 
-        v65, 
-        v63
+        v62, 
+        v63, 
+        v61
     }));
 end;
-local function _(v82, v83, v84) --[[ Line: 195 ]] --[[ Name: getItemWidth ]]
-    return (math.floor((v82 - (v83 - 1) * v84) / v83));
+local function _(v80, v81, v82) --[[ Line: 191 ]] --[[ Name: getItemWidth ]]
+    return (math.floor((v80 - (v81 - 1) * v82) / v81));
 end;
-local function v93(v86, v87, v88, v89) --[[ Line: 201 ]] --[[ Name: useItemCarouselWidgetSizes ]]
+local function v91(v84, v85, v86, v87) --[[ Line: 197 ]] --[[ Name: useItemCarouselWidgetSizes ]]
     -- upvalues: l_useTokens_0 (copy)
     local l_Medium_0 = l_useTokens_0().Gap.Medium;
-    local v91 = v87 + v89;
-    local v92 = math.floor((v86 - (v91 - 1) * l_Medium_0) / v91);
-    v91 = v88 * v92 + (v88 - 1) * l_Medium_0;
+    local v89 = v85 + v87;
+    local v90 = math.floor((v84 - (v89 - 1) * l_Medium_0) / v89);
+    v89 = v86 * v90 + (v86 - 1) * l_Medium_0;
     return {
-        itemWidth = v92, 
+        itemWidth = v90, 
         itemGap = l_Medium_0, 
-        canvasWidth = v91
+        canvasWidth = v89
     };
 end;
-return function(v94) --[[ Line: 214 ]] --[[ Name: ItemCarouselWidget ]]
-    -- upvalues: l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v44 (copy), v57 (copy), v93 (copy), l_FFlagAXFixSeeAllSpacing_0 (copy), v58 (copy), v33 (copy), v27 (copy), v3 (copy), l_Signal_0 (copy), l_useLocalization_0 (copy), v5 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v81 (copy), v51 (copy), v20 (copy), v32 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), l_getFooterVisibilityFromItemFooters_0 (copy), v47 (copy), v4 (copy), l_UnifiedEventLogEnums_0 (copy), v18 (copy), l_FFlagAXLookAndFeelBackgrounds_0 (copy), v21 (copy), v46 (copy), v49 (copy), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (copy), v23 (copy), v45 (copy), l_Grid_0 (copy), l_ScrollingAppCarousel_0 (copy), v59 (copy), l_ScreenSizeImpressionsDetector_0 (copy), v60 (copy), v26 (copy), l_FFlagAXMoveAllTabToWidgetOnly_0 (copy), l_WidgetHeader_0 (copy), l_useImpressionsTagger_0 (copy), l_addUnifiedEventLogging_0 (copy), l_FFlagAXWidgetTypeAnalytics_0 (copy), l_FFlagAXWidgetImpressionThemeId_0 (copy), l_UnifiedEventLogConstants_0 (copy), v48 (copy), l_HttpService_0 (copy), l_WidgetLayout_0 (copy), v29 (copy)
-    local v95 = l_useStyle_0();
-    local v96 = l_useDesignTokens_0();
-    local l_widgetInfo_1 = v94.widgetInfo;
-    local v98 = l_widgetInfo_1.content and #l_widgetInfo_1.content or 0;
-    local v99 = math.min(v98, v44);
-    local v100 = math.min(v98, v94.itemsPerRow * v57 - v57 + 1);
-    local v101 = 0;
-    local v102 = v93(v94.rowWidth or 0, v94.itemsPerRow, v100, (not not v94.displayAsItemGroupWidget or l_FFlagAXFixSeeAllSpacing_0 and v94.widgetFocused) and 0 or v58);
-    local l_itemGap_0 = v102.itemGap;
-    local l_itemWidth_0 = v102.itemWidth;
-    local l_canvasWidth_0 = v102.canvasWidth;
-    local v106 = v33(v27);
-    local v107 = v3.useRef(l_Signal_0.new());
-    local v108 = "WIDGET_CAROUSEL" .. "_" .. v94.widgetInfo.id;
-    local l_widgetConfiguration_1 = v94.widgetConfiguration;
-    local v110 = l_widgetInfo_1 and l_widgetInfo_1.template and l_widgetInfo_1.template.seeAllButton or v94.widgetFocused;
-    local v111 = l_useLocalization_0({
+return function(v92) --[[ Line: 210 ]] --[[ Name: ItemCarouselWidget ]]
+    -- upvalues: l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v44 (copy), v55 (copy), v91 (copy), l_FFlagAXFixSeeAllSpacing_0 (copy), v56 (copy), v50 (copy), l_UnifiedEventLogEnums_0 (copy), v33 (copy), v27 (copy), v3 (copy), l_Signal_0 (copy), l_useLocalization_0 (copy), v5 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v79 (copy), v20 (copy), v32 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), l_getFooterVisibilityFromItemFooters_0 (copy), v47 (copy), v4 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy), v18 (copy), l_FFlagAXLookAndFeelBackgrounds_0 (copy), v21 (copy), v46 (copy), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (copy), v23 (copy), v45 (copy), l_Grid_0 (copy), l_ScrollingAppCarousel_0 (copy), v57 (copy), l_ScreenSizeImpressionsDetector_0 (copy), v58 (copy), v26 (copy), l_FFlagAXMoveAllTabToWidgetOnly_0 (copy), l_WidgetHeader_0 (copy), l_useImpressionsTagger_0 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogConstants_0 (copy), v48 (copy), l_HttpService_0 (copy), l_WidgetLayout_0 (copy), v29 (copy)
+    local v93 = l_useStyle_0();
+    local v94 = l_useDesignTokens_0();
+    local l_widgetInfo_1 = v92.widgetInfo;
+    local v96 = l_widgetInfo_1.content and #l_widgetInfo_1.content or 0;
+    local v97 = math.min(v96, v44);
+    local v98 = math.min(v96, v92.itemsPerRow * v55 - v55 + 1);
+    local v99 = 0;
+    local v100 = v91(v92.rowWidth or 0, v92.itemsPerRow, v98, (not not v92.displayAsItemGroupWidget or l_FFlagAXFixSeeAllSpacing_0 and v92.widgetFocused) and 0 or v56);
+    local v101 = nil;
+    v101 = if v50 then if v92.widgetFocused then l_UnifiedEventLogEnums_0.WidgetUiTreatment.WIDGET_SEE_ALL else if v92.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL else if v92.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL;
+    local l_itemGap_0 = v100.itemGap;
+    local l_itemWidth_0 = v100.itemWidth;
+    local l_canvasWidth_0 = v100.canvasWidth;
+    local v105 = v33(v27);
+    local v106 = v3.useRef(l_Signal_0.new());
+    local v107 = "WIDGET_CAROUSEL" .. "_" .. v92.widgetInfo.id;
+    local l_widgetConfiguration_1 = v92.widgetConfiguration;
+    local v109 = l_widgetInfo_1 and l_widgetInfo_1.template and l_widgetInfo_1.template.seeAllButton or v92.widgetFocused;
+    local v110 = l_useLocalization_0({
         widgetTitle = if l_widgetInfo_1 and l_widgetInfo_1.template then l_widgetInfo_1.template.title else nil, 
         widgetDescription = if l_widgetInfo_1 and l_widgetInfo_1.template then l_widgetInfo_1.template.description else nil
     });
-    local v112 = v5.useRefCache();
-    local v114 = l_useSelector_0(function(v113) --[[ Line: 248 ]]
-        return v113.AvatarExperience.Common.Widgets.HydratedWidgetData;
+    local v111 = v5.useRefCache();
+    local v113 = l_useSelector_0(function(v112) --[[ Line: 259 ]]
+        return v112.AvatarExperience.Common.Widgets.HydratedWidgetData;
     end, l_getUseSelectorDeepEquals_0());
-    local v115, v116 = v81(v94, v114, v107, l_itemWidth_0, l_itemGap_0);
-    v3.useEffect(function() --[[ Line: 254 ]]
-        -- upvalues: v107 (copy)
-        v107.current:fire();
+    local v114, v115 = v79(v92, v113, v106, l_itemWidth_0, l_itemGap_0);
+    v3.useEffect(function() --[[ Line: 265 ]]
+        -- upvalues: v106 (copy)
+        v106.current:fire();
     end, {});
-    if v51 then
-        local v117 = v3.useRef(nil);
-        local l_v117_0 = v117 --[[ copy: 23 -> 45 ]];
-        v3.useEffect(function() --[[ Line: 266 ]]
-            -- upvalues: l_v117_0 (copy), v20 (ref), v107 (copy)
-            local function v119() --[[ Line: 267 ]] --[[ Name: scheduleNextTimer ]]
-                -- upvalues: l_v117_0 (ref), v20 (ref), v107 (ref), v119 (copy)
-                l_v117_0.current = task.delay(v20.ImpressionsDetectionInterval, function() --[[ Line: 268 ]]
-                    -- upvalues: v107 (ref), v119 (ref)
-                    v107.current:fire();
-                    v119();
-                end);
-            end;
-            l_v117_0.current = task.delay(v20.ImpressionsDetectionInterval, function() --[[ Line: 268 ]]
-                -- upvalues: v107 (ref), v119 (copy)
-                v107.current:fire();
-                v119();
+    local v116 = v3.useRef(nil);
+    v3.useEffect(function() --[[ Line: 275 ]]
+        -- upvalues: v116 (copy), v20 (ref), v106 (copy)
+        local function v117() --[[ Line: 276 ]] --[[ Name: scheduleNextTimer ]]
+            -- upvalues: v116 (ref), v20 (ref), v106 (ref), v117 (copy)
+            v116.current = task.delay(v20.ImpressionsDetectionInterval, function() --[[ Line: 277 ]]
+                -- upvalues: v106 (ref), v117 (ref)
+                v106.current:fire();
+                v117();
             end);
-            return function() --[[ Line: 276 ]]
-                -- upvalues: l_v117_0 (ref)
-                if l_v117_0.current then
-                    task.cancel(l_v117_0.current);
-                    l_v117_0.current = nil;
-                end;
+        end;
+        v116.current = task.delay(v20.ImpressionsDetectionInterval, function() --[[ Line: 277 ]]
+            -- upvalues: v106 (ref), v117 (copy)
+            v106.current:fire();
+            v117();
+        end);
+        return function() --[[ Line: 285 ]]
+            -- upvalues: v116 (ref)
+            if v116.current then
+                task.cancel(v116.current);
+                v116.current = nil;
             end;
-        end, {});
-    end;
-    local v120 = {
+        end;
+    end, {});
+    local v118 = {
         Layout = v3.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Horizontal, 
             Padding = UDim.new(0, l_itemGap_0), 
@@ -211,245 +208,247 @@ return function(v94) --[[ Line: 214 ]] --[[ Name: ItemCarouselWidget ]]
             VerticalAlignment = Enum.VerticalAlignment.Top
         })
     };
-    local v121 = v32(l_widgetInfo_1, l_widgetConfiguration_1);
-    local l_creatorNameFooterEnabled_0 = v121.creatorNameFooterEnabled;
-    local l_priceFooterEnabled_0 = v121.priceFooterEnabled;
-    local l_creatorNameTileFooterEnabled_0 = v121.creatorNameTileFooterEnabled;
-    local v125 = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then l_getFooterVisibilityFromItemFooters_0(if v94.widgetInfo then v94.widgetInfo.template.itemFooters else nil) else nil;
-    local function v129(v126, v127) --[[ Line: 302 ]]
-        -- upvalues: v47 (ref), v4 (ref), v94 (copy), l_widgetInfo_1 (copy), l_UnifiedEventLogEnums_0 (ref), v3 (ref), v18 (ref), l_itemWidth_0 (copy), v101 (ref), l_FFlagAXLookAndFeelBackgrounds_0 (ref), v21 (ref), v112 (copy), l_creatorNameFooterEnabled_0 (ref), l_priceFooterEnabled_0 (copy), l_creatorNameTileFooterEnabled_0 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v125 (copy), v108 (copy), v46 (ref), v49 (ref), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (ref)
-        local v128 = if v47 then v4.Dictionary.join(v94.widgetAnalyticsInfo, {
-            itemPosition = v127, 
-            itemId = v126.id, 
-            itemType = v126.type, 
+    local v119 = v32(l_widgetInfo_1, l_widgetConfiguration_1);
+    local l_creatorNameFooterEnabled_0 = v119.creatorNameFooterEnabled;
+    local l_priceFooterEnabled_0 = v119.priceFooterEnabled;
+    local l_creatorNameTileFooterEnabled_0 = v119.creatorNameTileFooterEnabled;
+    local v123 = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then l_getFooterVisibilityFromItemFooters_0(if v92.widgetInfo then v92.widgetInfo.template.itemFooters else nil) else nil;
+    local function v127(v124, v125) --[[ Line: 311 ]]
+        -- upvalues: v47 (ref), v4 (ref), v92 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), v20 (ref), v113 (copy), l_widgetInfo_1 (copy), v101 (ref), v3 (ref), v18 (ref), l_itemWidth_0 (copy), v99 (ref), l_FFlagAXLookAndFeelBackgrounds_0 (ref), v21 (ref), v111 (copy), l_creatorNameFooterEnabled_0 (ref), l_priceFooterEnabled_0 (copy), l_creatorNameTileFooterEnabled_0 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v123 (copy), v107 (copy), v46 (ref), l_FFlagAXCatalogCategoriesStoreImprovePerf_0 (ref)
+        local v126 = if v47 then v4.Dictionary.join(v92.widgetAnalyticsInfo, {
+            itemPosition = v125, 
+            itemId = v124.id, 
+            itemType = v124.type, 
+            lookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v124.type == v20.ItemType.Look and v113 and v113[v20.ItemType.Look] and v113[v20.ItemType.Look][v124.id] then v113[v20.ItemType.Look][v124.id].lookType else nil, 
             themeId = l_widgetInfo_1.tagId, 
-            gridPositionRow = if v94.widgetFocused and v126.gridInformation then v126.gridInformation.row else v94.widgetRow, 
-            gridPositionColumn = if v94.widgetFocused and v126.gridInformation then v126.gridInformation.column else v127, 
-            uiTreatmentType = if v94.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL
+            gridPositionRow = if v92.widgetFocused and v124.gridInformation then v124.gridInformation.row else v92.widgetRow, 
+            gridPositionColumn = if v92.widgetFocused and v124.gridInformation then v124.gridInformation.column else v125, 
+            uiTreatmentType = v101
         }) else nil;
         return v3.createElement(v18, {
-            size = UDim2.new(0, l_itemWidth_0, 0, v101), 
+            size = UDim2.new(0, l_itemWidth_0, 0, v99), 
             cardStyle = if l_FFlagAXLookAndFeelBackgrounds_0 then l_widgetInfo_1.template.cardStyle else nil, 
-            contentType = v126.type or v21.ContentType.Asset, 
+            contentType = v124.type or v21.ContentType.Asset, 
             tileContentType = l_widgetInfo_1.type, 
-            contentId = v126.id or "", 
-            index = v127, 
-            refCache = v112, 
-            resultsListRef = v94.gridRef, 
-            itemDetailsPeekViewRefs = v94.itemDetailsPeekViewRefs, 
-            itemsPerRow = v94.itemsPerRow, 
-            hideItemName = v94.hideItemName, 
-            analyticsItemCountPerPage = v94.itemsPerRow, 
+            contentId = v124.id or "", 
+            index = v125, 
+            refCache = v111, 
+            resultsListRef = v92.gridRef, 
+            itemDetailsPeekViewRefs = v92.itemDetailsPeekViewRefs, 
+            itemsPerRow = v92.itemsPerRow, 
+            hideItemName = v92.hideItemName, 
+            analyticsItemCountPerPage = v92.itemsPerRow, 
             creatorNameFooterEnabled = l_creatorNameFooterEnabled_0, 
             priceFooterEnabled = l_priceFooterEnabled_0, 
             creatorNameTileFooterEnabled = l_creatorNameTileFooterEnabled_0, 
-            isCreatorNameVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v125.isCreatorNameVisible else nil, 
-            isTitleVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v125.isTitleVisible else nil, 
-            isPriceVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v125.isPriceVisible else nil, 
-            impressionsTag = v108, 
-            disable3DRendering = if v46() then v94.widgetFocused else nil, 
-            widgetAnalyticsInfo = if v47 then v128 else v4.Dictionary.join(v94.widgetAnalyticsInfo, {
-                uiTreatmentType = if v94.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL
+            isCreatorNameVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v123.isCreatorNameVisible else nil, 
+            isTitleVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v123.isTitleVisible else nil, 
+            isPriceVisible = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then v123.isPriceVisible else nil, 
+            impressionsTag = v107, 
+            disable3DRendering = if v46() then v92.widgetFocused else nil, 
+            widgetAnalyticsInfo = if v47 then v126 else v4.Dictionary.join(v92.widgetAnalyticsInfo, {
+                uiTreatmentType = v101
             }), 
-            onThumbnailLoaded = if v49() then v94.onThumbnailLoaded else nil, 
-            selectedCategory = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v94.selectedCategory else nil, 
-            selectedSubcategory = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v94.selectedSubcategory else nil, 
-            selectedCategoryInfo = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v94.selectedCategoryInfo else nil
+            onThumbnailLoaded = v92.onThumbnailLoaded, 
+            selectedCategory = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v92.selectedCategory else nil, 
+            selectedSubcategory = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v92.selectedSubcategory else nil, 
+            selectedCategoryInfo = if l_FFlagAXCatalogCategoriesStoreImprovePerf_0 then v92.selectedCategoryInfo else nil
         });
     end;
-    local v130 = {};
-    if v110 then
-        for v131 = 1, v99 do
-            table.insert(v130, l_widgetInfo_1.content and l_widgetInfo_1.content[v131] or {});
+    local v128 = {};
+    if v109 then
+        for v129 = 1, v97 do
+            table.insert(v128, l_widgetInfo_1.content and l_widgetInfo_1.content[v129] or {});
         end;
     end;
-    local v132 = if v94.widgetInfo then v23.isLooksWidget(v94.widgetInfo.type) else nil;
-    local v133 = 0;
+    local v130 = if v92.widgetInfo then v23.isLooksWidget(v92.widgetInfo.type) else nil;
+    local v131 = 0;
     local l_CatalogItemTile_0 = v20.ItemTileType.CatalogItemTile;
-    if v110 then
-        v133 = v95.Font.Header2.RelativeSize * v95.Font.BaseSize;
+    if v109 then
+        v131 = v93.Font.Header2.RelativeSize * v93.Font.BaseSize;
         l_CatalogItemTile_0 = v20.ItemTileType.CatalogItemTile;
-        if v132 then
-            v133 = v95.Font.SubHeader1.RelativeSize * v95.Font.BaseSize;
+        if v130 then
+            v131 = v93.Font.SubHeader1.RelativeSize * v93.Font.BaseSize;
             l_CatalogItemTile_0 = v20.ItemTileType.LookItemTile;
         end;
     end;
-    local v135 = v23.GridItemHeightGetterWithOptions({
+    local v133 = v23.GridItemHeightGetterWithOptions({
         itemTileType = l_CatalogItemTile_0, 
-        fontHeight = v133, 
-        hideItemName = v94.hideItemName, 
+        fontHeight = v131, 
+        hideItemName = v92.hideItemName, 
         itemCreatorNamesEnabled = l_creatorNameTileFooterEnabled_0, 
         itemPriceEnabled = l_priceFooterEnabled_0, 
-        isWidgetFocused = v94.widgetFocused
+        isWidgetFocused = v92.widgetFocused
     });
-    local v136 = v135(l_itemWidth_0);
-    if v132 then
+    local v134 = v133(l_itemWidth_0);
+    if v130 then
         l_creatorNameFooterEnabled_0 = l_creatorNameFooterEnabled_0 and l_creatorNameTileFooterEnabled_0 or false;
-        local v137 = 0;
+        local v135 = 0;
         if l_priceFooterEnabled_0 then
-            v137 = v137 + v96.Global.Size_175;
+            v135 = v135 + v94.Global.Size_175;
         end;
         if l_creatorNameFooterEnabled_0 then
-            v137 = v137 + v96.Global.Size_175;
+            v135 = v135 + v94.Global.Size_175;
         end;
-        v136 = v136 + v137;
-        v101 = v101 + v137;
+        v134 = v134 + v135;
+        v99 = v99 + v135;
     end;
-    local v138 = nil;
-    v138 = if v94.displayAsItemGroupWidget then math.min(v94.itemsPerRow, v100) else math.min(v100, v115.cardWindowStart + v94.itemsPerRow + v45);
-    for v139 = 1, v138 do
-        local v140 = l_widgetInfo_1.content and l_widgetInfo_1.content[v139] or {};
-        v140.gridInformation = {
+    local v136 = nil;
+    v136 = if v92.displayAsItemGroupWidget then math.min(v92.itemsPerRow, v98) else math.min(v98, v114.cardWindowStart + v92.itemsPerRow + v45);
+    for v137 = 1, v136 do
+        local v138 = l_widgetInfo_1.content and l_widgetInfo_1.content[v137] or {};
+        v138.gridInformation = {
             row = 1, 
-            column = v139
+            column = v137
         };
-        table.insert(v120, v129(v140, v139));
+        table.insert(v118, v127(v138, v137));
     end;
-    local v144 = if v94.displayAsItemGroupWidget then v3.createElement(l_Grid_0, {
-        itemsPerRow = v94.itemsPerRow, 
-        renderItem = function(v141) --[[ Line: 431 ]] --[[ Name: renderItem ]]
-            -- upvalues: v129 (copy)
-            local l_item_0 = v141.item;
-            return v129({
+    local v142 = if v92.displayAsItemGroupWidget then v3.createElement(l_Grid_0, {
+        itemsPerRow = v92.itemsPerRow, 
+        renderItem = function(v139) --[[ Line: 443 ]] --[[ Name: renderItem ]]
+            -- upvalues: v127 (copy)
+            local l_item_0 = v139.item;
+            return v127({
                 id = l_item_0.id, 
                 type = l_item_0.type, 
                 gridInformation = l_item_0.gridInformation
-            }, v141.index);
+            }, v139.index);
         end, 
-        getItemId = function(v143) --[[ Line: 438 ]] --[[ Name: getItemId ]]
-            -- upvalues: v94 (copy)
-            return v143.id .. v94.itemsPerRow;
+        getItemId = function(v141) --[[ Line: 450 ]] --[[ Name: getItemId ]]
+            -- upvalues: v92 (copy)
+            return v141.id .. v92.itemsPerRow;
         end, 
-        items = v4.List.getRange(l_widgetInfo_1.content or {}, 1, (v94.rowCount or 1) * v94.itemsPerRow), 
+        items = v4.List.getRange(l_widgetInfo_1.content or {}, 1, (v92.rowCount or 1) * v92.itemsPerRow), 
         gapVertical = l_itemGap_0, 
         gapHorizontal = l_itemGap_0, 
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y
     }) else v3.createElement(l_ScrollingAppCarousel_0, {
-        items = v120, 
-        index = math.max(1, (math.min(v115.cardWindowIndex, v100))), 
-        styleProps = v59, 
-        itemCount = v100, 
+        items = v118, 
+        index = math.max(1, (math.min(v114.cardWindowIndex, v98))), 
+        styleProps = v57, 
+        itemCount = v98, 
         itemWidth = math.max(1, l_itemWidth_0), 
         itemPadding = l_itemGap_0, 
-        carouselMargin = v96.Global.Space_600, 
+        carouselMargin = v94.Global.Space_600, 
         carouselHeight = 0, 
         canvasWidth = math.max(1, l_canvasWidth_0), 
-        onChangeCanvasPosition = v116, 
-        onRefCallback = v116, 
+        onChangeCanvasPosition = v115, 
+        onRefCallback = v115, 
         shouldExpandToFitContentHeight = true
     });
-    local v151 = v3.createElement(l_ScreenSizeImpressionsDetector_0, {
-        onRequestImpressionsSignal = v107.current, 
-        onImpressionsDetected = function(v145) --[[ Line: 464 ]] --[[ Name: onImpressionsDetected ]]
-            -- upvalues: v94 (copy), v60 (ref), l_widgetInfo_1 (copy), v47 (ref), v26 (ref), v106 (copy), v4 (ref), l_UnifiedEventLogEnums_0 (ref)
-            for _, v147 in v145 do
-                local v148 = v94.widgetInfo.id .. "_" .. v147;
-                if not v60[v148] then
-                    local v149 = l_widgetInfo_1.content and l_widgetInfo_1.content[v147] or {};
+    local v149 = v3.createElement(l_ScreenSizeImpressionsDetector_0, {
+        onRequestImpressionsSignal = v106.current, 
+        onImpressionsDetected = function(v143) --[[ Line: 476 ]] --[[ Name: onImpressionsDetected ]]
+            -- upvalues: v92 (copy), v58 (ref), l_widgetInfo_1 (copy), v47 (ref), v26 (ref), v105 (copy), v4 (ref), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), v20 (ref), v113 (copy), v101 (ref)
+            for _, v145 in v143 do
+                local v146 = v92.widgetInfo.id .. "_" .. v145;
+                if not v58[v146] then
+                    local v147 = l_widgetInfo_1.content and l_widgetInfo_1.content[v145] or {};
                     if v47 then
-                        v26(v106, v4.Dictionary.join(v94.widgetAnalyticsInfo, {
-                            widgetPosition = v94.widgetRow, 
-                            widgetId = v94.widgetInfo.id, 
-                            itemPosition = v147, 
-                            itemId = v149.id, 
-                            itemType = v149.type, 
-                            widgetAbsPosition = (v94.widgetRow - 1) * v94.itemsPerRow, 
-                            uiTreatmentType = if v94.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL
+                        v26(v105, v4.Dictionary.join(v92.widgetAnalyticsInfo, {
+                            widgetPosition = v92.widgetRow, 
+                            widgetId = v92.widgetInfo.id, 
+                            itemPosition = v145, 
+                            itemId = v147.id, 
+                            itemType = v147.type, 
+                            lookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v147.type == v20.ItemType.Look and v113 and v113[v20.ItemType.Look] and v113[v20.ItemType.Look][v147.id] then v113[v20.ItemType.Look][v147.id].lookType else nil, 
+                            widgetAbsPosition = (v92.widgetRow - 1) * v92.itemsPerRow, 
+                            uiTreatmentType = v101
                         }));
                     else
-                        local v150 = {
-                            widgetPosition = v94.widgetRow, 
-                            widgetId = v94.widgetInfo.id, 
-                            itemPosition = v147, 
-                            itemId = v149.id, 
-                            itemType = v149.type, 
-                            widgetAbsPosition = (v94.widgetRow - 1) * v94.itemsPerRow, 
-                            uiTreatmentType = if v94.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL
+                        local v148 = {
+                            widgetPosition = v92.widgetRow, 
+                            widgetId = v92.widgetInfo.id, 
+                            itemPosition = v145, 
+                            itemId = v147.id, 
+                            itemType = v147.type, 
+                            widgetAbsPosition = (v92.widgetRow - 1) * v92.itemsPerRow, 
+                            uiTreatmentType = v101
                         };
-                        v26(v106, v150);
+                        v26(v105, v148);
                     end;
-                    v60[v148] = true;
+                    v58[v146] = true;
                 end;
             end;
         end, 
-        impressionsTag = v108
+        impressionsTag = v107
     });
-    local v152 = "";
-    local v153 = "";
+    local v150 = "";
+    local v151 = "";
     if l_widgetInfo_1.template then
-        v152 = if l_widgetInfo_1.template.title then v111.widgetTitle else l_widgetInfo_1.template.localizedTitle;
-        v153 = if l_widgetInfo_1.template.description then v111.widgetDescription else l_widgetInfo_1.template.localizedDescription;
+        v150 = if l_widgetInfo_1.template.title then v110.widgetTitle else l_widgetInfo_1.template.localizedTitle;
+        v151 = if l_widgetInfo_1.template.description then v110.widgetDescription else l_widgetInfo_1.template.localizedDescription;
     end;
-    local v154 = nil;
-    local v155 = v3.useRef(nil);
-    local v156 = if l_FFlagAXMoveAllTabToWidgetOnly_0 then not (v152 or v153) else nil;
-    if not v94.widgetFocused and not v156 then
-        v154 = v3.createElement(l_WidgetHeader_0, {
-            titleText = v152, 
-            descriptionText = v153, 
+    local v152 = nil;
+    local v153 = v3.useRef(nil);
+    local v154 = if l_FFlagAXMoveAllTabToWidgetOnly_0 then not (v150 or v151) else nil;
+    if not v92.widgetFocused and not v154 then
+        v152 = v3.createElement(l_WidgetHeader_0, {
+            titleText = v150, 
+            descriptionText = v151, 
             LayoutOrder = 1, 
-            seeAllCallback = if v110 then v94.requestWidgetAcquireFocus else nil, 
-            seeAllRef = v155
+            seeAllCallback = if v109 then v92.requestWidgetAcquireFocus else nil, 
+            seeAllRef = v153
         });
     end;
-    local v157 = v3.useRef(nil);
-    l_useImpressionsTagger_0(v157, v21.WidgetExposureMetadata.TagName, v94.widgetRow);
-    v3.useEffect(function() --[[ Line: 532 ]]
-        -- upvalues: v157 (copy), l_addUnifiedEventLogging_0 (ref), v4 (ref), v94 (copy), l_UnifiedEventLogEnums_0 (ref), l_FFlagAXWidgetTypeAnalytics_0 (ref), l_FFlagAXWidgetImpressionThemeId_0 (ref), l_widgetInfo_1 (copy), l_UnifiedEventLogConstants_0 (ref), v155 (copy), v48 (ref), l_HttpService_0 (ref), v21 (ref)
-        local v158 = v157 and v157.current;
-        if v158 then
-            l_addUnifiedEventLogging_0(v157, v4.Dictionary.join(v94.widgetAnalyticsInfo, {
+    local v155 = v3.useRef(nil);
+    l_useImpressionsTagger_0(v155, v21.WidgetExposureMetadata.TagName, v92.widgetRow);
+    v3.useEffect(function() --[[ Line: 547 ]]
+        -- upvalues: v155 (copy), l_addUnifiedEventLogging_0 (ref), v4 (ref), v92 (copy), l_UnifiedEventLogEnums_0 (ref), v101 (ref), l_widgetInfo_1 (copy), l_UnifiedEventLogConstants_0 (ref), v153 (copy), v48 (ref), l_HttpService_0 (ref), v21 (ref)
+        local v156 = v155 and v155.current;
+        if v156 then
+            l_addUnifiedEventLogging_0(v155, v4.Dictionary.join(v92.widgetAnalyticsInfo, {
                 action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.WIDGET_IMPRESSION, 
-                gridPositionRow = v94.widgetRow, 
+                gridPositionRow = v92.widgetRow, 
                 gridPositionColumn = 1, 
-                uiTreatmentType = if l_FFlagAXWidgetTypeAnalytics_0 and v94.displayAsItemGroupWidget then l_UnifiedEventLogEnums_0.WidgetUiTreatment.ITEM_GROUP else l_UnifiedEventLogEnums_0.WidgetUiTreatment.CAROUSEL, 
-                themeId = if l_FFlagAXWidgetImpressionThemeId_0 and l_widgetInfo_1 then l_widgetInfo_1.tagId else nil
+                uiTreatmentType = v101, 
+                themeId = if l_widgetInfo_1 then l_widgetInfo_1.tagId else nil
             }), {
                 sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
             });
-            if v155 and v155.current then
-                l_addUnifiedEventLogging_0(v155, {
+            if v153 and v153.current then
+                l_addUnifiedEventLogging_0(v153, {
                     action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.UI_ELEMENT_CLICK, 
-                    requestId = if v48 then v94.widgetAnalyticsInfo.requestId else nil, 
+                    requestId = if v48 then v92.widgetAnalyticsInfo.requestId else nil, 
                     elementName = "SEE_ALL", 
                     elementMetadata = if v48 then l_HttpService_0:JSONEncode({
-                        widget_id = v94.widgetAnalyticsInfo.widgetId, 
-                        widget_type = v94.widgetAnalyticsInfo.widgetType, 
+                        widget_id = v92.widgetAnalyticsInfo.widgetId, 
+                        widget_type = v92.widgetAnalyticsInfo.widgetType, 
                         tag_id = if l_widgetInfo_1 then l_widgetInfo_1.tagId else nil
                     }) else nil, 
-                    gridPositionRow = v94.widgetRow, 
+                    gridPositionRow = v92.widgetRow, 
                     gridPositionColumn = 1
                 }, {
                     sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
                 });
             end;
-            if v94.ixpLayerToExpose then
-                v158:SetAttribute(v21.WidgetExposureMetadata.AttributeKey, v94.ixpLayerToExpose);
+            if v92.ixpLayerToExpose then
+                v156:SetAttribute(v21.WidgetExposureMetadata.AttributeKey, v92.ixpLayerToExpose);
             end;
         end;
     end, {
-        v94.ixpLayerToExpose
+        v92.ixpLayerToExpose
     });
     return v3.createElement(l_WidgetLayout_0, {
-        headerSlot = v154, 
-        contentSlot = if v94.widgetFocused then v3.createElement(v29, {
-            widgetInfo = v94.widgetInfo, 
-            impressionsTag = v108, 
-            getItemHeight = v135, 
-            items = v130, 
-            totalNumItems = v99, 
-            renderItem = v129, 
-            getItemMetrics = v94.getItemMetrics, 
-            itemsPerRow = v94.itemsPerRow
+        headerSlot = v152, 
+        contentSlot = if v92.widgetFocused then v3.createElement(v29, {
+            widgetInfo = v92.widgetInfo, 
+            impressionsTag = v107, 
+            getItemHeight = v133, 
+            items = v128, 
+            totalNumItems = v97, 
+            renderItem = v127, 
+            getItemMetrics = v92.getItemMetrics, 
+            itemsPerRow = v92.itemsPerRow
         }) else v3.createElement(v3.Fragment, {}, {
             ["Widget_" .. l_widgetInfo_1.id] = v3.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 BackgroundTransparency = 1, 
-                ref = v157
-            }, v144), 
-            ImpressionsDetector = v151
+                ref = v155
+            }, v142), 
+            ImpressionsDetector = v149
         })
     });
 end;

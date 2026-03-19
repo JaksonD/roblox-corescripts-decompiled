@@ -953,20 +953,22 @@ return function(v94) --[[ Line: 121 ]]
             [v52.ProfileActions.RemoveTrustedConnection] = {
                 text = v107[v52.ProfileActions.RemoveTrustedConnection], 
                 onActivated = function() --[[ Line: 1040 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v100 (ref), v51 (ref), v94 (ref), l_FFlagLegacyProfileTCIndicator_0 (ref), v93 (ref), l_profileId_0 (ref), v96 (ref), l_SetCurrentToastMessage_0 (ref), v107 (ref), l_Images_0 (ref), v35 (ref), v44 (ref)
+                    -- upvalues: v100 (ref), v51 (ref), v94 (ref), l_FFlagLegacyProfileTCIndicator_0 (ref), v93 (ref), l_profileId_0 (ref), v96 (ref), l_SetCurrentToastMessage_0 (ref), v107 (ref), l_Images_0 (ref), v44 (ref), v35 (ref)
                     v100.fireAnalyticsEvent(v51.ContextualMenuButtonRemoveTrustedConnection, {
                         buttonSurface = v94
                     });
                     if l_FFlagLegacyProfileTCIndicator_0 then
-                        v93.removeTrustedConnectionRequest(l_profileId_0);
-                        v96(l_SetCurrentToastMessage_0({
-                            toastMessage = v107.trustedConnectionRemovedToast, 
-                            toastIcon = l_Images_0["icons/actions/friends/friendRemove"], 
-                            isLocalized = true
-                        }));
-                        return;
+                        return v93.removeTrustedConnectionRequest(l_profileId_0):andThen(function() --[[ Line: 1045 ]]
+                            -- upvalues: v96 (ref), l_SetCurrentToastMessage_0 (ref), v107 (ref), l_Images_0 (ref), v44 (ref), l_profileId_0 (ref)
+                            v96(l_SetCurrentToastMessage_0({
+                                toastMessage = v107.trustedConnectionRemovedToast, 
+                                toastIcon = l_Images_0["icons/actions/friends/friendRemove"], 
+                                isLocalized = true
+                            }));
+                            return v96(v44(l_profileId_0));
+                        end);
                     else
-                        return v96(v35.RemoveTC.API(l_profileId_0)):andThen(function() --[[ Line: 1052 ]]
+                        return v96(v35.RemoveTC.API(l_profileId_0)):andThen(function() --[[ Line: 1054 ]]
                             -- upvalues: v96 (ref), l_SetCurrentToastMessage_0 (ref), v107 (ref), l_Images_0 (ref), v44 (ref), l_profileId_0 (ref)
                             v96(l_SetCurrentToastMessage_0({
                                 toastMessage = v107.trustedConnectionRemovedToast, 
@@ -980,7 +982,7 @@ return function(v94) --[[ Line: 121 ]]
             }, 
             [v52.ProfileActions.AddTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
                 text = v107[v52.ProfileActions.AddTrustedConnection], 
-                onActivated = function() --[[ Line: 1066 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1068 ]] --[[ Name: onActivated ]]
                     -- upvalues: v100 (ref), v51 (ref), v94 (ref), v97 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), l_Sources_0 (ref), v96 (ref), v44 (ref)
                     v100.fireAnalyticsEvent(v51.ContextualMenuButtonAddTrustedConnection, {
                         buttonSurface = v94
@@ -988,7 +990,7 @@ return function(v94) --[[ Line: 121 ]]
                     v97.push(l_AppPage_0.TrustedContactsModal, {
                         userId = l_profileId_0, 
                         source = l_Sources_0.ProfilePlatform, 
-                        onRequestSent = function() --[[ Line: 1073 ]] --[[ Name: onRequestSent ]]
+                        onRequestSent = function() --[[ Line: 1075 ]] --[[ Name: onRequestSent ]]
                             -- upvalues: v96 (ref), v44 (ref), l_profileId_0 (ref)
                             return v96(v44(l_profileId_0));
                         end
@@ -997,7 +999,7 @@ return function(v94) --[[ Line: 121 ]]
             } else nil, 
             [v52.ProfileActions.AddTrustedConnectionViaLink] = if l_FFlagTCShareLinkSenderUI_0 then {
                 text = v107[v52.ProfileActions.AddTrustedConnection], 
-                onActivated = function() --[[ Line: 1083 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1085 ]] --[[ Name: onActivated ]]
                     -- upvalues: v100 (ref), v51 (ref), v94 (ref), l_Sources_0 (ref), v97 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), v96 (ref), v44 (ref)
                     v100.fireAnalyticsEvent(v51.ContextualMenuButtonAddTrustedConnection, {
                         buttonSurface = v94, 
@@ -1007,7 +1009,7 @@ return function(v94) --[[ Line: 121 ]]
                         userId = l_profileId_0, 
                         source = l_Sources_0.ProfilePlatform, 
                         modalVariantOverride = l_Sources_0.ShareLinkSender, 
-                        onRequestSent = function() --[[ Line: 1092 ]] --[[ Name: onRequestSent ]]
+                        onRequestSent = function() --[[ Line: 1094 ]] --[[ Name: onRequestSent ]]
                             -- upvalues: v96 (ref), v44 (ref), l_profileId_0 (ref)
                             return v96(v44(l_profileId_0));
                         end
@@ -1016,14 +1018,14 @@ return function(v94) --[[ Line: 121 ]]
             } else nil, 
             [v52.ProfileActions.AddIncomingTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
                 text = v107[v52.ProfileActions.AddIncomingTrustedConnection], 
-                onActivated = function() --[[ Line: 1102 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1104 ]] --[[ Name: onActivated ]]
                     -- upvalues: v100 (ref), v51 (ref), v94 (ref), v97 (ref), l_AppPage_0 (ref), l_profileId_0 (ref), v96 (ref), v44 (ref)
                     v100.fireAnalyticsEvent(v51.ContextualMenuButtonAddIncomingTrustedConnection, {
                         buttonSurface = v94
                     });
                     v97.push(l_AppPage_0.TrustedContactsModal, {
                         userId = l_profileId_0, 
-                        onRequestAccepted = function() --[[ Line: 1108 ]] --[[ Name: onRequestAccepted ]]
+                        onRequestAccepted = function() --[[ Line: 1110 ]] --[[ Name: onRequestAccepted ]]
                             -- upvalues: v96 (ref), v44 (ref), l_profileId_0 (ref)
                             return v96(v44(l_profileId_0));
                         end
@@ -1033,13 +1035,13 @@ return function(v94) --[[ Line: 121 ]]
             [v52.ProfileActions.PendingTrustedConnection] = if l_FFlagProfilePlatformAddTC_0 then {
                 text = v107[v52.ProfileActions.AddTrustedConnection], 
                 isDisabled = true, 
-                onActivated = function() --[[ Line: 1119 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1121 ]] --[[ Name: onActivated ]]
 
                 end
             } else nil, 
             [v52.ProfileActions.ViewAbout] = if l_FFlagProfilePlatformNewProfileHeader_0 then {
                 text = v107[v52.ProfileActions.ViewAbout], 
-                onActivated = function() --[[ Line: 1125 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1127 ]] --[[ Name: onActivated ]]
                     -- upvalues: v100 (ref), v51 (ref), v94 (ref), v96 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v112 (ref)
                     v100.fireAnalyticsEvent(v51.CTAButtonViewFullProfile, {
                         buttonSurface = v94
@@ -1054,7 +1056,7 @@ return function(v94) --[[ Line: 121 ]]
             } else nil, 
             [v52.ProfileActions.ViewPlatformProfile] = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then {
                 text = v107[v52.ProfileActions.ViewPlatformProfile], 
-                onActivated = function() --[[ Line: 1142 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1144 ]] --[[ Name: onActivated ]]
                     -- upvalues: v100 (ref), v51 (ref), v94 (ref), v50 (ref), v110 (ref)
                     v100.fireAnalyticsEvent(v51.ContextualMenuButtonViewPlatformProfile, {
                         buttonSurface = v94
@@ -1064,7 +1066,7 @@ return function(v94) --[[ Line: 121 ]]
             } else nil, 
             [v52.ProfileActions.CurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
                 text = v107[v52.ProfileActions.CurrencyTransfer], 
-                onActivated = function() --[[ Line: 1153 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 1155 ]] --[[ Name: onActivated ]]
                     -- upvalues: v94 (ref), v52 (ref), v100 (ref), v51 (ref), v99 (ref), l_profileId_0 (ref), l_TransferDirection_0 (ref), l_TransferOrigination_0 (ref)
                     if v94 == v52.ButtonSurface.ContextualMenu then
                         v100.fireAnalyticsEvent(v51.ContextualMenuButtonCurrencyTransfer, {

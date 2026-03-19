@@ -1,11 +1,9 @@
-local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
-local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.Cryo);
-local v4 = require(l_Parent_0.Foundation);
-local v5 = require(script.Parent.Bubble.ChatBubbleContainerAutomaticSize);
-local v6 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableNewChatBubbleUI);
-local v7 = {
+local l_Parent_0 = script:FindFirstAncestor("AppChat").Parent;
+local v1 = require(l_Parent_0.React);
+local v2 = require(l_Parent_0.Cryo);
+local v3 = require(l_Parent_0.Foundation);
+local v4 = require(script.Parent.Bubble.ChatBubbleContainerAutomaticSize);
+local v5 = {
     isIncoming = false, 
     hasTail = false, 
     isPending = false, 
@@ -16,35 +14,35 @@ local v7 = {
     LayoutOrder = 0, 
     isLastMessageInMessageGroup = false
 };
-return function(v8) --[[ Line: 40 ]] --[[ Name: HiddenMessage ]]
-    -- upvalues: v3 (copy), v7 (copy), v4 (copy), v2 (copy), v5 (copy), v6 (copy)
-    local v9 = v3.Dictionary.union(v7, v8);
-    local v10 = v4.Hooks.useTokens();
-    return v2.createElement(v5, {
-        isIncoming = v9.isIncoming, 
-        hasTail = v9.hasTail, 
-        isPending = v9.isPending, 
+return function(v6) --[[ Line: 38 ]] --[[ Name: HiddenMessage ]]
+    -- upvalues: v2 (copy), v5 (copy), v3 (copy), v1 (copy), v4 (copy)
+    local v7 = v2.Dictionary.union(v5, v6);
+    local v8 = v3.Hooks.useTokens();
+    return v1.createElement(v4, {
+        isIncoming = v7.isIncoming, 
+        hasTail = v7.hasTail, 
+        isPending = v7.isPending, 
         isUnfiltered = false, 
-        padding = if v6 then {
-            top = UDim.new(0, v10.Padding.Small), 
-            bottom = UDim.new(0, v10.Padding.Small), 
-            left = UDim.new(0, v10.Padding.Medium), 
-            right = UDim.new(0, v10.Padding.Medium)
-        } else v10.Padding.Small, 
-        LayoutOrder = v9.LayoutOrder, 
-        isRepliedTo = v9.isRepliedTo, 
-        isPressed = v9.isPressed, 
-        isLastMessageInMessageGroup = v9.isLastMessageInMessageGroup, 
-        [v2.Change.AbsoluteSize] = v9[v2.Change.AbsoluteSize]
+        padding = {
+            top = UDim.new(0, v8.Padding.Small), 
+            bottom = UDim.new(0, v8.Padding.Small), 
+            left = UDim.new(0, v8.Padding.Medium), 
+            right = UDim.new(0, v8.Padding.Medium)
+        }, 
+        LayoutOrder = v7.LayoutOrder, 
+        isRepliedTo = v7.isRepliedTo, 
+        isPressed = v7.isPressed, 
+        isLastMessageInMessageGroup = v7.isLastMessageInMessageGroup, 
+        [v1.Change.AbsoluteSize] = v7[v1.Change.AbsoluteSize]
     }, {
-        IconContainer = v2.createElement(v4.View, {
+        IconContainer = v1.createElement(v3.View, {
             tag = "row align-x-center align-y-center content-muted", 
-            Size = UDim2.fromOffset(180 - v10.Padding.Medium * 2, 40 - v10.Padding.Small * 2)
+            Size = UDim2.fromOffset(180 - v8.Padding.Medium * 2, 40 - v8.Padding.Small * 2)
         }, {
-            LockIcon = v2.createElement(v4.Icon, {
-                name = v4.Enums.IconName.LockClosed, 
-                size = v4.Enums.IconSize.Medium, 
-                variant = v4.Enums.IconVariant.Regular
+            LockIcon = v1.createElement(v3.Icon, {
+                name = v3.Enums.IconName.LockClosed, 
+                size = v3.Enums.IconSize.Medium, 
+                variant = v3.Enums.IconVariant.Regular
             })
         })
     });

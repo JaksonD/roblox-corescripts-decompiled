@@ -23,7 +23,7 @@ local v21 = require(l_Parent_0.Locale.MultiTextLocalizer);
 local v22 = require(l_Parent_0.Subscription.SubscriptionTitle);
 local v23 = require(l_Parent_0.Flags.getEnableDisableSubPurchase);
 local v24 = require(l_Parent_0.Flags.FFlagEnableSubscriptionPurchasePromptDisclosure);
-local function v30(v25, v26, v27, v28) --[[ Line: 78 ]] --[[ Name: generateTestmodeDisclaimer ]]
+local function v30(v25, v26, v27, v28) --[[ Line: 81 ]] --[[ Name: generateTestmodeDisclaimer ]]
     -- upvalues: l_TextService_0 (copy), v8 (copy)
     local v29 = l_TextService_0:GetTextSize(v25, 12, v26.Footer.Font, Vector2.new(v28, 1e999)).Y + 2;
     return v8.createElement("Frame", {
@@ -48,7 +48,7 @@ local function v30(v25, v26, v27, v28) --[[ Line: 78 ]] --[[ Name: generateTestm
         })
     });
 end;
-local function v37(v31, v32, v33, v34, v35) --[[ Line: 108 ]] --[[ Name: generateFooter ]]
+local function v37(v31, v32, v33, v34, v35) --[[ Line: 111 ]] --[[ Name: generateFooter ]]
     -- upvalues: l_TextService_0 (copy), v8 (copy)
     if not v31 then
         return nil;
@@ -77,10 +77,10 @@ local function v37(v31, v32, v33, v34, v35) --[[ Line: 108 ]] --[[ Name: generat
         });
     end;
 end;
-local function v45(v38, v39, v40, v41, v42) --[[ Line: 141 ]] --[[ Name: generatePromptText ]]
+local function v46(v38, v39, v40, v41, v42, v43) --[[ Line: 144 ]] --[[ Name: generatePromptText ]]
     -- upvalues: v8 (copy), l_TextService_0 (copy)
     return v8.createElement("TextLabel", {
-        LayoutOrder = 2, 
+        LayoutOrder = v43 or 2, 
         BackgroundTransparency = 1, 
         Size = UDim2.new(0, v41, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
@@ -92,130 +92,130 @@ local function v45(v38, v39, v40, v41, v42) --[[ Line: 141 ]] --[[ Name: generat
         TextColor3 = v40.TextDefault.Color, 
         TextTransparency = v40.TextDefault.Transparency, 
         RichText = true, 
-        [v8.Change.AbsoluteSize] = function(v43) --[[ Line: 155 ]]
+        [v8.Change.AbsoluteSize] = function(v44) --[[ Line: 158 ]]
             -- upvalues: l_TextService_0 (ref), v42 (copy)
-            local l_Y_0 = l_TextService_0:GetTextSize(v43.Text, v43.TextSize, v43.Font, Vector2.new(v43.AbsoluteSize.X, 1e999)).Y;
+            local l_Y_0 = l_TextService_0:GetTextSize(v44.Text, v44.TextSize, v44.Font, Vector2.new(v44.AbsoluteSize.X, 1e999)).Y;
             v42(l_Y_0);
         end
     });
 end;
-local function v49(v46, v47) --[[ Line: 163 ]] --[[ Name: createSubscribeButtonStacks ]]
+local function v50(v47, v48) --[[ Line: 166 ]] --[[ Name: createSubscribeButtonStacks ]]
     -- upvalues: v23 (copy), l_ButtonType_0 (copy)
-    if v23() and v46.disablePurchase then
+    if (v23() or v47.shouldUseNewModalDesign) and v47.disablePurchase then
         return {
             {
                 buttonType = l_ButtonType_0.PrimarySystem, 
                 props = {
-                    onActivated = function() --[[ Line: 169 ]] --[[ Name: onActivated ]]
+                    onActivated = function() --[[ Line: 172 ]] --[[ Name: onActivated ]]
 
                     end, 
                     isDisabled = true, 
-                    text = v46.disablePurchaseText, 
+                    text = v47.disablePurchaseText, 
                     layoutOrder = 0
                 }
             }
         };
-    elseif v46.secondaryPaymentMethod == nil or v46.secondaryPaymentMethod == "" then
+    elseif v47.secondaryPaymentMethod == nil or v47.secondaryPaymentMethod == "" then
         return {
             {
                 buttonType = l_ButtonType_0.PrimarySystem, 
                 props = {
-                    onActivated = function() --[[ Line: 183 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v46 (copy)
-                        v46.purchaseSubscriptionActivated(v46.primaryPaymentMethod);
+                    onActivated = function() --[[ Line: 186 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v47 (copy)
+                        v47.purchaseSubscriptionActivated(v47.primaryPaymentMethod);
                     end, 
-                    text = v47.subscribe, 
+                    text = v48.subscribe, 
                     layoutOrder = 0
                 }
             }
         };
     else
-        local v48 = nil;
-        if v46.primaryPaymentMethod == "Stripe" then
-            v48 = v47.subscribeWithCreditDebitCard;
-        elseif v46.primaryPaymentMethod == "CreditBalance" then
-            v48 = v47.subscribeWithRobloxCredit;
+        local v49 = nil;
+        if v47.primaryPaymentMethod == "Stripe" then
+            v49 = v48.subscribeWithCreditDebitCard;
+        elseif v47.primaryPaymentMethod == "CreditBalance" then
+            v49 = v48.subscribeWithRobloxCredit;
         end;
         return {
             {
                 buttonType = l_ButtonType_0.PrimarySystem, 
                 props = {
-                    onActivated = function() --[[ Line: 204 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v46 (copy)
-                        v46.purchaseSubscriptionActivated(v46.primaryPaymentMethod);
+                    onActivated = function() --[[ Line: 207 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v47 (copy)
+                        v47.purchaseSubscriptionActivated(v47.primaryPaymentMethod);
                     end, 
-                    text = v48, 
+                    text = v49, 
                     layoutOrder = 0
                 }
             }, 
             {
                 buttonType = l_ButtonType_0.Secondary, 
                 props = {
-                    onActivated = function() --[[ Line: 214 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v46 (copy)
-                        v46.purchaseSubscriptionActivated(v46.secondaryPaymentMethod);
+                    onActivated = function() --[[ Line: 217 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v47 (copy)
+                        v47.purchaseSubscriptionActivated(v47.secondaryPaymentMethod);
                     end, 
-                    text = v47.payAnotherWay, 
+                    text = v48.payAnotherWay, 
                     layoutOrder = 1
                 }
             }
         };
     end;
 end;
-local function v54(v50, v51) --[[ Line: 224 ]] --[[ Name: generateDisclosure ]]
+local function v55(v51, v52) --[[ Line: 227 ]] --[[ Name: generateDisclosure ]]
     -- upvalues: v8 (copy), l_View_0 (copy), l_Text_0 (copy)
-    local v52 = string.split(v50.DisclosureTermsURL, " {termsofuse} ");
-    local v53 = "<u>" .. v50.TermsOfUse .. "</u>";
+    local v53 = string.split(v51.DisclosureTermsURL, " {termsofuse} ");
+    local v54 = "<u>" .. v51.TermsOfUse .. "</u>";
     return v8.createElement(l_View_0, {
         tag = "row wrap auto-y align-y-center align-x-center size-full-0 gap-xsmall padding-x-xsmall padding-bottom-xsmall"
     }, {
         DisclosurePayment = v8.createElement(l_Text_0, {
             LayoutOrder = 1, 
-            Text = v50.DisclosurePayment, 
+            Text = v51.DisclosurePayment, 
             tag = "auto-xy text-body content-default text-align-x-left content-muted text-caption-small"
         }), 
         BeforeText = v8.createElement(l_Text_0, {
             LayoutOrder = 2, 
-            Text = v52[1], 
+            Text = v53[1], 
             tag = "auto-xy text-body content-default text-align-x-left content-muted text-caption-small"
         }), 
         TextLink = v8.createElement(l_Text_0, {
             LayoutOrder = 3, 
             RichText = true, 
-            Text = v53, 
+            Text = v54, 
             tag = "auto-xy text-body content-default text-align-x-left content-muted text-caption-small", 
-            onActivated = v51
+            onActivated = v52
         }), 
         AfterText = v8.createElement(l_Text_0, {
             LayoutOrder = 4, 
-            Text = v52[2], 
+            Text = v53[2], 
             tag = "auto-xy text-body content-default text-align-x-left content-muted text-caption-small"
         })
     });
 end;
-local function v66(v55, v56, v57, v58, v59, v60, v61, v62, v63) --[[ Line: 257 ]] --[[ Name: renderNewModalDesign ]]
-    -- upvalues: v7 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), v8 (copy), l_PartialPageModal_0 (copy), v49 (copy), v24 (copy), v30 (copy), v54 (copy), v37 (copy), l_ImageSetLabel_0 (copy), l_View_0 (copy), l_Text_0 (copy), v45 (copy)
-    local v64 = if v55.creatorName then v55.creatorName .. " " .. (v55.creatorVerified and v7.emoji.verified or "") else nil;
-    local v65 = (if v55.isRobuxSubscription then l_getIconRichText_0(l_Enums_0.IconName.Robux) .. " " else "") .. v55.displayPrice .. " " .. v55.period;
+local function v67(v56, v57, v58, v59, v60, v61, v62, v63, v64) --[[ Line: 260 ]] --[[ Name: renderNewModalDesign ]]
+    -- upvalues: v7 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), v8 (copy), l_PartialPageModal_0 (copy), v50 (copy), v24 (copy), v30 (copy), v55 (copy), v37 (copy), l_ImageSetLabel_0 (copy), l_View_0 (copy), l_Text_0 (copy), v15 (copy), v46 (copy)
+    local v65 = if v56.creatorName then v56.creatorName .. " " .. (v56.creatorVerified and v7.emoji.verified or "") else nil;
+    local v66 = (if v56.isRobuxSubscription then l_getIconRichText_0(l_Enums_0.IconName.Robux) .. " " else "") .. v56.displayPrice .. " " .. v56.period;
     return v8.createElement(l_PartialPageModal_0, {
-        screenSize = v55.screenSize, 
+        screenSize = v56.screenSize, 
         contentPadding = UDim.new(0, 24), 
         buttonStackProps = {
-            buttons = v49(v55, v56), 
+            buttons = v50(v56, v57), 
             buttonHeight = 48, 
             forcedFillDirection = Enum.FillDirection.Vertical
         }, 
-        onCloseClicked = v55.cancelPurchaseActivated, 
-        footerContent = function() --[[ Line: 284 ]] --[[ Name: footerContent ]]
-            -- upvalues: v24 (ref), v55 (copy), v30 (ref), v56 (copy), v58 (copy), v57 (copy), v59 (copy), v54 (ref), v61 (copy), v37 (ref)
+        onCloseClicked = v56.cancelPurchaseActivated, 
+        footerContent = function() --[[ Line: 287 ]] --[[ Name: footerContent ]]
+            -- upvalues: v24 (ref), v56 (copy), v30 (ref), v57 (copy), v59 (copy), v58 (copy), v60 (copy), v55 (ref), v62 (copy), v37 (ref)
             if v24 then
-                if v55.isTestingMode then
-                    return v30(v56.footerText, v58, v57, v59);
+                if v56.isTestingMode then
+                    return v30(v57.footerText, v59, v58, v60);
                 else
-                    return v54(v56, v61);
+                    return v55(v57, v62);
                 end;
             else
-                return v37(v55.isTestingMode, v56.footerText, v58, v57, v59);
+                return v37(v56.isTestingMode, v57.footerText, v59, v58, v60);
             end;
         end
     }, {
@@ -227,14 +227,14 @@ local function v66(v55, v56, v57, v58, v59, v60, v61, v62, v63) --[[ Line: 257 ]
             PromptScroll = v8.createElement("ScrollingFrame", {
                 BackgroundTransparency = 1, 
                 LayoutOrder = 3, 
-                Size = UDim2.new(1, 0, 0, (math.min(v60, v55.screenSize.Y - 240))), 
+                Size = UDim2.new(1, 0, 0, (math.min(v61, v56.screenSize.Y - 240))), 
                 BorderSizePixel = 0, 
                 ZIndex = 2, 
-                ScrollingEnabled = v55.screenSize.Y - 240 < v60, 
-                ScrollBarThickness = v55.screenSize.Y - 240 < v60 and 5 or nil, 
+                ScrollingEnabled = v56.screenSize.Y - 240 < v61, 
+                ScrollBarThickness = v56.screenSize.Y - 240 < v61 and 5 or nil, 
                 ScrollingDirection = Enum.ScrollingDirection.Y, 
                 Selectable = false, 
-                CanvasSize = UDim2.new(1, 0, 0, v60)
+                CanvasSize = UDim2.new(1, 0, 0, v61)
             }, {
                 Padding = v8.createElement("UIPadding", {
                     PaddingTop = UDim.new(0, 24), 
@@ -250,7 +250,7 @@ local function v66(v55, v56, v57, v58, v59, v60, v61, v62, v63) --[[ Line: 257 ]
                     BackgroundTransparency = 1, 
                     Size = UDim2.new(0, 150, 0, 150), 
                     ScaleType = Enum.ScaleType.Fit, 
-                    Image = v55.itemIcon
+                    Image = v56.itemIcon
                 }, {
                     UICorner = v8.createElement("UICorner", {
                         CornerRadius = UDim.new(0, 12)
@@ -268,49 +268,72 @@ local function v66(v55, v56, v57, v58, v59, v60, v61, v62, v63) --[[ Line: 257 ]
                     }), 
                     SubscriptionName = v8.createElement(l_Text_0, {
                         LayoutOrder = 1, 
-                        Text = v55.name, 
+                        Text = v56.name, 
                         tag = "auto-xy content-emphasis text-align-x-left", 
-                        fontStyle = v63.Typography.HeadingSmall
+                        fontStyle = v64.Typography.HeadingSmall
                     }), 
                     CreatorName = v8.createElement(l_Text_0, {
                         LayoutOrder = 2, 
-                        Text = v64, 
+                        Text = v65, 
                         tag = "auto-xy content-default text-align-x-left", 
-                        fontStyle = v63.Typography.TitleLarge
+                        fontStyle = v64.Typography.TitleLarge
                     }), 
                     PriceRow = v8.createElement(l_Text_0, {
                         LayoutOrder = 3, 
-                        Text = v65, 
+                        Text = v66, 
                         RichText = true, 
                         tag = "auto-xy content-emphasis text-align-x-left", 
-                        fontStyle = v63.Typography.TitleLarge
+                        fontStyle = v64.Typography.TitleLarge
                     })
+                }), 
+                ActionButtonsRow = v8.createElement(l_View_0, {
+                    LayoutOrder = 2, 
+                    tag = "row gap-small auto-y size-full-0 align-x-left"
+                }, {
+                    ShareButton = if v56.onShare then v8.createElement(v15.Chip, {
+                        text = v57.shareText, 
+                        leading = {
+                            iconName = l_Enums_0.IconName.ArrowThickToRight
+                        }, 
+                        size = l_Enums_0.ChipSize.Small, 
+                        onActivated = v56.onShare, 
+                        LayoutOrder = 1
+                    }) else nil, 
+                    ReportButton = if v56.onReport then v8.createElement(v15.Chip, {
+                        text = v57.reportText, 
+                        leading = {
+                            iconName = l_Enums_0.IconName.Flag
+                        }, 
+                        size = l_Enums_0.ChipSize.Small, 
+                        onActivated = v56.onReport, 
+                        LayoutOrder = 2
+                    }) else nil
                 }); 
-                v45(v55, v58, v57, v59, v62)
+                v46(v56, v59, v58, v60, v63, 3)
             })
         })
     });
 end;
-return function(v67) --[[ Line: 367 ]] --[[ Name: SubscriptionPurchasePrompt ]]
-    -- upvalues: v8 (copy), l_useDispatch_0 (copy), l_useTokens_0 (copy), l_UrlBuilder_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v22 (copy), v21 (copy), l_withStyle_0 (copy), l_getPartialPageModalMiddleContentWidth_0 (copy), v66 (copy), l_PartialPageModal_0 (copy), v49 (copy), v24 (copy), v30 (copy), v54 (copy), v37 (copy), v45 (copy)
-    local v68, v69 = v8.useState(0);
-    local v70 = l_useDispatch_0();
-    local v71 = l_useTokens_0();
-    local function v73() --[[ Line: 372 ]] --[[ Name: openTermsOfUse ]]
-        -- upvalues: l_UrlBuilder_0 (ref), v70 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        local v72 = l_UrlBuilder_0.static.about.terms();
-        v70(l_NavigateDown_0({
+return function(v68) --[[ Line: 397 ]] --[[ Name: SubscriptionPurchasePrompt ]]
+    -- upvalues: v8 (copy), l_useDispatch_0 (copy), l_useTokens_0 (copy), l_UrlBuilder_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v22 (copy), v21 (copy), l_withStyle_0 (copy), l_getPartialPageModalMiddleContentWidth_0 (copy), v67 (copy), l_PartialPageModal_0 (copy), v50 (copy), v24 (copy), v30 (copy), v55 (copy), v37 (copy), v46 (copy)
+    local v69, v70 = v8.useState(0);
+    local v71 = l_useDispatch_0();
+    local v72 = l_useTokens_0();
+    local function v74() --[[ Line: 402 ]] --[[ Name: openTermsOfUse ]]
+        -- upvalues: l_UrlBuilder_0 (ref), v71 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+        local v73 = l_UrlBuilder_0.static.about.terms();
+        v71(l_NavigateDown_0({
             name = l_AppPage_0.GenericWebPage, 
-            detail = v72
+            detail = v73
         }));
     end;
-    local function v75(v74) --[[ Line: 380 ]] --[[ Name: calculatePromptHeight ]]
-        -- upvalues: v67 (copy), v69 (copy), v22 (ref)
-        if v67.shouldUseNewModalDesign then
-            v69(282 + v74 + 24);
+    local function v76(v75) --[[ Line: 410 ]] --[[ Name: calculatePromptHeight ]]
+        -- upvalues: v68 (copy), v70 (copy), v22 (ref)
+        if v68.shouldUseNewModalDesign then
+            v70(338 + v75 + 24);
             return;
         else
-            v69(24 + v22:getTitleHeight(v67.screenSize.Y - 240) + 24 + v74);
+            v70(24 + v22:getTitleHeight(v68.screenSize.Y - 240) + 24 + v75);
             return;
         end;
     end;
@@ -342,38 +365,44 @@ return function(v67) --[[ Line: 367 ]] --[[ Name: SubscriptionPurchasePrompt ]]
             }, 
             TermsOfUse = {
                 key = "IAPExperience.RobuxUpsell.Text.TermsOfUse"
+            }, 
+            shareText = {
+                key = "Feature.SocialShare.Action.Share"
+            }, 
+            reportText = {
+                key = "Feature.GameDetails.Action.Report"
             }
         }, 
-        render = function(v76) --[[ Line: 413 ]] --[[ Name: render ]]
-            -- upvalues: l_withStyle_0 (ref), l_getPartialPageModalMiddleContentWidth_0 (ref), v67 (copy), v66 (ref), v68 (copy), v73 (copy), v75 (copy), v71 (copy), v8 (ref), l_PartialPageModal_0 (ref), v49 (ref), v24 (ref), v30 (ref), v54 (ref), v37 (ref), v22 (ref), v45 (ref)
-            return l_withStyle_0(function(v77) --[[ Line: 414 ]]
-                -- upvalues: l_getPartialPageModalMiddleContentWidth_0 (ref), v67 (ref), v66 (ref), v76 (copy), v68 (ref), v73 (ref), v75 (ref), v71 (ref), v8 (ref), l_PartialPageModal_0 (ref), v49 (ref), v24 (ref), v30 (ref), v54 (ref), v37 (ref), v22 (ref), v45 (ref)
-                local l_Theme_0 = v77.Theme;
-                local l_Font_0 = v77.Font;
-                local v80 = l_getPartialPageModalMiddleContentWidth_0(v67.screenSize.X);
-                if v67.shouldUseNewModalDesign then
-                    return v66(v67, v76, l_Theme_0, l_Font_0, v80, v68, v73, v75, v71);
+        render = function(v77) --[[ Line: 447 ]] --[[ Name: render ]]
+            -- upvalues: l_withStyle_0 (ref), l_getPartialPageModalMiddleContentWidth_0 (ref), v68 (copy), v67 (ref), v69 (copy), v74 (copy), v76 (copy), v72 (copy), v8 (ref), l_PartialPageModal_0 (ref), v50 (ref), v24 (ref), v30 (ref), v55 (ref), v37 (ref), v22 (ref), v46 (ref)
+            return l_withStyle_0(function(v78) --[[ Line: 448 ]]
+                -- upvalues: l_getPartialPageModalMiddleContentWidth_0 (ref), v68 (ref), v67 (ref), v77 (copy), v69 (ref), v74 (ref), v76 (ref), v72 (ref), v8 (ref), l_PartialPageModal_0 (ref), v50 (ref), v24 (ref), v30 (ref), v55 (ref), v37 (ref), v22 (ref), v46 (ref)
+                local l_Theme_0 = v78.Theme;
+                local l_Font_0 = v78.Font;
+                local v81 = l_getPartialPageModalMiddleContentWidth_0(v68.screenSize.X);
+                if v68.shouldUseNewModalDesign then
+                    return v67(v68, v77, l_Theme_0, l_Font_0, v81, v69, v74, v76, v72);
                 else
                     return v8.createElement(l_PartialPageModal_0, {
-                        title = v76.titleText, 
-                        screenSize = v67.screenSize, 
+                        title = v77.titleText, 
+                        screenSize = v68.screenSize, 
                         contentPadding = UDim.new(0, 24), 
                         buttonStackProps = {
-                            buttons = v49(v67, v76), 
+                            buttons = v50(v68, v77), 
                             buttonHeight = 48, 
                             forcedFillDirection = Enum.FillDirection.Vertical
                         }, 
-                        onCloseClicked = v67.cancelPurchaseActivated, 
-                        footerContent = function() --[[ Line: 443 ]] --[[ Name: footerContent ]]
-                            -- upvalues: v24 (ref), v67 (ref), v30 (ref), v76 (ref), l_Font_0 (copy), l_Theme_0 (copy), v80 (copy), v54 (ref), v73 (ref), v37 (ref)
+                        onCloseClicked = v68.cancelPurchaseActivated, 
+                        footerContent = function() --[[ Line: 477 ]] --[[ Name: footerContent ]]
+                            -- upvalues: v24 (ref), v68 (ref), v30 (ref), v77 (ref), l_Font_0 (copy), l_Theme_0 (copy), v81 (copy), v55 (ref), v74 (ref), v37 (ref)
                             if v24 then
-                                if v67.isTestingMode then
-                                    return v30(v76.footerText, l_Font_0, l_Theme_0, v80);
+                                if v68.isTestingMode then
+                                    return v30(v77.footerText, l_Font_0, l_Theme_0, v81);
                                 else
-                                    return v54(v76, v73);
+                                    return v55(v77, v74);
                                 end;
                             else
-                                return v37(v67.isTestingMode, v76.footerText, l_Font_0, l_Theme_0, v80);
+                                return v37(v68.isTestingMode, v77.footerText, l_Font_0, l_Theme_0, v81);
                             end;
                         end
                     }, {
@@ -385,14 +414,14 @@ return function(v67) --[[ Line: 367 ]] --[[ Name: SubscriptionPurchasePrompt ]]
                             PromptScroll = v8.createElement("ScrollingFrame", {
                                 BackgroundTransparency = 1, 
                                 LayoutOrder = 3, 
-                                Size = UDim2.new(1, 0, 0, (math.min(v68, v67.screenSize.Y - 240))), 
+                                Size = UDim2.new(1, 0, 0, (math.min(v69, v68.screenSize.Y - 240))), 
                                 BorderSizePixel = 0, 
                                 ZIndex = 2, 
-                                ScrollingEnabled = v68 > v67.screenSize.Y - 240, 
-                                ScrollBarThickness = v68 > v67.screenSize.Y - 240 and 5 or nil, 
+                                ScrollingEnabled = v69 > v68.screenSize.Y - 240, 
+                                ScrollBarThickness = v69 > v68.screenSize.Y - 240 and 5 or nil, 
                                 ScrollingDirection = Enum.ScrollingDirection.Y, 
                                 Selectable = false, 
-                                CanvasSize = UDim2.new(1, 0, 0, v68)
+                                CanvasSize = UDim2.new(1, 0, 0, v69)
                             }, {
                                 Padding = v8.createElement("UIPadding", {
                                     PaddingTop = UDim.new(0, 24), 
@@ -404,16 +433,16 @@ return function(v67) --[[ Line: 367 ]] --[[ Name: SubscriptionPurchasePrompt ]]
                                     Padding = UDim.new(0, 24)
                                 }), 
                                 SubscriptionTitleSection = v8.createElement(v22, {
-                                    subscriptionProviderName = v67.subscriptionProviderName, 
-                                    name = v67.name, 
-                                    displayPrice = v67.displayPrice, 
-                                    period = v67.period, 
-                                    disclaimerText = v67.disclaimerText, 
+                                    subscriptionProviderName = v68.subscriptionProviderName, 
+                                    name = v68.name, 
+                                    displayPrice = v68.displayPrice, 
+                                    period = v68.period, 
+                                    disclaimerText = v68.disclaimerText, 
                                     layoutOrder = 2, 
-                                    contentHeight = v67.screenSize.Y - 240, 
-                                    itemIcon = v67.itemIcon
+                                    contentHeight = v68.screenSize.Y - 240, 
+                                    itemIcon = v68.itemIcon
                                 }); 
-                                v45(v67, l_Font_0, l_Theme_0, v80, v75)
+                                v46(v68, l_Font_0, l_Theme_0, v81, v76, 2)
                             })
                         })
                     });

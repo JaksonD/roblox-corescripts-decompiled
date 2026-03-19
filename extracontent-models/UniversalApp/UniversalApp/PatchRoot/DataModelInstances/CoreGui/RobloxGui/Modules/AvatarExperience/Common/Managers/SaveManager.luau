@@ -303,7 +303,7 @@ v28.save = function(v82, v83) --[[ Line: 252 ]] --[[ Name: save ]]
                     if v21() then
                         l_reportAvatarEventCounterNoAnalyticsArgument_0(v15.Counter.AvatarEditorServiceErrors.PromptSaveAvatarCompleted);
                     end;
-                    if l_FFlagAXAvatarTimeoutFlow_0 and v100 == Enum.AvatarPromptResult.PermissionDenied then
+                    if l_FFlagAXAvatarTimeoutFlow_0 then
                         local v102 = v24.Stores.getTimeoutStatusStore();
                         if v102 and v102.fetchStatus then
                             v102.fetchStatus();
@@ -318,13 +318,13 @@ v28.save = function(v82, v83) --[[ Line: 252 ]] --[[ Name: save ]]
         end;
     end);
 end;
-v28.updateAvatarRoute = function(v103, v104, v105) --[[ Line: 461 ]] --[[ Name: updateAvatarRoute ]]
+v28.updateAvatarRoute = function(v103, v104, v105) --[[ Line: 466 ]] --[[ Name: updateAvatarRoute ]]
     -- upvalues: v13 (copy)
     if v13.didLeaveAvatarEditor(v104, v105) then
         v103:save(true);
     end;
 end;
-v28.onDestroy = function(_) --[[ Line: 470 ]] --[[ Name: onDestroy ]]
+v28.onDestroy = function(_) --[[ Line: 475 ]] --[[ Name: onDestroy ]]
 
 end;
 return v28;

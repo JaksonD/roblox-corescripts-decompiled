@@ -43,25 +43,26 @@ local l_wasLastInputGamepad_0 = require(l_CorePackages_0.Workspace.Packages.Roac
 local l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXUpdateSlotBasedEditorToastAndPrompts;
 local l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
-local v45 = l_Images_0["icons/navigation/pushBack"];
-local v46 = l_GridMetrics_0.makeCustomMetricsGetter(v23.ItemsGridMetrics);
-local v51 = v3.forwardRef(function(v47, v48) --[[ Line: 82 ]]
+local l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXFixGamepadNavigationOnOutfitManagement;
+local v46 = l_Images_0["icons/navigation/pushBack"];
+local v47 = l_GridMetrics_0.makeCustomMetricsGetter(v23.ItemsGridMetrics);
+local v52 = v3.forwardRef(function(v48, v49) --[[ Line: 85 ]]
     -- upvalues: l_useLocalization_0 (copy), l_useDesignTokens_0 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), l_Button_0 (copy), l_StandardButtonSize_0 (copy), l_ButtonType_0 (copy)
-    local v49 = l_useLocalization_0({
+    local v50 = l_useLocalization_0({
         loadMore = "Feature.Catalog.Action.LoadMore"
     });
-    local v50 = l_useDesignTokens_0();
+    local v51 = l_useDesignTokens_0();
     return v3.createElement(l_FFlagAXMigrateAXToGlobalAutofocus_0 and "Frame" or v7.Focusable.Frame, {
         BackgroundTransparency = 1, 
-        Size = UDim2.new(1, 0, 0, v50.Global.Size_600), 
-        ref = v48, 
-        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v47.NextSelectionUp, 
-        NextSelectionDown = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v47.NextSelectionDown, 
-        LayoutOrder = v47.LayoutOrder
+        Size = UDim2.new(1, 0, 0, v51.Global.Size_600), 
+        ref = v49, 
+        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v48.NextSelectionUp, 
+        NextSelectionDown = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v48.NextSelectionDown, 
+        LayoutOrder = v48.LayoutOrder
     }, {
         LoadMoreButton = v3.createElement(l_Button_0, {
-            onActivated = v47.onActivated, 
-            text = v49.loadMore, 
+            onActivated = v48.onActivated, 
+            text = v50.loadMore, 
             standardSize = l_StandardButtonSize_0.Regular, 
             buttonType = l_ButtonType_0.Secondary, 
             size = UDim2.fromScale(1, 1), 
@@ -70,8 +71,8 @@ local v51 = v3.forwardRef(function(v47, v48) --[[ Line: 82 ]]
         })
     });
 end);
-local v52 = v3.PureComponent:extend("OutfitSelectionGrid");
-v52.validateProps = v5.strictInterface({
+local v53 = v3.PureComponent:extend("OutfitSelectionGrid");
+v53.validateProps = v5.strictInterface({
     onToggleOutfitCard = v5.optional(v5.callback), 
     selectedOutfits = v5.array(v5.string), 
     selectionUpdated = v5.callback, 
@@ -95,198 +96,199 @@ v52.validateProps = v5.strictInterface({
     focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v5.table, 
     focusGuiObject = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then v5.optional(v5.callback) else nil
 });
-v52.defaultProps = {
+v53.defaultProps = {
     multiSelect = false
 };
-v52.getItemIconType = function(v53, v54) --[[ Line: 149 ]] --[[ Name: getItemIconType ]]
+v53.getItemIconType = function(v54, v55) --[[ Line: 152 ]] --[[ Name: getItemIconType ]]
     -- upvalues: v22 (copy)
-    local l_outfitInfos_0 = v53.props.outfitInfos;
-    local v56 = l_outfitInfos_0 and l_outfitInfos_0[v54];
-    if v56 then
-        return v22.getItemIconTypeFromOutfit(v56);
+    local l_outfitInfos_0 = v54.props.outfitInfos;
+    local v57 = l_outfitInfos_0 and l_outfitInfos_0[v55];
+    if v57 then
+        return v22.getItemIconTypeFromOutfit(v57);
     else
         return nil;
     end;
 end;
-v52.init = function(v57) --[[ Line: 160 ]] --[[ Name: init ]]
+v53.init = function(v58) --[[ Line: 163 ]] --[[ Name: init ]]
     -- upvalues: v3 (copy), v23 (copy), l_wasLastInputGamepad_0 (copy), v24 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
-    v57.loadableGridViewRef = v3.createRef();
-    v57.emptyStateRef = v3.createRef();
-    v57.loadMoreRef = v3.createRef();
-    local v58 = 0;
+    v58.loadableGridViewRef = v3.createRef();
+    v58.emptyStateRef = v3.createRef();
+    v58.loadMoreRef = v3.createRef();
     local v59 = 0;
-    local function _() --[[ Line: 167 ]] --[[ Name: checkCanScroll ]]
-        -- upvalues: v57 (copy), v23 (ref), v59 (ref), v58 (ref)
-        if v57.props.canScrollUpdated then
-            local v60 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
-            v57.props.canScrollUpdated(v59 + v60 > v58);
+    local v60 = 0;
+    local function _() --[[ Line: 170 ]] --[[ Name: checkCanScroll ]]
+        -- upvalues: v58 (copy), v23 (ref), v60 (ref), v59 (ref)
+        if v58.props.canScrollUpdated then
+            local v61 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
+            v58.props.canScrollUpdated(v60 + v61 > v59);
         end;
     end;
-    v57.absoluteSizeChanged = function(v62) --[[ Line: 174 ]]
-        -- upvalues: v58 (ref), v57 (copy), v23 (ref), v59 (ref)
-        v58 = v62.AbsoluteSize.Y;
-        if v57.props.canScrollUpdated then
-            local v63 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
-            v57.props.canScrollUpdated(v59 + v63 > v58);
+    v58.absoluteSizeChanged = function(v63) --[[ Line: 177 ]]
+        -- upvalues: v59 (ref), v58 (copy), v23 (ref), v60 (ref)
+        v59 = v63.AbsoluteSize.Y;
+        if v58.props.canScrollUpdated then
+            local v64 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
+            v58.props.canScrollUpdated(v60 + v64 > v59);
         end;
     end;
-    v57.contentSizeChanged = function(v64) --[[ Line: 179 ]]
-        -- upvalues: v59 (ref), v57 (copy), v23 (ref), v58 (ref)
-        v59 = v64.AbsoluteContentSize.Y;
-        if v57.props.canScrollUpdated then
-            local v65 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
-            v57.props.canScrollUpdated(v59 + v65 > v58);
+    v58.contentSizeChanged = function(v65) --[[ Line: 182 ]]
+        -- upvalues: v60 (ref), v58 (copy), v23 (ref), v59 (ref)
+        v60 = v65.AbsoluteContentSize.Y;
+        if v58.props.canScrollUpdated then
+            local v66 = v23.ItemsGridTopPadding + v23.ItemsGridBottomPadding;
+            v58.props.canScrollUpdated(v60 + v66 > v59);
         end;
     end;
-    v57.onLoadMoreButtonActivated = function() --[[ Line: 184 ]]
-        -- upvalues: l_wasLastInputGamepad_0 (ref), v57 (copy), v24 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
-        local v66 = l_wasLastInputGamepad_0();
-        local v67 = not (v57.props.hasMoreItems and #v57.props.editableOwnedOutfitIds == 0) and v57.props.editableOwnedOutfitIds or nil;
+    v58.onLoadMoreButtonActivated = function() --[[ Line: 187 ]]
+        -- upvalues: l_wasLastInputGamepad_0 (ref), v58 (copy), v24 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref)
+        local v67 = l_wasLastInputGamepad_0();
+        local v68 = not (v58.props.hasMoreItems and #v58.props.editableOwnedOutfitIds == 0) and v58.props.editableOwnedOutfitIds or nil;
         local l_ShimmerCardsToDisplay_0 = v24.ShimmerCardsToDisplay;
-        local v69 = (v67 and #v67 or l_ShimmerCardsToDisplay_0) > 0;
-        if v66 then
-            v57:setState({
+        local v70 = (v68 and #v68 or l_ShimmerCardsToDisplay_0) > 0;
+        if v67 then
+            v58:setState({
                 restorePreviousChildFocus = true
             });
-            if v69 then
+            if v70 then
                 if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-                    if v57.props.focusGuiObject and v57.loadableGridViewRef.current then
-                        v57.props.focusGuiObject(v57.loadableGridViewRef.current);
+                    if v58.props.focusGuiObject and v58.loadableGridViewRef.current then
+                        v58.props.focusGuiObject(v58.loadableGridViewRef.current);
                     end;
                 else
-                    v57.props.focusController.moveFocusTo(v57.loadableGridViewRef);
+                    v58.props.focusController.moveFocusTo(v58.loadableGridViewRef);
                 end;
             end;
         end;
-        v57.props.loadMoreItems();
+        v58.props.loadMoreItems();
     end;
 end;
-v52.renderItem = function(v70, v71) --[[ Line: 209 ]] --[[ Name: renderItem ]]
+v53.renderItem = function(v71, v72) --[[ Line: 212 ]] --[[ Name: renderItem ]]
     -- upvalues: v2 (copy), l_Constants_0 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), v24 (copy), l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 (copy), v3 (copy), v30 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_ItemTile_0 (copy), l_Focusable_0 (copy), v7 (copy)
-    if typeof(v71) == "table" then
-        v71 = nil;
+    if typeof(v72) == "table" then
+        v72 = nil;
     end;
-    local v72 = v2.List.find(v70.props.selectedOutfits, v71) ~= nil;
-    local function v74() --[[ Line: 215 ]] --[[ Name: toggleSelectOutfit ]]
-        -- upvalues: v70 (copy), v72 (copy), v2 (ref), v71 (ref)
-        if v70.props.multiSelect then
-            local v73 = nil;
-            v73 = if v72 then v2.List.removeValue(v70.props.selectedOutfits, v71) else v2.List.join(v70.props.selectedOutfits, {
-                v71
+    local v73 = v2.List.find(v71.props.selectedOutfits, v72) ~= nil;
+    local function v75() --[[ Line: 218 ]] --[[ Name: toggleSelectOutfit ]]
+        -- upvalues: v71 (copy), v73 (copy), v2 (ref), v72 (ref)
+        if v71.props.multiSelect then
+            local v74 = nil;
+            v74 = if v73 then v2.List.removeValue(v71.props.selectedOutfits, v72) else v2.List.join(v71.props.selectedOutfits, {
+                v72
             });
-            v70.props.selectionUpdated(v73);
+            v71.props.selectionUpdated(v74);
             return;
         else
-            if v72 then
-                v70.props.selectionUpdated({});
-                if v70.props.onToggleOutfitCard then
-                    v70.props.onToggleOutfitCard(false);
+            if v73 then
+                v71.props.selectionUpdated({});
+                if v71.props.onToggleOutfitCard then
+                    v71.props.onToggleOutfitCard(false);
                     return;
                 end;
             else
-                v70.props.selectionUpdated({
-                    v71
+                v71.props.selectionUpdated({
+                    v72
                 });
-                if v70.props.onToggleOutfitCard then
-                    v70.props.onToggleOutfitCard(true, v71);
+                if v71.props.onToggleOutfitCard then
+                    v71.props.onToggleOutfitCard(true, v72);
                 end;
             end;
             return;
         end;
     end;
-    local v75 = nil;
     local v76 = nil;
-    if v71 then
-        local v77 = v70.props.outfitInfos[tostring(v71)];
-        v75 = v77 and v77.name or nil;
+    local v77 = nil;
+    if v72 then
+        local v78 = v71.props.outfitInfos[tostring(v72)];
+        v76 = v78 and v78.name or nil;
         local l_Outfit_0 = l_Constants_0.RbxthumbTypes.Outfit;
-        v76 = l_getRbxthumbWithTypeSizeAndOptions_0(v71, l_Outfit_0, 150);
-        if v77 then
-            v76 = v76 .. "&filters=" .. v77.updateCounter;
+        v77 = l_getRbxthumbWithTypeSizeAndOptions_0(v72, l_Outfit_0, 150);
+        if v78 then
+            v77 = v77 .. "&filters=" .. v78.updateCounter;
         end;
     end;
     local l_ItemTileTitleMaxLines_0 = v24.ItemTileTitleMaxLines;
-    if not v70.props.showCustomOutfitNames then
+    if not v71.props.showCustomOutfitNames then
         l_ItemTileTitleMaxLines_0 = 0;
     end;
     if l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 then
         return v3.createElement(v30, {
-            isSelected = v72, 
-            multiSelect = v70.props.multiSelect, 
-            itemIconType = v70:getItemIconType(v71), 
-            toggleSelectOutfit = v74, 
-            name = v75, 
+            isSelected = v73, 
+            multiSelect = v71.props.multiSelect, 
+            itemIconType = v71:getItemIconType(v72), 
+            toggleSelectOutfit = v75, 
+            name = v76, 
             titleTextLineCount = l_ItemTileTitleMaxLines_0, 
-            thumbnail = v76, 
-            itemId = v71, 
-            selectionUpdated = v70.props.selectionUpdated, 
-            selectedOutfits = v70.props.selectedOutfits, 
-            onToggleOutfitCard = v70.props.onToggleOutfitCard
+            thumbnail = v77, 
+            itemId = v72, 
+            selectionUpdated = v71.props.selectionUpdated, 
+            selectedOutfits = v71.props.selectedOutfits, 
+            onToggleOutfitCard = v71.props.onToggleOutfitCard
         });
     else
         return v3.createElement(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then l_ItemTile_0 else l_Focusable_0[l_ItemTile_0], {
-            isSelected = v72, 
-            multiSelect = v70.props.multiSelect, 
-            itemIconType = v70:getItemIconType(v71), 
-            onActivated = v74, 
-            name = v75, 
+            isSelected = v73, 
+            multiSelect = v71.props.multiSelect, 
+            itemIconType = v71:getItemIconType(v72), 
+            onActivated = v75, 
+            name = v76, 
             titleTextLineCount = l_ItemTileTitleMaxLines_0, 
-            thumbnail = v76, 
+            thumbnail = v77, 
             Selectable = l_FFlagAXMigrateAXToGlobalAutofocus_0 and true or nil, 
             inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-                ToggleSelect = v7.Input.onBegin(Enum.KeyCode.ButtonA, v74, {
-                    key = v72 and "Feature.Avatar.Action.Unselect" or "Feature.Avatar.Action.Select"
+                ToggleSelect = v7.Input.onBegin(Enum.KeyCode.ButtonA, v75, {
+                    key = v73 and "Feature.Avatar.Action.Unselect" or "Feature.Avatar.Action.Select"
                 })
             }
         });
     end;
 end;
-v52.renderWithProviders = function(v80, v81, v82) --[[ Line: 293 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: v24 (copy), v22 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v31 (copy), l_FitFrameVertical_0 (copy), v23 (copy), v25 (copy), v46 (copy), v51 (copy), v33 (copy), l_EmptyState_0 (copy), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (copy), v45 (copy)
-    local v83 = v80.props.hasMoreItems and #v80.props.editableOwnedOutfitIds == 0;
-    local v84 = not v83 and v80.props.editableOwnedOutfitIds or nil;
+v53.renderWithProviders = function(v81, v82, v83) --[[ Line: 296 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: v24 (copy), v22 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v31 (copy), l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 (copy), l_FitFrameVertical_0 (copy), v23 (copy), v25 (copy), v47 (copy), v52 (copy), v33 (copy), l_EmptyState_0 (copy), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (copy), v46 (copy)
+    local v84 = v81.props.hasMoreItems and #v81.props.editableOwnedOutfitIds == 0;
+    local v85 = not v84 and v81.props.editableOwnedOutfitIds or nil;
     local l_ShimmerCardsToDisplay_1 = v24.ShimmerCardsToDisplay;
-    local v86 = v84 and #v84 or l_ShimmerCardsToDisplay_1;
-    local v87 = v86 > 0;
-    local l_Font_0 = v81.Font;
-    local v89 = l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize;
-    local v90 = nil;
-    v90 = if v80.props.showCustomOutfitNames then v22.GridItemHeightGetter(v24.ItemTileType.BundleItemTile, v89) else v22.GridItemHeightGetter(v24.ItemTileType.BundleItemTileNoText);
+    local v87 = v85 and #v85 or l_ShimmerCardsToDisplay_1;
+    local v88 = v87 > 0;
+    local l_Font_0 = v82.Font;
+    local v90 = l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize;
     local v91 = nil;
-    v91 = if v87 then v80.loadableGridViewRef else v80.emptyStateRef;
-    local v92 = v82.noItemsLabel:gsub("({itemType})", v82.itemType);
-    local l_forwardRef_0 = v80.props.forwardRef;
-    local l_isFetchingMore_0 = v80.props.isFetchingMore;
-    local l_enableContinuousLoad_0 = v80.props.enableContinuousLoad;
-    local v96 = l_isFetchingMore_0 or v83;
-    local v97 = not v96 and v80.props.hasMoreItems;
-    local v98 = if v97 and l_enableContinuousLoad_0 then v80.props.loadMoreItems else nil;
-    local v99 = v97 and not l_enableContinuousLoad_0;
+    v91 = if v81.props.showCustomOutfitNames then v22.GridItemHeightGetter(v24.ItemTileType.BundleItemTile, v90) else v22.GridItemHeightGetter(v24.ItemTileType.BundleItemTileNoText);
+    local v92 = nil;
+    v92 = if v88 then v81.loadableGridViewRef else v81.emptyStateRef;
+    local v93 = v83.noItemsLabel:gsub("({itemType})", v83.itemType);
+    local l_forwardRef_0 = v81.props.forwardRef;
+    local l_isFetchingMore_0 = v81.props.isFetchingMore;
+    local l_enableContinuousLoad_0 = v81.props.enableContinuousLoad;
+    local v97 = l_isFetchingMore_0 or v84;
+    local v98 = not v97 and v81.props.hasMoreItems;
+    local v99 = if v98 and l_enableContinuousLoad_0 then v81.props.loadMoreItems else nil;
+    local v100 = v98 and not l_enableContinuousLoad_0;
     return v3.createElement(l_FFlagAXMigrateAXToGlobalAutofocus_0 and "Frame" or l_Focusable_0.Frame, {
         BackgroundTransparency = 1, 
         Size = UDim2.fromScale(1, 1), 
-        [v3.Change.AbsoluteSize] = v80.absoluteSizeChanged, 
-        NextSelectionLeft = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v80.props.NextSelectionLeft, 
-        NextSelectionRight = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v80.props.NextSelectionRight, 
-        NextSelectionDown = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v80.props.NextSelectionDown, 
-        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v80.props.NextSelectionUp, 
+        [v3.Change.AbsoluteSize] = v81.absoluteSizeChanged, 
+        NextSelectionLeft = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v81.props.NextSelectionLeft, 
+        NextSelectionRight = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v81.props.NextSelectionRight, 
+        NextSelectionDown = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v81.props.NextSelectionDown, 
+        NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v81.props.NextSelectionUp, 
         ref = l_forwardRef_0, 
-        defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v91, 
+        defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v92, 
         restorePreviousChildFocus = not l_FFlagAXMigrateAXToGlobalAutofocus_0 or nil
     }, {
-        RefreshScrollingFrameWithLoadMore = v87 and v3.createElement(v31, {
+        RefreshScrollingFrameWithLoadMore = v88 and v3.createElement(v31, {
             BackgroundTransparency = 1, 
             Position = UDim2.fromOffset(0, 0), 
             Size = UDim2.fromScale(1, 1), 
             createEndOfScrollElement = false, 
-            parentAppPage = v80.props.pageOwner, 
-            onThresholdReached = v98
+            parentAppPage = v81.props.pageOwner, 
+            onThresholdReached = v99, 
+            Selectable = not l_FFlagAXFixGamepadNavigationOnOutfitManagement_0 and nil
         }, {
             UIListLayout = v3.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                [v3.Change.AbsoluteContentSize] = v80.contentSizeChanged
+                [v3.Change.AbsoluteContentSize] = v81.contentSizeChanged
             }), 
             ListWrapper = v3.createElement(l_FitFrameVertical_0, {
                 width = UDim.new(1, 0), 
@@ -300,127 +302,127 @@ v52.renderWithProviders = function(v80, v81, v82) --[[ Line: 293 ]] --[[ Name: r
                 }
             }, {
                 LoadableGridView = v3.createElement(v25, {
-                    getItemMetrics = v46, 
-                    items = v84, 
-                    totalNumItems = v86, 
-                    renderItem = function(v100) --[[ Line: 381 ]] --[[ Name: renderItem ]]
-                        -- upvalues: v80 (copy)
-                        return v80:renderItem(v100);
+                    getItemMetrics = v47, 
+                    items = v85, 
+                    totalNumItems = v87, 
+                    renderItem = function(v101) --[[ Line: 385 ]] --[[ Name: renderItem ]]
+                        -- upvalues: v81 (copy)
+                        return v81:renderItem(v101);
                     end, 
-                    getItemHeight = v90, 
-                    windowHeight = v80.props.screenSize.Y, 
-                    ref = v80.loadableGridViewRef, 
-                    NextSelectionDown = if v51 then v80.loadMoreRef else nil
+                    getItemHeight = v91, 
+                    windowHeight = v81.props.screenSize.Y, 
+                    ref = v81.loadableGridViewRef, 
+                    NextSelectionDown = if v52 then v81.loadMoreRef else nil
                 })
             }), 
-            LoadMoreButton = if v99 and v51 then v3.createElement(v51, {
-                onActivated = v80.onLoadMoreButtonActivated, 
+            LoadMoreButton = if v100 and v52 then v3.createElement(v52, {
+                onActivated = v81.onLoadMoreButtonActivated, 
                 LayoutOrder = 2, 
-                ref = v80.loadMoreRef, 
-                NextSelectionUp = v80.loadableGridViewRef
+                ref = v81.loadMoreRef, 
+                NextSelectionUp = v81.loadableGridViewRef
             }) else nil, 
-            LoadingBar = if v96 then v3.createElement("Frame", {
+            LoadingBar = if v97 then v3.createElement("Frame", {
                 BackgroundTransparency = 1, 
-                Size = UDim2.new(1, 0, 0, v81.Tokens.Global.Size_700), 
+                Size = UDim2.new(1, 0, 0, v82.Tokens.Global.Size_700), 
                 LayoutOrder = 3
             }, {
                 LoadingBar = v3.createElement(v33)
             }) else nil
         }), 
-        EmptyState = not v87 and v3.createElement(l_EmptyState_0, {
-            buttonIcon = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "" or v45, 
+        EmptyState = not v88 and v3.createElement(l_EmptyState_0, {
+            buttonIcon = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "" or v46, 
             icon = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "" or nil, 
-            buttonText = if l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 then v82.backLabel else nil, 
+            buttonText = if l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 then v83.backLabel else nil, 
             iconSize = if l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 then UDim2.fromScale(0, 0) else nil, 
-            onActivated = v80.props.goBack, 
-            text = v92, 
-            ref = v80.emptyStateRef
+            onActivated = v81.props.goBack, 
+            text = v93, 
+            ref = v81.emptyStateRef
         })
     });
 end;
-v52.render = function(v101) --[[ Line: 426 ]] --[[ Name: render ]]
+v53.render = function(v102) --[[ Line: 430 ]] --[[ Name: render ]]
     -- upvalues: l_withStyle_0 (copy), l_withLocalization_0 (copy), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (copy)
-    return l_withStyle_0(function(v102) --[[ Line: 427 ]]
-        -- upvalues: l_withLocalization_0 (ref), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (ref), v101 (copy)
+    return l_withStyle_0(function(v103) --[[ Line: 431 ]]
+        -- upvalues: l_withLocalization_0 (ref), l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 (ref), v102 (copy)
         return l_withLocalization_0({
             itemType = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "Feature.Avatar.Label.Avatars" or "Feature.Catalog.Label.Characters", 
             noItemsLabel = "Feature.Avatar.Label.NoItems", 
             backLabel = l_FFlagAXUpdateSlotBasedEditorToastAndPrompts_0 and "Feature.Avatar.Label.Back" or nil
-        })(function(v103) --[[ Line: 434 ]]
-            -- upvalues: v101 (ref), v102 (copy)
-            return v101:renderWithProviders(v102, v103);
+        })(function(v104) --[[ Line: 438 ]]
+            -- upvalues: v102 (ref), v103 (copy)
+            return v102:renderWithProviders(v103, v104);
         end);
     end);
 end;
-v52.didMount = function(v104) --[[ Line: 440 ]] --[[ Name: didMount ]]
-    if v104.props.hasMoreItems then
-        v104.props.loadMoreItems();
+v53.didMount = function(v105) --[[ Line: 444 ]] --[[ Name: didMount ]]
+    if v105.props.hasMoreItems then
+        v105.props.loadMoreItems();
     end;
 end;
-v52.didUpdate = function(v105, v106, _) --[[ Line: 446 ]] --[[ Name: didUpdate ]]
+v53.didUpdate = function(v106, v107, _) --[[ Line: 450 ]] --[[ Name: didUpdate ]]
     -- upvalues: v2 (copy)
-    if v105.props.multiSelect ~= v106.multiSelect and not v105.props.multiSelect then
-        v105.props.selectionUpdated({});
+    if v106.props.multiSelect ~= v107.multiSelect and not v106.props.multiSelect then
+        v106.props.selectionUpdated({});
     end;
-    local v108 = v105.props.editableOwnedOutfitIds ~= v106.editableOwnedOutfitIds;
-    local v109 = v105.props.selectedOutfits ~= v106.selectedOutfits;
-    if v108 or v109 then
-        local v110 = {};
-        local v111 = false;
-        for _, v113 in v105.props.selectedOutfits do
-            if v2.List.find(v105.props.editableOwnedOutfitIds, v113) then
-                v110[#v110 + 1] = v113;
+    local v109 = v106.props.editableOwnedOutfitIds ~= v107.editableOwnedOutfitIds;
+    local v110 = v106.props.selectedOutfits ~= v107.selectedOutfits;
+    if v109 or v110 then
+        local v111 = {};
+        local v112 = false;
+        for _, v114 in v106.props.selectedOutfits do
+            if v2.List.find(v106.props.editableOwnedOutfitIds, v114) then
+                v111[#v111 + 1] = v114;
             else
-                v111 = true;
+                v112 = true;
             end;
         end;
-        if v111 then
-            v105.props.selectionUpdated(v110);
+        if v112 then
+            v106.props.selectionUpdated(v111);
         end;
     end;
 end;
-v52 = l_RoactAppPolicy_0.connect(function(v114, _) --[[ Line: 477 ]]
+v53 = l_RoactAppPolicy_0.connect(function(v115, _) --[[ Line: 481 ]]
     return {
-        showCustomOutfitNames = v114.getCustomOutfitNames(), 
-        enableContinuousLoad = v114.getEnableContinuousLoad()
+        showCustomOutfitNames = v115.getCustomOutfitNames(), 
+        enableContinuousLoad = v115.getEnableContinuousLoad()
     };
-end)(v52);
-v52 = v4.connect(function(v116, _) --[[ Line: 484 ]] --[[ Name: mapStateToProps ]]
+end)(v53);
+v53 = v4.connect(function(v117, _) --[[ Line: 488 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: v23 (copy)
-    local v118 = not v116.AvatarExperience.AvatarEditor.PageFinished[v23.EditableCharacterKey];
-    local l_OutfitInfos_0 = v116.AvatarExperience.AvatarEditor.OutfitInfos;
+    local v119 = not v117.AvatarExperience.AvatarEditor.PageFinished[v23.EditableCharacterKey];
+    local l_OutfitInfos_0 = v117.AvatarExperience.AvatarEditor.OutfitInfos;
     return {
-        editableOwnedOutfitIds = v116.AvatarExperience.AvatarEditor.Character.OwnedItemIdsBySubtype[v23.EditableCharacterKey] or {}, 
+        editableOwnedOutfitIds = v117.AvatarExperience.AvatarEditor.Character.OwnedItemIdsBySubtype[v23.EditableCharacterKey] or {}, 
         outfitInfos = l_OutfitInfos_0, 
-        screenSize = v116.ScreenSize, 
-        hasMoreItems = v118
+        screenSize = v117.ScreenSize, 
+        hasMoreItems = v119
     };
-end)(v52);
-return v3.forwardRef(function(v120, v121) --[[ Line: 502 ]]
-    -- upvalues: l_useDispatch_0 (copy), v3 (copy), v29 (copy), v36 (copy), v32 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusGuiObject_0 (copy), v52 (ref), v2 (copy), v7 (copy)
-    local v122 = l_useDispatch_0();
-    local v123 = v3.useCallback(function() --[[ Line: 505 ]]
-        -- upvalues: v122 (copy), v29 (ref)
-        return v122(v29());
+end)(v53);
+return v3.forwardRef(function(v121, v122) --[[ Line: 506 ]]
+    -- upvalues: l_useDispatch_0 (copy), v3 (copy), v29 (copy), v36 (copy), v32 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusGuiObject_0 (copy), v53 (ref), v2 (copy), v7 (copy)
+    local v123 = l_useDispatch_0();
+    local v124 = v3.useCallback(function() --[[ Line: 509 ]]
+        -- upvalues: v123 (copy), v29 (ref)
+        return v123(v29());
     end, {});
-    local v124, v125 = v36(v123);
-    local v126 = v124.status == v32.Pending;
+    local v125, v126 = v36(v124);
+    local v127 = v125.status == v32.Pending;
     if l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-        local v127 = l_useFocusGuiObject_0();
-        return v3.createElement(v52, v2.Dictionary.join(v120, {
-            forwardRef = v121, 
-            loadMoreItems = v125, 
-            isFetchingMore = v126, 
-            focusGuiObject = v127
+        local v128 = l_useFocusGuiObject_0();
+        return v3.createElement(v53, v2.Dictionary.join(v121, {
+            forwardRef = v122, 
+            loadMoreItems = v126, 
+            isFetchingMore = v127, 
+            focusGuiObject = v128
         }));
     else
-        return v7.withFocusController(function(v128) --[[ Line: 525 ]]
-            -- upvalues: v3 (ref), v52 (ref), v2 (ref), v120 (copy), v121 (copy), v125 (copy), v126 (copy)
-            return v3.createElement(v52, v2.Dictionary.join(v120, {
-                forwardRef = v121, 
-                loadMoreItems = v125, 
-                isFetchingMore = v126, 
-                focusController = v128
+        return v7.withFocusController(function(v129) --[[ Line: 529 ]]
+            -- upvalues: v3 (ref), v53 (ref), v2 (ref), v121 (copy), v122 (copy), v126 (copy), v127 (copy)
+            return v3.createElement(v53, v2.Dictionary.join(v121, {
+                forwardRef = v122, 
+                loadMoreItems = v126, 
+                isFetchingMore = v127, 
+                focusController = v129
             }));
         end);
     end;

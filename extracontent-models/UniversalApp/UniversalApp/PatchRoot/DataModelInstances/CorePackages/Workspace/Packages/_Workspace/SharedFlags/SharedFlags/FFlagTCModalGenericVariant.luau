@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAmpProviderParseExtraParameters) and game:DefineFastFlag("TCModalGenericVariant", false);

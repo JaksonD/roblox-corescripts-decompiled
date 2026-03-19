@@ -91,5 +91,44 @@ return {
         }, 
         throttlingPercentage = 100, 
         description = "Counter fired when purchase failed."
+    }, 
+    RobloxSubscriptionUpsellPurchaseSucceededCounter = {
+        eventName = "RobloxSubscriptionUpsellPurchaseSucceededCounter", 
+        backends = {
+            v1.TelemetryBackends.Counter
+        }, 
+        lastUpdated = {
+            2026, 
+            3, 
+            9
+        }, 
+        throttlingPercentage = 100, 
+        description = "Counter fired when purchase succeeded."
+    }, 
+    RobloxSubscriptionUpsellNativePurchasePollingTimeoutCounter = {
+        eventName = "RobloxSubscriptionUpsellNativePurchasePollingTimeoutCounter", 
+        backends = {
+            v1.TelemetryBackends.Counter
+        }, 
+        lastUpdated = {
+            2026, 
+            3, 
+            9
+        }, 
+        throttlingPercentage = 100, 
+        description = "Counter fired when native purchase polling timeout occurs after native purchase attempt."
+    }, 
+    RobloxSubscriptionPurchaseAttemptedCounter = {
+        eventName = "RobloxSubscriptionPurchaseAttemptedCounter", 
+        backends = {
+            v1.TelemetryBackends.Counter
+        }, 
+        lastUpdated = {
+            2026, 
+            3, 
+            9
+        }, 
+        throttlingPercentage = 100, 
+        description = "Counter fired when purchase attempt is made."
     }
 };

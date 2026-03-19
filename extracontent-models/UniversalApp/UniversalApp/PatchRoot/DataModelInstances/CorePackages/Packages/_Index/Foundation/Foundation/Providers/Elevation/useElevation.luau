@@ -23,7 +23,8 @@ return function(v8, v9) --[[ Line: 20 ]] --[[ Name: useElevation ]]
                 });
             elseif v12 then
                 return v10.acquire(v8, {
-                    reserve = true
+                    reserve = true, 
+                    owner = v11
                 });
             else
                 local v13 = v11.zIndex + 1;

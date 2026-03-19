@@ -9,8 +9,10 @@ local l_validateProps_0 = require(l_Parent_0.DiscoveryUtils).validateProps;
 local v8 = require(l_script_FirstAncestor_0.useCollectionSizeBindings);
 local v9 = require(l_script_FirstAncestor_0.CollectionHeader);
 local v10 = require(l_script_FirstAncestor_0.Grid.GridOfCollectionItems);
-local l_FFlagSduiV2PaginationSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiV2PaginationSupport;
-local v12 = v6.strictInterface({
+local _ = require(l_script_FirstAncestor_0.CollectionViewTypes);
+local v12 = require(l_script_FirstAncestor_0.CollectionLayoutStore.useCollectionLayout);
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local v14 = v6.strictInterface({
     testId = v6.optional(v6.string), 
     Position = v6.optional(v6.UDim2), 
     LayoutOrder = v6.optional(v6.number), 
@@ -18,7 +20,8 @@ local v12 = v6.strictInterface({
     verticalPadding = v6.optional(v6.number), 
     maxNumRows = v6.optional(v6.number), 
     verticalScrollingFrameRef = v6.optional(v6.table), 
-    numColumns = v6.number, 
+    collectionItemSize = if l_FFlagLuaAppCompositionSupport_0 then v6.optional(v6.string) else nil, 
+    numColumns = if l_FFlagLuaAppCompositionSupport_0 then v6.optional(v6.number) else v6.number, 
     items = v6.table, 
     renderItem = v6.callback, 
     getItemHeight = v6.callback, 
@@ -39,108 +42,118 @@ local v12 = v6.strictInterface({
     bufferRowsAboveScreen = v6.optional(v6.number), 
     disableRelativeGap = v6.optional(v6.boolean), 
     headerComponent = v6.optional(v6.table), 
-    thresholdRowsFromBottom = if l_FFlagSduiV2PaginationSupport_0 then v6.optional(v6.number) else nil, 
-    onReachedThresholdFromEnd = if l_FFlagSduiV2PaginationSupport_0 then v6.optional(v6.union(v6.table, v6.callback)) else nil
+    thresholdRowsFromBottom = v6.optional(v6.number), 
+    onReachedThresholdFromEnd = v6.optional(v6.union(v6.table, v6.callback))
 });
-local v13 = {
+local v15 = {
     numColumns = 0, 
     columnGap = 0, 
     sideMargin = 0, 
     verticalPadding = 0
 };
-return (v2.memo(function(v14) --[[ Line: 156 ]] --[[ Name: CollectionGrid ]]
-    -- upvalues: l_validateProps_0 (copy), v12 (copy), v3 (copy), v13 (copy), v4 (copy), l_useDesignTokens_0 (copy), v8 (copy), v2 (copy), v9 (copy), v10 (copy), l_FFlagSduiV2PaginationSupport_0 (copy)
-    l_validateProps_0(v12, v14);
-    local v15 = v3.Dictionary.join(v13, v14);
-    local l_numColumns_0 = v15.numColumns;
-    local l_sideMargin_0 = v15.sideMargin;
-    local l_columnGap_0 = v15.columnGap;
-    local l_verticalPadding_0 = v15.verticalPadding;
-    v4.assert(l_numColumns_0 >= 1);
+return (v2.memo(function(v16) --[[ Line: 166 ]] --[[ Name: CollectionGrid ]]
+    -- upvalues: l_validateProps_0 (copy), v14 (copy), v3 (copy), v15 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), v12 (copy), v4 (copy), l_useDesignTokens_0 (copy), v8 (copy), v2 (copy), v9 (copy), v10 (copy)
+    l_validateProps_0(v14, v16);
+    local v17 = v3.Dictionary.join(v15, v16);
+    local l_sideMargin_0 = v17.sideMargin;
+    local v19 = nil;
+    local v20 = nil;
+    local v21 = nil;
+    if l_FFlagLuaAppCompositionSupport_0 then
+        local v22 = v12(v17.collectionItemSize);
+        v19 = v16.numColumns or v22.itemsPerRow;
+        v20 = v16.columnGap or v22.gutter;
+        v21 = v16.verticalPadding or v22.verticalGap;
+    else
+        v19 = v17.numColumns;
+        v20 = v17.columnGap;
+        v21 = v17.verticalPadding;
+    end;
+    v4.assert(v19 >= 1);
     v4.assert(l_sideMargin_0 >= 0);
-    v4.assert(l_verticalPadding_0 >= 0);
-    v4.assert(l_columnGap_0 >= 0);
+    v4.assert(v21 >= 0);
+    v4.assert(v20 >= 0);
     local l_Size_200_0 = l_useDesignTokens_0().Global.Size_200;
-    local v21, _, v23, v24 = v8(l_numColumns_0, l_columnGap_0, l_sideMargin_0, 0, v15.getItemHeight, v15.onContainerSizeChanged);
-    local v25 = v15.title and v15.title ~= "";
+    local v24, _, v26, v27 = v8(v19, v20, l_sideMargin_0, 0, v17.getItemHeight, v17.onContainerSizeChanged);
+    local v28 = v17.title and v17.title ~= "";
     local l_createElement_0 = v2.createElement;
-    local v27 = "Frame";
-    local v28 = {
-        ref = v15.containerRef, 
+    local v30 = "Frame";
+    local v31 = {
+        ref = v17.containerRef, 
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
-        Position = v15.Position, 
+        Position = v17.Position, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        LayoutOrder = v15.LayoutOrder, 
-        [v2.Tag] = if v15.testId then ("data-testid=%*"):format(v15.testId) else nil
+        LayoutOrder = v17.LayoutOrder, 
+        [v2.Tag] = if v17.testId then ("data-testid=%*"):format(v17.testId) else nil
     };
-    local v29 = {};
+    local v32 = {};
     local l_createElement_1 = v2.createElement;
-    local v31 = "Frame";
-    local v32 = {
+    local v34 = "Frame";
+    local v35 = {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.new(1, 0, 0, 0), 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        [v2.Change.AbsoluteSize] = v23, 
-        ref = v24
+        [v2.Change.AbsoluteSize] = v26, 
+        ref = v27
     };
-    local v33 = {
-        UIPadding = v2.createElement("UIPadding", {
+    local v36 = {
+        UIPadding = if not l_FFlagLuaAppCompositionSupport_0 or l_sideMargin_0 > 0 then v2.createElement("UIPadding", {
             PaddingLeft = UDim.new(0, l_sideMargin_0), 
             PaddingRight = UDim.new(0, l_sideMargin_0)
-        }), 
+        }) else nil, 
         UIListLayout = v2.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
-            Padding = UDim.new(0, if not not v25 or v15.headerComponent then l_Size_200_0 else nil)
+            Padding = UDim.new(0, if not not v28 or v17.headerComponent then l_Size_200_0 else nil)
         })
     };
-    local v34;
-    if v15.headerComponent then
-        v34 = v15.headerComponent;
+    local v37;
+    if v17.headerComponent then
+        v37 = v17.headerComponent;
     else
-        v34 = v2.createElement;
+        v37 = v2.createElement;
         local l_v9_0 = v9;
-        local v36 = {
+        local v39 = {
             LayoutOrder = 1, 
-            title = v15.title, 
-            subtitle = v15.subtitle, 
-            tooltipInfoText = v15.tooltipInfoText, 
-            onActivateInfoIcon = v15.onActivateInfoIcon, 
-            tooltipSupportsVR = v15.tooltipSupportsVR, 
-            tooltipSupportsTenFootUi = v15.tooltipSupportsTenFootUi
+            title = v17.title, 
+            subtitle = v17.subtitle, 
+            tooltipInfoText = v17.tooltipInfoText, 
+            onActivateInfoIcon = v17.onActivateInfoIcon, 
+            tooltipSupportsVR = v17.tooltipSupportsVR, 
+            tooltipSupportsTenFootUi = v17.tooltipSupportsTenFootUi
         };
-        local v37 = true;
-        if #v15.items >= 1 then
-            v37 = v15.hideHeaderButton or not v25;
+        local v40 = true;
+        if #v17.items >= 1 then
+            v40 = v17.hideHeaderButton or not v28;
         end;
-        v36.hideButton = v37;
-        v36.onActivate = v15.onActivateHeader;
-        v36.buttonText = v15.headerButtonText;
-        v34 = v34(l_v9_0, v36);
+        v39.hideButton = v40;
+        v39.onActivate = v17.onActivateHeader;
+        v39.buttonText = v17.headerButtonText;
+        v37 = v37(l_v9_0, v39);
     end;
-    v33.Header = v34;
-    v33.GridOfItems = v2.createElement(v10, {
-        verticalScrollingFrameRef = v15.verticalScrollingFrameRef, 
-        onViewableItemsChanged = v15.onViewableItemsChanged, 
-        itemSizeBinding = v21, 
-        maxNumRows = v15.maxNumRows, 
-        numColumns = l_numColumns_0, 
-        items = v15.items, 
-        renderItem = v15.renderItem, 
-        columnGap = l_columnGap_0, 
+    v36.Header = v37;
+    v36.GridOfItems = v2.createElement(v10, {
+        verticalScrollingFrameRef = v17.verticalScrollingFrameRef, 
+        onViewableItemsChanged = v17.onViewableItemsChanged, 
+        itemSizeBinding = v24, 
+        maxNumRows = v17.maxNumRows, 
+        numColumns = v19, 
+        items = v17.items, 
+        renderItem = v17.renderItem, 
+        columnGap = v20, 
         sideMargin = l_sideMargin_0, 
-        verticalPadding = l_verticalPadding_0, 
-        bufferRowsBelowScreen = v15.bufferRowsBelowScreen, 
-        bufferRowsAboveScreen = v15.bufferRowsAboveScreen, 
+        verticalPadding = v21, 
+        bufferRowsBelowScreen = v17.bufferRowsBelowScreen, 
+        bufferRowsAboveScreen = v17.bufferRowsAboveScreen, 
         LayoutOrder = 2, 
-        disableRelativeGap = v15.disableRelativeGap, 
-        thresholdRowsFromBottom = if l_FFlagSduiV2PaginationSupport_0 then v15.thresholdRowsFromBottom else nil, 
-        onReachedThresholdFromEnd = if l_FFlagSduiV2PaginationSupport_0 then v15.onReachedThresholdFromEnd else nil
+        disableRelativeGap = v17.disableRelativeGap, 
+        thresholdRowsFromBottom = v17.thresholdRowsFromBottom, 
+        onReachedThresholdFromEnd = v17.onReachedThresholdFromEnd
     });
-    v29.CollectionContent = l_createElement_1(v31, v32, v33);
-    return l_createElement_0(v27, v28, v29);
+    v32.CollectionContent = l_createElement_1(v34, v35, v36);
+    return l_createElement_0(v30, v31, v32);
 end));

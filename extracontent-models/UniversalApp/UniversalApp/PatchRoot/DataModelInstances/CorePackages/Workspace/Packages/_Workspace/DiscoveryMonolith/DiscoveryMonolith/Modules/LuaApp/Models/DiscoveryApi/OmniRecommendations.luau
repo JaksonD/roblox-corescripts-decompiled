@@ -8,39 +8,40 @@ local l_OmniFeedTypes_0 = v4.OmniFeedTypes;
 local l_OmniRecommendationsPageType_0 = require(l_Parent_0.DiscoveryUtils).OmniRecommendationsPageType;
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
 local l_FFlagLuaAppAddSubIdToHomeEvents_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSubIdToHomeEvents;
-local v10 = {
-    new = function() --[[ Line: 48 ]] --[[ Name: new ]]
+local l_FFlagLuaAppLogOmniAnalyticsData_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppLogOmniAnalyticsData;
+local v11 = {
+    new = function() --[[ Line: 49 ]] --[[ Name: new ]]
         return {};
     end
 };
-v10.mock = function() --[[ Line: 54 ]] --[[ Name: mock ]]
-    -- upvalues: v10 (copy), l_AppPage_0 (copy), l_GameInfoModel_0 (copy), l_OmniRecommendationsContentType_0 (copy), l_OmniFeedTypes_0 (copy)
-    local v11 = v10.new();
-    v11.pageType = l_AppPage_0.Home;
-    v11.nextPageToken = "eyJzdGFydCI6MTAsImNvdW50IjoxMCwiZW5kT2ZQYWdlIjpmYWxzZX0=";
-    v11.isSessionExpired = false;
-    local v12 = l_GameInfoModel_0.mock();
-    v11.sorts = {
+v11.mock = function() --[[ Line: 55 ]] --[[ Name: mock ]]
+    -- upvalues: v11 (copy), l_AppPage_0 (copy), l_GameInfoModel_0 (copy), l_OmniRecommendationsContentType_0 (copy), l_OmniFeedTypes_0 (copy)
+    local v12 = v11.new();
+    v12.pageType = l_AppPage_0.Home;
+    v12.nextPageToken = "eyJzdGFydCI6MTAsImNvdW50IjoxMCwiZW5kT2ZQYWdlIjpmYWxzZX0=";
+    v12.isSessionExpired = false;
+    local v13 = l_GameInfoModel_0.mock();
+    v12.sorts = {
         {
             topic = "topic1", 
             topicId = "100000003", 
             recommendations = {
                 {
                     contentType = l_OmniRecommendationsContentType_0.Game, 
-                    contentId = v12.universeId
+                    contentId = v13.universeId
                 }
             }, 
             treatmentType = l_OmniFeedTypes_0.Carousel, 
             numberOfRows = -1
         }
     };
-    v11.recommendationsId = "3d14d9e6-cea3-4eec-bcdc-cfdc906f61cb";
-    v11.omniSessionId = "d3240862-f901-419c-8780-5160e05d8473";
-    return v11;
+    v12.recommendationsId = "3d14d9e6-cea3-4eec-bcdc-cfdc906f61cb";
+    v12.omniSessionId = "d3240862-f901-419c-8780-5160e05d8473";
+    return v12;
 end;
-v10.mockEndpointResponse = function(v13) --[[ Line: 83 ]] --[[ Name: mockEndpointResponse ]]
+v11.mockEndpointResponse = function(v14) --[[ Line: 84 ]] --[[ Name: mockEndpointResponse ]]
     -- upvalues: l_OmniRecommendationsContentType_0 (copy), l_OmniFeedTypes_0 (copy), l_OmniRecommendationsPageType_0 (copy)
-    local v14 = {
+    local v15 = {
         rootPlaceId = "10395446", 
         universeId = "149757", 
         name = "test", 
@@ -77,7 +78,7 @@ v10.mockEndpointResponse = function(v13) --[[ Line: 83 ]] --[[ Name: mockEndpoin
     return {
         contentMetadata = {
             [l_OmniRecommendationsContentType_0.Game] = {
-                [v14.universeId] = v14
+                [v15.universeId] = v15
             }
         }, 
         sorts = {
@@ -88,12 +89,12 @@ v10.mockEndpointResponse = function(v13) --[[ Line: 83 ]] --[[ Name: mockEndpoin
                 treatmentType = l_OmniFeedTypes_0.FriendCarousel
             }, 
             {
-                topic = v13 or "topic123", 
+                topic = v14 or "topic123", 
                 topicId = 100000003, 
                 recommendationList = {
                     {
                         contentType = l_OmniRecommendationsContentType_0.Game, 
-                        contentId = v14.universeId
+                        contentId = v15.universeId
                     }
                 }, 
                 treatmentType = l_OmniFeedTypes_0.Carousel
@@ -105,48 +106,51 @@ v10.mockEndpointResponse = function(v13) --[[ Line: 83 ]] --[[ Name: mockEndpoin
         isSessionExpired = false
     };
 end;
-v10.fromJsonData = function(v15, v16) --[[ Line: 146 ]] --[[ Name: fromJsonData ]]
-    -- upvalues: l_OmniRecommendationsPageType_0 (copy), v1 (copy), v2 (copy), l_FFlagLuaAppAddSubIdToHomeEvents_0 (copy)
+v11.fromJsonData = function(v16, v17) --[[ Line: 147 ]] --[[ Name: fromJsonData ]]
+    -- upvalues: l_OmniRecommendationsPageType_0 (copy), v1 (copy), v2 (copy), l_FFlagLuaAppAddSubIdToHomeEvents_0 (copy), l_FFlagLuaAppLogOmniAnalyticsData_0 (copy)
     local _ = nil;
-    local v18 = {};
-    local v19 = l_OmniRecommendationsPageType_0.toAppPage(v15.pageType);
-    if not v19 then
-        return v1.error((("pageType %* for OmniRecommedations is not supported."):format(v19)));
+    local v19 = {};
+    local v20 = l_OmniRecommendationsPageType_0.toAppPage(v16.pageType);
+    if not v20 then
+        return v1.error((("pageType %* for OmniRecommedations is not supported."):format(v20)));
     else
-        assert(v19, "always exists for linter");
-        v18.pageType = v19;
-        if v15.sortsRefreshInterval and v15.sortsRefreshInterval > 0 then
-            v18.sortsExpirationTime = tick() + v15.sortsRefreshInterval;
+        assert(v20, "always exists for linter");
+        v19.pageType = v20;
+        if v16.sortsRefreshInterval and v16.sortsRefreshInterval > 0 then
+            v19.sortsExpirationTime = tick() + v16.sortsRefreshInterval;
         end;
-        v18.nextPageToken = v15.nextPageToken;
-        v18.isSessionExpired = v15.isSessionExpired;
-        v18.recommendationsId = v15.requestId;
-        v18.omniSessionId = v16 or "Invalid_OmniSessionId";
-        v18.sorts = v2.List.map(v15.sorts, function(v20) --[[ Line: 164 ]]
-            -- upvalues: l_FFlagLuaAppAddSubIdToHomeEvents_0 (ref), v2 (ref)
-            local v21 = if v20.topicId then tostring(v20.topicId) else nil;
+        v19.nextPageToken = v16.nextPageToken;
+        v19.isSessionExpired = v16.isSessionExpired;
+        v19.recommendationsId = v16.requestId;
+        v19.omniSessionId = v17 or "Invalid_OmniSessionId";
+        v19.sorts = v2.List.map(v16.sorts, function(v21) --[[ Line: 165 ]]
+            -- upvalues: l_FFlagLuaAppAddSubIdToHomeEvents_0 (ref), l_FFlagLuaAppLogOmniAnalyticsData_0 (ref), v2 (ref)
+            local v22 = if v21.topicId then tostring(v21.topicId) else nil;
             return {
-                topic = v20.topic, 
-                topicId = v21, 
-                subtitle = v20.subtitle, 
-                sortSubId = if l_FFlagLuaAppAddSubIdToHomeEvents_0 then v20.subId else nil, 
-                recommendations = if v20.recommendationList then v2.List.map(v20.recommendationList, function(v22) --[[ Line: 173 ]]
+                topic = v21.topic, 
+                topicId = v22, 
+                subtitle = v21.subtitle, 
+                sortSubId = if l_FFlagLuaAppAddSubIdToHomeEvents_0 then v21.subId else nil, 
+                analyticsData = if l_FFlagLuaAppLogOmniAnalyticsData_0 then v21.analyticsData else nil, 
+                recommendations = if v21.recommendationList then v2.List.map(v21.recommendationList, function(v23) --[[ Line: 175 ]]
+                    -- upvalues: l_FFlagLuaAppLogOmniAnalyticsData_0 (ref)
                     return {
-                        contentType = v22.contentType, 
-                        contentId = v22.contentId, 
-                        contentStringId = v22.contentStringId, 
-                        contentMetadata = v22.contentMetadata
+                        contentType = v23.contentType, 
+                        contentId = v23.contentId, 
+                        contentStringId = v23.contentStringId, 
+                        contentMetadata = v23.contentMetadata, 
+                        analyticsData = if l_FFlagLuaAppLogOmniAnalyticsData_0 then v23.analyticsData else nil
                     };
                 end) else nil, 
-                treatmentType = v20.treatmentType, 
-                numberOfRows = v20.numberOfRows and v20.numberOfRows or -1, 
-                topicLayoutData = v20.topicLayoutData, 
-                feedItemKey = v20.feedItemKey
+                treatmentType = v21.treatmentType, 
+                numberOfRows = v21.numberOfRows and v21.numberOfRows or -1, 
+                topicLayoutData = v21.topicLayoutData, 
+                feedItemKey = v21.feedItemKey
             };
         end);
-        v18.globalLayoutData = v15.globalLayoutData or {};
-        v18.sdui = v15.sdui;
-        return v1.success(v18);
+        v19.globalLayoutData = v16.globalLayoutData or {};
+        v19.sdui = v16.sdui;
+        return v1.success(v19);
     end;
 end;
-return v10;
+return v11;

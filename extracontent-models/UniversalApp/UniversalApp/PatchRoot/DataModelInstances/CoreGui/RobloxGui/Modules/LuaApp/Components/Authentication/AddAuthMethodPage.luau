@@ -65,18 +65,17 @@ local v63 = require(l_CorePackages_0.Workspace.Packages.ToastRodux);
 local l_SetCurrentToastMessage_0 = v63.Actions.SetCurrentToastMessage;
 local l_ToastType_0 = v63.Enums.ToastType;
 local v66 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagEnableCredentialsProtocolLoggingFix_0 = v66.FFlagEnableCredentialsProtocolLoggingFix;
 local l_GetFFlagEnableSavePasswordAfterRecovery_0 = v66.GetFFlagEnableSavePasswordAfterRecovery;
 local l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 = v66.FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment;
 local l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 = v66.FFlagEnableSignupFoundationalizeBackgroundAndText;
-local v71 = game:DefineFastFlag("UseMultiPageSignupTextOnAddAuthMethodPage", false);
-local v72 = game:DefineFastFlag("ShouldSkipPasskeySignupAutoFocus", false);
-local v73 = game:DefineFastInt("LuaAppCmPasswordRegistrationDelay", 2);
-local v74 = game:DefineFastFlag("PasskeySignupAndroidIterationEnabled", false);
-local v75 = game:DefineFastFlag("EnableAuthedUsernameCMFix", false);
+local v70 = game:DefineFastFlag("UseMultiPageSignupTextOnAddAuthMethodPage", false);
+local v71 = game:DefineFastFlag("ShouldSkipPasskeySignupAutoFocus", false);
+local v72 = game:DefineFastInt("LuaAppCmPasswordRegistrationDelay", 2);
+local v73 = game:DefineFastFlag("PasskeySignupAndroidIterationEnabled", false);
+local v74 = game:DefineFastFlag("EnableAuthedUsernameCMFix", false);
 local l_game_EngineFeature_0 = game:GetEngineFeature("EnableAndroidPasswordSuggestion");
-local v77 = v71 and 24 or 60;
-local v78 = {
+local v76 = v70 and 24 or 60;
+local v77 = {
     passwordFirst = {
         password = 4, 
         spacing = 5, 
@@ -109,127 +108,127 @@ local v78 = {
     }
 };
 local l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 = require(l_CorePackages_0.Workspace.Packages.CredentialsProtocol).Flags.GetFIntLuaAppCredentialsProtocolAvailableTimeout;
-local v80 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment);
-local v81 = require(l_CorePackages_0.Workspace.Packages.PasskeyUpsell);
-local l_PasskeyUpsellScreen_0 = v81.Components.PasskeyUpsellScreen;
-local l_PasskeyUpsellSource_0 = v81.Enums.PasskeyUpsellSource;
+local v79 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment);
+local v80 = require(l_CorePackages_0.Workspace.Packages.PasskeyUpsell);
+local l_PasskeyUpsellScreen_0 = v80.Components.PasskeyUpsellScreen;
+local l_PasskeyUpsellSource_0 = v80.Enums.PasskeyUpsellSource;
 local l_FFlagAddReasonToEveryLogout_0 = v66.FFlagAddReasonToEveryLogout;
 local l_FFlagDisableMemStorageServicePasswordEvent_0 = v66.FFlagDisableMemStorageServicePasswordEvent;
 local l_TelemetryConfigs_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).TelemetryConfigs;
 local l_default_1 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
-local v88 = require(l_Modules_0.LuaApp.Analytics.Events.Auth.iosAuthServiceSignupPasswordSave);
+local v87 = require(l_Modules_0.LuaApp.Analytics.Events.Auth.iosAuthServiceSignupPasswordSave);
 local l_GetTextBoundsParams_0 = Instance.new("GetTextBoundsParams");
 l_GetTextBoundsParams_0.Text = "_unused";
 l_GetTextBoundsParams_0.Font = Font.fromEnum(l_AppFonts_0.default:getDefault());
 l_GetTextBoundsParams_0.Size = 19;
 l_GetTextBoundsParams_0.Width = 0;
 local _ = l_TextService_0:GetTextBoundsAsync(l_GetTextBoundsParams_0);
-return function(_) --[[ Line: 140 ]]
-    -- upvalues: v9 (copy), v10 (copy), l_AppGuiService_0 (copy), v13 (copy), v14 (copy), l_AppOmniRecommendationsRequest_0 (copy), l_useAppPolicy_0 (copy), v60 (copy), l_AppBtidLayers_0 (copy), l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 (copy), v80 (copy), v74 (copy), l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 (copy), v7 (copy), v62 (copy), l_useStyle_0 (copy), l_useTokens_0 (copy), l_useDispatch_0 (copy), v18 (copy), l_usePreferredInput_0 (copy), v49 (copy), l_MemStorageService_0 (copy), v52 (copy), v58 (copy), v29 (copy), v75 (copy), l_Players_0 (copy), v15 (copy), v51 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (copy), l_HttpService_0 (copy), v88 (copy), l_default_0 (copy), l_Constants_0 (copy), l_Logger_0 (copy), l_FFlagEnableCredentialsProtocolLoggingFix_0 (copy), l_GetFFlagEnableSavePasswordAfterRecovery_0 (copy), v47 (copy), l_LaunchContext_0 (copy), v16 (copy), v73 (copy), l_SetCurrentToastMessage_0 (copy), l_ToastType_0 (copy), v48 (copy), v46 (copy), v50 (copy), v72 (copy), v19 (copy), l_default_1 (copy), l_TelemetryConfigs_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), l_GetUserAppLaunchInfo_0 (copy), l_FFlagAddReasonToEveryLogout_0 (copy), l_GuiService_0 (copy), l_PasskeyUpsellScreen_0 (copy), l_PasskeyUpsellSource_0 (copy), l_withLocalization_0 (copy), v78 (copy), l_Button_1 (copy), l_ButtonVariant_0 (copy), v37 (copy), l_InputSize_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_LinkButton_0 (copy), v26 (copy), l_DarkTheme_0 (copy), l_ImageSetButton_0 (copy), l_Images_0 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_IconName_0 (copy), l_ButtonSize_0 (copy), v77 (copy), v71 (copy), v36 (copy), v27 (copy), l_game_EngineFeature_0 (copy), v28 (copy), l_DividerWithText_0 (copy)
-    local v92 = v9(v10);
-    local v93 = v9(l_AppGuiService_0);
-    local v94 = v9(v13);
-    local v95 = v9(v14);
-    local v96 = v9(l_AppOmniRecommendationsRequest_0);
-    local v98 = l_useAppPolicy_0(function(v97) --[[ Line: 146 ]]
-        return v97;
+return function(_) --[[ Line: 139 ]]
+    -- upvalues: v9 (copy), v10 (copy), l_AppGuiService_0 (copy), v13 (copy), v14 (copy), l_AppOmniRecommendationsRequest_0 (copy), l_useAppPolicy_0 (copy), v60 (copy), l_AppBtidLayers_0 (copy), l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 (copy), v79 (copy), v73 (copy), l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 (copy), v7 (copy), v62 (copy), l_useStyle_0 (copy), l_useTokens_0 (copy), l_useDispatch_0 (copy), v18 (copy), l_usePreferredInput_0 (copy), v49 (copy), l_MemStorageService_0 (copy), v52 (copy), v58 (copy), v29 (copy), v74 (copy), l_Players_0 (copy), v15 (copy), v51 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (copy), l_HttpService_0 (copy), v87 (copy), l_default_0 (copy), l_Constants_0 (copy), l_Logger_0 (copy), l_GetFFlagEnableSavePasswordAfterRecovery_0 (copy), v47 (copy), l_LaunchContext_0 (copy), v16 (copy), v72 (copy), l_SetCurrentToastMessage_0 (copy), l_ToastType_0 (copy), v48 (copy), v46 (copy), v50 (copy), v71 (copy), v19 (copy), l_default_1 (copy), l_TelemetryConfigs_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), l_GetUserAppLaunchInfo_0 (copy), l_FFlagAddReasonToEveryLogout_0 (copy), l_GuiService_0 (copy), l_PasskeyUpsellScreen_0 (copy), l_PasskeyUpsellSource_0 (copy), l_withLocalization_0 (copy), v77 (copy), l_Button_1 (copy), l_ButtonVariant_0 (copy), v37 (copy), l_InputSize_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_LinkButton_0 (copy), v26 (copy), l_DarkTheme_0 (copy), l_ImageSetButton_0 (copy), l_Images_0 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_IconName_0 (copy), l_ButtonSize_0 (copy), v76 (copy), v70 (copy), v36 (copy), v27 (copy), l_game_EngineFeature_0 (copy), v28 (copy), l_DividerWithText_0 (copy)
+    local v91 = v9(v10);
+    local v92 = v9(l_AppGuiService_0);
+    local v93 = v9(v13);
+    local v94 = v9(v14);
+    local v95 = v9(l_AppOmniRecommendationsRequest_0);
+    local v97 = l_useAppPolicy_0(function(v96) --[[ Line: 145 ]]
+        return v96;
     end);
-    local v100 = v60.useBrowserTrackerExperiment({
+    local v99 = v60.useBrowserTrackerExperiment({
         l_AppBtidLayers_0.AuthenticationStylingLayer
-    }, function(v99) --[[ Line: 152 ]]
+    }, function(v98) --[[ Line: 151 ]]
         -- upvalues: l_AppBtidLayers_0 (ref)
         return {
-            shouldUseFoundationBackgroundColor = (v99[l_AppBtidLayers_0.AuthenticationStylingLayer] or {}).shouldUseFoundationBackgroundColor
+            shouldUseFoundationBackgroundColor = (v98[l_AppBtidLayers_0.AuthenticationStylingLayer] or {}).shouldUseFoundationBackgroundColor
         };
     end);
-    local v101 = l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 and v100.shouldUseFoundationBackgroundColor;
-    local v104 = v60.useBrowserTrackerExperiment({
+    local v100 = l_FFlagEnableSignupFoundationalizeBackgroundAndText_0 and v99.shouldUseFoundationBackgroundColor;
+    local v103 = v60.useBrowserTrackerExperiment({
         l_AppBtidLayers_0.SignupLayer
-    }, function(v102) --[[ Line: 164 ]]
+    }, function(v101) --[[ Line: 163 ]]
         -- upvalues: l_AppBtidLayers_0 (ref)
-        local v103 = v102[l_AppBtidLayers_0.SignupLayer] or {};
+        local v102 = v101[l_AppBtidLayers_0.SignupLayer] or {};
         return {
-            shouldUseV2FallbackScreen = v103.shouldUseV2FallbackScreen, 
-            shouldSuppressPasskeyOnAddAuthMethodPage = v103.shouldSuppressPasskeyOnAddAuthMethodPage, 
-            shouldWaitForPasswordRegistration = v103.shouldWaitForPasswordRegistration, 
-            shouldDelayPasswordRegistration = v103.shouldDelayPasswordRegistration, 
-            showPasskeyNudgingHeader = v103.showPasskeyNudgingHeader, 
-            showPasskeyBeforePassword = v103.showPasskeyBeforePassword, 
-            showPasskeyNudgingParagraph = v103.showPasskeyNudgingParagraph, 
-            shouldRemoveOrDivider = v103.shouldRemoveOrDivider, 
-            shouldUsePrimaryPasskeyButton = v103.shouldUsePrimaryPasskeyButton, 
-            shouldUseSecondaryPasswordNextButton = v103.shouldUseSecondaryPasswordNextButton, 
-            showPasskeyIconOnAddAuthMethodPage = v103.showPasskeyIconOnAddAuthMethodPage, 
-            showPasswordLockIconOnAddAuthMethodPage = v103.showPasswordLockIconOnAddAuthMethodPage, 
-            showPasskeyEducationalPage = v103.showPasskeyEducationalPage, 
-            shouldShowCreateAPasswordButton = v103.shouldShowCreateAPasswordButton, 
-            shouldDisablePasswordFocus = v103.shouldDisablePasswordFocus
+            shouldUseV2FallbackScreen = v102.shouldUseV2FallbackScreen, 
+            shouldSuppressPasskeyOnAddAuthMethodPage = v102.shouldSuppressPasskeyOnAddAuthMethodPage, 
+            shouldWaitForPasswordRegistration = v102.shouldWaitForPasswordRegistration, 
+            shouldDelayPasswordRegistration = v102.shouldDelayPasswordRegistration, 
+            showPasskeyNudgingHeader = v102.showPasskeyNudgingHeader, 
+            showPasskeyBeforePassword = v102.showPasskeyBeforePassword, 
+            showPasskeyNudgingParagraph = v102.showPasskeyNudgingParagraph, 
+            shouldRemoveOrDivider = v102.shouldRemoveOrDivider, 
+            shouldUsePrimaryPasskeyButton = v102.shouldUsePrimaryPasskeyButton, 
+            shouldUseSecondaryPasswordNextButton = v102.shouldUseSecondaryPasswordNextButton, 
+            showPasskeyIconOnAddAuthMethodPage = v102.showPasskeyIconOnAddAuthMethodPage, 
+            showPasswordLockIconOnAddAuthMethodPage = v102.showPasswordLockIconOnAddAuthMethodPage, 
+            showPasskeyEducationalPage = v102.showPasskeyEducationalPage, 
+            shouldShowCreateAPasswordButton = v102.shouldShowCreateAPasswordButton, 
+            shouldDisablePasswordFocus = v102.shouldDisablePasswordFocus
         };
     end);
-    local l_shouldUseV2FallbackScreen_0 = v104.shouldUseV2FallbackScreen;
-    local v106 = v80() and v104.shouldSuppressPasskeyOnAddAuthMethodPage;
-    local v107 = v74 and v104.shouldWaitForPasswordRegistration;
-    local v108 = v74 and v104.shouldDelayPasswordRegistration;
-    local v109 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasskeyNudgingHeader;
-    local v110 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasskeyBeforePassword;
-    local v111 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasskeyNudgingParagraph;
-    local v112 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.shouldRemoveOrDivider;
-    local v113 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.shouldUsePrimaryPasskeyButton;
-    local v114 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.shouldUseSecondaryPasswordNextButton;
-    local v115 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasskeyIconOnAddAuthMethodPage;
-    local v116 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasswordLockIconOnAddAuthMethodPage;
-    local v117 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.showPasskeyEducationalPage;
-    local v118 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.shouldShowCreateAPasswordButton;
-    local v119 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v104.shouldDisablePasswordFocus;
-    local v120, v121 = v7.useState(true);
-    local v122, v123 = v7.useState(false);
-    local v124, v125 = v7.useState(true);
-    local v126, v127 = v7.useState("");
-    local v128, v129 = v7.useState("");
-    local v130, v131 = v7.useState(false);
-    local v132, v133 = v7.useState(true);
-    local v134, v135 = v7.useState(false);
-    local v136, v137 = v7.useState(false);
+    local l_shouldUseV2FallbackScreen_0 = v103.shouldUseV2FallbackScreen;
+    local v105 = v79() and v103.shouldSuppressPasskeyOnAddAuthMethodPage;
+    local v106 = v73 and v103.shouldWaitForPasswordRegistration;
+    local v107 = v73 and v103.shouldDelayPasswordRegistration;
+    local v108 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasskeyNudgingHeader;
+    local v109 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasskeyBeforePassword;
+    local v110 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasskeyNudgingParagraph;
+    local v111 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.shouldRemoveOrDivider;
+    local v112 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.shouldUsePrimaryPasskeyButton;
+    local v113 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.shouldUseSecondaryPasswordNextButton;
+    local v114 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasskeyIconOnAddAuthMethodPage;
+    local v115 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasswordLockIconOnAddAuthMethodPage;
+    local v116 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.showPasskeyEducationalPage;
+    local v117 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.shouldShowCreateAPasswordButton;
+    local v118 = l_FFlagEnableAddAuthMethodPagePasskeyNudgeDirectionalExperiment_0 and v103.shouldDisablePasswordFocus;
+    local v119, v120 = v7.useState(true);
+    local v121, v122 = v7.useState(false);
+    local v123, v124 = v7.useState(true);
+    local v125, v126 = v7.useState("");
+    local v127, v128 = v7.useState("");
+    local v129, v130 = v7.useState(false);
+    local v131, v132 = v7.useState(true);
+    local v133, v134 = v7.useState(false);
+    local v135, v136 = v7.useState(false);
+    local v137 = v7.useRef(nil);
     local v138 = v7.useRef(nil);
-    local v139 = v7.useRef(nil);
-    local v140 = v62.useIsIosAuthServiceEnabled();
-    local v141 = l_useStyle_0();
-    local v142 = l_useTokens_0();
-    local v143 = l_useDispatch_0();
-    local v144 = v18.useFocusGuiObject();
-    local v145 = l_usePreferredInput_0();
-    local function _() --[[ Line: 245 ]]
+    local v139 = v62.useIsIosAuthServiceEnabled();
+    local v140 = l_useStyle_0();
+    local v141 = l_useTokens_0();
+    local v142 = l_useDispatch_0();
+    local v143 = v18.useFocusGuiObject();
+    local v144 = l_usePreferredInput_0();
+    local function _() --[[ Line: 244 ]]
         -- upvalues: v49 (ref)
         v49.setSignupActionRequired("");
         v49.setPasskeySignupUsername("");
         v49.flush();
     end;
-    local function _() --[[ Line: 253 ]]
-        -- upvalues: v49 (ref), v137 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref)
-        local v147 = v49.getAuthenticatedTheme();
-        if v147 ~= "" then
-            v137(true);
-            l_MemStorageService_0:Fire(v52.ThemeUpdate, v147);
+    local function _() --[[ Line: 252 ]]
+        -- upvalues: v49 (ref), v136 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref)
+        local v146 = v49.getAuthenticatedTheme();
+        if v146 ~= "" then
+            v136(true);
+            l_MemStorageService_0:Fire(v52.ThemeUpdate, v146);
         end;
         v58.ClearThemeOverride();
     end;
-    local function v149() --[[ Line: 264 ]]
-        -- upvalues: v121 (copy), v120 (copy)
-        v121(not v120);
+    local function v148() --[[ Line: 263 ]]
+        -- upvalues: v120 (copy), v119 (copy)
+        v120(not v119);
     end;
-    local function v152(v150, v151) --[[ Line: 268 ]]
-        -- upvalues: v127 (copy), v131 (copy), v29 (ref)
-        v127(v150);
-        v131(v151 == v29.Valid);
+    local function v151(v149, v150) --[[ Line: 267 ]]
+        -- upvalues: v126 (copy), v130 (copy), v29 (ref)
+        v126(v149);
+        v130(v150 == v29.Valid);
     end;
-    local function _() --[[ Line: 273 ]]
-        -- upvalues: v75 (ref), v128 (copy), v49 (ref), l_Players_0 (ref)
-        if v75 and v128 and v128 ~= "" then
-            return v128;
+    local function _() --[[ Line: 272 ]]
+        -- upvalues: v74 (ref), v127 (copy), v49 (ref), l_Players_0 (ref)
+        if v74 and v127 and v127 ~= "" then
+            return v127;
         else
-            local v153 = v49.getPasskeySignupUsername();
-            if v153 and v153 ~= "" then
-                return v153;
+            local v152 = v49.getPasskeySignupUsername();
+            if v152 and v152 ~= "" then
+                return v152;
             elseif l_Players_0.LocalPlayer then
                 return l_Players_0.LocalPlayer.Name or "";
             else
@@ -237,236 +236,228 @@ return function(_) --[[ Line: 140 ]]
             end;
         end;
     end;
-    local function v171() --[[ Line: 291 ]]
-        -- upvalues: v131 (copy), v94 (copy), v15 (ref), v51 (ref), v92 (copy), v126 (copy), v49 (ref), v75 (ref), v128 (copy), l_Players_0 (ref), l_shouldUseV2FallbackScreen_0 (copy), v134 (copy), v140 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (ref), l_MemStorageService_0 (ref), v52 (ref), l_HttpService_0 (ref), v88 (ref), l_default_0 (ref), l_Constants_0 (ref), l_Logger_0 (ref), l_FFlagEnableCredentialsProtocolLoggingFix_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v137 (copy), v58 (ref), v143 (copy), v47 (ref), v96 (copy), v95 (copy), v98 (copy), l_LaunchContext_0 (ref), v107 (copy), v108 (copy), v16 (ref), v73 (ref), l_SetCurrentToastMessage_0 (ref), l_ToastType_0 (ref), v141 (copy)
-        v131(false);
-        v94.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.Continue);
-        v51(v92, v126):andThen(function(_) --[[ Line: 299 ]]
-            -- upvalues: v49 (ref), v75 (ref), v128 (ref), l_Players_0 (ref), l_shouldUseV2FallbackScreen_0 (ref), v126 (ref), v134 (ref), v140 (ref), l_FFlagDisableMemStorageServicePasswordEvent_0 (ref), l_MemStorageService_0 (ref), v52 (ref), l_HttpService_0 (ref), v94 (ref), v15 (ref), v88 (ref), l_default_0 (ref), l_Constants_0 (ref), l_Logger_0 (ref), l_FFlagEnableCredentialsProtocolLoggingFix_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v137 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v131 (ref), v107 (ref), v108 (ref), v16 (ref), v73 (ref)
+    local function v170() --[[ Line: 290 ]]
+        -- upvalues: v130 (copy), v93 (copy), v15 (ref), v51 (ref), v91 (copy), v125 (copy), v49 (ref), v74 (ref), v127 (copy), l_Players_0 (ref), l_shouldUseV2FallbackScreen_0 (copy), v133 (copy), v139 (copy), l_FFlagDisableMemStorageServicePasswordEvent_0 (ref), l_MemStorageService_0 (ref), v52 (ref), l_HttpService_0 (ref), v87 (ref), l_default_0 (ref), l_Constants_0 (ref), l_Logger_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v136 (copy), v58 (ref), v142 (copy), v47 (ref), v95 (copy), v94 (copy), v97 (copy), l_LaunchContext_0 (ref), v106 (copy), v107 (copy), v16 (ref), v72 (ref), l_SetCurrentToastMessage_0 (ref), l_ToastType_0 (ref), v140 (copy)
+        v130(false);
+        v93.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.Continue);
+        v51(v91, v125):andThen(function(_) --[[ Line: 298 ]]
+            -- upvalues: v49 (ref), v74 (ref), v127 (ref), l_Players_0 (ref), l_shouldUseV2FallbackScreen_0 (ref), v125 (ref), v133 (ref), v139 (ref), l_FFlagDisableMemStorageServicePasswordEvent_0 (ref), l_MemStorageService_0 (ref), v52 (ref), l_HttpService_0 (ref), v93 (ref), v15 (ref), v87 (ref), l_default_0 (ref), l_Constants_0 (ref), l_Logger_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v136 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v130 (ref), v106 (ref), v107 (ref), v16 (ref), v72 (ref)
             v49.setSignupActionRequired("");
             v49.setPasskeySignupUsername("");
             v49.flush();
-            local v156;
-            if v75 and v128 and v128 ~= "" then
-                v156 = v128;
+            local v155;
+            if v74 and v127 and v127 ~= "" then
+                v155 = v127;
             else
-                local v157 = v49.getPasskeySignupUsername();
-                v156 = if v157 and v157 ~= "" then v157 else if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.Name or "" else "";
+                local v156 = v49.getPasskeySignupUsername();
+                v155 = if v156 and v156 ~= "" then v156 else if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.Name or "" else "";
             end;
-            if l_shouldUseV2FallbackScreen_0 and v156 and v126 then
-                local v158 = v134 and v140;
-                if not l_FFlagDisableMemStorageServicePasswordEvent_0 and not v158 then
+            if l_shouldUseV2FallbackScreen_0 and v155 and v125 then
+                local v157 = v133 and v139;
+                if not l_FFlagDisableMemStorageServicePasswordEvent_0 and not v157 then
                     l_MemStorageService_0:Fire(v52.AuthenticatedCredentials, l_HttpService_0:JSONEncode({
-                        cvalue = v156, 
-                        password = v126, 
+                        cvalue = v155, 
+                        password = v125, 
                         authType = "signup"
                     }));
                 end;
-                if v134 then
-                    local v159 = {
-                        username = v156, 
-                        password = v126
+                if v133 then
+                    local v158 = {
+                        username = v155, 
+                        password = v125
                     };
-                    local v160 = l_HttpService_0:JSONEncode(v159);
-                    local function v166() --[[ Line: 330 ]]
-                        -- upvalues: v94 (ref), v15 (ref), v88 (ref), v156 (copy), l_default_0 (ref), v160 (copy), l_Constants_0 (ref), l_HttpService_0 (ref), l_Logger_0 (ref), l_FFlagEnableCredentialsProtocolLoggingFix_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v140 (ref), v49 (ref), v137 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v131 (ref)
-                        v94.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordAttempted);
-                        v88.reportAttempted(v156);
-                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.password, v160, l_Constants_0.Defaults.PASSWORD_REGISTRATION_CREDENTIALSPROTOCOL_TIMEOUT):andThen(function(v161) --[[ Line: 342 ]]
-                            -- upvalues: l_HttpService_0 (ref), l_Logger_0 (ref), v94 (ref), v15 (ref), v88 (ref), v156 (ref), l_FFlagEnableCredentialsProtocolLoggingFix_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v140 (ref), v49 (ref), v137 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v131 (ref)
-                            local v162 = if v161 then l_HttpService_0:JSONDecode(v161) else {};
-                            if v162 and v162.errorCode == nil then
+                    local v159 = l_HttpService_0:JSONEncode(v158);
+                    local function v165() --[[ Line: 329 ]]
+                        -- upvalues: v93 (ref), v15 (ref), v87 (ref), v155 (copy), l_default_0 (ref), v159 (copy), l_Constants_0 (ref), l_HttpService_0 (ref), l_Logger_0 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v139 (ref), v49 (ref), v136 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v130 (ref)
+                        v93.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordAttempted);
+                        v87.reportAttempted(v155);
+                        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.password, v159, l_Constants_0.Defaults.PASSWORD_REGISTRATION_CREDENTIALSPROTOCOL_TIMEOUT):andThen(function(v160) --[[ Line: 341 ]]
+                            -- upvalues: l_HttpService_0 (ref), l_Logger_0 (ref), v93 (ref), v15 (ref), v87 (ref), v155 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v139 (ref), v49 (ref), v136 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v130 (ref)
+                            local v161 = if v160 then l_HttpService_0:JSONDecode(v160) else {};
+                            if v161 and v161.errorCode == nil then
                                 l_Logger_0:info("Successfully registered password.");
-                                v94.reportAuthButtonClick(v15.Context.CMPasswordPasskeyFallback, v15.Button.SavePassword);
-                                v94.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordSuccess);
-                                v88.reportSuccess(v156);
+                                v93.reportAuthButtonClick(v15.Context.CMPasswordPasskeyFallback, v15.Button.SavePassword);
+                                v93.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordSuccess);
+                                v87.reportSuccess(v155);
                             else
-                                if l_FFlagEnableCredentialsProtocolLoggingFix_0 then
-                                    l_Logger_0:warning("Error registering password: " .. tostring(v162.errorMsg));
-                                else
-                                    l_Logger_0:warning("Error registering password: ", v162.errorMsg);
-                                end;
-                                v94.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordFailure, v162.errorMsg or "unknown");
-                                v88.reportFailure(v156, v162.errorMsg or "unknown");
+                                l_Logger_0:warning("Error registering password: " .. tostring(v161.errorMsg));
+                                v93.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordFailure, v161.errorMsg or "unknown");
+                                v87.reportFailure(v155, v161.errorMsg or "unknown");
                             end;
-                            if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v140 then
-                                local v163 = v49.getAuthenticatedTheme();
-                                if v163 ~= "" then
-                                    v137(true);
-                                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v163);
+                            if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v139 then
+                                local v162 = v49.getAuthenticatedTheme();
+                                if v162 ~= "" then
+                                    v136(true);
+                                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v162);
                                 end;
                                 v58.ClearThemeOverride();
-                                v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
-                                v131(true);
+                                v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
+                                v130(true);
                             end;
-                        end, function(v164) --[[ Line: 391 ]]
-                            -- upvalues: l_FFlagEnableCredentialsProtocolLoggingFix_0 (ref), l_Logger_0 (ref), v94 (ref), v15 (ref), v88 (ref), v156 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v140 (ref), v49 (ref), v137 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v131 (ref)
-                            if l_FFlagEnableCredentialsProtocolLoggingFix_0 then
-                                l_Logger_0:warning("Error registering password: " .. tostring(v164));
-                            else
-                                l_Logger_0:warning("Error registering password: ", v164);
-                            end;
-                            v94.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordFailure, (tostring(v164)));
-                            v88.reportFailure(v156, (tostring(v164)));
-                            if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v140 then
-                                local v165 = v49.getAuthenticatedTheme();
-                                if v165 ~= "" then
-                                    v137(true);
-                                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v165);
+                        end, function(v163) --[[ Line: 386 ]]
+                            -- upvalues: l_Logger_0 (ref), v93 (ref), v15 (ref), v87 (ref), v155 (ref), l_GetFFlagEnableSavePasswordAfterRecovery_0 (ref), v139 (ref), v49 (ref), v136 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v130 (ref)
+                            l_Logger_0:warning("Error registering password: " .. tostring(v163));
+                            v93.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordFailure, (tostring(v163)));
+                            v87.reportFailure(v155, (tostring(v163)));
+                            if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v139 then
+                                local v164 = v49.getAuthenticatedTheme();
+                                if v164 ~= "" then
+                                    v136(true);
+                                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v164);
                                 end;
                                 v58.ClearThemeOverride();
-                                v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
-                                v131(true);
+                                v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
+                                v130(true);
                             end;
                         end);
                     end;
-                    if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v140 then
-                        return v166();
+                    if l_GetFFlagEnableSavePasswordAfterRecovery_0() and v139 then
+                        return v165();
                     else
-                        local v167 = nil;
-                        if v107 then
-                            v167 = v166();
-                            v167:await();
+                        local v166 = nil;
+                        if v106 then
+                            v166 = v165();
+                            v166:await();
                         else
-                            v167 = if v108 then v16.delay(v73):andThen(v166) else v166();
+                            v166 = if v107 then v16.delay(v72):andThen(v165) else v165();
                         end;
-                        return v167:andThen(function() --[[ Line: 442 ]]
-                            -- upvalues: v49 (ref), v137 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v131 (ref)
-                            local v168 = v49.getAuthenticatedTheme();
-                            if v168 ~= "" then
-                                v137(true);
-                                l_MemStorageService_0:Fire(v52.ThemeUpdate, v168);
+                        return v166:andThen(function() --[[ Line: 433 ]]
+                            -- upvalues: v49 (ref), v136 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v130 (ref)
+                            local v167 = v49.getAuthenticatedTheme();
+                            if v167 ~= "" then
+                                v136(true);
+                                l_MemStorageService_0:Fire(v52.ThemeUpdate, v167);
                             end;
                             v58.ClearThemeOverride();
-                            v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
-                            v131(true);
+                            v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
+                            v130(true);
                         end);
                     end;
                 else
-                    v94.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordSkipped, v15.State.IosAuthServiceProtocolNotAvailable);
-                    v88.reportSkipped(v15.State.IosAuthServiceProtocolNotAvailable);
+                    v93.reportAuthButtonClick(v15.Context.IosAuthServicePasswordFallback, v15.Button.IosAuthServiceSavePasswordSkipped, v15.State.IosAuthServiceProtocolNotAvailable);
+                    v87.reportSkipped(v15.State.IosAuthServiceProtocolNotAvailable);
                 end;
             end;
-            local v169 = v49.getAuthenticatedTheme();
-            if v169 ~= "" then
-                v137(true);
-                l_MemStorageService_0:Fire(v52.ThemeUpdate, v169);
+            local v168 = v49.getAuthenticatedTheme();
+            if v168 ~= "" then
+                v136(true);
+                l_MemStorageService_0:Fire(v52.ThemeUpdate, v168);
             end;
             v58.ClearThemeOverride();
-            v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
-            v131(true);
+            v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
+            v130(true);
             return v16.resolve();
-        end, function(_) --[[ Line: 473 ]]
-            -- upvalues: v143 (ref), l_SetCurrentToastMessage_0 (ref), l_ToastType_0 (ref), v141 (ref), v131 (ref)
-            v143(l_SetCurrentToastMessage_0({
+        end, function(_) --[[ Line: 464 ]]
+            -- upvalues: v142 (ref), l_SetCurrentToastMessage_0 (ref), l_ToastType_0 (ref), v140 (ref), v130 (ref)
+            v142(l_SetCurrentToastMessage_0({
                 toastType = l_ToastType_0.NetworkingError, 
                 toastMessage = "Authentication.Login.Response.SomethingWentWrong", 
                 toastIconColorStyle = {
-                    Color = v141.Theme.Alert.Color, 
+                    Color = v140.Theme.Alert.Color, 
                     Transparency = 0
                 }, 
                 slideIn = true
             }));
-            v131(true);
+            v130(true);
         end);
     end;
-    local function v175() --[[ Line: 487 ]]
-        -- upvalues: v132 (copy), v133 (copy), v94 (copy), v15 (ref), v48 (ref), v92 (copy), v49 (ref), v137 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (copy), v47 (ref), v96 (copy), v95 (copy), v98 (copy), l_LaunchContext_0 (ref), v16 (ref)
-        if not v132 then
+    local function v174() --[[ Line: 478 ]]
+        -- upvalues: v131 (copy), v132 (copy), v93 (copy), v15 (ref), v48 (ref), v91 (copy), v49 (ref), v136 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (copy), v47 (ref), v95 (copy), v94 (copy), v97 (copy), l_LaunchContext_0 (ref), v16 (ref)
+        if not v131 then
             return;
         else
-            v133(false);
-            v94.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.SetupPasskey);
-            return v48(v92):andThen(function(_) --[[ Line: 499 ]]
-                -- upvalues: v94 (ref), v15 (ref), v49 (ref), v137 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (ref), v47 (ref), v92 (ref), v96 (ref), v95 (ref), v98 (ref), l_LaunchContext_0 (ref), v16 (ref)
-                v94.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, "success");
+            v132(false);
+            v93.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.SetupPasskey);
+            return v48(v91):andThen(function(_) --[[ Line: 490 ]]
+                -- upvalues: v93 (ref), v15 (ref), v49 (ref), v136 (ref), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (ref), v47 (ref), v91 (ref), v95 (ref), v94 (ref), v97 (ref), l_LaunchContext_0 (ref), v16 (ref)
+                v93.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, "success");
                 v49.setSignupActionRequired("");
                 v49.setPasskeySignupUsername("");
                 v49.flush();
-                local v173 = v49.getAuthenticatedTheme();
-                if v173 ~= "" then
-                    v137(true);
-                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v173);
+                local v172 = v49.getAuthenticatedTheme();
+                if v172 ~= "" then
+                    v136(true);
+                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v172);
                 end;
                 v58.ClearThemeOverride();
-                v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
+                v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
                 return v16.resolve();
-            end, function(v174) --[[ Line: 511 ]]
-                -- upvalues: v94 (ref), v15 (ref), v133 (ref), v16 (ref)
-                if v174.name then
-                    v94.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, v174.name);
-                    if type(v174.body) == "string" then
-                        v94.reportAuthClientError(v15.Context.SignupPasswordFallbackPasskeyCreated, v174.body, v174.source);
+            end, function(v173) --[[ Line: 502 ]]
+                -- upvalues: v93 (ref), v15 (ref), v132 (ref), v16 (ref)
+                if v173.name then
+                    v93.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, v173.name);
+                    if type(v173.body) == "string" then
+                        v93.reportAuthClientError(v15.Context.SignupPasswordFallbackPasskeyCreated, v173.body, v173.source);
                     end;
                 else
-                    v94.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, "unknown");
+                    v93.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreated, "unknown");
                 end;
-                v133(true);
+                v132(true);
                 return v16.resolve();
             end);
         end;
     end;
-    local function v176() --[[ Line: 538 ]]
-        -- upvalues: v94 (copy), v15 (ref), v49 (ref), v143 (copy), v46 (ref), v92 (copy), v93 (copy), v50 (ref)
-        v94.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.Close);
+    local function v175() --[[ Line: 529 ]]
+        -- upvalues: v93 (copy), v15 (ref), v49 (ref), v142 (copy), v46 (ref), v91 (copy), v92 (copy), v50 (ref)
+        v93.reportAuthButtonClick(v15.Context.PasskeySignupPasswordFallback, v15.Button.Close);
         v49.setSignupActionRequired("");
         v49.setPasskeySignupUsername("");
         v49.flush();
-        v143(v46(v92, v93, v50.MultiStepSignupCanceled));
+        v142(v46(v91, v92, v50.MultiStepSignupCanceled));
     end;
-    v7.useEffect(function() --[[ Line: 550 ]]
-        -- upvalues: v72 (ref), v138 (copy), v119 (copy), v139 (copy), v145 (copy), v19 (ref), v144 (copy), v94 (copy), v15 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref)
-        if not v72 and v138.current then
-            if v119 and v139.current then
-                if v145 == v19.Input.Directional then
-                    v144(v139.current);
+    v7.useEffect(function() --[[ Line: 541 ]]
+        -- upvalues: v71 (ref), v137 (copy), v118 (copy), v138 (copy), v144 (copy), v19 (ref), v143 (copy), v93 (copy), v15 (ref), l_default_1 (ref), l_TelemetryConfigs_0 (ref)
+        if not v71 and v137.current then
+            if v118 and v138.current then
+                if v144 == v19.Input.Directional then
+                    v143(v138.current);
                 end;
             else
-                v138.current:CaptureFocus();
+                v137.current:CaptureFocus();
             end;
         end;
-        v94.reportAuthPageload(v15.Context.PasskeySignupPasswordFallback);
+        v93.reportAuthPageload(v15.Context.PasskeySignupPasswordFallback);
         l_default_1:logRobloxTelemetryCounter(l_TelemetryConfigs_0.AddAuthMethodPageMountTelemetryConfig, 1);
     end, {});
-    v7.useEffect(function() --[[ Line: 572 ]]
-        -- upvalues: v136 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref)
-        if not v136 then
+    v7.useEffect(function() --[[ Line: 563 ]]
+        -- upvalues: v135 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref)
+        if not v135 then
             l_MemStorageService_0:Fire(v52.ThemeUpdate, "dark");
             v58.SetDarkThemeOverride();
         end;
     end, {
-        v141
+        v140
     });
-    v7.useEffect(function() --[[ Line: 581 ]]
-        -- upvalues: l_shouldUseV2FallbackScreen_0 (copy), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref), v94 (copy), v15 (ref), v135 (copy), l_Logger_0 (ref)
+    v7.useEffect(function() --[[ Line: 572 ]]
+        -- upvalues: l_shouldUseV2FallbackScreen_0 (copy), l_default_0 (ref), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (ref), v93 (copy), v15 (ref), v134 (copy), l_Logger_0 (ref)
         if l_shouldUseV2FallbackScreen_0 then
-            l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v177) --[[ Line: 588 ]]
-                -- upvalues: v94 (ref), v15 (ref), v135 (ref)
-                local v178 = false;
-                if v177.password and v177.password.isAvailable then
-                    v178 = true;
+            l_default_0:isAvailable(l_default_0.CredentialsTypes.FIDO2, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v176) --[[ Line: 579 ]]
+                -- upvalues: v93 (ref), v15 (ref), v134 (ref)
+                local v177 = false;
+                if v176.password and v176.password.isAvailable then
+                    v177 = true;
                 end;
-                v94.reportAuthPageload(v15.Context.CMPasswordPasskeySignup, (tostring(v178)));
-                v135(v178);
-            end):catch(function(v179) --[[ Line: 602 ]]
+                v93.reportAuthPageload(v15.Context.CMPasswordPasskeySignup, (tostring(v177)));
+                v134(v177);
+            end):catch(function(v178) --[[ Line: 593 ]]
                 -- upvalues: l_Logger_0 (ref)
-                l_Logger_0:warning("Error checking for available credential types. Error: ", v179);
+                l_Logger_0:warning("Error checking for available credential types. Error: ", v178);
             end);
         end;
     end, {
         l_shouldUseV2FallbackScreen_0
     });
-    v7.useEffect(function() --[[ Line: 608 ]]
-        -- upvalues: l_GetUserAppLaunchInfo_0 (ref), v92 (copy), v75 (ref), v129 (copy), v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v143 (copy), v46 (ref), l_GuiService_0 (ref), v50 (ref)
-        l_GetUserAppLaunchInfo_0(v92):andThen(function(v180) --[[ Line: 609 ]]
-            -- upvalues: v75 (ref), v129 (ref), v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v143 (ref), v46 (ref), v92 (ref), l_GuiService_0 (ref), v50 (ref)
-            local v181 = nil;
-            if v180 and v180.responseBody then
-                v181 = v180.responseBody.name;
+    v7.useEffect(function() --[[ Line: 599 ]]
+        -- upvalues: l_GetUserAppLaunchInfo_0 (ref), v91 (copy), v74 (ref), v128 (copy), v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v142 (copy), v46 (ref), l_GuiService_0 (ref), v50 (ref)
+        l_GetUserAppLaunchInfo_0(v91):andThen(function(v179) --[[ Line: 600 ]]
+            -- upvalues: v74 (ref), v128 (ref), v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v142 (ref), v46 (ref), v91 (ref), l_GuiService_0 (ref), v50 (ref)
+            local v180 = nil;
+            if v179 and v179.responseBody then
+                v180 = v179.responseBody.name;
             end;
-            if v181 and v181 ~= "" then
-                if v75 then
-                    v129(v181);
+            if v180 and v180 ~= "" then
+                if v74 then
+                    v128(v180);
                     return;
                 end;
             else
@@ -474,69 +465,69 @@ return function(_) --[[ Line: 140 ]]
                 v49.setPasskeySignupUsername("");
                 v49.flush();
                 if l_FFlagAddReasonToEveryLogout_0 then
-                    v143(v46(v92, l_GuiService_0, v50.MultiStepSignupResetIncompleteState));
+                    v142(v46(v91, l_GuiService_0, v50.MultiStepSignupResetIncompleteState));
                     return;
                 else
-                    v143(v46(v92, l_GuiService_0));
+                    v142(v46(v91, l_GuiService_0));
                 end;
             end;
-        end):catch(function(_) --[[ Line: 627 ]]
-            -- upvalues: v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v143 (ref), v46 (ref), v92 (ref), l_GuiService_0 (ref), v50 (ref)
+        end):catch(function(_) --[[ Line: 618 ]]
+            -- upvalues: v49 (ref), l_FFlagAddReasonToEveryLogout_0 (ref), v142 (ref), v46 (ref), v91 (ref), l_GuiService_0 (ref), v50 (ref)
             v49.setSignupActionRequired("");
             v49.setPasskeySignupUsername("");
             v49.flush();
             if l_FFlagAddReasonToEveryLogout_0 then
-                v143(v46(v92, l_GuiService_0, v50.MultiStepSignupResetIncompleteState));
+                v142(v46(v91, l_GuiService_0, v50.MultiStepSignupResetIncompleteState));
                 return;
             else
-                v143(v46(v92, l_GuiService_0));
+                v142(v46(v91, l_GuiService_0));
                 return;
             end;
         end);
     end, {});
-    local v183;
-    if v75 and v128 and v128 ~= "" then
-        v183 = v128;
+    local v182;
+    if v74 and v127 and v127 ~= "" then
+        v182 = v127;
     else
-        local v184 = v49.getPasskeySignupUsername();
-        v183 = if v184 and v184 ~= "" then v184 else if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.Name or "" else "";
+        local v183 = v49.getPasskeySignupUsername();
+        v182 = if v183 and v183 ~= "" then v183 else if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.Name or "" else "";
     end;
-    if v117 and not v122 then
+    if v116 and not v121 then
         return (v7.createElement(l_PasskeyUpsellScreen_0, {
-            resetNavigationHistory = function(_) --[[ Line: 641 ]] --[[ Name: resetNavigationHistory ]]
-                -- upvalues: v94 (copy), v15 (ref), v49 (ref), v137 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v143 (copy), v47 (ref), v92 (copy), v96 (copy), v95 (copy), v98 (copy), l_LaunchContext_0 (ref)
-                v94.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreatedFromEducation, "success");
+            resetNavigationHistory = function(_) --[[ Line: 632 ]] --[[ Name: resetNavigationHistory ]]
+                -- upvalues: v93 (copy), v15 (ref), v49 (ref), v136 (copy), l_MemStorageService_0 (ref), v52 (ref), v58 (ref), v142 (copy), v47 (ref), v91 (copy), v95 (copy), v94 (copy), v97 (copy), l_LaunchContext_0 (ref)
+                v93.reportAuthModalShown(v15.Context.SignupPasswordFallbackPasskeyCreatedFromEducation, "success");
                 v49.setSignupActionRequired("");
                 v49.setPasskeySignupUsername("");
                 v49.flush();
-                local v186 = v49.getAuthenticatedTheme();
-                if v186 ~= "" then
-                    v137(true);
-                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v186);
+                local v185 = v49.getAuthenticatedTheme();
+                if v185 ~= "" then
+                    v136(true);
+                    l_MemStorageService_0:Fire(v52.ThemeUpdate, v185);
                 end;
                 v58.ClearThemeOverride();
-                v143(v47(v92, v96, v95, v98, l_LaunchContext_0.SignUp));
+                v142(v47(v91, v95, v94, v97, l_LaunchContext_0.SignUp));
             end, 
-            onDismiss = function() --[[ Line: 652 ]] --[[ Name: onDismiss ]]
-                -- upvalues: v123 (copy)
-                v123(true);
+            onDismiss = function() --[[ Line: 643 ]] --[[ Name: onDismiss ]]
+                -- upvalues: v122 (copy)
+                v122(true);
             end, 
             source = l_PasskeyUpsellSource_0.AddAuthMethodPage
         }));
     else
-        local v187 = v141.Font.BaseSize * v141.Font.Header1.RelativeSize;
+        local v186 = v140.Font.BaseSize * v140.Font.Header1.RelativeSize;
         return l_withLocalization_0({
             userGreetingHeaderText = {
                 "Authentication.SignUp.Heading.UserGreetingWithName"; 
-                username = v183
+                username = v182
             }, 
             userGreetingHeaderTextWithPasskeyPassword = {
                 "Authentication.SignUp.Heading.UserGreetingWithNameAndPasskeyPassword"; 
-                username = v183
+                username = v182
             }, 
             userPasswordOnlyGreetingHeaderText = {
                 "Authentication.SignUp.Title"; 
-                username = v183
+                username = v182
             }, 
             continueText = "Authentication.SignUp.Label.Continue", 
             doneText = "CommonUI.Controls.Action.Done", 
@@ -550,61 +541,61 @@ return function(_) --[[ Line: 140 ]]
             ensureNeverLoseAccountText = "Authentication.SignUp.Description.EnsureNeverLoseAccount", 
             dividerText = "Authentication.SignUp.Description.Or", 
             secureAccountWithPasskeyText = "Authentication.SignUp.Description.SecureAccountWithPasskeyText"
-        })(function(v188) --[[ Line: 680 ]]
-            -- upvalues: l_shouldUseV2FallbackScreen_0 (copy), v183 (copy), v118 (copy), v124 (copy), v109 (copy), v111 (copy), v80 (ref), v106 (copy), v110 (copy), v78 (ref), v113 (copy), v7 (ref), l_Button_1 (ref), l_ButtonVariant_0 (ref), v115 (copy), v37 (ref), v175 (copy), v132 (copy), l_InputSize_0 (ref), v139 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), l_LinkButton_0 (ref), v114 (copy), v116 (copy), v125 (copy), v26 (ref), v101 (copy), v142 (copy), l_DarkTheme_0 (ref), l_ImageSetButton_0 (ref), l_Images_0 (ref), v176 (copy), l_View_0 (ref), l_IconButton_0 (ref), l_IconName_0 (ref), l_ButtonSize_0 (ref), v141 (copy), v187 (copy), v77 (ref), v71 (ref), v36 (ref), v27 (ref), l_game_EngineFeature_0 (ref), v152 (copy), v28 (ref), v120 (copy), v149 (copy), v138 (copy), v171 (copy), v130 (copy), v112 (copy), l_DividerWithText_0 (ref)
+        })(function(v187) --[[ Line: 671 ]]
+            -- upvalues: l_shouldUseV2FallbackScreen_0 (copy), v182 (copy), v117 (copy), v123 (copy), v108 (copy), v110 (copy), v79 (ref), v105 (copy), v109 (copy), v77 (ref), v112 (copy), v7 (ref), l_Button_1 (ref), l_ButtonVariant_0 (ref), v114 (copy), v37 (ref), v174 (copy), v131 (copy), l_InputSize_0 (ref), v138 (copy), l_Button_0 (ref), l_ButtonType_0 (ref), l_LinkButton_0 (ref), v113 (copy), v115 (copy), v124 (copy), v26 (ref), v100 (copy), v141 (copy), l_DarkTheme_0 (ref), l_ImageSetButton_0 (ref), l_Images_0 (ref), v175 (copy), l_View_0 (ref), l_IconButton_0 (ref), l_IconName_0 (ref), l_ButtonSize_0 (ref), v140 (copy), v186 (copy), v76 (ref), v70 (ref), v36 (ref), v27 (ref), l_game_EngineFeature_0 (ref), v151 (copy), v28 (ref), v119 (copy), v148 (copy), v137 (copy), v170 (copy), v129 (copy), v111 (copy), l_DividerWithText_0 (ref)
+            local v188 = nil;
+            v188 = if l_shouldUseV2FallbackScreen_0 and v182 then if not v117 or v123 then if v108 then v187.userGreetingHeaderTextWithPasskeyPassword else v187.userGreetingHeaderText else v187.userGreetingHeaderText else v187.oneMoreStepText;
             local v189 = nil;
-            v189 = if l_shouldUseV2FallbackScreen_0 and v183 then if not v118 or v124 then if v109 then v188.userGreetingHeaderTextWithPasskeyPassword else v188.userGreetingHeaderText else v188.userGreetingHeaderText else v188.oneMoreStepText;
-            local v190 = nil;
-            v190 = if not v118 or v124 then if v111 then v188.secureAccountWithPasskeyText else v188.createAPasswordText else v188.createAPasswordText;
-            if v80() and v106 then
-                v189 = v188.userPasswordOnlyGreetingHeaderText;
-                v190 = v188.ensureNeverLoseAccountText;
+            v189 = if not v117 or v123 then if v110 then v187.secureAccountWithPasskeyText else v187.createAPasswordText else v187.createAPasswordText;
+            if v79() and v105 then
+                v188 = v187.userPasswordOnlyGreetingHeaderText;
+                v189 = v187.ensureNeverLoseAccountText;
             end;
-            local v191 = v110 and "passkeyFirst" or "passwordFirst";
-            if v118 then
-                v191 = v124 and v110 and "showCreatePasswordButton" or v124 and "showCreatePasswordButtonPasswordFirst" or "showPasswordSectionOnly";
+            local v190 = v109 and "passkeyFirst" or "passwordFirst";
+            if v117 then
+                v190 = v123 and v109 and "showCreatePasswordButton" or v123 and "showCreatePasswordButtonPasswordFirst" or "showPasswordSectionOnly";
             end;
-            local v192 = v78[v191];
-            local l_password_0 = v192.password;
-            local l_spacing_0 = v192.spacing;
-            local l_continue_0 = v192.continue;
-            local l_divider_0 = v192.divider;
-            local v197 = v192.passkey or if l_shouldUseV2FallbackScreen_0 then v192.passkeyV2 else v192.passkeyNonV2;
-            local l_createPasswordButton_0 = v192.createPasswordButton;
-            local v199 = nil;
-            v199 = if l_shouldUseV2FallbackScreen_0 and v113 then v7.createElement(l_Button_1, {
-                LayoutOrder = v197, 
+            local v191 = v77[v190];
+            local l_password_0 = v191.password;
+            local l_spacing_0 = v191.spacing;
+            local l_continue_0 = v191.continue;
+            local l_divider_0 = v191.divider;
+            local v196 = v191.passkey or if l_shouldUseV2FallbackScreen_0 then v191.passkeyV2 else v191.passkeyNonV2;
+            local l_createPasswordButton_0 = v191.createPasswordButton;
+            local v198 = nil;
+            v198 = if l_shouldUseV2FallbackScreen_0 and v112 then v7.createElement(l_Button_1, {
+                LayoutOrder = v196, 
                 variant = l_ButtonVariant_0.Emphasis, 
-                text = v188.createAPasskeyLabel, 
-                icon = if v115 then v37.Enums.IconName.Key else nil, 
-                onActivated = v175, 
-                isDisabled = not v132, 
+                text = v187.createAPasskeyLabel, 
+                icon = if v114 then v37.Enums.IconName.Key else nil, 
+                onActivated = v174, 
+                isDisabled = not v131, 
                 size = l_InputSize_0.Large, 
                 width = UDim.new(1, 0), 
-                buttonRef = v139
+                buttonRef = v138
             }) else if l_shouldUseV2FallbackScreen_0 then v7.createElement(l_Button_0, {
-                layoutOrder = v197, 
+                layoutOrder = v196, 
                 buttonType = l_ButtonType_0.Secondary, 
-                text = v188.createAPasskeyLabel, 
+                text = v187.createAPasskeyLabel, 
                 size = UDim2.new(1, 0, 0, 48), 
-                onActivated = v175, 
-                isDisabled = not v132, 
-                buttonRef = v139
+                onActivated = v174, 
+                isDisabled = not v131, 
+                buttonRef = v138
             }) else v7.createElement(l_LinkButton_0, {
-                layoutOrder = v197, 
-                text = v188.setUpPasskeyLabel, 
-                onActivated = v175, 
-                isDisabled = not v132, 
-                buttonRef = v139
+                layoutOrder = v196, 
+                text = v187.setUpPasskeyLabel, 
+                onActivated = v174, 
+                isDisabled = not v131, 
+                buttonRef = v138
             });
-            local v200 = l_createPasswordButton_0 and v7.createElement(l_Button_1, {
+            local v199 = l_createPasswordButton_0 and v7.createElement(l_Button_1, {
                 LayoutOrder = l_createPasswordButton_0, 
-                variant = if v114 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Emphasis, 
-                text = v188.createAPasswordButtonText, 
-                icon = if v116 then v37.Enums.IconName.LockClosed else nil, 
-                onActivated = function() --[[ Line: 767 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v125 (ref)
-                    v125(false);
+                variant = if v113 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Emphasis, 
+                text = v187.createAPasswordButtonText, 
+                icon = if v115 then v37.Enums.IconName.LockClosed else nil, 
+                onActivated = function() --[[ Line: 758 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v124 (ref)
+                    v124(false);
                 end, 
                 size = l_InputSize_0.Large, 
                 width = UDim.new(1, 0)
@@ -612,7 +603,7 @@ return function(_) --[[ Line: 140 ]]
             return v7.createElement(v26, {
                 BackgroundTransparency = 0, 
                 includeStatusBar = true, 
-                BackgroundColor3 = if v101 then v142.Color.Surface.Surface_0.Color3 else l_DarkTheme_0.BackgroundUIDefault.Color
+                BackgroundColor3 = if v100 then v141.Color.Surface.Surface_0.Color3 else l_DarkTheme_0.BackgroundUIDefault.Color
             }, {
                 HeaderFrameListLayout = v7.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Vertical, 
@@ -641,9 +632,9 @@ return function(_) --[[ Line: 140 ]]
                         Image = l_Images_0["icons/navigation/close"], 
                         ImageColor3 = l_DarkTheme_0.UIEmphasis.Color, 
                         ImageTransparency = 0, 
-                        [v7.Event.Activated] = v176
+                        [v7.Event.Activated] = v175
                     }) else nil, 
-                    HeaderBackButton = if not v118 or v124 then nil else v7.createElement(l_View_0, {
+                    HeaderBackButton = if not v117 or v123 then nil else v7.createElement(l_View_0, {
                         tag = "col", 
                         Size = UDim2.new(0, 36, 0, 36), 
                         BackgroundTransparency = 1, 
@@ -654,9 +645,9 @@ return function(_) --[[ Line: 140 ]]
                             icon = l_IconName_0.ChevronLargeLeft, 
                             variant = l_ButtonVariant_0.Utility, 
                             size = l_ButtonSize_0.Medium, 
-                            onActivated = function() --[[ Line: 826 ]] --[[ Name: onActivated ]]
-                                -- upvalues: v125 (ref)
-                                v125(true);
+                            onActivated = function() --[[ Line: 817 ]] --[[ Name: onActivated ]]
+                                -- upvalues: v124 (ref)
+                                v124(true);
                             end
                         })
                     }), 
@@ -665,10 +656,10 @@ return function(_) --[[ Line: 140 ]]
                         Size = UDim2.new(1, 0, 0, 0), 
                         AnchorPoint = Vector2.new(0, 0.5), 
                         BackgroundTransparency = 1, 
-                        Text = v188.signUpLabel, 
+                        Text = v187.signUpLabel, 
                         TextWrapped = true, 
-                        Font = v141.Font.CaptionHeader.Font, 
-                        TextSize = v187, 
+                        Font = v140.Font.CaptionHeader.Font, 
+                        TextSize = v186, 
                         TextColor3 = l_DarkTheme_0.TextEmphasis.Color, 
                         TextTransparency = l_DarkTheme_0.TextEmphasis.Transparency, 
                         TextXAlignment = Enum.TextXAlignment.Center
@@ -678,7 +669,7 @@ return function(_) --[[ Line: 140 ]]
                     Size = UDim2.new(1, 0, 0, 1), 
                     Position = UDim2.new(0.5, 0, 0, 48), 
                     AnchorPoint = Vector2.new(0.5, 0), 
-                    BackgroundTransparency = v101 and 1 or 0, 
+                    BackgroundTransparency = v100 and 1 or 0, 
                     BackgroundColor3 = l_DarkTheme_0.UIEmphasis.Color, 
                     LayoutOrder = 2
                 }), 
@@ -700,36 +691,36 @@ return function(_) --[[ Line: 140 ]]
                     ContentPadding = v7.createElement("UIPadding", {
                         PaddingLeft = UDim.new(0, 24), 
                         PaddingRight = UDim.new(0, 24), 
-                        PaddingTop = UDim.new(0, v77)
+                        PaddingTop = UDim.new(0, v76)
                     }), 
-                    MultiPageSignupText = if v71 then v7.createElement(v36, {
+                    MultiPageSignupText = if v70 then v7.createElement(v36, {
                         layoutOrder = 1, 
-                        titleText = v189, 
-                        helpText = v190
+                        titleText = v188, 
+                        helpText = v189
                     }) else nil, 
-                    InstructionsHeadingText = if v71 then nil else v7.createElement("TextLabel", {
-                        Text = v189, 
+                    InstructionsHeadingText = if v70 then nil else v7.createElement("TextLabel", {
+                        Text = v188, 
                         LayoutOrder = 1, 
                         Size = UDim2.new(1, 0, 0, 0), 
                         BackgroundTransparency = 1, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
-                        TextColor3 = v141.Theme.TextEmphasis.Color, 
-                        Font = v141.Font.Header1.Font, 
+                        TextColor3 = v140.Theme.TextEmphasis.Color, 
+                        Font = v140.Font.Header1.Font, 
                         TextSize = 24
                     }, {
                         UIPadding = v7.createElement("UIPadding", {
                             PaddingBottom = UDim.new(0, 36)
                         })
                     }), 
-                    InstructionsHeadingBody = if v71 then nil else v7.createElement("TextLabel", {
-                        Text = v190, 
+                    InstructionsHeadingBody = if v70 then nil else v7.createElement("TextLabel", {
+                        Text = v189, 
                         LayoutOrder = 2, 
                         AutomaticSize = Enum.AutomaticSize.XY, 
                         BackgroundTransparency = 1, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         TextYAlignment = Enum.TextYAlignment.Top, 
-                        TextColor3 = v141.Theme.TextDefault.Color, 
-                        Font = v141.Font.Header2.Font, 
+                        TextColor3 = v140.Theme.TextDefault.Color, 
+                        Font = v140.Font.Header2.Font, 
                         TextSize = 14, 
                         TextWrapped = true
                     }, {}), 
@@ -744,54 +735,54 @@ return function(_) --[[ Line: 140 ]]
                         summaryErrorTextKey = "Authentication.SignUp.Label.ErrorsWithPassword", 
                         prerequisiteMet = true, 
                         textInputType = l_game_EngineFeature_0 and Enum.TextInputType.NewPassword or Enum.TextInputType.Password, 
-                        onInputTextChanged = v152, 
-                        onInputTextValidated = v152, 
+                        onInputTextChanged = v151, 
+                        onInputTextValidated = v151, 
                         validator = v28, 
                         validatorAdditionalProps = {
-                            username = v183
+                            username = v182
                         }, 
                         returnKeyType = Enum.ReturnKeyType.Next, 
-                        hidePassword = v120, 
-                        onToggleCallback = v149, 
+                        hidePassword = v119, 
+                        onToggleCallback = v148, 
                         showDetailedError = true, 
-                        textBoxRef = v138
+                        textBoxRef = v137
                     }) else nil, 
                     Spacing2 = if l_spacing_0 then v7.createElement("Frame", {
                         LayoutOrder = l_spacing_0, 
                         BackgroundTransparency = 1, 
                         Size = UDim2.new(1, 0, 0, 8)
                     }) else nil, 
-                    ContinueButton = if l_continue_0 then if v114 then v7.createElement(l_Button_1, {
+                    ContinueButton = if l_continue_0 then if v113 then v7.createElement(l_Button_1, {
                         LayoutOrder = l_continue_0, 
                         variant = l_ButtonVariant_0.Standard, 
-                        text = if l_shouldUseV2FallbackScreen_0 then v188.doneText else v188.continueText, 
-                        icon = if v116 then v37.Enums.IconName.LockClosed else nil, 
+                        text = if l_shouldUseV2FallbackScreen_0 then v187.doneText else v187.continueText, 
+                        icon = if v115 then v37.Enums.IconName.LockClosed else nil, 
                         size = l_InputSize_0.Large, 
                         width = UDim.new(1, 0), 
-                        onActivated = v171, 
-                        isDisabled = not v130
+                        onActivated = v170, 
+                        isDisabled = not v129
                     }) else v7.createElement(l_Button_0, {
                         layoutOrder = l_continue_0, 
                         buttonType = l_ButtonType_0.PrimaryContextual, 
-                        text = if l_shouldUseV2FallbackScreen_0 then v188.doneText else v188.continueText, 
+                        text = if l_shouldUseV2FallbackScreen_0 then v187.doneText else v187.continueText, 
                         size = UDim2.new(1, 0, 0, 48), 
-                        onActivated = v171, 
-                        isDisabled = not v130
+                        onActivated = v170, 
+                        isDisabled = not v129
                     }) else nil, 
-                    DividerWithText = if not (not l_shouldUseV2FallbackScreen_0 or v106 or v112) and l_divider_0 then v7.createElement(l_DividerWithText_0, {
+                    DividerWithText = if not (not l_shouldUseV2FallbackScreen_0 or v105 or v111) and l_divider_0 then v7.createElement(l_DividerWithText_0, {
                         layoutOrder = l_divider_0, 
                         width = 0, 
                         height = 0, 
                         size = UDim2.new(1, 0, 0, 32), 
-                        font = v141.Font.BodySmall.Font, 
-                        fontSize = v141.Font.BaseSize * v141.Font.BodySmall.RelativeSize, 
-                        color3 = v141.Theme.TextMuted.Color, 
-                        transparency = v141.Theme.TextMuted.Transparency, 
-                        text = v188.dividerText, 
+                        font = v140.Font.BodySmall.Font, 
+                        fontSize = v140.Font.BaseSize * v140.Font.BodySmall.RelativeSize, 
+                        color3 = v140.Theme.TextMuted.Color, 
+                        transparency = v140.Theme.TextMuted.Transparency, 
+                        text = v187.dividerText, 
                         padding = 8
                     }) else nil, 
-                    CreatePasswordButton = v200, 
-                    PasskeyButton = if not v106 and v197 then v199 else nil
+                    CreatePasswordButton = v199, 
+                    PasskeyButton = if not v105 and v196 then v198 else nil
                 })
             });
         end);

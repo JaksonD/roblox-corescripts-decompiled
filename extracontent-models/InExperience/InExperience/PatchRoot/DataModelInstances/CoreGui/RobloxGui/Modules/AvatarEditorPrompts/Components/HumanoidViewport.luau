@@ -4,8 +4,8 @@ local l_Players_0 = game:GetService("Players");
 local v3 = require(l_CorePackages_0.Packages.Roact);
 local v4 = require(l_CorePackages_0.Packages.t);
 local v5 = require(l_CorePackages_0.Packages.UIBlox);
-local v6 = require(l_CorePackages_0.Packages.Promise);
-local l_ShimmerPanel_0 = v5.App.Loading.ShimmerPanel;
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
+local v7 = require(l_CorePackages_0.Packages.Promise);
 local l_EmptyState_0 = v5.App.Indicator.EmptyState;
 local _ = l_CoreGui_0:WaitForChild("RobloxGui");
 local v10 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
@@ -18,7 +18,7 @@ v13.validateProps = v4.strictInterface({
     retryLoadDescription = v4.callback, 
     rigType = v4.optional(v4.enum(Enum.HumanoidRigType))
 });
-v13.init = function(v14) --[[ Line: 33 ]] --[[ Name: init ]]
+v13.init = function(v14) --[[ Line: 34 ]] --[[ Name: init ]]
     -- upvalues: v3 (copy)
     v14:setState({
         loading = true, 
@@ -34,7 +34,7 @@ v13.init = function(v14) --[[ Line: 33 ]] --[[ Name: init ]]
     v14.updateCameraFocusBinding = v16;
     v14.humanoidModel = nil;
     v14.mounted = false;
-    v14.onRetryLoading = function() --[[ Line: 49 ]]
+    v14.onRetryLoading = function() --[[ Line: 50 ]]
         -- upvalues: v14 (copy)
         v14:setState({
             loading = true, 
@@ -49,13 +49,13 @@ v13.init = function(v14) --[[ Line: 33 ]] --[[ Name: init ]]
         end;
     end;
 end;
-local function _(v17) --[[ Line: 63 ]] --[[ Name: rotateLookVector ]]
+local function _(v17) --[[ Line: 64 ]] --[[ Name: rotateLookVector ]]
     -- upvalues: v11 (copy)
     local l_v17_0 = v17;
     l_v17_0 = if math.abs(l_v17_0.Y) > 0.95 then Vector3.new(0, 0, -1, 0) else Vector3.new(l_v17_0.X, 0, l_v17_0.Z).unit;
     return (CFrame.new(Vector3.new(0, 0, 0, 0), l_v17_0) * v11).lookVector;
 end;
-local function _(v20, v21) --[[ Line: 76 ]] --[[ Name: getCameraOffset ]]
+local function _(v20, v21) --[[ Line: 77 ]] --[[ Name: getCameraOffset ]]
     local l_X_0 = v21.X;
     local l_Y_0 = v21.Y;
     local l_Z_0 = v21.Z;
@@ -63,7 +63,7 @@ local function _(v20, v21) --[[ Line: 76 ]] --[[ Name: getCameraOffset ]]
     local v26 = 1 / math.tan(math.rad(v20) / 2);
     return v25 / 2 * v26 + l_Z_0 / 2;
 end;
-local function _(v28, v29, v30) --[[ Line: 86 ]] --[[ Name: zoomExtents ]]
+local function _(v28, v29, v30) --[[ Line: 87 ]] --[[ Name: zoomExtents ]]
     local l_p_0 = v28:GetModelCFrame().p;
     local l_v28_ExtentsSize_0 = v28:GetExtentsSize();
     local l_X_1 = l_v28_ExtentsSize_0.X;
@@ -72,7 +72,7 @@ local function _(v28, v29, v30) --[[ Line: 86 ]] --[[ Name: zoomExtents ]]
     local v36 = (math.max(l_X_1, l_Y_1) / 2 * 1.4281480067421146 + l_Z_1 / 2) * 1;
     return v30 - v30.p + l_p_0 + v29 * v36;
 end;
-v13.positionCamera = function(v38) --[[ Line: 97 ]] --[[ Name: positionCamera ]]
+v13.positionCamera = function(v38) --[[ Line: 98 ]] --[[ Name: positionCamera ]]
     -- upvalues: v11 (copy)
     local l_humanoidModel_0 = v38.humanoidModel;
     local l_l_humanoidModel_0_ModelCFrame_0 = l_humanoidModel_0:GetModelCFrame();
@@ -97,7 +97,7 @@ v13.positionCamera = function(v38) --[[ Line: 97 ]] --[[ Name: positionCamera ]]
     v38.updateCameraCFrameBinding(v44);
     v38.updateCameraFocusBinding(l_l_humanoidModel_0_ModelCFrame_0);
 end;
-v13.loadIdleAnimation = function(_, v53) --[[ Line: 114 ]] --[[ Name: loadIdleAnimation ]]
+v13.loadIdleAnimation = function(_, v53) --[[ Line: 115 ]] --[[ Name: loadIdleAnimation ]]
     local l_Humanoid_0 = v53:FindFirstChildOfClass("Humanoid");
     if l_Humanoid_0.HumanoidDescription.IdleAnimation == 0 then
         return;
@@ -123,14 +123,14 @@ v13.loadIdleAnimation = function(_, v53) --[[ Line: 114 ]] --[[ Name: loadIdleAn
         end;
     end;
 end;
-v13.loadHumanoidModel = function(v59) --[[ Line: 142 ]] --[[ Name: loadHumanoidModel ]]
-    -- upvalues: l_Players_0 (copy), v6 (copy), v12 (copy)
+v13.loadHumanoidModel = function(v59) --[[ Line: 143 ]] --[[ Name: loadHumanoidModel ]]
+    -- upvalues: l_Players_0 (copy), v7 (copy), v12 (copy)
     local l_humanoidDescription_0 = v59.props.humanoidDescription;
     local l_rigType_0 = v59.props.rigType;
-    coroutine.wrap(function() --[[ Line: 146 ]]
-        -- upvalues: l_Players_0 (ref), l_humanoidDescription_0 (copy), l_rigType_0 (copy), v59 (copy), v6 (ref), v12 (ref)
+    coroutine.wrap(function() --[[ Line: 147 ]]
+        -- upvalues: l_Players_0 (ref), l_humanoidDescription_0 (copy), l_rigType_0 (copy), v59 (copy), v7 (ref), v12 (ref)
         local v62 = nil;
-        pcall(function() --[[ Line: 148 ]]
+        pcall(function() --[[ Line: 149 ]]
             -- upvalues: v62 (ref), l_Players_0 (ref), l_humanoidDescription_0 (ref), l_rigType_0 (ref)
             if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
                 v62 = l_Players_0:CreateHumanoidModelFromDescriptionAsync(l_humanoidDescription_0, l_rigType_0);
@@ -157,9 +157,9 @@ v13.loadHumanoidModel = function(v59) --[[ Line: 142 ]] --[[ Name: loadHumanoidM
                 v59.humanoidModel.Parent = v59.worldModelRef:getValue();
             end;
             if #l_humanoidDescription_0:GetAccessories(false) > 0 then
-                v6.race({
-                    v6.fromEvent(v62.Humanoid.ClusterCompositionFinished), 
-                    v6.delay(v12 * 0.001)
+                v7.race({
+                    v7.fromEvent(v62.Humanoid.ClusterCompositionFinished), 
+                    v7.delay(v12 * 0.001)
                 }):await();
             end;
             if not v59.mounted then
@@ -176,8 +176,8 @@ v13.loadHumanoidModel = function(v59) --[[ Line: 142 ]] --[[ Name: loadHumanoidM
         end;
     end)();
 end;
-v13.render = function(v63) --[[ Line: 204 ]] --[[ Name: render ]]
-    -- upvalues: v3 (copy), l_ShimmerPanel_0 (copy), l_EmptyState_0 (copy), v10 (copy)
+v13.render = function(v63) --[[ Line: 205 ]] --[[ Name: render ]]
+    -- upvalues: v3 (copy), l_Skeleton_0 (copy), l_EmptyState_0 (copy), v10 (copy)
     local v64 = v63.props.loadingFailed or v63.state.loadingFailed;
     local v65 = not v64 and v63.state.loading;
     local v66 = not (v64 or v63.state.loading);
@@ -192,7 +192,7 @@ v13.render = function(v63) --[[ Line: 204 ]] --[[ Name: render ]]
             AspectType = Enum.AspectType.FitWithinMaxSize, 
             DominantAxis = Enum.DominantAxis.Width
         }), 
-        ShimmerFrame = v65 and v3.createElement(l_ShimmerPanel_0, {
+        ShimmerFrame = v65 and v3.createElement(l_Skeleton_0, {
             Size = UDim2.fromScale(1, 1), 
             Position = UDim2.fromScale(0.5, 0.5), 
             AnchorPoint = Vector2.new(0.5, 0.5)
@@ -225,13 +225,13 @@ v13.render = function(v63) --[[ Line: 204 ]] --[[ Name: render ]]
         })
     });
 end;
-v13.didMount = function(v67) --[[ Line: 260 ]] --[[ Name: didMount ]]
+v13.didMount = function(v67) --[[ Line: 261 ]] --[[ Name: didMount ]]
     v67.mounted = true;
     if v67.props.humanoidDescription then
         v67:loadHumanoidModel();
     end;
 end;
-v13.didUpdate = function(v68, v69) --[[ Line: 268 ]] --[[ Name: didUpdate ]]
+v13.didUpdate = function(v68, v69) --[[ Line: 269 ]] --[[ Name: didUpdate ]]
     if v68.worldModelRef:getValue() and v68.humanoidModel then
         v68.humanoidModel.Parent = v68.worldModelRef:getValue();
     end;
@@ -253,7 +253,7 @@ v13.didUpdate = function(v68, v69) --[[ Line: 268 ]] --[[ Name: didUpdate ]]
         end;
     end;
 end;
-v13.willUnmount = function(v73) --[[ Line: 290 ]] --[[ Name: willUnmount ]]
+v13.willUnmount = function(v73) --[[ Line: 291 ]] --[[ Name: willUnmount ]]
     v73.mounted = false;
 end;
 return v13;

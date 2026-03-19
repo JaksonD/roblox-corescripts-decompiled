@@ -50,5 +50,18 @@ return {
         StreamNotification = "streamNotification", 
         DeleteOnGameLeave = "_deleteOnGameLeave"
     }, 
-    SENDRVersion = 0
+    SENDRVersion = 0, 
+    Dropdown = {
+        Width = 360, 
+        MaxHeight = 638, 
+        CornerRadius = 16, 
+        HorizontalPadding = 20, 
+        PaddingTop = 8, 
+        PaddingBottom = 8, 
+        HeaderMinHeight = 40, 
+        CardGap = 16, 
+        HeaderBodyGap = 8, 
+        BellIconOpen = l_Images_0["icons/common/notificationOn"], 
+        BellIconClosed = l_Images_0["icons/common/notificationOff"]
+    }
 };

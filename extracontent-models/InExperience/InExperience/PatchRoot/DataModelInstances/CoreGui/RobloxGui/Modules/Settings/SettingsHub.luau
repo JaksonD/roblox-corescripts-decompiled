@@ -104,6 +104,7 @@ local v60 = {
     FFlagInExperienceReportClosingBugfix = v58.FFlagInExperienceReportClosingBugfix, 
     FFlagEnableSettingsHubUIDelegateRollout = v58.FFlagEnableSettingsHubUIDelegateRollout, 
     FFlagAddIEMProfilePage = v58.FFlagAddIEMProfilePage, 
+    FFlagSetUnibarShortcutOnTopBarFocus = require(l_CorePackages_0.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus, 
     FFlagAddTraversalBackButton = l_Traversal_0.Flags.FFlagAddTraversalBackButton, 
     FFlagAddTraversalHistory = l_Traversal_0.Flags.FFlagAddTraversalHistory, 
     FFlagTraversalLeaveArrowDown = l_Traversal_0.Flags.FFlagTraversalLeaveArrowDown, 
@@ -131,23 +132,23 @@ local l_HttpService_0 = game:GetService("HttpService");
 local l_GameSettings_0 = UserSettings().GameSettings;
 local l_ExperienceMenuSessionManagerInstance_0 = require(l_CorePackages_0.Workspace.Packages.InExperienceSessionization).ExperienceMenuSessionManagerInstance;
 local v74 = nil;
-pcall(function() --[[ Line: 190 ]]
+pcall(function() --[[ Line: 191 ]]
     -- upvalues: v74 (ref)
     v74 = game:GetService("PlatformService");
 end);
 local v75 = nil;
-pcall(function() --[[ Line: 193 ]]
+pcall(function() --[[ Line: 194 ]]
     -- upvalues: v75 (ref)
     v75 = game:GetService("PlatformFriendsService");
 end);
 local v76 = nil;
-spawn(function() --[[ Line: 197 ]]
+spawn(function() --[[ Line: 198 ]]
     -- upvalues: v76 (ref), l_RobloxReplicatedStorage_0 (copy)
     v76 = l_RobloxReplicatedStorage_0:WaitForChild("GetServerVersion", 1e999);
 end);
 local v77 = nil;
 if v60.GetFFlagDisplayServerChannel() then
-    spawn(function() --[[ Line: 203 ]]
+    spawn(function() --[[ Line: 204 ]]
         -- upvalues: v77 (ref), l_RobloxReplicatedStorage_0 (copy)
         v77 = l_RobloxReplicatedStorage_0:WaitForChild("GetServerChannel", 1e999);
     end);
@@ -199,7 +200,7 @@ local _ = require(l_RobloxGui_0.Modules.Settings.ReactPageFactory);
 local l_Localization_0 = require(l_CorePackages_0.Workspace.Packages.InExperienceLocales).Localization;
 local v113 = v60.FFlagLocalizeVersionLabels or v102;
 local v114 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
-local function _(v115, v116) --[[ Line: 287 ]] --[[ Name: tryTranslate ]]
+local function _(v115, v116) --[[ Line: 288 ]] --[[ Name: tryTranslate ]]
     -- upvalues: v114 (copy)
     if not v114 then
         return v116;
@@ -216,7 +217,7 @@ local v120 = require(l_RobloxGui_0.Modules.ChatSelector);
 local l_l_GuiService_0_GuiInset_0, _ = l_GuiService_0:GetGuiInset();
 local v123 = UDim2.new(0, 0, 0, -l_l_GuiService_0_GuiInset_0.Y);
 local v124 = UDim2.new(1, 0, 1, l_l_GuiService_0_GuiInset_0.Y);
-local function v129(v125) --[[ Line: 303 ]] --[[ Name: GetCorePackagesLoaded ]]
+local function v129(v125) --[[ Line: 304 ]] --[[ Name: GetCorePackagesLoaded ]]
     local l_CorePackages_1 = game:GetService("CorePackages");
     for _, v128 in pairs(v125) do
         if not l_CorePackages_1:FindFirstChild(v128) then
@@ -225,7 +226,7 @@ local function v129(v125) --[[ Line: 303 ]] --[[ Name: GetCorePackagesLoaded ]]
     end;
     return true;
 end;
-local function _() --[[ Line: 313 ]] --[[ Name: GetServerVersionBlocking ]]
+local function _() --[[ Line: 314 ]] --[[ Name: GetServerVersionBlocking ]]
     -- upvalues: v85 (ref), v76 (ref)
     if v85 then
         return v85;
@@ -239,7 +240,7 @@ local function _() --[[ Line: 313 ]] --[[ Name: GetServerVersionBlocking ]]
         return v85;
     end;
 end;
-local function v132() --[[ Line: 326 ]] --[[ Name: GetServerChannelBlocking ]]
+local function v132() --[[ Line: 327 ]] --[[ Name: GetServerChannelBlocking ]]
     -- upvalues: v86 (ref), v57 (copy), v77 (ref)
     if v86 then
         return v86;
@@ -260,13 +261,13 @@ local function v132() --[[ Line: 326 ]] --[[ Name: GetServerChannelBlocking ]]
         return v86;
     end;
 end;
-local function _() --[[ Line: 347 ]] --[[ Name: GetPlaceVersionText ]]
+local function _() --[[ Line: 348 ]] --[[ Name: GetPlaceVersionText ]]
     -- upvalues: v60 (copy), l_HttpRbxApiService_0 (copy), l_HttpService_0 (copy)
     if v60.GetFFlagRemoveAssetVersionEndpoint() then
         return game.PlaceVersion;
     else
         local l_PlaceVersion_0 = game.PlaceVersion;
-        pcall(function() --[[ Line: 354 ]]
+        pcall(function() --[[ Line: 355 ]]
             -- upvalues: l_HttpRbxApiService_0 (ref), l_HttpService_0 (ref), l_PlaceVersion_0 (ref)
             local l_l_HttpRbxApiService_0_Async_0 = l_HttpRbxApiService_0:GetAsync(string.format("assets/%d/versions", game.PlaceId));
             local l_VersionNumber_0 = l_HttpService_0:JSONDecode(l_l_HttpRbxApiService_0_Async_0)[1].VersionNumber;
@@ -275,7 +276,7 @@ local function _() --[[ Line: 347 ]] --[[ Name: GetPlaceVersionText ]]
         return l_PlaceVersion_0;
     end;
 end;
-local function v138(v137) --[[ Line: 364 ]] --[[ Name: createReactPage ]]
+local function v138(v137) --[[ Line: 365 ]] --[[ Name: createReactPage ]]
     -- upvalues: l_Create_0 (copy), v60 (copy)
     return l_Create_0("Frame")({
         Name = "InExperienceMenuPage", 
@@ -285,7 +286,7 @@ local function v138(v137) --[[ Line: 364 ]] --[[ Name: createReactPage ]]
         Parent = v137
     });
 end;
-local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
+local function v617() --[[ Line: 376 ]] --[[ Name: CreateSettingsHub ]]
     -- upvalues: v60 (copy), l_RobloxGui_0 (copy), v108 (copy), v24 (copy), v109 (copy), l_createSignal_0 (copy), v104 (copy), l_Stores_0 (copy), l_StarterGui_0 (copy), v88 (copy), v89 (copy), v90 (copy), l_RbxAnalyticsService_0 (copy), v94 (copy), v138 (copy), v50 (copy), l_ContextActionService_0 (copy), l_LocalizationService_0 (copy), l_Localization_0 (copy), v10 (copy), l_Create_0 (copy), v78 (copy), l_UserInputService_0 (copy), l_l_UserInputService_0_Platform_0 (copy), l_default_0 (copy), v40 (copy), v13 (copy), v114 (copy), v105 (copy), l_TelemetryService_0 (copy), v91 (copy), v92 (copy), l_Constants_0 (copy), v93 (copy), v15 (copy), v14 (copy), v34 (copy), v59 (copy), v124 (copy), v123 (copy), l_SHIELD_INACTIVE_POSITION_0 (copy), v52 (copy), v51 (copy), v55 (copy), v113 (copy), v132 (copy), v85 (ref), v76 (ref), l_RunService_0 (copy), l_HttpRbxApiService_0 (copy), l_HttpService_0 (copy), v26 (copy), l_BaseUrl_0 (copy), v81 (copy), l_StarterPlayer_0 (copy), l_Players_0 (copy), l_GuiService_0 (copy), v11 (copy), v35 (copy), l_IXPService_0 (copy), l_AppStyleProvider_0 (copy), l_Dark_0 (copy), v32 (copy), v33 (copy), l_AppFonts_0 (copy), v110 (copy), l_CorePackages_0 (copy), l_InExperienceAppChatModal_0 (copy), l_InExperienceCapabilities_0 (copy), l_FoundationProvider_0 (copy), v16 (copy), v23 (copy), l_SwitchTabHint_0 (copy), l_isSubjectToDesktopPolicies_0 (copy), v87 (copy), l_VRService_0 (copy), l_GameSettings_0 (copy), v82 (copy), v106 (copy), v12 (copy), l_IXPServiceWrapper_0 (copy), l_ExperienceMenuSessionManagerInstance_0 (copy), l_MouseIconOverrideService_0 (copy), v54 (copy), v56 (copy), l_TweenService_0 (copy), v27 (copy), v83 (ref), v120 (copy), v84 (ref), v98 (ref), v75 (ref), v74 (ref), v97 (ref), v99 (ref), v22 (copy), v129 (copy), l_GameInviteAnalytics_0 (copy), l_CapturesPolicy_0 (copy), l_isSpatial_0 (copy), v100 (copy), v43 (copy), v19 (copy), l_TraversalHistoryMenu_0 (copy), v20 (copy), v21 (copy)
     local v139 = {
         Visible = false, 
@@ -344,12 +345,12 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     v139.lastVoiceRecordingIndicatorTextUpdated = nil;
     if v60.FFlagAvatarChatCoreScriptSupport then
         v139.selfViewOpen = l_StarterGui_0:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView);
-        v139.toggleSelfViewSignal = v88:connect(function() --[[ Line: 434 ]]
+        v139.toggleSelfViewSignal = v88:connect(function() --[[ Line: 435 ]]
             -- upvalues: v139 (copy)
             v139.selfViewOpen = not v139.selfViewOpen;
         end);
         v139.selfViewOpen = l_StarterGui_0:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and v89.getSelfViewIsOpenAndVisible();
-        v139.selfViewVisibilitySignal = v90:connect(function() --[[ Line: 439 ]]
+        v139.selfViewVisibilitySignal = v90:connect(function() --[[ Line: 440 ]]
             -- upvalues: v139 (copy), v89 (ref)
             v139.selfViewOpen = v89.getSelfViewIsOpenAndVisible();
         end);
@@ -367,11 +368,11 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     if v60.FFlagCreateInExperienceMenuReact then
         v139.ReactPage = v138();
     end;
-    local function _(v146) --[[ Line: 463 ]] --[[ Name: shouldShowHubBar ]]
+    local function _(v146) --[[ Line: 464 ]] --[[ Name: shouldShowHubBar ]]
         -- upvalues: v139 (copy)
         return (v146 or v139.Pages.CurrentPage).ShouldShowBottomBar == true;
     end;
-    local function v153(v148) --[[ Line: 468 ]] --[[ Name: setBottomBarSelection ]]
+    local function v153(v148) --[[ Line: 469 ]] --[[ Name: setBottomBarSelection ]]
         -- upvalues: v139 (copy), v60 (ref)
         if not v139.BottomButtonFrame and v60.FFlagIEMFocusNavToButtons and not v148 and (not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 or v60.FIntRelocateMobileMenuButtonsVariant == 2) then
             return;
@@ -399,7 +400,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function v156(v154) --[[ Line: 500 ]] --[[ Name: shouldShowBottomBar ]]
+    local function v156(v154) --[[ Line: 501 ]] --[[ Name: shouldShowBottomBar ]]
         -- upvalues: v139 (copy), v60 (ref), v24 (ref), v50 (ref)
         v154 = v154 or v139.Pages.CurrentPage;
         if (not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 or v60.FIntRelocateMobileMenuButtonsVariant == 2) and (v24:IsPortrait() or v24:IsSmallTouchScreen()) and not v50.AlwaysShowBottomBar() then
@@ -412,7 +413,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return v155;
         end;
     end;
-    local function v161() --[[ Line: 514 ]] --[[ Name: setBottomBarBindings ]]
+    local function v161() --[[ Line: 515 ]] --[[ Name: setBottomBarBindings ]]
         -- upvalues: v139 (copy), v60 (ref), l_ContextActionService_0 (ref)
         if not v139.Visible then
             return;
@@ -433,7 +434,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function v167(v162) --[[ Line: 537 ]] --[[ Name: removeBottomBarBindings ]]
+    local function v167(v162) --[[ Line: 538 ]] --[[ Name: removeBottomBarBindings ]]
         -- upvalues: v60 (ref), v139 (copy), l_ContextActionService_0 (ref)
         if not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 then
             for _, v164 in pairs(v139.BottomBarButtons) do
@@ -443,7 +444,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v139.removeMenuKeyBindings();
         end;
         local l_OpenStateChangedCount_0 = v139.OpenStateChangedCount;
-        local function v166() --[[ Line: 549 ]]
+        local function v166() --[[ Line: 550 ]]
             -- upvalues: v139 (ref), l_OpenStateChangedCount_0 (copy)
             if v139.OpenStateChangedCount == l_OpenStateChangedCount_0 and v139.BottomButtonFrame then
                 v139.BottomButtonFrame.Visible = false;
@@ -459,7 +460,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function _(v168, v169, v170) --[[ Line: 562 ]] --[[ Name: updateButtonPosition ]]
+    local function _(v168, v169, v170) --[[ Line: 563 ]] --[[ Name: updateButtonPosition ]]
         -- upvalues: v60 (ref), v139 (copy)
         if not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 then
             local l_FirstChild_0 = v139.BottomButtonFrame:FindFirstChild(v168 .. "ButtonButton", true);
@@ -473,7 +474,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     end;
     local l_RobloxLocaleId_0 = l_LocalizationService_0.RobloxLocaleId;
     local v174 = l_Localization_0.new(l_RobloxLocaleId_0);
-    local function v181() --[[ Line: 578 ]] --[[ Name: hideVoiceUx ]]
+    local function v181() --[[ Line: 579 ]] --[[ Name: hideVoiceUx ]]
         -- upvalues: v139 (copy), v10 (ref), v50 (ref), v60 (ref)
         local l_MuteButtonButton_0 = v139.MuteButtonButton;
         if l_MuteButtonButton_0 then
@@ -510,7 +511,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    local function v202(v182, v183, v184, v185, v186, v187, v188, v189) --[[ Line: 594 ]] --[[ Name: addBottomBarButtonOld ]]
+    local function v202(v182, v183, v184, v185, v186, v187, v188, v189) --[[ Line: 595 ]] --[[ Name: addBottomBarButtonOld ]]
         -- upvalues: v60 (ref), v50 (ref), v10 (ref), v139 (copy), v24 (ref), l_Create_0 (ref), v78 (ref), l_UserInputService_0 (ref), l_l_UserInputService_0_Platform_0 (ref)
         if not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 then
             local v190 = v182 .. "Button";
@@ -571,7 +572,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
             do
                 local l_l_v139_0_0 = l_v139_0;
-                l_UserInputService_0.InputBegan:connect(function(v198) --[[ Line: 667 ]]
+                l_UserInputService_0.InputBegan:connect(function(v198) --[[ Line: 668 ]]
                     -- upvalues: l_l_v139_0_0 (ref), v184 (copy), v185 (copy)
                     if v198.UserInputType == Enum.UserInputType.Gamepad1 or v198.UserInputType == Enum.UserInputType.Gamepad2 or v198.UserInputType == Enum.UserInputType.Gamepad3 or v198.UserInputType == Enum.UserInputType.Gamepad4 then
                         if l_l_v139_0_0 then
@@ -585,7 +586,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v139.BottomBarButtons[#v139.BottomBarButtons + 1] = {
                     v190, 
                     {
-                        function(_, v200, _) --[[ Line: 690 ]]
+                        function(_, v200, _) --[[ Line: 691 ]]
                             -- upvalues: v189 (copy)
                             if v200 == Enum.UserInputState.Begin then
                                 v189();
@@ -616,26 +617,26 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     local l_l_UserInputService_0_ImageForKeyCode_0 = l_UserInputService_0:GetImageForKeyCode(Enum.KeyCode.ButtonStart);
     local v208 = false;
     local v209 = nil;
-    local function v224() --[[ Line: 724 ]] --[[ Name: setupVoiceListeners ]]
+    local function v224() --[[ Line: 725 ]] --[[ Name: setupVoiceListeners ]]
         -- upvalues: v208 (ref), v139 (copy), l_default_0 (ref), v40 (ref), v60 (ref), v209 (ref), v13 (ref), v114 (ref), v181 (copy)
         if game:GetEngineFeature("VoiceChatSupported") and not v208 then
             v208 = true;
-            local function v222() --[[ Line: 729 ]] --[[ Name: showUI ]]
+            local function v222() --[[ Line: 730 ]] --[[ Name: showUI ]]
                 -- upvalues: v139 (ref), l_default_0 (ref), v40 (ref), v60 (ref), v209 (ref), v13 (ref), v114 (ref)
                 v139.VoiceRecordingText.Visible = true;
-                l_default_0:getService().StateChanged:Connect(function(_, v211) --[[ Line: 732 ]]
+                l_default_0:getService().StateChanged:Connect(function(_, v211) --[[ Line: 733 ]]
                     -- upvalues: v139 (ref)
                     if v211 == Enum.VoiceChatState.Joined then
                         v139.VoiceRecordingText.Visible = true;
                     end;
                 end);
                 l_default_0:SetupParticipantListeners();
-                v40(function(v212) --[[ Line: 739 ]]
+                v40(function(v212) --[[ Line: 740 ]]
                     -- upvalues: v139 (ref)
                     v139.hasMicPermissions = v212.hasMicPermissions;
                 end, nil, true, "PermissionsButtons.getPermissions");
                 if v60.GetFFlagMuteButtonRaceConditionFix() then
-                    v209 = l_default_0.muteChanged.Event:Connect(function(v213) --[[ Line: 744 ]]
+                    v209 = l_default_0.muteChanged.Event:Connect(function(v213) --[[ Line: 745 ]]
                         -- upvalues: v139 (ref), v13 (ref), v114 (ref)
                         v139.isMuted = v213;
                         v139.lastVoiceRecordingIndicatorTextUpdated = tick();
@@ -666,7 +667,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     end);
                 end;
             end;
-            local function v223() --[[ Line: 756 ]] --[[ Name: hideUI ]]
+            local function v223() --[[ Line: 757 ]] --[[ Name: hideUI ]]
                 -- upvalues: v139 (ref), v181 (ref), v209 (ref)
                 v139.VoiceRecordingText.Visible = false;
                 v181();
@@ -685,7 +686,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         v224();
     end;
     local v225 = true;
-    local function v229(v226) --[[ Line: 780 ]] --[[ Name: setResetEnabled ]]
+    local function v229(v226) --[[ Line: 781 ]] --[[ Name: setResetEnabled ]]
         -- upvalues: v225 (ref), v139 (copy)
         v225 = v226;
         if v139.ResetCharacterButton then
@@ -703,7 +704,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
     end;
     local v230 = nil;
-    v139.GetRespawnBehaviour = function(_) --[[ Line: 798 ]] --[[ Name: GetRespawnBehaviour ]]
+    v139.GetRespawnBehaviour = function(_) --[[ Line: 799 ]] --[[ Name: GetRespawnBehaviour ]]
         -- upvalues: v60 (ref), v139 (copy), v225 (ref), v230 (ref)
         if v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 then
             return v139:GetExperienceControlStore().getCanRespawn(false), v139:GetExperienceControlStore().getCustomRespawnCallback(false);
@@ -712,7 +713,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
     end;
     v139.RespawnBehaviourChangedEvent = Instance.new("BindableEvent");
-    l_StarterGui_0:RegisterSetCore("ResetButtonCallback", function(v232) --[[ Line: 808 ]]
+    l_StarterGui_0:RegisterSetCore("ResetButtonCallback", function(v232) --[[ Line: 809 ]]
         -- upvalues: v139 (copy), v60 (ref), v225 (ref), v229 (copy), v230 (ref)
         local v233 = false;
         if typeof(v232) == "Instance" then
@@ -752,7 +753,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end);
-    l_StarterGui_0:RegisterGetCore("ResetButtonCallback", function() --[[ Line: 843 ]]
+    l_StarterGui_0:RegisterGetCore("ResetButtonCallback", function() --[[ Line: 844 ]]
         -- upvalues: v139 (copy)
         local l_v139_RespawnBehaviour_0, _ = v139:GetRespawnBehaviour();
         return l_v139_RespawnBehaviour_0;
@@ -760,9 +761,9 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     local v237 = nil;
     local v238, v239 = l_createSignal_0(true);
     local v240, v241 = l_createSignal_0(nil);
-    v139.GetExperienceControlStore = function(_) --[[ Line: 853 ]] --[[ Name: GetExperienceControlStore ]]
+    v139.GetExperienceControlStore = function(_) --[[ Line: 854 ]] --[[ Name: GetExperienceControlStore ]]
         -- upvalues: v239 (copy), v139 (copy), v238 (copy), v240 (copy), v241 (copy), v60 (ref), v104 (ref), l_TelemetryService_0 (ref), v91 (ref), v92 (ref), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), v93 (ref)
-        local function v246(v243) --[[ Line: 854 ]]
+        local function v246(v243) --[[ Line: 855 ]]
             -- upvalues: v239 (ref), v139 (ref)
             v239(v243);
             if v139.ResetCharacterButton then
@@ -784,7 +785,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             getCustomRespawnCallback = v240, 
             setCanRespawn = v246, 
             setCustomRespawnCallback = v241, 
-            onLeaveGame = function(v247) --[[ Line: 876 ]] --[[ Name: onLeaveGame ]]
+            onLeaveGame = function(v247) --[[ Line: 877 ]] --[[ Name: onLeaveGame ]]
                 -- upvalues: v139 (ref), v60 (ref), v104 (ref), l_TelemetryService_0 (ref), v91 (ref)
                 if not v139:GetVisibility() then
                     return;
@@ -804,7 +805,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     return;
                 end;
             end, 
-            onRespawn = function(v248) --[[ Line: 895 ]] --[[ Name: onRespawn ]]
+            onRespawn = function(v248) --[[ Line: 896 ]] --[[ Name: onRespawn ]]
                 -- upvalues: v238 (ref), v139 (ref), v60 (ref), l_TelemetryService_0 (ref), v92 (ref)
                 if not v238(false) then
                     return;
@@ -820,7 +821,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     return;
                 end;
             end, 
-            onResume = function(v249) --[[ Line: 910 ]] --[[ Name: onResume ]]
+            onResume = function(v249) --[[ Line: 911 ]] --[[ Name: onResume ]]
                 -- upvalues: v60 (ref), v139 (ref), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), l_TelemetryService_0 (ref), v93 (ref)
                 if v60.FFlagAddUILessMode then
                     v139:SetVisibility(false, nil, nil, nil, v249);
@@ -843,7 +844,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end
         };
     end;
-    local v253 = v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 and function() --[[ Line: 942 ]]
+    local v253 = v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 and function() --[[ Line: 943 ]]
         -- upvalues: v139 (copy), v15 (ref), v14 (ref), v34 (ref), v59 (ref)
         if v139.BottomButtonFrameRoot then
             return;
@@ -854,15 +855,15 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 onLeaveGame = l_v139_ExperienceControlStore_0.onLeaveGame, 
                 onRespawn = l_v139_ExperienceControlStore_0.onRespawn, 
                 onResume = l_v139_ExperienceControlStore_0.onResume, 
-                setAddMenuKeyBindings = function(v251) --[[ Line: 954 ]] --[[ Name: setAddMenuKeyBindings ]]
+                setAddMenuKeyBindings = function(v251) --[[ Line: 955 ]] --[[ Name: setAddMenuKeyBindings ]]
                     -- upvalues: v139 (ref)
                     v139.addMenuKeyBindings = v251;
                 end, 
-                setRemoveMenuKeyBindings = function(v252) --[[ Line: 958 ]] --[[ Name: setRemoveMenuKeyBindings ]]
+                setRemoveMenuKeyBindings = function(v252) --[[ Line: 959 ]] --[[ Name: setRemoveMenuKeyBindings ]]
                     -- upvalues: v139 (ref)
                     v139.removeMenuKeyBindings = v252;
                 end, 
-                getVisibility = function() --[[ Line: 962 ]] --[[ Name: getVisibility ]]
+                getVisibility = function() --[[ Line: 963 ]] --[[ Name: getVisibility ]]
                     -- upvalues: v139 (ref)
                     return v139.GetVisibility();
                 end, 
@@ -872,14 +873,14 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end or nil;
-    local v254 = v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 and function() --[[ Line: 972 ]]
+    local v254 = v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 and function() --[[ Line: 973 ]]
         -- upvalues: v139 (copy)
         if v139.BottomButtonFrameRoot then
             v139.BottomButtonFrameRoot:unmount();
             v139.BottomButtonFrameRoot = nil;
         end;
     end or nil;
-    local function v355() --[[ Line: 980 ]] --[[ Name: createGui ]]
+    local function v355() --[[ Line: 981 ]] --[[ Name: createGui ]]
         -- upvalues: v24 (ref), v139 (copy), l_Create_0 (ref), v124 (ref), v123 (ref), l_RobloxGui_0 (ref), l_SHIELD_INACTIVE_POSITION_0 (ref), v52 (ref), v51 (ref), v55 (ref), v60 (ref), v50 (ref), v10 (ref), v113 (ref), v114 (ref), v132 (ref), v85 (ref), v76 (ref), l_RunService_0 (ref), l_HttpRbxApiService_0 (ref), l_HttpService_0 (ref), v26 (ref), l_BaseUrl_0 (ref), v81 (ref), l_StarterPlayer_0 (ref), l_Players_0 (ref), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), v138 (ref), l_GuiService_0 (ref), v40 (ref), l_default_0 (ref), v11 (ref), v35 (ref), l_IXPService_0 (ref), l_AppStyleProvider_0 (ref), l_Dark_0 (ref), v32 (ref), v33 (ref), l_AppFonts_0 (ref), v13 (ref), v110 (ref), l_UserInputService_0 (ref), v237 (ref), v253 (copy), l_CorePackages_0 (ref), l_InExperienceAppChatModal_0 (ref), v167 (copy), v104 (ref), l_InExperienceCapabilities_0 (ref), v202 (copy), v205 (ref), v225 (ref), v174 (copy), v206 (ref), l_l_UserInputService_0_ImageForKeyCode_0 (copy), v204 (ref), v15 (ref), v14 (ref), l_FoundationProvider_0 (ref), v16 (ref), v23 (ref), l_SwitchTabHint_0 (ref), l_isSubjectToDesktopPolicies_0 (ref), v87 (ref)
         local v255 = 0;
         if v24:IsSmallTouchScreen() then
@@ -968,7 +969,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             VerticalAlignment = Enum.VerticalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder
         });
-        local function _(v258) --[[ Line: 1090 ]] --[[ Name: addSizeToLabel ]]
+        local function _(v258) --[[ Line: 1091 ]] --[[ Name: addSizeToLabel ]]
             -- upvalues: l_game_EngineFeature_0 (copy), v55 (ref)
             local v259 = UDim2.new(0.2, -6, 1, 0);
             v258.Size = l_game_EngineFeature_0 and UDim2.new(0, v258.TextBounds.X + 6, 0, v55) or v259;
@@ -987,7 +988,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 TextYAlignment = Enum.TextYAlignment.Center, 
                 ZIndex = 5
             });
-            spawn(function() --[[ Line: 1109 ]]
+            spawn(function() --[[ Line: 1110 ]]
                 -- upvalues: v113 (ref), v114 (ref), v139 (ref), v132 (ref), l_game_EngineFeature_0 (copy), v55 (ref)
                 local v261 = "Server Channel: ";
                 if v113 then
@@ -1018,7 +1019,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             TextYAlignment = Enum.TextYAlignment.Center, 
             ZIndex = 5
         });
-        spawn(function() --[[ Line: 1133 ]]
+        spawn(function() --[[ Line: 1134 ]]
             -- upvalues: v113 (ref), v114 (ref), v139 (ref), v85 (ref), v76 (ref), l_game_EngineFeature_0 (copy), v55 (ref)
             local v266 = "Server Version: ";
             if v113 then
@@ -1059,7 +1060,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
         local l_l_RunService_0_RobloxVersion_0 = l_RunService_0:GetRobloxVersion();
-        local l_status_6, l_result_6 = pcall(function() --[[ Line: 1149 ]]
+        local l_status_6, l_result_6 = pcall(function() --[[ Line: 1150 ]]
             -- upvalues: l_RunService_0 (ref)
             return l_RunService_0.ClientGitHash;
         end);
@@ -1096,7 +1097,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             TextYAlignment = Enum.TextYAlignment.Center, 
             ZIndex = 5
         });
-        l_ClientVersionLabel_0 = function() --[[ Line: 1186 ]] --[[ Name: setPlaceVersionText ]]
+        l_ClientVersionLabel_0 = function() --[[ Line: 1187 ]] --[[ Name: setPlaceVersionText ]]
             -- upvalues: v113 (ref), v114 (ref), v139 (ref), v60 (ref), l_HttpRbxApiService_0 (ref), l_HttpService_0 (ref), l_game_EngineFeature_0 (copy), v55 (ref)
             local v281 = "Place Version: ";
             if v113 then
@@ -1116,7 +1117,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 local l_PlaceVersion_1 = game.PlaceVersion;
                 do
                     local l_l_PlaceVersion_1_0 = l_PlaceVersion_1;
-                    pcall(function() --[[ Line: 354 ]]
+                    pcall(function() --[[ Line: 355 ]]
                         -- upvalues: l_HttpRbxApiService_0 (ref), l_HttpService_0 (ref), l_l_PlaceVersion_1_0 (ref)
                         local l_l_HttpRbxApiService_0_Async_1 = l_HttpRbxApiService_0:GetAsync(string.format("assets/%d/versions", game.PlaceId));
                         local l_VersionNumber_1 = l_HttpService_0:JSONDecode(l_l_HttpRbxApiService_0_Async_1)[1].VersionNumber;
@@ -1182,7 +1183,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v139.PlaySessionIdLabel.TextScaled = not v139.PlaySessionIdLabel.TextFits;
             end;
         end;
-        local function v311() --[[ Line: 1248 ]] --[[ Name: getOverridesPlayerScripts ]]
+        local function v311() --[[ Line: 1249 ]] --[[ Name: getOverridesPlayerScripts ]]
             -- upvalues: l_StarterPlayer_0 (ref), v60 (ref), v113 (ref), v114 (ref)
             local v298 = l_StarterPlayer_0:WaitForChild("StarterPlayerScripts", v60.FFlagRemoveLoadingTimeout and 1e999 or nil);
             local l_PlayerScriptsLoader_0 = v298:FindFirstChild("PlayerScriptsLoader");
@@ -1266,7 +1267,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             ZIndex = 5, 
             Visible = false
         });
-        spawn(function() --[[ Line: 1301 ]]
+        spawn(function() --[[ Line: 1302 ]]
             -- upvalues: l_RobloxGui_0 (ref), l_Players_0 (ref), v113 (ref), v114 (ref), v311 (copy), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), v60 (ref), v139 (ref), v81 (ref), l_game_EngineFeature_0 (copy), v55 (ref)
             local v312 = require(l_RobloxGui_0.Modules.PlayerPermissionsModule);
             if not l_Players_0.LocalPlayer then
@@ -1323,7 +1324,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             l_CoreScriptVersionLabel_0.Size = l_game_EngineFeature_0 and UDim2.new(0, l_CoreScriptVersionLabel_0.TextBounds.X + 6, 0, v55) or v323;
             l_CoreScriptVersionLabel_0 = v139.VersionContainer;
             local l_l_CoreScriptVersionLabel_0_0 = l_CoreScriptVersionLabel_0 --[[ copy: 12 -> 22 ]];
-            v257:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() --[[ Line: 1348 ]]
+            v257:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() --[[ Line: 1349 ]]
                 -- upvalues: l_l_CoreScriptVersionLabel_0_0 (copy), v257 (copy), v55 (ref)
                 l_l_CoreScriptVersionLabel_0_0.CanvasSize = UDim2.new(0, v257.AbsoluteContentSize.X, 0, v55);
             end);
@@ -1443,12 +1444,12 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 Parent = v139.MenuContainer
             });
         end;
-        v40(function(v329) --[[ Line: 1501 ]]
+        v40(function(v329) --[[ Line: 1502 ]]
             -- upvalues: v139 (ref)
             v139.hasMicPermissions = v329.hasMicPermissions;
             v139.isFetchingMicPermissions = false;
         end, nil, true);
-        v139.SettingsShowSignal:connect(function(v330) --[[ Line: 1507 ]]
+        v139.SettingsShowSignal:connect(function(v330) --[[ Line: 1508 ]]
             -- upvalues: l_default_0 (ref), v139 (ref)
             if v330 then
                 if l_default_0:IsSeamlessVoice() and not l_default_0.voiceUIVisible then
@@ -1607,13 +1608,13 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
         v139.voiceRecordingIndicatorTextMotor = v13.createSingleMotor(0);
-        v139.voiceRecordingIndicatorTextMotor:onStep(function(v331) --[[ Line: 1691 ]]
+        v139.voiceRecordingIndicatorTextMotor:onStep(function(v331) --[[ Line: 1692 ]]
             -- upvalues: v139 (ref)
             v139.VoiceRecordingText.TextTransparency = v331;
         end);
-        spawn(function() --[[ Line: 1695 ]]
+        spawn(function() --[[ Line: 1696 ]]
             -- upvalues: l_RunService_0 (ref), v139 (ref), v13 (ref), v110 (ref)
-            l_RunService_0:BindToRenderStep("VoiceRecordingIndicator", 1, function() --[[ Line: 1696 ]]
+            l_RunService_0:BindToRenderStep("VoiceRecordingIndicator", 1, function() --[[ Line: 1697 ]]
                 -- upvalues: v139 (ref), v13 (ref), v110 (ref)
                 if v139.isMuted ~= nil and v139.lastVoiceRecordingIndicatorTextUpdated ~= nil and tick() - v139.lastVoiceRecordingIndicatorTextUpdated >= 5 and v139.isMuted then
                     v139.voiceRecordingIndicatorTextMotor:setGoal(v13.spring(1, v110));
@@ -1643,7 +1644,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             });
             local v332 = require(l_RobloxGui_0.Modules.Chrome.Service);
             local l_v332_0 = v332 --[[ copy: 14 -> 21 ]];
-            v332:onShortcutBarChanged():connect(function() --[[ Line: 1737 ]]
+            v332:onShortcutBarChanged():connect(function() --[[ Line: 1738 ]]
                 -- upvalues: v24 (ref), l_v332_0 (copy), v139 (ref), v50 (ref)
                 if v24:IsSmallTouchScreen() and l_v332_0:getCurrentShortcutBar():get() ~= nil then
                     v139.PageViewPadding.PaddingBottom = UDim.new(0, v50.ExtraPageBottomPaddingMobile);
@@ -1670,7 +1671,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         });
         v139.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar;
         v139.lastPageViewCanvasPosition = v139.PageView.CanvasPosition;
-        v139.handelPageViewScroll = function() --[[ Line: 1764 ]]
+        v139.handelPageViewScroll = function() --[[ Line: 1765 ]]
             -- upvalues: v139 (ref)
             local v334 = math.clamp(v139.lastPageViewCanvasPosition.Y, 0, v139.PageView.MaxCanvasPosition.Y);
             local v335 = math.clamp(v139.PageView.CanvasPosition.Y, 0, v139.PageView.MaxCanvasPosition.Y);
@@ -1754,12 +1755,12 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             SelectionBehaviorDown = if v60.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil
         });
         if v60.FFlagTraversalPerfFixes then
-            v139.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function() --[[ Line: 1865 ]]
+            v139.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function() --[[ Line: 1866 ]]
                 -- upvalues: v139 (ref)
                 v139.setShowBottomBarSignal(v139.BottomButtonFrame.Visible);
             end);
         end;
-        local function v338(v337) --[[ Line: 1870 ]]
+        local function v338(v337) --[[ Line: 1871 ]]
             -- upvalues: v60 (ref), v237 (ref), v139 (ref), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), l_GuiService_0 (ref)
             if v60.FFlagAddUILessMode then
                 v237(false, nil, nil, nil, v337);
@@ -1794,7 +1795,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         });
         if v60.FFlagEnableSystemScrimInSettingsHub then
             local v339 = require(l_CorePackages_0.Workspace.Packages.SystemScrim).SystemScrimSignalStore(false);
-            v339.backgroundScrimActivated.Event:Connect(function() --[[ Line: 1919 ]]
+            v339.backgroundScrimActivated.Event:Connect(function() --[[ Line: 1920 ]]
                 -- upvalues: v60 (ref), v139 (ref), l_Constants_0 (ref), v338 (copy)
                 if v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 then
                     v139:GetExperienceControlStore().onResume(l_Constants_0.AnalyticsResumeShieldSource);
@@ -1805,14 +1806,14 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 end;
             end);
             local l_v339_0 = v339 --[[ copy: 15 -> 20 ]];
-            v139.Shield:GetPropertyChangedSignal("Visible"):Connect(function() --[[ Line: 1927 ]]
+            v139.Shield:GetPropertyChangedSignal("Visible"):Connect(function() --[[ Line: 1928 ]]
                 -- upvalues: l_v339_0 (copy), v139 (ref)
                 l_v339_0.setTransparency(1);
                 l_v339_0.setAutoDismiss(true);
                 l_v339_0.setVisibility(v139.Shield.Visible);
             end);
         end;
-        v139.Shield.Activated:Connect(function() --[[ Line: 1934 ]]
+        v139.Shield.Activated:Connect(function() --[[ Line: 1935 ]]
             -- upvalues: v60 (ref), v139 (ref), l_Constants_0 (ref), v338 (copy)
             if v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 then
                 v139:GetExperienceControlStore().onResume(l_Constants_0.AnalyticsResumeShieldSource);
@@ -1823,7 +1824,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end);
         if v60.FFlagSettingsHubIndependentBackgroundVisibility then
-            v139.DarkenBackground.Activated:Connect(function() --[[ Line: 1944 ]]
+            v139.DarkenBackground.Activated:Connect(function() --[[ Line: 1945 ]]
                 -- upvalues: v60 (ref), v139 (ref), l_Constants_0 (ref), v338 (copy), l_InExperienceAppChatModal_0 (ref)
                 if v60.FFlagRelocateMobileMenuButtons and v60.FIntRelocateMobileMenuButtonsVariant ~= 0 then
                     v139:GetExperienceControlStore().onResume(l_Constants_0.AnalyticsResumeShieldSource);
@@ -1834,7 +1835,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end);
         end;
         if not v60.FFlagRelocateMobileMenuButtons or v60.FIntRelocateMobileMenuButtonsVariant == 0 then
-            local function v341() --[[ Line: 1955 ]]
+            local function v341() --[[ Line: 1956 ]]
                 -- upvalues: v60 (ref), v139 (ref), v167 (ref), v104 (ref)
                 if v60.FFlagPreventHiddenSwitchPage and v139:GetVisibility() == false then
                     return;
@@ -1857,7 +1858,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     if v60.FFlagEnableConsoleExpControls and v60.ChromeEnabled then nil else Enum.KeyCode.ButtonX
                 }, v341);
             end;
-            local function v342() --[[ Line: 1979 ]]
+            local function v342() --[[ Line: 1980 ]]
                 -- upvalues: v225 (ref), v139 (ref), v167 (ref)
                 if v225 then
                     v139:AddToMenuStack(v139.Pages.CurrentPage);
@@ -1871,11 +1872,11 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 Enum.KeyCode.R, 
                 if v60.FFlagEnableConsoleExpControls and v60.ChromeEnabled then nil else Enum.KeyCode.ButtonY
             }, v342);
-            local function v344() --[[ Line: 1995 ]]
+            local function v344() --[[ Line: 1996 ]]
                 -- upvalues: v338 (copy), l_Constants_0 (ref)
                 v338(l_Constants_0.AnalyticsResumeButtonSource);
             end;
-            local function v345() --[[ Line: 1998 ]]
+            local function v345() --[[ Line: 1999 ]]
                 -- upvalues: v338 (copy), l_Constants_0 (ref)
                 v338(l_Constants_0.AnalyticsResumeGamepadSource);
             end;
@@ -1885,7 +1886,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             }, v345);
         end;
         if v60.FFlagAddSwitchTabHintsToIEM then
-            local function v348(v346) --[[ Line: 2008 ]] --[[ Name: MountSwitchTabHint ]]
+            local function v348(v346) --[[ Line: 2009 ]] --[[ Name: MountSwitchTabHint ]]
                 -- upvalues: l_Create_0 (ref), v15 (ref), v14 (ref), l_FoundationProvider_0 (ref), v16 (ref), v23 (ref), l_SwitchTabHint_0 (ref)
                 local v347 = l_Create_0("Frame")({
                     Name = "SwitchTabHintContainer", 
@@ -1975,23 +1976,23 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 Position = UDim2.new(0.16, 0, 0.18, 0), 
                 Parent = v139.HubBarHomeButton
             });
-            v139.HubBarHomeButton:GetPropertyChangedSignal("AbsoluteSize"):Connect(function() --[[ Line: 2118 ]]
+            v139.HubBarHomeButton:GetPropertyChangedSignal("AbsoluteSize"):Connect(function() --[[ Line: 2119 ]]
                 -- upvalues: v139 (ref)
                 local v349 = v139.HubBarHomeButton.AbsoluteSize.X + 10;
                 v139.HubBarContainer.Size = UDim2.new(1, -v349, 1, 0);
                 v139.HubBarContainer.Position = UDim2.new(0, v349, 0, 0);
             end);
-            v139.HubBarHomeButton.MouseEnter:Connect(function() --[[ Line: 2123 ]]
+            v139.HubBarHomeButton.MouseEnter:Connect(function() --[[ Line: 2124 ]]
                 -- upvalues: v139 (ref), v50 (ref)
                 v139.HubBarHomeButton.BackgroundColor3 = v50.color("HubBarHomeButtonHover");
                 v139.HubBarHomeButton.BackgroundTransparency = v50.transparency("HubBarHomeButtonTransparencyHover");
             end);
-            v139.HubBarHomeButton.MouseLeave:Connect(function() --[[ Line: 2127 ]]
+            v139.HubBarHomeButton.MouseLeave:Connect(function() --[[ Line: 2128 ]]
                 -- upvalues: v139 (ref), v50 (ref)
                 v139.HubBarHomeButton.BackgroundColor3 = v50.color("HubBarHomeButton");
                 v139.HubBarHomeButton.BackgroundTransparency = v50.transparency("HubBarHomeButtonTransparency");
             end);
-            local function v350() --[[ Line: 2132 ]]
+            local function v350() --[[ Line: 2133 ]]
                 -- upvalues: v139 (ref), v167 (ref)
                 v139:AddToMenuStack(v139.Pages.CurrentPage);
                 v139.HubBar.Visible = false;
@@ -2003,13 +2004,13 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         if l_isSubjectToDesktopPolicies_0() then
             v139.FullScreenTitleBar = v87.mount({}, v139.Shield, "FullScreenTitleBar");
         end;
-        local function v351() --[[ Line: 2147 ]] --[[ Name: cameraViewportChanged ]]
+        local function v351() --[[ Line: 2148 ]] --[[ Name: cameraViewportChanged ]]
             -- upvalues: v50 (ref), v24 (ref)
             v50.viewportResized();
             v24:FireOnResized();
         end;
         local v352 = nil;
-        local function v354(v353) --[[ Line: 2153 ]] --[[ Name: onWorkspaceChanged ]]
+        local function v354(v353) --[[ Line: 2154 ]] --[[ Name: onWorkspaceChanged ]]
             -- upvalues: v50 (ref), v24 (ref), v352 (ref), v351 (copy)
             if v353 == "CurrentCamera" then
                 v50.viewportResized();
@@ -2028,7 +2029,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         v352 = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(v351);
         workspace.Changed:Connect(v354);
     end;
-    local function v362() --[[ Line: 2165 ]] --[[ Name: resizeBottomBarButtons ]]
+    local function v362() --[[ Line: 2166 ]] --[[ Name: resizeBottomBarButtons ]]
         -- upvalues: v139 (copy), v60 (ref)
         local l_X_0 = v139.BottomButtonFrame.AbsoluteSize.X;
         local v357 = #v139.BottomBarButtons;
@@ -2048,9 +2049,9 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    local function v382() --[[ Line: 2188 ]] --[[ Name: onScreenSizeChanged ]]
+    local function v382() --[[ Line: 2189 ]] --[[ Name: onScreenSizeChanged ]]
         -- upvalues: v139 (copy), v60 (ref), v24 (ref), v50 (ref), v253 (copy), v254 (copy), l_RobloxGui_0 (ref), v10 (ref), l_VRService_0 (ref), l_RunService_0 (ref), v156 (copy), v161 (copy), v153 (copy), v167 (copy), v362 (copy)
-        local function _() --[[ Line: 2189 ]] --[[ Name: getBackBarVisible ]]
+        local function _() --[[ Line: 2190 ]] --[[ Name: getBackBarVisible ]]
             -- upvalues: v139 (ref)
             if not v139.BackBarRef:getValue() then
                 return false;
@@ -2058,7 +2059,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 return v139.BackBarRef:getValue().Visible;
             end;
         end;
-        local function _() --[[ Line: 2196 ]] --[[ Name: getFrontBarVisible ]]
+        local function _() --[[ Line: 2197 ]] --[[ Name: getFrontBarVisible ]]
             -- upvalues: v139 (ref)
             if not v139.FrontBarRef:getValue() then
                 return false;
@@ -2229,11 +2230,11 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v362();
         end;
     end;
-    local function _() --[[ Line: 2498 ]] --[[ Name: onPreferredTransparencyChanged ]]
+    local function _() --[[ Line: 2499 ]] --[[ Name: onPreferredTransparencyChanged ]]
         -- upvalues: v139 (copy), v50 (ref), l_GuiService_0 (ref)
         v139.MenuContainer.BackgroundTransparency = v50.transparency("MenuContainer", 1) * l_GuiService_0.PreferredTransparency;
     end;
-    local function v387(v384, v385, _) --[[ Line: 2502 ]] --[[ Name: toggleQuickProfilerFromHotkey ]]
+    local function v387(v384, v385, _) --[[ Line: 2503 ]] --[[ Name: toggleQuickProfilerFromHotkey ]]
         -- upvalues: l_UserInputService_0 (ref), l_GameSettings_0 (ref)
         if not l_UserInputService_0:IsKeyDown(Enum.KeyCode.LeftControl) and not l_UserInputService_0:IsKeyDown(Enum.KeyCode.RightControl) then
             return;
@@ -2244,7 +2245,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function v391(v388, v389, _) --[[ Line: 2518 ]] --[[ Name: toggleDevConsole ]]
+    local function v391(v388, v389, _) --[[ Line: 2519 ]] --[[ Name: toggleDevConsole ]]
         -- upvalues: v82 (ref)
         if v388 == "Open Dev Console" and v389 and v389 == Enum.UserInputState.Begin then
             v82:ToggleVisibility();
@@ -2265,7 +2266,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         [Enum.UserInputType.MouseButton1] = false, 
         [Enum.UserInputType.MouseButton2] = false
     };
-    l_UserInputService_0.InputBegan:connect(function(v394) --[[ Line: 2544 ]]
+    l_UserInputService_0.InputBegan:connect(function(v394) --[[ Line: 2545 ]]
         -- upvalues: v393 (copy), l_v10_0 (ref)
         if v394.UserInputType and v393[v394.UserInputType] ~= nil then
             l_v10_0 = v393[v394.UserInputType];
@@ -2277,7 +2278,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end);
-    l_UserInputService_0.InputChanged:connect(function(v395) --[[ Line: 2551 ]]
+    l_UserInputService_0.InputChanged:connect(function(v395) --[[ Line: 2552 ]]
         -- upvalues: l_v10_0 (ref)
         if v395.KeyCode == Enum.KeyCode.Thumbstick1 or v395.KeyCode == Enum.KeyCode.Thumbstick2 then
             if v395.Position.magnitude >= 0.25 then
@@ -2289,7 +2290,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
     end);
     local v396 = nil;
-    local function v404(v397, v398) --[[ Line: 2563 ]]
+    local function v404(v397, v398) --[[ Line: 2564 ]]
         -- upvalues: v60 (ref), v139 (copy), v396 (ref)
         if v60.FFlagInExperienceReportClosingBugfix and not v139.HubBar.Visible then
             return;
@@ -2319,7 +2320,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    local function v409(_, v406, v407) --[[ Line: 2590 ]]
+    local function v409(_, v406, v407) --[[ Line: 2591 ]]
         -- upvalues: v404 (copy)
         if v406 ~= Enum.UserInputState.Begin then
             return;
@@ -2334,7 +2335,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function v412(v410) --[[ Line: 2603 ]]
+    local function v412(v410) --[[ Line: 2604 ]]
         -- upvalues: l_UserInputService_0 (ref), v404 (copy)
         if v410.KeyCode == Enum.KeyCode.Tab then
             local v411 = 0;
@@ -2342,7 +2343,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v404(v411, true);
         end;
     end;
-    local function v417(_, v414, v415) --[[ Line: 2616 ]]
+    local function v417(_, v414, v415) --[[ Line: 2617 ]]
         -- upvalues: v139 (copy)
         if v414 ~= Enum.UserInputState.Begin then
             return;
@@ -2364,7 +2365,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     if v105 then
         v224();
     end;
-    v396 = function(v418) --[[ Line: 2640 ]] --[[ Name: GetHeaderPosition ]]
+    v396 = function(v418) --[[ Line: 2641 ]] --[[ Name: GetHeaderPosition ]]
         -- upvalues: v139 (copy)
         local l_v418_TabHeader_0 = v418:GetTabHeader();
         if not l_v418_TabHeader_0 then
@@ -2379,7 +2380,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
     end;
     local v422 = nil;
-    v422 = function(v423, v424) --[[ Line: 2654 ]]
+    v422 = function(v423, v424) --[[ Line: 2655 ]]
         -- upvalues: v422 (ref)
         if v424:IsA("GuiObject") then
             v424.ZIndex = v423;
@@ -2389,7 +2390,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    local function v431(v427, v428) --[[ Line: 2664 ]] --[[ Name: AddHeader ]]
+    local function v431(v427, v428) --[[ Line: 2665 ]] --[[ Name: AddHeader ]]
         -- upvalues: v139 (copy), v422 (ref)
         if not v427 then
             return;
@@ -2405,7 +2406,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    local function v437(v432) --[[ Line: 2680 ]] --[[ Name: RemoveHeader ]]
+    local function v437(v432) --[[ Line: 2681 ]] --[[ Name: RemoveHeader ]]
         -- upvalues: v139 (copy)
         local v433 = nil;
         for v434 = 1, #v139.TabHeaders do
@@ -2423,19 +2424,19 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
         v432.Parent = nil;
     end;
-    v139.AddPage = function(_, v439) --[[ Line: 2703 ]] --[[ Name: AddPage ]]
+    v139.AddPage = function(_, v439) --[[ Line: 2704 ]] --[[ Name: AddPage ]]
         -- upvalues: v139 (copy), v431 (copy), v60 (ref), v153 (copy)
         v139.Pages.PageTable[v439] = true;
         v431(v439:GetTabHeader(), v439);
         v439.Page.Position = UDim2.new(v439.TabPosition - 1, 0, 0, 0);
         if v60.FFlagIEMFocusNavToButtons then
-            v439.LastSelectableObjectsUpdated:connect(function() --[[ Line: 2708 ]]
+            v439.LastSelectableObjectsUpdated:connect(function() --[[ Line: 2709 ]]
                 -- upvalues: v153 (ref), v439 (copy)
                 v153(v439);
             end);
         end;
     end;
-    v139.RemovePage = function(_, v441) --[[ Line: 2714 ]] --[[ Name: RemovePage ]]
+    v139.RemovePage = function(_, v441) --[[ Line: 2715 ]] --[[ Name: RemovePage ]]
         -- upvalues: v139 (copy), v437 (copy), v60 (ref)
         v139.Pages.PageTable[v441] = nil;
         v437(v441:GetTabHeader());
@@ -2447,7 +2448,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     v139.defaultPageViewClipperSize = v139.PageViewClipper.Size;
     v139.showStickyBottomBar = true;
     v139.resetPageViewClipperSize = false;
-    animateBottomBarComplete = function() --[[ Line: 2727 ]] --[[ Name: animateBottomBarComplete ]]
+    animateBottomBarComplete = function() --[[ Line: 2728 ]] --[[ Name: animateBottomBarComplete ]]
         -- upvalues: v139 (copy)
         if v139.resetPageViewClipperSize then
             v139.PageViewClipper.Size = v139.defaultPageViewClipperSize;
@@ -2455,7 +2456,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
         v139.bottomBarAnimating = false;
     end;
-    v139.animateInBottomBar = function(_) --[[ Line: 2736 ]] --[[ Name: animateInBottomBar ]]
+    v139.animateInBottomBar = function(_) --[[ Line: 2737 ]] --[[ Name: animateInBottomBar ]]
         -- upvalues: v139 (copy)
         if v139.bottomBarAnimating or v139.showStickyBottomBar == true then
             return;
@@ -2468,7 +2469,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    v139.animateOutBottomBar = function(_) --[[ Line: 2764 ]] --[[ Name: animateOutBottomBar ]]
+    v139.animateOutBottomBar = function(_) --[[ Line: 2765 ]] --[[ Name: animateOutBottomBar ]]
         -- upvalues: v139 (copy)
         if v139.bottomBarAnimating or v139.showStickyBottomBar == false then
             return;
@@ -2481,7 +2482,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    v139.HideBar = function(_) --[[ Line: 2792 ]] --[[ Name: HideBar ]]
+    v139.HideBar = function(_) --[[ Line: 2793 ]] --[[ Name: HideBar ]]
         -- upvalues: v139 (copy), v167 (copy)
         v139.HubBar.Visible = false;
         v139.PageViewClipper.Visible = false;
@@ -2489,7 +2490,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v167();
         end;
     end;
-    v139.ShowBar = function(_) --[[ Line: 2800 ]] --[[ Name: ShowBar ]]
+    v139.ShowBar = function(_) --[[ Line: 2801 ]] --[[ Name: ShowBar ]]
         -- upvalues: v139 (copy), v156 (copy), v161 (copy), v60 (ref), v153 (copy)
         v139.HubBar.Visible = true;
         v139.PageViewClipper.Visible = true;
@@ -2500,14 +2501,14 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    v139.ScrollPixels = function(_, v449) --[[ Line: 2811 ]] --[[ Name: ScrollPixels ]]
+    v139.ScrollPixels = function(_, v449) --[[ Line: 2812 ]] --[[ Name: ScrollPixels ]]
         -- upvalues: v139 (copy)
         local l_Y_1 = v139.PageView.CanvasPosition.Y;
         local v451 = v139.PageView.CanvasSize.Y.Offset - v139.PageViewClipper.AbsoluteSize.y;
         local v452 = math.max(0, (math.min(l_Y_1 + v449, v451)));
         v139.PageView.CanvasPosition = Vector2.new(0, v452);
     end;
-    v139.ScrollToFrame = function(_, v454, v455) --[[ Line: 2819 ]] --[[ Name: ScrollToFrame ]]
+    v139.ScrollToFrame = function(_, v454, v455) --[[ Line: 2820 ]] --[[ Name: ScrollToFrame ]]
         -- upvalues: l_v10_0 (ref), v139 (copy), l_Constants_0 (ref)
         if l_v10_0 or v455 then
             local v456 = v454.AbsolutePosition.y - v139.Pages.CurrentPage.Page.AbsolutePosition.y;
@@ -2523,7 +2524,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    v139.GetFirstPageWithTabHeader = function(_) --[[ Line: 2834 ]] --[[ Name: GetFirstPageWithTabHeader ]]
+    v139.GetFirstPageWithTabHeader = function(_) --[[ Line: 2835 ]] --[[ Name: GetFirstPageWithTabHeader ]]
         -- upvalues: v139 (copy)
         local v459 = nil;
         for v460, _ in pairs(v139.Pages.PageTable) do
@@ -2539,7 +2540,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return v459;
         end;
     end;
-    v139.InitInPage = function(_, v463) --[[ Line: 2853 ]] --[[ Name: InitInPage ]]
+    v139.InitInPage = function(_, v463) --[[ Line: 2854 ]] --[[ Name: InitInPage ]]
         -- upvalues: v139 (copy), v60 (ref), v24 (ref), v156 (copy), v161 (copy), v153 (copy), v50 (ref), v144 (ref)
         local l_TabPosition_0 = v463.TabPosition;
         for v465, _ in pairs(v139.Pages.PageTable) do
@@ -2570,7 +2571,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         if v50.UseStickyBar() == false then
             local l_Size_1 = v139.Pages.CurrentPage:GetSize();
             v139.PageView.CanvasSize = UDim2.new(0, 0, 0, l_Size_1.Y);
-            v144 = v139.Pages.CurrentPage.Page.Changed:connect(function(v469) --[[ Line: 2895 ]]
+            v144 = v139.Pages.CurrentPage.Page.Changed:connect(function(v469) --[[ Line: 2896 ]]
                 -- upvalues: v139 (ref)
                 if v469 == "AbsoluteSize" then
                     local l_Size_2 = v139.Pages.CurrentPage:GetSize();
@@ -2579,7 +2580,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end);
         end;
     end;
-    v139.SwitchToPage = function(_, v472, v473, v474, v475, _, v477) --[[ Line: 2904 ]] --[[ Name: SwitchToPage ]]
+    v139.SwitchToPage = function(_, v472, v473, v474, v475, _, v477) --[[ Line: 2905 ]] --[[ Name: SwitchToPage ]]
         -- upvalues: v139 (copy), v60 (ref), v106 (ref), v24 (ref), v50 (ref), v156 (copy), l_RobloxGui_0 (ref), v144 (ref), v161 (copy), v153 (copy), v382 (copy), v12 (ref), l_IXPServiceWrapper_0 (ref), l_RbxAnalyticsService_0 (ref), l_Constants_0 (ref), v59 (ref), l_ExperienceMenuSessionManagerInstance_0 (ref)
         if v139.Pages.PageTable[v472] == nil then
             return;
@@ -2668,7 +2669,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             if v50.UseStickyBar() == false then
                 local l_Size_5 = v139.Pages.CurrentPage:GetSize();
                 v139.PageView.CanvasSize = UDim2.new(0, 0, 0, l_Size_5.Y);
-                v144 = v139.Pages.CurrentPage.Page.Changed:connect(function(v492) --[[ Line: 3016 ]]
+                v144 = v139.Pages.CurrentPage.Page.Changed:connect(function(v492) --[[ Line: 3017 ]]
                     -- upvalues: v139 (ref), v60 (ref), v382 (ref)
                     if v492 == "AbsoluteSize" then
                         local l_Size_6 = v139.Pages.CurrentPage:GetSize();
@@ -2722,20 +2723,20 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    v139.SetActive = function(_, v496) --[[ Line: 3082 ]] --[[ Name: SetActive ]]
+    v139.SetActive = function(_, v496) --[[ Line: 3083 ]] --[[ Name: SetActive ]]
         -- upvalues: v139 (copy)
         v139.Active = v496;
         if v139.Pages.CurrentPage then
             v139.Pages.CurrentPage.Active = v496;
         end;
     end;
-    clearMenuStack = function() --[[ Line: 3090 ]] --[[ Name: clearMenuStack ]]
+    clearMenuStack = function() --[[ Line: 3091 ]] --[[ Name: clearMenuStack ]]
         -- upvalues: v139 (copy)
         while v139.MenuStack and #v139.MenuStack > 0 do
             v139:PopMenu();
         end;
     end;
-    setOverrideMouseIconBehavior = function() --[[ Line: 3096 ]] --[[ Name: setOverrideMouseIconBehavior ]]
+    setOverrideMouseIconBehavior = function() --[[ Line: 3097 ]] --[[ Name: setOverrideMouseIconBehavior ]]
         -- upvalues: v139 (copy), l_UserInputService_0 (ref), l_VRService_0 (ref), l_MouseIconOverrideService_0 (ref), v54 (ref)
         if not v139.Visible then
             return;
@@ -2747,7 +2748,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    checkLeaveGameUpsell = function() --[[ Line: 3108 ]] --[[ Name: checkLeaveGameUpsell ]]
+    checkLeaveGameUpsell = function() --[[ Line: 3109 ]] --[[ Name: checkLeaveGameUpsell ]]
         -- upvalues: v60 (ref), v139 (copy), v104 (ref), l_default_0 (ref), v56 (ref)
         if not v60.GetFFlagEnableLeaveGameUpsellEntrypoint() then
             return;
@@ -2761,7 +2762,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v139.checkedUpsell = true;
                 v139.leaveGameUpsellProp = l_default_0:FetchPhoneVerificationUpsell(v104.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, v139.sessionStartTime, true);
                 v139.LeaveGameUpsellPage:SetUpsellProp(v139.leaveGameUpsellProp);
-                task.delay(v56, function() --[[ Line: 3129 ]]
+                task.delay(v56, function() --[[ Line: 3130 ]]
                     -- upvalues: v139 (ref)
                     v139.checkedUpsell = false;
                 end);
@@ -2780,7 +2781,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     end;
     local v498 = nil;
     if v60.FFlagSettingsHubIndependentBackgroundVisibility then
-        v498 = function(v499, v500) --[[ Line: 3144 ]]
+        v498 = function(v499, v500) --[[ Line: 3145 ]]
             -- upvalues: v139 (copy), l_InExperienceAppChatModal_0 (ref), l_Constants_0 (ref), v60 (ref), v50 (ref), l_TweenService_0 (ref)
             if not v139.DarkenBackground then
                 return;
@@ -2817,7 +2818,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end;
     end;
-    v237 = function(v505, v506, v507, _, v509) --[[ Line: 3191 ]] --[[ Name: setVisibilityInternal ]]
+    v237 = function(v505, v506, v507, _, v509) --[[ Line: 3192 ]] --[[ Name: setVisibilityInternal ]]
         -- upvalues: v60 (ref), v139 (copy), v27 (ref), l_RobloxGui_0 (ref), v498 (ref), v382 (copy), v24 (ref), v253 (copy), l_GuiService_0 (ref), v50 (ref), l_ExperienceMenuSessionManagerInstance_0 (ref), l_Constants_0 (ref), l_GameSettings_0 (ref), l_TweenService_0 (ref), l_ContextActionService_0 (ref), v409 (copy), v417 (copy), v156 (copy), v161 (copy), v153 (copy), l_UserInputService_0 (ref), v412 (copy), v83 (ref), l_VRService_0 (ref), l_MouseIconOverrideService_0 (ref), v54 (ref), v167 (copy), v120 (ref), l_InExperienceAppChatModal_0 (ref), v84 (ref), v254 (copy), l_SHIELD_INACTIVE_POSITION_0 (ref), l_RbxAnalyticsService_0 (ref)
         local v510 = nil;
         v510 = if v60.isInExperienceUIVREnabled then v506 or not v139.SettingsUIDelegate:isOpenCloseAnimationAllowed() else v506;
@@ -2853,7 +2854,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v498(v139.Visible, v510);
         end;
         if v139.Visible then
-            v139.ResizedConnection = l_RobloxGui_0.Changed:connect(function(v513) --[[ Line: 3241 ]]
+            v139.ResizedConnection = l_RobloxGui_0.Changed:connect(function(v513) --[[ Line: 3242 ]]
                 -- upvalues: v382 (ref)
                 if v513 == "AbsoluteSize" then
                     v382();
@@ -2869,20 +2870,20 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
             if not v60.FFlagAddTraversalBackButton then
                 if v139.BackBarRef:getValue() then
-                    v139.BackBarVisibleConnection = v139.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function() --[[ Line: 3261 ]]
+                    v139.BackBarVisibleConnection = v139.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function() --[[ Line: 3262 ]]
                         -- upvalues: v382 (ref)
                         v382();
                     end);
                 end;
                 if v60.EngineFeatureTeleportHistoryButtons and v139.FrontBarRef:getValue() then
-                    v139.FrontBarVisibleConnection = v139.FrontBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function() --[[ Line: 3266 ]]
+                    v139.FrontBarVisibleConnection = v139.FrontBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function() --[[ Line: 3267 ]]
                         -- upvalues: v382 (ref)
                         v382();
                     end);
                 end;
             end;
             v382();
-            v139.PreferredTransparencyChangedConnection = l_GuiService_0:GetPropertyChangedSignal("PreferredTransparency"):connect(function() --[[ Line: 3273 ]]
+            v139.PreferredTransparencyChangedConnection = l_GuiService_0:GetPropertyChangedSignal("PreferredTransparency"):connect(function() --[[ Line: 3274 ]]
                 -- upvalues: v139 (ref), v50 (ref), l_GuiService_0 (ref)
                 v139.MenuContainer.BackgroundTransparency = v50.transparency("MenuContainer", 1) * l_GuiService_0.PreferredTransparency;
             end);
@@ -2922,7 +2923,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     };
                     v139.ReducedMotionOpenTween = l_TweenService_0:Create(v139.CanvasGroup, v515, v516);
                     v139.ReducedMotionOpenTween:Play();
-                    v139.ReducedMotionOpenTween.Completed:Connect(function(v517) --[[ Line: 3322 ]]
+                    v139.ReducedMotionOpenTween.Completed:Connect(function(v517) --[[ Line: 3323 ]]
                         -- upvalues: v139 (ref)
                         if v517 == Enum.PlaybackState.Completed then
                             v139.Shield.Parent = v139.ClippingShield;
@@ -2934,7 +2935,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                         v27.menuOpenComplete();
                     end;
                 else
-                    v139.Shield:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Quart, v514, true, function() --[[ Line: 3341 ]]
+                    v139.Shield:TweenPosition(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Quart, v514, true, function() --[[ Line: 3342 ]]
                         -- upvalues: v60 (ref), v27 (ref)
                         if v60.FFlagEnableInGameMenuDurationLogger then
                             v27.menuOpenComplete();
@@ -2952,11 +2953,11 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     v139.DarkenBackgroundTween:Play();
                 end;
             end;
-            local function v519() --[[ Line: 3365 ]]
+            local function v519() --[[ Line: 3366 ]]
 
             end;
             if v60.isInExperienceUIVREnabled then
-                v519 = function(v520, v521, v522) --[[ Line: 3367 ]]
+                v519 = function(v520, v521, v522) --[[ Line: 3368 ]]
                     -- upvalues: v139 (ref)
                     if v139.SettingsUIDelegate:isInputEventNeededBySettings(v520, v521, v522) then
                         return Enum.ContextActionResult.Pass;
@@ -3030,7 +3031,12 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 end;
             end;
             if v60.ChromeEnabled and v60.FFlagEnableConsoleExpControls then
-                require(l_RobloxGui_0.Modules.Chrome.Service):setShortcutBar(require(l_RobloxGui_0.Modules.Chrome.ChromeShared.Unibar.Constants).UNIBAR_SHORTCUTBAR_ID);
+                local v525 = require(l_RobloxGui_0.Modules.Chrome.Service);
+                if v60.FFlagSetUnibarShortcutOnTopBarFocus then
+                    v525:setShortcutBar(nil);
+                else
+                    v525:setShortcutBar(require(l_RobloxGui_0.Modules.Chrome.ChromeShared.Unibar.Constants).UNIBAR_SHORTCUTBAR_ID);
+                end;
             end;
             if v60.GetFFlagEnableAppChatInExperience() and v84 then
                 v84 = false;
@@ -3058,8 +3064,8 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     v139.DarkenBackground.BackgroundTransparency = 1;
                 end;
             else
-                local v525 = if l_Constants_0 then l_Constants_0.ShieldCloseAnimationTweenTime else 0.4;
-                local function v526() --[[ Line: 3515 ]] --[[ Name: handleShieldClose ]]
+                local v526 = if l_Constants_0 then l_Constants_0.ShieldCloseAnimationTweenTime else 0.4;
+                local function v527() --[[ Line: 3520 ]] --[[ Name: handleShieldClose ]]
                     -- upvalues: v60 (ref), v139 (ref), l_GuiService_0 (ref), l_ExperienceMenuSessionManagerInstance_0 (ref), v27 (ref)
                     if not v60.FFlagAddTraversalBackButton then
                         v139.SettingsShowSignal:fire(v139.Visible);
@@ -3086,15 +3092,15 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     end;
                     v139.Shield.Parent = v139.CanvasGroup;
                     v139.CanvasGroup.Visible = true;
-                    local v527 = TweenInfo.new(0.25);
-                    local v528 = {
+                    local v528 = TweenInfo.new(0.25);
+                    local v529 = {
                         GroupTransparency = 1
                     };
-                    v139.ReducedMotionCloseTween = l_TweenService_0:Create(v139.CanvasGroup, v527, v528);
+                    v139.ReducedMotionCloseTween = l_TweenService_0:Create(v139.CanvasGroup, v528, v529);
                     v139.ReducedMotionCloseTween:Play();
-                    v139.ReducedMotionCloseTween.Completed:Connect(function(v529) --[[ Line: 3551 ]]
+                    v139.ReducedMotionCloseTween.Completed:Connect(function(v530) --[[ Line: 3556 ]]
                         -- upvalues: v139 (ref), l_SHIELD_INACTIVE_POSITION_0 (ref)
-                        if v529 == Enum.PlaybackState.Completed then
+                        if v530 == Enum.PlaybackState.Completed then
                             v139.Shield.Position = l_SHIELD_INACTIVE_POSITION_0;
                             v139.Shield.Visible = v139.Visible;
                             v139.Shield.Parent = v139.ClippingShield;
@@ -3102,23 +3108,28 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                         end;
                         v139.CanvasGroup.Visible = false;
                     end);
-                    v526();
+                    v527();
                 else
                     if v60.ChromeEnabled and v60.FFlagEnableConsoleExpControls then
-                        require(l_RobloxGui_0.Modules.Chrome.Service):setShortcutBar(require(l_RobloxGui_0.Modules.Chrome.ChromeShared.Unibar.Constants).UNIBAR_SHORTCUTBAR_ID);
+                        local v531 = require(l_RobloxGui_0.Modules.Chrome.Service);
+                        if v60.FFlagSetUnibarShortcutOnTopBarFocus then
+                            v531:setShortcutBar(nil);
+                        else
+                            v531:setShortcutBar(require(l_RobloxGui_0.Modules.Chrome.ChromeShared.Unibar.Constants).UNIBAR_SHORTCUTBAR_ID);
+                        end;
                     end;
-                    v139.Shield:TweenPosition(l_SHIELD_INACTIVE_POSITION_0, Enum.EasingDirection.In, Enum.EasingStyle.Quad, v525, true, function() --[[ Line: 3575 ]]
-                        -- upvalues: v139 (ref), v526 (copy)
+                    v139.Shield:TweenPosition(l_SHIELD_INACTIVE_POSITION_0, Enum.EasingDirection.In, Enum.EasingStyle.Quad, v526, true, function() --[[ Line: 3584 ]]
+                        -- upvalues: v139 (ref), v527 (copy)
                         v139.Shield.Visible = v139.Visible;
-                        v526();
+                        v527();
                     end);
                 end;
                 if not v60.FFlagSettingsHubIndependentBackgroundVisibility and v139.DarkenBackground then
-                    local v530 = TweenInfo.new(v525, Enum.EasingStyle.Quart, Enum.EasingDirection.Out);
+                    local v532 = TweenInfo.new(v526, Enum.EasingStyle.Quart, Enum.EasingDirection.Out);
                     if v139.DarkenBackgroundTween then
                         v139.DarkenBackgroundTween:Cancel();
                     end;
-                    v139.DarkenBackgroundTween = l_TweenService_0:Create(v139.DarkenBackground, v530, {
+                    v139.DarkenBackgroundTween = l_TweenService_0:Create(v139.DarkenBackground, v532, {
                         BackgroundTransparency = 1
                     });
                     v139.DarkenBackgroundTween:Play();
@@ -3155,63 +3166,63 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v139.ShareGamePage:ClearShareInviteLink(v139.ShareGameApp);
             end;
         end;
-        local v531 = {
+        local v533 = {
             source = v509, 
             playsessionid = v139.playSessionId, 
             universeid = tostring(game.GameId)
         };
         if v511 then
             if v505 then
-                l_RbxAnalyticsService_0:SetRBXEventStream(l_Constants_0.AnalyticsTargetName, l_Constants_0.AnalyticsMenuOpenName, l_Constants_0.AnalyticsMenuActionName, v531);
+                l_RbxAnalyticsService_0:SetRBXEventStream(l_Constants_0.AnalyticsTargetName, l_Constants_0.AnalyticsMenuOpenName, l_Constants_0.AnalyticsMenuActionName, v533);
                 if v60.GetFFlagEnableLeaveGameUpsellEntrypoint() then
                     task.spawn(checkLeaveGameUpsell);
                     return;
                 end;
             else
-                l_RbxAnalyticsService_0:SetRBXEventStream(l_Constants_0.AnalyticsTargetName, l_Constants_0.AnalyticsMenuCloseName, l_Constants_0.AnalyticsMenuActionName, v531);
+                l_RbxAnalyticsService_0:SetRBXEventStream(l_Constants_0.AnalyticsTargetName, l_Constants_0.AnalyticsMenuCloseName, l_Constants_0.AnalyticsMenuActionName, v533);
             end;
         end;
     end;
-    v139.SetVisibility = function(_, v533, v534, v535, v536, v537) --[[ Line: 3662 ]] --[[ Name: SetVisibility ]]
+    v139.SetVisibility = function(_, v535, v536, v537, v538, v539) --[[ Line: 3671 ]] --[[ Name: SetVisibility ]]
         -- upvalues: v139 (copy), v237 (ref)
-        if v139.Visible == v533 then
+        if v139.Visible == v535 then
             return;
         else
-            v237(v533, v534, v535, v536, v537);
+            v237(v535, v536, v537, v538, v539);
             return;
         end;
     end;
-    v139.SetBackgroundVisibility = function(_, v539, v540) --[[ Line: 3668 ]] --[[ Name: SetBackgroundVisibility ]]
+    v139.SetBackgroundVisibility = function(_, v541, v542) --[[ Line: 3677 ]] --[[ Name: SetBackgroundVisibility ]]
         -- upvalues: v139 (copy), v498 (ref)
-        if v139.DarkenBackground.Visible == v539 then
+        if v139.DarkenBackground.Visible == v541 then
             return;
         else
-            v498(v539, v540);
+            v498(v541, v542);
             return;
         end;
     end;
-    v139.GetVisibility = function(_) --[[ Line: 3674 ]] --[[ Name: GetVisibility ]]
+    v139.GetVisibility = function(_) --[[ Line: 3683 ]] --[[ Name: GetVisibility ]]
         -- upvalues: v139 (copy)
         return v139.Visible;
     end;
-    v139.ToggleVisibility = function(_, v543, v544) --[[ Line: 3678 ]] --[[ Name: ToggleVisibility ]]
+    v139.ToggleVisibility = function(_, v545, v546) --[[ Line: 3687 ]] --[[ Name: ToggleVisibility ]]
         -- upvalues: v237 (ref), v139 (copy)
-        v237(not v139.Visible, nil, nil, v543, v544);
+        v237(not v139.Visible, nil, nil, v545, v546);
     end;
-    v139.AddToMenuStack = function(_, v546) --[[ Line: 3682 ]] --[[ Name: AddToMenuStack ]]
+    v139.AddToMenuStack = function(_, v548) --[[ Line: 3691 ]] --[[ Name: AddToMenuStack ]]
         -- upvalues: v139 (copy)
-        if v139.MenuStack[#v139.MenuStack] ~= v546 then
-            v139.MenuStack[#v139.MenuStack + 1] = v546;
+        if v139.MenuStack[#v139.MenuStack] ~= v548 then
+            v139.MenuStack[#v139.MenuStack + 1] = v548;
         end;
     end;
-    v139.InviteToGame = function(_) --[[ Line: 3688 ]] --[[ Name: InviteToGame ]]
+    v139.InviteToGame = function(_) --[[ Line: 3697 ]] --[[ Name: InviteToGame ]]
         -- upvalues: v60 (ref), l_IXPServiceWrapper_0 (ref), v98 (ref), v75 (ref), l_UserInputService_0 (ref), v74 (ref), v139 (copy), v97 (ref), v99 (ref), l_RobloxGui_0 (ref)
-        local v548 = false;
+        local v550 = false;
         if v60.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and v60.FFlagLuaEnableGameInviteModalSettingsHub then
-            local v549 = v60.GetFStringGameInviteMenuLayer();
-            local l_l_IXPServiceWrapper_0_LayerData_0 = l_IXPServiceWrapper_0:GetLayerData(v549);
-            l_IXPServiceWrapper_0:LogUserLayerExposure(v549);
-            v548 = if l_l_IXPServiceWrapper_0_LayerData_0 then l_l_IXPServiceWrapper_0_LayerData_0.inExperienceGameInviteUXRefresh2023 == v98.UxRefresh or l_l_IXPServiceWrapper_0_LayerData_0.inExperienceGameInviteUXRefresh2023 == v98.InviteLimit else false;
+            local v551 = v60.GetFStringGameInviteMenuLayer();
+            local l_l_IXPServiceWrapper_0_LayerData_0 = l_IXPServiceWrapper_0:GetLayerData(v551);
+            l_IXPServiceWrapper_0:LogUserLayerExposure(v551);
+            v550 = if l_l_IXPServiceWrapper_0_LayerData_0 then l_l_IXPServiceWrapper_0_LayerData_0.inExperienceGameInviteUXRefresh2023 == v98.UxRefresh or l_l_IXPServiceWrapper_0_LayerData_0.inExperienceGameInviteUXRefresh2023 == v98.InviteLimit else false;
         end;
         if game:GetEngineFeature("PlatformFriendsService") and v75 and v75:IsInviteFriendsEnabled() then
             v75:ShowInviteFriendsUI();
@@ -3222,7 +3233,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     v74:PopupGameInviteUI();
                     return;
                 end;
-            elseif v548 then
+            elseif v550 then
                 v139:ToggleVisibility();
                 v97:openModal({
                     trigger = v99.Triggers.GameMenu
@@ -3238,18 +3249,18 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             return;
         end;
     end;
-    v139.PopMenu = function(_, _, v553, v554) --[[ Line: 3719 ]] --[[ Name: PopMenu ]]
+    v139.PopMenu = function(_, _, v555, v556) --[[ Line: 3728 ]] --[[ Name: PopMenu ]]
         -- upvalues: v139 (copy), l_BindableEvent_0 (copy), v60 (ref), l_RobloxGui_0 (ref)
         if v139.MenuStack and #v139.MenuStack > 0 then
-            local v555 = v139.MenuStack[#v139.MenuStack];
-            if type(v555) ~= "table" then
-                l_BindableEvent_0:Fire(v555);
+            local v557 = v139.MenuStack[#v139.MenuStack];
+            if type(v557) ~= "table" then
+                l_BindableEvent_0:Fire(v557);
             end;
             table.remove(v139.MenuStack, #v139.MenuStack);
-            v139:SwitchToPage(v139.MenuStack[#v139.MenuStack], true, 1, v553);
+            v139:SwitchToPage(v139.MenuStack[#v139.MenuStack], true, 1, v555);
             if #v139.MenuStack == 0 then
                 if v60.FFlagAddUILessMode then
-                    v139:SetVisibility(false, nil, nil, nil, v554);
+                    v139:SetVisibility(false, nil, nil, nil, v556);
                 else
                     v139:SetVisibility(false);
                 end;
@@ -3263,24 +3274,24 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             v139.MenuStack = {};
             l_BindableEvent_0:Fire();
             if v60.FFlagAddUILessMode then
-                v139:ToggleVisibility(nil, v554);
+                v139:ToggleVisibility(nil, v556);
                 return;
             else
-                v139:ToggleVisibility(v554);
+                v139:ToggleVisibility(v556);
             end;
         end;
     end;
-    v139.ShowShield = function(_) --[[ Line: 3753 ]] --[[ Name: ShowShield ]]
+    v139.ShowShield = function(_) --[[ Line: 3762 ]] --[[ Name: ShowShield ]]
         -- upvalues: l_UserInputService_0 (ref), v52 (ref), v139 (copy)
-        local v557 = 0;
-        v557 = l_UserInputService_0.VREnabled and 1 or v52;
-        v139.Shield.BackgroundTransparency = v557;
+        local v559 = 0;
+        v559 = l_UserInputService_0.VREnabled and 1 or v52;
+        v139.Shield.BackgroundTransparency = v559;
     end;
-    v139.HideShield = function(_) --[[ Line: 3763 ]] --[[ Name: HideShield ]]
+    v139.HideShield = function(_) --[[ Line: 3772 ]] --[[ Name: HideShield ]]
         -- upvalues: v139 (copy)
         v139.Shield.BackgroundTransparency = 1;
     end;
-    v139.ShowReactPage = function(_) --[[ Line: 3767 ]] --[[ Name: ShowReactPage ]]
+    v139.ShowReactPage = function(_) --[[ Line: 3776 ]] --[[ Name: ShowReactPage ]]
         -- upvalues: v139 (copy)
         if v139.reactPage then
             v139.reactPageAnalytics:openPage(v139.reactPage.name);
@@ -3288,22 +3299,22 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         v139.ReactPage.Visible = true;
         v139.Page.Visible = false;
     end;
-    v139.HideReactPage = function(_) --[[ Line: 3776 ]] --[[ Name: HideReactPage ]]
+    v139.HideReactPage = function(_) --[[ Line: 3785 ]] --[[ Name: HideReactPage ]]
         -- upvalues: v139 (copy), v60 (ref)
         if v139.reactPage then
             v139.reactPageAnalytics:closePage(v139.reactPage.name);
         end;
-        local v561 = nil;
+        local v563 = nil;
         if v60.FFlagFixFocusNavToButtonsWithIEMReact then
-            v561 = v139.ReactPage.Visible;
+            v563 = v139.ReactPage.Visible;
         end;
         v139.ReactPage.Visible = false;
         v139.Page.Visible = true;
-        if v60.FFlagCreateInExperienceMenuReact and v60.FFlagIEMFocusNavToButtons and v139.Pages.CurrentPage and (not v60.FFlagFixFocusNavToButtonsWithIEMReact or v561 and v139.Visible) then
+        if v60.FFlagCreateInExperienceMenuReact and v60.FFlagIEMFocusNavToButtons and v139.Pages.CurrentPage and (not v60.FFlagFixFocusNavToButtonsWithIEMReact or v563 and v139.Visible) then
             v139.Pages.CurrentPage:SelectARow(true);
         end;
     end;
-    v139.MountReactPage = function(_) --[[ Line: 3793 ]] --[[ Name: MountReactPage ]]
+    v139.MountReactPage = function(_) --[[ Line: 3802 ]] --[[ Name: MountReactPage ]]
         -- upvalues: v60 (ref), v22 (ref), v139 (copy), v15 (ref)
         if v60.FFlagCreateInExperienceMenuReact then
             v22(false).setCurrentReactPage(nil);
@@ -3313,91 +3324,91 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         end;
         v139.reactPageRoot = v15.createRoot(v139.ReactPage);
     end;
-    v139.UnmountReactPage = function(_) --[[ Line: 3803 ]] --[[ Name: UnmountReactPage ]]
+    v139.UnmountReactPage = function(_) --[[ Line: 3812 ]] --[[ Name: UnmountReactPage ]]
         -- upvalues: v139 (copy)
         if v139.reactPageRoot then
             v139.reactPageRoot:unmount();
             v139.reactPageRoot = nil;
         end;
     end;
-    v139.CloseReactPage = function(_) --[[ Line: 3810 ]] --[[ Name: CloseReactPage ]]
+    v139.CloseReactPage = function(_) --[[ Line: 3819 ]] --[[ Name: CloseReactPage ]]
         -- upvalues: v139 (copy)
         v139:HideReactPage();
         v139:UnmountReactPage();
     end;
-    v139.SwitchToReactPage = function(_, v566, v567, v568) --[[ Line: 3815 ]] --[[ Name: SwitchToReactPage ]]
+    v139.SwitchToReactPage = function(_, v568, v569, v570) --[[ Line: 3824 ]] --[[ Name: SwitchToReactPage ]]
         -- upvalues: v60 (ref), v139 (copy)
-        if v60.FFlagCreateInExperienceMenuReact and v568 then
+        if v60.FFlagCreateInExperienceMenuReact and v570 then
             v139:UnmountReactPage();
-        elseif v566 then
-            v139.reactPage = v566;
+        elseif v568 then
+            v139.reactPage = v568;
             if not v139.reactPageRoot then
                 v139:MountReactPage();
             end;
-            v139.reactPageRoot:render(v566:createPage(v567));
+            v139.reactPageRoot:render(v568:createPage(v569));
         end;
         v139:ShowReactPage();
     end;
     v139.GameSettingsPageReorderIXPFetched = false;
-    local v569 = nil;
-    local v570 = nil;
-    local function v576() --[[ Line: 3833 ]] --[[ Name: enableVR ]]
-        -- upvalues: l_CorePackages_0 (ref), v139 (copy), v569 (ref)
+    local v571 = nil;
+    local v572 = nil;
+    local function v578() --[[ Line: 3842 ]] --[[ Name: enableVR ]]
+        -- upvalues: l_CorePackages_0 (ref), v139 (copy), v571 (ref)
         local l_VRHub_1 = require(l_CorePackages_0.Workspace.Packages.VrCommon).VRHub;
         local l_Panel3D_0 = require(l_CorePackages_0.Workspace.Packages.VrCommon).Panel3D;
-        local v573 = l_Panel3D_0.Get("SettingsMenu");
-        v573:ResizeStuds(4, 4, 250);
-        v573:SetType(l_Panel3D_0.Type.Standard);
-        v573:SetVisible(false);
-        v573:SetCanFade(false);
-        v139.ClippingShield.Parent = v573:GetGUI();
+        local v575 = l_Panel3D_0.Get("SettingsMenu");
+        v575:ResizeStuds(4, 4, 250);
+        v575:SetType(l_Panel3D_0.Type.Standard);
+        v575:SetVisible(false);
+        v575:SetCanFade(false);
+        v139.ClippingShield.Parent = v575:GetGUI();
         v139.Shield.Parent.ClipsDescendants = false;
         v139.VRShield.Visible = true;
         v139:HideShield();
-        v569 = v139.SettingsShowSignal:connect(function(v574) --[[ Line: 3847 ]]
-            -- upvalues: v573 (copy), l_VRHub_1 (copy)
-            if v574 then
-                v573:SetVisible(true);
+        v571 = v139.SettingsShowSignal:connect(function(v576) --[[ Line: 3856 ]]
+            -- upvalues: v575 (copy), l_VRHub_1 (copy)
+            if v576 then
+                v575:SetVisible(true);
                 l_VRHub_1:FireModuleOpened("SettingsMenu");
                 return;
             else
-                v573:SetVisible(false);
+                v575:SetVisible(false);
                 l_VRHub_1:FireModuleClosed("SettingsMenu");
                 return;
             end;
         end);
-        l_VRHub_1.ModuleOpened.Event:connect(function(v575) --[[ Line: 3859 ]]
+        l_VRHub_1.ModuleOpened.Event:connect(function(v577) --[[ Line: 3868 ]]
             -- upvalues: v139 (ref)
-            if v575 ~= "SettingsMenu" then
+            if v577 ~= "SettingsMenu" then
                 v139:SetVisibility(false);
             end;
         end);
     end;
-    local function v577() --[[ Line: 3865 ]] --[[ Name: disableVR ]]
-        -- upvalues: v139 (copy), l_RobloxGui_0 (ref), v569 (ref), v570 (ref), l_CorePackages_0 (ref)
+    local function v579() --[[ Line: 3874 ]] --[[ Name: disableVR ]]
+        -- upvalues: v139 (copy), l_RobloxGui_0 (ref), v571 (ref), v572 (ref), l_CorePackages_0 (ref)
         v139.ClippingShield.Parent = l_RobloxGui_0;
         v139.Shield.Parent.ClipsDescendants = true;
         v139.VRShield.Visible = false;
         v139:ShowShield();
-        if v569 then
-            v569:disconnect();
-            v569 = nil;
+        if v571 then
+            v571:disconnect();
+            v571 = nil;
         end;
-        if v570 then
-            v570:disconnect();
-            v570 = nil;
+        if v572 then
+            v572:disconnect();
+            v572 = nil;
         end;
         require(l_CorePackages_0.Workspace.Packages.VrCommon).Panel3D.Get("SettingsMenu"):SetVisible(false);
     end;
-    local function _() --[[ Line: 3885 ]] --[[ Name: refreshForSpatialUI ]]
+    local function _() --[[ Line: 3894 ]] --[[ Name: refreshForSpatialUI ]]
         -- upvalues: v382 (copy), v139 (copy), v50 (ref), l_GuiService_0 (ref), v362 (copy)
         v382();
         v139.MenuContainer.BackgroundTransparency = v50.transparency("MenuContainer", 1) * l_GuiService_0.PreferredTransparency;
         v362();
     end;
-    local function v580(v579) --[[ Line: 3891 ]] --[[ Name: OnVREnabled ]]
-        -- upvalues: l_UserInputService_0 (ref), v60 (ref), v139 (copy), v382 (copy), v50 (ref), l_GuiService_0 (ref), v362 (copy), v576 (copy), v577 (copy)
-        if v579 == "VREnabled" then
+    local function v582(v581) --[[ Line: 3900 ]] --[[ Name: OnVREnabled ]]
+        -- upvalues: l_UserInputService_0 (ref), v60 (ref), v139 (copy), v382 (copy), v50 (ref), l_GuiService_0 (ref), v362 (copy), v578 (copy), v579 (copy)
+        if v581 == "VREnabled" then
             if l_UserInputService_0.VREnabled then
                 if v60.isInExperienceUIVREnabled then
                     v139.SettingsUIDelegate:enableVR();
@@ -3406,7 +3417,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                     v362();
                     return;
                 else
-                    v576();
+                    v578();
                     return;
                 end;
             elseif v60.isInExperienceUIVREnabled then
@@ -3416,12 +3427,12 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v362();
                 return;
             else
-                v577();
+                v579();
             end;
         end;
     end;
-    l_UserInputService_0.Changed:connect(v580);
-    v580("VREnabled");
+    l_UserInputService_0.Changed:connect(v582);
+    v582("VREnabled");
     v139.ResetCharacterPage:SetHub(v139);
     if l_InExperienceCapabilities_0.canNavigateHome then
         v139.LeaveGamePage:SetHub(v139);
@@ -3445,8 +3456,8 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         v139.HelpPageIXPFetched = false;
     end;
     if not v60.FFlagRemoveRecordPage then
-        local v581 = not v26:IsSubjectToChinaPolicies();
-        if l_l_UserInputService_0_Platform_0 == Enum.Platform.Windows and v581 then
+        local v583 = not v26:IsSubjectToChinaPolicies();
+        if l_l_UserInputService_0_Platform_0 == Enum.Platform.Windows and v583 then
             v139.RecordPage = require(l_RobloxGui_0.Modules.Settings.Pages.Record);
             v139.RecordPage:SetHub(v139);
         end;
@@ -3477,25 +3488,25 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
         local l_CorePackages_2 = game:GetService("CorePackages");
         local l_EventStream_0 = require(l_CorePackages_2.Workspace.Packages.Analytics).AnalyticsReporters.EventStream;
         local l_Diag_0 = require(l_CorePackages_2.Workspace.Packages.Analytics).AnalyticsReporters.Diag;
-        local v585 = l_EventStream_0.new(l_RbxAnalyticsService_0);
-        local v586 = l_GameInviteAnalytics_0.new():withEventStream(v585):withDiag(l_Diag_0.new(l_RbxAnalyticsService_0)):withButtonName(l_GameInviteAnalytics_0.ButtonName.SettingsHub);
-        v139.ShareGameApp = require(l_RobloxGui_0.Modules.Settings.ShareGameMaster).createApp(v139.PageViewClipper, v586);
+        local v587 = l_EventStream_0.new(l_RbxAnalyticsService_0);
+        local v588 = l_GameInviteAnalytics_0.new():withEventStream(v587):withDiag(l_Diag_0.new(l_RbxAnalyticsService_0)):withButtonName(l_GameInviteAnalytics_0.ButtonName.SettingsHub);
+        v139.ShareGameApp = require(l_RobloxGui_0.Modules.Settings.ShareGameMaster).createApp(v139.PageViewClipper, v588);
         v139.ShareGamePage = require(l_RobloxGui_0.Modules.Settings.Pages.ShareGamePlaceholderPage);
         v139.ShareGamePage:ConnectHubToApp(v139, v139.ShareGameApp);
         v139:AddPage(v139.ShareGamePage);
     end;
-    local v587 = l_CapturesPolicy_0.PolicyImplementation.read();
-    local v588 = if v587 then l_CapturesPolicy_0.Mapper(v587).eligibleForCapturesFeature() else false;
-    local v589 = v60.isInExperienceUIVREnabled and v60.FFlagFixSpatialUICaptures;
-    if v588 and (not v589 or not l_isSpatial_0()) then
-        local v590 = require(l_RobloxGui_0.Modules.Settings.Pages.CapturesPageWrapper);
-        local function v591() --[[ Line: 4016 ]] --[[ Name: closeSettingsMenu ]]
+    local v589 = l_CapturesPolicy_0.PolicyImplementation.read();
+    local v590 = if v589 then l_CapturesPolicy_0.Mapper(v589).eligibleForCapturesFeature() else false;
+    local v591 = v60.isInExperienceUIVREnabled and v60.FFlagFixSpatialUICaptures;
+    if v590 and (not v591 or not l_isSpatial_0()) then
+        local v592 = require(l_RobloxGui_0.Modules.Settings.Pages.CapturesPageWrapper);
+        local function v593() --[[ Line: 4025 ]] --[[ Name: closeSettingsMenu ]]
             -- upvalues: v139 (copy)
             v139:SetVisibility(false, true);
         end;
         v139.CapturesApp = v100;
-        v139.CapturesApp.mountMenuPage(v590.Page, v591, v60.ChromeEnabled);
-        v139.CapturesPage = v590;
+        v139.CapturesApp.mountMenuPage(v592.Page, v593, v60.ChromeEnabled);
+        v139.CapturesPage = v592;
         v139.CapturesPage:ConnectHubToApp(v139, v139.PageViewClipper, v139.CapturesApp);
     end;
     if v139.PlayersPage then
@@ -3533,9 +3544,9 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     end;
     v139:InitInPage(v139:GetFirstPageWithTabHeader());
     if not v60.isNewInGameMenuEnabled() and (not v60.FFlagAddUILessMode or v60.FIntAddUILessModeVariant == 0) then
-        l_ContextActionService_0:BindCoreAction("RBXEscapeMainMenu", function(_, v593, _) --[[ Line: 4077 ]]
+        l_ContextActionService_0:BindCoreAction("RBXEscapeMainMenu", function(_, v595, _) --[[ Line: 4086 ]]
             -- upvalues: v60 (ref), v139 (copy), l_Constants_0 (ref)
-            if v593 ~= Enum.UserInputState.Begin then
+            if v595 ~= Enum.UserInputState.Begin then
                 return;
             elseif v60.FFlagAddUILessMode then
                 v139:PopMenu(false, true, l_Constants_0.AnalyticsMenuOpenTypes.Keyboard);
@@ -3546,7 +3557,7 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             end;
         end, false, Enum.KeyCode.Escape);
     end;
-    l_GuiService_0.ShowLeaveConfirmation:connect(function() --[[ Line: 4092 ]]
+    l_GuiService_0.ShowLeaveConfirmation:connect(function() --[[ Line: 4101 ]]
         -- upvalues: v139 (copy), l_Constants_0 (ref)
         if #v139.MenuStack == 0 then
             v139:SetVisibility(true, nil, nil, nil, l_Constants_0.AnalyticsMenuOpenTypes.GamepadLeaveGame);
@@ -3559,14 +3570,14 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     end);
     l_ContextActionService_0:BindCoreAction("Open Dev Console", v391, false, Enum.KeyCode.F9);
     l_ContextActionService_0:BindCoreAction("Show Quick Profiler", v387, false, Enum.KeyCode.F7);
-    l_UserInputService_0.InputBegan:connect(function(v595) --[[ Line: 4118 ]]
+    l_UserInputService_0.InputBegan:connect(function(v597) --[[ Line: 4127 ]]
         -- upvalues: v139 (copy), l_GuiService_0 (ref)
-        if (v595.KeyCode == Enum.KeyCode.Left or v595.KeyCode == Enum.KeyCode.Right or v595.KeyCode == Enum.KeyCode.Up or v595.KeyCode == Enum.KeyCode.Down) and v139.Visible and v139.Active and v139.Pages.CurrentPage and l_GuiService_0.SelectedCoreObject == nil then
+        if (v597.KeyCode == Enum.KeyCode.Left or v597.KeyCode == Enum.KeyCode.Right or v597.KeyCode == Enum.KeyCode.Up or v597.KeyCode == Enum.KeyCode.Down) and v139.Visible and v139.Active and v139.Pages.CurrentPage and l_GuiService_0.SelectedCoreObject == nil then
             v139.Pages.CurrentPage:SelectARow();
         end;
     end);
     if v139.ExitModalPage then
-        local function v596() --[[ Line: 4132 ]] --[[ Name: showExitModal ]]
+        local function v598() --[[ Line: 4141 ]] --[[ Name: showExitModal ]]
             -- upvalues: v139 (copy), v167 (copy)
             v139.HubBar.Visible = false;
             v167();
@@ -3579,9 +3590,9 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 return;
             end;
         end;
-        local l_v596_0 = v596 --[[ copy: 59 -> 63 ]];
-        local function v598() --[[ Line: 4142 ]] --[[ Name: handleNativeExit ]]
-            -- upvalues: v139 (copy), v60 (ref), v27 (ref), v254 (copy), l_v596_0 (copy)
+        local l_v598_0 = v598 --[[ copy: 59 -> 63 ]];
+        local function v600() --[[ Line: 4151 ]] --[[ Name: handleNativeExit ]]
+            -- upvalues: v139 (copy), v60 (ref), v27 (ref), v254 (copy), l_v598_0 (copy)
             if v139:GetVisibility() and v139.Pages.CurrentPage == v139.ExitModalPage then
                 if v60.FFlagEnableInGameMenuDurationLogger then
                     v27.leavingGame();
@@ -3595,35 +3606,35 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
                 v139.ExitModalPage.LeaveAppFunc(true);
                 return;
             else
-                l_v596_0();
+                l_v598_0();
                 return;
             end;
         end;
-        game:GetService("GuiService").NativeClose:Connect(v598);
+        game:GetService("GuiService").NativeClose:Connect(v600);
         if v139.FullScreenTitleBar then
             v139.FullScreenTitleBar = v87.update(v139.FullScreenTitleBar, {
-                onClose = v598
+                onClose = v600
             });
         end;
     end;
     if v60.GetFFlagEnableAppChatInExperience() then
-        local v599 = nil;
+        local v601 = nil;
         do
-            local l_v599_0 = v599;
-            v139.SettingsShowSignal:connect(function(v601) --[[ Line: 4171 ]]
-                -- upvalues: l_v599_0 (ref), l_InExperienceAppChatModal_0 (ref), v139 (copy)
-                if v601 then
-                    l_v599_0 = l_InExperienceAppChatModal_0.default.visibilitySignal.Event:Connect(function(v602) --[[ Line: 4173 ]]
+            local l_v601_0 = v601;
+            v139.SettingsShowSignal:connect(function(v603) --[[ Line: 4180 ]]
+                -- upvalues: l_v601_0 (ref), l_InExperienceAppChatModal_0 (ref), v139 (copy)
+                if v603 then
+                    l_v601_0 = l_InExperienceAppChatModal_0.default.visibilitySignal.Event:Connect(function(v604) --[[ Line: 4182 ]]
                         -- upvalues: v139 (ref)
-                        if v602 and v139.Visible then
+                        if v604 and v139.Visible then
                             v139:SetVisibility(false, true);
                         end;
                     end);
                     return;
                 else
-                    if l_v599_0 then
-                        l_v599_0:Disconnect();
-                        l_v599_0 = nil;
+                    if l_v601_0 then
+                        l_v601_0:Disconnect();
+                        l_v601_0 = nil;
                     end;
                     return;
                 end;
@@ -3636,83 +3647,83 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
             Parent = v139.ClippingShield
         });
         local l_ButtonsContainer_0 = v139.PlayersPage.ButtonsContainer;
-        local v604 = if l_ButtonsContainer_0 then l_ButtonsContainer_0:FindFirstChild("LeaveButtonButton", true) else nil;
-        local v605 = nil;
+        local v606 = if l_ButtonsContainer_0 then l_ButtonsContainer_0:FindFirstChild("LeaveButtonButton", true) else nil;
+        local v607 = nil;
         if v60.FFlagAddTraversalHistory then
-            v605 = v139.LeaveGameButton;
+            v607 = v139.LeaveGameButton;
         end;
-        local v606 = nil;
+        local v608 = nil;
         if v60.FFlagTraversalPerfFixes then
-            v606 = function(v607) --[[ Line: 4203 ]]
+            v608 = function(v609) --[[ Line: 4212 ]]
                 -- upvalues: v14 (ref), v139 (copy), v43 (ref), v60 (ref), l_isSpatial_0 (ref), v19 (ref), l_TraversalHistoryMenu_0 (ref)
-                local v608, v609 = v14.useState(v607.showSignal(false) and v139.Visible);
-                v14.useEffect(function() --[[ Line: 4205 ]]
-                    -- upvalues: v43 (ref), v609 (copy), v607 (copy), v139 (ref)
-                    local v611 = v43.createEffect(function(v610) --[[ Line: 4206 ]]
-                        -- upvalues: v609 (ref), v607 (ref), v139 (ref)
-                        v609(v607.showSignal(v610) and v139.Visible);
+                local v610, v611 = v14.useState(v609.showSignal(false) and v139.Visible);
+                v14.useEffect(function() --[[ Line: 4214 ]]
+                    -- upvalues: v43 (ref), v611 (copy), v609 (copy), v139 (ref)
+                    local v613 = v43.createEffect(function(v612) --[[ Line: 4215 ]]
+                        -- upvalues: v611 (ref), v609 (ref), v139 (ref)
+                        v611(v609.showSignal(v612) and v139.Visible);
                     end);
-                    local v613 = v139.SettingsShowSignal:connect(function(v612) --[[ Line: 4209 ]]
-                        -- upvalues: v609 (ref), v607 (ref)
-                        v609(v607.showSignal(false) and v612);
+                    local v615 = v139.SettingsShowSignal:connect(function(v614) --[[ Line: 4218 ]]
+                        -- upvalues: v611 (ref), v609 (ref)
+                        v611(v609.showSignal(false) and v614);
                     end);
-                    return function() --[[ Line: 4213 ]]
-                        -- upvalues: v611 (copy), v613 (copy)
-                        v611();
-                        v613:Disconnect();
+                    return function() --[[ Line: 4222 ]]
+                        -- upvalues: v613 (copy), v615 (copy)
+                        v613();
+                        v615:Disconnect();
                     end;
                 end, {});
-                return v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v607.parent and v608 and v14.createElement(v19, {
-                    parent = v607.parent
+                return v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v609.parent and v610 and v14.createElement(v19, {
+                    parent = v609.parent
                 }, {
                     TraversalHistoryMenu = v14.createElement(l_TraversalHistoryMenu_0, {
-                        anchorParent = v607.parent, 
-                        currentPageChangeSignal = v607.currentPageChangeSignal, 
-                        menuSide = v607.menuSide
+                        anchorParent = v609.parent, 
+                        currentPageChangeSignal = v609.currentPageChangeSignal, 
+                        menuSide = v609.menuSide
                     })
                 });
             end;
         end;
         v15.createRoot(v139.InExperienceMenuReact):render(v14.createElement(v20, nil, {
             InExperienceMenuReactPage = v14.createElement(v21, {
-                onMount = function() --[[ Line: 4235 ]] --[[ Name: onMount ]]
+                onMount = function() --[[ Line: 4244 ]] --[[ Name: onMount ]]
                     -- upvalues: v139 (copy)
                     v139:SwitchToReactPage(nil, nil, true);
                 end, 
-                onUnmount = function() --[[ Line: 4236 ]] --[[ Name: onUnmount ]]
+                onUnmount = function() --[[ Line: 4245 ]] --[[ Name: onUnmount ]]
                     -- upvalues: v139 (copy), v22 (ref)
                     v139:CloseReactPage();
                     v22(false).setCurrentReactPage(nil);
                 end, 
                 mountTo = v139.ReactPage
             }), 
-            TraversalHistoryMenuBottomBar = if v60.FFlagTraversalPerfFixes then v14.createElement(v606, {
+            TraversalHistoryMenuBottomBar = if v60.FFlagTraversalPerfFixes then v14.createElement(v608, {
                 showSignal = v139.showBottomBarSignal, 
-                parent = v605, 
+                parent = v607, 
                 menuSide = v16.Enums.PopoverSide.Top, 
                 currentPageChangeSignal = v139.CurrentPageSignal
-            }) else v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v605 and v14.createElement(v19, {
-                parent = v605
+            }) else v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v607 and v14.createElement(v19, {
+                parent = v607
             }, {
                 TraversalHistoryMenu = v14.createElement(l_TraversalHistoryMenu_0, {
-                    anchorParent = v605, 
+                    anchorParent = v607, 
                     idleButtonStateIsDown = true, 
                     currentPageChangeSignal = v139.CurrentPageSignal
                 })
             }), 
-            TraversalHistoryMenuMobileButton = if v60.FFlagTraversalPerfFixes then v14.createElement(v606, {
-                showSignal = v43.createComputed(function(v614) --[[ Line: 4258 ]]
+            TraversalHistoryMenuMobileButton = if v60.FFlagTraversalPerfFixes then v14.createElement(v608, {
+                showSignal = v43.createComputed(function(v616) --[[ Line: 4267 ]]
                     -- upvalues: v139 (copy)
-                    return not v139.showBottomBarSignal(v614);
+                    return not v139.showBottomBarSignal(v616);
                 end), 
-                parent = v604, 
+                parent = v606, 
                 menuSide = v16.Enums.PopoverSide.Bottom, 
                 currentPageChangeSignal = v139.CurrentPageSignal
-            }) else v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v604 and v14.createElement(v19, {
-                parent = v604
+            }) else v60.FFlagAddTraversalHistory and not (v60.isInExperienceUIVREnabled and l_isSpatial_0()) and v606 and v14.createElement(v19, {
+                parent = v606
             }, {
                 TraversalHistoryMenu = v14.createElement(l_TraversalHistoryMenu_0, {
-                    anchorParent = v604, 
+                    anchorParent = v606, 
                     idleButtonStateIsDown = v60.FFlagTraversalLeaveArrowDown and true or false, 
                     currentPageChangeSignal = v139.CurrentPageSignal
                 })
@@ -3721,78 +3732,78 @@ local function v615() --[[ Line: 375 ]] --[[ Name: CreateSettingsHub ]]
     end;
     return v139;
 end;
-local v616 = {
+local v618 = {
     ModuleName = "SettingsMenu", 
     KeepVRTopbarOpen = true, 
     VRIsExclusive = true, 
     VRClosesNonExclusive = true, 
     SetVisibility = nil
 };
-l_VRHub_0:RegisterModule(v616);
-l_VRHub_0.ModuleOpened.Event:connect(function(v617) --[[ Line: 4292 ]]
-    -- upvalues: v616 (copy), l_VRHub_0 (copy)
-    if v617 ~= v616.ModuleName and l_VRHub_0:GetModule(v617).VRIsExclusive then
-        v616:SetVisibility(false);
+l_VRHub_0:RegisterModule(v618);
+l_VRHub_0.ModuleOpened.Event:connect(function(v619) --[[ Line: 4301 ]]
+    -- upvalues: v618 (copy), l_VRHub_0 (copy)
+    if v619 ~= v618.ModuleName and l_VRHub_0:GetModule(v619).VRIsExclusive then
+        v618:SetVisibility(false);
     end;
 end);
-local v618 = v615();
-v616.GetExperienceControlStore = function(_) --[[ Line: 4303 ]] --[[ Name: GetExperienceControlStore ]]
-    -- upvalues: v618 (copy)
-    return v618:GetExperienceControlStore();
+local v620 = v617();
+v618.GetExperienceControlStore = function(_) --[[ Line: 4312 ]] --[[ Name: GetExperienceControlStore ]]
+    -- upvalues: v620 (copy)
+    return v620:GetExperienceControlStore();
 end;
-v616.SetVisibility = function(_, v621, v622, v623, v624, v625) --[[ Line: 4307 ]] --[[ Name: SetVisibility ]]
-    -- upvalues: v618 (copy)
-    v618:SetVisibility(v621, v622, v623, v624, v625);
+v618.SetVisibility = function(_, v623, v624, v625, v626, v627) --[[ Line: 4316 ]] --[[ Name: SetVisibility ]]
+    -- upvalues: v620 (copy)
+    v620:SetVisibility(v623, v624, v625, v626, v627);
 end;
-v616.SetBackgroundVisibility = function(_, v627, v628) --[[ Line: 4311 ]] --[[ Name: SetBackgroundVisibility ]]
-    -- upvalues: v618 (copy)
-    v618:SetBackgroundVisibility(v627, v628);
+v618.SetBackgroundVisibility = function(_, v629, v630) --[[ Line: 4320 ]] --[[ Name: SetBackgroundVisibility ]]
+    -- upvalues: v620 (copy)
+    v620:SetBackgroundVisibility(v629, v630);
 end;
-v616.ToggleVisibility = function(_, v630, v631) --[[ Line: 4315 ]] --[[ Name: ToggleVisibility ]]
-    -- upvalues: v618 (copy)
-    v618:ToggleVisibility(v630, v631);
+v618.ToggleVisibility = function(_, v632, v633) --[[ Line: 4324 ]] --[[ Name: ToggleVisibility ]]
+    -- upvalues: v620 (copy)
+    v620:ToggleVisibility(v632, v633);
 end;
-v616.SwitchToPage = function(_, v633, v634) --[[ Line: 4319 ]] --[[ Name: SwitchToPage ]]
-    -- upvalues: v618 (copy)
-    v618:SwitchToPage(v633, v634, 1);
+v618.SwitchToPage = function(_, v635, v636) --[[ Line: 4328 ]] --[[ Name: SwitchToPage ]]
+    -- upvalues: v620 (copy)
+    v620:SwitchToPage(v635, v636, 1);
 end;
 if v60.FFlagAddUILessMode and v60.FIntAddUILessModeVariant ~= 0 then
-    v616.PopMenu = function(_, v636, v637, v638) --[[ Line: 4324 ]] --[[ Name: PopMenu ]]
-        -- upvalues: v618 (copy)
-        return v618:PopMenu(v636, v637, v638);
+    v618.PopMenu = function(_, v638, v639, v640) --[[ Line: 4333 ]] --[[ Name: PopMenu ]]
+        -- upvalues: v620 (copy)
+        return v620:PopMenu(v638, v639, v640);
     end;
 end;
-v616.GetVisibility = function(_) --[[ Line: 4329 ]] --[[ Name: GetVisibility ]]
-    -- upvalues: v618 (copy)
-    return v618.Visible;
+v618.GetVisibility = function(_) --[[ Line: 4338 ]] --[[ Name: GetVisibility ]]
+    -- upvalues: v620 (copy)
+    return v620.Visible;
 end;
-v616.ShowShield = function(_) --[[ Line: 4333 ]] --[[ Name: ShowShield ]]
-    -- upvalues: v618 (copy)
-    v618:ShowShield();
+v618.ShowShield = function(_) --[[ Line: 4342 ]] --[[ Name: ShowShield ]]
+    -- upvalues: v620 (copy)
+    v620:ShowShield();
 end;
-v616.HideShield = function(_) --[[ Line: 4337 ]] --[[ Name: HideShield ]]
-    -- upvalues: v618 (copy)
-    v618:HideShield();
+v618.HideShield = function(_) --[[ Line: 4346 ]] --[[ Name: HideShield ]]
+    -- upvalues: v620 (copy)
+    v620:HideShield();
 end;
-v616.GetRespawnBehaviour = function(_) --[[ Line: 4341 ]] --[[ Name: GetRespawnBehaviour ]]
-    -- upvalues: v618 (copy)
-    return v618:GetRespawnBehaviour();
+v618.GetRespawnBehaviour = function(_) --[[ Line: 4350 ]] --[[ Name: GetRespawnBehaviour ]]
+    -- upvalues: v620 (copy)
+    return v620:GetRespawnBehaviour();
 end;
-v616.CloseReactPage = function(_) --[[ Line: 4345 ]] --[[ Name: CloseReactPage ]]
-    -- upvalues: v618 (copy)
-    v618:CloseReactPage();
+v618.CloseReactPage = function(_) --[[ Line: 4354 ]] --[[ Name: CloseReactPage ]]
+    -- upvalues: v620 (copy)
+    v620:CloseReactPage();
 end;
-v616.SwitchToReactPage = function(_, v645, v646, v647) --[[ Line: 4349 ]] --[[ Name: SwitchToReactPage ]]
-    -- upvalues: v618 (copy)
-    v618:SwitchToReactPage(v645, v646, v647);
+v618.SwitchToReactPage = function(_, v647, v648, v649) --[[ Line: 4358 ]] --[[ Name: SwitchToReactPage ]]
+    -- upvalues: v620 (copy)
+    v620:SwitchToReactPage(v647, v648, v649);
 end;
-v616.RespawnBehaviourChangedEvent = v618.RespawnBehaviourChangedEvent;
-v616.SettingsShowSignal = v618.SettingsShowSignal;
-v616.CurrentPageSignal = v618.CurrentPageSignal;
-v616.SettingsShowEvent = Instance.new("BindableEvent");
-v618.SettingsShowSignal:connect(function(v648) --[[ Line: 4361 ]]
-    -- upvalues: v616 (copy)
-    v616.SettingsShowEvent:Fire(v648);
+v618.RespawnBehaviourChangedEvent = v620.RespawnBehaviourChangedEvent;
+v618.SettingsShowSignal = v620.SettingsShowSignal;
+v618.CurrentPageSignal = v620.CurrentPageSignal;
+v618.SettingsShowEvent = Instance.new("BindableEvent");
+v620.SettingsShowSignal:connect(function(v650) --[[ Line: 4370 ]]
+    -- upvalues: v618 (copy)
+    v618.SettingsShowEvent:Fire(v650);
 end);
-v616.Instance = v618;
-return v616;
+v618.Instance = v620;
+return v618;

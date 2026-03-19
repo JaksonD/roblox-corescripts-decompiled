@@ -17,5 +17,8 @@ return {
     enableActionBarButtonOverride = l_UIBlox_0.FFlagUIBloxEnableActionBarButtonOverride, 
     enablePanel3DSurfaceGuiRef = v1.FFlagLuaAppSupportFoundationOverlayInVR, 
     enableTooltipRichText = l_UIBlox_0.FFlagUIBloxEnableTooltipRichText, 
-    fixCoplayFooterConditionalHooks = l_UIBlox_0.FFlagUIBloxFixCoplayFooterConditionalHooks
+    fixCoplayFooterConditionalHooks = l_UIBlox_0.FFlagUIBloxFixCoplayFooterConditionalHooks, 
+    useFoundationCheckbox = l_UIBlox_0.FFlagLuaAppUseFoundationCheckbox, 
+    useFoundationLoading = l_UIBlox_0.FFlagLuaAppUseFoundationLoading, 
+    disableTokenScaling = l_UIBlox_0.FFlagUIBloxDisableTokenScaling
 };

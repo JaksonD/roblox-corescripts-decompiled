@@ -12,6 +12,7 @@ return {
     }, 
     CloseMethod = {
         closeIcon = "closeIcon", 
+        bellIcon = "bellIcon", 
         backgroundOverlay = "backgroundOverlay", 
         focusNavigationBack = "focusNavigationBack"
     }, 

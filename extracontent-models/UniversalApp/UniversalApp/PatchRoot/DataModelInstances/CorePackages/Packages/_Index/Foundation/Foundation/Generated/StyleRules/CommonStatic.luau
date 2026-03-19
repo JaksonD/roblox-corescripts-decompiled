@@ -126,10 +126,9 @@ return {
             ItemLineAlignment = Enum.ItemLineAlignment.End
         }
     }, 
-    grow = {
-        pseudo = "UIFlexItem", 
+    ["anchor-bottom-right"] = {
         properties = {
-            FlexMode = Enum.UIFlexMode.Grow
+            AnchorPoint = Vector2.new(1, 1)
         }
     }, 
     ["shrink-2"] = {
@@ -175,10 +174,10 @@ return {
             AnchorPoint = Vector2.new(1, 0.5)
         }
     }, 
-    ["shrink-1"] = {
+    ["shrink-4"] = {
         pseudo = "UIFlexItem", 
         properties = {
-            ShrinkRatio = 1, 
+            ShrinkRatio = 4, 
             FlexMode = Enum.UIFlexMode.Custom
         }
     }, 
@@ -209,9 +208,11 @@ return {
             AspectRatio = 0.5
         }
     }, 
-    ["position-bottom-right"] = {
+    ["grow-4"] = {
+        pseudo = "UIFlexItem", 
         properties = {
-            Position = UDim2.new(1, 0, 1, 0)
+            GrowRatio = 4, 
+            FlexMode = Enum.UIFlexMode.Custom
         }
     }, 
     ["aspect-9-16"] = {
@@ -220,9 +221,16 @@ return {
             AspectRatio = 0.563
         }
     }, 
-    ["x-default-transparency"] = {
+    grow = {
+        pseudo = "UIFlexItem", 
         properties = {
-            BackgroundTransparency = 0
+            FlexMode = Enum.UIFlexMode.Grow
+        }
+    }, 
+    ["aspect-3-2"] = {
+        pseudo = "UIAspectRatioConstraint", 
+        properties = {
+            AspectRatio = 1.5
         }
     }, 
     ["anchor-center-left"] = {
@@ -254,9 +262,9 @@ return {
             AspectRatio = 1.25
         }
     }, 
-    ["auto-y"] = {
+    ["x-default-transparency"] = {
         properties = {
-            AutomaticSize = Enum.AutomaticSize.Y
+            BackgroundTransparency = 0
         }
     }, 
     ["no-flex"] = {
@@ -286,10 +294,10 @@ return {
             FlexMode = Enum.UIFlexMode.Fill
         }
     }, 
-    ["shrink-4"] = {
+    ["shrink-1"] = {
         pseudo = "UIFlexItem", 
         properties = {
-            ShrinkRatio = 4, 
+            ShrinkRatio = 1, 
             FlexMode = Enum.UIFlexMode.Custom
         }
     }, 
@@ -323,22 +331,19 @@ return {
             FlexMode = Enum.UIFlexMode.Custom
         }
     }, 
-    ["anchor-bottom-right"] = {
+    ["auto-y"] = {
         properties = {
-            AnchorPoint = Vector2.new(1, 1)
+            AutomaticSize = Enum.AutomaticSize.Y
         }
     }, 
-    ["aspect-3-2"] = {
-        pseudo = "UIAspectRatioConstraint", 
+    ["x-default-text-size"] = {
         properties = {
-            AspectRatio = 1.5
+            TextSize = 8
         }
     }, 
-    ["grow-4"] = {
-        pseudo = "UIFlexItem", 
+    ["position-center-left"] = {
         properties = {
-            GrowRatio = 4, 
-            FlexMode = Enum.UIFlexMode.Custom
+            Position = UDim2.new(0, 0, 0.5, 0)
         }
     }, 
     ["auto-xy"] = {
@@ -346,9 +351,9 @@ return {
             AutomaticSize = Enum.AutomaticSize.XY
         }
     }, 
-    ["position-center-left"] = {
+    ["position-bottom-right"] = {
         properties = {
-            Position = UDim2.new(0, 0, 0.5, 0)
+            Position = UDim2.new(1, 0, 1, 0)
         }
     }, 
     ["self-auto"] = {

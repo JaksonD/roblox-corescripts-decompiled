@@ -2,7 +2,6 @@ local l_Parent_0 = script:FindFirstAncestor("DiscoveryTypes").Parent;
 local l_FFlagLuaAppHeaderButtonText_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHeaderButtonText;
 local l_FFlagLuaAppRfySignalApportioningIxp_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppRfySignalApportioningIxp;
 local l_FFlagLuaAppEnableWhyThisAdModal_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableWhyThisAdModal;
-local l_FFlagLuaAppSearchGridTiles_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSearchGridTiles;
 local l_FFlagLuaAppEnableSponsoredReportAd_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableSponsoredReportAd;
 local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooter;
 local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
@@ -40,7 +39,7 @@ return {
         EnableSignalApportioning = l_FFlagLuaAppRfySignalApportioningIxp_0 and "enableSignalApportioning" or nil, 
         SponsoredUserCohort = l_FFlagLuaAppEnableWhyThisAdModal_0 and "sponsoredUserCohort" or nil, 
         EnableSponsoredFeedback = "enableSponsoredFeedback", 
-        EnableCollectionGrid = l_FFlagLuaAppSearchGridTiles_0 and "enableCollectionGrid" or nil, 
+        EnableCollectionGrid = "enableCollectionGrid", 
         EnableReportAd = l_FFlagLuaAppEnableSponsoredReportAd_0 and "enableReportAd" or nil, 
         IsSponsoredRatingFooterAllowed = l_FFlagLuaAppSupportAdRatingFooter_0 and "isSponsoredRatingFooterAllowed" or nil, 
         SponsoredFooterAdLabelText = l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and "sponsoredFooterAdLabelText" or nil, 

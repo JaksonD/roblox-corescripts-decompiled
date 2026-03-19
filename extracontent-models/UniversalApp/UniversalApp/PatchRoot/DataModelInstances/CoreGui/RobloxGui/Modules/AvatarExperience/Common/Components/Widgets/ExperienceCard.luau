@@ -3,12 +3,12 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
 local v3 = require(l_CorePackages_0.Packages.React);
 local v4 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_Images_0 = v4.App.ImageSet.Images;
 local l_IconSize_0 = v4.App.ImageSet.Enum.IconSize;
 local l_getIconSize_0 = v4.App.ImageSet.getIconSize;
 local l_LoadableImage_0 = v4.App.Loading.LoadableImage;
 local l_ImageSetLabel_0 = v4.Core.ImageSet.ImageSetLabel;
-local l_ShimmerPanel_0 = v4.App.Loading.ShimmerPanel;
 local l_useStyle_0 = v4.Core.Style.useStyle;
 local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
@@ -21,15 +21,15 @@ local l_DeviceOrientationMode_0 = require(l_CorePackages_0.Workspace.Packages.Ro
 local l_GameStats_0 = require(l_CorePackages_0.Workspace.Packages.GameTile).GameStats;
 local l_getUseSelectorDeepEquals_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon).Utils.getUseSelectorDeepEquals;
 local v22 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXRevisedExperienceTile);
-local function _(v23, v24) --[[ Line: 68 ]] --[[ Name: formatRating ]]
+local function _(v23, v24) --[[ Line: 69 ]] --[[ Name: formatRating ]]
     if v23 + v24 == 0 then
         return "--";
     else
         return (("%*%%"):format((math.round(v23 / (v23 + v24) * 100))));
     end;
 end;
-return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useStyle_0 (copy), v3 (copy), l_usePlayerCountText_0 (copy), l_getIconSize_0 (copy), l_IconSize_0 (copy), l_useSelector_0 (copy), l_DeviceOrientationMode_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v17 (copy), l_AvatarScreen_0 (copy), v15 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), l_LoadableImage_0 (copy), l_ShimmerPanel_0 (copy), v22 (copy), l_GameStats_0 (copy)
+return function(v26) --[[ Line: 78 ]] --[[ Name: ExperienceCard ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useStyle_0 (copy), v3 (copy), l_usePlayerCountText_0 (copy), l_getIconSize_0 (copy), l_IconSize_0 (copy), l_useSelector_0 (copy), l_DeviceOrientationMode_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v17 (copy), l_AvatarScreen_0 (copy), v15 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), l_LoadableImage_0 (copy), l_Skeleton_0 (copy), v22 (copy), l_GameStats_0 (copy)
     local v27 = l_useDispatch_0();
     local v28 = l_useNavigation_0();
     local v29 = l_useStyle_0();
@@ -51,11 +51,11 @@ return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
     local v40 = l_getIconSize_0(l_IconSize_0.Small);
     local v41 = l_Font_0.BaseSize * l_Font_0.Body.RelativeSize;
     local v42, v43 = v3.useState(1);
-    local v45 = l_useSelector_0(function(v44) --[[ Line: 99 ]]
+    local v45 = l_useSelector_0(function(v44) --[[ Line: 100 ]]
         -- upvalues: l_DeviceOrientationMode_0 (ref)
         return v44.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
     end, l_getUseSelectorDeepEquals_0());
-    v3.useEffect(function() --[[ Line: 104 ]]
+    v3.useEffect(function() --[[ Line: 105 ]]
         -- upvalues: v30 (copy), v43 (copy)
         local l_current_0 = v30.current;
         if not l_current_0 or not l_current_0.AbsoluteSize then
@@ -81,10 +81,10 @@ return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
         v45, 
         v30
     });
-    local function v49() --[[ Line: 122 ]] --[[ Name: onActivated ]]
+    local function v49() --[[ Line: 123 ]] --[[ Name: onActivated ]]
         -- upvalues: v27 (copy), v17 (ref), v28 (copy), l_AvatarScreen_0 (ref), v15 (ref), v26 (copy)
         local v48 = {
-            onClose = function() --[[ Line: 124 ]] --[[ Name: onClose ]]
+            onClose = function() --[[ Line: 125 ]] --[[ Name: onClose ]]
                 -- upvalues: v27 (ref), v17 (ref), v28 (ref), l_AvatarScreen_0 (ref)
                 v27(v17(false));
                 v28.navigate(l_AvatarScreen_0.Catalog);
@@ -92,7 +92,7 @@ return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
         };
         v27(v15(v26.universeId, v28, v48));
     end;
-    local function v54() --[[ Line: 132 ]] --[[ Name: renderFooterRow ]]
+    local function v54() --[[ Line: 133 ]] --[[ Name: renderFooterRow ]]
         -- upvalues: v26 (copy), v29 (copy), v40 (copy), v42 (copy), v3 (ref), v39 (copy), l_ImageSetLabel_0 (ref), l_Images_0 (ref), v33 (copy), v41 (copy), v37 (copy)
         if not v26.isHydrated then
             return nil;
@@ -198,7 +198,7 @@ return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
                 AspectRatio = 1
             })
         }), 
-        TitleShimmer = if not v26.isHydrated then v3.createElement(l_ShimmerPanel_0, {
+        TitleShimmer = if not v26.isHydrated then v3.createElement(l_Skeleton_0, {
             Size = UDim2.new(1, 0, 0, v38), 
             LayoutOrder = 1
         }) else nil, 
@@ -215,7 +215,7 @@ return function(v26) --[[ Line: 77 ]] --[[ Name: ExperienceCard ]]
             Size = UDim2.new(1, 0, 0, v38), 
             LayoutOrder = 1
         }) else nil, 
-        FooterShimmer = if not v26.isHydrated then v3.createElement(l_ShimmerPanel_0, {
+        FooterShimmer = if not v26.isHydrated then v3.createElement(l_Skeleton_0, {
             Size = UDim2.new(1, 0, 0, v39), 
             LayoutOrder = 2
         }) else nil, 

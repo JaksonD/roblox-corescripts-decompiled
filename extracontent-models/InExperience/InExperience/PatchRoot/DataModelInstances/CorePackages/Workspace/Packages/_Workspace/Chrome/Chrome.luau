@@ -1,7 +1,9 @@
 local v0 = require(script.Enabled);
-local v1 = require(script.FocusUtils);
+local v1 = require(script.Flags);
+local v2 = require(script.FocusUtils);
 return {
     Enabled = v0, 
-    FocusUtils = v1, 
+    Flags = v1, 
+    FocusUtils = v2, 
     ["jest.config"] = script["jest.config"]
 };

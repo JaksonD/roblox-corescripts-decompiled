@@ -15,13 +15,13 @@ local v13 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v14 = require(l_Modules_0.AvatarExperience.Common.Utils);
 local v15 = require(l_Modules_0.AvatarExperience.AvatarEditor.Utils);
 local v16 = require(l_CorePackages_0.Packages.UIBlox);
+local l_Skeleton_0 = require(l_CorePackages_0.Packages.Foundation).Skeleton;
 local l_withStyle_0 = v16.Core.Style.withStyle;
 local l_withSelectionCursorProvider_0 = v16.App.SelectionImage.withSelectionCursorProvider;
 local l_withLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).withLocalization;
 local l_CursorKind_0 = v16.App.SelectionImage.CursorKind;
 local l_Focusable_0 = require(l_CorePackages_0.Packages.RoactGamepad).Focusable;
 local l_GridMetrics_0 = v16.App.Grid.GridMetrics;
-local l_ShimmerPanel_0 = v16.App.Loading.ShimmerPanel;
 local l_RadioButtonList_0 = v16.App.InputButton.RadioButtonList;
 local l_DefaultMetricsGridView_0 = v16.App.Grid.DefaultMetricsGridView;
 local v26 = require(l_Modules_0.AvatarExperience.AvatarEditor.Components.BodyColorsSliderFrame);
@@ -62,13 +62,13 @@ v36.validateProps = v2.strictInterface({
     PaddingRight = v2.optional(v2.UDim), 
     ref = if v32 then v2.optional(v2.table) else nil
 });
-v36.init = function(v40) --[[ Line: 97 ]] --[[ Name: init ]]
+v36.init = function(v40) --[[ Line: 99 ]] --[[ Name: init ]]
     -- upvalues: v3 (copy), v11 (copy), v12 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     v40:setState({
         bodyColorsFrameHeight = 0, 
         bodyPartsListHeight = 0
     });
-    v40.renderItem = function(v41) --[[ Line: 103 ]]
+    v40.renderItem = function(v41) --[[ Line: 105 ]]
         -- upvalues: v3 (ref), v11 (ref), v40 (copy)
         if v41.rangeId then
             return v3.createElement(v11, {
@@ -78,7 +78,7 @@ v36.init = function(v40) --[[ Line: 97 ]] --[[ Name: init ]]
             return v40:getShimmerPanel();
         end;
     end;
-    v40.onScroll = function(v42) --[[ Line: 113 ]]
+    v40.onScroll = function(v42) --[[ Line: 115 ]]
         -- upvalues: v40 (copy)
         if v40.props.adaptiveScrolling then
             v40.props.adaptiveScrolling.onCanvasPositionChanged(v42);
@@ -96,17 +96,17 @@ v36.init = function(v40) --[[ Line: 97 ]] --[[ Name: init ]]
     v43, v44 = v3.createBinding(0);
     v40.bodyColorsFrameHeightBinding = v43;
     v40.updateBodyColorsFrameHeightBinding = v44;
-    v40.onUIListLayoutContentSizeChanged = function(v45) --[[ Line: 126 ]]
+    v40.onUIListLayoutContentSizeChanged = function(v45) --[[ Line: 128 ]]
         -- upvalues: v12 (ref), v40 (copy)
         local v46 = v12.SkinColorGridPadding * 2;
         local v47 = v45.AbsoluteContentSize.Y + v46;
         v40.updateCanvasSizeBinding(UDim2.new(0, 0, 0, v47));
     end;
-    v40.onBodyPartsListAbsoluteSizeChanged = function(v48) --[[ Line: 132 ]]
+    v40.onBodyPartsListAbsoluteSizeChanged = function(v48) --[[ Line: 134 ]]
         -- upvalues: v40 (copy)
         v40.updateBodyPartsListHeightBinding(v48.AbsoluteSize.Y);
     end;
-    v40.onBodyColorsFrameAbsoluteSizeChanged = function(v49) --[[ Line: 136 ]]
+    v40.onBodyColorsFrameAbsoluteSizeChanged = function(v49) --[[ Line: 138 ]]
         -- upvalues: v40 (copy)
         v40.updateBodyColorsFrameHeightBinding(v49.AbsoluteSize.Y);
     end;
@@ -116,21 +116,21 @@ v36.init = function(v40) --[[ Line: 97 ]] --[[ Name: init ]]
     v40.sliderRef = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v3.createRef();
     v40:setSelectedBodyPartIndex(1);
 end;
-v36.setSelectedBodyPartIndex = function(v50, v51) --[[ Line: 149 ]] --[[ Name: setSelectedBodyPartIndex ]]
+v36.setSelectedBodyPartIndex = function(v50, v51) --[[ Line: 151 ]] --[[ Name: setSelectedBodyPartIndex ]]
     v50.props.setSelectedBodyPartIndex(v51);
 end;
-v36.getShimmerPanel = function(_) --[[ Line: 153 ]] --[[ Name: getShimmerPanel ]]
-    -- upvalues: v3 (copy), l_ShimmerPanel_0 (copy)
-    return v3.createElement(l_ShimmerPanel_0, {
+v36.getShimmerPanel = function(_) --[[ Line: 155 ]] --[[ Name: getShimmerPanel ]]
+    -- upvalues: v3 (copy), l_Skeleton_0 (copy)
+    return v3.createElement(l_Skeleton_0, {
         Size = UDim2.new(1, 0, 1, 0)
     });
 end;
-v36.getItems = function(v53) --[[ Line: 159 ]] --[[ Name: getItems ]]
+v36.getItems = function(v53) --[[ Line: 161 ]] --[[ Name: getItems ]]
     -- upvalues: v38 (copy)
     local l_defaultBodyColorRanges_0 = v53.props.defaultBodyColorRanges;
     return l_defaultBodyColorRanges_0 and #l_defaultBodyColorRanges_0 > 0 and l_defaultBodyColorRanges_0 or v38;
 end;
-v36.getBodyPartsListHeight = function(v55) --[[ Line: 165 ]] --[[ Name: getBodyPartsListHeight ]]
+v36.getBodyPartsListHeight = function(v55) --[[ Line: 167 ]] --[[ Name: getBodyPartsListHeight ]]
     -- upvalues: v12 (copy)
     if v55.props.viewSetting == v12.ColorPickerViewSettings.AdvancedView then
         return v55.state.bodyPartsListHeight;
@@ -138,14 +138,14 @@ v36.getBodyPartsListHeight = function(v55) --[[ Line: 165 ]] --[[ Name: getBodyP
         return 0;
     end;
 end;
-v36.getGridAndSidebarFrameSize = function(v56) --[[ Line: 173 ]] --[[ Name: getGridAndSidebarFrameSize ]]
+v36.getGridAndSidebarFrameSize = function(v56) --[[ Line: 175 ]] --[[ Name: getGridAndSidebarFrameSize ]]
     -- upvalues: v3 (copy), v12 (copy), v15 (copy)
     if v56:shouldRenderSliderBar() then
         return v3.joinBindings({
             v56.canvasSizeBinding, 
             v56.bodyPartsListHeightBinding, 
             v56.bodyColorsFrameHeightBinding
-        }):map(function(v57) --[[ Line: 179 ]]
+        }):map(function(v57) --[[ Line: 181 ]]
             -- upvalues: v56 (copy), v12 (ref), v15 (ref)
             local l_Offset_0 = v57[1].Y.Offset;
             local v59 = v57[2];
@@ -160,7 +160,7 @@ v36.getGridAndSidebarFrameSize = function(v56) --[[ Line: 173 ]] --[[ Name: getG
         return v56.props.Size;
     end;
 end;
-v36.renderBodyColorButtons = function(v62, v63, v64) --[[ Line: 201 ]] --[[ Name: renderBodyColorButtons ]]
+v36.renderBodyColorButtons = function(v62, v63, v64) --[[ Line: 203 ]] --[[ Name: renderBodyColorButtons ]]
     -- upvalues: v3 (copy), l_DefaultMetricsGridView_0 (copy), v14 (copy), v13 (copy), l_GridMetrics_0 (copy), v39 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy)
     return v3.createElement(l_DefaultMetricsGridView_0, {
         renderItem = v62.renderItem, 
@@ -176,7 +176,7 @@ v36.renderBodyColorButtons = function(v62, v63, v64) --[[ Line: 201 ]] --[[ Name
         [v3.Ref] = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v62.bodyColorButtonsRef
     });
 end;
-v36.renderToggleButton = function(v65, v66, v67, v68, v69) --[[ Line: 217 ]] --[[ Name: renderToggleButton ]]
+v36.renderToggleButton = function(v65, v66, v67, v68, v69) --[[ Line: 219 ]] --[[ Name: renderToggleButton ]]
     -- upvalues: v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), l_CursorKind_0 (copy)
     return v3.createElement(l_FFlagAXMigrateAXToGlobalAutofocus_0 and "TextButton" or l_Focusable_0.TextButton, {
         AnchorPoint = Vector2.new(1, 0), 
@@ -196,7 +196,7 @@ v36.renderToggleButton = function(v65, v66, v67, v68, v69) --[[ Line: 217 ]] --[
         [v3.Event.Activated] = v69
     });
 end;
-v36.renderUIListLayout = function(v70) --[[ Line: 238 ]] --[[ Name: renderUIListLayout ]]
+v36.renderUIListLayout = function(v70) --[[ Line: 240 ]] --[[ Name: renderUIListLayout ]]
     -- upvalues: v3 (copy)
     return v3.createElement("UIListLayout", {
         FillDirection = Enum.FillDirection.Vertical, 
@@ -206,7 +206,7 @@ v36.renderUIListLayout = function(v70) --[[ Line: 238 ]] --[[ Name: renderUIList
         [v3.Change.AbsoluteContentSize] = v70.onUIListLayoutContentSizeChanged
     });
 end;
-v36.renderUIPadding = function(v71) --[[ Line: 248 ]] --[[ Name: renderUIPadding ]]
+v36.renderUIPadding = function(v71) --[[ Line: 250 ]] --[[ Name: renderUIPadding ]]
     -- upvalues: v3 (copy), v12 (copy)
     return v3.createElement("UIPadding", {
         PaddingTop = if v71.props.PaddingTop then v71.props.PaddingTop else UDim.new(0, v12.SkinColorGridPadding), 
@@ -215,7 +215,7 @@ v36.renderUIPadding = function(v71) --[[ Line: 248 ]] --[[ Name: renderUIPadding
         PaddingRight = if v71.props.PaddingRight then v71.props.PaddingRight else UDim.new(0, v12.SkinColorGridPadding)
     });
 end;
-v36.renderBodyPartsList = function(v72, v73) --[[ Line: 265 ]] --[[ Name: renderBodyPartsList ]]
+v36.renderBodyPartsList = function(v72, v73) --[[ Line: 267 ]] --[[ Name: renderBodyPartsList ]]
     -- upvalues: v12 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), l_RadioButtonList_0 (copy)
     local v74 = {};
     for v75 = 1, #v12.BodyPartButtonData do
@@ -236,7 +236,7 @@ v36.renderBodyPartsList = function(v72, v73) --[[ Line: 265 ]] --[[ Name: render
         }), 
         BodyPartRadioButtons = v3.createElement(if l_FFlagAXMigrateAXToGlobalAutofocus_0 then l_RadioButtonList_0 else l_Focusable_0[l_RadioButtonList_0], {
             radioButtons = v74, 
-            onActivated = function(v77) --[[ Line: 291 ]] --[[ Name: onActivated ]]
+            onActivated = function(v77) --[[ Line: 293 ]] --[[ Name: onActivated ]]
                 -- upvalues: v72 (copy)
                 v72:setSelectedBodyPartIndex(v77);
             end, 
@@ -250,16 +250,16 @@ v36.renderBodyPartsList = function(v72, v73) --[[ Line: 265 ]] --[[ Name: render
         })
     });
 end;
-v36.renderStandardView = function(v78) --[[ Line: 309 ]] --[[ Name: renderStandardView ]]
+v36.renderStandardView = function(v78) --[[ Line: 311 ]] --[[ Name: renderStandardView ]]
     -- upvalues: l_withStyle_0 (copy), l_withSelectionCursorProvider_0 (copy), l_withLocalization_0 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), l_FFlagAXAdaptiveScrollingFixForward_0 (copy), v35 (copy), v12 (copy)
     local v79 = v78.props.adaptiveScrolling or {};
-    return l_withStyle_0(function(v80) --[[ Line: 311 ]]
+    return l_withStyle_0(function(v80) --[[ Line: 313 ]]
         -- upvalues: l_withSelectionCursorProvider_0 (ref), l_withLocalization_0 (ref), v78 (copy), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v79 (copy), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref), v12 (ref)
-        return l_withSelectionCursorProvider_0(function(v81) --[[ Line: 312 ]]
+        return l_withSelectionCursorProvider_0(function(v81) --[[ Line: 314 ]]
             -- upvalues: l_withLocalization_0 (ref), v78 (ref), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v79 (ref), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref), v80 (copy), v12 (ref)
             return l_withLocalization_0({
                 buttonText = "Feature.Avatar.Label.BodyColorAdvancedView"
-            })(function(v82) --[[ Line: 315 ]]
+            })(function(v82) --[[ Line: 317 ]]
                 -- upvalues: v78 (ref), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v79 (ref), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref), v80 (ref), v81 (copy), v12 (ref)
                 local v83 = v78:getItems();
                 local l_setViewSetting_0 = v78.props.setViewSetting;
@@ -271,7 +271,7 @@ v36.renderStandardView = function(v78) --[[ Line: 309 ]] --[[ Name: renderStanda
                     Size = v78:getGridAndSidebarFrameSize(), 
                     NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v78.props.NextSelectionUp, 
                     defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v78.bodyColorButtonsRef, 
-                    ScrollingEnabled = if v79.scrollingEnabledBinding then v79.scrollingEnabledBinding:map(function(v85) --[[ Line: 331 ]]
+                    ScrollingEnabled = if v79.scrollingEnabledBinding then v79.scrollingEnabledBinding:map(function(v85) --[[ Line: 333 ]]
                         return v85;
                     end) else l_FFlagAXAdaptiveScrollingFixForward_0 and true or v79.scrollingEnabled, 
                     Selectable = not l_FFlagAXMigrateAXToGlobalAutofocus_0 and nil, 
@@ -280,7 +280,7 @@ v36.renderStandardView = function(v78) --[[ Line: 309 ]] --[[ Name: renderStanda
                     UIListLayout = v78:renderUIListLayout(), 
                     UIPadding = v78:renderUIPadding(), 
                     BodyColorButtons = v78:renderBodyColorButtons(v83), 
-                    AdvancedViewButton = v78:renderToggleButton(v82.buttonText, v80, v81, function() --[[ Line: 350 ]]
+                    AdvancedViewButton = v78:renderToggleButton(v82.buttonText, v80, v81, function() --[[ Line: 352 ]]
                         -- upvalues: l_setViewSetting_0 (copy), v12 (ref)
                         l_setViewSetting_0(v12.ColorPickerViewSettings.AdvancedView);
                     end)
@@ -289,12 +289,12 @@ v36.renderStandardView = function(v78) --[[ Line: 309 ]] --[[ Name: renderStanda
         end);
     end);
 end;
-v36.renderAdvancedView = function(v86) --[[ Line: 365 ]] --[[ Name: renderAdvancedView ]]
+v36.renderAdvancedView = function(v86) --[[ Line: 367 ]] --[[ Name: renderAdvancedView ]]
     -- upvalues: l_withStyle_0 (copy), l_withSelectionCursorProvider_0 (copy), v12 (copy), l_withLocalization_0 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), l_FFlagAXAdaptiveScrollingFixForward_0 (copy), v35 (copy)
     local v87 = v86.props.adaptiveScrolling or {};
-    return l_withStyle_0(function(v88) --[[ Line: 367 ]]
+    return l_withStyle_0(function(v88) --[[ Line: 369 ]]
         -- upvalues: l_withSelectionCursorProvider_0 (ref), v12 (ref), l_withLocalization_0 (ref), v86 (copy), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v87 (copy), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref)
-        return l_withSelectionCursorProvider_0(function(v89) --[[ Line: 368 ]]
+        return l_withSelectionCursorProvider_0(function(v89) --[[ Line: 370 ]]
             -- upvalues: v12 (ref), l_withLocalization_0 (ref), v86 (ref), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v87 (ref), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref), v88 (copy)
             local v90 = {
                 standardButtonText = "Feature.Avatar.Label.BodyColorStandardView"
@@ -302,7 +302,7 @@ v36.renderAdvancedView = function(v86) --[[ Line: 365 ]] --[[ Name: renderAdvanc
             for v91, _ in v12.BodyPartButtonData do
                 v90["bodyPart" .. v91] = v12.BodyPartButtonData[v91].textKey;
             end;
-            return l_withLocalization_0(v90)(function(v93) --[[ Line: 375 ]]
+            return l_withLocalization_0(v90)(function(v93) --[[ Line: 377 ]]
                 -- upvalues: v86 (ref), v3 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), l_Focusable_0 (ref), v87 (ref), l_FFlagAXAdaptiveScrollingFixForward_0 (ref), v35 (ref), v88 (ref), v89 (copy), v12 (ref)
                 local v94 = v86:getItems();
                 local v95 = v86:getGridAndSidebarFrameSize();
@@ -317,7 +317,7 @@ v36.renderAdvancedView = function(v86) --[[ Line: 365 ]] --[[ Name: renderAdvanc
                     AutomaticCanvasSize = Enum.AutomaticSize.Y, 
                     defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v86.bodyColorButtonsRef, 
                     Selectable = not l_FFlagAXMigrateAXToGlobalAutofocus_0 and nil, 
-                    ScrollingEnabled = if v87.scrollingEnabledBinding then v87.scrollingEnabledBinding:map(function(v97) --[[ Line: 393 ]]
+                    ScrollingEnabled = if v87.scrollingEnabledBinding then v87.scrollingEnabledBinding:map(function(v97) --[[ Line: 395 ]]
                         return v97;
                     end) else l_FFlagAXAdaptiveScrollingFixForward_0 and true or v87.scrollingEnabled, 
                     [v3.Change.CanvasPosition] = if v35() then v86.onScroll else v87.onCanvasPositionChanged
@@ -332,7 +332,7 @@ v36.renderAdvancedView = function(v86) --[[ Line: 365 ]] --[[ Name: renderAdvanc
                         UIPadding = v86:renderUIPadding(), 
                         UIListLayout = v86:renderUIListLayout(), 
                         BodyColorButtons = v86:renderBodyColorButtons(v94, if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v86.bodyPartButtonsRef), 
-                        StandardViewButton = v86:renderToggleButton(v93.standardButtonText, v88, v89, function() --[[ Line: 426 ]]
+                        StandardViewButton = v86:renderToggleButton(v93.standardButtonText, v88, v89, function() --[[ Line: 428 ]]
                             -- upvalues: v86 (ref), l_setViewSetting_1 (copy), v12 (ref)
                             v86:setSelectedBodyPartIndex(1);
                             l_setViewSetting_1(v12.ColorPickerViewSettings.StandardView);
@@ -343,14 +343,14 @@ v36.renderAdvancedView = function(v86) --[[ Line: 365 ]] --[[ Name: renderAdvanc
         end);
     end);
 end;
-v36.shouldRenderSliderBar = function(v98) --[[ Line: 440 ]] --[[ Name: shouldRenderSliderBar ]]
+v36.shouldRenderSliderBar = function(v98) --[[ Line: 442 ]] --[[ Name: shouldRenderSliderBar ]]
     if not v98.props.rangeIdForSelectedBodyParts then
         return false;
     else
         return true;
     end;
 end;
-v36.render = function(v99) --[[ Line: 449 ]] --[[ Name: render ]]
+v36.render = function(v99) --[[ Line: 451 ]] --[[ Name: render ]]
     -- upvalues: v12 (copy), v3 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v32 (copy), v26 (copy)
     local v100 = nil;
     v100 = if v99.props.viewSetting == v12.ColorPickerViewSettings.AdvancedView then v99:renderAdvancedView() else v99:renderStandardView();
@@ -376,7 +376,7 @@ v36.render = function(v99) --[[ Line: 449 ]] --[[ Name: render ]]
         }) else nil
     });
 end;
-v36.didMount = function(v102) --[[ Line: 485 ]] --[[ Name: didMount ]]
+v36.didMount = function(v102) --[[ Line: 487 ]] --[[ Name: didMount ]]
     -- upvalues: v15 (copy)
     local l_bodyColor3s_0 = v102.props.bodyColor3s;
     local l_bodyPartRangeIds_0 = v102.props.bodyPartRangeIds;
@@ -395,7 +395,7 @@ v36.didMount = function(v102) --[[ Line: 485 ]] --[[ Name: didMount ]]
         v102.props.setBodyPartRangeIds(v105);
     end;
 end;
-return (v31((v4.connect(function(v111, _) --[[ Line: 507 ]]
+return (v31((v4.connect(function(v111, _) --[[ Line: 509 ]]
     -- upvalues: v30 (copy), v10 (copy)
     local l_DefaultBodyColorRanges_0 = v111.AvatarExperience.AvatarEditor.DefaultBodyColorRanges;
     local l_BodyPartRangeIds_0 = v111.AvatarExperience.AvatarEditor.Character.BodyPartRangeIds;
@@ -409,18 +409,18 @@ return (v31((v4.connect(function(v111, _) --[[ Line: 507 ]]
         bodyPartRangeIds = l_BodyPartRangeIds_0, 
         selectedBodyPartIndex = l_selectedBodyPartIndex_1
     };
-end, function(v117) --[[ Line: 523 ]]
+end, function(v117) --[[ Line: 525 ]]
     -- upvalues: v27 (copy), v28 (copy), v29 (copy)
     return {
-        setViewSetting = function(v118) --[[ Line: 525 ]] --[[ Name: setViewSetting ]]
+        setViewSetting = function(v118) --[[ Line: 527 ]] --[[ Name: setViewSetting ]]
             -- upvalues: v117 (copy), v27 (ref)
             v117(v27(v118));
         end, 
-        setBodyPartRangeIds = function(v119) --[[ Line: 528 ]] --[[ Name: setBodyPartRangeIds ]]
+        setBodyPartRangeIds = function(v119) --[[ Line: 530 ]] --[[ Name: setBodyPartRangeIds ]]
             -- upvalues: v117 (copy), v28 (ref)
             v117(v28(v119));
         end, 
-        setSelectedBodyPartIndex = function(v120) --[[ Line: 531 ]] --[[ Name: setSelectedBodyPartIndex ]]
+        setSelectedBodyPartIndex = function(v120) --[[ Line: 533 ]] --[[ Name: setSelectedBodyPartIndex ]]
             -- upvalues: v117 (copy), v29 (ref)
             v117(v29(v120));
         end

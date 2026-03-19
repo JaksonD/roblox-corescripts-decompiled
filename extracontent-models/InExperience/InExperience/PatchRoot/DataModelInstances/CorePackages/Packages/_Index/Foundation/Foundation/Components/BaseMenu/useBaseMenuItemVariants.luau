@@ -6,7 +6,7 @@ local v4 = require(l_script_FirstAncestor_0.Utility.composeStyleVariant);
 local _ = require(l_script_FirstAncestor_0.Providers.Style.Tokens);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
 local v7 = require(l_script_FirstAncestor_0.Enums.IconSize);
-local function v12(v8) --[[ Line: 26 ]]
+local function v12(v8) --[[ Line: 28 ]]
     -- upvalues: v1 (copy), v2 (copy), v7 (copy)
     local v9 = {
         container = {
@@ -45,6 +45,12 @@ local function v12(v8) --[[ Line: 26 ]]
             check = {
                 tag = "size-300", 
                 size = v8.Size.Size_600
+            }, 
+            chevron = {
+                size = v7.Small
+            }, 
+            groupPadding = {
+                size = v8.Padding.XSmall
             }
         }, 
         [v2.Small] = {
@@ -64,6 +70,12 @@ local function v12(v8) --[[ Line: 26 ]]
             check = {
                 tag = "size-400", 
                 size = v8.Size.Size_700
+            }, 
+            chevron = {
+                size = v7.Small
+            }, 
+            groupPadding = {
+                size = v8.Padding.Small
             }
         }, 
         [v2.Medium] = {
@@ -83,6 +95,12 @@ local function v12(v8) --[[ Line: 26 ]]
             check = {
                 tag = "size-500", 
                 size = v8.Size.Size_800
+            }, 
+            chevron = {
+                size = v7.Medium
+            }, 
+            groupPadding = {
+                size = v8.Padding.Small
             }
         }, 
         [v2.Large] = {
@@ -102,6 +120,12 @@ local function v12(v8) --[[ Line: 26 ]]
             check = {
                 tag = "size-600", 
                 size = v8.Size.Size_900
+            }, 
+            chevron = {
+                size = v7.Large
+            }, 
+            groupPadding = {
+                size = v8.Padding.Small
             }
         }
     };
@@ -123,7 +147,7 @@ local function v12(v8) --[[ Line: 26 ]]
         isChecked = v11
     };
 end;
-return function(v13, v14, v15) --[[ Line: 94 ]]
+return function(v13, v14, v15) --[[ Line: 104 ]]
     -- upvalues: v3 (copy), v12 (copy), v4 (copy)
     local v16 = v3.useVariants("BaseMenuItem", v12, v13);
     return v4(v16.common, v16.sizes[v14], v16.isChecked[v15]);

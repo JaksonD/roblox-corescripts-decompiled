@@ -22,8 +22,7 @@ return {
         GetFFlagEnableVoiceNudge = require(l_Flags_0.GetFFlagEnableVoiceNudge), 
         GetFFlagEnableFtuxExitOnMuteToggle = require(l_Flags_0.GetFFlagEnableFtuxExitOnMuteToggle), 
         GetFFlagEnableExpJoinMicPermAnalytics = require(l_Flags_0.GetFFlagEnableExpJoinMicPermAnalytics), 
-        GetFFlagEnableSeamlessVoiceFeature = require(l_Flags_0.GetFFlagEnableSeamlessVoiceFeature), 
-        GetFFlagEmitVoiceRejoinStatus = require(l_Flags_0.GetFFlagEmitVoiceRejoinStatus)
+        GetFFlagEnableSeamlessVoiceFeature = require(l_Flags_0.GetFFlagEnableSeamlessVoiceFeature)
     }, 
     Requests = {
         GetShowAgeVerificationOverlay = require(l_Requests_0.GetShowAgeVerificationOverlay)

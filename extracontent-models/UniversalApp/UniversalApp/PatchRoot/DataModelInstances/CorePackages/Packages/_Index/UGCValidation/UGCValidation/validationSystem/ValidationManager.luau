@@ -84,7 +84,7 @@ local function v45(v23, _) --[[ Line: 73 ]] --[[ Name: initRunVariables ]]
     end;
     return v25, v26, v27;
 end;
-local function v60(v46, v47) --[[ Line: 135 ]] --[[ Name: fetchQualityResults ]]
+local function v60(v46, v47) --[[ Line: 136 ]] --[[ Name: fetchQualityResults ]]
     -- upvalues: v18 (copy), l_AssetQualityService_0 (copy), v8 (copy), v19 (copy), v10 (copy), l_HttpService_0 (copy), v6 (copy), v17 (copy)
     if not v18() or not l_AssetQualityService_0 then
         v46.aqsFetchMetrics.fetchStatus = "assetQualityFetchFailure";
@@ -95,7 +95,7 @@ local function v60(v46, v47) --[[ Line: 135 ]] --[[ Name: fetchQualityResults ]]
         local v49 = nil;
         local v50 = nil;
         local v51 = nil;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 144 ]]
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 145 ]]
             -- upvalues: v51 (ref), l_AssetQualityService_0 (ref), v48 (copy)
             v51 = l_AssetQualityService_0:GenerateAssetQualityGltfFromInstanceAsync(v48);
         end);
@@ -103,7 +103,7 @@ local function v60(v46, v47) --[[ Line: 135 ]] --[[ Name: fetchQualityResults ]]
         v50 = l_result_0;
         if v49 then
             for v54 = 1, 1 + v19() do
-                local l_status_1, l_result_1 = pcall(function() --[[ Line: 151 ]]
+                local l_status_1, l_result_1 = pcall(function() --[[ Line: 152 ]]
                     -- upvalues: v46 (copy), v54 (copy), l_AssetQualityService_0 (ref), v51 (ref), v47 (copy), v10 (ref), l_HttpService_0 (ref)
                     v46.aqsFetchMetrics.fetchAttemptCount = v54;
                     local v55 = os.clock();
@@ -141,7 +141,7 @@ local function v60(v46, v47) --[[ Line: 135 ]] --[[ Name: fetchQualityResults ]]
         return;
     end;
 end;
-local function v66(v61, v62) --[[ Line: 186 ]] --[[ Name: getNextLayer ]]
+local function v66(v61, v62) --[[ Line: 187 ]] --[[ Name: getNextLayer ]]
     local v63 = {};
     for v64, v65 in v61 do
         if next(v65.prereqs) == nil and (v62 or not v65.isQuality) then
@@ -150,7 +150,7 @@ local function v66(v61, v62) --[[ Line: 186 ]] --[[ Name: getNextLayer ]]
     end;
     return v63;
 end;
-local function v72(v67, v68, v69) --[[ Line: 201 ]] --[[ Name: reportFullResult ]]
+local function v72(v67, v68, v69) --[[ Line: 202 ]] --[[ Name: reportFullResult ]]
     -- upvalues: l_RbxAnalyticsService_0 (copy), l_TelemetryService_0 (copy), v16 (copy), v17 (copy)
     local v70 = v68.aqsFetchMetrics.fetchStatus ~= "assetQualityFetchNA";
     local v71 = {
@@ -179,7 +179,7 @@ local function v72(v67, v68, v69) --[[ Line: 201 ]] --[[ Name: reportFullResult 
         print(v67);
     end;
 end;
-local function v81(v73, v74, v75, v76, v77) --[[ Line: 230 ]] --[[ Name: updateResultData ]]
+local function v81(v73, v74, v75, v76, v77) --[[ Line: 231 ]] --[[ Name: updateResultData ]]
     -- upvalues: v2 (copy), v9 (copy)
     local l_validationEnum_0 = v75.validationEnum;
     if v77 or not v74[l_validationEnum_0].isShadow then
@@ -207,7 +207,7 @@ local function v81(v73, v74, v75, v76, v77) --[[ Line: 230 ]] --[[ Name: updateR
     end;
     v74[l_validationEnum_0] = nil;
 end;
-local function v84(v82) --[[ Line: 274 ]] --[[ Name: createConsumerConfigWithDefaults ]]
+local function v84(v82) --[[ Line: 275 ]] --[[ Name: createConsumerConfigWithDefaults ]]
     local v83 = table.clone(v82);
     if v83.enforceR15FolderStructure == nil then
         v83.enforceR15FolderStructure = true;
@@ -221,7 +221,7 @@ local function v84(v82) --[[ Line: 274 ]] --[[ Name: createConsumerConfigWithDef
     v83.preloadedEditableImages = v83.preloadedEditableImages or {};
     return v83;
 end;
-local function v102(v85) --[[ Line: 294 ]] --[[ Name: runValidationOnRootInstance ]]
+local function v102(v85) --[[ Line: 295 ]] --[[ Name: runValidationOnRootInstance ]]
     -- upvalues: v7 (copy), v45 (copy), v5 (copy), v2 (copy), v81 (copy), v72 (copy), v6 (copy), v21 (copy), l_RunService_0 (copy), v60 (copy), v66 (copy), v22 (copy)
     local v86 = os.clock();
     local l_rootInstance_0 = v85.rootInstance;
@@ -280,7 +280,7 @@ local function v102(v85) --[[ Line: 294 ]] --[[ Name: runValidationOnRootInstanc
         return v91;
     end;
 end;
-local _ = function(v103) --[[ Line: 378 ]] --[[ Name: getRootInstance ]]
+local _ = function(v103) --[[ Line: 379 ]] --[[ Name: getRootInstance ]]
     -- upvalues: v4 (copy)
     if #v103 == 0 then
         return nil;
@@ -293,7 +293,7 @@ local _ = function(v103) --[[ Line: 378 ]] --[[ Name: getRootInstance ]]
         return v103[1];
     end;
 end;
-v20.ValidateAsset = function(v107, v108, v109) --[[ Line: 395 ]] --[[ Name: ValidateAsset ]]
+v20.ValidateAsset = function(v107, v108, v109) --[[ Line: 396 ]] --[[ Name: ValidateAsset ]]
     -- upvalues: v17 (copy), l_HttpService_0 (copy), v4 (copy), v84 (copy), v102 (copy)
     local v110 = false;
     if v17() then
@@ -328,7 +328,7 @@ v20.ValidateAsset = function(v107, v108, v109) --[[ Line: 395 ]] --[[ Name: Vali
     v111.consumerConfig = v84(v109);
     return (v102(v111));
 end;
-v20.ValidateFinalizedBundle = function(v115, v116, v117) --[[ Line: 417 ]] --[[ Name: ValidateFinalizedBundle ]]
+v20.ValidateFinalizedBundle = function(v115, v116, v117) --[[ Line: 418 ]] --[[ Name: ValidateFinalizedBundle ]]
     -- upvalues: v17 (copy), v4 (copy), l_HttpService_0 (copy), v84 (copy), v102 (copy)
     local v118 = false;
     if v17() then

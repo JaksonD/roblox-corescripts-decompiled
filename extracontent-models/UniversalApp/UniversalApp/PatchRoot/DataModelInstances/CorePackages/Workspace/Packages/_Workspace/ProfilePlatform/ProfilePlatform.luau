@@ -2,10 +2,11 @@ local v0 = require(script.Contexts.ProfileWrapperContext);
 local v1 = require(script.Common.Enums);
 local v2 = require(script.Common.Types);
 local v3 = require(script.Networking.getProfilePlatform);
-local v4 = require(script.Parent.SharedFlags);
-local l_FFlagMoveInExperienceModeToEditProfile_0 = v4.FFlagMoveInExperienceModeToEditProfile;
-local l_FFlagAddIEMProfilePage_0 = v4.FFlagAddIEMProfilePage;
-local l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 = v4.FFlagLuaAppAddSocialLinkClickTelemetryToEdp;
+local v4 = require(script.Networking.refreshProfilePlatformActionInfo);
+local v5 = require(script.Parent.SharedFlags);
+local l_FFlagMoveInExperienceModeToEditProfile_0 = v5.FFlagMoveInExperienceModeToEditProfile;
+local l_FFlagAddIEMProfilePage_0 = v5.FFlagAddIEMProfilePage;
+local l_FFlagTCUpdateProfileCTAButton_0 = v5.FFlagTCUpdateProfileCTAButton;
 return {
     ["jest.config"] = script["jest.config"], 
     RoduxKey = require(script.Common.Constants).RODUX_KEY, 
@@ -14,7 +15,6 @@ return {
     EventNames = require(script.Analytics.EventNames), 
     LoadingStagesExtension = require(script.Analytics.LoadingStagesExtension), 
     initializeProfileAnalytics = require(script.Analytics.initializeProfileAnalytics), 
-    sendSocialLinkClickEvent = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then require(script.Analytics.sendSocialLinkClickEvent) else nil, 
     ProfilePlatformNavigator = require(script.Navigation.ProfilePlatformNavigatorWithProviders), 
     ProfileWrapperContext = v0, 
     ProfileTypes = v1.ProfileTypes, 
@@ -31,6 +31,7 @@ return {
     DisabledReasons = v1.DisabledReasons, 
     ProfileActions = v1.ProfileActions, 
     getProfilePlatform = if not not l_FFlagMoveInExperienceModeToEditProfile_0 or l_FFlagAddIEMProfilePage_0 then v3 else nil, 
+    refreshProfilePlatformActionInfo = if l_FFlagTCUpdateProfileCTAButton_0 then v4 else nil, 
     ProfilePlatformTypes = if l_FFlagMoveInExperienceModeToEditProfile_0 then v2 else nil, 
     FFlagProfilePlatformEnableEditAppearanceMenu = require(script.Flags.FFlagProfilePlatformEnableEditAppearanceMenu)
 };
