@@ -1,0 +1,4 @@
+game:DefineFastFlag("EnableCollectiblesInfoPrompt", false);
+return function() --[[ Line: 3 ]]
+    return game:GetFastFlag("EnableCollectiblesInfoPrompt");
+end;

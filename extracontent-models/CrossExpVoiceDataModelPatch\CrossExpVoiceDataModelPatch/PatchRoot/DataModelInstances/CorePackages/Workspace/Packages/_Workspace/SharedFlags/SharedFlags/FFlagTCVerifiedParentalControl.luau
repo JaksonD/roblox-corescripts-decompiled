@@ -1,0 +1,2 @@
+local v0 = require(script.Parent.FFlagMoveVariantMapsToHelperFiles);
+return require(script.Parent.FFlagAmpWizardParseExtraParameters) and v0 and game:DefineFastFlag("TCVerifiedParentalControl", false);

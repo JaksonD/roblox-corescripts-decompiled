@@ -1,0 +1,1 @@
+return game:DefineFastFlag("ProfilePlatformEnableCommunityProfilePage_v2", false);

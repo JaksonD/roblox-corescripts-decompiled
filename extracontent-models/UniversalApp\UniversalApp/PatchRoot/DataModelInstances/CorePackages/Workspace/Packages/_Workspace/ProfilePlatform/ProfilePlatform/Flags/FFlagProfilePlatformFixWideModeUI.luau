@@ -1,0 +1,1 @@
+return game:DefineFastFlag("ProfilePlatformFixWideModeUI_v2", false);

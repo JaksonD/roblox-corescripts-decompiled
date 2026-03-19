@@ -1,0 +1,4 @@
+game:DefineFastFlag("LuaAppThrottleInviteSendEndpoint", false);
+return function() --[[ Line: 3 ]]
+    return game:GetFastFlag("LuaAppThrottleInviteSendEndpoint");
+end;

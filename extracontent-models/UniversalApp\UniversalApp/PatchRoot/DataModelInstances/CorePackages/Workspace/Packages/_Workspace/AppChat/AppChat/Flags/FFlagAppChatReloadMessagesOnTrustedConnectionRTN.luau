@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAppChatEnableHiddenMessages) and game:DefineFastFlag("AppChatReloadMessagesOnTrustedConnectionRTN", false);

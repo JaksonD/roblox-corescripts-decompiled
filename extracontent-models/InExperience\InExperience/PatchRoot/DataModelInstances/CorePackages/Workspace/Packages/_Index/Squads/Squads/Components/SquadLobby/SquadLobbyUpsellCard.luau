@@ -1,0 +1,213 @@
+local l_script_FirstAncestor_0 = script:FindFirstAncestor("Squads");
+local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local v2 = require(l_Parent_0.Responsive);
+local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
+local v4 = require(l_script_FirstAncestor_0.dependencies);
+local l_Foundation_0 = v4.Foundation;
+local l_React_0 = v4.React;
+local l_dependencyArray_0 = v4.Hooks.dependencyArray;
+local l_NetworkingSquads_0 = v4.NetworkingSquads;
+local l_NetworkStatus_0 = v4.RoduxNetworking.Enum.NetworkStatus;
+local l_SquadsCore_0 = v4.SquadsCore;
+local l_useEffectOnce_0 = v4.Hooks.useEffectOnce;
+local l_useDispatch_0 = v4.Hooks.useDispatch;
+local l_useSelector_0 = v4.Hooks.useSelector;
+local l_useTokens_0 = l_Foundation_0.Hooks.useTokens;
+local l_useCurrentSquadSelector_0 = v4.Hooks.useCurrentSquadSelector;
+local l_useLocalization_0 = v4.Hooks.useLocalization;
+local l_reinviteToSquad_0 = l_SquadsCore_0.Thunks.reinviteToSquad;
+local l_EventNames_0 = l_SquadsCore_0.Analytics.EventNames;
+local l_SquadExternalContractContext_0 = l_SquadsCore_0.SquadExternalContractProvider.SquadExternalContractContext;
+local l_useCurrentSquadId_0 = l_SquadsCore_0.Hooks.useCurrentSquadId;
+local l_AvatarGroup_0 = l_Foundation_0.AvatarGroup;
+local l_AvatarGroupType_0 = l_Foundation_0.Enums.AvatarGroupType;
+local l_InputSize_0 = l_Foundation_0.Enums.InputSize;
+local v24 = require(l_script_FirstAncestor_0.Enums.NoResponseInviteAgainOrAddOthersEnum);
+local v25 = require(l_script_FirstAncestor_0.Enums.SquadInvitePageNavSourceEnum);
+return function(v26) --[[ Line: 42 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useTokens_0 (copy), v2 (copy), l_useLocalUserId_0 (copy), l_useLocalization_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useCurrentSquadId_0 (copy), l_React_0 (copy), l_NetworkingSquads_0 (copy), l_useSelector_0 (copy), l_SquadExternalContractContext_0 (copy), l_Foundation_0 (copy), l_dependencyArray_0 (copy), l_AvatarGroup_0 (copy), l_InputSize_0 (copy), l_AvatarGroupType_0 (copy), l_useEffectOnce_0 (copy), l_EventNames_0 (copy), v24 (copy), l_reinviteToSquad_0 (copy), v25 (copy), l_NetworkStatus_0 (copy)
+    local v27 = l_useDispatch_0();
+    local v28 = l_useTokens_0();
+    local v29 = v2.useBreakpointXOrSmaller(v2.Keys.XSmall);
+    local v30 = v2.useBreakpointYOrSmaller(v2.Keys.XSmall);
+    local v31 = l_useLocalUserId_0();
+    local v32 = l_useLocalization_0({
+        addOthers = "Feature.Squads.Action.AddOthers", 
+        upsellText = "Feature.Squads.Description.upsellInviteText", 
+        inviteText = "Feature.Squads.Action.Invite", 
+        inviteAgain = "Feature.Squads.Action.InviteAgain"
+    });
+    local v33 = l_useCurrentSquadSelector_0();
+    local v34 = if v33 and v33.parentChannelId then v33.parentChannelId else nil;
+    local v35 = l_useCurrentSquadId_0();
+    local v37 = l_React_0.useCallback(function(v36) --[[ Line: 62 ]]
+        -- upvalues: l_NetworkingSquads_0 (ref), v35 (copy)
+        return l_NetworkingSquads_0.ReinviteToSquad.getStatus(v36, {
+            squadId = v35
+        });
+    end, {
+        v35
+    });
+    local v38 = l_useSelector_0(v37);
+    local v39 = l_React_0.useContext(l_SquadExternalContractContext_0);
+    local v40 = v39.useGetConversationFromId(v34 or "");
+    local v41 = l_React_0.useMemo(function() --[[ Line: 70 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v28 (copy), v32 (copy)
+        return l_React_0.createElement(l_Foundation_0.Text, {
+            AutomaticSize = Enum.AutomaticSize.Y, 
+            Size = UDim2.fromScale(1, 0), 
+            fontStyle = v28.Typography.BodyLarge, 
+            LayoutOrder = 1, 
+            Text = v32.upsellText, 
+            textStyle = v28.Color.Content.Default, 
+            TextXAlignment = Enum.TextXAlignment.Center, 
+            TextWrapped = true
+        });
+    end, l_dependencyArray_0(v28, v32.upsellText));
+    local v45 = l_React_0.useMemo(function() --[[ Line: 83 ]]
+        -- upvalues: v40 (copy), v31 (copy), v30 (copy), v29 (copy), l_React_0 (ref), l_AvatarGroup_0 (ref), l_InputSize_0 (ref), l_AvatarGroupType_0 (ref), v28 (copy)
+        local v42 = {};
+        if v40 and v40.participants then
+            for _, v44 in ipairs(v40.participants) do
+                if v44 ~= v31 then
+                    table.insert(v42, v44);
+                end;
+            end;
+        end;
+        if v30 or v29 then
+            return nil;
+        else
+            return (l_React_0.createElement(l_AvatarGroup_0, {
+                avatars = v42, 
+                size = l_InputSize_0.Medium, 
+                type = l_AvatarGroupType_0.Stacked, 
+                max = 4, 
+                imageBackgroundStyle = {
+                    Color3 = v28.Color.OverMedia.OverMedia_300.Color3, 
+                    Transparency = v28.Color.OverMedia.OverMedia_300.Transparency
+                }, 
+                imageBorderStyle = {
+                    Color = v28.Color.Surface.Surface_0.Color3, 
+                    Transparency = v28.Color.Surface.Surface_0.Transparency
+                }, 
+                layoutOrder = 0
+            }));
+        end;
+    end, l_dependencyArray_0(v40 and v40.participants, v31, v30, v29));
+    l_useEffectOnce_0(function() --[[ Line: 112 ]]
+        -- upvalues: v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy)
+        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+            actionType = v24.Impression, 
+            button = v24.InviteAgain, 
+            conversationId = v34
+        });
+        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+            actionType = v24.Impression, 
+            button = v24.AddOthers, 
+            conversationId = v34
+        });
+    end, v34);
+    local v46 = l_React_0.useCallback(function() --[[ Line: 125 ]]
+        -- upvalues: v27 (copy), l_reinviteToSquad_0 (ref), v35 (copy), v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy)
+        v27(l_reinviteToSquad_0(v35, v39.setSquadPrompt));
+        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+            actionType = v24.Click, 
+            button = v24.InviteAgain, 
+            conversationId = v34
+        });
+    end, {
+        v39.fireSquadAnalytics, 
+        v34
+    });
+    local v47 = l_React_0.useCallback(function() --[[ Line: 136 ]]
+        -- upvalues: v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy), v25 (ref), v26 (copy)
+        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+            actionType = v24.Click, 
+            button = v24.AddOthers, 
+            conversationId = v34
+        });
+        v39.fireSquadAnalytics(l_EventNames_0.SquadInvitePageNavSource, {
+            inviteNavSource = v25.SquadLobbyUpsellCardClicked, 
+            parentChannelId = v34
+        });
+        v26.navigateToSquadInviteFriends();
+    end, {
+        v34, 
+        v39.fireSquadAnalytics, 
+        v26.navigateToSquadInviteFriends
+    });
+    local v48 = l_React_0.useMemo(function() --[[ Line: 155 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v38 (copy), l_NetworkStatus_0 (ref), v46 (copy), v32 (copy)
+        return l_React_0.createElement(l_Foundation_0.Button, {
+            fillBehavior = l_Foundation_0.Enums.FillBehavior.Fill, 
+            isDisabled = v38 == l_NetworkStatus_0.Fetching, 
+            LayoutOrder = 1, 
+            onActivated = v46, 
+            text = v32.inviteAgain, 
+            size = l_Foundation_0.Enums.InputSize.Medium, 
+            variant = l_Foundation_0.Enums.ButtonVariant.Standard
+        });
+    end, {
+        v46, 
+        v32.inviteAgain, 
+        v38
+    });
+    local v49 = l_React_0.useMemo(function() --[[ Line: 171 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v47 (copy), v32 (copy)
+        return l_React_0.createElement(l_Foundation_0.Button, {
+            fillBehavior = l_Foundation_0.Enums.FillBehavior.Fill, 
+            LayoutOrder = 2, 
+            onActivated = v47, 
+            text = v32.addOthers, 
+            size = l_Foundation_0.Enums.ButtonSize.Medium, 
+            variant = l_Foundation_0.Enums.ButtonVariant.Standard
+        });
+    end, {
+        v47, 
+        v32.addOthers
+    });
+    return l_React_0.createElement("Frame", {
+        Size = v26.size, 
+        BackgroundTransparency = 1, 
+        LayoutOrder = v26.layoutOrder
+    }, {
+        l_React_0.createElement(l_Foundation_0.View, {
+            AnchorPoint = Vector2.new(0.5, 0.5), 
+            Position = UDim2.fromScale(0.5, 0.5), 
+            Size = UDim2.new(1, -2 * v28.Stroke.Standard, 1, -2 * v28.Stroke.Standard), 
+            cornerRadius = UDim.new(0, v28.Radius.Medium), 
+            padding = v28.Padding.XXLarge, 
+            layout = {
+                FillDirection = Enum.FillDirection.Vertical, 
+                HorizontalAlignment = Enum.HorizontalAlignment.Center, 
+                Padding = UDim.new(0, if not not v30 or v29 then v28.Padding.Medium else v28.Padding.XXLarge), 
+                SortOrder = Enum.SortOrder.LayoutOrder, 
+                VerticalAlignment = Enum.VerticalAlignment.Center
+            }, 
+            stroke = {
+                Color = v28.Color.Stroke.Default.Color3, 
+                Transparency = v28.Color.Stroke.Default.Transparency, 
+                Thickness = v28.Stroke.Standard
+            }
+        }, {
+            UpsellInformation = l_React_0.createElement(l_Foundation_0.View, {
+                LayoutOrder = 1, 
+                tag = "size-full-0 gap-medium align-x-center auto-y col"
+            }, {
+                UpsellFacepile = v45, 
+                UpsellLabel = v41
+            }), 
+            Buttons = l_React_0.createElement(l_Foundation_0.View, {
+                LayoutOrder = 2, 
+                tag = {
+                    ["size-full-0 gap-small align-x-center flex-fill align-y-center auto-y"] = true, 
+                    col = v29, 
+                    row = not v29
+                }
+            }, {
+                InviteAgainButton = v48, 
+                AddOthersButton = v49
+            })
+        })
+    });
+end;

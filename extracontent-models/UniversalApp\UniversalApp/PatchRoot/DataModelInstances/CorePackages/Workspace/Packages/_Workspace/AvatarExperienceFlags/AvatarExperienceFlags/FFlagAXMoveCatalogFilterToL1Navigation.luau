@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAXScrollingListAutomaticCanvasSize) and game:DefineFastFlag("AXMoveCatalogFilterToL1Navigation2", false);

@@ -1,0 +1,21 @@
+local l_HttpService_0 = game:GetService("HttpService");
+local l_script_FirstAncestor_0 = script:FindFirstAncestor("Http");
+local v2 = require(l_script_FirstAncestor_0.Url);
+local _ = require(l_script_FirstAncestor_0.RequestTypes);
+return function(v4, v5, v6, v7, v8, v9, v10) --[[ Line: 8 ]]
+    -- upvalues: l_HttpService_0 (copy), v2 (copy)
+    assert(v4, "requestImpl is required");
+    assert(v5, "conversationId is required");
+    assert(v6, "universeId is required");
+    local v11 = l_HttpService_0:JSONEncode({
+        conversationId = v5, 
+        universeId = v6, 
+        decorators = v7, 
+        isExperienceInvite = v8, 
+        userId = v9, 
+        placeId = v10
+    });
+    return v4(string.format("%s/send-game-link-message", v2.CHAT_URL), "POST", {
+        postBody = v11
+    });
+end;

@@ -1,0 +1,11 @@
+game:DefineFastString("UGCValidateFrameDeltaKeyTimeTol", "0.85");
+local v0 = {
+    asString = function() --[[ Line: 9 ]] --[[ Name: asString ]]
+        return game:GetFastString("UGCValidateFrameDeltaKeyTimeTol");
+    end
+};
+v0.asNumber = function() --[[ Line: 13 ]] --[[ Name: asNumber ]]
+    -- upvalues: v0 (copy)
+    return (tonumber(v0.asString()));
+end;
+return v0;
