@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAXMigrateAXFocusBehaviorRoot) and game:DefineFastFlag("AXMigrateFormPeekViewToFocusNavigation", false);

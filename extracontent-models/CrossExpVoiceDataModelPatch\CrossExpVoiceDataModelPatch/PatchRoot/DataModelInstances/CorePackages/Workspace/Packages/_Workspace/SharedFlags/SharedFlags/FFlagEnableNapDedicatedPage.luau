@@ -1,0 +1,1 @@
+return game:DefineFastFlag("EnableNapDedicatedPage2", false);

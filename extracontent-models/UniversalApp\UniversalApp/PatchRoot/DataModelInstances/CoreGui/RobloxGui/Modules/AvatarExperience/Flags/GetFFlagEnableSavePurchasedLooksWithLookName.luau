@@ -1,0 +1,4 @@
+game:DefineFastFlag("EnableSavePurchasedLooksWithLookName", false);
+return function() --[[ Line: 3 ]]
+    return game:GetFastFlag("EnableSavePurchasedLooksWithLookName");
+end;

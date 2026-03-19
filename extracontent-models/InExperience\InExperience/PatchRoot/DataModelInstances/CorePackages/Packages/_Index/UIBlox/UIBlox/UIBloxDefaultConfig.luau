@@ -1,0 +1,19 @@
+return {
+    fixCoplayFooterConditionalHooks = false, 
+    enableTraceLevelLog = false, 
+    setZIndexOnGridCells = false, 
+    responsiveGridDisplayLinesNonNil = false, 
+    enableTooltipV2HoverControllerReRenderFix = false, 
+    enableTooltipV2BodyFontFix = false, 
+    enableOpenTypeSupport = false, 
+    useFoundationButton = false, 
+    didMountUpdateFullPageModal = false, 
+    useTokenizedShortcutBar = false, 
+    passRowAndColumnDataToItemInGridView = false, 
+    useProvidedRefForButton = false, 
+    enableActionBarButtonOverride = false, 
+    enableShortcutCustomization = false, 
+    enableScalingForSomeEdpIcons = false, 
+    enablePanel3DSurfaceGuiRef = false, 
+    enableTooltipRichText = false
+};

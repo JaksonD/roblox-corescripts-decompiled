@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagEnableWideModeForCommunityProfilePage) and game:DefineFastFlag("FixCommunityHeaderForWideMode", false);

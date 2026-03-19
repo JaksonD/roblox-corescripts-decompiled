@@ -1,0 +1,1 @@
+return game:DefineFastFlag("AXWidgetSeeAllImpressions2", false);

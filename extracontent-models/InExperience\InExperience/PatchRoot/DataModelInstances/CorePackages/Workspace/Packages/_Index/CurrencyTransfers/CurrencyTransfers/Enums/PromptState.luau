@@ -1,0 +1,19 @@
+return {
+    Unspecified = "Unspecified", 
+    Hidden = "Hidden", 
+    TransferRequested = "TransferRequested", 
+    TransferStarted = "TransferStarted", 
+    TransferError = "TransferError", 
+    TransferInput = "TransferInput", 
+    TransferConfirm = "TransferConfirm", 
+    TransferProcessing = "TransferProcessing", 
+    TransferSuccess = "TransferSuccess", 
+    TransferComplete = "TransferComplete", 
+    TransferBlocked = "TransferBlocked", 
+    ReceiveRequested = "ReceiveRequested", 
+    ReceiveStarted = "ReceiveStarted", 
+    ReceiveSuccess = "ReceiveSuccess", 
+    ReceiveBlocked = "ReceiveBlocked", 
+    ReceiveComplete = "ReceiveComplete", 
+    ReceiveError = "ReceiveError"
+};

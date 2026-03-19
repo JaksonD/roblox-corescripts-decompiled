@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagEnableProfilePlatformCatalogNetworking) and game:DefineFastFlag("ProfilePlatformEnableStore_V2", false);

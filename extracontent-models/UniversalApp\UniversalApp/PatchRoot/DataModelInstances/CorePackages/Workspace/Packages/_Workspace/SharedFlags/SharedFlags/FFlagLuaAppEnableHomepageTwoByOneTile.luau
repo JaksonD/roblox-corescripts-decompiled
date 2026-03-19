@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagLuaAppSearchGridTiles) and game:DefineFastFlag("LuaAppEnableHomepageTwoByOneTile5", false);

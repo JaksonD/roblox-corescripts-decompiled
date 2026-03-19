@@ -1,0 +1,4 @@
+return {
+    Standard = "Standard", 
+    Utility = "Utility"
+};

@@ -1,0 +1,1 @@
+return require(script.Parent.FFlagAXCatalogCategoriesStore) and game:DefineFastFlag("AXHandleCategoryIdsTaxonomyDeepLinks", false);

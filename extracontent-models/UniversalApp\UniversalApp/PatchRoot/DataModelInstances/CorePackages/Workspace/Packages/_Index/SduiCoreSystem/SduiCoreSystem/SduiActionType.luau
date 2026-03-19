@@ -1,0 +1,21 @@
+return {
+    Link = "Link", 
+    LoadMoreFromApi = "LoadMoreFromApi", 
+    OpenAbuseReport = "OpenAbuseReport", 
+    OpenBadgeDetails = "OpenBadgeDetails", 
+    OpenProfile = "OpenProfile", 
+    OpenGameDetails = "OpenGameDetails", 
+    OpenJoinFriends = "OpenJoinFriends", 
+    OpenMarketplaceTryOn = "OpenMarketplaceTryOn", 
+    OpenSeeAll = "OpenSeeAll", 
+    OpenSponsoredTooltip = "OpenSponsoredTooltip", 
+    PlayButtonClick = "PlayButtonClick", 
+    DismissDialog = "DismissDialog", 
+    UpdateUserSettings = "UpdateUserSettings", 
+    RemoveBadgeFromInventory = "RemoveBadgeFromInventory", 
+    OpenTooltip = "OpenTooltip", 
+    Share = "Share", 
+    OpenFacialAgeEstimation = "OpenFacialAgeEstimation", 
+    OpenAddConnectionsPage = "OpenAddConnectionsPage", 
+    OpenMarketplace = "OpenMarketplace"
+};

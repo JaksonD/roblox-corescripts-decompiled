@@ -1,0 +1,1 @@
+return game:DefineFastFlag("SduiCardComponent_v2", false);
