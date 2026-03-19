@@ -1,3 +1,0 @@
-return {
-    transition = 0
-};

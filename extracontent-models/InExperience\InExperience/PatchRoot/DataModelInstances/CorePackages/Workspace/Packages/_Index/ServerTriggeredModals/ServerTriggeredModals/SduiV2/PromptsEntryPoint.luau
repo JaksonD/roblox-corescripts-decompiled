@@ -1,3 +1,0 @@
-return {
-    SelfUserProfileOpen = "SelfUserProfileOpen"
-};

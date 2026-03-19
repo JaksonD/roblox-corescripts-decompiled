@@ -1,7 +1,0 @@
-return {
-    Unspecified = "Unspecified", 
-    SubscriptionPurchaseRequested = "SubscriptionPurchaseRequested", 
-    SubscriptionPurchaseUIReady = "SubscriptionPurchaseUIReady", 
-    SubscriptionPurchaseInProgress = "SubscriptionPurchaseInProgress", 
-    SubscriptionPurchaseCompleted = "SubscriptionPurchaseCompleted"
-};

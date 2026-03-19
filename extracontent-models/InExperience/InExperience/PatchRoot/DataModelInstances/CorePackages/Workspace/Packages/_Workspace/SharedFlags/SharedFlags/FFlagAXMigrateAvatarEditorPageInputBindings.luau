@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation) and game:DefineFastFlag("AXMigrateAvatarEditorPageInputBindings", false);

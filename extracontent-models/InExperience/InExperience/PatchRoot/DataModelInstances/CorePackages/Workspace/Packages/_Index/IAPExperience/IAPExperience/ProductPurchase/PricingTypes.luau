@@ -1,5 +1,0 @@
-return {
-    DiscountType = {
-        RobloxSubscription = "RobloxSubscription"
-    }
-};

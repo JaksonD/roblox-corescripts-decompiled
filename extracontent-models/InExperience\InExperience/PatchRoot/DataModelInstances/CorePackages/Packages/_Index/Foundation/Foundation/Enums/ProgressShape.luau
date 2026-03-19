@@ -1,4 +1,0 @@
-return {
-    Circle = "Circle", 
-    Bar = "Bar"
-};

@@ -1,5 +1,0 @@
-return {
-    Stacked = "Stacked", 
-    Split = "Split", 
-    None = "None"
-};

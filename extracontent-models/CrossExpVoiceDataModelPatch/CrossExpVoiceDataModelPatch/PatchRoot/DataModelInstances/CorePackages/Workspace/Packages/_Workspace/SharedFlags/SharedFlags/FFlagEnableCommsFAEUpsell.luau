@@ -1,1 +1,0 @@
-return game:DefineFastFlag("EnableAEGIS1Upsell4", false);

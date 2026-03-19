@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagProfilePlatformEnableCoverPhoto) and game:DefineFastFlag("ProfilePlatformEnableCoverPhotoPeekViewFix_v2", false);

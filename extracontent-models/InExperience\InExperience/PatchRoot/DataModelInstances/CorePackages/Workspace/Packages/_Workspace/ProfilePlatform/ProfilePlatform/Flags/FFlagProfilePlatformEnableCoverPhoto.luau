@@ -1,1 +1,0 @@
-return game:DefineFastFlag("ProfilePlatformEnableCoverPhoto_v2", false);

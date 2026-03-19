@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AddSurfaceTypeToAnalytics2", false);

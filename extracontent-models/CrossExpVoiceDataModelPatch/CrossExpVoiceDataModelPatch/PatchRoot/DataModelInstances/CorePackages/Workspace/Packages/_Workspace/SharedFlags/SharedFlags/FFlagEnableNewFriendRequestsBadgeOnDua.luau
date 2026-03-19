@@ -1,1 +1,0 @@
-return game:DefineFastFlag("EnableNewFriendRequestsBadgeOnDua_V3", false);

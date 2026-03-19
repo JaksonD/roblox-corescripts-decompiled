@@ -1,1 +1,0 @@
-return game:DefineFastInt("ExpChatHiddenMessageMaxLength", 32);

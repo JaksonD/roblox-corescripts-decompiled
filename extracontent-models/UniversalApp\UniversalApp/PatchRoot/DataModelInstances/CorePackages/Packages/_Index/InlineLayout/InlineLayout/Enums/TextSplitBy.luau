@@ -1,4 +1,0 @@
-return {
-    Word = "Word", 
-    Symbol = "Symbol"
-};

@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXDurablesSupport) and game:DefineFastFlag("AXDurablesSupportForRFYMigration2", false);

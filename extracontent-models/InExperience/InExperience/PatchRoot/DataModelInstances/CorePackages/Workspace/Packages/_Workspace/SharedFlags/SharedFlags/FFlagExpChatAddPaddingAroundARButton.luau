@@ -1,1 +1,0 @@
-return game:DefineFastFlag("ExpChatAddPaddingAroundARButton2", false);

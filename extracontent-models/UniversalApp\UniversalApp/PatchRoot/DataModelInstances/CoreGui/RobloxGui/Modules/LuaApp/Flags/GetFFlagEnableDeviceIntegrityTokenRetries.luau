@@ -1,4 +1,0 @@
-game:DefineFastFlag("EnableDeviceIntegrityTokenRetries", false);
-return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("EnableDeviceIntegrityTokenRetries");
-end;

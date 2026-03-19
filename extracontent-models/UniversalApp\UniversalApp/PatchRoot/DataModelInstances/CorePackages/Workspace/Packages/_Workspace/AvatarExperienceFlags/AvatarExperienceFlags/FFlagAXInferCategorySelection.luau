@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXCatalogCategoriesStore) and game:DefineFastFlag("AXInferCategorySelection", false);

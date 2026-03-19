@@ -1,4 +1,0 @@
-return {
-    Hue = "Hue", 
-    Alpha = "Alpha"
-};

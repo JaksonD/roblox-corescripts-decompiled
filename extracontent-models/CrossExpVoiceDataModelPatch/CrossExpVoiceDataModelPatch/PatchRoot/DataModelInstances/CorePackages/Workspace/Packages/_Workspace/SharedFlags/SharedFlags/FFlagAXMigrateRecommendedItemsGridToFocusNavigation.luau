@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation) and game:DefineFastFlag("AXMigrateRecommendedItemsGridToFocusNavigation", false);

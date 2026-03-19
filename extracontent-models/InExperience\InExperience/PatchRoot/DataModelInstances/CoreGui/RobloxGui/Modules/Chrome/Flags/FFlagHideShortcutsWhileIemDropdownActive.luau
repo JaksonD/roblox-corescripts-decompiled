@@ -1,4 +1,0 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-local l_FFlagEnableConsoleExpControls_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableConsoleExpControls;
-local v2 = require(l_CorePackages_0.Workspace.Packages.Chrome).Enabled();
-return l_FFlagEnableConsoleExpControls_0 and v2;

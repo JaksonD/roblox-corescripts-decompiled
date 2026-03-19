@@ -1,1 +1,0 @@
-return game:DefineFastFlag("SocialCarouselUseProfileStore_v2", false);

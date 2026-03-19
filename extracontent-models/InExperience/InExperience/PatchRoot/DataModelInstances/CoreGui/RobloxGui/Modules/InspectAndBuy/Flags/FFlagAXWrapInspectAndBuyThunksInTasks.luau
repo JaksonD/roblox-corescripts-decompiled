@@ -1,2 +1,0 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-return require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableInspectAndBuyV2RootFlag and game:DefineFastFlag("AXWrapInspectAndBuyThunksInTasks", false);

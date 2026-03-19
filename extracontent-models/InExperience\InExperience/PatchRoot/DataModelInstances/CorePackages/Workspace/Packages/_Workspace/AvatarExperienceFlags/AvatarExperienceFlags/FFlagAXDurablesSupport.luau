@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AXDurablesSupport31", false);

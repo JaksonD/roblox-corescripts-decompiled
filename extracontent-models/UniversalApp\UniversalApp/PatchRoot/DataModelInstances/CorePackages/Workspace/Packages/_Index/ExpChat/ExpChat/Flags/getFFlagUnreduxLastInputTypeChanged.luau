@@ -1,4 +1,0 @@
-game:DefineFastFlag("UnreduxLastInputTypeChanged", false);
-return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("UnreduxLastInputTypeChanged");
-end;

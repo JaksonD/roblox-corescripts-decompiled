@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagUseNewPlayerList) and game:DefineFastFlag("PlayerListIgnoreDevGamepadBindings2", false);

@@ -1,3 +1,0 @@
-return {
-    DefaultKeyLabelSize = 36
-};

@@ -1,5 +1,0 @@
-return {
-    HeadsetDisconnectDialog = require(script.HeadsetDisconnectDialog), 
-    HealthBar = require(script.HealthBar), 
-    HurtOverlay = require(script.HurtOverlay)
-};

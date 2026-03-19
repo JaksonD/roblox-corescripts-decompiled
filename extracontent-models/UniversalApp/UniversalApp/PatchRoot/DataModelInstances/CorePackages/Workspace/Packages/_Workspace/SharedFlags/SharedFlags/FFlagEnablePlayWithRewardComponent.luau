@@ -1,1 +1,0 @@
-return game:GetEngineFeature("PwrEnabled") and game:DefineFastFlag("EnablePlayWithRewardComponent3", false);

@@ -1,1 +1,0 @@
-return require(script.Parent.FFlagUseNotificationGroupsConfig) and game:DefineFastFlag("AddSnoozeSupportForSquadNudgeToasts", false);

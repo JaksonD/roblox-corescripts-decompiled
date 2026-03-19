@@ -1,3 +1,0 @@
-return {
-    ControllerBarHintInternalPadding = 8
-};

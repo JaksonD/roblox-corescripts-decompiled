@@ -1,2 +1,0 @@
-local l_CorePackages_0 = game:GetService("CorePackages");
-return require(l_CorePackages_0.Workspace.Packages.CoreScriptsRoactCommon).Traversal.Flags.FFlagAddTraversalHistory and game:DefineFastFlag("AddTraversalHistoryReactMenuButtons", false);

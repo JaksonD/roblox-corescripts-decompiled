@@ -1,1 +1,0 @@
-return game:DefineFastFlag("BrandVideosEnableActionAnalytics_V2", false);

@@ -1,1 +1,0 @@
-return game:DefineFastFlag("LuaAppEnableHomepageTwoByOneTile5", false);
