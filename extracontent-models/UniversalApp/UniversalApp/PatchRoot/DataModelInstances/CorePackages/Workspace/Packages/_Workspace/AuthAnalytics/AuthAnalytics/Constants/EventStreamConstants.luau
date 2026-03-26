@@ -77,7 +77,8 @@ return {
         AccountPickerSwipeLeft = "accountPickerSwipeLeft", 
         AccountPickerSwipeRight = "accountPickerSwipeRight", 
         SignUpExitModalLeave = "signUpExitModalLeave", 
-        SignUpExitModalCancel = "signUpExitModalCancel"
+        SignUpExitModalCancel = "signUpExitModalCancel", 
+        SubmitEmail = "submitEmail"
     }, 
     Field = {
         Birthday = "birthday", 
@@ -191,7 +192,8 @@ return {
         SessionCheckUnauthorized = "sessionCheckUnauthorized", 
         SignUpExitModal = "signUpExitModal", 
         UnauthorizedError = "unauthorizedError", 
-        InvoluntaryLogoutGracePeriod = "involuntaryLogoutGracePeriod"
+        InvoluntaryLogoutGracePeriod = "involuntaryLogoutGracePeriod", 
+        SignupEmailOnAddAuthMethod = "signupEmailOnAddAuthMethod"
     }, 
     ActionType = {
         Submit = "submit", 
@@ -226,6 +228,7 @@ return {
         IosAuthServiceProtocolNotAvailable = "iosAuthServiceProtocolNotAvailable", 
         IosAuthServiceMissingCredentials = "iosAuthServiceMissingCredentials", 
         SetPasswordError = "setPasswordError", 
+        UpdateEmailError = "updateEmailError", 
         RegisteringPasskeyError = "registeringPasskeyError", 
         SetGenderError = "setGenderError", 
         PasskeyRegistrationComplete = "passkeyRegistrationComplete", 

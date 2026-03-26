@@ -11,133 +11,141 @@ local v9 = require(l_CorePackages_0.Workspace.Packages.VirtualEvents);
 local l_EventsListCarousel_0 = v9.EventsListCarousel;
 local l_useQuery_0 = v3.useQuery;
 local l_useMutation_0 = v3.useMutation;
-local l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableVirtualEventPlaceId;
-local v14 = {
+local v13 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 = v13.GetFFlagLuaAppEnableVirtualEventPlaceId;
+local l_FFlagLuaAppSduiEventDetailsEnabled_0 = v13.FFlagLuaAppSduiEventDetailsEnabled;
+local v16 = {
     pollInterval = 300000
 };
-return function(v15) --[[ Line: 44 ]] --[[ Name: EventsListWrapper ]]
-    -- upvalues: v4 (copy), v14 (copy), l_useNavigation_0 (copy), v7 (copy), l_useQuery_0 (copy), v9 (copy), l_useMutation_0 (copy), v2 (copy), v6 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_EventsListCarousel_0 (copy)
-    local v16 = v4.Dictionary.join(v14, v15);
-    local v17 = l_useNavigation_0();
-    local v18, v19 = v7.useState(nil);
-    local v20 = v7.useMemo(function() --[[ Line: 50 ]]
+return function(v17) --[[ Line: 45 ]] --[[ Name: EventsListWrapper ]]
+    -- upvalues: v4 (copy), v16 (copy), l_useNavigation_0 (copy), v7 (copy), l_useQuery_0 (copy), v9 (copy), l_useMutation_0 (copy), v2 (copy), l_FFlagLuaAppSduiEventDetailsEnabled_0 (copy), l_CorePackages_0 (copy), v6 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_EventsListCarousel_0 (copy)
+    local v18 = v4.Dictionary.join(v16, v17);
+    local v19 = l_useNavigation_0();
+    local v20, v21 = v7.useState(nil);
+    local v22 = v7.useMemo(function() --[[ Line: 51 ]]
         return DateTime.now();
     end, {});
-    local v21 = l_useQuery_0(v9.requests.GET_EVENTS_FOR_EXPERIENCE, {
+    local v23 = l_useQuery_0(v9.requests.GET_EVENTS_FOR_EXPERIENCE, {
         variables = {
-            universeId = v16.universeId, 
+            universeId = v18.universeId, 
             options = {
-                fromUtc = v20:ToIsoDate()
+                fromUtc = v22:ToIsoDate()
             }
         }, 
-        pollInterval = v16.pollInterval
+        pollInterval = v18.pollInterval
     });
-    local v29 = l_useMutation_0(v9.requests.UPDATE_RSVP_STATUS, {
-        update = function(_, v23, v24) --[[ Line: 65 ]] --[[ Name: update ]]
+    local v31 = l_useMutation_0(v9.requests.UPDATE_RSVP_STATUS, {
+        update = function(_, v25, v26) --[[ Line: 66 ]] --[[ Name: update ]]
             -- upvalues: v4 (ref)
-            local l_virtualEvent_0 = v24.data.virtualEventRsvp.virtualEvent;
-            v23:modify({
-                id = v23:identify(l_virtualEvent_0), 
+            local l_virtualEvent_0 = v26.data.virtualEventRsvp.virtualEvent;
+            v25:modify({
+                id = v25:identify(l_virtualEvent_0), 
                 fields = {
-                    rsvpCounters = function(_, v27) --[[ Line: 71 ]] --[[ Name: rsvpCounters ]]
+                    rsvpCounters = function(_, v29) --[[ Line: 72 ]] --[[ Name: rsvpCounters ]]
                         -- upvalues: l_virtualEvent_0 (copy), v4 (ref)
-                        local v28 = l_virtualEvent_0.userRsvpStatus == "going" and 1 or -1;
-                        return v4.Dictionary.join(v27, {
-                            going = v27.going + v28
+                        local v30 = l_virtualEvent_0.userRsvpStatus == "going" and 1 or -1;
+                        return v4.Dictionary.join(v29, {
+                            going = v29.going + v30
                         });
                     end
                 }
             });
         end
     });
-    local v33 = v7.useCallback(function(v30, v31) --[[ Line: 83 ]]
-        -- upvalues: v9 (ref), v16 (copy), v29 (copy), v17 (copy), v2 (ref)
+    local v35 = v7.useCallback(function(v32, v33) --[[ Line: 84 ]]
+        -- upvalues: v9 (ref), v18 (copy), v31 (copy), v19 (copy), v2 (ref)
         v9.fireVirtualEventRSVP({
-            virtualEventId = v30.id, 
-            universeId = tostring(v30.universeId), 
-            channel = v16.referralSource, 
-            status = v31, 
-            attendanceCount = if v30 and v30.experienceDetails then v30.experienceDetails.playing else 0
+            virtualEventId = v32.id, 
+            universeId = tostring(v32.universeId), 
+            channel = v18.referralSource, 
+            status = v33, 
+            attendanceCount = if v32 and v32.experienceDetails then v32.experienceDetails.playing else 0
         });
-        v29[1]({
+        v31[1]({
             variables = {
-                virtualEventId = v30.id, 
-                rsvpStatus = v31
+                virtualEventId = v32.id, 
+                rsvpStatus = v33
             }
-        }):andThen(function(v32) --[[ Line: 101 ]]
-            -- upvalues: v17 (ref), v2 (ref), v30 (copy), v16 (ref)
-            if v32.data.virtualEventRsvp.shouldSeeNotificationsUpsellModal then
-                v17.navigate(v2.EventNotificationsModal, {
+        }):andThen(function(v34) --[[ Line: 102 ]]
+            -- upvalues: v19 (ref), v2 (ref), v32 (copy), v18 (ref)
+            if v34.data.virtualEventRsvp.shouldSeeNotificationsUpsellModal then
+                v19.navigate(v2.EventNotificationsModal, {
                     extraProps = {
-                        virtualEvent = v30, 
-                        channel = v16.referralSource
+                        virtualEvent = v32, 
+                        channel = v18.referralSource
                     }
                 });
             end;
         end);
     end, {
-        v16.referralSource
+        v18.referralSource
     });
-    local v35 = v7.useCallback(function(v34) --[[ Line: 115 ]]
-        -- upvalues: v17 (copy), v2 (ref), v16 (copy)
-        v17.navigate(v2.EventDetails, {
-            extraProps = {
-                currentTime = DateTime.now(), 
-                virtualEventId = v34.id, 
-                referralSource = v16.referralSource
-            }
-        });
+    local v37 = v7.useCallback(function(v36) --[[ Line: 116 ]]
+        -- upvalues: l_FFlagLuaAppSduiEventDetailsEnabled_0 (ref), l_CorePackages_0 (ref), v19 (copy), v2 (ref), v18 (copy)
+        if l_FFlagLuaAppSduiEventDetailsEnabled_0 then
+            require(l_CorePackages_0.Workspace.Packages.VirtualEvents).navigateToEventDetails(v19, v36.id);
+            return;
+        else
+            v19.navigate(v2.EventDetails, {
+                extraProps = {
+                    currentTime = DateTime.now(), 
+                    virtualEventId = v36.id, 
+                    referralSource = v18.referralSource
+                }
+            });
+            return;
+        end;
     end, {
-        v17
+        v19
     });
-    local v37 = v7.useCallback(function(v36) --[[ Line: 125 ]]
-        -- upvalues: v9 (ref), v16 (copy)
+    local v39 = v7.useCallback(function(v38) --[[ Line: 131 ]]
+        -- upvalues: v9 (ref), v18 (copy)
         v9.fireVirtualEventImpression({
-            virtualEventId = v36.id, 
-            universeId = v36.universeId, 
-            channel = v16.referralSource
+            virtualEventId = v38.id, 
+            universeId = v38.universeId, 
+            channel = v18.referralSource
         });
     end, {
-        v16.referralSource
+        v18.referralSource
     });
-    local v39 = v7.useCallback(function(v38) --[[ Line: 133 ]]
-        -- upvalues: v19 (copy)
-        v19(v38);
+    local v41 = v7.useCallback(function(v40) --[[ Line: 139 ]]
+        -- upvalues: v21 (copy)
+        v21(v40);
     end, {});
-    local v40 = v7.useCallback(function() --[[ Line: 137 ]]
-        -- upvalues: v9 (ref), v18 (copy), v16 (copy)
+    local v42 = v7.useCallback(function() --[[ Line: 143 ]]
+        -- upvalues: v9 (ref), v20 (copy), v18 (copy)
         v9.fireVirtualEventJoined({
-            virtualEventId = v18.id, 
-            universeId = tostring(v18.universeId), 
-            channel = v16.referralSource, 
-            attendanceCount = if v18 and v18.experienceDetails then v18.experienceDetails.playing else 0
+            virtualEventId = v20.id, 
+            universeId = tostring(v20.universeId), 
+            channel = v18.referralSource, 
+            attendanceCount = if v20 and v20.experienceDetails then v20.experienceDetails.playing else 0
         });
     end, {
-        v18
+        v20
     });
-    if v21.data then
+    if v23.data then
         return (v7.createElement(v7.Fragment, nil, {
-            GameLauncher = if v18 then v7.createElement(v6, {
-                universeId = tostring(v18.universeId), 
-                placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and v18.placeId then tostring(v18.placeId) else nil, 
-                launchSource = v16.referralSource, 
-                referralSource = v16.referralSource, 
-                onGameLaunching = v40, 
+            GameLauncher = if v20 then v7.createElement(v6, {
+                universeId = tostring(v20.universeId), 
+                placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and v20.placeId then tostring(v20.placeId) else nil, 
+                launchSource = v18.referralSource, 
+                referralSource = v18.referralSource, 
+                onGameLaunching = v42, 
                 experienceJoinData = {
-                    eventId = v18.id
+                    eventId = v20.id
                 }
             }) else nil, 
             EventsCarousel = v7.createElement(l_EventsListCarousel_0, {
-                layoutOrder = v16.layoutOrder, 
-                virtualEvents = v21.data.virtualEventsByUniverseId.virtualEvents, 
-                onTileActivated = v35, 
-                onRsvpChanged = v33, 
-                onJoinEvent = v39, 
-                onEventImpression = v37, 
-                defaultThumbnail = v16.defaultThumbnail, 
-                peekViewFormat = v16.peekViewFormat, 
-                referralSource = v16.referralSource, 
-                universeId = v16.universeId
+                layoutOrder = v18.layoutOrder, 
+                virtualEvents = v23.data.virtualEventsByUniverseId.virtualEvents, 
+                onTileActivated = v37, 
+                onRsvpChanged = v35, 
+                onJoinEvent = v41, 
+                onEventImpression = v39, 
+                defaultThumbnail = v18.defaultThumbnail, 
+                peekViewFormat = v18.peekViewFormat, 
+                referralSource = v18.referralSource, 
+                universeId = v18.universeId
             })
         }));
     else

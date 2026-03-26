@@ -13,11 +13,12 @@ local v11 = require(l_Parent_0.TextSize);
 local _ = require(l_Parent_0.SduiCoreSystem);
 local l_FFlagSduiTileDisableLegacyHover_0 = require(l_script_FirstAncestor_0.Flags).FFlagSduiTileDisableLegacyHover;
 local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-local v15 = {};
-local function v21(v16, v17, v18, v19, v20) --[[ Line: 109 ]] --[[ Name: maybeLayoutForButton ]]
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+local v16 = {};
+local function v22(v17, v18, v19, v20, v21) --[[ Line: 114 ]] --[[ Name: maybeLayoutForButton ]]
     -- upvalues: v3 (copy), v8 (copy)
-    if v17 == nil or v20 then
-        return v16;
+    if v18 == nil or v21 then
+        return v17;
     else
         return {
             Content = v3.createElement("Frame", {
@@ -30,14 +31,14 @@ local function v21(v16, v17, v18, v19, v20) --[[ Line: 109 ]] --[[ Name: maybeLa
                     HorizontalFlex = Enum.UIFlexAlignment.None, 
                     SortOrder = Enum.SortOrder.Name, 
                     FillDirection = Enum.FillDirection.Horizontal, 
-                    Padding = UDim.new(0, v18 or 0), 
+                    Padding = UDim.new(0, v19 or 0), 
                     HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                     VerticalAlignment = Enum.VerticalAlignment.Bottom
                 }), 
-                UIPadding = if v19 > 0 then v3.createElement("UIPadding", {
-                    PaddingLeft = UDim.new(0, v19), 
-                    PaddingRight = UDim.new(0, v19), 
-                    PaddingBottom = UDim.new(0, v19)
+                UIPadding = if v20 > 0 then v3.createElement("UIPadding", {
+                    PaddingLeft = UDim.new(0, v20), 
+                    PaddingRight = UDim.new(0, v20), 
+                    PaddingBottom = UDim.new(0, v20)
                 }) else nil, 
                 LeftContent = v3.createElement("Frame", {
                     BackgroundTransparency = 1, 
@@ -48,15 +49,14 @@ local function v21(v16, v17, v18, v19, v20) --[[ Line: 109 ]] --[[ Name: maybeLa
                     UIFlexItem = v3.createElement("UIFlexItem", {
                         FlexMode = Enum.UIFlexMode.Shrink
                     })
-                }, v16)), 
-                RightContent = v17
+                }, v17)), 
+                RightContent = v18
             })
         };
     end;
 end;
-return v3.memo(function(v22) --[[ Line: 162 ]] --[[ Name: SduiTile ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v3 (copy), l_ContentProvider_0 (copy), v11 (copy), l_useTokens_0 (copy), l_GetInputModeStore_0 (copy), v4 (copy), l_FFlagSduiTileDisableLegacyHover_0 (copy), l_ImageSetLabel_0 (copy), l_LoadableImage_0 (copy), v21 (copy), v8 (copy), v15 (copy)
-    local v23 = nil;
+return v3.memo(function(v23) --[[ Line: 167 ]] --[[ Name: SduiTile ]]
+    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v3 (copy), l_ContentProvider_0 (copy), v11 (copy), l_useTokens_0 (copy), l_GetInputModeStore_0 (copy), v4 (copy), l_FFlagSduiTileDisableLegacyHover_0 (copy), l_ImageSetLabel_0 (copy), l_LoadableImage_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v22 (copy), v8 (copy), v16 (copy)
     local v24 = nil;
     local v25 = nil;
     local v26 = nil;
@@ -64,204 +64,206 @@ return v3.memo(function(v22) --[[ Line: 162 ]] --[[ Name: SduiTile ]]
     local v28 = nil;
     local v29 = nil;
     local v30 = nil;
+    local v31 = nil;
     if l_FFlagSduiServerCompat_0 then
-        v23 = v22.layoutOrder;
-        v24 = v22.anchorPoint;
-        v25 = v22.automaticSize;
-        v26 = v22.size;
-        v27 = v22.zIndex;
-        v28 = v22.position;
-        v29 = v22.backgroundColor3;
-        v30 = v22.selectionOrder;
+        v24 = v23.layoutOrder;
+        v25 = v23.anchorPoint;
+        v26 = v23.automaticSize;
+        v27 = v23.size;
+        v28 = v23.zIndex;
+        v29 = v23.position;
+        v30 = v23.backgroundColor3;
+        v31 = v23.selectionOrder;
     else
-        v23 = v22.LayoutOrder;
-        v24 = v22.AnchorPoint;
-        v25 = v22.AutomaticSize;
-        v26 = v22.Size;
-        v27 = v22.ZIndex;
-        v28 = v22.Position;
-        v29 = v22.BackgroundColor3;
-        v30 = v22.SelectionOrder;
+        v24 = v23.LayoutOrder;
+        v25 = v23.AnchorPoint;
+        v26 = v23.AutomaticSize;
+        v27 = v23.Size;
+        v28 = v23.ZIndex;
+        v29 = v23.Position;
+        v30 = v23.BackgroundColor3;
+        v31 = v23.SelectionOrder;
     end;
-    v3.useLayoutEffect(function() --[[ Line: 191 ]]
-        -- upvalues: v22 (copy), l_ContentProvider_0 (ref)
-        if v22.image then
-            task.spawn(function() --[[ Line: 193 ]]
-                -- upvalues: l_ContentProvider_0 (ref), v22 (ref)
+    v3.useLayoutEffect(function() --[[ Line: 196 ]]
+        -- upvalues: v23 (copy), l_ContentProvider_0 (ref)
+        if v23.image then
+            task.spawn(function() --[[ Line: 198 ]]
+                -- upvalues: l_ContentProvider_0 (ref), v23 (ref)
                 l_ContentProvider_0:PreloadAsync({
-                    v22.image
+                    v23.image
                 });
             end);
         end;
     end, {
-        v22.image
+        v23.image
     });
-    local v31 = v11.getTextSizeStore(false).getTextSizeOffset(false);
-    local v32 = l_useTokens_0();
-    local v33 = v22.imageAspectRatio and v22.imageAspectRatio == 0 and 1 or v22.imageAspectRatio or 1;
-    local v34 = v22.titleLines or 1;
-    local v35 = v22.cornerRadius or v32.Radius.Medium;
-    local v36 = v22.titleFont or v32.Typography.TitleMedium;
-    local l_Emphasis_0 = v32.Color.Content.Emphasis;
-    local v38 = math.ceil(v34 * (v36.LineHeight * v36.FontSize + v31));
-    local v39 = v22.ctaButtonComponent ~= nil;
-    local l_isContained_0 = v22.isContained;
-    local l_Surface_100_0 = v32.Color.Surface.Surface_100;
-    local v42 = v29 or l_Surface_100_0.Color3;
-    local v43 = v22.containmentPadding or v32.Padding.Small;
-    local v44, v45 = v3.useState(false);
-    local v46 = if v22.isHovered ~= nil then v22.isHovered else v44;
-    local v47 = v3.useCallback(function() --[[ Line: 226 ]]
-        -- upvalues: l_GetInputModeStore_0 (ref), v4 (ref), v45 (copy), v22 (copy)
+    local v32 = v11.getTextSizeStore(false).getTextSizeOffset(false);
+    local v33 = l_useTokens_0();
+    local v34 = v23.imageAspectRatio and v23.imageAspectRatio == 0 and 1 or v23.imageAspectRatio or 1;
+    local v35 = v23.titleLines or 1;
+    local v36 = v23.cornerRadius or v33.Radius.Medium;
+    local v37 = v23.titleFont or v33.Typography.TitleMedium;
+    local l_Emphasis_0 = v33.Color.Content.Emphasis;
+    local v39 = math.ceil(v35 * (v37.LineHeight * v37.FontSize + v32));
+    local v40 = v23.ctaButtonComponent ~= nil;
+    local l_isContained_0 = v23.isContained;
+    local l_Surface_100_0 = v33.Color.Surface.Surface_100;
+    local v43 = v30 or l_Surface_100_0.Color3;
+    local v44 = v23.containmentPadding or v33.Padding.Small;
+    local v45, v46 = v3.useState(false);
+    local v47 = if v23.isHovered ~= nil then v23.isHovered else v45;
+    local v48 = v3.useCallback(function() --[[ Line: 231 ]]
+        -- upvalues: l_GetInputModeStore_0 (ref), v4 (ref), v46 (copy), v23 (copy)
         if l_GetInputModeStore_0(false).getLastInputType(false) == v4.Input.Pointer then
-            v45(true);
-            if v22.onMouseEnter then
-                v22.onMouseEnter();
+            v46(true);
+            if v23.onMouseEnter then
+                v23.onMouseEnter();
                 return;
-            elseif v22.setCustomConditionState then
-                v22.setCustomConditionState("hovered", true);
+            elseif v23.setCustomConditionState then
+                v23.setCustomConditionState("hovered", true);
             end;
         end;
     end, {
-        v22.onMouseEnter, 
-        v22.setCustomConditionState
+        v23.onMouseEnter, 
+        v23.setCustomConditionState
     });
-    local v48 = v3.useCallback(function() --[[ Line: 239 ]]
-        -- upvalues: v45 (copy), v22 (copy)
-        v45(false);
-        if v22.onMouseLeave then
-            v22.onMouseLeave();
+    local v49 = v3.useCallback(function() --[[ Line: 244 ]]
+        -- upvalues: v46 (copy), v23 (copy)
+        v46(false);
+        if v23.onMouseLeave then
+            v23.onMouseLeave();
             return;
         else
-            if v22.setCustomConditionState then
-                v22.setCustomConditionState("hovered", false);
+            if v23.setCustomConditionState then
+                v23.setCustomConditionState("hovered", false);
             end;
             return;
         end;
     end, {
-        v22.onMouseLeave, 
-        v22.setCustomConditionState
+        v23.onMouseLeave, 
+        v23.setCustomConditionState
     });
-    local v49 = v3.useCallback(function() --[[ Line: 248 ]]
-        -- upvalues: v22 (copy)
-        if v22.onSelectionGained then
-            v22.onSelectionGained();
+    local v50 = v3.useCallback(function() --[[ Line: 253 ]]
+        -- upvalues: v23 (copy)
+        if v23.onSelectionGained then
+            v23.onSelectionGained();
             return;
         else
-            if v22.setCustomConditionState then
-                v22.setCustomConditionState("selected", true);
+            if v23.setCustomConditionState then
+                v23.setCustomConditionState("selected", true);
             end;
             return;
         end;
     end, {
-        v22.onSelectionGained, 
-        v22.setCustomConditionState
+        v23.onSelectionGained, 
+        v23.setCustomConditionState
     });
-    local v50 = v3.useCallback(function() --[[ Line: 256 ]]
-        -- upvalues: v22 (copy)
-        if v22.onSelectionLost then
-            v22.onSelectionLost();
+    local v51 = v3.useCallback(function() --[[ Line: 261 ]]
+        -- upvalues: v23 (copy)
+        if v23.onSelectionLost then
+            v23.onSelectionLost();
             return;
         else
-            if v22.setCustomConditionState then
-                v22.setCustomConditionState("selected", false);
+            if v23.setCustomConditionState then
+                v23.setCustomConditionState("selected", false);
             end;
             return;
         end;
     end, {
-        v22.onSelectionLost, 
-        v22.setCustomConditionState
+        v23.onSelectionLost, 
+        v23.setCustomConditionState
     });
-    local v51 = nil;
     local v52 = nil;
     local v53 = nil;
     local v54 = nil;
-    if not l_FFlagSduiTileDisableLegacyHover_0 and v22.enableLegacyHoverState then
-        v51 = v46;
-        v52 = v22.containmentPadding or v32.Padding.Medium;
-        v53 = if v46 then UDim2.new(1, v52 * 2, 1, v52 * 2) else nil;
-        v54 = if v46 then UDim2.new(0, -v52, 0, -v52) else nil;
+    local v55 = nil;
+    if not l_FFlagSduiTileDisableLegacyHover_0 and v23.enableLegacyHoverState then
+        v52 = v47;
+        v53 = v23.containmentPadding or v33.Padding.Medium;
+        v54 = if v47 then UDim2.new(1, v53 * 2, 1, v53 * 2) else nil;
+        v55 = if v47 then UDim2.new(0, -v53, 0, -v53) else nil;
     end;
     return v3.createElement("TextButton", {
-        [v3.Tag] = if v22.testId then ("data-testid=%*"):format(v22.testId) else nil, 
-        ref = v22.setGuiObject, 
-        Size = v53 or v26 or UDim2.new(1, 0, 1, 0), 
-        Position = v54 or v28, 
-        AnchorPoint = v24, 
-        LayoutOrder = v23, 
-        ZIndex = v27, 
-        SelectionImageObject = v22.sduiContext.dependencies.cursors.tileCursor, 
-        Active = v22.isDisabled, 
-        [v3.Event.Activated] = v22.onActivated, 
-        [v3.Event.MouseEnter] = v47, 
-        [v3.Event.MouseLeave] = v48, 
-        [v3.Event.SelectionGained] = v49, 
-        [v3.Event.SelectionLost] = v50, 
+        [v3.Tag] = if v23.testId then ("data-testid=%*"):format(v23.testId) else nil, 
+        ref = v23.setGuiObject, 
+        Size = v54 or v27 or UDim2.new(1, 0, 1, 0), 
+        Position = v55 or v29, 
+        AnchorPoint = v25, 
+        LayoutOrder = v24, 
+        ZIndex = v28, 
+        SelectionImageObject = v23.sduiContext.dependencies.cursors.tileCursor, 
+        Active = v23.isDisabled, 
+        [v3.Event.Activated] = v23.onActivated, 
+        [v3.Event.MouseEnter] = v48, 
+        [v3.Event.MouseLeave] = v49, 
+        [v3.Event.SelectionGained] = v50, 
+        [v3.Event.SelectionLost] = v51, 
         ClipsDescendants = false, 
         Text = "", 
         TextTransparency = 1, 
-        BackgroundTransparency = (not not l_isContained_0 or v51) and 0 or 1, 
+        BackgroundTransparency = (not not l_isContained_0 or v52) and 0 or 1, 
         AutoButtonColor = false, 
-        AutomaticSize = v25 or Enum.AutomaticSize.Y, 
-        BackgroundColor3 = v42, 
+        AutomaticSize = v26 or Enum.AutomaticSize.Y, 
+        BackgroundColor3 = v43, 
         BorderSizePixel = 0, 
-        SelectionOrder = v30
+        SelectionOrder = v31
     }, {
-        UIPadding = if l_FFlagSduiTileDisableLegacyHover_0 then nil else if v51 then v3.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, v52), 
-            PaddingRight = UDim.new(0, v52), 
-            PaddingTop = UDim.new(0, v52)
+        UIPadding = if l_FFlagSduiTileDisableLegacyHover_0 then nil else if v52 then v3.createElement("UIPadding", {
+            PaddingLeft = UDim.new(0, v53), 
+            PaddingRight = UDim.new(0, v53), 
+            PaddingTop = UDim.new(0, v53)
         }) else nil, 
-        UICorner = if not not l_isContained_0 or not l_FFlagSduiTileDisableLegacyHover_0 and v51 then v3.createElement("UICorner", {
-            CornerRadius = UDim.new(0, v35)
+        UICorner = if not not l_isContained_0 or not l_FFlagSduiTileDisableLegacyHover_0 and v52 then v3.createElement("UICorner", {
+            CornerRadius = UDim.new(0, v36)
         }) else nil, 
         UIListLayout = v3.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
-            Padding = UDim.new(0, v32.Gap.Medium)
+            Padding = UDim.new(0, v33.Gap.Medium)
         }), 
         ImageFrame = v3.createElement("Frame", {
             BackgroundTransparency = 1, 
             BorderSizePixel = 0, 
-            Size = UDim2.new(1, 0, 1 / v33, 0), 
+            Size = UDim2.new(1, 0, 1 / v34, 0), 
             ZIndex = -1, 
             LayoutOrder = 1, 
             ClipsDescendants = l_isContained_0 and true or nil, 
             SizeConstraint = Enum.SizeConstraint.RelativeXX
         }, {
-            BackgroundImage = if v22.backgroundImageComponent then v22.backgroundImageComponent else if v22.backgroundImage then v3.createElement(l_ImageSetLabel_0, {
+            BackgroundImage = if v23.backgroundImageComponent then v23.backgroundImageComponent else if v23.backgroundImage then v3.createElement(l_ImageSetLabel_0, {
                 Size = UDim2.new(1, 0, 1, 0), 
-                Image = v22.backgroundImage, 
+                Image = v23.backgroundImage, 
                 BackgroundTransparency = 1, 
                 ZIndex = -3
             }, {
                 UICorner = v3.createElement("UICorner", {
-                    CornerRadius = UDim.new(0, v35)
+                    CornerRadius = UDim.new(0, v36)
                 })
             }) else nil, 
-            Thumbnail = if v22.imageComponent then v22.imageComponent else if v22.image then v3.createElement(l_LoadableImage_0, {
-                BackgroundColor3 = v22.thumbnailBackgroundStyle and v22.thumbnailBackgroundStyle.Color3 or nil, 
-                BackgroundTransparency = v22.thumbnailBackgroundStyle and v22.thumbnailBackgroundStyle.Transparency or 1, 
-                Image = v22.image, 
-                Size = UDim2.new(1, 0, 1, if l_isContained_0 then v35 else 0), 
-                cornerRadius = UDim.new(0, v35), 
+            Thumbnail = if v23.imageComponent then v23.imageComponent else if v23.image then v3.createElement(l_LoadableImage_0, {
+                BackgroundColor3 = v23.thumbnailBackgroundStyle and v23.thumbnailBackgroundStyle.Color3 or nil, 
+                BackgroundTransparency = v23.thumbnailBackgroundStyle and v23.thumbnailBackgroundStyle.Transparency or 1, 
+                Image = v23.image, 
+                Size = UDim2.new(1, 0, 1, if l_isContained_0 then v36 else 0), 
+                cornerRadius = UDim.new(0, v36), 
                 showFailedStateWhenLoadingFailed = true, 
                 useShimmerAnimationWhileLoading = true, 
                 ZIndex = -2, 
                 ScaleType = if l_isContained_0 then Enum.ScaleType.Tile else nil, 
-                TileSize = if l_isContained_0 then UDim2.new(1, 0, 1, -v35) else nil
+                TileSize = if l_isContained_0 then UDim2.new(1, 0, 1, -v36) else nil, 
+                onLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v23.onTileImageLoaded else nil
             }) else nil, 
             UIAspectRatioConstraint = v3.createElement("UIAspectRatioConstraint", {
-                AspectRatio = v33 or 1
+                AspectRatio = v34 or 1
             }), 
-            ThumbnailOverlay = v22.thumbnailOverlayComponent, 
-            HoverOverlay = if v46 then v3.createElement("Frame", {
-                BackgroundColor3 = v32.Color.State.Hover.Color3, 
-                BackgroundTransparency = v32.Color.State.Hover.Transparency, 
-                Size = UDim2.new(1, 0, 1, if l_isContained_0 then v35 else 0)
+            ThumbnailOverlay = v23.thumbnailOverlayComponent, 
+            HoverOverlay = if v47 then v3.createElement("Frame", {
+                BackgroundColor3 = v33.Color.State.Hover.Color3, 
+                BackgroundTransparency = v33.Color.State.Hover.Transparency, 
+                Size = UDim2.new(1, 0, 1, if l_isContained_0 then v36 else 0)
             }, {
                 UICorner = v3.createElement("UICorner", {
-                    CornerRadius = UDim.new(0, v35)
+                    CornerRadius = UDim.new(0, v36)
                 })
             }) else nil
         }), 
@@ -272,41 +274,41 @@ return v3.memo(function(v22) --[[ Line: 162 ]] --[[ Name: SduiTile ]]
             Size = UDim2.new(1, 0, 0, 0), 
             LayoutOrder = 2, 
             ZIndex = 1
-        }, (v21({
-            UIPadding = if not l_isContained_0 or v39 then nil else v3.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v43), 
-                PaddingRight = UDim.new(0, v43), 
-                PaddingBottom = UDim.new(0, v43)
+        }, (v22({
+            UIPadding = if not l_isContained_0 or v40 then nil else v3.createElement("UIPadding", {
+                PaddingLeft = UDim.new(0, v44), 
+                PaddingRight = UDim.new(0, v44), 
+                PaddingBottom = UDim.new(0, v44)
             }), 
             UIListLayout = v3.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
                 SortOrder = Enum.SortOrder.Name, 
                 HorizontalFlex = Enum.UIFlexAlignment.Fill
             }), 
-            ["1_Title"] = if v22.titleComponent then v22.titleComponent else if v22.titleText and v22.titleText ~= "" then v3.createElement("TextLabel", {
-                Size = UDim2.new(1, 0, 0, v38), 
+            ["1_Title"] = if v23.titleComponent then v23.titleComponent else if v23.titleText and v23.titleText ~= "" then v3.createElement("TextLabel", {
+                Size = UDim2.new(1, 0, 0, v39), 
                 BackgroundTransparency = 1, 
-                Text = v22.titleText, 
-                Font = v36.Font, 
-                TextSize = v36.FontSize, 
+                Text = v23.titleText, 
+                Font = v37.Font, 
+                TextSize = v37.FontSize, 
                 TextTransparency = l_Emphasis_0.Transparency, 
                 TextColor3 = l_Emphasis_0.Color3, 
-                TextWrapped = v34 > 1, 
+                TextWrapped = v35 > 1, 
                 TextTruncate = Enum.TextTruncate.SplitWord, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 TextYAlignment = Enum.TextYAlignment.Top, 
-                AutomaticSize = v39 and Enum.AutomaticSize.X or nil
+                AutomaticSize = v40 and Enum.AutomaticSize.X or nil
             }) else nil, 
-            ["2_Footer"] = if v22.footerComponent then v22.footerComponent else nil, 
-            Z_3_ExtraOverflow = if l_FFlagSduiTileDisableLegacyHover_0 then nil else if v51 and v22.renderLegacyHoverState then v3.createElement("Frame", {
+            ["2_Footer"] = if v23.footerComponent then v23.footerComponent else nil, 
+            Z_3_ExtraOverflow = if l_FFlagSduiTileDisableLegacyHover_0 then nil else if v52 and v23.renderLegacyHoverState then v3.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, 0), 
                 ZIndex = -1
             }, {
-                ExtraOverflow = v22.renderLegacyHoverState(v52, v42, v35)
+                ExtraOverflow = v23.renderLegacyHoverState(v53, v43, v36)
             }) else nil
-        }, v22.ctaButtonComponent, v32.Gap.Small, if l_isContained_0 then v43 else 0, v51))), 
-        ExtraChildren = if not not v22.focusNavActionsComponent or v22.children then v3.createElement(v3.Fragment, nil, v8.Dictionary.join(v22.children or v15, {
-            focusNavActions = v22.focusNavActionsComponent
+        }, v23.ctaButtonComponent, v33.Gap.Small, if l_isContained_0 then v44 else 0, v52))), 
+        ExtraChildren = if not not v23.focusNavActionsComponent or v23.children then v3.createElement(v3.Fragment, nil, v8.Dictionary.join(v23.children or v16, {
+            focusNavActions = v23.focusNavActionsComponent
         })) else nil
     });
 end);

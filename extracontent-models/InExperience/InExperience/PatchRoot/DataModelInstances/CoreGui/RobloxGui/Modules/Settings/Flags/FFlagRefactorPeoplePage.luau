@@ -1,4 +1,4 @@
-game:DefineFastFlag("RefactorPeoplePage8", false);
+game:DefineFastFlag("RefactorPeoplePage9", false);
 return function() --[[ Line: 3 ]]
-    return game:GetFastFlag("RefactorPeoplePage8");
+    return game:GetFastFlag("RefactorPeoplePage9");
 end;

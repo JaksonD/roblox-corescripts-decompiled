@@ -1,1 +1,2 @@
-return game:DefineFastFlag("AppChatEnableDomLocators2", false);
+local l_Parent_0 = script:FindFirstAncestor("AppChat").Parent;
+return require(l_Parent_0.SharedFlags).FFlagAppChatEnableDomLocators;

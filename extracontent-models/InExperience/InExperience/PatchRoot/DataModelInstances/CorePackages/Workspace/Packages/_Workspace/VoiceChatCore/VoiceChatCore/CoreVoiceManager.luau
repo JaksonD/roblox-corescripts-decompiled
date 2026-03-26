@@ -80,7 +80,6 @@ local l_GetFFlagEnableSeamlessVoiceV2_0 = require(l_Parent_0.SharedFlags).GetFFl
 local l_GetFFlagDisconnectToastClientRewrite_0 = require(l_Parent_0.SharedFlags).GetFFlagDisconnectToastClientRewrite;
 local l_GetFFlagEnableVrVoiceParity_0 = require(l_Parent_0.SharedFlags).GetFFlagEnableVrVoiceParity;
 local l_FFlagEnablePartyVoiceChangersInLua_0 = require(l_Parent_0.SharedFlags).FFlagEnablePartyVoiceChangersInLua;
-local l_GetFFlagPartyVoiceMuteScopeFix_0 = require(l_Parent_0.SharedFlags).GetFFlagPartyVoiceMuteScopeFix;
 local l_GetFFlagEnableVoiceUxUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagEnableVoiceUxUpdates;
 local l_WATCHED_NAMESPACES_0 = v17.WATCHED_NAMESPACES;
 local l_WATCHED_MESSAGE_TYPES_0 = v17.WATCHED_MESSAGE_TYPES;
@@ -91,9 +90,9 @@ local l_PERMISSION_STATE_0 = v17.PERMISSION_STATE;
 local l_VOICE_JOIN_PROGRESS_0 = v17.VOICE_JOIN_PROGRESS;
 local l_FAE_ENABLED_0 = v17.FAE_ENABLED;
 local l_FAE_SETTINGS_TOAST_0 = v17.FAE_SETTINGS_TOAST;
-local v93 = require(l_Requests_0.GetShowAgeVerificationOverlay);
-local v94 = require(l_Requests_0.GetShowPhoneVerificationUpsell);
-local v95 = {
+local v92 = require(l_Requests_0.GetShowAgeVerificationOverlay);
+local v93 = require(l_Requests_0.GetShowPhoneVerificationUpsell);
+local v94 = {
     eventName = "VoiceCapturedDuringVideoCapture", 
     backends = {
         "EventIngest"
@@ -107,10 +106,10 @@ local v95 = {
     description = "Event fired when a video capture has stopped logging if voice was captured", 
     links = ""
 };
-local v96 = if l_GetFFlagAvatarChatServiceEnabled_0() then game:GetService("AvatarChatService") else nil;
-local v97 = if l_GetFFlagEnableVoiceChatMuteForVideoCaptures_0() then game:GetService("CaptureService") else nil;
-local v98 = if v73 then game:GetService("TelemetryService") else nil;
-local v99 = {
+local v95 = if l_GetFFlagAvatarChatServiceEnabled_0() then game:GetService("AvatarChatService") else nil;
+local v96 = if l_GetFFlagEnableVoiceChatMuteForVideoCaptures_0() then game:GetService("CaptureService") else nil;
+local v97 = if v73 then game:GetService("TelemetryService") else nil;
+local v98 = {
     available = nil, 
     canUseServicePromise = nil, 
     userEligible = false, 
@@ -156,11 +155,11 @@ local v99 = {
     mutedPlayers = {}, 
     voiceChangerActivePlayers = {}, 
     BlockStatusChanged = nil, 
-    AvatarChatService = v96, 
+    AvatarChatService = v95, 
     HttpRbxApiService = l_HttpRbxApiService_0, 
     ThirdPartyUserService = l_ThirdPartyUserService_0, 
-    CaptureService = v97, 
-    TelemetryService = v98, 
+    CaptureService = v96, 
+    TelemetryService = v97, 
     SendMuteEvent = nil, 
     SetVoicePackEvent = nil, 
     VoiceChangerWasToggledEvent = nil, 
@@ -180,43 +179,43 @@ local v99 = {
     initializedPostSuspension = false, 
     voiceCapturedDuringVideoCapture = false
 };
-v99.__index = v99;
-v99.new = function(v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110) --[[ Line: 306 ]] --[[ Name: new ]]
-    -- upvalues: v18 (copy), v20 (copy), l_AppStorageService_0 (copy), v99 (copy), v45 (copy), l_WATCHED_MESSAGE_TYPES_0 (copy), v57 (copy), l_Players_1 (copy), v28 (copy), l_IXPServiceWrapper_0 (copy), v63 (copy), v64 (copy)
-    local v111 = setmetatable({
+v98.__index = v98;
+v98.new = function(v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109) --[[ Line: 305 ]] --[[ Name: new ]]
+    -- upvalues: v18 (copy), v20 (copy), l_AppStorageService_0 (copy), v98 (copy), v45 (copy), l_WATCHED_MESSAGE_TYPES_0 (copy), v57 (copy), l_Players_1 (copy), v28 (copy), l_IXPServiceWrapper_0 (copy), v63 (copy), v64 (copy)
+    local v110 = setmetatable({
         previousSessionId = nil, 
-        HttpRbxApiService = v102, 
+        HttpRbxApiService = v101, 
         eventEmitter = v18.EventEmitter.new(), 
-        service = v103, 
-        PermissionsService = v101, 
-        NotificationService = v105, 
-        AvatarChatService = v106, 
-        Analytics = v20.new(v104), 
+        service = v102, 
+        PermissionsService = v100, 
+        NotificationService = v104, 
+        AvatarChatService = v105, 
+        Analytics = v20.new(v103), 
         SequenceNumbers = {}, 
         SignalREventTable = {}, 
         audioDevices = {}, 
-        BlockStatusChanged = v100, 
-        AppStorageService = v107 or l_AppStorageService_0, 
-        ThirdPartyUserService = v108, 
-        CaptureService = v109, 
-        AdService = v110
-    }, v99);
+        BlockStatusChanged = v99, 
+        AppStorageService = v106 or l_AppStorageService_0, 
+        ThirdPartyUserService = v107, 
+        CaptureService = v108, 
+        AdService = v109
+    }, v98);
     if v45() then
-        for _, v113 in l_WATCHED_MESSAGE_TYPES_0 do
-            v111.SignalREventTable[v113] = Instance.new("BindableEvent");
+        for _, v112 in l_WATCHED_MESSAGE_TYPES_0 do
+            v110.SignalREventTable[v112] = Instance.new("BindableEvent");
         end;
     end;
-    v111.shouldThrottleParticipantUpdate = false;
-    v111.participantsStateThrottleTime = 0;
-    v111.lastParticipantsStateUpdate = 0;
-    v111.lastStateUpdateCounter = 0;
+    v110.shouldThrottleParticipantUpdate = false;
+    v110.participantsStateThrottleTime = 0;
+    v110.lastParticipantsStateUpdate = 0;
+    v110.lastStateUpdateCounter = 0;
     if v57() > 0 then
-        task.spawn(function() --[[ Line: 350 ]]
-            -- upvalues: l_Players_1 (ref), v103 (copy), v28 (ref), l_IXPServiceWrapper_0 (ref), v63 (ref)
-            local l_status_0, l_result_0 = pcall(function() --[[ Line: 351 ]]
-                -- upvalues: l_Players_1 (ref), v103 (ref)
+        task.spawn(function() --[[ Line: 349 ]]
+            -- upvalues: l_Players_1 (ref), v102 (copy), v28 (ref), l_IXPServiceWrapper_0 (ref), v63 (ref)
+            local l_status_0, l_result_0 = pcall(function() --[[ Line: 350 ]]
+                -- upvalues: l_Players_1 (ref), v102 (ref)
                 if l_Players_1.LocalPlayer then
-                    return v103:IsVoiceEnabledForUserIdAsync(l_Players_1.LocalPlayer.UserId);
+                    return v102:IsVoiceEnabledForUserIdAsync(l_Players_1.LocalPlayer.UserId);
                 else
                     return false;
                 end;
@@ -231,609 +230,605 @@ v99.new = function(v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v
                 return;
             end;
         end);
-        v111.participantsStateThrottleTime = v57() / 1000;
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 367 ]]
+        v110.participantsStateThrottleTime = v57() / 1000;
+        local l_status_1, l_result_1 = pcall(function() --[[ Line: 366 ]]
             -- upvalues: l_IXPServiceWrapper_0 (ref), v63 (ref)
             return l_IXPServiceWrapper_0:GetLayerData(v63);
         end);
         if l_status_1 and l_result_1 and l_result_1[v64] then
-            v111.shouldThrottleParticipantUpdate = true;
+            v110.shouldThrottleParticipantUpdate = true;
         end;
     end;
-    return v111;
+    return v110;
 end;
-v99.emit = function(v118, v119, ...) --[[ Line: 378 ]] --[[ Name: emit ]]
-    v118.eventEmitter:emit(v119, ...);
+v98.emit = function(v117, v118, ...) --[[ Line: 377 ]] --[[ Name: emit ]]
+    v117.eventEmitter:emit(v118, ...);
 end;
-v99.subscribe = function(v120, v121, v122) --[[ Line: 382 ]] --[[ Name: subscribe ]]
-    v120.eventEmitter:addListener(v121, v122);
+v98.subscribe = function(v119, v120, v121) --[[ Line: 381 ]] --[[ Name: subscribe ]]
+    v119.eventEmitter:addListener(v120, v121);
 end;
-v99.unsubscribeAll = function(v123) --[[ Line: 386 ]] --[[ Name: unsubscribeAll ]]
-    v123.eventEmitter:removeAllListeners();
+v98.unsubscribeAll = function(v122) --[[ Line: 385 ]] --[[ Name: unsubscribeAll ]]
+    v122.eventEmitter:removeAllListeners();
 end;
-v99.CheckCallStateWithPromise = function(v124) --[[ Line: 390 ]] --[[ Name: CheckCallStateWithPromise ]]
+v98.CheckCallStateWithPromise = function(v123) --[[ Line: 389 ]] --[[ Name: CheckCallStateWithPromise ]]
     -- upvalues: l_default_0 (copy), v28 (copy), l_Enums_0 (copy)
-    return l_default_0:getCallState():andThen(function(v125) --[[ Line: 392 ]]
-        -- upvalues: v28 (ref), l_Enums_0 (ref), v124 (copy)
+    return l_default_0:getCallState():andThen(function(v124) --[[ Line: 391 ]]
+        -- upvalues: v28 (ref), l_Enums_0 (ref), v123 (copy)
         v28:trace("Got user call state");
-        if v125.status ~= l_Enums_0.CallStatus.Idle.rawValue() and v125.status ~= l_Enums_0.CallStatus.Ringing.rawValue() then
-            v124.isInCall = true;
-            v124.callMutedState = v125.muted;
-            v28:trace("Changing call muted state to {}", v125.muted);
+        if v124.status ~= l_Enums_0.CallStatus.Idle.rawValue() and v124.status ~= l_Enums_0.CallStatus.Ringing.rawValue() then
+            v123.isInCall = true;
+            v123.callMutedState = v124.muted;
+            v28:trace("Changing call muted state to {}", v124.muted);
         end;
-    end):catch(function(v126) --[[ Line: 404 ]]
+    end):catch(function(v125) --[[ Line: 403 ]]
         -- upvalues: v28 (ref)
-        v28:trace("User not in call {}", v126);
+        v28:trace("User not in call {}", v125);
     end);
 end;
-v99.CheckCallState = function(v127) --[[ Line: 410 ]] --[[ Name: CheckCallState ]]
+v98.CheckCallState = function(v126) --[[ Line: 409 ]] --[[ Name: CheckCallState ]]
     -- upvalues: v28 (copy), l_default_0 (copy), l_Enums_0 (copy)
     v28:trace("Checking user call state");
-    local l_status_2, l_result_2 = pcall(function() --[[ Line: 412 ]]
-        -- upvalues: l_default_0 (ref), v28 (ref), l_Enums_0 (ref), v127 (copy)
-        l_default_0:getCallState():andThen(function(v128) --[[ Line: 414 ]]
-            -- upvalues: v28 (ref), l_Enums_0 (ref), v127 (ref)
+    local l_status_2, l_result_2 = pcall(function() --[[ Line: 411 ]]
+        -- upvalues: l_default_0 (ref), v28 (ref), l_Enums_0 (ref), v126 (copy)
+        l_default_0:getCallState():andThen(function(v127) --[[ Line: 413 ]]
+            -- upvalues: v28 (ref), l_Enums_0 (ref), v126 (ref)
             v28:trace("Got user call state");
-            if v128.status ~= l_Enums_0.CallStatus.Idle.rawValue() and v128.status ~= l_Enums_0.CallStatus.Ringing.rawValue() then
-                v127.isInCall = true;
-                v127.callMutedState = v128.muted;
-                v28:trace("Changing call muted state to {}", v128.muted);
+            if v127.status ~= l_Enums_0.CallStatus.Idle.rawValue() and v127.status ~= l_Enums_0.CallStatus.Ringing.rawValue() then
+                v126.isInCall = true;
+                v126.callMutedState = v127.muted;
+                v28:trace("Changing call muted state to {}", v127.muted);
             end;
-        end):catch(function(v129) --[[ Line: 426 ]]
+        end):catch(function(v128) --[[ Line: 425 ]]
             -- upvalues: v28 (ref)
-            v28:trace("User not in call {}", v129);
+            v28:trace("User not in call {}", v128);
         end);
     end);
     if not l_status_2 then
         v28:debug("Error checking user call state {}", l_result_2);
     end;
 end;
-v99._GetShowAgeVerificationOverlay = function(v132, v133) --[[ Line: 445 ]] --[[ Name: _GetShowAgeVerificationOverlay ]]
-    -- upvalues: v93 (copy), v18 (copy)
-    return v93(v18.bind(v132, "GetRequest"), tostring(game.GameId), tostring(game.PlaceId), v133);
+v98._GetShowAgeVerificationOverlay = function(v131, v132) --[[ Line: 444 ]] --[[ Name: _GetShowAgeVerificationOverlay ]]
+    -- upvalues: v92 (copy), v18 (copy)
+    return v92(v18.bind(v131, "GetRequest"), tostring(game.GameId), tostring(game.PlaceId), v132);
 end;
-v99.FetchAgeVerificationOverlay = function(v134, v135) --[[ Line: 454 ]] --[[ Name: FetchAgeVerificationOverlay ]]
+v98.FetchAgeVerificationOverlay = function(v133, v134) --[[ Line: 453 ]] --[[ Name: FetchAgeVerificationOverlay ]]
     -- upvalues: v22 (copy)
-    if not v134._getShowAgeVerificationOverlayResult then
-        if not v134._getShowAgeVerificationOverlayPromise then
-            v134._getShowAgeVerificationOverlayPromise = v22.new(function(v136, _) --[[ Line: 457 ]]
-                -- upvalues: v134 (copy), v135 (copy)
-                v134._getShowAgeVerificationOverlayResult = v134:_GetShowAgeVerificationOverlay(v135);
-                v136(v134._getShowAgeVerificationOverlayResult);
+    if not v133._getShowAgeVerificationOverlayResult then
+        if not v133._getShowAgeVerificationOverlayPromise then
+            v133._getShowAgeVerificationOverlayPromise = v22.new(function(v135, _) --[[ Line: 456 ]]
+                -- upvalues: v133 (copy), v134 (copy)
+                v133._getShowAgeVerificationOverlayResult = v133:_GetShowAgeVerificationOverlay(v134);
+                v135(v133._getShowAgeVerificationOverlayResult);
             end);
         end;
-        v134._getShowAgeVerificationOverlayPromise:await();
+        v133._getShowAgeVerificationOverlayPromise:await();
     end;
-    return v134._getShowAgeVerificationOverlayResult;
+    return v133._getShowAgeVerificationOverlayResult;
 end;
-v99._GetShowPhoneVerificationUpsell = function(v138, v139, v140) --[[ Line: 473 ]] --[[ Name: _GetShowPhoneVerificationUpsell ]]
-    -- upvalues: v94 (copy), v18 (copy)
-    return (v94(v18.bind(v138, "GetRequest"), tostring(game.GameId), v139, v140));
+v98._GetShowPhoneVerificationUpsell = function(v137, v138, v139) --[[ Line: 472 ]] --[[ Name: _GetShowPhoneVerificationUpsell ]]
+    -- upvalues: v93 (copy), v18 (copy)
+    return (v93(v18.bind(v137, "GetRequest"), tostring(game.GameId), v138, v139));
 end;
-v99.FetchPhoneVerificationUpsell = function(v141, v142, v143, v144) --[[ Line: 486 ]] --[[ Name: FetchPhoneVerificationUpsell ]]
+v98.FetchPhoneVerificationUpsell = function(v140, v141, v142, v143) --[[ Line: 485 ]] --[[ Name: FetchPhoneVerificationUpsell ]]
     -- upvalues: v22 (copy), v17 (copy)
-    if not v141._getShowPhoneVerificationUpsellResult then
-        v141._getShowPhoneVerificationUpsellResult = {};
-        v141._getShowPhoneVerificationUpsellPromise = {};
+    if not v140._getShowPhoneVerificationUpsellResult then
+        v140._getShowPhoneVerificationUpsellResult = {};
+        v140._getShowPhoneVerificationUpsellPromise = {};
     end;
-    if not v141._getShowPhoneVerificationUpsellResult[v142] or v144 then
-        if not v141._getShowPhoneVerificationUpsellPromise[v142] or v144 then
-            v141._getShowPhoneVerificationUpsellPromise[v142] = v22.new(function(v145, _) --[[ Line: 497 ]]
-                -- upvalues: v141 (copy), v142 (copy), v143 (copy), v17 (ref)
-                local v147 = v141:_GetShowPhoneVerificationUpsell(v142, v143);
-                v141._getShowPhoneVerificationUpsellResult[v142] = if type(v147) == "table" and v147.valueProp ~= nil then v147.valueProp else v17.PHONE_UPSELL_VOICE_CHAT_PROP.None;
-                v145();
+    if not v140._getShowPhoneVerificationUpsellResult[v141] or v143 then
+        if not v140._getShowPhoneVerificationUpsellPromise[v141] or v143 then
+            v140._getShowPhoneVerificationUpsellPromise[v141] = v22.new(function(v144, _) --[[ Line: 496 ]]
+                -- upvalues: v140 (copy), v141 (copy), v142 (copy), v17 (ref)
+                local v146 = v140:_GetShowPhoneVerificationUpsell(v141, v142);
+                v140._getShowPhoneVerificationUpsellResult[v141] = if type(v146) == "table" and v146.valueProp ~= nil then v146.valueProp else v17.PHONE_UPSELL_VOICE_CHAT_PROP.None;
+                v144();
             end);
         end;
-        v141._getShowPhoneVerificationUpsellPromise[v142]:await();
+        v140._getShowPhoneVerificationUpsellPromise[v141]:await();
     end;
-    return v141._getShowPhoneVerificationUpsellResult[v142];
+    return v140._getShowPhoneVerificationUpsellResult[v141];
 end;
-v99.DisablePhoneVerificationUpsell = function(v148) --[[ Line: 511 ]] --[[ Name: DisablePhoneVerificationUpsell ]]
+v98.DisablePhoneVerificationUpsell = function(v147) --[[ Line: 510 ]] --[[ Name: DisablePhoneVerificationUpsell ]]
     -- upvalues: v23 (copy), v17 (copy)
-    v148._getShowPhoneVerificationUpsellResult = v23.Dictionary.map(v148._getShowPhoneVerificationUpsellResult, function() --[[ Line: 514 ]]
+    v147._getShowPhoneVerificationUpsellResult = v23.Dictionary.map(v147._getShowPhoneVerificationUpsellResult, function() --[[ Line: 513 ]]
         -- upvalues: v17 (ref)
         return v17.PHONE_UPSELL_VOICE_CHAT_PROP.None;
     end);
 end;
-v99.GetNudgeAnalyticsData = function(v149) --[[ Line: 520 ]] --[[ Name: GetNudgeAnalyticsData ]]
+v98.GetNudgeAnalyticsData = function(v148) --[[ Line: 519 ]] --[[ Name: GetNudgeAnalyticsData ]]
     -- upvalues: l_Players_0 (copy)
-    return l_Players_0.LocalPlayer.UserId, v149:GetSessionId();
+    return l_Players_0.LocalPlayer.UserId, v148:GetSessionId();
 end;
-v99.avatarChatUserAndPlaceSettingsValueOfClientFeatures = function(v150, v151) --[[ Line: 525 ]] --[[ Name: avatarChatUserAndPlaceSettingsValueOfClientFeatures ]]
+v98.avatarChatUserAndPlaceSettingsValueOfClientFeatures = function(v149, v150) --[[ Line: 524 ]] --[[ Name: avatarChatUserAndPlaceSettingsValueOfClientFeatures ]]
     -- upvalues: l_GetFFlagEnableVoiceSignal_0 (copy)
-    local v152 = {
-        isUniverseEnabledForVoice = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UniverseAudio), 
-        isPlaceEnabledForVoice = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.PlaceAudio), 
-        isUniverseEnabledForAvatarVideo = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UniverseVideo), 
-        isPlaceEnabledForAvatarVideo = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.PlaceVideo)
+    local v151 = {
+        isUniverseEnabledForVoice = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UniverseAudio), 
+        isPlaceEnabledForVoice = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.PlaceAudio), 
+        isUniverseEnabledForAvatarVideo = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UniverseVideo), 
+        isPlaceEnabledForAvatarVideo = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.PlaceVideo)
     };
-    local v153 = {
-        isUserEligible = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserAudioEligible), 
-        isVoiceEnabled = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserAudio), 
-        isAvatarVideoEligible = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserVideoEligible), 
-        isAvatarVideoEnabled = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserVideo), 
-        isUserVerifiedForVoice = if l_GetFFlagEnableVoiceSignal_0() then v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserVerifiedForVoice) else nil, 
-        isBanned = v150.AvatarChatService:IsEnabled(v151, Enum.AvatarChatServiceFeature.UserBanned), 
+    local v152 = {
+        isUserEligible = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserAudioEligible), 
+        isVoiceEnabled = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserAudio), 
+        isAvatarVideoEligible = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserVideoEligible), 
+        isAvatarVideoEnabled = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserVideo), 
+        isUserVerifiedForVoice = if l_GetFFlagEnableVoiceSignal_0() then v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserVerifiedForVoice) else nil, 
+        isBanned = v149.AvatarChatService:IsEnabled(v150, Enum.AvatarChatServiceFeature.UserBanned), 
         bannedUntil = nil
     };
     return {
-        universePlaceVoiceEnabledSettings = v152, 
-        voiceSettings = v153
+        universePlaceVoiceEnabledSettings = v151, 
+        voiceSettings = v152
     };
 end;
-v99.resolveAvatarChatUserAndPlaceSettings = function(v154) --[[ Line: 572 ]] --[[ Name: resolveAvatarChatUserAndPlaceSettings ]]
-    local l_status_3, l_result_3 = pcall(v154.AvatarChatService.GetClientFeaturesAsync, v154.AvatarChatService);
+v98.resolveAvatarChatUserAndPlaceSettings = function(v153) --[[ Line: 571 ]] --[[ Name: resolveAvatarChatUserAndPlaceSettings ]]
+    local l_status_3, l_result_3 = pcall(v153.AvatarChatService.GetClientFeaturesAsync, v153.AvatarChatService);
     if not l_status_3 then
         return nil;
     else
-        return v154:avatarChatUserAndPlaceSettingsValueOfClientFeatures(l_result_3);
+        return v153:avatarChatUserAndPlaceSettingsValueOfClientFeatures(l_result_3);
     end;
 end;
-v99.GetRequest = function(v157, v158, _) --[[ Line: 582 ]] --[[ Name: GetRequest ]]
+v98.GetRequest = function(v156, v157, _) --[[ Line: 581 ]] --[[ Name: GetRequest ]]
     -- upvalues: l_HttpService_0 (copy)
-    local l_status_4, l_result_4 = pcall(function() --[[ Line: 583 ]]
-        -- upvalues: v157 (copy), v158 (copy), l_HttpService_0 (ref)
-        local l_AsyncFullUrl_0 = v157.HttpRbxApiService:GetAsyncFullUrl(v158, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players);
+    local l_status_4, l_result_4 = pcall(function() --[[ Line: 582 ]]
+        -- upvalues: v156 (copy), v157 (copy), l_HttpService_0 (ref)
+        local l_AsyncFullUrl_0 = v156.HttpRbxApiService:GetAsyncFullUrl(v157, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players);
         return l_HttpService_0:JSONDecode(l_AsyncFullUrl_0);
     end);
     return l_status_4 and l_result_4;
 end;
-v99.PostUserVoiceConnectionStatus = function(v163, v164) --[[ Line: 591 ]] --[[ Name: PostUserVoiceConnectionStatus ]]
+v98.PostUserVoiceConnectionStatus = function(v162, v163) --[[ Line: 590 ]] --[[ Name: PostUserVoiceConnectionStatus ]]
     -- upvalues: l_HttpService_0 (copy), v17 (copy)
-    local l_status_5, _ = pcall(function() --[[ Line: 592 ]]
-        -- upvalues: l_HttpService_0 (ref), v164 (copy), v163 (copy), v17 (ref)
-        local v165 = l_HttpService_0:JSONEncode({
-            IsUserVoiceConnected = v164
+    local l_status_5, _ = pcall(function() --[[ Line: 591 ]]
+        -- upvalues: l_HttpService_0 (ref), v163 (copy), v162 (copy), v17 (ref)
+        local v164 = l_HttpService_0:JSONEncode({
+            IsUserVoiceConnected = v163
         });
-        local v166 = v163.HttpRbxApiService:PostAsyncFullUrl(v17.VOICE_URL .. "/v1/user-voice-connection-state", v165);
-        return l_HttpService_0:JSONDecode(v166);
+        local v165 = v162.HttpRbxApiService:PostAsyncFullUrl(v17.VOICE_URL .. "/v1/user-voice-connection-state", v164);
+        return l_HttpService_0:JSONDecode(v165);
     end);
     return l_status_5;
 end;
-v99.GetVoiceAnalyticsData = function(v169) --[[ Line: 601 ]] --[[ Name: GetVoiceAnalyticsData ]]
+v98.GetVoiceAnalyticsData = function(v168) --[[ Line: 600 ]] --[[ Name: GetVoiceAnalyticsData ]]
     -- upvalues: l_game_EngineFeature_1 (copy), l_RbxAnalyticsService_0 (copy)
     return {
         universeId = game.GameId, 
         placeId = game.PlaceId, 
         playSessionId = if l_game_EngineFeature_1 then l_RbxAnalyticsService_0:GetPlaySessionId() else "", 
-        voiceSessionId = if v169.service then v169:GetSessionId() else "", 
+        voiceSessionId = if v168.service then v168:GetSessionId() else "", 
         micAvailability = ""
     };
 end;
-v99.RecordExperienceJoinMicPermissionStatus = function(v170, v171) --[[ Line: 613 ]] --[[ Name: RecordExperienceJoinMicPermissionStatus ]]
+v98.RecordExperienceJoinMicPermissionStatus = function(v169, v170) --[[ Line: 612 ]] --[[ Name: RecordExperienceJoinMicPermissionStatus ]]
     -- upvalues: l_PermissionsProtocol_0 (copy), l_PERMISSION_STATE_0 (copy)
-    local l_v170_VoiceAnalyticsData_0 = v170:GetVoiceAnalyticsData();
-    if v171 ~= nil and typeof(v171) == "table" then
-        if v171.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
-            l_v170_VoiceAnalyticsData_0.micAvailability = "Granted";
+    local l_v169_VoiceAnalyticsData_0 = v169:GetVoiceAnalyticsData();
+    if v170 ~= nil and typeof(v170) == "table" then
+        if v170.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
+            l_v169_VoiceAnalyticsData_0.micAvailability = "Granted";
         else
-            l_v170_VoiceAnalyticsData_0.micAvailability = "Denied";
+            l_v169_VoiceAnalyticsData_0.micAvailability = "Denied";
         end;
-    elseif v170.permissionState then
-        if v170.permissionState == l_PERMISSION_STATE_0.LISTEN_AND_TALK then
-            l_v170_VoiceAnalyticsData_0.micAvailability = "Granted";
+    elseif v169.permissionState then
+        if v169.permissionState == l_PERMISSION_STATE_0.LISTEN_AND_TALK then
+            l_v169_VoiceAnalyticsData_0.micAvailability = "Granted";
         else
-            l_v170_VoiceAnalyticsData_0.micAvailability = "Denied";
+            l_v169_VoiceAnalyticsData_0.micAvailability = "Denied";
         end;
     end;
-    v170.Analytics:reportVoiceEvents("experienceJoinDeviceMicPermissionEvent", l_v170_VoiceAnalyticsData_0);
+    v169.Analytics:reportVoiceEvents("experienceJoinDeviceMicPermissionEvent", l_v169_VoiceAnalyticsData_0);
 end;
-v99.CheckCaptureMute = function(v173) --[[ Line: 633 ]] --[[ Name: CheckCaptureMute ]]
+v98.CheckCaptureMute = function(v172) --[[ Line: 632 ]] --[[ Name: CheckCaptureMute ]]
     -- upvalues: l_GetFFlagEnableVoiceChatMuteForVideoCaptures_0 (copy)
     if l_GetFFlagEnableVoiceChatMuteForVideoCaptures_0() then
-        return v173.CaptureService:IsCapturingVideo();
+        return v172.CaptureService:IsCapturingVideo();
     else
         return false;
     end;
 end;
-v99.ToggleMuteSome = function(v174, v175, v176, v177, v178) --[[ Line: 642 ]] --[[ Name: ToggleMuteSome ]]
+v98.ToggleMuteSome = function(v173, v174, v175, v176, v177) --[[ Line: 641 ]] --[[ Name: ToggleMuteSome ]]
     -- upvalues: l_VoiceChatService_0 (copy), l_game_EngineFeature_0 (copy), l_Players_0 (copy)
-    v174:ensureInitialized("mute some players");
-    v174._mutedAnyone = true;
-    local v179 = {};
-    v176 = v176 or v174:CheckCaptureMute();
-    for _, v181 in v175 do
+    v173:ensureInitialized("mute some players");
+    v173._mutedAnyone = true;
+    local v178 = {};
+    v175 = v175 or v173:CheckCaptureMute();
+    for _, v180 in v174 do
         if l_VoiceChatService_0.UseNewAudioApi then
-            v179[v181] = true;
-            v174.mutedPlayers[v181] = v176;
+            v178[v180] = true;
+            v173.mutedPlayers[v180] = v175;
         else
-            v174.service:SubscribePause(v181, v176);
+            v173.service:SubscribePause(v180, v175);
         end;
-        local v182 = v174.participants[tostring(v181)];
-        if v182 then
-            v182.isMutedLocally = v176;
-            v174.participantsUpdate:Fire(v174.participants);
+        local v181 = v173.participants[tostring(v180)];
+        if v181 then
+            v181.isMutedLocally = v175;
+            v173.participantsUpdate:Fire(v173.participants);
         end;
     end;
     if l_VoiceChatService_0.UseNewAudioApi then
-        for v183 in v174.audioDevices do
-            if v183.Player and v179[v183.Player.UserId] then
-                if l_game_EngineFeature_0 and v183.Player ~= l_Players_0.LocalPlayer then
-                    v183.MutedByLocalUser = v176;
+        for v182 in v173.audioDevices do
+            if v182.Player and v178[v182.Player.UserId] then
+                if l_game_EngineFeature_0 and v182.Player ~= l_Players_0.LocalPlayer then
+                    v182.MutedByLocalUser = v175;
                 else
                     if l_game_EngineFeature_0 then
 
                     end;
-                    v183.Active = not v176;
+                    v182.Active = not v175;
                 end;
             end;
         end;
     end;
-    if v177 and v178 then
-        v174.Analytics:reportVoiceMuteGroup((v174:JoinWithVoiceMuteData({
-            groupType = v177, 
-            context = v178, 
-            muted = v176
+    if v176 and v177 then
+        v173.Analytics:reportVoiceMuteGroup((v173:JoinWithVoiceMuteData({
+            groupType = v176, 
+            context = v177, 
+            muted = v175
         })));
     end;
 end;
-v99.GetMutedAnyone = function(v184) --[[ Line: 687 ]] --[[ Name: GetMutedAnyone ]]
-    return v184._mutedAnyone;
+v98.GetMutedAnyone = function(v183) --[[ Line: 686 ]] --[[ Name: GetMutedAnyone ]]
+    return v183._mutedAnyone;
 end;
-v99.ToggleMutePlayer = function(v185, v186, v187) --[[ Line: 691 ]] --[[ Name: ToggleMutePlayer ]]
+v98.ToggleMutePlayer = function(v184, v185, v186) --[[ Line: 690 ]] --[[ Name: ToggleMutePlayer ]]
     -- upvalues: l_VoiceChatService_0 (copy), v29 (copy), v28 (copy), v18 (copy), v60 (copy), l_game_EngineFeature_0 (copy), l_Players_0 (copy)
-    v185:ensureInitialized("mute player " .. v186);
-    v185._mutedAnyone = true;
-    local v188 = (if l_VoiceChatService_0.UseNewAudioApi and v29 then not v185.mutedPlayers[v186] else not v185.service:IsSubscribePaused(v186)) or v185:CheckCaptureMute();
-    v28:trace("Setting mute for {} to {}", v18.shorten(v186), v188);
+    v184:ensureInitialized("mute player " .. v185);
+    v184._mutedAnyone = true;
+    local v187 = (if l_VoiceChatService_0.UseNewAudioApi and v29 then not v184.mutedPlayers[v185] else not v184.service:IsSubscribePaused(v185)) or v184:CheckCaptureMute();
+    v28:trace("Setting mute for {} to {}", v18.shorten(v185), v187);
     if v60() then
-        v185.onPlayerMuteToggled:Fire();
+        v184.onPlayerMuteToggled:Fire();
     end;
     if l_VoiceChatService_0.UseNewAudioApi then
-        v185.mutedPlayers[v186] = v188;
-        for v189 in v185.audioDevices do
-            if v189.Player and v189.Player.UserId == v186 then
-                if l_game_EngineFeature_0 and v189.Player ~= l_Players_0.LocalPlayer then
-                    v189.MutedByLocalUser = v188;
+        v184.mutedPlayers[v185] = v187;
+        for v188 in v184.audioDevices do
+            if v188.Player and v188.Player.UserId == v185 then
+                if l_game_EngineFeature_0 and v188.Player ~= l_Players_0.LocalPlayer then
+                    v188.MutedByLocalUser = v187;
                 else
                     if l_game_EngineFeature_0 then
 
                     end;
-                    local v190 = v185.participants[tostring(v186)];
-                    local v191 = v190 and not v190.isMuted;
-                    v189.Active = not v188 and v191;
+                    local v189 = v184.participants[tostring(v185)];
+                    local v190 = v189 and not v189.isMuted;
+                    v188.Active = not v187 and v190;
                 end;
             end;
         end;
-        v185:emit("OnPlayerMuted");
+        v184:emit("OnPlayerMuted");
     else
-        v185.service:SubscribePause(v186, v188);
+        v184.service:SubscribePause(v185, v187);
     end;
-    for _, v193 in pairs(v185.participants) do
-        if v193.userId == v186 then
-            v193.isMutedLocally = v188;
-            v185.participantsUpdate:Fire(v185.participants);
+    for _, v192 in pairs(v184.participants) do
+        if v192.userId == v185 then
+            v192.isMutedLocally = v187;
+            v184.participantsUpdate:Fire(v184.participants);
         end;
     end;
-    if v187 then
-        v185.Analytics:reportVoiceMuteIndividual((v185:JoinWithVoiceMuteData({
-            targetUserId = tonumber(v186), 
-            context = v187, 
-            muted = v188
+    if v186 then
+        v184.Analytics:reportVoiceMuteIndividual((v184:JoinWithVoiceMuteData({
+            targetUserId = tonumber(v185), 
+            context = v186, 
+            muted = v187
         })));
     end;
 end;
-v99.MuteAll = function(v194, v195, v196) --[[ Line: 745 ]] --[[ Name: MuteAll ]]
-    -- upvalues: l_VoiceChatService_0 (copy), l_GetFFlagPartyVoiceMuteScopeFix_0 (copy), v28 (copy), l_Players_0 (copy), l_game_EngineFeature_0 (copy), v17 (copy)
-    v194:ensureInitialized("mute all");
-    v194._mutedAnyone = true;
-    v195 = v195 or v194:CheckCaptureMute();
+v98.MuteAll = function(v193, v194, v195) --[[ Line: 744 ]] --[[ Name: MuteAll ]]
+    -- upvalues: l_VoiceChatService_0 (copy), v28 (copy), l_Players_0 (copy), l_game_EngineFeature_0 (copy), v17 (copy)
+    v193:ensureInitialized("mute all");
+    v193._mutedAnyone = true;
+    v194 = v194 or v193:CheckCaptureMute();
     if l_VoiceChatService_0.UseNewAudioApi then
-        v194.muteAll = v195;
-        if l_GetFFlagPartyVoiceMuteScopeFix_0() then
-            v28:trace("Setting self mute all to {} context: {}", v195, v196);
-        else
-            v28:trace("Setting self mute all to {}", v195);
-        end;
-        for v197 in v194.audioDevices do
-            if v197.Player and v197.Player ~= l_Players_0.LocalPlayer then
-                v28:debug("Local muting {} to '{} = {}'", v197.Player.Name, v197.Active, v195);
+        v193.muteAll = v194;
+        v28:trace("Setting self mute all to {} context: {}", v194, v195);
+        for v196 in v193.audioDevices do
+            if v196.Player and v196.Player ~= l_Players_0.LocalPlayer then
+                v28:debug("Local muting {} to '{} = {}'", v196.Player.Name, v196.Active, v194);
                 if l_game_EngineFeature_0 then
-                    v197.MutedByLocalUser = v195;
+                    v196.MutedByLocalUser = v194;
                 else
-                    local l_UserId_0 = v197.Player.UserId;
-                    v194.mutedPlayers[l_UserId_0] = v195;
-                    local v199 = v194.participants[tostring(l_UserId_0)];
-                    local v200 = v199 and not v199.isMuted;
-                    v197.Active = not v195 and v200;
+                    local l_UserId_0 = v196.Player.UserId;
+                    v193.mutedPlayers[l_UserId_0] = v194;
+                    local v198 = v193.participants[tostring(l_UserId_0)];
+                    local v199 = v198 and not v198.isMuted;
+                    v196.Active = not v194 and v199;
                 end;
             end;
         end;
     else
-        v194.service:SubscribePauseAll(v195);
+        v193.service:SubscribePauseAll(v194);
     end;
-    for _, v202 in pairs(v194.participants) do
-        v202.isMutedLocally = v195;
-        v194.participantsUpdate:Fire(v194.participants);
+    for _, v201 in pairs(v193.participants) do
+        v201.isMutedLocally = v194;
+        v193.participantsUpdate:Fire(v193.participants);
     end;
-    v194.muteAllChanged:Fire(v195);
-    if v196 then
-        v194.Analytics:reportVoiceMuteGroup((v194:JoinWithVoiceMuteData({
+    v193.muteAllChanged:Fire(v194);
+    if v195 then
+        v193.Analytics:reportVoiceMuteGroup((v193:JoinWithVoiceMuteData({
             groupType = v17.VOICE_GROUP_TYPE.ALL, 
-            context = v196, 
-            muted = v195
+            context = v195, 
+            muted = v194
         })));
     end;
 end;
-v99.FetchVoicePermissions = function(v203) --[[ Line: 792 ]] --[[ Name: FetchVoicePermissions ]]
-    if not v203.communicationPermissionsResult then
-        v203.communicationPermissionsResult = v203:resolveAvatarChatUserAndPlaceSettings();
+v98.FetchVoicePermissions = function(v202) --[[ Line: 787 ]] --[[ Name: FetchVoicePermissions ]]
+    if not v202.communicationPermissionsResult then
+        v202.communicationPermissionsResult = v202:resolveAvatarChatUserAndPlaceSettings();
     end;
-    return v203.communicationPermissionsResult;
+    return v202.communicationPermissionsResult;
 end;
-v99.verifyUniverseAndPlaceCanUseVoice = function(v204) --[[ Line: 800 ]] --[[ Name: verifyUniverseAndPlaceCanUseVoice ]]
+v98.verifyUniverseAndPlaceCanUseVoice = function(v203) --[[ Line: 795 ]] --[[ Name: verifyUniverseAndPlaceCanUseVoice ]]
     -- upvalues: l_GetFFlagAvatarChatServiceEnabled_0 (copy), v53 (copy), v20 (copy)
-    local v205 = if l_GetFFlagAvatarChatServiceEnabled_0() and v53() then v204:resolveAvatarChatUserAndPlaceSettings() else v204:FetchAgeVerificationOverlay();
-    if not v205 then
-        v204:_reportJoinFailed("invalidResponse", v20.ERROR);
+    local v204 = if l_GetFFlagAvatarChatServiceEnabled_0() and v53() then v203:resolveAvatarChatUserAndPlaceSettings() else v203:FetchAgeVerificationOverlay();
+    if not v204 then
+        v203:_reportJoinFailed("invalidResponse", v20.ERROR);
         return false;
     else
-        local l_universePlaceVoiceEnabledSettings_0 = v205.universePlaceVoiceEnabledSettings;
+        local l_universePlaceVoiceEnabledSettings_0 = v204.universePlaceVoiceEnabledSettings;
         return l_universePlaceVoiceEnabledSettings_0 and l_universePlaceVoiceEnabledSettings_0.isPlaceEnabledForVoice and l_universePlaceVoiceEnabledSettings_0.isUniverseEnabledForVoice;
     end;
 end;
-v99.IsUserInFTUX = function(v207) --[[ Line: 820 ]] --[[ Name: IsUserInFTUX ]]
+v98.IsUserInFTUX = function(v206) --[[ Line: 815 ]] --[[ Name: IsUserInFTUX ]]
     -- upvalues: l_GetFFlagSeamlessVoiceFTUX_0 (copy), l_GetFFlagCheckUniversePlaceBeforeSuspending_0 (copy), v28 (copy)
     if not l_GetFFlagSeamlessVoiceFTUX_0() then
         return false;
-    elseif l_GetFFlagCheckUniversePlaceBeforeSuspending_0() and not v207:verifyUniverseAndPlaceCanUseVoice() then
+    elseif l_GetFFlagCheckUniversePlaceBeforeSuspending_0() and not v206:verifyUniverseAndPlaceCanUseVoice() then
         return false;
     else
         local l_AppStorageService_1 = game:GetService("AppStorageService");
-        local v209 = nil;
-        if not pcall(function() --[[ Line: 830 ]]
-            -- upvalues: l_AppStorageService_1 (copy), v209 (ref)
-            v209 = l_AppStorageService_1:GetItem("SeamlessVoiceFTUX") == "true";
+        local v208 = nil;
+        if not pcall(function() --[[ Line: 825 ]]
+            -- upvalues: l_AppStorageService_1 (copy), v208 (ref)
+            v208 = l_AppStorageService_1:GetItem("SeamlessVoiceFTUX") == "true";
         end) then
             v28:warning("Failed to read FTUX/STUX from AppStorage");
             return false;
         else
-            local v210 = v207:FetchAgeVerificationOverlay();
-            if type(v210) == "table" and v210.voiceSettings and v210.voiceSettings.seamlessVoiceStatus ~= 3 then
+            local v209 = v206:FetchAgeVerificationOverlay();
+            if type(v209) == "table" and v209.voiceSettings and v209.voiceSettings.seamlessVoiceStatus ~= 3 then
                 v28:debug("User not eligible for FTUX/STUX");
                 return false;
             else
-                return not v209;
+                return not v208;
             end;
         end;
     end;
 end;
-v99.isEnableDefaultVoiceOnForPlace = function(_) --[[ Line: 853 ]] --[[ Name: isEnableDefaultVoiceOnForPlace ]]
+v98.isEnableDefaultVoiceOnForPlace = function(_) --[[ Line: 848 ]] --[[ Name: isEnableDefaultVoiceOnForPlace ]]
     -- upvalues: l_VoiceChatService_0 (copy)
     if not game:IsLoaded() then
         game.Loaded:Wait();
     end;
     return l_VoiceChatService_0.UseNewAudioApi or l_VoiceChatService_0.EnableDefaultVoice;
 end;
-v99.verifyPlaceCanUseVoice = function(v212, v213, v214) --[[ Line: 864 ]] --[[ Name: verifyPlaceCanUseVoice ]]
+v98.verifyPlaceCanUseVoice = function(v211, v212, v213) --[[ Line: 859 ]] --[[ Name: verifyPlaceCanUseVoice ]]
     -- upvalues: v20 (copy)
-    if not v213 or not v214 then
-        v212:_reportJoinFailed("invalidResponse", v20.ERROR);
+    if not v212 or not v213 then
+        v211:_reportJoinFailed("invalidResponse", v20.ERROR);
         return false;
-    elseif not v213.isUniverseEnabledForVoice then
-        v212:_reportJoinFailed("universeNotEnabled");
+    elseif not v212.isUniverseEnabledForVoice then
+        v211:_reportJoinFailed("universeNotEnabled");
         return false;
     else
-        v212:emit("OnUserAndPlaceCanUseVoiceResolved", v214, v213);
-        if not v213.isPlaceEnabledForVoice then
-            v212:_reportJoinFailed("placeNotEnabled");
+        v211:emit("OnUserAndPlaceCanUseVoiceResolved", v213, v212);
+        if not v212.isPlaceEnabledForVoice then
+            v211:_reportJoinFailed("placeNotEnabled");
             return false;
-        elseif not v212:isEnableDefaultVoiceOnForPlace() then
+        elseif not v211:isEnableDefaultVoiceOnForPlace() then
             return false;
         else
             return true;
         end;
     end;
 end;
-v99.EligibleForFaeUpsell = function(v215) --[[ Line: 889 ]] --[[ Name: EligibleForFaeUpsell ]]
+v98.EligibleForFaeUpsell = function(v214) --[[ Line: 884 ]] --[[ Name: EligibleForFaeUpsell ]]
     -- upvalues: l_FAE_ENABLED_0 (copy)
-    local v216 = v215:FetchAgeVerificationOverlay();
-    if not v216 or type(v216) ~= "table" then
+    local v215 = v214:FetchAgeVerificationOverlay();
+    if not v215 or type(v215) ~= "table" then
         return false;
     else
-        local v217 = v216.inExperienceFaeUpsell == l_FAE_ENABLED_0;
-        local l_isPlaceEnabledForVoice_0 = v216.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
-        return v217 and l_isPlaceEnabledForVoice_0;
+        local v216 = v215.inExperienceFaeUpsell == l_FAE_ENABLED_0;
+        local l_isPlaceEnabledForVoice_0 = v215.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
+        return v216 and l_isPlaceEnabledForVoice_0;
     end;
 end;
-v99.OptUserToJoinVoice = function(v219) --[[ Line: 899 ]] --[[ Name: OptUserToJoinVoice ]]
+v98.OptUserToJoinVoice = function(v218) --[[ Line: 894 ]] --[[ Name: OptUserToJoinVoice ]]
     -- upvalues: v28 (copy)
     v28:debug("Opting user to join voice on age verification");
-    v219.hasOptedToJoinVoiceOnAgeVerification = true;
+    v218.hasOptedToJoinVoiceOnAgeVerification = true;
 end;
-v99.SetupFAECompleteListener = function(v220) --[[ Line: 904 ]] --[[ Name: SetupFAECompleteListener ]]
+v98.SetupFAECompleteListener = function(v219) --[[ Line: 899 ]] --[[ Name: SetupFAECompleteListener ]]
     -- upvalues: v28 (copy)
     v28:debug("Setting up FAE complete listener");
     if game:GetEngineFeature("ChatReconcileAccess") then
         v28:debug("Using ChatService ReconcileCommunicationAccessCompleted event");
-        v220.ChatService.ReconcileCommunicationAccessCompleted:Connect(function() --[[ Line: 908 ]]
-            -- upvalues: v28 (ref), v220 (copy)
+        v219.ChatService.ReconcileCommunicationAccessCompleted:Connect(function() --[[ Line: 903 ]]
+            -- upvalues: v28 (ref), v219 (copy)
             v28:debug("FAE complete listener triggered, re-fetching voice permissions");
-            v220.communicationPermissionsResult = nil;
-            v220:FetchVoicePermissions();
-            v220._getShowAgeVerificationOverlayResult = v220:_GetShowAgeVerificationOverlay();
-            if v220.hasOptedToJoinVoiceOnAgeVerification then
+            v219.communicationPermissionsResult = nil;
+            v219:FetchVoicePermissions();
+            v219._getShowAgeVerificationOverlayResult = v219:_GetShowAgeVerificationOverlay();
+            if v219.hasOptedToJoinVoiceOnAgeVerification then
                 v28:debug("FAE complete listener triggered, attempting voice rejoin");
-                if v220:IsSeamlessVoice() then
+                if v219:IsSeamlessVoice() then
                     v28:debug("Opting-in user to voice");
-                    v220.AvatarChatService:EnableVoice();
-                    v220.attemptVoiceRejoin:Fire();
+                    v219.AvatarChatService:EnableVoice();
+                    v219.attemptVoiceRejoin:Fire();
                 end;
             end;
         end);
     end;
 end;
-v99.EligibleForAgeCheckToast = function(v221) --[[ Line: 928 ]] --[[ Name: EligibleForAgeCheckToast ]]
+v98.EligibleForAgeCheckToast = function(v220) --[[ Line: 923 ]] --[[ Name: EligibleForAgeCheckToast ]]
     -- upvalues: l_FAE_SETTINGS_TOAST_0 (copy)
-    local v222 = v221:FetchAgeVerificationOverlay();
-    if not v222 or type(v222) ~= "table" then
+    local v221 = v220:FetchAgeVerificationOverlay();
+    if not v221 or type(v221) ~= "table" then
         return false;
     else
-        local l_isPlaceEnabledForVoice_1 = v222.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
-        local v224 = v222.inExperienceFaeUpsell == l_FAE_SETTINGS_TOAST_0;
-        return l_isPlaceEnabledForVoice_1 and v221:isEnableDefaultVoiceOnForPlace() and v224;
+        local l_isPlaceEnabledForVoice_1 = v221.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
+        local v223 = v221.inExperienceFaeUpsell == l_FAE_SETTINGS_TOAST_0;
+        return l_isPlaceEnabledForVoice_1 and v220:isEnableDefaultVoiceOnForPlace() and v223;
     end;
 end;
-v99.userAndPlaceCanUseVoice = function(v225) --[[ Line: 938 ]] --[[ Name: userAndPlaceCanUseVoice ]]
-    -- upvalues: l_GetFFlagAvatarChatServiceEnabled_0 (copy), v53 (copy), v93 (copy), v18 (copy), v20 (copy), v28 (copy), l_GetFFlagEnableVoiceSignal_0 (copy), l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0 (copy), v17 (copy), l_VOICE_JOIN_PROGRESS_0 (copy), l_GetFFlagEnableVoiceUxUpdates_0 (copy), l_GetFFlagNonVoiceFTUX_0 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy), l_GetFFlagShowLikelySpeakingBubbles_0 (copy)
-    if v225.ThirdPartyUserService ~= nil and v225.ThirdPartyUserService:IsChatRestrictionSupported() and v225.ThirdPartyUserService:GetVoiceChatRestrictionStatus() ~= Enum.ChatRestrictionStatus.NotRestricted then
+v98.userAndPlaceCanUseVoice = function(v224) --[[ Line: 933 ]] --[[ Name: userAndPlaceCanUseVoice ]]
+    -- upvalues: l_GetFFlagAvatarChatServiceEnabled_0 (copy), v53 (copy), v92 (copy), v18 (copy), v20 (copy), v28 (copy), l_GetFFlagEnableVoiceSignal_0 (copy), l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0 (copy), v17 (copy), l_VOICE_JOIN_PROGRESS_0 (copy), l_GetFFlagEnableVoiceUxUpdates_0 (copy), l_GetFFlagNonVoiceFTUX_0 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy), l_GetFFlagShowLikelySpeakingBubbles_0 (copy)
+    if v224.ThirdPartyUserService ~= nil and v224.ThirdPartyUserService:IsChatRestrictionSupported() and v224.ThirdPartyUserService:GetVoiceChatRestrictionStatus() ~= Enum.ChatRestrictionStatus.NotRestricted then
         return false;
     else
-        local v226 = if l_GetFFlagAvatarChatServiceEnabled_0() and v53() then v225:resolveAvatarChatUserAndPlaceSettings() else v93(v18.bind(v225, "GetRequest"), tostring(game.GameId), (tostring(game.PlaceId)));
-        if not v226 then
-            v225:_reportJoinFailed("invalidResponse", v20.ERROR);
+        local v225 = if l_GetFFlagAvatarChatServiceEnabled_0() and v53() then v224:resolveAvatarChatUserAndPlaceSettings() else v92(v18.bind(v224, "GetRequest"), tostring(game.GameId), (tostring(game.PlaceId)));
+        if not v225 then
+            v224:_reportJoinFailed("invalidResponse", v20.ERROR);
             return false;
         else
-            if v225.options.forceVoiceEnabled then
-                v226.voiceSettings.isVoiceEnabled = true;
+            if v224.options.forceVoiceEnabled then
+                v225.voiceSettings.isVoiceEnabled = true;
                 v28:debug("bypassing voice permissions check");
             end;
-            local l_universePlaceVoiceEnabledSettings_1 = v226.universePlaceVoiceEnabledSettings;
-            local l_voiceSettings_0 = v226.voiceSettings;
-            v28:trace("Voice settings endpoint returned {}", v226);
-            if not v225:verifyPlaceCanUseVoice(l_universePlaceVoiceEnabledSettings_1, l_voiceSettings_0) then
+            local l_universePlaceVoiceEnabledSettings_1 = v225.universePlaceVoiceEnabledSettings;
+            local l_voiceSettings_0 = v225.voiceSettings;
+            v28:trace("Voice settings endpoint returned {}", v225);
+            if not v224:verifyPlaceCanUseVoice(l_universePlaceVoiceEnabledSettings_1, l_voiceSettings_0) then
                 return false;
             else
                 if l_GetFFlagEnableVoiceSignal_0() then
-                    v225.communicationPermissionsResult = v226;
-                    local v229 = l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and os.time();
-                    local v230 = l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and not v225:UserVoiceEnabled() and not l_voiceSettings_0.isUserVerifiedForVoice and (v225:FetchPhoneVerificationUpsell(v17.IN_EXP_PHONE_UPSELL_IXP_LAYER) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat or v229 and v225:FetchPhoneVerificationUpsell(v17.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, v229) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat);
-                    if v225:UserEligibleForInExperienceUpsell() or v230 then
-                        v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                    v224.communicationPermissionsResult = v225;
+                    local v228 = l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and os.time();
+                    local v229 = l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and not v224:UserVoiceEnabled() and not l_voiceSettings_0.isUserVerifiedForVoice and (v224:FetchPhoneVerificationUpsell(v17.IN_EXP_PHONE_UPSELL_IXP_LAYER) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat or v228 and v224:FetchPhoneVerificationUpsell(v17.EXIT_CONFIRMATION_PHONE_UPSELL_IXP_LAYER, v228) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat);
+                    if v224:UserEligibleForInExperienceUpsell() or v229 then
+                        v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
                     end;
                     if l_GetFFlagEnableVoiceUxUpdates_0() then
-                        local l_v225_VoiceConnectCookie_0 = v225:GetVoiceConnectCookie();
-                        local v232 = v225:HasSeamlessVoiceFeature(v17.SeamlessVoiceFeatures.DeferConnection) and l_v225_VoiceConnectCookie_0 == "";
-                        local v233 = v225:IsSeamlessVoice() and l_v225_VoiceConnectCookie_0 == "false";
-                        if v232 or v233 then
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
-                        elseif v225:EligibleForFaeUpsell() then
+                        local l_v224_VoiceConnectCookie_0 = v224:GetVoiceConnectCookie();
+                        local v231 = v224:HasSeamlessVoiceFeature(v17.SeamlessVoiceFeatures.DeferConnection) and l_v224_VoiceConnectCookie_0 == "";
+                        local v232 = v224:IsSeamlessVoice() and l_v224_VoiceConnectCookie_0 == "false";
+                        if v231 or v232 then
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                        elseif v224:EligibleForFaeUpsell() then
                             v28:debug("Suspending voice join for FAE Eligible user");
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
-                            v225:SetupFAECompleteListener();
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                            v224:SetupFAECompleteListener();
                         end;
                     else
-                        if l_GetFFlagNonVoiceFTUX_0() and v225:IsUserInFTUX() then
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                        if l_GetFFlagNonVoiceFTUX_0() and v224:IsUserInFTUX() then
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
                         end;
-                        if v225:IsSeamlessVoice() and not v225:GetVoiceConnectCookieValue() then
+                        if v224:IsSeamlessVoice() and not v224:GetVoiceConnectCookieValue() then
                             v28:debug("Suspending voice join due to voice connect cookie");
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
-                        elseif l_GetFFlagEnableSeamlessVoiceV2_0() and v225:IsNewSeamlessVoiceUserDisconnect() then
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                        elseif l_GetFFlagEnableSeamlessVoiceV2_0() and v224:IsNewSeamlessVoiceUserDisconnect() then
                             v28:debug("Suspending voice join for new seamless voice user");
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
-                        elseif v225:IsSeamlessVoice() and v225:UserOnlyEligibleForVoice() then
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                        elseif v224:IsSeamlessVoice() and v224:UserOnlyEligibleForVoice() then
                             v28:debug("Suspending voice join for opt-out user");
-                            v225:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
+                            v224:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Suspended);
                         end;
                     end;
-                    task.spawn(function() --[[ Line: 1035 ]]
-                        -- upvalues: v225 (copy)
-                        v225:FetchAgeVerificationOverlay();
+                    task.spawn(function() --[[ Line: 1030 ]]
+                        -- upvalues: v224 (copy)
+                        v224:FetchAgeVerificationOverlay();
                     end);
-                    if l_GetFFlagShowLikelySpeakingBubbles_0() and v225:UserEligibleForLikelySpeakingBubbles() then
-                        v225:emit("OnShowLikelySpeakingBubblesChanged", true);
+                    if l_GetFFlagShowLikelySpeakingBubbles_0() and v224:UserEligibleForLikelySpeakingBubbles() then
+                        v224:emit("OnShowLikelySpeakingBubblesChanged", true);
                     end;
                 end;
                 if not l_voiceSettings_0.isVoiceEnabled then
-                    v225:_reportJoinFailed("userNotEnabled");
+                    v224:_reportJoinFailed("userNotEnabled");
                 end;
                 return l_voiceSettings_0.isVoiceEnabled;
             end;
         end;
     end;
 end;
-v99.voicePermissionGranted = function(_, v235) --[[ Line: 1054 ]] --[[ Name: voicePermissionGranted ]]
+v98.voicePermissionGranted = function(_, v234) --[[ Line: 1049 ]] --[[ Name: voicePermissionGranted ]]
     -- upvalues: l_PermissionsProtocol_0 (copy), v23 (copy)
     local _ = false;
-    if typeof(v235) == "table" then
-        local v237 = true;
-        if v235.status ~= l_PermissionsProtocol_0.Status.AUTHORIZED then
-            v237 = not v23.List.find(v235.missingPermissions, l_PermissionsProtocol_0.Permissions.MICROPHONE_ACCESS);
+    if typeof(v234) == "table" then
+        local v236 = true;
+        if v234.status ~= l_PermissionsProtocol_0.Status.AUTHORIZED then
+            v236 = not v23.List.find(v234.missingPermissions, l_PermissionsProtocol_0.Permissions.MICROPHONE_ACCESS);
         end;
-        return v237;
+        return v236;
     else
-        return v235 == l_PermissionsProtocol_0.Status.AUTHORIZED;
+        return v234 == l_PermissionsProtocol_0.Status.AUTHORIZED;
     end;
 end;
-v99.RawGetPermissions = function(v238, v239) --[[ Line: 1074 ]] --[[ Name: RawGetPermissions ]]
+v98.RawGetPermissions = function(v237, v238) --[[ Line: 1069 ]] --[[ Name: RawGetPermissions ]]
     -- upvalues: v22 (copy)
-    return v22.new(function(v240, _) --[[ Line: 1075 ]]
-        -- upvalues: v238 (copy), v239 (copy)
-        v238:emit("GetPermissions", function(v242) --[[ Line: 1076 ]]
-            -- upvalues: v240 (copy)
-            v240(v242);
-        end, v239, true, true);
+    return v22.new(function(v239, _) --[[ Line: 1070 ]]
+        -- upvalues: v237 (copy), v238 (copy)
+        v237:emit("GetPermissions", function(v241) --[[ Line: 1071 ]]
+            -- upvalues: v239 (copy)
+            v239(v241);
+        end, v238, true, true);
     end);
 end;
-v99.requestMicPermission = function(v243) --[[ Line: 1083 ]] --[[ Name: requestMicPermission ]]
+v98.requestMicPermission = function(v242) --[[ Line: 1078 ]] --[[ Name: requestMicPermission ]]
     -- upvalues: v28 (copy), l_PermissionsProtocol_0 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy), l_GetFFlagJoinWithoutMicPermissions_0 (copy), l_PERMISSION_STATE_0 (copy), v22 (copy), v55 (copy), l_GetFFlagEnableVrVoiceParity_0 (copy), v61 (copy), v20 (copy)
-    if v243.permissionPromise then
+    if v242.permissionPromise then
         v28:trace("PermissionProtocol already invoked");
-        return v243.permissionPromise;
+        return v242.permissionPromise;
     else
-        local v244 = {
+        local v243 = {
             l_PermissionsProtocol_0.Permissions.MICROPHONE_ACCESS
         };
-        local v245 = nil;
-        if not l_GetFFlagEnableSeamlessVoiceV2_0() and l_GetFFlagJoinWithoutMicPermissions_0(v243:IsSeamlessVoice()) then
+        local v244 = nil;
+        if not l_GetFFlagEnableSeamlessVoiceV2_0() and l_GetFFlagJoinWithoutMicPermissions_0(v242:IsSeamlessVoice()) then
             v28:debug("Requesting device permission");
+            local v245 = nil;
             local v246 = nil;
-            local v247 = nil;
-            local v248, v249, v250 = pcall(function() --[[ Line: 1097 ]]
-                -- upvalues: v243 (copy), v244 (copy)
-                return v243:RawGetPermissions(v244):await();
+            local v247, v248, v249 = pcall(function() --[[ Line: 1092 ]]
+                -- upvalues: v242 (copy), v243 (copy)
+                return v242:RawGetPermissions(v243):await();
             end);
-            v246 = v248 and v249;
-            v247 = v250;
-            if v246 then
-                if v247.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
-                    v243.permissionState = l_PERMISSION_STATE_0.LISTEN_AND_TALK;
-                elseif v247.missingPermissions then
-                    v243.permissionState = l_PERMISSION_STATE_0.PENDING_MIC;
-                elseif v247.deniedPermissions then
-                    v243.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
+            v245 = v247 and v248;
+            v246 = v249;
+            if v245 then
+                if v246.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
+                    v242.permissionState = l_PERMISSION_STATE_0.LISTEN_AND_TALK;
+                elseif v246.missingPermissions then
+                    v242.permissionState = l_PERMISSION_STATE_0.PENDING_MIC;
+                elseif v246.deniedPermissions then
+                    v242.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
                 else
                     v28:error("PermissionsService returned unknown permission state. Defaulting to listen only.");
-                    v243.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
+                    v242.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
                 end;
             else
                 v28:error("PermissionsService call failed.");
-                v243.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
+                v242.permissionState = l_PERMISSION_STATE_0.LISTEN_ONLY;
             end;
-            v28:debug("Joining without mic permissions. Permission State: {}", v243.permissionState);
-            v245 = v22.resolve();
+            v28:debug("Joining without mic permissions. Permission State: {}", v242.permissionState);
+            v244 = v22.resolve();
         else
-            v245 = if v55 then v22.new(function(v251, _) --[[ Line: 1126 ]]
-                -- upvalues: l_PermissionsProtocol_0 (ref), l_GetFFlagEnableVrVoiceParity_0 (ref), v243 (copy), v244 (copy)
-                local function v255(v253) --[[ Line: 1127 ]]
-                    -- upvalues: l_PermissionsProtocol_0 (ref), v251 (copy)
-                    local v254 = {
-                        status = v253.hasMicPermissions and l_PermissionsProtocol_0.Status.AUTHORIZED or l_PermissionsProtocol_0.Status.DENIED
+            v244 = if v55 then v22.new(function(v250, _) --[[ Line: 1121 ]]
+                -- upvalues: l_PermissionsProtocol_0 (ref), l_GetFFlagEnableVrVoiceParity_0 (ref), v242 (copy), v243 (copy)
+                local function v254(v252) --[[ Line: 1122 ]]
+                    -- upvalues: l_PermissionsProtocol_0 (ref), v250 (copy)
+                    local v253 = {
+                        status = v252.hasMicPermissions and l_PermissionsProtocol_0.Status.AUTHORIZED or l_PermissionsProtocol_0.Status.DENIED
                     };
-                    v251(v254);
+                    v250(v253);
                 end;
                 if l_GetFFlagEnableVrVoiceParity_0() then
-                    v243:emit("GetPermissions", v255, v244, false, false);
+                    v242:emit("GetPermissions", v254, v243, false, false);
                     return;
                 else
-                    v243:emit("GetPermissions", v255, v244);
+                    v242:emit("GetPermissions", v254, v243);
                     return;
                 end;
-            end) else v243.PermissionsService:requestPermissions(v244);
+            end) else v242.PermissionsService:requestPermissions(v243);
         end;
-        v243.permissionPromise = v245:andThen(function(v256) --[[ Line: 1146 ]]
-            -- upvalues: v61 (ref), v243 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), l_GetFFlagJoinWithoutMicPermissions_0 (ref), v22 (ref), v28 (ref), v20 (ref), v55 (ref), l_PermissionsProtocol_0 (ref)
+        v242.permissionPromise = v244:andThen(function(v255) --[[ Line: 1141 ]]
+            -- upvalues: v61 (ref), v242 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), l_GetFFlagJoinWithoutMicPermissions_0 (ref), v22 (ref), v28 (ref), v20 (ref), v55 (ref), l_PermissionsProtocol_0 (ref)
             if v61() then
-                v243:RecordExperienceJoinMicPermissionStatus(v256);
+                v242:RecordExperienceJoinMicPermissionStatus(v255);
             end;
             if not l_GetFFlagEnableSeamlessVoiceV2_0() and l_GetFFlagJoinWithoutMicPermissions_0() then
                 return v22.resolve();
-            elseif not v256 and not v256.status then
+            elseif not v255 and not v255.status then
                 v28:debug("No permission response, rejecting access");
-                v243:_reportJoinFailed("noPermissionResponse", v20.ERROR);
-                if v243.options.passInitErrorInPromiseReject then
+                v242:_reportJoinFailed("noPermissionResponse", v20.ERROR);
+                if v242.options.passInitErrorInPromiseReject then
                     return v22.reject({
                         code = "INIT_ERROR_NO_PERM_RESPONSE"
                     });
@@ -841,25 +836,25 @@ v99.requestMicPermission = function(v243) --[[ Line: 1083 ]] --[[ Name: requestM
                     return v22.reject();
                 end;
             else
-                v28:debug("Permission status {}", v256.status);
-                local v257 = nil;
-                v257 = if v55 then v243:voicePermissionGranted(v256) else v256.status == l_PermissionsProtocol_0.Status.AUTHORIZED;
-                if v243.options.passInitErrorInPromiseReject and not v257 then
+                v28:debug("Permission status {}", v255.status);
+                local v256 = nil;
+                v256 = if v55 then v242:voicePermissionGranted(v255) else v255.status == l_PermissionsProtocol_0.Status.AUTHORIZED;
+                if v242.options.passInitErrorInPromiseReject and not v256 then
                     return v22.reject({
                         code = "INIT_ERROR_PERM_NOT_GRANTED"
                     });
                 else
-                    return v257 and v22.resolve() or v22.reject();
+                    return v256 and v22.resolve() or v22.reject();
                 end;
             end;
-        end):andThen(function() --[[ Line: 1175 ]]
-            -- upvalues: v243 (copy), v22 (ref)
-            v243:emit("OnRequestMicPermissionResolved");
+        end):andThen(function() --[[ Line: 1170 ]]
+            -- upvalues: v242 (copy), v22 (ref)
+            v242:emit("OnRequestMicPermissionResolved");
             return v22.resolve();
-        end):catch(function() --[[ Line: 1180 ]]
-            -- upvalues: v243 (copy), v22 (ref)
-            v243:emit("OnRequestMicPermissionRejected");
-            if v243.options.passInitErrorInPromiseReject then
+        end):catch(function() --[[ Line: 1175 ]]
+            -- upvalues: v242 (copy), v22 (ref)
+            v242:emit("OnRequestMicPermissionRejected");
+            if v242.options.passInitErrorInPromiseReject then
                 return v22.reject({
                     code = "INIT_ERROR_MIC_PERM_REJECTED"
                 });
@@ -867,84 +862,84 @@ v99.requestMicPermission = function(v243) --[[ Line: 1083 ]] --[[ Name: requestM
                 return v22.reject();
             end;
         end);
-        return v243.permissionPromise;
+        return v242.permissionPromise;
     end;
 end;
-v99.JoinByGroupIdToken = function(v258, v259, v260) --[[ Line: 1190 ]] --[[ Name: JoinByGroupIdToken ]]
-    v258.previousGroupId = v259;
-    v258.previousMutedState = v260;
-    return v258.service:JoinByGroupIdToken(v259, v260);
+v98.JoinByGroupIdToken = function(v257, v258, v259) --[[ Line: 1185 ]] --[[ Name: JoinByGroupIdToken ]]
+    v257.previousGroupId = v258;
+    v257.previousMutedState = v259;
+    return v257.service:JoinByGroupIdToken(v258, v259);
 end;
-v99.EnableVoice = function(v261) --[[ Line: 1196 ]] --[[ Name: EnableVoice ]]
+v98.EnableVoice = function(v260) --[[ Line: 1191 ]] --[[ Name: EnableVoice ]]
     -- upvalues: v28 (copy)
     v28:trace("Enabling voice");
-    v261.AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Once(function() --[[ Line: 1199 ]]
-        -- upvalues: v261 (copy)
-        v261.attemptVoiceRejoin:Fire();
+    v260.AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Once(function() --[[ Line: 1194 ]]
+        -- upvalues: v260 (copy)
+        v260.attemptVoiceRejoin:Fire();
     end);
-    v261.AvatarChatService:EnableVoice();
+    v260.AvatarChatService:EnableVoice();
 end;
-v99.ChangeVoiceJoinProgress = function(v262, v263) --[[ Line: 1205 ]] --[[ Name: ChangeVoiceJoinProgress ]]
-    v262.VoiceJoinProgress = v263;
-    v262.VoiceJoinProgressChanged:Fire(v262.VoiceJoinProgress);
+v98.ChangeVoiceJoinProgress = function(v261, v262) --[[ Line: 1200 ]] --[[ Name: ChangeVoiceJoinProgress ]]
+    v261.VoiceJoinProgress = v262;
+    v261.VoiceJoinProgressChanged:Fire(v261.VoiceJoinProgress);
 end;
-v99.setOptions = function(v264, v265) --[[ Line: 1210 ]] --[[ Name: setOptions ]]
-    v264.options = v265;
+v98.setOptions = function(v263, v264) --[[ Line: 1205 ]] --[[ Name: setOptions ]]
+    v263.options = v264;
 end;
-v99.ShouldShowJoinVoiceOnDisconnect = function(v266) --[[ Line: 1214 ]] --[[ Name: ShouldShowJoinVoiceOnDisconnect ]]
+v98.ShouldShowJoinVoiceOnDisconnect = function(v265) --[[ Line: 1209 ]] --[[ Name: ShouldShowJoinVoiceOnDisconnect ]]
     -- upvalues: l_VOICE_JOIN_PROGRESS_0 (copy)
-    return v266:IsSeamlessVoice() and v266.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Suspended;
+    return v265:IsSeamlessVoice() and v265.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Suspended;
 end;
-v99.IsSeamlessVoice = function(v267) --[[ Line: 1218 ]] --[[ Name: IsSeamlessVoice ]]
+v98.IsSeamlessVoice = function(v266) --[[ Line: 1213 ]] --[[ Name: IsSeamlessVoice ]]
     -- upvalues: l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0 (copy), l_GetFFlagCheckUniversePlaceBeforeSuspending_0 (copy), v17 (copy)
-    if l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0() and not v267.options.allowSeamlessVoice then
+    if l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0() and not v266.options.allowSeamlessVoice then
         return false;
     else
-        local v268 = v267:FetchAgeVerificationOverlay();
-        if type(v268) ~= "table" or not v268 or not v268.voiceSettings then
+        local v267 = v266:FetchAgeVerificationOverlay();
+        if type(v267) ~= "table" or not v267 or not v267.voiceSettings then
             return false;
-        elseif l_GetFFlagCheckUniversePlaceBeforeSuspending_0() and not v267:verifyUniverseAndPlaceCanUseVoice() then
+        elseif l_GetFFlagCheckUniversePlaceBeforeSuspending_0() and not v266:verifyUniverseAndPlaceCanUseVoice() then
             return false;
         else
-            local l_seamlessVoiceStatus_0 = v268.voiceSettings.seamlessVoiceStatus;
-            local v270 = true;
+            local l_seamlessVoiceStatus_0 = v267.voiceSettings.seamlessVoiceStatus;
+            local v269 = true;
             if l_seamlessVoiceStatus_0 ~= v17.SeamlessVoiceStatus.EnabledExistingUser then
-                v270 = l_seamlessVoiceStatus_0 == v17.SeamlessVoiceStatus.EnabledNewUser;
+                v269 = l_seamlessVoiceStatus_0 == v17.SeamlessVoiceStatus.EnabledNewUser;
             end;
-            return v270;
+            return v269;
         end;
     end;
 end;
-v99.HasSeamlessVoiceFeature = function(v271, v272) --[[ Line: 1240 ]] --[[ Name: HasSeamlessVoiceFeature ]]
+v98.HasSeamlessVoiceFeature = function(v270, v271) --[[ Line: 1235 ]] --[[ Name: HasSeamlessVoiceFeature ]]
     -- upvalues: v62 (copy), v18 (copy), v17 (copy)
-    if not v271.options.allowSeamlessVoice or not v271:verifyUniverseAndPlaceCanUseVoice() then
+    if not v270.options.allowSeamlessVoice or not v270:verifyUniverseAndPlaceCanUseVoice() then
         return false;
     else
-        local v273 = v271:FetchAgeVerificationOverlay();
-        if not v271:_isValidAgeVerificationOverlayData(v273) then
+        local v272 = v270:FetchAgeVerificationOverlay();
+        if not v270:_isValidAgeVerificationOverlayData(v272) then
             return false;
         else
-            local l_seamlessVoiceVariant_0 = v273.voiceSettings.seamlessVoiceVariant;
+            local l_seamlessVoiceVariant_0 = v272.voiceSettings.seamlessVoiceVariant;
             if not l_seamlessVoiceVariant_0 then
                 return false;
             else
                 if v62() then
-                    if type(v272) == "string" then
-                        v272 = {
-                            v272
+                    if type(v271) == "string" then
+                        v271 = {
+                            v271
                         };
                     end;
-                    if v62(v272) then
-                        local v275 = v18.jsonDecode(l_seamlessVoiceVariant_0);
-                        local v276 = {};
-                        for _, v278 in pairs(v275) do
-                            v276[v278] = true;
+                    if v62(v271) then
+                        local v274 = v18.jsonDecode(l_seamlessVoiceVariant_0);
+                        local v275 = {};
+                        for _, v277 in pairs(v274) do
+                            v275[v277] = true;
                         end;
-                        if #v272 == 1 and v272[1] == v17.SeamlessVoiceFeatures.ConnectDisconnect and l_seamlessVoiceVariant_0 == v17.SeamlessVoiceVariants.OnlyConnectDisconnect then
+                        if #v271 == 1 and v271[1] == v17.SeamlessVoiceFeatures.ConnectDisconnect and l_seamlessVoiceVariant_0 == v17.SeamlessVoiceVariants.OnlyConnectDisconnect then
                             return true;
                         else
-                            for _, v280 in pairs(v272) do
-                                if not v276[v280] then
+                            for _, v279 in pairs(v271) do
+                                if not v275[v279] then
                                     return false;
                                 end;
                             end;
@@ -952,22 +947,22 @@ v99.HasSeamlessVoiceFeature = function(v271, v272) --[[ Line: 1240 ]] --[[ Name:
                         end;
                     end;
                 else
-                    local v284 = ({
-                        [v17.SeamlessVoiceFeatures.ConnectDisconnect] = function(v281) --[[ Line: 1285 ]]
+                    local v283 = ({
+                        [v17.SeamlessVoiceFeatures.ConnectDisconnect] = function(v280) --[[ Line: 1280 ]]
                             -- upvalues: v17 (ref)
-                            return v281 ~= v17.SeamlessVoiceVariants.Control;
+                            return v280 ~= v17.SeamlessVoiceVariants.Control;
                         end, 
-                        [v17.SeamlessVoiceFeatures.HearingWithoutMicPermissions] = function(v282) --[[ Line: 1288 ]]
+                        [v17.SeamlessVoiceFeatures.HearingWithoutMicPermissions] = function(v281) --[[ Line: 1283 ]]
                             -- upvalues: v17 (ref)
-                            return v282 == v17.SeamlessVoiceVariants.HearingWithoutMicPermissions;
+                            return v281 == v17.SeamlessVoiceVariants.HearingWithoutMicPermissions;
                         end, 
-                        [v17.SeamlessVoiceFeatures.LikelySpeakingBubblesRemoved] = function(v283) --[[ Line: 1291 ]]
+                        [v17.SeamlessVoiceFeatures.LikelySpeakingBubblesRemoved] = function(v282) --[[ Line: 1286 ]]
                             -- upvalues: v17 (ref)
-                            return v283 == v17.SeamlessVoiceVariants.LikelySpeakingBubblesRemoved;
+                            return v282 == v17.SeamlessVoiceVariants.LikelySpeakingBubblesRemoved;
                         end
-                    })[v272];
-                    if v284 then
-                        return v284(l_seamlessVoiceVariant_0);
+                    })[v271];
+                    if v283 then
+                        return v283(l_seamlessVoiceVariant_0);
                     end;
                 end;
                 return false;
@@ -975,118 +970,118 @@ v99.HasSeamlessVoiceFeature = function(v271, v272) --[[ Line: 1240 ]] --[[ Name:
         end;
     end;
 end;
-v99.IsNewSeamlessVoiceUserDisconnect = function(v285) --[[ Line: 1305 ]] --[[ Name: IsNewSeamlessVoiceUserDisconnect ]]
+v98.IsNewSeamlessVoiceUserDisconnect = function(v284) --[[ Line: 1300 ]] --[[ Name: IsNewSeamlessVoiceUserDisconnect ]]
     -- upvalues: v17 (copy)
-    if not v285.options.allowSeamlessVoice or not v285:verifyUniverseAndPlaceCanUseVoice() then
+    if not v284.options.allowSeamlessVoice or not v284:verifyUniverseAndPlaceCanUseVoice() then
         return false;
     else
-        local v286 = v285:FetchAgeVerificationOverlay();
-        if not v285:_isValidAgeVerificationOverlayData(v286) then
+        local v285 = v284:FetchAgeVerificationOverlay();
+        if not v284:_isValidAgeVerificationOverlayData(v285) then
             return false;
-        elseif v286.voiceSettings.seamlessVoiceStatus ~= v17.SeamlessVoiceStatus.EnabledNewUser then
+        elseif v285.voiceSettings.seamlessVoiceStatus ~= v17.SeamlessVoiceStatus.EnabledNewUser then
             return false;
         else
-            local l_status_6, l_result_6 = pcall(function() --[[ Line: 1324 ]]
-                -- upvalues: v285 (copy), v17 (ref)
-                return v285.AppStorageService:GetItem(v17.SEAMLESS_VOICE_FTUX_KEY);
+            local l_status_6, l_result_6 = pcall(function() --[[ Line: 1319 ]]
+                -- upvalues: v284 (copy), v17 (ref)
+                return v284.AppStorageService:GetItem(v17.SEAMLESS_VOICE_FTUX_KEY);
             end);
             return l_status_6 and l_result_6 == "false";
         end;
     end;
 end;
-v99._isValidAgeVerificationOverlayData = function(_, v290) --[[ Line: 1332 ]] --[[ Name: _isValidAgeVerificationOverlayData ]]
-    local v291 = false;
-    if type(v290) == "table" then
-        v291 = v290 and v290.voiceSettings;
+v98._isValidAgeVerificationOverlayData = function(_, v289) --[[ Line: 1327 ]] --[[ Name: _isValidAgeVerificationOverlayData ]]
+    local v290 = false;
+    if type(v289) == "table" then
+        v290 = v289 and v289.voiceSettings;
     end;
-    return v291;
+    return v290;
 end;
-v99.UserInInExperienceUpsellTreatment = function(v292) --[[ Line: 1336 ]] --[[ Name: UserInInExperienceUpsellTreatment ]]
+v98.UserInInExperienceUpsellTreatment = function(v291) --[[ Line: 1331 ]] --[[ Name: UserInInExperienceUpsellTreatment ]]
     -- upvalues: v17 (copy)
-    local v293 = v292:FetchAgeVerificationOverlay();
-    if not v293 then
+    local v292 = v291:FetchAgeVerificationOverlay();
+    if not v292 then
         return false;
     else
-        local l_showVoiceInExperienceUpsellVariant_0 = v293.showVoiceInExperienceUpsellVariant;
-        local v295 = true;
+        local l_showVoiceInExperienceUpsellVariant_0 = v292.showVoiceInExperienceUpsellVariant;
+        local v294 = true;
         if l_showVoiceInExperienceUpsellVariant_0 ~= v17.IN_EXP_UPSELL_VARIANT.VARIANT1 then
-            v295 = true;
+            v294 = true;
             if l_showVoiceInExperienceUpsellVariant_0 ~= v17.IN_EXP_UPSELL_VARIANT.VARIANT2 then
-                v295 = l_showVoiceInExperienceUpsellVariant_0 == v17.IN_EXP_UPSELL_VARIANT.VARIANT3;
+                v294 = l_showVoiceInExperienceUpsellVariant_0 == v17.IN_EXP_UPSELL_VARIANT.VARIANT3;
             end;
         end;
-        return v295;
+        return v294;
     end;
 end;
-v99.UserOnlyEligibleForVoice = function(v296) --[[ Line: 1348 ]] --[[ Name: UserOnlyEligibleForVoice ]]
+v98.UserOnlyEligibleForVoice = function(v295) --[[ Line: 1343 ]] --[[ Name: UserOnlyEligibleForVoice ]]
     -- upvalues: v35 (copy)
-    local l_communicationPermissionsResult_0 = v296.communicationPermissionsResult;
+    local l_communicationPermissionsResult_0 = v295.communicationPermissionsResult;
     if not l_communicationPermissionsResult_0 or not l_communicationPermissionsResult_0.voiceSettings or not l_communicationPermissionsResult_0.universePlaceVoiceEnabledSettings then
         if v35 then
-            v296:FetchVoicePermissions();
-            l_communicationPermissionsResult_0 = v296.communicationPermissionsResult;
+            v295:FetchVoicePermissions();
+            l_communicationPermissionsResult_0 = v295.communicationPermissionsResult;
         else
             return false;
         end;
     end;
     return l_communicationPermissionsResult_0.voiceSettings.isUserVerifiedForVoice and not l_communicationPermissionsResult_0.voiceSettings.isVoiceEnabled and l_communicationPermissionsResult_0.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
 end;
-v99.UserOnlyEligibleForVoiceViaOverlay = function(v298) --[[ Line: 1364 ]] --[[ Name: UserOnlyEligibleForVoiceViaOverlay ]]
-    local v299 = v298:FetchAgeVerificationOverlay();
-    if not v298:_isValidAgeVerificationOverlayData(v299) then
+v98.UserOnlyEligibleForVoiceViaOverlay = function(v297) --[[ Line: 1359 ]] --[[ Name: UserOnlyEligibleForVoiceViaOverlay ]]
+    local v298 = v297:FetchAgeVerificationOverlay();
+    if not v297:_isValidAgeVerificationOverlayData(v298) then
         return false;
     else
-        return v299.voiceSettings.isVerifiedForVoice and not v299.voiceSettings.isVoiceEnabled and v299.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
+        return v298.voiceSettings.isVerifiedForVoice and not v298.voiceSettings.isVoiceEnabled and v298.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
     end;
 end;
-v99.UserVoiceEnabled = function(v300) --[[ Line: 1377 ]] --[[ Name: UserVoiceEnabled ]]
-    local l_communicationPermissionsResult_1 = v300.communicationPermissionsResult;
+v98.UserVoiceEnabled = function(v299) --[[ Line: 1372 ]] --[[ Name: UserVoiceEnabled ]]
+    local l_communicationPermissionsResult_1 = v299.communicationPermissionsResult;
     if not l_communicationPermissionsResult_1 or not l_communicationPermissionsResult_1.voiceSettings or not l_communicationPermissionsResult_1.universePlaceVoiceEnabledSettings then
         return false;
     else
         return l_communicationPermissionsResult_1.voiceSettings.isVoiceEnabled and l_communicationPermissionsResult_1.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice;
     end;
 end;
-v99.UserEligibleForInExperienceUpsell = function(v302) --[[ Line: 1387 ]] --[[ Name: UserEligibleForInExperienceUpsell ]]
+v98.UserEligibleForInExperienceUpsell = function(v301) --[[ Line: 1382 ]] --[[ Name: UserEligibleForInExperienceUpsell ]]
     -- upvalues: l_GetFFlagEnableVoiceSignal_0 (copy)
-    local v303 = v302:UserOnlyEligibleForVoice();
-    if not v303 then
+    local v302 = v301:UserOnlyEligibleForVoice();
+    if not v302 then
         return false;
     elseif l_GetFFlagEnableVoiceSignal_0() then
-        local v304 = v302:UserInInExperienceUpsellTreatment();
-        return v303 and v304;
+        local v303 = v301:UserInInExperienceUpsellTreatment();
+        return v302 and v303;
     else
-        local v305 = v302:FetchAgeVerificationOverlay();
-        return v303 and v305 and v305.showVoiceInExperienceUpsell;
+        local v304 = v301:FetchAgeVerificationOverlay();
+        return v302 and v304 and v304.showVoiceInExperienceUpsell;
     end;
 end;
-v99.UserEligibleForLikelySpeakingBubbles = function(v306) --[[ Line: 1408 ]] --[[ Name: UserEligibleForLikelySpeakingBubbles ]]
+v98.UserEligibleForLikelySpeakingBubbles = function(v305) --[[ Line: 1403 ]] --[[ Name: UserEligibleForLikelySpeakingBubbles ]]
     -- upvalues: l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0 (copy), v17 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy)
-    local v307 = v306:UserOnlyEligibleForVoice();
-    if l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and not v307 and not v306:UserVoiceEnabled() and v306:FetchPhoneVerificationUpsell(v17.IN_EXP_PHONE_UPSELL_IXP_LAYER) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat then
+    local v306 = v305:UserOnlyEligibleForVoice();
+    if l_GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints_0() and not v306 and not v305:UserVoiceEnabled() and v305:FetchPhoneVerificationUpsell(v17.IN_EXP_PHONE_UPSELL_IXP_LAYER) == v17.PHONE_UPSELL_VOICE_CHAT_PROP.VoiceChat then
         return true;
-    elseif not l_GetFFlagEnableSeamlessVoiceV2_0() and not v307 then
+    elseif not l_GetFFlagEnableSeamlessVoiceV2_0() and not v306 then
         return false;
     else
-        local v308 = v306:FetchAgeVerificationOverlay();
+        local v307 = v305:FetchAgeVerificationOverlay();
         if l_GetFFlagEnableSeamlessVoiceV2_0() then
-            if not v306:_isValidAgeVerificationOverlayData(v308) then
+            if not v305:_isValidAgeVerificationOverlayData(v307) then
                 return false;
             else
-                local v309 = v307 and v308 and v308.showVoiceInExperienceUpsell;
-                local l_showM3LikelySpeakingBubbles_0 = v308.showM3LikelySpeakingBubbles;
-                return v309 or l_showM3LikelySpeakingBubbles_0;
+                local v308 = v306 and v307 and v307.showVoiceInExperienceUpsell;
+                local l_showM3LikelySpeakingBubbles_0 = v307.showM3LikelySpeakingBubbles;
+                return v308 or l_showM3LikelySpeakingBubbles_0;
             end;
         else
-            return v307 and v308 and v308.showVoiceInExperienceUpsell;
+            return v306 and v307 and v307.showVoiceInExperienceUpsell;
         end;
     end;
 end;
-v99.canUseServiceAsync = function(v311) --[[ Line: 1446 ]] --[[ Name: canUseServiceAsync ]]
+v98.canUseServiceAsync = function(v310) --[[ Line: 1441 ]] --[[ Name: canUseServiceAsync ]]
     -- upvalues: v28 (copy), v22 (copy), l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0 (copy), l_GetFFlagEnableVoiceSignal_0 (copy), l_VOICE_JOIN_PROGRESS_0 (copy), l_VOICE_CHAT_AVAILABILITY_0 (copy), l_VoiceChatService_0 (copy), v36 (copy), l_IXPServiceWrapper_0 (copy), v37 (copy), v38 (copy)
-    if v311.available ~= nil or not game:GetEngineFeature("VoiceChatSupported") then
+    if v310.available ~= nil or not game:GetEngineFeature("VoiceChatSupported") then
         v28:debug("Voice Chat is not Available, rejecting canUseService promise");
-        if v311.options.passInitErrorInPromiseReject then
+        if v310.options.passInitErrorInPromiseReject then
             return v22.reject({
                 code = "INIT_ERROR_VOICE_NOT_SUPPORTED"
             });
@@ -1094,388 +1089,388 @@ v99.canUseServiceAsync = function(v311) --[[ Line: 1446 ]] --[[ Name: canUseServ
             return v22.reject();
         end;
     else
-        if not v311.canUseServicePromise then
-            v311.canUseServicePromise = v22.defer(function(v312, v313) --[[ Line: 1456 ]]
-                -- upvalues: v311 (copy), l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0 (ref), l_GetFFlagEnableVoiceSignal_0 (ref), l_VOICE_JOIN_PROGRESS_0 (ref), v28 (ref), l_VOICE_CHAT_AVAILABILITY_0 (ref), l_VoiceChatService_0 (ref), v36 (ref), l_IXPServiceWrapper_0 (ref), v37 (ref), v38 (ref)
-                local v314 = v311:userAndPlaceCanUseVoice();
+        if not v310.canUseServicePromise then
+            v310.canUseServicePromise = v22.defer(function(v311, v312) --[[ Line: 1451 ]]
+                -- upvalues: v310 (copy), l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0 (ref), l_GetFFlagEnableVoiceSignal_0 (ref), l_VOICE_JOIN_PROGRESS_0 (ref), v28 (ref), l_VOICE_CHAT_AVAILABILITY_0 (ref), l_VoiceChatService_0 (ref), v36 (ref), l_IXPServiceWrapper_0 (ref), v37 (ref), v38 (ref)
+                local v313 = v310:userAndPlaceCanUseVoice();
                 if l_GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice_0() then
-                    v311.canUseServiceResult = v314;
-                    v311:emit("OnCanUseServiceResult", v314);
+                    v310.canUseServiceResult = v313;
+                    v310:emit("OnCanUseServiceResult", v313);
                 end;
-                if l_GetFFlagEnableVoiceSignal_0() and v311.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Suspended then
+                if l_GetFFlagEnableVoiceSignal_0() and v310.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Suspended then
                     v28:debug("Place is voice enabled but user is not, delaying voice rejection");
-                    v311.attemptVoiceRejoin.Event:Wait();
+                    v310.attemptVoiceRejoin.Event:Wait();
                     v28:debug("Attempting voice rejoin");
-                    v311.communicationPermissionsResult.voiceSettings.isVoiceEnabled = true;
-                    v311.userEligible = true;
-                    v311.initializedPostSuspension = true;
-                    v312();
-                    v311:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Joining);
+                    v310.communicationPermissionsResult.voiceSettings.isVoiceEnabled = true;
+                    v310.userEligible = true;
+                    v310.initializedPostSuspension = true;
+                    v311();
+                    v310:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Joining);
                     return;
-                elseif not v314 then
+                elseif not v313 then
                     v28:info("Voice access denied");
-                    v311.available = l_VOICE_CHAT_AVAILABILITY_0.UserNotAvailable;
-                    if v311.options.passInitErrorInPromiseReject then
-                        v313({
+                    v310.available = l_VOICE_CHAT_AVAILABILITY_0.UserNotAvailable;
+                    if v310.options.passInitErrorInPromiseReject then
+                        v312({
                             code = "INIT_ERROR_USER_NOT_AVAILABLE"
                         });
                         return;
                     else
-                        v313();
+                        v312();
                         return;
                     end;
                 elseif game:GetEngineFeature("VoiceChatEnabledRccProperties") and (not l_VoiceChatService_0.VoiceChatEnabledForUniverseOnRcc or not l_VoiceChatService_0.VoiceChatEnabledForPlaceOnRcc) then
                     v28:debug("Disabling voice chat due to RCC Response. Universe: {}, Place: {}", l_VoiceChatService_0.VoiceChatEnabledForUniverseOnRcc, l_VoiceChatService_0.VoiceChatEnabledForPlaceOnRcc);
                     if not l_VoiceChatService_0.VoiceChatEnabledForUniverseOnRcc then
-                        v311:_reportJoinFailed("universeNotEnabled");
+                        v310:_reportJoinFailed("universeNotEnabled");
                     elseif not l_VoiceChatService_0.VoiceChatEnabledForPlaceOnRcc then
-                        v311:_reportJoinFailed("placeNotEnabled");
+                        v310:_reportJoinFailed("placeNotEnabled");
                     end;
-                    v311.available = l_VOICE_CHAT_AVAILABILITY_0.PlaceNotAvailable;
-                    if v311.options.passInitErrorInPromiseReject then
-                        v313({
+                    v310.available = l_VOICE_CHAT_AVAILABILITY_0.PlaceNotAvailable;
+                    if v310.options.passInitErrorInPromiseReject then
+                        v312({
                             code = "INIT_ERROR_PLACE_NOT_AVAILABLE"
                         });
                         return;
                     else
-                        v313();
+                        v312();
                         return;
                     end;
                 elseif v36 then
                     l_IXPServiceWrapper_0:WaitForInitialization();
-                    local l_status_7, l_result_7 = pcall(function() --[[ Line: 1516 ]]
+                    local l_status_7, l_result_7 = pcall(function() --[[ Line: 1511 ]]
                         -- upvalues: l_IXPServiceWrapper_0 (ref), v37 (ref)
                         return l_IXPServiceWrapper_0:GetLayerData(v37);
                     end);
                     if l_status_7 and l_result_7 and l_result_7[v38] ~= nil then
-                        v311.userEligible = l_result_7[v38];
+                        v310.userEligible = l_result_7[v38];
                         l_IXPServiceWrapper_0:LogUserLayerExposure(v37);
                     end;
-                    if v311.userEligible then
-                        v312();
+                    if v310.userEligible then
+                        v311();
                         return;
-                    elseif v311.options.passInitErrorInPromiseReject then
-                        v313({
+                    elseif v310.options.passInitErrorInPromiseReject then
+                        v312({
                             code = "INIT_ERROR_IXP_NOT_ELIGIBLE"
                         });
                         return;
                     else
-                        v313();
+                        v312();
                         return;
                     end;
                 else
-                    v311.userEligible = true;
-                    v312();
+                    v310.userEligible = true;
+                    v311();
                     return;
                 end;
-            end):andThen(function() --[[ Line: 1538 ]]
-                -- upvalues: v311 (copy)
-                return v311:requestMicPermission();
+            end):andThen(function() --[[ Line: 1533 ]]
+                -- upvalues: v310 (copy)
+                return v310:requestMicPermission();
             end);
         end;
-        return v311.canUseServicePromise;
+        return v310.canUseServicePromise;
     end;
 end;
-v99._setRecentUserState = function(v317, v318, v319) --[[ Line: 1545 ]] --[[ Name: _setRecentUserState ]]
+v98._setRecentUserState = function(v316, v317, v318) --[[ Line: 1540 ]] --[[ Name: _setRecentUserState ]]
     -- upvalues: v23 (copy)
-    local v320 = v317.recentUsersInteractionData[tostring(v318)] or {};
-    local v321 = v23.Dictionary.join(v320, v319);
-    v317.recentUsersInteractionData = v23.Dictionary.join(v317.recentUsersInteractionData, {
-        [tostring(v318)] = v321
+    local v319 = v316.recentUsersInteractionData[tostring(v317)] or {};
+    local v320 = v23.Dictionary.join(v319, v318);
+    v316.recentUsersInteractionData = v23.Dictionary.join(v316.recentUsersInteractionData, {
+        [tostring(v317)] = v320
     });
 end;
-v99.getRecentUsersInteractionData = function(v322) --[[ Line: 1555 ]] --[[ Name: getRecentUsersInteractionData ]]
-    v322:_updateRecentUsersInteractionData();
-    return v322.recentUsersInteractionData;
+v98.getRecentUsersInteractionData = function(v321) --[[ Line: 1550 ]] --[[ Name: getRecentUsersInteractionData ]]
+    v321:_updateRecentUsersInteractionData();
+    return v321.recentUsersInteractionData;
 end;
-v99.GetSignalREvent = function(v323, v324) --[[ Line: 1560 ]] --[[ Name: GetSignalREvent ]]
-    return v323.SignalREventTable[v324].Event;
+v98.GetSignalREvent = function(v322, v323) --[[ Line: 1555 ]] --[[ Name: GetSignalREvent ]]
+    return v322.SignalREventTable[v323].Event;
 end;
-v99.StartModerationSignal = function(v325) --[[ Line: 1565 ]] --[[ Name: StartModerationSignal ]]
+v98.StartModerationSignal = function(v324) --[[ Line: 1560 ]] --[[ Name: StartModerationSignal ]]
     -- upvalues: v28 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (copy), l_VoiceChatService_0 (copy)
-    if not v325.playerModeratedConnection then
-        v325.playerModeratedConnection = v325:GetSignalREvent("ParticipantModeratedFromVoice"):Connect(function() --[[ Line: 1568 ]]
-            -- upvalues: v28 (ref), v325 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref)
+    if not v324.playerModeratedConnection then
+        v324.playerModeratedConnection = v324:GetSignalREvent("ParticipantModeratedFromVoice"):Connect(function() --[[ Line: 1563 ]]
+            -- upvalues: v28 (ref), v324 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref)
             v28:debug("User Moderated");
-            v325.previousSessionId = v325.service:GetSessionId();
-            v325:emit("OnPlayerModerated");
+            v324.previousSessionId = v324.service:GetSessionId();
+            v324:emit("OnPlayerModerated");
             if l_GetFFlagVoiceChatClientRewriteMasterLua_0() then
                 l_VoiceChatService_0:notifyServerACSCleanup();
                 l_VoiceChatService_0:leaveVoice();
                 return;
             else
                 l_VoiceChatService_0:notifyServerACSCleanup();
-                v325.service:Leave();
+                v324.service:Leave();
                 return;
             end;
         end);
     end;
 end;
-v99.StopModerationSignal = function(v326) --[[ Line: 1583 ]] --[[ Name: StopModerationSignal ]]
-    if v326.playerModeratedConnection then
-        v326.playerModeratedConnection:Disconnect();
-        v326.playerModeratedConnection = nil;
+v98.StopModerationSignal = function(v325) --[[ Line: 1578 ]] --[[ Name: StopModerationSignal ]]
+    if v325.playerModeratedConnection then
+        v325.playerModeratedConnection:Disconnect();
+        v325.playerModeratedConnection = nil;
     end;
 end;
-v99._updateRecentUsersInteractionData = function(v327) --[[ Line: 1590 ]] --[[ Name: _updateRecentUsersInteractionData ]]
+v98._updateRecentUsersInteractionData = function(v326) --[[ Line: 1585 ]] --[[ Name: _updateRecentUsersInteractionData ]]
     -- upvalues: v34 (copy), v50 (copy), l_Players_0 (copy), v51 (copy), v23 (copy)
-    local v328 = os.time();
-    local v329 = {};
-    if v327.recentUsersInteractionData then
-        for v330, v331 in pairs(v327.recentUsersInteractionData) do
-            local v332 = if v34 then v327.participants[tostring(v330)] else v327.participants[v330];
-            local v333 = v50() and not l_Players_0:GetPlayerByUserId((tonumber(v330)));
-            local v334 = v328 - v331.lastHeardTime >= v51();
-            local v335 = not v332 or v332.isMuted;
-            if v334 and v335 or v333 then
-                v329[v330] = v23.None;
+    local v327 = os.time();
+    local v328 = {};
+    if v326.recentUsersInteractionData then
+        for v329, v330 in pairs(v326.recentUsersInteractionData) do
+            local v331 = if v34 then v326.participants[tostring(v329)] else v326.participants[v329];
+            local v332 = v50() and not l_Players_0:GetPlayerByUserId((tonumber(v329)));
+            local v333 = v327 - v330.lastHeardTime >= v51();
+            local v334 = not v331 or v331.isMuted;
+            if v333 and v334 or v332 then
+                v328[v329] = v23.None;
             end;
         end;
-        v327.recentUsersInteractionData = v23.Dictionary.join(v327.recentUsersInteractionData, v329);
+        v326.recentUsersInteractionData = v23.Dictionary.join(v326.recentUsersInteractionData, v328);
     end;
 end;
-v99.SetupParticipantListeners = function(v336) --[[ Line: 1614 ]] --[[ Name: SetupParticipantListeners ]]
-    -- upvalues: v28 (copy), v50 (copy), v34 (copy), l_Players_0 (copy), l_VoiceChatService_0 (copy), v29 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v56 (copy), v73 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (copy), v68 (copy), v69 (copy), l_GetFFlagDisconnectToastClientRewrite_0 (copy), l_GetFFlagEnableVoiceSignal_0 (copy), l_VOICE_JOIN_PROGRESS_0 (copy), v67 (copy), l_MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY_0 (copy), l_GetFFlagLocalMutedNilFix_0 (copy), v39 (copy), v43 (copy), v48 (copy), v49 (copy), v18 (copy), v95 (copy)
-    v336:ensureInitialized("setup participant listeners");
-    if not v336.participants then
-        v336.participants = {};
-        v336.recentUsersInteractionData = {};
-        v336.updatedParticipants = {};
-        v336.participantConnection = v336.service.ParticipantsStateChanged:Connect(function(v337, v338, v339) --[[ Line: 1623 ]]
-            -- upvalues: v28 (ref), v50 (ref), v336 (copy), v34 (ref), l_Players_0 (ref), l_VoiceChatService_0 (ref), v29 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v56 (ref), v73 (ref)
+v98.SetupParticipantListeners = function(v335) --[[ Line: 1609 ]] --[[ Name: SetupParticipantListeners ]]
+    -- upvalues: v28 (copy), v50 (copy), v34 (copy), l_Players_0 (copy), l_VoiceChatService_0 (copy), v29 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v56 (copy), v73 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (copy), v68 (copy), v69 (copy), l_GetFFlagDisconnectToastClientRewrite_0 (copy), l_GetFFlagEnableVoiceSignal_0 (copy), l_VOICE_JOIN_PROGRESS_0 (copy), v67 (copy), l_MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY_0 (copy), l_GetFFlagLocalMutedNilFix_0 (copy), v39 (copy), v43 (copy), v48 (copy), v49 (copy), v18 (copy), v94 (copy)
+    v335:ensureInitialized("setup participant listeners");
+    if not v335.participants then
+        v335.participants = {};
+        v335.recentUsersInteractionData = {};
+        v335.updatedParticipants = {};
+        v335.participantConnection = v335.service.ParticipantsStateChanged:Connect(function(v336, v337, v338) --[[ Line: 1618 ]]
+            -- upvalues: v28 (ref), v50 (ref), v335 (copy), v34 (ref), l_Players_0 (ref), l_VoiceChatService_0 (ref), v29 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v56 (ref), v73 (ref)
             v28:trace("Participants state changed");
-            for _, v341 in ipairs(v337) do
-                if not v50() and not v336.participants[tostring(v341)].isMuted then
-                    v336:_setRecentUserState(v341, {
+            for _, v340 in ipairs(v336) do
+                if not v50() and not v335.participants[tostring(v340)].isMuted then
+                    v335:_setRecentUserState(v340, {
                         lastHeardTime = os.time()
                     });
                 end;
-                v336.participants[tostring(v341)] = nil;
-                v336.participantLeft:Fire(v336.participants, v341);
-                v336:emit("OnVoiceParticipantRemoved", v341);
+                v335.participants[tostring(v340)] = nil;
+                v335.participantLeft:Fire(v335.participants, v340);
+                v335:emit("OnVoiceParticipantRemoved", v340);
             end;
-            for _, v343 in ipairs(v338) do
-                v336.participantJoined:Fire(v336.participants, v343);
-                v336:emit("OnVoiceParticipantAdded", v343);
+            for _, v342 in ipairs(v337) do
+                v335.participantJoined:Fire(v335.participants, v342);
+                v335:emit("OnVoiceParticipantAdded", v342);
             end;
-            for _, v345 in pairs(v339) do
-                local l_userId_0 = v345.userId;
-                local v347 = if v34 then v336.participants[tostring(l_userId_0)] else v336.participants[l_userId_0];
-                if not v345.isMuted or v347 and not v347.isMuted then
-                    v336:_setRecentUserState(l_userId_0, {
+            for _, v344 in pairs(v338) do
+                local l_userId_0 = v344.userId;
+                local v346 = if v34 then v335.participants[tostring(l_userId_0)] else v335.participants[l_userId_0];
+                if not v344.isMuted or v346 and not v346.isMuted then
+                    v335:_setRecentUserState(l_userId_0, {
                         lastHeardTime = os.time(), 
                         player = l_Players_0:GetPlayerByUserId(l_userId_0)
                     });
                 end;
-                if not v347 or v347.isMuted ~= v345.isMuted then
-                    v336:emit("OnVoiceParticipantToggleMuted", l_userId_0, v345.isMuted);
+                if not v346 or v346.isMuted ~= v344.isMuted then
+                    v335:emit("OnVoiceParticipantToggleMuted", l_userId_0, v344.isMuted);
                 end;
                 if l_VoiceChatService_0.UseNewAudioApi and v29 then
-                    v345.isMutedLocally = not not v336.mutedPlayers[l_userId_0];
+                    v344.isMutedLocally = not not v335.mutedPlayers[l_userId_0];
                 end;
                 if l_VoiceChatService_0.UseNewAudioApi then
-                    v345.isMutedLocally = if v336.mutedPlayers[l_userId_0] then not not v336.mutedPlayers[l_userId_0] else v345.isMutedLocally;
+                    v344.isMutedLocally = if v335.mutedPlayers[l_userId_0] then not not v335.mutedPlayers[l_userId_0] else v344.isMutedLocally;
                 end;
                 if l_FFlagEnablePartyVoiceChangersInLua_0 and l_VoiceChatService_0.UseNewAudioApi then
-                    v345.isVoiceChangerActive = if v336.voiceChangerActivePlayers[l_userId_0] then v336.voiceChangerActivePlayers[l_userId_0] else v345.isVoiceChangerActive;
+                    v344.isVoiceChangerActive = if v335.voiceChangerActivePlayers[l_userId_0] then v335.voiceChangerActivePlayers[l_userId_0] else v344.isVoiceChangerActive;
                 end;
-                if v336.muteAll then
-                    v345.isMutedLocally = true;
+                if v335.muteAll then
+                    v344.isMutedLocally = true;
                 end;
-                v336.participants[tostring(l_userId_0)] = v345;
+                v335.participants[tostring(l_userId_0)] = v344;
                 if v56() then
-                    v336.updatedParticipants[tostring(l_userId_0)] = v345;
+                    v335.updatedParticipants[tostring(l_userId_0)] = v344;
                 end;
-                if v73 and v336.CaptureService:IsCapturingVideo() then
-                    v336.voiceCapturedDuringVideoCapture = v336.voiceCapturedDuringVideoCapture or v345.isSignalActive;
+                if v73 and v335.CaptureService:IsCapturingVideo() then
+                    v335.voiceCapturedDuringVideoCapture = v335.voiceCapturedDuringVideoCapture or v344.isSignalActive;
                 end;
             end;
-            v336:_updateRecentUsersInteractionData();
-            if v336.shouldThrottleParticipantUpdate then
-                local v348 = tick();
-                if v348 - v336.lastParticipantsStateUpdate >= v336.participantsStateThrottleTime and #v339 > 0 then
-                    v336.lastParticipantsStateUpdate = v348;
-                    v336.participantsUpdate:Fire(if v56() then v336.updatedParticipants else v336.participants);
-                    v336.updatedParticipants = {};
+            v335:_updateRecentUsersInteractionData();
+            if v335.shouldThrottleParticipantUpdate then
+                local v347 = tick();
+                if v347 - v335.lastParticipantsStateUpdate >= v335.participantsStateThrottleTime and #v338 > 0 then
+                    v335.lastParticipantsStateUpdate = v347;
+                    v335.participantsUpdate:Fire(if v56() then v335.updatedParticipants else v335.participants);
+                    v335.updatedParticipants = {};
                     return;
-                elseif #v339 > 0 then
-                    local v349 = v336.participantsStateThrottleTime - (v348 - v336.lastParticipantsStateUpdate);
-                    v336.lastStateUpdateCounter = (v336.lastStateUpdateCounter + 1) % 100;
-                    local l_lastStateUpdateCounter_0 = v336.lastStateUpdateCounter;
-                    task.wait(v349);
-                    if l_lastStateUpdateCounter_0 == v336.lastStateUpdateCounter then
-                        v336.participantsUpdate:Fire(if v56() then v336.updatedParticipants else v336.participants);
-                        v336.updatedParticipants = {};
+                elseif #v338 > 0 then
+                    local v348 = v335.participantsStateThrottleTime - (v347 - v335.lastParticipantsStateUpdate);
+                    v335.lastStateUpdateCounter = (v335.lastStateUpdateCounter + 1) % 100;
+                    local l_lastStateUpdateCounter_0 = v335.lastStateUpdateCounter;
+                    task.wait(v348);
+                    if l_lastStateUpdateCounter_0 == v335.lastStateUpdateCounter then
+                        v335.participantsUpdate:Fire(if v56() then v335.updatedParticipants else v335.participants);
+                        v335.updatedParticipants = {};
                         return;
                     end;
                 end;
-            elseif #v339 > 0 then
-                v336.participantsUpdate:Fire(if v56() then v336.updatedParticipants else v336.participants);
-                v336.updatedParticipants = {};
+            elseif #v338 > 0 then
+                v335.participantsUpdate:Fire(if v56() then v335.updatedParticipants else v335.participants);
+                v335.updatedParticipants = {};
             end;
         end);
-        local function v358(v351, v352) --[[ Line: 1739 ]] --[[ Name: onStateChanged ]]
-            -- upvalues: v336 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), v28 (ref), v68 (ref), v69 (ref), l_GetFFlagDisconnectToastClientRewrite_0 (ref), l_GetFFlagEnableVoiceSignal_0 (ref), l_VOICE_JOIN_PROGRESS_0 (ref)
-            v336:emit("OnStateChanged", v351, v352);
-            local v353 = v352 == Enum.VoiceChatState.Failed;
-            local v354 = v352 == Enum.VoiceChatState.Joining;
-            local v355 = v352 == Enum.VoiceChatState.Leaving;
-            local v356 = v352 == Enum.VoiceChatState.Ended;
-            local v357 = v336.service:IsPublishPaused();
-            if v357 ~= v336.localMuted and not v353 and not v354 and not v355 and not v356 then
-                v336.localMuted = v357;
-                v336.muteChanged:Fire(v357);
-            elseif v354 or v355 or v356 then
-                v336.localMuted = nil;
+        local function v357(v350, v351) --[[ Line: 1734 ]] --[[ Name: onStateChanged ]]
+            -- upvalues: v335 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), v28 (ref), v68 (ref), v69 (ref), l_GetFFlagDisconnectToastClientRewrite_0 (ref), l_GetFFlagEnableVoiceSignal_0 (ref), l_VOICE_JOIN_PROGRESS_0 (ref)
+            v335:emit("OnStateChanged", v350, v351);
+            local v352 = v351 == Enum.VoiceChatState.Failed;
+            local v353 = v351 == Enum.VoiceChatState.Joining;
+            local v354 = v351 == Enum.VoiceChatState.Leaving;
+            local v355 = v351 == Enum.VoiceChatState.Ended;
+            local v356 = v335.service:IsPublishPaused();
+            if v356 ~= v335.localMuted and not v352 and not v353 and not v354 and not v355 then
+                v335.localMuted = v356;
+                v335.muteChanged:Fire(v356);
+            elseif v353 or v354 or v355 then
+                v335.localMuted = nil;
             end;
-            if l_GetFFlagVoiceChatClientRewriteMasterLua_0() and v352 == Enum.VoiceChatState.Joined and v336.isInCall and v357 ~= v336.callMutedState then
-                v28:debug("In call, setting local muted to call muted state {}", v336.callMutedState);
-                v336:ToggleMic("InitInCall");
+            if l_GetFFlagVoiceChatClientRewriteMasterLua_0() and v351 == Enum.VoiceChatState.Joined and v335.isInCall and v356 ~= v335.callMutedState then
+                v28:debug("In call, setting local muted to call muted state {}", v335.callMutedState);
+                v335:ToggleMic("InitInCall");
             end;
-            if v68 and v352 == Enum.VoiceChatState.Joined then
-                v336:StartModerationSignal();
+            if v68 and v351 == Enum.VoiceChatState.Joined then
+                v335:StartModerationSignal();
             end;
-            if v352 == Enum.VoiceChatState.Leaving then
-                if not v69 or not v336.previousGroupId then
-                    v336.previousGroupId = v336.service:GetGroupId();
+            if v351 == Enum.VoiceChatState.Leaving then
+                if not v69 or not v335.previousGroupId then
+                    v335.previousGroupId = v335.service:GetGroupId();
                 end;
-                v336.previousMutedState = v336.service:IsPublishPaused();
+                v335.previousMutedState = v335.service:IsPublishPaused();
             end;
-            if v352 == Enum.VoiceChatState.Ended or v353 then
-                v336.participants = {};
-                v336.localMuted = nil;
-                v336.participantsUpdate:Fire(v336.participants);
+            if v351 == Enum.VoiceChatState.Ended or v352 then
+                v335.participants = {};
+                v335.localMuted = nil;
+                v335.participantsUpdate:Fire(v335.participants);
                 if v68 then
-                    v336:StopModerationSignal();
+                    v335:StopModerationSignal();
                 end;
-                if v353 then
-                    v28:debug("State Changed to Failed. Reason: {}", v336.service:GetAndClearCallFailureMessage());
+                if v352 then
+                    v28:debug("State Changed to Failed. Reason: {}", v335.service:GetAndClearCallFailureMessage());
                 end;
-                if v351 == Enum.VoiceChatState.Joining or v351 == Enum.VoiceChatState.JoiningRetry or v351 == Enum.VoiceChatState.Joined then
-                    if v352 == Enum.VoiceChatState.Ended then
-                        v28:debug("State Changed to Ended from {}", v351);
+                if v350 == Enum.VoiceChatState.Joining or v350 == Enum.VoiceChatState.JoiningRetry or v350 == Enum.VoiceChatState.Joined then
+                    if v351 == Enum.VoiceChatState.Ended then
+                        v28:debug("State Changed to Ended from {}", v350);
                     end;
-                    if not l_GetFFlagDisconnectToastClientRewrite_0() or not v336:IsSeamlessVoice() or v336:GetVoiceConnectCookieValue() then
-                        v336:emit("OnRetryRequested");
+                    if not l_GetFFlagDisconnectToastClientRewrite_0() or not v335:IsSeamlessVoice() or v335:GetVoiceConnectCookieValue() then
+                        v335:emit("OnRetryRequested");
                     end;
                 end;
             end;
-            if l_GetFFlagEnableVoiceSignal_0() and v336.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Joining and v352 == Enum.VoiceChatState.Joined then
-                v336:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Joined);
-                v336:emit("OnVoiceJoin");
+            if l_GetFFlagEnableVoiceSignal_0() and v335.VoiceJoinProgress == l_VOICE_JOIN_PROGRESS_0.Joining and v351 == Enum.VoiceChatState.Joined then
+                v335:ChangeVoiceJoinProgress(l_VOICE_JOIN_PROGRESS_0.Joined);
+                v335:emit("OnVoiceJoin");
             end;
         end;
-        if v336.service.VoiceChatState and v336.service.VoiceChatState == Enum.VoiceChatState.Joined then
-            v28:debug("Joined voice chat {}", v336.service.VoiceChatState);
-            v358(nil, Enum.VoiceChatState.Joined);
+        if v335.service.VoiceChatState and v335.service.VoiceChatState == Enum.VoiceChatState.Joined then
+            v28:debug("Joined voice chat {}", v335.service.VoiceChatState);
+            v357(nil, Enum.VoiceChatState.Joined);
         end;
-        v336.stateConnection = v336.service.StateChanged:Connect(v358);
+        v335.stateConnection = v335.service.StateChanged:Connect(v357);
         if v67 and l_VoiceChatService_0.UseNewAudioApi then
-            if not v336.localMeteringTask then
-                v336.localMeteringTask = task.spawn(function() --[[ Line: 1826 ]]
-                    -- upvalues: v336 (copy)
+            if not v335.localMeteringTask then
+                v335.localMeteringTask = task.spawn(function() --[[ Line: 1821 ]]
+                    -- upvalues: v335 (copy)
                     while true do
-                        v336:UpdateLocalMetering();
+                        v335:UpdateLocalMetering();
                         task.wait();
                     end;
                 end);
             end;
-        elseif v336.service:GetVoiceChatApiVersion() >= l_MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY_0 then
-            v336.micConnection = v336.service.PlayerMicActivitySignalChange:Connect(function(v359) --[[ Line: 1835 ]]
-                -- upvalues: v73 (ref), v336 (copy), l_GetFFlagLocalMutedNilFix_0 (ref), v39 (ref)
-                if v73 and v336.CaptureService:IsCapturingVideo() then
-                    v336.voiceCapturedDuringVideoCapture = v336.voiceCapturedDuringVideoCapture or v359.isActive;
+        elseif v335.service:GetVoiceChatApiVersion() >= l_MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY_0 then
+            v335.micConnection = v335.service.PlayerMicActivitySignalChange:Connect(function(v358) --[[ Line: 1830 ]]
+                -- upvalues: v73 (ref), v335 (copy), l_GetFFlagLocalMutedNilFix_0 (ref), v39 (ref)
+                if v73 and v335.CaptureService:IsCapturingVideo() then
+                    v335.voiceCapturedDuringVideoCapture = v335.voiceCapturedDuringVideoCapture or v358.isActive;
                 end;
-                v336.isTalking = v359.isActive;
+                v335.isTalking = v358.isActive;
                 if l_GetFFlagLocalMutedNilFix_0() then
-                    if v336.localMuted == false then
+                    if v335.localMuted == false then
                         if v39 then
-                            v336:FireTalkingChangedDebounced(v336.isTalking);
+                            v335:FireTalkingChangedDebounced(v335.isTalking);
                             return;
                         else
-                            v336.talkingChanged:Fire(v336.isTalking);
+                            v335.talkingChanged:Fire(v335.isTalking);
                             return;
                         end;
                     end;
-                elseif not v336.localMuted then
+                elseif not v335.localMuted then
                     if v39 then
-                        v336:FireTalkingChangedDebounced(v336.isTalking);
+                        v335:FireTalkingChangedDebounced(v335.isTalking);
                         return;
                     else
-                        v336.talkingChanged:Fire(v336.isTalking);
+                        v335.talkingChanged:Fire(v335.isTalking);
                     end;
                 end;
             end);
         end;
         if v43() then
-            v336:StartModerationSignal();
+            v335:StartModerationSignal();
         elseif game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
-            v336.playerModeratedConnection = v336.service.LocalPlayerModerated:connect(function() --[[ Line: 1868 ]]
-                -- upvalues: v28 (ref), v336 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref)
+            v335.playerModeratedConnection = v335.service.LocalPlayerModerated:connect(function() --[[ Line: 1863 ]]
+                -- upvalues: v28 (ref), v335 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref)
                 v28:debug("User Moderated old");
-                v336.previousSessionId = v336.service:GetSessionId();
-                v336:emit("OnPlayerModerated");
+                v335.previousSessionId = v335.service:GetSessionId();
+                v335:emit("OnPlayerModerated");
                 if l_GetFFlagVoiceChatClientRewriteMasterLua_0() then
                     l_VoiceChatService_0:leaveVoice();
                     return;
                 else
-                    v336.service:Leave();
+                    v335.service:Leave();
                     return;
                 end;
             end);
         end;
         if v48() then
             v28:trace("Setting up voice nudge handlers");
-            v336.voiceToxicityModalConnection = v336:GetSignalREvent("VoiceToxicityModal"):Connect(function(v360) --[[ Line: 1882 ]]
-                -- upvalues: v336 (copy)
-                v336.Analytics:reportReceivedNudge(v360, v336:GetNudgeAnalyticsData());
-                v336:emit("OnVoiceToxicityModal");
+            v335.voiceToxicityModalConnection = v335:GetSignalREvent("VoiceToxicityModal"):Connect(function(v359) --[[ Line: 1877 ]]
+                -- upvalues: v335 (copy)
+                v335.Analytics:reportReceivedNudge(v359, v335:GetNudgeAnalyticsData());
+                v335:emit("OnVoiceToxicityModal");
             end);
-            v336.VoiceToxicityToastConnection = v336:GetSignalREvent("VoiceToxicityToast"):Connect(function(v361) --[[ Line: 1888 ]]
-                -- upvalues: v336 (copy)
-                v336.Analytics:reportReceivedNudge(v361, v336:GetNudgeAnalyticsData());
-                v336:emit("OnVoiceToxicityToast");
+            v335.VoiceToxicityToastConnection = v335:GetSignalREvent("VoiceToxicityToast"):Connect(function(v360) --[[ Line: 1883 ]]
+                -- upvalues: v335 (copy)
+                v335.Analytics:reportReceivedNudge(v360, v335:GetNudgeAnalyticsData());
+                v335:emit("OnVoiceToxicityToast");
             end);
         end;
         if v49() then
             v28:trace("Setting up voice reverse nudge handlers");
-            v336.voiceReverseNudgeConnection = v336:GetSignalREvent("VoiceReverseNudgeIconColorChange"):Connect(function(v362) --[[ Line: 1896 ]]
-                -- upvalues: v336 (copy)
-                v336:emit("OnVoiceReverseNudgeIconColorChange", v362);
+            v335.voiceReverseNudgeConnection = v335:GetSignalREvent("VoiceReverseNudgeIconColorChange"):Connect(function(v361) --[[ Line: 1891 ]]
+                -- upvalues: v335 (copy)
+                v335:emit("OnVoiceReverseNudgeIconColorChange", v361);
             end);
         end;
-        v336.blockConnection = v336.BlockStatusChanged:Connect(function(v363, v364) --[[ Line: 1901 ]]
-            -- upvalues: v336 (copy), v28 (ref), v18 (ref)
-            if v364 then
-                if v336.participants[tostring(v363)] then
-                    v28:debug("Blocking {}", v18.shorten(v363));
-                    v336.service:SubscribeBlock(v363);
+        v335.blockConnection = v335.BlockStatusChanged:Connect(function(v362, v363) --[[ Line: 1896 ]]
+            -- upvalues: v335 (copy), v28 (ref), v18 (ref)
+            if v363 then
+                if v335.participants[tostring(v362)] then
+                    v28:debug("Blocking {}", v18.shorten(v362));
+                    v335.service:SubscribeBlock(v362);
                     return;
                 end;
             else
-                v28:debug("UnBlocking {}", v18.shorten(v363));
-                v336.service:SubscribeUnblock(v363);
+                v28:debug("UnBlocking {}", v18.shorten(v362));
+                v335.service:SubscribeUnblock(v362);
             end;
         end);
         if l_VoiceChatService_0.UseNewAudioApi then
-            v336:hookupAudioDeviceInputListener();
+            v335:hookupAudioDeviceInputListener();
         end;
-        if v336.service.TempSetMicMutedToggleMic then
-            v336.tempSetMicMutedToggleMicConnection = v336.service.TempSetMicMutedToggleMic:connect(function() --[[ Line: 1919 ]]
-                -- upvalues: v336 (copy)
-                v336:ToggleMic("TempSetMicMutedToggleMic");
+        if v335.service.TempSetMicMutedToggleMic then
+            v335.tempSetMicMutedToggleMicConnection = v335.service.TempSetMicMutedToggleMic:connect(function() --[[ Line: 1914 ]]
+                -- upvalues: v335 (copy)
+                v335:ToggleMic("TempSetMicMutedToggleMic");
             end);
         end;
         if v73 then
-            v336.videoCaptureInProgressConnection = v336.CaptureService.VideoCaptureInProgress:connect(function(v365) --[[ Line: 1926 ]]
-                -- upvalues: v336 (copy), v95 (ref)
-                if v365 then
-                    v336.voiceCapturedDuringVideoCapture = false;
+            v335.videoCaptureInProgressConnection = v335.CaptureService.VideoCaptureInProgress:connect(function(v364) --[[ Line: 1921 ]]
+                -- upvalues: v335 (copy), v94 (ref)
+                if v364 then
+                    v335.voiceCapturedDuringVideoCapture = false;
                     return;
                 else
-                    v336.TelemetryService:LogEvent(v95, {
+                    v335.TelemetryService:LogEvent(v94, {
                         customFields = {
-                            voiceCaptured = v336.voiceCapturedDuringVideoCapture
+                            voiceCaptured = v335.voiceCapturedDuringVideoCapture
                         }
                     });
                     return;
@@ -1484,172 +1479,172 @@ v99.SetupParticipantListeners = function(v336) --[[ Line: 1614 ]] --[[ Name: Set
         end;
     end;
 end;
-local v366 = nil;
-v99.CheckAudioInputExists = function(v367) --[[ Line: 1941 ]] --[[ Name: CheckAudioInputExists ]]
-    -- upvalues: v28 (copy), v366 (ref), v22 (copy), v23 (copy)
+local v365 = nil;
+v98.CheckAudioInputExists = function(v366) --[[ Line: 1936 ]] --[[ Name: CheckAudioInputExists ]]
+    -- upvalues: v28 (copy), v365 (ref), v22 (copy), v23 (copy)
     v28:trace("Checking for AudioDeviceInput");
-    if not v366 then
-        v366 = v22.new(function(v368, _) --[[ Line: 1944 ]]
-            -- upvalues: v23 (ref), v367 (copy), v28 (ref)
-            if #v23.Dictionary.keys(v367.audioDevices) > 0 then
+    if not v365 then
+        v365 = v22.new(function(v367, _) --[[ Line: 1939 ]]
+            -- upvalues: v23 (ref), v366 (copy), v28 (ref)
+            if #v23.Dictionary.keys(v366.audioDevices) > 0 then
                 v28:trace("Found existing AudioDeviceInput");
-                v368();
+                v367();
                 return;
             else
-                v367.audioDeviceInputAdded.Event:Connect(function() --[[ Line: 1949 ]]
-                    -- upvalues: v28 (ref), v368 (copy)
+                v366.audioDeviceInputAdded.Event:Connect(function() --[[ Line: 1944 ]]
+                    -- upvalues: v28 (ref), v367 (copy)
                     v28:trace("Found new AudioDeviceInput");
-                    v368();
+                    v367();
                 end);
                 return;
             end;
         end);
     end;
-    return v366;
+    return v365;
 end;
-v99.checkAndUpdateSequence = function(v370, v371, v372) --[[ Line: 1959 ]] --[[ Name: checkAndUpdateSequence ]]
-    if not v372 then
+v98.checkAndUpdateSequence = function(v369, v370, v371) --[[ Line: 1954 ]] --[[ Name: checkAndUpdateSequence ]]
+    if not v371 then
         return 0;
-    elseif not v370.SequenceNumbers[v371] then
-        v370.SequenceNumbers[v371] = v372;
+    elseif not v369.SequenceNumbers[v370] then
+        v369.SequenceNumbers[v370] = v371;
         return 0;
     else
-        local v373 = v372 - v370.SequenceNumbers[v371];
-        if v373 > 0 then
-            v370.SequenceNumbers[v371] = v372;
+        local v372 = v371 - v369.SequenceNumbers[v370];
+        if v372 > 0 then
+            v369.SequenceNumbers[v370] = v371;
         end;
-        return v373 - 1;
+        return v372 - 1;
     end;
 end;
-v99.onInstanceAdded = function(v374, v375) --[[ Line: 1982 ]] --[[ Name: onInstanceAdded ]]
+v98.onInstanceAdded = function(v373, v374) --[[ Line: 1977 ]] --[[ Name: onInstanceAdded ]]
     -- upvalues: v28 (copy)
-    if v375:IsA("AudioDeviceInput") then
-        v28:debug("Found new audio device instance for {}", v375.Player and v375.Player.Name);
-        v374.audioDevices[v375] = v374:CreateAudioDeviceData(v375);
-        v374:emit("OnAudioDeviceInputAdded");
-        v374:StartAnalysis(v375);
+    if v374:IsA("AudioDeviceInput") then
+        v28:debug("Found new audio device instance for {}", v374.Player and v374.Player.Name);
+        v373.audioDevices[v374] = v373:CreateAudioDeviceData(v374);
+        v373:emit("OnAudioDeviceInputAdded");
+        v373:StartAnalysis(v374);
     end;
 end;
-v99.GetSendMuteEvent = function(v376) --[[ Line: 1992 ]] --[[ Name: GetSendMuteEvent ]]
+v98.GetSendMuteEvent = function(v375) --[[ Line: 1987 ]] --[[ Name: GetSendMuteEvent ]]
     -- upvalues: l_RobloxReplicatedStorage_0 (copy)
-    if not v376.SendMuteEvent then
-        v376.SendMuteEvent = l_RobloxReplicatedStorage_0:WaitForChild("SetUserActive", 10);
+    if not v375.SendMuteEvent then
+        v375.SendMuteEvent = l_RobloxReplicatedStorage_0:WaitForChild("SetUserActive", 10);
     end;
-    return v376.SendMuteEvent;
+    return v375.SendMuteEvent;
 end;
-v99.GetToggleVoiceChangerEvent = function(v377) --[[ Line: 1999 ]] --[[ Name: GetToggleVoiceChangerEvent ]]
+v98.GetToggleVoiceChangerEvent = function(v376) --[[ Line: 1994 ]] --[[ Name: GetToggleVoiceChangerEvent ]]
     -- upvalues: l_ReplicatedStorage_0 (copy)
-    if not v377.SendVoiceChangerEvent then
-        v377.SendVoiceChangerEvent = l_ReplicatedStorage_0:WaitForChild("ToggleUserVoiceChanger", 10);
+    if not v376.SendVoiceChangerEvent then
+        v376.SendVoiceChangerEvent = l_ReplicatedStorage_0:WaitForChild("ToggleUserVoiceChanger", 10);
     end;
-    return v377.SendVoiceChangerEvent;
+    return v376.SendVoiceChangerEvent;
 end;
-v99.GetInputToModifierWire = function(v378) --[[ Line: 2006 ]] --[[ Name: GetInputToModifierWire ]]
+v98.GetInputToModifierWire = function(v377) --[[ Line: 2001 ]] --[[ Name: GetInputToModifierWire ]]
     -- upvalues: l_Players_0 (copy)
-    if not v378.InputToModifierWire then
-        v378.InputToModifierWire = l_Players_0.LocalPlayer:FindFirstChild("InputToModifier");
+    if not v377.InputToModifierWire then
+        v377.InputToModifierWire = l_Players_0.LocalPlayer:FindFirstChild("InputToModifier");
     end;
-    return v378.InputToModifierWire;
+    return v377.InputToModifierWire;
 end;
-v99.GetPartyVoiceDeviceInput = function(v379) --[[ Line: 2013 ]] --[[ Name: GetPartyVoiceDeviceInput ]]
+v98.GetPartyVoiceDeviceInput = function(v378) --[[ Line: 2008 ]] --[[ Name: GetPartyVoiceDeviceInput ]]
     -- upvalues: l_Players_0 (copy)
-    if not v379.PartyVoiceDeviceInput then
-        v379.PartyVoiceDeviceInput = l_Players_0.LocalPlayer:FindFirstChild("PartyVoiceDeviceInput");
+    if not v378.PartyVoiceDeviceInput then
+        v378.PartyVoiceDeviceInput = l_Players_0.LocalPlayer:FindFirstChild("PartyVoiceDeviceInput");
     end;
-    return v379.PartyVoiceDeviceInput;
+    return v378.PartyVoiceDeviceInput;
 end;
-v99.GetSetVoicePackEvent = function(v380) --[[ Line: 2021 ]] --[[ Name: GetSetVoicePackEvent ]]
+v98.GetSetVoicePackEvent = function(v379) --[[ Line: 2016 ]] --[[ Name: GetSetVoicePackEvent ]]
     -- upvalues: l_ReplicatedStorage_0 (copy)
-    if not v380.SetVoicePackEvent then
-        v380.SetVoicePackEvent = l_ReplicatedStorage_0:WaitForChild("SetVoicePack", 10);
+    if not v379.SetVoicePackEvent then
+        v379.SetVoicePackEvent = l_ReplicatedStorage_0:WaitForChild("SetVoicePack", 10);
     end;
-    return v380.SetVoicePackEvent;
+    return v379.SetVoicePackEvent;
 end;
-v99.GetVoiceChangerWasToggledEvent = function(v381) --[[ Line: 2028 ]] --[[ Name: GetVoiceChangerWasToggledEvent ]]
+v98.GetVoiceChangerWasToggledEvent = function(v380) --[[ Line: 2023 ]] --[[ Name: GetVoiceChangerWasToggledEvent ]]
     -- upvalues: l_ReplicatedStorage_0 (copy)
-    if not v381.VoiceChangerWasToggledEvent then
-        v381.VoiceChangerWasToggledEvent = l_ReplicatedStorage_0:WaitForChild("VoiceChangerWasToggled", 3);
+    if not v380.VoiceChangerWasToggledEvent then
+        v380.VoiceChangerWasToggledEvent = l_ReplicatedStorage_0:WaitForChild("VoiceChangerWasToggled", 3);
     end;
-    return v381.VoiceChangerWasToggledEvent;
+    return v380.VoiceChangerWasToggledEvent;
 end;
-local function _(v382, v383) --[[ Line: 2036 ]] --[[ Name: WireUp ]]
+local function _(v381, v382) --[[ Line: 2031 ]] --[[ Name: WireUp ]]
     local l_Wire_0 = Instance.new("Wire");
-    l_Wire_0.SourceInstance = v382;
-    l_Wire_0.TargetInstance = v383;
-    l_Wire_0.Parent = v383;
+    l_Wire_0.SourceInstance = v381;
+    l_Wire_0.TargetInstance = v382;
+    l_Wire_0.Parent = v382;
     return l_Wire_0;
 end;
-local function _() --[[ Line: 2045 ]] --[[ Name: GetAnalysisHost ]]
+local function _() --[[ Line: 2040 ]] --[[ Name: GetAnalysisHost ]]
     -- upvalues: l_RobloxReplicatedStorage_0 (copy)
     return l_RobloxReplicatedStorage_0;
 end;
-v99.GetAnalyzer = function(_, v388) --[[ Line: 2049 ]] --[[ Name: GetAnalyzer ]]
+v98.GetAnalyzer = function(_, v387) --[[ Line: 2044 ]] --[[ Name: GetAnalyzer ]]
     -- upvalues: l_RobloxReplicatedStorage_0 (copy)
-    local v389 = v388.Name .. "_Analyzer";
+    local v388 = v387.Name .. "_Analyzer";
     local l_l_RobloxReplicatedStorage_0_0 = l_RobloxReplicatedStorage_0;
-    local l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0 = l_l_RobloxReplicatedStorage_0_0:FindFirstChild(v389);
+    local l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0 = l_l_RobloxReplicatedStorage_0_0:FindFirstChild(v388);
     if not l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0 then
         l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0 = Instance.new("AudioAnalyzer");
         l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0.SpectrumEnabled = false;
-        l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0.Name = v389;
+        l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0.Name = v388;
         l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0.Parent = l_l_RobloxReplicatedStorage_0_0;
     end;
     return l_l_l_RobloxReplicatedStorage_0_0_FirstChild_0;
 end;
-local function _(v392) --[[ Line: 2062 ]] --[[ Name: toDecibels ]]
-    return math.log10(v392) * 20;
+local function _(v391) --[[ Line: 2057 ]] --[[ Name: toDecibels ]]
+    return math.log10(v391) * 20;
 end;
-v99.IsSignalActive = function(v394, v395) --[[ Line: 2066 ]] --[[ Name: IsSignalActive ]]
+v98.IsSignalActive = function(v393, v394) --[[ Line: 2061 ]] --[[ Name: IsSignalActive ]]
     -- upvalues: v67 (copy), l_Players_0 (copy)
     if not v67 then
         return false;
     else
-        local l_l_Players_0_PlayerByUserId_0 = l_Players_0:GetPlayerByUserId(v395);
+        local l_l_Players_0_PlayerByUserId_0 = l_Players_0:GetPlayerByUserId(v394);
         if not l_l_Players_0_PlayerByUserId_0 then
             return false;
         else
-            return math.log10(v394:GetAnalyzer(l_l_Players_0_PlayerByUserId_0).PeakLevel) * 20 > -36;
+            return math.log10(v393:GetAnalyzer(l_l_Players_0_PlayerByUserId_0).PeakLevel) * 20 > -36;
         end;
     end;
 end;
-v99.StopAnalysis = function(_, v398) --[[ Line: 2080 ]] --[[ Name: StopAnalysis ]]
+v98.StopAnalysis = function(_, v397) --[[ Line: 2075 ]] --[[ Name: StopAnalysis ]]
     -- upvalues: v67 (copy), l_RobloxReplicatedStorage_0 (copy)
     if not v67 then
         return;
     else
-        for _, v400 in v398:GetConnectedWires("Output") do
-            local l_TargetInstance_0 = v400.TargetInstance;
+        for _, v399 in v397:GetConnectedWires("Output") do
+            local l_TargetInstance_0 = v399.TargetInstance;
             if l_TargetInstance_0 and l_TargetInstance_0:IsDescendantOf(l_RobloxReplicatedStorage_0) then
-                v400:Destroy();
+                v399:Destroy();
             end;
         end;
         return;
     end;
 end;
-v99.StartAnalysis = function(v402, v403) --[[ Line: 2096 ]] --[[ Name: StartAnalysis ]]
+v98.StartAnalysis = function(v401, v402) --[[ Line: 2091 ]] --[[ Name: StartAnalysis ]]
     -- upvalues: v67 (copy)
     if not v67 then
         return;
     else
-        v402:StopAnalysis(v403);
-        local l_Player_0 = v403.Player;
+        v401:StopAnalysis(v402);
+        local l_Player_0 = v402.Player;
         if not l_Player_0 then
             return;
         else
-            local l_v402_Analyzer_0 = v402:GetAnalyzer(l_Player_0);
+            local l_v401_Analyzer_0 = v401:GetAnalyzer(l_Player_0);
             local l_Wire_1 = Instance.new("Wire");
-            l_Wire_1.SourceInstance = v403;
-            l_Wire_1.TargetInstance = l_v402_Analyzer_0;
-            l_Wire_1.Parent = l_v402_Analyzer_0;
+            l_Wire_1.SourceInstance = v402;
+            l_Wire_1.TargetInstance = l_v401_Analyzer_0;
+            l_Wire_1.Parent = l_v401_Analyzer_0;
             return;
         end;
     end;
 end;
-v99.GetVoiceConnectCookie = function(v407) --[[ Line: 2110 ]] --[[ Name: GetVoiceConnectCookie ]]
+v98.GetVoiceConnectCookie = function(v406) --[[ Line: 2105 ]] --[[ Name: GetVoiceConnectCookie ]]
     -- upvalues: v17 (copy)
-    local l_status_8, l_result_8 = pcall(function() --[[ Line: 2111 ]]
-        -- upvalues: v407 (copy), v17 (ref)
-        return v407.AppStorageService:GetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3);
+    local l_status_8, l_result_8 = pcall(function() --[[ Line: 2106 ]]
+        -- upvalues: v406 (copy), v17 (ref)
+        return v406.AppStorageService:GetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3);
     end);
     if l_status_8 and l_result_8 then
         return l_result_8;
@@ -1657,12 +1652,12 @@ v99.GetVoiceConnectCookie = function(v407) --[[ Line: 2110 ]] --[[ Name: GetVoic
         return "";
     end;
 end;
-v99.GetVoiceConnectCookieValue = function(v410) --[[ Line: 2122 ]] --[[ Name: GetVoiceConnectCookieValue ]]
+v98.GetVoiceConnectCookieValue = function(v409) --[[ Line: 2117 ]] --[[ Name: GetVoiceConnectCookieValue ]]
     -- upvalues: l_GetFFlagEnableVoiceUxUpdates_0 (copy), v17 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy)
     if l_GetFFlagEnableVoiceUxUpdates_0() then
-        local l_status_9, l_result_9 = pcall(function() --[[ Line: 2124 ]]
-            -- upvalues: v410 (copy), v17 (ref)
-            return v410.AppStorageService:GetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3);
+        local l_status_9, l_result_9 = pcall(function() --[[ Line: 2119 ]]
+            -- upvalues: v409 (copy), v17 (ref)
+            return v409.AppStorageService:GetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3);
         end);
         if l_status_9 then
             return l_result_9 == "true";
@@ -1670,9 +1665,9 @@ v99.GetVoiceConnectCookieValue = function(v410) --[[ Line: 2122 ]] --[[ Name: Ge
             return true;
         end;
     else
-        local l_status_10, l_result_10 = pcall(function() --[[ Line: 2130 ]]
-            -- upvalues: v410 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), v17 (ref)
-            return v410.AppStorageService:GetItem(if l_GetFFlagEnableSeamlessVoiceV2_0() then v17.VOICE_CONNECT_DISCONNECT_KEY_V2 else v17.VOICE_CONNECT_DISCONNECT_KEY);
+        local l_status_10, l_result_10 = pcall(function() --[[ Line: 2125 ]]
+            -- upvalues: v409 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), v17 (ref)
+            return v409.AppStorageService:GetItem(if l_GetFFlagEnableSeamlessVoiceV2_0() then v17.VOICE_CONNECT_DISCONNECT_KEY_V2 else v17.VOICE_CONNECT_DISCONNECT_KEY);
         end);
         if l_status_10 then
             return l_result_10 == "true";
@@ -1681,158 +1676,158 @@ v99.GetVoiceConnectCookieValue = function(v410) --[[ Line: 2122 ]] --[[ Name: Ge
         end;
     end;
 end;
-v99.SetVoiceConnectCookieValue = function(v415, v416) --[[ Line: 2142 ]] --[[ Name: SetVoiceConnectCookieValue ]]
+v98.SetVoiceConnectCookieValue = function(v414, v415) --[[ Line: 2137 ]] --[[ Name: SetVoiceConnectCookieValue ]]
     -- upvalues: l_GetFFlagEnableVoiceUxUpdates_0 (copy), v17 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (copy)
     if l_GetFFlagEnableVoiceUxUpdates_0() then
-        return (pcall(function() --[[ Line: 2144 ]]
-            -- upvalues: v415 (copy), v17 (ref), v416 (copy)
-            v415.AppStorageService:SetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3, (tostring(v416)));
-            v415.AppStorageService:Flush();
+        return (pcall(function() --[[ Line: 2139 ]]
+            -- upvalues: v414 (copy), v17 (ref), v415 (copy)
+            v414.AppStorageService:SetItem(v17.VOICE_CONNECT_DISCONNECT_KEY_V3, (tostring(v415)));
+            v414.AppStorageService:Flush();
         end));
     else
-        return (pcall(function() --[[ Line: 2150 ]]
-            -- upvalues: v415 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), v17 (ref), v416 (copy)
-            v415.AppStorageService:SetItem(if l_GetFFlagEnableSeamlessVoiceV2_0() then v17.VOICE_CONNECT_DISCONNECT_KEY_V2 else v17.VOICE_CONNECT_DISCONNECT_KEY, (tostring(v416)));
-            v415.AppStorageService:Flush();
+        return (pcall(function() --[[ Line: 2145 ]]
+            -- upvalues: v414 (copy), l_GetFFlagEnableSeamlessVoiceV2_0 (ref), v17 (ref), v415 (copy)
+            v414.AppStorageService:SetItem(if l_GetFFlagEnableSeamlessVoiceV2_0() then v17.VOICE_CONNECT_DISCONNECT_KEY_V2 else v17.VOICE_CONNECT_DISCONNECT_KEY, (tostring(v415)));
+            v414.AppStorageService:Flush();
         end));
     end;
 end;
-v99.SetNewUserFTUXCookieValue = function(v417, v418) --[[ Line: 2163 ]] --[[ Name: SetNewUserFTUXCookieValue ]]
+v98.SetNewUserFTUXCookieValue = function(v416, v417) --[[ Line: 2158 ]] --[[ Name: SetNewUserFTUXCookieValue ]]
     -- upvalues: v17 (copy)
-    return (pcall(function() --[[ Line: 2164 ]]
-        -- upvalues: v417 (copy), v17 (ref), v418 (copy)
-        v417.AppStorageService:SetItem(v17.SEAMLESS_VOICE_FTUX_KEY, (tostring(v418)));
-        v417.AppStorageService:Flush();
+    return (pcall(function() --[[ Line: 2159 ]]
+        -- upvalues: v416 (copy), v17 (ref), v417 (copy)
+        v416.AppStorageService:SetItem(v17.SEAMLESS_VOICE_FTUX_KEY, (tostring(v417)));
+        v416.AppStorageService:Flush();
     end));
 end;
-v99.SetAndSyncActive = function(v419, v420, v421) --[[ Line: 2171 ]] --[[ Name: SetAndSyncActive ]]
+v98.SetAndSyncActive = function(v418, v419, v420) --[[ Line: 2166 ]] --[[ Name: SetAndSyncActive ]]
     -- upvalues: l_Players_0 (copy)
-    v420.Active = v421;
-    local l_v419_SendMuteEvent_0 = v419:GetSendMuteEvent();
-    if l_v419_SendMuteEvent_0 and v420.Player == l_Players_0.LocalPlayer then
-        l_v419_SendMuteEvent_0:FireServer(v421);
+    v419.Active = v420;
+    local l_v418_SendMuteEvent_0 = v418:GetSendMuteEvent();
+    if l_v418_SendMuteEvent_0 and v419.Player == l_Players_0.LocalPlayer then
+        l_v418_SendMuteEvent_0:FireServer(v420);
     end;
 end;
-v99.CreateAudioDeviceData = function(v423, v424) --[[ Line: 2180 ]] --[[ Name: CreateAudioDeviceData ]]
+v98.CreateAudioDeviceData = function(v422, v423) --[[ Line: 2175 ]] --[[ Name: CreateAudioDeviceData ]]
     -- upvalues: l_Players_0 (copy), l_game_EngineFeature_0 (copy), v32 (copy), v28 (copy), v33 (copy)
-    local v425 = {};
-    local v426 = v424.Player == l_Players_0.LocalPlayer;
+    local v424 = {};
+    local v425 = v423.Player == l_Players_0.LocalPlayer;
     if l_game_EngineFeature_0 then
-        if not v424.MutedByLocalUser then
-            if v423.muteAll and not v426 then
-                v424.MutedByLocalUser = true;
+        if not v423.MutedByLocalUser then
+            if v422.muteAll and not v425 then
+                v423.MutedByLocalUser = true;
             end;
-            if v424.Player and v423.mutedPlayers[v424.Player.UserId] then
-                v424.MutedByLocalUser = true;
+            if v423.Player and v422.mutedPlayers[v423.Player.UserId] then
+                v423.MutedByLocalUser = true;
             end;
         end;
-    elseif v424.Active then
-        if v423.muteAll and not v426 then
-            v424.Active = false;
+    elseif v423.Active then
+        if v422.muteAll and not v425 then
+            v423.Active = false;
         end;
-        if v424.Player and v423.mutedPlayers[v424.Player.UserId] then
-            v424.Active = false;
+        if v423.Player and v422.mutedPlayers[v423.Player.UserId] then
+            v423.Active = false;
         end;
     end;
-    if v32 and v424.Active and v426 and v423.localMuted == nil then
-        v423:SetAndSyncActive(v424, false);
+    if v32 and v423.Active and v425 and v422.localMuted == nil then
+        v422:SetAndSyncActive(v423, false);
     end;
-    if v426 and v423.localMuted ~= nil and v423.localMuted ~= not v424.Active and not v423.isInCall then
+    if v425 and v422.localMuted ~= nil and v422.localMuted ~= not v423.Active and not v422.isInCall then
         v28:debug("Mismatch between LocalMuted and device.Active");
-        local v427 = not v423.localMuted;
-        v424.Active = v427;
-        local l_v423_SendMuteEvent_0 = v423:GetSendMuteEvent();
-        if l_v423_SendMuteEvent_0 then
-            l_v423_SendMuteEvent_0:FireServer(v427);
+        local v426 = not v422.localMuted;
+        v423.Active = v426;
+        local l_v422_SendMuteEvent_0 = v422:GetSendMuteEvent();
+        if l_v422_SendMuteEvent_0 then
+            l_v422_SendMuteEvent_0:FireServer(v426);
         end;
-    elseif v423.isInCall and v426 then
-        local v429 = not v423.callMutedState;
-        v28:debug("Overwriting Active State to match Iris call. .Active = {}", v429);
-        v424.Active = v429;
-        local l_v423_SendMuteEvent_1 = v423:GetSendMuteEvent();
-        if l_v423_SendMuteEvent_1 then
-            l_v423_SendMuteEvent_1:FireServer(v429);
+    elseif v422.isInCall and v425 then
+        local v428 = not v422.callMutedState;
+        v28:debug("Overwriting Active State to match Iris call. .Active = {}", v428);
+        v423.Active = v428;
+        local l_v422_SendMuteEvent_1 = v422:GetSendMuteEvent();
+        if l_v422_SendMuteEvent_1 then
+            l_v422_SendMuteEvent_1:FireServer(v428);
         end;
     end;
-    v425.onPlayerChanged = v424:GetPropertyChangedSignal("Player"):Connect(function() --[[ Line: 2232 ]]
-        -- upvalues: v33 (ref), v426 (ref), v424 (copy), l_Players_0 (ref), v32 (ref), v423 (copy), v28 (ref), l_game_EngineFeature_0 (ref)
+    v424.onPlayerChanged = v423:GetPropertyChangedSignal("Player"):Connect(function() --[[ Line: 2227 ]]
+        -- upvalues: v33 (ref), v425 (ref), v423 (copy), l_Players_0 (ref), v32 (ref), v422 (copy), v28 (ref), l_game_EngineFeature_0 (ref)
         if v33 then
-            v426 = v424.Player == l_Players_0.LocalPlayer;
-            if v426 then
-                if v32 and v424.Active and v423.localMuted == nil then
-                    v423:SetAndSyncActive(v424, false);
-                elseif v423.localMuted ~= nil and v423.localMuted ~= not v424.Active then
+            v425 = v423.Player == l_Players_0.LocalPlayer;
+            if v425 then
+                if v32 and v423.Active and v422.localMuted == nil then
+                    v422:SetAndSyncActive(v423, false);
+                elseif v422.localMuted ~= nil and v422.localMuted ~= not v423.Active then
                     v28:debug("Mismatch between LocalMuted and device.Active");
-                    v423:SetAndSyncActive(v424, not v423.localMuted);
+                    v422:SetAndSyncActive(v423, not v422.localMuted);
                 end;
-            elseif v423.muteAll or v424.Player and v423.mutedPlayers[v424.Player.UserId] then
+            elseif v422.muteAll or v423.Player and v422.mutedPlayers[v423.Player.UserId] then
                 if l_game_EngineFeature_0 then
-                    v424.MutedByLocalUser = true;
+                    v423.MutedByLocalUser = true;
                 else
-                    v424.Active = false;
+                    v423.Active = false;
                 end;
             end;
         end;
-        v423:emit("OnDevicePlayerChanged");
-        v423:StartAnalysis(v424);
+        v422:emit("OnDevicePlayerChanged");
+        v422:StartAnalysis(v423);
     end);
-    v425.onMutedChanged = v424:GetPropertyChangedSignal("Muted"):Connect(function() --[[ Line: 2257 ]]
-        -- upvalues: v423 (copy)
-        v423:emit("OnDeviceMuteChanged");
+    v424.onMutedChanged = v423:GetPropertyChangedSignal("Muted"):Connect(function() --[[ Line: 2252 ]]
+        -- upvalues: v422 (copy)
+        v422:emit("OnDeviceMuteChanged");
     end);
     if not l_game_EngineFeature_0 then
-        v425.onActiveChanged = v424:GetPropertyChangedSignal("Active"):Connect(function() --[[ Line: 2262 ]]
-            -- upvalues: v423 (copy), v426 (ref), v424 (copy)
-            v423:emit("OnDeviceActiveChanged");
-            if v423.muteAll and not v426 then
-                v424.Active = false;
+        v424.onActiveChanged = v423:GetPropertyChangedSignal("Active"):Connect(function() --[[ Line: 2257 ]]
+            -- upvalues: v422 (copy), v425 (ref), v423 (copy)
+            v422:emit("OnDeviceActiveChanged");
+            if v422.muteAll and not v425 then
+                v423.Active = false;
             end;
-            if v424.Player and v423.mutedPlayers[v424.Player.UserId] then
-                v424.Active = false;
+            if v423.Player and v422.mutedPlayers[v423.Player.UserId] then
+                v423.Active = false;
             end;
         end);
     end;
-    return v425;
+    return v424;
 end;
-v99.onInstanceRemove = function(v431, v432) --[[ Line: 2276 ]] --[[ Name: onInstanceRemove ]]
+v98.onInstanceRemove = function(v430, v431) --[[ Line: 2271 ]] --[[ Name: onInstanceRemove ]]
     -- upvalues: v28 (copy), l_game_EngineFeature_0 (copy), v67 (copy)
-    if v432:IsA("AudioDeviceInput") then
-        v431:StopAnalysis(v432);
-        v28:trace("Removing AudioDeviceInput {} {} {}", v432, "for user", v432.Player and v432.Player.UserId);
-        local v433 = v431.audioDevices[v432];
-        if v433 then
+    if v431:IsA("AudioDeviceInput") then
+        v430:StopAnalysis(v431);
+        v28:trace("Removing AudioDeviceInput {} {} {}", v431, "for user", v431.Player and v431.Player.UserId);
+        local v432 = v430.audioDevices[v431];
+        if v432 then
             if not l_game_EngineFeature_0 then
-                v433.onActiveChanged:Disconnect();
+                v432.onActiveChanged:Disconnect();
             end;
-            v433.onMutedChanged:Disconnect();
-            v433.onPlayerChanged:Disconnect();
+            v432.onMutedChanged:Disconnect();
+            v432.onPlayerChanged:Disconnect();
         end;
-        v431.audioDevices[v432] = nil;
-        v431:emit("OnAudioDeviceInputRemoved");
-        if v67 and v432.Player then
-            v431:GetAnalyzer(v432.Player):Destroy();
+        v430.audioDevices[v431] = nil;
+        v430:emit("OnAudioDeviceInputRemoved");
+        if v67 and v431.Player then
+            v430:GetAnalyzer(v431.Player):Destroy();
         end;
     end;
 end;
-v99.hookupAudioDeviceInputListener = function(v434) --[[ Line: 2297 ]] --[[ Name: hookupAudioDeviceInputListener ]]
+v98.hookupAudioDeviceInputListener = function(v433) --[[ Line: 2292 ]] --[[ Name: hookupAudioDeviceInputListener ]]
     -- upvalues: v28 (copy), l_Players_0 (copy), v31 (copy), l_SoundService_0 (copy), l_VoiceChatService_0 (copy), l_CollectionService_0 (copy), v18 (copy)
     v28:debug("Hooking up audio device listeners");
     local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
     if v31 then
-        l_SoundService_0.AudioInstanceAdded:Connect(function(v436) --[[ Line: 2301 ]]
-            -- upvalues: v434 (copy)
-            v434:onInstanceAdded(v436);
+        l_SoundService_0.AudioInstanceAdded:Connect(function(v435) --[[ Line: 2296 ]]
+            -- upvalues: v433 (copy)
+            v433:onInstanceAdded(v435);
         end);
     else
-        game.DescendantAdded:Connect(function(v437) --[[ Line: 2305 ]]
-            -- upvalues: v434 (copy)
-            v434:onInstanceAdded(v437);
+        game.DescendantAdded:Connect(function(v436) --[[ Line: 2300 ]]
+            -- upvalues: v433 (copy)
+            v433:onInstanceAdded(v436);
         end);
     end;
     local l_AudioDeviceInput_0 = l_LocalPlayer_0:FindFirstChildOfClass("AudioDeviceInput");
     v28:debug("Found local user audio device {}", l_AudioDeviceInput_0);
     if l_AudioDeviceInput_0 then
-        v434:onInstanceAdded(l_AudioDeviceInput_0);
+        v433:onInstanceAdded(l_AudioDeviceInput_0);
     end;
     if l_VoiceChatService_0.EnableDefaultVoice then
         v28:debug("Creating default voice listener");
@@ -1846,8 +1841,8 @@ v99.hookupAudioDeviceInputListener = function(v434) --[[ Line: 2297 ]] --[[ Name
             l_Wire_2.SourceInstance = l_AudioListener_0;
             l_Wire_2.TargetInstance = l_AudioDeviceOutput_0;
         end;
-        for _, v443 in l_CollectionService_0:GetTagged("RbxDefaultVoiceEmitter") do
-            v18.destroyDefaultEmitter(v443);
+        for _, v442 in l_CollectionService_0:GetTagged("RbxDefaultVoiceEmitter") do
+            v18.destroyDefaultEmitter(v442);
         end;
         l_CollectionService_0:GetInstanceAddedSignal("RbxDefaultVoiceEmitter"):Connect(v18.destroyDefaultEmitter);
         l_LocalPlayer_0.CharacterAdded:Connect(v18.avoidEmitting);
@@ -1855,109 +1850,109 @@ v99.hookupAudioDeviceInputListener = function(v434) --[[ Line: 2297 ]] --[[ Name
             v18.avoidEmitting(l_LocalPlayer_0.Character);
         end;
     end;
-    game.DescendantRemoving:Connect(function(v444) --[[ Line: 2341 ]]
-        -- upvalues: v434 (copy)
-        v434:onInstanceRemove(v444);
+    game.DescendantRemoving:Connect(function(v443) --[[ Line: 2336 ]]
+        -- upvalues: v433 (copy)
+        v433:onInstanceRemove(v443);
     end);
-    for _, v446 in game:GetDescendants() do
-        v434:onInstanceAdded(v446);
+    for _, v445 in game:GetDescendants() do
+        v433:onInstanceAdded(v445);
     end;
-    l_Players_0.PlayerRemoving:Connect(function(v447) --[[ Line: 2350 ]]
-        -- upvalues: v434 (copy)
-        for v448 in v434.audioDevices do
-            if v448.Player and v448.Player == v447 then
-                v434:onInstanceRemove(v448);
+    l_Players_0.PlayerRemoving:Connect(function(v446) --[[ Line: 2345 ]]
+        -- upvalues: v433 (copy)
+        for v447 in v433.audioDevices do
+            if v447.Player and v447.Player == v446 then
+                v433:onInstanceRemove(v447);
             end;
         end;
     end);
 end;
-v99.RejoinCurrentChannel = function(v449) --[[ Line: 2360 ]] --[[ Name: RejoinCurrentChannel ]]
+v98.RejoinCurrentChannel = function(v448) --[[ Line: 2355 ]] --[[ Name: RejoinCurrentChannel ]]
     -- upvalues: v46 (copy), v28 (copy)
-    pcall(function() --[[ Line: 2361 ]]
-        -- upvalues: v449 (copy), v46 (ref), v28 (ref)
-        local l_GroupId_0 = v449.service:GetGroupId();
+    pcall(function() --[[ Line: 2356 ]]
+        -- upvalues: v448 (copy), v46 (ref), v28 (ref)
+        local l_GroupId_0 = v448.service:GetGroupId();
         if l_GroupId_0 and l_GroupId_0 ~= "" then
-            local v451 = v449.service:IsPublishPaused();
-            v449.service:Leave();
+            local v450 = v448.service:IsPublishPaused();
+            v448.service:Leave();
             if v46() then
                 v28:debug("Rejoining current channel {}", l_GroupId_0);
-                v449.participants = {};
-                v449.participantsUpdate:Fire(v449.participants);
+                v448.participants = {};
+                v448.participantsUpdate:Fire(v448.participants);
             end;
-            if not v449.service:JoinByGroupIdToken(l_GroupId_0, v451, true) then
-                v449:emit("OnInitialJoinFailed");
+            if not v448.service:JoinByGroupIdToken(l_GroupId_0, v450, true) then
+                v448:emit("OnInitialJoinFailed");
             end;
         end;
     end);
 end;
-v99.RejoinChannel = function(v452, v453, v454) --[[ Line: 2380 ]] --[[ Name: RejoinChannel ]]
+v98.RejoinChannel = function(v451, v452, v453) --[[ Line: 2375 ]] --[[ Name: RejoinChannel ]]
     -- upvalues: v28 (copy)
-    v28:debug("Rejoining previous channel {} with mute status {}", v453, v454);
-    if v453 and v453 ~= "" then
-        pcall(function() --[[ Line: 2384 ]]
-            -- upvalues: v452 (copy), v453 (copy), v454 (copy)
-            v452.service:Leave();
-            v452.participants = {};
-            v452.participantsUpdate:Fire(v452.participants);
-            if not v452.service:JoinByGroupIdToken(v453, v454, true) then
-                v452:emit("OnInitialJoinFailed");
+    v28:debug("Rejoining previous channel {} with mute status {}", v452, v453);
+    if v452 and v452 ~= "" then
+        pcall(function() --[[ Line: 2379 ]]
+            -- upvalues: v451 (copy), v452 (copy), v453 (copy)
+            v451.service:Leave();
+            v451.participants = {};
+            v451.participantsUpdate:Fire(v451.participants);
+            if not v451.service:JoinByGroupIdToken(v452, v453, true) then
+                v451:emit("OnInitialJoinFailed");
             end;
         end);
     end;
 end;
-v99.RejoinVoice = function(v455) --[[ Line: 2396 ]] --[[ Name: RejoinVoice ]]
+v98.RejoinVoice = function(v454) --[[ Line: 2391 ]] --[[ Name: RejoinVoice ]]
     -- upvalues: l_GetFFlagVoiceChatClientRewriteMasterLua_0 (copy), v28 (copy), l_VoiceChatService_0 (copy)
     if l_GetFFlagVoiceChatClientRewriteMasterLua_0() then
         v28:debug("Rejoining voice");
-        v455.participants = {};
-        v455.participantsUpdate:Fire(v455.participants);
+        v454.participants = {};
+        v454.participantsUpdate:Fire(v454.participants);
         l_VoiceChatService_0:rejoinVoice();
     end;
 end;
-v99.watchSignalR = function(v456) --[[ Line: 2407 ]] --[[ Name: watchSignalR ]]
+v98.watchSignalR = function(v455) --[[ Line: 2402 ]] --[[ Name: watchSignalR ]]
     -- upvalues: l_WATCHED_NAMESPACES_0 (copy), v18 (copy), v45 (copy), v28 (copy)
-    v456.signalRConnection = v456.NotificationService.RobloxEventReceived:Connect(function(v457) --[[ Line: 2408 ]]
-        -- upvalues: l_WATCHED_NAMESPACES_0 (ref), v18 (ref), v45 (ref), v456 (copy), v28 (ref)
-        local l_namespace_0 = v457.namespace;
+    v455.signalRConnection = v455.NotificationService.RobloxEventReceived:Connect(function(v456) --[[ Line: 2403 ]]
+        -- upvalues: l_WATCHED_NAMESPACES_0 (ref), v18 (ref), v45 (ref), v455 (copy), v28 (ref)
+        local l_namespace_0 = v456.namespace;
         if not l_WATCHED_NAMESPACES_0[l_namespace_0] then
             return;
         else
-            local v459 = v18.jsonDecode(v457.detail);
+            local v458 = v18.jsonDecode(v456.detail);
             if v45() then
-                local v460 = v456.SignalREventTable[v459.type];
-                if v460 then
-                    v460:Fire(v459);
+                local v459 = v455.SignalREventTable[v458.type];
+                if v459 then
+                    v459:Fire(v458);
                 end;
             end;
-            local l_SequenceNumber_0 = v459.SequenceNumber;
+            local l_SequenceNumber_0 = v458.SequenceNumber;
             v28:trace("SignalR message {}: {}", l_namespace_0, l_SequenceNumber_0);
-            local v462 = v456:checkAndUpdateSequence(l_namespace_0, l_SequenceNumber_0);
-            if v462 > 0 then
-                v456.Analytics:reportReconnectDueToMissedSequence();
+            local v461 = v455:checkAndUpdateSequence(l_namespace_0, l_SequenceNumber_0);
+            if v461 > 0 then
+                v455.Analytics:reportReconnectDueToMissedSequence();
                 return;
             else
-                if v462 < -1 then
-                    v456.Analytics:reportOutOfOrderSequence();
+                if v461 < -1 then
+                    v455.Analytics:reportOutOfOrderSequence();
                 end;
                 return;
             end;
         end;
     end);
-    v456.signalRConnectionChanged = v456.NotificationService.RobloxConnectionChanged:Connect(function(v463, v464, _, v466) --[[ Line: 2434 ]]
-        -- upvalues: v28 (ref), v18 (ref), l_WATCHED_NAMESPACES_0 (ref), v456 (copy)
-        if v463 == "signalR" then
-            if v464 ~= Enum.ConnectionState.Connected then
+    v455.signalRConnectionChanged = v455.NotificationService.RobloxConnectionChanged:Connect(function(v462, v463, _, v465) --[[ Line: 2429 ]]
+        -- upvalues: v28 (ref), v18 (ref), l_WATCHED_NAMESPACES_0 (ref), v455 (copy)
+        if v462 == "signalR" then
+            if v463 ~= Enum.ConnectionState.Connected then
                 v28:info("SignalR disconnected");
                 return;
             else
-                for v467, v468 in pairs(v18.jsonDecode(v466)) do
-                    if l_WATCHED_NAMESPACES_0[v467] then
-                        v28:trace("SignalR message {}: {}", v467, v468);
-                        local v469 = v456:checkAndUpdateSequence(v467, v468);
-                        if v469 > 0 then
-                            v456.Analytics:reportReconnectDueToMissedSequence();
-                        elseif v469 < -1 then
-                            v456.Analytics:reportOutOfOrderSequence();
+                for v466, v467 in pairs(v18.jsonDecode(v465)) do
+                    if l_WATCHED_NAMESPACES_0[v466] then
+                        v28:trace("SignalR message {}: {}", v466, v467);
+                        local v468 = v455:checkAndUpdateSequence(v466, v467);
+                        if v468 > 0 then
+                            v455.Analytics:reportReconnectDueToMissedSequence();
+                        elseif v468 < -1 then
+                            v455.Analytics:reportOutOfOrderSequence();
                         end;
                     end;
                 end;
@@ -1965,122 +1960,110 @@ v99.watchSignalR = function(v456) --[[ Line: 2407 ]] --[[ Name: watchSignalR ]]
         end;
     end);
 end;
-v99.StopSignalRConnection = function(v470) --[[ Line: 2459 ]] --[[ Name: StopSignalRConnection ]]
-    if v470.signalRConnectionChanged then
-        v470.signalRConnectionChanged:Disconnect();
-        v470.signalRConnectionChanged = nil;
+v98.StopSignalRConnection = function(v469) --[[ Line: 2454 ]] --[[ Name: StopSignalRConnection ]]
+    if v469.signalRConnectionChanged then
+        v469.signalRConnectionChanged:Disconnect();
+        v469.signalRConnectionChanged = nil;
     end;
-    if v470.signalRConnection then
-        v470.signalRConnection:Disconnect();
-        v470.signalRConnection = nil;
+    if v469.signalRConnection then
+        v469.signalRConnection:Disconnect();
+        v469.signalRConnection = nil;
     end;
 end;
-v99.getService = function(v471) --[[ Line: 2470 ]] --[[ Name: getService ]]
-    return v471.service;
+v98.getService = function(v470) --[[ Line: 2465 ]] --[[ Name: getService ]]
+    return v470.service;
 end;
-v99.ToggleMic = function(v472, v473) --[[ Line: 2474 ]] --[[ Name: ToggleMic ]]
-    -- upvalues: l_GetFFlagPartyVoiceMuteScopeFix_0 (copy), v28 (copy), l_GetFFlagJoinWithoutMicPermissions_0 (copy), l_PERMISSION_STATE_0 (copy), l_PermissionsProtocol_0 (copy), l_VoiceChatService_0 (copy), l_Players_0 (copy)
-    v472:ensureInitialized("toggle mic");
-    if v472.localMuted == nil then
-        if l_GetFFlagPartyVoiceMuteScopeFix_0() then
-            v28:trace("ToggleMic context: {} - Voice not connected yet", v473);
-        end;
+v98.ToggleMic = function(v471, v472) --[[ Line: 2469 ]] --[[ Name: ToggleMic ]]
+    -- upvalues: v28 (copy), l_GetFFlagJoinWithoutMicPermissions_0 (copy), l_PERMISSION_STATE_0 (copy), l_PermissionsProtocol_0 (copy), l_VoiceChatService_0 (copy), l_Players_0 (copy)
+    v471:ensureInitialized("toggle mic");
+    if v471.localMuted == nil then
+        v28:trace("ToggleMic context: {} - Voice not connected yet", v472);
         return;
     else
-        if l_GetFFlagPartyVoiceMuteScopeFix_0() then
-            v28:trace("ToggleMic context: {}", v473);
-        end;
+        v28:trace("ToggleMic context: {}", v472);
         if l_GetFFlagJoinWithoutMicPermissions_0() then
-            if v472.permissionState == l_PERMISSION_STATE_0.PENDING_MIC then
+            if v471.permissionState == l_PERMISSION_STATE_0.PENDING_MIC then
                 v28:debug("In pending mic mode, requesting permission");
-                v472:emit("GetPermissions", function(v474) --[[ Line: 2491 ]]
-                    -- upvalues: v472 (copy), l_PERMISSION_STATE_0 (ref), v28 (ref), v473 (copy)
-                    v472.permissionState = if v474.hasMicPermissions then l_PERMISSION_STATE_0.LISTEN_AND_TALK else l_PERMISSION_STATE_0.LISTEN_ONLY;
-                    v28:debug("Got permissions, setting state to {}", v472.permissionState);
-                    v472:ToggleMic(v473);
+                v471:emit("GetPermissions", function(v473) --[[ Line: 2482 ]]
+                    -- upvalues: v471 (copy), l_PERMISSION_STATE_0 (ref), v28 (ref), v472 (copy)
+                    v471.permissionState = if v473.hasMicPermissions then l_PERMISSION_STATE_0.LISTEN_AND_TALK else l_PERMISSION_STATE_0.LISTEN_ONLY;
+                    v28:debug("Got permissions, setting state to {}", v471.permissionState);
+                    v471:ToggleMic(v472);
                 end, {
                     l_PermissionsProtocol_0.Permissions.MICROPHONE_ACCESS
                 }, false);
                 return;
-            elseif v472.permissionState == l_PERMISSION_STATE_0.LISTEN_ONLY then
+            elseif v471.permissionState == l_PERMISSION_STATE_0.LISTEN_ONLY then
                 v28:debug("User tried to unmute despite being in listen only mode");
-                v472:emit("OnPermissionRequested");
+                v471:emit("OnPermissionRequested");
                 return;
             end;
         end;
-        if v472.isPlayerWatchingAd then
+        if v471.isPlayerWatchingAd then
             v28:trace("User is watching an ad, skipping toggling mic");
             return;
         else
             if l_VoiceChatService_0.UseNewAudioApi then
-                v472.localMuted = not v472.localMuted;
-                local v475 = not v472.localMuted;
-                if l_GetFFlagPartyVoiceMuteScopeFix_0() then
-                    v28:trace("Setting self mute to {} context: {}", v475, v473);
-                else
-                    v28:trace("Setting self mute to {}", v475);
-                end;
-                local l_v472_SendMuteEvent_0 = v472:GetSendMuteEvent();
-                if l_v472_SendMuteEvent_0 then
-                    l_v472_SendMuteEvent_0:FireServer(v475);
-                    for v477 in v472.audioDevices do
-                        if v477.Player and v477.Player == l_Players_0.LocalPlayer then
-                            v477.Active = v475;
+                v471.localMuted = not v471.localMuted;
+                local v474 = not v471.localMuted;
+                v28:trace("Setting self mute to {} context: {}", v474, v472);
+                local l_v471_SendMuteEvent_0 = v471:GetSendMuteEvent();
+                if l_v471_SendMuteEvent_0 then
+                    l_v471_SendMuteEvent_0:FireServer(v474);
+                    for v476 in v471.audioDevices do
+                        if v476.Player and v476.Player == l_Players_0.LocalPlayer then
+                            v476.Active = v474;
                         end;
                     end;
-                    v472.muteChanged:Fire(v472.localMuted);
+                    v471.muteChanged:Fire(v471.localMuted);
                 else
                     v28:error("Could not find SendMuteEvent");
                 end;
             else
-                local v478 = not v472.service:IsPublishPaused();
-                if l_GetFFlagPartyVoiceMuteScopeFix_0() then
-                    v28:trace("Setting self mute to {} context: {}", v478, v473);
-                else
-                    v28:trace("Setting self mute to {}", v478);
-                end;
-                v472.service:PublishPause(v478);
-                v472.localMuted = v478;
-                v472.muteChanged:Fire(v478);
+                local v477 = not v471.service:IsPublishPaused();
+                v28:trace("Setting self mute to {} context: {}", v477, v472);
+                v471.service:PublishPause(v477);
+                v471.localMuted = v477;
+                v471.muteChanged:Fire(v477);
             end;
-            if not v472.localMuted then
-                v472.talkingChanged:Fire(v472.isTalking);
-                v472:emit("OnShowDataConsentToast");
+            if not v471.localMuted then
+                v471.talkingChanged:Fire(v471.isTalking);
+                v471:emit("OnShowDataConsentToast");
             end;
-            if v473 then
-                v472.Analytics:reportVoiceMuteSelf((v472:JoinWithVoiceMuteData({
-                    context = v473, 
-                    muted = v472.localMuted
+            if v472 then
+                v471.Analytics:reportVoiceMuteSelf((v471:JoinWithVoiceMuteData({
+                    context = v472, 
+                    muted = v471.localMuted
                 })));
             end;
             return;
         end;
     end;
 end;
-v99.ToggleVoiceChanger = function(v479, _) --[[ Line: 2560 ]] --[[ Name: ToggleVoiceChanger ]]
+v98.ToggleVoiceChanger = function(v478, _) --[[ Line: 2543 ]] --[[ Name: ToggleVoiceChanger ]]
     -- upvalues: l_VoiceChatService_0 (copy), v28 (copy)
-    v479:ensureInitialized("toggle voice changer");
-    if v479.localMuted == nil then
+    v478:ensureInitialized("toggle voice changer");
+    if v478.localMuted == nil then
         return;
     elseif l_VoiceChatService_0.UseNewAudioApi then
-        v479.isVoiceChangerActive = not v479.isVoiceChangerActive;
-        v28:trace("setting voice changer active to {}", v479.isVoiceChangerActive);
-        local l_v479_ToggleVoiceChangerEvent_0 = v479:GetToggleVoiceChangerEvent();
-        if l_v479_ToggleVoiceChangerEvent_0 then
-            l_v479_ToggleVoiceChangerEvent_0:FireServer(v479.isVoiceChangerActive);
-            v479.voiceChangerChanged:Fire(v479.isVoiceChangerActive);
+        v478.isVoiceChangerActive = not v478.isVoiceChangerActive;
+        v28:trace("setting voice changer active to {}", v478.isVoiceChangerActive);
+        local l_v478_ToggleVoiceChangerEvent_0 = v478:GetToggleVoiceChangerEvent();
+        if l_v478_ToggleVoiceChangerEvent_0 then
+            l_v478_ToggleVoiceChangerEvent_0:FireServer(v478.isVoiceChangerActive);
+            v478.voiceChangerChanged:Fire(v478.isVoiceChangerActive);
             return;
         else
             v28:error("Could not find ToggleVoiceChangerEvent");
             return;
         end;
     else
-        v479.isVoiceChangerActive = false;
-        v28:trace("forcibly disabling voice changer since using old audio api", v479.isVoiceChangerActive);
-        local l_v479_ToggleVoiceChangerEvent_1 = v479:GetToggleVoiceChangerEvent();
-        if l_v479_ToggleVoiceChangerEvent_1 then
-            l_v479_ToggleVoiceChangerEvent_1:FireServer(v479.isVoiceChangerActive);
-            v479.voiceChangerChanged:Fire(v479.isVoiceChangerActive);
+        v478.isVoiceChangerActive = false;
+        v28:trace("forcibly disabling voice changer since using old audio api", v478.isVoiceChangerActive);
+        local l_v478_ToggleVoiceChangerEvent_1 = v478:GetToggleVoiceChangerEvent();
+        if l_v478_ToggleVoiceChangerEvent_1 then
+            l_v478_ToggleVoiceChangerEvent_1:FireServer(v478.isVoiceChangerActive);
+            v478.voiceChangerChanged:Fire(v478.isVoiceChangerActive);
             return;
         else
             v28:error("Could not find ToggleVoiceChangerEvent");
@@ -2088,23 +2071,23 @@ v99.ToggleVoiceChanger = function(v479, _) --[[ Line: 2560 ]] --[[ Name: ToggleV
         end;
     end;
 end;
-v99.ToggleVoiceChangerHearMyself = function(v483, _) --[[ Line: 2590 ]] --[[ Name: ToggleVoiceChangerHearMyself ]]
+v98.ToggleVoiceChangerHearMyself = function(v482, _) --[[ Line: 2573 ]] --[[ Name: ToggleVoiceChangerHearMyself ]]
     -- upvalues: l_VoiceChatService_0 (copy), v28 (copy)
-    if v483.localMuted == nil then
+    if v482.localMuted == nil then
         return;
     else
         if l_VoiceChatService_0.UseNewAudioApi then
-            v483.isVoiceChangerHearMyselfActive = not v483.isVoiceChangerHearMyselfActive;
-            local l_v483_InputToModifierWire_0 = v483:GetInputToModifierWire();
-            local l_v483_PartyVoiceDeviceInput_0 = v483:GetPartyVoiceDeviceInput();
-            if l_v483_InputToModifierWire_0 and l_v483_PartyVoiceDeviceInput_0 then
-                v28:trace("setting voice changer hear myself active to {}", v483.isVoiceChangerHearMyselfActive);
-                if v483.isVoiceChangerHearMyselfActive then
-                    l_v483_InputToModifierWire_0.SourceInstance = l_v483_PartyVoiceDeviceInput_0;
+            v482.isVoiceChangerHearMyselfActive = not v482.isVoiceChangerHearMyselfActive;
+            local l_v482_InputToModifierWire_0 = v482:GetInputToModifierWire();
+            local l_v482_PartyVoiceDeviceInput_0 = v482:GetPartyVoiceDeviceInput();
+            if l_v482_InputToModifierWire_0 and l_v482_PartyVoiceDeviceInput_0 then
+                v28:trace("setting voice changer hear myself active to {}", v482.isVoiceChangerHearMyselfActive);
+                if v482.isVoiceChangerHearMyselfActive then
+                    l_v482_InputToModifierWire_0.SourceInstance = l_v482_PartyVoiceDeviceInput_0;
                 else
-                    l_v483_InputToModifierWire_0.SourceInstance = nil;
+                    l_v482_InputToModifierWire_0.SourceInstance = nil;
                 end;
-                v483.voiceChangerHearMyselfChanged:Fire(v483.isVoiceChangerHearMyselfActive);
+                v482.voiceChangerHearMyselfChanged:Fire(v482.isVoiceChangerHearMyselfActive);
                 return;
             else
                 v28:error("Could not find InputToModifierWire or PartyVoiceDeviceInput");
@@ -2113,18 +2096,18 @@ v99.ToggleVoiceChangerHearMyself = function(v483, _) --[[ Line: 2590 ]] --[[ Nam
         return;
     end;
 end;
-v99.SetVoicePack = function(v487, v488) --[[ Line: 2615 ]] --[[ Name: SetVoicePack ]]
+v98.SetVoicePack = function(v486, v487) --[[ Line: 2598 ]] --[[ Name: SetVoicePack ]]
     -- upvalues: l_VoiceChatService_0 (copy), v28 (copy)
-    v487:ensureInitialized("set voice pack");
-    if v487.localMuted == nil then
+    v486:ensureInitialized("set voice pack");
+    if v486.localMuted == nil then
         return;
     else
         if l_VoiceChatService_0.UseNewAudioApi then
-            v487.currentVoicePack = v488;
-            v28:trace("setting current voice pack to {}", v487.currentVoicePack);
-            local l_v487_SetVoicePackEvent_0 = v487:GetSetVoicePackEvent();
-            if l_v487_SetVoicePackEvent_0 then
-                l_v487_SetVoicePackEvent_0:FireServer("VoicePack_" .. v487.currentVoicePack);
+            v486.currentVoicePack = v487;
+            v28:trace("setting current voice pack to {}", v486.currentVoicePack);
+            local l_v486_SetVoicePackEvent_0 = v486:GetSetVoicePackEvent();
+            if l_v486_SetVoicePackEvent_0 then
+                l_v486_SetVoicePackEvent_0:FireServer("VoicePack_" .. v486.currentVoicePack);
                 return;
             else
                 v28:error("Could not find SetVoicePackEvent");
@@ -2133,39 +2116,39 @@ v99.SetVoicePack = function(v487, v488) --[[ Line: 2615 ]] --[[ Name: SetVoicePa
         return;
     end;
 end;
-v99.JoinWithVoiceMuteData = function(v490, v491) --[[ Line: 2634 ]] --[[ Name: JoinWithVoiceMuteData ]]
+v98.JoinWithVoiceMuteData = function(v489, v490) --[[ Line: 2617 ]] --[[ Name: JoinWithVoiceMuteData ]]
     -- upvalues: l_Players_0 (copy), v23 (copy)
     local l_LocalPlayer_1 = l_Players_0.LocalPlayer;
     return v23.Dictionary.join({
         userId = l_LocalPlayer_1.UserId, 
-        clientSessionId = v490:GetSessionId(), 
-        channelId = v490:GetChannelId()
-    }, v491);
+        clientSessionId = v489:GetSessionId(), 
+        channelId = v489:GetChannelId()
+    }, v490);
 end;
-v99._reportJoinFailed = function(v493, v494, v495) --[[ Line: 2643 ]] --[[ Name: _reportJoinFailed ]]
+v98._reportJoinFailed = function(v492, v493, v494) --[[ Line: 2626 ]] --[[ Name: _reportJoinFailed ]]
     -- upvalues: v44 (copy)
     if v44() then
-        v493.Analytics:reportVoiceChatJoinResult(false, v494, v495);
+        v492.Analytics:reportVoiceChatJoinResult(false, v493, v494);
     end;
-    v493:emit("OnReportJoinFailed", v494);
+    v492:emit("OnReportJoinFailed", v493);
 end;
-v99._asyncInit = function(v496) --[[ Line: 2650 ]] --[[ Name: _asyncInit ]]
+v98._asyncInit = function(v495) --[[ Line: 2633 ]] --[[ Name: _asyncInit ]]
     -- upvalues: v28 (copy), l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (copy), l_VoiceChatService_0 (copy), v20 (copy), v22 (copy)
-    v496:CheckCallState();
-    return v496:canUseServiceAsync():andThen(function(_) --[[ Line: 2653 ]]
-        -- upvalues: v28 (ref), l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 (ref), v496 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref), v20 (ref), v22 (ref)
-        local v498 = "VoiceChatService";
+    v495:CheckCallState();
+    return v495:canUseServiceAsync():andThen(function(_) --[[ Line: 2636 ]]
+        -- upvalues: v28 (ref), l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 (ref), v495 (copy), l_GetFFlagVoiceChatClientRewriteMasterLua_0 (ref), l_VoiceChatService_0 (ref), v20 (ref), v22 (ref)
+        local v497 = "VoiceChatService";
         if game:GetEngineFeature("UseNewVoiceChatService") then
-            v498 = "VoiceChatInternal";
+            v497 = "VoiceChatInternal";
             v28:debug("Using VoiceChatInternal");
         end;
-        local l_status_11, l_result_11 = pcall(function() --[[ Line: 2659 ]]
-            -- upvalues: v498 (ref), l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 (ref), v496 (ref)
-            local l_game_Service_0 = game:GetService(v498);
+        local l_status_11, l_result_11 = pcall(function() --[[ Line: 2642 ]]
+            -- upvalues: v497 (ref), l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 (ref), v495 (ref)
+            local l_game_Service_0 = game:GetService(v497);
             if l_game_Service_0 and (l_game_Service_0:GetVoiceChatApiVersion() < l_MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED_0 or l_game_Service_0:IsContextVoiceEnabled()) then
-                v496.voiceEnabled = true;
-                v496.service = l_game_Service_0;
-                v496:SetupParticipantListeners();
+                v495.voiceEnabled = true;
+                v495.service = l_game_Service_0;
+                v495:SetupParticipantListeners();
             end;
         end);
         if l_GetFFlagVoiceChatClientRewriteMasterLua_0() then
@@ -2180,18 +2163,18 @@ v99._asyncInit = function(v496) --[[ Line: 2650 ]] --[[ Name: _asyncInit ]]
         end;
         if not l_status_11 then
             v28:warning("EnableVoiceChat flag is enabled but GetService panicked {}", l_result_11);
-            v496:_reportJoinFailed("getServiceFailed", v20.ERROR);
-            if v496.options.passInitErrorInPromiseReject then
+            v495:_reportJoinFailed("getServiceFailed", v20.ERROR);
+            if v495.options.passInitErrorInPromiseReject then
                 return v22.reject({
                     code = "INIT_ERROR_GET_SERVICE_FAILED"
                 });
             else
                 return v22.reject();
             end;
-        elseif not v496.service then
+        elseif not v495.service then
             v28:debug("VoiceChatService is not set after init");
-            v496:_reportJoinFailed("contextNotEnabled");
-            if v496.options.passInitErrorInPromiseReject then
+            v495:_reportJoinFailed("contextNotEnabled");
+            if v495.options.passInitErrorInPromiseReject then
                 return v22.reject({
                     code = "INIT_ERROR_CONTEXT_NOT_ENABLED"
                 });
@@ -2199,52 +2182,52 @@ v99._asyncInit = function(v496) --[[ Line: 2650 ]] --[[ Name: _asyncInit ]]
                 return v22.reject();
             end;
         else
-            v496:emit("OnVoiceChatServiceInitialized");
-            v496:watchSignalR();
+            v495:emit("OnVoiceChatServiceInitialized");
+            v495:watchSignalR();
             return v22.resolve();
         end;
     end);
 end;
-v99.UpdateLocalMetering = function(v503) --[[ Line: 2709 ]] --[[ Name: UpdateLocalMetering ]]
+v98.UpdateLocalMetering = function(v502) --[[ Line: 2692 ]] --[[ Name: UpdateLocalMetering ]]
     -- upvalues: l_Players_0 (copy), v39 (copy)
-    v503.isTalking = v503:IsSignalActive(l_Players_0.LocalPlayer.UserId);
-    if v503.localMuted == false then
+    v502.isTalking = v502:IsSignalActive(l_Players_0.LocalPlayer.UserId);
+    if v502.localMuted == false then
         if v39 then
-            v503:FireTalkingChangedDebounced(v503.isTalking);
+            v502:FireTalkingChangedDebounced(v502.isTalking);
             return;
         else
-            v503.talkingChanged:Fire(v503.isTalking);
+            v502.talkingChanged:Fire(v502.isTalking);
         end;
     end;
 end;
-v99.FireTalkingChangedDebounced = function(v504, v505) --[[ Line: 2720 ]] --[[ Name: FireTalkingChangedDebounced ]]
+v98.FireTalkingChangedDebounced = function(v503, v504) --[[ Line: 2703 ]] --[[ Name: FireTalkingChangedDebounced ]]
     -- upvalues: v40 (copy)
     local l_v40_0 = v40;
-    local v507 = tick() * 1000;
-    if l_v40_0 < v507 - v504._lastTalkingChangedFireTime then
-        v504._lastTalkingChangedFireTime = v507;
-        v504.talkingChanged:Fire(v505);
+    local v506 = tick() * 1000;
+    if l_v40_0 < v506 - v503._lastTalkingChangedFireTime then
+        v503._lastTalkingChangedFireTime = v506;
+        v503.talkingChanged:Fire(v504);
     end;
 end;
-v99.asyncInit = function(v508) --[[ Line: 2730 ]] --[[ Name: asyncInit ]]
+v98.asyncInit = function(v507) --[[ Line: 2713 ]] --[[ Name: asyncInit ]]
     -- upvalues: v28 (copy), v22 (copy), v30 (copy), l_HttpService_0 (copy), l_GetFFlagShowLikelySpeakingBubbles_0 (copy), v65 (copy), v17 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v34 (copy)
-    if v508.service then
+    if v507.service then
         v28:trace("Manager already initialized");
         return v22.resolve();
     else
-        if not v508.initPromise then
-            v508.initPromise = v508:_asyncInit();
-            if v30 and not v508.LikelySpeakingUsersEvent then
-                task.spawn(function() --[[ Line: 2742 ]]
-                    -- upvalues: v508 (copy), v28 (ref), l_HttpService_0 (ref), l_GetFFlagShowLikelySpeakingBubbles_0 (ref)
-                    local l_v508_LikelySpeakingUsersEvent_0 = v508:GetLikelySpeakingUsersEvent();
-                    if l_v508_LikelySpeakingUsersEvent_0 then
+        if not v507.initPromise then
+            v507.initPromise = v507:_asyncInit();
+            if v30 and not v507.LikelySpeakingUsersEvent then
+                task.spawn(function() --[[ Line: 2725 ]]
+                    -- upvalues: v507 (copy), v28 (ref), l_HttpService_0 (ref), l_GetFFlagShowLikelySpeakingBubbles_0 (ref)
+                    local l_v507_LikelySpeakingUsersEvent_0 = v507:GetLikelySpeakingUsersEvent();
+                    if l_v507_LikelySpeakingUsersEvent_0 then
                         v28:trace("Connecting to likely speaking users");
-                        l_v508_LikelySpeakingUsersEvent_0.OnClientEvent:Connect(function(v510) --[[ Line: 2746 ]]
-                            -- upvalues: v28 (ref), l_HttpService_0 (ref), l_GetFFlagShowLikelySpeakingBubbles_0 (ref), v508 (ref)
-                            v28:trace("New Likely Speaking Users: {}", l_HttpService_0:JSONEncode(v510));
-                            if l_GetFFlagShowLikelySpeakingBubbles_0() and v508:UserEligibleForLikelySpeakingBubbles() then
-                                v508:emit("OnLikelySpeakingUsersUpdated", v510);
+                        l_v507_LikelySpeakingUsersEvent_0.OnClientEvent:Connect(function(v509) --[[ Line: 2729 ]]
+                            -- upvalues: v28 (ref), l_HttpService_0 (ref), l_GetFFlagShowLikelySpeakingBubbles_0 (ref), v507 (ref)
+                            v28:trace("New Likely Speaking Users: {}", l_HttpService_0:JSONEncode(v509));
+                            if l_GetFFlagShowLikelySpeakingBubbles_0() and v507:UserEligibleForLikelySpeakingBubbles() then
+                                v507:emit("OnLikelySpeakingUsersUpdated", v509);
                             end;
                         end);
                     end;
@@ -2252,164 +2235,164 @@ v99.asyncInit = function(v508) --[[ Line: 2730 ]] --[[ Name: asyncInit ]]
             end;
             if v65 then
                 v28:trace("Polling for likely speaking users");
-                task.spawn(function() --[[ Line: 2760 ]]
-                    -- upvalues: v508 (copy)
-                    v508:SendLikelySpeakingPing();
+                task.spawn(function() --[[ Line: 2743 ]]
+                    -- upvalues: v507 (copy)
+                    v507:SendLikelySpeakingPing();
                 end);
             end;
-            if v508.AdService then
-                (function(v511) --[[ Line: 2766 ]] --[[ Name: setupRewardedAdMuting ]]
+            if v507.AdService then
+                (function(v510) --[[ Line: 2749 ]] --[[ Name: setupRewardedAdMuting ]]
                     -- upvalues: v17 (ref)
-                    local v512 = false;
-                    v511.AdService.RewardedVideoAdStarted:Connect(function() --[[ Line: 2768 ]]
-                        -- upvalues: v511 (copy), v512 (ref), v17 (ref)
-                        if v511.localMuted == nil then
+                    local v511 = false;
+                    v510.AdService.RewardedVideoAdStarted:Connect(function() --[[ Line: 2751 ]]
+                        -- upvalues: v510 (copy), v511 (ref), v17 (ref)
+                        if v510.localMuted == nil then
                             return;
                         else
-                            v512 = v511.localMuted;
-                            if not v511.localMuted then
-                                v511:ToggleMic(v17.REWARDED_VIDEO_AD_STARTED);
+                            v511 = v510.localMuted;
+                            if not v510.localMuted then
+                                v510:ToggleMic(v17.REWARDED_VIDEO_AD_STARTED);
                             end;
-                            v511.isPlayerWatchingAd = true;
+                            v510.isPlayerWatchingAd = true;
                             return;
                         end;
                     end);
-                    v511.AdService.RewardedVideoAdEnded:Connect(function() --[[ Line: 2784 ]]
-                        -- upvalues: v511 (copy), v512 (ref), v17 (ref)
-                        if v511.localMuted == nil then
+                    v510.AdService.RewardedVideoAdEnded:Connect(function() --[[ Line: 2767 ]]
+                        -- upvalues: v510 (copy), v511 (ref), v17 (ref)
+                        if v510.localMuted == nil then
                             return;
                         else
-                            v511.isPlayerWatchingAd = false;
-                            if v512 ~= v511.localMuted then
-                                v511:ToggleMic(v17.REWARDED_VIDEO_AD_ENDED);
+                            v510.isPlayerWatchingAd = false;
+                            if v511 ~= v510.localMuted then
+                                v510:ToggleMic(v17.REWARDED_VIDEO_AD_ENDED);
                             end;
                             return;
                         end;
                     end);
-                end)(v508);
+                end)(v507);
             end;
-            if l_FFlagEnablePartyVoiceChangersInLua_0 and not v508.voiceChangerWasToggledEvent then
-                task.spawn(function() --[[ Line: 2804 ]]
-                    -- upvalues: v508 (copy), v34 (ref)
-                    local l_v508_VoiceChangerWasToggledEvent_0 = v508:GetVoiceChangerWasToggledEvent();
-                    if l_v508_VoiceChangerWasToggledEvent_0 then
-                        l_v508_VoiceChangerWasToggledEvent_0.OnClientEvent:Connect(function(v514, v515) --[[ Line: 2808 ]]
-                            -- upvalues: v34 (ref), v508 (ref)
-                            local v516 = if v34 then v508.participants[tostring(v514)] else v508.participants[v514];
-                            if v516 then
-                                v516.isVoiceChangerActive = v515;
-                                v508.voiceChangerActivePlayers[v514] = v515;
-                                v508.participantsUpdate:Fire(v508.participants);
+            if l_FFlagEnablePartyVoiceChangersInLua_0 and not v507.voiceChangerWasToggledEvent then
+                task.spawn(function() --[[ Line: 2787 ]]
+                    -- upvalues: v507 (copy), v34 (ref)
+                    local l_v507_VoiceChangerWasToggledEvent_0 = v507:GetVoiceChangerWasToggledEvent();
+                    if l_v507_VoiceChangerWasToggledEvent_0 then
+                        l_v507_VoiceChangerWasToggledEvent_0.OnClientEvent:Connect(function(v513, v514) --[[ Line: 2791 ]]
+                            -- upvalues: v34 (ref), v507 (ref)
+                            local v515 = if v34 then v507.participants[tostring(v513)] else v507.participants[v513];
+                            if v515 then
+                                v515.isVoiceChangerActive = v514;
+                                v507.voiceChangerActivePlayers[v513] = v514;
+                                v507.participantsUpdate:Fire(v507.participants);
                             end;
                         end);
                     end;
                 end);
             end;
         end;
-        return v508.initPromise;
+        return v507.initPromise;
     end;
 end;
-v99.GetLikelySpeakingUsersEvent = function(v517) --[[ Line: 2828 ]] --[[ Name: GetLikelySpeakingUsersEvent ]]
+v98.GetLikelySpeakingUsersEvent = function(v516) --[[ Line: 2811 ]] --[[ Name: GetLikelySpeakingUsersEvent ]]
     -- upvalues: l_RobloxReplicatedStorage_0 (copy)
-    if not v517.LikelySpeakingUsersEvent then
-        v517.LikelySpeakingUsersEvent = l_RobloxReplicatedStorage_0:WaitForChild("SendLikelySpeakingUsers", 3);
+    if not v516.LikelySpeakingUsersEvent then
+        v516.LikelySpeakingUsersEvent = l_RobloxReplicatedStorage_0:WaitForChild("SendLikelySpeakingUsers", 3);
     end;
-    return v517.LikelySpeakingUsersEvent;
+    return v516.LikelySpeakingUsersEvent;
 end;
-v99.GetReceiveLikelySpeakingEvent = function(v518) --[[ Line: 2836 ]] --[[ Name: GetReceiveLikelySpeakingEvent ]]
+v98.GetReceiveLikelySpeakingEvent = function(v517) --[[ Line: 2819 ]] --[[ Name: GetReceiveLikelySpeakingEvent ]]
     -- upvalues: l_RobloxReplicatedStorage_0 (copy)
-    if not v518.ReceiveLikelySpeakingUsersEvent then
-        v518.ReceiveLikelySpeakingUsersEvent = l_RobloxReplicatedStorage_0:WaitForChild("ReceiveLikelySpeakingUsers", 3);
+    if not v517.ReceiveLikelySpeakingUsersEvent then
+        v517.ReceiveLikelySpeakingUsersEvent = l_RobloxReplicatedStorage_0:WaitForChild("ReceiveLikelySpeakingUsers", 3);
     end;
-    return v518.ReceiveLikelySpeakingUsersEvent;
+    return v517.ReceiveLikelySpeakingUsersEvent;
 end;
-v99.SendLikelySpeakingPing = function(v519) --[[ Line: 2844 ]] --[[ Name: SendLikelySpeakingPing ]]
+v98.SendLikelySpeakingPing = function(v518) --[[ Line: 2827 ]] --[[ Name: SendLikelySpeakingPing ]]
     -- upvalues: v28 (copy)
-    v519:FetchVoicePermissions();
-    local l_v519_ReceiveLikelySpeakingEvent_0 = v519:GetReceiveLikelySpeakingEvent();
-    if not l_v519_ReceiveLikelySpeakingEvent_0 or not v519:UserEligibleForLikelySpeakingBubbles() then
+    v518:FetchVoicePermissions();
+    local l_v518_ReceiveLikelySpeakingEvent_0 = v518:GetReceiveLikelySpeakingEvent();
+    if not l_v518_ReceiveLikelySpeakingEvent_0 or not v518:UserEligibleForLikelySpeakingBubbles() then
         v28:debug("Could not find likely speaking users event.");
         return;
     else
         v28:trace("Sending likely speaking user event");
-        l_v519_ReceiveLikelySpeakingEvent_0:FireServer();
+        l_v518_ReceiveLikelySpeakingEvent_0:FireServer();
         return;
     end;
 end;
-v99.IsInitialized = function(v521) --[[ Line: 2855 ]] --[[ Name: IsInitialized ]]
-    if v521.service then
+v98.IsInitialized = function(v520) --[[ Line: 2838 ]] --[[ Name: IsInitialized ]]
+    if v520.service then
         return true;
     else
         return false;
     end;
 end;
-v99.ensureInitialized = function(v522, v523) --[[ Line: 2859 ]] --[[ Name: ensureInitialized ]]
-    if not v522.service then
-        error("[corescripts VCS Manager] " .. "Attempting to " .. v523 .. " before calling init");
+v98.ensureInitialized = function(v521, v522) --[[ Line: 2842 ]] --[[ Name: ensureInitialized ]]
+    if not v521.service then
+        error("[corescripts VCS Manager] " .. "Attempting to " .. v522 .. " before calling init");
     end;
 end;
-v99.GetSessionId = function(v524) --[[ Line: 2866 ]] --[[ Name: GetSessionId ]]
-    v524:ensureInitialized("get session id");
-    return v524.service:GetSessionId();
+v98.GetSessionId = function(v523) --[[ Line: 2849 ]] --[[ Name: GetSessionId ]]
+    v523:ensureInitialized("get session id");
+    return v523.service:GetSessionId();
 end;
-v99.GetChannelId = function(v525) --[[ Line: 2871 ]] --[[ Name: GetChannelId ]]
-    v525:ensureInitialized("get channel id");
-    return v525.service:GetChannelId();
+v98.GetChannelId = function(v524) --[[ Line: 2854 ]] --[[ Name: GetChannelId ]]
+    v524:ensureInitialized("get channel id");
+    return v524.service:GetChannelId();
 end;
-v99.Disconnect = function(v526) --[[ Line: 2876 ]] --[[ Name: Disconnect ]]
+v98.Disconnect = function(v525) --[[ Line: 2859 ]] --[[ Name: Disconnect ]]
     -- upvalues: v73 (copy)
-    if v526.participantConnection then
-        v526.participantConnection:Disconnect();
-        v526.participantConnection = nil;
+    if v525.participantConnection then
+        v525.participantConnection:Disconnect();
+        v525.participantConnection = nil;
     end;
-    if v526.stateConnection then
-        v526.stateConnection:Disconnect();
-        v526.stateConnection = nil;
+    if v525.stateConnection then
+        v525.stateConnection:Disconnect();
+        v525.stateConnection = nil;
     end;
-    if v526.micConnection then
-        v526.micConnection:Disconnect();
-        v526.micConnection = nil;
+    if v525.micConnection then
+        v525.micConnection:Disconnect();
+        v525.micConnection = nil;
     end;
-    if v526.blockConnection then
-        v526.blockConnection:Disconnect();
-        v526.blockConnection = nil;
+    if v525.blockConnection then
+        v525.blockConnection:Disconnect();
+        v525.blockConnection = nil;
     end;
-    if v526.playerModeratedConnection then
-        v526.playerModeratedConnection:Disconnect();
-        v526.playerModeratedConnection = nil;
+    if v525.playerModeratedConnection then
+        v525.playerModeratedConnection:Disconnect();
+        v525.playerModeratedConnection = nil;
     end;
-    if v526.voiceToxicityModalConnection then
-        v526.voiceToxicityModalConnection:Disconnect();
-        v526.voiceToxicityModalConnection = nil;
+    if v525.voiceToxicityModalConnection then
+        v525.voiceToxicityModalConnection:Disconnect();
+        v525.voiceToxicityModalConnection = nil;
     end;
-    if v526.VoiceToxicityToastConnection then
-        v526.VoiceToxicityToastConnection:Disconnect();
-        v526.VoiceToxicityToastConnection = nil;
+    if v525.VoiceToxicityToastConnection then
+        v525.VoiceToxicityToastConnection:Disconnect();
+        v525.VoiceToxicityToastConnection = nil;
     end;
-    if v526.voiceReverseNudgeConnection then
-        v526.voiceReverseNudgeConnection:Disconnect();
-        v526.voiceReverseNudgeConnection = nil;
+    if v525.voiceReverseNudgeConnection then
+        v525.voiceReverseNudgeConnection:Disconnect();
+        v525.voiceReverseNudgeConnection = nil;
     end;
-    if v526.tempSetMicMutedToggleMicConnection then
-        v526.tempSetMicMutedToggleMicConnection:Disconnect();
-        v526.tempSetMicMutedToggleMicConnection = nil;
+    if v525.tempSetMicMutedToggleMicConnection then
+        v525.tempSetMicMutedToggleMicConnection:Disconnect();
+        v525.tempSetMicMutedToggleMicConnection = nil;
     end;
-    if v73 and v526.videoCaptureInProgressConnection then
-        v526.videoCaptureInProgressConnection:Disconnect();
-        v526.videoCaptureInProgressConnection = nil;
+    if v73 and v525.videoCaptureInProgressConnection then
+        v525.videoCaptureInProgressConnection:Disconnect();
+        v525.videoCaptureInProgressConnection = nil;
     end;
 end;
-v99.RequestHidePublicVoiceUI = function(v527) --[[ Line: 2927 ]] --[[ Name: RequestHidePublicVoiceUI ]]
-    task.defer(function() --[[ Line: 2928 ]]
+v98.RequestHidePublicVoiceUI = function(v526) --[[ Line: 2910 ]] --[[ Name: RequestHidePublicVoiceUI ]]
+    task.defer(function() --[[ Line: 2911 ]]
+        -- upvalues: v526 (copy)
+        v526.setVoiceUIVisibility:Fire(false);
+    end);
+end;
+v98.RequestShowPublicVoiceUI = function(v527) --[[ Line: 2916 ]] --[[ Name: RequestShowPublicVoiceUI ]]
+    task.defer(function() --[[ Line: 2917 ]]
         -- upvalues: v527 (copy)
-        v527.setVoiceUIVisibility:Fire(false);
+        v527.setVoiceUIVisibility:Fire(true);
     end);
 end;
-v99.RequestShowPublicVoiceUI = function(v528) --[[ Line: 2933 ]] --[[ Name: RequestShowPublicVoiceUI ]]
-    task.defer(function() --[[ Line: 2934 ]]
-        -- upvalues: v528 (copy)
-        v528.setVoiceUIVisibility:Fire(true);
-    end);
-end;
-v99.default = v99.new(v27:GetAfterBlockedStatusChangedEvent(), l_PermissionsProtocol_0.default, l_HttpRbxApiService_0, nil, nil, nil, nil, nil, l_ThirdPartyUserService_0, nil, l_AdService_0);
-return v99;
+v98.default = v98.new(v27:GetAfterBlockedStatusChangedEvent(), l_PermissionsProtocol_0.default, l_HttpRbxApiService_0, nil, nil, nil, nil, nil, l_ThirdPartyUserService_0, nil, l_AdService_0);
+return v98;

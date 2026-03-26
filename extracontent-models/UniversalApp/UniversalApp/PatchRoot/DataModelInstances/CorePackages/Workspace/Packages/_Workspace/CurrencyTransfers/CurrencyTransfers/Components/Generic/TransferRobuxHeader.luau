@@ -26,10 +26,11 @@ return function(v10) --[[ Line: 24 ]] --[[ Name: TransferRobuxHeader ]]
             tag = "row gap-small align-y-center align-x-start", 
             Size = UDim2.new(0.5, 0, 1, 0)
         }, {
-            RobuxAmount = v2.createElement(l_Text_0, {
+            Title = v2.createElement(l_Text_0, {
                 LayoutOrder = 1, 
-                Text = v10.titleText, 
-                tag = "auto-xy text-heading-small content-default text-align-x-left"
+                Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.PaperAirplane), v10.titleText), 
+                tag = "auto-xy text-heading-small content-default text-align-x-left", 
+                RichText = true
             })
         }), 
         RightSide = v2.createElement(l_View_0, {

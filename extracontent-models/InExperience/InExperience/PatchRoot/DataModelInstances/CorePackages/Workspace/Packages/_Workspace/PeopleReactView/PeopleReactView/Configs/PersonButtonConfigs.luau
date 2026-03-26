@@ -20,7 +20,8 @@ local l_GetFFlagNewPeopleButtonOrder_0 = v17.GetFFlagNewPeopleButtonOrder;
 local l_game_EngineFeature_0 = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId");
 local l_GetFFlagNewPeoplePageIcons_0 = v17.GetFFlagNewPeoplePageIcons;
 local l_GetFFlagAddPeoplePageCardLayout_0 = v17.GetFFlagAddPeoplePageCardLayout;
-local function v22() --[[ Line: 40 ]] --[[ Name: getPlaySessionId ]]
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local function v23() --[[ Line: 41 ]] --[[ Name: getPlaySessionId ]]
     -- upvalues: l_game_EngineFeature_0 (copy), l_RbxAnalyticsService_0 (copy)
     if l_game_EngineFeature_0 then
         return l_RbxAnalyticsService_0:GetPlaySessionId();
@@ -28,203 +29,205 @@ local function v22() --[[ Line: 40 ]] --[[ Name: getPlaySessionId ]]
         return "";
     end;
 end;
-return function(v23) --[[ Line: 65 ]] --[[ Name: usePersonButtonConfigs ]]
-    -- upvalues: v5 (copy), l_useDeviceOrientation_0 (copy), v10 (copy), l_useLocalization_0 (copy), v15 (copy), v6 (copy), l_Players_0 (copy), v22 (copy), l_useSignalState_0 (copy), l_GetFFlagAddPeoplePageCardLayout_0 (copy), v16 (copy), l_GetFFlagNewPeopleButtonOrder_0 (copy), l_GetFFlagNewPeoplePageIcons_0 (copy), l_ButtonVariant_0 (copy), l_GuiService_0 (copy)
-    local v24 = v5.getService("PeopleVoiceChatStore");
-    local v25 = v5.getService("PeopleReportAbuseMenu");
-    local v26 = v5.getService("PeopleAnalyticsManager");
-    local v27 = v5.getService("SettingsHubService");
-    local v28 = v5.getService("FriendStatusStore");
-    local v29 = v5.getService("PeopleBlockStatusStore");
-    local v30 = v5.getService("PeopleUtility");
-    local v31 = l_useDeviceOrientation_0() == v10.DeviceOrientationMode.Portrait;
-    local v32 = l_useLocalization_0({
+return function(v24) --[[ Line: 66 ]] --[[ Name: usePersonButtonConfigs ]]
+    -- upvalues: v5 (copy), l_useDeviceOrientation_0 (copy), v10 (copy), l_useLocalization_0 (copy), v15 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v6 (copy), l_Players_0 (copy), v23 (copy), l_useSignalState_0 (copy), l_GetFFlagAddPeoplePageCardLayout_0 (copy), v16 (copy), l_GetFFlagNewPeopleButtonOrder_0 (copy), l_GetFFlagNewPeoplePageIcons_0 (copy), l_ButtonVariant_0 (copy), l_GuiService_0 (copy)
+    local v25 = v5.getService("PeopleVoiceChatStore");
+    local v26 = v5.getService("PeopleReportAbuseMenu");
+    local v27 = v5.getService("PeopleAnalyticsManager");
+    local v28 = v5.getService("SettingsHubService");
+    local v29 = v5.getService("FriendStatusStore");
+    local v30 = v5.getService("PeopleBlockStatusStore");
+    local v31 = v5.getService("PeopleUtility");
+    local v32 = l_useDeviceOrientation_0() == v10.DeviceOrientationMode.Portrait;
+    local v33 = l_useLocalization_0({
         requestSent = v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.REQUEST_SENT, 
-        connection = v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.CONNECTION, 
-        addConnection = v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.ADD_CONNECTION, 
+        friend = if l_FFlagConnectionsToFriendsRename_0 then v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.FRIEND else nil, 
+        addFriend = if l_FFlagConnectionsToFriendsRename_0 then v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.ADD_FRIEND else nil, 
+        connection = if l_FFlagConnectionsToFriendsRename_0 then nil else v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.CONNECTION, 
+        addConnection = if l_FFlagConnectionsToFriendsRename_0 then nil else v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.ADD_CONNECTION, 
         unblock = v15.PEOPLEPAGE.PERSON_BUTTONS.LOCALIZED_STRINGS.UNBLOCK
     });
-    local v33 = v6.useMemo(function() --[[ Line: 86 ]]
-        -- upvalues: v32 (copy)
+    local v34 = v6.useMemo(function() --[[ Line: 100 ]]
+        -- upvalues: l_FFlagConnectionsToFriendsRename_0 (ref), v33 (copy)
         return {
-            isFriend = v32.connection, 
-            addPerson = v32.addConnection, 
-            requestSent = v32.requestSent
+            isFriend = if l_FFlagConnectionsToFriendsRename_0 then v33.friend else v33.connection, 
+            addPerson = if l_FFlagConnectionsToFriendsRename_0 then v33.addFriend else v33.addConnection, 
+            requestSent = v33.requestSent
         };
     end, {
-        v32
-    });
-    local v34 = v6.useMemo(function() --[[ Line: 94 ]]
-        -- upvalues: v23 (copy), l_Players_0 (ref)
-        if v23 then
-            return (l_Players_0:GetPlayerByUserId(v23));
-        else
-            return nil;
-        end;
-    end, {
-        v23
-    });
-    local v35 = v6.useMemo(v22, {});
-    local v36 = v24.getPlayerMuteState(v23);
-    local v37 = v24.getPlayerAnimatedIcon(v23);
-    local v38 = v24.getPlayerIsLocalMuted(v23);
-    local v39 = l_useSignalState_0(v24.getPlayerShouldShowMuteButton(v23));
-    local v40 = l_useSignalState_0(v28.getShouldShowFriendButton(v23, v34));
-    local v41 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 108 ]]
-        -- upvalues: v28 (copy), v23 (copy)
-        return v28.getFriendStatus(v23);
-    end, {
-        v23
-    }) else v28.getFriendStatus(v23);
-    local v42 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 115 ]]
-        -- upvalues: v28 (copy), v23 (copy), v33 (copy)
-        return v28.getFriendButtonText(v23, v33);
-    end, {
-        v23, 
         v33
-    }) else v28.getFriendButtonText(v23, v33);
-    local v43 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 122 ]]
-        -- upvalues: v28 (copy), v23 (copy)
-        return v28.getFriendButtonVariant(v23);
-    end, {
-        v23
-    }) else v28.getFriendButtonVariant(v23);
-    local v44 = v6.useMemo(function() --[[ Line: 128 ]]
-        -- upvalues: v23 (copy), v29 (copy)
-        if v23 then
-            return (v29.getPlayerBlockStatus(v23));
+    });
+    local v35 = v6.useMemo(function() --[[ Line: 110 ]]
+        -- upvalues: v24 (copy), l_Players_0 (ref)
+        if v24 then
+            return (l_Players_0:GetPlayerByUserId(v24));
         else
             return nil;
         end;
     end, {
-        v23
+        v24
     });
-    local v45 = l_useSignalState_0(v44);
-    local v46 = v6.useMemo(function() --[[ Line: 133 ]]
-        -- upvalues: v30 (copy), v34 (copy), v23 (copy)
-        return v30.showPersonButtons(v34, v23);
+    local v36 = v6.useMemo(v23, {});
+    local v37 = v25.getPlayerMuteState(v24);
+    local v38 = v25.getPlayerAnimatedIcon(v24);
+    local v39 = v25.getPlayerIsLocalMuted(v24);
+    local v40 = l_useSignalState_0(v25.getPlayerShouldShowMuteButton(v24));
+    local v41 = l_useSignalState_0(v29.getShouldShowFriendButton(v24, v35));
+    local v42 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 124 ]]
+        -- upvalues: v29 (copy), v24 (copy)
+        return v29.getFriendStatus(v24);
     end, {
-        v23
+        v24
+    }) else v29.getFriendStatus(v24);
+    local v43 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 131 ]]
+        -- upvalues: v29 (copy), v24 (copy), v34 (copy)
+        return v29.getFriendButtonText(v24, v34);
+    end, {
+        v24, 
+        v34
+    }) else v29.getFriendButtonText(v24, v34);
+    local v44 = if l_GetFFlagAddPeoplePageCardLayout_0() then v6.useMemo(function() --[[ Line: 138 ]]
+        -- upvalues: v29 (copy), v24 (copy)
+        return v29.getFriendButtonVariant(v24);
+    end, {
+        v24
+    }) else v29.getFriendButtonVariant(v24);
+    local v45 = v6.useMemo(function() --[[ Line: 144 ]]
+        -- upvalues: v24 (copy), v30 (copy)
+        if v24 then
+            return (v30.getPlayerBlockStatus(v24));
+        else
+            return nil;
+        end;
+    end, {
+        v24
     });
-    return (v6.useMemo(function() --[[ Line: 138 ]]
-        -- upvalues: v16 (ref), v37 (copy), v36 (copy), v39 (copy), v26 (copy), v23 (copy), v38 (copy), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v24 (copy), l_GetFFlagNewPeopleButtonOrder_0 (ref), v45 (copy), v32 (copy), l_GetFFlagNewPeoplePageIcons_0 (ref), v15 (ref), v46 (copy), v34 (copy), v29 (copy), l_ButtonVariant_0 (ref), v31 (copy), v42 (copy), v41 (copy), v43 (copy), v40 (copy), v28 (copy), v25 (copy), l_GuiService_0 (ref), v35 (copy), v27 (copy)
-        local v47 = {};
-        local v49 = {
+    local v46 = l_useSignalState_0(v45);
+    local v47 = v6.useMemo(function() --[[ Line: 149 ]]
+        -- upvalues: v31 (copy), v35 (copy), v24 (copy)
+        return v31.showPersonButtons(v35, v24);
+    end, {
+        v24
+    });
+    return (v6.useMemo(function() --[[ Line: 154 ]]
+        -- upvalues: v16 (ref), v38 (copy), v37 (copy), v40 (copy), v27 (copy), v24 (copy), v39 (copy), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v25 (copy), l_GetFFlagNewPeopleButtonOrder_0 (ref), v46 (copy), v33 (copy), l_GetFFlagNewPeoplePageIcons_0 (ref), v15 (ref), v47 (copy), v35 (copy), v30 (copy), l_ButtonVariant_0 (ref), v32 (copy), v43 (copy), v42 (copy), v44 (copy), v41 (copy), v29 (copy), v26 (copy), l_GuiService_0 (ref), v36 (copy), v28 (copy)
+        local v48 = {};
+        local v50 = {
             id = v16.PERSON_BUTTONS.MUTE_PLAYER, 
-            animatedIcon = v37, 
-            buttonState = v36, 
-            shouldShow = function() --[[ Line: 146 ]] --[[ Name: shouldShow ]]
-                -- upvalues: v39 (ref)
-                return v39;
+            animatedIcon = v38, 
+            buttonState = v37, 
+            shouldShow = function() --[[ Line: 162 ]] --[[ Name: shouldShow ]]
+                -- upvalues: v40 (ref)
+                return v40;
             end, 
-            onActivated = function(v48) --[[ Line: 149 ]] --[[ Name: onActivated ]]
-                -- upvalues: v26 (ref), v23 (ref), v38 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v24 (ref)
-                v26:trackToggleMutePlayer(v23, v38(false), if l_GetFFlagAddPeoplePageCardLayout_0() then v48 else nil);
-                v24.togglePlayerMute(v23);
+            onActivated = function(v49) --[[ Line: 165 ]] --[[ Name: onActivated ]]
+                -- upvalues: v27 (ref), v24 (ref), v39 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v25 (ref)
+                v27:trackToggleMutePlayer(v24, v39(false), if l_GetFFlagAddPeoplePageCardLayout_0() then v49 else nil);
+                v25.togglePlayerMute(v24);
             end, 
             layoutOrder = l_GetFFlagNewPeopleButtonOrder_0() and 30 or 10, 
-            isGrayedOut = v38, 
+            isGrayedOut = v39, 
             isBuilderIcon = false
         };
         if l_GetFFlagAddPeoplePageCardLayout_0() then
-            v47[v16.PERSON_BUTTONS.MUTE_PLAYER] = v49;
+            v48[v16.PERSON_BUTTONS.MUTE_PLAYER] = v50;
         else
-            table.insert(v47, v49);
+            table.insert(v48, v50);
         end;
-        local v51 = {
+        local v52 = {
             id = v16.PERSON_BUTTONS.BLOCK_PLAYER, 
-            text = if v45 then v32.unblock else nil, 
-            onIcon = if v45 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.BLOCK_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.BLOCK_LEGACY, 
-            shouldShow = function() --[[ Line: 179 ]] --[[ Name: shouldShow ]]
-                -- upvalues: v46 (ref)
-                return v46;
+            text = if v46 then v33.unblock else nil, 
+            onIcon = if v46 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.BLOCK_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.BLOCK_LEGACY, 
+            shouldShow = function() --[[ Line: 195 ]] --[[ Name: shouldShow ]]
+                -- upvalues: v47 (ref)
+                return v47;
             end, 
-            onActivated = function(v50) --[[ Line: 182 ]] --[[ Name: onActivated ]]
-                -- upvalues: v34 (ref), v45 (ref), v29 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref)
-                if v34 then
-                    if v45 then
-                        v29.unblockPlayer(v34, if l_GetFFlagAddPeoplePageCardLayout_0() then v50 else nil);
+            onActivated = function(v51) --[[ Line: 198 ]] --[[ Name: onActivated ]]
+                -- upvalues: v35 (ref), v46 (ref), v30 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref)
+                if v35 then
+                    if v46 then
+                        v30.unblockPlayer(v35, if l_GetFFlagAddPeoplePageCardLayout_0() then v51 else nil);
                         return;
                     else
-                        v29.blockPlayer(v34, if l_GetFFlagAddPeoplePageCardLayout_0() then v50 else nil);
+                        v30.blockPlayer(v35, if l_GetFFlagAddPeoplePageCardLayout_0() then v51 else nil);
                     end;
                 end;
             end, 
-            buttonVariant = if v45 then l_ButtonVariant_0.Subtle else nil, 
+            buttonVariant = if v46 then l_ButtonVariant_0.Subtle else nil, 
             layoutOrder = l_GetFFlagNewPeopleButtonOrder_0() and 10 or 40, 
             isBuilderIcon = l_GetFFlagNewPeoplePageIcons_0()
         };
         if l_GetFFlagAddPeoplePageCardLayout_0() then
-            v47[v16.PERSON_BUTTONS.BLOCK_PLAYER] = v51;
+            v48[v16.PERSON_BUTTONS.BLOCK_PLAYER] = v52;
         else
-            table.insert(v47, v51);
+            table.insert(v48, v52);
         end;
-        local v53 = {
+        local v54 = {
             id = v16.PERSON_BUTTONS.ADD_FRIEND, 
-            text = if v31 then nil else v42, 
-            onIcon = if not v31 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.ADD_FRIEND_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.ADD_FRIEND_LEGACY, 
-            offIcon = if not v31 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.FRIEND_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.FRIEND_LEGACY, 
-            buttonState = v41, 
-            buttonVariant = if v31 then nil else v43, 
-            shouldShow = function() --[[ Line: 222 ]] --[[ Name: shouldShow ]]
-                -- upvalues: v40 (ref)
-                return v40;
+            text = if v32 then nil else v43, 
+            onIcon = if not v32 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.ADD_FRIEND_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.ADD_FRIEND_LEGACY, 
+            offIcon = if not v32 then nil else if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.FRIEND_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.FRIEND_LEGACY, 
+            buttonState = v42, 
+            buttonVariant = if v32 then nil else v44, 
+            shouldShow = function() --[[ Line: 238 ]] --[[ Name: shouldShow ]]
+                -- upvalues: v41 (ref)
+                return v41;
             end, 
-            onActivated = function(v52) --[[ Line: 225 ]] --[[ Name: onActivated ]]
-                -- upvalues: v26 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v28 (ref), v34 (ref)
-                v26:trackRequestFriendship(if l_GetFFlagAddPeoplePageCardLayout_0() then v52 else nil);
-                v28.sendFriendRequest(v34);
+            onActivated = function(v53) --[[ Line: 241 ]] --[[ Name: onActivated ]]
+                -- upvalues: v27 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v29 (ref), v35 (ref)
+                v27:trackRequestFriendship(if l_GetFFlagAddPeoplePageCardLayout_0() then v53 else nil);
+                v29.sendFriendRequest(v35);
             end, 
             layoutOrder = 60, 
-            isDisabled = v28.getIsFriendButtonDisabled(v23), 
-            isGrayedOut = v28.getIsFriendButtonGrayedOut(v23), 
+            isDisabled = v29.getIsFriendButtonDisabled(v24), 
+            isGrayedOut = v29.getIsFriendButtonGrayedOut(v24), 
             isBuilderIcon = l_GetFFlagNewPeoplePageIcons_0()
         };
         if l_GetFFlagAddPeoplePageCardLayout_0() then
-            v47[v16.PERSON_BUTTONS.ADD_FRIEND] = v53;
+            v48[v16.PERSON_BUTTONS.ADD_FRIEND] = v54;
         else
-            table.insert(v47, v53);
+            table.insert(v48, v54);
         end;
-        local v55 = {
+        local v56 = {
             id = v16.PERSON_BUTTONS.REPORT_PLAYER, 
             onIcon = if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.REPORT_PLAYER_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.REPORT_PLAYER_LEGACY, 
-            shouldShow = function() --[[ Line: 251 ]] --[[ Name: shouldShow ]]
-                -- upvalues: v46 (ref)
-                return v46;
+            shouldShow = function() --[[ Line: 267 ]] --[[ Name: shouldShow ]]
+                -- upvalues: v47 (ref)
+                return v47;
             end, 
-            onActivated = function(v54) --[[ Line: 254 ]] --[[ Name: onActivated ]]
-                -- upvalues: v34 (ref), v25 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref)
-                if v34 then
-                    v25:ReportPlayer(v34, if l_GetFFlagAddPeoplePageCardLayout_0() then v54 else "MenuPlayerList");
+            onActivated = function(v55) --[[ Line: 270 ]] --[[ Name: onActivated ]]
+                -- upvalues: v35 (ref), v26 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref)
+                if v35 then
+                    v26:ReportPlayer(v35, if l_GetFFlagAddPeoplePageCardLayout_0() then v55 else "MenuPlayerList");
                 end;
             end, 
             layoutOrder = l_GetFFlagNewPeopleButtonOrder_0() and 40 or 30, 
             isBuilderIcon = l_GetFFlagNewPeoplePageIcons_0()
         };
         if l_GetFFlagAddPeoplePageCardLayout_0() then
-            v47[v16.PERSON_BUTTONS.REPORT_PLAYER] = v55;
+            v48[v16.PERSON_BUTTONS.REPORT_PLAYER] = v56;
         else
-            table.insert(v47, v55);
+            table.insert(v48, v56);
         end;
-        local v58 = {
+        local v59 = {
             id = v16.PERSON_BUTTONS.INSPECT, 
             onIcon = if l_GetFFlagNewPeoplePageIcons_0() then v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.INSPECT_NEW else v15.PEOPLEPAGE.PERSON_BUTTONS.ICON.INSPECT_LEGACY, 
-            shouldShow = function() --[[ Line: 278 ]] --[[ Name: shouldShow ]]
+            shouldShow = function() --[[ Line: 294 ]] --[[ Name: shouldShow ]]
                 -- upvalues: l_GuiService_0 (ref)
                 return l_GuiService_0:GetInspectMenuEnabled();
             end, 
-            onActivated = function(v56) --[[ Line: 281 ]] --[[ Name: onActivated ]]
-                -- upvalues: v34 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v26 (ref), v35 (ref), l_GuiService_0 (ref), v27 (ref)
-                if v34 then
+            onActivated = function(v57) --[[ Line: 297 ]] --[[ Name: onActivated ]]
+                -- upvalues: v35 (ref), l_GetFFlagAddPeoplePageCardLayout_0 (ref), v27 (ref), v36 (ref), l_GuiService_0 (ref), v28 (ref)
+                if v35 then
                     if l_GetFFlagAddPeoplePageCardLayout_0() then
-                        v26:trackInspectButton(game.GameId, v35, v56);
+                        v27:trackInspectButton(game.GameId, v36, v57);
                     else
-                        v26:trackInspectButton(game.GameId, v35);
+                        v27:trackInspectButton(game.GameId, v36);
                     end;
-                    l_GuiService_0:InspectPlayerFromUserIdWithCtx(v34.UserId, "escapeMenu");
-                    local v57 = v27.hubRef();
-                    if v57 then
-                        v57:SetVisibility(false);
+                    l_GuiService_0:InspectPlayerFromUserIdWithCtx(v35.UserId, "escapeMenu");
+                    local v58 = v28.hubRef();
+                    if v58 then
+                        v58:SetVisibility(false);
                     end;
                 end;
             end, 
@@ -232,20 +235,20 @@ return function(v23) --[[ Line: 65 ]] --[[ Name: usePersonButtonConfigs ]]
             isBuilderIcon = l_GetFFlagNewPeoplePageIcons_0()
         };
         if l_GetFFlagAddPeoplePageCardLayout_0() then
-            v47[v16.PERSON_BUTTONS.INSPECT] = v58;
-            return v47;
+            v48[v16.PERSON_BUTTONS.INSPECT] = v59;
+            return v48;
         else
-            table.insert(v47, v58);
-            return v47;
+            table.insert(v48, v59);
+            return v48;
         end;
     end, {
-        v39, 
         v40, 
+        v41, 
+        v47, 
         v46, 
-        v45, 
-        v31, 
-        v42, 
+        v32, 
         v43, 
-        v41
+        v44, 
+        v42
     }));
 end;

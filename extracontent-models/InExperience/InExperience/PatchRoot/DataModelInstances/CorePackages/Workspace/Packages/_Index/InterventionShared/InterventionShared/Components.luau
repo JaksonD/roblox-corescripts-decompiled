@@ -4,5 +4,6 @@ return {
     PartyChatNudgeCustomDialog = require(script.PartyChatNudgeCustomDialog), 
     PartyChatTimeoutCustomDialog = require(script.PartyChatTimeoutCustomDialog), 
     GenericInterventionSnackbar = require(script.genericComponents.GenericInterventionSnackbar), 
-    GenericInterventionDialog = require(script.genericComponents.GenericInterventionDialog)
+    GenericInterventionDialog = require(script.genericComponents.GenericInterventionDialog), 
+    UniversalFeatureRestrictionDialog = require(script.UniversalFeatureRestrictionDialog)
 };

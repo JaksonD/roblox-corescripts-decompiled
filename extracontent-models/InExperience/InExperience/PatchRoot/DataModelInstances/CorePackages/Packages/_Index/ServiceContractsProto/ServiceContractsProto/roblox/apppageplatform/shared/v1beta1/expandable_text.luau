@@ -6,14 +6,14 @@ local v4 = require(script.Parent.component_shared);
 local v5 = {};
 v5.__index = v5;
 local l_v5_0 = v5 --[[ copy: 5 -> 6 ]];
-v5.new = function(v7) --[[ Line: 87 ]] --[[ Name: new ]]
+v5.new = function(v7) --[[ Line: 89 ]] --[[ Name: new ]]
     -- upvalues: l_v5_0 (copy)
     return (setmetatable({
         props = if not (v7 ~= nil) or v7.props == nil then nil else v7.props, 
         shared = if not (v7 ~= nil) or v7.shared == nil then nil else v7.shared
     }, l_v5_0));
 end;
-v5.encode = function(v8) --[[ Line: 94 ]] --[[ Name: encode ]]
+v5.encode = function(v8) --[[ Line: 96 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v9 = buffer.create(0);
     local v10 = 0;
@@ -35,7 +35,7 @@ v5.encode = function(v8) --[[ Line: 94 ]] --[[ Name: encode ]]
     buffer.copy(v17, 0, v9, 0, v10);
     return v17;
 end;
-v5.decode = function(v18) --[[ Line: 115 ]] --[[ Name: decode ]]
+v5.decode = function(v18) --[[ Line: 117 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_0 (copy), v0 (copy), v2 (copy), v4 (copy)
     local v19 = l_v5_0.new();
     local v20 = 0;
@@ -85,7 +85,7 @@ v5.decode = function(v18) --[[ Line: 115 ]] --[[ Name: decode ]]
     end;
     return v19;
 end;
-v5.jsonEncode = function(v26) --[[ Line: 163 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v26) --[[ Line: 165 ]] --[[ Name: jsonEncode ]]
     local v27 = {};
     if v26.props ~= nil then
         v27.props = v26.props:jsonEncode();
@@ -95,7 +95,7 @@ v5.jsonEncode = function(v26) --[[ Line: 163 ]] --[[ Name: jsonEncode ]]
     end;
     return v27;
 end;
-v5.jsonDecode = function(v28) --[[ Line: 177 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v28) --[[ Line: 179 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_0 (copy), v2 (copy), v4 (copy)
     local v29 = l_v5_0.new();
     if v28.props ~= nil then
@@ -114,7 +114,7 @@ v2.ExpandableTextSchema = v5;
 v1.default:register(v2.ExpandableTextSchema);
 v5 = {};
 v5.__index = v5;
-v5.new = function(v30) --[[ Line: 206 ]] --[[ Name: new ]]
+v5.new = function(v30) --[[ Line: 208 ]] --[[ Name: new ]]
     -- upvalues: v5 (copy)
     return (setmetatable({
         text = if not (v30 ~= nil) or v30.text == nil then nil else v30.text, 
@@ -123,10 +123,11 @@ v5.new = function(v30) --[[ Line: 206 ]] --[[ Name: new ]]
         layout_order = if not (v30 ~= nil) or v30.layout_order == nil then nil else v30.layout_order, 
         anchor_point = if not (v30 ~= nil) or v30.anchor_point == nil then nil else v30.anchor_point, 
         position = if not (v30 ~= nil) or v30.position == nil then nil else v30.position, 
-        size = if not (v30 ~= nil) or v30.size == nil then nil else v30.size
+        size = if not (v30 ~= nil) or v30.size == nil then nil else v30.size, 
+        header_component = if not (v30 ~= nil) or v30.header_component == nil then nil else v30.header_component
     }, v5));
 end;
-v5.encode = function(v31) --[[ Line: 222 ]] --[[ Name: encode ]]
+v5.encode = function(v31) --[[ Line: 225 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v32 = buffer.create(0);
     local v33 = 0;
@@ -179,152 +180,174 @@ v5.encode = function(v31) --[[ Line: 222 ]] --[[ Name: encode ]]
         v32 = v53;
         v33 = v54;
     end;
-    local v55 = buffer.create(v33);
-    buffer.copy(v55, 0, v32, 0, v33);
-    return v55;
+    if v31.header_component ~= nil then
+        local v55 = v31.header_component:encode();
+        local v56, v57 = v0.writeTag(v32, v33, 8, v0.wireTypes.lengthDelimited);
+        v56, v57 = v0.writeBuffer(v56, v57, v55, buffer.len(v55));
+        v32 = v56;
+        v33 = v57;
+    end;
+    local v58 = buffer.create(v33);
+    buffer.copy(v58, 0, v32, 0, v33);
+    return v58;
 end;
-v5.decode = function(v56) --[[ Line: 273 ]] --[[ Name: decode ]]
+v5.decode = function(v59) --[[ Line: 282 ]] --[[ Name: decode ]]
     -- upvalues: v5 (copy), v0 (copy), v3 (copy)
-    local v57 = v5.new();
-    local v58 = 0;
-    while v58 < buffer.len(v56) do
-        local v59 = nil;
-        local v60 = nil;
-        local v61, v62, v63 = v0.readTag(v56, v58);
-        v59 = v61;
-        v60 = v62;
-        v58 = v63;
-        if v60 == v0.wireTypes.varint then
-            v61 = nil;
-            v62, v63 = v0.readVarInt(v56, v58);
-            v61 = v62;
-            v58 = v63;
-        elseif v60 == v0.wireTypes.lengthDelimited then
-            if v59 == 1 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.text = v3.StringProp.decode(v61);
-            elseif v59 == 2 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.compact_number_of_lines = v3.Int32Prop.decode(v61);
-            elseif v59 == 3 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.expanded_initially = v3.BoolProp.decode(v61);
-            elseif v59 == 4 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.layout_order = v3.Int32Prop.decode(v61);
-            elseif v59 == 5 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.anchor_point = v3.Vector2Prop.decode(v61);
-            elseif v59 == 6 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.position = v3.UDim2Prop.decode(v61);
-            elseif v59 == 7 then
-                v61 = nil;
-                v62, v63 = v0.readBuffer(v56, v58);
-                v61 = v62;
-                v58 = v63;
-                v57.size = v3.UDim2Prop.decode(v61);
+    local v60 = v5.new();
+    local v61 = 0;
+    while v61 < buffer.len(v59) do
+        local v62 = nil;
+        local v63 = nil;
+        local v64, v65, v66 = v0.readTag(v59, v61);
+        v62 = v64;
+        v63 = v65;
+        v61 = v66;
+        if v63 == v0.wireTypes.varint then
+            v64 = nil;
+            v65, v66 = v0.readVarInt(v59, v61);
+            v64 = v65;
+            v61 = v66;
+        elseif v63 == v0.wireTypes.lengthDelimited then
+            if v62 == 1 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.text = v3.StringProp.decode(v64);
+            elseif v62 == 2 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.compact_number_of_lines = v3.Int32Prop.decode(v64);
+            elseif v62 == 3 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.expanded_initially = v3.BoolProp.decode(v64);
+            elseif v62 == 4 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.layout_order = v3.Int32Prop.decode(v64);
+            elseif v62 == 5 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.anchor_point = v3.Vector2Prop.decode(v64);
+            elseif v62 == 6 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.position = v3.UDim2Prop.decode(v64);
+            elseif v62 == 7 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.size = v3.UDim2Prop.decode(v64);
+            elseif v62 == 8 then
+                v64 = nil;
+                v65, v66 = v0.readBuffer(v59, v61);
+                v64 = v65;
+                v61 = v66;
+                v60.header_component = v3.NestedComponentProp.decode(v64);
             else
-                v61 = nil;
-                v62, v63 = v0.readVarInt(v56, v58);
-                v58 = v63 + v62;
+                v64 = nil;
+                v65, v66 = v0.readVarInt(v59, v61);
+                v61 = v66 + v65;
             end;
-        elseif v60 == v0.wireTypes.i32 then
-            v61 = nil;
-            v62, v63 = v0.readFixed32(v56, v58);
-            v61 = v62;
-            v58 = v63;
-        elseif v60 == v0.wireTypes.i64 then
-            v61 = nil;
-            v62, v63 = v0.readFixed64(v56, v58);
-            v61 = v62;
-            v58 = v63;
+        elseif v63 == v0.wireTypes.i32 then
+            v64 = nil;
+            v65, v66 = v0.readFixed32(v59, v61);
+            v64 = v65;
+            v61 = v66;
+        elseif v63 == v0.wireTypes.i64 then
+            v64 = nil;
+            v65, v66 = v0.readFixed64(v59, v61);
+            v64 = v65;
+            v61 = v66;
         else
-            error("Unsupported wire type: " .. v60);
+            error("Unsupported wire type: " .. v63);
         end;
     end;
-    return v57;
+    return v60;
 end;
-v5.jsonEncode = function(v64) --[[ Line: 347 ]] --[[ Name: jsonEncode ]]
-    local v65 = {};
-    if v64.text ~= nil then
-        v65.text = v64.text:jsonEncode();
+v5.jsonEncode = function(v67) --[[ Line: 362 ]] --[[ Name: jsonEncode ]]
+    local v68 = {};
+    if v67.text ~= nil then
+        v68.text = v67.text:jsonEncode();
     end;
-    if v64.compact_number_of_lines ~= nil then
-        v65.compactNumberOfLines = v64.compact_number_of_lines:jsonEncode();
+    if v67.compact_number_of_lines ~= nil then
+        v68.compactNumberOfLines = v67.compact_number_of_lines:jsonEncode();
     end;
-    if v64.expanded_initially ~= nil then
-        v65.expandedInitially = v64.expanded_initially:jsonEncode();
+    if v67.expanded_initially ~= nil then
+        v68.expandedInitially = v67.expanded_initially:jsonEncode();
     end;
-    if v64.layout_order ~= nil then
-        v65.layoutOrder = v64.layout_order:jsonEncode();
+    if v67.layout_order ~= nil then
+        v68.layoutOrder = v67.layout_order:jsonEncode();
     end;
-    if v64.anchor_point ~= nil then
-        v65.anchorPoint = v64.anchor_point:jsonEncode();
+    if v67.anchor_point ~= nil then
+        v68.anchorPoint = v67.anchor_point:jsonEncode();
     end;
-    if v64.position ~= nil then
-        v65.position = v64.position:jsonEncode();
+    if v67.position ~= nil then
+        v68.position = v67.position:jsonEncode();
     end;
-    if v64.size ~= nil then
-        v65.size = v64.size:jsonEncode();
+    if v67.size ~= nil then
+        v68.size = v67.size:jsonEncode();
     end;
-    return v65;
+    if v67.header_component ~= nil then
+        v68.headerComponent = v67.header_component:jsonEncode();
+    end;
+    return v68;
 end;
-v5.jsonDecode = function(v66) --[[ Line: 381 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v69) --[[ Line: 400 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v5 (copy), v3 (copy)
-    local v67 = v5.new();
-    if v66.text ~= nil then
-        v67.text = v3.StringProp.jsonDecode(v66.text);
+    local v70 = v5.new();
+    if v69.text ~= nil then
+        v70.text = v3.StringProp.jsonDecode(v69.text);
     end;
-    if v66.compact_number_of_lines ~= nil then
-        v67.compact_number_of_lines = v3.Int32Prop.jsonDecode(v66.compact_number_of_lines);
+    if v69.compact_number_of_lines ~= nil then
+        v70.compact_number_of_lines = v3.Int32Prop.jsonDecode(v69.compact_number_of_lines);
     end;
-    if v66.compactNumberOfLines ~= nil then
-        v67.compact_number_of_lines = v3.Int32Prop.jsonDecode(v66.compactNumberOfLines);
+    if v69.compactNumberOfLines ~= nil then
+        v70.compact_number_of_lines = v3.Int32Prop.jsonDecode(v69.compactNumberOfLines);
     end;
-    if v66.expanded_initially ~= nil then
-        v67.expanded_initially = v3.BoolProp.jsonDecode(v66.expanded_initially);
+    if v69.expanded_initially ~= nil then
+        v70.expanded_initially = v3.BoolProp.jsonDecode(v69.expanded_initially);
     end;
-    if v66.expandedInitially ~= nil then
-        v67.expanded_initially = v3.BoolProp.jsonDecode(v66.expandedInitially);
+    if v69.expandedInitially ~= nil then
+        v70.expanded_initially = v3.BoolProp.jsonDecode(v69.expandedInitially);
     end;
-    if v66.layout_order ~= nil then
-        v67.layout_order = v3.Int32Prop.jsonDecode(v66.layout_order);
+    if v69.layout_order ~= nil then
+        v70.layout_order = v3.Int32Prop.jsonDecode(v69.layout_order);
     end;
-    if v66.layoutOrder ~= nil then
-        v67.layout_order = v3.Int32Prop.jsonDecode(v66.layoutOrder);
+    if v69.layoutOrder ~= nil then
+        v70.layout_order = v3.Int32Prop.jsonDecode(v69.layoutOrder);
     end;
-    if v66.anchor_point ~= nil then
-        v67.anchor_point = v3.Vector2Prop.jsonDecode(v66.anchor_point);
+    if v69.anchor_point ~= nil then
+        v70.anchor_point = v3.Vector2Prop.jsonDecode(v69.anchor_point);
     end;
-    if v66.anchorPoint ~= nil then
-        v67.anchor_point = v3.Vector2Prop.jsonDecode(v66.anchorPoint);
+    if v69.anchorPoint ~= nil then
+        v70.anchor_point = v3.Vector2Prop.jsonDecode(v69.anchorPoint);
     end;
-    if v66.position ~= nil then
-        v67.position = v3.UDim2Prop.jsonDecode(v66.position);
+    if v69.position ~= nil then
+        v70.position = v3.UDim2Prop.jsonDecode(v69.position);
     end;
-    if v66.size ~= nil then
-        v67.size = v3.UDim2Prop.jsonDecode(v66.size);
+    if v69.size ~= nil then
+        v70.size = v3.UDim2Prop.jsonDecode(v69.size);
     end;
-    return v67;
+    if v69.header_component ~= nil then
+        v70.header_component = v3.NestedComponentProp.jsonDecode(v69.header_component);
+    end;
+    if v69.headerComponent ~= nil then
+        v70.header_component = v3.NestedComponentProp.jsonDecode(v69.headerComponent);
+    end;
+    return v70;
 end;
 v5.descriptor = {
     name = "ExpandableTextSchema_Props", 

@@ -22,13 +22,13 @@ local l_selectFormData_0 = v12.selectFormData;
 local l_sendAnalyticsEvent_0 = v9.sendAnalyticsEvent;
 local l_TelemetryEventType_0 = v9.TelemetryEventType;
 local l_FFlagFixAnalyticsForDynamicReportV2_0 = require(l_Parent_0.SharedFlags).FFlagFixAnalyticsForDynamicReportV2;
-local function v33(v24, v25, v26) --[[ Line: 47 ]] --[[ Name: useAbuseSheetAnalytics ]]
+local function v33(v24, v25, v26) --[[ Line: 46 ]] --[[ Name: useAbuseSheetAnalytics ]]
     -- upvalues: v3 (copy), v2 (copy), l_sendAnalyticsEvent_0 (copy)
-    return (v3.useCallback(function(v27) --[[ Line: 48 ]]
+    return (v3.useCallback(function(v27) --[[ Line: 47 ]]
         -- upvalues: v24 (copy), v2 (ref), v25 (copy), v26 (copy), l_sendAnalyticsEvent_0 (ref)
         local l_UnixTimestampMillis_0 = DateTime.now().UnixTimestampMillis;
         local v29 = if v24.openTime then l_UnixTimestampMillis_0 - v24.openTime else 0;
-        local v31 = v2.map(v24.stack, function(v30) --[[ Line: 51 ]]
+        local v31 = v2.map(v24.stack, function(v30) --[[ Line: 50 ]]
             return v30.nodeId;
         end);
         local v32 = {
@@ -48,26 +48,26 @@ local function v33(v24, v25, v26) --[[ Line: 47 ]] --[[ Name: useAbuseSheetAnaly
         v26
     }));
 end;
-return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
+return function(v34, v35) --[[ Line: 82 ]] --[[ Name: useAbuseSheetFlow ]]
     -- upvalues: v3 (copy), l_reducer_0 (copy), l_getInitialState_0 (copy), l_getNewRunId_0 (copy), v16 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), v33 (copy), l_selectContext_0 (copy), l_selectFormData_0 (copy), l_resolveArConfig_0 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (copy), l_TelemetryEventType_0 (copy), v2 (copy), v14 (copy), v10 (copy)
     local l_UnixTimestampMillis_1 = DateTime.now().UnixTimestampMillis;
     local v37, v38 = v3.useReducer(l_reducer_0, l_getInitialState_0(l_getNewRunId_0(), l_UnixTimestampMillis_1));
     local v39 = v16();
     local v40 = l_useRoactService_0(l_RoactNetworking_0);
     local v41 = v33(v37, v35.abuseVector, v35.targetId);
-    local v42 = v3.useMemo(function() --[[ Line: 100 ]]
+    local v42 = v3.useMemo(function() --[[ Line: 99 ]]
         -- upvalues: l_selectContext_0 (ref), v37 (copy)
         return l_selectContext_0(v37);
     end, {
         v37
     });
-    local v43 = v3.useMemo(function() --[[ Line: 104 ]]
+    local v43 = v3.useMemo(function() --[[ Line: 103 ]]
         -- upvalues: l_selectFormData_0 (ref), v37 (copy)
         return l_selectFormData_0(v37);
     end, {
         v37
     });
-    local v44 = v3.useMemo(function() --[[ Line: 108 ]]
+    local v44 = v3.useMemo(function() --[[ Line: 107 ]]
         -- upvalues: v34 (copy), l_resolveArConfig_0 (ref), v42 (copy), v43 (copy)
         if not v34 then
             return nil;
@@ -86,7 +86,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
     });
     local v45 = v3.useRef(true);
     local v46 = v3.useRef(false);
-    v3.useEffect(function() --[[ Line: 123 ]]
+    v3.useEffect(function() --[[ Line: 122 ]]
         -- upvalues: v35 (copy), v45 (copy), l_getNewRunId_0 (ref), v38 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v46 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
         if v35.open and not v45.current then
             local v47 = l_getNewRunId_0();
@@ -146,7 +146,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
             });
         end;
     end;
-    v3.useEffect(function() --[[ Line: 172 ]]
+    v3.useEffect(function() --[[ Line: 171 ]]
         -- upvalues: l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v35 (copy), v46 (copy), v34 (copy), v49 (copy), v41 (copy), l_TelemetryEventType_0 (ref), v44 (copy), v50 (copy)
         if not l_FFlagFixAnalyticsForDynamicReportV2_0 or not v35.open or v46.current then
             return;
@@ -199,7 +199,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
         v50, 
         v41
     });
-    local function v51() --[[ Line: 209 ]] --[[ Name: handleClose ]]
+    local function v51() --[[ Line: 208 ]] --[[ Name: handleClose ]]
         -- upvalues: v35 (copy), v37 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
         v35.onClose();
         if v37.submissionState ~= "completed" and v37.openTime ~= nil then
@@ -214,7 +214,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
             return;
         end;
     end;
-    v3.useEffect(function() --[[ Line: 227 ]]
+    v3.useEffect(function() --[[ Line: 226 ]]
         -- upvalues: v44 (copy), v50 (copy), v37 (copy), v2 (ref), v35 (copy), v38 (copy), v39 (copy), v51 (copy), v14 (ref), v40 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
         if not v44 or not v50 then
             return;
@@ -229,7 +229,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
                 warn((("Navigation triggered but no config found for nodeId: %*"):format(v52.nodeId)));
                 return;
             else
-                local function v55(v53) --[[ Line: 249 ]] --[[ Name: handleNextSimple ]]
+                local function v55(v53) --[[ Line: 248 ]] --[[ Name: handleNextSimple ]]
                     -- upvalues: v35 (ref), v38 (ref), v39 (ref), v51 (ref)
                     if not v53 then
                         warn("handleNextSimple called with nil next value");
@@ -269,7 +269,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
                         end;
                     end;
                 end;
-                local function _() --[[ Line: 285 ]] --[[ Name: onSubmitForm ]]
+                local function _() --[[ Line: 284 ]] --[[ Name: onSubmitForm ]]
                     -- upvalues: v44 (ref), v14 (ref), v40 (ref)
                     local l_submission_0 = v44.submission;
                     return v14(v40, l_submission_0.endpoint, l_submission_0.data);
@@ -288,7 +288,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
                         type = "startedSubmission"
                     });
                     local l_submission_1 = v44.submission;
-                    v14(v40, l_submission_1.endpoint, l_submission_1.data):andThen(function(v61) --[[ Line: 300 ]]
+                    v14(v40, l_submission_1.endpoint, l_submission_1.data):andThen(function(v61) --[[ Line: 299 ]]
                         -- upvalues: v38 (ref), v41 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), v55 (copy), l_next_0 (copy)
                         v38({
                             type = "completedSubmission"
@@ -301,7 +301,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
                             }
                         });
                         v55(l_next_0.onSuccess);
-                    end):catch(function() --[[ Line: 311 ]]
+                    end):catch(function() --[[ Line: 310 ]]
                         -- upvalues: v38 (ref), v41 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), l_next_0 (copy), v55 (copy)
                         v38({
                             type = "submissionFailed"
@@ -330,7 +330,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
     if #v37.stack > 1 then
         v62 = not (v37.submissionState == "completed");
     end;
-    local function v64() --[[ Line: 327 ]] --[[ Name: goBack ]]
+    local function v64() --[[ Line: 326 ]] --[[ Name: goBack ]]
         -- upvalues: v44 (copy), v50 (copy), v49 (copy), v62 (copy), v38 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
         if not v44 or not v50 or not v49 then
             return;
@@ -354,7 +354,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
         end;
     end;
     local v65 = v50 and v50.next ~= nil;
-    local function v68(v66) --[[ Line: 347 ]] --[[ Name: onNext ]]
+    local function v68(v66) --[[ Line: 346 ]] --[[ Name: onNext ]]
         -- upvalues: v44 (copy), v50 (copy), v49 (copy), v38 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
         if not v44 or not v50 or not v49 then
             return;
@@ -379,7 +379,7 @@ return function(v34, v35) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
             return;
         end;
     end;
-    local v69 = v3.useMemo(function() --[[ Line: 370 ]]
+    local v69 = v3.useMemo(function() --[[ Line: 369 ]]
         -- upvalues: v41 (copy)
         return {
             sendEvent = v41

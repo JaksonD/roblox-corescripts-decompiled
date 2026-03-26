@@ -22,7 +22,7 @@ local v20 = require(l_Modules_0.LuaApp.Enum.RetrievalStatus);
 local v21 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.InventoryItemsList.LoadMoreButton);
 local v22 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.SubcategoryFilters.SubcategoryFiltersPill);
 local v23 = require(l_Modules_0.LuaApp.Components.LoadingBarWithTheme);
-local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.AnalyticsMetadata);
+local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
 local v25 = require(l_Modules_0.AvatarExperience.Common.Components.WidgetList.Utils.getItemCountForRow);
 local l_TagBasedImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).TagBasedImpressionsDetector;
 local l_useUnifiedEventImpressionsReporter_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).useUnifiedEventImpressionsReporter;
@@ -43,10 +43,10 @@ local l_AvatarEditorSubcategories_0 = v6.Enums.AvatarEditorSubcategories;
 local l_FFlagAXItemDetailsIxpExposure_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXItemDetailsIxpExposure;
 local l_FFlagAXInventoryItemsListImpressionLogging_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXInventoryItemsListImpressionLogging;
 local _ = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local function v46(v45) --[[ Line: 104 ]]
+local function v46(v45) --[[ Line: 105 ]]
     return v45.ScreenSize;
 end;
-return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
+return function(v47) --[[ Line: 111 ]] --[[ Name: InventoryItemsList ]]
     -- upvalues: v4 (copy), v2 (copy), l_GridMetrics_0 (copy), v3 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (copy), v25 (copy), l_FFlagAXSlotsInventoryLoadableGridView_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), l_FFlagAXBodyPartsPillLabel_0 (copy), l_useSelector_0 (copy), v46 (copy), l_FFlagAXInventoryItemsListImpressionLogging_0 (copy), l_FFlagAXItemDetailsIxpExposure_0 (copy), l_useUnifiedEventImpressionsReporter_0 (copy), v20 (copy), v37 (copy), v36 (copy), l_EmptyState_0 (copy), l_FFlagAXGeneralizeInventoryItemsList_0 (copy), l_FFlagAXSlotsScrollAway_0 (copy), l_AvatarEditorSubcategories_0 (copy), v22 (copy), v13 (copy), l_AvatarScreen_0 (copy), l_FFlagAXItemCardSelectedOverlayBorderInsteadOfCheckmark_0 (copy), v15 (copy), v35 (copy), v38 (copy), l_Grid_0 (copy), v19 (copy), v21 (copy), v23 (copy), v18 (copy), v16 (copy), l_ImpressionEnums_0 (copy), l_TagBasedImpressionsDetector_0 (copy)
     local v48 = v4.useRef(nil);
     local l_items_0 = v47.items;
@@ -79,7 +79,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
     if l_FFlagAXInventoryItemsListImpressionLogging_0 and l_FFlagAXItemDetailsIxpExposure_0 then
         local v70 = l_useUnifiedEventImpressionsReporter_0();
         local l_v70_0 = v70 --[[ copy: 24 -> 26 ]];
-        v69 = v4.useMemo(function() --[[ Line: 156 ]]
+        v69 = v4.useMemo(function() --[[ Line: 157 ]]
             -- upvalues: l_v70_0 (copy)
             return {
                 l_v70_0
@@ -88,13 +88,13 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
             v70
         });
     end;
-    v4.useEffect(function() --[[ Line: 163 ]]
+    v4.useEffect(function() --[[ Line: 164 ]]
         -- upvalues: v47 (copy)
         v47.requestImpressionsSignal:fire();
     end, {
         v47.requestImpressionsSignal
     });
-    v4.useEffect(function() --[[ Line: 168 ]]
+    v4.useEffect(function() --[[ Line: 169 ]]
         -- upvalues: l_fetchStatus_0 (copy), v20 (ref), l_fetchUserInventory_0 (copy)
         if l_fetchStatus_0 == v20.NotStarted then
             l_fetchUserInventory_0();
@@ -103,7 +103,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
         l_fetchStatus_0, 
         l_fetchUserInventory_0
     });
-    v4.useEffect(function() --[[ Line: 175 ]]
+    v4.useEffect(function() --[[ Line: 176 ]]
         -- upvalues: v56 (copy)
         if v56.current then
             v56.current.CanvasPosition = Vector2.new();
@@ -112,7 +112,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
         l_categoryInfo_0, 
         v47.subcategoryFilter
     });
-    local v76 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v4.useCallback(function(v72, v73, v74) --[[ Line: 182 ]]
+    local v76 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v4.useCallback(function(v72, v73, v74) --[[ Line: 183 ]]
         -- upvalues: v47 (copy)
         local v75 = {
             item = v72, 
@@ -123,7 +123,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
     end, {
         v47.renderItem
     }) else nil;
-    local v79 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v4.useMemo(function() --[[ Line: 193 ]]
+    local v79 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v4.useMemo(function() --[[ Line: 194 ]]
         -- upvalues: v66 (copy), v63 (ref), v37 (ref), v36 (ref), l_categoryInfo_0 (copy)
         local l_Font_0 = v66.Font;
         local v78 = l_Font_0.CaptionBody.RelativeSize * l_Font_0.BaseSize;
@@ -145,7 +145,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
         return v4.createElement(v2.View, {
             tag = l_FFlagAXGeneralizeInventoryItemsList_0 and "size-full" or "size-full bg-surface-0 padding-x-medium", 
             ref = v48, 
-            onAbsoluteSizeChanged = function(v80) --[[ Line: 219 ]] --[[ Name: onAbsoluteSizeChanged ]]
+            onAbsoluteSizeChanged = function(v80) --[[ Line: 220 ]] --[[ Name: onAbsoluteSizeChanged ]]
                 -- upvalues: v59 (copy)
                 v59(v80.AbsoluteSize.X);
             end
@@ -212,7 +212,7 @@ return function(v47) --[[ Line: 110 ]] --[[ Name: InventoryItemsList ]]
                             items = l_items_0, 
                             gapVertical = l_Medium_0, 
                             gapHorizontal = l_Medium_0, 
-                            getItemId = function(v81) --[[ Line: 303 ]] --[[ Name: getItemId ]]
+                            getItemId = function(v81) --[[ Line: 304 ]] --[[ Name: getItemId ]]
                                 -- upvalues: v65 (ref)
                                 return (("%*%*"):format(v81.itemId, v65));
                             end, 

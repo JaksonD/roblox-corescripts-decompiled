@@ -40,70 +40,77 @@ local v38 = require(l_script_FirstAncestor_0.Hooks.useExternalNavigationByScreen
 local v39 = require(l_script_FirstAncestor_0.Hooks.useAppChatIsWideMode);
 local l_FFlagSquadAppChatRTNFix_0 = v11.FFlagSquadAppChatRTNFix;
 local v41 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatInExpSelectChatMembersMobileHeight);
-local v42 = {};
-AppChatEntryPointUA = function(v43) --[[ Line: 63 ]] --[[ Name: AppChatEntryPointUA ]]
-    -- upvalues: v5 (copy), v42 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useEarlyIsFocused_0 (copy), v41 (copy), v39 (copy), l_useIsWideMode_0 (copy), l_useNavigation_0 (copy), l_useAppPolicy_0 (copy), l_useState_0 (copy), v38 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), l_useMemo_0 (copy), l_Signal_0 (copy), l_useCallback_0 (copy), l_SetTabBarVisibleFromChat_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), l_useEffect_0 (copy), v37 (copy), v7 (copy), l_FullscreenPageWithSafeArea_0 (copy), v34 (copy), v36 (copy), v35 (copy), l_FFlagSquadAppChatRTNFix_0 (copy), l_SquadAppChatEventReceiver_0 (copy)
-    local v44 = v5.Dictionary.join(v42, v43);
-    local v45 = l_useStyle_0();
-    local v46 = l_useDispatch_0();
-    local v47 = l_useEarlyIsFocused_0();
-    local v48 = if v41 then v39(false) else l_useIsWideMode_0();
-    local v49 = l_useNavigation_0();
-    local v51 = l_useAppPolicy_0(function(v50) --[[ Line: 73 ]]
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v11.FFlagRemoveDependencyArrayAntipattern;
+local v43 = {};
+AppChatEntryPointUA = function(v44) --[[ Line: 65 ]] --[[ Name: AppChatEntryPointUA ]]
+    -- upvalues: v5 (copy), v43 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useEarlyIsFocused_0 (copy), v41 (copy), v39 (copy), l_useIsWideMode_0 (copy), l_useNavigation_0 (copy), l_useAppPolicy_0 (copy), l_useState_0 (copy), v38 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), l_useMemo_0 (copy), l_Signal_0 (copy), l_useCallback_0 (copy), l_SetTabBarVisibleFromChat_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), l_useEffect_0 (copy), v37 (copy), v7 (copy), l_FullscreenPageWithSafeArea_0 (copy), v34 (copy), v36 (copy), v35 (copy), l_FFlagSquadAppChatRTNFix_0 (copy), l_SquadAppChatEventReceiver_0 (copy)
+    local v45 = v5.Dictionary.join(v43, v44);
+    local v46 = l_useStyle_0();
+    local v47 = l_useDispatch_0();
+    local v48 = l_useEarlyIsFocused_0();
+    local v49 = if v41 then v39(false) else l_useIsWideMode_0();
+    local v50 = l_useNavigation_0();
+    local v52 = l_useAppPolicy_0(function(v51) --[[ Line: 75 ]]
         return {
-            shouldSystemBarUsuallyBePresent = v50.getShouldSystemBarUsuallyBePresent()
+            shouldSystemBarUsuallyBePresent = v51.getShouldSystemBarUsuallyBePresent()
         };
     end);
-    local v52, v53 = l_useState_0(0);
-    local v54, v55 = v38();
-    local v56 = l_useRoactService_0(l_AppNotificationService_0);
-    local v57 = l_useMemo_0(function() --[[ Line: 83 ]]
+    local v53, v54 = l_useState_0(0);
+    local v55, v56 = v38();
+    local v57 = l_useRoactService_0(l_AppNotificationService_0);
+    local v58 = l_useMemo_0(function() --[[ Line: 85 ]]
         -- upvalues: l_Signal_0 (ref)
         return l_Signal_0.new();
     end);
-    local v58 = l_useMemo_0(function() --[[ Line: 87 ]]
-        -- upvalues: v44 (copy), v56 (copy)
-        return v44.RobloxEventReceiver.new(v56);
+    local v59 = l_useMemo_0(function() --[[ Line: 89 ]]
+        -- upvalues: v45 (copy), v57 (copy)
+        return v45.RobloxEventReceiver.new(v57);
     end);
-    local v60 = l_useCallback_0(function(v59) --[[ Line: 91 ]]
-        -- upvalues: v46 (copy), l_SetTabBarVisibleFromChat_0 (ref), v51 (copy)
-        v46(l_SetTabBarVisibleFromChat_0(v59 or v51.shouldSystemBarUsuallyBePresent));
-    end, l_dependencyArray_0(v46, v51.shouldSystemBarUsuallyBePresent));
-    local v61 = l_useMemo_0(function() --[[ Line: 95 ]]
+    local v61 = l_useCallback_0(function(v60) --[[ Line: 94 ]]
+        -- upvalues: v47 (copy), l_SetTabBarVisibleFromChat_0 (ref), v52 (copy)
+        v47(l_SetTabBarVisibleFromChat_0(v60 or v52.shouldSystemBarUsuallyBePresent));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v47, 
+        v52.shouldSystemBarUsuallyBePresent
+    } else l_dependencyArray_0(v47, v52.shouldSystemBarUsuallyBePresent));
+    local v62 = l_useMemo_0(function() --[[ Line: 102 ]]
         return {};
     end);
-    local v63 = l_useSelector_0(function(v62) --[[ Line: 99 ]]
-        return v62.NotificationBadgeCounts.TopBarNotificationIcon;
+    local v64 = l_useSelector_0(function(v63) --[[ Line: 106 ]]
+        return v63.NotificationBadgeCounts.TopBarNotificationIcon;
     end);
-    l_useEffect_0(function() --[[ Line: 103 ]]
-        -- upvalues: v46 (copy), v37 (ref), v47 (copy)
-        v46(v37(not v47));
-    end, l_dependencyArray_0(v47, v46));
+    l_useEffect_0(function() --[[ Line: 111 ]]
+        -- upvalues: v47 (copy), v37 (ref), v48 (copy)
+        v47(v37(not v48));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v48, 
+        v47
+    } else l_dependencyArray_0(v48, v47));
     return v7.createElement(v7.Fragment, {}, {
         FullscreenPageWithSafeArea = v7.createElement(l_FullscreenPageWithSafeArea_0, {
-            BackgroundColor3 = v45.Theme.BackgroundDefault.Color, 
-            BackgroundTransparency = v45.Theme.BackgroundDefault.Transparency, 
+            BackgroundColor3 = v46.Theme.BackgroundDefault.Color, 
+            BackgroundTransparency = v46.Theme.BackgroundDefault.Transparency, 
             includeStatusBar = true
         }, {
             AppChatEntryPoint = v7.createElement(v34, {
-                setActiveConversationId = v53, 
-                updateExternalNavigationForScreen = v55, 
-                navigateToLuaAppPages = v61, 
-                rnBypassActionSignal = v57, 
-                notificationCount = v63, 
-                setTabBarVisible = v60, 
-                isVisible = v47, 
-                wideMode = v48, 
-                navigation = v49
+                setActiveConversationId = v54, 
+                updateExternalNavigationForScreen = v56, 
+                navigateToLuaAppPages = v62, 
+                rnBypassActionSignal = v58, 
+                notificationCount = v64, 
+                setTabBarVisible = v61, 
+                isVisible = v48, 
+                wideMode = v49, 
+                navigation = v50
             })
         }), 
         ExternalNavigationHandler = v7.createElement(v36, {
-            navigationByScreen = v54
+            navigationByScreen = v55
         }), 
         ChatEventReceiver = v7.createElement(v35, {
-            robloxEventReceiver = v58, 
-            rnBypassActionSignal = v57, 
-            activeConversationId = tostring(v52)
+            robloxEventReceiver = v59, 
+            rnBypassActionSignal = v58, 
+            activeConversationId = tostring(v53)
         }), 
         SquadAppChatEventReceiver = if l_FFlagSquadAppChatRTNFix_0 then v7.createElement(l_SquadAppChatEventReceiver_0) else nil
     });

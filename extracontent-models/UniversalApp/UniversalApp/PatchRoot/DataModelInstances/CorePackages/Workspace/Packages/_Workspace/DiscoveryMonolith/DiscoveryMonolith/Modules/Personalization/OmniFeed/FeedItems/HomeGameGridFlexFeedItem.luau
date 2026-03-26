@@ -12,8 +12,9 @@ local l_GameCollectionGrid_0 = require(l_Parent_0.GameCollections).GameCollectio
 local l_GameCollectionItemBuilder_0 = require(l_Parent_0.GameCollections).GameCollectionItemBuilder;
 local l_GameCollectionItemTypes_0 = require(l_Parent_0.GameCollections).GameCollectionItemTypes;
 local l_PlaceholderGameGrid_0 = require(l_Parent_0.GameCollections).PlaceholderGameGrid;
-local v14 = require(l_Parent_0.DiscoveryTypes);
-local l_OmniFeedConstants_0 = v14.OmniFeedConstants;
+local v14 = require(l_Parent_0.CollectionViews);
+local v15 = require(l_Parent_0.DiscoveryTypes);
+local l_OmniFeedConstants_0 = v15.OmniFeedConstants;
 local l_useAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).useAppPolicy;
 local _ = require(l_Parent_0.GameTile);
 local l_getGameTileCollectionItemSize_0 = require(l_Parent_0.GameTile).getGameTileCollectionItemSize;
@@ -21,46 +22,45 @@ local l_useUiModeInfo_0 = require(l_Parent_0.RobloxAppHooks).useUiModeInfo;
 local l_UiMode_0 = require(l_Parent_0.RobloxAppEnums).UiMode;
 local l_TopicContentsReducer_0 = require(l_Parent_0.TopicContentsRodux).TopicContentsReducer;
 local l_getSduiFeedStore_0 = require(l_Parent_0.ServerDrivenUi).getSduiFeedStore;
-local v23 = require(l_Parent_0.Signals);
-local v24 = require(l_Parent_0.SignalsReact);
-local v25 = require(l_Parent_0.LoggingProtocol);
-local l_default_0 = v25.default;
+local v24 = require(l_Parent_0.Signals);
+local v25 = require(l_Parent_0.SignalsReact);
+local v26 = require(l_Parent_0.LoggingProtocol);
+local l_default_0 = v26.default;
 local l_DiscoveryEventErrorLogger_0 = require(l_Parent_0.DiscoveryUtils).DiscoveryEventErrorLogger;
 local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local v29 = require(l_Modules_0.Personalization.OmniFeed.DataStore.useUpdateFeedItemRenderedRows);
-local v30 = require(l_Modules_0.Personalization.OmniFeed.useGridFlexFeedItemBounds);
-local v31 = require(l_Modules_0.Personalization.OmniFeed.OmniFeedProps);
-local v32 = game:DefineFastInt("GameGridFlexFeedItemTileNumPerFeed", 30);
+local v30 = require(l_Modules_0.Personalization.OmniFeed.DataStore.useUpdateFeedItemRenderedRows);
+local v31 = require(l_Modules_0.Personalization.OmniFeed.useGridFlexFeedItemBounds);
+local v32 = require(l_Modules_0.Personalization.OmniFeed.OmniFeedProps);
+local v33 = game:DefineFastInt("GameGridFlexFeedItemTileNumPerFeed", 30);
 local l_FIntLuaAppDelayImpressionsMaxUpdates_0 = require(l_Parent_0.SharedFlags).FIntLuaAppDelayImpressionsMaxUpdates;
-local v34 = game:DefineFastFlag("FixPlaceholderGameGrid", false);
+local v35 = game:DefineFastFlag("FixPlaceholderGameGrid", false);
 local l_FFlagLuaAppRfySignalApportioning_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppRfySignalApportioning;
 local l_FFlagLuaAppRfySignalApportioningIxp_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppRfySignalApportioningIxp;
 local l_FFlagLuaAppEnableWhyThisAdModal_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableWhyThisAdModal;
 local l_FFlagLuaAppFixHomeGridPlaceholderFlowIssues_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppFixHomeGridPlaceholderFlowIssues;
-local v39 = game:DefineFastFlag("LuaAppAddPlaceholderRecoveryCounter", false);
+local v40 = game:DefineFastFlag("LuaAppAddPlaceholderRecoveryCounter", false);
 local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableHomepageTwoByOneTile;
 local l_FFlagLuaAppEnableSponsoredReportAd_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableSponsoredReportAd;
 local l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddRequestIdToRfySignalApportioning;
 local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooter;
 local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
-local l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 = v14.Constants.GAME_CAROUSEL_SIDE_COMPACT_PADDING;
-local l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 = v14.Constants.GAME_CAROUSEL_SIDE_WIDE_PADDING;
-local v47 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {} else nil;
-local v48 = not l_FFlagLuaAppRfySignalApportioning_0 and nil;
-local v49 = not l_FFlagLuaAppRfySignalApportioning_0 and nil;
-return function(v50) --[[ Line: 79 ]]
-    -- upvalues: v31 (copy), l_OmniFeedConstants_0 (copy), l_parseBooleanString_0 (copy), l_FFlagLuaAppRfySignalApportioningIxp_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppRfySignalApportioning_0 (copy), l_AppPage_0 (copy), l_getSduiFeedStore_0 (copy), l_getGameTileCollectionItemSize_0 (copy), v2 (copy), v24 (copy), l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_useSelector_0 (copy), l_TopicContentsReducer_0 (copy), v32 (copy), v30 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), v47 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (copy), v23 (copy), l_DiscoveryEventErrorLogger_0 (copy), v3 (copy), l_dependencyArray_0 (copy), l_GameCollectionItemTypes_0 (copy), l_GameCollectionItemBuilder_0 (copy), v29 (copy), l_FFlagLuaAppFixHomeGridPlaceholderFlowIssues_0 (copy), v48 (ref), l_default_0 (copy), v25 (copy), v39 (copy), v49 (ref), l_GameCollectionGrid_0 (copy), l_FormFactor_0 (copy), l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 (copy), l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (copy), l_PlaceholderGameGrid_0 (copy), v34 (copy)
-    local l_verticalScrollingFrameRef_0 = v50[v31.key].verticalScrollingFrameRef;
-    local v52 = nil;
-    local v53 = nil;
-    local v54 = nil;
-    local v55 = nil;
-    local v56 = "Narrow";
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionAlways;
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 = v15.Constants.GAME_CAROUSEL_SIDE_COMPACT_PADDING;
+local l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 = v15.Constants.GAME_CAROUSEL_SIDE_WIDE_PADDING;
+local v52 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {} else nil;
+local v53 = not l_FFlagLuaAppRfySignalApportioning_0 and nil;
+local v54 = not l_FFlagLuaAppRfySignalApportioning_0 and nil;
+return function(v55) --[[ Line: 89 ]]
+    -- upvalues: v32 (copy), l_OmniFeedConstants_0 (copy), l_parseBooleanString_0 (copy), l_FFlagLuaAppRfySignalApportioningIxp_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppRfySignalApportioning_0 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_AppPage_0 (copy), l_getGameTileCollectionItemSize_0 (copy), v14 (copy), l_getSduiFeedStore_0 (copy), v2 (copy), v25 (copy), l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_useSelector_0 (copy), l_TopicContentsReducer_0 (copy), v33 (copy), v31 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), v52 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (copy), v24 (copy), l_DiscoveryEventErrorLogger_0 (copy), v3 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_GameCollectionItemTypes_0 (copy), l_GameCollectionItemBuilder_0 (copy), v30 (copy), l_FFlagLuaAppFixHomeGridPlaceholderFlowIssues_0 (copy), v53 (ref), l_default_0 (copy), v26 (copy), v40 (copy), v54 (ref), l_GameCollectionGrid_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), l_FormFactor_0 (copy), l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 (copy), l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (copy), l_PlaceholderGameGrid_0 (copy), v35 (copy)
+    local l_verticalScrollingFrameRef_0 = v55[v32.key].verticalScrollingFrameRef;
     local v57 = nil;
     local v58 = nil;
     local v59 = nil;
     local v60 = nil;
-    local v61 = nil;
+    local v61 = "Narrow";
     local v62 = nil;
     local v63 = nil;
     local v64 = nil;
@@ -68,326 +68,352 @@ return function(v50) --[[ Line: 79 ]]
     local v66 = nil;
     local v67 = nil;
     local v68 = nil;
-    if v50.topicLayoutData then
-        v54 = v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
-        if v54 then
-            if v54 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile then
-                v56 = "Event";
-            elseif v54 == l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
-                v56 = "Wide";
-            end;
-            local v69 = true;
-            if v56 ~= "Wide" then
-                v69 = v56 == "Event";
-            end;
-            v52 = v69;
-        end;
-        v53 = v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayerCountStyle];
-        v55 = v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayButtonStyle];
-        v57 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileMetadata]);
-        v58 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileTitle]);
-        v59 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ContainedTile]);
-        v60 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableExplicitFeedback]);
-        v61 = if l_FFlagLuaAppRfySignalApportioningIxp_0 then l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableSignalApportioning]) else nil;
-        v62 = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredUserCohort] else nil;
-        v63 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableSponsoredFeedback]);
-        v64 = if l_FFlagLuaAppEnableSponsoredReportAd_0 then l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableReportAd]) else nil;
-        v65 = if l_FFlagLuaAppSupportAdRatingFooter_0 then l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.IsSponsoredRatingFooterAllowed]) else nil;
-        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then
-            v66 = v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterAdLabelText];
-            v67 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterAdLabelFirst]);
-            v68 = l_parseBooleanString_0(v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterIncludeRatingContent]);
-        end;
-    end;
+    local v69 = nil;
     local v70 = nil;
-    if v50.topicLayoutData then
-        local v71 = v50.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.IsSponsoredFooterAllowed];
-        local v72 = false;
-        if v71 ~= nil then
-            v72 = v71 == "true";
+    local v71 = nil;
+    local v72 = nil;
+    local v73 = nil;
+    if v55.topicLayoutData then
+        v59 = v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
+        if v59 then
+            if v59 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile then
+                v61 = "Event";
+            elseif v59 == l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
+                v61 = "Wide";
+            end;
+            local v74 = true;
+            if v61 ~= "Wide" then
+                v74 = v61 == "Event";
+            end;
+            v57 = v74;
         end;
-        v70 = v72;
+        v58 = v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayerCountStyle];
+        v60 = v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.PlayButtonStyle];
+        v62 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileMetadata]);
+        v63 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.HideTileTitle]);
+        v64 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ContainedTile]);
+        v65 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableExplicitFeedback]);
+        v66 = if l_FFlagLuaAppRfySignalApportioningIxp_0 then l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableSignalApportioning]) else nil;
+        v67 = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredUserCohort] else nil;
+        v68 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableSponsoredFeedback]);
+        v69 = if l_FFlagLuaAppEnableSponsoredReportAd_0 then l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.EnableReportAd]) else nil;
+        v70 = if l_FFlagLuaAppSupportAdRatingFooter_0 then l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.IsSponsoredRatingFooterAllowed]) else nil;
+        if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then
+            v71 = v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterAdLabelText];
+            v72 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterAdLabelFirst]);
+            v73 = l_parseBooleanString_0(v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.SponsoredFooterIncludeRatingContent]);
+        end;
     end;
-    local v73 = l_FFlagLuaAppRfySignalApportioning_0 and (not l_FFlagLuaAppRfySignalApportioningIxp_0 or v61);
-    local l_appPage_0 = v50[v31.key].appPage;
+    local v75 = nil;
+    if v55.topicLayoutData then
+        local v76 = v55.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.IsSponsoredFooterAllowed];
+        local v77 = false;
+        if v76 ~= nil then
+            v77 = v76 == "true";
+        end;
+        v75 = v77;
+    end;
+    local v78 = l_FFlagLuaAppRfySignalApportioning_0 and (not l_FFlagLuaAppRfySignalApportioningIxp_0 or v66);
+    local l_appPage_0 = v55[v32.key].appPage;
+    local v80 = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v55[v32.key].appCompositionEnabled else nil;
     assert(l_appPage_0 == l_AppPage_0.Home, "component only supports the Home Page");
-    local l_feedItemStartRow_0 = v50[v31.key].feedItemStartRow;
-    local l_topicId_0 = v50.topicId;
-    local l_feedItemPosition_0 = v50[v31.key].feedItemPosition;
-    local l_sortIndex_0 = v50.sortIndex;
-    local v79 = v50.topicName or "";
-    local l_numberOfRows_0 = v50.numberOfRows;
-    local v81 = if l_FFlagLuaAppRfySignalApportioning_0 then v50[v31.key].sduiContext else nil;
-    local v82 = if l_FFlagLuaAppRfySignalApportioning_0 then l_getSduiFeedStore_0(l_appPage_0) else nil;
-    local v83 = nil;
-    local v84 = nil;
-    if l_FFlagLuaAppRfySignalApportioning_0 then
-        local v85 = l_getGameTileCollectionItemSize_0(v56);
-        local l_v85_0 = v85 --[[ copy: 32 -> 45 ]];
-        local v88 = v2.useCallback(function(v87) --[[ Line: 181 ]]
-            -- upvalues: v81 (copy), l_v85_0 (copy)
-            return v81.getPageLayoutConfig(l_v85_0)(v87).numColumns;
-        end, {
-            v85, 
-            v81.getPageLayoutConfig
-        });
-        v83 = v24.useSignalState(v88);
-    else
-        local v89, v90 = v2.useState(1);
-        v83 = v89;
-        v84 = v90;
+    local l_feedItemStartRow_0 = v55[v32.key].feedItemStartRow;
+    local l_topicId_0 = v55.topicId;
+    local l_feedItemPosition_0 = v55[v32.key].feedItemPosition;
+    local l_sortIndex_0 = v55.sortIndex;
+    local v85 = v55.topicName or "";
+    local l_numberOfRows_0 = v55.numberOfRows;
+    local v87 = if l_FFlagLuaAppRfySignalApportioning_0 then v55[v32.key].sduiContext else nil;
+    local v88 = nil;
+    local v89 = nil;
+    if l_FFlagLuaAppCompositionSupport_0 then
+        v88 = l_getGameTileCollectionItemSize_0(v61);
+        v89 = v14.useCollectionLayout(v88);
     end;
-    local v92 = l_useAppPolicy_0(function(v91) --[[ Line: 190 ]]
-        return v91.useGridPageLayout();
+    local v90 = if l_FFlagLuaAppRfySignalApportioning_0 then l_getSduiFeedStore_0(l_appPage_0) else nil;
+    local v91 = nil;
+    local v92 = nil;
+    if not l_FFlagLuaAppCompositionAlways_0 then
+        if l_FFlagLuaAppRfySignalApportioning_0 then
+            if not l_FFlagLuaAppCompositionSupport_0 then
+                v88 = l_getGameTileCollectionItemSize_0(v61);
+            end;
+            local v94 = v2.useCallback(function(v93) --[[ Line: 206 ]]
+                -- upvalues: v87 (copy), v88 (ref)
+                return v87.getPageLayoutConfig(v88)(v93).numColumns;
+            end, {
+                v88, 
+                v87.getPageLayoutConfig
+            });
+            v91 = v25.useSignalState(v94);
+        else
+            local v95, v96 = v2.useState(1);
+            v91 = v95;
+            v92 = v96;
+        end;
+    end;
+    if v80 then
+        v91 = v89.itemsPerRow;
+    end;
+    local v98 = l_useAppPolicy_0(function(v97) --[[ Line: 219 ]]
+        return v97.useGridPageLayout();
     end);
-    local v93 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    v92 = v92 and not v93;
-    local v95 = l_useSelector_0(function(v94) --[[ Line: 198 ]]
-        return v94.FormFactor;
+    local v99 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    v98 = v98 and not v99;
+    local v101 = l_useSelector_0(function(v100) --[[ Line: 227 ]]
+        return v100.FormFactor;
     end);
-    local v97 = l_useSelector_0(function(v96) --[[ Line: 202 ]]
+    local v103 = l_useSelector_0(function(v102) --[[ Line: 231 ]]
         -- upvalues: l_TopicContentsReducer_0 (ref)
-        return v96.Personalization[l_TopicContentsReducer_0.key];
+        return v102.Personalization[l_TopicContentsReducer_0.key];
     end);
-    local v100 = l_useSelector_0(function(v98) --[[ Line: 206 ]]
+    local v106 = l_useSelector_0(function(v104) --[[ Line: 235 ]]
         -- upvalues: l_appPage_0 (copy)
-        local v99 = v98.OmniRecommendations[l_appPage_0];
-        if v99 then
-            return v99.sorts;
+        local v105 = v104.OmniRecommendations[l_appPage_0];
+        if v105 then
+            return v105.sorts;
         else
             return {};
         end;
     end);
-    local v101 = if l_numberOfRows_0 and l_numberOfRows_0 > 0 then l_numberOfRows_0 else math.floor(v32 / v83);
-    local v102 = if not l_FFlagLuaAppRfySignalApportioning_0 or l_FFlagLuaAppRfySignalApportioningIxp_0 then v30(v50.topicId, l_feedItemPosition_0, v83, v101, if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v97 and v97[l_topicId_0] and v97[l_topicId_0].entries or v47 else nil) else nil;
-    local v103 = nil;
+    local v107 = if l_numberOfRows_0 and l_numberOfRows_0 > 0 then l_numberOfRows_0 else math.floor(v33 / v91);
+    local v108 = if not l_FFlagLuaAppRfySignalApportioning_0 or l_FFlagLuaAppRfySignalApportioningIxp_0 then v31(v55.topicId, l_feedItemPosition_0, v91, v107, if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v103 and v103[l_topicId_0] and v103[l_topicId_0].entries or v52 else nil) else nil;
+    local v109 = nil;
     if l_FFlagLuaAppRfySignalApportioning_0 then
-        local v104 = v101 or 99999;
-        if v104 == -1 then
-            v104 = 99999;
+        local v110 = v107 or 99999;
+        if v110 == -1 then
+            v110 = 99999;
         end;
         do
-            local l_v104_0 = v104;
-            v2.useEffect(function() --[[ Line: 238 ]]
-                -- upvalues: v83 (ref), l_v104_0 (ref), v82 (copy), v50 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref)
-                local v106 = v83 * l_v104_0;
-                v82.updateApportioningCapacity(v50.topicId, v50.sortIndex, v106, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v50.recommendationsRequestId else nil);
+            local l_v110_0 = v110;
+            v2.useEffect(function() --[[ Line: 267 ]]
+                -- upvalues: v91 (ref), l_v110_0 (ref), v90 (copy), v55 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref)
+                local v112 = v91 * l_v110_0;
+                v90.updateApportioningCapacity(v55.topicId, v55.sortIndex, v112, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v55.recommendationsRequestId else nil);
             end, {
-                v83, 
-                l_v104_0, 
-                v50.topicId, 
-                v50.sortIndex, 
-                v82, 
-                if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v50.recommendationsRequestId else nil
+                v91, 
+                l_v110_0, 
+                v55.topicId, 
+                v55.sortIndex, 
+                v90, 
+                if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v55.recommendationsRequestId else nil
             });
-            local v114 = v2.useMemo(function() --[[ Line: 258 ]]
-                -- upvalues: v23 (ref), v82 (copy), v50 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref), l_DiscoveryEventErrorLogger_0 (ref), v3 (ref)
-                return v23.createComputed(function(v107) --[[ Line: 259 ]]
-                    -- upvalues: v82 (ref), v50 (ref), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref), l_DiscoveryEventErrorLogger_0 (ref), v3 (ref)
-                    local v108 = v82.getApportionedItems(v50.topicId, v50.sortIndex, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v50.recommendationsRequestId else nil)(v107);
-                    if not v108 then
+            local v120 = v2.useMemo(function() --[[ Line: 287 ]]
+                -- upvalues: v24 (ref), v90 (copy), v55 (copy), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref), l_DiscoveryEventErrorLogger_0 (ref), v3 (ref)
+                return v24.createComputed(function(v113) --[[ Line: 288 ]]
+                    -- upvalues: v90 (ref), v55 (ref), l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 (ref), l_DiscoveryEventErrorLogger_0 (ref), v3 (ref)
+                    local v114 = v90.getApportionedItems(v55.topicId, v55.sortIndex, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v55.recommendationsRequestId else nil)(v113);
+                    if not v114 then
                         return nil;
                     else
-                        local v109 = v82.getSingleGridApportioningMetadata(v50.topicId, v50.sortIndex, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v50.recommendationsRequestId else nil)(v107);
-                        local v110 = v109 and v109.startingItemIndex;
-                        if not v110 and #v108 > 0 then
+                        local v115 = v90.getSingleGridApportioningMetadata(v55.topicId, v55.sortIndex, if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v55.recommendationsRequestId else nil)(v113);
+                        local v116 = v115 and v115.startingItemIndex;
+                        if not v116 and #v114 > 0 then
                             l_DiscoveryEventErrorLogger_0.reportError("HomeGameGridRenderingWithMissingStartingItemIndex", "Starting item index not found in apportioning data for topicId {props.topicId} and sortIndex {props.sortIndex}, defaulting to 1", {
-                                topicId = v50.topicId, 
-                                sortIndex = v50.sortIndex
+                                topicId = v55.topicId, 
+                                sortIndex = v55.sortIndex
                             });
                         end;
-                        local v111 = {};
-                        for v112, v113 in v108 do
-                            table.insert(v111, (v3.Dictionary.join(v113, {
-                                topicContentsIndex = (v110 or 1) + v112 - 1
+                        local v117 = {};
+                        for v118, v119 in v114 do
+                            table.insert(v117, (v3.Dictionary.join(v119, {
+                                topicContentsIndex = (v116 or 1) + v118 - 1
                             })));
                         end;
-                        return v111;
+                        return v117;
                     end;
                 end);
             end, {
-                v82, 
-                v50.topicId, 
-                v50.sortIndex, 
-                if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v50.recommendationsRequestId else nil
+                v90, 
+                v55.topicId, 
+                v55.sortIndex, 
+                if l_FFlagLuaAppAddRequestIdToRfySignalApportioning_0 then v55.recommendationsRequestId else nil
             });
-            v103 = v24.useSignalState(v114);
+            v109 = v25.useSignalState(v120);
         end;
     end;
-    local v125 = if not l_FFlagLuaAppRfySignalApportioning_0 or l_FFlagLuaAppRfySignalApportioningIxp_0 then v2.useMemo(function() --[[ Line: 308 ]]
-        -- upvalues: l_topicId_0 (copy), v97 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (ref), v102 (copy), v3 (ref)
-        local v115 = nil;
+    local v131 = if not l_FFlagLuaAppRfySignalApportioning_0 or l_FFlagLuaAppRfySignalApportioningIxp_0 then v2.useMemo(function() --[[ Line: 338 ]]
+        -- upvalues: l_topicId_0 (copy), v103 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (ref), v108 (copy), v3 (ref)
+        local v121 = nil;
         if l_topicId_0 then
-            v115 = v97 and v97[l_topicId_0] or nil;
+            v121 = v103 and v103[l_topicId_0] or nil;
         end;
-        local v116 = v115 and v115.entries or {};
-        if v115 and v115.hasMoreRows then
+        local v122 = v121 and v121.entries or {};
+        if v121 and v121.hasMoreRows then
             warn((("HomeGameGridFlexFeedItem may need to fetch more metadata for topicId %*"):format(l_topicId_0)));
         end;
-        local v117 = {};
+        local v123 = {};
         if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then
-            local v118 = v102 and v102.entryIndices;
-            local v119 = v102 and v102.firstIndex or 1;
-            if v118 then
-                for v120, v121 in ipairs(v118) do
-                    local v122 = v116[v121];
-                    if v122 then
-                        table.insert(v117, v3.Dictionary.join(v122, {
-                            topicContentsIndex = v119 + v120 - 1
+            local v124 = v108 and v108.entryIndices;
+            local v125 = v108 and v108.firstIndex or 1;
+            if v124 then
+                for v126, v127 in ipairs(v124) do
+                    local v128 = v122[v127];
+                    if v128 then
+                        table.insert(v123, v3.Dictionary.join(v128, {
+                            topicContentsIndex = v125 + v126 - 1
                         }));
                     end;
                 end;
-                return v117;
+                return v123;
             end;
         else
-            local v123 = v102 and v102.firstIndex or nil;
-            if v123 ~= nil then
-                local v124 = v123 + (v102 and v102.numberOfTiles or 0);
-                while v123 <= #v116 and v123 < v124 do
-                    table.insert(v117, (v3.Dictionary.join(v116[v123], {
-                        topicContentsIndex = v123
+            local v129 = v108 and v108.firstIndex or nil;
+            if v129 ~= nil then
+                local v130 = v129 + (v108 and v108.numberOfTiles or 0);
+                while v129 <= #v122 and v129 < v130 do
+                    table.insert(v123, (v3.Dictionary.join(v122[v129], {
+                        topicContentsIndex = v129
                     })));
-                    v123 = v123 + 1;
+                    v129 = v129 + 1;
                 end;
             end;
         end;
-        return v117;
-    end, l_dependencyArray_0(l_topicId_0, v97, v100, v102)) else nil;
-    local v126 = nil;
+        return v123;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_topicId_0, 
+        v103, 
+        v106, 
+        v108
+    } else l_dependencyArray_0(l_topicId_0, v103, v106, v108)) else nil;
+    local v132 = nil;
     if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then
-        local v127 = if v73 then v103 else v125;
-        local l_v127_0 = v127 --[[ copy: 43 -> 44 ]];
-        v126 = v2.useMemo(function() --[[ Line: 358 ]]
-            -- upvalues: l_v127_0 (copy), l_GameCollectionItemTypes_0 (ref), l_GameCollectionItemBuilder_0 (ref), v83 (ref), l_appPage_0 (copy), l_sortIndex_0 (copy), l_topicId_0 (copy)
-            if not l_v127_0 then
-                return l_v127_0;
+        local v133 = if v78 then v109 else v131;
+        local l_v133_0 = v133 --[[ copy: 46 -> 47 ]];
+        v132 = v2.useMemo(function() --[[ Line: 392 ]]
+            -- upvalues: l_v133_0 (copy), l_GameCollectionItemTypes_0 (ref), l_GameCollectionItemBuilder_0 (ref), v91 (ref), l_appPage_0 (copy), l_sortIndex_0 (copy), l_topicId_0 (copy)
+            if not l_v133_0 then
+                return l_v133_0;
             else
-                local v129 = {};
-                local v130 = {};
-                for v131, v132 in l_v127_0 do
-                    if v132.componentType == l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile then
-                        v129[v131] = {
+                local v135 = {};
+                local v136 = {};
+                for v137, v138 in l_v133_0 do
+                    if v138.componentType == l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile then
+                        v135[v137] = {
                             colSpan = 2, 
                             rowSpan = 1, 
-                            alignmentType = v132.alignmentType, 
-                            minRowPadding = tonumber(v132.minRowPadding) or 0
+                            alignmentType = v138.alignmentType, 
+                            minRowPadding = tonumber(v138.minRowPadding) or 0
                         };
-                        v130[v131] = l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile;
+                        v136[v137] = l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile;
                     end;
                 end;
-                return l_GameCollectionItemBuilder_0.BuildCollectionEntries(l_v127_0, v83, v129, v130, nil, l_appPage_0, l_sortIndex_0, l_topicId_0);
+                return l_GameCollectionItemBuilder_0.BuildCollectionEntries(l_v133_0, v91, v135, v136, nil, l_appPage_0, l_sortIndex_0, l_topicId_0);
             end;
         end, {
-            v127, 
-            v83, 
+            v133, 
+            v91, 
             l_appPage_0, 
             l_sortIndex_0, 
             l_topicId_0
         });
     else
-        v126 = if v73 then v103 else v125;
+        v132 = if v78 then v109 else v131;
     end;
-    local v133 = nil;
-    if v73 and v126 or not v73 and v102 then
-        v133 = math.ceil(#v126 / v83);
+    local v139 = nil;
+    if v78 and v132 or not v78 and v108 then
+        v139 = math.ceil(#v132 / v91);
     end;
-    v29(l_appPage_0, nil, l_feedItemPosition_0, if l_FFlagLuaAppFixHomeGridPlaceholderFlowIssues_0 then v133 or -1 else v133);
-    if (not v73 or v126) and #v126 > 0 then
-        if l_FFlagLuaAppRfySignalApportioning_0 and v48 then
+    v30(l_appPage_0, nil, l_feedItemPosition_0, if l_FFlagLuaAppFixHomeGridPlaceholderFlowIssues_0 then v139 or -1 else v139);
+    if (not v78 or v132) and #v132 > 0 then
+        if l_FFlagLuaAppRfySignalApportioning_0 and v53 then
             l_default_0:logRobloxTelemetryCounter({
                 eventName = "HomeGameGridReturnedGridAfterNil", 
                 backends = {
-                    v25.TelemetryBackends.Counter
+                    v26.TelemetryBackends.Counter
                 }
             }, 1, {
-                experimentTreatment = v61 == true and "signal_apportioning_treatment" or v61 == false and "control" or "not_in_experiment"
+                experimentTreatment = v66 == true and "signal_apportioning_treatment" or v66 == false and "control" or "not_in_experiment"
             });
-            v48 = false;
+            v53 = false;
         end;
-        if v39 and v49 then
+        if v40 and v54 then
             l_default_0:logRobloxTelemetryCounter({
                 eventName = "HomeGameGridReturnedGridAfterPlaceholder", 
                 backends = {
-                    v25.TelemetryBackends.Counter
+                    v26.TelemetryBackends.Counter
                 }
             }, 1, {
-                experimentTreatment = v61 == true and "signal_apportioning_treatment" or v61 == false and "control" or "not_in_experiment"
+                experimentTreatment = v66 == true and "signal_apportioning_treatment" or v66 == false and "control" or "not_in_experiment"
             });
-            v49 = false;
+            v54 = false;
         end;
         return v2.createElement(l_GameCollectionGrid_0, {
-            entries = v126, 
-            title = v79, 
+            entries = v132, 
+            title = v85, 
             friendFooterEnabled = true, 
             sortIndex = l_sortIndex_0, 
             gameSortId = l_topicId_0, 
             pageContext = l_appPage_0, 
-            scrollViewPositionChangedSignal = v50[v31.key].scrollViewPositionChangedSignal, 
-            onItemsPerRowChanged = v84, 
-            useGridTiles = v52, 
-            playerCountStyle = v53, 
-            isSponsoredFooterAllowed = v70, 
-            componentType = v54, 
-            gameTileLayoutType = v56, 
+            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v55[v32.key].onTileImageLoaded else nil, 
+            scrollViewPositionChangedSignal = v55[v32.key].scrollViewPositionChangedSignal, 
+            onItemsPerRowChanged = if v80 then nil else v92, 
+            useGridTiles = v57, 
+            playerCountStyle = v58, 
+            isSponsoredFooterAllowed = v75, 
+            componentType = v59, 
+            gameTileLayoutType = v61, 
             gridSupportAllowed = true, 
             isHoverSupportEnabled = true, 
             verticalScrollingFrameRef = l_verticalScrollingFrameRef_0, 
             startRow = l_feedItemStartRow_0, 
             maxNumRows = if l_numberOfRows_0 and l_numberOfRows_0 > 0 then l_numberOfRows_0 else nil, 
-            playButtonStyle = v55, 
-            sideMargin = if v95 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0, 
-            shouldHideTileMetadata = v57, 
-            shouldHideTileTitle = v58, 
-            containedTile = v59, 
+            playButtonStyle = v60, 
+            sideMargin = if v80 then nil else if v101 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0, 
+            appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v80 else nil, 
+            shouldHideTileMetadata = v62, 
+            shouldHideTileTitle = v63, 
+            containedTile = v64, 
             numUpdatesToDelayImpressions = l_FIntLuaAppDelayImpressionsMaxUpdates_0, 
-            selectionOrderBase = v50[v31.key].selectionOrderBase, 
-            enableExplicitFeedback = v60, 
-            sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v62 else nil, 
-            enableSponsoredFeedback = v63, 
-            enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v64 else nil, 
-            isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v65 else nil, 
-            sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v66 else nil, 
-            sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v67 else nil, 
-            sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v68 else nil
+            selectionOrderBase = v55[v32.key].selectionOrderBase, 
+            enableExplicitFeedback = v65, 
+            sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v67 else nil, 
+            enableSponsoredFeedback = v68, 
+            enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v69 else nil, 
+            isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v70 else nil, 
+            sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v71 else nil, 
+            sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v72 else nil, 
+            sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v73 else nil
         });
-    elseif v73 and v126 == nil or not v73 and v102 == nil then
-        if l_FFlagLuaAppRfySignalApportioning_0 and not v49 then
+    elseif v78 and v132 == nil or not v78 and v108 == nil then
+        if l_FFlagLuaAppRfySignalApportioning_0 and not v54 then
             l_default_0:logRobloxTelemetryCounter({
                 eventName = "HomeGameGridReturnedPlaceholder", 
                 backends = {
-                    v25.TelemetryBackends.Counter
+                    v26.TelemetryBackends.Counter
                 }
             }, 1, {
-                experimentTreatment = v61 == true and "signal_apportioning_treatment" or v61 == false and "control" or "not_in_experiment"
+                experimentTreatment = v66 == true and "signal_apportioning_treatment" or v66 == false and "control" or "not_in_experiment"
             });
-            v49 = true;
+            v54 = true;
         end;
         return (v2.createElement(l_PlaceholderGameGrid_0, {
-            title = v79, 
-            onItemsPerRowChanged = v84, 
-            useGridTiles = v52, 
-            componentType = v54, 
-            gameTileLayoutType = v56, 
+            title = v85, 
+            onItemsPerRowChanged = if v80 then nil else v92, 
+            appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v80 else nil, 
+            useGridTiles = v57, 
+            componentType = v59, 
+            gameTileLayoutType = v61, 
             gridSupportAllowed = true, 
             isHoverSupportEnabled = true, 
-            numRows = if v34 then v101 else l_numberOfRows_0 or 0, 
-            sideMargin = if v95 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0, 
+            numRows = if v35 then v107 else l_numberOfRows_0 or 0, 
+            sideMargin = if v80 then nil else if v101 == l_FormFactor_0.COMPACT then l_GAME_CAROUSEL_SIDE_COMPACT_PADDING_0 else l_GAME_CAROUSEL_SIDE_WIDE_PADDING_0, 
             verticalScrollingFrameRef = l_verticalScrollingFrameRef_0, 
-            shouldHideTileMetadata = v57, 
-            shouldHideTileTitle = v58, 
-            containedTile = v59
+            shouldHideTileMetadata = v62, 
+            shouldHideTileTitle = v63, 
+            containedTile = v64
         }));
     else
-        if l_FFlagLuaAppRfySignalApportioning_0 and not v48 then
+        if l_FFlagLuaAppRfySignalApportioning_0 and not v53 then
             l_default_0:logRobloxTelemetryCounter({
                 eventName = "HomeGameGridReturnedNil", 
                 backends = {
-                    v25.TelemetryBackends.Counter
+                    v26.TelemetryBackends.Counter
                 }
             }, 1, {
-                experimentTreatment = v61 == true and "signal_apportioning_treatment" or v61 == false and "control" or "not_in_experiment"
+                experimentTreatment = v66 == true and "signal_apportioning_treatment" or v66 == false and "control" or "not_in_experiment"
             });
-            v48 = true;
+            v53 = true;
         end;
         return nil;
     end;

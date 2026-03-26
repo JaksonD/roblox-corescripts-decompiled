@@ -470,7 +470,7 @@ return function(v29) --[[ Line: 77 ]]
                             iconSize = l_IconSize_0.Small, 
                             icon = l_Images_0["icons/actions/edit/clear"], 
                             onActivated = function() --[[ Line: 532 ]] --[[ Name: onActivated ]]
-                                -- upvalues: v29 (ref), v52 (ref), v28 (ref), v44 (ref)
+                                -- upvalues: v29 (ref), v52 (ref), v28 (ref)
                                 v29.setOnTextInput(false);
                                 v52(v28.DROPDOWN_FRAME_HEIGHT_CLOSED);
                             end

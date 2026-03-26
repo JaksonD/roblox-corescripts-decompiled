@@ -79,7 +79,8 @@ return {
             getTryOnItemComparisonData = require(script.Utils.TryOns.getTryOnItemComparisonData), 
             getShouldReplaceTryOn = require(script.Utils.TryOns.getShouldReplaceTryOn), 
             getEquippableAssetsFromTryOnItems = require(script.Utils.TryOns.getEquippableAssetsFromTryOnItems), 
-            getDoesBundleHaveClothingOrAccessories = require(script.Utils.TryOns.getDoesBundleHaveClothingOrAccessories)
+            getDoesBundleHaveClothingOrAccessories = require(script.Utils.TryOns.getDoesBundleHaveClothingOrAccessories), 
+            removeMakeupAssetsFromTryOnsIfOverLimit = require(script.Utils.TryOns.removeMakeupAssetsFromTryOnsIfOverLimit)
         }
     }, 
     Context = {

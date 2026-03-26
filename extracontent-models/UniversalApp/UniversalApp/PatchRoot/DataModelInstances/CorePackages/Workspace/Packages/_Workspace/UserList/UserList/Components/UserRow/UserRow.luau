@@ -7,36 +7,43 @@ local _ = require(l_script_FirstAncestor_0.Common.Types);
 local v6 = require(l_script_FirstAncestor_0.Common.Enums);
 local v7 = require(l_script_FirstAncestor_0.Hooks.useUserDataValues);
 local v8 = require(script.Parent.BaseRow);
-local v9 = require(l_script_FirstAncestor_0.Flags.FFlagUserListActivatesTCIndicator);
+local l_useIsRobloxSubscriber_0 = require(l_Parent_0.UserProfiles).Hooks.useIsRobloxSubscriber;
+local v10 = require(l_script_FirstAncestor_0.Flags.FFlagUserListActivatesTCIndicator);
+local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
 local l_FFlagHomepagePYMKUseHorizontalUserList_0 = require(l_Parent_0.SharedFlags).FFlagHomepagePYMKUseHorizontalUserList;
-return v2.memo(function(v11) --[[ Line: 40 ]] --[[ Name: UserRow ]]
-    -- upvalues: v7 (copy), v3 (copy), l_convertToFoundationPresenceEnum_0 (copy), l_FFlagHomepagePYMKUseHorizontalUserList_0 (copy), v2 (copy), v8 (copy), v9 (copy), v6 (copy)
-    local v12 = v7(v11.entityId);
-    local v13 = if v12.displayName ~= "" then v12.displayName else nil;
-    local v14 = if (not v11.configs or not (v11.configs.showSubtitle ~= nil) or v11.configs.showSubtitle) and v12.username ~= "" then ("@%*"):format(v12.username) else nil;
-    local v15 = not v11.configs or not (v11.configs.showPresence ~= nil) or v11.configs.showPresence;
-    local l_None_0 = v3.Enums.UserPresence.None;
-    if v15 and v11.presence then
-        l_None_0 = l_convertToFoundationPresenceEnum_0(v11.presence);
+return v2.memo(function(v13) --[[ Line: 43 ]] --[[ Name: UserRow ]]
+    -- upvalues: v7 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_useIsRobloxSubscriber_0 (copy), v3 (copy), l_convertToFoundationPresenceEnum_0 (copy), l_FFlagHomepagePYMKUseHorizontalUserList_0 (copy), v2 (copy), v8 (copy), v10 (copy), v6 (copy)
+    local v14 = v7(v13.entityId);
+    local v15 = nil;
+    if l_FFlagEnableBlackbirdCheckDev_0 then
+        v15 = l_useIsRobloxSubscriber_0(if v13.entityId then v13.entityId else nil);
     end;
-    local v17 = if v11.loadingState and if l_FFlagHomepagePYMKUseHorizontalUserList_0 then v11.loadingState.title ~= nil else v11.loadingState.title then v11.loadingState.title else v12.isLoading;
-    local v18 = if v11.loadingState and if l_FFlagHomepagePYMKUseHorizontalUserList_0 then v11.loadingState.subtitle ~= nil else v11.loadingState.subtitle then v11.loadingState.subtitle else v12.isLoading;
-    local v19 = v11.loadingState and v11.loadingState.contextualInfo;
+    local v16 = if v14.displayName ~= "" then v14.displayName else nil;
+    local v17 = if (not v13.configs or not (v13.configs.showSubtitle ~= nil) or v13.configs.showSubtitle) and v14.username ~= "" then ("@%*"):format(v14.username) else nil;
+    local v18 = not v13.configs or not (v13.configs.showPresence ~= nil) or v13.configs.showPresence;
+    local l_None_0 = v3.Enums.UserPresence.None;
+    if v18 and v13.presence then
+        l_None_0 = l_convertToFoundationPresenceEnum_0(v13.presence);
+    end;
+    local v20 = if v13.loadingState and if l_FFlagHomepagePYMKUseHorizontalUserList_0 then v13.loadingState.title ~= nil else v13.loadingState.title then v13.loadingState.title else v14.isLoading;
+    local v21 = if v13.loadingState and if l_FFlagHomepagePYMKUseHorizontalUserList_0 then v13.loadingState.subtitle ~= nil else v13.loadingState.subtitle then v13.loadingState.subtitle else v14.isLoading;
+    local v22 = v13.loadingState and v13.loadingState.contextualInfo;
     return v2.createElement(v8, {
-        userId = v11.entityId, 
+        userId = v13.entityId, 
         userPresenceType = l_None_0, 
-        title = v13, 
-        subtitle = v14, 
-        layoutMode = v11.layoutMode, 
-        onActivated = v11.onActivated, 
-        isTitleLoading = v17, 
-        isSubtitleLoading = v18, 
-        isContextualInfoLoading = v19, 
-        contextualInfo = v11.contextualInfo, 
-        primaryCta = v11.primaryCta, 
-        secondaryCta = v11.secondaryCta, 
-        trailingContent = v11.trailingContent, 
-        layoutOrder = v11.layoutOrder, 
-        trustedConnectionIndicatorEnabled = if v9 then v11.layoutMode == v6.RowLayoutMode.Wide else nil
+        title = v16, 
+        subtitle = v17, 
+        layoutMode = v13.layoutMode, 
+        onActivated = v13.onActivated, 
+        isTitleLoading = v20, 
+        isSubtitleLoading = v21, 
+        isContextualInfoLoading = v22, 
+        contextualInfo = v13.contextualInfo, 
+        primaryCta = v13.primaryCta, 
+        secondaryCta = v13.secondaryCta, 
+        trailingContent = v13.trailingContent, 
+        layoutOrder = v13.layoutOrder, 
+        trustedConnectionIndicatorEnabled = if v10 then v13.layoutMode == v6.RowLayoutMode.Wide else nil, 
+        isRobloxSubscriber = if l_FFlagEnableBlackbirdCheckDev_0 then v15 else nil
     });
 end);

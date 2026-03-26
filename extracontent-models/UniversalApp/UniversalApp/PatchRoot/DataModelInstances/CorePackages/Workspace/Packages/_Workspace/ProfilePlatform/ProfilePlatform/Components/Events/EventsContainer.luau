@@ -19,142 +19,150 @@ local l_HorizontalPageMargin_0 = require(l_Parent_0.UIBlox).App.Container.Horizo
 local v18 = require(l_script_FirstAncestor_0.Stores.createGroupEventsStore);
 local l_useSignalState_0 = require(l_Parent_0.SignalsReact).useSignalState;
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
+local l_FFlagLuaAppSduiEventDetailsEnabled_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSduiEventDetailsEnabled;
+local l_navigateToEventDetails_0 = require(l_Parent_0.VirtualEvents).navigateToEventDetails;
 local l_useApolloClient_0 = require(l_Parent_0.ApolloClient).useApolloClient;
-local v22 = require(l_Parent_0.RoactNavigation);
-local v23 = require(l_script_FirstAncestor_0.Components.Events.EventsSkeleton);
-local v24 = require(l_script_FirstAncestor_0.Flags.FFlagEnableCommunityProfileLoadingSkeletons);
-return function(v25) --[[ Line: 59 ]] --[[ Name: EventsContainer ]]
-    -- upvalues: v9 (copy), v4 (copy), v8 (copy), l_useRoactService_0 (copy), l_AppGame_0 (copy), l_useNavigation_0 (copy), l_useApolloClient_0 (copy), v10 (copy), v16 (copy), v18 (copy), l_useSignalState_0 (copy), v5 (copy), v2 (copy), v6 (copy), l_AppPage_0 (copy), l_LaunchGame_0 (copy), v24 (copy), l_HorizontalPageMargin_0 (copy), v22 (copy), v23 (copy), l_EventsListCarousel_0 (copy)
-    local v26 = v9(v4.Components.Events);
-    local v27 = tonumber(v8().profileId);
-    local v28 = l_useRoactService_0(l_AppGame_0);
-    local v29 = l_useNavigation_0();
-    local v30 = l_useApolloClient_0();
-    local v31 = v10();
-    local v32 = v16.useMemo(function() --[[ Line: 69 ]]
-        -- upvalues: v18 (ref), v27 (copy)
-        return v18(v27);
+local v24 = require(l_Parent_0.RoactNavigation);
+local v25 = require(l_script_FirstAncestor_0.Components.Events.EventsSkeleton);
+local v26 = require(l_script_FirstAncestor_0.Flags.FFlagEnableCommunityProfileLoadingSkeletons);
+return function(v27) --[[ Line: 63 ]] --[[ Name: EventsContainer ]]
+    -- upvalues: v9 (copy), v4 (copy), v8 (copy), l_useRoactService_0 (copy), l_AppGame_0 (copy), l_useNavigation_0 (copy), l_useApolloClient_0 (copy), v10 (copy), v16 (copy), v18 (copy), l_useSignalState_0 (copy), v5 (copy), v2 (copy), v6 (copy), l_FFlagLuaAppSduiEventDetailsEnabled_0 (copy), l_navigateToEventDetails_0 (copy), l_AppPage_0 (copy), l_LaunchGame_0 (copy), v26 (copy), l_HorizontalPageMargin_0 (copy), v24 (copy), v25 (copy), l_EventsListCarousel_0 (copy)
+    local v28 = v9(v4.Components.Events);
+    local v29 = tonumber(v8().profileId);
+    local v30 = l_useRoactService_0(l_AppGame_0);
+    local v31 = l_useNavigation_0();
+    local v32 = l_useApolloClient_0();
+    local v33 = v10();
+    local v34 = v16.useMemo(function() --[[ Line: 73 ]]
+        -- upvalues: v18 (ref), v29 (copy)
+        return v18(v29);
     end, {
-        v27
+        v29
     });
-    local v33 = l_useSignalState_0(v32.getEvents);
-    local v43 = v16.useMemo(function() --[[ Line: 76 ]]
-        -- upvalues: v33 (copy), v26 (copy)
-        local v34 = {};
-        if v33 == nil then
-            return v34;
+    local v35 = l_useSignalState_0(v34.getEvents);
+    local v45 = v16.useMemo(function() --[[ Line: 80 ]]
+        -- upvalues: v35 (copy), v28 (copy)
+        local v36 = {};
+        if v35 == nil then
+            return v36;
         else
-            local v35 = {};
-            for _, v37 in ipairs(v33) do
-                v35[v37.id] = v37;
+            local v37 = {};
+            for _, v39 in ipairs(v35) do
+                v37[v39.id] = v39;
             end;
             local l_ipairs_0 = ipairs;
-            local v39 = if v26 then v26.events else {};
-            for _, v41 in l_ipairs_0(v39) do
-                local v42 = v35[v41.id];
-                if v42 ~= nil then
-                    table.insert(v34, v42);
+            local v41 = if v28 then v28.events else {};
+            for _, v43 in l_ipairs_0(v41) do
+                local v44 = v37[v43.id];
+                if v44 ~= nil then
+                    table.insert(v36, v44);
                 end;
             end;
-            return v34;
+            return v36;
         end;
     end, {
-        v33, 
-        v26
+        v35, 
+        v28
     });
-    local v44 = if #v43 > 0 then tonumber(v43[1].universeId) or 0 else 0;
-    local v54 = v16.useCallback(function(v45, v46) --[[ Line: 106 ]]
-        -- upvalues: v31 (copy), v5 (ref), v2 (ref), v32 (copy), v30 (copy), v6 (ref)
-        v31.fireAnalyticsEvent(v5.EventRSVP, {
-            virtualEventId = v45.id, 
-            status = v46
+    local v46 = if #v45 > 0 then tonumber(v45[1].universeId) or 0 else 0;
+    local v56 = v16.useCallback(function(v47, v48) --[[ Line: 110 ]]
+        -- upvalues: v33 (copy), v5 (ref), v2 (ref), v34 (copy), v32 (copy), v6 (ref)
+        v33.fireAnalyticsEvent(v5.EventRSVP, {
+            virtualEventId = v47.id, 
+            status = v48
         });
         v2.fireVirtualEventRSVP({
-            virtualEventId = v45.id, 
-            universeId = tostring(v45.universeId), 
+            virtualEventId = v47.id, 
+            universeId = tostring(v47.universeId), 
             channel = "communityPeekView", 
-            status = v46
+            status = v48
         });
-        v32.updateRsvpStatus(v45, v46);
-        v30.cache:modify({
-            id = "VirtualEvent:" .. v45.id, 
+        v34.updateRsvpStatus(v47, v48);
+        v32.cache:modify({
+            id = "VirtualEvent:" .. v47.id, 
             fields = {
-                userRsvpStatus = function(_, _, _) --[[ Line: 122 ]] --[[ Name: userRsvpStatus ]]
-                    -- upvalues: v46 (copy)
-                    return v46;
+                userRsvpStatus = function(_, _, _) --[[ Line: 126 ]] --[[ Name: userRsvpStatus ]]
+                    -- upvalues: v48 (copy)
+                    return v48;
                 end, 
-                rsvpCounters = function(_, v51, _) --[[ Line: 125 ]] --[[ Name: rsvpCounters ]]
-                    -- upvalues: v46 (copy), v6 (ref)
-                    local v53 = v46 == "going" and 1 or -1;
-                    return v6.Dictionary.join(v51, {
-                        going = v51.going + v53
+                rsvpCounters = function(_, v53, _) --[[ Line: 129 ]] --[[ Name: rsvpCounters ]]
+                    -- upvalues: v48 (copy), v6 (ref)
+                    local v55 = v48 == "going" and 1 or -1;
+                    return v6.Dictionary.join(v53, {
+                        going = v53.going + v55
                     });
                 end
             }
         });
     end, {
-        v32
+        v34
     });
-    local v56 = v16.useCallback(function(v55) --[[ Line: 137 ]]
-        -- upvalues: v31 (copy), v5 (ref), v29 (copy), l_AppPage_0 (ref)
-        v31.fireAnalyticsEvent(v5.EventOpened, {
-            virtualEventId = v55.id
-        });
-        v29.navigate(l_AppPage_0.EventDetails, {
-            extraProps = {
-                currentTime = DateTime.now(), 
-                virtualEventId = v55.id
-            }
-        });
-    end, {
-        v29
-    });
-    local v58 = v16.useCallback(function(v57) --[[ Line: 149 ]]
-        -- upvalues: v31 (copy), v5 (ref), v2 (ref), l_LaunchGame_0 (ref), v28 (copy)
-        v31.fireAnalyticsEvent(v5.EventJoined, {
+    local v58 = v16.useCallback(function(v57) --[[ Line: 141 ]]
+        -- upvalues: v33 (copy), v5 (ref), l_FFlagLuaAppSduiEventDetailsEnabled_0 (ref), l_navigateToEventDetails_0 (ref), v31 (copy), l_AppPage_0 (ref)
+        v33.fireAnalyticsEvent(v5.EventOpened, {
             virtualEventId = v57.id
         });
+        if l_FFlagLuaAppSduiEventDetailsEnabled_0 then
+            l_navigateToEventDetails_0(v31, v57.id);
+            return;
+        else
+            v31.navigate(l_AppPage_0.EventDetails, {
+                extraProps = {
+                    currentTime = DateTime.now(), 
+                    virtualEventId = v57.id
+                }
+            });
+            return;
+        end;
+    end, {
+        v31
+    });
+    local v60 = v16.useCallback(function(v59) --[[ Line: 157 ]]
+        -- upvalues: v33 (copy), v5 (ref), v2 (ref), l_LaunchGame_0 (ref), v30 (copy)
+        v33.fireAnalyticsEvent(v5.EventJoined, {
+            virtualEventId = v59.id
+        });
         v2.fireVirtualEventJoined({
-            virtualEventId = v57.id, 
-            universeId = tostring(v57.universeId), 
+            virtualEventId = v59.id, 
+            universeId = tostring(v59.universeId), 
             channel = "communityPeekView"
         });
-        l_LaunchGame_0(v57.placeId, nil, {
-            eventId = v57.id
-        }, v28);
+        l_LaunchGame_0(v59.placeId, nil, {
+            eventId = v59.id
+        }, v30);
     end, {});
-    local v60 = v16.useCallback(function(v59) --[[ Line: 161 ]]
+    local v62 = v16.useCallback(function(v61) --[[ Line: 169 ]]
         -- upvalues: v2 (ref)
         v2.fireVirtualEventImpression({
-            virtualEventId = v59.id, 
-            universeId = v59.universeId, 
+            virtualEventId = v61.id, 
+            universeId = v61.universeId, 
             channel = "communityPeekView"
         });
     end, {});
-    local v61 = if v24 then l_useSignalState_0(v32.isLoading) else false;
+    local v63 = if v26 then l_useSignalState_0(v34.isLoading) else false;
     return v16.createElement(l_HorizontalPageMargin_0, {
         size = UDim2.new(1, 0, 0, 0), 
         backgroundTransparency = 1, 
-        layoutOrder = v25.layoutOrder, 
+        layoutOrder = v27.layoutOrder, 
         useAutomaticSizing = true
     }, {
-        NavEvents = v16.createElement(v22.NavigationEvents, {
-            onDidFocus = function() --[[ Line: 180 ]] --[[ Name: onDidFocus ]]
-                -- upvalues: v32 (copy)
-                v32.refetch();
+        NavEvents = v16.createElement(v24.NavigationEvents, {
+            onDidFocus = function() --[[ Line: 188 ]] --[[ Name: onDidFocus ]]
+                -- upvalues: v34 (copy)
+                v34.refetch();
             end
         }), 
-        EventsCarousel = if v24 and v61 then v16.createElement(v23, {
-            numSkeletons = #v26.events
+        EventsCarousel = if v26 and v63 then v16.createElement(v25, {
+            numSkeletons = #v28.events
         }) else v16.createElement(l_EventsListCarousel_0, {
-            virtualEvents = v43, 
-            onTileActivated = v56, 
-            onRsvpChanged = v54, 
-            onJoinEvent = v58, 
-            onEventImpression = v60, 
+            virtualEvents = v45, 
+            onTileActivated = v58, 
+            onRsvpChanged = v56, 
+            onJoinEvent = v60, 
+            onEventImpression = v62, 
             peekViewFormat = true, 
             referralSource = "communityPeekView", 
-            universeId = v44
+            universeId = v46
         })
     });
 end;

@@ -5,6 +5,7 @@ local v3 = require(script.Enum);
 return {
     InAppSocialUpsellOverlayWrapper = require(script.Components).InAppSocialUpsellOverlayWrapper, 
     UpsellBanner = v0.UpsellBanner, 
+    UpsellOverlay = v0.UpsellOverlay, 
     SocialUpsellEventReceiver = v0.SocialUpsellEventReceiver, 
     Analytics = {
         SocialUpsellAnalytics = require(script.Analytics.SocialUpsellAnalytics), 

@@ -17,8 +17,9 @@ local v15 = require(script.Parent.useFetchPaginatedFriendIds);
 local v16 = require(script.Parent.SelectChatMembers);
 local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
 local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local v19 = require(l_script_FirstAncestor_0.Stores.GetSelectedUsersStore);
-local v23 = {
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v20 = require(l_script_FirstAncestor_0.Stores.GetSelectedUsersStore);
+local v24 = {
     minSelections = 1, 
     maxSelections = v3.MIN_PARTICIPANT_COUNT, 
     maxConversationSize = v3.MAX_PARTICIPANT_COUNT, 
@@ -28,117 +29,117 @@ local v23 = {
     conversation = {
         participants = {}
     }, 
-    navigateToToast = function(_) --[[ Line: 63 ]] --[[ Name: navigateToToast ]]
+    navigateToToast = function(_) --[[ Line: 64 ]] --[[ Name: navigateToToast ]]
 
     end, 
-    selectedUsersChanged = function(_, _) --[[ Line: 64 ]] --[[ Name: selectedUsersChanged ]]
+    selectedUsersChanged = function(_, _) --[[ Line: 65 ]] --[[ Name: selectedUsersChanged ]]
 
     end, 
     isDebugEnabled = false
 };
-SelectChatMembersContainer = function(v24) --[[ Line: 69 ]] --[[ Name: SelectChatMembersContainer ]]
-    -- upvalues: v5 (copy), v23 (copy), v19 (copy), v6 (copy), v7 (copy), l_useLocalization_0 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v3 (copy), v15 (copy), v12 (copy), v11 (copy), v10 (copy), l_View_0 (copy), v16 (copy)
-    local v25 = v5.Dictionary.union(v23, v24);
-    local v26 = v19(false);
-    v6.useEffect(function() --[[ Line: 73 ]]
-        -- upvalues: v26 (copy), v25 (copy)
-        v26.setMaxSize(v25.maxSelections);
-        return function() --[[ Line: 75 ]]
-            -- upvalues: v26 (ref)
-            v26.clearStore();
+SelectChatMembersContainer = function(v25) --[[ Line: 70 ]] --[[ Name: SelectChatMembersContainer ]]
+    -- upvalues: v5 (copy), v24 (copy), v20 (copy), v6 (copy), v7 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v3 (copy), v15 (copy), v12 (copy), v11 (copy), v10 (copy), l_View_0 (copy), v16 (copy)
+    local v26 = v5.Dictionary.union(v24, v25);
+    local v27 = v20(false);
+    v6.useEffect(function() --[[ Line: 74 ]]
+        -- upvalues: v27 (copy), v26 (copy)
+        v27.setMaxSize(v26.maxSelections);
+        return function() --[[ Line: 76 ]]
+            -- upvalues: v27 (ref)
+            v27.clearStore();
         end;
     end, {
-        v25.maxSelections
+        v26.maxSelections
     });
-    v6.useEffect(function() --[[ Line: 80 ]]
-        -- upvalues: v7 (ref), v26 (copy), v5 (ref), v25 (copy)
-        local v31 = v7.createEffect(function(v27) --[[ Line: 81 ]]
-            -- upvalues: v26 (ref), v5 (ref), v25 (ref)
-            local v28 = v26.getSelectedUserIdsArray()(v27);
-            local v30 = v5.List.map(v28, function(v29) --[[ Line: 86 ]]
+    v6.useEffect(function() --[[ Line: 81 ]]
+        -- upvalues: v7 (ref), v27 (copy), v5 (ref), v26 (copy)
+        local v32 = v7.createEffect(function(v28) --[[ Line: 82 ]]
+            -- upvalues: v27 (ref), v5 (ref), v26 (ref)
+            local v29 = v27.getSelectedUserIdsArray()(v28);
+            local v31 = v5.List.map(v29, function(v30) --[[ Line: 87 ]]
                 return {
-                    id = v29
+                    id = v30
                 };
             end);
-            v25.selectedUsersChanged(v30, v25.minSelections);
+            v26.selectedUsersChanged(v31, v26.minSelections);
         end);
-        return function() --[[ Line: 92 ]]
-            -- upvalues: v31 (copy)
-            v31();
+        return function() --[[ Line: 93 ]]
+            -- upvalues: v32 (copy)
+            v32();
         end;
     end, {
-        v25.minSelections
+        v26.minSelections
     });
-    local v32 = l_useLocalization_0({
-        systemButtonText = v25.systemButtonText, 
-        pageHeaderText = v25.pageHeaderText, 
-        searchFriendsText = "Feature.Chat.Label.SearchConnections", 
+    local v33 = l_useLocalization_0({
+        systemButtonText = v26.systemButtonText, 
+        pageHeaderText = v26.pageHeaderText, 
+        searchFriendsText = l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Label.SearchFriends" or "Feature.Chat.Label.SearchConnections", 
         networkErrorText = "Feature.Chat.Response.NetworkError", 
         tooManyFriendsText = {
-            l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.AddConnectionsPartyLimit" or "Feature.Chat.Message.AddConnectionsLimit"; 
+            if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.AddFriendsPartyLimit" or "Feature.Chat.Message.AddConnectionsPartyLimit" else l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.AddFriendsLimit" or "Feature.Chat.Message.AddConnectionsLimit"; 
             friendNum = v3.MAX_PARTICIPANT_COUNT, 
             connectionsNum = v3.MAX_PARTICIPANT_COUNT
         }, 
-        tooManyFriendsTextSingular = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.AddConnectionsPartyLimitSingular" or "Feature.Chat.Message.GroupConnectionLimitSingular"
+        tooManyFriendsTextSingular = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.AddFriendsPartyLimitSingular" or "Feature.Chat.Message.AddConnectionsPartyLimitSingular" else l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Message.GroupFriendLimitSingular" or "Feature.Chat.Message.GroupConnectionLimitSingular"
     });
-    local v34 = v6.useCallback(function() --[[ Line: 115 ]]
-        -- upvalues: v25 (copy), v32 (copy)
-        local v33 = if v25.canOnlyCreateOneToOneChat then v32.tooManyFriendsTextSingular else v32.tooManyFriendsText;
-        v25.navigateToToast({
+    local v35 = v6.useCallback(function() --[[ Line: 126 ]]
+        -- upvalues: v26 (copy), v33 (copy)
+        local v34 = if v26.canOnlyCreateOneToOneChat then v33.tooManyFriendsTextSingular else v33.tooManyFriendsText;
+        v26.navigateToToast({
             toastProps = {
                 toastContent = {
-                    toastTitle = v33
+                    toastTitle = v34
                 }
             }
         });
     end, {
-        v25.canOnlyCreateOneToOneChat, 
-        v25.navigateToToast, 
-        v32
+        v26.canOnlyCreateOneToOneChat, 
+        v26.navigateToToast, 
+        v33
     });
-    v6.useEffect(function() --[[ Line: 121 ]]
-        -- upvalues: v26 (copy), v34 (copy)
-        local v35 = v26.onMaxSizeExceeded(v34);
-        return function() --[[ Line: 123 ]]
-            -- upvalues: v35 (copy)
-            v35();
+    v6.useEffect(function() --[[ Line: 132 ]]
+        -- upvalues: v27 (copy), v35 (copy)
+        local v36 = v27.onMaxSizeExceeded(v35);
+        return function() --[[ Line: 134 ]]
+            -- upvalues: v36 (copy)
+            v36();
         end;
     end, {
-        v34
+        v35
     });
-    local v36, v37, v38 = v15();
-    local v40 = v6.useMemo(function() --[[ Line: 130 ]]
-        -- upvalues: v5 (ref), v36 (copy), v12 (ref), v25 (copy)
-        return v5.List.filter(v36, function(v39) --[[ Line: 131 ]]
-            -- upvalues: v12 (ref), v25 (ref)
-            return not v12(v39, v25.conversation);
+    local v37, v38, v39 = v15();
+    local v41 = v6.useMemo(function() --[[ Line: 141 ]]
+        -- upvalues: v5 (ref), v37 (copy), v12 (ref), v26 (copy)
+        return v5.List.filter(v37, function(v40) --[[ Line: 142 ]]
+            -- upvalues: v12 (ref), v26 (ref)
+            return not v12(v40, v26.conversation);
         end);
     end, {
-        v36, 
-        v25.conversation
+        v37, 
+        v26.conversation
     });
-    local v41 = v6.useCallback(function() --[[ Line: 136 ]]
-        -- upvalues: v37 (copy), v38 (copy)
-        if v37 and not v38 then
-            v37();
+    local v42 = v6.useCallback(function() --[[ Line: 147 ]]
+        -- upvalues: v38 (copy), v39 (copy)
+        if v38 and not v39 then
+            v38();
         end;
     end, {
-        v37, 
-        v38
+        v38, 
+        v39
     });
-    local v42 = not v25.canOnlyCreateOneToOneChat;
-    local v43 = v11();
-    local v44 = not v10(v43);
+    local v43 = not v26.canOnlyCreateOneToOneChat;
+    local v44 = v11();
+    local v45 = not v10(v44);
     return v6.createElement(l_View_0, {
-        Size = UDim2.new(1, 0, 1, v44 and 0 or -56)
+        Size = UDim2.new(1, 0, 1, v45 and 0 or -56)
     }, {
         SelectMembers = v6.createElement(v16, {
-            friendIds = v40, 
-            fetchMoreFriends = v41, 
-            searchFriendsText = v32.searchFriendsText, 
-            shouldShowSelectChatMembersBar = v42, 
-            conversation = v25.conversation, 
-            isDebugEnabled = v25.isDebugEnabled
+            friendIds = v41, 
+            fetchMoreFriends = v42, 
+            searchFriendsText = v33.searchFriendsText, 
+            shouldShowSelectChatMembersBar = v43, 
+            conversation = v26.conversation, 
+            isDebugEnabled = v26.isDebugEnabled
         })
     });
 end;

@@ -1,1 +1,1 @@
-return game:DefineFastFlag("TCParentChildAutoUpgrade", false);
+return game:DefineFastFlag("TCParentChildAutoUpgrade2", false);

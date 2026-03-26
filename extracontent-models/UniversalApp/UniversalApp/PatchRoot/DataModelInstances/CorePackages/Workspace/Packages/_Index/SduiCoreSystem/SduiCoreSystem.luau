@@ -55,5 +55,8 @@ return {
     getSduiTokensStore = function() --[[ Line: 100 ]] --[[ Name: getSduiTokensStore ]]
         return require(script.ClientBinding.getSduiTokensStore)();
     end, 
+    getSduiPolicyStore = function() --[[ Line: 103 ]] --[[ Name: getSduiPolicyStore ]]
+        return require(script.ClientBinding.getSduiPolicyStore)();
+    end, 
     getSduiComponentRegistry = require(script.getSduiComponentRegistry)
 };

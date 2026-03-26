@@ -1,121 +1,124 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
+local l_IXPService_0 = game:GetService("IXPService");
 local l_SessionService_0 = game:GetService("SessionService");
 local l_GuiService_0 = game:GetService("GuiService");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("Modules");
-local v4 = require(l_CorePackages_0.Packages.ApolloClient);
-local v5 = require(l_CorePackages_0.Packages.Cryo);
-local v6 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local v7 = require(l_CorePackages_0.Packages.React);
+local v5 = require(l_CorePackages_0.Packages.ApolloClient);
+local v6 = require(l_CorePackages_0.Packages.Cryo);
+local v7 = require(l_CorePackages_0.Packages.RoactAppExperiment);
+local v8 = require(l_CorePackages_0.Packages.React);
 local l_useDispatch_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch;
 local l_useNavigation_0 = require(l_CorePackages_0.Workspace.Packages.Navigation).useNavigation;
 local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
 local l_isSubjectToDesktopPolicies_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies;
 local l_UrlBuilder_0 = require(l_CorePackages_0.Packages.UrlBuilder).UrlBuilder;
-local v13 = require(l_script_FirstAncestor_0.LuaApp.Thunks.OpenGameDetails);
-local v14 = require(l_script_FirstAncestor_0.LuaApp.AppPage);
+local v14 = require(l_script_FirstAncestor_0.LuaApp.Thunks.OpenGameDetails);
+local v15 = require(l_script_FirstAncestor_0.LuaApp.AppPage);
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.ExternalContentSharingProtocol).ExternalContentSharingProtocol.default;
 local l_SessionType_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppSessionization).SessionType;
 local l_SetGamePlaySession_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppSessionization).SetGamePlaySession;
-local v18 = require(l_CorePackages_0.Workspace.Packages.VirtualEvents);
-local v19 = require(l_script_FirstAncestor_0.LuaApp.Enum.TransitionAnimation);
-local v20 = require(script.Parent.LaunchGameOnMount);
-local l_useQuery_0 = v4.useQuery;
-local l_useUserExperiment_0 = v6.useUserExperiment;
-local l_useIXPService_0 = v6.useIXPService;
+local v19 = require(l_CorePackages_0.Workspace.Packages.VirtualEvents);
+local v20 = require(l_script_FirstAncestor_0.LuaApp.Enum.TransitionAnimation);
+local v21 = require(script.Parent.LaunchGameOnMount);
+local l_useQuery_0 = v5.useQuery;
+local l_useUserExperiment_0 = v7.useUserExperiment;
+local l_useIXPService_0 = v7.useIXPService;
 local l_getFFlagRemoveVirtualEventsExperiment_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).getFFlagRemoveVirtualEventsExperiment;
 local l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableVirtualEventPlaceId;
-local v26 = {
+local l_FFlagLuaAppSduiEventDetailsLogExposure_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEventDetailsLogExposure;
+local l_FStringLuaAppSduiEventDetailsIxpLayer_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FStringLuaAppSduiEventDetailsIxpLayer;
+local v29 = {
     referralSource = "link"
 };
-return function(v27) --[[ Line: 50 ]] --[[ Name: EventDetailsWrapper ]]
-    -- upvalues: v5 (copy), v26 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), v7 (copy), l_GuiService_0 (copy), l_useQuery_0 (copy), v18 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_useLocalization_0 (copy), l_useIXPService_0 (copy), l_getFFlagRemoveVirtualEventsExperiment_0 (copy), l_useUserExperiment_0 (copy), v13 (copy), l_default_0 (copy), l_UrlBuilder_0 (copy), l_isSubjectToDesktopPolicies_0 (copy), v14 (copy), l_SetGamePlaySession_0 (copy), l_SessionService_0 (copy), l_SessionType_0 (copy), v19 (copy), v20 (copy)
-    local v28 = v5.Dictionary.join(v26, v27);
-    local v29 = l_useDispatch_0();
-    local v30 = l_useNavigation_0();
-    local v31, v32 = v7.useState(false);
-    local v33 = v7.useRef(true);
+return function(v30) --[[ Line: 55 ]] --[[ Name: EventDetailsWrapper ]]
+    -- upvalues: v6 (copy), v29 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), v8 (copy), l_GuiService_0 (copy), l_useQuery_0 (copy), v19 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_useLocalization_0 (copy), l_useIXPService_0 (copy), l_getFFlagRemoveVirtualEventsExperiment_0 (copy), l_useUserExperiment_0 (copy), v14 (copy), l_default_0 (copy), l_UrlBuilder_0 (copy), l_isSubjectToDesktopPolicies_0 (copy), v15 (copy), l_SetGamePlaySession_0 (copy), l_SessionService_0 (copy), l_SessionType_0 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (copy), l_IXPService_0 (copy), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (copy), v20 (copy), v21 (copy)
+    local v31 = v6.Dictionary.join(v29, v30);
+    local v32 = l_useDispatch_0();
+    local v33 = l_useNavigation_0();
+    local v34, v35 = v8.useState(false);
+    local v36 = v8.useRef(true);
     local l_l_GuiService_0_SafeZoneOffsets_0 = l_GuiService_0:GetSafeZoneOffsets();
-    local v35 = l_useQuery_0(v18.requests.GET_VIRTUAL_EVENT, {
+    local v38 = l_useQuery_0(v19.requests.GET_VIRTUAL_EVENT, {
         variables = {
-            virtualEventId = v28.virtualEventId
+            virtualEventId = v31.virtualEventId
         }
     });
-    local v36 = if v35.data then v35.data.virtualEvent else nil;
-    local v37 = if v36 and v36.universeId then tostring(v36.universeId) else nil;
-    local v38 = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and v36 and v36.placeId then tostring(v36.placeId) else nil;
-    local v39 = if v36 then v36.experienceDetails.playing else 0;
-    local v40 = l_useLocalization_0({
+    local v39 = if v38.data then v38.data.virtualEvent else nil;
+    local v40 = if v39 and v39.universeId then tostring(v39.universeId) else nil;
+    local v41 = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and v39 and v39.placeId then tostring(v39.placeId) else nil;
+    local v42 = if v39 then v39.experienceDetails.playing else 0;
+    local v43 = l_useLocalization_0({
         hostTitle = "Feature.GameDetails.Label.Developer"
     });
-    local v41 = l_useIXPService_0();
-    local v44 = if l_getFFlagRemoveVirtualEventsExperiment_0() then nil else l_useUserExperiment_0({
+    local v44 = l_useIXPService_0();
+    local v47 = if l_getFFlagRemoveVirtualEventsExperiment_0() then nil else l_useUserExperiment_0({
         "Ecosystems.EventsOnExperienceDetailsPage"
-    }, function(v42) --[[ Line: 84 ]]
-        local v43 = v42["Ecosystems.EventsOnExperienceDetailsPage"];
-        if v43 then
-            return v43.virtualEventsMVPEnabled;
+    }, function(v45) --[[ Line: 89 ]]
+        local v46 = v45["Ecosystems.EventsOnExperienceDetailsPage"];
+        if v46 then
+            return v46.virtualEventsMVPEnabled;
         else
             return nil;
         end;
     end, false);
-    local v45 = v7.useCallback(function() --[[ Line: 89 ]]
-        -- upvalues: v30 (copy)
-        v30.goBack();
+    local v48 = v8.useCallback(function() --[[ Line: 94 ]]
+        -- upvalues: v33 (copy)
+        v33.goBack();
     end, {});
-    local v46 = v7.useCallback(function() --[[ Line: 93 ]]
-        -- upvalues: v37 (copy), v29 (copy), v13 (ref)
-        if v37 then
-            v29(v13(v37));
+    local v49 = v8.useCallback(function() --[[ Line: 98 ]]
+        -- upvalues: v40 (copy), v32 (copy), v14 (ref)
+        if v40 then
+            v32(v14(v40));
         end;
     end, {
-        v37
+        v40
     });
-    local v48 = v7.useCallback(function(v47) --[[ Line: 99 ]]
+    local v51 = v8.useCallback(function(v50) --[[ Line: 104 ]]
         -- upvalues: l_default_0 (ref)
         if l_default_0 then
             l_default_0:shareUrl({
-                url = v47, 
+                url = v50, 
                 context = "eventDetailsPage"
             });
         end;
     end, {});
-    local v50 = v7.useCallback(function(v49) --[[ Line: 108 ]]
-        -- upvalues: v37 (copy), v18 (ref), v28 (copy), v39 (copy)
-        if v37 then
-            v18.fireVirtualEventLinkCopied({
-                virtualEventId = v28.virtualEventId, 
-                virtualEventLink = v49, 
-                universeId = v37, 
-                attendanceCount = v39
+    local v53 = v8.useCallback(function(v52) --[[ Line: 113 ]]
+        -- upvalues: v40 (copy), v19 (ref), v31 (copy), v42 (copy)
+        if v40 then
+            v19.fireVirtualEventLinkCopied({
+                virtualEventId = v31.virtualEventId, 
+                virtualEventLink = v52, 
+                universeId = v40, 
+                attendanceCount = v42
             });
         end;
     end, {
-        v28.virtualEventId, 
-        v37, 
-        v39
+        v31.virtualEventId, 
+        v40, 
+        v42
     });
-    local v52 = v7.useCallback(function() --[[ Line: 119 ]]
-        -- upvalues: v37 (copy), v18 (ref), v28 (copy), v39 (copy), l_UrlBuilder_0 (ref), l_isSubjectToDesktopPolicies_0 (ref), v30 (copy), v14 (ref), v50 (copy), l_default_0 (ref), v48 (copy)
-        if v37 then
-            v18.fireShareVirtualEventIconClicked({
-                virtualEventId = v28.virtualEventId, 
-                universeId = v37, 
+    local v55 = v8.useCallback(function() --[[ Line: 124 ]]
+        -- upvalues: v40 (copy), v19 (ref), v31 (copy), v42 (copy), l_UrlBuilder_0 (ref), l_isSubjectToDesktopPolicies_0 (ref), v33 (copy), v15 (ref), v53 (copy), l_default_0 (ref), v51 (copy)
+        if v40 then
+            v19.fireShareVirtualEventIconClicked({
+                virtualEventId = v31.virtualEventId, 
+                universeId = v40, 
                 channel = "eventDetailsPage", 
-                attendanceCount = v39
+                attendanceCount = v42
             });
-            local v51 = l_UrlBuilder_0.virtualevents.appsflyer({
-                eventId = v28.virtualEventId
+            local v54 = l_UrlBuilder_0.virtualevents.appsflyer({
+                eventId = v31.virtualEventId
             });
             if l_isSubjectToDesktopPolicies_0() then
-                v30.navigate(v14.ShareVirtualEventModal, {
+                v33.navigate(v15.ShareVirtualEventModal, {
                     extraProps = {
-                        virtualEventId = v28.virtualEventId, 
-                        onCopy = function() --[[ Line: 136 ]] --[[ Name: onCopy ]]
-                            -- upvalues: v50 (ref), v51 (copy), l_default_0 (ref)
-                            v50(v51);
+                        virtualEventId = v31.virtualEventId, 
+                        onCopy = function() --[[ Line: 141 ]] --[[ Name: onCopy ]]
+                            -- upvalues: v53 (ref), v54 (copy), l_default_0 (ref)
+                            v53(v54);
                             if l_default_0 then
                                 l_default_0:shareUrl({
-                                    url = v51, 
+                                    url = v54, 
                                     context = "eventDetailsPage"
                                 });
                             end;
@@ -124,55 +127,55 @@ return function(v27) --[[ Line: 50 ]] --[[ Name: EventDetailsWrapper ]]
                 });
                 return;
             else
-                v48(v51);
+                v51(v54);
             end;
         end;
     end, {
-        v28.virtualEventId, 
-        v37, 
-        v39
+        v31.virtualEventId, 
+        v40, 
+        v42
     });
-    local v53 = v7.useCallback(function() --[[ Line: 154 ]]
-        -- upvalues: v32 (copy)
-        v32(true);
+    local v56 = v8.useCallback(function() --[[ Line: 159 ]]
+        -- upvalues: v35 (copy)
+        v35(true);
     end, {});
-    local v54 = v7.useCallback(function() --[[ Line: 158 ]]
-        -- upvalues: l_SetGamePlaySession_0 (ref), l_SessionService_0 (ref), l_SessionType_0 (ref), v18 (ref), v36 (copy), v39 (copy)
+    local v57 = v8.useCallback(function() --[[ Line: 163 ]]
+        -- upvalues: l_SetGamePlaySession_0 (ref), l_SessionService_0 (ref), l_SessionType_0 (ref), v19 (ref), v39 (copy), v42 (copy)
         l_SetGamePlaySession_0(l_SessionService_0, l_SessionType_0.StructuralIdentifier.GamePlayFromEventDetails, true);
-        v18.fireVirtualEventJoined({
-            virtualEventId = v36.id, 
-            universeId = tostring(v36.universeId), 
+        v19.fireVirtualEventJoined({
+            virtualEventId = v39.id, 
+            universeId = tostring(v39.universeId), 
             channel = "eventDetailsPage", 
-            attendanceCount = v39
+            attendanceCount = v42
         });
     end, {
-        v36, 
-        v39
+        v39, 
+        v42
     });
-    local v57 = v7.useCallback(function(v55, v56) --[[ Line: 170 ]]
-        -- upvalues: v18 (ref), v36 (copy), v39 (copy), l_getFFlagRemoveVirtualEventsExperiment_0 (ref), v30 (copy), v14 (ref), v41 (copy), v44 (copy)
-        v18.fireVirtualEventRSVP({
-            virtualEventId = v36.id, 
-            universeId = tostring(v36.universeId), 
+    local v60 = v8.useCallback(function(v58, v59) --[[ Line: 175 ]]
+        -- upvalues: v19 (ref), v39 (copy), v42 (copy), l_getFFlagRemoveVirtualEventsExperiment_0 (ref), v33 (copy), v15 (ref), v44 (copy), v47 (copy)
+        v19.fireVirtualEventRSVP({
+            virtualEventId = v39.id, 
+            universeId = tostring(v39.universeId), 
             channel = "eventDetailsPage", 
-            status = v55, 
-            attendanceCount = v39
+            status = v58, 
+            attendanceCount = v42
         });
-        if v56 then
+        if v59 then
             if l_getFFlagRemoveVirtualEventsExperiment_0() then
-                v30.navigate(v14.EventNotificationsModal, {
+                v33.navigate(v15.EventNotificationsModal, {
                     extraProps = {
-                        virtualEvent = v36, 
+                        virtualEvent = v39, 
                         channel = "eventDetailsPage"
                     }
                 });
                 return;
             else
-                v41:LogUserLayerExposure("Ecosystems.EventsOnExperienceDetailsPage");
-                if v44 then
-                    v30.navigate(v14.EventNotificationsModal, {
+                v44:LogUserLayerExposure("Ecosystems.EventsOnExperienceDetailsPage");
+                if v47 then
+                    v33.navigate(v15.EventNotificationsModal, {
                         extraProps = {
-                            virtualEvent = v36, 
+                            virtualEvent = v39, 
                             channel = "eventDetailsPage"
                         }
                     });
@@ -180,53 +183,61 @@ return function(v27) --[[ Line: 50 ]] --[[ Name: EventDetailsWrapper ]]
             end;
         end;
     end, {
-        v36, 
-        v30, 
         v39, 
-        v44, 
-        v41
+        v33, 
+        v42, 
+        v47, 
+        v44
     });
-    v7.useEffect(function() --[[ Line: 204 ]]
-        -- upvalues: v33 (copy), v36 (copy), v18 (ref), v28 (copy)
-        if v33.current and v36 then
-            v18.fireEventDetailsPageVisit({
-                virtualEventId = v36.id, 
-                universeId = tostring(v36.universeId), 
-                channel = v28.referralSource
+    v8.useEffect(function() --[[ Line: 209 ]]
+        -- upvalues: v36 (copy), v39 (copy), v19 (ref), v31 (copy)
+        if v36.current and v39 then
+            v19.fireEventDetailsPageVisit({
+                virtualEventId = v39.id, 
+                universeId = tostring(v39.universeId), 
+                channel = v31.referralSource
             });
-            v33.current = false;
+            v36.current = false;
         end;
     end, {
-        v36
+        v39
     });
-    local v59 = v7.useCallback(function(v58) --[[ Line: 216 ]]
-        -- upvalues: v30 (copy), v14 (ref), l_UrlBuilder_0 (ref), v40 (copy), v19 (ref)
-        v30.navigate(v14.GenericWebPage, {
+    v8.useEffect(function() --[[ Line: 221 ]]
+        -- upvalues: v31 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (ref), l_IXPService_0 (ref), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (ref)
+        if v31.virtualEventId and l_FFlagLuaAppSduiEventDetailsLogExposure_0 then
+            l_IXPService_0:LogFlagLinkedUserLayerExposure(l_FStringLuaAppSduiEventDetailsIxpLayer_0);
+        end;
+    end, {
+        v31.virtualEventId
+    });
+    local v62 = v8.useCallback(function(v61) --[[ Line: 227 ]]
+        -- upvalues: v33 (copy), v15 (ref), l_UrlBuilder_0 (ref), v43 (copy), v20 (ref)
+        v33.navigate(v15.GenericWebPage, {
             detail = l_UrlBuilder_0.game.info.creator({
-                creatorType = v58.hostType == "group" and "Group" or "User", 
-                creatorId = v58.hostId
+                creatorType = v61.hostType == "group" and "Group" or "User", 
+                creatorId = v61.hostId
             }), 
             extraProps = {
-                title = v40.hostTitle, 
-                transitionAnimation = v19.SlideInFromRight
+                title = v43.hostTitle, 
+                transitionAnimation = v20.SlideInFromRight
             }
         });
     end, {
-        v30, 
-        v40
+        v33, 
+        v43
     });
-    return v7.createElement(v7.Fragment, nil, {
-        GameLauncher = if v31 and v37 then v7.createElement(v20, {
-            universeId = v37, 
-            placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v38 else nil, 
+    return v8.createElement(v8.Fragment, nil, {
+        GameLauncher = if v34 and v40 then v8.createElement(v21, {
+            universeId = v40, 
+            placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v41 else nil, 
             launchSource = "eventDetailsPage", 
-            referralSource = v28.referralSource, 
-            onGameLaunching = v54, 
+            referralSource = v31.referralSource, 
+            onGameLaunching = v57, 
             experienceJoinData = {
-                eventId = v28.virtualEventId
+                eventId = v31.virtualEventId
             }
         }) else nil, 
-        Wrapper = v7.createElement("Frame", {
+        Wrapper = v8.createElement("Frame", {
             Size = UDim2.fromScale(1, 1) - UDim2.fromOffset(0, l_l_GuiService_0_SafeZoneOffsets_0.top), 
             Position = UDim2.fromOffset(0, l_l_GuiService_0_SafeZoneOffsets_0.top), 
             BackgroundTransparency = 1, 
@@ -235,15 +246,15 @@ return function(v27) --[[ Line: 50 ]] --[[ Name: EventDetailsWrapper ]]
             SelectionBehaviorUp = Enum.SelectionBehavior.Stop, 
             SelectionBehaviorDown = Enum.SelectionBehavior.Stop
         }, {
-            EventDetailsPageLoader = v7.createElement(v18.EventDetailsPageLoader, {
-                virtualEventId = v28.virtualEventId, 
+            EventDetailsPageLoader = v8.createElement(v19.EventDetailsPageLoader, {
+                virtualEventId = v31.virtualEventId, 
                 currentTime = DateTime.now(), 
-                onClose = v45, 
-                onShare = v52, 
-                onRsvpChanged = v57, 
-                onJoinEvent = v53, 
-                onExperienceTileActivated = v46, 
-                onHostActivated = v59
+                onClose = v48, 
+                onShare = v55, 
+                onRsvpChanged = v60, 
+                onJoinEvent = v56, 
+                onExperienceTileActivated = v49, 
+                onHostActivated = v62
             })
         })
     });

@@ -256,7 +256,7 @@ return function(v31) --[[ Line: 67 ]] --[[ Name: SubscriptionTile ]]
                             colorStyle = l_Color_0.Text.Muted, 
                             fluidSizing = false, 
                             richText = false, 
-                            textWrapped = false, 
+                            textWrapped = true, 
                             textTruncate = Enum.TextTruncate.AtEnd, 
                             lineHeight = l_CaptionBody_0.LineHeight, 
                             text = l_subscriptionProduct_0.description, 

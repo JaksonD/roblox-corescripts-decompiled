@@ -17,7 +17,7 @@ local v6 = {
 local v23 = {
     [v6.ChatWindowMountTTI] = {
         type = v5.TTI, 
-        baseName = "ChatWindowMountTTI", 
+        baseName = "ExpChat_ChatWindowMountTTI", 
         canFinish = function(_) --[[ Line: 57 ]] --[[ Name: canFinish ]]
             return true;
         end, 
@@ -27,7 +27,7 @@ local v23 = {
     }, 
     [v6.ChatWindowTabSwitchTTI] = {
         type = v5.TTI, 
-        baseName = "ChatWindowTabSwitchTTI", 
+        baseName = "ExpChat_ChatWindowTabSwitchTTI", 
         canFinish = function(v9) --[[ Line: 65 ]] --[[ Name: canFinish ]]
             -- upvalues: v2 (ref)
             return (v9 and v9.tabId) == v2;
@@ -39,7 +39,7 @@ local v23 = {
     }, 
     [v6.MessageSendToWindowRenderInterval] = {
         type = v5.Interval, 
-        name = "MessageSendToWindowRenderInterval", 
+        name = "ExpChat_MessageSendToWindowRenderInterval", 
         intervalMetrics = {
             "duration", 
             "averageFPS", 
@@ -74,7 +74,7 @@ local v23 = {
     }, 
     [v6.MessageReceiveToWindowRenderInterval] = {
         type = v5.Interval, 
-        name = "MessageReceiveToWindowRenderInterval", 
+        name = "ExpChat_MessageReceiveToWindowRenderInterval", 
         intervalMetrics = {
             "duration", 
             "averageFPS", 
@@ -111,7 +111,7 @@ local v23 = {
 if v1 then
     v23[v6.ChatWindowScrollInterval] = {
         type = v5.Interval, 
-        name = "ChatWindowScrollInterval", 
+        name = "ExpChat_ChatWindowScrollInterval", 
         intervalMetrics = {
             "averageFPS", 
             "longestFrameTime"

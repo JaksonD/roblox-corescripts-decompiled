@@ -18,29 +18,30 @@ local v16 = require(l_Parent_0.FoundationCloudAssets);
 local l_Assets_0 = v16.Assets;
 local l_preloadAsset_0 = v16.preloadAsset;
 local v19 = game:DefineFastFlag("MigrateEmptyResultsViewToFoundation", false);
-local v20 = l_Roact_0.PureComponent:extend("EmptyResultsView");
-v20.defaultProps = {
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v21 = l_Roact_0.PureComponent:extend("EmptyResultsView");
+v21.defaultProps = {
     layoutOrder = 0, 
     pageLoadingTimeReport = nil
 };
-local function _(v21) --[[ Line: 44 ]] --[[ Name: loadFoundationCloudAsset ]]
+local function _(v22) --[[ Line: 45 ]] --[[ Name: loadFoundationCloudAsset ]]
     -- upvalues: l_preloadAsset_0 (copy), l_Assets_0 (copy)
-    l_preloadAsset_0(v21);
-    local v22 = l_Assets_0[v21];
-    return v22.assetId, v22.size;
+    l_preloadAsset_0(v22);
+    local v23 = l_Assets_0[v22];
+    return v23.assetId, v23.size;
 end;
-v20.render = function(v24) --[[ Line: 50 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), l_withLocalization_0 (copy), v9 (copy), l_Roact_0 (copy), v10 (copy), v19 (copy), l_Image_0 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), l_AppFonts_0 (copy)
-    return l_withStyle_0(function(v25) --[[ Line: 51 ]]
-        -- upvalues: l_withLocalization_0 (ref), v9 (ref), l_Roact_0 (ref), v10 (ref), v24 (copy), v19 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), l_Images_0 (ref), l_AppFonts_0 (ref)
+v21.render = function(v25) --[[ Line: 51 ]] --[[ Name: render ]]
+    -- upvalues: l_withStyle_0 (copy), l_withLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v9 (copy), l_Roact_0 (copy), v10 (copy), v19 (copy), l_Image_0 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), l_AppFonts_0 (copy)
+    return l_withStyle_0(function(v26) --[[ Line: 52 ]]
+        -- upvalues: l_withLocalization_0 (ref), l_FFlagConnectionsToFriendsRename_0 (ref), v9 (ref), l_Roact_0 (ref), v10 (ref), v25 (copy), v19 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), l_Images_0 (ref), l_AppFonts_0 (ref)
         return l_withLocalization_0({
             noResultsText = "CommonUI.Messages.Response.NoResults", 
-            addFriendsBtn = v9.ADD_CONNECTIONS_BTN
-        })(function(v26) --[[ Line: 55 ]]
-            -- upvalues: l_Roact_0 (ref), v10 (ref), v24 (ref), v19 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), l_Images_0 (ref), v25 (copy), l_AppFonts_0 (ref)
+            addFriendsBtn = if l_FFlagConnectionsToFriendsRename_0 then v9.ADD_FRIENDS_BTN else v9.ADD_CONNECTIONS_BTN
+        })(function(v27) --[[ Line: 58 ]]
+            -- upvalues: l_Roact_0 (ref), v10 (ref), v25 (ref), v19 (ref), l_Image_0 (ref), l_ImageSetLabel_0 (ref), l_Images_0 (ref), v26 (copy), l_AppFonts_0 (ref)
             return l_Roact_0.createElement("Frame", {
                 Size = UDim2.new(1, 0, 1, -(v10.TOP_BAR_HEIGHT + 45)), 
-                LayoutOrder = v24.props.layoutOrder, 
+                LayoutOrder = v25.props.layoutOrder, 
                 BackgroundTransparency = 1
             }, {
                 IndicatorInner = l_Roact_0.createElement("Frame", {
@@ -58,14 +59,14 @@ v20.render = function(v24) --[[ Line: 50 ]] --[[ Name: render ]]
                         Padding = UDim.new(0, 0)
                     }), 
                     Imagelabel = if v19 then l_Roact_0.createElement(l_Image_0, {
-                        Image = v24.props.assetId, 
-                        Size = UDim2.fromOffset(v24.props.assetSize.X, v24.props.assetSize.Y), 
+                        Image = v25.props.assetId, 
+                        Size = UDim2.fromOffset(v25.props.assetSize.X, v25.props.assetSize.Y), 
                         LayoutOrder = 1
                     }) else l_Roact_0.createElement(l_ImageSetLabel_0, {
                         BackgroundTransparency = 1, 
                         Image = l_Images_0["icons/status/oof_xlarge"], 
-                        ImageColor3 = v25.Theme.TextMuted.Color, 
-                        ImageTransparency = v25.Theme.TextMuted.Transparency, 
+                        ImageColor3 = v26.Theme.TextMuted.Color, 
+                        ImageTransparency = v26.Theme.TextMuted.Transparency, 
                         LayoutOrder = 1, 
                         Size = UDim2.new(0, 96, 0, 96)
                     }), 
@@ -75,32 +76,32 @@ v20.render = function(v24) --[[ Line: 50 ]] --[[ Name: render ]]
                         Font = l_AppFonts_0.default:getDefault(), 
                         LayoutOrder = 2, 
                         Size = UDim2.new(0, 0, 0, 0), 
-                        Text = v26.noResultsText, 
-                        TextColor3 = v25.Theme.TextMuted.Color, 
-                        TextSize = v25.Font.Header2.RelativeSize * v25.Font.BaseSize, 
-                        TextTransparency = v25.Theme.TextMuted.Transparency
+                        Text = v27.noResultsText, 
+                        TextColor3 = v26.Theme.TextMuted.Color, 
+                        TextSize = v26.Font.Header2.RelativeSize * v26.Font.BaseSize, 
+                        TextTransparency = v26.Theme.TextMuted.Transparency
                     })
                 })
             });
         end);
     end);
 end;
-local function v32(v27) --[[ Line: 106 ]] --[[ Name: EmptyResultsViewContainer ]]
-    -- upvalues: l_preloadAsset_0 (copy), l_Assets_0 (copy), l_useTokens_0 (copy), l_Roact_0 (copy), v20 (copy), v12 (copy)
+local function v33(v28) --[[ Line: 109 ]] --[[ Name: EmptyResultsViewContainer ]]
+    -- upvalues: l_preloadAsset_0 (copy), l_Assets_0 (copy), l_useTokens_0 (copy), l_Roact_0 (copy), v21 (copy), v12 (copy)
     l_preloadAsset_0("pictograms/collaborators");
-    local v28 = l_Assets_0["pictograms/collaborators"];
-    local l_assetId_0 = v28.assetId;
-    local l_size_0 = v28.size;
-    v28 = l_useTokens_0();
-    local v31 = l_size_0 / 3;
-    return l_Roact_0.createElement(v20, v12.Dictionary.join(v27, {
-        assetSize = v31, 
+    local v29 = l_Assets_0["pictograms/collaborators"];
+    local l_assetId_0 = v29.assetId;
+    local l_size_0 = v29.size;
+    v29 = l_useTokens_0();
+    local v32 = l_size_0 / 3;
+    return l_Roact_0.createElement(v21, v12.Dictionary.join(v28, {
+        assetSize = v32, 
         assetId = l_assetId_0, 
-        tokens = v28
+        tokens = v29
     }));
 end;
 if v19 then
-    return v32;
+    return v33;
 else
-    return v20;
+    return v21;
 end;

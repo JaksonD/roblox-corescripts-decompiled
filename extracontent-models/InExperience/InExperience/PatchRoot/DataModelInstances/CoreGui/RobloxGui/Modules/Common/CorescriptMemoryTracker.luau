@@ -1,37 +1,38 @@
 local v0 = game:DefineFastInt("CorescriptMemoryPeriodSeconds", 30);
-local v1 = game:DefineFastFlag("EnableCorescriptMemoryTracker", false);
+local v1 = require(script.Parent.Flags.FFlagEnableCorescriptMemoryTracker);
+local v2 = game:DefineFastFlag("EnableCorescriptAvgMemoryTracking", false);
 local l_Stats_0 = game:GetService("Stats");
 local l_TelemetryService_0 = game:GetService("TelemetryService");
 local l_CorePackages_0 = game:GetService("CorePackages");
 local l_DeviceTier_0 = require(l_CorePackages_0.Workspace.Packages.Devices).DeviceTier;
-local v6 = {
+local v7 = {
     ACTIVE = 1, 
     PAUSED = 2, 
     STOPPED = 3
 };
-local function _() --[[ Line: 20 ]] --[[ Name: GetMemoryPerformanceStatsItem ]]
+local function _() --[[ Line: 21 ]] --[[ Name: GetMemoryPerformanceStatsItem ]]
     -- upvalues: l_Stats_0 (copy)
-    local v7 = l_Stats_0 and l_Stats_0:FindFirstChild("PerformanceStats");
-    if not v7 then
+    local v8 = l_Stats_0 and l_Stats_0:FindFirstChild("PerformanceStats");
+    if not v8 then
         return nil;
     else
-        return (v7:FindFirstChild("Memory"));
+        return (v8:FindFirstChild("Memory"));
     end;
 end;
-local function v13() --[[ Line: 29 ]] --[[ Name: GetCorescriptMemory ]]
+local function v14() --[[ Line: 30 ]] --[[ Name: GetCorescriptMemory ]]
     -- upvalues: l_Stats_0 (copy)
-    local v9 = l_Stats_0 and l_Stats_0:FindFirstChild("PerformanceStats");
-    local v10 = if not v9 then nil else v9:FindFirstChild("Memory");
-    if v10 then
-        for _, v12 in v10:GetChildren() do
-            if v12:IsA("StatsItem") and v12.DisplayName == "CoreScriptMemory" then
-                return v12:GetValue();
+    local v10 = l_Stats_0 and l_Stats_0:FindFirstChild("PerformanceStats");
+    local v11 = if not v10 then nil else v10:FindFirstChild("Memory");
+    if v11 then
+        for _, v13 in v11:GetChildren() do
+            if v13:IsA("StatsItem") and v13.DisplayName == "CoreScriptMemory" then
+                return v13:GetValue();
             end;
         end;
     end;
     return nil;
 end;
-local v14 = {
+local v15 = {
     eventName = "CorescriptMemory", 
     backends = {
         "RobloxTelemetryStat"
@@ -45,7 +46,7 @@ local v14 = {
     description = "Memory consumption for corescript, in MB", 
     links = "https://docs.google.com/document/d/1BEOgxPzSelCLEHdrHdD_8Kh4ssIcGLlndDXrLmIBNmk"
 };
-local v15 = {
+local v16 = {
     eventName = "CorescriptSessionMaxMemory", 
     backends = {
         "RobloxTelemetryStat"
@@ -59,85 +60,117 @@ local v15 = {
     description = "Maximum memory consumption for corescript in the session, in MB", 
     links = "https://docs.google.com/document/d/1BEOgxPzSelCLEHdrHdD_8Kh4ssIcGLlndDXrLmIBNmk"
 };
-local v16 = {};
-v16.__index = v16;
-v16.new = function(v17) --[[ Line: 75 ]] --[[ Name: new ]]
-    -- upvalues: v6 (copy), v16 (copy)
+local v17 = {
+    eventName = "CorescriptSessionAvgMemory", 
+    backends = {
+        "RobloxTelemetryStat"
+    }, 
+    lastUpdated = {
+        2026, 
+        3, 
+        4
+    }, 
+    throttlingPercentage = 10000, 
+    description = "Average memory consumption for corescript in the session, in MB", 
+    links = "https://docs.google.com/document/d/1BEOgxPzSelCLEHdrHdD_8Kh4ssIcGLlndDXrLmIBNmk"
+};
+local v18 = {};
+v18.__index = v18;
+v18.new = function(v19) --[[ Line: 87 ]] --[[ Name: new ]]
+    -- upvalues: v7 (copy), v18 (copy)
     return (setmetatable({
         memoryMb = 0, 
         maxMemoryMb = 0, 
-        context = v17, 
-        status = v6.PAUSED, 
+        avgMemoryMb = 0, 
+        sampleCount = 0, 
+        context = v19, 
+        status = v7.PAUSED, 
         loggingTask = nil
-    }, v16));
+    }, v18));
 end;
-v16.start = function(v18) --[[ Line: 87 ]] --[[ Name: start ]]
-    -- upvalues: v6 (copy), v0 (copy), v13 (copy)
-    v18.status = v6.ACTIVE;
-    v18.loggingTask = task.delay(v0, function() --[[ Line: 89 ]]
-        -- upvalues: v13 (ref), v18 (copy), v6 (ref)
-        local v19 = v13();
-        if v19 then
-            v18.maxMemoryMb = math.max(v19, v18.maxMemoryMb);
-            v18:report(v18.context, v19);
+v18.start = function(v20) --[[ Line: 101 ]] --[[ Name: start ]]
+    -- upvalues: v7 (copy), v0 (copy), v14 (copy), v2 (copy)
+    v20.status = v7.ACTIVE;
+    v20.loggingTask = task.delay(v0, function() --[[ Line: 103 ]]
+        -- upvalues: v14 (ref), v20 (copy), v2 (ref), v7 (ref)
+        local v21 = v14();
+        if v21 then
+            v20.maxMemoryMb = math.max(v21, v20.maxMemoryMb);
+            if v2 then
+                v20.sampleCount = v20.sampleCount + 1;
+                v20.avgMemoryMb = v20.avgMemoryMb + (v21 - v20.avgMemoryMb) / v20.sampleCount;
+            end;
+            v20:report(v20.context, v21);
         end;
-        if v18.status == v6.ACTIVE then
-            v18:start();
+        if v20.status == v7.ACTIVE then
+            v20:start();
         end;
     end);
 end;
-v16.pause = function(v20) --[[ Line: 101 ]] --[[ Name: pause ]]
-    -- upvalues: v6 (copy)
-    if v20.loggingTask then
-        task.cancel(v20.loggingTask);
-        v20.loggingTask = nil;
-    end;
-    v20.status = v6.PAUSED;
-end;
-v16.resume = function(v21) --[[ Line: 109 ]] --[[ Name: resume ]]
-    -- upvalues: v6 (copy)
-    if v21.status == v6.PAUSED then
-        v21:start();
-    end;
-end;
-v16.destroy = function(v22) --[[ Line: 115 ]] --[[ Name: destroy ]]
-    -- upvalues: v6 (copy)
+v18.pause = function(v22) --[[ Line: 119 ]] --[[ Name: pause ]]
+    -- upvalues: v7 (copy)
     if v22.loggingTask then
         task.cancel(v22.loggingTask);
         v22.loggingTask = nil;
     end;
-    v22.status = v6.STOPPED;
-    if v22.maxMemoryMb > 0 then
-        v22:reportMaxMemoryUsed(v22.context, v22.maxMemoryMb);
+    v22.status = v7.PAUSED;
+end;
+v18.resume = function(v23) --[[ Line: 127 ]] --[[ Name: resume ]]
+    -- upvalues: v7 (copy)
+    if v23.status == v7.PAUSED then
+        v23:start();
     end;
 end;
-v16.report = function(_, v24, v25) --[[ Line: 126 ]] --[[ Name: report ]]
-    -- upvalues: l_TelemetryService_0 (copy), v14 (copy), l_DeviceTier_0 (copy)
-    l_TelemetryService_0:LogStat(v14, {
-        customFields = {
-            deviceTier = l_DeviceTier_0.GetDeviceMemoryTier(), 
-            context = v24
-        }
-    }, v25);
+v18.destroy = function(v24) --[[ Line: 133 ]] --[[ Name: destroy ]]
+    -- upvalues: v7 (copy), v2 (copy)
+    if v24.loggingTask then
+        task.cancel(v24.loggingTask);
+        v24.loggingTask = nil;
+    end;
+    v24.status = v7.STOPPED;
+    if v24.maxMemoryMb > 0 then
+        v24:reportMaxMemoryUsed(v24.context, v24.maxMemoryMb);
+    end;
+    if v2 and v24.sampleCount > 0 then
+        v24:reportAvgMemoryUsed(v24.context, v24.avgMemoryMb);
+    end;
 end;
-v16.reportMaxMemoryUsed = function(_, v27, v28) --[[ Line: 137 ]] --[[ Name: reportMaxMemoryUsed ]]
+v18.report = function(_, v26, v27) --[[ Line: 147 ]] --[[ Name: report ]]
     -- upvalues: l_TelemetryService_0 (copy), v15 (copy), l_DeviceTier_0 (copy)
     l_TelemetryService_0:LogStat(v15, {
         customFields = {
             deviceTier = l_DeviceTier_0.GetDeviceMemoryTier(), 
-            context = v27
+            context = v26
         }
-    }, v28);
+    }, v27);
 end;
-local v29 = nil;
-return function(v30) --[[ Line: 150 ]]
-    -- upvalues: v1 (copy), v29 (ref), v16 (copy)
+v18.reportMaxMemoryUsed = function(_, v29, v30) --[[ Line: 158 ]] --[[ Name: reportMaxMemoryUsed ]]
+    -- upvalues: l_TelemetryService_0 (copy), v16 (copy), l_DeviceTier_0 (copy)
+    l_TelemetryService_0:LogStat(v16, {
+        customFields = {
+            deviceTier = l_DeviceTier_0.GetDeviceMemoryTier(), 
+            context = v29
+        }
+    }, v30);
+end;
+v18.reportAvgMemoryUsed = function(_, v32, v33) --[[ Line: 169 ]] --[[ Name: reportAvgMemoryUsed ]]
+    -- upvalues: l_TelemetryService_0 (copy), v17 (copy), l_DeviceTier_0 (copy)
+    l_TelemetryService_0:LogStat(v17, {
+        customFields = {
+            deviceTier = l_DeviceTier_0.GetDeviceMemoryTier(), 
+            context = v32
+        }
+    }, v33);
+end;
+local v34 = nil;
+return function(v35) --[[ Line: 182 ]]
+    -- upvalues: v1 (copy), v34 (ref), v18 (copy)
     if not v1 then
         return nil;
     else
-        if not v29 then
-            v29 = v16.new(v30);
+        if not v34 then
+            v34 = v18.new(v35);
         end;
-        return v29;
+        return v34;
     end;
 end;

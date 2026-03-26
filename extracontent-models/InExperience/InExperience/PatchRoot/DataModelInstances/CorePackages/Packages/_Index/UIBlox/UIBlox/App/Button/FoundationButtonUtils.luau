@@ -6,52 +6,54 @@ local l_Core_0 = l_Parent_2.Core;
 local v5 = require(l_Parent_3.Foundation);
 local l_ButtonVariant_0 = v5.Enums.ButtonVariant;
 local l_InputSize_0 = v5.Enums.InputSize;
-local v8 = require(l_Parent_0.Enum.ButtonType);
-local v9 = require(l_Core_0.Button.Enum.StandardButtonSize);
-local v10 = require(l_Parent_1.ImageSet.ImagesInverse);
-local v11 = {
-    [v8.Alert] = l_ButtonVariant_0.Alert, 
-    [v8.PrimaryContextual] = l_ButtonVariant_0.Emphasis, 
-    [v8.PrimarySystem] = l_ButtonVariant_0.SubEmphasis, 
-    [v8.Secondary] = l_ButtonVariant_0.Subtle
-};
-local v12 = {
-    [v9.Regular] = l_InputSize_0.Large, 
-    [v9.Small] = l_InputSize_0.Small, 
-    [v9.XSmall] = l_InputSize_0.XSmall
-};
+local l_Flags_0 = require(l_Parent_3.FoundationImages).Flags;
+local l_uiblox_0 = require(l_Parent_3.BuilderIcons).Migration.uiblox;
+local v10 = require(l_Parent_0.Enum.ButtonType);
+local v11 = require(l_Core_0.Button.Enum.StandardButtonSize);
+local v12 = require(l_Parent_1.ImageSet.ImagesInverse);
 local v13 = {
-    [v9.Regular] = false, 
-    [v9.Small] = false, 
-    [v9.XSmall] = true
+    [v10.Alert] = l_ButtonVariant_0.Alert, 
+    [v10.PrimaryContextual] = l_ButtonVariant_0.Emphasis, 
+    [v10.PrimarySystem] = l_ButtonVariant_0.SubEmphasis, 
+    [v10.Secondary] = l_ButtonVariant_0.Subtle
+};
+local v14 = {
+    [v11.Regular] = l_InputSize_0.Large, 
+    [v11.Small] = l_InputSize_0.Small, 
+    [v11.XSmall] = l_InputSize_0.XSmall
+};
+local v15 = {
+    [v11.Regular] = false, 
+    [v11.Small] = false, 
+    [v11.XSmall] = true
 };
 return {
-    buttonMapping = v11, 
-    sizeMapping = v12, 
-    findIcon = function(v14) --[[ Line: 35 ]] --[[ Name: findIcon ]]
-        -- upvalues: v10 (copy)
-        if not v14 then
+    buttonMapping = v13, 
+    sizeMapping = v14, 
+    findIcon = function(v16) --[[ Line: 40 ]] --[[ Name: findIcon ]]
+        -- upvalues: l_Flags_0 (copy), l_uiblox_0 (copy), v12 (copy)
+        if not v16 then
             return nil;
         else
-            local v15 = v10[v14];
-            if v15 == nil then
+            local v17 = if l_Flags_0.FoundationImagesRemoveDeprecatedIconAssets and v16.Image and l_uiblox_0[v16.Image] ~= nil then v16.Image else v12[v16];
+            if v17 == nil then
                 warn("Icon not found");
             end;
-            return v15;
+            return v17;
         end;
     end, 
-    getSizeMapping = function(v16, v17, v18) --[[ Line: 46 ]] --[[ Name: getSizeMapping ]]
-        -- upvalues: v12 (copy), l_InputSize_0 (copy)
-        if v16 then
-            return v12[v16];
-        elseif v17 then
-            if v17.Y.Offset >= v18.Size.Size_1200 then
+    getSizeMapping = function(v18, v19, v20) --[[ Line: 56 ]] --[[ Name: getSizeMapping ]]
+        -- upvalues: v14 (copy), l_InputSize_0 (copy)
+        if v18 then
+            return v14[v18];
+        elseif v19 then
+            if v19.Y.Offset >= v20.Size.Size_1200 then
                 return l_InputSize_0.Large;
-            elseif v17.Y.Scale > 0 then
+            elseif v19.Y.Scale > 0 then
                 return l_InputSize_0.Medium;
-            elseif v17.Y.Offset >= v18.Size.Size_1000 then
+            elseif v19.Y.Offset >= v20.Size.Size_1000 then
                 return l_InputSize_0.Medium;
-            elseif v17.Y.Offset >= v18.Size.Size_800 then
+            elseif v19.Y.Offset >= v20.Size.Size_800 then
                 return l_InputSize_0.Small;
             else
                 return l_InputSize_0.XSmall;
@@ -60,40 +62,40 @@ return {
             return nil;
         end;
     end, 
-    getWidth = function(v19, v20, v21) --[[ Line: 65 ]] --[[ Name: getWidth ]]
-        -- upvalues: v13 (copy)
-        if v19 then
-            local v22 = v13[v19];
-            if v21 == nil then
-                v21 = v22;
+    getWidth = function(v21, v22, v23) --[[ Line: 75 ]] --[[ Name: getWidth ]]
+        -- upvalues: v15 (copy)
+        if v21 then
+            local v24 = v15[v21];
+            if v23 == nil then
+                v23 = v24;
             end;
-            if v21 then
+            if v23 then
                 return nil;
             else
                 return UDim.new(1, 0);
             end;
-        elseif v20 then
-            return v20.X;
-        elseif v21 then
+        elseif v22 then
+            return v22.X;
+        elseif v23 then
             return nil;
         else
             return UDim.new(1, 0);
         end;
     end, 
-    getMaxWidth = function(v23, v24) --[[ Line: 86 ]] --[[ Name: getMaxWidth ]]
-        if v23 == nil then
+    getMaxWidth = function(v25, v26) --[[ Line: 96 ]] --[[ Name: getMaxWidth ]]
+        if v25 == nil then
             return nil;
-        elseif v24 == nil then
+        elseif v26 == nil then
             return 640;
         else
-            return v24;
+            return v26;
         end;
     end, 
-    getTestId = function(v25) --[[ Line: 94 ]] --[[ Name: getTestId ]]
-        if not v25 or #v25 == 0 then
+    getTestId = function(v27) --[[ Line: 104 ]] --[[ Name: getTestId ]]
+        if not v27 or #v27 == 0 then
             return nil;
         else
-            return v25:match("data%-testid=([^%s]+)");
+            return v27:match("data%-testid=([^%s]+)");
         end;
     end
 };

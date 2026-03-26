@@ -78,7 +78,7 @@ local function v44(v45, v46, v47, v48, v49, v50) --[[ Line: 64 ]] --[[ Name: ann
         end;
     end;
 end;
-local function v73(v60, v61) --[[ Line: 109 ]] --[[ Name: generateSearchFilters ]]
+local function v80(v60, v61) --[[ Line: 109 ]] --[[ Name: generateSearchFilters ]]
     -- upvalues: v15 (copy), v44 (copy)
     if v61 == "" then
         return nil, nil;
@@ -96,13 +96,27 @@ local function v73(v60, v61) --[[ Line: 109 ]] --[[ Name: generateSearchFilters 
             end;
             local v67 = table.create(#l_data_0.Nodes, false);
             for _, v69 in l_data_0.Categories do
-                v44(l_data_0, v63, v67, 0, v69.NodeId, false);
+                local l_NodeId_0 = v69.NodeId;
+                local v71 = l_data_0.Nodes[l_NodeId_0];
+                if not v71.Children then
+                    v67[l_NodeId_0] = false;
+                else
+                    local l_Children_1 = v71.Children;
+                    local v73 = false;
+                    for v74, v75 in pairs(l_Children_1) do
+                        local v76 = v44(l_data_0, v63, v67, v74, v75, false);
+                        v73 = v73 or v76;
+                    end;
+                    if v73 then
+                        v67[l_NodeId_0] = true;
+                    end;
+                end;
             end;
-            for v70, v71 in l_data_0.Functions do
-                if v63[v70] ~= true and not v15.getName(l_data_0, v71) then
-                    local v72 = v15.getSourceName(l_data_0, v71);
-                    if v72 and string.find(v72, v61, 1, true) then
-                        v63[v70] = true;
+            for v77, v78 in l_data_0.Functions do
+                if v63[v77] ~= true and not v15.getName(l_data_0, v78) then
+                    local v79 = v15.getSourceName(l_data_0, v78);
+                    if v79 and string.find(v79, v61, 1, true) then
+                        v63[v77] = true;
                     end;
                 end;
             end;
@@ -110,143 +124,143 @@ local function v73(v60, v61) --[[ Line: 109 ]] --[[ Name: generateSearchFilters 
         end;
     end;
 end;
-local function v89(v74, v75) --[[ Line: 153 ]] --[[ Name: generatePluginDurationOffsets ]]
+local function v96(v81, v82) --[[ Line: 153 ]] --[[ Name: generatePluginDurationOffsets ]]
     -- upvalues: l_getPluginFlag_0 (copy), l_getDurations_0 (copy)
-    if v75 then
-        assert(v75.Version == 2);
-        local v76 = table.create(#v75.Categories, 0);
-        local v77 = table.create(#v75.Categories, 0);
-        local v78 = 0;
-        local v79 = 0;
-        for v80, v81 in v75.Categories do
-            local v82 = v75.Nodes[v81.NodeId];
-            local v83 = 0;
-            local v84 = 0;
-            local l_Children_1 = v82.Children;
-            if l_Children_1 then
-                for v86, v87 in pairs(l_Children_1) do
-                    local _ = v75.Functions[v86];
-                    if l_getPluginFlag_0(v75, v75.Functions[v86]) then
-                        v83 = v83 + l_getDurations_0(v75, v87);
-                        if #v74 > 0 then
-                            v84 = v84 + v74[v87];
+    if v82 then
+        assert(v82.Version == 2);
+        local v83 = table.create(#v82.Categories, 0);
+        local v84 = table.create(#v82.Categories, 0);
+        local v85 = 0;
+        local v86 = 0;
+        for v87, v88 in v82.Categories do
+            local v89 = v82.Nodes[v88.NodeId];
+            local v90 = 0;
+            local v91 = 0;
+            local l_Children_2 = v89.Children;
+            if l_Children_2 then
+                for v93, v94 in pairs(l_Children_2) do
+                    local _ = v82.Functions[v93];
+                    if l_getPluginFlag_0(v82, v82.Functions[v93]) then
+                        v90 = v90 + l_getDurations_0(v82, v94);
+                        if #v81 > 0 then
+                            v91 = v91 + v81[v94];
                         end;
                     end;
                 end;
             end;
-            v76[v80] = v83;
-            v77[v80] = v84;
-            v78 = v78 + v83;
-            v79 = v79 + v84;
+            v83[v87] = v90;
+            v84[v87] = v91;
+            v85 = v85 + v90;
+            v86 = v86 + v91;
         end;
-        v76.Total = v78;
-        v77.Total = v78;
-        return v76, v77;
+        v83.Total = v85;
+        v84.Total = v85;
+        return v83, v84;
     else
         return {}, {};
     end;
 end;
-local function v90(v91, v92, v93, v94, v95) --[[ Line: 203 ]] --[[ Name: getGCOverhead ]]
-    -- upvalues: v90 (copy)
-    local v96 = v93.Nodes[v94];
-    local v97 = 0;
-    if v96.Children then
-        for v98, v99 in pairs(v96.Children) do
-            local v100 = nil;
-            v100 = if v98 == v95 then v93.Nodes[v99].TotalDuration else v90(v91, v92, v93, v99, v95);
-            v91[v98] = v91[v98] + v100;
-            v92[v99] = v100;
-            v97 = v97 + v100;
+local function v97(v98, v99, v100, v101, v102) --[[ Line: 203 ]] --[[ Name: getGCOverhead ]]
+    -- upvalues: v97 (copy)
+    local v103 = v100.Nodes[v101];
+    local v104 = 0;
+    if v103.Children then
+        for v105, v106 in pairs(v103.Children) do
+            local v107 = nil;
+            v107 = if v105 == v102 then v100.Nodes[v106].TotalDuration else v97(v98, v99, v100, v106, v102);
+            v98[v105] = v98[v105] + v107;
+            v99[v106] = v107;
+            v104 = v104 + v107;
         end;
     end;
-    return v97;
+    return v104;
 end;
-local function v110(v101) --[[ Line: 231 ]] --[[ Name: generateGCOverheadOffsets ]]
-    -- upvalues: v90 (copy)
-    if v101 and v101.GCFuncId then
-        local l_GCFuncId_0 = v101.GCFuncId;
-        local v103 = table.create(#v101.Functions, 0);
-        local v104 = table.create(#v101.Nodes, 0);
-        local v105 = 0;
-        for _, v107 in v101.Categories do
-            local l_NodeId_0 = v107.NodeId;
-            local v109 = v90(v103, v104, v101, l_NodeId_0, l_GCFuncId_0);
-            v105 = v105 + v109;
-            v104[l_NodeId_0] = v109;
+local function v117(v108) --[[ Line: 231 ]] --[[ Name: generateGCOverheadOffsets ]]
+    -- upvalues: v97 (copy)
+    if v108 and v108.GCFuncId then
+        local l_GCFuncId_0 = v108.GCFuncId;
+        local v110 = table.create(#v108.Functions, 0);
+        local v111 = table.create(#v108.Nodes, 0);
+        local v112 = 0;
+        for _, v114 in v108.Categories do
+            local l_NodeId_1 = v114.NodeId;
+            local v116 = v97(v110, v111, v108, l_NodeId_1, l_GCFuncId_0);
+            v112 = v112 + v116;
+            v111[l_NodeId_1] = v116;
         end;
-        v104.Total = v105;
-        return v103, v104;
+        v111.Total = v112;
+        return v110, v111;
     else
         return {}, {};
     end;
 end;
-v40.getActiveState = function(v111) --[[ Line: 259 ]] --[[ Name: getActiveState ]]
-    local l_isClientView_0 = v111.props.isClientView;
-    if v111.props.isClientView then
-        return l_isClientView_0, v111.props.client;
+v40.getActiveState = function(v118) --[[ Line: 259 ]] --[[ Name: getActiveState ]]
+    local l_isClientView_0 = v118.props.isClientView;
+    if v118.props.isClientView then
+        return l_isClientView_0, v118.props.client;
     else
-        return l_isClientView_0, v111.props.server;
+        return l_isClientView_0, v118.props.server;
     end;
 end;
-v40.getState = function(v113, v114) --[[ Line: 263 ]] --[[ Name: getState ]]
-    if v114 then
-        return v113.props.client;
+v40.getState = function(v120, v121) --[[ Line: 263 ]] --[[ Name: getState ]]
+    if v121 then
+        return v120.props.client;
     else
-        return v113.props.server;
+        return v120.props.server;
     end;
 end;
-v40.UpdateState = function(v115, v116, v117) --[[ Line: 267 ]] --[[ Name: UpdateState ]]
-    if v116 then
-        v115.props.dispatchSetScriptProfilerState(nil, nil, v117, nil);
+v40.UpdateState = function(v122, v123, v124) --[[ Line: 267 ]] --[[ Name: UpdateState ]]
+    if v123 then
+        v122.props.dispatchSetScriptProfilerState(nil, nil, v124, nil);
         return;
     else
-        v115.props.dispatchSetScriptProfilerState(nil, nil, nil, v117);
+        v122.props.dispatchSetScriptProfilerState(nil, nil, nil, v124);
         return;
     end;
 end;
-local function v125(v118, v119, v120) --[[ Line: 275 ]] --[[ Name: OnNewProfilingData ]]
-    -- upvalues: l_ScriptProfilerService_0 (copy), v110 (copy), v41 (copy), v89 (copy)
-    v118.serializedData = v120;
-    v118.data = l_ScriptProfilerService_0:DeserializeJSON(v120);
-    local v121, v122 = v110(v118.data);
-    v118.gcFunctionOffsets = v121;
-    v118.gcNodeOffsets = v122;
+local function v132(v125, v126, v127) --[[ Line: 275 ]] --[[ Name: OnNewProfilingData ]]
+    -- upvalues: l_ScriptProfilerService_0 (copy), v117 (copy), v41 (copy), v96 (copy)
+    v125.serializedData = v127;
+    v125.data = l_ScriptProfilerService_0:DeserializeJSON(v127);
+    local v128, v129 = v117(v125.data);
+    v125.gcFunctionOffsets = v128;
+    v125.gcNodeOffsets = v129;
     if v41 then
-        v121, v122 = v89(v118.gcNodeOffsets, v118.data);
-        v118.pluginOffsets = v121;
-        v118.pluginGCOffsets = v122;
+        v128, v129 = v96(v125.gcNodeOffsets, v125.data);
+        v125.pluginOffsets = v128;
+        v125.pluginGCOffsets = v129;
     end;
-    v121 = if v118.data then #v118.data.Nodes else 0;
-    v122 = if v119.data then #v119.data.Nodes else 0;
-    local v123 = table.create(v121, false);
-    local l_expandedNodes_0 = v119.expandedNodes;
-    table.move(l_expandedNodes_0, 1, v122, 1, v123);
-    v118.expandedNodes = v123;
+    v128 = if v125.data then #v125.data.Nodes else 0;
+    v129 = if v126.data then #v126.data.Nodes else 0;
+    local v130 = table.create(v128, false);
+    local l_expandedNodes_0 = v126.expandedNodes;
+    table.move(l_expandedNodes_0, 1, v129, 1, v130);
+    v125.expandedNodes = v130;
 end;
-v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
-    -- upvalues: l_ScriptProfilerService_0 (copy), l_Players_0 (copy), v42 (copy), v73 (copy), v1 (copy)
-    local function _(v127, v128) --[[ Line: 294 ]] --[[ Name: StartScriptProfiling ]]
+v40.init = function(v133) --[[ Line: 293 ]] --[[ Name: init ]]
+    -- upvalues: l_ScriptProfilerService_0 (copy), l_Players_0 (copy), v42 (copy), v80 (copy), v1 (copy)
+    local function _(v134, v135) --[[ Line: 294 ]] --[[ Name: StartScriptProfiling ]]
         -- upvalues: l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-        if v127 then
-            l_ScriptProfilerService_0:ClientStart(l_Players_0.LocalPlayer, v128.frequency);
+        if v134 then
+            l_ScriptProfilerService_0:ClientStart(l_Players_0.LocalPlayer, v135.frequency);
             return;
         else
-            l_ScriptProfilerService_0:ServerStart(v128.frequency);
+            l_ScriptProfilerService_0:ServerStart(v135.frequency);
             return;
         end;
     end;
-    local function _(v130) --[[ Line: 302 ]] --[[ Name: StopScriptProfiling ]]
+    local function _(v137) --[[ Line: 302 ]] --[[ Name: StopScriptProfiling ]]
         -- upvalues: l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-        if v130 then
+        if v137 then
             l_ScriptProfilerService_0:ClientStop(l_Players_0.LocalPlayer);
         else
             l_ScriptProfilerService_0:ServerStop();
         end;
         return nil;
     end;
-    local function _(v132) --[[ Line: 311 ]] --[[ Name: RequestNewData ]]
+    local function _(v139) --[[ Line: 311 ]] --[[ Name: RequestNewData ]]
         -- upvalues: l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-        if v132 then
+        if v139 then
             l_ScriptProfilerService_0:ClientRequestData(l_Players_0.LocalPlayer);
             return;
         else
@@ -254,17 +268,17 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    local _ = function(v134) --[[ Line: 319 ]] --[[ Name: StopTimedProfiling ]]
-        -- upvalues: v126 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-        if v126:getState(v134).isProfiling then
-            if v134 then
+    local _ = function(v141) --[[ Line: 319 ]] --[[ Name: StopTimedProfiling ]]
+        -- upvalues: v133 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
+        if v133:getState(v141).isProfiling then
+            if v141 then
                 l_ScriptProfilerService_0:ClientStop(l_Players_0.LocalPlayer);
             else
                 l_ScriptProfilerService_0:ServerStop();
             end;
             local _ = nil;
-            v126.props.dispatchSetIsProfiling(v134, false);
-            if v134 then
+            v133.props.dispatchSetIsProfiling(v141, false);
+            if v141 then
                 l_ScriptProfilerService_0:ClientRequestData(l_Players_0.LocalPlayer);
                 return;
             else
@@ -272,18 +286,18 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
             end;
         end;
     end;
-    v126.onUtilTabHeightChanged = function(v137) --[[ Line: 331 ]]
-        -- upvalues: v126 (copy)
-        v126:setState({
-            utilTabHeight = v137
+    v133.onUtilTabHeightChanged = function(v144) --[[ Line: 331 ]]
+        -- upvalues: v133 (copy)
+        v133:setState({
+            utilTabHeight = v144
         });
     end;
-    local function v140(v138) --[[ Line: 337 ]] --[[ Name: UpdateTimedProfilingTimer ]]
-        -- upvalues: v126 (copy)
+    local function v147(v145) --[[ Line: 337 ]] --[[ Name: UpdateTimedProfilingTimer ]]
+        -- upvalues: v133 (copy)
         while task.wait(0.5) do
-            local l_timedProfilingCountdown_0 = v126:getState(v138).timedProfilingCountdown;
+            local l_timedProfilingCountdown_0 = v133:getState(v145).timedProfilingCountdown;
             if l_timedProfilingCountdown_0 > 0 then
-                v126.props.dispatchSetTimer(v138, {
+                v133.props.dispatchSetTimer(v145, {
                     timedProfilingCountdown = l_timedProfilingCountdown_0 - 0.5
                 });
             else
@@ -291,11 +305,11 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
             end;
         end;
     end;
-    local function v142(v141) --[[ Line: 352 ]] --[[ Name: LiveUpdate ]]
-        -- upvalues: v42 (ref), v126 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
+    local function v149(v148) --[[ Line: 352 ]] --[[ Name: LiveUpdate ]]
+        -- upvalues: v42 (ref), v133 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
         while task.wait(v42 / 1000) do
-            if v126:getState(v141).liveUpdate then
-                if v141 then
+            if v133:getState(v148).liveUpdate then
+                if v148 then
                     l_ScriptProfilerService_0:ClientRequestData(l_Players_0.LocalPlayer);
                 else
                     l_ScriptProfilerService_0:ServerRequestData();
@@ -303,33 +317,33 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
             end;
         end;
     end;
-    v126.onBeginProfile = function() --[[ Line: 362 ]]
-        -- upvalues: v126 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref), v140 (copy), v142 (copy)
-        local v143, v144 = v126:getActiveState();
-        if v143 then
-            l_ScriptProfilerService_0:ClientStart(l_Players_0.LocalPlayer, v144.frequency);
+    v133.onBeginProfile = function() --[[ Line: 362 ]]
+        -- upvalues: v133 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref), v147 (copy), v149 (copy)
+        local v150, v151 = v133:getActiveState();
+        if v150 then
+            l_ScriptProfilerService_0:ClientStart(l_Players_0.LocalPlayer, v151.frequency);
         else
-            l_ScriptProfilerService_0:ServerStart(v144.frequency);
+            l_ScriptProfilerService_0:ServerStart(v151.frequency);
         end;
-        v126.props.dispatchSetIsProfiling(v143, true);
-        v126.props.dispatchClearStateForNewSession(v143);
-        local v145 = {};
-        if v144.timedProfilingDuration > 0 then
-            v126.props.dispatchSetTimer(v143, {
-                timedProfilingCountdown = v144.timedProfilingDuration
+        v133.props.dispatchSetIsProfiling(v150, true);
+        v133.props.dispatchClearStateForNewSession(v150);
+        local v152 = {};
+        if v151.timedProfilingDuration > 0 then
+            v133.props.dispatchSetTimer(v150, {
+                timedProfilingCountdown = v151.timedProfilingDuration
             });
-            v145.timedProfilingThread = task.delay(v144.timedProfilingDuration, function() --[[ Line: 375 ]]
-                -- upvalues: v143 (copy), v126 (ref), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-                local l_v143_0 = v143;
-                if v126:getState(l_v143_0).isProfiling then
-                    if l_v143_0 then
+            v152.timedProfilingThread = task.delay(v151.timedProfilingDuration, function() --[[ Line: 375 ]]
+                -- upvalues: v150 (copy), v133 (ref), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
+                local l_v150_0 = v150;
+                if v133:getState(l_v150_0).isProfiling then
+                    if l_v150_0 then
                         l_ScriptProfilerService_0:ClientStop(l_Players_0.LocalPlayer);
                     else
                         l_ScriptProfilerService_0:ServerStop();
                     end;
                     local _ = nil;
-                    v126.props.dispatchSetIsProfiling(l_v143_0, false);
-                    if l_v143_0 then
+                    v133.props.dispatchSetIsProfiling(l_v150_0, false);
+                    if l_v150_0 then
                         l_ScriptProfilerService_0:ClientRequestData(l_Players_0.LocalPlayer);
                         return;
                     else
@@ -337,39 +351,39 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
                     end;
                 end;
             end);
-            v145.timedProfilingTimerThread = task.spawn(function() --[[ Line: 379 ]]
-                -- upvalues: v140 (ref), v143 (copy)
-                v140(v143);
+            v152.timedProfilingTimerThread = task.spawn(function() --[[ Line: 379 ]]
+                -- upvalues: v147 (ref), v150 (copy)
+                v147(v150);
             end);
         end;
-        v145.liveUpdateThread = task.spawn(v142, v143);
-        v126.props.dispatchSetThreads(v143, v145);
+        v152.liveUpdateThread = task.spawn(v149, v150);
+        v133.props.dispatchSetThreads(v150, v152);
     end;
-    v126.onEndProfile = function() --[[ Line: 389 ]]
-        -- upvalues: v126 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
-        local v148, v149 = v126:getActiveState();
-        if v148 then
+    v133.onEndProfile = function() --[[ Line: 389 ]]
+        -- upvalues: v133 (copy), l_ScriptProfilerService_0 (ref), l_Players_0 (ref)
+        local v155, v156 = v133:getActiveState();
+        if v155 then
             l_ScriptProfilerService_0:ClientStop(l_Players_0.LocalPlayer);
         else
             l_ScriptProfilerService_0:ServerStop();
         end;
         local _ = nil;
-        local v151 = {};
-        if v149.timedProfilingThread then
-            task.cancel(v149.timedProfilingThread);
-            v151.timedProfilingThread = nil;
+        local v158 = {};
+        if v156.timedProfilingThread then
+            task.cancel(v156.timedProfilingThread);
+            v158.timedProfilingThread = nil;
         end;
-        if v149.timedProfilingTimerThread then
-            task.cancel(v149.timedProfilingTimerThread);
-            v151.timedProfilingTimerThread = nil;
+        if v156.timedProfilingTimerThread then
+            task.cancel(v156.timedProfilingTimerThread);
+            v158.timedProfilingTimerThread = nil;
         end;
-        if v149.liveUpdateThread then
-            task.cancel(v149.liveUpdateThread);
-            v151.liveUpdateThread = nil;
+        if v156.liveUpdateThread then
+            task.cancel(v156.liveUpdateThread);
+            v158.liveUpdateThread = nil;
         end;
-        v126.props.dispatchSetThreads(v148, {});
-        v126.props.dispatchSetIsProfiling(v148, false);
-        if v148 then
+        v133.props.dispatchSetThreads(v155, {});
+        v133.props.dispatchSetIsProfiling(v155, false);
+        if v155 then
             l_ScriptProfilerService_0:ClientRequestData(l_Players_0.LocalPlayer);
             return;
         else
@@ -377,134 +391,134 @@ v40.init = function(v126) --[[ Line: 293 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v126.toggleTimedProfiling = function() --[[ Line: 417 ]]
-        -- upvalues: v126 (copy)
-        local v152, v153 = v126:getActiveState();
-        local l_timedProfilingDuration_0 = v153.timedProfilingDuration;
+    v133.toggleTimedProfiling = function() --[[ Line: 417 ]]
+        -- upvalues: v133 (copy)
+        local v159, v160 = v133:getActiveState();
+        local l_timedProfilingDuration_0 = v160.timedProfilingDuration;
         l_timedProfilingDuration_0 = l_timedProfilingDuration_0 == 0 and 60 or l_timedProfilingDuration_0 == 60 and 300 or l_timedProfilingDuration_0 == 300 and 600 or 0;
-        v126.props.dispatchSetTimer(v152, {
+        v133.props.dispatchSetTimer(v159, {
             timedProfilingDuration = l_timedProfilingDuration_0
         });
     end;
-    v126.toggleAverage = function() --[[ Line: 435 ]]
-        -- upvalues: v126 (copy)
-        local v155, v156 = v126:getActiveState();
-        local l_average_0 = v156.average;
+    v133.toggleAverage = function() --[[ Line: 435 ]]
+        -- upvalues: v133 (copy)
+        local v162, v163 = v133:getActiveState();
+        local l_average_0 = v163.average;
         l_average_0 = l_average_0 == 0 and 1 or l_average_0 == 1 and 60 or l_average_0 == 60 and 300 or l_average_0 == 300 and 600 or 0;
-        v126.props.dispatchSetAverage(v155, l_average_0);
+        v133.props.dispatchSetAverage(v162, l_average_0);
     end;
-    v126.toggleUnits = function() --[[ Line: 455 ]]
-        -- upvalues: v126 (copy)
-        v126.props.dispatchSetScriptProfilerState(nil, not v126.props.usePercentages, nil, nil);
+    v133.toggleUnits = function() --[[ Line: 455 ]]
+        -- upvalues: v133 (copy)
+        v133.props.dispatchSetScriptProfilerState(nil, not v133.props.usePercentages, nil, nil);
     end;
-    v126.toggleFrequency = function() --[[ Line: 459 ]]
-        -- upvalues: v126 (copy)
-        local v158, v159 = v126:getActiveState();
-        local v160 = v159.frequency == 1000 and 10000 or 1000;
-        v126.props.dispatchSetFrequency(v158, v160);
+    v133.toggleFrequency = function() --[[ Line: 459 ]]
+        -- upvalues: v133 (copy)
+        local v165, v166 = v133:getActiveState();
+        local v167 = v166.frequency == 1000 and 10000 or 1000;
+        v133.props.dispatchSetFrequency(v165, v167);
     end;
-    v126.onClientButton = function() --[[ Line: 473 ]]
-        -- upvalues: v126 (copy)
-        v126.props.dispatchSetScriptProfilerState(true);
+    v133.onClientButton = function() --[[ Line: 473 ]]
+        -- upvalues: v133 (copy)
+        v133.props.dispatchSetScriptProfilerState(true);
     end;
-    v126.onServerButton = function() --[[ Line: 477 ]]
-        -- upvalues: v126 (copy)
-        v126.props.dispatchSetScriptProfilerState(false);
+    v133.onServerButton = function() --[[ Line: 477 ]]
+        -- upvalues: v133 (copy)
+        v133.props.dispatchSetScriptProfilerState(false);
     end;
-    v126.dataViewDropDownCallback = function(v161) --[[ Line: 481 ]]
-        -- upvalues: v126 (copy)
-        local v162, v163 = v126:getActiveState();
-        local l_isFunctionsView_0 = v163.isFunctionsView;
-        if v161 == 1 then
+    v133.dataViewDropDownCallback = function(v168) --[[ Line: 481 ]]
+        -- upvalues: v133 (copy)
+        local v169, v170 = v133:getActiveState();
+        local l_isFunctionsView_0 = v170.isFunctionsView;
+        if v168 == 1 then
             l_isFunctionsView_0 = false;
-        elseif v161 == 2 then
+        elseif v168 == 2 then
             l_isFunctionsView_0 = true;
         end;
-        v126.props.dispatchSetDataView(v162, l_isFunctionsView_0);
+        v133.props.dispatchSetDataView(v169, l_isFunctionsView_0);
     end;
-    v126.onCheckboxChanged = function(v165, v166) --[[ Line: 495 ]]
-        -- upvalues: v126 (copy)
-        local l_isClientView_1 = v126.props.isClientView;
-        if v165 == "Live" then
-            v126.props.dispatchSetLiveUpdate(l_isClientView_1, v166);
+    v133.onCheckboxChanged = function(v172, v173) --[[ Line: 495 ]]
+        -- upvalues: v133 (copy)
+        local l_isClientView_1 = v133.props.isClientView;
+        if v172 == "Live" then
+            v133.props.dispatchSetLiveUpdate(l_isClientView_1, v173);
             return;
-        elseif v165 == "Plugins" then
-            v126.props.dispatchSetShowPlugins(l_isClientView_1, v166);
+        elseif v172 == "Plugins" then
+            v133.props.dispatchSetShowPlugins(l_isClientView_1, v173);
             return;
         else
-            if v165 == "GC" then
-                v126.props.dispatchSetShowGC(l_isClientView_1, v166);
+            if v172 == "GC" then
+                v133.props.dispatchSetShowGC(l_isClientView_1, v173);
             end;
             return;
         end;
     end;
-    v126.onSearchTermChanged = function(v168) --[[ Line: 507 ]]
-        -- upvalues: v126 (copy), v73 (ref)
-        local v169, v170 = v126:getActiveState();
-        local v171, v172 = v73(v170, v168);
-        v126.props.dispatchSetSearchData(v169, {
-            searchTerm = v168, 
-            searchFilterFlat = v171 or {}, 
-            searchFilterGraph = v172 or {}
+    v133.onSearchTermChanged = function(v175) --[[ Line: 507 ]]
+        -- upvalues: v133 (copy), v80 (ref)
+        local v176, v177 = v133:getActiveState();
+        local v178, v179 = v80(v177, v175);
+        v133.props.dispatchSetSearchData(v176, {
+            searchTerm = v175, 
+            searchFilterFlat = v178 or {}, 
+            searchFilterGraph = v179 or {}
         });
     end;
-    v126.utilRef = v1.createRef();
-    v126.state = {
+    v133.utilRef = v1.createRef();
+    v133.state = {
         utilTabHeight = 0
     };
 end;
-v40.didMount = function(v173) --[[ Line: 525 ]] --[[ Name: didMount ]]
-    -- upvalues: l_ScriptProfilerService_0 (copy), v125 (copy)
-    v173:setState({
-        utilTabHeight = v173.utilRef.current.Size.Y.Offset
+v40.didMount = function(v180) --[[ Line: 525 ]] --[[ Name: didMount ]]
+    -- upvalues: l_ScriptProfilerService_0 (copy), v132 (copy)
+    v180:setState({
+        utilTabHeight = v180.utilRef.current.Size.Y.Offset
     });
-    v173.scriptProfilerConnection = l_ScriptProfilerService_0.OnNewData:Connect(function(v174, v175) --[[ Line: 531 ]]
-        -- upvalues: v173 (copy), v125 (ref)
-        local v176 = v174 ~= nil;
-        local v177 = v173:getState(v176);
-        local v178 = {};
-        v125(v178, v177, v175);
-        v173.props.dispatchSetData(v176, v178);
+    v180.scriptProfilerConnection = l_ScriptProfilerService_0.OnNewData:Connect(function(v181, v182) --[[ Line: 531 ]]
+        -- upvalues: v180 (copy), v132 (ref)
+        local v183 = v181 ~= nil;
+        local v184 = v180:getState(v183);
+        local v185 = {};
+        v132(v185, v184, v182);
+        v180.props.dispatchSetData(v183, v185);
     end);
 end;
-v40.willUnmount = function(v179) --[[ Line: 543 ]] --[[ Name: willUnmount ]]
-    v179.scriptProfilerConnection:Disconnect();
-    v179.scriptProfilerConnection = nil;
+v40.willUnmount = function(v186) --[[ Line: 543 ]] --[[ Name: willUnmount ]]
+    v186.scriptProfilerConnection:Disconnect();
+    v186.scriptProfilerConnection = nil;
 end;
-v40.didUpdate = function(v180) --[[ Line: 548 ]] --[[ Name: didUpdate ]]
-    local l_Size_0 = v180.utilRef.current.Size;
-    if l_Size_0.Y.Offset ~= v180.state.utilTabHeight then
-        v180:setState({
+v40.didUpdate = function(v187) --[[ Line: 548 ]] --[[ Name: didUpdate ]]
+    local l_Size_0 = v187.utilRef.current.Size;
+    if l_Size_0.Y.Offset ~= v187.state.utilTabHeight then
+        v187:setState({
             utilTabHeight = l_Size_0.Y.Offset
         });
     end;
 end;
-local function _(v182) --[[ Line: 557 ]] --[[ Name: formatTimer ]]
+local function _(v189) --[[ Line: 557 ]] --[[ Name: formatTimer ]]
     -- upvalues: v15 (copy)
-    local v183 = v15.formatTimer(v182);
-    if v183 ~= "" then
-        return ": " .. v183;
+    local v190 = v15.formatTimer(v189);
+    if v190 ~= "" then
+        return ": " .. v190;
     else
-        return v183;
+        return v190;
     end;
 end;
-v40.renderUtilButtons = function(v185, v186, v187, v188) --[[ Line: 567 ]] --[[ Name: renderUtilButtons ]]
+v40.renderUtilButtons = function(v192, v193, v194, v195) --[[ Line: 567 ]] --[[ Name: renderUtilButtons ]]
     -- upvalues: v1 (copy), v8 (copy), l_formatFrequency_0 (copy), l_MainWindowHeader_1 (copy), l_Text_0 (copy), l_MainWindowHeader_0 (copy), v33 (copy), l_UnselectedGray_0 (copy), v15 (copy), v9 (copy), l_SmallFrameHeight_0 (copy), v43 (copy)
-    local l_isProfiling_0 = v186.isProfiling;
-    local v190 = {};
-    table.insert(v190, v1.createElement(v8, {
+    local l_isProfiling_0 = v193.isProfiling;
+    local v197 = {};
+    table.insert(v197, v1.createElement(v8, {
         text = l_isProfiling_0 and "Stop" or "Start", 
-        onClicked = l_isProfiling_0 and v185.onEndProfile or v185.onBeginProfile
+        onClicked = l_isProfiling_0 and v192.onEndProfile or v192.onBeginProfile
     }));
-    if not v188 then
-        table.insert(v190, v1.createElement(v8, {
-            text = v185.props.usePercentages and "Unit: %" or "Unit: ms", 
-            onClicked = v185.toggleUnits
+    if not v195 then
+        table.insert(v197, v1.createElement(v8, {
+            text = v192.props.usePercentages and "Unit: %" or "Unit: ms", 
+            onClicked = v192.toggleUnits
         }));
     end;
-    if not v188 then
-        table.insert(v190, v1.createElement("TextButton", {
-            Text = "Freq: " .. l_formatFrequency_0(v186.frequency), 
+    if not v195 then
+        table.insert(v197, v1.createElement("TextButton", {
+            Text = "Freq: " .. l_formatFrequency_0(v193.frequency), 
             TextSize = l_MainWindowHeader_1, 
             TextColor3 = l_Text_0, 
             Font = l_MainWindowHeader_0, 
@@ -512,44 +526,21 @@ v40.renderUtilButtons = function(v185, v186, v187, v188) --[[ Line: 567 ]] --[[ 
             BackgroundColor3 = if l_isProfiling_0 then v33.Color.InactiveBox else l_UnselectedGray_0, 
             BackgroundTransparency = 0, 
             [v1.Event.Activated] = function() --[[ Line: 608 ]]
-                -- upvalues: l_isProfiling_0 (copy), v185 (copy)
+                -- upvalues: l_isProfiling_0 (copy), v192 (copy)
                 if not l_isProfiling_0 then
-                    v185.toggleFrequency();
+                    v192.toggleFrequency();
                 end;
             end
         }));
     end;
-    if not v188 then
-        local l_v190_0 = v190;
+    if not v195 then
+        local l_v197_0 = v197;
         local l_createElement_0 = v1.createElement;
-        local v193 = "TextButton";
-        local v194 = {};
-        local v195 = "Time";
-        local v196 = if l_isProfiling_0 then v186.timedProfilingCountdown else v186.timedProfilingDuration;
-        local v197 = v15.formatTimer(v196);
-        v194.Text = v195 .. if v197 ~= "" then ": " .. v197 else v197;
-        v194.TextSize = l_MainWindowHeader_1;
-        v194.TextColor3 = l_Text_0;
-        v194.Font = l_MainWindowHeader_0;
-        v194.AutoButtonColor = true;
-        v194.BackgroundColor3 = if l_isProfiling_0 then v33.Color.InactiveBox else l_UnselectedGray_0;
-        v194.BackgroundTransparency = 0;
-        v194[v1.Event.Activated] = function() --[[ Line: 631 ]]
-            -- upvalues: l_isProfiling_0 (copy), v185 (copy)
-            if not l_isProfiling_0 then
-                v185.toggleTimedProfiling();
-            end;
-        end;
-        table.insert(l_v190_0, l_createElement_0(v193, v194));
-    end;
-    if not v188 then
-        local l_v190_1 = v190;
-        local l_createElement_1 = v1.createElement;
         local v200 = "TextButton";
         local v201 = {};
-        local v202 = "Average";
-        local l_average_1 = v186.average;
-        local v204 = v15.formatTimer(l_average_1);
+        local v202 = "Time";
+        local v203 = if l_isProfiling_0 then v193.timedProfilingCountdown else v193.timedProfilingDuration;
+        local v204 = v15.formatTimer(v203);
         v201.Text = v202 .. if v204 ~= "" then ": " .. v204 else v204;
         v201.TextSize = l_MainWindowHeader_1;
         v201.TextColor3 = l_Text_0;
@@ -557,57 +548,80 @@ v40.renderUtilButtons = function(v185, v186, v187, v188) --[[ Line: 567 ]] --[[ 
         v201.AutoButtonColor = true;
         v201.BackgroundColor3 = if l_isProfiling_0 then v33.Color.InactiveBox else l_UnselectedGray_0;
         v201.BackgroundTransparency = 0;
-        v201[v1.Event.Activated] = function() --[[ Line: 653 ]]
-            -- upvalues: l_isProfiling_0 (copy), v185 (copy)
+        v201[v1.Event.Activated] = function() --[[ Line: 631 ]]
+            -- upvalues: l_isProfiling_0 (copy), v192 (copy)
             if not l_isProfiling_0 then
-                v185.toggleAverage();
+                v192.toggleTimedProfiling();
             end;
         end;
-        table.insert(l_v190_1, l_createElement_1(v200, v201));
+        table.insert(l_v197_0, l_createElement_0(v200, v201));
     end;
-    if not v188 then
-        table.insert(v190, v1.createElement(v8, {
+    if not v195 then
+        local l_v197_1 = v197;
+        local l_createElement_1 = v1.createElement;
+        local v207 = "TextButton";
+        local v208 = {};
+        local v209 = "Average";
+        local l_average_1 = v193.average;
+        local v211 = v15.formatTimer(l_average_1);
+        v208.Text = v209 .. if v211 ~= "" then ": " .. v211 else v211;
+        v208.TextSize = l_MainWindowHeader_1;
+        v208.TextColor3 = l_Text_0;
+        v208.Font = l_MainWindowHeader_0;
+        v208.AutoButtonColor = true;
+        v208.BackgroundColor3 = if l_isProfiling_0 then v33.Color.InactiveBox else l_UnselectedGray_0;
+        v208.BackgroundTransparency = 0;
+        v208[v1.Event.Activated] = function() --[[ Line: 653 ]]
+            -- upvalues: l_isProfiling_0 (copy), v192 (copy)
+            if not l_isProfiling_0 then
+                v192.toggleAverage();
+            end;
+        end;
+        table.insert(l_v197_1, l_createElement_1(v207, v208));
+    end;
+    if not v195 then
+        table.insert(v197, v1.createElement(v8, {
             text = "Export", 
-            onClicked = v185.props.dispatchStartExport
+            onClicked = v192.props.dispatchStartExport
         }));
     end;
-    if not v188 then
-        table.insert(v190, v1.createElement(v9, {
+    if not v195 then
+        table.insert(v197, v1.createElement(v9, {
             buttonSize = UDim2.new(0, 100, 0, l_SmallFrameHeight_0), 
             dropDownList = v43, 
-            selectedIndex = v186.isFunctionsView and 2 or 1, 
-            onSelection = v185.dataViewDropDownCallback
+            selectedIndex = v193.isFunctionsView and 2 or 1, 
+            onSelection = v192.dataViewDropDownCallback
         }));
     end;
-    if v187 then
-        table.insert(v190, v1.createElement(v8, {
+    if v194 then
+        table.insert(v197, v1.createElement(v8, {
             text = "More...", 
             onClicked = function() --[[ Line: 689 ]] --[[ Name: onClicked ]]
-                -- upvalues: v185 (copy)
-                v185.props.dispatchShowMobileSettings();
+                -- upvalues: v192 (copy)
+                v192.props.dispatchShowMobileSettings();
             end
         }));
     end;
-    return v190;
+    return v197;
 end;
-v40.renderUtilAndTab = function(v205, v206, v207) --[[ Line: 699 ]] --[[ Name: renderUtilAndTab ]]
+v40.renderUtilAndTab = function(v212, v213, v214) --[[ Line: 699 ]] --[[ Name: renderUtilAndTab ]]
     -- upvalues: v1 (copy), v7 (copy), v5 (copy)
-    local l_size_0 = v205.props.size;
-    local l_formFactor_0 = v205.props.formFactor;
-    local l_tabList_0 = v205.props.tabList;
+    local l_size_0 = v212.props.size;
+    local l_formFactor_0 = v212.props.formFactor;
+    local l_tabList_0 = v212.props.tabList;
     return v1.createElement(v7, v5.JoinDictionaries({
         windowWidth = l_size_0.X.Offset, 
         formFactor = l_formFactor_0, 
         tabList = l_tabList_0, 
         layoutOrder = 1, 
-        refForParent = v205.utilRef, 
-        onHeightChanged = v205.onUtilTabHeightChanged
-    }, v206), v207);
+        refForParent = v212.utilRef, 
+        onHeightChanged = v212.onUtilTabHeightChanged
+    }, v213), v214);
 end;
-v40.renderExportView = function(v211) --[[ Line: 719 ]] --[[ Name: renderExportView ]]
+v40.renderExportView = function(v218) --[[ Line: 719 ]] --[[ Name: renderExportView ]]
     -- upvalues: v1 (copy), v33 (copy), l_MainRowPadding_0 (copy), v8 (copy), v13 (copy)
-    local l_size_1 = v211.props.size;
-    local l_utilTabHeight_0 = v211.state.utilTabHeight;
+    local l_size_1 = v218.props.size;
+    local l_utilTabHeight_0 = v218.state.utilTabHeight;
     return v1.createElement("Frame", {
         Size = l_size_1, 
         BackgroundColor3 = v33.Color.BaseGray, 
@@ -618,10 +632,10 @@ v40.renderExportView = function(v211) --[[ Line: 719 ]] --[[ Name: renderExportV
             Padding = UDim.new(0, l_MainRowPadding_0), 
             SortOrder = Enum.SortOrder.LayoutOrder
         }), 
-        UtilAndTab = v211:renderUtilAndTab({}, {
+        UtilAndTab = v218:renderUtilAndTab({}, {
             v1.createElement(v8, {
                 text = "Exit", 
-                onClicked = v211.props.dispatchFinishedExporting
+                onClicked = v218.props.dispatchFinishedExporting
             })
         }), 
         ExportView = v1.createElement(v13, {
@@ -629,10 +643,10 @@ v40.renderExportView = function(v211) --[[ Line: 719 ]] --[[ Name: renderExportV
         })
     });
 end;
-v40.renderMobileSettingsUI = function(v214) --[[ Line: 748 ]] --[[ Name: renderMobileSettingsUI ]]
+v40.renderMobileSettingsUI = function(v221) --[[ Line: 748 ]] --[[ Name: renderMobileSettingsUI ]]
     -- upvalues: v1 (copy), v33 (copy), l_MainRowPadding_0 (copy), v8 (copy), v14 (copy)
-    local l_size_2 = v214.props.size;
-    local l_utilTabHeight_1 = v214.state.utilTabHeight;
+    local l_size_2 = v221.props.size;
+    local l_utilTabHeight_1 = v221.state.utilTabHeight;
     return v1.createElement("Frame", {
         Size = l_size_2, 
         BackgroundColor3 = v33.Color.BaseGray, 
@@ -643,14 +657,14 @@ v40.renderMobileSettingsUI = function(v214) --[[ Line: 748 ]] --[[ Name: renderM
             Padding = UDim.new(0, l_MainRowPadding_0), 
             SortOrder = Enum.SortOrder.LayoutOrder
         }), 
-        UtilAndTab = v214:renderUtilAndTab({}, {
+        UtilAndTab = v221:renderUtilAndTab({}, {
             v1.createElement(v8, {
                 text = "Export", 
-                onClicked = v214.props.dispatchStartExport
+                onClicked = v221.props.dispatchStartExport
             }), 
             v1.createElement(v8, {
                 text = "Exit", 
-                onClicked = v214.props.dispatchHideMobileSettings
+                onClicked = v221.props.dispatchHideMobileSettings
             })
         }), 
         MobileSettingsView = v1.createElement(v14, {
@@ -658,20 +672,20 @@ v40.renderMobileSettingsUI = function(v214) --[[ Line: 748 ]] --[[ Name: renderM
         })
     });
 end;
-v40.renderProfilerView = function(v217, v218, v219, v220, v221) --[[ Line: 783 ]] --[[ Name: renderProfilerView ]]
+v40.renderProfilerView = function(v224, v225, v226, v227, v228) --[[ Line: 783 ]] --[[ Name: renderProfilerView ]]
     -- upvalues: v1 (copy), v33 (copy), l_MainRowPadding_0 (copy), v11 (copy), v10 (copy), v41 (copy)
-    local l_isProfiling_1 = v219.isProfiling;
-    local l_data_1 = v219.data;
-    local l_usePercentages_0 = v217.props.usePercentages;
-    local l_isFunctionsView_1 = v219.isFunctionsView;
-    local l_rootNode_0 = v219.rootNode;
-    local l_rootNodeName_0 = v219.rootNodeName;
-    local l_rootFunc_0 = v219.rootFunc;
-    local l_size_3 = v217.props.size;
-    local l_utilTabHeight_2 = v217.state.utilTabHeight;
-    local v231 = nil;
+    local l_isProfiling_1 = v226.isProfiling;
+    local l_data_1 = v226.data;
+    local l_usePercentages_0 = v224.props.usePercentages;
+    local l_isFunctionsView_1 = v226.isFunctionsView;
+    local l_rootNode_0 = v226.rootNode;
+    local l_rootNodeName_0 = v226.rootNodeName;
+    local l_rootFunc_0 = v226.rootFunc;
+    local l_size_3 = v224.props.size;
+    local l_utilTabHeight_2 = v224.state.utilTabHeight;
+    local v238 = nil;
     if l_data_1 and l_data_1.SessionStartTime and l_data_1.SessionEndTime then
-        v231 = l_data_1.SessionEndTime - l_data_1.SessionStartTime;
+        v238 = l_data_1.SessionEndTime - l_data_1.SessionStartTime;
     end;
     return v1.createElement("Frame", {
         Size = l_size_3, 
@@ -683,148 +697,148 @@ v40.renderProfilerView = function(v217, v218, v219, v220, v221) --[[ Line: 783 ]
             Padding = UDim.new(0, l_MainRowPadding_0), 
             SortOrder = Enum.SortOrder.LayoutOrder
         }), 
-        UtilAndTab = v217:renderUtilAndTab({
-            isClientView = v218, 
-            onClientButton = v217.onClientButton, 
-            onServerButton = v217.onServerButton, 
-            orderedCheckboxState = v221, 
-            onCheckboxChanged = v217.onCheckboxChanged, 
-            onSearchTermChanged = v217.onSearchTermChanged, 
-            searchTerm = v219.searchTerm
-        }, v220), 
+        UtilAndTab = v224:renderUtilAndTab({
+            isClientView = v225, 
+            onClientButton = v224.onClientButton, 
+            onServerButton = v224.onServerButton, 
+            orderedCheckboxState = v228, 
+            onCheckboxChanged = v224.onCheckboxChanged, 
+            onSearchTermChanged = v224.onSearchTermChanged, 
+            searchTerm = v226.searchTerm
+        }, v227), 
         ProfilerView = v1.createElement(if l_isFunctionsView_1 then v11 else v10, {
             size = UDim2.new(1, 0, 1, -l_utilTabHeight_2), 
-            searchFilter = if l_isFunctionsView_1 then v219.searchFilterFlat else v219.searchFilterGraph, 
+            searchFilter = if l_isFunctionsView_1 then v226.searchFilterFlat else v226.searchFilterGraph, 
             layoutOrder = 2, 
             data = l_data_1, 
             profiling = l_isProfiling_1, 
             showAsPercentages = l_usePercentages_0, 
-            sessionLength = v231, 
+            sessionLength = v238, 
             rootNode = l_rootNode_0, 
             rootFunc = l_rootFunc_0, 
             rootNodeName = l_rootNodeName_0, 
-            average = v219.average, 
-            showPlugins = v219.showPlugins or not v41, 
-            pluginOffsets = v219.pluginOffsets, 
-            showGC = v219.showGC, 
-            gcFunctionOffsets = v219.gcFunctionOffsets, 
-            gcNodeOffsets = v219.gcNodeOffsets, 
-            pluginGCOffsets = v219.pluginGCOffsets, 
-            expandedNodes = if l_isFunctionsView_1 then nil else v219.expandedNodes
+            average = v226.average, 
+            showPlugins = v226.showPlugins or not v41, 
+            pluginOffsets = v226.pluginOffsets, 
+            showGC = v226.showGC, 
+            gcFunctionOffsets = v226.gcFunctionOffsets, 
+            gcNodeOffsets = v226.gcNodeOffsets, 
+            pluginGCOffsets = v226.pluginGCOffsets, 
+            expandedNodes = if l_isFunctionsView_1 then nil else v226.expandedNodes
         })
     });
 end;
-v40.render = function(v232) --[[ Line: 847 ]] --[[ Name: render ]]
+v40.render = function(v239) --[[ Line: 847 ]] --[[ Name: render ]]
     -- upvalues: v33 (copy), v41 (copy)
-    if v232.props.isExporting then
-        return v232:renderExportView();
-    elseif v232.props.isShowingMobileSettings then
-        return v232:renderMobileSettingsUI();
+    if v239.props.isExporting then
+        return v239:renderExportView();
+    elseif v239.props.isShowingMobileSettings then
+        return v239:renderMobileSettingsUI();
     else
-        local l_formFactor_1 = v232.props.formFactor;
-        local v234, v235 = v232:getActiveState();
-        local v236 = {};
-        local v237 = 1;
-        local v238 = l_formFactor_1 == v33.FormFactor.Small;
-        if not v238 then
-            v236[1] = {
+        local l_formFactor_1 = v239.props.formFactor;
+        local v241, v242 = v239:getActiveState();
+        local v243 = {};
+        local v244 = 1;
+        local v245 = l_formFactor_1 == v33.FormFactor.Small;
+        if not v245 then
+            v243[1] = {
                 name = "Live", 
-                state = v235.liveUpdate
+                state = v242.liveUpdate
             };
             if v41 then
-                v237 = v237 + 1;
-                v236[v237] = {
+                v244 = v244 + 1;
+                v243[v244] = {
                     name = "Plugins", 
-                    state = v235.showPlugins
+                    state = v242.showPlugins
                 };
             end;
-            v236[v237 + 1] = {
+            v243[v244 + 1] = {
                 name = "GC", 
-                state = v235.showGC
+                state = v242.showGC
             };
         end;
-        return v232:renderProfilerView(v234, v235, v232:renderUtilButtons(v235, v238, v238), v236);
+        return v239:renderProfilerView(v241, v242, v239:renderUtilButtons(v242, v245, v245), v243);
     end;
 end;
-return v2.UNSTABLE_connect2(function(v239, _) --[[ Line: 882 ]] --[[ Name: mapStateToProps ]]
+return v2.UNSTABLE_connect2(function(v246, _) --[[ Line: 882 ]] --[[ Name: mapStateToProps ]]
     return {
-        isClientView = v239.ScriptProfiler.isClientView, 
-        usePercentages = v239.ScriptProfiler.usePercentages, 
-        isExporting = v239.ScriptProfiler.isExporting, 
-        isShowingMobileSettings = v239.ScriptProfiler.isShowingMobileSettings, 
-        client = v239.ScriptProfiler.client, 
-        server = v239.ScriptProfiler.server
+        isClientView = v246.ScriptProfiler.isClientView, 
+        usePercentages = v246.ScriptProfiler.usePercentages, 
+        isExporting = v246.ScriptProfiler.isExporting, 
+        isShowingMobileSettings = v246.ScriptProfiler.isShowingMobileSettings, 
+        client = v246.ScriptProfiler.client, 
+        server = v246.ScriptProfiler.server
     };
-end, function(v241) --[[ Line: 894 ]] --[[ Name: mapDispatchToProps ]]
+end, function(v248) --[[ Line: 894 ]] --[[ Name: mapDispatchToProps ]]
     -- upvalues: v20 (copy), v21 (copy), v22 (copy), v23 (copy), v24 (copy), v25 (copy), v26 (copy), v27 (copy), v28 (copy), v29 (copy), v30 (copy), v31 (copy), v32 (copy)
     return {
-        dispatchSetScriptProfilerState = function(v242, v243, v244, v245) --[[ Line: 896 ]] --[[ Name: dispatchSetScriptProfilerState ]]
-            -- upvalues: v241 (copy), v20 (ref)
-            v241(v20(v242, v243, v244, v245));
+        dispatchSetScriptProfilerState = function(v249, v250, v251, v252) --[[ Line: 896 ]] --[[ Name: dispatchSetScriptProfilerState ]]
+            -- upvalues: v248 (copy), v20 (ref)
+            v248(v20(v249, v250, v251, v252));
         end, 
-        dispatchSetIsProfiling = function(v246, v247) --[[ Line: 900 ]] --[[ Name: dispatchSetIsProfiling ]]
-            -- upvalues: v241 (copy), v21 (ref)
-            v241(v21(v246, v247));
+        dispatchSetIsProfiling = function(v253, v254) --[[ Line: 900 ]] --[[ Name: dispatchSetIsProfiling ]]
+            -- upvalues: v248 (copy), v21 (ref)
+            v248(v21(v253, v254));
         end, 
-        dispatchSetData = function(v248, v249) --[[ Line: 904 ]] --[[ Name: dispatchSetData ]]
-            -- upvalues: v241 (copy), v22 (ref)
-            v241(v22(v248, v249));
+        dispatchSetData = function(v255, v256) --[[ Line: 904 ]] --[[ Name: dispatchSetData ]]
+            -- upvalues: v248 (copy), v22 (ref)
+            v248(v22(v255, v256));
         end, 
-        dispatchSetThreads = function(v250, v251) --[[ Line: 908 ]] --[[ Name: dispatchSetThreads ]]
-            -- upvalues: v241 (copy), v23 (ref)
-            v241(v23(v250, v251));
+        dispatchSetThreads = function(v257, v258) --[[ Line: 908 ]] --[[ Name: dispatchSetThreads ]]
+            -- upvalues: v248 (copy), v23 (ref)
+            v248(v23(v257, v258));
         end, 
-        dispatchSetTimer = function(v252, v253) --[[ Line: 912 ]] --[[ Name: dispatchSetTimer ]]
-            -- upvalues: v241 (copy), v24 (ref)
-            v241(v24(v252, v253));
+        dispatchSetTimer = function(v259, v260) --[[ Line: 912 ]] --[[ Name: dispatchSetTimer ]]
+            -- upvalues: v248 (copy), v24 (ref)
+            v248(v24(v259, v260));
         end, 
-        dispatchClearStateForNewSession = function(v254) --[[ Line: 916 ]] --[[ Name: dispatchClearStateForNewSession ]]
-            -- upvalues: v241 (copy), v25 (ref)
-            v241(v25(v254));
+        dispatchClearStateForNewSession = function(v261) --[[ Line: 916 ]] --[[ Name: dispatchClearStateForNewSession ]]
+            -- upvalues: v248 (copy), v25 (ref)
+            v248(v25(v261));
         end, 
-        dispatchSetAverage = function(v255, v256) --[[ Line: 920 ]] --[[ Name: dispatchSetAverage ]]
-            -- upvalues: v241 (copy), v26 (ref)
-            v241(v26(v255, v256));
+        dispatchSetAverage = function(v262, v263) --[[ Line: 920 ]] --[[ Name: dispatchSetAverage ]]
+            -- upvalues: v248 (copy), v26 (ref)
+            v248(v26(v262, v263));
         end, 
-        dispatchSetFrequency = function(v257, v258) --[[ Line: 924 ]] --[[ Name: dispatchSetFrequency ]]
-            -- upvalues: v241 (copy), v27 (ref)
-            v241(v27(v257, v258));
+        dispatchSetFrequency = function(v264, v265) --[[ Line: 924 ]] --[[ Name: dispatchSetFrequency ]]
+            -- upvalues: v248 (copy), v27 (ref)
+            v248(v27(v264, v265));
         end, 
-        dispatchSetDataView = function(v259, v260) --[[ Line: 928 ]] --[[ Name: dispatchSetDataView ]]
-            -- upvalues: v241 (copy), v28 (ref)
-            v241(v28(v259, v260));
+        dispatchSetDataView = function(v266, v267) --[[ Line: 928 ]] --[[ Name: dispatchSetDataView ]]
+            -- upvalues: v248 (copy), v28 (ref)
+            v248(v28(v266, v267));
         end, 
-        dispatchSetLiveUpdate = function(v261, v262) --[[ Line: 932 ]] --[[ Name: dispatchSetLiveUpdate ]]
-            -- upvalues: v241 (copy), v29 (ref)
-            v241(v29(v261, v262));
+        dispatchSetLiveUpdate = function(v268, v269) --[[ Line: 932 ]] --[[ Name: dispatchSetLiveUpdate ]]
+            -- upvalues: v248 (copy), v29 (ref)
+            v248(v29(v268, v269));
         end, 
-        dispatchSetShowPlugins = function(v263, v264) --[[ Line: 936 ]] --[[ Name: dispatchSetShowPlugins ]]
-            -- upvalues: v241 (copy), v30 (ref)
-            v241(v30(v263, v264));
+        dispatchSetShowPlugins = function(v270, v271) --[[ Line: 936 ]] --[[ Name: dispatchSetShowPlugins ]]
+            -- upvalues: v248 (copy), v30 (ref)
+            v248(v30(v270, v271));
         end, 
-        dispatchSetShowGC = function(v265, v266) --[[ Line: 940 ]] --[[ Name: dispatchSetShowGC ]]
-            -- upvalues: v241 (copy), v31 (ref)
-            v241(v31(v265, v266));
+        dispatchSetShowGC = function(v272, v273) --[[ Line: 940 ]] --[[ Name: dispatchSetShowGC ]]
+            -- upvalues: v248 (copy), v31 (ref)
+            v248(v31(v272, v273));
         end, 
-        dispatchSetSearchData = function(v267, v268) --[[ Line: 944 ]] --[[ Name: dispatchSetSearchData ]]
-            -- upvalues: v241 (copy), v32 (ref)
-            v241(v32(v267, v268));
+        dispatchSetSearchData = function(v274, v275) --[[ Line: 944 ]] --[[ Name: dispatchSetSearchData ]]
+            -- upvalues: v248 (copy), v32 (ref)
+            v248(v32(v274, v275));
         end, 
         dispatchStartExport = function() --[[ Line: 948 ]] --[[ Name: dispatchStartExport ]]
-            -- upvalues: v241 (copy), v20 (ref)
-            v241(v20(nil, nil, nil, nil, true));
+            -- upvalues: v248 (copy), v20 (ref)
+            v248(v20(nil, nil, nil, nil, true));
         end, 
         dispatchFinishedExporting = function() --[[ Line: 952 ]] --[[ Name: dispatchFinishedExporting ]]
-            -- upvalues: v241 (copy), v20 (ref)
-            v241(v20(nil, nil, nil, nil, false));
+            -- upvalues: v248 (copy), v20 (ref)
+            v248(v20(nil, nil, nil, nil, false));
         end, 
         dispatchShowMobileSettings = function() --[[ Line: 956 ]] --[[ Name: dispatchShowMobileSettings ]]
-            -- upvalues: v241 (copy), v20 (ref)
-            v241(v20(nil, nil, nil, nil, nil, true));
+            -- upvalues: v248 (copy), v20 (ref)
+            v248(v20(nil, nil, nil, nil, nil, true));
         end, 
         dispatchHideMobileSettings = function() --[[ Line: 960 ]] --[[ Name: dispatchHideMobileSettings ]]
-            -- upvalues: v241 (copy), v20 (ref)
-            v241(v20(nil, nil, nil, nil, nil, false));
+            -- upvalues: v248 (copy), v20 (ref)
+            v248(v20(nil, nil, nil, nil, nil, false));
         end
     };
 end)(v40);

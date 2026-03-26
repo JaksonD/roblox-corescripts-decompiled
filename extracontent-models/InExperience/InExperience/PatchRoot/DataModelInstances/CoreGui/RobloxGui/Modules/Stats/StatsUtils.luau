@@ -17,18 +17,14 @@ LocalizeWithFallback = function(v7, v8) --[[ Line: 20 ]] --[[ Name: LocalizeWith
         return v8;
     end;
 end;
-local l_status_1, l_result_1 = pcall(function() --[[ Line: 32 ]]
-    return settings():GetFFlag("UseNotificationsLocalization");
-end);
-local _ = l_status_1 and l_result_1;
-PingStatName = function() --[[ Line: 35 ]] --[[ Name: PingStatName ]]
+PingStatName = function() --[[ Line: 32 ]] --[[ Name: PingStatName ]]
     if game:GetEngineFeature("PerfStatNetworkPingEnabled2") then
         return "NetworkPing";
     else
         return "Ping";
     end;
 end;
-local v14 = {
+local v11 = {
     SelectedBackgroundColor = Color3.new(0.4, 0.4, 0.4), 
     FontColor = Color3.new(1, 1, 1), 
     GraphBarGreenColor = Color3.new(0.49411764705882355, 0.8274509803921568, 0.12941176470588237), 
@@ -53,67 +49,67 @@ local v14 = {
     GraphAverageLineInnerThickness = 2, 
     GraphAverageLineBorderThickness = 1
 };
-v14.GraphAverageLineTotalThickness = v14.GraphAverageLineInnerThickness + 2 * v14.GraphAverageLineBorderThickness;
-v14.TextPanelTitleHeightY = 52;
-v14.TextPanelLegendItemHeightY = 20;
-v14.TextPanelLeftMarginPix = 10;
-v14.TextPanelTopMarginPix = 10;
-v14.DecorationSize = 12;
-v14.OvalKeySize = 8;
-v14.TargetKeyWidth = 11;
-v14.TargetKeyHeight = 2;
-v14.DecorationMargin = 6;
-v14.StatType_Memory = "st_Memory";
-v14.StatType_CPU = "st_CPU";
-v14.StatType_GPU = "st_GPU";
-v14.StatType_NetworkSent = "st_NetworkSent";
-v14.StatType_NetworkReceived = "st_NetworkReceived";
-v14.StatType_Ping = "st_Ping";
-v14.AllStatTypes = {
-    v14.StatType_Memory, 
-    v14.StatType_CPU, 
-    v14.StatType_GPU, 
-    v14.StatType_NetworkSent, 
-    v14.StatType_NetworkReceived, 
-    v14.StatType_Ping
+v11.GraphAverageLineTotalThickness = v11.GraphAverageLineInnerThickness + 2 * v11.GraphAverageLineBorderThickness;
+v11.TextPanelTitleHeightY = 52;
+v11.TextPanelLegendItemHeightY = 20;
+v11.TextPanelLeftMarginPix = 10;
+v11.TextPanelTopMarginPix = 10;
+v11.DecorationSize = 12;
+v11.OvalKeySize = 8;
+v11.TargetKeyWidth = 11;
+v11.TargetKeyHeight = 2;
+v11.DecorationMargin = 6;
+v11.StatType_Memory = "st_Memory";
+v11.StatType_CPU = "st_CPU";
+v11.StatType_GPU = "st_GPU";
+v11.StatType_NetworkSent = "st_NetworkSent";
+v11.StatType_NetworkReceived = "st_NetworkReceived";
+v11.StatType_Ping = "st_Ping";
+v11.AllStatTypes = {
+    v11.StatType_Memory, 
+    v11.StatType_CPU, 
+    v11.StatType_GPU, 
+    v11.StatType_NetworkSent, 
+    v11.StatType_NetworkReceived, 
+    v11.StatType_Ping
 };
-v14.StatNames = {
-    [v14.StatType_Memory] = "Memory", 
-    [v14.StatType_CPU] = "CPU", 
-    [v14.StatType_GPU] = "GPU", 
-    [v14.StatType_NetworkSent] = "NetworkSent", 
-    [v14.StatType_NetworkReceived] = "NetworkReceived", 
-    [v14.StatType_Ping] = "Ping"
+v11.StatNames = {
+    [v11.StatType_Memory] = "Memory", 
+    [v11.StatType_CPU] = "CPU", 
+    [v11.StatType_GPU] = "GPU", 
+    [v11.StatType_NetworkSent] = "NetworkSent", 
+    [v11.StatType_NetworkReceived] = "NetworkReceived", 
+    [v11.StatType_Ping] = "Ping"
 };
-v14.StatMaxNames = {
-    [v14.StatType_Memory] = "MaxMemory", 
-    [v14.StatType_CPU] = "MaxCPU", 
-    [v14.StatType_GPU] = "MaxGPU", 
-    [v14.StatType_NetworkSent] = "MaxNetworkSent", 
-    [v14.StatType_NetworkReceived] = "MaxNetworkReceived", 
-    [v14.StatType_Ping] = "MaxPing"
+v11.StatMaxNames = {
+    [v11.StatType_Memory] = "MaxMemory", 
+    [v11.StatType_CPU] = "MaxCPU", 
+    [v11.StatType_GPU] = "MaxGPU", 
+    [v11.StatType_NetworkSent] = "MaxNetworkSent", 
+    [v11.StatType_NetworkReceived] = "MaxNetworkReceived", 
+    [v11.StatType_Ping] = "MaxPing"
 };
-v14.NumButtonTypes = #v14.AllStatTypes;
-local v15 = LocalizeWithFallback("InGame.UnknownNamespace.Network", "Network");
-local v16 = LocalizeWithFallback("InGame.UnknownNamespace.Sent", "Sent") .. "\n" .. v15;
-local v17 = LocalizeWithFallback("InGame.UnknownNamespace.Received", "Received") .. "\n" .. v15;
-v14.TypeToName = {
-    [v14.StatType_Memory] = "Memory", 
-    [v14.StatType_CPU] = "CPU", 
-    [v14.StatType_GPU] = "GPU", 
-    [v14.StatType_NetworkSent] = v16, 
-    [v14.StatType_NetworkReceived] = v17, 
-    [v14.StatType_Ping] = PingStatName()
+v11.NumButtonTypes = #v11.AllStatTypes;
+local v12 = LocalizeWithFallback("InGame.UnknownNamespace.Network", "Network");
+local v13 = LocalizeWithFallback("InGame.UnknownNamespace.Sent", "Sent") .. "\n" .. v12;
+local v14 = LocalizeWithFallback("InGame.UnknownNamespace.Received", "Received") .. "\n" .. v12;
+v11.TypeToName = {
+    [v11.StatType_Memory] = "Memory", 
+    [v11.StatType_CPU] = "CPU", 
+    [v11.StatType_GPU] = "GPU", 
+    [v11.StatType_NetworkSent] = v13, 
+    [v11.StatType_NetworkReceived] = v14, 
+    [v11.StatType_Ping] = PingStatName()
 };
-v14.TypeToShortName = {
-    [v14.StatType_Memory] = "Mem", 
-    [v14.StatType_CPU] = "CPU", 
-    [v14.StatType_GPU] = "GPU", 
-    [v14.StatType_NetworkSent] = "Sent", 
-    [v14.StatType_NetworkReceived] = "Recv", 
-    [v14.StatType_Ping] = PingStatName()
+v11.TypeToShortName = {
+    [v11.StatType_Memory] = "Mem", 
+    [v11.StatType_CPU] = "CPU", 
+    [v11.StatType_GPU] = "GPU", 
+    [v11.StatType_NetworkSent] = "Sent", 
+    [v11.StatType_NetworkReceived] = "Recv", 
+    [v11.StatType_Ping] = PingStatName()
 };
-v14.MemoryAnalyzerTypeToName = {
+v11.MemoryAnalyzerTypeToName = {
     HumanoidTexture = "Humanoid Textures", 
     HumanoidTextureOrphan = "Humanoid Textures (Unused)", 
     OtherTexture = "Other Textures", 
@@ -124,89 +120,78 @@ v14.MemoryAnalyzerTypeToName = {
     CSG = "Solid Models", 
     Meshes = "Meshes"
 };
-v14.GetMemoryAnalyzerStatName = function(v18) --[[ Line: 169 ]] --[[ Name: GetMemoryAnalyzerStatName ]]
-    -- upvalues: v14 (copy)
-    if v14.MemoryAnalyzerTypeToName[v18] == nil then
-        return v18;
+v11.GetMemoryAnalyzerStatName = function(v15) --[[ Line: 166 ]] --[[ Name: GetMemoryAnalyzerStatName ]]
+    -- upvalues: v11 (copy)
+    if v11.MemoryAnalyzerTypeToName[v15] == nil then
+        return v15;
     else
-        return v14.MemoryAnalyzerTypeToName[v18];
+        return v11.MemoryAnalyzerTypeToName[v15];
     end;
 end;
-v14.StyleFrame = function(v19) --[[ Line: 177 ]] --[[ Name: StyleFrame ]]
-    -- upvalues: v14 (copy)
-    v19.BackgroundColor3 = v14.NormalColor;
-    v19.BackgroundTransparency = v14.Transparency;
+v11.StyleFrame = function(v16) --[[ Line: 174 ]] --[[ Name: StyleFrame ]]
+    -- upvalues: v11 (copy)
+    v16.BackgroundColor3 = v11.NormalColor;
+    v16.BackgroundTransparency = v11.Transparency;
 end;
-v14.StyleButton = function(v20) --[[ Line: 182 ]] --[[ Name: StyleButton ]]
-    -- upvalues: v14 (copy)
-    v20.BackgroundColor3 = v14.NormalColor;
-    v20.BackgroundTransparency = v14.Transparency;
+v11.StyleButton = function(v17) --[[ Line: 179 ]] --[[ Name: StyleButton ]]
+    -- upvalues: v11 (copy)
+    v17.BackgroundColor3 = v11.NormalColor;
+    v17.BackgroundTransparency = v11.Transparency;
 end;
-v14.StyleTextWidget = function(v21) --[[ Line: 187 ]] --[[ Name: StyleTextWidget ]]
-    -- upvalues: v14 (copy)
-    v21.BackgroundTransparency = 1;
-    v21.TextColor3 = v14.FontColor;
-    v21.Font = Enum.Font.SourceSansBold;
+v11.StyleTextWidget = function(v18) --[[ Line: 184 ]] --[[ Name: StyleTextWidget ]]
+    -- upvalues: v11 (copy)
+    v18.BackgroundTransparency = 1;
+    v18.TextColor3 = v11.FontColor;
+    v18.Font = Enum.Font.SourceSansBold;
 end;
-v14.StyleButtonSelected = function(v22, v23) --[[ Line: 193 ]] --[[ Name: StyleButtonSelected ]]
-    -- upvalues: v14 (copy)
-    v14.StyleButton(v22);
-    if v23 then
-        v22.BackgroundColor3 = v14.SelectedBackgroundColor;
+v11.StyleButtonSelected = function(v19, v20) --[[ Line: 190 ]] --[[ Name: StyleButtonSelected ]]
+    -- upvalues: v11 (copy)
+    v11.StyleButton(v19);
+    if v20 then
+        v19.BackgroundColor3 = v11.SelectedBackgroundColor;
     end;
 end;
-local l_status_2, l_result_2 = pcall(function() --[[ Line: 200 ]]
-    return settings():GetFFlag("UseNotificationsLocalization");
-end);
-local v26 = l_status_2 and l_result_2;
-v14.FormatTypedValue = function(v27, v28) --[[ Line: 203 ]] --[[ Name: FormatTypedValue ]]
-    -- upvalues: v26 (copy), v14 (copy)
-    if v26 then
-        if v28 == v14.StatType_CPU or v28 == v14.StatType_GPU then
-            return string.gsub(LocalizeWithFallback("InGame.StatsUtil.ms", string.format("%.2f MB", v27)), "{RBX_NUMBER}", string.format("%.2f", v27));
-        elseif v28 == v14.StatType_NetworkSent or v28 == v14.StatType_NetworkReceived then
-            return string.gsub(LocalizeWithFallback("InGame.StatsUtil.KBps", string.format("%.2f KB/s", v27)), "{RBX_NUMBER}", string.format("%.2f", v27));
-        end;
-    end;
-    if v28 == v14.StatType_Memory then
-        return string.format("%.2f MB", v27);
-    elseif v28 == v14.StatType_CPU then
-        return string.format("%.2f ms", v27);
-    elseif v28 == v14.StatType_GPU then
-        return string.format("%.2f ms", v27);
-    elseif v28 == v14.StatType_NetworkSent then
-        return string.format("%.2f KB/s", v27);
-    elseif v28 == v14.StatType_NetworkReceived then
-        return string.format("%.2f KB/s", v27);
-    elseif v28 == v14.StatType_Ping then
+v11.FormatTypedValue = function(v21, v22) --[[ Line: 197 ]] --[[ Name: FormatTypedValue ]]
+    -- upvalues: v11 (copy)
+    if v22 == v11.StatType_Memory then
+        return string.format("%.2f MB", v21);
+    elseif v22 == v11.StatType_CPU then
+        return string.format("%.2f ms", v21);
+    elseif v22 == v11.StatType_GPU then
+        return string.format("%.2f ms", v21);
+    elseif v22 == v11.StatType_NetworkSent then
+        return string.format("%.2f KB/s", v21);
+    elseif v22 == v11.StatType_NetworkReceived then
+        return string.format("%.2f KB/s", v21);
+    elseif v22 == v11.StatType_Ping then
         if game:GetEngineFeature("PerfStatNetworkPingEnabled2") then
-            return string.format("%.0f ms", v27);
+            return string.format("%.0f ms", v21);
         else
-            return string.format("%.2f ms", v27);
+            return string.format("%.2f ms", v21);
         end;
     else
         return;
     end;
 end;
-v14.StyleAverageLine = function(v29) --[[ Line: 237 ]] --[[ Name: StyleAverageLine ]]
-    -- upvalues: v14 (copy)
-    v29.BackgroundColor3 = v14.GraphAverageLineColor;
-    v29.BorderSizePixel = v14.GraphAverageLineBorderThickness;
-    v29.BorderColor3 = v14.GraphAverageLineBorderColor;
+v11.StyleAverageLine = function(v23) --[[ Line: 217 ]] --[[ Name: StyleAverageLine ]]
+    -- upvalues: v11 (copy)
+    v23.BackgroundColor3 = v11.GraphAverageLineColor;
+    v23.BorderSizePixel = v11.GraphAverageLineBorderThickness;
+    v23.BorderColor3 = v11.GraphAverageLineBorderColor;
 end;
-v14.GetColorForValue = function(v30, v31) --[[ Line: 243 ]] --[[ Name: GetColorForValue ]]
-    -- upvalues: v14 (copy)
-    if v30 < 0.666 * v31 then
-        return v14.GraphBarGreenColor;
-    elseif v30 < 1.333 * v31 then
-        return v14.GraphBarYellowColor;
+v11.GetColorForValue = function(v24, v25) --[[ Line: 223 ]] --[[ Name: GetColorForValue ]]
+    -- upvalues: v11 (copy)
+    if v24 < 0.666 * v25 then
+        return v11.GraphBarGreenColor;
+    elseif v24 < 1.333 * v25 then
+        return v11.GraphBarYellowColor;
     else
-        return v14.GraphBarRedColor;
+        return v11.GraphBarRedColor;
     end;
 end;
-v14.PerformanceStatsShouldBeVisible = function() --[[ Line: 253 ]] --[[ Name: PerformanceStatsShouldBeVisible ]]
+v11.PerformanceStatsShouldBeVisible = function() --[[ Line: 233 ]] --[[ Name: PerformanceStatsShouldBeVisible ]]
     -- upvalues: l_Players_0 (copy), l_GameSettings_0 (copy)
     local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
     return l_GameSettings_0.PerformanceStatsVisible and l_LocalPlayer_0 ~= nil;
 end;
-return v14;
+return v11;

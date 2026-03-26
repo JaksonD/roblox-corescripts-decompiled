@@ -10,98 +10,101 @@ local l_useLastInput_0 = v7.useLastInput;
 local l_usePreferredInput_0 = v7.usePreferredInput;
 local l_useIsSpatial_0 = v7.useIsSpatial;
 local v11 = require(l_script_FirstAncestor_0.useVariableItemWidthScrollHandlers);
-local function _(v12, v13, v14) --[[ Line: 47 ]] --[[ Name: areScrollButtonsEnabled ]]
-    -- upvalues: v7 (copy)
-    if not v14 then
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppEnableVRCarouselScrolling_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableVRCarouselScrolling;
+local function _(v14, v15, v16, v17) --[[ Line: 50 ]] --[[ Name: areScrollButtonsEnabled ]]
+    -- upvalues: v7 (copy), l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy)
+    if not v16 then
         return false;
     else
-        local v15 = false;
-        if v12 == v7.Input.Pointer then
-            v15 = v13 ~= v7.Input.Directional;
-        end;
-        return v15;
+        return v14 == v7.Input.Pointer and v15 ~= v7.Input.Directional or l_FFlagLuaAppEnableVRCarouselScrolling_0 and v17;
     end;
 end;
-VariableItemWidthCarousel = function(v17, v18) --[[ Line: 59 ]] --[[ Name: VariableItemWidthCarousel ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useLastInput_0 (copy), l_usePreferredInput_0 (copy), l_useIsSpatial_0 (copy), v7 (copy), v3 (copy), v11 (copy), l_CollectionHeader_0 (copy), l_CarouselScrollButtons_0 (copy)
-    local v19 = l_useDesignTokens_0();
-    local v20 = l_useLastInput_0();
-    local v21 = l_usePreferredInput_0();
-    local v22 = l_useIsSpatial_0();
-    local l_items_0 = v17.items;
-    local l_renderItem_0 = v17.renderItem;
-    local l_itemPadding_0 = v17.itemPadding;
-    local l_itemHeight_0 = v17.itemHeight;
-    local l_sideMargin_0 = v17.sideMargin;
-    local l_calculateItemWidth_0 = v17.calculateItemWidth;
-    local l_scrollingFrameRef_0 = v17.scrollingFrameRef;
-    local v30 = v17.title and v17.title ~= "";
-    local v31 = v17.scrollButtonsEnabled and not v22 and v20 == v7.Input.Pointer and v21 ~= v7.Input.Directional;
-    local v35 = v3.useMemo(function() --[[ Line: 76 ]]
+VariableItemWidthCarousel = function(v19, v20) --[[ Line: 68 ]] --[[ Name: VariableItemWidthCarousel ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useLastInput_0 (copy), l_usePreferredInput_0 (copy), l_useIsSpatial_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppEnableVRCarouselScrolling_0 (copy), v7 (copy), v3 (copy), v11 (copy), l_CollectionHeader_0 (copy), l_CarouselScrollButtons_0 (copy)
+    local v21 = l_useDesignTokens_0();
+    local v22 = l_useLastInput_0();
+    local v23 = l_usePreferredInput_0();
+    local v24 = l_useIsSpatial_0();
+    local l_items_0 = v19.items;
+    local l_renderItem_0 = v19.renderItem;
+    local l_itemPadding_0 = v19.itemPadding;
+    local l_itemHeight_0 = v19.itemHeight;
+    local v29 = if l_FFlagLuaAppCompositionSupport_0 then v19.sideMargin or 0 else v19.sideMargin;
+    local l_calculateItemWidth_0 = v19.calculateItemWidth;
+    local l_scrollingFrameRef_0 = v19.scrollingFrameRef;
+    local v32 = v19.title and v19.title ~= "";
+    local l_scrollButtonsEnabled_0 = v19.scrollButtonsEnabled;
+    if l_scrollButtonsEnabled_0 then
+        local v34 = l_FFlagLuaAppEnableVRCarouselScrolling_0 and true or not v24;
+        local v35 = if l_FFlagLuaAppEnableVRCarouselScrolling_0 then v24 else nil;
+        l_scrollButtonsEnabled_0 = not not v34 and (v22 == v7.Input.Pointer and v23 ~= v7.Input.Directional or l_FFlagLuaAppEnableVRCarouselScrolling_0 and v35);
+    end;
+    local v39 = v3.useMemo(function() --[[ Line: 90 ]]
         -- upvalues: l_items_0 (copy), l_renderItem_0 (copy)
-        local v32 = {};
-        for v33, v34 in ipairs(l_items_0) do
-            v32[v33] = l_renderItem_0(v34, v33);
+        local v36 = {};
+        for v37, v38 in ipairs(l_items_0) do
+            v36[v37] = l_renderItem_0(v38, v37);
         end;
-        return v32;
+        return v36;
     end, {
         l_items_0, 
         l_renderItem_0
     });
-    local v36, v37, v38, v39, v40 = v11(l_items_0, l_itemPadding_0, l_calculateItemWidth_0, l_scrollingFrameRef_0, v17.scrollSpeed);
-    local v42 = v3.useCallback(function(v41) --[[ Line: 88 ]]
-        -- upvalues: v40 (copy), v17 (copy)
-        v40();
-        if v17.onCanvasPositionChanged and v41 then
-            v17.onCanvasPositionChanged(v41.CanvasPosition);
+    local v40, v41, v42, v43, v44 = v11(l_items_0, l_itemPadding_0, l_calculateItemWidth_0, l_scrollingFrameRef_0, v19.scrollSpeed);
+    local v46 = v3.useCallback(function(v45) --[[ Line: 102 ]]
+        -- upvalues: v44 (copy), v19 (copy)
+        v44();
+        if v19.onCanvasPositionChanged and v45 then
+            v19.onCanvasPositionChanged(v45.CanvasPosition);
         end;
     end, {
-        v40, 
-        v17.onCanvasPositionChanged
+        v44, 
+        v19.onCanvasPositionChanged
     });
     local l_createElement_0 = v3.createElement;
-    local v44 = "Frame";
-    local v45 = {
+    local v48 = "Frame";
+    local v49 = {
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
-        Position = v17.Position, 
+        Position = v19.Position, 
         BackgroundTransparency = 1, 
         BorderSizePixel = 0, 
-        LayoutOrder = v17.LayoutOrder, 
-        ref = v18
+        LayoutOrder = v19.LayoutOrder, 
+        ref = v20
     };
-    local v46 = {
+    local v50 = {
         UIPadding = v3.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, l_sideMargin_0), 
-            PaddingRight = UDim.new(0, l_sideMargin_0)
+            PaddingLeft = UDim.new(0, v29), 
+            PaddingRight = UDim.new(0, v29)
         }), 
         UIListLayout = v3.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
-            Padding = UDim.new(0, if v30 then v17.headerContentPadding or v19.Global.Size_200 else 0)
+            Padding = UDim.new(0, if v32 then v19.headerContentPadding or v21.Global.Size_200 else 0)
         })
     };
     local l_createElement_1 = v3.createElement;
     local l_l_CollectionHeader_0_0 = l_CollectionHeader_0;
-    local v49 = {
+    local v53 = {
         LayoutOrder = 1, 
-        title = v17.title, 
-        subtitle = v17.subtitle, 
-        tooltipInfoText = v17.tooltipInfoText, 
-        onActivateInfoIcon = v17.onActivateInfoIcon, 
-        tooltipSupportsVR = v17.tooltipSupportsVR, 
-        tooltipSupportsTenFootUi = v17.tooltipSupportsTenFootUi
+        title = v19.title, 
+        subtitle = v19.subtitle, 
+        tooltipInfoText = v19.tooltipInfoText, 
+        onActivateInfoIcon = v19.onActivateInfoIcon, 
+        tooltipSupportsVR = v19.tooltipSupportsVR, 
+        tooltipSupportsTenFootUi = v19.tooltipSupportsTenFootUi
     };
-    local v50 = true;
+    local v54 = true;
     if #l_items_0 >= 1 then
-        v50 = v17.hideHeaderButton or not v30;
+        v54 = v19.hideHeaderButton or not v32;
     end;
-    v49.hideButton = v50;
-    v49.onActivate = v17.onActivateHeader;
-    v49.buttonText = v17.headerButtonText;
-    v46.Header = l_createElement_1(l_l_CollectionHeader_0_0, v49);
-    v46.ContentFrame = v3.createElement("Frame", {
+    v53.hideButton = v54;
+    v53.onActivate = v19.onActivateHeader;
+    v53.buttonText = v19.headerButtonText;
+    v50.Header = l_createElement_1(l_l_CollectionHeader_0_0, v53);
+    v50.ContentFrame = v3.createElement("Frame", {
         BackgroundTransparency = 1, 
         LayoutOrder = 2, 
         Size = UDim2.new(1, 0, 0, l_itemHeight_0)
@@ -118,8 +121,8 @@ VariableItemWidthCarousel = function(v17, v18) --[[ Line: 59 ]] --[[ Name: Varia
             Size = UDim2.new(1, 0, 0, l_itemHeight_0), 
             ZIndex = 1, 
             ref = l_scrollingFrameRef_0, 
-            [v3.Change.AbsoluteSize] = v40, 
-            [v3.Change.CanvasPosition] = v42
+            [v3.Change.AbsoluteSize] = v44, 
+            [v3.Change.CanvasPosition] = v46
         }, {
             v3.createElement(v3.Fragment, nil, {
                 v3.createElement("UIListLayout", {
@@ -129,21 +132,21 @@ VariableItemWidthCarousel = function(v17, v18) --[[ Line: 59 ]] --[[ Name: Varia
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     VerticalAlignment = Enum.VerticalAlignment.Center
                 }), 
-                v3.createElement(v3.Fragment, nil, v35)
+                v3.createElement(v3.Fragment, nil, v39)
             })
         }), 
-        ScrollButtons = if v31 then v3.createElement(l_CarouselScrollButtons_0, {
+        ScrollButtons = if l_scrollButtonsEnabled_0 then v3.createElement(l_CarouselScrollButtons_0, {
             AnchorPoint = Vector2.new(0.5, 0), 
             Position = UDim2.new(0.5, 0, 0, 0), 
-            Size = UDim2.new(1, l_sideMargin_0 * 2, 0, l_itemHeight_0), 
+            Size = UDim2.new(1, 2 * v29, 0, l_itemHeight_0), 
             ZIndex = 2, 
-            buttonOffsetFromEdge = v19.Global.Size_100, 
-            handleScrollLeft = v36, 
-            handleScrollRight = v37, 
-            leftScrollingEnabled = v38, 
-            rightScrollingEnabled = v39
+            buttonOffsetFromEdge = v21.Global.Size_100, 
+            handleScrollLeft = v40, 
+            handleScrollRight = v41, 
+            leftScrollingEnabled = v42, 
+            rightScrollingEnabled = v43
         }) else nil
     });
-    return l_createElement_0(v44, v45, v46);
+    return l_createElement_0(v48, v49, v50);
 end;
 return v3.forwardRef(VariableItemWidthCarousel);

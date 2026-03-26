@@ -401,6 +401,19 @@ return {
             }
         }
     }, 
+    [v3.CTAButtonEditLook] = {
+        description = "Edit look button clicked", 
+        lastUpdated = {
+            26, 
+            3, 
+            18
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
+            }
+        }
+    }, 
     [v3.CTAButtonShareProfile] = {
         description = "Share profile button clicked", 
         lastUpdated = {
@@ -620,11 +633,11 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryStat, 
                 dynamicCustomFields = if l_FFlagProfilePlatformEnableStore_0 then if v6 then {
-                    btnContext = function(v18) --[[ Line: 463 ]] --[[ Name: btnContext ]]
+                    btnContext = function(v18) --[[ Line: 472 ]] --[[ Name: btnContext ]]
                         return v18;
                     end
                 } else {
-                    source = function(v19) --[[ Line: 468 ]] --[[ Name: source ]]
+                    source = function(v19) --[[ Line: 477 ]] --[[ Name: source ]]
                         return v19;
                     end
                 } else nil
@@ -642,7 +655,7 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    component = function(v20) --[[ Line: 483 ]] --[[ Name: component ]]
+                    component = function(v20) --[[ Line: 492 ]] --[[ Name: component ]]
                         return v20;
                     end
                 }

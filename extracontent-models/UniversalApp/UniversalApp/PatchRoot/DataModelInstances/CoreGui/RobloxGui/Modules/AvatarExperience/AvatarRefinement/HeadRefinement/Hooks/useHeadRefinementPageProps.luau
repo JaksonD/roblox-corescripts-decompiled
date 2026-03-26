@@ -190,8 +190,8 @@ return function() --[[ Line: 104 ]] --[[ Name: useHeadRefinementPageProps ]]
                     itemId = v97, 
                     elementMetadata = l_HttpService_0:JSONEncode({
                         trigger = "MANUAL_TOGGLE", 
-                        change_from_FACS_status = v89, 
-                        change_to_FACS_status = v98
+                        change_from_FACS_status = tostring(v89), 
+                        change_to_FACS_status = tostring(v98)
                     })
                 });
             end;

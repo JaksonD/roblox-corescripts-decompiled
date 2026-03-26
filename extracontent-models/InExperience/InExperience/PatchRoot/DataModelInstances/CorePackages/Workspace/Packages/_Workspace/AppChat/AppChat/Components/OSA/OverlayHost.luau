@@ -7,36 +7,49 @@ local l_ProviderContainer_0 = require(l_Parent_0.RoactUtils).Components.Provider
 local v6 = require(l_script_FirstAncestor_0.Components.OSA.GroupOSADialog);
 local v7 = require(l_script_FirstAncestor_0.Stores.GetOverlayStore);
 local v8 = require(l_script_FirstAncestor_0.Flags.FFlagSupportViewingUserProfileOnOSA);
-local v9 = {
+local l_FFlagAppChatShowOSAOnPageEntry_0 = require(l_Parent_0.SharedFlags).FFlagAppChatShowOSAOnPageEntry;
+local v10 = {
     GroupOSADialog = v6
 };
-return function(v10) --[[ Line: 34 ]] --[[ Name: OverlayHost ]]
-    -- upvalues: v7 (copy), v4 (copy), v8 (copy), v3 (copy), v9 (copy), v2 (copy), l_ProviderContainer_0 (copy)
-    local v11 = v7(false);
-    local v12 = v4.useSignalState(v11.getCurrentOverlay);
-    local v13 = if v8 then v4.useSignalState(v11.getOverlayDefaultProps) else nil;
-    local v14 = v3.useCallback(function() --[[ Line: 42 ]]
-        -- upvalues: v11 (copy)
-        v11.dismissOverlay();
+return function(v11) --[[ Line: 35 ]] --[[ Name: OverlayHost ]]
+    -- upvalues: v7 (copy), v4 (copy), v8 (copy), v3 (copy), v10 (copy), v2 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (copy), l_ProviderContainer_0 (copy)
+    local v12 = v7(false);
+    local v13 = v4.useSignalState(v12.getCurrentOverlay);
+    local v14 = if v8 then v4.useSignalState(v12.getOverlayDefaultProps) else nil;
+    local v15 = v3.useCallback(function() --[[ Line: 43 ]]
+        -- upvalues: v12 (copy)
+        v12.dismissOverlay();
     end, {});
-    local v15 = v12 and v12.overlayType;
-    local v16 = v15 and v9[v15];
-    if not v16 then
+    local v16 = v13 and v13.overlayType;
+    local v17 = v16 and v10[v16];
+    if not v17 then
         return nil;
     else
-        local v17 = if v8 then v2.Dictionary.union(v13 or {}, v12.overlayProps or {}) else table.clone(v12.overlayProps or {});
-        v17.onClose = v14;
-        v17.hasBackdrop = true;
-        v17.disablePortal = false;
-        local v18 = v3.createElement(v16, v17);
-        if v10.providers and #v10.providers > 0 then
+        local v18 = if v8 then v2.Dictionary.union(v14 or {}, v13.overlayProps or {}) else table.clone(v13.overlayProps or {});
+        if l_FFlagAppChatShowOSAOnPageEntry_0 then
+            local l_onClose_0 = v18.onClose;
+            local l_l_onClose_0_0 = l_onClose_0 --[[ copy: 8 -> 9 ]];
+            v18.onClose = function() --[[ Line: 58 ]]
+                -- upvalues: l_l_onClose_0_0 (copy), v15 (copy)
+                if l_l_onClose_0_0 then
+                    l_l_onClose_0_0();
+                end;
+                v15();
+            end;
+        else
+            v18.onClose = v15;
+        end;
+        v18.hasBackdrop = true;
+        v18.disablePortal = false;
+        local v21 = v3.createElement(v17, v18);
+        if v11.providers and #v11.providers > 0 then
             return v3.createElement(l_ProviderContainer_0, {
-                providers = v10.providers
+                providers = v11.providers
             }, {
-                Overlay = v18
+                Overlay = v21
             });
         else
-            return v18;
+            return v21;
         end;
     end;
 end;

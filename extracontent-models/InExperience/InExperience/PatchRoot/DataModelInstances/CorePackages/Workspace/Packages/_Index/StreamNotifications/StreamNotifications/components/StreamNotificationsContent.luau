@@ -54,251 +54,255 @@ local l_GetFFlagFilterNotificationsForPCGDKEnabled_0 = v48.GetFFlagFilterNotific
 local l_GetFStringPCGDKFilteredNotificationTypes_0 = v48.GetFStringPCGDKFilteredNotificationTypes;
 local l_FFlagFixNotificationReportsMobile_0 = v48.FFlagFixNotificationReportsMobile;
 local l_FFlagStreamNotificationsStandardizeClickEvents_0 = v48.FFlagStreamNotificationsStandardizeClickEvents;
-local function _() --[[ Line: 76 ]] --[[ Name: GetIsFriendCommunicationRestricted ]]
+local l_FFlagTCVerifiedParentalControl_0 = v48.FFlagTCVerifiedParentalControl;
+local function _() --[[ Line: 77 ]] --[[ Name: GetIsFriendCommunicationRestricted ]]
     -- upvalues: l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (copy), l_ThirdPartyUserService_0 (copy)
     return l_GetFFlagFilterNotificationsForPCGDKEnabled_0() and l_ThirdPartyUserService_0 and l_ThirdPartyUserService_0:IsChatRestrictionSupported() and l_ThirdPartyUserService_0.FriendCommunicationRestrictionStatus ~= Enum.ChatRestrictionStatus.NotRestricted;
 end;
-local v54 = require(l_script_FirstAncestor_0.StreamNotificationDropdownExperimentation);
-return function(v55) --[[ Line: 92 ]]
-    -- upvalues: l_useStyle_0 (copy), v54 (copy), l_useDispatch_0 (copy), l_useDeviceType_0 (copy), v34 (copy), v17 (copy), v22 (copy), v23 (copy), l_UserInputService_0 (copy), v4 (copy), v35 (copy), v26 (copy), v40 (copy), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (copy), l_GetFStringPCGDKFilteredNotificationTypes_0 (copy), l_ThirdPartyUserService_0 (copy), v5 (copy), l_NotificationHelper_0 (copy), l_EventStream_0 (copy), v42 (copy), l_FFlagStreamNotificationsStandardizeClickEvents_0 (copy), v36 (copy), v38 (copy), l_FFlagFixNotificationReportsMobile_0 (copy), l_OpenDynamicAbuseReport_0 (copy), l_AbuseVector_0 (copy), l_CloseCentralOverlay_0 (copy), l_Players_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v47 (copy), l_type_0 (copy), l_JoinExperience_0 (copy), l_SessionService_0 (copy), v39 (copy), v8 (copy), v37 (copy), v18 (copy), v14 (copy), l_LoadingSpinner_0 (copy), v16 (copy), v15 (copy), v13 (copy), l_GuiService_0 (copy)
-    local v56 = l_useStyle_0();
-    local v57 = v54.getDropdownEnabled();
-    local v58 = l_useDispatch_0();
-    local v59 = l_useDeviceType_0();
-    local v60 = v34();
-    local v61, v62 = v17.useState({});
-    local v63, v64 = v17.useState(nil);
-    local v65, v66 = v17.useState(v22.Initializing);
-    local v67 = nil;
+local v55 = require(l_script_FirstAncestor_0.StreamNotificationDropdownExperimentation);
+return function(v56) --[[ Line: 93 ]]
+    -- upvalues: l_useStyle_0 (copy), v55 (copy), l_useDispatch_0 (copy), l_useDeviceType_0 (copy), v34 (copy), v17 (copy), v22 (copy), v23 (copy), l_UserInputService_0 (copy), v4 (copy), v35 (copy), v26 (copy), v40 (copy), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (copy), l_GetFStringPCGDKFilteredNotificationTypes_0 (copy), l_ThirdPartyUserService_0 (copy), v5 (copy), l_NotificationHelper_0 (copy), l_EventStream_0 (copy), v42 (copy), l_FFlagStreamNotificationsStandardizeClickEvents_0 (copy), v36 (copy), v38 (copy), l_FFlagFixNotificationReportsMobile_0 (copy), l_OpenDynamicAbuseReport_0 (copy), l_AbuseVector_0 (copy), l_CloseCentralOverlay_0 (copy), l_Players_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v47 (copy), l_type_0 (copy), l_JoinExperience_0 (copy), l_SessionService_0 (copy), v39 (copy), v8 (copy), v37 (copy), l_FFlagTCVerifiedParentalControl_0 (copy), v18 (copy), v14 (copy), l_LoadingSpinner_0 (copy), v16 (copy), v15 (copy), v13 (copy), l_GuiService_0 (copy)
+    local v57 = l_useStyle_0();
+    local v58 = v55.getDropdownEnabled();
+    local v59 = l_useDispatch_0();
+    local v60 = l_useDeviceType_0();
+    local v61 = v34();
+    local v62, v63 = v17.useState({});
+    local v64, v65 = v17.useState(nil);
+    local v66, v67 = v17.useState(v22.Initializing);
     local v68 = nil;
     local v69 = nil;
-    local v71 = v55.showOverlay or function(_) --[[ Line: 114 ]]
+    local v70 = nil;
+    local v72 = v56.showOverlay or function(_) --[[ Line: 115 ]]
 
     end;
-    local v72 = v17.useRef(v23.Loading);
-    local v73, v74 = v17.useState(v23.Loading);
-    local v75 = v17.useRef(0);
-    local v76 = if l_UserInputService_0.StatusBarSize then l_UserInputService_0.StatusBarSize.Y else 0;
-    local v77 = v4.Modal.HeaderHeight + v76;
-    v17.useEffect(function() --[[ Line: 123 ]]
-        -- upvalues: v67 (ref)
-        v67();
+    local v73 = v17.useRef(v23.Loading);
+    local v74, v75 = v17.useState(v23.Loading);
+    local v76 = v17.useRef(0);
+    local v77 = if l_UserInputService_0.StatusBarSize then l_UserInputService_0.StatusBarSize.Y else 0;
+    local v78 = v4.Modal.HeaderHeight + v77;
+    v17.useEffect(function() --[[ Line: 124 ]]
+        -- upvalues: v68 (ref)
+        v68();
     end, {});
-    local function _(v78) --[[ Line: 127 ]]
-        -- upvalues: v72 (copy), v74 (copy)
-        v72.current = v78;
-        v74(v78);
+    local function _(v79) --[[ Line: 128 ]]
+        -- upvalues: v73 (copy), v75 (copy)
+        v73.current = v79;
+        v75(v79);
     end;
-    v67 = function() --[[ Line: 132 ]]
-        -- upvalues: v72 (copy), v23 (ref), v74 (copy), v35 (ref), v26 (ref), v4 (ref), v75 (copy), v40 (ref), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (ref), l_GetFStringPCGDKFilteredNotificationTypes_0 (ref), l_ThirdPartyUserService_0 (ref), v62 (copy), v5 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v66 (copy), v22 (ref), v36 (ref), v61 (copy), v67 (ref)
-        if v72.current == v23.NoMoreNotifications then
+    v68 = function() --[[ Line: 133 ]]
+        -- upvalues: v73 (copy), v23 (ref), v75 (copy), v35 (ref), v26 (ref), v4 (ref), v76 (copy), v40 (ref), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (ref), l_GetFStringPCGDKFilteredNotificationTypes_0 (ref), l_ThirdPartyUserService_0 (ref), v63 (copy), v5 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v67 (copy), v22 (ref), v36 (ref), v62 (copy), v68 (ref)
+        if v73.current == v23.NoMoreNotifications then
             return;
         else
             local l_Loading_0 = v23.Loading;
-            v72.current = l_Loading_0;
-            v74(l_Loading_0);
-            v35(v26, v4.DefaultMaxRows, v75.current):andThen(function(v81) --[[ Line: 140 ]]
-                -- upvalues: v40 (ref), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (ref), l_GetFStringPCGDKFilteredNotificationTypes_0 (ref), l_ThirdPartyUserService_0 (ref), v62 (ref), v5 (ref), v23 (ref), v72 (ref), v74 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v4 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v66 (ref), v22 (ref), v36 (ref), v26 (ref), v75 (ref), v61 (ref), v67 (ref)
-                v81 = v40(v81);
+            v73.current = l_Loading_0;
+            v75(l_Loading_0);
+            v35(v26, v4.DefaultMaxRows, v76.current):andThen(function(v82) --[[ Line: 141 ]]
+                -- upvalues: v40 (ref), l_GetFFlagFilterNotificationsForPCGDKEnabled_0 (ref), l_GetFStringPCGDKFilteredNotificationTypes_0 (ref), l_ThirdPartyUserService_0 (ref), v63 (ref), v5 (ref), v23 (ref), v73 (ref), v75 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v4 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v67 (ref), v22 (ref), v36 (ref), v26 (ref), v76 (ref), v62 (ref), v68 (ref)
+                v82 = v40(v82);
                 if l_GetFFlagFilterNotificationsForPCGDKEnabled_0() then
-                    local v82 = l_GetFStringPCGDKFilteredNotificationTypes_0();
-                    local v83 = {};
-                    for _, v85 in ipairs(v81) do
-                        if not v82[v85.content.notificationType] or not (l_GetFFlagFilterNotificationsForPCGDKEnabled_0() and l_ThirdPartyUserService_0 and l_ThirdPartyUserService_0:IsChatRestrictionSupported() and l_ThirdPartyUserService_0.FriendCommunicationRestrictionStatus ~= Enum.ChatRestrictionStatus.NotRestricted) then
-                            table.insert(v83, v85);
+                    local v83 = l_GetFStringPCGDKFilteredNotificationTypes_0();
+                    local v84 = {};
+                    for _, v86 in ipairs(v82) do
+                        if not v83[v86.content.notificationType] or not (l_GetFFlagFilterNotificationsForPCGDKEnabled_0() and l_ThirdPartyUserService_0 and l_ThirdPartyUserService_0:IsChatRestrictionSupported() and l_ThirdPartyUserService_0.FriendCommunicationRestrictionStatus ~= Enum.ChatRestrictionStatus.NotRestricted) then
+                            table.insert(v84, v86);
                         end;
                     end;
-                    v81 = v83;
+                    v82 = v84;
                 end;
-                if v81 and #v81 > 0 then
-                    v62(function(v86) --[[ Line: 166 ]]
-                        -- upvalues: v5 (ref), v81 (ref)
-                        return (v5.List.join(v86, v81));
+                if v82 and #v82 > 0 then
+                    v63(function(v87) --[[ Line: 167 ]]
+                        -- upvalues: v5 (ref), v82 (ref)
+                        return (v5.List.join(v87, v82));
                     end);
                     local l_Default_0 = v23.Default;
-                    v72.current = l_Default_0;
-                    v74(l_Default_0);
-                    for _, v89 in ipairs(v81) do
-                        l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.fetched, v42.EventNames.notificationRetrieved, v5.Dictionary.join(v89.content.clientEventsPayload or {}, {
+                    v73.current = l_Default_0;
+                    v75(l_Default_0);
+                    for _, v90 in ipairs(v82) do
+                        l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.fetched, v42.EventNames.notificationRetrieved, v5.Dictionary.join(v90.content.clientEventsPayload or {}, {
                             sendrVersion = v4.SENDRVersion, 
-                            notificationType = v89.content.notificationType or nil, 
-                            notificationId = v89.id or nil, 
-                            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v89.content.currentState or nil else nil
+                            notificationType = v90.content.notificationType or nil, 
+                            notificationId = v90.id or nil, 
+                            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v90.content.currentState or nil else nil
                         }));
                     end;
                 else
                     local l_NoMoreNotifications_0 = v23.NoMoreNotifications;
-                    v72.current = l_NoMoreNotifications_0;
-                    v74(l_NoMoreNotifications_0);
+                    v73.current = l_NoMoreNotifications_0;
+                    v75(l_NoMoreNotifications_0);
                 end;
-                v66(v22.Default);
+                v67(v22.Default);
                 v36(v26);
-                v75.current = (tonumber(v75.current) or 0) + v4.DefaultMaxRows;
-                if v61 and #v61 < v4.DefaultMaxRows then
-                    v67();
+                v76.current = (tonumber(v76.current) or 0) + v4.DefaultMaxRows;
+                if v62 and #v62 < v4.DefaultMaxRows then
+                    v68();
                 end;
-            end):catch(function(_) --[[ Line: 199 ]]
-                -- upvalues: v66 (ref), v22 (ref)
-                v66(v22.ErrorRetrieving);
+            end):catch(function(_) --[[ Line: 200 ]]
+                -- upvalues: v67 (ref), v22 (ref)
+                v67(v22.ErrorRetrieving);
             end);
             return;
         end;
     end;
-    local function v99(v92, v93) --[[ Line: 204 ]]
-        -- upvalues: v57 (copy), v55 (copy), v38 (ref), v26 (ref), v68 (ref), v66 (copy), v22 (ref), l_FFlagFixNotificationReportsMobile_0 (ref), v58 (copy), l_OpenDynamicAbuseReport_0 (ref), l_AbuseVector_0 (ref), l_CloseCentralOverlay_0 (ref), v59 (copy), l_Players_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        if v57 then
-            v55.displayStream(false);
+    local function v100(v93, v94) --[[ Line: 205 ]]
+        -- upvalues: v58 (copy), v56 (copy), v38 (ref), v26 (ref), v69 (ref), v67 (copy), v22 (ref), l_FFlagFixNotificationReportsMobile_0 (ref), v59 (copy), l_OpenDynamicAbuseReport_0 (ref), l_AbuseVector_0 (ref), l_CloseCentralOverlay_0 (ref), v60 (copy), l_Players_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+        if v58 then
+            v56.displayStream(false);
         end;
-        local function v96() --[[ Line: 216 ]]
-            -- upvalues: v38 (ref), v26 (ref), v93 (copy), v68 (ref), v92 (copy), v57 (ref), v55 (ref), v66 (ref), v22 (ref)
-            v38(v26, v93.id):andThen(function(_) --[[ Line: 218 ]]
+        local function v97() --[[ Line: 217 ]]
+            -- upvalues: v38 (ref), v26 (ref), v94 (copy), v69 (ref), v93 (copy), v58 (ref), v56 (ref), v67 (ref), v22 (ref)
+            v38(v26, v94.id):andThen(function(_) --[[ Line: 219 ]]
 
-            end):catch(function(_) --[[ Line: 219 ]]
+            end):catch(function(_) --[[ Line: 220 ]]
 
             end);
-            v68(v92, v93);
-            if v57 then
-                v55.displayStream(true);
+            v69(v93, v94);
+            if v58 then
+                v56.displayStream(true);
             else
-                v55.setDisplayScreenGuiEnabled(true);
+                v56.setDisplayScreenGuiEnabled(true);
             end;
-            v66(v22.Default);
+            v67(v22.Default);
         end;
-        local function v97() --[[ Line: 232 ]]
-            -- upvalues: v57 (ref), v55 (ref), v66 (ref), v22 (ref)
-            if v57 then
-                v55.displayStream(true);
+        local function v98() --[[ Line: 233 ]]
+            -- upvalues: v58 (ref), v56 (ref), v67 (ref), v22 (ref)
+            if v58 then
+                v56.displayStream(true);
             else
-                v55.setDisplayScreenGuiEnabled(true);
+                v56.setDisplayScreenGuiEnabled(true);
             end;
-            v66(v22.Default);
+            v67(v22.Default);
         end;
         if l_FFlagFixNotificationReportsMobile_0 then
-            v58(l_OpenDynamicAbuseReport_0({
+            v59(l_OpenDynamicAbuseReport_0({
                 abuseVector = l_AbuseVector_0.Notifications, 
-                targetId = v93.id, 
-                onSubmit = v96, 
-                onClose = function() --[[ Line: 246 ]] --[[ Name: onClose ]]
-                    -- upvalues: v58 (ref), l_CloseCentralOverlay_0 (ref), v57 (ref), v55 (ref), v66 (ref), v22 (ref)
-                    v58(l_CloseCentralOverlay_0());
-                    if v57 then
-                        v55.displayStream(true);
+                targetId = v94.id, 
+                onSubmit = v97, 
+                onClose = function() --[[ Line: 247 ]] --[[ Name: onClose ]]
+                    -- upvalues: v59 (ref), l_CloseCentralOverlay_0 (ref), v58 (ref), v56 (ref), v67 (ref), v22 (ref)
+                    v59(l_CloseCentralOverlay_0());
+                    if v58 then
+                        v56.displayStream(true);
                     else
-                        v55.setDisplayScreenGuiEnabled(true);
+                        v56.setDisplayScreenGuiEnabled(true);
                     end;
-                    v66(v22.Default);
+                    v67(v22.Default);
                 end
             }));
             return;
         else
-            v55.setDisplayScreenGuiEnabled(false);
-            local v98 = {
+            v56.setDisplayScreenGuiEnabled(false);
+            local v99 = {
                 reportEntryPoint = "Notification", 
-                assetId = v93.id, 
-                reportSurface = string.lower(v59), 
-                submissionEntryPoint = string.lower(v59), 
+                assetId = v94.id, 
+                reportSurface = string.lower(v60), 
+                submissionEntryPoint = string.lower(v60), 
                 submitterUserId = if l_Players_0.LocalPlayer then tostring(l_Players_0.LocalPlayer.UserId) else nil, 
-                onSubmitReportCallback = v96, 
-                onCloseCallback = v97
+                onSubmitReportCallback = v97, 
+                onCloseCallback = v98
             };
-            v58(l_NavigateDown_0({
+            v59(l_NavigateDown_0({
                 name = l_AppPage_0.ReportDialog, 
-                reportData = v98
+                reportData = v99
             }));
             return;
         end;
     end;
-    local function _(v100) --[[ Line: 271 ]]
-        -- upvalues: v69 (ref), v61 (copy), v5 (ref), v62 (copy)
-        v69();
-        if v61 and v100 then
-            local v102 = v5.List.map(v61, function(v101) --[[ Line: 274 ]]
-                -- upvalues: v100 (copy)
-                if v101.id == v100 then
-                    v101.dismiss = true;
+    local function _(v101) --[[ Line: 272 ]]
+        -- upvalues: v70 (ref), v62 (copy), v5 (ref), v63 (copy)
+        v70();
+        if v62 and v101 then
+            local v103 = v5.List.map(v62, function(v102) --[[ Line: 275 ]]
+                -- upvalues: v101 (copy)
+                if v102.id == v101 then
+                    v102.dismiss = true;
                 end;
-                return v101;
+                return v102;
             end);
-            v62(v102);
+            v63(v103);
         end;
     end;
-    local v108 = v17.useCallback(function(v104) --[[ Line: 285 ]]
-        -- upvalues: v61 (copy), v5 (ref), v62 (copy)
-        if v61 and v104 then
-            local v107 = v5.List.filter(v61, function(v105) --[[ Line: 287 ]]
-                -- upvalues: v104 (copy)
-                local v106 = false;
-                if v105.id ~= v104 then
-                    v106 = v105.dismiss ~= true;
+    local v109 = v17.useCallback(function(v105) --[[ Line: 286 ]]
+        -- upvalues: v62 (copy), v5 (ref), v63 (copy)
+        if v62 and v105 then
+            local v108 = v5.List.filter(v62, function(v106) --[[ Line: 288 ]]
+                -- upvalues: v105 (copy)
+                local v107 = false;
+                if v106.id ~= v105 then
+                    v107 = v106.dismiss ~= true;
                 end;
-                return v106;
+                return v107;
             end);
-            v62(v107);
+            v63(v108);
         end;
     end);
-    local v121 = v17.useCallback(function(v109, v110) --[[ Line: 297 ]]
-        -- upvalues: v63 (copy), v64 (copy), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v5 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v47 (ref), v4 (ref), l_type_0 (ref), l_JoinExperience_0 (ref), v55 (copy), l_SessionService_0 (ref), v39 (ref), v8 (ref), v37 (ref), v26 (ref), v68 (ref), v69 (ref), v66 (copy), v22 (ref), v99 (copy), v61 (copy), v62 (copy), v60 (copy)
-        local v111 = v110 or v63;
-        v64(v111);
-        l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.click, v109.eventName or "", v5.Dictionary.join(v109.clientEventsPayload or {}, {
-            notifType = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then nil else if v47 then v111 and v111.content and v111.content.notificationType else nil, 
-            notifId = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then nil else if v47 then v111 and v111.id else nil, 
-            notificationType = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v111 and v111.content and v111.content.notificationType else nil, 
-            notificationId = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v111 and v111.id else nil, 
-            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v111 and v111.content and v111.content.currentState else nil, 
-            visualItemType = v109.visualItemType or nil, 
-            visualItemName = v109.visualItemName or nil, 
+    local v122 = v17.useCallback(function(v110, v111) --[[ Line: 298 ]]
+        -- upvalues: v64 (copy), v65 (copy), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v5 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref), v47 (ref), v4 (ref), l_type_0 (ref), l_JoinExperience_0 (ref), v56 (copy), l_SessionService_0 (ref), v39 (ref), v8 (ref), v37 (ref), v26 (ref), v69 (ref), v70 (ref), v67 (copy), v22 (ref), v100 (copy), v62 (copy), v63 (copy), l_FFlagTCVerifiedParentalControl_0 (ref), v61 (copy)
+        local v112 = v111 or v64;
+        v65(v112);
+        l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.click, v110.eventName or "", v5.Dictionary.join(v110.clientEventsPayload or {}, {
+            notifType = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then nil else if v47 then v112 and v112.content and v112.content.notificationType else nil, 
+            notifId = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then nil else if v47 then v112 and v112.id else nil, 
+            notificationType = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v112 and v112.content and v112.content.notificationType else nil, 
+            notificationId = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v112 and v112.id else nil, 
+            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v112 and v112.content and v112.content.currentState else nil, 
+            visualItemType = v110.visualItemType or nil, 
+            visualItemName = v110.visualItemName or nil, 
             sendrVersion = v4.SENDRVersion
         }));
-        if v109.actions and #v109.actions > 0 and v111 then
-            for _, v113 in ipairs(v109.actions) do
-                if v113.actionType then
-                    if v113.actionType == l_type_0.ActionTypeEnum.Deeplink then
-                        if l_JoinExperience_0(v113.path, false) then
-                            v55.displayStream(false);
+        if v110.actions and #v110.actions > 0 and v112 then
+            for _, v114 in ipairs(v110.actions) do
+                if v114.actionType then
+                    if v114.actionType == l_type_0.ActionTypeEnum.Deeplink then
+                        if l_JoinExperience_0(v114.path, false) then
+                            v56.displayStream(false);
                             l_SessionService_0:SetSession(v4.StreamSessionStructuralIdentifier.Level1, v4.StreamSessionStructuralIdentifier.StreamNotification, v4.StreamSessionStructuralIdentifier.StreamNotification);
                             l_SessionService_0:SetMetadata(v4.StreamSessionStructuralIdentifier.StreamNotification, v4.StreamSessionStructuralIdentifier.DeleteOnGameLeave, "True");
                             v39(v8, {
-                                action_type = v113.actionType, 
+                                action_type = v114.actionType, 
                                 delivery_channel = v4.DeliveryChannel, 
-                                notification_type = v111.notificationSourceType, 
-                                notification_id = v111.id
+                                notification_type = v112.notificationSourceType, 
+                                notification_id = v112.id
                             });
                         end;
-                    elseif v113.actionType == l_type_0.ActionTypeEnum.NotificationApi then
-                        local v114 = v111 and v111.id or nil;
-                        local v115 = v113.path or nil;
-                        v37(v26, v114, v115):andThen(function(_) --[[ Line: 370 ]]
-                            -- upvalues: v113 (copy), v68 (ref), v111 (copy)
-                            if v113.nextState ~= nil and v113.nextState ~= "" then
-                                v68(v113.nextState, v111);
+                    elseif v114.actionType == l_type_0.ActionTypeEnum.NotificationApi then
+                        local v115 = v112 and v112.id or nil;
+                        local v116 = v114.path or nil;
+                        v37(v26, v115, v116):andThen(function(_) --[[ Line: 371 ]]
+                            -- upvalues: v114 (copy), v69 (ref), v112 (copy)
+                            if v114.nextState ~= nil and v114.nextState ~= "" then
+                                v69(v114.nextState, v112);
                             end;
-                        end):catch(function(_) --[[ Line: 375 ]]
+                        end):catch(function(_) --[[ Line: 376 ]]
 
                         end);
-                        v69();
-                    elseif v113.actionType == l_type_0.ActionTypeEnum.Report then
-                        v66(v22.AbuseReport);
-                        v99(v113.nextState, v111);
-                    elseif v113.actionType == l_type_0.ActionTypeEnum.Dismiss then
-                        local l_id_0 = v111.id;
-                        v69();
-                        if v61 and l_id_0 then
-                            local v120 = v5.List.map(v61, function(v119) --[[ Line: 274 ]]
+                        v70();
+                    elseif v114.actionType == l_type_0.ActionTypeEnum.Report then
+                        v67(v22.AbuseReport);
+                        v100(v114.nextState, v112);
+                    elseif v114.actionType == l_type_0.ActionTypeEnum.Dismiss then
+                        local l_id_0 = v112.id;
+                        v70();
+                        if v62 and l_id_0 then
+                            local v121 = v5.List.map(v62, function(v120) --[[ Line: 275 ]]
                                 -- upvalues: l_id_0 (copy)
-                                if v119.id == l_id_0 then
-                                    v119.dismiss = true;
+                                if v120.id == l_id_0 then
+                                    v120.dismiss = true;
                                 end;
-                                return v119;
+                                return v120;
                             end);
-                            v62(v120);
+                            v63(v121);
                         end;
-                    elseif v113.actionType == l_type_0.ActionTypeEnum.ClientTrigger then
-                        v60(v113.path, {
-                            clientEventsPayload = v111.content.clientEventsPayload, 
-                            callback = function() --[[ Line: 393 ]] --[[ Name: callback ]]
-                                -- upvalues: v68 (ref), v113 (copy), v111 (copy)
-                                v68(v113.nextState, v111);
+                    elseif v114.actionType == l_type_0.ActionTypeEnum.ClientTrigger then
+                        if l_FFlagTCVerifiedParentalControl_0 and v114.path == "TrustedContactsDoubleOptInModal" then
+                            v56.displayStream(false);
+                        end;
+                        v61(v114.path, {
+                            clientEventsPayload = v112.content.clientEventsPayload, 
+                            callback = function() --[[ Line: 397 ]] --[[ Name: callback ]]
+                                -- upvalues: v69 (ref), v114 (copy), v112 (copy)
+                                v69(v114.nextState, v112);
                             end
                         });
                     end;
@@ -306,116 +310,116 @@ return function(v55) --[[ Line: 92 ]]
             end;
         end;
     end);
-    local function v123(v122) --[[ Line: 404 ]]
-        -- upvalues: v64 (copy), v66 (copy), v22 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v18 (ref), v4 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref)
-        v64(v122);
-        v66(v22.MetaActions);
+    local function v124(v123) --[[ Line: 408 ]]
+        -- upvalues: v65 (copy), v67 (copy), v22 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v18 (ref), v4 (ref), l_FFlagStreamNotificationsStandardizeClickEvents_0 (ref)
+        v65(v123);
+        v67(v22.MetaActions);
         l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.click, v42.EventNames.openMetaActions, {
             visualItemType = v18.type.VisualItemTypeEnum.MetaAction, 
             sendrVersion = v4.SENDRVersion, 
-            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v122 and v122.content and v122.content.currentState or nil else nil
+            notificationState = if l_FFlagStreamNotificationsStandardizeClickEvents_0 then v123 and v123.content and v123.content.currentState or nil else nil
         });
     end;
-    v69 = function() --[[ Line: 426 ]]
-        -- upvalues: v71 (copy), v64 (copy), v65 (copy), v22 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v18 (ref), v4 (ref), v66 (copy)
-        v71(true);
-        v64(nil);
-        if v65 == v22.MetaActions then
+    v70 = function() --[[ Line: 430 ]]
+        -- upvalues: v72 (copy), v65 (copy), v66 (copy), v22 (ref), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v42 (ref), v18 (ref), v4 (ref), v67 (copy)
+        v72(true);
+        v65(nil);
+        if v66 == v22.MetaActions then
             l_NotificationHelper_0.fireEvent(l_EventStream_0, v42.Context.click, v42.EventNames.closeMetaActions, {
                 visualItemType = v18.type.VisualItemTypeEnum.MetaAction, 
                 sendrVersion = v4.SENDRVersion
             });
         end;
-        v66(v22.Default);
+        v67(v22.Default);
     end;
-    v68 = function(v124, v125) --[[ Line: 443 ]]
-        -- upvalues: v61 (copy), v62 (copy)
-        local v126 = {};
-        if v61 and v125 then
-            for _, v128 in ipairs(v61) do
-                if v128.id == v125.id then
-                    v128.content.currentState = v124;
+    v69 = function(v125, v126) --[[ Line: 447 ]]
+        -- upvalues: v62 (copy), v63 (copy)
+        local v127 = {};
+        if v62 and v126 then
+            for _, v129 in ipairs(v62) do
+                if v129.id == v126.id then
+                    v129.content.currentState = v125;
                 end;
-                table.insert(v126, v128);
+                table.insert(v127, v129);
             end;
         end;
-        v62(v126);
+        v63(v127);
     end;
-    local v129 = v17.useMemo(function() --[[ Line: 459 ]]
-        -- upvalues: v17 (ref), v14 (ref), v65 (copy), v63 (copy), v55 (copy), v121 (copy), v69 (ref)
+    local v130 = v17.useMemo(function() --[[ Line: 463 ]]
+        -- upvalues: v17 (ref), v14 (ref), v66 (copy), v64 (copy), v56 (copy), v122 (copy), v70 (ref)
         return v17.createElement(v14, {
-            displayState = v65, 
-            activeNotification = v63, 
-            isSmallScreen = v55.isSmallScreen, 
-            handleActions = v121, 
-            closeNotificationDisplay = v69
+            displayState = v66, 
+            activeNotification = v64, 
+            isSmallScreen = v56.isSmallScreen, 
+            handleActions = v122, 
+            closeNotificationDisplay = v70
         });
     end, {
-        v65, 
-        v63
+        v66, 
+        v64
     });
-    local v139 = v17.useMemo(function() --[[ Line: 469 ]]
-        -- upvalues: v65 (copy), v22 (ref), v17 (ref), l_LoadingSpinner_0 (ref), v4 (ref), v61 (copy), v57 (copy), v16 (ref), v108 (copy), v121 (copy), v123 (copy), v15 (ref), v72 (copy), v23 (ref), v77 (copy), v13 (ref)
-        if v65 == v22.Initializing then
+    local v140 = v17.useMemo(function() --[[ Line: 473 ]]
+        -- upvalues: v66 (copy), v22 (ref), v17 (ref), l_LoadingSpinner_0 (ref), v4 (ref), v62 (copy), v58 (copy), v16 (ref), v109 (copy), v122 (copy), v124 (copy), v15 (ref), v73 (copy), v23 (ref), v78 (copy), v13 (ref)
+        if v66 == v22.Initializing then
             return v17.createElement(l_LoadingSpinner_0, {
                 size = UDim2.fromOffset(v4.InitializingNotifications.Size, v4.InitializingNotifications.Size), 
                 position = UDim2.fromScale(0.5, 0.5), 
                 anchorPoint = Vector2.new(0.5, 0.5)
             });
         else
-            if v61 and #v61 > 0 then
-                local v130 = {
+            if v62 and #v62 > 0 then
+                local v131 = {
                     UIListLayout = v17.createElement("UIListLayout", {
                         FillDirection = Enum.FillDirection.Vertical, 
                         SortOrder = Enum.SortOrder.LayoutOrder, 
                         HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                        Padding = if v57 then UDim.new(0, v4.Dropdown.CardGap) else nil
+                        Padding = if v58 then UDim.new(0, v4.Dropdown.CardGap) else nil
                     })
                 };
-                local v131 = false;
-                local v132 = {};
-                for _, v134 in ipairs(v61) do
-                    if v134.notificationSourceType == "Sendr" then
-                        v131 = true;
-                        local l_bundleKey_0 = v134.content.bundleKey;
+                local v132 = false;
+                local v133 = {};
+                for _, v135 in ipairs(v62) do
+                    if v135.notificationSourceType == "Sendr" then
+                        v132 = true;
+                        local l_bundleKey_0 = v135.content.bundleKey;
                         if l_bundleKey_0 and l_bundleKey_0 ~= "" then
-                            if v132[l_bundleKey_0] then
-                                table.insert(v132[l_bundleKey_0], v134);
+                            if v133[l_bundleKey_0] then
+                                table.insert(v133[l_bundleKey_0], v135);
                             else
-                                v132[l_bundleKey_0] = {
-                                    v134
+                                v133[l_bundleKey_0] = {
+                                    v135
                                 };
                             end;
                         end;
                     end;
                 end;
-                for v136, v137 in ipairs(v61) do
-                    if v137.notificationSourceType == "Sendr" then
-                        local l_bundleKey_1 = v137.content.bundleKey;
-                        if l_bundleKey_1 and l_bundleKey_1 ~= "" and #v132[l_bundleKey_1] > 1 then
-                            if not v130[l_bundleKey_1] then
-                                v130[l_bundleKey_1] = v17.createElement(v16, {
-                                    layoutOrder = v136, 
-                                    notifications = v132[l_bundleKey_1], 
-                                    finishDismissNotification = v108, 
-                                    handleActions = v121, 
-                                    openMetaActions = v123
+                for v137, v138 in ipairs(v62) do
+                    if v138.notificationSourceType == "Sendr" then
+                        local l_bundleKey_1 = v138.content.bundleKey;
+                        if l_bundleKey_1 and l_bundleKey_1 ~= "" and #v133[l_bundleKey_1] > 1 then
+                            if not v131[l_bundleKey_1] then
+                                v131[l_bundleKey_1] = v17.createElement(v16, {
+                                    layoutOrder = v137, 
+                                    notifications = v133[l_bundleKey_1], 
+                                    finishDismissNotification = v109, 
+                                    handleActions = v122, 
+                                    openMetaActions = v124
                                 }, {});
                             end;
                         else
-                            v130[v137.id] = v17.createElement(v15, {
-                                layoutOrder = v136, 
-                                notification = v137, 
-                                finishDismissNotification = v108, 
-                                handleActions = v121, 
-                                openMetaActions = v123, 
+                            v131[v138.id] = v17.createElement(v15, {
+                                layoutOrder = v137, 
+                                notification = v138, 
+                                finishDismissNotification = v109, 
+                                handleActions = v122, 
+                                openMetaActions = v124, 
                                 collapsed = false
                             }, {});
                         end;
                     end;
                 end;
-                if v72.current == v23.Loading then
-                    v130.LoadingMore = v17.createElement("Frame", {
+                if v73.current == v23.Loading then
+                    v131.LoadingMore = v17.createElement("Frame", {
                         Size = UDim2.new(1, 0, 0, v4.LoadingMoreNotifications.Size), 
                         BackgroundTransparency = 1, 
                         LayoutOrder = 1e999
@@ -427,40 +431,40 @@ return function(v55) --[[ Line: 92 ]]
                         })
                     });
                 end;
-                if v131 then
+                if v132 then
                     return v17.createElement("Frame", {
-                        Size = if v57 then UDim2.new(1, 0, 0, 0) else UDim2.new(1, 0, 0, -v77), 
+                        Size = if v58 then UDim2.new(1, 0, 0, 0) else UDim2.new(1, 0, 0, -v78), 
                         AutomaticSize = Enum.AutomaticSize.Y, 
                         BackgroundTransparency = 1
-                    }, v130);
+                    }, v131);
                 end;
             end;
             return v17.createElement(v13);
         end;
     end, {
-        v61, 
-        v65, 
-        v73, 
-        v57
+        v62, 
+        v66, 
+        v74, 
+        v58
     });
-    local function v144(v140) --[[ Line: 596 ]]
-        -- upvalues: v65 (copy), v22 (ref), v4 (ref), v72 (copy), v23 (ref), v67 (ref)
-        local l_Y_0 = v140.AbsoluteCanvasSize.Y;
-        local l_Y_1 = v140.AbsoluteWindowSize.Y;
-        local l_Y_2 = v140.CanvasPosition.Y;
-        if l_Y_1 == 0 or l_Y_0 == 0 or v65 ~= v22.Default then
+    local function v145(v141) --[[ Line: 600 ]]
+        -- upvalues: v66 (copy), v22 (ref), v4 (ref), v73 (copy), v23 (ref), v68 (ref)
+        local l_Y_0 = v141.AbsoluteCanvasSize.Y;
+        local l_Y_1 = v141.AbsoluteWindowSize.Y;
+        local l_Y_2 = v141.CanvasPosition.Y;
+        if l_Y_1 == 0 or l_Y_0 == 0 or v66 ~= v22.Default then
             return;
         else
-            if l_Y_0 - l_Y_1 - v4.LoadingMoreNotifications.TriggerDistance <= l_Y_2 and v72.current == v23.Default then
-                v67();
+            if l_Y_0 - l_Y_1 - v4.LoadingMoreNotifications.TriggerDistance <= l_Y_2 and v73.current == v23.Default then
+                v68();
             end;
             return;
         end;
     end;
-    local v145 = if l_UserInputService_0.BottomBarSize then l_UserInputService_0.BottomBarSize.Y else 0;
-    local v146 = if l_GuiService_0:GetSafeZoneOffsets() then l_GuiService_0:GetSafeZoneOffsets().bottom else 0;
-    local v147 = if v55.isSmallScreen then math.max(v145, v146) else 0;
-    if v57 then
+    local v146 = if l_UserInputService_0.BottomBarSize then l_UserInputService_0.BottomBarSize.Y else 0;
+    local v147 = if l_GuiService_0:GetSafeZoneOffsets() then l_GuiService_0:GetSafeZoneOffsets().bottom else 0;
+    local v148 = if v56.isSmallScreen then math.max(v146, v147) else 0;
+    if v58 then
         return v17.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 0), 
             AutomaticSize = Enum.AutomaticSize.Y, 
@@ -472,17 +476,17 @@ return function(v55) --[[ Line: 92 ]]
                 Size = UDim2.new(1, 0, 1, 0), 
                 Position = UDim2.new(0.5, 0, 0.5, 0), 
                 AnchorPoint = Vector2.new(0.5, 0.5), 
-                Visible = v65 == v22.MetaActions, 
-                BackgroundTransparency = v56.Theme.Overlay.Transparency, 
-                BackgroundColor3 = v56.Theme.Overlay.Color, 
+                Visible = v66 == v22.MetaActions, 
+                BackgroundTransparency = v57.Theme.Overlay.Transparency, 
+                BackgroundColor3 = v57.Theme.Overlay.Color, 
                 Text = "", 
                 AutoButtonColor = false, 
                 ZIndex = 2, 
-                [v17.Event.Activated] = v69, 
+                [v17.Event.Activated] = v70, 
                 BorderSizePixel = 0, 
                 Selectable = false
             }, {
-                v129
+                v130
             }), 
             NotificationsList = v17.createElement("ScrollingFrame", {
                 Size = UDim2.new(1, 0, 0, v4.Dropdown.MaxHeight - v4.Dropdown.HeaderMinHeight - v4.Dropdown.HeaderBodyGap), 
@@ -492,14 +496,14 @@ return function(v55) --[[ Line: 92 ]]
                 BorderSizePixel = 0, 
                 VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar, 
                 VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right, 
-                ScrollBarImageColor3 = v56.Theme.UIEmphasis.Color, 
+                ScrollBarImageColor3 = v57.Theme.UIEmphasis.Color, 
                 AutomaticCanvasSize = Enum.AutomaticSize.Y, 
                 ElasticBehavior = Enum.ElasticBehavior.Always, 
-                ScrollingEnabled = v65 == v22.Default, 
+                ScrollingEnabled = v66 == v22.Default, 
                 ScrollingDirection = Enum.ScrollingDirection.Y, 
-                [v17.Change.CanvasPosition] = v144, 
+                [v17.Change.CanvasPosition] = v145, 
                 Selectable = false
-            }, v139)
+            }, v140)
         });
     else
         return v17.createElement("Frame", {
@@ -512,36 +516,36 @@ return function(v55) --[[ Line: 92 ]]
                 Size = UDim2.new(1, 0, 1, 0), 
                 Position = UDim2.new(0.5, 0, 0.5, 0), 
                 AnchorPoint = Vector2.new(0.5, 0.5), 
-                Visible = v65 == v22.MetaActions, 
-                BackgroundTransparency = v56.Theme.Overlay.Transparency, 
-                BackgroundColor3 = v56.Theme.Overlay.Color, 
+                Visible = v66 == v22.MetaActions, 
+                BackgroundTransparency = v57.Theme.Overlay.Transparency, 
+                BackgroundColor3 = v57.Theme.Overlay.Color, 
                 Text = "", 
                 AutoButtonColor = false, 
                 ZIndex = 2, 
-                [v17.Event.Activated] = v69, 
+                [v17.Event.Activated] = v70, 
                 BorderSizePixel = 0, 
                 Selectable = false
             }, {
-                v129
+                v130
             }), 
             NotificationsList = v17.createElement("ScrollingFrame", {
-                Size = UDim2.new(1, 0, 1, -(v77 + v4.DefaultPadding + v147)), 
-                CanvasSize = UDim2.new(1, 0, 1, -(v77 + v4.DefaultPadding + v147)), 
+                Size = UDim2.new(1, 0, 1, -(v78 + v4.DefaultPadding + v148)), 
+                CanvasSize = UDim2.new(1, 0, 1, -(v78 + v4.DefaultPadding + v148)), 
                 BackgroundTransparency = 1, 
-                Position = UDim2.new(0, 0, 0, v77), 
+                Position = UDim2.new(0, 0, 0, v78), 
                 AnchorPoint = Vector2.new(0, 0), 
                 ScrollBarThickness = 4, 
                 BorderSizePixel = 0, 
                 VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar, 
                 VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right, 
-                ScrollBarImageColor3 = v56.Theme.UIEmphasis.Color, 
+                ScrollBarImageColor3 = v57.Theme.UIEmphasis.Color, 
                 AutomaticCanvasSize = Enum.AutomaticSize.XY, 
                 ElasticBehavior = Enum.ElasticBehavior.Always, 
-                ScrollingEnabled = v65 == v22.Default, 
+                ScrollingEnabled = v66 == v22.Default, 
                 ScrollingDirection = Enum.ScrollingDirection.Y, 
-                [v17.Change.CanvasPosition] = v144, 
+                [v17.Change.CanvasPosition] = v145, 
                 Selectable = false
-            }, v139)
+            }, v140)
         });
     end;
 end;

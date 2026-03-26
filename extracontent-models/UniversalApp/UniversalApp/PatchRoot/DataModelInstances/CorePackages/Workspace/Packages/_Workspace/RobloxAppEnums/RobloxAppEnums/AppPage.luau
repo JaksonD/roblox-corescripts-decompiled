@@ -155,5 +155,7 @@ return {
     AccountRecovery = "AccountRecovery", 
     AboutDetailsSheet = "AboutDetailsSheet", 
     BadgesSeeAll = "BadgesSeeAll", 
-    BadgeDetails = "BadgeDetails"
+    BadgeDetails = "BadgeDetails", 
+    VideoServer = "VideoServer", 
+    GameJoinCard = "GameJoinCard"
 };

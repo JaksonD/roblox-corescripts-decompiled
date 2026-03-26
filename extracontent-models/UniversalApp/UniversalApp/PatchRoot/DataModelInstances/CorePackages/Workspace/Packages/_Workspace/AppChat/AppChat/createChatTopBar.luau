@@ -12,147 +12,167 @@ local l_FFlagAppIaScrollAway_0 = require(l_Parent_0.SharedFlags).FFlagAppIaScrol
 local v11 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatDialogRoundedCorners);
 local l_HeaderBar_0 = v5.App.Bar.HeaderBar;
 local v13 = require(l_Parent_0.AppHeaderBar);
+local v14 = require(l_Parent_0.Foundation);
+local v15 = require(l_Parent_0.React);
+local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableDomLocators);
 local l_FlyoutSidePanelIXP_0 = require(l_Parent_0.SharedExperimentDefinition).FlyoutSidePanelIXP;
-local v15 = nil;
+local v18 = nil;
 if l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() then
-    v15 = require(l_Parent_0.FlyoutSidePanel).Components.FlyoutLeftHeader;
+    v18 = require(l_Parent_0.FlyoutSidePanel).Components.FlyoutLeftHeader;
 end;
-local function v16() --[[ Line: 25 ]] --[[ Name: noOpt ]]
+local function v19() --[[ Line: 28 ]] --[[ Name: noOpt ]]
     return nil;
 end;
-return function(v17) --[[ Line: 32 ]]
-    -- upvalues: l_FFlagAppIaScrollAway_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v13 (copy), l_withLocalization_0 (copy), v2 (copy), v16 (copy), v3 (copy), v15 (ref), v9 (copy), v7 (copy), l_VisibilityControl_0 (copy), l_withStyle_0 (copy), l_HeaderBar_0 (copy), v11 (copy)
-    local v18 = if not not l_FFlagAppIaScrollAway_0 or l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() then v17.navigation.getScreenProps("isInExperience", false) else nil;
-    local v19 = v17.navigation.getScreenProps("topBarHeight", 0);
-    local v20 = v17.navigation.getScreenProps("navigateToRootStack", nil);
-    local v21 = v17.shouldRenderCenter and v17.renderCenter ~= nil;
-    local v22 = v17.headerText or {};
+return function(v20) --[[ Line: 35 ]]
+    -- upvalues: l_FFlagAppIaScrollAway_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v13 (copy), l_withLocalization_0 (copy), v2 (copy), v16 (copy), v15 (copy), v14 (copy), v19 (copy), v3 (copy), v18 (ref), v9 (copy), v7 (copy), l_VisibilityControl_0 (copy), l_withStyle_0 (copy), l_HeaderBar_0 (copy), v11 (copy)
+    local v21 = if not not l_FFlagAppIaScrollAway_0 or l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() then v20.navigation.getScreenProps("isInExperience", false) else nil;
+    local v22 = v20.navigation.getScreenProps("topBarHeight", 0);
+    local v23 = v20.navigation.getScreenProps("navigateToRootStack", nil);
+    local v24 = v20.shouldRenderCenter and v20.renderCenter ~= nil;
+    local v25 = v20.headerText or {};
     local l_makeBackButton_0 = v13.makeBackButton;
     local l_makeCloseButton_0 = v13.makeCloseButton;
     return l_withLocalization_0({
-        headerText = v22.shouldLocalize and v22.raw or nil
-    })(function(v25) --[[ Line: 48 ]]
-        -- upvalues: v22 (copy), v21 (copy), v17 (copy), v20 (copy), v2 (ref), l_makeBackButton_0 (copy), l_makeCloseButton_0 (copy), v16 (ref), l_FlyoutSidePanelIXP_0 (ref), v18 (copy), v3 (ref), v15 (ref), v9 (ref), l_FFlagAppIaScrollAway_0 (ref), v7 (ref), l_VisibilityControl_0 (ref), v19 (copy), l_withStyle_0 (ref), l_HeaderBar_0 (ref), v11 (ref)
-        local v26 = v22.shouldLocalize and v25.headerText or v22.raw;
-        local v27 = nil;
-        local v28 = nil;
-        local v29 = nil;
-        if v21 then
-            v26 = "";
-            v27 = nil;
-            v29 = nil;
-            v28 = v17.renderCenter;
+        headerText = v25.shouldLocalize and v25.raw or nil
+    })(function(v28) --[[ Line: 51 ]]
+        -- upvalues: v25 (copy), v24 (copy), v20 (copy), v23 (copy), v2 (ref), l_makeBackButton_0 (copy), v16 (ref), v15 (ref), v14 (ref), l_makeCloseButton_0 (copy), v19 (ref), l_FlyoutSidePanelIXP_0 (ref), v21 (copy), v3 (ref), v18 (ref), v9 (ref), l_FFlagAppIaScrollAway_0 (ref), v7 (ref), l_VisibilityControl_0 (ref), v22 (copy), l_withStyle_0 (ref), l_HeaderBar_0 (ref), v11 (ref)
+        local v29 = v25.shouldLocalize and v28.headerText or v25.raw;
+        local v30 = nil;
+        local v31 = nil;
+        local v32 = nil;
+        if v24 then
+            v29 = "";
+            v30 = nil;
+            v32 = nil;
+            v31 = v20.renderCenter;
         else
-            v27 = function() --[[ Line: 59 ]]
-                -- upvalues: v17 (ref)
-                return not (not v17.renderRight or v17.rightHidden) and v17.renderRight() or nil;
+            v30 = function() --[[ Line: 62 ]]
+                -- upvalues: v20 (ref)
+                return not (not v20.renderRight or v20.rightHidden) and v20.renderRight() or nil;
             end;
-            v28 = nil;
-            local v30 = v20 and function() --[[ Line: 66 ]]
-                -- upvalues: v17 (ref), v2 (ref), v20 (ref)
-                if v17.closeInputBar then
-                    v17.closeInputBar();
+            v31 = nil;
+            local v33 = v23 and function() --[[ Line: 69 ]]
+                -- upvalues: v20 (ref), v2 (ref), v23 (ref)
+                if v20.closeInputBar then
+                    v20.closeInputBar();
                 end;
-                if v17.isRoot then
-                    v17.navigation.navigate(v2.EmptyConversation);
-                    v20();
+                if v20.isRoot then
+                    v20.navigation.navigate(v2.EmptyConversation);
+                    v23();
                     return;
                 else
-                    v17.navigation.pop();
+                    v20.navigation.pop();
                     return;
                 end;
-            end or function() --[[ Line: 78 ]]
-                -- upvalues: v17 (ref)
-                v17.navigation.pop();
+            end or function() --[[ Line: 81 ]]
+                -- upvalues: v20 (ref)
+                v20.navigation.pop();
             end;
-            v29 = if v17.backButtonEnabled then l_makeBackButton_0(v30) else if v17.closeButtonEnabled then l_makeCloseButton_0(v30) else v16;
+            if v20.backButtonEnabled then
+                v32 = l_makeBackButton_0(v33);
+                if v16 and v20.backButtonTestId then
+                    local l_v32_0 = v32;
+                    local l_l_v32_0_0 = l_v32_0 --[[ copy: 6 -> 11 ]];
+                    v32 = function() --[[ Line: 89 ]]
+                        -- upvalues: v15 (ref), v14 (ref), v20 (ref), l_l_v32_0_0 (copy)
+                        return v15.createElement(v14.View, {
+                            tag = "auto-xy", 
+                            testId = v20.backButtonTestId
+                        }, {
+                            backButton = l_l_v32_0_0()
+                        });
+                    end;
+                end;
+            else
+                v32 = if v20.closeButtonEnabled then l_makeCloseButton_0(v33) else v19;
+            end;
         end;
-        local v31 = not v17.backButtonEnabled and not v21;
-        if l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() and not v18 and v31 and not v17.conversationId then
-            v29 = function() --[[ Line: 99 ]]
-                -- upvalues: v3 (ref), v15 (ref), v26 (ref), l_FlyoutSidePanelIXP_0 (ref)
-                return v3.createElement(v15, {
-                    titleText = v26, 
+        local v36 = not v20.backButtonEnabled and not v24;
+        if l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() and not v21 and v36 and not v20.conversationId then
+            v32 = function() --[[ Line: 111 ]]
+                -- upvalues: v3 (ref), v18 (ref), v29 (ref), l_FlyoutSidePanelIXP_0 (ref)
+                return v3.createElement(v18, {
+                    titleText = v29, 
                     isRobloxLogoEnabled = false, 
                     isAlternateEntryPointEnabled = l_FlyoutSidePanelIXP_0.isAlternateEntryPointEnabled()
                 });
             end;
         end;
-        if v17.shouldBoldHeader and v29 == v16 then
-            v29 = nil;
+        if v20.shouldBoldHeader and v32 == v19 then
+            v32 = nil;
         end;
-        local function v32() --[[ Line: 114 ]]
-            -- upvalues: v3 (ref), v9 (ref), v29 (ref), v16 (ref), v27 (ref), v26 (ref), v17 (ref)
+        local function v37() --[[ Line: 126 ]]
+            -- upvalues: v3 (ref), v9 (ref), v32 (ref), v19 (ref), v30 (ref), v29 (ref), v20 (ref)
             return v3.createElement(v9, {
-                renderLeft = if v29 == v16 then nil else v29, 
-                renderRight = v27, 
-                titleText = v26, 
-                conversationId = v17.conversationId, 
-                navigateToChatDetails = v17.navigateToChatDetails, 
-                ignoreRightMargin = v17.rightPaddingOverride ~= nil
+                renderLeft = if v32 == v19 then nil else v32, 
+                renderRight = v30, 
+                titleText = v29, 
+                conversationId = v20.conversationId, 
+                navigateToChatDetails = v20.navigateToChatDetails, 
+                ignoreRightMargin = v20.rightPaddingOverride ~= nil
             });
         end;
-        local v33 = UDim.new(0, 12);
-        local v34 = UDim.new(0, 12);
-        if v17.leftPaddingOverride ~= nil then
-            v33 = UDim.new(0, v17.leftPaddingOverride);
+        local v38 = UDim.new(0, 12);
+        local v39 = UDim.new(0, 12);
+        if v20.leftPaddingOverride ~= nil then
+            v38 = UDim.new(0, v20.leftPaddingOverride);
         end;
-        if v17.rightPaddingOverride ~= nil then
-            v34 = UDim.new(0, v17.rightPaddingOverride);
+        if v20.rightPaddingOverride ~= nil then
+            v39 = UDim.new(0, v20.rightPaddingOverride);
         end;
-        local v37 = if not (not l_FFlagAppIaScrollAway_0 or v18) and v7.getScrollAwayEnabled() then l_VisibilityControl_0.getHeaderBinding():map(function(v35) --[[ Line: 137 ]]
-            -- upvalues: v19 (ref)
-            local v36 = (v35 - 1) * (v19 + 36);
-            return UDim2.new(0, 0, 0, v36);
+        local v42 = if not (not l_FFlagAppIaScrollAway_0 or v21) and v7.getScrollAwayEnabled() then l_VisibilityControl_0.getHeaderBinding():map(function(v40) --[[ Line: 149 ]]
+            -- upvalues: v22 (ref)
+            local v41 = (v40 - 1) * (v22 + 36);
+            return UDim2.new(0, 0, 0, v41);
         end) else nil;
-        local v38 = l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() and not v18 and v31;
-        if v20 then
+        local v43 = l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() and not v21 and v36;
+        if v23 then
             return v3.createElement("Frame", {
                 BackgroundTransparency = 1, 
-                Size = UDim2.new(1, 0, 0, v19), 
+                Size = UDim2.new(1, 0, 0, v22), 
                 LayoutOrder = -1, 
                 ZIndex = l_FFlagAppIaScrollAway_0 and 2 or nil, 
-                Position = if l_FFlagAppIaScrollAway_0 then v37 else nil
+                Position = if l_FFlagAppIaScrollAway_0 then v42 else nil
             }, {
-                headerBar = l_withStyle_0(function(v39) --[[ Line: 155 ]]
-                    -- upvalues: v3 (ref), l_HeaderBar_0 (ref), v17 (ref), v38 (copy), v26 (ref), v19 (ref), v29 (ref), v32 (copy), v28 (ref), v27 (ref), v33 (ref), v34 (ref), l_FFlagAppIaScrollAway_0 (ref), v18 (ref), v11 (ref)
+                headerBar = l_withStyle_0(function(v44) --[[ Line: 167 ]]
+                    -- upvalues: v3 (ref), l_HeaderBar_0 (ref), v20 (ref), v43 (copy), v29 (ref), v22 (ref), v32 (ref), v37 (copy), v31 (ref), v30 (ref), v38 (ref), v39 (ref), l_FFlagAppIaScrollAway_0 (ref), v21 (ref), v11 (ref)
                     return v3.createElement(l_HeaderBar_0, {
-                        title = if not not v17.conversationId or v38 then nil else v26, 
-                        barHeight = v19, 
-                        renderLeft = if v17.conversationId then nil else v29, 
-                        isSecondary = v17.isSecondary, 
-                        renderCenter = if v17.conversationId then v32 else v28, 
-                        renderRight = if v17.conversationId then nil else v27, 
-                        paddingLeft = v33, 
-                        paddingRight = v34, 
-                        isTitleCentered = not v17.isTitleLeftAligned, 
+                        title = if not not v20.conversationId or v43 then nil else v29, 
+                        barHeight = v22, 
+                        renderLeft = if v20.conversationId then nil else v32, 
+                        isSecondary = v20.isSecondary, 
+                        renderCenter = if v20.conversationId then v37 else v31, 
+                        renderRight = if v20.conversationId then nil else v30, 
+                        paddingLeft = v38, 
+                        paddingRight = v39, 
+                        isTitleCentered = not v20.isTitleLeftAligned, 
                         contentPaddingRight = UDim.new(0, 0), 
-                        backgroundTransparency = if not l_FFlagAppIaScrollAway_0 or v18 or v11 and v17.isDialog then v39.Tokens.Global.Color.None.Transparency else nil
+                        backgroundTransparency = if not l_FFlagAppIaScrollAway_0 or v21 or v11 and v20.isDialog then v44.Tokens.Global.Color.None.Transparency else nil
                     });
                 end)
             });
         else
             return v3.createElement("Frame", {
                 BackgroundTransparency = 1, 
-                Size = UDim2.new(1, 0, 0, v19), 
+                Size = UDim2.new(1, 0, 0, v22), 
                 LayoutOrder = -1, 
                 ZIndex = l_FFlagAppIaScrollAway_0 and 2 or nil, 
-                Position = if l_FFlagAppIaScrollAway_0 then v37 else nil
+                Position = if l_FFlagAppIaScrollAway_0 then v42 else nil
             }, {
-                headerBar = l_withStyle_0(function(v40) --[[ Line: 183 ]]
-                    -- upvalues: v3 (ref), l_HeaderBar_0 (ref), v17 (ref), v38 (copy), v26 (ref), v19 (ref), v31 (copy), v29 (ref), v32 (copy), v28 (ref), v27 (ref), v33 (ref), v34 (ref), l_FFlagAppIaScrollAway_0 (ref), v18 (ref), v11 (ref)
+                headerBar = l_withStyle_0(function(v45) --[[ Line: 195 ]]
+                    -- upvalues: v3 (ref), l_HeaderBar_0 (ref), v20 (ref), v43 (copy), v29 (ref), v22 (ref), v36 (copy), v32 (ref), v37 (copy), v31 (ref), v30 (ref), v38 (ref), v39 (ref), l_FFlagAppIaScrollAway_0 (ref), v21 (ref), v11 (ref)
                     return v3.createElement(l_HeaderBar_0, {
-                        title = if not not v17.conversationId or v38 then nil else v26, 
-                        barHeight = v19, 
-                        renderLeft = if v17.conversationId then nil else not v31 and v29 or nil, 
-                        isSecondary = v17.isSecondary, 
-                        renderCenter = if v17.conversationId then v32 else v28, 
-                        renderRight = if v17.conversationId then nil else v27, 
-                        paddingLeft = v33, 
-                        paddingRight = v34, 
-                        isTitleCentered = not v17.isTitleLeftAligned, 
+                        title = if not not v20.conversationId or v43 then nil else v29, 
+                        barHeight = v22, 
+                        renderLeft = if v20.conversationId then nil else not v36 and v32 or nil, 
+                        isSecondary = v20.isSecondary, 
+                        renderCenter = if v20.conversationId then v37 else v31, 
+                        renderRight = if v20.conversationId then nil else v30, 
+                        paddingLeft = v38, 
+                        paddingRight = v39, 
+                        isTitleCentered = not v20.isTitleLeftAligned, 
                         contentPaddingRight = UDim.new(0, 0), 
-                        backgroundTransparency = if not l_FFlagAppIaScrollAway_0 or v18 or v11 and v17.isDialog then v40.Tokens.Global.Color.None.Transparency else nil
+                        backgroundTransparency = if not l_FFlagAppIaScrollAway_0 or v21 or v11 and v20.isDialog then v45.Tokens.Global.Color.None.Transparency else nil
                     });
                 end)
             });

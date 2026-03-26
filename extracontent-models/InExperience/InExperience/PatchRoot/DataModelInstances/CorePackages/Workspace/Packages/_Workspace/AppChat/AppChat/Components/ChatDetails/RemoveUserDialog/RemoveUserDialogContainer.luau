@@ -15,9 +15,10 @@ local l_useState_0 = v6.useState;
 local v14 = require(script.Parent.RemoveUserDialogLayout);
 local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_Parent_0.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
 local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
-local v17 = {
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v18 = {
     participantId = nil, 
-    onModalClose = function() --[[ Line: 43 ]] --[[ Name: onModalClose ]]
+    onModalClose = function() --[[ Line: 44 ]] --[[ Name: onModalClose ]]
 
     end, 
     titleKey = "Feature.Chat.Action.RemoveUser", 
@@ -28,67 +29,72 @@ local v17 = {
     failureBodyKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.FailedToRemoveUser.V2" or "Feature.Chat.Message.FailedToRemoveUser", 
     failureButtonKey = "Feature.Chat.Action.Confirm"
 };
-RemoveUserDialogContainer = function(v18) --[[ Line: 60 ]] --[[ Name: RemoveUserDialogContainer ]]
-    -- upvalues: v5 (copy), v17 (copy), l_useState_0 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), v4 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), v2 (copy), l_useLocalization_0 (copy), v6 (copy), v14 (copy)
-    local v19 = v5.Dictionary.join(v17, v18);
-    local v20, v21 = l_useState_0(true);
-    local v22, v23 = l_useState_0(false);
-    local v24, v25 = l_useState_0(false);
-    local v26 = l_useDispatch_0();
-    local v29 = l_useCallback_0(function(v27, v28) --[[ Line: 67 ]]
-        -- upvalues: v26 (copy), v4 (ref)
-        return v26(v4.rodux.RemoveUserFromConversation.API(v28, v27));
-    end, l_dependencyArray_0(v26));
-    local v33 = l_useSelector_0(function(v30) --[[ Line: 71 ]]
-        -- upvalues: v19 (copy), v2 (ref)
-        local v31 = v30.ChatAppReducer.Conversations[v19.conversationId] or {
+RemoveUserDialogContainer = function(v19) --[[ Line: 61 ]] --[[ Name: RemoveUserDialogContainer ]]
+    -- upvalues: v5 (copy), v18 (copy), l_useState_0 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), v4 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), v2 (copy), l_useLocalization_0 (copy), v6 (copy), v14 (copy)
+    local v20 = v5.Dictionary.join(v18, v19);
+    local v21, v22 = l_useState_0(true);
+    local v23, v24 = l_useState_0(false);
+    local v25, v26 = l_useState_0(false);
+    local v27 = l_useDispatch_0();
+    local v30 = l_useCallback_0(function(v28, v29) --[[ Line: 68 ]]
+        -- upvalues: v27 (copy), v4 (ref)
+        return v27(v4.rodux.RemoveUserFromConversation.API(v29, v28));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v27
+    } else l_dependencyArray_0(v27));
+    local v34 = l_useSelector_0(function(v31) --[[ Line: 72 ]]
+        -- upvalues: v20 (copy), v2 (ref)
+        local v32 = v31.ChatAppReducer.Conversations[v20.conversationId] or {
             title = nil
         };
-        local v32 = v30.Users[v19.participantId];
+        local v33 = v31.Users[v20.participantId];
         return {
-            conversationTitle = v31.title, 
-            targetUser = v2(v30, v32)
+            conversationTitle = v32.title, 
+            targetUser = v2(v31, v33)
         };
     end);
-    local v35 = l_useCallback_0(function() --[[ Line: 83 ]]
-        -- upvalues: v23 (copy), v21 (copy), v19 (copy), v29 (copy), v25 (copy)
-        v23(true);
-        v21(false);
-        local l_conversationId_0 = v19.conversationId;
+    local v36 = l_useCallback_0(function() --[[ Line: 85 ]]
+        -- upvalues: v24 (copy), v22 (copy), v20 (copy), v30 (copy), v26 (copy)
+        v24(true);
+        v22(false);
+        local l_conversationId_0 = v20.conversationId;
         if l_conversationId_0 then
-            v29(v19.participantId, l_conversationId_0):andThen(function() --[[ Line: 90 ]]
-                -- upvalues: v19 (ref)
-                v19.onModalClose();
-            end):catch(function() --[[ Line: 93 ]]
-                -- upvalues: v23 (ref), v21 (ref), v25 (ref)
-                v23(false);
-                v21(true);
-                v25(true);
+            v30(v20.participantId, l_conversationId_0):andThen(function() --[[ Line: 92 ]]
+                -- upvalues: v20 (ref)
+                v20.onModalClose();
+            end):catch(function() --[[ Line: 95 ]]
+                -- upvalues: v24 (ref), v22 (ref), v26 (ref)
+                v24(false);
+                v22(true);
+                v26(true);
             end);
         end;
         return true;
-    end, l_dependencyArray_0(v19.participantId, v19.conversationId));
-    local v36 = l_useLocalization_0({
-        titleText = v19.titleKey, 
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v20.participantId, 
+        v20.conversationId
+    } else l_dependencyArray_0(v20.participantId, v20.conversationId));
+    local v37 = l_useLocalization_0({
+        titleText = v20.titleKey, 
         bodyText = {
-            v19.messageKey; 
-            USERNAME = v33.targetUser.displayName
+            v20.messageKey; 
+            USERNAME = v34.targetUser.displayName
         }, 
-        cancelText = v19.cancelTitleKey, 
-        confirmText = v19.confirmationTitleKey, 
+        cancelText = v20.cancelTitleKey, 
+        confirmText = v20.confirmationTitleKey, 
         failureTitleText = "Feature.Chat.Heading.FailedToRemoveUser", 
         failureBodyText = {
-            v19.failureBodyKey; 
-            USERNAME = v33.targetUser.displayName, 
-            CONVERSATION_TITLE = v33.conversationTitle
+            v20.failureBodyKey; 
+            USERNAME = v34.targetUser.displayName, 
+            CONVERSATION_TITLE = v34.conversationTitle
         }, 
         failureButtonText = "Feature.Chat.Action.Confirm"
     });
-    return v6.createElement(v14, v5.Dictionary.join(v19, v36, v33, {
-        onActivated = v35, 
-        displayFailed = v24, 
-        isModalVisible = v20, 
-        isLoading = v22
+    return v6.createElement(v14, v5.Dictionary.join(v20, v37, v34, {
+        onActivated = v36, 
+        displayFailed = v25, 
+        isModalVisible = v21, 
+        isLoading = v23
     }));
 end;
 return l_memo_0(RemoveUserDialogContainer);

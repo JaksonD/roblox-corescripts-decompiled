@@ -1,89 +1,123 @@
-local function v7(v0, v1) --[[ Line: 26 ]] --[[ Name: mergeTranslationParams ]]
-    if type(v0) == "string" then
-        return v0;
+local l_Parent_0 = script:FindFirstAncestor("GenericAbuseReporting").Parent;
+local l_FFlagUpdateTranslateInReportRevamp_0 = require(l_Parent_0.SharedFlags).FFlagUpdateTranslateInReportRevamp;
+local function v9(v2, v3) --[[ Line: 33 ]] --[[ Name: mergeTranslationParams ]]
+    if type(v2) == "string" then
+        return v2;
     else
-        local v2 = {};
-        if v0.params then
-            for v3, v4 in pairs(v0.params) do
-                v2[v3] = v4;
+        local v4 = {};
+        if v2.params then
+            for v5, v6 in pairs(v2.params) do
+                v4[v5] = v6;
             end;
         end;
-        for v5, v6 in pairs(v1) do
-            v2[v5] = v6;
+        for v7, v8 in pairs(v3) do
+            v4[v7] = v8;
         end;
         return {
-            ["$translate"] = v0["$translate"], 
-            params = v2, 
-            wrappers = v0.wrappers
+            ["$translate"] = v2["$translate"], 
+            params = v4, 
+            wrappers = v2.wrappers
         };
     end;
 end;
-local function v14(v8, v9, v10) --[[ Line: 54 ]] --[[ Name: getWrappedText ]]
-    local v11 = "{" .. v8.type .. "Start}";
-    local v12 = "{" .. v8.type .. "End}";
-    if v8.type == "link" then
-        if v9:find(v11) == nil or v9:find(v12) == nil then
-            return v9, nil;
+local function v16(v10, v11, v12) --[[ Line: 61 ]] --[[ Name: getWrappedText ]]
+    local v13 = "{" .. v10.type .. "Start}";
+    local v14 = "{" .. v10.type .. "End}";
+    if v10.type == "link" then
+        if v11:find(v13) == nil or v11:find(v14) == nil then
+            return v11, nil;
         else
-            return v9:gsub(("%*(.-)%*"):format(v11, v12), string.format("<font color=\"rgb(%d, %d, %d)\">%s</font>", math.floor(v10.R * 255), math.floor(v10.G * 255), math.floor(v10.B * 255), "%1")), v8;
+            return v11:gsub(("%*(.-)%*"):format(v13, v14), string.format("<font color=\"rgb(%d, %d, %d)\">%s</font>", math.floor(v12.R * 255), math.floor(v12.G * 255), math.floor(v12.B * 255), "%1")), v10;
         end;
-    elseif v8.type == "strong" then
-        local v13 = string.gsub(v9, v11, "<b>");
-        return string.gsub(v13, v12, "</b>"), nil;
+    elseif v10.type == "strong" then
+        local v15 = string.gsub(v11, v13, "<b>");
+        return string.gsub(v15, v14, "</b>"), nil;
     else
-        warn("Unknown wrapper type: " .. tostring(v8.type));
-        return v9, nil;
+        warn("Unknown wrapper type: " .. tostring(v10.type));
+        return v11, nil;
+    end;
+end;
+local v17 = nil;
+local function v23(v18, v19) --[[ Line: 93 ]] --[[ Name: resolveParams ]]
+    -- upvalues: v17 (ref)
+    if v19 == nil then
+        return nil;
+    else
+        local v20 = {};
+        for v21, v22 in pairs(v19) do
+            if type(v22) == "string" then
+                v20[v21] = v22;
+            else
+                v20[v21] = v17(v18, v22);
+            end;
+        end;
+        return v20;
+    end;
+end;
+local function v37(v24, v25, v26) --[[ Line: 118 ]] --[[ Name: translateIntoRichTextString ]]
+    -- upvalues: l_FFlagUpdateTranslateInReportRevamp_0 (copy), v23 (copy), v16 (copy)
+    if v25 == nil then
+        return "", nil;
+    elseif type(v25) == "string" then
+        return v25, nil;
+    elseif type(v25) ~= "table" then
+        return tostring(v25), nil;
+    else
+        local v27 = v25["$translate"];
+        if not v27 or type(v27) ~= "string" then
+            return "", nil;
+        else
+            local l_params_0 = v25.params;
+            local v29 = nil;
+            if l_FFlagUpdateTranslateInReportRevamp_0 then
+                v29 = v23(v24, l_params_0);
+            end;
+            local v30 = v24[v27] or v27;
+            local v31 = nil;
+            if l_FFlagUpdateTranslateInReportRevamp_0 and v29 ~= nil then
+                v30 = v30:gsub("{(.-)}", v29);
+            elseif l_params_0 ~= nil then
+                v30 = v30:gsub("{(.-)}", l_params_0);
+            end;
+            if v25.wrappers then
+                for _, v33 in pairs(v25.wrappers) do
+                    local v34 = nil;
+                    local v35, v36 = v16(v33, v30, v26);
+                    v30 = v35;
+                    v34 = v36;
+                    if v34 ~= nil and v31 == nil then
+                        v31 = v34;
+                    end;
+                end;
+            end;
+            return v30, v31;
+        end;
+    end;
+end;
+v17 = function(v38, v39) --[[ Line: 174 ]]
+    -- upvalues: l_FFlagUpdateTranslateInReportRevamp_0 (copy), v23 (copy)
+    if v39 == nil then
+        return "";
+    elseif type(v39) == "string" then
+        return v39;
+    else
+        local v40 = v39["$translate"];
+        local l_params_1 = v39.params;
+        local v42 = nil;
+        if l_FFlagUpdateTranslateInReportRevamp_0 then
+            v42 = v23(v38, l_params_1);
+        end;
+        local v43 = v38[v40] or v40;
+        if l_FFlagUpdateTranslateInReportRevamp_0 and v42 ~= nil then
+            v43 = v43:gsub("{(.-)}", v42);
+        elseif l_params_1 ~= nil then
+            v43 = v43:gsub("{(.-)}", l_params_1);
+        end;
+        return (v43:gsub("{%w+Start}(.-)({%w+End})", "%1"):gsub("{%w+Start}", ""):gsub("{%w+End}", ""));
     end;
 end;
 return {
-    mergeTranslationParams = v7, 
-    translateIntoString = function(v15, v16) --[[ Line: 139 ]] --[[ Name: translateIntoString ]]
-        if v16 == nil then
-            return "";
-        elseif type(v16) == "string" then
-            return v16;
-        else
-            local v17 = v16["$translate"];
-            local l_params_0 = v16.params;
-            local v19 = v15[v17] or v17;
-            if l_params_0 ~= nil then
-                v19 = v19:gsub("{(.-)}", l_params_0);
-            end;
-            return (v19:gsub("{%w+Start}(.-)({%w+End})", "%1"):gsub("{%w+Start}", ""):gsub("{%w+End}", ""));
-        end;
-    end, 
-    translateIntoRichTextString = function(v20, v21, v22) --[[ Line: 89 ]] --[[ Name: translateIntoRichTextString ]]
-        -- upvalues: v14 (copy)
-        if v21 == nil then
-            return "", nil;
-        elseif type(v21) == "string" then
-            return v21, nil;
-        elseif type(v21) ~= "table" then
-            return tostring(v21), nil;
-        else
-            local v23 = v21["$translate"];
-            if not v23 or type(v23) ~= "string" then
-                return "", nil;
-            else
-                local l_params_1 = v21.params;
-                local v25 = v20[v23] or v23;
-                local v26 = nil;
-                if l_params_1 ~= nil then
-                    v25 = v25:gsub("{(.-)}", l_params_1);
-                end;
-                if v21.wrappers then
-                    for _, v28 in pairs(v21.wrappers) do
-                        local v29 = nil;
-                        local v30, v31 = v14(v28, v25, v22);
-                        v25 = v30;
-                        v29 = v31;
-                        if v29 ~= nil and v26 == nil then
-                            v26 = v29;
-                        end;
-                    end;
-                end;
-                return v25, v26;
-            end;
-        end;
-    end
+    mergeTranslationParams = v9, 
+    translateIntoString = v17, 
+    translateIntoRichTextString = v37
 };

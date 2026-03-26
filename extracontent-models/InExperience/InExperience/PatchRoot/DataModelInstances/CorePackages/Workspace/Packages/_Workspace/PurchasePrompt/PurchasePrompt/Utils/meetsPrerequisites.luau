@@ -1,42 +1,46 @@
 local l_Parent_0 = script.Parent.Parent;
 local l_Players_0 = game:GetService("Players");
 local l_Workspace_0 = game:GetService("Workspace");
-local v3 = require(l_Parent_0.Misc.Constants);
-local v4 = require(l_Parent_0.Enums.PurchaseError);
-local v5 = require(l_Parent_0.Flags.GetFFlagEnableCreatorStorePurchasingCutover);
-return function(v6, v7, v8, v9, v10) --[[ Line: 17 ]] --[[ Name: meetsPrerequisites ]]
-    -- upvalues: v3 (copy), v4 (copy), v5 (copy), l_Players_0 (copy), l_Workspace_0 (copy)
-    local v11 = v6.ProductType == v3.ProductType.CollectibleItem;
-    local v12 = if v6.CollectiblesItemDetails then v6.CollectiblesItemDetails.IsLimited else nil;
-    if v11 then
-        if not v12 and v7 then
-            return false, v4.AlreadyOwn;
+local l_Parent_1 = l_Parent_0.Parent;
+local v4 = require(l_Parent_0.Misc.Constants);
+local v5 = require(l_Parent_0.Enums.PurchaseError);
+local l_ProductTypeEnum_0 = require(l_Parent_0.types).ProductTypeEnum;
+local l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 = require(l_Parent_1.SharedFlags).FFlagEnableUnifiedPurchaseFlowForDevSubs;
+local v8 = require(l_Parent_0.Flags.GetFFlagEnableCreatorStorePurchasingCutover);
+return function(v9, v10, v11, v12, v13) --[[ Line: 20 ]] --[[ Name: meetsPrerequisites ]]
+    -- upvalues: v4 (copy), v5 (copy), v8 (copy), l_Players_0 (copy), l_Workspace_0 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_ProductTypeEnum_0 (copy)
+    local v14 = v9.ProductType == v4.ProductType.CollectibleItem;
+    local v15 = if v9.CollectiblesItemDetails then v9.CollectiblesItemDetails.IsLimited else nil;
+    if v14 then
+        if not v15 and v10 then
+            return false, v5.AlreadyOwn;
         end;
-    elseif v7 then
-        return false, v4.AlreadyOwn;
+    elseif v10 then
+        return false, v5.AlreadyOwn;
     end;
-    if v10 == nil and not v6.IsForSale and not v6.IsPublicDomain then
-        return false, v4.NotForSale;
-    elseif v5() and v6.IsFiatPriced == true then
-        return false, v4.NotForSale;
-    elseif v10 == nil and v9.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt() and v6.CanBeSoldInThisGame == false then
-        return false, v4.NotForSaleHere;
-    elseif v10 == nil and (v11 and v12 or v6.IsLimited or v6.IsLimitedUnique) and (v6.Remaining == nil or v6.Remaining == 0) then
-        return false, v4.Limited;
-    elseif v6.MinimumMembershipLevel == Enum.MembershipType.Premium.Value and l_Players_0.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
-        return false, v4.PremiumOnly;
-    elseif v6.ContentRatingTypeId == 1 and l_Players_0.LocalPlayer:GetUnder13() then
-        return false, v4.Under13;
+    if v13 == nil and not v9.IsForSale and not v9.IsPublicDomain then
+        return false, v5.NotForSale;
+    elseif v8() and v9.IsFiatPriced == true then
+        return false, v5.NotForSale;
+    elseif v13 == nil and v12.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt() and v9.CanBeSoldInThisGame == false then
+        return false, v5.NotForSaleHere;
+    elseif v13 == nil and (v14 and v15 or v9.IsLimited or v9.IsLimitedUnique) and (v9.Remaining == nil or v9.Remaining == 0) then
+        return false, v5.Limited;
+    elseif v9.MinimumMembershipLevel == Enum.MembershipType.Premium.Value and l_Players_0.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+        return false, v5.PremiumOnly;
+    elseif v9.ContentRatingTypeId == 1 and l_Players_0.LocalPlayer:GetUnder13() then
+        return false, v5.Under13;
     else
-        local v13 = true;
-        v13 = if v9.getLuaUseThirdPartyPermissions() then v9.isThirdPartyPurchaseAllowed() else l_Workspace_0.AllowThirdPartySales;
-        if v6.ProductType ~= v3.ProductType.DeveloperProduct and v8 and not v13 then
-            local v14 = game.CreatorType == Enum.CreatorType.Group;
-            local v15 = v6.Creator.CreatorType == "Group";
-            local v16 = tonumber(v6.Creator.CreatorTargetId);
-            if v16 ~= 1 and (v14 ~= v15 or v16 ~= game.CreatorId) then
-                warn(("AllowThirdPartySales has blocked the purchase prompt for %d created by %d. To sell this asset made by a different %s, you will need to enable AllowThirdPartySales."):format(v6.AssetId, v16, v14 and "group" or "user"));
-                return false, v4.ThirdPartyDisabled;
+        local v16 = true;
+        v16 = if v12.getLuaUseThirdPartyPermissions() then v12.isThirdPartyPurchaseAllowed() else l_Workspace_0.AllowThirdPartySales;
+        local v17 = l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v9.ProductType == l_ProductTypeEnum_0.DeveloperSubscription;
+        if v9.ProductType ~= v4.ProductType.DeveloperProduct and not v17 and v11 and not v16 then
+            local v18 = game.CreatorType == Enum.CreatorType.Group;
+            local v19 = v9.Creator.CreatorType == "Group";
+            local v20 = tonumber(v9.Creator.CreatorTargetId);
+            if v20 ~= 1 and (v18 ~= v19 or v20 ~= game.CreatorId) then
+                warn(("AllowThirdPartySales has blocked the purchase prompt for %d created by %d. To sell this asset made by a different %s, you will need to enable AllowThirdPartySales."):format(v9.AssetId, v20, v18 and "group" or "user"));
+                return false, v5.ThirdPartyDisabled;
             end;
         end;
         return true, nil;

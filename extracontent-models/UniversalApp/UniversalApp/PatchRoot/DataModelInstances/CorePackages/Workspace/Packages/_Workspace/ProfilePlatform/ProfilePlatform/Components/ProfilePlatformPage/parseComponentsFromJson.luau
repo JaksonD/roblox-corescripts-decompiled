@@ -39,33 +39,46 @@ local v37 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLaz
 local v38 = require(l_script_FirstAncestor_0.Flags.FFlagAddEventsToCommunityProfile);
 local v39 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformAddCurrentlyPlaying);
 local v40 = require(l_script_FirstAncestor_0.Flags.FFlagAboutBeforeActionClient);
-local function v49(v41) --[[ Line: 51 ]] --[[ Name: orderWithAboutBeforeActions ]]
-    -- upvalues: v40 (copy), v25 (copy), v2 (copy)
+local function v53(v41) --[[ Line: 51 ]] --[[ Name: orderWithAboutBeforeActions ]]
+    -- upvalues: v40 (copy), v25 (copy), v39 (copy), v2 (copy)
     if not v40 then
         return v41;
     else
         local v42 = nil;
         local v43 = nil;
-        for v44, v45 in ipairs(v41) do
-            if v45 == v25.Components.About then
-                v42 = v44;
-            elseif v45 == v25.Components.Actions then
-                v43 = v44;
+        local v44 = nil;
+        for v45, v46 in ipairs(v41) do
+            if v46 == v25.Components.About then
+                v42 = v45;
+            elseif v46 == v25.Components.Actions then
+                v43 = v45;
+            elseif v39 and v46 == v25.Components.CurrentlyPlaying then
+                v44 = v45;
             end;
         end;
         if v42 == nil or v43 == nil or v42 < v43 then
             return v41;
         else
-            local v46 = v2.List.join({}, v41);
-            local v47 = v46[v43];
-            local v48 = v46[v42];
-            v46[v42] = v47;
-            v46[v43] = v48;
-            return v46;
+            local v47 = v2.List.join({}, v41);
+            if v39 and v44 then
+                local v48 = v47[v42];
+                local v49 = v47[v44];
+                local v50 = v47[v43];
+                v47[v44] = v48;
+                v47[v43] = v49;
+                v47[v42] = v50;
+                return v47;
+            else
+                local v51 = v47[v43];
+                local v52 = v47[v42];
+                v47[v42] = v51;
+                v47[v43] = v52;
+                return v47;
+            end;
         end;
     end;
 end;
-local v50 = {
+local v54 = {
     [v25.Components.UserProfileHeader] = v4, 
     [v25.Components.CurrentlyWearing] = v10, 
     [v25.Components.Actions] = v7, 
@@ -78,7 +91,7 @@ local v50 = {
     [v25.Components.ProfileCompletion] = if l_FFlagEnableProfileCompletion_0 then v22 else nil, 
     [v25.Components.CurrentlyPlaying] = if v39 then v23 else nil
 };
-local v51 = if v29 then {
+local v55 = if v29 then {
     [v25.Components.CoverPhoto] = if v33 then v9 else nil, 
     [v25.Components.CommunityProfileHeader] = v8, 
     [v25.Components.About] = v5.About, 
@@ -91,15 +104,15 @@ local v51 = if v29 then {
     [v25.Components.CommunityLocked] = if l_FFlagAddCommunityLockedToCommunityProfile_0 then v20 else nil, 
     [v25.Components.Events] = if v38 then v21 else nil
 } else nil;
-local v52 = {
+local v56 = {
     [v25.Components.ContactProfileHeader] = v15, 
     [v25.Components.ContactDescription] = v6, 
     [v25.Components.Actions] = v7
 };
-return function(v53, v54, v55) --[[ Line: 109 ]]
-    -- upvalues: v3 (copy), v24 (copy), v2 (copy), v26 (copy), v25 (copy), v50 (copy), v29 (copy), v51 (copy), v52 (copy), v40 (copy), v49 (copy), v37 (copy)
-    local v56 = v54 or {};
-    local v57 = {
+return function(v57, v58, v59) --[[ Line: 116 ]]
+    -- upvalues: v3 (copy), v24 (copy), v2 (copy), v26 (copy), v25 (copy), v54 (copy), v29 (copy), v55 (copy), v56 (copy), v40 (copy), v53 (copy), v37 (copy)
+    local v60 = v58 or {};
+    local v61 = {
         Layout = v3.createElement("UIListLayout", {
             SortOrder = Enum.SortOrder.LayoutOrder, 
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
@@ -107,37 +120,37 @@ return function(v53, v54, v55) --[[ Line: 109 ]]
             Padding = UDim.new(0, v24.PAGE_PADDING)
         })
     };
-    if v2.isEmpty(v56) then
-        v57.loadingView = v3.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, v26(v55)), 
+    if v2.isEmpty(v60) then
+        v61.loadingView = v3.createElement("Frame", {
+            Size = UDim2.new(1, 0, 0, v26(v59)), 
             BackgroundTransparency = 1, 
             BorderSizePixel = 0
         });
-        return v57;
+        return v61;
     else
-        local v58 = {};
-        if v55 == v25.ProfileTypes.User then
-            v58 = v50;
-        elseif v29 and v55 == v25.ProfileTypes.Community then
-            v58 = v51;
-        elseif v55 == v25.ProfileTypes.Contact then
-            v58 = v52;
+        local v62 = {};
+        if v59 == v25.ProfileTypes.User then
+            v62 = v54;
+        elseif v29 and v59 == v25.ProfileTypes.Community then
+            v62 = v55;
+        elseif v59 == v25.ProfileTypes.Contact then
+            v62 = v56;
         end;
-        local v59 = if v40 and v55 == v25.ProfileTypes.User then v49(v56) else v56;
-        for v60, v61 in v59 do
-            local v62 = v58[v61];
+        local v63 = if v40 and v59 == v25.ProfileTypes.User then v53(v60) else v60;
+        for v64, v65 in v63 do
+            local v66 = v62[v65];
             if v37 then
-                if v62 ~= nil and v53[v61] ~= nil then
-                    v57[v61] = v3.createElement(v62, {
-                        layoutOrder = v60
+                if v66 ~= nil and v57[v65] ~= nil then
+                    v61[v65] = v3.createElement(v66, {
+                        layoutOrder = v64
                     });
                 end;
-            elseif v62 ~= nil then
-                v57[v61] = v3.createElement(v62, {
-                    layoutOrder = v60
+            elseif v66 ~= nil then
+                v61[v65] = v3.createElement(v66, {
+                    layoutOrder = v64
                 });
             end;
         end;
-        return v57;
+        return v61;
     end;
 end;

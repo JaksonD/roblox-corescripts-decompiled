@@ -27,7 +27,7 @@ local v22 = {
 local function _(v23, v24, v25) --[[ Line: 75 ]] --[[ Name: isWithinEpsilon ]]
     return math.abs(v23 - v24) < v25;
 end;
-local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]]
+local function v109(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]]
     -- upvalues: v6 (copy), v22 (copy), l_UserGameSettings_0 (copy), v20 (copy), l_RunService_0 (copy)
     local v30 = nil;
     local v31 = false;
@@ -106,8 +106,8 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
             end;
         end;
     end;
-    local function v77(v52, v53, v54, v55, v56, v57) --[[ Line: 171 ]] --[[ Name: handleDeleteTransition ]]
-        -- upvalues: v27 (copy), v28 (copy), v31 (ref), v35 (ref), v33 (ref), v47 (copy), v51 (copy), l_UserGameSettings_0 (ref), v6 (ref)
+    local function v79(v52, v53, v54, v55, v56, v57) --[[ Line: 171 ]] --[[ Name: handleDeleteTransition ]]
+        -- upvalues: v27 (copy), v28 (copy), v31 (ref), v35 (ref), v33 (ref), v47 (copy), v51 (copy), l_UserGameSettings_0 (ref), v6 (ref), v32 (ref), v34 (ref)
         local l_current_0 = v27.current;
         local l_current_1 = v28.current;
         if not l_current_0 or not l_current_1 then
@@ -139,8 +139,8 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
                 end);
                 v51(v54, v55 - 1, v56 or l_UserGameSettings_0.ReducedMotion);
             end;
-            local function v72() --[[ Line: 216 ]] --[[ Name: handleDeleteImagesFadeIn ]]
-                -- upvalues: v53 (copy), v55 (copy), v47 (ref), l_current_0 (copy), v57 (copy), l_current_1 (copy), v6 (ref), v52 (copy), v33 (ref), l_ScrollingEnabled_0 (copy), v51 (ref), v54 (copy)
+            local function v74() --[[ Line: 216 ]] --[[ Name: handleDeleteImagesFadeIn ]]
+                -- upvalues: v53 (copy), v55 (copy), v47 (ref), l_current_0 (copy), v57 (copy), l_current_1 (copy), v6 (ref), v52 (copy), v33 (ref), l_ScrollingEnabled_0 (copy), v54 (copy), v32 (ref), v34 (ref)
                 if not v53 then
                     return;
                 else
@@ -168,56 +168,97 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
                             frequency = 2
                         }));
                     end);
-                    v51(v54, v55 - 1, true);
-                    return;
+                    local l_v54_0 = v54;
+                    local v73 = v55 - 1;
+                    if not v32 then
+                        return;
+                    else
+                        assert(v32 ~= nil, "setGoal called before resetMotor");
+                        v34 = l_v54_0.X * (v73 - 1);
+                        v32:setGoal(v6.instant(v34));
+                        return;
+                    end;
                 end;
             end;
-            local function v74() --[[ Line: 243 ]] --[[ Name: handleDeleteNextImageFadeOut ]]
-                -- upvalues: v53 (copy), v6 (ref), v72 (copy)
+            local function v76() --[[ Line: 243 ]] --[[ Name: handleDeleteNextImageFadeOut ]]
+                -- upvalues: v53 (copy), v6 (ref), v74 (copy)
                 if not v53 then
                     return;
                 else
                     assert(v53 ~= nil, "setPostDeletionItemBinding should exist");
-                    local v73 = v6.createSingleMotor(1);
-                    v73:onStep(v53);
-                    v73:onComplete(v72);
-                    v73:setGoal(v6.spring(0, {
+                    local v75 = v6.createSingleMotor(1);
+                    v75:onStep(v53);
+                    v75:onComplete(v74);
+                    v75:setGoal(v6.spring(0, {
                         frequency = 6
                     }));
                     return;
                 end;
             end;
-            local v75 = v6.createSingleMotor(1);
-            v75:onStep(v52);
-            local v76 = nil;
+            local v77 = v6.createSingleMotor(1);
+            v77:onStep(v52);
+            local v78 = nil;
             if l_UserGameSettings_0.ReducedMotion then
-                v76 = 6;
-                v75:onComplete(v74);
+                v78 = 6;
+                v77:onComplete(v76);
             else
-                v76 = 4;
-                v75:onComplete(v66);
+                v78 = 4;
+                v77:onComplete(v66);
             end;
-            v75:setGoal(v6.spring(0, {
-                frequency = v76
+            v77:setGoal(v6.spring(0, {
+                frequency = v78
             }));
             return;
         end;
     end;
-    local function v90(v78, v79) --[[ Line: 267 ]] --[[ Name: handleInertialMove ]]
-        -- upvalues: v27 (copy), v31 (ref), v20 (ref), v47 (copy), v51 (copy), v30 (ref), l_RunService_0 (ref), v29 (copy)
-        local v80 = nil;
+    local function v104(v80, v81) --[[ Line: 267 ]] --[[ Name: handleInertialMove ]]
+        -- upvalues: v27 (copy), v31 (ref), v20 (ref), v32 (ref), v6 (ref), v34 (ref), v22 (ref), v30 (ref), l_RunService_0 (ref), v29 (copy)
+        local v82 = nil;
         local l_current_2 = v27.current;
         if v31 or not l_current_2 then
             return;
         else
             assert(l_current_2 ~= nil, "carousel should not be nil");
-            v80 = -l_current_2:GetSampledInertialVelocity().X;
+            v82 = -l_current_2:GetSampledInertialVelocity().X;
             l_current_2:ClearInertialScrolling();
-            local v82, v83 = v20(v78, l_current_2);
-            if math.abs(v80) < 60 and v82 == v79 then
-                if v83 > 0.5 then
-                    v47(l_current_2.CanvasPosition.X);
-                    v51(v78, v79, false);
+            local v84, v85 = v20(v80, l_current_2);
+            if math.abs(v82) < 60 and v84 == v81 then
+                if v85 > 0.5 then
+                    local l_X_0 = l_current_2.CanvasPosition.X;
+                    if v32 then
+                        v32:destroy();
+                        v32 = nil;
+                    end;
+                    local v87 = v6.createSingleMotor(l_X_0);
+                    v32 = v87;
+                    local v88 = nil;
+                    v87:onStep(function(v89) --[[ Line: 123 ]]
+                        -- upvalues: v32 (ref), v87 (copy), v31 (ref), v34 (ref), v88 (copy), l_X_0 (copy), v27 (ref)
+                        if v32 ~= v87 then
+                            v87:destroy();
+                            return;
+                        elseif v31 then
+                            v87:destroy();
+                            v32 = nil;
+                            return;
+                        else
+                            local v90 = if math.abs(v89 - v34) < 0.5 then v34 else v89;
+                            if v88 and v88(l_X_0, v90) then
+                                return;
+                            else
+                                if v27.current then
+                                    v27.current.CanvasPosition = Vector2.new(v90, 0);
+                                end;
+                                return;
+                            end;
+                        end;
+                    end);
+                    v87:start();
+                    if v32 then
+                        assert(v32 ~= nil, "setGoal called before resetMotor");
+                        v34 = v80.X * (v81 - 1);
+                        v32:setGoal(v6.spring(v34, v22));
+                    end;
                 end;
                 return;
             else
@@ -225,8 +266,8 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
                     v30:Disconnect();
                     v30 = nil;
                 end;
-                v30 = l_RunService_0.RenderStepped:Connect(function(v84) --[[ Line: 297 ]]
-                    -- upvalues: v27 (ref), v31 (ref), v30 (ref), v20 (ref), v78 (copy), v80 (ref), v79 (copy), v47 (ref), v51 (ref), v29 (ref)
+                v30 = l_RunService_0.RenderStepped:Connect(function(v91) --[[ Line: 297 ]]
+                    -- upvalues: v27 (ref), v31 (ref), v30 (ref), v20 (ref), v80 (copy), v82 (ref), v81 (copy), v32 (ref), v6 (ref), v34 (ref), v22 (ref), v29 (ref)
                     local l_current_3 = v27.current;
                     if not l_current_3 or v31 then
                         assert(v30 ~= nil, "handleInertialMoveConn should exist");
@@ -235,25 +276,64 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
                         return;
                     else
                         assert(l_current_3 ~= nil, "carousel should not be nil");
-                        local v86, v87 = v20(v78, l_current_3);
-                        if math.abs(v80) < 60 then
+                        local v93, v94 = v20(v80, l_current_3);
+                        if math.abs(v82) < 60 then
                             assert(v30 ~= nil, "handleInertialMoveConn should exist");
                             v30:Disconnect();
                             v30 = nil;
-                            if v86 == v79 then
-                                v47(l_current_3.CanvasPosition.X);
-                                v51(v78, v79, false);
-                                return;
+                            if v93 == v81 then
+                                local l_X_1 = l_current_3.CanvasPosition.X;
+                                if v32 then
+                                    v32:destroy();
+                                    v32 = nil;
+                                end;
+                                local v96 = v6.createSingleMotor(l_X_1);
+                                v32 = v96;
+                                local v97 = nil;
+                                local l_v96_0 = v96 --[[ copy: 5 -> 10 ]];
+                                local l_l_X_1_0 = l_X_1 --[[ copy: 4 -> 11 ]];
+                                v96:onStep(function(v100) --[[ Line: 123 ]]
+                                    -- upvalues: v32 (ref), l_v96_0 (copy), v31 (ref), v34 (ref), v97 (copy), l_l_X_1_0 (copy), v27 (ref)
+                                    if v32 ~= l_v96_0 then
+                                        l_v96_0:destroy();
+                                        return;
+                                    elseif v31 then
+                                        l_v96_0:destroy();
+                                        v32 = nil;
+                                        return;
+                                    else
+                                        local v101 = if math.abs(v100 - v34) < 0.5 then v34 else v100;
+                                        if v97 and v97(l_l_X_1_0, v101) then
+                                            return;
+                                        else
+                                            if v27.current then
+                                                v27.current.CanvasPosition = Vector2.new(v101, 0);
+                                            end;
+                                            return;
+                                        end;
+                                    end;
+                                end);
+                                v96:start();
+                                l_X_1 = v80;
+                                v96 = v81;
+                                if not v32 then
+                                    return;
+                                else
+                                    assert(v32 ~= nil, "setGoal called before resetMotor");
+                                    v34 = l_X_1.X * (v96 - 1);
+                                    v32:setGoal(v6.spring(v34, v22));
+                                    return;
+                                end;
                             else
-                                v29(v86);
+                                v29(v93);
                                 return;
                             end;
                         else
-                            l_current_3.CanvasPosition = l_current_3.CanvasPosition + Vector2.new(v80 * v84, 0);
-                            local v88 = math.max(v87 / (v78.X / 2) * 1.25, 0.85);
-                            local v89 = nil;
-                            v89 = math.abs(v80) < 120 and 0.7 or v88 * 0.95;
-                            v80 = v80 * v89 ^ (v84 / 0.016666666666666666);
+                            l_current_3.CanvasPosition = l_current_3.CanvasPosition + Vector2.new(v82 * v91, 0);
+                            local v102 = math.max(v94 / (v80.X / 2) * 1.25, 0.85);
+                            local v103 = nil;
+                            v103 = math.abs(v82) < 120 and 0.7 or v102 * 0.95;
+                            v82 = v82 * v103 ^ (v91 / 0.016666666666666666);
                             return;
                         end;
                     end;
@@ -262,89 +342,89 @@ local function v95(v27, v28, v29) --[[ Line: 79 ]] --[[ Name: createController ]
             end;
         end;
     end;
-    local function v93(_, v92) --[[ Line: 343 ]] --[[ Name: onInputBegan ]]
+    local function v107(_, v106) --[[ Line: 343 ]] --[[ Name: onInputBegan ]]
         -- upvalues: v33 (ref), v31 (ref), v35 (ref)
         if v33 then
             return;
         else
-            if v92.UserInputType == Enum.UserInputType.Touch then
+            if v106.UserInputType == Enum.UserInputType.Touch then
                 v31 = true;
                 v35 = true;
             end;
             return;
         end;
     end;
-    local v94 = {
+    local v108 = {
         carouselRef = v27, 
         getWasTouched = v36, 
         getIsNavigationLocked = v38, 
-        handleDeleteTransition = v77, 
-        handleInertialMove = v90, 
-        onInputBegan = v93, 
+        handleDeleteTransition = v79, 
+        handleInertialMove = v104, 
+        onInputBegan = v107, 
         resetMotor = v47, 
         resetTouchState = v37, 
         setGoal = v51, 
         setIsNavigationLocked = v40
     };
-    v94.resetMotor(0);
-    return v94;
+    v108.resetMotor(0);
+    return v108;
 end;
-return function(v96, v97, v98) --[[ Line: 372 ]]
-    -- upvalues: v12 (copy), l_useBinding_0 (copy), v7 (copy), l_useIsHovered_0 (copy), l_useIsTouchDown_0 (copy), l_useLastInput_0 (copy), v95 (copy), l_UserGameSettings_0 (copy), l_useEffectOnce_0 (copy), v20 (copy), l_useEventConnection_0 (copy), l_UserInputService_0 (copy), l_ContextActionService_0 (copy), v19 (copy), l_FFlagUseMediaPlayerInCarousel_0 (copy)
-    local v99 = v12();
-    local v100, v101 = l_useBinding_0(1);
-    local v102, v103 = l_useBinding_0(1);
-    local v104 = v7.useRef(nil);
-    local v105, v106, v107 = l_useIsHovered_0();
-    local v108 = l_useIsTouchDown_0();
-    local v109 = v7.useRef(nil);
-    local v110 = l_useLastInput_0();
-    local v111 = v7.useRef(nil);
-    if v111.current == nil then
-        v111.current = v95(v104, v109, v98);
+return function(v110, v111, v112) --[[ Line: 372 ]]
+    -- upvalues: v12 (copy), l_useBinding_0 (copy), v7 (copy), l_useIsHovered_0 (copy), l_useIsTouchDown_0 (copy), l_useLastInput_0 (copy), v109 (copy), l_UserGameSettings_0 (copy), l_useEffectOnce_0 (copy), v20 (copy), l_useEventConnection_0 (copy), l_UserInputService_0 (copy), l_ContextActionService_0 (copy), v19 (copy), l_FFlagUseMediaPlayerInCarousel_0 (copy)
+    local v113 = v12();
+    local v114, v115 = l_useBinding_0(1);
+    local v116, v117 = l_useBinding_0(1);
+    local v118 = v7.useRef(nil);
+    local v119, v120, v121 = l_useIsHovered_0();
+    local v122 = l_useIsTouchDown_0();
+    local v123 = v7.useRef(nil);
+    local v124 = l_useLastInput_0();
+    local v125 = v7.useRef(nil);
+    if v125.current == nil then
+        v125.current = v109(v118, v123, v112);
     end;
-    local l_current_4 = v111.current;
+    local l_current_4 = v125.current;
     assert(l_current_4 ~= nil, "carouselController should exist");
     v7.useEffect(function() --[[ Line: 392 ]]
-        -- upvalues: v104 (copy), l_UserGameSettings_0 (ref), l_current_4 (copy), v96 (copy), v97 (copy)
-        local l_current_5 = v104.current;
+        -- upvalues: v118 (copy), l_UserGameSettings_0 (ref), l_current_4 (copy), v110 (copy), v111 (copy)
+        local l_current_5 = v118.current;
         if not l_current_5 then
             return;
         else
             assert(l_current_5 ~= nil, "carousel should exist");
-            local v114 = false;
+            local v128 = false;
             if l_UserGameSettings_0.ReducedMotion then
-                v114 = true;
+                v128 = true;
             end;
             l_current_4.resetMotor(l_current_5.CanvasPosition.X);
-            l_current_4.setGoal(v96, v97, v114);
+            l_current_4.setGoal(v110, v111, v128);
             return;
         end;
     end, {
-        v97
+        v111
     });
     l_useEffectOnce_0(function() --[[ Line: 410 ]]
-        -- upvalues: l_current_4 (copy), v96 (copy), v97 (copy)
-        l_current_4.setGoal(v96, v97, true);
-    end, v97 ~= nil);
+        -- upvalues: l_current_4 (copy), v110 (copy), v111 (copy)
+        l_current_4.setGoal(v110, v111, true);
+    end, v111 ~= nil);
     v7.useEffect(function() --[[ Line: 416 ]]
-        -- upvalues: l_current_4 (copy), v96 (copy), v97 (copy)
-        l_current_4.setGoal(v96, v97, true);
+        -- upvalues: l_current_4 (copy), v110 (copy), v111 (copy)
+        l_current_4.setGoal(v110, v111, true);
     end, {
-        v96
+        v110
     });
     v7.useEffect(function() --[[ Line: 421 ]]
-        -- upvalues: v108 (copy), l_current_4 (copy), v96 (copy), v97 (copy)
-        if not v108 and l_current_4.getWasTouched() then
+        -- upvalues: v122 (copy), l_current_4 (copy), v110 (copy), v111 (copy)
+        if not v122 and l_current_4.getWasTouched() then
             l_current_4.resetTouchState();
-            l_current_4.handleInertialMove(v96, v97);
+            l_current_4.handleInertialMove(v110, v111);
         end;
     end, {
-        v108
+        v122
     });
-    local v118 = v7.useCallback(function(v115) --[[ Line: 428 ]]
-        -- upvalues: v104 (copy), l_current_4 (copy), v20 (ref), v96 (copy), v105 (copy), v98 (copy)
-        local l_current_6 = v104.current;
+    local v132 = v7.useCallback(function(v129) --[[ Line: 428 ]]
+        -- upvalues: v118 (copy), l_current_4 (copy), v20 (ref), v110 (copy), v119 (copy), v112 (copy)
+        local l_current_6 = v118.current;
         if not l_current_6 then
             return;
         else
@@ -352,29 +432,29 @@ return function(v96, v97, v98) --[[ Line: 372 ]]
             if l_current_4.getIsNavigationLocked() then
                 return;
             else
-                local v117 = v20(v96, l_current_6);
-                if v105 and v115 > 0 then
-                    v98(v117 - 1);
+                local v131 = v20(v110, l_current_6);
+                if v119 and v129 > 0 then
+                    v112(v131 - 1);
                     return;
                 else
-                    if v105 and v115 < 0 then
-                        v98(v117 + 1);
+                    if v119 and v129 < 0 then
+                        v112(v131 + 1);
                     end;
                     return;
                 end;
             end;
         end;
     end, {
-        v105, 
-        v96
+        v119, 
+        v110
     });
-    l_useEventConnection_0(l_UserInputService_0.PointerAction, v118);
-    local v122 = v7.useCallback(function(v119) --[[ Line: 449 ]]
-        -- upvalues: l_UserGameSettings_0 (ref), v104 (copy), l_current_4 (copy), v20 (ref), v96 (copy), v98 (copy)
+    l_useEventConnection_0(l_UserInputService_0.PointerAction, v132);
+    local v136 = v7.useCallback(function(v133) --[[ Line: 449 ]]
+        -- upvalues: l_UserGameSettings_0 (ref), v118 (copy), l_current_4 (copy), v20 (ref), v110 (copy), v112 (copy)
         if not l_UserGameSettings_0.ReducedMotion then
             return;
         else
-            local l_current_7 = v104.current;
+            local l_current_7 = v118.current;
             if not l_current_7 then
                 return;
             else
@@ -382,13 +462,13 @@ return function(v96, v97, v98) --[[ Line: 372 ]]
                 if l_current_4.getIsNavigationLocked() then
                     return;
                 else
-                    local v121 = v20(v96, l_current_7);
-                    if v119 == Enum.SwipeDirection.Left then
-                        v98(v121 + 1);
+                    local v135 = v20(v110, l_current_7);
+                    if v133 == Enum.SwipeDirection.Left then
+                        v112(v135 + 1);
                         return;
                     else
-                        if v119 == Enum.SwipeDirection.Right then
-                            v98(v121 - 1);
+                        if v133 == Enum.SwipeDirection.Right then
+                            v112(v135 - 1);
                         end;
                         return;
                     end;
@@ -396,12 +476,12 @@ return function(v96, v97, v98) --[[ Line: 372 ]]
             end;
         end;
     end, {});
-    l_useEventConnection_0(l_UserInputService_0.TouchSwipe, v122);
+    l_useEventConnection_0(l_UserInputService_0.TouchSwipe, v136);
     v7.useEffect(function() --[[ Line: 473 ]]
-        -- upvalues: l_ContextActionService_0 (ref), v104 (copy), l_current_4 (copy), v99 (copy), v19 (ref), v20 (ref), v96 (copy), v98 (copy)
-        l_ContextActionService_0:BindCoreAction("CapturesCarouselNavigateShortcutAction", function(_, v124, v125) --[[ Line: 474 ]]
-            -- upvalues: v104 (ref), l_current_4 (ref), v99 (ref), v19 (ref), v20 (ref), v96 (ref), v98 (ref)
-            local l_current_8 = v104.current;
+        -- upvalues: l_ContextActionService_0 (ref), v118 (copy), l_current_4 (copy), v113 (copy), v19 (ref), v20 (ref), v110 (copy), v112 (copy)
+        l_ContextActionService_0:BindCoreAction("CapturesCarouselNavigateShortcutAction", function(_, v138, v139) --[[ Line: 474 ]]
+            -- upvalues: v118 (ref), l_current_4 (ref), v113 (ref), v19 (ref), v20 (ref), v110 (ref), v112 (ref)
+            local l_current_8 = v118.current;
             if not l_current_8 then
                 return;
             else
@@ -409,14 +489,14 @@ return function(v96, v97, v98) --[[ Line: 372 ]]
                 if l_current_4.getIsNavigationLocked() then
                     return;
                 else
-                    if v124 == Enum.UserInputState.End then
-                        v99.fireEvent(v19.CapturesCarouselNavigatedByKeyboard);
-                        local v127 = v20(v96, l_current_8);
-                        if v125.KeyCode == Enum.KeyCode.Left then
-                            v98(v127 - 1);
+                    if v138 == Enum.UserInputState.End then
+                        v113.fireEvent(v19.CapturesCarouselNavigatedByKeyboard);
+                        local v141 = v20(v110, l_current_8);
+                        if v139.KeyCode == Enum.KeyCode.Left then
+                            v112(v141 - 1);
                             return;
-                        elseif v125.KeyCode == Enum.KeyCode.Right then
-                            v98(v127 + 1);
+                        elseif v139.KeyCode == Enum.KeyCode.Right then
+                            v112(v141 + 1);
                         end;
                     end;
                     return;
@@ -428,47 +508,47 @@ return function(v96, v97, v98) --[[ Line: 372 ]]
             l_ContextActionService_0:UnbindCoreAction("CapturesCarouselNavigateShortcutAction");
         end;
     end, {});
-    local v130 = v7.useCallback(function(v128, v129) --[[ Line: 501 ]]
-        -- upvalues: l_current_4 (copy), l_UserGameSettings_0 (ref), v106 (copy)
+    local v144 = v7.useCallback(function(v142, v143) --[[ Line: 501 ]]
+        -- upvalues: l_current_4 (copy), l_UserGameSettings_0 (ref), v120 (copy)
         if l_current_4.getIsNavigationLocked() then
             return;
         elseif l_UserGameSettings_0.ReducedMotion then
-            v106(v128, v129);
+            v120(v142, v143);
             return;
         else
-            l_current_4.onInputBegan(v128, v129);
-            v106(v128, v129);
+            l_current_4.onInputBegan(v142, v143);
+            v120(v142, v143);
             return;
         end;
     end, {
         l_current_4.onInputBegan, 
-        v106
+        v120
     });
-    local v133 = v7.useCallback(function(v131, v132) --[[ Line: 515 ]]
-        -- upvalues: l_FFlagUseMediaPlayerInCarousel_0 (ref), v110 (copy), l_current_4 (copy), v107 (copy)
-        if l_FFlagUseMediaPlayerInCarousel_0 and v110 == "Touch" and not l_current_4.getWasTouched() then
-            l_current_4.onInputBegan(v131, v132);
+    local v147 = v7.useCallback(function(v145, v146) --[[ Line: 515 ]]
+        -- upvalues: l_FFlagUseMediaPlayerInCarousel_0 (ref), v124 (copy), l_current_4 (copy), v121 (copy)
+        if l_FFlagUseMediaPlayerInCarousel_0 and v124 == "Touch" and not l_current_4.getWasTouched() then
+            l_current_4.onInputBegan(v145, v146);
         end;
-        v107(v131, v132);
+        v121(v145, v146);
     end, {
-        v107
+        v121
     });
-    local v135 = v7.useCallback(function(v134) --[[ Line: 522 ]]
-        -- upvalues: l_current_4 (copy), v101 (copy), v103 (copy), v96 (copy), v97 (copy)
-        l_current_4.handleDeleteTransition(v101, v103, v96, v97, false, v134);
+    local v149 = v7.useCallback(function(v148) --[[ Line: 522 ]]
+        -- upvalues: l_current_4 (copy), v115 (copy), v117 (copy), v110 (copy), v111 (copy)
+        l_current_4.handleDeleteTransition(v115, v117, v110, v111, false, v148);
     end, {
-        v96, 
-        v97, 
-        v101
+        v110, 
+        v111, 
+        v115
     });
     return {
-        carouselInputBegan = v130, 
-        carouselInputEnded = v133, 
-        carouselRef = v104, 
-        deleteSelectedItem = v135, 
-        postDeletionItemBinding = v102, 
-        selectedItemFadeOutBinding = v100, 
-        selectedItemRef = v109, 
+        carouselInputBegan = v144, 
+        carouselInputEnded = v147, 
+        carouselRef = v118, 
+        deleteSelectedItem = v149, 
+        postDeletionItemBinding = v116, 
+        selectedItemFadeOutBinding = v114, 
+        selectedItemRef = v123, 
         setIsNavigationLocked = l_current_4.setIsNavigationLocked
     };
 end;

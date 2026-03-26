@@ -137,17 +137,27 @@ local function _(v38, v39) --[[ Line: 127 ]] --[[ Name: load ]]
     end;
     return nil;
 end;
-local function v45(v42) --[[ Line: 140 ]] --[[ Name: getValue ]]
-    -- upvalues: l_FFlagEnableUnibarFtuxTooltips_0 (copy), v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy)
+local function v47(v42) --[[ Line: 140 ]] --[[ Name: getValue ]]
+    -- upvalues: l_FFlagEnableUnibarFtuxTooltips_0 (copy), v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy)
+    local v43 = false;
     if l_FFlagEnableUnibarFtuxTooltips_0 then
         local l_v14_0 = v14;
         if not v9 then
             v21();
         end;
         if v9 then
-            local v44 = l_v14_0 and l_v14_0(v8) or v8;
-            if v44 then
-                return (v27(v44[v42]));
+            local v45;
+            if l_v14_0 then
+                local l_v8_0 = v8;
+                v45 = if l_v8_0 and l_v8_0.LocalPlayer and l_v8_0.LocalPlayer[v11] then l_v8_0.LocalPlayer[v11] else l_v8_0;
+                v43 = v45;
+            end;
+            if not v43 then
+                v45 = v8;
+            end;
+            v43 = false;
+            if v45 then
+                return (v27(v45[v42]));
             end;
         end;
         return nil;
@@ -155,147 +165,226 @@ local function v45(v42) --[[ Line: 140 ]] --[[ Name: getValue ]]
         return nil;
     end;
 end;
-local function v51(v46) --[[ Line: 148 ]] --[[ Name: getUniversesExposedTo ]]
-    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy)
-    local v47 = false;
+local function v55(v48) --[[ Line: 148 ]] --[[ Name: getUniversesExposedTo ]]
+    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy)
+    local v49 = false;
+    local v50 = false;
     local l_v14_1 = v14;
     if not v9 then
         v21();
     end;
-    local v49;
+    local v52;
     if v9 then
-        local v50 = l_v14_1 and l_v14_1(v8) or v8;
-        if v50 then
-            v49 = v27(v50[v46]);
-            v47 = true;
+        local v53;
+        if l_v14_1 then
+            local l_v8_1 = v8;
+            v53 = if l_v8_1 and l_v8_1.LocalPlayer and l_v8_1.LocalPlayer[v11] then l_v8_1.LocalPlayer[v11] else l_v8_1;
+            v49 = v53;
+        end;
+        if not v49 then
+            v53 = v8;
+        end;
+        v49 = false;
+        if v53 then
+            v52 = v27(v53[v48]);
+            v50 = true;
         end;
     end;
-    if not v47 then
-        v49 = nil;
+    if not v50 then
+        v52 = nil;
     end;
-    v47 = false;
-    if not v49 then
+    v50 = false;
+    if not v52 then
         return {};
     else
-        return v49;
+        return v52;
     end;
 end;
-local function v60(v52, v53) --[[ Line: 156 ]] --[[ Name: addUniverseToExposureList ]]
-    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy), v5 (copy), v26 (copy)
-    local v54 = false;
+local function v68(v56, v57) --[[ Line: 156 ]] --[[ Name: addUniverseToExposureList ]]
+    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy), v5 (copy), v26 (copy)
+    local v58 = false;
+    local v59 = false;
+    local v60 = false;
     local l_v14_2 = v14;
     if not v9 then
         v21();
     end;
-    local v56;
+    local v62;
     if v9 then
-        local v57 = l_v14_2 and l_v14_2(v8) or v8;
-        if v57 then
-            v56 = v27(v57[v52]);
-            v54 = true;
+        local v63;
+        if l_v14_2 then
+            local l_v8_2 = v8;
+            v63 = if l_v8_2 and l_v8_2.LocalPlayer and l_v8_2.LocalPlayer[v11] then l_v8_2.LocalPlayer[v11] else l_v8_2;
+            v58 = v63;
+        end;
+        if not v58 then
+            v63 = v8;
+        end;
+        v58 = false;
+        if v63 then
+            v62 = v27(v63[v56]);
+            v59 = true;
         end;
     end;
-    if not v54 then
-        v56 = nil;
+    if not v59 then
+        v62 = nil;
     end;
-    v54 = false;
-    local v58 = if not v56 then {} else v56;
-    if not table.find(v58, v53) and #v58 < v5.MAX_NUM_UNIVERSES_SHOWN then
-        table.insert(v58, v53);
-        v56 = v14;
+    v59 = false;
+    local v65 = if not v62 then {} else v62;
+    if not table.find(v65, v57) and #v65 < v5.MAX_NUM_UNIVERSES_SHOWN then
+        table.insert(v65, v57);
+        v62 = v14;
         if not v9 then
             v21();
         end;
         if v9 then
-            l_v14_2 = v56 and v56(v8) or v8;
-            local v59 = l_v14_2[v52];
-            l_v14_2[v52] = v27(v58);
-            if v59 ~= l_v14_2[v52] then
+            if v62 then
+                local l_v8_3 = v8;
+                l_v14_2 = if l_v8_3 and l_v8_3.LocalPlayer and l_v8_3.LocalPlayer[v11] then l_v8_3.LocalPlayer[v11] else l_v8_3;
+                v60 = l_v14_2;
+            end;
+            if not v60 then
+                l_v14_2 = v8;
+            end;
+            v60 = false;
+            local v67 = l_v14_2[v56];
+            l_v14_2[v56] = v27(v65);
+            if v67 ~= l_v14_2[v56] then
                 v26();
             end;
         end;
     end;
 end;
-local function v66(v61) --[[ Line: 165 ]] --[[ Name: getNumUniversesExposedTo ]]
-    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy)
-    local v62 = false;
+local function v76(v69) --[[ Line: 165 ]] --[[ Name: getNumUniversesExposedTo ]]
+    -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy)
+    local v70 = false;
+    local v71 = false;
     local l_v14_3 = v14;
     if not v9 then
         v21();
     end;
-    local v64;
+    local v73;
     if v9 then
-        local v65 = l_v14_3 and l_v14_3(v8) or v8;
-        if v65 then
-            v64 = v27(v65[v61]);
-            v62 = true;
+        local v74;
+        if l_v14_3 then
+            local l_v8_4 = v8;
+            v74 = if l_v8_4 and l_v8_4.LocalPlayer and l_v8_4.LocalPlayer[v11] then l_v8_4.LocalPlayer[v11] else l_v8_4;
+            v70 = v74;
+        end;
+        if not v70 then
+            v74 = v8;
+        end;
+        v70 = false;
+        if v74 then
+            v73 = v27(v74[v69]);
+            v71 = true;
         end;
     end;
-    if not v62 then
-        v64 = nil;
+    if not v71 then
+        v73 = nil;
     end;
-    v62 = false;
-    return #if not v64 then {} else v64;
+    v71 = false;
+    return #if not v73 then {} else v73;
 end;
 return {
     isEnabled = function() --[[ Line: 171 ]] --[[ Name: isEnabled ]]
         -- upvalues: l_game_EngineFeature_0 (copy)
         return l_game_EngineFeature_0;
     end, 
-    storeForLocalPlayer = function(v67, v68) --[[ Line: 174 ]] --[[ Name: storeForLocalPlayer ]]
-        -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy), v26 (copy)
+    storeForLocalPlayer = function(v77, v78) --[[ Line: 174 ]] --[[ Name: storeForLocalPlayer ]]
+        -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy), v26 (copy)
+        local v79 = false;
         local l_v14_4 = v14;
         if not v9 then
             v21();
         end;
         if v9 then
-            local v70 = l_v14_4 and l_v14_4(v8) or v8;
-            local v71 = v70[v67];
-            v70[v67] = v27(v68);
-            if v71 ~= v70[v67] then
+            local v81;
+            if l_v14_4 then
+                local l_v8_5 = v8;
+                v81 = if l_v8_5 and l_v8_5.LocalPlayer and l_v8_5.LocalPlayer[v11] then l_v8_5.LocalPlayer[v11] else l_v8_5;
+                v79 = v81;
+            end;
+            if not v79 then
+                v81 = v8;
+            end;
+            v79 = false;
+            local v83 = v81[v77];
+            v81[v77] = v27(v78);
+            if v83 ~= v81[v77] then
                 v26();
             end;
         end;
     end, 
-    loadForLocalPlayer = function(v72) --[[ Line: 177 ]] --[[ Name: loadForLocalPlayer ]]
-        -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy)
+    loadForLocalPlayer = function(v84) --[[ Line: 177 ]] --[[ Name: loadForLocalPlayer ]]
+        -- upvalues: v14 (copy), v9 (ref), v21 (copy), v8 (ref), v11 (copy), v27 (copy)
+        local v85 = false;
         local l_v14_5 = v14;
         if not v9 then
             v21();
         end;
         if v9 then
-            local v74 = l_v14_5 and l_v14_5(v8) or v8;
-            if v74 then
-                return (v27(v74[v72]));
+            local v87;
+            if l_v14_5 then
+                local l_v8_6 = v8;
+                v87 = if l_v8_6 and l_v8_6.LocalPlayer and l_v8_6.LocalPlayer[v11] then l_v8_6.LocalPlayer[v11] else l_v8_6;
+                v85 = v87;
+            end;
+            if not v85 then
+                v87 = v8;
+            end;
+            v85 = false;
+            if v87 then
+                return (v27(v87[v84]));
             end;
         end;
         return nil;
     end, 
-    storeForAnyPlayer = function(v75, v76) --[[ Line: 181 ]] --[[ Name: storeForAnyPlayer ]]
+    storeForAnyPlayer = function(v89, v90) --[[ Line: 181 ]] --[[ Name: storeForAnyPlayer ]]
         -- upvalues: v16 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy), v26 (copy)
+        local v91 = false;
         local l_v16_0 = v16;
         if not v9 then
             v21();
         end;
         if v9 then
-            local v78 = l_v16_0 and l_v16_0(v8) or v8;
-            local v79 = v78[v75];
-            v78[v75] = v27(v76);
-            if v79 ~= v78[v75] then
+            local v93;
+            if l_v16_0 then
+                local l_v8_7 = v8;
+                v93 = if l_v8_7 and l_v8_7.AnyPlayer then l_v8_7.AnyPlayer else l_v8_7;
+                v91 = v93;
+            end;
+            if not v91 then
+                v93 = v8;
+            end;
+            v91 = false;
+            local v95 = v93[v89];
+            v93[v89] = v27(v90);
+            if v95 ~= v93[v89] then
                 v26();
             end;
         end;
     end, 
-    loadForAnyPlayer = function(v80) --[[ Line: 184 ]] --[[ Name: loadForAnyPlayer ]]
+    loadForAnyPlayer = function(v96) --[[ Line: 184 ]] --[[ Name: loadForAnyPlayer ]]
         -- upvalues: v16 (copy), v9 (ref), v21 (copy), v8 (ref), v27 (copy)
+        local v97 = false;
         local l_v16_1 = v16;
         if not v9 then
             v21();
         end;
         if v9 then
-            local v82 = l_v16_1 and l_v16_1(v8) or v8;
-            if v82 then
-                return (v27(v82[v80]));
+            local v99;
+            if l_v16_1 then
+                local l_v8_8 = v8;
+                v99 = if l_v8_8 and l_v8_8.AnyPlayer then l_v8_8.AnyPlayer else l_v8_8;
+                v97 = v99;
+            end;
+            if not v97 then
+                v99 = v8;
+            end;
+            v97 = false;
+            if v99 then
+                return (v27(v99[v96]));
             end;
         end;
         return nil;
@@ -305,8 +394,8 @@ return {
         v9 = false;
         v8 = nil;
     end, 
-    getValue = v45, 
-    getUniversesExposedTo = v51, 
-    getNumUniversesExposedTo = v66, 
-    addUniverseToExposureList = v60
+    getValue = v47, 
+    getUniversesExposedTo = v55, 
+    getNumUniversesExposedTo = v76, 
+    addUniverseToExposureList = v68
 };

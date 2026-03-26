@@ -800,8 +800,8 @@ local function v109(v102, v103, v104) --[[ Line: 769 ]] --[[ Name: getErrorStrin
         end;
     end;
 end;
-local function v114(v110, v111, v112) --[[ Line: 823 ]] --[[ Name: updateErrorPrompt ]]
-    -- upvalues: v85 (copy), l_NONE_0 (ref), v61 (copy), v57 (ref), v79 (copy), v99 (copy), v109 (copy), l_pcall_0 (copy), v31 (copy)
+local function v116(v110, v111, v112) --[[ Line: 823 ]] --[[ Name: updateErrorPrompt ]]
+    -- upvalues: v85 (copy), l_NONE_0 (ref), v61 (copy), v57 (ref), v79 (copy), v99 (copy), v56 (copy), v109 (copy), l_pcall_0 (copy), v31 (copy)
     local v113 = v85(v112, v111, l_NONE_0);
     if v113 ~= l_NONE_0 then
         if l_NONE_0 == v61.IS_RECONNECTING then
@@ -810,7 +810,19 @@ local function v114(v110, v111, v112) --[[ Line: 823 ]] --[[ Name: updateErrorPr
         l_NONE_0 = v113;
         v79(v113);
     end;
-    v110 = if v111 == Enum.ConnectionError.PlacelaunchCreatorBan then v99(v110) else if v112 == Enum.ConnectionError.TeleportErrors and l_NONE_0 ~= v61.TELEPORT_FAILED then v109(v110, v111, true) else v109(v110, v111);
+    if v111 == Enum.ConnectionError.PlacelaunchCreatorBan then
+        v110 = v99(v110);
+    elseif v112 == Enum.ConnectionError.TeleportErrors and l_NONE_0 ~= v61.TELEPORT_FAILED then
+        local _ = v110;
+        if v111 == Enum.ConnectionError.OK then
+            v110 = "";
+        else
+            local v115 = v56("InGame.ConnectionError.ReconnectFailed");
+            v110 = if v115 ~= "" then v115 else "Reconnect was unsuccessful. Please try again.";
+        end;
+    else
+        v110 = v109(v110, v111);
+    end;
     if l_NONE_0 == v61.RECONNECT_DISABLED then
         v110 = l_pcall_0;
     end;
@@ -823,14 +835,14 @@ local function v114(v110, v111, v112) --[[ Line: 823 ]] --[[ Name: updateErrorPr
         end;
     end;
 end;
-local function v118() --[[ Line: 854 ]] --[[ Name: onErrorMessageChanged ]]
-    -- upvalues: l_GuiService_0 (copy), v114 (copy)
+local function v120() --[[ Line: 854 ]] --[[ Name: onErrorMessageChanged ]]
+    -- upvalues: l_GuiService_0 (copy), v116 (copy)
     local l_l_GuiService_0_ErrorMessage_0 = l_GuiService_0:GetErrorMessage();
     local l_l_GuiService_0_ErrorCode_0 = l_GuiService_0:GetErrorCode();
     local l_l_GuiService_0_ErrorType_0 = l_GuiService_0:GetErrorType();
-    v114(l_l_GuiService_0_ErrorMessage_0, l_l_GuiService_0_ErrorCode_0, l_l_GuiService_0_ErrorType_0);
+    v116(l_l_GuiService_0_ErrorMessage_0, l_l_GuiService_0_ErrorCode_0, l_l_GuiService_0_ErrorType_0);
 end;
-local function v121() --[[ Line: 861 ]] --[[ Name: onScreenSizeChanged ]]
+local function v123() --[[ Line: 861 ]] --[[ Name: onScreenSizeChanged ]]
     -- upvalues: v57 (ref), l_RobloxGui_0 (copy), l_X_0 (ref), l_Y_0 (ref)
     if not v57 then
         return;
@@ -845,14 +857,14 @@ local function v121() --[[ Line: 861 ]] --[[ Name: onScreenSizeChanged ]]
         return;
     end;
 end;
-l_RobloxGui_0:GetPropertyChangedSignal("AbsoluteSize"):connect(v121);
-v114(l_GuiService_0:GetErrorMessage(), l_GuiService_0:GetErrorCode(), (l_GuiService_0:GetErrorType()));
-l_GuiService_0.ErrorMessageChanged:connect(v118);
+l_RobloxGui_0:GetPropertyChangedSignal("AbsoluteSize"):connect(v123);
+v116(l_GuiService_0:GetErrorMessage(), l_GuiService_0:GetErrorCode(), (l_GuiService_0:GetErrorType()));
+l_GuiService_0.ErrorMessageChanged:connect(v120);
 if v17 then
-    local v122 = require(l_RobloxGui_0.Modules.ErrorTestSets);
-    for v123, v124 in pairs(v122) do
-        for _, v126 in pairs(v124) do
-            v114("Should show localized strings, please file a jira ticket for missing translation.", v126, v123);
+    local v124 = require(l_RobloxGui_0.Modules.ErrorTestSets);
+    for v125, v126 in pairs(v124) do
+        for _, v128 in pairs(v126) do
+            v116("Should show localized strings, please file a jira ticket for missing translation.", v128, v125);
             wait(2);
             l_NONE_0 = v61.NONE;
         end;
@@ -861,9 +873,9 @@ end;
 if l_game_EngineFeature_0 then
     l_GuiService_0.CoreGuiRenderOverflowed:Connect(function() --[[ Line: 897 ]]
         -- upvalues: l_CoreGui_0 (copy)
-        for _, v128 in pairs(l_CoreGui_0:GetChildren()) do
-            if v128:IsA("ScreenGui") and v128.Name ~= "RobloxPromptGui" then
-                v128.Enabled = false;
+        for _, v130 in pairs(l_CoreGui_0:GetChildren()) do
+            if v130:IsA("ScreenGui") and v130.Name ~= "RobloxPromptGui" then
+                v130.Enabled = false;
             end;
         end;
     end);

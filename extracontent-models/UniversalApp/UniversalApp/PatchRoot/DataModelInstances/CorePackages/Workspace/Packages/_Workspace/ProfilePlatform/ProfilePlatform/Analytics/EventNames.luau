@@ -26,6 +26,7 @@ return {
     CTAButtonOpenEditProfilePage = "CTAButtonOpenEditProfilePage", 
     CTAButtonChat = "CTAButtonChat", 
     CTAButtonEditAvatar = "CTAButtonEditAvatar", 
+    CTAButtonEditLook = "CTAButtonEditLook", 
     CTAButtonAddFriend = "CTAButtonAddFriend", 
     CTAButtonAcceptFriendRequest = "CTAButtonAcceptFriendRequest", 
     CTAButtonUnfriend = "CTAButtonUnfriend", 

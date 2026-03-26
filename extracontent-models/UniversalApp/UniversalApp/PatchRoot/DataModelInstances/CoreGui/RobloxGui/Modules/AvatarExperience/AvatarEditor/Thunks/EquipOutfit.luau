@@ -99,8 +99,8 @@ local function v52(v39, v40) --[[ Line: 80 ]] --[[ Name: logFacialAnimationChang
             itemId = tostring(v43), 
             elementMetadata = l_HttpService_0:JSONEncode({
                 trigger = "HEAD_CHANGE", 
-                change_from_FACS_status = v45 == nil or not v45, 
-                change_to_FACS_status = v49 == nil or not v49
+                change_from_FACS_status = tostring(not v45), 
+                change_to_FACS_status = tostring(not v49)
             })
         });
     end;

@@ -44,21 +44,22 @@ local l_FFlagEnablePlayWithRewardComponent_0 = require(l_CorePackages_0.Workspac
 local l_FFlagEnableUserListModule_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableUserListModule;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyDefault_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyDefault;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
-local function _(v46, v47) --[[ Line: 57 ]] --[[ Name: globalActionReducer ]]
+local v46 = if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUseSignalsRoduxStore then require(l_CorePackages_0.Workspace.Packages.SignalsRodux).combineReducers else v2.combineReducers;
+local function _(v47, v48) --[[ Line: 62 ]] --[[ Name: globalActionReducer ]]
     -- upvalues: v4 (copy)
-    if v47.type == v4.name then
-        v46 = {
-            ScreenSize = v46.ScreenSize, 
-            DeviceOrientation = v46.DeviceOrientation, 
-            FormFactor = v46.FormFactor, 
-            GlobalGuiInset = v46.GlobalGuiInset, 
-            TopBar = v46.TopBar, 
-            AuthenticationStatus = v46.AuthenticationStatus
+    if v48.type == v4.name then
+        v47 = {
+            ScreenSize = v47.ScreenSize, 
+            DeviceOrientation = v47.DeviceOrientation, 
+            FormFactor = v47.FormFactor, 
+            GlobalGuiInset = v47.GlobalGuiInset, 
+            TopBar = v47.TopBar, 
+            AuthenticationStatus = v47.AuthenticationStatus
         };
     end;
-    return v46;
+    return v47;
 end;
-local v49 = v2.combineReducers({
+local v50 = v46({
     DeviceOrientation = require(l_Modules_0.LuaApp.Reducers.DeviceOrientation), 
     TopBar = require(l_Modules_0.LuaApp.Reducers.TopBar), 
     SiteMessage = require(l_Modules_0.LuaApp.Reducers.SiteMessage), 
@@ -192,19 +193,19 @@ local v49 = v2.combineReducers({
     PlayWithRewardState = if l_FFlagEnablePlayWithRewardComponent_0 then require(l_CorePackages_0.Workspace.Packages.PlayWithRewardState).PlayWithRewardState else nil, 
     TextSearchResults = require(l_Modules_0.LuaApp.Components.Search.Reducers.TextSearchResults)
 });
-return function(v50, v51) --[[ Line: 245 ]]
-    -- upvalues: v49 (copy), v4 (copy)
-    local l_v49_0 = v49;
+return function(v51, v52, v53) --[[ Line: 250 ]]
+    -- upvalues: v50 (copy), v4 (copy)
     local l_v50_0 = v50;
-    if v51.type == v4.name then
-        l_v50_0 = {
-            ScreenSize = l_v50_0.ScreenSize, 
-            DeviceOrientation = l_v50_0.DeviceOrientation, 
-            FormFactor = l_v50_0.FormFactor, 
-            GlobalGuiInset = l_v50_0.GlobalGuiInset, 
-            TopBar = l_v50_0.TopBar, 
-            AuthenticationStatus = l_v50_0.AuthenticationStatus
+    local l_v51_0 = v51;
+    if v52.type == v4.name then
+        l_v51_0 = {
+            ScreenSize = l_v51_0.ScreenSize, 
+            DeviceOrientation = l_v51_0.DeviceOrientation, 
+            FormFactor = l_v51_0.FormFactor, 
+            GlobalGuiInset = l_v51_0.GlobalGuiInset, 
+            TopBar = l_v51_0.TopBar, 
+            AuthenticationStatus = l_v51_0.AuthenticationStatus
         };
     end;
-    return l_v49_0(l_v50_0, v51);
+    return l_v50_0(l_v51_0, v52, v53);
 end;

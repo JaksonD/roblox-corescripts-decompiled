@@ -13,193 +13,205 @@ local v11 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.GrantOutfi
 local v12 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RevokeOutfit);
 local v13 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.UpdateOutfit);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local v15 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
-local v16 = require(l_Modules_0.AvatarExperience.AvatarEditor.GetAvatarEditorStructure);
-local function _() --[[ Line: 23 ]] --[[ Name: GetAssetTypeToSearchUuids ]]
-    -- upvalues: v16 (copy)
-    return v16().AssetTypeToSearchUuids;
+local v15 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v16 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
+local v17 = require(l_Modules_0.AvatarExperience.AvatarEditor.GetAvatarEditorStructure);
+local l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXFixMakeupLookGrantOutfitHoisting;
+local function _() --[[ Line: 27 ]] --[[ Name: GetAssetTypeToSearchUuids ]]
+    -- upvalues: v17 (copy)
+    return v17().AssetTypeToSearchUuids;
 end;
 return v2.createReducer({}, {
-    [v5.name] = function(v18, v19) --[[ Line: 35 ]]
+    [v5.name] = function(v20, v21) --[[ Line: 39 ]]
         -- upvalues: v3 (copy)
-        local v20 = {};
-        local v21 = v18[v19.itemSubType] and v18[v19.itemSubType] or {};
-        for _, v23 in v21 do
-            v20[v23] = v23;
+        local v22 = {};
+        local v23 = v20[v21.itemSubType] and v20[v21.itemSubType] or {};
+        for _, v25 in v23 do
+            v22[v25] = v25;
         end;
-        for _, v25 in v19.itemIds do
-            if not v20[v25] then
-                v21[#v21 + 1] = v25;
-                v20[v25] = v25;
+        for _, v27 in v21.itemIds do
+            if not v22[v27] then
+                v23[#v23 + 1] = v27;
+                v22[v27] = v27;
             end;
         end;
-        return v3.Dictionary.join(v18, {
-            [v19.itemSubType] = v21
+        return v3.Dictionary.join(v20, {
+            [v21.itemSubType] = v23
         });
     end, 
-    [v6.name] = function(v26, v27) --[[ Line: 57 ]]
-        -- upvalues: v16 (copy), v3 (copy)
-        local v28 = {};
-        local v29 = tostring(v27.assetTypeId);
-        local v30 = tostring(v27.assetId);
-        local v31 = v16().AssetTypeToSearchUuids[v29];
-        if not v31 then
-            return v26;
+    [v6.name] = function(v28, v29) --[[ Line: 61 ]]
+        -- upvalues: v17 (copy), v3 (copy)
+        local v30 = {};
+        local v31 = tostring(v29.assetTypeId);
+        local v32 = tostring(v29.assetId);
+        local v33 = v17().AssetTypeToSearchUuids[v31];
+        if not v33 then
+            return v28;
         else
-            for _, v33 in v31 do
-                local v34 = v26[v33] and v26[v33] or {};
-                local v35 = {
-                    v30
+            for _, v35 in v33 do
+                local v36 = v28[v35] and v28[v35] or {};
+                local v37 = {
+                    v32
                 };
-                local v36 = false;
-                for v37, v38 in v34 do
-                    if v38 == v30 then
-                        v36 = true;
+                local v38 = false;
+                for v39, v40 in v36 do
+                    if v40 == v32 then
+                        v38 = true;
                         break;
                     else
-                        v35[v37 + 1] = v38;
+                        v37[v39 + 1] = v40;
                     end;
                 end;
-                if not v36 then
-                    v28[v33] = v35;
+                if not v38 then
+                    v30[v35] = v37;
                 end;
             end;
-            if next(v28) then
-                return v3.Dictionary.join(v26, v28);
+            if next(v30) then
+                return v3.Dictionary.join(v28, v30);
             else
-                return v26;
+                return v28;
             end;
         end;
     end, 
-    [v7.name] = function(v39, v40) --[[ Line: 101 ]]
-        -- upvalues: v16 (copy), v3 (copy)
-        local v41 = {};
-        local v42 = tostring(v40.assetTypeId);
-        local v43 = tostring(v40.assetId);
-        local v44 = v16().AssetTypeToSearchUuids[v42];
-        if not v44 then
-            return v39;
+    [v7.name] = function(v41, v42) --[[ Line: 105 ]]
+        -- upvalues: v17 (copy), v3 (copy)
+        local v43 = {};
+        local v44 = tostring(v42.assetTypeId);
+        local v45 = tostring(v42.assetId);
+        local v46 = v17().AssetTypeToSearchUuids[v44];
+        if not v46 then
+            return v41;
         else
-            for _, v46 in v44 do
-                local v47 = v39[v46] and v39[v46] or {};
-                local v48 = v3.List.removeValue(v47, v43);
-                if #v47 ~= #v48 then
-                    v41[v46] = v48;
+            for _, v48 in v46 do
+                local v49 = v41[v48] and v41[v48] or {};
+                local v50 = v3.List.removeValue(v49, v45);
+                if #v49 ~= #v50 then
+                    v43[v48] = v50;
                 end;
             end;
-            if next(v41) then
-                return v3.Dictionary.join(v39, v41);
+            if next(v43) then
+                return v3.Dictionary.join(v41, v43);
             else
-                return v39;
+                return v41;
             end;
         end;
     end, 
-    [v11.name] = function(v49, v50) --[[ Line: 134 ]]
+    [v11.name] = function(v51, v52) --[[ Line: 138 ]]
         -- upvalues: v3 (copy)
-        local v51 = tostring(v50.outfitId);
-        local l_outfitTypeId_0 = v50.outfitTypeId;
-        local v53 = v49[l_outfitTypeId_0] or {};
-        local v54 = {
-            v51
+        local v53 = tostring(v52.outfitId);
+        local l_outfitTypeId_0 = v52.outfitTypeId;
+        local v55 = v51[l_outfitTypeId_0] or {};
+        local v56 = {
+            v53
         };
-        for _, v56 in v53 do
-            if v56 == v51 then
-                return v49;
+        for _, v58 in v55 do
+            if v58 == v53 then
+                return v51;
             else
-                table.insert(v54, v56);
+                table.insert(v56, v58);
             end;
         end;
-        return v3.Dictionary.join(v49, {
-            [l_outfitTypeId_0] = v54
+        return v3.Dictionary.join(v51, {
+            [l_outfitTypeId_0] = v56
         });
     end, 
-    [v8.name] = function(v57, v58) --[[ Line: 157 ]]
-        -- upvalues: v15 (copy), v3 (copy)
-        local v59 = tostring(v58.outfitId);
-        local v60 = v57[v15.CharacterKey] or {};
-        local v61 = {
-            v59
+    [v8.name] = function(v59, v60) --[[ Line: 161 ]]
+        -- upvalues: v16 (copy), v3 (copy)
+        local v61 = tostring(v60.outfitId);
+        local v62 = v59[v16.CharacterKey] or {};
+        local v63 = {
+            v61
         };
-        for v62, v63 in v60 do
-            if v63 == v59 then
-                return v57;
+        for v64, v65 in v62 do
+            if v65 == v61 then
+                return v59;
             else
-                v61[v62 + 1] = v63;
+                v63[v64 + 1] = v65;
             end;
         end;
-        return v3.Dictionary.join(v57, {
-            [v15.CharacterKey] = v61
+        return v3.Dictionary.join(v59, {
+            [v16.CharacterKey] = v63
         });
     end, 
-    [v9.name] = function(v64, v65) --[[ Line: 178 ]]
-        -- upvalues: v15 (copy), v3 (copy)
-        local v66 = tostring(v65.outfitId);
-        local v67 = v64[v15.EditableCharacterKey] or {};
-        local v68 = {
-            v66
+    [v9.name] = function(v66, v67) --[[ Line: 182 ]]
+        -- upvalues: v16 (copy), v3 (copy)
+        local v68 = tostring(v67.outfitId);
+        local v69 = v66[v16.EditableCharacterKey] or {};
+        local v70 = {
+            v68
         };
-        for v69, v70 in v67 do
-            if v70 == v66 then
-                return v64;
+        for v71, v72 in v69 do
+            if v72 == v68 then
+                return v66;
             else
-                v68[v69 + 1] = v70;
+                v70[v71 + 1] = v72;
             end;
         end;
-        return v3.Dictionary.join(v64, {
-            [v15.EditableCharacterKey] = v68
+        return v3.Dictionary.join(v66, {
+            [v16.EditableCharacterKey] = v70
         });
     end, 
-    [v10.name] = function(v71, v72) --[[ Line: 199 ]]
-        -- upvalues: v15 (copy), v3 (copy)
-        local v73 = tostring(v72.outfitId);
-        local v74 = v71[v15.PurchasedCharacterKey] or {};
-        local v75 = {
-            v73
+    [v10.name] = function(v73, v74) --[[ Line: 203 ]]
+        -- upvalues: v16 (copy), v3 (copy)
+        local v75 = tostring(v74.outfitId);
+        local v76 = v73[v16.PurchasedCharacterKey] or {};
+        local v77 = {
+            v75
         };
-        for v76, v77 in v74 do
-            if v77 == v73 then
-                return v71;
+        for v78, v79 in v76 do
+            if v79 == v75 then
+                return v73;
             else
-                v75[v76 + 1] = v77;
+                v77[v78 + 1] = v79;
             end;
         end;
-        return v3.Dictionary.join(v71, {
-            [v15.PurchasedCharacterKey] = v75
+        return v3.Dictionary.join(v73, {
+            [v16.PurchasedCharacterKey] = v77
         });
     end, 
-    [v13.name] = function(v78, v79) --[[ Line: 221 ]]
-        -- upvalues: v15 (copy), v3 (copy)
-        local v80 = tostring(v79.outfitId);
-        local v81 = v78[v15.CharacterKey] or {};
-        local v82 = v78[v15.EditableCharacterKey] or {};
-        local v83 = nil;
-        local v84 = nil;
-        if v79.isEditable then
-            v83 = v81;
-            v84 = v3.List.join({
-                v80
-            }, v3.List.removeValue(v82, v80));
+    [v13.name] = function(v80, v81) --[[ Line: 225 ]]
+        -- upvalues: l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 (copy), v15 (copy), v16 (copy), v3 (copy)
+        local v82 = tostring(v81.outfitId);
+        if l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 and v81.outfitType == v15.OutfitTypes.Makeup then
+            local v83 = v80[v16.MakeupOutfitKey] or {};
+            local v84 = v3.List.join({
+                v82
+            }, v3.List.removeValue(v83, v82));
+            return v3.Dictionary.join(v80, {
+                [v16.MakeupOutfitKey] = v84
+            });
         else
-            v83 = v3.List.join({
-                v80
-            }, v3.List.removeValue(v81, v80));
-            v84 = v82;
+            local v85 = v80[v16.CharacterKey] or {};
+            local v86 = v80[v16.EditableCharacterKey] or {};
+            local v87 = nil;
+            local v88 = nil;
+            if v81.isEditable then
+                v87 = v85;
+                v88 = v3.List.join({
+                    v82
+                }, v3.List.removeValue(v86, v82));
+            else
+                v87 = v3.List.join({
+                    v82
+                }, v3.List.removeValue(v85, v82));
+                v88 = v86;
+            end;
+            return v3.Dictionary.join(v80, {
+                [v16.CharacterKey] = v87, 
+                [v16.EditableCharacterKey] = v88
+            });
         end;
-        return v3.Dictionary.join(v78, {
-            [v15.CharacterKey] = v83, 
-            [v15.EditableCharacterKey] = v84
-        });
     end, 
-    [v12.name] = function(v85, v86) --[[ Line: 252 ]]
-        -- upvalues: v15 (copy), v3 (copy)
-        local v87 = tostring(v86.outfitId);
-        local v88 = v85[v15.CharacterKey] or {};
-        local v89 = v3.List.removeValue(v88, v87);
-        local v90 = v85[v15.EditableCharacterKey] or {};
-        local v91 = v3.List.removeValue(v90, v87);
-        return v3.Dictionary.join(v85, {
-            [v15.CharacterKey] = v89, 
-            [v15.EditableCharacterKey] = v91
+    [v12.name] = function(v89, v90) --[[ Line: 267 ]]
+        -- upvalues: v16 (copy), v3 (copy)
+        local v91 = tostring(v90.outfitId);
+        local v92 = v89[v16.CharacterKey] or {};
+        local v93 = v3.List.removeValue(v92, v91);
+        local v94 = v89[v16.EditableCharacterKey] or {};
+        local v95 = v3.List.removeValue(v94, v91);
+        return v3.Dictionary.join(v89, {
+            [v16.CharacterKey] = v93, 
+            [v16.EditableCharacterKey] = v95
         });
     end
 });

@@ -7,5 +7,6 @@ return {
     PostUserValidateTrustedFriendLink = require(script.PostUserValidateTrustedFriendLink), 
     PostUserAddTrustedFriendFromLink = require(script.PostUserAddTrustedFriendFromLink), 
     GetUserTrustedConnectionStatus = require(script.GetUserTrustedConnectionStatus), 
-    MultiGetUsersAreTrustedConnections = require(script.MultiGetUsersAreTrustedConnections)
+    MultiGetUsersAreTrustedConnections = require(script.MultiGetUsersAreTrustedConnections), 
+    GetUserTrustedConnections = require(script.GetUserTrustedConnections)
 };

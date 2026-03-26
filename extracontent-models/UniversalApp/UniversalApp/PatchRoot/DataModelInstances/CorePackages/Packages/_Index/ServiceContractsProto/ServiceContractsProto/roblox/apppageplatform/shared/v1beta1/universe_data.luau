@@ -3,7 +3,7 @@ local v1 = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 local v2 = {};
 local v3 = {};
 v3.__index = v3;
-v3.new = function(v4) --[[ Line: 77 ]] --[[ Name: new ]]
+v3.new = function(v4) --[[ Line: 83 ]] --[[ Name: new ]]
     -- upvalues: v3 (copy)
     return (setmetatable({
         id = (not (v4 ~= nil) or v4.id == nil) and 0 or v4.id, 
@@ -25,10 +25,13 @@ v3.new = function(v4) --[[ Line: 77 ]] --[[ Name: new ]]
         updated_date = (not (v4 ~= nil) or v4.updated_date == nil) and "" or v4.updated_date, 
         favorite_count = (not (v4 ~= nil) or v4.favorite_count == nil) and 0 or v4.favorite_count, 
         total_visits = (not (v4 ~= nil) or v4.total_visits == nil) and 0 or v4.total_visits, 
-        canonical_url_path = (not (v4 ~= nil) or v4.canonical_url_path == nil) and "" or v4.canonical_url_path
+        canonical_url_path = (not (v4 ~= nil) or v4.canonical_url_path == nil) and "" or v4.canonical_url_path, 
+        game_minimum_age = (not (v4 ~= nil) or v4.game_minimum_age == nil) and 0 or v4.game_minimum_age, 
+        game_age_display_name = (not (v4 ~= nil) or v4.game_age_display_name == nil) and "" or v4.game_age_display_name, 
+        content_maturity = (not (v4 ~= nil) or v4.content_maturity == nil) and "" or v4.content_maturity
     }, v3));
 end;
-v3.encode = function(v5) --[[ Line: 110 ]] --[[ Name: encode ]]
+v3.encode = function(v5) --[[ Line: 121 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v6 = buffer.create(0);
     local v7 = 0;
@@ -152,349 +155,412 @@ v3.encode = function(v5) --[[ Line: 110 ]] --[[ Name: encode ]]
         v6 = v46;
         v7 = v47;
     end;
-    local v48 = buffer.create(v7);
-    buffer.copy(v48, 0, v6, 0, v7);
-    return v48;
+    if v5.game_minimum_age ~= nil and v5.game_minimum_age ~= 0 then
+        local v48, v49 = v0.writeTag(v6, v7, 21, v0.wireTypes.varint);
+        v48, v49 = v0.writeVarInt(v48, v49, v5.game_minimum_age);
+        v6 = v48;
+        v7 = v49;
+    end;
+    if v5.game_age_display_name ~= nil and v5.game_age_display_name ~= "" then
+        local v50, v51 = v0.writeTag(v6, v7, 22, v0.wireTypes.lengthDelimited);
+        v50, v51 = v0.writeString(v50, v51, v5.game_age_display_name);
+        v6 = v50;
+        v7 = v51;
+    end;
+    if v5.content_maturity ~= nil and v5.content_maturity ~= "" then
+        local v52, v53 = v0.writeTag(v6, v7, 23, v0.wireTypes.lengthDelimited);
+        v52, v53 = v0.writeString(v52, v53, v5.content_maturity);
+        v6 = v52;
+        v7 = v53;
+    end;
+    local v54 = buffer.create(v7);
+    buffer.copy(v54, 0, v6, 0, v7);
+    return v54;
 end;
-v3.decode = function(v49) --[[ Line: 219 ]] --[[ Name: decode ]]
+v3.decode = function(v55) --[[ Line: 245 ]] --[[ Name: decode ]]
     -- upvalues: v3 (copy), v0 (copy)
-    local v50 = v3.new();
-    local v51 = 0;
-    while v51 < buffer.len(v49) do
-        local v52 = nil;
-        local v53 = nil;
-        local v54, v55, v56 = v0.readTag(v49, v51);
-        v52 = v54;
-        v53 = v55;
-        v51 = v56;
-        if v53 == v0.wireTypes.varint then
-            if v52 == 1 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.id = v54;
-            elseif v52 == 4 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.root_place_id = v54;
-            elseif v52 == 6 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.creator_id = v54;
-            elseif v52 == 7 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.player_count = v54;
-            elseif v52 == 8 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.total_up_votes = v54;
-            elseif v52 == 9 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.total_down_votes = v54;
-            elseif v52 == 10 then
-                v54 = nil;
-                v55, v56 = v0.readVarInt(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.is_voice_supported = v54 ~= 0;
-            elseif v52 == 11 then
-                v54 = nil;
-                v55, v56 = v0.readVarInt(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.is_camera_supported = v54 ~= 0;
-            elseif v52 == 15 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.maximum_server_size = v54;
-            elseif v52 == 18 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.favorite_count = v54;
-            elseif v52 == 19 then
-                v54 = nil;
-                v55, v56 = v0.readVarIntI64(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.total_visits = v54;
+    local v56 = v3.new();
+    local v57 = 0;
+    while v57 < buffer.len(v55) do
+        local v58 = nil;
+        local v59 = nil;
+        local v60, v61, v62 = v0.readTag(v55, v57);
+        v58 = v60;
+        v59 = v61;
+        v57 = v62;
+        if v59 == v0.wireTypes.varint then
+            if v58 == 1 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.id = v60;
+            elseif v58 == 4 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.root_place_id = v60;
+            elseif v58 == 6 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.creator_id = v60;
+            elseif v58 == 7 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.player_count = v60;
+            elseif v58 == 8 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.total_up_votes = v60;
+            elseif v58 == 9 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.total_down_votes = v60;
+            elseif v58 == 10 then
+                v60 = nil;
+                v61, v62 = v0.readVarInt(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.is_voice_supported = v60 ~= 0;
+            elseif v58 == 11 then
+                v60 = nil;
+                v61, v62 = v0.readVarInt(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.is_camera_supported = v60 ~= 0;
+            elseif v58 == 15 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.maximum_server_size = v60;
+            elseif v58 == 18 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.favorite_count = v60;
+            elseif v58 == 19 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI64(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.total_visits = v60;
+            elseif v58 == 21 then
+                v60 = nil;
+                v61, v62 = v0.readVarIntI32(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.game_minimum_age = v60;
             else
-                v54 = nil;
-                v55, v56 = v0.readVarInt(v49, v51);
-                v54 = v55;
-                v51 = v56;
+                v60 = nil;
+                v61, v62 = v0.readVarInt(v55, v57);
+                v60 = v61;
+                v57 = v62;
             end;
-        elseif v53 == v0.wireTypes.lengthDelimited then
-            if v52 == 2 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.name = buffer.tostring(v54);
-            elseif v52 == 3 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.description = buffer.tostring(v54);
-            elseif v52 == 5 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.creator_type = buffer.tostring(v54);
-            elseif v52 == 12 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.localized_fiat_price = buffer.tostring(v54);
-            elseif v52 == 13 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.genre_l1 = buffer.tostring(v54);
-            elseif v52 == 14 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.genre_l2 = buffer.tostring(v54);
-            elseif v52 == 16 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.created_date = buffer.tostring(v54);
-            elseif v52 == 17 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.updated_date = buffer.tostring(v54);
-            elseif v52 == 20 then
-                v54 = nil;
-                v55, v56 = v0.readBuffer(v49, v51);
-                v54 = v55;
-                v51 = v56;
-                v50.canonical_url_path = buffer.tostring(v54);
+        elseif v59 == v0.wireTypes.lengthDelimited then
+            if v58 == 2 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.name = buffer.tostring(v60);
+            elseif v58 == 3 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.description = buffer.tostring(v60);
+            elseif v58 == 5 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.creator_type = buffer.tostring(v60);
+            elseif v58 == 12 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.localized_fiat_price = buffer.tostring(v60);
+            elseif v58 == 13 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.genre_l1 = buffer.tostring(v60);
+            elseif v58 == 14 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.genre_l2 = buffer.tostring(v60);
+            elseif v58 == 16 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.created_date = buffer.tostring(v60);
+            elseif v58 == 17 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.updated_date = buffer.tostring(v60);
+            elseif v58 == 20 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.canonical_url_path = buffer.tostring(v60);
+            elseif v58 == 22 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.game_age_display_name = buffer.tostring(v60);
+            elseif v58 == 23 then
+                v60 = nil;
+                v61, v62 = v0.readBuffer(v55, v57);
+                v60 = v61;
+                v57 = v62;
+                v56.content_maturity = buffer.tostring(v60);
             else
-                v54 = nil;
-                v55, v56 = v0.readVarInt(v49, v51);
-                v51 = v56 + v55;
+                v60 = nil;
+                v61, v62 = v0.readVarInt(v55, v57);
+                v57 = v62 + v61;
             end;
-        elseif v53 == v0.wireTypes.i32 then
-            v54 = nil;
-            v55, v56 = v0.readFixed32(v49, v51);
-            v54 = v55;
-            v51 = v56;
-        elseif v53 == v0.wireTypes.i64 then
-            v54 = nil;
-            v55, v56 = v0.readFixed64(v49, v51);
-            v54 = v55;
-            v51 = v56;
+        elseif v59 == v0.wireTypes.i32 then
+            v60 = nil;
+            v61, v62 = v0.readFixed32(v55, v57);
+            v60 = v61;
+            v57 = v62;
+        elseif v59 == v0.wireTypes.i64 then
+            v60 = nil;
+            v61, v62 = v0.readFixed64(v55, v57);
+            v60 = v61;
+            v57 = v62;
         else
-            error("Unsupported wire type: " .. v53);
+            error("Unsupported wire type: " .. v59);
         end;
     end;
-    return v50;
+    return v56;
 end;
-v3.jsonEncode = function(v57) --[[ Line: 357 ]] --[[ Name: jsonEncode ]]
-    local v58 = {};
-    if v57.id ~= nil and v57.id ~= 0 then
-        v58.id = v57.id;
+v3.jsonEncode = function(v63) --[[ Line: 398 ]] --[[ Name: jsonEncode ]]
+    local v64 = {};
+    if v63.id ~= nil and v63.id ~= 0 then
+        v64.id = v63.id;
     end;
-    if v57.name ~= nil and v57.name ~= "" then
-        v58.name = v57.name;
+    if v63.name ~= nil and v63.name ~= "" then
+        v64.name = v63.name;
     end;
-    if v57.description ~= nil and v57.description ~= "" then
-        v58.description = v57.description;
+    if v63.description ~= nil and v63.description ~= "" then
+        v64.description = v63.description;
     end;
-    if v57.root_place_id ~= nil and v57.root_place_id ~= 0 then
-        v58.rootPlaceId = v57.root_place_id;
+    if v63.root_place_id ~= nil and v63.root_place_id ~= 0 then
+        v64.rootPlaceId = v63.root_place_id;
     end;
-    if v57.creator_type ~= nil and v57.creator_type ~= "" then
-        v58.creatorType = v57.creator_type;
+    if v63.creator_type ~= nil and v63.creator_type ~= "" then
+        v64.creatorType = v63.creator_type;
     end;
-    if v57.creator_id ~= nil and v57.creator_id ~= 0 then
-        v58.creatorId = v57.creator_id;
+    if v63.creator_id ~= nil and v63.creator_id ~= 0 then
+        v64.creatorId = v63.creator_id;
     end;
-    if v57.player_count ~= nil and v57.player_count ~= 0 then
-        v58.playerCount = v57.player_count;
+    if v63.player_count ~= nil and v63.player_count ~= 0 then
+        v64.playerCount = v63.player_count;
     end;
-    if v57.total_up_votes ~= nil and v57.total_up_votes ~= 0 then
-        v58.totalUpVotes = v57.total_up_votes;
+    if v63.total_up_votes ~= nil and v63.total_up_votes ~= 0 then
+        v64.totalUpVotes = v63.total_up_votes;
     end;
-    if v57.total_down_votes ~= nil and v57.total_down_votes ~= 0 then
-        v58.totalDownVotes = v57.total_down_votes;
+    if v63.total_down_votes ~= nil and v63.total_down_votes ~= 0 then
+        v64.totalDownVotes = v63.total_down_votes;
     end;
-    if v57.is_voice_supported then
-        v58.isVoiceSupported = v57.is_voice_supported;
+    if v63.is_voice_supported then
+        v64.isVoiceSupported = v63.is_voice_supported;
     end;
-    if v57.is_camera_supported then
-        v58.isCameraSupported = v57.is_camera_supported;
+    if v63.is_camera_supported then
+        v64.isCameraSupported = v63.is_camera_supported;
     end;
-    if v57.localized_fiat_price ~= nil and v57.localized_fiat_price ~= "" then
-        v58.localizedFiatPrice = v57.localized_fiat_price;
+    if v63.localized_fiat_price ~= nil and v63.localized_fiat_price ~= "" then
+        v64.localizedFiatPrice = v63.localized_fiat_price;
     end;
-    if v57.genre_l1 ~= nil and v57.genre_l1 ~= "" then
-        v58.genreL1 = v57.genre_l1;
+    if v63.genre_l1 ~= nil and v63.genre_l1 ~= "" then
+        v64.genreL1 = v63.genre_l1;
     end;
-    if v57.genre_l2 ~= nil and v57.genre_l2 ~= "" then
-        v58.genreL2 = v57.genre_l2;
+    if v63.genre_l2 ~= nil and v63.genre_l2 ~= "" then
+        v64.genreL2 = v63.genre_l2;
     end;
-    if v57.maximum_server_size ~= nil and v57.maximum_server_size ~= 0 then
-        v58.maximumServerSize = v57.maximum_server_size;
+    if v63.maximum_server_size ~= nil and v63.maximum_server_size ~= 0 then
+        v64.maximumServerSize = v63.maximum_server_size;
     end;
-    if v57.created_date ~= nil and v57.created_date ~= "" then
-        v58.createdDate = v57.created_date;
+    if v63.created_date ~= nil and v63.created_date ~= "" then
+        v64.createdDate = v63.created_date;
     end;
-    if v57.updated_date ~= nil and v57.updated_date ~= "" then
-        v58.updatedDate = v57.updated_date;
+    if v63.updated_date ~= nil and v63.updated_date ~= "" then
+        v64.updatedDate = v63.updated_date;
     end;
-    if v57.favorite_count ~= nil and v57.favorite_count ~= 0 then
-        v58.favoriteCount = v57.favorite_count;
+    if v63.favorite_count ~= nil and v63.favorite_count ~= 0 then
+        v64.favoriteCount = v63.favorite_count;
     end;
-    if v57.total_visits ~= nil and v57.total_visits ~= 0 then
-        v58.totalVisits = v57.total_visits;
+    if v63.total_visits ~= nil and v63.total_visits ~= 0 then
+        v64.totalVisits = v63.total_visits;
     end;
-    if v57.canonical_url_path ~= nil and v57.canonical_url_path ~= "" then
-        v58.canonicalUrlPath = v57.canonical_url_path;
+    if v63.canonical_url_path ~= nil and v63.canonical_url_path ~= "" then
+        v64.canonicalUrlPath = v63.canonical_url_path;
     end;
-    return v58;
+    if v63.game_minimum_age ~= nil and v63.game_minimum_age ~= 0 then
+        v64.gameMinimumAge = v63.game_minimum_age;
+    end;
+    if v63.game_age_display_name ~= nil and v63.game_age_display_name ~= "" then
+        v64.gameAgeDisplayName = v63.game_age_display_name;
+    end;
+    if v63.content_maturity ~= nil and v63.content_maturity ~= "" then
+        v64.contentMaturity = v63.content_maturity;
+    end;
+    return v64;
 end;
-v3.jsonDecode = function(v59) --[[ Line: 443 ]] --[[ Name: jsonDecode ]]
+v3.jsonDecode = function(v65) --[[ Line: 496 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v3 (copy)
-    local v60 = v3.new();
-    if v59.id ~= nil then
-        v60.id = v59.id;
+    local v66 = v3.new();
+    if v65.id ~= nil then
+        v66.id = v65.id;
     end;
-    if v59.name ~= nil then
-        v60.name = v59.name;
+    if v65.name ~= nil then
+        v66.name = v65.name;
     end;
-    if v59.description ~= nil then
-        v60.description = v59.description;
+    if v65.description ~= nil then
+        v66.description = v65.description;
     end;
-    if v59.root_place_id ~= nil then
-        v60.root_place_id = v59.root_place_id;
+    if v65.root_place_id ~= nil then
+        v66.root_place_id = v65.root_place_id;
     end;
-    if v59.rootPlaceId ~= nil then
-        v60.root_place_id = v59.rootPlaceId;
+    if v65.rootPlaceId ~= nil then
+        v66.root_place_id = v65.rootPlaceId;
     end;
-    if v59.creator_type ~= nil then
-        v60.creator_type = v59.creator_type;
+    if v65.creator_type ~= nil then
+        v66.creator_type = v65.creator_type;
     end;
-    if v59.creatorType ~= nil then
-        v60.creator_type = v59.creatorType;
+    if v65.creatorType ~= nil then
+        v66.creator_type = v65.creatorType;
     end;
-    if v59.creator_id ~= nil then
-        v60.creator_id = v59.creator_id;
+    if v65.creator_id ~= nil then
+        v66.creator_id = v65.creator_id;
     end;
-    if v59.creatorId ~= nil then
-        v60.creator_id = v59.creatorId;
+    if v65.creatorId ~= nil then
+        v66.creator_id = v65.creatorId;
     end;
-    if v59.player_count ~= nil then
-        v60.player_count = v59.player_count;
+    if v65.player_count ~= nil then
+        v66.player_count = v65.player_count;
     end;
-    if v59.playerCount ~= nil then
-        v60.player_count = v59.playerCount;
+    if v65.playerCount ~= nil then
+        v66.player_count = v65.playerCount;
     end;
-    if v59.total_up_votes ~= nil then
-        v60.total_up_votes = v59.total_up_votes;
+    if v65.total_up_votes ~= nil then
+        v66.total_up_votes = v65.total_up_votes;
     end;
-    if v59.totalUpVotes ~= nil then
-        v60.total_up_votes = v59.totalUpVotes;
+    if v65.totalUpVotes ~= nil then
+        v66.total_up_votes = v65.totalUpVotes;
     end;
-    if v59.total_down_votes ~= nil then
-        v60.total_down_votes = v59.total_down_votes;
+    if v65.total_down_votes ~= nil then
+        v66.total_down_votes = v65.total_down_votes;
     end;
-    if v59.totalDownVotes ~= nil then
-        v60.total_down_votes = v59.totalDownVotes;
+    if v65.totalDownVotes ~= nil then
+        v66.total_down_votes = v65.totalDownVotes;
     end;
-    if v59.is_voice_supported ~= nil then
-        v60.is_voice_supported = v59.is_voice_supported;
+    if v65.is_voice_supported ~= nil then
+        v66.is_voice_supported = v65.is_voice_supported;
     end;
-    if v59.isVoiceSupported ~= nil then
-        v60.is_voice_supported = v59.isVoiceSupported;
+    if v65.isVoiceSupported ~= nil then
+        v66.is_voice_supported = v65.isVoiceSupported;
     end;
-    if v59.is_camera_supported ~= nil then
-        v60.is_camera_supported = v59.is_camera_supported;
+    if v65.is_camera_supported ~= nil then
+        v66.is_camera_supported = v65.is_camera_supported;
     end;
-    if v59.isCameraSupported ~= nil then
-        v60.is_camera_supported = v59.isCameraSupported;
+    if v65.isCameraSupported ~= nil then
+        v66.is_camera_supported = v65.isCameraSupported;
     end;
-    if v59.localized_fiat_price ~= nil then
-        v60.localized_fiat_price = v59.localized_fiat_price;
+    if v65.localized_fiat_price ~= nil then
+        v66.localized_fiat_price = v65.localized_fiat_price;
     end;
-    if v59.localizedFiatPrice ~= nil then
-        v60.localized_fiat_price = v59.localizedFiatPrice;
+    if v65.localizedFiatPrice ~= nil then
+        v66.localized_fiat_price = v65.localizedFiatPrice;
     end;
-    if v59.genre_l1 ~= nil then
-        v60.genre_l1 = v59.genre_l1;
+    if v65.genre_l1 ~= nil then
+        v66.genre_l1 = v65.genre_l1;
     end;
-    if v59.genreL1 ~= nil then
-        v60.genre_l1 = v59.genreL1;
+    if v65.genreL1 ~= nil then
+        v66.genre_l1 = v65.genreL1;
     end;
-    if v59.genre_l2 ~= nil then
-        v60.genre_l2 = v59.genre_l2;
+    if v65.genre_l2 ~= nil then
+        v66.genre_l2 = v65.genre_l2;
     end;
-    if v59.genreL2 ~= nil then
-        v60.genre_l2 = v59.genreL2;
+    if v65.genreL2 ~= nil then
+        v66.genre_l2 = v65.genreL2;
     end;
-    if v59.maximum_server_size ~= nil then
-        v60.maximum_server_size = v59.maximum_server_size;
+    if v65.maximum_server_size ~= nil then
+        v66.maximum_server_size = v65.maximum_server_size;
     end;
-    if v59.maximumServerSize ~= nil then
-        v60.maximum_server_size = v59.maximumServerSize;
+    if v65.maximumServerSize ~= nil then
+        v66.maximum_server_size = v65.maximumServerSize;
     end;
-    if v59.created_date ~= nil then
-        v60.created_date = v59.created_date;
+    if v65.created_date ~= nil then
+        v66.created_date = v65.created_date;
     end;
-    if v59.createdDate ~= nil then
-        v60.created_date = v59.createdDate;
+    if v65.createdDate ~= nil then
+        v66.created_date = v65.createdDate;
     end;
-    if v59.updated_date ~= nil then
-        v60.updated_date = v59.updated_date;
+    if v65.updated_date ~= nil then
+        v66.updated_date = v65.updated_date;
     end;
-    if v59.updatedDate ~= nil then
-        v60.updated_date = v59.updatedDate;
+    if v65.updatedDate ~= nil then
+        v66.updated_date = v65.updatedDate;
     end;
-    if v59.favorite_count ~= nil then
-        v60.favorite_count = v59.favorite_count;
+    if v65.favorite_count ~= nil then
+        v66.favorite_count = v65.favorite_count;
     end;
-    if v59.favoriteCount ~= nil then
-        v60.favorite_count = v59.favoriteCount;
+    if v65.favoriteCount ~= nil then
+        v66.favorite_count = v65.favoriteCount;
     end;
-    if v59.total_visits ~= nil then
-        v60.total_visits = v59.total_visits;
+    if v65.total_visits ~= nil then
+        v66.total_visits = v65.total_visits;
     end;
-    if v59.totalVisits ~= nil then
-        v60.total_visits = v59.totalVisits;
+    if v65.totalVisits ~= nil then
+        v66.total_visits = v65.totalVisits;
     end;
-    if v59.canonical_url_path ~= nil then
-        v60.canonical_url_path = v59.canonical_url_path;
+    if v65.canonical_url_path ~= nil then
+        v66.canonical_url_path = v65.canonical_url_path;
     end;
-    if v59.canonicalUrlPath ~= nil then
-        v60.canonical_url_path = v59.canonicalUrlPath;
+    if v65.canonicalUrlPath ~= nil then
+        v66.canonical_url_path = v65.canonicalUrlPath;
     end;
-    return v60;
+    if v65.game_minimum_age ~= nil then
+        v66.game_minimum_age = v65.game_minimum_age;
+    end;
+    if v65.gameMinimumAge ~= nil then
+        v66.game_minimum_age = v65.gameMinimumAge;
+    end;
+    if v65.game_age_display_name ~= nil then
+        v66.game_age_display_name = v65.game_age_display_name;
+    end;
+    if v65.gameAgeDisplayName ~= nil then
+        v66.game_age_display_name = v65.gameAgeDisplayName;
+    end;
+    if v65.content_maturity ~= nil then
+        v66.content_maturity = v65.content_maturity;
+    end;
+    if v65.contentMaturity ~= nil then
+        v66.content_maturity = v65.contentMaturity;
+    end;
+    return v66;
 end;
 v3.descriptor = {
     name = "UniverseData", 

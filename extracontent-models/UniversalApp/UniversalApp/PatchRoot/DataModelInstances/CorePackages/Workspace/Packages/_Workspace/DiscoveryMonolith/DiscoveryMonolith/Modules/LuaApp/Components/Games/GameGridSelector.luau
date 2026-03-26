@@ -12,14 +12,14 @@ local v10 = require(l_Modules_0.LuaApp.Flags.FFlagLuaAppEnableGameGridTable);
 local v11 = {
     l_AppUserLayers_0.GridUILayer
 };
-local function v13(v12) --[[ Line: 60 ]]
+local function v13(v12) --[[ Line: 61 ]]
     -- upvalues: l_AppUserLayers_0 (copy)
     return (v12[l_AppUserLayers_0.GridUILayer] or {}).IsGameGridDesktopRefreshEnabled or false;
 end;
-return function(v14) --[[ Line: 65 ]]
+return function(v14) --[[ Line: 66 ]]
     -- upvalues: l_useAppPolicy_0 (copy), v10 (copy), l_useUserExperiment_0 (copy), v11 (copy), v13 (copy), v2 (copy), v9 (copy), v8 (copy)
     local v15 = v14.currentSidePadding or 0;
-    local v17 = l_useAppPolicy_0(function(v16) --[[ Line: 68 ]]
+    local v17 = l_useAppPolicy_0(function(v16) --[[ Line: 69 ]]
         return v16.useGridPageLayout();
     end);
     local v18 = v10 and true or l_useUserExperiment_0(v11, v13);

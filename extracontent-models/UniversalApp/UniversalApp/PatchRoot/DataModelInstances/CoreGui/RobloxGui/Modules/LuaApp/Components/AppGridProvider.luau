@@ -8,29 +8,34 @@ local l_useDesignTokens_0 = require(l_CorePackages_0.Workspace.Packages.Style).u
 local l_ResponsiveLayoutProvider_0 = require(l_CorePackages_0.Packages.UIBlox).Core.Layout.Responsive.ResponsiveLayoutProvider;
 local v8 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
 local v9 = require(l_Modules_0.LuaApp.Common.makeGridSettingsConfig);
-return function(v10) --[[ Line: 21 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), v8 (copy), l_useSelector_0 (copy), v2 (copy), v9 (copy), l_dependencyArray_0 (copy), l_ResponsiveLayoutProvider_0 (copy)
-    local v11 = l_useDesignTokens_0();
-    local v13 = v8(function(v12) --[[ Line: 27 ]]
-        return v12.useGridPageLayout();
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v11) --[[ Line: 24 ]]
+    -- upvalues: l_useDesignTokens_0 (copy), v8 (copy), l_useSelector_0 (copy), v2 (copy), v9 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_ResponsiveLayoutProvider_0 (copy)
+    local v12 = l_useDesignTokens_0();
+    local v14 = v8(function(v13) --[[ Line: 30 ]]
+        return v13.useGridPageLayout();
     end);
-    local v15 = l_useSelector_0(function(v14) --[[ Line: 31 ]]
-        if v14.ScreenSize then
-            return v14.ScreenSize.X;
+    local v16 = l_useSelector_0(function(v15) --[[ Line: 34 ]]
+        if v15.ScreenSize then
+            return v15.ScreenSize.X;
         else
             return nil;
         end;
     end);
-    local v16 = v2.useMemo(function() --[[ Line: 35 ]]
-        -- upvalues: v13 (copy), v10 (copy), v9 (ref), v11 (copy)
-        if not v13 then
+    local v17 = v2.useMemo(function() --[[ Line: 39 ]]
+        -- upvalues: v14 (copy), v11 (copy), v9 (ref), v12 (copy)
+        if not v14 then
             return {};
         else
-            return v10.config or v9(v11);
+            return v11.config or v9(v12);
         end;
-    end, l_dependencyArray_0(v10.config, v13, v11));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v11.config, 
+        v14, 
+        v12
+    } else l_dependencyArray_0(v11.config, v14, v12));
     return v2.createElement(l_ResponsiveLayoutProvider_0, {
-        width = v15, 
-        config = v16
-    }, v10.children);
+        width = v16, 
+        config = v17
+    }, v11.children);
 end;

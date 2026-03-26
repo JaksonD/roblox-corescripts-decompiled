@@ -81,8 +81,8 @@ local function v43(v32) --[[ Line: 57 ]] --[[ Name: processPreviewEnabled ]]
         l_v7_3:TweenCursorPosition((l_SelectionRect2D_3.Min + l_SelectionRect2D_3.Max) / 2);
     end;
 end;
-local function v50() --[[ Line: 90 ]] --[[ Name: onThumbstick1Input ]]
-    -- upvalues: l_GuiService_0 (copy), l_UserInputService_0 (copy), v25 (copy), v18 (ref), v43 (copy)
+local function v53() --[[ Line: 90 ]] --[[ Name: onThumbstick1Input ]]
+    -- upvalues: l_GuiService_0 (copy), l_UserInputService_0 (copy), v25 (copy), v18 (ref), v43 (copy), v12 (ref), v7 (copy), v17 (ref)
     if l_GuiService_0.SelectedObject then
         local l_l_UserInputService_0_GamepadState_0 = l_UserInputService_0:GetGamepadState(Enum.UserInputType.Gamepad1);
         local l_zero_0 = Vector2.zero;
@@ -102,45 +102,62 @@ local function v50() --[[ Line: 90 ]] --[[ Name: onThumbstick1Input ]]
         l_v43_0(v49);
         return;
     else
-        v43(false);
+        if v12 then
+            v7:DisableUI();
+            v12 = false;
+        end;
+        if v17 then
+            v17:Disconnect();
+        end;
+        if v12 and l_GuiService_0.SelectedObject then
+            local l_SelectedObject_1 = l_GuiService_0.SelectedObject;
+            v17 = l_SelectedObject_1:GetPropertyChangedSignal("SelectionRect2D"):Connect(function() --[[ Line: 78 ]]
+                -- upvalues: l_SelectedObject_1 (copy), v12 (ref), v7 (ref)
+                if l_SelectedObject_1 and v12 then
+                    local l_v7_4 = v7;
+                    local l_SelectionRect2D_4 = l_SelectedObject_1.SelectionRect2D;
+                    l_v7_4:TweenCursorPosition((l_SelectionRect2D_4.Min + l_SelectionRect2D_4.Max) / 2);
+                end;
+            end);
+        end;
         return;
     end;
 end;
-local function v51() --[[ Line: 115 ]] --[[ Name: onSelectedObjectChanged ]]
-    -- upvalues: v18 (ref), v50 (copy), v13 (ref), l_GuiService_0 (copy)
+local function v54() --[[ Line: 115 ]] --[[ Name: onSelectedObjectChanged ]]
+    -- upvalues: v18 (ref), v53 (copy), v13 (ref), l_GuiService_0 (copy)
     v18 = true;
-    v50();
+    v53();
     v13 = l_GuiService_0.SelectedObject;
 end;
-l_UserInputService_0.InputBegan:Connect(function(v52) --[[ Line: 123 ]]
+l_UserInputService_0.InputBegan:Connect(function(v55) --[[ Line: 123 ]]
     -- upvalues: v11 (ref), l_GuiService_0 (copy), v7 (copy)
     if not v11 then
         return;
     else
-        if v52.UserInputType == Enum.UserInputType.Gamepad1 and v52.KeyCode == Enum.KeyCode.ButtonA and (l_GuiService_0.SelectedObject or l_GuiService_0.SelectedCoreObject) then
+        if v55.UserInputType == Enum.UserInputType.Gamepad1 and v55.KeyCode == Enum.KeyCode.ButtonA and (l_GuiService_0.SelectedObject or l_GuiService_0.SelectedCoreObject) then
             v7:PlayCursorTweenActivate();
         end;
         return;
     end;
 end);
-l_UserInputService_0.InputEnded:Connect(function(v53) --[[ Line: 136 ]]
-    -- upvalues: v11 (ref), v7 (copy), v50 (copy)
+l_UserInputService_0.InputEnded:Connect(function(v56) --[[ Line: 136 ]]
+    -- upvalues: v11 (ref), v7 (copy), v53 (copy)
     if v11 then
-        if v53.UserInputType == Enum.UserInputType.Gamepad1 and v53.KeyCode == Enum.KeyCode.ButtonA then
+        if v56.UserInputType == Enum.UserInputType.Gamepad1 and v56.KeyCode == Enum.KeyCode.ButtonA then
             v7:PlayCursorTweenDefault();
             return;
         end;
-    elseif v53.UserInputType == Enum.UserInputType.Gamepad1 and v53.KeyCode == Enum.KeyCode.Thumbstick1 then
-        v50();
+    elseif v56.UserInputType == Enum.UserInputType.Gamepad1 and v56.KeyCode == Enum.KeyCode.Thumbstick1 then
+        v53();
     end;
 end);
-l_UserInputService_0.InputChanged:Connect(function(v54) --[[ Line: 152 ]]
-    -- upvalues: v11 (ref), v50 (copy)
+l_UserInputService_0.InputChanged:Connect(function(v57) --[[ Line: 152 ]]
+    -- upvalues: v11 (ref), v53 (copy)
     if v11 then
         return;
     else
-        if v54.UserInputType == Enum.UserInputType.Gamepad1 and v54.KeyCode == Enum.KeyCode.Thumbstick1 then
-            v50();
+        if v57.UserInputType == Enum.UserInputType.Gamepad1 and v57.KeyCode == Enum.KeyCode.Thumbstick1 then
+            v53();
         end;
         return;
     end;
@@ -154,8 +171,8 @@ v8.GetThumbstick2Vector = function(_) --[[ Line: 167 ]] --[[ Name: GetThumbstick
     return v10;
 end;
 v8.EnablePreview = function(_) --[[ Line: 171 ]] --[[ Name: EnablePreview ]]
-    -- upvalues: v15 (ref), l_GuiService_0 (copy), v51 (copy)
-    v15 = l_GuiService_0:GetPropertyChangedSignal("SelectedObject"):Connect(v51);
+    -- upvalues: v15 (ref), l_GuiService_0 (copy), v54 (copy)
+    v15 = l_GuiService_0:GetPropertyChangedSignal("SelectedObject"):Connect(v54);
 end;
 v8.DisablePreview = function(_) --[[ Line: 176 ]] --[[ Name: DisablePreview ]]
     -- upvalues: v15 (ref)
@@ -166,9 +183,9 @@ v8.DisablePreview = function(_) --[[ Line: 176 ]] --[[ Name: DisablePreview ]]
 end;
 v8.EnableInput = function(_) --[[ Line: 183 ]] --[[ Name: EnableInput ]]
     -- upvalues: v16 (ref), l_GamepadService_0 (copy), v9 (ref), v25 (copy), l_ContextActionService_0 (copy), v29 (copy), v11 (ref)
-    v16 = l_GamepadService_0.GamepadThumbstick1Changed:Connect(function(v60) --[[ Line: 184 ]]
+    v16 = l_GamepadService_0.GamepadThumbstick1Changed:Connect(function(v63) --[[ Line: 184 ]]
         -- upvalues: v9 (ref), v25 (ref)
-        v9 = v25(v60);
+        v9 = v25(v63);
     end);
     l_ContextActionService_0:BindCoreActionAtPriority("VirtualCursorThumbstick1Movement", function(_, _, _) --[[ Line: 190 ]]
 

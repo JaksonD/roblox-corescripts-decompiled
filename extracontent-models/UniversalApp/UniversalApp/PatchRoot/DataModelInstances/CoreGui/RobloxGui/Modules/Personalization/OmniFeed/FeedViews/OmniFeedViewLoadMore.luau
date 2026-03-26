@@ -31,211 +31,218 @@ local l_FFlagAppIaScrollAway_0 = v28.FFlagAppIaScrollAway;
 local l_FFlagLuaAppLayoutParamsInContext_0 = v28.FFlagLuaAppLayoutParamsInContext;
 local l_FFlagLuaAppChartsStickyHeader_0 = v28.FFlagLuaAppChartsStickyHeader;
 local l_FFlagExtendScrollingFramesBySafeInsets_0 = v28.FFlagExtendScrollingFramesBySafeInsets;
-local v33 = game:DefineFastInt("LuaAppOmniFeedInitialNumRows", 6);
-local v34 = game:DefineFastInt("LuaAppOmniFeedLoadNumRows", 3);
+local l_FFlagLuaAppCompositionSupport_0 = v28.FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = v28.FFlagLuaAppCompositionAlways;
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = v28.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+local v36 = game:DefineFastInt("LuaAppOmniFeedInitialNumRows", 6);
+local v37 = game:DefineFastInt("LuaAppOmniFeedLoadNumRows", 3);
 local l_FStringLuaAppSortsWithDividers_0 = v28.FStringLuaAppSortsWithDividers;
 local l_FFlagLuaAppUseSortsWithDividersFString_0 = v28.FFlagLuaAppUseSortsWithDividersFString;
-local v37 = {};
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v28.FFlagRemoveDependencyArrayAntipattern;
+local v41 = {};
 if l_FFlagLuaAppUseSortsWithDividersFString_0 then
-    for v38 in l_FStringLuaAppSortsWithDividers_0:gmatch("(%w+)") do
-        v37[v38] = true;
+    for v42 in l_FStringLuaAppSortsWithDividers_0:gmatch("(%w+)") do
+        v41[v42] = true;
     end;
 end;
-local v39 = game:DefineFastInt("LuaAppOmniFeedScrollAnimDurationMs", 400) / 1000;
-local v40 = if l_FFlagLuaAppChartsStickyHeader_0 then {} else nil;
-local function _(v41, v42) --[[ Line: 65 ]] --[[ Name: isGameTreatmentType ]]
+local v43 = game:DefineFastInt("LuaAppOmniFeedScrollAnimDurationMs", 400) / 1000;
+local v44 = if l_FFlagLuaAppChartsStickyHeader_0 then {} else nil;
+local function _(v45, v46) --[[ Line: 70 ]] --[[ Name: isGameTreatmentType ]]
     -- upvalues: l_OmniFeedTypes_0 (copy), l_isSduiGameOmniFeedItem_0 (copy)
-    local v43 = true;
-    if v41 ~= l_OmniFeedTypes_0.HomeGameGrid then
-        v43 = true;
-        if v41 ~= l_OmniFeedTypes_0.Carousel then
-            v43 = true;
-            if v41 ~= l_OmniFeedTypes_0.SearchGameGrid then
-                v43 = l_isSduiGameOmniFeedItem_0(v41, v42);
+    local v47 = true;
+    if v45 ~= l_OmniFeedTypes_0.HomeGameGrid then
+        v47 = true;
+        if v45 ~= l_OmniFeedTypes_0.Carousel then
+            v47 = true;
+            if v45 ~= l_OmniFeedTypes_0.SearchGameGrid then
+                v47 = l_isSduiGameOmniFeedItem_0(v45, v46);
             end;
         end;
     end;
-    return v43;
+    return v47;
 end;
-local function v58(v45, v46, v47, v48) --[[ Line: 75 ]] --[[ Name: getNumItemsForRows ]]
+local function v62(v49, v50, v51, v52) --[[ Line: 80 ]] --[[ Name: getNumItemsForRows ]]
     -- upvalues: l_OmniFeedTypes_0 (copy), l_isSduiGameOmniFeedItem_0 (copy)
-    local v49 = 0;
-    local v50 = 0;
-    for v51 = v46, #v45 do
-        local v52 = v45[v51];
-        local v53 = v52 and v52.treatmentProps and v52.treatmentProps.numberOfRows or 1;
-        if v53 == -1 then
-            v53 = 1;
+    local v53 = 0;
+    local v54 = 0;
+    for v55 = v50, #v49 do
+        local v56 = v49[v55];
+        local v57 = v56 and v56.treatmentProps and v56.treatmentProps.numberOfRows or 1;
+        if v57 == -1 then
+            v57 = 1;
         end;
-        v50 = v50 + 1;
-        v49 = v49 + v53;
-        local v54 = nil;
-        if v52 then
-            if v52.treatmentProps and v52.treatmentProps.topicId then
-                v54 = v52.treatmentProps.topicId;
-            elseif v52.itemId and v52.itemId.topicId then
-                v54 = v52.itemId.topicId;
+        v54 = v54 + 1;
+        v53 = v53 + v57;
+        local v58 = nil;
+        if v56 then
+            if v56.treatmentProps and v56.treatmentProps.topicId then
+                v58 = v56.treatmentProps.topicId;
+            elseif v56.itemId and v56.itemId.topicId then
+                v58 = v56.itemId.topicId;
             end;
         end;
-        if v47 <= v49 then
-            return v50;
-        elseif v48 then
-            local l_treatmentType_0 = v52.treatmentType;
-            local l_v54_0 = v54;
-            local v57 = true;
+        if v51 <= v53 then
+            return v54;
+        elseif v52 then
+            local l_treatmentType_0 = v56.treatmentType;
+            local l_v58_0 = v58;
+            local v61 = true;
             if l_treatmentType_0 ~= l_OmniFeedTypes_0.HomeGameGrid then
-                v57 = true;
+                v61 = true;
                 if l_treatmentType_0 ~= l_OmniFeedTypes_0.Carousel then
-                    v57 = true;
+                    v61 = true;
                     if l_treatmentType_0 ~= l_OmniFeedTypes_0.SearchGameGrid then
-                        v57 = l_isSduiGameOmniFeedItem_0(l_treatmentType_0, l_v54_0);
+                        v61 = l_isSduiGameOmniFeedItem_0(l_treatmentType_0, l_v58_0);
                     end;
                 end;
             end;
-            if v57 then
+            if v61 then
                 break;
             end;
         end;
     end;
-    return v50;
+    return v54;
 end;
-return function(v59) --[[ Line: 140 ]]
-    -- upvalues: l_useStyle_0 (copy), l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v2 (copy), l_Signal_0 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useLastInputMode_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v58 (copy), v33 (copy), l_useDesignTokens_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), l_OmniFeedConstants_0 (copy), v24 (copy), v23 (copy), v26 (copy), v40 (copy), l_useAnimateScrollViewToSelection_0 (copy), v39 (copy), v34 (copy), l_DiscoveryAppLaunchTracker_0 (copy), v1 (copy), v22 (copy), v6 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), v25 (copy), l_OmniFeedImpressionsDetector_0 (copy), l_ScrollDetector_0 (copy)
-    local v60 = l_useStyle_0();
-    local v62 = l_useAppPolicy_0(function(v61) --[[ Line: 142 ]]
-        return v61.useGridPageLayout();
+return function(v63) --[[ Line: 150 ]]
+    -- upvalues: l_useStyle_0 (copy), l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v2 (copy), l_Signal_0 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useLastInputMode_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v62 (copy), v36 (copy), l_useDesignTokens_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), l_OmniFeedConstants_0 (copy), v24 (copy), v23 (copy), v26 (copy), v44 (copy), l_useAnimateScrollViewToSelection_0 (copy), v43 (copy), v37 (copy), l_DiscoveryAppLaunchTracker_0 (copy), v1 (copy), v22 (copy), v6 (copy), l_FFlagSearchOmniAutocompletePage_0 (copy), l_FFlagAppIaScrollAway_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), v25 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), l_OmniFeedImpressionsDetector_0 (copy), l_ScrollDetector_0 (copy)
+    local v64 = l_useStyle_0();
+    local v66 = l_useAppPolicy_0(function(v65) --[[ Line: 152 ]]
+        return v65.useGridPageLayout();
     end);
-    local v64 = l_useAppPolicy_0(function(v63) --[[ Line: 145 ]]
-        return v63.getMountAllOmniFeedItems();
+    local v68 = l_useAppPolicy_0(function(v67) --[[ Line: 155 ]]
+        return v67.getMountAllOmniFeedItems();
     end);
-    local v65 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    v62 = v62 and not v65;
-    local v66 = v2.useRef(l_Signal_0.new());
-    local v67 = v2.useRef(l_Signal_0.new());
-    local v68 = v2.useRef(0);
-    local v69 = v2.useRef(false);
-    local v70 = if l_FFlagLuaAppLayoutParamsInContext_0 then nil else v59.scrollingFrameRef;
-    local v71 = l_useLastInputMode_0() == "Cursor";
-    local v72 = v59.shouldStopAfterOneGameSort and not v64;
-    local v73 = nil;
+    local v69 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    v66 = v66 and not v69;
+    local v70 = v2.useRef(l_Signal_0.new());
+    local v71 = v2.useRef(l_Signal_0.new());
+    local v72 = v2.useRef(0);
+    local v73 = v2.useRef(false);
+    local v74 = if l_FFlagLuaAppLayoutParamsInContext_0 then nil else v63.scrollingFrameRef;
+    local v75 = l_useLastInputMode_0() == "Cursor";
+    local v76 = v63.shouldStopAfterOneGameSort and not v68;
+    local v77 = nil;
     if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v74 = nil;
-        v70 = v2.useRef(nil);
-        local v75 = nil;
-        local v76, v77 = v2.useState(nil);
-        v75 = v76;
-        v74 = v77;
-        if type(v59.scrollingFrameRef) == "table" then
-            v70 = v59.scrollingFrameRef;
+        local v78 = nil;
+        v74 = v2.useRef(nil);
+        local v79 = nil;
+        local v80, v81 = v2.useState(nil);
+        v79 = v80;
+        v78 = v81;
+        if type(v63.scrollingFrameRef) == "table" then
+            v74 = v63.scrollingFrameRef;
         end;
         do
-            local l_v74_0 = v74;
-            v73 = v2.useCallback(function(v79) --[[ Line: 173 ]]
-                -- upvalues: v70 (ref), l_v74_0 (ref), v59 (copy)
-                v70.current = v79;
-                l_v74_0(v79);
-                if type(v59.scrollingFrameRef) == "function" then
-                    v59.scrollingFrameRef(v79);
+            local l_v78_0 = v78;
+            v77 = v2.useCallback(function(v83) --[[ Line: 183 ]]
+                -- upvalues: v74 (ref), l_v78_0 (ref), v63 (copy)
+                v74.current = v83;
+                l_v78_0(v83);
+                if type(v63.scrollingFrameRef) == "function" then
+                    v63.scrollingFrameRef(v83);
                 end;
             end, {
-                v59.scrollingFrameRef
+                v63.scrollingFrameRef
             });
         end;
     end;
-    local v84 = if l_FFlagLuaAppChartsStickyHeader_0 then v2.useMemo(function() --[[ Line: 183 ]]
-        -- upvalues: v59 (copy)
-        local l_omniFeedItems_0 = v59.omniFeedItems;
-        local v81 = {};
-        for _, v83 in l_omniFeedItems_0 do
-            if v83.pageSection == v59.omniFeedPageSection then
-                table.insert(v81, v83);
+    local v88 = if l_FFlagLuaAppChartsStickyHeader_0 then v2.useMemo(function() --[[ Line: 193 ]]
+        -- upvalues: v63 (copy)
+        local l_omniFeedItems_0 = v63.omniFeedItems;
+        local v85 = {};
+        for _, v87 in l_omniFeedItems_0 do
+            if v87.pageSection == v63.omniFeedPageSection then
+                table.insert(v85, v87);
             end;
         end;
-        return v81;
+        return v85;
     end, {
-        v59.omniFeedItems, 
-        v59.omniFeedPageSection
+        v63.omniFeedItems, 
+        v63.omniFeedPageSection
     }) else nil;
-    local v85, v86 = v2.useState(function() --[[ Line: 195 ]]
-        -- upvalues: v64 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v84 (copy), v59 (copy), v58 (ref), v33 (ref), v72 (copy)
-        if v64 then
-            return #if l_FFlagLuaAppChartsStickyHeader_0 then v84 else v59.omniFeedItems;
+    local v89, v90 = v2.useState(function() --[[ Line: 205 ]]
+        -- upvalues: v68 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v88 (copy), v63 (copy), v62 (ref), v36 (ref), v76 (copy)
+        if v68 then
+            return #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else v63.omniFeedItems;
         else
-            return (v58(if l_FFlagLuaAppChartsStickyHeader_0 then v84 else v59.omniFeedItems, 1, v33, v72));
+            return (v62(if l_FFlagLuaAppChartsStickyHeader_0 then v88 else v63.omniFeedItems, 1, v36, v76));
         end;
     end);
-    local l_pageContext_0 = v59.pageContext;
-    local l_impressionsTag_0 = v59.impressionsTag;
-    local l_omniFeedItems_1 = v59.omniFeedItems;
-    local l_Theme_0 = v60.Theme;
+    local l_pageContext_0 = v63.pageContext;
+    local l_impressionsTag_0 = v63.impressionsTag;
+    local l_omniFeedItems_1 = v63.omniFeedItems;
+    local l_Theme_0 = v64.Theme;
     local l_Color_0 = l_Theme_0.BackgroundDefault.Color;
     local l_Transparency_0 = l_Theme_0.BackgroundDefault.Transparency;
-    local v93 = nil;
-    v93 = v62 and 4 or 0;
-    local v94 = l_useDesignTokens_0();
-    l_Color_0 = v94.LuaApps.App.Page.BackgroundColor;
-    l_Transparency_0 = v94.LuaApps.App.Page.BackgroundTransparency;
-    local v95 = v2.useMemo(function() --[[ Line: 225 ]]
-        -- upvalues: v94 (copy), v62 (ref)
-        return v94.LuaApps.HomeOmniFeed.getLayoutSpacing(v62);
-    end, l_dependencyArray_0(v62, v94));
-    local v96 = v59.topPadding or v95.topMargin;
-    local v97 = if v59.loadMoreButtonText then v94.Global.Size_600 else 80;
-    local v98 = v59.bottomPadding or v97;
-    local v100 = l_useSelector_0(function(v99) --[[ Line: 233 ]]
-        return v99.Personalization.OmniItemsGlobalLayoutData;
+    local v97 = nil;
+    v97 = v66 and 4 or 0;
+    local v98 = l_useDesignTokens_0();
+    l_Color_0 = v98.LuaApps.App.Page.BackgroundColor;
+    l_Transparency_0 = v98.LuaApps.App.Page.BackgroundTransparency;
+    local v99 = v2.useMemo(function() --[[ Line: 237 ]]
+        -- upvalues: v98 (copy), v66 (ref)
+        return v98.LuaApps.HomeOmniFeed.getLayoutSpacing(v66);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v66, 
+        v98
+    } else l_dependencyArray_0(v66, v98));
+    local v100 = v63.topPadding or v99.topMargin;
+    local v101 = if v63.loadMoreButtonText then v98.Global.Size_600 else 80;
+    local v102 = v63.bottomPadding or v101;
+    local v104 = l_useSelector_0(function(v103) --[[ Line: 249 ]]
+        return v103.Personalization.OmniItemsGlobalLayoutData;
     end);
-    local v101 = v100 and (v100[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == "true" or v100[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == true);
-    local v104 = v2.useCallback(function(v102) --[[ Line: 242 ]]
-        -- upvalues: v68 (copy), v67 (copy), l_OmniFeedConstants_0 (ref), v59 (copy)
-        v68.current = tick();
-        v67.current:fire();
-        local v103 = nil;
-        v103 = if v102 then l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.FriendPresenceChange else l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.ManualRefresh;
-        return v59.refresh(v103);
+    local v105 = v104 and (v104[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == "true" or v104[l_OmniFeedConstants_0.GlobalLayoutDataKeys.JYFRefresh] == true);
+    local v108 = v2.useCallback(function(v106) --[[ Line: 258 ]]
+        -- upvalues: v72 (copy), v71 (copy), l_OmniFeedConstants_0 (ref), v63 (copy)
+        v72.current = tick();
+        v71.current:fire();
+        local v107 = nil;
+        v107 = if v106 then l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.FriendPresenceChange else l_OmniFeedConstants_0.OmniRecommendationsRequestIntent.ManualRefresh;
+        return v63.refresh(v107);
     end);
-    local function _() --[[ Line: 253 ]]
-        -- upvalues: v69 (copy), v70 (ref), v24 (ref), v104 (copy)
-        v69.current = false;
-        if v70.current then
-            local l_Y_0 = v70.current.CanvasPosition.Y;
+    local function _() --[[ Line: 269 ]]
+        -- upvalues: v73 (copy), v74 (ref), v24 (ref), v108 (copy)
+        v73.current = false;
+        if v74.current then
+            local l_Y_0 = v74.current.CanvasPosition.Y;
             local l_Height_0 = v24.JoinYourFriendsTile.Height;
             if l_Y_0 >= 0 and l_Y_0 <= l_Height_0 then
-                v104(true);
+                v108(true);
             end;
         end;
     end;
-    v2.useEffect(function() --[[ Line: 263 ]]
-        -- upvalues: v101 (copy), v23 (ref), v69 (copy), v68 (copy), v26 (ref), v70 (ref), v24 (ref), v104 (copy)
-        local v108 = nil;
-        if v101 then
-            v108 = v23.Event:Connect(function() --[[ Line: 266 ]]
-                -- upvalues: v69 (ref), v68 (ref), v26 (ref), v70 (ref), v24 (ref), v104 (ref)
-                if v69.current then
+    v2.useEffect(function() --[[ Line: 279 ]]
+        -- upvalues: v105 (copy), v23 (ref), v73 (copy), v72 (copy), v26 (ref), v74 (ref), v24 (ref), v108 (copy)
+        local v112 = nil;
+        if v105 then
+            v112 = v23.Event:Connect(function() --[[ Line: 282 ]]
+                -- upvalues: v73 (ref), v72 (ref), v26 (ref), v74 (ref), v24 (ref), v108 (ref)
+                if v73.current then
                     return;
                 else
-                    local v109 = tick() - v68.current;
-                    local v110 = v26 - v109;
-                    if v110 < 0 then
-                        v69.current = false;
-                        if v70.current then
-                            local l_Y_1 = v70.current.CanvasPosition.Y;
+                    local v113 = tick() - v72.current;
+                    local v114 = v26 - v113;
+                    if v114 < 0 then
+                        v73.current = false;
+                        if v74.current then
+                            local l_Y_1 = v74.current.CanvasPosition.Y;
                             local l_Height_1 = v24.JoinYourFriendsTile.Height;
                             if l_Y_1 >= 0 and l_Y_1 <= l_Height_1 then
-                                v104(true);
+                                v108(true);
                                 return;
                             end;
                         end;
                     else
-                        v69.current = true;
-                        task.delay(v110, function() --[[ Line: 277 ]]
-                            -- upvalues: v69 (ref), v70 (ref), v24 (ref), v104 (ref)
-                            v69.current = false;
-                            if v70.current then
-                                local l_Y_2 = v70.current.CanvasPosition.Y;
+                        v73.current = true;
+                        task.delay(v114, function() --[[ Line: 293 ]]
+                            -- upvalues: v73 (ref), v74 (ref), v24 (ref), v108 (ref)
+                            v73.current = false;
+                            if v74.current then
+                                local l_Y_2 = v74.current.CanvasPosition.Y;
                                 local l_Height_2 = v24.JoinYourFriendsTile.Height;
                                 if l_Y_2 >= 0 and l_Y_2 <= l_Height_2 then
-                                    v104(true);
+                                    v108(true);
                                 end;
                             end;
                         end);
@@ -244,51 +251,51 @@ return function(v59) --[[ Line: 140 ]]
                 end;
             end);
         end;
-        return function() --[[ Line: 283 ]]
-            -- upvalues: v108 (ref)
-            if v108 then
-                v108:Disconnect();
-                v108 = nil;
+        return function() --[[ Line: 299 ]]
+            -- upvalues: v112 (ref)
+            if v112 then
+                v112:Disconnect();
+                v112 = nil;
             end;
         end;
     end, {
-        v59.refresh
+        v63.refresh
     });
-    local v116 = l_useSelector_0(function(v115) --[[ Line: 291 ]]
+    local v120 = l_useSelector_0(function(v119) --[[ Line: 307 ]]
         -- upvalues: l_pageContext_0 (copy)
-        return v115.OmniRecommendations[l_pageContext_0];
+        return v119.OmniRecommendations[l_pageContext_0];
     end);
-    local v117 = v116 and v116.sorts or if l_FFlagLuaAppChartsStickyHeader_0 then v40 else {};
-    local l_sduiContext_0 = v59.sduiContext;
-    l_useAnimateScrollViewToSelection_0(v70, v39);
-    local v119 = v2.useCallback(function() --[[ Line: 302 ]]
-        -- upvalues: v66 (copy)
-        v66.current:fire();
+    local v121 = v120 and v120.sorts or if l_FFlagLuaAppChartsStickyHeader_0 then v44 else {};
+    local l_sduiContext_0 = v63.sduiContext;
+    l_useAnimateScrollViewToSelection_0(v74, v43);
+    local v123 = v2.useCallback(function() --[[ Line: 318 ]]
+        -- upvalues: v70 (copy)
+        v70.current:fire();
     end);
-    local v120 = nil;
-    v120 = function() --[[ Line: 307 ]]
-        -- upvalues: v85 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v84 (copy), l_omniFeedItems_1 (copy), v64 (copy), v58 (ref), v34 (ref), v72 (copy), v86 (copy)
-        if v85 < #if l_FFlagLuaAppChartsStickyHeader_0 then v84 else l_omniFeedItems_1 then
-            local v121 = nil;
-            v121 = if v64 then #if l_FFlagLuaAppChartsStickyHeader_0 then v84 else l_omniFeedItems_1 else v85 + v58(if l_FFlagLuaAppChartsStickyHeader_0 then v84 else l_omniFeedItems_1, v85 + 1, v34, v72);
-            v86(v121);
+    local v124 = nil;
+    v124 = function() --[[ Line: 323 ]]
+        -- upvalues: v89 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v88 (copy), l_omniFeedItems_1 (copy), v68 (copy), v62 (ref), v37 (ref), v76 (copy), v90 (copy)
+        if v89 < #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1 then
+            local v125 = nil;
+            v125 = if v68 then #if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1 else v89 + v62(if l_FFlagLuaAppChartsStickyHeader_0 then v88 else l_omniFeedItems_1, v89 + 1, v37, v76);
+            v90(v125);
             return true;
         else
             return false;
         end;
     end;
-    v2.useEffect(function() --[[ Line: 331 ]]
-        -- upvalues: v72 (copy), v120 (ref)
-        if not v72 then
-            v120();
+    v2.useEffect(function() --[[ Line: 347 ]]
+        -- upvalues: v76 (copy), v124 (ref)
+        if not v76 then
+            v124();
         end;
     end, {
         l_omniFeedItems_1, 
-        v72
+        v76
     });
     if l_DiscoveryAppLaunchTracker_0.isEnabled() and l_DiscoveryAppLaunchTracker_0.default then
         l_DiscoveryAppLaunchTracker_0.default:trackFeedRender();
-        l_DiscoveryAppLaunchTracker_0.default:trackNumFeedItems(v85);
+        l_DiscoveryAppLaunchTracker_0.default:trackNumFeedItems(v89);
     end;
     return v1.createElement(v22, {
         Position = UDim2.new(0, 0, 0, 0), 
@@ -297,13 +304,13 @@ return function(v59) --[[ Line: 140 ]]
         BackgroundColor3 = l_Color_0, 
         BackgroundTransparency = l_Transparency_0, 
         BorderSizePixel = 0, 
-        ScrollBarThickness = if v59.scrollBarThickness then v59.scrollBarThickness else v93, 
-        onLoadMore = function() --[[ Line: 352 ]] --[[ Name: onLoadMore ]]
-            -- upvalues: v120 (ref), v6 (ref), v59 (copy)
-            if v120() then
+        ScrollBarThickness = if v63.scrollBarThickness then v63.scrollBarThickness else v97, 
+        onLoadMore = function() --[[ Line: 368 ]] --[[ Name: onLoadMore ]]
+            -- upvalues: v124 (ref), v6 (ref), v63 (copy)
+            if v124() then
                 return v6.reject();
             else
-                local l_loadNext_0 = v59.loadNext;
+                local l_loadNext_0 = v63.loadNext;
                 if l_loadNext_0 then
                     return l_loadNext_0();
                 else
@@ -311,19 +318,19 @@ return function(v59) --[[ Line: 140 ]]
                 end;
             end;
         end, 
-        refresh = v104, 
+        refresh = v108, 
         parentAppPage = l_pageContext_0, 
-        onAbsoluteSizeChangedCallback = v59.onAbsoluteSizeChanged, 
-        onCanvasSizeChangedCallback = v119, 
-        onCanvasPositionChangedCallback = v119, 
+        onAbsoluteSizeChangedCallback = v63.onAbsoluteSizeChanged, 
+        onCanvasSizeChangedCallback = v123, 
+        onCanvasPositionChangedCallback = v123, 
         useAutomaticSizeContentFrame = true, 
-        [v1.Ref] = if l_FFlagLuaAppLayoutParamsInContext_0 then v73 else v70, 
-        createEndOfScrollElement = v59.createEndOfScrollElement, 
-        onScrollDirectionChanged = v59.onScrollDirectionChanged, 
-        ScrollingEnabled = v71, 
-        onAbsoluteContentSizeChanged = if l_FFlagSearchOmniAutocompletePage_0 then v59.onAbsoluteContentSizeChanged else nil, 
-        loadMoreButtonText = if v59.loadMoreButtonText and v59.hasNextPage and v59.loadNext ~= nil then v59.loadMoreButtonText else nil, 
-        canvasTopPadding = if l_FFlagAppIaScrollAway_0 then v59.canvasTopPadding else nil, 
+        [v1.Ref] = if l_FFlagLuaAppLayoutParamsInContext_0 then v77 else v74, 
+        createEndOfScrollElement = v63.createEndOfScrollElement, 
+        onScrollDirectionChanged = v63.onScrollDirectionChanged, 
+        ScrollingEnabled = v75, 
+        onAbsoluteContentSizeChanged = if l_FFlagSearchOmniAutocompletePage_0 then v63.onAbsoluteContentSizeChanged else nil, 
+        loadMoreButtonText = if v63.loadMoreButtonText and v63.hasNextPage and v63.loadNext ~= nil then v63.loadMoreButtonText else nil, 
+        canvasTopPadding = if l_FFlagAppIaScrollAway_0 then v63.canvasTopPadding else nil, 
         shouldExtendIntoSafeArea = if l_FFlagExtendScrollingFramesBySafeInsets_0 then {
             left = false, 
             top = false, 
@@ -336,28 +343,31 @@ return function(v59) --[[ Line: 140 ]]
             pageContext = l_pageContext_0, 
             sduiContext = l_sduiContext_0, 
             impressionsTag = l_impressionsTag_0, 
-            numberOfItemsToBeRendered = v85, 
-            topMargin = v96, 
-            bottomMargin = v98, 
-            layoutPadding = v95.layoutPadding, 
-            onItemsUpdatedSignalRef = v66, 
-            refreshSignalRef = v67, 
-            scrollingFrameRef = v70, 
-            defaultContainerSize = v59.defaultContainerSize, 
-            sortsData = v117, 
-            hasNextPage = v59.hasNextPage, 
-            omniFeedPageSection = v59.omniFeedPageSection, 
-            enableRelativeGui = v59.enableRelativeGui
+            numberOfItemsToBeRendered = v89, 
+            topMargin = v100, 
+            bottomMargin = v102, 
+            layoutPadding = v99.layoutPadding, 
+            onItemsUpdatedSignalRef = v70, 
+            refreshSignalRef = v71, 
+            scrollingFrameRef = v74, 
+            defaultContainerSize = v63.defaultContainerSize, 
+            sortsData = v121, 
+            hasNextPage = v63.hasNextPage, 
+            omniFeedPageSection = v63.omniFeedPageSection, 
+            enableRelativeGui = v63.enableRelativeGui, 
+            appCompositionEnabled = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v63.appCompositionEnabled else nil, 
+            contentTag = if l_FFlagLuaAppCompositionSupport_0 then v63.contentTag else nil, 
+            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v63.onTileImageLoaded else nil
         }), 
         OmniFeedImpressionsDetector = v2.createElement(l_OmniFeedImpressionsDetector_0, {
-            onItemsUpdatedSignal = v66.current, 
+            onItemsUpdatedSignal = v70.current, 
             impressionsTag = l_impressionsTag_0, 
             omniFeedItems = l_omniFeedItems_1, 
-            eventContext = v59.analyticsContext
+            eventContext = v63.analyticsContext
         }), 
-        ScrollDetector = if v59.sendScrollEvent then v2.createElement(l_ScrollDetector_0, {
-            scrollingFrameRef = v70, 
-            sendScrollEvent = v59.sendScrollEvent
+        ScrollDetector = if v63.sendScrollEvent then v2.createElement(l_ScrollDetector_0, {
+            scrollingFrameRef = v74, 
+            sendScrollEvent = v63.sendScrollEvent
         }) else nil
     });
 end;

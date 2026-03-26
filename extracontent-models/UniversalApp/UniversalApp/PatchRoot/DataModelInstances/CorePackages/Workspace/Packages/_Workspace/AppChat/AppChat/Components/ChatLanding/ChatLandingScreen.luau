@@ -95,7 +95,7 @@ local function v47() --[[ Line: 60 ]]
     });
 end;
 v42.navigationOptions = function(v48) --[[ Line: 107 ]]
-    -- upvalues: v3 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v47 (copy), v24 (copy), v25 (copy), v9 (copy), v7 (copy), v4 (copy), v8 (copy), l_ScheduledSquadsListExperimentation_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), v13 (copy), l_StreamNotificationsBellIcon_0 (copy), l_FFlagStreamNotificationBellEntryPoint_0 (copy), l_AppPage_0 (copy), v38 (copy), v29 (copy), v5 (copy), v14 (copy), v6 (copy), l_ScheduledSquadActionSourceEnum_0 (copy), v26 (copy), l_IconButton_0 (copy), l_Images_0 (copy)
+    -- upvalues: v3 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), l_FFlagEnableHeaderBarButtonsUpdate_0 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v47 (copy), v24 (copy), v25 (copy), v9 (copy), v7 (copy), v4 (copy), v8 (copy), l_ScheduledSquadsListExperimentation_0 (copy), v13 (copy), l_StreamNotificationsBellIcon_0 (copy), l_FFlagStreamNotificationBellEntryPoint_0 (copy), l_AppPage_0 (copy), v38 (copy), v29 (copy), v5 (copy), v14 (copy), v6 (copy), l_ScheduledSquadActionSourceEnum_0 (copy), v26 (copy), l_IconButton_0 (copy), l_Images_0 (copy)
     local l_navigation_0 = v48.navigation;
     local v50 = l_navigation_0.getScreenProps("navigateToRootStack", nil);
     local v51 = l_navigation_0.getScreenProps("wideMode", false);
@@ -104,6 +104,9 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
     local v54 = v50 and true or false;
     local v55 = l_GetFFlagEnableAppChatInExperience_0() and v53;
     local v56 = if l_navigation_0.getScreenProps("wideMode", false) then l_navigation_0.getScreenProps("appChatInnerPadding", 12) else l_navigation_0.getScreenProps("appChatOuterPadding", 12);
+    if l_FFlagEnableHeaderBarButtonsUpdate_0 then
+        v56 = v56 - l_navigation_0.getScreenProps("topBarUtilityIconSideMargin", 0);
+    end;
     return {
         headerText = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then {
             raw = "Feature.Squads.Label.Party", 
@@ -121,13 +124,13 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
         rightPaddingOverride = v56, 
         renderCenter = v47, 
         shouldBoldHeader = true, 
-        renderRight = function() --[[ Line: 146 ]] --[[ Name: renderRight ]]
+        renderRight = function() --[[ Line: 151 ]] --[[ Name: renderRight ]]
             -- upvalues: v24 (ref), v25 (ref), v9 (ref), v7 (ref), v4 (ref), v8 (ref), l_navigation_0 (copy), l_ScheduledSquadsListExperimentation_0 (ref), l_FFlagEnableHeaderBarButtonsUpdate_0 (ref), v13 (ref), l_StreamNotificationsBellIcon_0 (ref), l_FFlagStreamNotificationBellEntryPoint_0 (ref), l_AppPage_0 (ref), v38 (ref), v29 (ref), v5 (ref), l_v3_IconButtonWidth_0 (copy), v14 (ref), v6 (ref), l_ScheduledSquadActionSourceEnum_0 (ref), v26 (ref), v51 (copy), l_IconButton_0 (ref), l_Images_0 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref)
-            return v24(v25.Context)(function(v57) --[[ Line: 147 ]]
+            return v24(v25.Context)(function(v57) --[[ Line: 152 ]]
                 -- upvalues: v9 (ref), v7 (ref), v4 (ref), v8 (ref), l_navigation_0 (ref), l_ScheduledSquadsListExperimentation_0 (ref), l_FFlagEnableHeaderBarButtonsUpdate_0 (ref), v13 (ref), l_StreamNotificationsBellIcon_0 (ref), l_FFlagStreamNotificationBellEntryPoint_0 (ref), l_AppPage_0 (ref), v38 (ref), v29 (ref), v5 (ref), l_v3_IconButtonWidth_0 (ref), v14 (ref), v6 (ref), l_ScheduledSquadActionSourceEnum_0 (ref), v26 (ref), v51 (ref), l_IconButton_0 (ref), l_Images_0 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref)
                 return v9.createElement(v7, {
                     screenName = v4.ChatLanding, 
-                    render = function(v58) --[[ Line: 150 ]] --[[ Name: render ]]
+                    render = function(v58) --[[ Line: 155 ]] --[[ Name: render ]]
                         -- upvalues: v4 (ref), v8 (ref), l_navigation_0 (ref), l_ScheduledSquadsListExperimentation_0 (ref), l_FFlagEnableHeaderBarButtonsUpdate_0 (ref), v9 (ref), v13 (ref), l_StreamNotificationsBellIcon_0 (ref), l_FFlagStreamNotificationBellEntryPoint_0 (ref), l_AppPage_0 (ref), v38 (ref), v29 (ref), v5 (ref), l_v3_IconButtonWidth_0 (ref), v14 (ref), v6 (ref), l_ScheduledSquadActionSourceEnum_0 (ref), v57 (copy), v26 (ref), v51 (ref), l_IconButton_0 (ref), l_Images_0 (ref), l_GetFFlagAppChatRebrandStringUpdates_0 (ref), l_GetFFlagIsSquadEnabled_0 (ref)
                         local v59 = v58.getScreenTopBar(v4.ChatLanding);
                         v8.isType(v59, "table", "screenTopBar");
@@ -163,7 +166,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         icon = v13.Enums.IconName.MagnifyingGlass, 
                                         testId = if v38 then v29.chatLandingTopBarIconButton("search") else nil, 
                                         LayoutOrder = 4, 
-                                        onActivated = function() --[[ Line: 201 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 206 ]] --[[ Name: onActivated ]]
                                             -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                             v58.setScreenTopBar(v4.ChatLanding, {
                                                 shouldRenderCenter = true, 
@@ -179,7 +182,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         icon = v13.Enums.IconName.PlusLarge, 
                                         testId = if v38 then v29.chatLandingTopBarIconButton("createChat") else nil, 
                                         LayoutOrder = 5, 
-                                        onActivated = function() --[[ Line: 224 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 229 ]] --[[ Name: onActivated ]]
                                             -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                             l_navigation_0.navigate(v4.CreateNewChat);
                                             v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -219,7 +222,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         icon = v13.Enums.IconName.MagnifyingGlass, 
                                         testId = v29.chatLandingTopBarIconButton("search"), 
                                         LayoutOrder = 4, 
-                                        onActivated = function() --[[ Line: 277 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 282 ]] --[[ Name: onActivated ]]
                                             -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                             v58.setScreenTopBar(v4.ChatLanding, {
                                                 shouldRenderCenter = true, 
@@ -232,7 +235,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         size = UDim2.new(0, l_v3_IconButtonWidth_0, 1, 0), 
                                         icon = l_Images_0["icons/common/search"], 
                                         layoutOrder = 4, 
-                                        onActivated = function() --[[ Line: 291 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 296 ]] --[[ Name: onActivated ]]
                                             -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                             v58.setScreenTopBar(v4.ChatLanding, {
                                                 shouldRenderCenter = true, 
@@ -248,7 +251,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         icon = v13.Enums.IconName.PlusLarge, 
                                         testId = v29.chatLandingTopBarIconButton("createChat"), 
                                         LayoutOrder = 5, 
-                                        onActivated = function() --[[ Line: 308 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 313 ]] --[[ Name: onActivated ]]
                                             -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                             l_navigation_0.navigate(v4.CreateNewChat);
                                             v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -257,7 +260,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                         size = UDim2.new(0, l_v3_IconButtonWidth_0, 1, 0), 
                                         icon = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_Images_0["icons/common/plus"] else l_Images_0["icons/actions/compose"], 
                                         layoutOrder = 5, 
-                                        onActivated = function() --[[ Line: 320 ]] --[[ Name: onActivated ]]
+                                        onActivated = function() --[[ Line: 325 ]] --[[ Name: onActivated ]]
                                             -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                             l_navigation_0.navigate(v4.CreateNewChat);
                                             v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -275,7 +278,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     icon = v13.Enums.IconName.MagnifyingGlass, 
                                     testId = if v38 then v29.chatLandingTopBarIconButton("search") else nil, 
                                     LayoutOrder = 1, 
-                                    onActivated = function() --[[ Line: 340 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 345 ]] --[[ Name: onActivated ]]
                                         -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                         v58.setScreenTopBar(v4.ChatLanding, {
                                             shouldRenderCenter = true, 
@@ -291,7 +294,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     icon = v13.Enums.IconName.PlusLarge, 
                                     testId = if v38 then v29.chatLandingTopBarIconButton("createChat") else nil, 
                                     LayoutOrder = 2, 
-                                    onActivated = function() --[[ Line: 363 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 368 ]] --[[ Name: onActivated ]]
                                         -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                         l_navigation_0.navigate(v4.CreateNewChat);
                                         v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -316,7 +319,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     icon = v13.Enums.IconName.MagnifyingGlass, 
                                     testId = v29.chatLandingTopBarIconButton("search"), 
                                     LayoutOrder = 1, 
-                                    onActivated = function() --[[ Line: 401 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 406 ]] --[[ Name: onActivated ]]
                                         -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                         v58.setScreenTopBar(v4.ChatLanding, {
                                             shouldRenderCenter = true, 
@@ -329,7 +332,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     size = UDim2.new(0, l_v3_IconButtonWidth_0, 1, 0), 
                                     icon = l_Images_0["icons/common/search"], 
                                     layoutOrder = 1, 
-                                    onActivated = function() --[[ Line: 415 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 420 ]] --[[ Name: onActivated ]]
                                         -- upvalues: v58 (copy), v4 (ref), v57 (ref), v26 (ref)
                                         v58.setScreenTopBar(v4.ChatLanding, {
                                             shouldRenderCenter = true, 
@@ -345,7 +348,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     icon = v13.Enums.IconName.PlusLarge, 
                                     testId = v29.chatLandingTopBarIconButton("createChat"), 
                                     LayoutOrder = 2, 
-                                    onActivated = function() --[[ Line: 432 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 437 ]] --[[ Name: onActivated ]]
                                         -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                         l_navigation_0.navigate(v4.CreateNewChat);
                                         v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -354,7 +357,7 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
                                     size = UDim2.new(0, l_v3_IconButtonWidth_0, 1, 0), 
                                     icon = if l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() then l_Images_0["icons/common/plus"] else l_Images_0["icons/actions/compose"], 
                                     layoutOrder = 2, 
-                                    onActivated = function() --[[ Line: 444 ]] --[[ Name: onActivated ]]
+                                    onActivated = function() --[[ Line: 449 ]] --[[ Name: onActivated ]]
                                         -- upvalues: l_navigation_0 (ref), v4 (ref), v57 (ref), v26 (ref)
                                         l_navigation_0.navigate(v4.CreateNewChat);
                                         v57.emit(v26.ChatLandingComposeBtnClicked, {});
@@ -388,9 +391,9 @@ v42.navigationOptions = function(v48) --[[ Line: 107 ]]
         end
     };
 end;
-v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
+v42.init = function(v65) --[[ Line: 491 ]] --[[ Name: init ]]
     -- upvalues: v20 (copy), v4 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v21 (copy), l_FFlagEnablePartyQuickStartButton_0 (copy), v27 (copy), v10 (copy), v40 (copy), v39 (copy), v8 (copy)
-    v65.navigateToConversation = function(v66) --[[ Line: 487 ]]
+    v65.navigateToConversation = function(v66) --[[ Line: 492 ]]
         -- upvalues: v20 (ref), v65 (copy), v4 (ref), l_FFlagEnableAppChatFocusableFixes_0 (ref)
         v20:info("Navigate To Conversation: {} from {screen}", v66);
         v65.props.navigation.navigate(v4.ChatConversation, {
@@ -399,17 +402,17 @@ v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
         });
         v65.resetScreenTopBar();
     end;
-    v65.navigateToCreateChat = function() --[[ Line: 496 ]]
+    v65.navigateToCreateChat = function() --[[ Line: 501 ]]
         -- upvalues: v20 (ref), v65 (copy), v4 (ref)
         v20:info("Navigate To CreateNewChat from {screen}");
         v65.props.navigation.push(v4.CreateNewChat);
     end;
-    v65.navigateToToast = function(v67) --[[ Line: 501 ]]
+    v65.navigateToToast = function(v67) --[[ Line: 506 ]]
         -- upvalues: v20 (ref), v65 (copy), v4 (ref)
         v20:info("Navigate To Toast from {screen}");
         v65.props.navigation.navigate(v4.RoactChatToast, v67);
     end;
-    v65.navigateToPrivacy = function() --[[ Line: 506 ]]
+    v65.navigateToPrivacy = function() --[[ Line: 511 ]]
         -- upvalues: v65 (copy), v4 (ref), v20 (ref)
         local v68 = v65.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v4.PrivacySettings];
         if v68 then
@@ -421,7 +424,7 @@ v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v65.navigateToSquadLobby = function(v69) --[[ Line: 517 ]]
+    v65.navigateToSquadLobby = function(v69) --[[ Line: 522 ]]
         -- upvalues: v20 (ref), v21 (ref), v65 (copy), v4 (ref), l_FFlagEnablePartyQuickStartButton_0 (ref), v27 (ref), v10 (ref)
         v20:info("Navigate To SquadLobby from {screen}");
         local v70 = v21(v65.props.navigation.state);
@@ -454,7 +457,7 @@ v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v65.setScreenTopBar = function(v71) --[[ Line: 549 ]]
+    v65.setScreenTopBar = function(v71) --[[ Line: 554 ]]
         -- upvalues: v40 (ref), v39 (ref), v4 (ref), v65 (copy), v8 (ref)
         if v40 then
             v39(false).setScreenTopBar(v4.ChatLanding, v71);
@@ -466,7 +469,7 @@ v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v65.resetScreenTopBar = function() --[[ Line: 559 ]]
+    v65.resetScreenTopBar = function() --[[ Line: 564 ]]
         -- upvalues: v40 (ref), v39 (ref), v4 (ref), v8 (ref), v65 (copy)
         local v73 = nil;
         v73 = if v40 then v39(false).getScreenTopBar(v4.ChatLanding)(false) or {} else v8.isNotNil(v65.props.navigation.getScreenProps("getScreenTopBar", nil), "getScreenTopBar in screenProps")(v4.ChatLanding);
@@ -478,7 +481,7 @@ v42.init = function(v65) --[[ Line: 486 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v42.render = function(v74) --[[ Line: 579 ]] --[[ Name: render ]]
+v42.render = function(v74) --[[ Line: 584 ]] --[[ Name: render ]]
     -- upvalues: v20 (copy), v8 (copy), v9 (copy), v7 (copy), v4 (copy), v19 (copy), v22 (copy), l_GetFFlagEnablePushNotificationsUpsellModalChat_0 (copy), v23 (copy)
     v20:info("{screen} render");
     local v75 = v8.isNotNil(v74.props.navigation, "navigation in ChatLandingScreen");
@@ -487,7 +490,7 @@ v42.render = function(v74) --[[ Line: 579 ]] --[[ Name: render ]]
     local v78 = v75.getScreenProps("topBarHeight", 0);
     return v9.createElement(v7, {
         screenName = v4.ChatLanding, 
-        render = function(v79) --[[ Line: 588 ]] --[[ Name: render ]]
+        render = function(v79) --[[ Line: 593 ]] --[[ Name: render ]]
             -- upvalues: v4 (ref), v8 (ref), v9 (ref), v19 (ref), v75 (copy), v74 (copy), v76 (copy), v77 (copy), v22 (ref), v78 (copy), l_GetFFlagEnablePushNotificationsUpsellModalChat_0 (ref), v23 (ref)
             local v80 = v79.getScreenTopBar(v4.ChatLanding);
             v8.isType(v80, "table", "screenTopBar");
@@ -518,7 +521,7 @@ v42.render = function(v74) --[[ Line: 579 ]] --[[ Name: render ]]
                     ChatSearchBox = v9.createElement(v22, {
                         height = v78, 
                         initialText = v80.filterText, 
-                        onFilter = function(v82) --[[ Line: 619 ]] --[[ Name: onFilter ]]
+                        onFilter = function(v82) --[[ Line: 624 ]] --[[ Name: onFilter ]]
                             -- upvalues: v79 (copy), v4 (ref)
                             v79.setScreenTopBar(v4.ChatLanding, {
                                 filterText = v82
@@ -538,7 +541,7 @@ v42.render = function(v74) --[[ Line: 579 ]] --[[ Name: render ]]
         end
     });
 end;
-v42.didMount = function(v83) --[[ Line: 640 ]] --[[ Name: didMount ]]
+v42.didMount = function(v83) --[[ Line: 645 ]] --[[ Name: didMount ]]
     -- upvalues: v20 (copy)
     v20:info("{screen} mounted");
     v83.setScreenTopBar({

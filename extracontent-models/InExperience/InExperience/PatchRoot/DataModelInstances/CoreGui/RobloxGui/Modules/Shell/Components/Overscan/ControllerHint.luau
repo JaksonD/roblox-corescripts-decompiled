@@ -3,8 +3,9 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local v2 = require(l_CorePackages_0.Packages.Roact);
 local v3 = require(l_Modules_0.Shell.GlobalSettings);
 local v4 = require(l_Modules_0.Shell.LocalizedStrings);
-return function(_) --[[ Line: 10 ]]
-    -- upvalues: v2 (copy), v3 (copy), v4 (copy)
+local l_FFlagAppShellMigrateLocales_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAppShellMigrateLocales;
+return function(_) --[[ Line: 11 ]]
+    -- upvalues: v2 (copy), v3 (copy), l_FFlagAppShellMigrateLocales_0 (copy), v4 (copy)
     return v2.createElement("ImageLabel", {
         Size = UDim2.new(0, 599, 0, 404), 
         Position = UDim2.new(0.5, 0, 0.5, 0), 
@@ -27,7 +28,7 @@ return function(_) --[[ Line: 10 ]]
                 FontSize = v3.ButtonSize, 
                 TextColor3 = v3.WhiteTextColor, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
-                Text = v4:LocalizedString("ResizeScreenInputHint")
+                Text = if l_FFlagAppShellMigrateLocales_0 then v4:LocStringUA("Xbox.Old.ResizeScreenInputHint") else v4:LocalizedString("ResizeScreenInputHint")
             })
         })
     });

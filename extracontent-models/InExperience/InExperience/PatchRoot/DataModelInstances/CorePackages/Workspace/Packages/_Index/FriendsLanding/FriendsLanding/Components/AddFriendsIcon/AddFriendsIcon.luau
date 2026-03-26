@@ -1,71 +1,73 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("FriendsLanding");
-local v1 = require(l_script_FirstAncestor_0.dependencies);
-local l_React_0 = v1.React;
-local l_UIBlox_0 = v1.UIBlox;
-local v4 = require(l_script_FirstAncestor_0.Common.TextKeys);
+local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v3 = require(l_script_FirstAncestor_0.dependencies);
+local l_React_0 = v3.React;
+local l_UIBlox_0 = v3.UIBlox;
+local v6 = require(l_script_FirstAncestor_0.Common.TextKeys);
 local l_IconButton_0 = l_UIBlox_0.App.Button.IconButton;
 local l_Images_0 = l_UIBlox_0.App.ImageSet.Images;
 local l_Badge_0 = l_UIBlox_0.App.Indicator.Badge;
 local l_Tooltip_0 = l_UIBlox_0.App.Dialog.Tooltip;
-local l_Dash_0 = v1.Dash;
+local l_Dash_0 = v3.Dash;
 local l_useState_0 = l_React_0.useState;
-local l_useLocalization_0 = v1.Hooks.useLocalization;
-local l_getDeepValue_0 = v1.SocialLibraries.Dictionary.getDeepValue;
-local v13 = {
+local l_useLocalization_0 = v3.Hooks.useLocalization;
+local l_getDeepValue_0 = v3.SocialLibraries.Dictionary.getDeepValue;
+local v15 = {
     layoutOrder = 0, 
     friendRequestCount = 0, 
     onActivated = l_Dash_0.noop, 
     showTooltip = false
 };
-return function(v14) --[[ Line: 34 ]]
-    -- upvalues: l_Dash_0 (copy), v13 (copy), l_useState_0 (copy), l_getDeepValue_0 (copy), l_useLocalization_0 (copy), v4 (copy), l_React_0 (copy), l_IconButton_0 (copy), l_Images_0 (copy), l_Badge_0 (copy), l_Tooltip_0 (copy)
-    local v15 = l_Dash_0.join(v13, v14);
-    local v16, v17 = l_useState_0(240);
-    local function v19(v18) --[[ Line: 38 ]]
-        -- upvalues: v17 (copy), l_getDeepValue_0 (ref)
-        if v18 and v18:FindFirstChild("CallToActionTooltip", true) then
-            v17(l_getDeepValue_0(v18, "CallToActionTooltip.TooltipContainer.AbsoluteSize.X") or 240);
+return function(v16) --[[ Line: 36 ]]
+    -- upvalues: l_Dash_0 (copy), v15 (copy), l_useState_0 (copy), l_getDeepValue_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v6 (copy), l_React_0 (copy), l_IconButton_0 (copy), l_Images_0 (copy), l_Badge_0 (copy), l_Tooltip_0 (copy)
+    local v17 = l_Dash_0.join(v15, v16);
+    local v18, v19 = l_useState_0(240);
+    local function v21(v20) --[[ Line: 40 ]]
+        -- upvalues: v19 (copy), l_getDeepValue_0 (ref)
+        if v20 and v20:FindFirstChild("CallToActionTooltip", true) then
+            v19(l_getDeepValue_0(v20, "CallToActionTooltip.TooltipContainer.AbsoluteSize.X") or 240);
         end;
     end;
-    local v20 = l_useLocalization_0({
-        tooltipMessage = v4.NO_CONNECTIONS_TOOLTIP
+    local v22 = l_useLocalization_0({
+        tooltipMessage = if l_FFlagConnectionsToFriendsRename_0 then v6.NO_FRIENDS_TOOLTIP else v6.NO_CONNECTIONS_TOOLTIP
     });
     local l_createElement_0 = l_React_0.createElement;
     local l_l_IconButton_0_0 = l_IconButton_0;
-    local v23 = {
+    local v25 = {
         size = UDim2.fromOffset(0, 0), 
         icon = l_Images_0["icons/actions/friends/friendAdd"], 
-        position = v15.position, 
+        position = v17.position, 
         anchorPoint = Vector2.new(1, 0.5), 
-        layoutOrder = v15.layoutOrder, 
-        onActivated = v15.onActivated
+        layoutOrder = v17.layoutOrder, 
+        onActivated = v17.onActivated
     };
-    local v24 = {};
+    local v26 = {};
     local l_createElement_1 = l_React_0.createElement;
-    local v26 = "Frame";
-    local v27 = {
+    local v28 = "Frame";
+    local v29 = {
         Size = UDim2.new(1, 0, 1, 0), 
         BackgroundTransparency = 1, 
-        [l_React_0.Change.AbsoluteSize] = v19
+        [l_React_0.Change.AbsoluteSize] = v21
     };
-    local v28 = {};
-    local v29 = false;
-    if v15.friendRequestCount > 0 then
-        v29 = l_React_0.createElement(l_Badge_0, {
+    local v30 = {};
+    local v31 = false;
+    if v17.friendRequestCount > 0 then
+        v31 = l_React_0.createElement(l_Badge_0, {
             position = UDim2.new(0.5, 0, 0.5, 0), 
             anchorPoint = Vector2.new(0, 1), 
-            value = v15.friendRequestCount
+            value = v17.friendRequestCount
         });
     end;
-    v28.FriendRequestsBadge = v29;
-    v28.CallToActionTooltip = v15.showTooltip and l_React_0.createElement(l_Tooltip_0, {
-        position = UDim2.new(0, 42.5 - v16, 0, 36), 
+    v30.FriendRequestsBadge = v31;
+    v30.CallToActionTooltip = v17.showTooltip and l_React_0.createElement(l_Tooltip_0, {
+        position = UDim2.new(0, 42.5 - v18, 0, 36), 
         triggerPosition = Vector2.new(0, 0), 
         triggerSize = Vector2.new(36, 0), 
-        bodyText = v20.tooltipMessage, 
+        bodyText = v22.tooltipMessage, 
         forceClickTriggerPoint = true, 
         isDirectChild = true
     });
-    v24.ImagesContainer = l_createElement_1(v26, v27, v28);
-    return l_createElement_0(l_l_IconButton_0_0, v23, v24);
+    v26.ImagesContainer = l_createElement_1(v28, v29, v30);
+    return l_createElement_0(l_l_IconButton_0_0, v25, v26);
 end;

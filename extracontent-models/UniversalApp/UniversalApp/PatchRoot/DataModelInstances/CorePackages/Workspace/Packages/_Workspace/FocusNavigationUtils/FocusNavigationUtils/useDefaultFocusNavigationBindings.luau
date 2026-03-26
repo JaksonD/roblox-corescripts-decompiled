@@ -21,7 +21,7 @@ local function _(v14) --[[ Line: 23 ]] --[[ Name: getScrollableAncestor ]]
         return v14:FindFirstAncestorWhichIsA("ScrollingFrame");
     end;
 end;
-local function v19(v16, v17) --[[ Line: 34 ]] --[[ Name: scrollTo ]]
+local function _(v16, v17) --[[ Line: 34 ]] --[[ Name: scrollTo ]]
     if v16 ~= nil then
         local v18 = v16.AbsoluteCanvasSize.Y - v16.AbsoluteWindowSize.Y;
         if v17 > 0 and v16.CanvasPosition.Y >= v18 - 350 then
@@ -36,7 +36,7 @@ local function v19(v16, v17) --[[ Line: 34 ]] --[[ Name: scrollTo ]]
     end;
 end;
 useDefaultFocusNavigationBindings = function(v20) --[[ Line: 53 ]] --[[ Name: useDefaultFocusNavigationBindings ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useRegistryEntry_0 (copy), v10 (copy), l_useFocusRegistryEntry_0 (copy), v11 (copy), l_useSelector_0 (copy), v3 (copy), v13 (copy), v2 (copy), v8 (copy), v4 (copy), l_canGoBack_0 (copy), v19 (copy)
+    -- upvalues: l_useNavigation_0 (copy), l_useRegistryEntry_0 (copy), v10 (copy), l_useFocusRegistryEntry_0 (copy), v11 (copy), l_useSelector_0 (copy), v3 (copy), v13 (copy), v2 (copy), v8 (copy), v4 (copy), l_canGoBack_0 (copy)
     local v21 = l_useNavigation_0();
     local v22 = l_useRegistryEntry_0(v10.SearchBar);
     local v23 = l_useFocusRegistryEntry_0(v10.SearchBar);
@@ -50,8 +50,8 @@ useDefaultFocusNavigationBindings = function(v20) --[[ Line: 53 ]] --[[ Name: us
     local v30 = if v29 == nil then nil else if v29:IsA("ScrollingFrame") then v29 else v29:FindFirstAncestorWhichIsA("ScrollingFrame");
     local v31 = v30 ~= nil;
     local v32 = v3.useEventMap(v13, v20);
-    local v39 = v2.useMemo(function() --[[ Line: 70 ]]
-        -- upvalues: v26 (copy), v8 (ref), v4 (ref), l_canGoBack_0 (ref), v21 (copy), v28 (copy), v24 (copy), v23 (copy), v22 (copy), v31 (copy), v19 (ref), v30 (copy)
+    local v43 = v2.useMemo(function() --[[ Line: 70 ]]
+        -- upvalues: v26 (copy), v8 (ref), v4 (ref), l_canGoBack_0 (ref), v21 (copy), v28 (copy), v24 (copy), v23 (copy), v22 (copy), v31 (copy), v30 (copy)
         local v33 = {};
         if not v26 then
             v33[v8.NavigateBack] = {
@@ -86,14 +86,32 @@ useDefaultFocusNavigationBindings = function(v20) --[[ Line: 53 ]] --[[ Name: us
         if v31 then
             v33[v8.ScrollDown] = {
                 handler = v4.onRelease(function(_) --[[ Line: 103 ]]
-                    -- upvalues: v19 (ref), v30 (ref)
-                    v19(v30, 300);
+                    -- upvalues: v30 (ref)
+                    local l_v30_0 = v30;
+                    if l_v30_0 ~= nil then
+                        local v39 = l_v30_0.AbsoluteCanvasSize.Y - l_v30_0.AbsoluteWindowSize.Y;
+                        if l_v30_0.CanvasPosition.Y >= v39 - 350 then
+                            l_v30_0.CanvasPosition = Vector2.new(0, v39);
+                            return;
+                        else
+                            l_v30_0.CanvasPosition = l_v30_0.CanvasPosition + Vector2.new(0, 300);
+                        end;
+                    end;
                 end)
             };
             v33[v8.ScrollUp] = {
                 handler = v4.onRelease(function(_) --[[ Line: 108 ]]
-                    -- upvalues: v19 (ref), v30 (ref)
-                    v19(v30, -300);
+                    -- upvalues: v30 (ref)
+                    local l_v30_1 = v30;
+                    if l_v30_1 ~= nil then
+                        local _ = l_v30_1.AbsoluteCanvasSize.Y - l_v30_1.AbsoluteWindowSize.Y;
+                        if l_v30_1.CanvasPosition.Y <= 350 then
+                            l_v30_1.CanvasPosition = Vector2.new(0, 0);
+                            return;
+                        else
+                            l_v30_1.CanvasPosition = l_v30_1.CanvasPosition + Vector2.new(0, -300);
+                        end;
+                    end;
                 end)
             };
         end;
@@ -107,6 +125,6 @@ useDefaultFocusNavigationBindings = function(v20) --[[ Line: 53 ]] --[[ Name: us
         v28, 
         v31
     });
-    return (v3.useEventHandlerMap(v39, v32));
+    return (v3.useEventHandlerMap(v43, v32));
 end;
 return useDefaultFocusNavigationBindings;

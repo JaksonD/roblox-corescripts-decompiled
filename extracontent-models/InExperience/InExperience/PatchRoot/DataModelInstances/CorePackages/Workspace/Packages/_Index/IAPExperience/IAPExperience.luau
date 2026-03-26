@@ -3,8 +3,8 @@ local _ = require(script.Enums.CheckUserPurchaseSettingsFailureReason);
 local _ = require(script.Enums.EconomicRestrictionsViolationType);
 local _ = require(script.ProductPurchase.v3.UnifiedProductPurchaseModalTypes);
 local v4 = require(script.Enums.UnifiedPurchaseModalTypeEnum);
-local _ = require(script.ProductPurchase.PricingTypes);
 return {
+    DiscountType = require(script.ProductPurchase.PricingTypes).DiscountType, 
     Animator = require(script.Generic.Animator), 
     UnifiedProductPurchaseModal = require(script.ProductPurchase.v3.UnifiedProductPurchaseModal), 
     UnifiedPurchaseCompletionModal = require(script.Generic.UnifiedPurchaseCompletionModal), 

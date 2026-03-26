@@ -2,7 +2,7 @@ local l_Parent_0 = script:FindFirstAncestor("ServerDrivenUi").Parent;
 local l_GetInputModeStore_0 = require(l_Parent_0.Responsive).GetInputModeStore;
 local l_OpenGameDetails_0 = require(l_Parent_0.GameDetail).OpenGameDetails;
 local l_IntervalPerformanceTracker_0 = require(l_Parent_0.IntervalPerformanceTracker).IntervalPerformanceTracker;
-local l_SponsoredGamesRecordClick_0 = require(l_Parent_0.GameTile).SponsoredGamesRecordClick;
+local l_sponsoredGamesRecordClick_0 = require(l_Parent_0.DiscoveryAnalytics).Requests.sponsoredGamesRecordClick;
 local l_calculateRowPositionFields_0 = require(l_Parent_0.UnifiedLogging).calculateRowPositionFields;
 local v6 = require(l_Parent_0.SduiCoreSystem);
 local l_findAnalyticsFieldInAncestors_0 = v6.findAnalyticsFieldInAncestors;
@@ -10,7 +10,7 @@ local l_SduiParsers_0 = v6.SduiParsers;
 local l_SduiErrors_0 = v6.SduiErrors;
 local v10 = {};
 return function(v11, v12, v13) --[[ Line: 25 ]]
-    -- upvalues: l_SduiErrors_0 (copy), l_GetInputModeStore_0 (copy), v10 (copy), l_findAnalyticsFieldInAncestors_0 (copy), l_IntervalPerformanceTracker_0 (copy), l_SduiParsers_0 (copy), l_SponsoredGamesRecordClick_0 (copy), l_calculateRowPositionFields_0 (copy), l_OpenGameDetails_0 (copy)
+    -- upvalues: l_SduiErrors_0 (copy), l_GetInputModeStore_0 (copy), v10 (copy), l_findAnalyticsFieldInAncestors_0 (copy), l_IntervalPerformanceTracker_0 (copy), l_SduiParsers_0 (copy), l_sponsoredGamesRecordClick_0 (copy), l_calculateRowPositionFields_0 (copy), l_OpenGameDetails_0 (copy)
     v13.dependencies.logger.reportCounter(l_SduiErrors_0.SduiCounterName.OpenGameDetailsAction, {
         name = l_GetInputModeStore_0(false).getLastInputType(false)
     }, true);
@@ -48,7 +48,7 @@ return function(v11, v12, v13) --[[ Line: 25 ]]
     local v29 = l_findAnalyticsFieldInAncestors_0("heroUnitId", v12);
     local l_dependencies_0 = v13.dependencies;
     if v19 and v20 then
-        l_SponsoredGamesRecordClick_0(l_dependencies_0.networking, (tostring(v20)));
+        l_sponsoredGamesRecordClick_0(l_dependencies_0.networking, (tostring(v20)));
     end;
     local v31 = l_calculateRowPositionFields_0(v18, v25, v26);
     l_dependencies_0.gameAnalytics.reportOpenGameDetailWithId(v16, tostring(v23), v28, v22, v18, v24, v19, v20, tostring(v17), v13.appPage, tostring(v21), nil, v18, true, v31.positionInRow, v31.rowInSort, v31.rowOnPage, v29);

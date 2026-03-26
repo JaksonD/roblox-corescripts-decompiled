@@ -24,198 +24,201 @@ local v22 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.LayeredClot
 local v23 = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.LayeredMakeupSortUtils);
 local v24 = require(l_Modules_0.AvatarExperience.Common.Models.AssetMetadata);
 local v25 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RemoveLayeredClothing);
-local v26 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetOrder);
-local v27 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments);
+local v26 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RemoveMakeup);
+local v27 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Actions.SetOrder);
+local v28 = require(l_Modules_0.AvatarExperience.AccessoryAdjustment.Actions.SetAccessoryAdjustments);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local l_HeadShape_0 = v5.Enums.HeadShape;
 local l_HeadShapeProperties_0 = v5.Enums.HeadShapeProperties;
-local v31 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableBatchUnequips);
-local v32 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
-local l_CharacterHistoryStateChangeButtonActivated_0 = v32.State.Actions.CharacterHistoryStateChangeButtonActivated;
+local v32 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableBatchUnequips);
+local v33 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCommon);
+local l_isMakeupAssetType_0 = v33.Utils.isMakeupAssetType;
+local l_CharacterHistoryStateChangeButtonActivated_0 = v33.State.Actions.CharacterHistoryStateChangeButtonActivated;
 local l_PurchaseItemsSuccess_0 = v8.State.Actions.PurchaseItemsSuccess;
-local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v32.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
-local l_MAX_MAKEUP_LAYERS_0 = v32.Constants.MAX_MAKEUP_LAYERS;
+local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v33.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
+local l_MAX_MAKEUP_LAYERS_0 = v33.Constants.MAX_MAKEUP_LAYERS;
 local l_FFlagAXRootSlotBasedEditorFlag_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXRootSlotBasedEditorFlag;
-local v38 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip);
+local v40 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip);
 local l_FFlagAXMISEnableMultiShopping_0 = v9.FFlagAXMISEnableMultiShopping;
-local v40 = game:DefineFastFlag("AXRefactorToggleEquipAsset3", false);
+local v42 = game:DefineFastFlag("AXRefactorToggleEquipAsset3", false);
 local l_FFlagAXModeratedItemsFlow_0 = v9.FFlagAXModeratedItemsFlow;
 local l_FFlagParseHeadShapeFromAPIResponse_0 = v9.FFlagParseHeadShapeFromAPIResponse;
 local l_FFlagAXCustomizeMakeupSupport_0 = v9.FFlagAXCustomizeMakeupSupport;
-local v44 = game:DefineFastFlag("AXEquippedAssetsMissingAssetTypeId", false);
+local v46 = game:DefineFastFlag("AXEquippedAssetsMissingAssetTypeId", false);
 local l_FFlagAXSkipEmotesInAvatarData_0 = v9.FFlagAXSkipEmotesInAvatarData;
-local function _(v46, v47) --[[ Line: 80 ]] --[[ Name: checkIfWearingAsset ]]
-    if v46 and v46[v47] then
+local l_FFlagAXBlockMakeupEquipR6_0 = v9.FFlagAXBlockMakeupEquipR6;
+local function _(v49, v50) --[[ Line: 83 ]] --[[ Name: checkIfWearingAsset ]]
+    if v49 and v49[v50] then
         return true;
     else
         return false;
     end;
 end;
-local function v55(v49, v50) --[[ Line: 92 ]] --[[ Name: replaceOutfitParts ]]
-    -- upvalues: v38 (copy), v20 (copy), v3 (copy)
-    if v38() then
-        local v51 = {};
-        if v50[v20.AssetTypeIdStrings.Head] or v50[v20.AssetTypeIdStrings.DynamicHead] then
-            local v52 = {
+local function v58(v52, v53) --[[ Line: 95 ]] --[[ Name: replaceOutfitParts ]]
+    -- upvalues: v40 (copy), v20 (copy), v3 (copy)
+    if v40() then
+        local v54 = {};
+        if v53[v20.AssetTypeIdStrings.Head] or v53[v20.AssetTypeIdStrings.DynamicHead] then
+            local v55 = {
                 [v20.AssetTypeIdStrings.Head] = {}, 
                 [v20.AssetTypeIdStrings.DynamicHead] = {}
             };
-            for v53, _ in v20.DynamicHeadAssetTypes do
-                v52[v53] = {};
+            for v56, _ in v20.DynamicHeadAssetTypes do
+                v55[v56] = {};
             end;
-            v51 = v3.Dictionary.join(v52, v50);
+            v54 = v3.Dictionary.join(v55, v53);
         else
-            v51 = v50;
+            v54 = v53;
         end;
-        return (v3.Dictionary.join(v49, v51));
+        return (v3.Dictionary.join(v52, v54));
     else
-        return v3.Dictionary.join(v49, v50);
+        return v3.Dictionary.join(v52, v53);
     end;
 end;
-local function v82(v56, v57, v58) --[[ Line: 154 ]] --[[ Name: toggleSingleAsset ]]
-    -- upvalues: v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v44 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
-    v56 = v56 or {};
-    if v57.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
-        return v56;
+local function v85(v59, v60, v61) --[[ Line: 157 ]] --[[ Name: toggleSingleAsset ]]
+    -- upvalues: v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v46 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
+    v59 = v59 or {};
+    if v60.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
+        return v59;
     else
-        local v59 = v56[v57.assetTypeId];
-        local l_assetId_0 = v57.assetId;
-        if v59 and v59[l_assetId_0] and true or false then
-            v59 = v56[v57.assetTypeId] or {};
-            return v3.Dictionary.join(v56, {
-                [v57.assetTypeId] = v3.Dictionary.join(v59, {
-                    [v57.assetId] = v3.None
+        local v62 = v59[v60.assetTypeId];
+        local l_assetId_0 = v60.assetId;
+        if v62 and v62[l_assetId_0] and true or false then
+            v62 = v59[v60.assetTypeId] or {};
+            return v3.Dictionary.join(v59, {
+                [v60.assetTypeId] = v3.Dictionary.join(v62, {
+                    [v60.assetId] = v3.None
                 })
             });
         else
-            v59 = v24.getDefaultMetadata(v57.assetTypeId);
-            if v57.overrideOrder then
-                v59.order = v57.overrideOrder;
-                l_assetId_0 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v56) else nil;
-                if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v57.assetTypeId] and l_assetId_0 and #l_assetId_0 == l_MAX_MAKEUP_LAYERS_0 then
-                    local v61 = l_assetId_0[#l_assetId_0];
-                    v56 = v3.Dictionary.join(v56, {
-                        [v61.typeId] = v3.Dictionary.join(v56[v61.typeId] or {}, {
-                            [v61.id] = v3.None
+            v62 = v24.getDefaultMetadata(v60.assetTypeId);
+            if v60.overrideOrder then
+                v62.order = v60.overrideOrder;
+                l_assetId_0 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v59) else nil;
+                if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] and l_assetId_0 and #l_assetId_0 == l_MAX_MAKEUP_LAYERS_0 then
+                    local v64 = l_assetId_0[#l_assetId_0];
+                    v59 = v3.Dictionary.join(v59, {
+                        [v64.typeId] = v3.Dictionary.join(v59[v64.typeId] or {}, {
+                            [v64.id] = v3.None
                         })
                     });
                 end;
-            elseif v59.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v57.assetTypeId]) then
-                l_assetId_0 = v22.getSortedEquippedLCIfNoDefault(v56);
+            elseif v62.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v60.assetTypeId]) then
+                l_assetId_0 = v22.getSortedEquippedLCIfNoDefault(v59);
                 if l_assetId_0 then
-                    local v62 = {
-                        id = v57.assetId, 
-                        typeId = v57.assetTypeId
+                    local v65 = {
+                        id = v60.assetId, 
+                        typeId = v60.assetTypeId
                     };
-                    local v63, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v62);
-                    for v65, v66 in v63 do
-                        if v66.id ~= v57.assetId then
-                            if v44 and not v56[v66.typeId] then
-                                v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v66.id, v66.typeId)));
+                    local v66, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v65);
+                    for v68, v69 in v66 do
+                        if v69.id ~= v60.assetId then
+                            if v46 and not v59[v69.typeId] then
+                                v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v69.id, v69.typeId)));
                             else
-                                v56 = v3.Dictionary.join(v56, {
-                                    [v66.typeId] = v3.Dictionary.join(v56[v66.typeId], {
-                                        [v66.id] = v3.Dictionary.join(v56[v66.typeId][v66.id], {
-                                            order = #v63 - v65
+                                v59 = v3.Dictionary.join(v59, {
+                                    [v69.typeId] = v3.Dictionary.join(v59[v69.typeId], {
+                                        [v69.id] = v3.Dictionary.join(v59[v69.typeId][v69.id], {
+                                            order = #v66 - v68
                                         })
                                     })
                                 });
                             end;
                         else
-                            v59.order = #v63 - v65;
+                            v62.order = #v66 - v68;
                         end;
                     end;
                 end;
-            elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v57.assetTypeId] then
-                l_assetId_0 = v23.getSortedEquippedLayeredMakeup(v56);
+            elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] then
+                l_assetId_0 = v23.getSortedEquippedLayeredMakeup(v59);
                 if l_assetId_0 then
-                    local v67 = {
-                        id = v57.assetId, 
-                        typeId = v57.assetTypeId
+                    local v70 = {
+                        id = v60.assetId, 
+                        typeId = v60.assetTypeId
                     };
-                    local v68, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v67);
-                    for v70, v71 in v68 do
-                        if v71.id ~= v57.assetId then
-                            local v72 = v56[v71.typeId] or {};
-                            local v73 = v72[v71.id] or {};
-                            v56 = v3.Dictionary.join(v56, {
-                                [v71.typeId] = v3.Dictionary.join(v72, {
-                                    [v71.id] = v3.Dictionary.join(v73, {
-                                        order = #v68 - v70
+                    local v71, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_0, v70);
+                    for v73, v74 in v71 do
+                        if v74.id ~= v60.assetId then
+                            local v75 = v59[v74.typeId] or {};
+                            local v76 = v75[v74.id] or {};
+                            v59 = v3.Dictionary.join(v59, {
+                                [v74.typeId] = v3.Dictionary.join(v75, {
+                                    [v74.id] = v3.Dictionary.join(v76, {
+                                        order = #v71 - v73
                                     })
                                 })
                             });
                         else
-                            v59.order = math.min(#v68 - v70, l_MAX_MAKEUP_LAYERS_0 - 1);
+                            v62.order = math.min(#v71 - v73, l_MAX_MAKEUP_LAYERS_0 - 1);
                         end;
                     end;
                     if #l_assetId_0 > l_MAX_MAKEUP_LAYERS_0 then
-                        for v74 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_0 do
-                            v56 = v3.Dictionary.join(v56, {
-                                [l_assetId_0[v74].typeId] = v3.Dictionary.join(v56[l_assetId_0[v74].typeId] or {}, {
-                                    [l_assetId_0[v74].id] = v3.None
+                        for v77 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_0 do
+                            v59 = v3.Dictionary.join(v59, {
+                                [l_assetId_0[v77].typeId] = v3.Dictionary.join(v59[l_assetId_0[v77].typeId] or {}, {
+                                    [l_assetId_0[v77].id] = v3.None
                                 })
                             });
                         end;
                     end;
-                    return v3.Dictionary.join(v56, {
-                        [v57.assetTypeId] = v3.Dictionary.join(v56[v57.assetTypeId] or {}, {
-                            [v57.assetId] = v59
+                    return v3.Dictionary.join(v59, {
+                        [v60.assetTypeId] = v3.Dictionary.join(v59[v60.assetTypeId] or {}, {
+                            [v60.assetId] = v62
                         })
                     });
                 end;
-            elseif v57.overrideAdjustments then
-                v59 = v3.Dictionary.join(v59, v57.overrideAdjustments);
+            elseif v60.overrideAdjustments then
+                v62 = v3.Dictionary.join(v62, v60.overrideAdjustments);
             end;
             l_assetId_0 = {
-                [v57.assetId] = v59
+                [v60.assetId] = v62
             };
-            local v75 = v56[v57.assetTypeId] or {};
-            if v57.assetTypeId == v20.AssetTypeIdStrings.Hat and (not v58 or not v58.ignoreAccessoryLimits) then
-                if #v3.Dictionary.keys(v75) >= v21.MaxHats then
-                    return v56;
+            local v78 = v59[v60.assetTypeId] or {};
+            if v60.assetTypeId == v20.AssetTypeIdStrings.Hat and (not v61 or not v61.ignoreAccessoryLimits) then
+                if #v3.Dictionary.keys(v78) >= v21.MaxHats then
+                    return v59;
                 else
-                    return v3.Dictionary.join(v56, {
-                        [v57.assetTypeId] = v3.Dictionary.join(v75, l_assetId_0)
+                    return v3.Dictionary.join(v59, {
+                        [v60.assetTypeId] = v3.Dictionary.join(v78, l_assetId_0)
                     });
                 end;
             else
-                local v76 = v20.AssetTypeToAssetCategory[v57.assetTypeId];
-                if v76 then
-                    for _, v78 in v20.AssetCategoryToAssetTypes[v76] do
-                        if v56[v78] and next(v56[v78]) then
-                            v56 = v3.Dictionary.join(v56, {
-                                [v78] = {}
+                local v79 = v20.AssetTypeToAssetCategory[v60.assetTypeId];
+                if v79 then
+                    for _, v81 in v20.AssetCategoryToAssetTypes[v79] do
+                        if v59[v81] and next(v59[v81]) then
+                            v59 = v3.Dictionary.join(v59, {
+                                [v81] = {}
                             });
                         end;
                     end;
                 end;
-                if v57.assetTypeId == v20.AssetTypeIdStrings.Head then
-                    for v79, _ in v20.DynamicHeadAssetTypes do
-                        v56 = v3.Dictionary.join(v56, {
-                            [v79] = {}
+                if v60.assetTypeId == v20.AssetTypeIdStrings.Head then
+                    for v82, _ in v20.DynamicHeadAssetTypes do
+                        v59 = v3.Dictionary.join(v59, {
+                            [v82] = {}
                         });
                     end;
                 end;
-                if v57.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
-                    v56 = v3.Dictionary.join(v56, {
+                if v60.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
+                    v59 = v3.Dictionary.join(v59, {
                         [v20.AssetTypeIdStrings.Head] = {}
                     });
                 end;
-                if v57.assetId and tostring(v57.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
-                    return (v3.Dictionary.join(v56, {
+                if v60.assetId and tostring(v60.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
+                    return (v3.Dictionary.join(v59, {
                         [v20.AssetTypeIdStrings.Head] = {}, 
                         [v20.AssetTypeIdStrings.DynamicHead] = {}
                     }));
                 else
-                    local v81 = v20.BypassAccessoryLimitsAccessoryAssetTypeIdStrings[v57.assetTypeId];
-                    if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v57.assetTypeId] then
-                        return v3.Dictionary.join(v56, {
-                            [v57.assetTypeId] = v3.Dictionary.join(v75, l_assetId_0)
+                    local v84 = v20.BypassAccessoryLimitsAccessoryAssetTypeIdStrings[v60.assetTypeId];
+                    if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v60.assetTypeId] then
+                        return v3.Dictionary.join(v59, {
+                            [v60.assetTypeId] = v3.Dictionary.join(v78, l_assetId_0)
                         });
                     else
-                        return v3.Dictionary.join(v56, {
-                            [v57.assetTypeId] = if v58 and v58.ignoreAccessoryLimits and v81 then v3.Dictionary.join(v75, l_assetId_0) else l_assetId_0
+                        return v3.Dictionary.join(v59, {
+                            [v60.assetTypeId] = if v61 and v61.ignoreAccessoryLimits and v84 then v3.Dictionary.join(v78, l_assetId_0) else l_assetId_0
                         });
                     end;
                 end;
@@ -224,178 +227,178 @@ local function v82(v56, v57, v58) --[[ Line: 154 ]] --[[ Name: toggleSingleAsset
     end;
 end;
 return v2.createReducer(nil, {
-    [v18.name] = function(v83, v84) --[[ Line: 380 ]]
+    [v18.name] = function(v86, v87) --[[ Line: 383 ]]
         -- upvalues: l_FFlagAXSkipEmotesInAvatarData_0 (copy), v20 (copy), v24 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), v3 (copy)
-        local l_assets_0 = v84.avatarData.assets;
+        local l_assets_0 = v87.avatarData.assets;
         if l_assets_0 == nil then
-            return v83;
+            return v86;
         else
-            v83 = {};
-            for _, v87 in l_assets_0 do
-                local v88 = tostring(v87.assetType.id);
-                local v89 = tostring(v87.id);
-                if not l_FFlagAXSkipEmotesInAvatarData_0 or v88 ~= v20.AssetTypeIdStrings.EmoteAnimation then
-                    local v90 = v83[v88] or {};
-                    v90[v89] = v24.fromMetadata(v87.meta, v88);
+            v86 = {};
+            for _, v90 in l_assets_0 do
+                local v91 = tostring(v90.assetType.id);
+                local v92 = tostring(v90.id);
+                if not l_FFlagAXSkipEmotesInAvatarData_0 or v91 ~= v20.AssetTypeIdStrings.EmoteAnimation then
+                    local v93 = v86[v91] or {};
+                    v93[v92] = v24.fromMetadata(v90.meta, v91);
                     if l_FFlagAXModeratedItemsFlow_0 then
-                        v90[v89].availabilityStatus = v87.availabilityStatus;
+                        v93[v92].availabilityStatus = v90.availabilityStatus;
                     end;
-                    v83[v88] = v90;
+                    v86[v91] = v93;
                 end;
             end;
-            local v91 = v83[v20.AssetTypeIdStrings.DynamicHead] or {};
-            local v92 = v83[v20.AssetTypeIdStrings.Face] or {};
-            if not v3.isEmpty(v91) and not v3.isEmpty(v92) then
-                v83[v20.AssetTypeIdStrings.Face] = {};
+            local v94 = v86[v20.AssetTypeIdStrings.DynamicHead] or {};
+            local v95 = v86[v20.AssetTypeIdStrings.Face] or {};
+            if not v3.isEmpty(v94) and not v3.isEmpty(v95) then
+                v86[v20.AssetTypeIdStrings.Face] = {};
             end;
-            return v83;
+            return v86;
         end;
     end, 
-    [v14.name] = function(v93, v94) --[[ Line: 422 ]]
-        -- upvalues: v40 (copy), v82 (copy), v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v44 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
-        if v40 then
-            return v82(v93, v94);
+    [v14.name] = function(v96, v97) --[[ Line: 425 ]]
+        -- upvalues: v42 (copy), v85 (copy), v20 (copy), v3 (copy), v24 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy), v23 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v22 (copy), v46 (copy), v4 (copy), v21 (copy), l_HeadShapeProperties_0 (copy), l_HeadShape_0 (copy)
+        if v42 then
+            return v85(v96, v97);
         else
-            v93 = v93 or {};
-            if v94.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
-                return v93;
+            v96 = v96 or {};
+            if v97.assetTypeId == v20.AssetTypeIdStrings.EmoteAnimation then
+                return v96;
             else
-                local v95 = v93[v94.assetTypeId];
-                local l_assetId_1 = v94.assetId;
-                if v95 and v95[l_assetId_1] and true or false then
-                    v95 = v93[v94.assetTypeId] or {};
-                    return v3.Dictionary.join(v93, {
-                        [v94.assetTypeId] = v3.Dictionary.join(v95, {
-                            [v94.assetId] = v3.None
+                local v98 = v96[v97.assetTypeId];
+                local l_assetId_1 = v97.assetId;
+                if v98 and v98[l_assetId_1] and true or false then
+                    v98 = v96[v97.assetTypeId] or {};
+                    return v3.Dictionary.join(v96, {
+                        [v97.assetTypeId] = v3.Dictionary.join(v98, {
+                            [v97.assetId] = v3.None
                         })
                     });
                 else
-                    v95 = v24.getDefaultMetadata(v94.assetTypeId);
-                    if v94.overrideOrder then
-                        v95.order = v94.overrideOrder;
-                        l_assetId_1 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v93) else nil;
-                        if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v94.assetTypeId] and l_assetId_1 and #l_assetId_1 == l_MAX_MAKEUP_LAYERS_0 then
-                            local v97 = l_assetId_1[#l_assetId_1];
-                            v93 = v3.Dictionary.join(v93, {
-                                [v97.typeId] = v3.Dictionary.join(v93[v97.typeId] or {}, {
-                                    [v97.id] = v3.None
+                    v98 = v24.getDefaultMetadata(v97.assetTypeId);
+                    if v97.overrideOrder then
+                        v98.order = v97.overrideOrder;
+                        l_assetId_1 = if l_FFlagAXCustomizeMakeupSupport_0 then v23.getSortedEquippedLayeredMakeup(v96) else nil;
+                        if l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] and l_assetId_1 and #l_assetId_1 == l_MAX_MAKEUP_LAYERS_0 then
+                            local v100 = l_assetId_1[#l_assetId_1];
+                            v96 = v3.Dictionary.join(v96, {
+                                [v100.typeId] = v3.Dictionary.join(v96[v100.typeId] or {}, {
+                                    [v100.id] = v3.None
                                 })
                             });
                         end;
-                    elseif v95.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v94.assetTypeId]) then
-                        l_assetId_1 = v22.getSortedEquippedLCIfNoDefault(v93);
+                    elseif v98.isLayered and (not l_FFlagAXCustomizeMakeupSupport_0 or v20.AssetTypeIdToAccessoryTypeEnum[v97.assetTypeId]) then
+                        l_assetId_1 = v22.getSortedEquippedLCIfNoDefault(v96);
                         if l_assetId_1 then
-                            local v98 = {
-                                id = v94.assetId, 
-                                typeId = v94.assetTypeId
+                            local v101 = {
+                                id = v97.assetId, 
+                                typeId = v97.assetTypeId
                             };
-                            local v99, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v98);
-                            for v101, v102 in v99 do
-                                if v102.id ~= v94.assetId then
-                                    if v44 and not v93[v102.typeId] then
-                                        v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v102.id, v102.typeId)));
+                            local v102, _ = v22.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v101);
+                            for v104, v105 in v102 do
+                                if v105.id ~= v97.assetId then
+                                    if v46 and not v96[v105.typeId] then
+                                        v4((("EquippedAssets.lua missing asset typeId post sort ID:%* typeId: %*"):format(v105.id, v105.typeId)));
                                     else
-                                        v93 = v3.Dictionary.join(v93, {
-                                            [v102.typeId] = v3.Dictionary.join(v93[v102.typeId], {
-                                                [v102.id] = v3.Dictionary.join(v93[v102.typeId][v102.id], {
-                                                    order = #v99 - v101
+                                        v96 = v3.Dictionary.join(v96, {
+                                            [v105.typeId] = v3.Dictionary.join(v96[v105.typeId], {
+                                                [v105.id] = v3.Dictionary.join(v96[v105.typeId][v105.id], {
+                                                    order = #v102 - v104
                                                 })
                                             })
                                         });
                                     end;
                                 else
-                                    v95.order = #v99 - v101;
+                                    v98.order = #v102 - v104;
                                 end;
                             end;
                         end;
-                    elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v94.assetTypeId] then
-                        l_assetId_1 = v23.getSortedEquippedLayeredMakeup(v93);
+                    elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] then
+                        l_assetId_1 = v23.getSortedEquippedLayeredMakeup(v96);
                         if l_assetId_1 then
-                            local v103 = {
-                                id = v94.assetId, 
-                                typeId = v94.assetTypeId
+                            local v106 = {
+                                id = v97.assetId, 
+                                typeId = v97.assetTypeId
                             };
-                            local v104, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v103);
-                            for v106, v107 in v104 do
-                                if v107.id ~= v94.assetId then
-                                    local v108 = v93[v107.typeId] or {};
-                                    local v109 = v108[v107.id] or {};
-                                    v93 = v3.Dictionary.join(v93, {
-                                        [v107.typeId] = v3.Dictionary.join(v108, {
-                                            [v107.id] = v3.Dictionary.join(v109, {
-                                                order = #v104 - v106
+                            local v107, _ = v23.getTableAndOrderAfterEquippingIntoSort(l_assetId_1, v106);
+                            for v109, v110 in v107 do
+                                if v110.id ~= v97.assetId then
+                                    local v111 = v96[v110.typeId] or {};
+                                    local v112 = v111[v110.id] or {};
+                                    v96 = v3.Dictionary.join(v96, {
+                                        [v110.typeId] = v3.Dictionary.join(v111, {
+                                            [v110.id] = v3.Dictionary.join(v112, {
+                                                order = #v107 - v109
                                             })
                                         })
                                     });
                                 else
-                                    v95.order = math.min(#v104 - v106, l_MAX_MAKEUP_LAYERS_0 - 1);
+                                    v98.order = math.min(#v107 - v109, l_MAX_MAKEUP_LAYERS_0 - 1);
                                 end;
                             end;
                             if #l_assetId_1 > l_MAX_MAKEUP_LAYERS_0 then
-                                for v110 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_1 do
-                                    v93 = v3.Dictionary.join(v93, {
-                                        [l_assetId_1[v110].typeId] = v3.Dictionary.join(v93[l_assetId_1[v110].typeId] or {}, {
-                                            [l_assetId_1[v110].id] = v3.None
+                                for v113 = l_MAX_MAKEUP_LAYERS_0 + 1, #l_assetId_1 do
+                                    v96 = v3.Dictionary.join(v96, {
+                                        [l_assetId_1[v113].typeId] = v3.Dictionary.join(v96[l_assetId_1[v113].typeId] or {}, {
+                                            [l_assetId_1[v113].id] = v3.None
                                         })
                                     });
                                 end;
                             end;
-                            return v3.Dictionary.join(v93, {
-                                [v94.assetTypeId] = v3.Dictionary.join(v93[v94.assetTypeId] or {}, {
-                                    [v94.assetId] = v95
+                            return v3.Dictionary.join(v96, {
+                                [v97.assetTypeId] = v3.Dictionary.join(v96[v97.assetTypeId] or {}, {
+                                    [v97.assetId] = v98
                                 })
                             });
                         end;
-                    elseif v94.overrideAdjustments then
-                        v95 = v3.Dictionary.join(v95, v94.overrideAdjustments);
+                    elseif v97.overrideAdjustments then
+                        v98 = v3.Dictionary.join(v98, v97.overrideAdjustments);
                     end;
                     l_assetId_1 = {
-                        [v94.assetId] = v95
+                        [v97.assetId] = v98
                     };
-                    local v111 = v93[v94.assetTypeId] or {};
-                    if v94.assetTypeId == v20.AssetTypeIdStrings.Hat then
-                        if #v3.Dictionary.keys(v111) >= v21.MaxHats then
-                            return v93;
+                    local v114 = v96[v97.assetTypeId] or {};
+                    if v97.assetTypeId == v20.AssetTypeIdStrings.Hat then
+                        if #v3.Dictionary.keys(v114) >= v21.MaxHats then
+                            return v96;
                         else
-                            return v3.Dictionary.join(v93, {
-                                [v94.assetTypeId] = v3.Dictionary.join(v111, l_assetId_1)
+                            return v3.Dictionary.join(v96, {
+                                [v97.assetTypeId] = v3.Dictionary.join(v114, l_assetId_1)
                             });
                         end;
                     else
-                        local v112 = v20.AssetTypeToAssetCategory[v94.assetTypeId];
-                        if v112 then
-                            for _, v114 in v20.AssetCategoryToAssetTypes[v112] do
-                                if v93[v114] and next(v93[v114]) then
-                                    v93 = v3.Dictionary.join(v93, {
-                                        [v114] = {}
+                        local v115 = v20.AssetTypeToAssetCategory[v97.assetTypeId];
+                        if v115 then
+                            for _, v117 in v20.AssetCategoryToAssetTypes[v115] do
+                                if v96[v117] and next(v96[v117]) then
+                                    v96 = v3.Dictionary.join(v96, {
+                                        [v117] = {}
                                     });
                                 end;
                             end;
                         end;
-                        if v94.assetTypeId == v20.AssetTypeIdStrings.Head then
-                            for v115, _ in v20.DynamicHeadAssetTypes do
-                                v93 = v3.Dictionary.join(v93, {
-                                    [v115] = {}
+                        if v97.assetTypeId == v20.AssetTypeIdStrings.Head then
+                            for v118, _ in v20.DynamicHeadAssetTypes do
+                                v96 = v3.Dictionary.join(v96, {
+                                    [v118] = {}
                                 });
                             end;
                         end;
-                        if v94.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
-                            v93 = v3.Dictionary.join(v93, {
+                        if v97.assetTypeId == v20.AssetTypeIdStrings.DynamicHead then
+                            v96 = v3.Dictionary.join(v96, {
                                 [v20.AssetTypeIdStrings.Head] = {}
                             });
                         end;
-                        if v94.assetId and tostring(v94.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
-                            return (v3.Dictionary.join(v93, {
+                        if v97.assetId and tostring(v97.assetId) == tostring(l_HeadShapeProperties_0[l_HeadShape_0.Default].assetId) then
+                            return (v3.Dictionary.join(v96, {
                                 [v20.AssetTypeIdStrings.Head] = {}, 
                                 [v20.AssetTypeIdStrings.DynamicHead] = {}
                             }));
-                        elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v94.assetTypeId] then
-                            return v3.Dictionary.join(v93, {
-                                [v94.assetTypeId] = v3.Dictionary.join(v111, l_assetId_1)
+                        elseif l_FFlagAXCustomizeMakeupSupport_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v97.assetTypeId] then
+                            return v3.Dictionary.join(v96, {
+                                [v97.assetTypeId] = v3.Dictionary.join(v114, l_assetId_1)
                             });
                         else
-                            return v3.Dictionary.join(v93, {
-                                [v94.assetTypeId] = l_assetId_1
+                            return v3.Dictionary.join(v96, {
+                                [v97.assetTypeId] = l_assetId_1
                             });
                         end;
                     end;
@@ -403,209 +406,209 @@ return v2.createReducer(nil, {
             end;
         end;
     end, 
-    [v13.name] = function(v117, v118) --[[ Line: 636 ]]
-        -- upvalues: v3 (copy), v82 (copy)
-        local l_assets_1 = v118.assets;
+    [v13.name] = function(v120, v121) --[[ Line: 639 ]]
+        -- upvalues: v3 (copy), v85 (copy)
+        local l_assets_1 = v121.assets;
         if l_assets_1 and not v3.isEmpty(l_assets_1) then
-            for _, v121 in l_assets_1 do
-                v117 = v82(v117, v121, {
+            for _, v124 in l_assets_1 do
+                v120 = v85(v120, v124, {
                     ignoreAccessoryLimits = true
                 });
             end;
         end;
-        return v117;
+        return v120;
     end, 
-    [v15.name] = function(v122, v123) --[[ Line: 651 ]]
-        -- upvalues: v55 (copy)
-        v122 = v122 or {};
-        if v123.fullReset then
-            return v123.assets;
+    [v15.name] = function(v125, v126) --[[ Line: 654 ]]
+        -- upvalues: v58 (copy)
+        v125 = v125 or {};
+        if v126.fullReset then
+            return v126.assets;
         else
-            return v55(v122, v123.assets);
+            return v58(v125, v126.assets);
         end;
     end, 
-    [v16.name] = function(v124, v125) --[[ Line: 663 ]]
+    [v16.name] = function(v127, v128) --[[ Line: 666 ]]
         -- upvalues: v3 (copy)
-        v124 = v124 or {};
-        for v126, v127 in v125.assetTypeIdToAssetIdToAssetMetadataModel do
-            for v128, _ in v127 do
-                v124 = v3.Dictionary.join(v124, {
-                    [v126] = v3.Dictionary.join(v124[v126], {
-                        [v128] = v3.None
+        v127 = v127 or {};
+        for v129, v130 in v128.assetTypeIdToAssetIdToAssetMetadataModel do
+            for v131, _ in v130 do
+                v127 = v3.Dictionary.join(v127, {
+                    [v129] = v3.Dictionary.join(v127[v129], {
+                        [v131] = v3.None
                     })
                 });
             end;
         end;
-        return v124;
+        return v127;
     end, 
-    [v25.name] = function(v130, v131) --[[ Line: 681 ]]
+    [v25.name] = function(v133, v134) --[[ Line: 684 ]]
         -- upvalues: v20 (copy)
-        v130 = v130 or {};
-        local v132 = false;
-        local v133 = {};
-        for v134, v135 in pairs(v130) do
-            local v136 = {};
-            local v137 = false;
-            for v138, v139 in v135 do
-                local v140 = v134 == v20.AssetTypeIdStrings.HairAccessory;
-                if v139.isLayered and (not v140 or v131.hasLayeredHair) then
-                    v137 = true;
+        v133 = v133 or {};
+        local v135 = false;
+        local v136 = {};
+        for v137, v138 in pairs(v133) do
+            local v139 = {};
+            local v140 = false;
+            for v141, v142 in v138 do
+                local v143 = v137 == v20.AssetTypeIdStrings.HairAccessory;
+                if v142.isLayered and (not v143 or v134.hasLayeredHair) then
+                    v140 = true;
                 else
-                    v136[v138] = v139;
+                    v139[v141] = v142;
                 end;
             end;
-            if v137 then
-                v132 = true;
-                v133[v134] = v136;
+            if v140 then
+                v135 = true;
+                v136[v137] = v139;
             else
-                v133[v134] = v135;
+                v136[v137] = v138;
             end;
         end;
-        if v132 then
-            return v133;
+        if v135 then
+            return v136;
         else
-            return v130;
+            return v133;
         end;
     end, 
-    [v26.name] = function(v141, v142) --[[ Line: 715 ]]
+    [v27.name] = function(v144, v145) --[[ Line: 718 ]]
         -- upvalues: v3 (copy)
-        for v143, v144 in v142.assetIdToOrderAndAssetTypeId do
-            local l_assetTypeId_0 = v144.assetTypeId;
-            local l_order_0 = v144.order;
-            local v147 = v141[l_assetTypeId_0];
-            local v148 = v147[v143];
-            v141 = v3.Dictionary.join(v141, {
-                [l_assetTypeId_0] = v3.Dictionary.join(v147, {
-                    [v143] = v3.Dictionary.join(v148, {
+        for v146, v147 in v145.assetIdToOrderAndAssetTypeId do
+            local l_assetTypeId_0 = v147.assetTypeId;
+            local l_order_0 = v147.order;
+            local v150 = v144[l_assetTypeId_0];
+            local v151 = v150[v146];
+            v144 = v3.Dictionary.join(v144, {
+                [l_assetTypeId_0] = v3.Dictionary.join(v150, {
+                    [v146] = v3.Dictionary.join(v151, {
                         order = l_order_0
                     })
                 })
             });
         end;
-        return v141;
+        return v144;
     end, 
-    [v27.name] = function(v149, v150) --[[ Line: 739 ]]
+    [v28.name] = function(v152, v153) --[[ Line: 742 ]]
         -- upvalues: v3 (copy)
-        for v151, v152 in v149 do
-            for v153, v154 in v152 do
-                if v153 == v150.itemId then
-                    return v3.Dictionary.join(v149, {
-                        [v151] = v3.Dictionary.join(v152, {
-                            [v153] = v3.Dictionary.join(v154, {
-                                position = v150.position, 
-                                rotation = v150.rotation, 
-                                scale = v150.scale
+        for v154, v155 in v152 do
+            for v156, v157 in v155 do
+                if v156 == v153.itemId then
+                    return v3.Dictionary.join(v152, {
+                        [v154] = v3.Dictionary.join(v155, {
+                            [v156] = v3.Dictionary.join(v157, {
+                                position = v153.position, 
+                                rotation = v153.rotation, 
+                                scale = v153.scale
                             })
                         })
                     });
                 end;
             end;
         end;
-        return v149;
+        return v152;
     end, 
-    [v17.name] = function(v155, v156) --[[ Line: 760 ]]
-        -- upvalues: v31 (copy), v20 (copy), v3 (copy)
-        if not v31() then
-            return v155;
+    [v17.name] = function(v158, v159) --[[ Line: 763 ]]
+        -- upvalues: v32 (copy), v20 (copy), v3 (copy)
+        if not v32() then
+            return v158;
         else
-            local v157 = v155 or {};
-            for _, v159 in v156.assetTypeIds do
-                if v159 == v20.AssetTypeIdStrings.DynamicHead then
-                    for v160, _ in v20.DynamicHeadAssetTypes do
-                        v157 = v3.Dictionary.join(v157, {
-                            [v160] = v3.None
+            local v160 = v158 or {};
+            for _, v162 in v159.assetTypeIds do
+                if v162 == v20.AssetTypeIdStrings.DynamicHead then
+                    for v163, _ in v20.DynamicHeadAssetTypes do
+                        v160 = v3.Dictionary.join(v160, {
+                            [v163] = v3.None
                         });
                     end;
                 end;
-                v157 = v3.Dictionary.join(v157, {
-                    [v159] = v3.None
+                v160 = v3.Dictionary.join(v160, {
+                    [v162] = v3.None
                 });
             end;
-            return v157;
+            return v160;
         end;
     end, 
-    [l_CharacterHistoryStateChangeButtonActivated_0.name] = function(v162, v163) --[[ Line: 789 ]]
+    [l_CharacterHistoryStateChangeButtonActivated_0.name] = function(v165, v166) --[[ Line: 792 ]]
         -- upvalues: l_FFlagAXRootSlotBasedEditorFlag_0 (copy)
-        if l_FFlagAXRootSlotBasedEditorFlag_0 and v163.equipped and v163.equipped.EquippedAssets then
-            return table.clone(v163.equipped.EquippedAssets);
+        if l_FFlagAXRootSlotBasedEditorFlag_0 and v166.equipped and v166.equipped.EquippedAssets then
+            return table.clone(v166.equipped.EquippedAssets);
         else
-            return v162;
+            return v165;
         end;
     end, 
-    [l_SetEquippedDynamicHeadShape_0.name] = l_FFlagDynamicHeadsMigration_0 and function(v164, v165) --[[ Line: 801 ]]
+    [l_SetEquippedDynamicHeadShape_0.name] = l_FFlagDynamicHeadsMigration_0 and function(v167, v168) --[[ Line: 804 ]]
         -- upvalues: v20 (copy), v3 (copy)
-        local v166 = v164[v20.AssetTypeIdStrings.DynamicHead];
-        if not v166 then
-            return v164;
+        local v169 = v167[v20.AssetTypeIdStrings.DynamicHead];
+        if not v169 then
+            return v167;
         else
-            local v167 = {};
-            local v168 = false;
-            for v169, v170 in v166 do
-                if v170.supportsHeadShapes ~= false then
-                    v167[v169] = v3.Dictionary.join(v170, {
-                        headShape = v165.headShapeName
+            local v170 = {};
+            local v171 = false;
+            for v172, v173 in v169 do
+                if v173.supportsHeadShapes ~= false then
+                    v170[v172] = v3.Dictionary.join(v173, {
+                        headShape = v168.headShapeName
                     });
-                    v168 = true;
+                    v171 = true;
                 else
-                    v167[v169] = v170;
+                    v170[v172] = v173;
                 end;
             end;
-            if not v168 then
-                return v164;
+            if not v171 then
+                return v167;
             else
-                return v3.Dictionary.join(v164, {
-                    [v20.AssetTypeIdStrings.DynamicHead] = v167
+                return v3.Dictionary.join(v167, {
+                    [v20.AssetTypeIdStrings.DynamicHead] = v170
                 });
             end;
         end;
     end or nil, 
-    [l_SetEquippedStaticFacialAnimation_0.name] = l_FFlagHeadRefinementFacialAnimationToggle_0 and function(v171, v172) --[[ Line: 841 ]]
+    [l_SetEquippedStaticFacialAnimation_0.name] = l_FFlagHeadRefinementFacialAnimationToggle_0 and function(v174, v175) --[[ Line: 844 ]]
         -- upvalues: v20 (copy), v3 (copy)
-        local v173 = v171[v20.AssetTypeIdStrings.DynamicHead];
-        if not v173 then
-            return v171;
+        local v176 = v174[v20.AssetTypeIdStrings.DynamicHead];
+        if not v176 then
+            return v174;
         else
-            local v174 = {};
-            for v175, v176 in v173 do
-                v174[v175] = v3.Dictionary.join(v176, {
-                    staticFacialAnimation = v172.isEnabled
+            local v177 = {};
+            for v178, v179 in v176 do
+                v177[v178] = v3.Dictionary.join(v179, {
+                    staticFacialAnimation = v175.isEnabled
                 });
             end;
-            return v3.Dictionary.join(v171, {
-                [v20.AssetTypeIdStrings.DynamicHead] = v174
+            return v3.Dictionary.join(v174, {
+                [v20.AssetTypeIdStrings.DynamicHead] = v177
             });
         end;
     end or nil, 
-    [l_PurchaseItemsSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v177, v178) --[[ Line: 861 ]]
-        -- upvalues: l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v3 (copy), v82 (copy)
-        v177 = v177 or {};
-        if v178.equippableAssets and #v178.equippableAssets > 0 then
-            if v178.replaceAllEquippedAssets then
-                v177 = {};
+    [l_PurchaseItemsSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v180, v181) --[[ Line: 864 ]]
+        -- upvalues: l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v3 (copy), v85 (copy)
+        v180 = v180 or {};
+        if v181.equippableAssets and #v181.equippableAssets > 0 then
+            if v181.replaceAllEquippedAssets then
+                v180 = {};
             end;
-            for _, v180 in v178.equippableAssets do
-                local v181 = v177[v180.assetTypeId];
-                local l_assetId_2 = v180.assetId;
-                if not (v181 and v181[l_assetId_2] and true or false) and tostring(v180.assetTypeId) ~= tostring(Enum.AvatarAssetType.EmoteAnimation.Value) then
-                    local v183 = nil;
-                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v180.headShape ~= nil then
-                        v183 = {
-                            headShape = v180.headShape
+            for _, v183 in v181.equippableAssets do
+                local v184 = v180[v183.assetTypeId];
+                local l_assetId_2 = v183.assetId;
+                if not (v184 and v184[l_assetId_2] and true or false) and tostring(v183.assetTypeId) ~= tostring(Enum.AvatarAssetType.EmoteAnimation.Value) then
+                    local v186 = nil;
+                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v183.headShape ~= nil then
+                        v186 = {
+                            headShape = v183.headShape
                         };
                     end;
-                    v181 = nil;
+                    v184 = nil;
                     if l_FFlagHeadRefinementFacialAnimationToggle_0 then
-                        l_assetId_2 = v180.staticFacialAnimation;
+                        l_assetId_2 = v183.staticFacialAnimation;
                         if l_assetId_2 ~= nil then
-                            v181 = {
+                            v184 = {
                                 staticFacialAnimation = l_assetId_2
                             };
                         end;
                     end;
-                    l_assetId_2 = if not not v183 or v181 then v3.Dictionary.join(v183 or {}, v181 or {}) else nil;
-                    v177 = v82(v177, {
-                        assetId = v180.assetId, 
-                        assetTypeId = v180.assetTypeId, 
+                    l_assetId_2 = if not not v186 or v184 then v3.Dictionary.join(v186 or {}, v184 or {}) else nil;
+                    v180 = v85(v180, {
+                        assetId = v183.assetId, 
+                        assetTypeId = v183.assetTypeId, 
                         overrideAdjustments = l_assetId_2
                     }, {
                         ignoreAccessoryLimits = true
@@ -613,47 +616,60 @@ return v2.createReducer(nil, {
                 end;
             end;
         end;
-        return v177;
+        return v180;
     end or nil, 
-    [v19.name] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else function(v184, _) --[[ Line: 906 ]]
-        -- upvalues: l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v3 (copy)
-        v184 = v184 or {};
-        local v186 = {};
-        for v187, _ in pairs(l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0) do
-            local v189 = v184[v187];
-            if v189 then
-                for v190, v191 in v189 do
-                    table.insert(v186, {
-                        assetId = v190, 
-                        assetTypeId = v187, 
-                        metadata = v191
+    [v19.name] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else function(v187, _) --[[ Line: 909 ]]
+        -- upvalues: l_FFlagAXBlockMakeupEquipR6_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v3 (copy)
+        v187 = v187 or {};
+        local v189 = {};
+        local v190 = if l_FFlagAXBlockMakeupEquipR6_0 then l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 else pairs(l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0);
+        for v191, _ in v190 do
+            local v193 = v187[v191];
+            if v193 then
+                for v194, v195 in v193 do
+                    table.insert(v189, {
+                        assetId = v194, 
+                        assetTypeId = v191, 
+                        metadata = v195
                     });
                 end;
             end;
         end;
-        table.sort(v186, function(v192, v193) --[[ Line: 929 ]]
-            local v194 = false;
-            if v192.metadata.order ~= nil then
-                v194 = true;
-                if v193.metadata.order ~= nil then
-                    v194 = v192.metadata.order < v193.metadata.order;
+        table.sort(v189, function(v196, v197) --[[ Line: 936 ]]
+            local v198 = false;
+            if v196.metadata.order ~= nil then
+                v198 = true;
+                if v197.metadata.order ~= nil then
+                    v198 = v196.metadata.order < v197.metadata.order;
                 end;
             end;
-            return v194;
+            return v198;
         end);
-        for v195, v196 in v186 do
-            local l_assetTypeId_1 = v196.assetTypeId;
-            local l_assetId_3 = v196.assetId;
-            local v199 = v184[l_assetTypeId_1] and v184[l_assetTypeId_1][l_assetId_3] or v196.metadata;
-            local v200 = v3.Dictionary.join(v199, {
-                order = v195 - 1
+        for v199, v200 in v189 do
+            local l_assetTypeId_1 = v200.assetTypeId;
+            local l_assetId_3 = v200.assetId;
+            local v203 = v187[l_assetTypeId_1] and v187[l_assetTypeId_1][l_assetId_3] or v200.metadata;
+            local v204 = v3.Dictionary.join(v203, {
+                order = v199 - 1
             });
-            v184 = v3.Dictionary.join(v184, {
-                [l_assetTypeId_1] = v3.Dictionary.join(v184[l_assetTypeId_1] or {}, {
-                    [l_assetId_3] = v200
+            v187 = v3.Dictionary.join(v187, {
+                [l_assetTypeId_1] = v3.Dictionary.join(v187[l_assetTypeId_1] or {}, {
+                    [l_assetId_3] = v204
                 })
             });
         end;
-        return v184;
+        return v187;
+    end, 
+    [v26.name] = if not l_FFlagAXBlockMakeupEquipR6_0 then nil else function(v205, _) --[[ Line: 962 ]]
+        -- upvalues: l_isMakeupAssetType_0 (copy), v3 (copy)
+        v205 = v205 or {};
+        for v207, _ in v205 do
+            if l_isMakeupAssetType_0(v207) then
+                v205 = v3.Dictionary.join(v205, {
+                    [v207] = v3.None
+                });
+            end;
+        end;
+        return v205;
     end
 });

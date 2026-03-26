@@ -8,43 +8,32 @@ local v6 = require(l_Parent_0.Foundation);
 local l_Text_0 = v6.Text;
 local l_View_0 = v6.View;
 local l_useNotApprovedPageContext_0 = require(l_script_FirstAncestor_0.Contexts.NotApprovedPageContext).useNotApprovedPageContext;
-local v10 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapPageNavigationContext);
 return {
-    getIsVisible = function(v11) --[[ Line: 67 ]] --[[ Name: getIsVisible ]]
+    getIsVisible = function(v10) --[[ Line: 55 ]] --[[ Name: getIsVisible ]]
         -- upvalues: l_VERIFICATION_TYPES_0 (copy)
-        local l_verificationCategory_0 = v11.verificationCategory;
-        local v13 = true;
+        local l_verificationCategory_0 = v10.verificationCategory;
+        local v12 = true;
         if l_verificationCategory_0 ~= l_VERIFICATION_TYPES_0.Parent then
-            v13 = l_verificationCategory_0 == l_VERIFICATION_TYPES_0.Email;
+            v12 = l_verificationCategory_0 == l_VERIFICATION_TYPES_0.Email;
         end;
-        return v13;
+        return v12;
     end, 
-    renderComponent = v5.memo(function(v14) --[[ Line: 30 ]] --[[ Name: ChargebackSteps ]]
-        -- upvalues: l_useNotApprovedPageContext_0 (copy), l_VERIFICATION_TYPES_0 (copy), v5 (copy), l_View_0 (copy), v10 (copy), l_Text_0 (copy)
+    renderComponent = v5.memo(function(v13) --[[ Line: 28 ]] --[[ Name: ChargebackSteps ]]
+        -- upvalues: l_useNotApprovedPageContext_0 (copy), l_VERIFICATION_TYPES_0 (copy), v5 (copy), l_View_0 (copy), l_Text_0 (copy)
         local l_translations_0 = l_useNotApprovedPageContext_0().translations;
-        local v16 = if v14.moderationDetail.verificationCategory == l_VERIFICATION_TYPES_0.Parent then l_translations_0.parentReactivationNotice else l_translations_0.emailReactivationNotice;
+        local v15 = if v13.moderationDetail.verificationCategory == l_VERIFICATION_TYPES_0.Parent then l_translations_0.parentReactivationNotice else l_translations_0.emailReactivationNotice;
         return v5.createElement(l_View_0, {
-            tag = {
-                ["size-full-0 auto-y col gap-small"] = true, 
-                ["gap-medium"] = v10
-            }, 
-            LayoutOrder = v14.layoutOrder
+            tag = "size-full-0 auto-y col gap-medium", 
+            LayoutOrder = v13.layoutOrder
         }, {
             Heading = v5.createElement(l_Text_0, {
                 Text = l_translations_0.chargebackNextSteps, 
-                tag = {
-                    ["auto-xy text-title-large text-align-x-left text-wrap"] = true, 
-                    ["text-heading-medium content-emphasis"] = v10
-                }, 
+                tag = "auto-xy text-heading-medium text-align-x-left text-wrap content-emphasis", 
                 LayoutOrder = 1
             }), 
             Content = v5.createElement(l_Text_0, {
-                Text = v16, 
-                tag = {
-                    ["auto-xy text-align-x-left text-wrap"] = true, 
-                    ["text-body-large"] = v10, 
-                    ["text-body-medium"] = not v10
-                }, 
+                Text = v15, 
+                tag = "auto-xy text-align-x-left text-wrap text-body-large", 
                 LayoutOrder = 2
             })
         });

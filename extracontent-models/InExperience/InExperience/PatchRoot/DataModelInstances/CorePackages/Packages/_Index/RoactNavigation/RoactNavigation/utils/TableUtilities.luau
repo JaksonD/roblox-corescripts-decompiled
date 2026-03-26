@@ -210,18 +210,20 @@ v0.Print = function(v79, v80) --[[ Line: 257 ]] --[[ Name: Print ]]
                     v82(v89, v88, v85 + 1);
                 end;
             else
-                v14(v88, v89, v87);
+                local v90 = if type(v88) == "string" then string.format("%s", v88) else string.format("[%s]", (tostring(v88)));
+                local v91 = v6(v89);
+                print(string.format("%s%s = %s,%s", v87, v90, v91, ""));
             end;
         end;
         print(string.format("%s}%s", v86, v85 > 0 and "," or ""));
     end;
     v82(v79, nil, 0);
 end;
-v0.FieldCount = function(v90) --[[ Line: 301 ]] --[[ Name: FieldCount ]]
-    local v91 = 0;
-    for _ in v90 do
-        v91 = v91 + 1;
+v0.FieldCount = function(v92) --[[ Line: 301 ]] --[[ Name: FieldCount ]]
+    local v93 = 0;
+    for _ in v92 do
+        v93 = v93 + 1;
     end;
-    return v91;
+    return v93;
 end;
 return v0;

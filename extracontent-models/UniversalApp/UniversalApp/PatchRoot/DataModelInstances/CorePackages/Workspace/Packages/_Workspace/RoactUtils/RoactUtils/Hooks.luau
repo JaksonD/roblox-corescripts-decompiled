@@ -11,6 +11,7 @@ local v9 = require(script.useThrottledCallback);
 local v10 = require(script.useInputType);
 local v11 = require(script.useLaserPointerHand);
 local v12 = require(script.useIOSStatusBarStyler);
+local v13 = require(script.useAssetFetchStatus);
 return {
     RoactRodux = require(script.RoactRodux), 
     dependencyArray = v0, 
@@ -25,5 +26,6 @@ return {
     useSelectedTheme = v8, 
     useThrottledCallback = v9, 
     useLaserPointerHand = v11, 
-    useIOSStatusBarStyler = v12
+    useIOSStatusBarStyler = v12, 
+    useAssetFetchStatus = v13
 };

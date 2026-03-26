@@ -30,32 +30,33 @@ local l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 = require(l_Parent
 local l_GetFFlagLuaAppEnableOpenTypeSupport_0 = require(l_Parent_0.SharedFlags).GetFFlagLuaAppEnableOpenTypeSupport;
 local l_FFlagLegacyProfileTCIndicator_0 = require(l_Parent_0.SharedFlags).FFlagLegacyProfileTCIndicator;
 local v31 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableRobloxAdminBadge);
-local v32 = if v27 then l_Images_0["icons/actions/edit/copy"] else nil;
-return function(v33) --[[ Line: 69 ]] --[[ Name: SocialIdentity ]]
-    -- upvalues: l_useTokens_0 (copy), l_Images_0 (copy), v27 (copy), l_useDispatch_0 (copy), v22 (copy), v4 (copy), l_useLocalization_0 (copy), v25 (copy), l_FFlagLegacyProfileTCIndicator_0 (copy), v2 (copy), l_HorizontalPageMargin_0 (copy), v31 (copy), l_IconButton_0 (copy), l_IconSize_0 (copy), l_Tooltip_0 (copy), l_TooltipOrientation_0 (copy), l_Text_0 (copy), l_FFlagFriendRequestNicknames_0 (copy), v13 (copy), l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy), l_default_0 (copy), l_Contexts_0 (copy), v21 (copy), l_SetCurrentToastMessage_0 (copy), v32 (copy), l_dependencyArray_0 (copy), l_StateLayerAffordance_0 (copy)
-    local v34 = l_useTokens_0();
-    local v35 = if v33.isEdited then l_Images_0["icons/actions/edit/editOn_small"] else l_Images_0["icons/actions/edit/edit_small"];
-    local v36 = if v27 then l_useDispatch_0() else nil;
-    local v37 = if v27 then v22() else nil;
-    local v38 = (v33.primaryName .. if v33.isPremium then v4.emoji.premium else "") .. if v33.isVerified then v4.emoji.verified else "";
-    local v39 = ("@%*"):format(v33.username);
-    local v40 = l_useLocalization_0({
-        tooltipTitle = if v33.isLocalUser then nil else v25.AliasTooltipHeader, 
-        tooltipBody = if v33.isLocalUser then v25.DisplayNameTooltipBody else v25.AliasTooltipBody, 
+local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
+local v33 = if v27 then l_Images_0["icons/actions/edit/copy"] else nil;
+return function(v34) --[[ Line: 71 ]] --[[ Name: SocialIdentity ]]
+    -- upvalues: l_useTokens_0 (copy), l_Images_0 (copy), v27 (copy), l_useDispatch_0 (copy), v22 (copy), v4 (copy), l_useLocalization_0 (copy), v25 (copy), l_FFlagLegacyProfileTCIndicator_0 (copy), v2 (copy), l_HorizontalPageMargin_0 (copy), v31 (copy), l_IconButton_0 (copy), l_IconSize_0 (copy), l_Tooltip_0 (copy), l_TooltipOrientation_0 (copy), l_Text_0 (copy), l_FFlagFriendRequestNicknames_0 (copy), v13 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy), l_default_0 (copy), l_Contexts_0 (copy), v21 (copy), l_SetCurrentToastMessage_0 (copy), v33 (copy), l_dependencyArray_0 (copy), l_StateLayerAffordance_0 (copy)
+    local v35 = l_useTokens_0();
+    local v36 = if v34.isEdited then l_Images_0["icons/actions/edit/editOn_small"] else l_Images_0["icons/actions/edit/edit_small"];
+    local v37 = if v27 then l_useDispatch_0() else nil;
+    local v38 = if v27 then v22() else nil;
+    local v39 = (v34.primaryName .. if v34.isPremium then v4.emoji.premium else "") .. if v34.isVerified then v4.emoji.verified else "";
+    local v40 = ("@%*"):format(v34.username);
+    local v41 = l_useLocalization_0({
+        tooltipTitle = if v34.isLocalUser then nil else v25.AliasTooltipHeader, 
+        tooltipBody = if v34.isLocalUser then v25.DisplayNameTooltipBody else v25.AliasTooltipBody, 
         usernameCopied = if v27 then v25.UsernameCopied else nil, 
         trustedLabel = if l_FFlagLegacyProfileTCIndicator_0 then v25.TrustedLabel else nil
     });
-    local v41 = if l_FFlagLegacyProfileTCIndicator_0 and v33.isTrustedConnection then (" \226\128\162 %*"):format(v40.trustedLabel) else "";
-    local v42 = v2.useCallback(function() --[[ Line: 97 ]]
-        -- upvalues: v33 (copy)
-        if v33.openEditName then
-            v33.openEditName();
+    local v42 = if l_FFlagLegacyProfileTCIndicator_0 and v34.isTrustedConnection then (" \226\128\162 %*"):format(v41.trustedLabel) else "";
+    local v43 = v2.useCallback(function() --[[ Line: 99 ]]
+        -- upvalues: v34 (copy)
+        if v34.openEditName then
+            v34.openEditName();
         end;
-        v33.dismissTooltip();
+        v34.dismissTooltip();
     end);
     return v2.createElement(l_HorizontalPageMargin_0, {
-        size = v33.size, 
-        layoutOrder = v33.layoutOrder, 
+        size = v34.size, 
+        layoutOrder = v34.layoutOrder, 
         useAutomaticSizing = true, 
         backgroundTransparency = 1
     }, {
@@ -76,79 +77,93 @@ return function(v33) --[[ Line: 69 ]] --[[ Name: SocialIdentity ]]
                 Text = "", 
                 BackgroundTransparency = 1, 
                 LayoutOrder = 1, 
-                [v2.Event.Activated] = v42, 
+                [v2.Event.Activated] = v43, 
                 Selectable = false
             }, {
                 UIListLayout = v2.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
                     HorizontalAlignment = Enum.HorizontalAlignment.Left, 
-                    VerticalAlignment = if v31 and v33.isRobloxAdmin then Enum.VerticalAlignment.Center else Enum.VerticalAlignment.Bottom, 
+                    VerticalAlignment = if v31 and v34.isRobloxAdmin then Enum.VerticalAlignment.Center else Enum.VerticalAlignment.Bottom, 
                     SortOrder = Enum.SortOrder.LayoutOrder
                 }), 
-                EditNameButton = if v33.openEditName then v2.createElement(l_IconButton_0, {
-                    icon = v35, 
+                EditNameButton = if v34.openEditName then v2.createElement(l_IconButton_0, {
+                    icon = v36, 
                     iconSize = l_IconSize_0.Small, 
                     size = UDim2.fromOffset(26, 26), 
                     layoutOrder = 1, 
-                    onActivated = v42
+                    onActivated = v43
                 }, {
-                    tooltip = if v33.isTooltipActive then v2.createElement(l_Tooltip_0, {
+                    tooltip = if v34.isTooltipActive then v2.createElement(l_Tooltip_0, {
                         triggerPosition = Vector2.new(16, 0), 
                         triggerSize = Vector2.new(0, 0), 
-                        headerText = v40.tooltipTitle, 
-                        bodyText = v40.tooltipBody, 
+                        headerText = v41.tooltipTitle, 
+                        bodyText = v41.tooltipBody, 
                         orientation = l_TooltipOrientation_0.Top, 
                         forceClickTriggerPoint = true, 
                         isDirectChild = true
                     }) else nil
                 }) else nil, 
                 PrimaryName = v2.createElement(l_Text_0, {
-                    Text = v38, 
+                    Text = v39, 
                     tag = "text-align-x-left text-align-y-bottom content-emphasis auto-xy", 
-                    fontStyle = v34.Typography.HeadingSmall, 
+                    fontStyle = v35.Typography.HeadingSmall, 
                     LayoutOrder = 2, 
                     Size = if l_FFlagFriendRequestNicknames_0 then UDim2.new(1, 0, 1, 0) else nil, 
                     TextWrapped = l_FFlagFriendRequestNicknames_0 and true or nil, 
                     FluidSizing = not l_FFlagFriendRequestNicknames_0 and nil, 
                     LineHeight = l_FFlagFriendRequestNicknames_0 and 1 or nil
                 }), 
-                AdminTiltIcon = if v31 and v33.isRobloxAdmin then v2.createElement("Frame", {
+                AdminTiltIcon = if v31 and v34.isRobloxAdmin then v2.createElement("Frame", {
                     AutomaticSize = Enum.AutomaticSize.XY, 
                     BackgroundTransparency = 1, 
                     LayoutOrder = 3
                 }, {
                     UIPadding = v2.createElement("UIPadding", {
-                        PaddingLeft = UDim.new(0, v34.Gap.XXSmall), 
-                        PaddingBottom = UDim.new(0, v34.Gap.XXSmall)
+                        PaddingLeft = UDim.new(0, v35.Gap.XXSmall), 
+                        PaddingBottom = UDim.new(0, v35.Gap.XXSmall)
                     }), 
                     Icon = v2.createElement(v13.Icon, {
                         name = v13.Enums.IconName.Tilt, 
                         size = v13.Enums.IconSize.Large
+                    })
+                }) else nil, 
+                SubscriptionBadge = if l_FFlagEnableBlackbirdCheckDev_0 and v34.isRobloxSubscriber then v2.createElement("Frame", {
+                    AutomaticSize = Enum.AutomaticSize.XY, 
+                    BackgroundTransparency = 1, 
+                    LayoutOrder = 4
+                }, {
+                    UIPadding = v2.createElement("UIPadding", {
+                        PaddingLeft = UDim.new(0, v35.Gap.XXSmall), 
+                        PaddingBottom = UDim.new(0, v35.Gap.XXSmall)
+                    }), 
+                    Icon = v2.createElement(v13.Icon, {
+                        name = v13.Enums.IconName.PaperAirplane, 
+                        size = v13.Enums.IconSize.Small
                     })
                 }) else nil
             })
         }), 
         Username = v2.createElement(l_Text_0, {
             RichText = l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 and true or nil, 
-            Text = if l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 then ("<font features=\"zero, ss03\">%*</font>"):format(v39) .. if l_FFlagLegacyProfileTCIndicator_0 then v41 else "" else v39 .. if l_FFlagLegacyProfileTCIndicator_0 then v41 else "", 
+            Text = if l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 then ("<font features=\"zero, ss03\">%*</font>"):format(v40) .. if l_FFlagLegacyProfileTCIndicator_0 then v42 else "" else v40 .. if l_FFlagLegacyProfileTCIndicator_0 then v42 else "", 
             tag = "text-align-x-left text-align-y-top auto-xy", 
-            fontStyle = v34.Typography.CaptionMedium, 
+            fontStyle = v35.Typography.CaptionMedium, 
             Size = if l_FFlagFriendRequestNicknames_0 then UDim2.new(1, 0, 1, 0) else nil, 
             OpenTypeFeatures = if l_FFlagEnableFontStylisticAlternativesOnSocialScreens_0 then nil else if l_GetFFlagLuaAppEnableOpenTypeSupport_0() then l_OpenTypeSupport_0:getUserNameStylisticAlternative() else nil, 
             LayoutOrder = 2, 
-            onActivated = if v27 then v2.useCallback(function() --[[ Line: 205 ]]
-                -- upvalues: l_default_0 (ref), l_Contexts_0 (ref), v33 (copy), v37 (copy), v21 (ref), v36 (copy), l_SetCurrentToastMessage_0 (ref), v40 (copy), v32 (ref)
+            onActivated = if v27 then v2.useCallback(function() --[[ Line: 223 ]]
+                -- upvalues: l_default_0 (ref), l_Contexts_0 (ref), v34 (copy), v38 (copy), v21 (ref), v37 (copy), l_SetCurrentToastMessage_0 (ref), v41 (copy), v33 (ref)
                 l_default_0:setClipboardText({
                     context = l_Contexts_0.ProfileCard, 
-                    text = v33.username
+                    text = v34.username
                 });
-                v37.fireAnalyticsEvent(v21.UsernameCopied);
-                v36(l_SetCurrentToastMessage_0({
-                    toastMessage = v40.usernameCopied, 
+                v38.fireAnalyticsEvent(v21.UsernameCopied);
+                v37(l_SetCurrentToastMessage_0({
+                    toastMessage = v41.usernameCopied, 
                     isLocalized = true, 
-                    toastIcon = v32
+                    toastIcon = v33
                 }));
-            end, l_dependencyArray_0(v33.username, v37, v40.usernameCopied)) else nil, 
+            end, l_dependencyArray_0(v34.username, v38, v41.usernameCopied)) else nil, 
             stateLayer = if v27 then {
                 affordance = l_StateLayerAffordance_0.None
             } else nil

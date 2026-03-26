@@ -9,10 +9,14 @@ return {
     SduiInfoTable = require(script.Components.SduiInfoTable), 
     SduiOverflowMenu = require(script.Components.SduiOverflowMenu), 
     SduiText = require(script.Components.SduiText), 
+    SduiPlayButton = require(script.Components.SduiPlayButton), 
     SduiVerticalFeed = require(script.Components.SduiVerticalFeed), 
+    useSduiReportExperienceLaunched = require(script.Components.useSduiReportExperienceLaunched), 
     SduiImage = require(script.Components.SduiImage), 
     SduiView = require(script.Components.SduiView), 
     SduiCard = require(script.Components.SduiCard), 
+    SduiCircleIcon = require(script.Components.SduiCircleIcon), 
+    SduiIcon = require(script.Components.SduiIcon), 
     SduiTextAccessoryRow = require(script.Components.SduiTextAccessoryRow), 
     SduiSharedRegister = require(script.SduiSharedRegister)
 };

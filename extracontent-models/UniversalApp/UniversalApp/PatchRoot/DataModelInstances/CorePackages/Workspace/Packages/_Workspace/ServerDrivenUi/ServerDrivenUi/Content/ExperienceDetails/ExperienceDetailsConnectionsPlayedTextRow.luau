@@ -18,36 +18,38 @@ local l_useDispatch_0 = v7.Hooks.RoactRodux.useDispatch;
 local l_useDeviceType_0 = require(l_Parent_0.RobloxAppHooks).useDeviceType;
 local l_DeviceType_0 = require(l_Parent_0.RobloxAppEnums).DeviceType;
 local l_NavigateDown_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateDown;
-local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-return v2.memo(function(v21) --[[ Line: 49 ]] --[[ Name: ExperienceDetailsConnectionsPlayedTextRow ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), l_useTokens_0 (copy), l_useDispatch_0 (copy), l_useDeviceType_0 (copy), l_DeviceType_0 (copy), l_Game_0 (copy), v6 (copy), l_useLocalization_0 (copy), v2 (copy), l_Players_0 (copy), l_gameConnectionsPlayedChipClicked_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_AvatarGroupType_0 (copy), l_InputSize_0 (copy), l_SduiTextAccessoryRow_0 (copy)
-    local v22 = nil;
-    v22 = if l_FFlagSduiServerCompat_0 then v21.layoutOrder else v21.LayoutOrder;
-    local l_universeId_0 = v21.universeId;
-    local l_name_0 = v21.name;
-    local v25 = l_useTokens_0();
-    local v26 = l_useDispatch_0();
-    local v27 = l_useDeviceType_0() == l_DeviceType_0.Phone;
-    local v28 = l_Game_0.getConnectionsPlayedStore(false);
-    local v29 = v6.useSignalState(v28.getConnectionsPlayed(l_universeId_0).data);
-    local v30 = v6.useSignalState(l_Game_0.getGameInfoStore(false).getAndFetchGameInfo(l_universeId_0).data);
-    local v31 = if v29 then v29.userIds else {};
-    local v32 = if v29 then v29.totalCount else #v31;
-    local v33 = l_useLocalization_0({
+local v20 = require(l_Parent_0.SharedFlags);
+local l_FFlagConnectionsToFriendsRename_0 = v20.FFlagConnectionsToFriendsRename;
+local l_FFlagSduiServerCompat_0 = v20.FFlagSduiServerCompat;
+return v2.memo(function(v23) --[[ Line: 51 ]] --[[ Name: ExperienceDetailsConnectionsPlayedTextRow ]]
+    -- upvalues: l_FFlagSduiServerCompat_0 (copy), l_useTokens_0 (copy), l_useDispatch_0 (copy), l_useDeviceType_0 (copy), l_DeviceType_0 (copy), l_Game_0 (copy), v6 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v2 (copy), l_Players_0 (copy), l_gameConnectionsPlayedChipClicked_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_AvatarGroupType_0 (copy), l_InputSize_0 (copy), l_SduiTextAccessoryRow_0 (copy)
+    local v24 = nil;
+    v24 = if l_FFlagSduiServerCompat_0 then v23.layoutOrder else v23.LayoutOrder;
+    local l_universeId_0 = v23.universeId;
+    local l_name_0 = v23.name;
+    local v27 = l_useTokens_0();
+    local v28 = l_useDispatch_0();
+    local v29 = l_useDeviceType_0() == l_DeviceType_0.Phone;
+    local v30 = l_Game_0.getConnectionsPlayedStore(false);
+    local v31 = v6.useSignalState(v30.getConnectionsPlayed(l_universeId_0).data);
+    local v32 = v6.useSignalState(l_Game_0.getGameInfoStore(false).getAndFetchGameInfo(l_universeId_0).data);
+    local v33 = if v31 then v31.userIds else {};
+    local v34 = if v31 then v31.totalCount else #v33;
+    local v35 = l_useLocalization_0({
         connectionsRecentlyPlayed = {
-            "Feature.Friends.Label.ConnectionsRecentlyPlayed"; 
-            numberOfConnections = v32
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.FriendsRecentlyPlayed" or "Feature.Friends.Label.ConnectionsRecentlyPlayed"; 
+            numberOfConnections = v34
         }, 
         connectionRecentlyPlayed = {
-            "Feature.Friends.Label.ConnectionRecentlyPlayed"
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.FriendRecentlyPlayed" or "Feature.Friends.Label.ConnectionRecentlyPlayed"
         }, 
         playedByUserAndOthersPlural = {
-            "Feature.Friends.Label.PlayedByUserAndOthers"; 
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.PlayedByUserAndOthers.FriendsRename" or "Feature.Friends.Label.PlayedByUserAndOthers"; 
             name = l_name_0 or "", 
-            numOfOthers = v32 - 1
+            numOfOthers = v34 - 1
         }, 
         playedByUserAndOneOther = {
-            "Feature.Friends.Label.PlayedByUserAndOneOther"; 
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.PlayedByUserAndOneOther.FriendsRename" or "Feature.Friends.Label.PlayedByUserAndOneOther"; 
             name = l_name_0 or ""
         }, 
         playedByUser = {
@@ -55,78 +57,78 @@ return v2.memo(function(v21) --[[ Line: 49 ]] --[[ Name: ExperienceDetailsConnec
             name = l_name_0 or ""
         }
     });
-    local v34 = nil;
-    v34 = if l_name_0 and l_name_0 ~= "" then if v32 == 1 then v33.playedByUser else if v32 == 2 then v33.playedByUserAndOneOther else v33.playedByUserAndOthersPlural else if v32 == 1 then v33.connectionRecentlyPlayed else v33.connectionsRecentlyPlayed;
-    local v35 = v30 and v30.rootPlaceId;
-    local v37 = v2.useCallback(function() --[[ Line: 120 ]]
-        -- upvalues: v35 (copy), l_Players_0 (ref), l_gameConnectionsPlayedChipClicked_0 (ref), l_universeId_0 (copy), v32 (copy), v26 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v31 (copy), v33 (copy)
-        if v35 then
-            local v36 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId;
+    local v36 = nil;
+    v36 = if l_name_0 and l_name_0 ~= "" then if v34 == 1 then v35.playedByUser else if v34 == 2 then v35.playedByUserAndOneOther else v35.playedByUserAndOthersPlural else if v34 == 1 then v35.connectionRecentlyPlayed else v35.connectionsRecentlyPlayed;
+    local v37 = v32 and v32.rootPlaceId;
+    local v39 = v2.useCallback(function() --[[ Line: 130 ]]
+        -- upvalues: v37 (copy), l_Players_0 (ref), l_gameConnectionsPlayedChipClicked_0 (ref), l_universeId_0 (copy), v34 (copy), v28 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v33 (copy), v35 (copy)
+        if v37 then
+            local v38 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId;
             l_gameConnectionsPlayedChipClicked_0({
-                uid = tostring(v36), 
+                uid = tostring(v38), 
                 universeId = l_universeId_0, 
-                placeId = tostring(v35), 
-                totalConnections = v32
+                placeId = tostring(v37), 
+                totalConnections = v34
             }, "ExperienceDetailsConnectionsPlayedChip");
         end;
-        v26(l_NavigateDown_0({
+        v28(l_NavigateDown_0({
             name = l_AppPage_0.SocialProofVerticalUserListSheet, 
             extraProps = {
-                userIds = v31, 
-                title = if v32 == 1 then v33.connectionRecentlyPlayed else v33.connectionsRecentlyPlayed
+                userIds = v33, 
+                title = if v34 == 1 then v35.connectionRecentlyPlayed else v35.connectionsRecentlyPlayed
             }
         }));
     end, {
-        v26, 
+        v28, 
         l_universeId_0, 
-        v35, 
-        v31, 
-        v32, 
+        v37, 
         v33, 
+        v34, 
+        v35, 
         l_Players_0.LocalPlayer
     });
-    local v38 = v2.useMemo(function() --[[ Line: 144 ]]
-        -- upvalues: v31 (copy)
+    local v40 = v2.useMemo(function() --[[ Line: 154 ]]
+        -- upvalues: v33 (copy)
         return {
-            table.unpack(v31, 1, (math.min(2, #v31)))
+            table.unpack(v33, 1, (math.min(2, #v33)))
         };
     end, {
-        v31
+        v33
     });
-    local v39 = if v27 then v25.Semantic.Color.Background.Contrast else v25.Semantic.Color.Background.Default;
-    local v40 = v2.useMemo(function() --[[ Line: 152 ]]
-        -- upvalues: v38 (copy), l_AvatarGroupType_0 (ref), l_InputSize_0 (ref), v39 (copy)
+    local v41 = if v29 then v27.Semantic.Color.Background.Contrast else v27.Semantic.Color.Background.Default;
+    local v42 = v2.useMemo(function() --[[ Line: 162 ]]
+        -- upvalues: v40 (copy), l_AvatarGroupType_0 (ref), l_InputSize_0 (ref), v41 (copy)
         return {
             type = "AvatarGroup", 
-            avatars = v38, 
+            avatars = v40, 
             groupType = l_AvatarGroupType_0.Stacked, 
             max = 2, 
             size = l_InputSize_0.XSmall, 
-            backplateStyle = v39
+            backplateStyle = v41
         };
     end, {
-        v38, 
-        v39
+        v40, 
+        v41
     });
-    local v41 = v2.useMemo(function() --[[ Line: 163 ]]
-        -- upvalues: v25 (copy)
+    local v43 = v2.useMemo(function() --[[ Line: 173 ]]
+        -- upvalues: v27 (copy)
         return {
-            FontSize = v25.FontSize.FontSize_300
+            FontSize = v27.FontSize.FontSize_300
         };
     end, {
-        v25
+        v27
     });
-    if v32 == 0 then
+    if v34 == 0 then
         return nil;
     else
         return v2.createElement(l_SduiTextAccessoryRow_0, {
-            text = v34, 
-            leading = v40, 
-            gap = v25.Gap.Small, 
-            fontStyle = v41, 
-            onActivated = v37, 
-            LayoutOrder = if not l_FFlagSduiServerCompat_0 then v22 else nil, 
-            layoutOrder = if l_FFlagSduiServerCompat_0 then v22 else nil, 
+            text = v36, 
+            leading = v42, 
+            gap = v27.Gap.Small, 
+            fontStyle = v43, 
+            onActivated = v39, 
+            LayoutOrder = if not l_FFlagSduiServerCompat_0 then v24 else nil, 
+            layoutOrder = if l_FFlagSduiServerCompat_0 then v24 else nil, 
             testId = "--experience-details-connections-played-text-row"
         });
     end;

@@ -112,7 +112,7 @@ return function(v30) --[[ Line: 45 ]] --[[ Name: CurrentlyPlaying ]]
                 onActivated = v44
             }, {
                 GameThumbnail = if not v50 then v2.createElement(l_Image_0, {
-                    tag = "radius-small aspect-1-1 size-1000-1000 auto-xy content-default align-y-center", 
+                    tag = "radius-small aspect-1-1 size-1000-1000 auto-xy align-y-center", 
                     LayoutOrder = 1, 
                     Image = v45
                 }) else v2.createElement(l_Skeleton_0, {

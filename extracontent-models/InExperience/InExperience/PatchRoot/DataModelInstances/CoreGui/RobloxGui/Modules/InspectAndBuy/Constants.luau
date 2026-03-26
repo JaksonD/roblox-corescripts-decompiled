@@ -1,4 +1,6 @@
-local v0 = {
+local l_CorePackages_0 = game:GetService("CorePackages");
+local l_FFlagAXInspectAndBuyMakeupSupport_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXInspectAndBuyMakeupSupport;
+local v2 = {
     NotificationKeys = {
         MultipleBundleNoticeKey = "InGame.InspectMenu.Description.MultipleBundlesNotice", 
         SingleBundleNoticeKey = "InGame.InspectMenu.Description.SingleBundleNotice", 
@@ -19,7 +21,8 @@ local v0 = {
         Body = "Body", 
         Clothing = "Clothing", 
         Accessory = "Accessory", 
-        Emotes = "Emotes"
+        Emotes = "Emotes", 
+        Makeup = l_FFlagAXInspectAndBuyMakeupSupport_0 and "Makeup" or nil
     }, 
     AssetTypeIdStringToHumanoidDescriptionProp = {
         [tostring(Enum.AssetType.TShirt.Value)] = "GraphicTShirt", 
@@ -100,56 +103,64 @@ local v0 = {
         Bottoms = "Bottoms"
     }
 };
-v0.AssetTypeIdToCategory = {
-    [tostring(Enum.AssetType.TShirt.Value)] = v0.AssetCategories.Clothing, 
-    [tostring(Enum.AssetType.Hat.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.HairAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.FaceAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.NeckAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.ShoulderAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.FrontAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.BackAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.WaistAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.Shirt.Value)] = v0.AssetCategories.Clothing, 
-    [tostring(Enum.AssetType.Pants.Value)] = v0.AssetCategories.Clothing, 
-    [tostring(Enum.AssetType.Gear.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.Head.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.Face.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.Torso.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.RightArm.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.LeftArm.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.LeftLeg.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.RightLeg.Value)] = v0.AssetCategories.Body, 
-    [tostring(Enum.AssetType.ClimbAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.FallAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.IdleAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.JumpAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.RunAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.SwimAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.WalkAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.EmoteAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.TShirtAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.ShirtAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.PantsAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.JacketAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.SweaterAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.ShortsAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.LeftShoeAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.RightShoeAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.DressSkirtAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.EyelashAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.EyebrowAccessory.Value)] = v0.AssetCategories.Accessory, 
-    [tostring(Enum.AssetType.MoodAnimation.Value)] = v0.AssetCategories.Animation, 
-    [tostring(Enum.AssetType.DynamicHead.Value)] = v0.AssetCategories.Body
+v2.AssetTypeIdToCategory = {
+    [tostring(Enum.AssetType.TShirt.Value)] = v2.AssetCategories.Clothing, 
+    [tostring(Enum.AssetType.Hat.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.HairAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.FaceAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.NeckAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.ShoulderAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.FrontAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.BackAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.WaistAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.Shirt.Value)] = v2.AssetCategories.Clothing, 
+    [tostring(Enum.AssetType.Pants.Value)] = v2.AssetCategories.Clothing, 
+    [tostring(Enum.AssetType.Gear.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.Head.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.Face.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.Torso.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.RightArm.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.LeftArm.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.LeftLeg.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.RightLeg.Value)] = v2.AssetCategories.Body, 
+    [tostring(Enum.AssetType.ClimbAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.FallAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.IdleAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.JumpAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.RunAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.SwimAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.WalkAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.EmoteAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.TShirtAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.ShirtAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.PantsAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.JacketAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.SweaterAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.ShortsAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.LeftShoeAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.RightShoeAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.DressSkirtAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.EyelashAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.EyebrowAccessory.Value)] = v2.AssetCategories.Accessory, 
+    [tostring(Enum.AssetType.MoodAnimation.Value)] = v2.AssetCategories.Animation, 
+    [tostring(Enum.AssetType.DynamicHead.Value)] = v2.AssetCategories.Body
 };
-v0.AssetCategoriesLocalized = {
-    [v0.AssetCategories.Animation] = "Feature.Catalog.Label.Animation", 
-    [v0.AssetCategories.Body] = "Feature.Catalog.Label.Body", 
-    [v0.AssetCategories.Clothing] = "Feature.Avatar.Heading.Clothing", 
-    [v0.AssetCategories.Accessory] = "Feature.Avatar.Label.Accessory", 
-    [v0.AssetCategories.Emotes] = "Feature.Catalog.Label.Emotes"
+if l_FFlagAXInspectAndBuyMakeupSupport_0 then
+    v2.AssetTypeIdToCategory[tostring(Enum.AssetType.EyeMakeup.Value)] = v2.AssetCategories.Makeup;
+    v2.AssetTypeIdToCategory[tostring(Enum.AssetType.FaceMakeup.Value)] = v2.AssetCategories.Makeup;
+    v2.AssetTypeIdToCategory[tostring(Enum.AssetType.LipMakeup.Value)] = v2.AssetCategories.Makeup;
+end;
+v2.AssetCategoriesLocalized = {
+    [v2.AssetCategories.Animation] = "Feature.Catalog.Label.Animation", 
+    [v2.AssetCategories.Body] = "Feature.Catalog.Label.Body", 
+    [v2.AssetCategories.Clothing] = "Feature.Avatar.Heading.Clothing", 
+    [v2.AssetCategories.Accessory] = "Feature.Avatar.Label.Accessory", 
+    [v2.AssetCategories.Emotes] = "Feature.Catalog.Label.Emotes"
 };
-v0.AssetTypeIdToTypeLocalized = {
+if l_FFlagAXInspectAndBuyMakeupSupport_0 then
+    v2.AssetCategoriesLocalized[v2.AssetCategories.Makeup] = "Feature.Catalog.Label.Makeup";
+end;
+v2.AssetTypeIdToTypeLocalized = {
     [tostring(Enum.AssetType.TShirt.Value)] = "Feature.Avatar.Label.ClassicTShirts", 
     [tostring(Enum.AssetType.Hat.Value)] = "Feature.Avatar.Label.Hat", 
     [tostring(Enum.AssetType.HairAccessory.Value)] = "Feature.Avatar.Label.Hair", 
@@ -191,40 +202,45 @@ v0.AssetTypeIdToTypeLocalized = {
     [tostring(Enum.AssetType.MoodAnimation.Value)] = "Feature.Avatar.Label.Mood", 
     [tostring(Enum.AssetType.DynamicHead.Value)] = "Feature.Avatar.Label.DynamicHead"
 };
-v0.MoodAnimationAssetTypeId = "78";
-v0.DynamicHeadAssetTypeId = "79";
-v0.DetailsThumbnailFrameHeight = 250;
-v0.LimitedIconFrameSizeXOffset = 9;
-v0.LimitedIconFrameSizeYOffset = 4;
-v0.DynamicHeadAssetTypes = {
+if l_FFlagAXInspectAndBuyMakeupSupport_0 then
+    v2.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.EyeMakeup.Value)] = "Feature.Catalog.Label.EyeMakeup";
+    v2.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.FaceMakeup.Value)] = "Feature.Catalog.Label.FaceMakeup";
+    v2.AssetTypeIdToTypeLocalized[tostring(Enum.AssetType.LipMakeup.Value)] = "Feature.Catalog.Label.LipMakeup";
+end;
+v2.MoodAnimationAssetTypeId = "78";
+v2.DynamicHeadAssetTypeId = "79";
+v2.DetailsThumbnailFrameHeight = 250;
+v2.LimitedIconFrameSizeXOffset = 9;
+v2.LimitedIconFrameSizeYOffset = 4;
+v2.DynamicHeadAssetTypes = {
     [tostring(Enum.AssetType.EyebrowAccessory.Value)] = true, 
     [tostring(Enum.AssetType.EyelashAccessory.Value)] = true, 
-    [v0.MoodAnimationAssetTypeId] = true, 
-    [v0.DynamicHeadAssetTypeId] = true
+    [v2.MoodAnimationAssetTypeId] = true, 
+    [v2.DynamicHeadAssetTypeId] = true
 };
-v0.AccessoryTypeEnumToAssetTypeId = {};
-for v1, v2 in pairs(v0.AssetTypeIdToAccessoryTypeEnum) do
-    v0.AccessoryTypeEnumToAssetTypeId[v2] = v1;
+v2.AccessoryTypeEnumToAssetTypeId = {};
+for v3, v4 in pairs(v2.AssetTypeIdToAccessoryTypeEnum) do
+    v2.AccessoryTypeEnumToAssetTypeId[v4] = v3;
 end;
-v0.AssetCategoryToAssetType = {
-    [v0.AssetCategory.Tops] = {
+v2.AssetCategoryToAssetType = {
+    [v2.AssetCategory.Tops] = {
         tostring(Enum.AssetType.ShirtAccessory.Value), 
         tostring(Enum.AssetType.TShirtAccessory.Value), 
         (tostring(Enum.AssetType.SweaterAccessory.Value))
     }, 
-    [v0.AssetCategory.Bottoms] = {
+    [v2.AssetCategory.Bottoms] = {
         tostring(Enum.AssetType.PantsAccessory.Value), 
         tostring(Enum.AssetType.ShortsAccessory.Value), 
         (tostring(Enum.AssetType.DressSkirtAccessory.Value))
     }
 };
-v0.AssetTypeToAssetCategory = {};
-for v3, v4 in pairs(v0.AssetCategoryToAssetType) do
-    for _, v6 in ipairs(v4) do
-        v0.AssetTypeToAssetCategory[v6] = v3;
+v2.AssetTypeToAssetCategory = {};
+for v5, v6 in pairs(v2.AssetCategoryToAssetType) do
+    for _, v8 in ipairs(v6) do
+        v2.AssetTypeToAssetCategory[v8] = v5;
     end;
 end;
-v0.LayeredClothingOrder = {
+v2.LayeredClothingOrder = {
     [tostring(Enum.AssetType.Pants.Value)] = 0, 
     [tostring(Enum.AssetType.Shirt.Value)] = 1, 
     [tostring(Enum.AssetType.TShirt.Value)] = 2, 
@@ -241,18 +257,18 @@ v0.LayeredClothingOrder = {
     [tostring(Enum.AssetType.EyebrowAccessory.Value)] = 3, 
     [tostring(Enum.AssetType.EyelashAccessory.Value)] = 3
 };
-v0.ProductType = {
+v2.ProductType = {
     CollectibleItem = "Collectible Item"
 };
-v0.ItemRestrictions = {
+v2.ItemRestrictions = {
     Limited = "Limited", 
     LimitedUnique = "LimitedUnique", 
     Collectible = "Collectible"
 };
-v0.SaleStatus = {
+v2.SaleStatus = {
     OnSale = "OnSale"
 };
-v0.SaleLocationType = {
+v2.SaleLocationType = {
     Invalid = 0, 
     ShopOnly = 1, 
     MyExperiencesOnly = 2, 
@@ -262,12 +278,12 @@ v0.SaleLocationType = {
     ExperiencesDevApiOnly = 6, 
     ShopAndExperiencesById = 7
 };
-v0.CounterSuffix = {
+v2.CounterSuffix = {
     RequestSucceeded = "RequestSucceeded", 
     RequestRejected = "RequestRejected", 
     RequestFailed = "RequestFailed"
 };
-v0.Counters = {
+v2.Counters = {
     CreateFavoriteForAsset = "CreateFavoriteForAsset", 
     CreateFavoriteForBundle = "CreateFavoriteForBundle", 
     DeleteFavoriteForAsset = "DeleteFavoriteForAsset", 
@@ -303,4 +319,4 @@ v0.Counters = {
     BatchGetAssets = "BatchGetAssets", 
     BatchGetItemDetails = "BatchGetItemDetails"
 };
-return v0;
+return v2;

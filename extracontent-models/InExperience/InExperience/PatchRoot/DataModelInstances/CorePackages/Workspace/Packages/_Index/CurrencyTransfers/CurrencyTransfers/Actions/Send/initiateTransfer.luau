@@ -14,35 +14,39 @@ return function(v11) --[[ Line: 17 ]] --[[ Name: initiateTransfer ]]
     local l_setPromptState_0 = v11.setPromptState;
     local l_setTransferRequestId_0 = v11.setTransferRequestId;
     local l_setRobuxBalanceAmount_0 = v11.setRobuxBalanceAmount;
+    local l_setBalanceReceivedFromApi_0 = v11.setBalanceReceivedFromApi;
     local l_setUserRelationshipDetail_0 = v11.setUserRelationshipDetail;
     local l_setRecipient_0 = v11.setRecipient;
-    local v17 = v11.getRecipientUserId(false);
+    local l_setSender_0 = v11.setSender;
+    local v19 = v11.getRecipientUserId(false);
     l_setPromptState_0(v3.TransferRequested);
-    local v18 = {
-        recipientId = v17
+    local v20 = {
+        recipientId = v19
     };
-    local v19 = v11.getTransferOrigination();
-    if v19 then
-        v18.transferOrigination = v19;
+    local v21 = v11.getTransferOrigination();
+    if v21 then
+        v20.transferOrigination = v21;
     end;
-    v2(v18):andThen(function(v20) --[[ Line: 34 ]]
-        -- upvalues: v9 (ref), v11 (copy), v3 (ref), l_setTransferRequestId_0 (copy), l_setRobuxBalanceAmount_0 (copy), l_setUserRelationshipDetail_0 (copy), l_setRecipient_0 (copy)
+    v2(v20):andThen(function(v22) --[[ Line: 36 ]]
+        -- upvalues: v9 (ref), v11 (copy), v3 (ref), l_setTransferRequestId_0 (copy), l_setRobuxBalanceAmount_0 (copy), l_setBalanceReceivedFromApi_0 (copy), l_setUserRelationshipDetail_0 (copy), l_setRecipient_0 (copy), l_setSender_0 (copy)
         v9(v11, v3.TransferStarted);
-        if v20 and v20.transferRequestId and v20.robuxTransfer then
-            l_setTransferRequestId_0(v20.transferRequestId);
-            l_setRobuxBalanceAmount_0(v20.senderRobuxBalance);
-            l_setUserRelationshipDetail_0(v20.userRelationshipDetail);
-            l_setRecipient_0(v20.robuxTransfer.recipient);
+        if v22 and v22.transferRequestId and v22.robuxTransfer then
+            l_setTransferRequestId_0(v22.transferRequestId);
+            l_setRobuxBalanceAmount_0(v22.senderRobuxBalance);
+            l_setBalanceReceivedFromApi_0(true);
+            l_setUserRelationshipDetail_0(v22.userRelationshipDetail);
+            l_setRecipient_0(v22.robuxTransfer.recipient);
+            l_setSender_0(v22.robuxTransfer.sender);
             v9(v11, v3.TransferInput);
         end;
-    end):catch(function(v21) --[[ Line: 45 ]]
+    end):catch(function(v23) --[[ Line: 49 ]]
         -- upvalues: v6 (ref), v8 (ref), v11 (copy), v10 (ref), v7 (ref)
-        if typeof(v21) == "table" and v21.errorMessage then
-            if v21.failureReason == v6.AmpRecourseAvailable and v21.ampRecourseActions and v21.ampFeatureCheck then
-                v8(v11, v21.ampRecourseActions, v21.ampFeatureCheck, v10.InitiateTransfer);
+        if typeof(v23) == "table" and v23.errorMessage then
+            if v23.failureReason == v6.AmpRecourseAvailable and v23.ampRecourseActions and v23.ampFeatureCheck then
+                v8(v11, v23.ampRecourseActions, v23.ampFeatureCheck, v10.InitiateTransfer);
                 return;
             else
-                v7(v11, v21);
+                v7(v11, v23);
                 return;
             end;
         else

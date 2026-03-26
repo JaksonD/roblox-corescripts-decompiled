@@ -9,12 +9,12 @@ local v7 = require(l_script_FirstAncestor_0.GameTileConstants);
 local v8 = require(l_script_FirstAncestor_0.GameTileViewConfig);
 local v9 = require(l_script_FirstAncestor_0.Footer.CreatorNameMetadata);
 local v10 = require(l_script_FirstAncestor_0.AppExperienceActionRow);
-local v11 = require(l_script_FirstAncestor_0.SponsoredGamesRecordClick);
-local v12 = require(l_script_FirstAncestor_0.useIsHoveredTile);
-local v13 = require(l_script_FirstAncestor_0.Footer.GridTileTextFooter);
-local v14 = require(l_script_FirstAncestor_0.ItemLayoutDataParsingUtils);
-local v15 = require(l_script_FirstAncestor_0.HoverTileCoordinator);
+local v11 = require(l_script_FirstAncestor_0.useIsHoveredTile);
+local v12 = require(l_script_FirstAncestor_0.Footer.GridTileTextFooter);
+local v13 = require(l_script_FirstAncestor_0.ItemLayoutDataParsingUtils);
+local v14 = require(l_script_FirstAncestor_0.HoverTileCoordinator);
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local l_GameCollectionItemTypes_0 = require(l_Parent_0.DiscoveryTypes).GameCollectionItemTypes;
 local v17 = require(l_Parent_0.React);
 local v18 = require(l_Parent_0.RoactUtils);
 local l_useSelector_0 = v18.Hooks.RoactRodux.useSelector;
@@ -28,296 +28,304 @@ local l_ImpressionsTagUtility_0 = require(l_Parent_0.Impressions).ImpressionsTag
 local l_useTokens_0 = require(l_Parent_0.Foundation).Hooks.useTokens;
 local l_useDesignTokens_0 = require(l_Parent_0.Style).useDesignTokens;
 local l_IsVRAppBuild_0 = require(l_Parent_0.AppCommonLib).IsVRAppBuild;
-local v30 = game:DefineFastFlag("WrapEmphasisTileDescriptionText", false);
+local l_sponsoredGamesRecordClick_0 = require(l_Parent_0.DiscoveryAnalytics).Requests.sponsoredGamesRecordClick;
+local v31 = game:DefineFastFlag("WrapEmphasisTileDescriptionText", false);
 local l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppIgnoreEmptyStringWideThumbnail;
-local v32 = game:DefineFastFlag("LuaAppFixEmphasisHoverLogic", false);
-return function(v33) --[[ Line: 72 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useTokens_0 (copy), l_useSelector_0 (copy), l_GameInfosReducer_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useDispatch_0 (copy), v17 (copy), l_ApiFetchGameDetails_0 (copy), v3 (copy), l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 (copy), v14 (copy), v5 (copy), l_BigGameIconReducer_0 (copy), v8 (copy), v32 (copy), l_IsVRAppBuild_0 (copy), v12 (copy), v15 (copy), v11 (copy), v10 (copy), v13 (copy), v9 (copy), v6 (copy), v7 (copy), v30 (copy), l_ImpressionsTagUtility_0 (copy), v2 (copy), l_UserGameSettings_0 (copy)
-    local v34 = l_useDesignTokens_0();
-    local v35 = l_useTokens_0();
-    local l_universeId_0 = v33.entry.universeId;
-    local v38 = l_useSelector_0(function(v37) --[[ Line: 80 ]]
+local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileTelemetryFix;
+local v34 = game:DefineFastFlag("LuaAppFixEmphasisHoverLogic", false);
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+return function(v36) --[[ Line: 81 ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useTokens_0 (copy), l_useSelector_0 (copy), l_GameInfosReducer_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useDispatch_0 (copy), v17 (copy), l_ApiFetchGameDetails_0 (copy), v3 (copy), l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 (copy), v13 (copy), v5 (copy), l_BigGameIconReducer_0 (copy), v8 (copy), v34 (copy), l_IsVRAppBuild_0 (copy), v11 (copy), v14 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_GameCollectionItemTypes_0 (copy), l_sponsoredGamesRecordClick_0 (copy), v10 (copy), v12 (copy), v9 (copy), v6 (copy), v7 (copy), v31 (copy), l_ImpressionsTagUtility_0 (copy), v2 (copy), l_UserGameSettings_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy)
+    local v37 = l_useDesignTokens_0();
+    local v38 = l_useTokens_0();
+    local l_universeId_0 = v36.entry.universeId;
+    local v41 = l_useSelector_0(function(v40) --[[ Line: 89 ]]
         -- upvalues: l_GameInfosReducer_0 (ref), l_universeId_0 (copy)
-        return v37.Personalization[l_GameInfosReducer_0.key][l_universeId_0];
+        return v40.Personalization[l_GameInfosReducer_0.key][l_universeId_0];
     end);
-    local v40 = l_useSelector_0(function(v39) --[[ Line: 83 ]]
+    local v43 = l_useSelector_0(function(v42) --[[ Line: 92 ]]
         -- upvalues: l_universeId_0 (copy)
-        return v39.GameDetails[l_universeId_0];
+        return v42.GameDetails[l_universeId_0];
     end);
-    local v41 = l_useRoactService_0(l_RoactNetworking_0);
-    local v42 = l_useDispatch_0();
-    v17.useEffect(function() --[[ Line: 89 ]]
-        -- upvalues: v40 (copy), v42 (copy), l_ApiFetchGameDetails_0 (ref), v41 (copy), l_universeId_0 (copy)
-        if v40 then
+    local v44 = l_useRoactService_0(l_RoactNetworking_0);
+    local v45 = l_useDispatch_0();
+    v17.useEffect(function() --[[ Line: 98 ]]
+        -- upvalues: v43 (copy), v45 (copy), l_ApiFetchGameDetails_0 (ref), v44 (copy), l_universeId_0 (copy)
+        if v43 then
             return;
         else
-            v42(l_ApiFetchGameDetails_0.Fetch(v41, {
+            v45(l_ApiFetchGameDetails_0.Fetch(v44, {
                 l_universeId_0
             }));
             return;
         end;
     end, {
-        v40, 
+        v43, 
         l_universeId_0, 
-        v41, 
-        v42
+        v44, 
+        v45
     });
-    local v43 = v3(v38, v33.topicId);
-    local v44 = v33.gameTileLayoutType or "Narrow";
-    local v45 = true;
-    if v44 ~= "Wide" then
-        v45 = v44 == "Event";
+    local v46 = v3(v41, v36.topicId);
+    local v47 = v36.gameTileLayoutType or "Narrow";
+    local v48 = true;
+    if v47 ~= "Wide" then
+        v48 = v47 == "Event";
     end;
-    local v46 = (if l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 then v14.getWideImageAssetId(v43) else v43 and v43.primaryMediaAsset and v43.primaryMediaAsset.wideImageAssetId) or v38 and v38.primaryWideAssetId or nil;
-    local v47 = v5(v46, v33.entry.placeId, true);
-    local v49 = l_useSelector_0(function(v48) --[[ Line: 110 ]]
+    local v49 = (if l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 then v13.getWideImageAssetId(v46) else v46 and v46.primaryMediaAsset and v46.primaryMediaAsset.wideImageAssetId) or v41 and v41.primaryWideAssetId or nil;
+    local v50 = v5(v49, v36.entry.placeId, true);
+    local v52 = l_useSelector_0(function(v51) --[[ Line: 119 ]]
         -- upvalues: l_BigGameIconReducer_0 (ref), l_universeId_0 (copy)
-        return v48[l_BigGameIconReducer_0.key][l_universeId_0] and v48[l_BigGameIconReducer_0.key][l_universeId_0].url or "";
+        return v51[l_BigGameIconReducer_0.key][l_universeId_0] and v51[l_BigGameIconReducer_0.key][l_universeId_0].url or "";
     end);
-    local v50 = if v45 then v47 else v49;
-    local v51 = v8.getImageAspectRatio(v44);
-    local v52 = v43 and v43.title or v38 and v38.name or "";
-    local v53 = nil;
-    local v54 = nil;
-    local v55 = nil;
+    local v53 = if v48 then v50 else v52;
+    local v54 = v8.getImageAspectRatio(v47);
+    local v55 = v46 and v46.title or v41 and v41.name or "";
     local v56 = nil;
-    if v32 then
-        v53 = not l_IsVRAppBuild_0() and (v33.useHoverTile and v33.impressionsTag ~= nil or false);
-        v54 = v17.useRef(nil);
-        v55 = ("%*_%*_%*"):format(v33.impressionsTag or "", v33.index, v44);
-        v56 = v12(v54, v55, v53);
+    local v57 = nil;
+    local v58 = nil;
+    local v59 = nil;
+    if v34 then
+        v56 = not l_IsVRAppBuild_0() and (v36.useHoverTile and v36.impressionsTag ~= nil or false);
+        v57 = v17.useRef(nil);
+        v58 = ("%*_%*_%*"):format(v36.impressionsTag or "", v36.index, v47);
+        v59 = v11(v57, v58, v56);
     end;
-    local v58 = v17.useCallback(function() --[[ Line: 133 ]]
-        -- upvalues: v32 (ref), v56 (ref), v15 (ref), v33 (copy), l_universeId_0 (copy), v11 (ref), v41 (copy)
-        if v32 and v56 then
-            v15.default:reset();
+    local v61 = v17.useCallback(function() --[[ Line: 142 ]]
+        -- upvalues: v34 (ref), v59 (ref), v14 (ref), v36 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (ref), l_GameCollectionItemTypes_0 (ref), l_universeId_0 (copy), l_sponsoredGamesRecordClick_0 (ref), v44 (copy)
+        if v34 and v59 then
+            v14.default:reset();
         end;
-        local v57 = {
-            source = v33.source, 
-            index = v33.index, 
-            referralSource = v33.referralSource, 
-            onPeekViewClosed = v33.onPeekViewClosed
+        local v60 = {
+            source = v36.source, 
+            index = v36.index, 
+            referralSource = v36.referralSource, 
+            onPeekViewClosed = v36.onPeekViewClosed, 
+            experienceJoinData = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then {
+                tileType = v36.entry.tileType or l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile, 
+                nativeAdData = v36.entry.adId
+            } else nil
         };
-        v33.navigateToGameDetails(l_universeId_0, v57);
-        v33.reportGameDetailOpened(v33.index, l_universeId_0);
-        if v33.entry.isSponsored then
-            v11(v41, v33.entry.adId);
+        v36.navigateToGameDetails(l_universeId_0, v60);
+        v36.reportGameDetailOpened(v36.index, l_universeId_0);
+        if v36.entry.isSponsored then
+            l_sponsoredGamesRecordClick_0(v44, v36.entry.adId);
         end;
     end, {
         l_universeId_0, 
-        v33.source, 
-        v33.onPeekViewClosed, 
-        v33.entry.isSponsored, 
-        v33.entry.adId, 
-        v33.reportGameDetailOpened, 
-        v41, 
-        v33.navigateToGameDetails, 
-        v33.referralSource, 
-        v33.index, 
-        if v32 then v56 else nil
+        v36.source, 
+        v36.onPeekViewClosed, 
+        v36.entry.isSponsored, 
+        v36.entry.adId, 
+        v36.reportGameDetailOpened, 
+        v44, 
+        v36.navigateToGameDetails, 
+        v36.referralSource, 
+        v36.index, 
+        if v34 then v59 else nil
     });
-    if not v32 then
-        v53 = not l_IsVRAppBuild_0() and (v33.useHoverTile and v33.impressionsTag ~= nil or false);
-        v54 = v17.useRef(nil);
-        v55 = ("%*_%*_%*"):format(v33.impressionsTag or "", v33.index, v44);
-        v56 = v12(v54, v55, v53);
+    if not v34 then
+        v56 = not l_IsVRAppBuild_0() and (v36.useHoverTile and v36.impressionsTag ~= nil or false);
+        v57 = v17.useRef(nil);
+        v58 = ("%*_%*_%*"):format(v36.impressionsTag or "", v36.index, v47);
+        v59 = v11(v57, v58, v56);
     end;
-    local v59 = v33.showDescription or false;
-    local v60 = v38 and v38.totalUpVotes or 0;
-    local v61 = v38 and v38.totalDownVotes or 0;
-    local v62 = v40 and v40.creator and v40.creator.hasVerifiedBadge;
-    local v63 = v40 and v40.description or "";
-    local v64 = v40 and v40.licenseDescription or nil;
-    local v65 = v40 and v40.localizedFiatPrice or nil;
-    local v66 = v64 or v65;
-    local v67 = v33.hideGameStats or v59 or v66 ~= nil;
-    local v68 = v38 and v38.creatorName ~= "" and v38.creatorName or v40 and v40.creator and v40.creator.name;
-    local v69 = v66 and 2 or 3;
-    local v71 = v17.useMemo(function() --[[ Line: 201 ]]
-        -- upvalues: v68 (copy), v59 (copy), v69 (copy), v67 (copy), v66 (copy)
-        local v70 = 0;
-        if v68 and v68 ~= "" then
-            v70 = v70 + 1;
+    local v62 = v36.showDescription or false;
+    local v63 = v41 and v41.totalUpVotes or 0;
+    local v64 = v41 and v41.totalDownVotes or 0;
+    local v65 = v43 and v43.creator and v43.creator.hasVerifiedBadge;
+    local v66 = v43 and v43.description or "";
+    local v67 = v43 and v43.licenseDescription or nil;
+    local v68 = v43 and v43.localizedFiatPrice or nil;
+    local v69 = v67 or v68;
+    local v70 = v36.hideGameStats or v62 or v69 ~= nil;
+    local v71 = v41 and v41.creatorName ~= "" and v41.creatorName or v43 and v43.creator and v43.creator.name;
+    local v72 = v69 and 2 or 3;
+    local v74 = v17.useMemo(function() --[[ Line: 216 ]]
+        -- upvalues: v71 (copy), v62 (copy), v72 (copy), v70 (copy), v69 (copy)
+        local v73 = 0;
+        if v71 and v71 ~= "" then
+            v73 = v73 + 1;
         end;
-        if v59 then
-            v70 = v70 + v69;
+        if v62 then
+            v73 = v73 + v72;
         end;
-        if not v67 then
-            v70 = v70 + 1;
+        if not v70 then
+            v73 = v73 + 1;
         end;
-        if v66 then
-            v70 = v70 + 1;
+        if v69 then
+            v73 = v73 + 1;
         end;
-        return v70;
+        return v73;
     end, {
-        v68, 
-        v59, 
-        v67, 
-        v66, 
-        v69
+        v71, 
+        v62, 
+        v70, 
+        v69, 
+        v72
     });
-    local v72 = v33.isContained or false;
-    local l_playButtonHeight_0 = v8.getElementSizes(v34, v33.textSizeOffset, 1, v35, true, v71).playButtonHeight;
-    local v74 = if v32 then v17.useCallback(function(...) --[[ Line: 235 ]]
-        -- upvalues: v56 (ref), v15 (ref), v33 (copy)
-        if v56 then
-            v15.default:reset();
+    local v75 = v36.isContained or false;
+    local l_playButtonHeight_0 = v8.getElementSizes(v37, v36.textSizeOffset, 1, v38, true, v74).playButtonHeight;
+    local v77 = if v34 then v17.useCallback(function(...) --[[ Line: 250 ]]
+        -- upvalues: v59 (ref), v14 (ref), v36 (copy)
+        if v59 then
+            v14.default:reset();
         end;
-        if v33.reportExperienceLaunched then
-            v33.reportExperienceLaunched(...);
+        if v36.reportExperienceLaunched then
+            v36.reportExperienceLaunched(...);
         end;
     end, {
-        v56, 
-        v33.reportExperienceLaunched
+        v59, 
+        v36.reportExperienceLaunched
     }) else nil;
-    local v75 = v17.useMemo(function() --[[ Line: 247 ]]
-        -- upvalues: v17 (ref), v10 (ref), l_universeId_0 (copy), v33 (copy), v32 (ref), v74 (copy), v58 (copy), v51 (copy), l_playButtonHeight_0 (copy)
+    local v78 = v17.useMemo(function() --[[ Line: 262 ]]
+        -- upvalues: v17 (ref), v10 (ref), l_universeId_0 (copy), v36 (copy), v34 (ref), v77 (copy), v61 (copy), v54 (copy), l_playButtonHeight_0 (copy)
         return v17.createElement(v10, {
             universeId = l_universeId_0, 
-            referralSource = v33.referralSource, 
+            referralSource = v36.referralSource, 
             launchSource = "FeaturedSearchTile", 
-            reportExperienceLaunched = if v32 then v74 else v33.reportExperienceLaunched, 
-            openGameDetails = v58, 
-            entry = v33.entry, 
-            launchExperienceEventContext = v33.launchExperienceEventContext, 
-            showButtonText = v51 > 1, 
+            reportExperienceLaunched = if v34 then v77 else v36.reportExperienceLaunched, 
+            openGameDetails = v61, 
+            entry = v36.entry, 
+            launchExperienceEventContext = v36.launchExperienceEventContext, 
+            showButtonText = v54 > 1, 
             horizontalPadding = 0, 
             verticalPadding = 0, 
             height = l_playButtonHeight_0, 
-            index = v33.index, 
+            index = v36.index, 
             isUnifiedGameTileEnabled = true
         });
     end, {
         l_universeId_0, 
-        v33.referralSource, 
-        if v32 then v74 else v33.reportExperienceLaunched, 
-        v58, 
-        v33.entry, 
-        v33.launchExperienceEventContext, 
+        v36.referralSource, 
+        if v34 then v77 else v36.reportExperienceLaunched, 
+        v61, 
+        v36.entry, 
+        v36.launchExperienceEventContext, 
         l_playButtonHeight_0, 
-        v33.index, 
-        v51
+        v36.index, 
+        v54
     });
-    local v76 = v17.useMemo(function() --[[ Line: 280 ]]
-        -- upvalues: v17 (ref), v66 (copy), v13 (ref), v9 (ref), v68 (copy), v62 (copy), v6 (ref), v60 (copy), v61 (copy), v33 (copy), v7 (ref), v45 (copy), v67 (copy), v44 (copy), v59 (copy), v63 (copy), v69 (copy), v30 (ref)
+    local v79 = v17.useMemo(function() --[[ Line: 295 ]]
+        -- upvalues: v17 (ref), v69 (copy), v12 (ref), v9 (ref), v71 (copy), v65 (copy), v6 (ref), v63 (copy), v64 (copy), v36 (copy), v7 (ref), v48 (copy), v70 (copy), v47 (copy), v62 (copy), v66 (copy), v72 (copy), v31 (ref)
         return v17.createElement(v17.Fragment, {}, {
             UIListLayout = v17.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
                 SortOrder = Enum.SortOrder.LayoutOrder
             }), 
-            ExtraMetadata = if v66 then v17.createElement(v13, {
-                text = v66, 
+            ExtraMetadata = if v69 then v17.createElement(v12, {
+                text = v69, 
                 LayoutOrder = 1, 
                 useLargerFont = true, 
                 isUnifiedGameTile = true
             }) else nil, 
             CreatorName = v17.createElement(v9, {
-                name = v68, 
-                hasVerifiedBadge = v62, 
+                name = v71, 
+                hasVerifiedBadge = v65, 
                 LayoutOrder = 2
             }), 
             GameStats = v17.createElement(v6, {
                 stats = {
-                    totalUpVotes = v60, 
-                    totalDownVotes = v61, 
-                    playerCount = if v33.playerCountStyle == v7.PlayerCountStyleValues.Footer then v33.entry.playerCount else nil
+                    totalUpVotes = v63, 
+                    totalDownVotes = v64, 
+                    playerCount = if v36.playerCountStyle == v7.PlayerCountStyleValues.Footer then v36.entry.playerCount else nil
                 }, 
-                isGridTile = v45, 
-                hideGameStats = v67, 
-                gameTileLayoutType = v44, 
+                isGridTile = v48, 
+                hideGameStats = v70, 
+                gameTileLayoutType = v47, 
                 LayoutOrder = 3, 
                 useLargerFont = true, 
                 isUnifiedGameTile = true
             }), 
-            Description = if v59 then v17.createElement(v13, {
-                text = v63, 
+            Description = if v62 then v17.createElement(v12, {
+                text = v66, 
                 LayoutOrder = 4, 
-                linesOfText = v69, 
+                linesOfText = v72, 
                 useLargerFont = true, 
                 isUnifiedGameTile = true, 
                 TextYAlignment = Enum.TextYAlignment.Top, 
                 ClipsDescendants = true, 
-                TextWrapped = v30 and true or nil
+                TextWrapped = v31 and true or nil
             }) else nil
         });
     end, {
-        v68, 
-        v60, 
-        v61, 
-        v33.playerCountStyle, 
-        v33.entry.playerCount, 
-        v45, 
-        v67, 
-        v44, 
-        v59, 
-        v63, 
-        v66, 
-        v62, 
-        v69
-    });
-    local v77, v78 = v17.useState(Vector2.new(0, 0));
-    local v80 = v17.useMemo(function() --[[ Line: 349 ]]
-        -- upvalues: v8 (ref), v34 (copy), v77 (copy), v44 (copy), v72 (copy), v33 (copy), v71 (copy), v35 (copy)
-        local v79 = v8.getTileHeight(v34, v77.X, v44, v72, false, false, v33.textSizeOffset, nil, 1, v71, v35, true);
-        return v77.Y - v79;
-    end, {
-        v34, 
-        v77, 
-        v44, 
-        v72, 
-        v33.textSizeOffset, 
-        1, 
         v71, 
-        v35
+        v63, 
+        v64, 
+        v36.playerCountStyle, 
+        v36.entry.playerCount, 
+        v48, 
+        v70, 
+        v47, 
+        v62, 
+        v66, 
+        v69, 
+        v65, 
+        v72
     });
-    local v81 = v17.useRef(nil);
-    v17.useEffect(function() --[[ Line: 380 ]]
-        -- upvalues: l_ImpressionsTagUtility_0 (ref), v81 (copy), v33 (copy)
-        l_ImpressionsTagUtility_0.AddTag(v81, v33.impressionsTag, v33.index);
-        return function() --[[ Line: 382 ]]
-            -- upvalues: l_ImpressionsTagUtility_0 (ref), v81 (ref), v33 (ref)
-            l_ImpressionsTagUtility_0.RemoveTag(v81, v33.impressionsTag, v33.index);
+    local v80, v81 = v17.useState(Vector2.new(0, 0));
+    local v83 = v17.useMemo(function() --[[ Line: 364 ]]
+        -- upvalues: v8 (ref), v37 (copy), v80 (copy), v47 (copy), v75 (copy), v36 (copy), v74 (copy), v38 (copy)
+        local v82 = v8.getTileHeight(v37, v80.X, v47, v75, false, false, v36.textSizeOffset, nil, 1, v74, v38, true);
+        return v80.Y - v82;
+    end, {
+        v37, 
+        v80, 
+        v47, 
+        v75, 
+        v36.textSizeOffset, 
+        1, 
+        v74, 
+        v38
+    });
+    local v84 = v17.useRef(nil);
+    v17.useEffect(function() --[[ Line: 395 ]]
+        -- upvalues: l_ImpressionsTagUtility_0 (ref), v84 (copy), v36 (copy)
+        l_ImpressionsTagUtility_0.AddTag(v84, v36.impressionsTag, v36.index);
+        return function() --[[ Line: 397 ]]
+            -- upvalues: l_ImpressionsTagUtility_0 (ref), v84 (ref), v36 (ref)
+            l_ImpressionsTagUtility_0.RemoveTag(v84, v36.impressionsTag, v36.index);
         end;
     end, {
-        v33.impressionsTag, 
-        v33.index
+        v36.impressionsTag, 
+        v36.index
     });
     return v17.createElement("Frame", {
         BackgroundTransparency = 1, 
-        LayoutOrder = v33.layoutOrder, 
-        ZIndex = -v33.index
+        LayoutOrder = v36.layoutOrder, 
+        ZIndex = -v36.index
     }, {
         EmphasisTileContainer = v17.createElement("Frame", {
             AnchorPoint = Vector2.new(0, 0), 
             Position = UDim2.fromScale(0, 0), 
-            Size = v33.size, 
+            Size = v36.size, 
             BackgroundTransparency = 1, 
-            ref = v81, 
-            [v17.Change.AbsoluteSize] = function(v82) --[[ Line: 399 ]]
-                -- upvalues: v78 (copy)
-                v78(v82.AbsoluteSize);
+            ref = v84, 
+            [v17.Change.AbsoluteSize] = function(v85) --[[ Line: 414 ]]
+                -- upvalues: v81 (copy)
+                v81(v85.AbsoluteSize);
             end
         }, {
             GameTileView = v17.createElement(v2, {
-                forwardRef = v54, 
-                selectionOrder = v33.selectionOrder, 
-                isDisabled = v33.isDisabled, 
-                onActivated = v58, 
-                onSelectionGained = v33.onSelectionGained, 
-                onSelectionLost = v33.onSelectionLost, 
-                image = v50, 
-                title = v52, 
+                forwardRef = v57, 
+                selectionOrder = v36.selectionOrder, 
+                isDisabled = v36.isDisabled, 
+                onActivated = v61, 
+                onSelectionGained = v36.onSelectionGained, 
+                onSelectionLost = v36.onSelectionLost, 
+                image = v53, 
+                title = v55, 
                 numLinesForTitle = 1, 
-                numLinesForMetadata = v71, 
-                isHovered = v56, 
-                footerMetadata = v76, 
+                numLinesForMetadata = v74, 
+                isHovered = v59, 
+                footerMetadata = v79, 
                 isUnifiedGameTile = true, 
-                imageAspectRatio = v51, 
-                isContained = v72, 
-                extraFooterContent = if v59 then nil else v75, 
-                extraFooterSpace = if v59 then nil else v80, 
+                imageAspectRatio = v54, 
+                isContained = v75, 
+                extraFooterContent = if v62 then nil else v78, 
+                extraFooterSpace = if v62 then nil else v83, 
                 hidePlayButton = true, 
-                reducedMotion = l_UserGameSettings_0.ReducedMotion
+                reducedMotion = l_UserGameSettings_0.ReducedMotion, 
+                onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v36.onTileImageLoaded else nil
             })
         })
     });

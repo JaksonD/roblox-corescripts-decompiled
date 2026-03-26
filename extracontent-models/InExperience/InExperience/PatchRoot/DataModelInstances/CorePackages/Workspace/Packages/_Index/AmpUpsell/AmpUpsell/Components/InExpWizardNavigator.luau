@@ -23,12 +23,12 @@ local v18 = {
     SubscriptionUpsell = "SubscriptionUpsell", 
     VPCUpsell = "VPCUpsell"
 };
-local function v32(v19) --[[ Line: 41 ]]
+local function v32(v19) --[[ Line: 42 ]]
     -- upvalues: l_useNavigation_0 (copy), v3 (copy), v10 (copy), l_UrlBuilder_0 (copy), v9 (copy), v18 (copy), l_ActionTypeEnum_0 (copy), v4 (copy)
     local v20 = l_useNavigation_0();
-    local v25 = v3.useCallback(function(v21) --[[ Line: 44 ]]
+    local v25 = v3.useCallback(function(v21) --[[ Line: 45 ]]
         -- upvalues: v20 (copy), v10 (ref), l_UrlBuilder_0 (ref), v9 (ref), v18 (ref)
-        local function v23(v22) --[[ Line: 45 ]]
+        local function v23(v22) --[[ Line: 46 ]]
             -- upvalues: v20 (ref), v10 (ref), l_UrlBuilder_0 (ref)
             v20.push(v10.GenericWebPage, {
                 detail = l_UrlBuilder_0.static.settings.account(), 
@@ -47,7 +47,7 @@ local function v32(v19) --[[ Line: 41 ]]
         v20
     });
     local v30 = {
-        [l_ActionTypeEnum_0.AgeEstimation] = v3.useCallback(function(v26) --[[ Line: 59 ]]
+        [l_ActionTypeEnum_0.AgeEstimation] = v3.useCallback(function(v26) --[[ Line: 60 ]]
             -- upvalues: v20 (copy), v18 (ref)
             v20.push(v18.FAEUpsell, {
                 extraProps = v26
@@ -55,7 +55,7 @@ local function v32(v19) --[[ Line: 41 ]]
         end, {
             v20
         }), 
-        [l_ActionTypeEnum_0.Subscription] = v3.useCallback(function(v27) --[[ Line: 62 ]]
+        [l_ActionTypeEnum_0.Subscription] = v3.useCallback(function(v27) --[[ Line: 63 ]]
             -- upvalues: v20 (copy), v18 (ref)
             v20.push(v18.SubscriptionUpsell, {
                 extraProps = v27
@@ -63,7 +63,7 @@ local function v32(v19) --[[ Line: 41 ]]
         end, {
             v20
         }), 
-        [l_ActionTypeEnum_0.ParentConsent] = v3.useCallback(function(v28) --[[ Line: 65 ]]
+        [l_ActionTypeEnum_0.ParentConsent] = v3.useCallback(function(v28) --[[ Line: 66 ]]
             -- upvalues: v20 (copy), v18 (ref)
             v20.push(v18.VPCUpsell, {
                 extraProps = v28
@@ -71,7 +71,7 @@ local function v32(v19) --[[ Line: 41 ]]
         end, {
             v20
         }), 
-        [l_ActionTypeEnum_0.ParentLink] = v3.useCallback(function(v29) --[[ Line: 68 ]]
+        [l_ActionTypeEnum_0.ParentLink] = v3.useCallback(function(v29) --[[ Line: 69 ]]
             -- upvalues: v20 (copy), v18 (ref)
             v20.push(v18.VPCUpsell, {
                 extraProps = v29
@@ -89,7 +89,7 @@ end;
 local v44 = v2.createRobloxStackNavigator({
     {
         [v18.Wizard] = {
-            screen = function(v33) --[[ Line: 84 ]] --[[ Name: screen ]]
+            screen = function(v33) --[[ Line: 85 ]] --[[ Name: screen ]]
                 -- upvalues: l_useNavigation_0 (copy), v3 (copy), v32 (copy)
                 local v34 = l_useNavigation_0().getParam("extraProps") or v33 and v33.screenProps and v33.screenProps.extraProps;
                 return v3.createElement(v32, v34);
@@ -102,7 +102,7 @@ local v44 = v2.createRobloxStackNavigator({
     }, 
     {
         [v18.FAEUpsell] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 101 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 102 ]]
                 -- upvalues: v8 (copy)
                 return v8;
             end), 
@@ -114,17 +114,25 @@ local v44 = v2.createRobloxStackNavigator({
     }, 
     {
         [v18.SubscriptionUpsell] = {
-            screen = function(v35) --[[ Line: 112 ]] --[[ Name: screen ]]
+            screen = function(v35) --[[ Line: 113 ]] --[[ Name: screen ]]
                 -- upvalues: v3 (copy), v15 (copy), l_RobloxSubscriptionFlowCompleteReason_0 (copy), l_SurfaceName_0 (copy)
                 local v36 = v35.navigation.getParam("extraProps") or {};
-                v3.useEffect(function() --[[ Line: 125 ]]
+                v3.useEffect(function() --[[ Line: 127 ]]
                     -- upvalues: v15 (ref), v36 (copy), l_RobloxSubscriptionFlowCompleteReason_0 (ref), l_SurfaceName_0 (ref)
                     local v38 = v15.initiateRobloxSubscriptionPurchase(v36.purchaseUIOptions, {
-                        onFlowComplete = function(v37) --[[ Line: 129 ]] --[[ Name: onFlowComplete ]]
+                        onFlowComplete = function(v37) --[[ Line: 131 ]] --[[ Name: onFlowComplete ]]
                             -- upvalues: l_RobloxSubscriptionFlowCompleteReason_0 (ref), v36 (ref)
-                            if v37 == l_RobloxSubscriptionFlowCompleteReason_0.NativePurchaseCompleted then
+                            if v37 == l_RobloxSubscriptionFlowCompleteReason_0.UpsellPurchaseSucceeded then
                                 if v36.onSuccess then
                                     v36.onSuccess();
+                                    return;
+                                end;
+                            elseif v37 == l_RobloxSubscriptionFlowCompleteReason_0.UpsellPurchaseFailed then
+                                if v36.onFailure then
+                                    v36.onFailure();
+                                    return;
+                                elseif v36.onCancel then
+                                    v36.onCancel();
                                     return;
                                 end;
                             elseif v36.onCancel then
@@ -132,7 +140,7 @@ local v44 = v2.createRobloxStackNavigator({
                             end;
                         end
                     }, nil, v36.surfaceName or l_SurfaceName_0.Unspecified, v36.surfaceContext or v15.SurfaceContext.Unspecified);
-                    return function() --[[ Line: 149 ]]
+                    return function() --[[ Line: 159 ]]
                         -- upvalues: v38 (copy)
                         if v38 then
                             v38();
@@ -149,9 +157,9 @@ local v44 = v2.createRobloxStackNavigator({
     }, 
     {
         [v18.AccountSettingsUpsell] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 167 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 177 ]]
                 -- upvalues: l_useNavigation_0 (copy), v3 (copy), v13 (copy)
-                return function() --[[ Line: 168 ]]
+                return function() --[[ Line: 178 ]]
                     -- upvalues: l_useNavigation_0 (ref), v3 (ref), v13 (ref)
                     local v39 = l_useNavigation_0().getParam("extraProps");
                     return v3.createElement(v13, v39);
@@ -165,9 +173,9 @@ local v44 = v2.createRobloxStackNavigator({
     }, 
     {
         [v18.VPCUpsell] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 182 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 192 ]]
                 -- upvalues: l_useNavigation_0 (copy), v3 (copy), v14 (copy)
-                return function() --[[ Line: 183 ]]
+                return function() --[[ Line: 193 ]]
                     -- upvalues: l_useNavigation_0 (ref), v3 (ref), v14 (ref)
                     local v40 = l_useNavigation_0().getParam("extraProps");
                     return v3.createElement(v14, v40);
@@ -181,7 +189,7 @@ local v44 = v2.createRobloxStackNavigator({
     }, 
     {
         [v10.GenericWebPage] = {
-            screen = function() --[[ Line: 198 ]] --[[ Name: screen ]]
+            screen = function() --[[ Line: 208 ]] --[[ Name: screen ]]
                 -- upvalues: l_useNavigation_0 (copy), v11 (copy)
                 local v41 = l_useNavigation_0();
                 local v42 = v41.getParam("detail");
@@ -189,7 +197,7 @@ local v44 = v2.createRobloxStackNavigator({
                 v11.new({
                     url = v42, 
                     title = v43.title or "", 
-                    closeCallback = function() --[[ Line: 205 ]] --[[ Name: closeCallback ]]
+                    closeCallback = function() --[[ Line: 215 ]] --[[ Name: closeCallback ]]
                         -- upvalues: v41 (copy), v43 (copy)
                         v41.pop();
                         if v43.onClose then
@@ -206,7 +214,7 @@ local v44 = v2.createRobloxStackNavigator({
     }
 }, {
     initialRouteName = "Wizard", 
-    transitionConfig = function() --[[ Line: 225 ]] --[[ Name: transitionConfig ]]
+    transitionConfig = function() --[[ Line: 235 ]] --[[ Name: transitionConfig ]]
         return {
             transitionSpec = {
                 frequency = 100000, 

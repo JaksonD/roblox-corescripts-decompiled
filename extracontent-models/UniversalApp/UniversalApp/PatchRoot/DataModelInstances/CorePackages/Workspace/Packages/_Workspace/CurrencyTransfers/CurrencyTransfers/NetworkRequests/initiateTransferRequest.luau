@@ -28,12 +28,11 @@ return function(v12, v13) --[[ Line: 32 ]] --[[ Name: initiateTransferRequest ]]
     };
     return v14:post(v10, v17):andThen(function(v18) --[[ Line: 47 ]]
         -- upvalues: v5 (ref)
-        local v19 = v5.format(v18);
-        print("[initiateTransferRequest] Formatted result:", v19);
-        return v19;
-    end):catch(function(v20) --[[ Line: 52 ]]
+        print("[initiateTransferRequest] Backend response (success):", v18);
+        return (v5.format(v18));
+    end):catch(function(v19) --[[ Line: 52 ]]
         -- upvalues: v4 (ref)
-        print("[initiateTransferRequest] Error response:", v20);
-        return v4.reject(v20);
+        print("[initiateTransferRequest] Backend response (error):", v19);
+        return v4.reject(v19);
     end);
 end;

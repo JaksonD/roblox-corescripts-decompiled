@@ -23,5 +23,6 @@ return {
     GetFFlagPeoplePagePostponeInitialRender = require(script.UI.FFlagPeoplePagePostponeInitialRender), 
     FFlagPeoplePageRemoveSkeletons = require(script.UI.FFlagPeoplePageRemoveSkeletons), 
     FFlagPeoplePageRemoveUseMemoElements = require(script.UI.FFlagPeoplePageRemoveUseMemoElements), 
-    FFlagPeopleListFixMemoryLeak = require(script.UI.FFlagPeopleListFixMemoryLeak)
+    FFlagPeopleListFixMemoryLeak = require(script.UI.FFlagPeopleListFixMemoryLeak), 
+    FFlagPeopleCardsEnableVirtualizedGrid = require(script.UI.FFlagPeopleCardsEnableVirtualizedGrid)
 };

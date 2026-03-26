@@ -140,19 +140,19 @@ return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
         for _, v60 in v57 do
             table.insert(v58, v60);
         end;
-        table.sort(v58, function(v61, v62) --[[ Line: 233 ]]
+        table.sort(v58, function(v61, v62) --[[ Line: 234 ]]
             -- upvalues: v5 (ref)
             if v61.status == v5.ALREADY_OWNED and v62.status ~= v5.ALREADY_OWNED then
                 return false;
             elseif v62.status == v5.ALREADY_OWNED and v61.status ~= v5.ALREADY_OWNED then
                 return true;
             else
-                return v61.ordering < v62.ordering;
+                return v61.ordering > v62.ordering;
             end;
         end);
         return v58;
     end, v3.deepEqual);
-    local v69 = l_createComputed_0(function(v64) --[[ Line: 251 ]]
+    local v69 = l_createComputed_0(function(v64) --[[ Line: 252 ]]
         -- upvalues: v50 (copy), v5 (ref), v3 (ref)
         local v65 = v50(v64);
         local v66 = 0;
@@ -170,7 +170,7 @@ return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
             return true;
         end;
     end);
-    local v75 = l_createComputed_0(function(v70) --[[ Line: 285 ]]
+    local v75 = l_createComputed_0(function(v70) --[[ Line: 286 ]]
         -- upvalues: v50 (copy), v5 (ref)
         local v71 = v50(v70);
         local v72 = 0;
@@ -181,7 +181,7 @@ return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
         end;
         return v72;
     end);
-    local function v89(v76, v77) --[[ Line: 298 ]] --[[ Name: syncFromTryOns ]]
+    local function v89(v76, v77) --[[ Line: 299 ]] --[[ Name: syncFromTryOns ]]
         -- upvalues: v50 (copy), l_getTryOnItemReducerKey_0 (ref), v44 (ref), v6 (ref), v3 (ref), v51 (copy), v53 (copy)
         local v78 = false;
         local v79 = v50(false);
@@ -217,7 +217,7 @@ return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
             v53(0);
         end;
     end;
-    local function v104(v90) --[[ Line: 320 ]] --[[ Name: updateCartFromPurchaseResponse ]]
+    local function v104(v90) --[[ Line: 321 ]] --[[ Name: updateCartFromPurchaseResponse ]]
         -- upvalues: v50 (copy), v5 (ref), v19 (ref), v6 (ref), v51 (copy), v53 (copy)
         local v91 = v50(false);
         local v92 = {};
@@ -258,7 +258,7 @@ return function() --[[ Line: 217 ]] --[[ Name: createAXShoppingCartStore ]]
             needDataRefeshItems = v95
         };
     end;
-    local function v112(v105, v106, v107, v108) --[[ Line: 370 ]] --[[ Name: updateItemPrice ]]
+    local function v112(v105, v106, v107, v108) --[[ Line: 371 ]] --[[ Name: updateItemPrice ]]
         -- upvalues: l_FFlagAXDurablesForMIS_0 (ref), v50 (copy), l_getTryOnItemReducerKey_0 (ref), v51 (copy), v6 (ref)
         if not l_FFlagAXDurablesForMIS_0 then
             return;

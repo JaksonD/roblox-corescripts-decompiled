@@ -37,134 +37,135 @@ local v35 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 = v35.FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation;
 local v37 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableShowRobloxAsLookCreator);
 local l_FFlagAddTypesToWidgetItems_0 = v32.FFlagAddTypesToWidgetItems;
-local v39 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveLookFromTryOn);
+local l_AddAnalyticsMetadata_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Actions.AddAnalyticsMetadata;
+local v40 = require(l_Modules_0.AvatarExperience.Common.Actions.RemoveLookFromTryOn);
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local v41 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
-local v42 = require(l_Modules_0.AvatarExperience.Common.Utils);
-local v43 = require(l_Modules_0.AvatarExperience.Common.Constants);
-local v44 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
-local v45 = require(l_Modules_0.AvatarExperience.Common.WidgetConstants);
-local v46 = require(l_Modules_0.AvatarExperience.Catalog.Http.WebApi);
-local v47 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.ImpressionsUtil);
-local v48 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
-local v49 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
-local v50 = require(l_Modules_0.LuaApp.Enum.ToastType);
-local v51 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
-local v52 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
+local v42 = require(l_Modules_0.LuaApp.Services.RoactNetworking);
+local v43 = require(l_Modules_0.AvatarExperience.Common.Utils);
+local v44 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v45 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
+local v46 = require(l_Modules_0.AvatarExperience.Common.WidgetConstants);
+local v47 = require(l_Modules_0.AvatarExperience.Catalog.Http.WebApi);
+local v48 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.ImpressionsUtil);
+local v49 = require(l_Modules_0.AvatarExperience.Common.Components.Impressions.OrganicEventImpressionsSchema);
+local v50 = require(l_Modules_0.LuaApp.Actions.SetCurrentToastMessage);
+local v51 = require(l_Modules_0.LuaApp.Enum.ToastType);
+local v52 = require(l_Modules_0.AvatarExperience.Common.Enum.FullView);
+local _ = require(l_Modules_0.AvatarExperience.Common.Reducers.OutfitTryOn);
+local v54 = require(l_Modules_0.AvatarExperience.Common.Selectors.ItemData);
 local l_selectEquippedLayeredMakeupAssets_0 = v10.State.Selectors.selectEquippedLayeredMakeupAssets;
-local v54 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
-local v55 = require(l_Modules_0.AvatarExperience.Common.Services.Analytics);
+local v56 = require(l_Modules_0.AvatarExperience.Catalog.Services.Analytics);
+local v57 = require(l_Modules_0.AvatarExperience.Common.Services.Analytics);
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-local v57 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.SendDetailedCatalogAnalytics);
-local v58 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.MaybePromptForR15Upgrade);
-local v59 = require(l_Modules_0.AvatarExperience.Catalog.Actions.SetTryOnManagerPeekViewState);
-local v60 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
-local v61 = require(l_Modules_0.AvatarExperience.Common.Thunks.ToggleTryOnThunk);
-local v62 = require(l_Modules_0.AvatarExperience.Common.Thunks.CloseAllItemDetails);
-local v63 = require(l_Modules_0.AvatarExperience.Common.Actions.SetAnimationPreview);
-local v64 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
-local v65 = require(l_Modules_0.AvatarExperience.Common.Actions.AddAnalyticsMetadata);
-local v66 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
-local v67 = require(l_Modules_0.AvatarExperience.Common.Context.useAdaptiveScrolling);
-local v68 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsFullViewTable);
+local v59 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.SendDetailedCatalogAnalytics);
+local v60 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.MaybePromptForR15Upgrade);
+local v61 = require(l_Modules_0.AvatarExperience.Catalog.Actions.SetTryOnManagerPeekViewState);
+local v62 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenItemDetails);
+local v63 = require(l_Modules_0.AvatarExperience.Common.Thunks.ToggleTryOnThunk);
+local v64 = require(l_Modules_0.AvatarExperience.Common.Thunks.CloseAllItemDetails);
+local v65 = require(l_Modules_0.AvatarExperience.Common.Actions.SetAnimationPreview);
+local v66 = require(l_Modules_0.AvatarExperience.Common.Thunks.SetFullView);
+local v67 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.Debug.logOnOverlayClosed);
+local v68 = require(l_Modules_0.AvatarExperience.Common.Context.useAdaptiveScrolling);
+local v69 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectIsFullViewTable);
 local l_getTryOnItemReducerKey_0 = v10.Utils.getTryOnItemReducerKey;
 local l_ItemTypeEnum_0 = v10.Enums.ItemTypeEnum;
 local l_CatalogItemCardStatusIconTypeEnum_0 = v10.Components.CatalogItemCard.CatalogItemCardStatusIconTypeEnum;
 local l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 = v10.Constants.ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE;
 local l_MAX_MAKEUP_LAYERS_0 = v10.Constants.MAX_MAKEUP_LAYERS;
-local v74 = require(l_Modules_0.AvatarExperience.Common.Thunks.TryOnLookV2);
-local v75 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenLookDetailsFromButton);
+local v75 = require(l_Modules_0.AvatarExperience.Common.Thunks.TryOnLookV2);
+local v76 = require(l_Modules_0.AvatarExperience.Common.Thunks.OpenLookDetailsFromButton);
 local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).Enums.AvatarScreen;
 local l_sendUnifiedEventForDeferredAction_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).sendUnifiedEventForDeferredAction;
-local v78 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
+local v79 = require(l_Modules_0.AvatarExperience.Common.Thunks.NavigateWithLock);
 local _ = require(script.Parent.CatalogItemCard);
-local v80 = require(script.Parent.useCatalogItemCardFocusNavigationBindings);
-local v81 = require(script.Parent.useCatalogItemCardFtux);
+local v81 = require(script.Parent.useCatalogItemCardFocusNavigationBindings);
+local v82 = require(script.Parent.useCatalogItemCardFtux);
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 = v32.FFlagAXCatalogItemCardSelectedOverlayButtonLogging;
 local l_FFlagAXDurablesSupport_0 = v32.FFlagAXDurablesSupport;
 local l_FFlagAXDurablesSupportForPermanent_0 = v32.FFlagAXDurablesSupportForPermanent;
 local l_FFlagAXMISEnableMultiShopping_0 = v32.FFlagAXMISEnableMultiShopping;
-local l_FFlagAXCatalogMakeupSupport_0 = v32.FFlagAXCatalogMakeupSupport;
 local l_FFlagAXAddLookTypeEnumForLogging_0 = v32.FFlagAXAddLookTypeEnumForLogging;
-local v89 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
+local l_FFlagAXCatalogMakeupSupport_0 = v32.FFlagAXCatalogMakeupSupport;
+local v90 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
 local l_FFlagAXCatalogCategoriesStore_0 = v32.FFlagAXCatalogCategoriesStore;
 local l_FFlagAXDurablesFooter_0 = v32.FFlagAXDurablesFooter;
 local l_FFlagAXWearTimeSupport_0 = v35.FFlagAXWearTimeSupport;
 local l_LOOKS_IMAGE_OFFSET_MULTIPLIERS_0 = v13.Constants.LOOKS_IMAGE_OFFSET_MULTIPLIERS;
 local l_LOOKS_IMAGE_ZOOM_0 = v13.Constants.LOOKS_IMAGE_ZOOM;
-local v95 = {
+local v96 = {
     toastMessage = "Feature.Avatar.Label.LayeredClothingR15Warning", 
     isLocalized = false, 
-    toastType = v50.InformationMessage
+    toastType = v51.InformationMessage
 };
-local function _(v96) --[[ Line: 130 ]] --[[ Name: isBodyBundle ]]
-    -- upvalues: v43 (copy)
-    if v96 then
-        return v96.bundleType == v43.BundleTypeIdStrings.BodyParts;
+local function _(v97) --[[ Line: 132 ]] --[[ Name: isBodyBundle ]]
+    -- upvalues: v44 (copy)
+    if v97 then
+        return v97.bundleType == v44.BundleTypeIdStrings.BodyParts;
     else
         return false;
     end;
 end;
-local function _(v98) --[[ Line: 134 ]] --[[ Name: getItemTypeFromItemData ]]
+local function _(v99) --[[ Line: 136 ]] --[[ Name: getItemTypeFromItemData ]]
     -- upvalues: l_ItemTileEnums_0 (copy)
-    local v99 = if v98 then v98.tileRestrictionsMap else nil;
-    if v99 then
-        if v99[l_ItemTileEnums_0.Restriction.Limited] then
+    local v100 = if v99 then v99.tileRestrictionsMap else nil;
+    if v100 then
+        if v100[l_ItemTileEnums_0.Restriction.Limited] then
             return "Limited";
-        elseif v99[l_ItemTileEnums_0.Restriction.LimitedUnique] or v99[l_ItemTileEnums_0.Restriction.Collectible] then
+        elseif v100[l_ItemTileEnums_0.Restriction.LimitedUnique] or v100[l_ItemTileEnums_0.Restriction.Collectible] then
             return "Collectible";
         end;
     end;
     return nil;
 end;
-local function _(v101) --[[ Line: 150 ]] --[[ Name: getItemInfoFromItemData ]]
-    -- upvalues: v43 (copy)
-    if v101 and v101.bundleType == v43.BundleTypeIdStrings.DynamicHead then
+local function _(v102) --[[ Line: 152 ]] --[[ Name: getItemInfoFromItemData ]]
+    -- upvalues: v44 (copy)
+    if v102 and v102.bundleType == v44.BundleTypeIdStrings.DynamicHead then
         return "DynamicHead";
     else
         return nil;
     end;
 end;
-local _ = function(v103) --[[ Line: 157 ]] --[[ Name: getTimedOptionDays ]]
-    for _, v105 in v103 do
-        if v105.selected and v105.days > 0 then
-            return v105.days;
+local _ = function(v104) --[[ Line: 159 ]] --[[ Name: getTimedOptionDays ]]
+    for _, v106 in v104 do
+        if v106.selected and v106.days > 0 then
+            return v106.days;
         end;
     end;
     return nil;
 end;
-local function _(v107) --[[ Line: 166 ]] --[[ Name: getCreatorFromItemData ]]
-    if v107 and v107.creator then
-        local v108 = v107.creator.name or v107.creatorName;
-        if v108 then
+local function _(v108) --[[ Line: 168 ]] --[[ Name: getCreatorFromItemData ]]
+    if v108 and v108.creator then
+        local v109 = v108.creator.name or v108.creatorName;
+        if v109 then
             return {
-                name = v108, 
-                verified = v107.creator.hasVerifiedBadge
+                name = v109, 
+                verified = v108.creator.hasVerifiedBadge
             };
         end;
     end;
     return nil;
 end;
-local function v111(v110) --[[ Line: 176 ]] --[[ Name: getCreatorFromLookData ]]
-    -- upvalues: v37 (copy), v43 (copy)
-    if v110 and v110.curator and v110.curator.name and (v37() or v110.curator.name:lower() ~= v43.RobloxCreatorName:lower()) then
+local function v112(v111) --[[ Line: 178 ]] --[[ Name: getCreatorFromLookData ]]
+    -- upvalues: v37 (copy), v44 (copy)
+    if v111 and v111.curator and v111.curator.name and (v37() or v111.curator.name:lower() ~= v44.RobloxCreatorName:lower()) then
         return {
-            name = v110.curator.name, 
-            verified = if v110 and v110.curator then v110.curator.hasVerifiedBadge else nil
+            name = v111.curator.name, 
+            verified = if v111 and v111.curator then v111.curator.hasVerifiedBadge else nil
         };
     else
         return nil;
     end;
 end;
-local function v113(v112) --[[ Line: 195 ]] --[[ Name: getLookStatusFromModerationStatus ]]
-    -- upvalues: v43 (copy)
-    if v112 == v43.ModerationStatus.PendingModeration then
+local function v114(v113) --[[ Line: 197 ]] --[[ Name: getLookStatusFromModerationStatus ]]
+    -- upvalues: v44 (copy)
+    if v113 == v44.ModerationStatus.PendingModeration then
         return {
             type = "icon", 
             iconType = "PendingModeration"
         };
-    elseif v112 == v43.ModerationStatus.Moderated then
+    elseif v113 == v44.ModerationStatus.Moderated then
         return {
             type = "icon", 
             iconType = "Moderated"
@@ -173,94 +174,109 @@ local function v113(v112) --[[ Line: 195 ]] --[[ Name: getLookStatusFromModerati
         return nil;
     end;
 end;
-local function _(v114) --[[ Line: 204 ]] --[[ Name: isValidItemId ]]
-    local v115 = false;
-    if v114 ~= nil then
-        v115 = v114 ~= "0";
+local function _(v115) --[[ Line: 206 ]] --[[ Name: isValidItemId ]]
+    local v116 = false;
+    if v115 ~= nil then
+        v116 = v115 ~= "0";
     end;
-    return v115;
+    return v116;
 end;
-local _ = function(v117, v118) --[[ Line: 210 ]] --[[ Name: isValidThumbnailSize ]]
-    -- upvalues: v43 (copy)
-    if v118 ~= nil then
-        for _, v120 in v43.CatalogThumbnailTypeToSize[v118] do
-            if v120 == v117 then
+local _ = function(v118, v119) --[[ Line: 212 ]] --[[ Name: isValidThumbnailSize ]]
+    -- upvalues: v44 (copy)
+    if v119 ~= nil then
+        for _, v121 in v44.CatalogThumbnailTypeToSize[v119] do
+            if v121 == v118 then
                 return true;
             end;
         end;
     end;
     return false;
 end;
-local function v129(v122, v123, v124) --[[ Line: 225 ]] --[[ Name: cardIsSelectedInTryOnOutfit ]]
-    -- upvalues: l_getTryOnItemReducerKey_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy)
-    if v123 and v122.AvatarExperience.AvatarScene.OutfitTryOn.LookId == v123 then
+local v123 = nil;
+if l_FFlagAXMISEnableMultiShopping_0 then
+    v123 = function(v124) --[[ Line: 229 ]]
+        -- upvalues: l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy)
+        local v125 = {};
+        for _, v127 in v124 do
+            if v127.selectedInTryOnManager and v127.itemType and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[v127.itemSubType] then
+                table.insert(v125, v127);
+            end;
+        end;
+        return v125;
+    end;
+end;
+local function v135(v128, v129, v130) --[[ Line: 243 ]] --[[ Name: cardIsSelectedInTryOnOutfit ]]
+    -- upvalues: l_FFlagAXCatalogMakeupSupport_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_getTryOnItemReducerKey_0 (copy)
+    if v129 and v128.AvatarExperience.AvatarScene.OutfitTryOn.LookId == v129 then
+        return true;
+    elseif l_FFlagAXCatalogMakeupSupport_0 and l_FFlagAXMISEnableMultiShopping_0 and v129 and v128.AvatarExperience.AvatarScene.OutfitTryOn.MakeupLookId == v129 then
         return true;
     else
-        local l_TryOnItems_0 = v122.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-        local v126 = v122.AvatarExperience.AvatarScene.OutfitTryOn.LookId == nil;
-        if v123 and v124 then
-            local v127 = l_getTryOnItemReducerKey_0(v123, v124);
+        local l_TryOnItems_0 = v128.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+        local v132 = v128.AvatarExperience.AvatarScene.OutfitTryOn.LookId == nil;
+        if v129 and v130 then
+            local v133 = l_getTryOnItemReducerKey_0(v129, v130);
             if l_FFlagAXMISEnableMultiShopping_0 then
-                return l_TryOnItems_0[v127] ~= nil;
+                return l_TryOnItems_0[v133] ~= nil;
             else
-                local v128 = false;
-                if l_TryOnItems_0[v127] ~= nil then
-                    v128 = v126;
+                local v134 = false;
+                if l_TryOnItems_0[v133] ~= nil then
+                    v134 = v132;
                 end;
-                return v128;
+                return v134;
             end;
         else
             return false;
         end;
     end;
 end;
-local function v145(v130, v131, v132) --[[ Line: 244 ]] --[[ Name: selectCatalogItemCardState ]]
-    -- upvalues: v129 (copy), v52 (copy), v44 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v89 (copy), v42 (copy), v43 (copy), v68 (copy), l_PeekViewState_0 (copy)
-    local v133 = v129(v130, v131, v132);
-    local l_LastToggledItem_0 = v130.AvatarExperience.AvatarScene.OutfitTryOn.LastToggledItem;
-    local v135 = nil;
-    local v136 = nil;
-    local v137 = v52(v130.AvatarExperience.Common, v131, v132);
-    if v137 then
-        local v138, v139 = v44.GetStatus(v137);
-        v135 = v138;
-        v136 = v139;
+local function v151(v136, v137, v138) --[[ Line: 271 ]] --[[ Name: selectCatalogItemCardState ]]
+    -- upvalues: v135 (copy), v54 (copy), v45 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v90 (copy), v43 (copy), v44 (copy), v69 (copy), l_PeekViewState_0 (copy)
+    local v139 = v135(v136, v137, v138);
+    local l_LastToggledItem_0 = v136.AvatarExperience.AvatarScene.OutfitTryOn.LastToggledItem;
+    local v141 = nil;
+    local v142 = nil;
+    local v143 = v54(v136.AvatarExperience.Common, v137, v138);
+    if v143 then
+        local v144, v145 = v45.GetStatus(v143);
+        v141 = v144;
+        v142 = v145;
     end;
-    local v140 = nil;
-    v140 = if l_FFlagAXCatalogCategoriesStore_0 then v89.getCatalogSelectionStore().selectedCategoryInfo(false) else v42.getCatalogCategoryInfoFromState(v130);
-    local v141 = v133 and v137 and v137.bundleType == v43.BundleTypeIdStrings.Animations;
-    local l_PageType_0 = v140.PageType;
-    local v143 = v141 and (l_LastToggledItem_0 and l_LastToggledItem_0.itemId == v131 or l_PageType_0 == v43.PageType.Animation or l_PageType_0 == v43.PageType.AllAnimation);
-    local l_viewState_0 = v130.AvatarExperience.Common.ItemDetailsPeekView.viewState;
+    local v146 = nil;
+    v146 = if l_FFlagAXCatalogCategoriesStore_0 then v90.getCatalogSelectionStore().selectedCategoryInfo(false) else v43.getCatalogCategoryInfoFromState(v136);
+    local v147 = v139 and v143 and v143.bundleType == v44.BundleTypeIdStrings.Animations;
+    local l_PageType_0 = v146.PageType;
+    local v149 = v147 and (l_LastToggledItem_0 and l_LastToggledItem_0.itemId == v137 or l_PageType_0 == v44.PageType.Animation or l_PageType_0 == v44.PageType.AllAnimation);
+    local l_viewState_0 = v136.AvatarExperience.Common.ItemDetailsPeekView.viewState;
     return {
-        itemData = v137, 
-        isSelected = v133, 
-        statusText = v136, 
-        avatarType = v130.AvatarExperience.AvatarEditor.Character.AvatarType, 
-        isAvatarR6 = v130.AvatarExperience.AvatarEditor.Character.AvatarType == v43.AvatarType.R6, 
-        fullView = v68(v130), 
-        showAnimationTabs = v143, 
+        itemData = v143, 
+        isSelected = v139, 
+        statusText = v142, 
+        avatarType = v136.AvatarExperience.AvatarEditor.Character.AvatarType, 
+        isAvatarR6 = v136.AvatarExperience.AvatarEditor.Character.AvatarType == v44.AvatarType.R6, 
+        fullView = v69(v136), 
+        showAnimationTabs = v149, 
         isItemDetailsViewStateFull = l_viewState_0 == l_PeekViewState_0.Full
     };
 end;
-local function v147(v146) --[[ Line: 292 ]]
-    return v146.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+local function v153(v152) --[[ Line: 319 ]]
+    return v152.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
 end;
-local function v151(v148) --[[ Line: 296 ]] --[[ Name: showDurableBadge ]]
+local function v157(v154) --[[ Line: 323 ]] --[[ Name: showDurableBadge ]]
     -- upvalues: l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXDurablesFooter_0 (copy), l_CatalogItemCardStatusIconTypeEnum_0 (copy), l_FFlagAXDurablesSupportForPermanent_0 (copy)
     if not l_FFlagAXDurablesSupport_0 then
         return nil;
     elseif l_FFlagAXDurablesFooter_0 then
         return nil;
-    elseif not v148 or not v148.timedOptions then
+    elseif not v154 or not v154.timedOptions then
         return nil;
     else
-        for _, v150 in v148.timedOptions do
-            if v150.selected then
+        for _, v156 in v154.timedOptions do
+            if v156.selected then
                 return {
                     type = "badge", 
                     iconType = l_CatalogItemCardStatusIconTypeEnum_0.Durable, 
-                    text = if l_FFlagAXDurablesSupportForPermanent_0 then if v150.days > 0 then tostring(v150.days) else "" else tostring(v150.days)
+                    text = if l_FFlagAXDurablesSupportForPermanent_0 then if v156.days > 0 then tostring(v156.days) else "" else tostring(v156.days)
                 };
             end;
         end;
@@ -271,109 +287,109 @@ local function v151(v148) --[[ Line: 296 ]] --[[ Name: showDurableBadge ]]
         };
     end;
 end;
-return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]]
-    -- upvalues: v2 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), v21 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusController_0 (copy), v67 (copy), l_useRoactService_0 (copy), v41 (copy), v55 (copy), v54 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_useMultiItemShoppingFtux_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_useMakeupFtux_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), v145 (copy), l_useSelector_0 (copy), v6 (copy), v147 (copy), l_selectEquippedLayeredMakeupAssets_0 (copy), l_FFlagAXDurablesFooter_0 (copy), l_useLocalization_0 (copy), v44 (copy), v43 (copy), l_getThumbSizeVectorFromParamString_0 (copy), l_getZoomedSizeAndOffset_0 (copy), l_LOOKS_IMAGE_ZOOM_0 (copy), l_LOOKS_IMAGE_OFFSET_MULTIPLIERS_0 (copy), l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 (copy), l_sendUnifiedEventForDeferredAction_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_ItemTypeEnum_0 (copy), v75 (copy), l_AvatarScreen_0 (copy), v78 (copy), v60 (copy), l_FFlagAXWearTimeSupport_0 (copy), v81 (copy), l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 (copy), v66 (copy), v58 (copy), v64 (copy), v51 (copy), v74 (copy), l_PeekViewState_0 (copy), v39 (copy), v59 (copy), v65 (copy), v57 (copy), v45 (copy), v61 (copy), v49 (copy), v95 (copy), v63 (copy), v46 (copy), v62 (copy), l_getTryOnItemReducerKey_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), l_MAX_MAKEUP_LAYERS_0 (copy), v3 (copy), v7 (copy), l_addUnifiedEventLogging_0 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy), l_UnifiedEventLoggingUtils_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_getTimedOptionForItemData_0 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_UnifiedEventLogConstants_0 (copy), v80 (copy), v48 (copy), v47 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), v111 (copy), v31 (copy), l_ItemTileEnums_0 (copy), v113 (copy), v151 (copy), l_FFlagAXLookAndFeelBackgrounds_0 (copy)
-    local v153 = false;
-    local v154 = false;
-    local v155 = v2.useRef(nil);
-    local v156 = v2.useRef(nil);
-    local v157 = l_useLastInput_0();
-    local v158 = l_useIsSpatial_0();
+return function(v158) --[[ Line: 391 ]] --[[ Name: useCatalogItemCardViewModel ]]
+    -- upvalues: v2 (copy), l_useLastInput_0 (copy), l_useIsSpatial_0 (copy), v21 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusController_0 (copy), v68 (copy), l_useRoactService_0 (copy), v42 (copy), v57 (copy), v56 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_useMultiItemShoppingFtux_0 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), l_useMakeupFtux_0 (copy), l_useNavigation_0 (copy), l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), v151 (copy), l_useSelector_0 (copy), v6 (copy), v153 (copy), l_selectEquippedLayeredMakeupAssets_0 (copy), l_FFlagAXDurablesFooter_0 (copy), l_useLocalization_0 (copy), v45 (copy), v44 (copy), l_getThumbSizeVectorFromParamString_0 (copy), l_getZoomedSizeAndOffset_0 (copy), l_LOOKS_IMAGE_ZOOM_0 (copy), l_LOOKS_IMAGE_OFFSET_MULTIPLIERS_0 (copy), l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 (copy), l_sendUnifiedEventForDeferredAction_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_ItemTypeEnum_0 (copy), v76 (copy), l_AvatarScreen_0 (copy), v79 (copy), v62 (copy), l_FFlagAXWearTimeSupport_0 (copy), v82 (copy), l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 (copy), v67 (copy), v60 (copy), v66 (copy), v52 (copy), v75 (copy), l_PeekViewState_0 (copy), v40 (copy), v61 (copy), l_AddAnalyticsMetadata_0 (copy), v59 (copy), v46 (copy), v63 (copy), v50 (copy), v96 (copy), v65 (copy), v47 (copy), v64 (copy), l_getTryOnItemReducerKey_0 (copy), v123 (ref), l_MAX_MAKEUP_LAYERS_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v3 (copy), v7 (copy), l_addUnifiedEventLogging_0 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (copy), l_UnifiedEventLoggingUtils_0 (copy), l_FFlagAXDurablesSupport_0 (copy), l_getTimedOptionForItemData_0 (copy), l_FFlagAddTypesToWidgetItems_0 (copy), l_UnifiedEventLogConstants_0 (copy), v81 (copy), v49 (copy), v48 (copy), l_FFlagAXCatalogItemCardFooterBackendDriven_0 (copy), v112 (copy), v31 (copy), l_ItemTileEnums_0 (copy), v114 (copy), v157 (copy), l_FFlagAXLookAndFeelBackgrounds_0 (copy)
     local v159 = false;
-    if v157 == v21.Input.Directional then
-        v159 = not v158;
+    local v160 = false;
+    local v161 = v2.useRef(nil);
+    local v162 = v2.useRef(nil);
+    local v163 = l_useLastInput_0();
+    local v164 = l_useIsSpatial_0();
+    local v165 = false;
+    if v163 == v21.Input.Directional then
+        v165 = not v164;
     end;
-    local v160 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else l_useFocusController_0();
-    local v161 = v67();
-    local v162 = l_useRoactService_0(v41);
-    local v163 = l_useRoactService_0(v55);
-    local v164 = l_useRoactService_0(v54);
-    local v165 = if l_FFlagAXMISEnableMultiShopping_0 then l_useMultiItemShoppingFtux_0() else nil;
-    local v166 = if l_FFlagAXCatalogMakeupSupport_0 then l_useMakeupFtux_0() else nil;
-    local v167 = l_useNavigation_0();
-    local v168 = l_useAvatarRoute_0();
-    local v169 = l_useDispatch_0();
-    local l_itemId_0 = v152.itemId;
-    local l_itemType_0 = v152.itemType;
-    local l_lookData_0 = v152.lookData;
-    local v173 = v168 and v168.opaque and v168.opaque.name;
-    local v175 = v2.useCallback(function(v174) --[[ Line: 385 ]]
-        -- upvalues: v145 (ref), l_itemId_0 (copy), l_itemType_0 (copy)
-        return (v145(v174, l_itemId_0, l_itemType_0));
+    local v166 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else l_useFocusController_0();
+    local v167 = v68();
+    local v168 = l_useRoactService_0(v42);
+    local v169 = l_useRoactService_0(v57);
+    local v170 = l_useRoactService_0(v56);
+    local v171 = if l_FFlagAXMISEnableMultiShopping_0 then l_useMultiItemShoppingFtux_0() else nil;
+    local v172 = if l_FFlagAXCatalogMakeupSupport_0 then l_useMakeupFtux_0() else nil;
+    local v173 = l_useNavigation_0();
+    local v174 = l_useAvatarRoute_0();
+    local v175 = l_useDispatch_0();
+    local l_itemId_0 = v158.itemId;
+    local l_itemType_0 = v158.itemType;
+    local l_lookData_0 = v158.lookData;
+    local v179 = v174 and v174.opaque and v174.opaque.name;
+    local v181 = v2.useCallback(function(v180) --[[ Line: 412 ]]
+        -- upvalues: v151 (ref), l_itemId_0 (copy), l_itemType_0 (copy)
+        return (v151(v180, l_itemId_0, l_itemType_0));
     end, {
         l_itemId_0, 
         l_itemType_0
     });
-    local v176 = l_useSelector_0(v175, v6.shallowEqual);
-    local v177 = if not not l_FFlagAXMISEnableMultiShopping_0 or l_FFlagAXCatalogMakeupSupport_0 then l_useSelector_0(v147) else nil;
-    local v178 = if l_FFlagAXCatalogMakeupSupport_0 then l_useSelector_0(l_selectEquippedLayeredMakeupAssets_0) else nil;
-    local v179 = if l_lookData_0 and l_lookData_0.assets then #l_lookData_0.assets else 0;
-    local v180 = if l_lookData_0 and l_lookData_0.bundles then #l_lookData_0.bundles else 0;
-    local v181;
-    if l_FFlagAXDurablesFooter_0 and v176 and v176.itemData and v176.itemData.timedOptions then
-        for _, v183 in v176.itemData.timedOptions do
-            if v183.selected and v183.days > 0 then
-                v181 = v183.days;
-                v153 = true;
+    local v182 = l_useSelector_0(v181, v6.shallowEqual);
+    local v183 = if not not l_FFlagAXMISEnableMultiShopping_0 or l_FFlagAXCatalogMakeupSupport_0 then l_useSelector_0(v153) else nil;
+    local v184 = if l_FFlagAXCatalogMakeupSupport_0 then l_useSelector_0(l_selectEquippedLayeredMakeupAssets_0) else nil;
+    local v185 = if l_lookData_0 and l_lookData_0.assets then #l_lookData_0.assets else 0;
+    local v186 = if l_lookData_0 and l_lookData_0.bundles then #l_lookData_0.bundles else 0;
+    local v187;
+    if l_FFlagAXDurablesFooter_0 and v182 and v182.itemData and v182.itemData.timedOptions then
+        for _, v189 in v182.itemData.timedOptions do
+            if v189.selected and v189.days > 0 then
+                v187 = v189.days;
+                v159 = true;
             end;
-            if v153 then
+            if v159 then
                 break;
             end;
         end;
-        if not v153 then
-            v181 = nil;
+        if not v159 then
+            v187 = nil;
         end;
     else
-        v181 = nil;
+        v187 = nil;
     end;
-    v153 = false;
-    local v184 = l_useLocalization_0({
-        statusText = v176.statusText, 
+    v159 = false;
+    local v190 = l_useLocalization_0({
+        statusText = v182.statusText, 
         details = "Feature.Avatar.Label.DetailsButton", 
         detailsWithItemsCount = {
             "Feature.Avatar.Label.Details"; 
-            quantity = v179 + v180
+            quantity = v185 + v186
         }, 
-        timedOptionDays = if l_FFlagAXDurablesFooter_0 and v181 then {
+        timedOptionDays = if l_FFlagAXDurablesFooter_0 and v187 then {
             "Feature.Durables.TimeRemaining.Days"; 
-            number = v181
+            number = v187
         } else nil
     });
-    local l_isSelected_0 = v176.isSelected;
-    local l_itemData_0 = v176.itemData;
-    local v187 = l_itemType_0 and v44.GetRbxThumbType(l_itemType_0) or nil;
-    local l__150x150_0 = v43.CatalogThumbnailTypeToSize.Asset._150x150;
-    if v152.thumbnailSize then
-        local l_thumbnailSize_0 = v152.thumbnailSize;
-        local v190;
-        if v187 ~= nil then
-            for _, v192 in v43.CatalogThumbnailTypeToSize[v187] do
-                if v192 == l_thumbnailSize_0 then
-                    v190 = true;
-                    v154 = true;
+    local l_isSelected_0 = v182.isSelected;
+    local l_itemData_0 = v182.itemData;
+    local v193 = l_itemType_0 and v45.GetRbxThumbType(l_itemType_0) or nil;
+    local l__150x150_0 = v44.CatalogThumbnailTypeToSize.Asset._150x150;
+    if v158.thumbnailSize then
+        local l_thumbnailSize_0 = v158.thumbnailSize;
+        local v196;
+        if v193 ~= nil then
+            for _, v198 in v44.CatalogThumbnailTypeToSize[v193] do
+                if v198 == l_thumbnailSize_0 then
+                    v196 = true;
+                    v160 = true;
                 end;
-                if v154 then
+                if v160 then
                     break;
                 end;
             end;
         end;
-        if not v154 then
-            v190 = false;
+        if not v160 then
+            v196 = false;
         end;
-        v154 = false;
-        if v190 then
-            l__150x150_0 = v152.thumbnailSize;
+        v160 = false;
+        if v196 then
+            l__150x150_0 = v158.thumbnailSize;
         end;
     end;
-    local v193 = l_getThumbSizeVectorFromParamString_0(l__150x150_0);
-    local v194 = if (if l_itemData_0 then l_itemData_0.bundleType == v43.BundleTypeIdStrings.BodyParts else false) and v193 then l_getZoomedSizeAndOffset_0(v193, l_LOOKS_IMAGE_ZOOM_0, l_LOOKS_IMAGE_OFFSET_MULTIPLIERS_0) else nil;
-    local v195 = false;
+    local v199 = l_getThumbSizeVectorFromParamString_0(l__150x150_0);
+    local v200 = if (if l_itemData_0 then l_itemData_0.bundleType == v44.BundleTypeIdStrings.BodyParts else false) and v199 then l_getZoomedSizeAndOffset_0(v199, l_LOOKS_IMAGE_ZOOM_0, l_LOOKS_IMAGE_OFFSET_MULTIPLIERS_0) else nil;
+    local v201 = false;
     if l_itemId_0 ~= nil then
-        v195 = l_itemId_0 ~= "0";
+        v201 = l_itemId_0 ~= "0";
     end;
-    local v196 = if v195 then ("rbxthumb://type=%*&id=%*&%*"):format(v187, l_itemId_0, l__150x150_0) else nil;
-    v195 = v2.useCallback(function(v197) --[[ Line: 440 ]]
-        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 (ref), l_sendUnifiedEventForDeferredAction_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_ItemTypeEnum_0 (ref), l_lookData_0 (copy), v164 (copy), v168 (copy), v169 (copy), v75 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v173 (copy), l_AvatarScreen_0 (ref), v78 (ref), v167 (copy), v60 (ref), v44 (ref), l_itemData_0 (copy), v152 (copy)
+    local v202 = if v201 then ("rbxthumb://type=%*&id=%*&%*"):format(v193, l_itemId_0, l__150x150_0) else nil;
+    v201 = v2.useCallback(function(v203) --[[ Line: 467 ]]
+        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 (ref), l_sendUnifiedEventForDeferredAction_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_ItemTypeEnum_0 (ref), l_lookData_0 (copy), v170 (copy), v174 (copy), v175 (copy), v76 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v179 (copy), l_AvatarScreen_0 (ref), v79 (ref), v173 (copy), v62 (ref), v45 (ref), l_itemData_0 (copy), v158 (copy)
         if l_itemId_0 and l_itemType_0 then
             if l_FFlagAXCatalogItemCardSelectedOverlayButtonLogging_0 then
                 l_sendUnifiedEventForDeferredAction_0({
@@ -382,313 +398,318 @@ return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]
                 });
             end;
             if l_itemType_0 == l_ItemTypeEnum_0.Look then
-                local v198 = {
+                local v204 = {
                     lookId = l_lookData_0 and l_lookData_0.id, 
                     valueInRobux = l_lookData_0 and l_lookData_0.totalValue, 
-                    catalogAnalytics = v164, 
-                    avatarRoute = v168
+                    catalogAnalytics = v170, 
+                    avatarRoute = v174
                 };
-                v169(v75(v198));
-                if l_FFlagAXMISEnableMultiShopping_0 and v173 ~= l_AvatarScreen_0.MySharedAvatars then
-                    v169(v78(function() --[[ Line: 459 ]]
-                        -- upvalues: v167 (ref), l_AvatarScreen_0 (ref)
-                        v167.navigate(l_AvatarScreen_0.LookDetails);
+                v175(v76(v204));
+                if l_FFlagAXMISEnableMultiShopping_0 and v179 ~= l_AvatarScreen_0.MySharedAvatars then
+                    v175(v79(function() --[[ Line: 486 ]]
+                        -- upvalues: v173 (ref), l_AvatarScreen_0 (ref)
+                        v173.navigate(l_AvatarScreen_0.LookDetails);
                     end));
                     return;
                 end;
             else
-                v169(v60({
+                v175(v62({
                     itemId = l_itemId_0, 
                     itemType = l_itemType_0, 
-                    itemSubType = v44.GetItemSubType(l_itemType_0, l_itemData_0), 
+                    itemSubType = v45.GetItemSubType(l_itemType_0, l_itemData_0), 
                     priceInRobux = if l_itemData_0 then l_itemData_0.priceInRobux else nil, 
-                    catalogAnalytics = v164, 
-                    avatarRoute = v168, 
-                    navigation = v167, 
-                    itemDetailsPeekViewRefs = v152.itemDetailsPeekViewRefs, 
-                    resultsListRef = v152.resultsListRef, 
-                    widgetInfo = v152.widgetAnalyticsInfo, 
-                    showFullWithNoPeekView = v197
+                    catalogAnalytics = v170, 
+                    avatarRoute = v174, 
+                    navigation = v173, 
+                    itemDetailsPeekViewRefs = v158.itemDetailsPeekViewRefs, 
+                    resultsListRef = v158.resultsListRef, 
+                    widgetInfo = v158.widgetAnalyticsInfo, 
+                    showFullWithNoPeekView = v203
                 }));
             end;
         end;
     end, {
-        v169, 
+        v175, 
         l_itemId_0, 
         l_itemType_0, 
-        v164, 
-        v168, 
-        v167, 
-        v152.itemDetailsPeekViewRefs, 
-        v152.resultsListRef, 
-        v152.widgetAnalyticsInfo, 
+        v170, 
+        v174, 
+        v173, 
+        v158.itemDetailsPeekViewRefs, 
+        v158.resultsListRef, 
+        v158.widgetAnalyticsInfo, 
         l_lookData_0, 
-        v173
+        v179
     });
     if l_FFlagAXWearTimeSupport_0 then
-        v81({
+        v82({
             isSelected = l_isSelected_0, 
             itemData = l_itemData_0
         });
     end;
-    local v199 = nil;
+    local v205 = nil;
     if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then
-        v199 = v2.useCallback(function() --[[ Line: 501 ]]
-            -- upvalues: v195 (copy)
-            v195(true);
+        v205 = v2.useCallback(function() --[[ Line: 528 ]]
+            -- upvalues: v201 (copy)
+            v201(true);
         end, {
-            v195
+            v201
         });
     end;
-    local v200 = v2.useCallback(function() --[[ Line: 507 ]]
-        -- upvalues: v66 (ref), v159 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v160 (copy), l_itemId_0 (copy), v195 (copy), v169 (copy), v58 (ref), v167 (copy), l_itemType_0 (copy)
-        return v169(v58(v167, l_itemId_0, l_itemType_0, function() --[[ Line: 508 ]] --[[ Name: onR15PromptWillClose ]]
-            -- upvalues: v66 (ref), v159 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v160 (ref), l_itemId_0 (ref), v195 (ref)
-            v66("CatalogItemCard", v159);
-            if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v159 then
-                v160.captureFocus();
+    local v206 = v2.useCallback(function() --[[ Line: 534 ]]
+        -- upvalues: v67 (ref), v165 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v166 (copy), l_itemId_0 (copy), v201 (copy), v175 (copy), v60 (ref), v173 (copy), l_itemType_0 (copy)
+        return v175(v60(v173, l_itemId_0, l_itemType_0, function() --[[ Line: 535 ]] --[[ Name: onR15PromptWillClose ]]
+            -- upvalues: v67 (ref), v165 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v166 (ref), l_itemId_0 (ref), v201 (ref)
+            v67("CatalogItemCard", v165);
+            if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v165 then
+                v166.captureFocus();
             end;
             if l_itemId_0 then
-                v195();
+                v201();
             end;
         end, nil, true));
     end, {
-        if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v159, 
-        if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v160, 
+        if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v165, 
+        if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v166, 
         l_itemId_0, 
-        v195, 
-        v169, 
-        v167, 
+        v201, 
+        v175, 
+        v173, 
         l_itemId_0, 
         l_itemType_0
     });
-    local v216 = v2.useCallback(function(v201) --[[ Line: 548 ]]
-        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_isSelected_0 (copy), v161 (copy), v155 (copy), v173 (copy), v169 (copy), v64 (ref), v164 (copy), v51 (ref), v167 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), l_AvatarScreen_0 (ref), v74 (ref), v162 (copy), v152 (copy), l_PeekViewState_0 (ref), v39 (ref), v59 (ref), v65 (ref), v57 (ref), v45 (ref), v200 (copy), v44 (ref), l_itemData_0 (copy), v61 (ref), v168 (copy), v176 (copy), v163 (copy), v43 (ref), v49 (ref), v95 (ref), v63 (ref), v46 (ref), v62 (ref)
+    local v222 = v2.useCallback(function(v207) --[[ Line: 575 ]]
+        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_isSelected_0 (copy), v167 (copy), v161 (copy), v179 (copy), v175 (copy), v66 (ref), v170 (copy), v52 (ref), v173 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), l_AvatarScreen_0 (ref), v75 (ref), v168 (copy), v158 (copy), l_PeekViewState_0 (ref), v40 (ref), v61 (ref), l_AddAnalyticsMetadata_0 (ref), v59 (ref), v46 (ref), v206 (copy), v45 (ref), l_itemData_0 (copy), v63 (ref), v174 (copy), v182 (copy), v169 (copy), v44 (ref), v50 (ref), v96 (ref), v65 (ref), v47 (ref), v64 (ref)
         if not l_itemId_0 or not l_itemType_0 then
             return;
         elseif l_itemType_0 == l_ItemTypeEnum_0.Look then
             if not l_isSelected_0 then
-                if v161 then
-                    local v202 = if v155 then v155.current else nil;
-                    if v202 ~= nil then
-                        v161.setSelectedItemInstance(v202);
+                if v167 then
+                    local v208 = if v161 then v161.current else nil;
+                    if v208 ~= nil then
+                        v167.setSelectedItemInstance(v208);
                     end;
                 end;
-                if v173 ~= nil then
-                    v169(v64(v164, v173, v51.None));
+                if v179 ~= nil then
+                    v175(v66(v170, v179, v52.None));
                 end;
-                local l_v167_0 = v167;
+                local l_v173_0 = v173;
                 if l_FFlagAXMISEnableMultiShopping_0 then
-                    l_v167_0 = if v173 == l_AvatarScreen_0.MySharedAvatars then v167 else nil;
+                    l_v173_0 = if v179 == l_AvatarScreen_0.MySharedAvatars then v173 else nil;
                 end;
-                local v204 = 2;
-                if l_FFlagAXMISEnableMultiShopping_0 and v173 ~= l_AvatarScreen_0.MySharedAvatars then
-                    v204 = 1;
+                local v210 = 2;
+                if l_FFlagAXMISEnableMultiShopping_0 and v179 ~= l_AvatarScreen_0.MySharedAvatars then
+                    v210 = 1;
                 end;
-                v169(v74(v162, l_v167_0, v152.widgetAnalyticsInfo, l_itemId_0, if l_FFlagAXMISEnableMultiShopping_0 and v173 == l_AvatarScreen_0.MySharedAvatars then l_PeekViewState_0.SuperBrief else nil, v204));
+                v175(v75(v168, l_v173_0, v158.widgetAnalyticsInfo, l_itemId_0, if l_FFlagAXMISEnableMultiShopping_0 and v179 == l_AvatarScreen_0.MySharedAvatars then l_PeekViewState_0.SuperBrief else nil, v210));
             else
-                if v161 then
-                    v161.setSelectedItemInstance(nil);
+                if v167 then
+                    v167.setSelectedItemInstance(nil);
                 end;
                 if l_FFlagAXMISEnableMultiShopping_0 then
-                    v169(v39(l_itemId_0));
+                    v175(v40(l_itemId_0));
                 end;
-                v169(v59(l_PeekViewState_0.Closed));
+                v175(v61(l_PeekViewState_0.Closed));
             end;
-            if v152.isOrganic then
+            if v158.isOrganic then
                 if not l_isSelected_0 then
-                    local l_analyticsContext_0 = v152.analyticsContext;
-                    local l_analyticsItemCountPerPage_0 = v152.analyticsItemCountPerPage;
-                    local l_index_0 = v152.index;
-                    v169(v65({
+                    local l_analyticsContext_0 = v158.analyticsContext;
+                    local l_analyticsItemCountPerPage_0 = v158.analyticsItemCountPerPage;
+                    local l_index_0 = v158.index;
+                    v175(l_AddAnalyticsMetadata_0({
                         selectedItemIndex = l_index_0
                     }));
-                    v169(v57(l_analyticsContext_0, v164.clickCatalogItem, l_itemId_0, l_itemType_0, l_index_0, l_analyticsItemCountPerPage_0, false));
+                    v175(v59(l_analyticsContext_0, v170.clickCatalogItem, l_itemId_0, l_itemType_0, l_index_0, l_analyticsItemCountPerPage_0, false));
                     return;
                 end;
             else
-                v164.widgetInteractionV2(v152.widgetAnalyticsInfo, if l_isSelected_0 then v45.ActionType.ITEM_DESELECTED else v45.ActionType.ITEM_CLICK);
+                v170.widgetInteractionV2(v158.widgetAnalyticsInfo, if l_isSelected_0 then v46.ActionType.ITEM_DESELECTED else v46.ActionType.ITEM_CLICK);
             end;
             return;
-        elseif v200() then
+        elseif v206() then
             return;
         else
-            local v208 = v44.GetItemSubType(l_itemType_0, l_itemData_0);
+            local v214 = v45.GetItemSubType(l_itemType_0, l_itemData_0);
             local l_l_isSelected_0_0 = l_isSelected_0;
             if l_FFlagAXMISEnableMultiShopping_0 then
-                v169(v59(l_PeekViewState_0.Closed));
+                v175(v61(l_PeekViewState_0.Closed));
             end;
-            v169(v61(v162, v164, l_itemType_0, v208, l_itemId_0, true, v168, v167, v152.widgetAnalyticsInfo, nil, if l_FFlagAXMISEnableMultiShopping_0 then v201 else nil));
-            if not l_FFlagAXMISEnableMultiShopping_0 and v161 then
-                v169(v59(l_PeekViewState_0.Closed));
+            v175(v63(v168, v170, l_itemType_0, v214, l_itemId_0, true, v174, v173, v158.widgetAnalyticsInfo, nil, if l_FFlagAXMISEnableMultiShopping_0 then v207 else nil));
+            if not l_FFlagAXMISEnableMultiShopping_0 and v167 then
+                v175(v61(l_PeekViewState_0.Closed));
             end;
-            if v161 and l_l_isSelected_0_0 then
-                v161.setSelectedItemInstance();
+            if v167 and l_l_isSelected_0_0 then
+                v167.setSelectedItemInstance();
             end;
             if not l_l_isSelected_0_0 then
-                if v161 then
-                    v161.setSelectedItemInstance(v155.current);
+                if v167 then
+                    v167.setSelectedItemInstance(v161.current);
                 end;
                 if l_isSelected_0 then
                     return;
-                elseif v176.fullView[v168.opaque.name] == v51.UIFullView then
-                    v169(v64(v163, v168.opaque.name, v51.None));
+                elseif v182.fullView[v174.opaque.name] == v52.UIFullView then
+                    v175(v66(v169, v174.opaque.name, v52.None));
                 end;
             end;
             if l_isSelected_0 then
                 return;
             else
-                local v210 = l_itemData_0 and l_itemData_0.assetType;
-                if v176.isAvatarR6 and v210 ~= v43.AssetTypeIdStrings.HairAccessory and v43.LayeredAssetTypes[v210] ~= nil then
-                    v169(v49(v95));
+                local v216 = l_itemData_0 and l_itemData_0.assetType;
+                if v182.isAvatarR6 and v216 ~= v44.AssetTypeIdStrings.HairAccessory and v44.LayeredAssetTypes[v216] ~= nil then
+                    v175(v50(v96));
                 end;
-                if l_itemType_0 == v43.ItemType.Asset and v43.AssetTypeIdToCategory[v208] == v43.AssetCategories.Animation then
-                    v169(v63(l_itemId_0, v210));
+                if l_itemType_0 == v44.ItemType.Asset and v44.AssetTypeIdToCategory[v214] == v44.AssetCategories.Animation then
+                    v175(v65(l_itemId_0, v216));
                 end;
-                local l_analyticsContext_1 = v152.analyticsContext;
-                local l_analyticsItemCountPerPage_1 = v152.analyticsItemCountPerPage;
-                local l_index_1 = v152.index;
-                local l_adTrackingData_0 = v152.adTrackingData;
-                v169(v65({
+                local l_analyticsContext_1 = v158.analyticsContext;
+                local l_analyticsItemCountPerPage_1 = v158.analyticsItemCountPerPage;
+                local l_index_1 = v158.index;
+                local l_adTrackingData_0 = v158.adTrackingData;
+                v175(l_AddAnalyticsMetadata_0({
                     selectedItemIndex = l_index_1
                 }));
-                v169(v57(l_analyticsContext_1, v164.clickCatalogItem, l_itemId_0, l_itemType_0, l_index_1, l_analyticsItemCountPerPage_1, false));
-                if v152.widgetAnalyticsInfo then
-                    local l_widgetAnalyticsInfo_0 = v152.widgetAnalyticsInfo;
-                    v164.widgetInteractionV2(l_widgetAnalyticsInfo_0, v45.ActionType.ITEM_CLICK);
+                v175(v59(l_analyticsContext_1, v170.clickCatalogItem, l_itemId_0, l_itemType_0, l_index_1, l_analyticsItemCountPerPage_1, false));
+                if v158.widgetAnalyticsInfo then
+                    local l_widgetAnalyticsInfo_0 = v158.widgetAnalyticsInfo;
+                    v170.widgetInteractionV2(l_widgetAnalyticsInfo_0, v46.ActionType.ITEM_CLICK);
                 end;
                 if l_adTrackingData_0 then
-                    v46.TrackSponsoredItemClick(v162, l_adTrackingData_0);
+                    v47.TrackSponsoredItemClick(v168, l_adTrackingData_0);
                 end;
-                if v176.isItemDetailsViewStateFull then
-                    v169(v62(v167));
+                if v182.isItemDetailsViewStateFull then
+                    v175(v64(v173));
                 end;
                 return;
             end;
         end;
     end, {
-        v169, 
+        v175, 
         l_itemId_0, 
-        v200, 
+        v206, 
         l_itemData_0, 
-        v162, 
-        v164, 
-        l_itemType_0, 
         v168, 
+        v170, 
+        l_itemType_0, 
+        v174, 
+        v173, 
+        v158.widgetAnalyticsInfo, 
         v167, 
-        v152.widgetAnalyticsInfo, 
-        v161, 
-        v176.fullView, 
-        v176.isAvatarR6, 
-        v176.isItemDetailsViewStateFull, 
-        v163, 
-        v168.opaque.name, 
-        v152.analyticsContext, 
-        v152.analyticsItemCountPerPage, 
-        v152.index, 
-        v152.adTrackingData, 
+        v182.fullView, 
+        v182.isAvatarR6, 
+        v182.isItemDetailsViewStateFull, 
+        v169, 
+        v174.opaque.name, 
+        v158.analyticsContext, 
+        v158.analyticsItemCountPerPage, 
+        v158.index, 
+        v158.adTrackingData, 
         l_isSelected_0, 
-        v173
+        v179
     });
-    local _ = if l_FFlagAXMISEnableMultiShopping_0 then v2.useCallback(function() --[[ Line: 791 ]]
-        -- upvalues: l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_isSelected_0 (copy), v173 (copy), l_AvatarScreen_0 (ref), v177 (copy), v165 (copy), v167 (copy), v216 (copy)
-        local v217 = l_itemType_0 == l_ItemTypeEnum_0.Look;
-        if not l_isSelected_0 and v173 ~= l_AvatarScreen_0.MySharedAvatars and v217 and v177 and next(v177) ~= nil and v165 and v165.shouldShowWearAvatarReplaceAllItemsPrompt() then
-            v167.navigate(l_AvatarScreen_0.WearAvatarReplaceAllItemsPrompt, {
-                onConfirm = function(v218) --[[ Line: 804 ]] --[[ Name: onConfirm ]]
-                    -- upvalues: v165 (ref), v216 (ref)
-                    if v218 then
-                        v165.hideWearAvatarReplaceAllItemsPrompt();
+    local _ = if l_FFlagAXMISEnableMultiShopping_0 then v2.useCallback(function() --[[ Line: 818 ]]
+        -- upvalues: l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_isSelected_0 (copy), v179 (copy), l_AvatarScreen_0 (ref), v183 (copy), v171 (copy), v173 (copy), v222 (copy)
+        local v223 = l_itemType_0 == l_ItemTypeEnum_0.Look;
+        if not l_isSelected_0 and v179 ~= l_AvatarScreen_0.MySharedAvatars and v223 and v183 and next(v183) ~= nil and v171 and v171.shouldShowWearAvatarReplaceAllItemsPrompt() then
+            v173.navigate(l_AvatarScreen_0.WearAvatarReplaceAllItemsPrompt, {
+                onConfirm = function(v224) --[[ Line: 831 ]] --[[ Name: onConfirm ]]
+                    -- upvalues: v171 (ref), v222 (ref)
+                    if v224 then
+                        v171.hideWearAvatarReplaceAllItemsPrompt();
                     end;
-                    v216();
+                    v222();
                 end
             });
             return;
         else
-            v216();
+            v222();
             return;
         end;
     end, {
         l_itemType_0, 
-        v216, 
+        v222, 
         l_isSelected_0, 
-        v177, 
-        v165, 
-        v173, 
-        v167
+        v183, 
+        v171, 
+        v179, 
+        v173
     }) else nil;
-    local v223 = if l_FFlagAXCatalogMakeupSupport_0 then v2.useCallback(function() --[[ Line: 821 ]]
-        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_getTryOnItemReducerKey_0 (ref), v177 (copy), v43 (ref), v166 (copy), l_itemData_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (ref), v178 (copy), l_MAX_MAKEUP_LAYERS_0 (ref), v167 (copy), l_AvatarScreen_0 (ref), v216 (copy)
-        local v220 = nil;
+    local v232 = if l_FFlagAXCatalogMakeupSupport_0 then v2.useCallback(function() --[[ Line: 848 ]]
+        -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_getTryOnItemReducerKey_0 (ref), v183 (copy), v44 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v123 (ref), l_MAX_MAKEUP_LAYERS_0 (ref), v184 (copy), v172 (copy), l_itemData_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (ref), v173 (copy), l_AvatarScreen_0 (ref), v222 (copy)
+        local v226 = nil;
         if l_itemId_0 and l_itemType_0 then
-            v220 = l_getTryOnItemReducerKey_0(l_itemId_0, l_itemType_0);
+            v226 = l_getTryOnItemReducerKey_0(l_itemId_0, l_itemType_0);
         end;
-        local v221 = v177 and not v177[v220] and l_itemType_0 == v43.ItemType.Asset;
-        if v166 and v166.shouldShowMakeupMax6LayersPrompt() and l_itemData_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[l_itemData_0.assetType] and v178 and #v178 == l_MAX_MAKEUP_LAYERS_0 and v221 then
-            v167.navigate(l_AvatarScreen_0.MakeupMax6LayersPrompt, {
-                onConfirm = function(v222) --[[ Line: 840 ]] --[[ Name: onConfirm ]]
-                    -- upvalues: v166 (ref), v216 (ref)
-                    if v222 then
-                        v166.hideMakeupMax6LayersPrompt();
+        local v227 = v183 and not v183[v226] and l_itemType_0 == v44.ItemType.Asset;
+        local v228 = if l_FFlagAXMISEnableMultiShopping_0 and v227 and v183 then v123(v183) else nil;
+        local v229 = l_FFlagAXMISEnableMultiShopping_0 and v228 and #v228 == l_MAX_MAKEUP_LAYERS_0;
+        local v230 = l_FFlagAXMISEnableMultiShopping_0 and v184 and v228 and #v184 + #v228 >= l_MAX_MAKEUP_LAYERS_0;
+        if v172 and v172.shouldShowMakeupMax6LayersPrompt() and l_itemData_0 and l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0[l_itemData_0.assetType] and v227 and (v184 and #v184 == l_MAX_MAKEUP_LAYERS_0 or v229 or v230) then
+            v173.navigate(l_AvatarScreen_0.MakeupMax6LayersPrompt, {
+                onConfirm = function(v231) --[[ Line: 884 ]] --[[ Name: onConfirm ]]
+                    -- upvalues: v172 (ref), v222 (ref)
+                    if v231 then
+                        v172.hideMakeupMax6LayersPrompt();
                     end;
-                    v216();
+                    v222();
                 end
             });
-            return;
+            if l_FFlagAXMISEnableMultiShopping_0 then
+                v172.incrementSeenMakeupMax6LayersPrompt();
+                return;
+            end;
         else
-            v216();
-            return;
+            v222();
         end;
     end, {
-        v166, 
-        v167, 
-        v216, 
+        v172, 
+        v173, 
+        v222, 
         l_itemData_0, 
-        v178, 
-        v177, 
+        v184, 
+        v183, 
         l_itemId_0, 
         l_itemType_0
     }) else nil;
-    local v224 = v2.useMemo(function() --[[ Line: 864 ]]
-        -- upvalues: v3 (ref), v195 (copy), v216 (copy)
+    local v233 = v2.useMemo(function() --[[ Line: 912 ]]
+        -- upvalues: v3 (ref), v201 (copy), v222 (copy)
         return {
-            OpenDetails = v3.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 867 ]]
-                -- upvalues: v195 (ref)
-                v195(true);
+            OpenDetails = v3.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 915 ]]
+                -- upvalues: v201 (ref)
+                v201(true);
             end, {
                 key = "Feature.Catalog.Action.OpenDetails"
             }) or nil, 
-            Select = v3.Input.onBegin(Enum.KeyCode.ButtonA, function() --[[ Line: 874 ]]
-                -- upvalues: v216 (ref)
-                v216();
+            Select = v3.Input.onBegin(Enum.KeyCode.ButtonA, function() --[[ Line: 922 ]]
+                -- upvalues: v222 (ref)
+                v222();
             end, {
                 key = "Feature.Avatar.Action.Select"
             }) or nil
         };
     end, {
-        v216, 
-        v195
+        v222, 
+        v201
     });
-    local v226 = v2.useCallback(function(_) --[[ Line: 882 ]]
-        -- upvalues: v152 (copy), l_itemId_0 (copy)
-        if v152.onThumbnailLoaded then
-            v152.onThumbnailLoaded(l_itemId_0);
+    local v235 = v2.useCallback(function(_) --[[ Line: 930 ]]
+        -- upvalues: v158 (copy), l_itemId_0 (copy)
+        if v158.onThumbnailLoaded then
+            v158.onThumbnailLoaded(l_itemId_0);
         end;
     end, {
-        v152.onThumbnailLoaded
+        v158.onThumbnailLoaded
     });
-    local v231 = v2.useMemo(function() --[[ Line: 888 ]]
+    local v240 = v2.useMemo(function() --[[ Line: 936 ]]
         -- upvalues: l_lookData_0 (copy), v7 (ref)
         if l_lookData_0 then
-            local v228 = v7.List.map(if l_lookData_0.assets then l_lookData_0.assets else {}, function(v227) --[[ Line: 890 ]]
-                return v227.id;
+            local v237 = v7.List.map(if l_lookData_0.assets then l_lookData_0.assets else {}, function(v236) --[[ Line: 938 ]]
+                return v236.id;
             end);
-            local v230 = v7.List.map(if l_lookData_0.bundles then l_lookData_0.bundles else {}, function(v229) --[[ Line: 893 ]]
-                return v229.id;
+            local v239 = v7.List.map(if l_lookData_0.bundles then l_lookData_0.bundles else {}, function(v238) --[[ Line: 941 ]]
+                return v238.id;
             end);
             return {
-                assetIds = v228, 
-                bundleIds = v230
+                assetIds = v237, 
+                bundleIds = v239
             };
         else
             return {};
@@ -696,85 +717,85 @@ return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]
     end, {
         l_lookData_0
     });
-    local v232 = nil;
-    local v233 = v152.hydratedContent or {
+    local v241 = nil;
+    local v242 = v158.hydratedContent or {
         price = nil
     };
-    local v234 = if v152.gridInformation then v152.gridInformation.gridPositionRow else nil;
-    local v235 = if v152.gridInformation then v152.gridInformation.gridPositionColumn else nil;
-    local v236 = if l_itemType_0 == "Look" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.LOOK else if l_itemType_0 == "Asset" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE;
-    v232 = v2.useCallback(function(v237) --[[ Line: 918 ]]
-        -- upvalues: v155 (copy), v152 (copy), l_itemType_0 (copy), l_lookData_0 (copy), v233 (copy), l_itemId_0 (copy), l_itemData_0 (copy), l_addUnifiedEventLogging_0 (ref), v7 (ref), v234 (copy), v235 (copy), v236 (copy), l_isSelected_0 (copy), l_UnifiedEventLogEnums_0 (ref), v231 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), l_UnifiedEventLoggingUtils_0 (ref), l_FFlagAXDurablesSupport_0 (ref), l_getTimedOptionForItemData_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_UnifiedEventLogConstants_0 (ref)
-        if v237 then
-            v155.current = v237;
-            local v238 = nil;
-            local v239 = nil;
-            local v240 = nil;
-            if v152.widgetAnalyticsInfo then
+    local v243 = if v158.gridInformation then v158.gridInformation.gridPositionRow else nil;
+    local v244 = if v158.gridInformation then v158.gridInformation.gridPositionColumn else nil;
+    local v245 = if l_itemType_0 == "Look" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.LOOK else if l_itemType_0 == "Asset" then l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.ASSET else l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE;
+    v241 = v2.useCallback(function(v246) --[[ Line: 966 ]]
+        -- upvalues: v161 (copy), v158 (copy), l_itemType_0 (copy), l_lookData_0 (copy), v242 (copy), l_itemId_0 (copy), l_itemData_0 (copy), l_addUnifiedEventLogging_0 (ref), v7 (ref), v243 (copy), v244 (copy), v245 (copy), l_isSelected_0 (copy), l_UnifiedEventLogEnums_0 (ref), v240 (copy), l_FFlagAXAddLookTypeEnumForLogging_0 (ref), l_UnifiedEventLoggingUtils_0 (ref), l_FFlagAXDurablesSupport_0 (ref), l_getTimedOptionForItemData_0 (ref), l_FFlagAddTypesToWidgetItems_0 (ref), l_UnifiedEventLogConstants_0 (ref)
+        if v246 then
+            v161.current = v246;
+            local v247 = nil;
+            local v248 = nil;
+            local v249 = nil;
+            if v158.widgetAnalyticsInfo then
                 if l_itemType_0 == "Look" then
-                    v238 = if l_lookData_0 then l_lookData_0.totalPrice ~= nil else false;
-                    v239 = if v152.widgetAnalyticsInfo then v152.widgetAnalyticsInfo.itemId ~= nil else false;
-                    v240 = true;
+                    v247 = if l_lookData_0 then l_lookData_0.totalPrice ~= nil else false;
+                    v248 = if v158.widgetAnalyticsInfo then v158.widgetAnalyticsInfo.itemId ~= nil else false;
+                    v249 = true;
                 else
-                    v238 = if v233 then v233.price ~= nil else false;
-                    v239 = if v152.widgetAnalyticsInfo then v152.widgetAnalyticsInfo.itemId ~= nil else false;
-                    v240 = true;
+                    v247 = if v242 then v242.price ~= nil else false;
+                    v248 = if v158.widgetAnalyticsInfo then v158.widgetAnalyticsInfo.itemId ~= nil else false;
+                    v249 = true;
                 end;
-            elseif v152.isOrganic then
+            elseif v158.isOrganic then
                 if l_itemType_0 == "Look" then
-                    v238 = if l_lookData_0 then l_lookData_0.totalPrice ~= nil else false;
-                    v239 = l_itemId_0 ~= nil;
-                    v240 = true;
+                    v247 = if l_lookData_0 then l_lookData_0.totalPrice ~= nil else false;
+                    v248 = l_itemId_0 ~= nil;
+                    v249 = true;
                 else
                     if l_itemData_0 then
-                        local v241 = true;
+                        local v250 = true;
                         if l_itemData_0.lowestPrice == nil then
-                            v241 = l_itemData_0.priceInRobux ~= nil;
+                            v250 = l_itemData_0.priceInRobux ~= nil;
                         end;
-                        v238 = v241;
+                        v247 = v250;
                     else
-                        v238 = false;
+                        v247 = false;
                     end;
-                    v239 = l_itemId_0 ~= nil;
+                    v248 = l_itemId_0 ~= nil;
                     if l_itemData_0 then
-                        local v242 = true;
+                        local v251 = true;
                         if l_itemData_0.assetType == nil then
-                            v242 = false;
+                            v251 = false;
                             if l_itemData_0.bundleType ~= nil then
-                                v242 = l_itemData_0.bundleType ~= "AvatarAnimations";
+                                v251 = l_itemData_0.bundleType ~= "AvatarAnimations";
                             end;
                         end;
-                        v240 = v242;
+                        v249 = v251;
                     else
-                        v240 = false;
+                        v249 = false;
                     end;
                 end;
             end;
-            if v238 and v239 and v240 then
-                l_addUnifiedEventLogging_0(v155, v7.Dictionary.join(v152.widgetAnalyticsInfo or {
+            if v247 and v248 and v249 then
+                l_addUnifiedEventLogging_0(v161, v7.Dictionary.join(v158.widgetAnalyticsInfo or {
                     itemId = l_itemId_0, 
                     assetType = if l_itemData_0 then l_itemData_0.assetType else nil, 
                     bundleType = if l_itemData_0 then l_itemData_0.bundleType else nil, 
-                    gridPositionRow = v234, 
-                    gridPositionColumn = v235
+                    gridPositionRow = v243, 
+                    gridPositionColumn = v244
                 }, {
-                    itemType = v236, 
+                    itemType = v245, 
                     action = if l_isSelected_0 then l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_DESELECTED else l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_SELECTED, 
-                    category = v152.impressionsCategory, 
-                    subcategory = v152.impressionsSubcategory, 
-                    taxonomyId = v152.impressionsTaxonomyId, 
-                    assetIds = if v152.widgetAnalyticsInfo and v231 then v231.assetIds else nil, 
-                    bundleIds = if v152.widgetAnalyticsInfo and v231 then v231.bundleIds else nil, 
-                    organicAssetIds = if v152.isOrganic and v231 then v231.assetIds else nil, 
-                    organicBundleIds = if v152.isOrganic and v231 then v231.bundleIds else nil, 
-                    organicLookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v152.isOrganic and l_lookData_0 then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(l_lookData_0.lookType) else nil, 
-                    widgetLookType = if not (l_FFlagAXAddLookTypeEnumForLogging_0 and l_lookData_0) or v152.isOrganic then nil else l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(l_lookData_0.lookType), 
-                    organicItemPrice = if v152.isOrganic then if l_lookData_0 then l_lookData_0.totalPrice else if l_itemData_0 then l_itemData_0.lowestPrice or l_itemData_0.priceInRobux else nil else nil, 
-                    widgetItemPrice = if v152.widgetAnalyticsInfo then if l_lookData_0 then l_lookData_0.totalPrice else v233.price else nil, 
-                    organicTimedOption = if l_FFlagAXDurablesSupport_0 and v152.isOrganic then l_getTimedOptionForItemData_0(l_itemData_0) else nil, 
-                    widgetTimedOption = if not l_FFlagAXDurablesSupport_0 or v152.isOrganic then nil else l_getTimedOptionForItemData_0(l_itemData_0), 
-                    widgetAssetType = if not (not l_FFlagAddTypesToWidgetItems_0 or v152.isOrganic) and l_itemData_0 then l_itemData_0.assetType else nil, 
-                    widgetBundleType = if not (not l_FFlagAddTypesToWidgetItems_0 or v152.isOrganic) and l_itemData_0 then l_itemData_0.bundleType else nil
+                    category = v158.impressionsCategory, 
+                    subcategory = v158.impressionsSubcategory, 
+                    taxonomyId = v158.impressionsTaxonomyId, 
+                    assetIds = if v158.widgetAnalyticsInfo and v240 then v240.assetIds else nil, 
+                    bundleIds = if v158.widgetAnalyticsInfo and v240 then v240.bundleIds else nil, 
+                    organicAssetIds = if v158.isOrganic and v240 then v240.assetIds else nil, 
+                    organicBundleIds = if v158.isOrganic and v240 then v240.bundleIds else nil, 
+                    organicLookType = if l_FFlagAXAddLookTypeEnumForLogging_0 and v158.isOrganic and l_lookData_0 then l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(l_lookData_0.lookType) else nil, 
+                    widgetLookType = if not (l_FFlagAXAddLookTypeEnumForLogging_0 and l_lookData_0) or v158.isOrganic then nil else l_UnifiedEventLoggingUtils_0.formatLookTypeAttribute(l_lookData_0.lookType), 
+                    organicItemPrice = if v158.isOrganic then if l_lookData_0 then l_lookData_0.totalPrice else if l_itemData_0 then l_itemData_0.lowestPrice or l_itemData_0.priceInRobux else nil else nil, 
+                    widgetItemPrice = if v158.widgetAnalyticsInfo then if l_lookData_0 then l_lookData_0.totalPrice else v242.price else nil, 
+                    organicTimedOption = if l_FFlagAXDurablesSupport_0 and v158.isOrganic then l_getTimedOptionForItemData_0(l_itemData_0) else nil, 
+                    widgetTimedOption = if not l_FFlagAXDurablesSupport_0 or v158.isOrganic then nil else l_getTimedOptionForItemData_0(l_itemData_0), 
+                    widgetAssetType = if not (not l_FFlagAddTypesToWidgetItems_0 or v158.isOrganic) and l_itemData_0 then l_itemData_0.assetType else nil, 
+                    widgetBundleType = if not (not l_FFlagAddTypesToWidgetItems_0 or v158.isOrganic) and l_itemData_0 then l_itemData_0.bundleType else nil
                 }), {
                     hasDeferredActions = true, 
                     sessionTagName = l_UnifiedEventLogConstants_0.L2_SESSION_TAG_NAME
@@ -782,113 +803,113 @@ return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]
             end;
         end;
     end, {
-        v152.widgetAnalyticsInfo, 
-        v152.hydratedContent, 
+        v158.widgetAnalyticsInfo, 
+        v158.hydratedContent, 
         l_itemId_0, 
-        v236, 
+        v245, 
         l_itemData_0, 
-        v234, 
-        v235, 
+        v243, 
+        v244, 
         l_isSelected_0, 
-        v152.impressionsCategory, 
-        v152.impressionsSubcategory, 
-        v152.impressionsTaxonomyId, 
-        v231, 
+        v158.impressionsCategory, 
+        v158.impressionsSubcategory, 
+        v158.impressionsTaxonomyId, 
+        v240, 
         l_lookData_0
     });
-    local v243 = nil;
+    local v252 = nil;
     if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then
-        local v245 = v2.useCallback(function() --[[ Line: 1059 ]]
-            -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v173 (copy), l_AvatarScreen_0 (ref), v169 (copy), v74 (ref), v162 (copy), v167 (copy), v152 (copy), l_PeekViewState_0 (ref), v60 (ref), v44 (ref), l_itemData_0 (copy), v164 (copy), v168 (copy)
+        local v254 = v2.useCallback(function() --[[ Line: 1107 ]]
+            -- upvalues: l_itemId_0 (copy), l_itemType_0 (copy), l_ItemTypeEnum_0 (ref), l_FFlagAXMISEnableMultiShopping_0 (ref), v179 (copy), l_AvatarScreen_0 (ref), v175 (copy), v75 (ref), v168 (copy), v173 (copy), v158 (copy), l_PeekViewState_0 (ref), v62 (ref), v45 (ref), l_itemData_0 (copy), v170 (copy), v174 (copy)
             if l_itemId_0 and l_itemType_0 then
                 if l_itemType_0 == l_ItemTypeEnum_0.Look then
-                    local v244 = 2;
-                    if l_FFlagAXMISEnableMultiShopping_0 and v173 ~= l_AvatarScreen_0.MySharedAvatars then
-                        v244 = 1;
+                    local v253 = 2;
+                    if l_FFlagAXMISEnableMultiShopping_0 and v179 ~= l_AvatarScreen_0.MySharedAvatars then
+                        v253 = 1;
                     end;
-                    v169(v74(v162, v167, v152.widgetAnalyticsInfo, l_itemId_0, l_PeekViewState_0.Full, v244));
+                    v175(v75(v168, v173, v158.widgetAnalyticsInfo, l_itemId_0, l_PeekViewState_0.Full, v253));
                     return;
                 else
-                    v169(v60({
+                    v175(v62({
                         itemId = l_itemId_0, 
                         itemType = l_itemType_0, 
-                        itemSubType = v44.GetItemSubType(l_itemType_0, l_itemData_0), 
+                        itemSubType = v45.GetItemSubType(l_itemType_0, l_itemData_0), 
                         priceInRobux = if l_itemData_0 then l_itemData_0.priceInRobux else nil, 
-                        catalogAnalytics = v164, 
-                        avatarRoute = v168, 
-                        navigation = v167, 
-                        itemDetailsPeekViewRefs = v152.itemDetailsPeekViewRefs, 
-                        resultsListRef = v152.resultsListRef, 
-                        widgetInfo = v152.widgetAnalyticsInfo, 
+                        catalogAnalytics = v170, 
+                        avatarRoute = v174, 
+                        navigation = v173, 
+                        itemDetailsPeekViewRefs = v158.itemDetailsPeekViewRefs, 
+                        resultsListRef = v158.resultsListRef, 
+                        widgetInfo = v158.widgetAnalyticsInfo, 
                         showFullWithNoPeekView = true
                     }));
                 end;
             end;
         end, {
-            v169, 
+            v175, 
             l_itemId_0, 
             l_itemType_0, 
             l_itemData_0, 
-            v162, 
-            v167, 
-            v152.widgetAnalyticsInfo, 
-            v164, 
             v168, 
-            v152.itemDetailsPeekViewRefs, 
-            v152.resultsListRef
+            v173, 
+            v158.widgetAnalyticsInfo, 
+            v170, 
+            v174, 
+            v158.itemDetailsPeekViewRefs, 
+            v158.resultsListRef
         });
-        v243 = v80({
-            onOpenItemDetailsPage = v245, 
-            onSelectItem = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else if l_FFlagAXCatalogMakeupSupport_0 then v223 else v216
-        }, v232);
+        v252 = v81({
+            onOpenItemDetailsPage = v254, 
+            onSelectItem = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else if l_FFlagAXCatalogMakeupSupport_0 then v232 else v222
+        }, v241);
     end;
-    v2.useEffect(function() --[[ Line: 1117 ]]
-        -- upvalues: v156 (copy), v152 (copy), v48 (ref), v47 (ref)
-        local l_current_0 = v156.current;
-        if l_current_0 and v152.impressionsId then
-            l_current_0:SetAttribute(v152.impressionsTag, v152.impressionsId);
-            local v247 = v48[v152.impressionsSchema];
-            v47.writeItemAttributes(v247, l_current_0, v152);
+    v2.useEffect(function() --[[ Line: 1165 ]]
+        -- upvalues: v162 (copy), v158 (copy), v49 (ref), v48 (ref)
+        local l_current_0 = v162.current;
+        if l_current_0 and v158.impressionsId then
+            l_current_0:SetAttribute(v158.impressionsTag, v158.impressionsId);
+            local v256 = v49[v158.impressionsSchema];
+            v48.writeItemAttributes(v256, l_current_0, v158);
         end;
     end, {
-        v152.impressionsId, 
-        v152.impressionsTag, 
-        v152.impressionsSchema
+        v158.impressionsId, 
+        v158.impressionsTag, 
+        v158.impressionsSchema
     });
-    local l_cardStyle_0 = v152.cardStyle;
-    local l_tileWidth_0 = v152.tileWidth;
-    local l_thumbailAspectRatio_0 = v152.thumbailAspectRatio;
-    local v251 = l_itemData_0 and l_itemData_0.name;
-    local v252 = l_itemData_0 and (l_itemData_0.lowestPrice or l_itemData_0.priceInRobux) or nil;
-    local v253 = l_itemData_0 and l_itemData_0.priceStatus;
-    local v254 = nil;
+    local l_cardStyle_0 = v158.cardStyle;
+    local l_tileWidth_0 = v158.tileWidth;
+    local l_thumbailAspectRatio_0 = v158.thumbailAspectRatio;
+    local v260 = l_itemData_0 and l_itemData_0.name;
+    local v261 = l_itemData_0 and (l_itemData_0.lowestPrice or l_itemData_0.priceInRobux) or nil;
+    local v262 = l_itemData_0 and l_itemData_0.priceStatus;
+    local v263 = nil;
     if l_FFlagAXDurablesSupport_0 and l_itemData_0 and l_itemData_0.timedOptions then
-        for _, v256 in l_itemData_0.timedOptions do
-            if v256.selected then
-                v252 = v256.price;
+        for _, v265 in l_itemData_0.timedOptions do
+            if v265.selected then
+                v261 = v265.price;
             end;
         end;
     end;
-    if v152.itemType == l_ItemTypeEnum_0.Look then
-        v252 = l_lookData_0 and l_lookData_0.totalPrice;
-        v251 = l_lookData_0 and l_lookData_0.name;
-        if v173 == l_AvatarScreen_0.MySharedAvatars and l_lookData_0 and l_lookData_0.owned then
-            v254 = l_lookData_0.moderationStatus;
+    if v158.itemType == l_ItemTypeEnum_0.Look then
+        v261 = l_lookData_0 and l_lookData_0.totalPrice;
+        v260 = l_lookData_0 and l_lookData_0.name;
+        if v179 == l_AvatarScreen_0.MySharedAvatars and l_lookData_0 and l_lookData_0.owned then
+            v263 = l_lookData_0.moderationStatus;
         end;
     end;
-    local v261 = v2.useMemo(function() --[[ Line: 1153 ]]
-        -- upvalues: l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v152 (copy), l_ItemTypeEnum_0 (ref), v111 (ref), l_lookData_0 (copy), l_itemData_0 (copy)
+    local v270 = v2.useMemo(function() --[[ Line: 1201 ]]
+        -- upvalues: l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v158 (copy), l_ItemTypeEnum_0 (ref), v112 (ref), l_lookData_0 (copy), l_itemData_0 (copy)
         if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then
-            if v152.isCreatorNameVisible then
-                if v152.itemType == l_ItemTypeEnum_0.Look then
-                    return (v111(l_lookData_0));
+            if v158.isCreatorNameVisible then
+                if v158.itemType == l_ItemTypeEnum_0.Look then
+                    return (v112(l_lookData_0));
                 else
                     local l_l_itemData_0_0 = l_itemData_0;
                     if l_l_itemData_0_0 and l_l_itemData_0_0.creator then
-                        local v258 = l_l_itemData_0_0.creator.name or l_l_itemData_0_0.creatorName;
-                        if v258 then
+                        local v267 = l_l_itemData_0_0.creator.name or l_l_itemData_0_0.creatorName;
+                        if v267 then
                             return {
-                                name = v258, 
+                                name = v267, 
                                 verified = l_l_itemData_0_0.creator.hasVerifiedBadge
                             };
                         end;
@@ -898,16 +919,16 @@ return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]
             else
                 return nil;
             end;
-        elseif v152.creatorNameTileFooterEnabled then
-            if v152.itemType == l_ItemTypeEnum_0.Look then
-                return (v111(l_lookData_0));
+        elseif v158.creatorNameTileFooterEnabled then
+            if v158.itemType == l_ItemTypeEnum_0.Look then
+                return (v112(l_lookData_0));
             else
                 local l_l_itemData_0_1 = l_itemData_0;
                 if l_l_itemData_0_1 and l_l_itemData_0_1.creator then
-                    local v260 = l_l_itemData_0_1.creator.name or l_l_itemData_0_1.creatorName;
-                    if v260 then
+                    local v269 = l_l_itemData_0_1.creator.name or l_l_itemData_0_1.creatorName;
+                    if v269 then
                         return {
-                            name = v260, 
+                            name = v269, 
                             verified = l_l_itemData_0_1.creator.hasVerifiedBadge
                         };
                     end;
@@ -920,86 +941,86 @@ return function(v152) --[[ Line: 364 ]] --[[ Name: useCatalogItemCardViewModel ]
     end, {
         l_lookData_0, 
         l_itemData_0, 
-        v152.itemType, 
-        v152.isCreatorNameVisible, 
-        v152.creatorNameTileFooterEnabled
+        v158.itemType, 
+        v158.isCreatorNameVisible, 
+        v158.creatorNameTileFooterEnabled
     });
-    local v262 = if l_FFlagAXDurablesFooter_0 and v181 then v184.timedOptionDays else nil;
-    local v264 = v2.useMemo(function() --[[ Line: 1177 ]]
-        -- upvalues: l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v152 (copy), v253 (copy), v252 (ref), l_FFlagAXDurablesFooter_0 (ref), v262 (copy), v31 (ref)
-        local v263 = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then if v152.isPriceVisible then if v253 then {
+    local v271 = if l_FFlagAXDurablesFooter_0 and v187 then v190.timedOptionDays else nil;
+    local v273 = v2.useMemo(function() --[[ Line: 1225 ]]
+        -- upvalues: l_FFlagAXCatalogItemCardFooterBackendDriven_0 (ref), v158 (copy), v262 (copy), v261 (ref), l_FFlagAXDurablesFooter_0 (ref), v271 (copy), v31 (ref)
+        local v272 = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then if v158.isPriceVisible then if v262 then {
             type = "text", 
-            text = v253
-        } else if v252 then {
+            text = v262
+        } else if v261 then {
             type = "price", 
-            price = v252 or 0
-        } else nil else nil else if v253 then {
+            price = v261 or 0
+        } else nil else nil else if v262 then {
             type = "text", 
-            text = v253
-        } else if v252 then {
+            text = v262
+        } else if v261 then {
             type = "price", 
-            price = v252 or 0
+            price = v261 or 0
         } else nil;
-        if l_FFlagAXDurablesFooter_0 and v262 and v263 then
+        if l_FFlagAXDurablesFooter_0 and v271 and v272 then
             return {
                 type = "multi", 
                 contents = {
-                    v263, 
+                    v272, 
                     {
                         type = "timedOption", 
                         icon = v31.Enums.IconName.Clock, 
-                        text = v262
+                        text = v271
                     }
                 }
             };
         else
-            return v263;
+            return v272;
         end;
     end, {
-        v152.isPriceVisible, 
-        v253, 
-        v252, 
-        v262
+        v158.isPriceVisible, 
+        v262, 
+        v261, 
+        v271
     });
-    local v265 = v2.useCallback(function() --[[ Line: 1207 ]]
-        -- upvalues: v195 (copy)
-        v195(true);
+    local v274 = v2.useCallback(function() --[[ Line: 1255 ]]
+        -- upvalues: v201 (copy)
+        v201(true);
     end, {
-        v195
+        v201
     });
-    local v266 = if v159 then nil else if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then v199 else v265;
-    local v267 = {
-        ref = if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then v243 else v232, 
-        animationTabsItemData = if v176.showAnimationTabs then l_itemData_0 else nil, 
-        onActivated = if l_FFlagAXCatalogMakeupSupport_0 then v223 else v216, 
-        onOverlayButtonActivated = v266, 
-        overlayButtonText = if v159 then nil else if l_FFlagAXMISEnableMultiShopping_0 then v184.details else if v152.itemType == l_ItemTypeEnum_0.Look then v184.detailsWithItemsCount else v184.details, 
-        thumbnailRef = v156, 
-        thumbnailTag = v152.impressionsTag, 
-        thumbnailUrl = v196, 
-        onThumbnailLoaded = v226, 
-        thumbnailRect = v194, 
-        priceLineContent = v264, 
-        creator = v261, 
-        title = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then if v152.isTitleVisible then v251 else nil else v251
+    local v275 = if v165 then nil else if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then v205 else v274;
+    local v276 = {
+        ref = if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then v252 else v241, 
+        animationTabsItemData = if v182.showAnimationTabs then l_itemData_0 else nil, 
+        onActivated = if l_FFlagAXCatalogMakeupSupport_0 then v232 else v222, 
+        onOverlayButtonActivated = v275, 
+        overlayButtonText = if v165 then nil else if l_FFlagAXMISEnableMultiShopping_0 then v190.details else if v158.itemType == l_ItemTypeEnum_0.Look then v190.detailsWithItemsCount else v190.details, 
+        thumbnailRef = v162, 
+        thumbnailTag = v158.impressionsTag, 
+        thumbnailUrl = v202, 
+        onThumbnailLoaded = v235, 
+        thumbnailRect = v200, 
+        priceLineContent = v273, 
+        creator = v270, 
+        title = if l_FFlagAXCatalogItemCardFooterBackendDriven_0 then if v158.isTitleVisible then v260 else nil else v260
     };
-    local v268;
-    if v152.itemType == l_ItemTypeEnum_0.Look then
-        v268 = nil;
+    local v277;
+    if v158.itemType == l_ItemTypeEnum_0.Look then
+        v277 = nil;
     else
-        local v269 = if l_itemData_0 then l_itemData_0.tileRestrictionsMap else nil;
-        v268 = if v269 then v269[l_ItemTileEnums_0.Restriction.Limited] and "Limited" or (v269[l_ItemTileEnums_0.Restriction.LimitedUnique] or v269[l_ItemTileEnums_0.Restriction.Collectible]) and "Collectible" or nil else nil;
+        local v278 = if l_itemData_0 then l_itemData_0.tileRestrictionsMap else nil;
+        v277 = if v278 then v278[l_ItemTileEnums_0.Restriction.Limited] and "Limited" or (v278[l_ItemTileEnums_0.Restriction.LimitedUnique] or v278[l_ItemTileEnums_0.Restriction.Collectible]) and "Collectible" or nil else nil;
     end;
-    v267.itemType = v268;
-    v267.itemInfo = if v152.itemType == l_ItemTypeEnum_0.Look then nil else l_itemData_0 and l_itemData_0.bundleType == v43.BundleTypeIdStrings.DynamicHead and "DynamicHead" or nil;
-    v267.itemStatus = if v152.itemType == l_ItemTypeEnum_0.Look then v113(v254) else if v184.statusText then {
+    v276.itemType = v277;
+    v276.itemInfo = if v158.itemType == l_ItemTypeEnum_0.Look then nil else l_itemData_0 and l_itemData_0.bundleType == v44.BundleTypeIdStrings.DynamicHead and "DynamicHead" or nil;
+    v276.itemStatus = if v158.itemType == l_ItemTypeEnum_0.Look then v114(v263) else if v190.statusText then {
         type = "text", 
-        text = v184.statusText
-    } else v151(l_itemData_0);
-    v267.headerAspectRatio = if l_tileWidth_0 then nil else l_thumbailAspectRatio_0;
-    v267.headerSize = if l_tileWidth_0 then UDim2.fromOffset(l_tileWidth_0, l_tileWidth_0 / (l_thumbailAspectRatio_0 or 1)) else nil;
-    v267.isSelected = l_isSelected_0;
-    v267.backgroundLayers = if l_FFlagAXLookAndFeelBackgrounds_0 and l_cardStyle_0 then l_cardStyle_0.backgroundLayers else nil;
-    v267.inputBindings = if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then nil else v224;
-    return v267;
+        text = v190.statusText
+    } else v157(l_itemData_0);
+    v276.headerAspectRatio = if l_tileWidth_0 then nil else l_thumbailAspectRatio_0;
+    v276.headerSize = if l_tileWidth_0 then UDim2.fromOffset(l_tileWidth_0, l_tileWidth_0 / (l_thumbailAspectRatio_0 or 1)) else nil;
+    v276.isSelected = l_isSelected_0;
+    v276.backgroundLayers = if l_FFlagAXLookAndFeelBackgrounds_0 and l_cardStyle_0 then l_cardStyle_0.backgroundLayers else nil;
+    v276.inputBindings = if l_FFlagAXMigrateCatalogItemCardInputBindingsToFocusNavigation_0 then nil else v233;
+    return v276;
 end;

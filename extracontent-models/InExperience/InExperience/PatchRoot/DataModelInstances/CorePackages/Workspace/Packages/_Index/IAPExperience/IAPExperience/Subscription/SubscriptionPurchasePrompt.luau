@@ -196,7 +196,7 @@ end;
 local function v67(v56, v57, v58, v59, v60, v61, v62, v63, v64) --[[ Line: 260 ]] --[[ Name: renderNewModalDesign ]]
     -- upvalues: v7 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), v8 (copy), l_PartialPageModal_0 (copy), v50 (copy), v24 (copy), v30 (copy), v55 (copy), v37 (copy), l_ImageSetLabel_0 (copy), l_View_0 (copy), l_Text_0 (copy), v15 (copy), v46 (copy)
     local v65 = if v56.creatorName then v56.creatorName .. " " .. (v56.creatorVerified and v7.emoji.verified or "") else nil;
-    local v66 = (if v56.isRobuxSubscription then l_getIconRichText_0(l_Enums_0.IconName.Robux) .. " " else "") .. v56.displayPrice .. " " .. v56.period;
+    local v66 = (if v56.isRobuxSubscription then l_getIconRichText_0(l_Enums_0.IconName.Robux) .. " " else "") .. v56.displayPrice .. v56.period;
     return v8.createElement(l_PartialPageModal_0, {
         screenSize = v56.screenSize, 
         contentPadding = UDim.new(0, 24), 
@@ -206,7 +206,7 @@ local function v67(v56, v57, v58, v59, v60, v61, v62, v63, v64) --[[ Line: 260 ]
             forcedFillDirection = Enum.FillDirection.Vertical
         }, 
         onCloseClicked = v56.cancelPurchaseActivated, 
-        footerContent = function() --[[ Line: 287 ]] --[[ Name: footerContent ]]
+        footerContent = function() --[[ Line: 286 ]] --[[ Name: footerContent ]]
             -- upvalues: v24 (ref), v56 (copy), v30 (ref), v57 (copy), v59 (copy), v58 (copy), v60 (copy), v55 (ref), v62 (copy), v37 (ref)
             if v24 then
                 if v56.isTestingMode then
@@ -314,12 +314,12 @@ local function v67(v56, v57, v58, v59, v60, v61, v62, v63, v64) --[[ Line: 260 ]
         })
     });
 end;
-return function(v68) --[[ Line: 397 ]] --[[ Name: SubscriptionPurchasePrompt ]]
+return function(v68) --[[ Line: 396 ]] --[[ Name: SubscriptionPurchasePrompt ]]
     -- upvalues: v8 (copy), l_useDispatch_0 (copy), l_useTokens_0 (copy), l_UrlBuilder_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v22 (copy), v21 (copy), l_withStyle_0 (copy), l_getPartialPageModalMiddleContentWidth_0 (copy), v67 (copy), l_PartialPageModal_0 (copy), v50 (copy), v24 (copy), v30 (copy), v55 (copy), v37 (copy), v46 (copy)
     local v69, v70 = v8.useState(0);
     local v71 = l_useDispatch_0();
     local v72 = l_useTokens_0();
-    local function v74() --[[ Line: 402 ]] --[[ Name: openTermsOfUse ]]
+    local function v74() --[[ Line: 401 ]] --[[ Name: openTermsOfUse ]]
         -- upvalues: l_UrlBuilder_0 (ref), v71 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
         local v73 = l_UrlBuilder_0.static.about.terms();
         v71(l_NavigateDown_0({
@@ -327,7 +327,7 @@ return function(v68) --[[ Line: 397 ]] --[[ Name: SubscriptionPurchasePrompt ]]
             detail = v73
         }));
     end;
-    local function v76(v75) --[[ Line: 410 ]] --[[ Name: calculatePromptHeight ]]
+    local function v76(v75) --[[ Line: 409 ]] --[[ Name: calculatePromptHeight ]]
         -- upvalues: v68 (copy), v70 (copy), v22 (ref)
         if v68.shouldUseNewModalDesign then
             v70(338 + v75 + 24);
@@ -373,9 +373,9 @@ return function(v68) --[[ Line: 397 ]] --[[ Name: SubscriptionPurchasePrompt ]]
                 key = "Feature.GameDetails.Action.Report"
             }
         }, 
-        render = function(v77) --[[ Line: 447 ]] --[[ Name: render ]]
+        render = function(v77) --[[ Line: 446 ]] --[[ Name: render ]]
             -- upvalues: l_withStyle_0 (ref), l_getPartialPageModalMiddleContentWidth_0 (ref), v68 (copy), v67 (ref), v69 (copy), v74 (copy), v76 (copy), v72 (copy), v8 (ref), l_PartialPageModal_0 (ref), v50 (ref), v24 (ref), v30 (ref), v55 (ref), v37 (ref), v22 (ref), v46 (ref)
-            return l_withStyle_0(function(v78) --[[ Line: 448 ]]
+            return l_withStyle_0(function(v78) --[[ Line: 447 ]]
                 -- upvalues: l_getPartialPageModalMiddleContentWidth_0 (ref), v68 (ref), v67 (ref), v77 (copy), v69 (ref), v74 (ref), v76 (ref), v72 (ref), v8 (ref), l_PartialPageModal_0 (ref), v50 (ref), v24 (ref), v30 (ref), v55 (ref), v37 (ref), v22 (ref), v46 (ref)
                 local l_Theme_0 = v78.Theme;
                 local l_Font_0 = v78.Font;
@@ -393,7 +393,7 @@ return function(v68) --[[ Line: 397 ]] --[[ Name: SubscriptionPurchasePrompt ]]
                             forcedFillDirection = Enum.FillDirection.Vertical
                         }, 
                         onCloseClicked = v68.cancelPurchaseActivated, 
-                        footerContent = function() --[[ Line: 477 ]] --[[ Name: footerContent ]]
+                        footerContent = function() --[[ Line: 476 ]] --[[ Name: footerContent ]]
                             -- upvalues: v24 (ref), v68 (ref), v30 (ref), v77 (ref), l_Font_0 (copy), l_Theme_0 (copy), v81 (copy), v55 (ref), v74 (ref), v37 (ref)
                             if v24 then
                                 if v68.isTestingMode then

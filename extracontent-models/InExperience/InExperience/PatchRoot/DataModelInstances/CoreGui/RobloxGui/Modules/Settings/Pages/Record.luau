@@ -39,7 +39,7 @@ v14 = (function() --[[ Line: 37 ]] --[[ Name: Initialize ]]
     l_NewPage_0.TabHeader.Visible = not l_VRService_0.VREnabled;
     l_VRService_0:GetPropertyChangedSignal("VREnabled"):connect(v22);
     l_NewPage_0.Page.Name = "Record";
-    local function v38(v23, v24, v25, v26, v27) --[[ Line: 64 ]] --[[ Name: makeTextLabel ]]
+    local function v39(v23, v24, v25, v26, v27) --[[ Line: 64 ]] --[[ Name: makeTextLabel ]]
         -- upvalues: v10 (ref), l_Create_0 (ref), l_TextService_0 (ref)
         local v28 = 10;
         local v29 = 0;
@@ -82,30 +82,31 @@ v14 = (function() --[[ Line: 37 ]] --[[ Name: Initialize ]]
                 v33.Size = UDim2.new(1, 0, 0, l_l_TextService_0_TextSize_0.Y + v30);
             end;
         end;
-        v37("AbsoluteSize");
+        local l_l_TextService_0_TextSize_1 = l_TextService_0:GetTextSize(v24, v34.TextSize, v34.Font, Vector2.new(v26.AbsoluteSize.X - v28 - v29, 10000));
+        v33.Size = UDim2.new(1, 0, 0, l_l_TextService_0_TextSize_1.Y + v30);
         v26.Changed:connect(v37);
         return v34, v33;
     end;
-    l_NewPage_0.SetHub = function(_, v40) --[[ Line: 110 ]] --[[ Name: SetHub ]]
-        -- upvalues: l_NewPage_0 (copy), v38 (copy), v9 (ref), l_RbxAnalyticsService_0 (ref), l_Contexts_0 (ref), l_EventTypes_0 (ref), v18 (ref), l_EventNames_0 (ref), l_BindableEvent_0 (copy), l_CoreGui_0 (ref)
-        l_NewPage_0.HubRef = v40;
-        local function v41() --[[ Line: 114 ]]
+    l_NewPage_0.SetHub = function(_, v41) --[[ Line: 110 ]] --[[ Name: SetHub ]]
+        -- upvalues: l_NewPage_0 (copy), v39 (copy), v9 (ref), l_RbxAnalyticsService_0 (ref), l_Contexts_0 (ref), l_EventTypes_0 (ref), v18 (ref), l_EventNames_0 (ref), l_BindableEvent_0 (copy), l_CoreGui_0 (ref)
+        l_NewPage_0.HubRef = v41;
+        local function v42() --[[ Line: 114 ]]
             -- upvalues: l_NewPage_0 (ref)
             l_NewPage_0.HubRef:SetVisibility(false, true);
         end;
-        local _ = v38("ScreenshotTitle", "Screenshot", true, l_NewPage_0.Page, 1);
-        local _ = v38("ScreenshotBody", "By clicking the 'Take Screenshot' button, the menu will close and take a screenshot and save it to your computer.", false, l_NewPage_0.Page, 2);
+        local _ = v39("ScreenshotTitle", "Screenshot", true, l_NewPage_0.Page, 1);
+        local _ = v39("ScreenshotBody", "By clicking the 'Take Screenshot' button, the menu will close and take a screenshot and save it to your computer.", false, l_NewPage_0.Page, 2);
         local l_l_NewPage_0_0 = l_NewPage_0;
         local l_l_NewPage_0_1 = l_NewPage_0;
-        local v46, v47 = v9:AddButtonRow(l_NewPage_0, "ScreenshotButton", "Take Screenshot", UDim2.new(0, 300, 0, 44), v41);
-        l_l_NewPage_0_0.ScreenshotButtonRow = v46;
-        l_l_NewPage_0_1.ScreenshotButton = v47;
+        local v47, v48 = v9:AddButtonRow(l_NewPage_0, "ScreenshotButton", "Take Screenshot", UDim2.new(0, 300, 0, 44), v42);
+        l_l_NewPage_0_0.ScreenshotButtonRow = v47;
+        l_l_NewPage_0_1.ScreenshotButton = v48;
         l_NewPage_0.ScreenshotButtonRow.LayoutOrder = 3;
-        l_l_NewPage_0_0 = v38("VideoTitle", "Video", true, l_NewPage_0.Page, 4);
-        l_l_NewPage_0_1 = v38("VideoBody", "By clicking the 'Record Video' button, the menu will close and start recording your screen.", false, l_NewPage_0.Page, 5);
-        v46, v47 = v9:AddButtonRow(l_NewPage_0, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), v41);
-        v46.LayoutOrder = 6;
-        v47.MouseButton1Click:connect(function() --[[ Line: 130 ]]
+        l_l_NewPage_0_0 = v39("VideoTitle", "Video", true, l_NewPage_0.Page, 4);
+        l_l_NewPage_0_1 = v39("VideoBody", "By clicking the 'Record Video' button, the menu will close and start recording your screen.", false, l_NewPage_0.Page, 5);
+        v47, v48 = v9:AddButtonRow(l_NewPage_0, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), v42);
+        v47.LayoutOrder = 6;
+        v48.MouseButton1Click:connect(function() --[[ Line: 130 ]]
             -- upvalues: l_RbxAnalyticsService_0 (ref), l_Contexts_0 (ref), l_EventTypes_0 (ref), v18 (ref), l_EventNames_0 (ref), l_BindableEvent_0 (ref)
             l_RbxAnalyticsService_0:SendEventDeferred("mobile", l_Contexts_0.Captures, l_EventTypes_0.ButtonClick, {
                 btn = if not v18 then l_EventNames_0.CapturesLegacyVideoRecordActivated else l_EventNames_0.CapturesLegacyVideoRecordDeactivated
@@ -114,19 +115,19 @@ v14 = (function() --[[ Line: 37 ]] --[[ Name: Initialize ]]
         end);
         local l_FirstChild_0 = settings():FindFirstChild("Game Options");
         if l_FirstChild_0 then
-            l_FirstChild_0.VideoRecordingChangeRequest:connect(function(v49) --[[ Line: 142 ]]
-                -- upvalues: v18 (ref), v47 (copy)
-                v18 = v49;
-                if v49 then
-                    v47.RecordButtonTextLabel.Text = "Stop Recording";
+            l_FirstChild_0.VideoRecordingChangeRequest:connect(function(v50) --[[ Line: 142 ]]
+                -- upvalues: v18 (ref), v48 (copy)
+                v18 = v50;
+                if v50 then
+                    v48.RecordButtonTextLabel.Text = "Stop Recording";
                     return;
                 else
-                    v47.RecordButtonTextLabel.Text = "Record Video";
+                    v48.RecordButtonTextLabel.Text = "Record Video";
                     return;
                 end;
             end);
         end;
-        v47.Activated:Connect(function() --[[ Line: 152 ]]
+        v48.Activated:Connect(function() --[[ Line: 152 ]]
             -- upvalues: l_CoreGui_0 (ref)
             l_CoreGui_0:ToggleRecording();
         end);
@@ -138,9 +139,9 @@ v14 = (function() --[[ Line: 37 ]] --[[ Name: Initialize ]]
     end;
     return l_NewPage_0;
 end)();
-v14.Displayed.Event:connect(function(v50) --[[ Line: 169 ]]
+v14.Displayed.Event:connect(function(v51) --[[ Line: 169 ]]
     -- upvalues: l_GuiService_0 (copy), v14 (ref)
-    if v50 then
+    if v51 then
         l_GuiService_0.SelectedCoreObject = v14.ScreenshotButton;
     end;
 end);

@@ -16,36 +16,45 @@ local v14 = require(l_Modules_0.Personalization.OmniFeed.OmniFeedProps);
 local v15 = require(l_Modules_0.LuaApp.Thunks.FetchGamesPageData);
 local v16 = require(l_Modules_0.Personalization.OmniFeed.useGameFiltersFeedItemSideMargin);
 local l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppChartsResetFetchingStatusOnFilterChange;
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionAlways;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 local l_Games_0 = l_GameSortGroups_0.Games;
-return function(v19) --[[ Line: 34 ]] --[[ Name: GameFiltersFeedItem ]]
-    -- upvalues: v14 (copy), l_useGameFiltersSelector_0 (copy), l_Games_0 (copy), l_useGameFilterAnalyticsInfo_0 (copy), v2 (copy), v16 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_RoactAnalytics_0 (copy), v15 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (copy), l_dependencyArray_0 (copy), l_GameFilterCarousel_0 (copy)
-    local v20 = v19[v14.key];
-    local v21 = l_useGameFiltersSelector_0(l_Games_0);
-    local v22 = l_useGameFilterAnalyticsInfo_0(v19.gameSortId, v19.sortIndex);
-    local v23 = v2.useRef(nil);
-    local v24 = v16(v23.current);
-    local v25 = l_useDispatch_0();
-    local v26 = l_useRoactService_0(l_RoactNetworking_0);
-    local v27 = l_useRoactService_0(l_RoactAnalytics_0);
-    local v31 = v2.useCallback(function(v28, v29) --[[ Line: 48 ]]
-        -- upvalues: v25 (copy), v15 (ref), v26 (copy), v27 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref)
-        local v30 = {
-            [v28] = v29
+return function(v22) --[[ Line: 38 ]] --[[ Name: GameFiltersFeedItem ]]
+    -- upvalues: v14 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_useGameFiltersSelector_0 (copy), l_Games_0 (copy), l_useGameFilterAnalyticsInfo_0 (copy), v2 (copy), v16 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_RoactAnalytics_0 (copy), v15 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_GameFilterCarousel_0 (copy)
+    local v23 = v22[v14.key];
+    local v24 = l_FFlagLuaAppCompositionAlways_0 and true or if l_FFlagLuaAppCompositionSupport_0 then v23.appCompositionEnabled else nil;
+    local v25 = l_useGameFiltersSelector_0(l_Games_0);
+    local v26 = l_useGameFilterAnalyticsInfo_0(v22.gameSortId, v22.sortIndex);
+    local v27 = v2.useRef(nil);
+    local v28 = if not l_FFlagLuaAppCompositionAlways_0 then v16(v27.current) else nil;
+    local v29 = if v24 then nil else v28;
+    local v30 = l_useDispatch_0();
+    local v31 = l_useRoactService_0(l_RoactNetworking_0);
+    local v32 = l_useRoactService_0(l_RoactAnalytics_0);
+    local v36 = v2.useCallback(function(v33, v34) --[[ Line: 59 ]]
+        -- upvalues: v30 (copy), v15 (ref), v31 (copy), v32 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref)
+        local v35 = {
+            [v33] = v34
         };
-        return v25(v15(v26, v27, nil, v30, l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 and true or nil));
-    end, l_dependencyArray_0(v26, v27, if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v25 else nil));
-    if v21 and #v21.allFilters > 0 then
+        return v30(v15(v31, v32, nil, v35, l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 and true or nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v31, 
+        v32, 
+        if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v30 else nil
+    } else l_dependencyArray_0(v31, v32, if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v30 else nil));
+    if v25 and #v25.allFilters > 0 then
         return v2.createElement(l_GameFilterCarousel_0, {
-            title = v19.topicName, 
-            filters = v21.allFilters, 
-            sideMargin = v24, 
-            sortIndex = v19.sortIndex, 
-            onFilterApplied = v31, 
-            containerRef = v23, 
-            pageContext = v20.appPage, 
-            dataUpdatedTimestamp = v21.updatedTimestamp, 
-            analyticsInfo = v22, 
-            scrollViewPositionChangedSignal = v20.scrollViewPositionChangedSignal
+            title = v22.topicName, 
+            filters = v25.allFilters, 
+            sideMargin = v29, 
+            sortIndex = v22.sortIndex, 
+            onFilterApplied = v36, 
+            containerRef = v27, 
+            pageContext = v23.appPage, 
+            dataUpdatedTimestamp = v25.updatedTimestamp, 
+            analyticsInfo = v26, 
+            scrollViewPositionChangedSignal = v23.scrollViewPositionChangedSignal
         });
     else
         return nil;

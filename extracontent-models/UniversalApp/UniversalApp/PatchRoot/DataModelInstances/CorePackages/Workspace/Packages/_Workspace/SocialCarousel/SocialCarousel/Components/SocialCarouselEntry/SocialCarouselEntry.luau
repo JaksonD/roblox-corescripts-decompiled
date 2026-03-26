@@ -14,48 +14,51 @@ local v12 = require(l_script_FirstAncestor_0.Analytics.useSocialCarouselAnalytic
 local v13 = require(l_script_FirstAncestor_0.Analytics.useSocialCarouselLoadTimer);
 local _ = require(l_script_FirstAncestor_0.Analytics.AnalyticsTypes);
 local v15 = game:DefineFastInt("FriendCarouselRefreshThrottleInterval", 3);
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
 local l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppAddSortDataToSocialCarouselClicks;
-local v17 = require(l_script_FirstAncestor_0.Components.Carousel);
-return function(v18) --[[ Line: 47 ]]
-    -- upvalues: l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), v12 (copy), v13 (copy), v2 (copy), v10 (copy), v11 (copy), l_useThrottledCallback_0 (copy), v15 (copy), v9 (copy), l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 (copy), v17 (copy)
-    local v19 = l_useRoactService_0(l_RoactAnalytics_0);
-    local v20 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v21 = v12();
-    local v22 = v13(v21.reportLoadingEvent);
-    local v23 = v2.useRef(os.clock());
-    local v24 = v10(v18.roduxKey, v18.customTileList);
-    local v25 = v11(v19, v20, v18.unifiedLogging, v24, v23);
-    local v26 = l_useThrottledCallback_0(function() --[[ Line: 62 ]]
-        -- upvalues: v24 (copy)
-        v24.refreshFriendsList();
+local v18 = require(l_script_FirstAncestor_0.Components.Carousel);
+return function(v19) --[[ Line: 50 ]]
+    -- upvalues: l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), v12 (copy), v13 (copy), v2 (copy), v10 (copy), v11 (copy), l_useThrottledCallback_0 (copy), v15 (copy), v9 (copy), l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 (copy), v18 (copy), l_FFlagLuaAppCompositionSupport_0 (copy)
+    local v20 = l_useRoactService_0(l_RoactAnalytics_0);
+    local v21 = l_useRoactService_0(l_AppEventIngestService_0);
+    local v22 = v12();
+    local v23 = v13(v22.reportLoadingEvent);
+    local v24 = v2.useRef(os.clock());
+    local v25 = v10(v19.roduxKey, v19.customTileList);
+    local v26 = v11(v20, v21, v19.unifiedLogging, v25, v24);
+    local v27 = l_useThrottledCallback_0(function() --[[ Line: 65 ]]
+        -- upvalues: v25 (copy)
+        v25.refreshFriendsList();
     end, v15);
-    v2.useEffect(function() --[[ Line: 66 ]]
-        -- upvalues: v18 (copy), v26 (copy)
-        if not v18.refreshSignal then
+    v2.useEffect(function() --[[ Line: 69 ]]
+        -- upvalues: v19 (copy), v27 (copy)
+        if not v19.refreshSignal then
             return;
         else
-            v18.refreshSignal:connect(v26);
+            v19.refreshSignal:connect(v27);
             return;
         end;
     end, {
-        v18.refreshSignal
+        v19.refreshSignal
     });
     return v2.createElement(v9.Provider, {
         value = {
-            eventIngest = v20, 
-            appAnalytics = v19, 
-            hideCarouselHeader = v18.hideCarouselHeader, 
-            unifiedLogging = v25, 
-            sortAnalyticsData = if l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 then v18.sortAnalyticsData else nil, 
-            friendRequestCount = v24.friendRequestCount, 
-            recommendationCount = v24.recommendationCount, 
-            friendCount = v24.friendCount, 
-            tiles = v24.tiles, 
-            onSuccessfulRender = v22.onSuccessfulRender, 
-            selectionOrderBase = v18.selectionOrderBase, 
-            source = v18.source
+            eventIngest = v21, 
+            appAnalytics = v20, 
+            hideCarouselHeader = v19.hideCarouselHeader, 
+            unifiedLogging = v26, 
+            sortAnalyticsData = if l_FFlagLuaAppAddSortDataToSocialCarouselClicks_0 then v19.sortAnalyticsData else nil, 
+            friendRequestCount = v25.friendRequestCount, 
+            recommendationCount = v25.recommendationCount, 
+            friendCount = v25.friendCount, 
+            tiles = v25.tiles, 
+            onSuccessfulRender = v23.onSuccessfulRender, 
+            selectionOrderBase = v19.selectionOrderBase, 
+            source = v19.source
         }
     }, {
-        Carousel = v2.createElement(v17)
+        Carousel = v2.createElement(v18, {
+            appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v19.appCompositionEnabled else nil
+        })
     });
 end;

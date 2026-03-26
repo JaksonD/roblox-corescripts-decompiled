@@ -44,7 +44,7 @@ local l_GameIconReducer_0 = require(l_Parent_0.GameIconRodux).GameIcons.GameIcon
 local v43 = require(l_script_FirstAncestor_0.Hooks.useIsInExperience);
 local v44 = require(l_Parent_0.HttpRequest);
 local v48 = v44.config({
-    requestFunction = function(v45, v46, v47) --[[ Line: 69 ]] --[[ Name: requestFunction ]]
+    requestFunction = function(v45, v46, v47) --[[ Line: 70 ]] --[[ Name: requestFunction ]]
         -- upvalues: v21 (copy), v44 (copy)
         v21:info("Fetching: {}", string.format("[ requestMethod = %q, url = %q ]", v46, v45));
         return v44.requestFunctions.HttpRbxApi(v45, v46, v47);
@@ -55,7 +55,8 @@ local v49 = require(l_script_FirstAncestor_0.EnumScreens);
 local v50 = require(l_script_FirstAncestor_0.Flags.getFFlagSupportGameCardForInExpPlatChat);
 local v51 = game:DefineFastFlag("AppChatShutdownBeforeLaunch", false);
 local v52 = require(l_script_FirstAncestor_0.Flags.getFFlagAppChatHidePlayButtonsInExp);
-local v63 = {
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v64 = {
     networkImpl = v48, 
     eventStream = l_EventStream_0.new(l_RbxAnalyticsService_0), 
     eventIngest = l_EventIngest_0.new(l_EventIngestService_0), 
@@ -63,240 +64,261 @@ local v63 = {
     universeId = nil, 
     conversationId = nil, 
     luaChatPlayTogetherEnabled = nil, 
-    onDetailsOpened = function() --[[ Line: 115 ]] --[[ Name: onDetailsOpened ]]
+    onDetailsOpened = function() --[[ Line: 118 ]] --[[ Name: onDetailsOpened ]]
 
     end, 
-    onPlayButtonActivated = function(v53) --[[ Line: 117 ]] --[[ Name: onPlayButtonActivated ]]
+    onPlayButtonActivated = function(v54) --[[ Line: 120 ]] --[[ Name: onPlayButtonActivated ]]
         -- upvalues: l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v28 (copy), v9 (copy), l_GameParams_0 (copy), v51 (copy), l_ExperienceService_0 (copy)
-        local l_placeId_0 = v53.placeId;
-        local l_senderUserId_0 = v53.senderUserId;
-        l_SetGamePlaySession_0(v53.sessionService, l_SessionType_0.StructuralIdentifier.GamePlayFromChat, true);
-        v28(v53, "clickBtnFromLinkCardInChat", "touch");
+        local l_placeId_0 = v54.placeId;
+        local l_senderUserId_0 = v54.senderUserId;
+        l_SetGamePlaySession_0(v54.sessionService, l_SessionType_0.StructuralIdentifier.GamePlayFromChat, true);
+        v28(v54, "clickBtnFromLinkCardInChat", "touch");
         if l_placeId_0 then
-            local function v57(v56) --[[ Line: 126 ]]
-                -- upvalues: v53 (ref), v9 (ref), v28 (ref)
-                v53 = v9.Dictionary.join(v53, {
-                    joinAttemptId = v56
+            local function v58(v57) --[[ Line: 129 ]]
+                -- upvalues: v54 (ref), v9 (ref), v28 (ref)
+                v54 = v9.Dictionary.join(v54, {
+                    joinAttemptId = v57
                 });
-                v28(v53, "gamePlayIntent", "PlayGameFromLinkCard");
+                v28(v54, "gamePlayIntent", "PlayGameFromLinkCard");
             end;
-            local v58 = l_GameParams_0.fromParams({
+            local v59 = l_GameParams_0.fromParams({
                 userId = l_senderUserId_0, 
                 placeId = l_placeId_0
             });
             if v51 then
                 game:Shutdown();
             end;
-            l_ExperienceService_0:LaunchExperience(v58, "PlayGameFromLinkCard", v57);
+            l_ExperienceService_0:LaunchExperience(v59, "PlayGameFromLinkCard", v58);
         end;
     end, 
-    openDetails = function(v59) --[[ Line: 144 ]] --[[ Name: openDetails ]]
+    openDetails = function(v60) --[[ Line: 147 ]] --[[ Name: openDetails ]]
         -- upvalues: v28 (copy)
-        local l_universeId_0 = v59.universeId;
-        local l_placeId_1 = v59.placeId;
-        v28(v59, "clickLinkCardInChat", "touch");
-        v59.onDetailsOpened();
-        v59.openGameDetailsPage(l_universeId_0, "LuaChatAssetCard");
-        local v62 = v59.analytics and v59.analytics.reportOpenGameDetailFromChat;
-        if v62 then
-            v62(l_placeId_1, v59.conversationId, l_universeId_0, "GameDetailFromLinkCard");
+        local l_universeId_0 = v60.universeId;
+        local l_placeId_1 = v60.placeId;
+        v28(v60, "clickLinkCardInChat", "touch");
+        v60.onDetailsOpened();
+        v60.openGameDetailsPage(l_universeId_0, "LuaChatAssetCard");
+        local v63 = v60.analytics and v60.analytics.reportOpenGameDetailFromChat;
+        if v63 then
+            v63(l_placeId_1, v60.conversationId, l_universeId_0, "GameDetailFromLinkCard");
         end;
     end
 };
-local function _(v64, v65) --[[ Line: 161 ]] --[[ Name: getGameIcon ]]
+local function _(v65, v66) --[[ Line: 164 ]] --[[ Name: getGameIcon ]]
     -- upvalues: l_GameIconReducer_0 (copy)
-    local v66 = v64[l_GameIconReducer_0.key][v65];
-    if v66 then
-        return v66.url;
+    local v67 = v65[l_GameIconReducer_0.key][v66];
+    if v67 then
+        return v67.url;
     else
         return "";
     end;
 end;
-local function _(v68, v69) --[[ Line: 170 ]] --[[ Name: getGameDetails ]]
-    return v68.GameDetails[v69] or {};
+local function _(v69, v70) --[[ Line: 173 ]] --[[ Name: getGameDetails ]]
+    return v69.GameDetails[v70] or {};
 end;
-local function _(v71, v72) --[[ Line: 174 ]] --[[ Name: getGamePlayabilityStatus ]]
-    return v71.PlayabilityStatus[v72] or {};
+local function _(v72, v73) --[[ Line: 177 ]] --[[ Name: getGamePlayabilityStatus ]]
+    return v72.PlayabilityStatus[v73] or {};
 end;
-GameCardContainer = function(v74) --[[ Line: 178 ]] --[[ Name: GameCardContainer ]]
-    -- upvalues: v9 (copy), v63 (copy), l_useSelector_0 (copy), l_useCallback_0 (copy), l_dependencyArray_0 (copy), v7 (copy), v6 (copy), v50 (copy), l_GameIconReducer_0 (copy), v17 (copy), v49 (copy), l_useDispatch_0 (copy), l_ApiFetchGameIcons_0 (copy), l_ApiFetchGameDetails_0 (copy), l_ApiFetchPlayabilityStatus_0 (copy), v34 (copy), v10 (copy), l_useMemo_0 (copy), l_useSignalState_0 (copy), v36 (copy), v37 (copy), l_useEffect_0 (copy), v38 (copy), v35 (copy), v8 (copy), v33 (copy), v43 (copy), v52 (copy), l_withLocalization_0 (copy)
-    local v75 = v9.Dictionary.join(v63, v74);
-    if not v75.universeId then
+GameCardContainer = function(v75) --[[ Line: 181 ]] --[[ Name: GameCardContainer ]]
+    -- upvalues: v9 (copy), v64 (copy), l_useSelector_0 (copy), l_useCallback_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v7 (copy), v6 (copy), v50 (copy), l_GameIconReducer_0 (copy), v17 (copy), v49 (copy), l_useDispatch_0 (copy), l_ApiFetchGameIcons_0 (copy), l_ApiFetchGameDetails_0 (copy), l_ApiFetchPlayabilityStatus_0 (copy), v34 (copy), v10 (copy), l_useMemo_0 (copy), l_useSignalState_0 (copy), v36 (copy), v37 (copy), l_useEffect_0 (copy), v38 (copy), v35 (copy), v8 (copy), v33 (copy), v43 (copy), v52 (copy), l_withLocalization_0 (copy)
+    local v76 = v9.Dictionary.join(v64, v75);
+    if not v76.universeId then
         assert("universeId does not exist", "universeId does not exist");
     end;
-    local v78 = l_useSelector_0(l_useCallback_0(function(v76) --[[ Line: 184 ]]
-        -- upvalues: v75 (copy)
-        local l_universeId_1 = v75.universeId;
-        return v76.GameDetails[l_universeId_1] or {};
-    end, l_dependencyArray_0(v75.universeId)));
-    local v81 = l_useSelector_0(l_useCallback_0(function(v79) --[[ Line: 188 ]]
-        -- upvalues: v75 (copy)
-        local l_universeId_2 = v75.universeId;
-        return v79.PlayabilityStatus[l_universeId_2] or {};
-    end, l_dependencyArray_0(v75.universeId)));
-    local v82 = v7(v75.placeId, v6.GameCard.THUMBNAIL_WIDTH, v6.GameCard.THUMBNAIL_HEIGHT);
-    local v86 = if v50() then ("rbxthumb://type=GameIcon&id=%*&w=%*&h=%*"):format(v75.universeId, 150, 150) else l_useSelector_0(l_useCallback_0(function(v83) --[[ Line: 200 ]]
-        -- upvalues: v75 (copy), l_GameIconReducer_0 (ref)
-        local l_universeId_3 = v75.universeId;
-        local v85 = v83[l_GameIconReducer_0.key][l_universeId_3];
-        if v85 then
-            return v85.url;
+    local v79 = l_useSelector_0(l_useCallback_0(function(v77) --[[ Line: 187 ]]
+        -- upvalues: v76 (copy)
+        local l_universeId_1 = v76.universeId;
+        return v77.GameDetails[l_universeId_1] or {};
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v76.universeId
+    } else l_dependencyArray_0(v76.universeId)));
+    local v82 = l_useSelector_0(l_useCallback_0(function(v80) --[[ Line: 191 ]]
+        -- upvalues: v76 (copy)
+        local l_universeId_2 = v76.universeId;
+        return v80.PlayabilityStatus[l_universeId_2] or {};
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v76.universeId
+    } else l_dependencyArray_0(v76.universeId)));
+    local v83 = v7(v76.placeId, v6.GameCard.THUMBNAIL_WIDTH, v6.GameCard.THUMBNAIL_HEIGHT);
+    local v87 = if v50() then ("rbxthumb://type=GameIcon&id=%*&w=%*&h=%*"):format(v76.universeId, 150, 150) else l_useSelector_0(l_useCallback_0(function(v84) --[[ Line: 205 ]]
+        -- upvalues: v76 (copy), l_GameIconReducer_0 (ref)
+        local l_universeId_3 = v76.universeId;
+        local v86 = v84[l_GameIconReducer_0.key][l_universeId_3];
+        if v86 then
+            return v86.url;
         else
             return "";
         end;
-    end, l_dependencyArray_0(v75.universeId)));
-    local v87 = v17({
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v76.universeId
+    } else l_dependencyArray_0(v76.universeId)));
+    local v88 = v17({
         v49.GameDetail
     });
-    local v88 = v75.placeId or v78.rootPlaceId;
-    local l_name_0 = v78.name;
-    local v90 = v78.description or "";
-    local v91 = v78.price or 0;
-    local v92 = l_useDispatch_0();
-    local function v95(v93, v94) --[[ Line: 214 ]]
-        -- upvalues: v50 (ref), v92 (copy), l_ApiFetchGameIcons_0 (ref), l_ApiFetchGameDetails_0 (ref), l_ApiFetchPlayabilityStatus_0 (ref)
+    local v89 = v76.placeId or v79.rootPlaceId;
+    local l_name_0 = v79.name;
+    local v91 = v79.description or "";
+    local v92 = v79.price or 0;
+    local v93 = l_useDispatch_0();
+    local function v96(v94, v95) --[[ Line: 224 ]]
+        -- upvalues: v50 (ref), v93 (copy), l_ApiFetchGameIcons_0 (ref), l_ApiFetchGameDetails_0 (ref), l_ApiFetchPlayabilityStatus_0 (ref)
         if not v50() then
-            v92(l_ApiFetchGameIcons_0(v93, {
-                v94
+            v93(l_ApiFetchGameIcons_0(v94, {
+                v95
             }));
         end;
-        v92(l_ApiFetchGameDetails_0.Fetch(v93, {
-            v94
+        v93(l_ApiFetchGameDetails_0.Fetch(v94, {
+            v95
         }));
-        v92(l_ApiFetchPlayabilityStatus_0.Fetch(v93, {
-            v94
+        v93(l_ApiFetchPlayabilityStatus_0.Fetch(v94, {
+            v95
         }));
     end;
-    local v96 = v34.Game.getVotesStore(false);
-    local v97 = v10.createSignal(nil);
-    local v98 = v10.createSignal("NotReady");
-    local v99 = l_useMemo_0(function() --[[ Line: 227 ]]
-        -- upvalues: v75 (copy), v97 (copy), v98 (copy), v96 (copy)
-        if not v75.universeId then
+    local v97 = v34.Game.getVotesStore(false);
+    local v98 = v10.createSignal(nil);
+    local v99 = v10.createSignal("NotReady");
+    local v100 = l_useMemo_0(function() --[[ Line: 237 ]]
+        -- upvalues: v76 (copy), v98 (copy), v99 (copy), v97 (copy)
+        if not v76.universeId then
             return {
-                data = v97, 
-                status = v98
+                data = v98, 
+                status = v99
             };
         else
-            return v96.getAndFetchVotes({
-                v75.universeId
-            })[v75.universeId] or {
-                data = v97, 
-                status = v98
+            return v97.getAndFetchVotes({
+                v76.universeId
+            })[v76.universeId] or {
+                data = v98, 
+                status = v99
             };
         end;
     end, {
-        v96, 
-        v75.universeId
+        v97, 
+        v76.universeId
     });
-    local v100 = l_useSignalState_0(v99.data);
-    local v101 = l_useSignalState_0(v99.status);
-    local v103 = l_useMemo_0(function() --[[ Line: 247 ]]
-        -- upvalues: v100 (copy)
-        if v100 and v100.upVotes and v100.downVotes then
-            local v102 = v100.upVotes + v100.downVotes;
-            if v102 > 0 then
-                return tostring((math.floor(v100.upVotes / v102 * 100))) .. "%";
+    local v101 = l_useSignalState_0(v100.data);
+    local v102 = l_useSignalState_0(v100.status);
+    local v104 = l_useMemo_0(function() --[[ Line: 257 ]]
+        -- upvalues: v101 (copy)
+        if v101 and v101.upVotes and v101.downVotes then
+            local v103 = v101.upVotes + v101.downVotes;
+            if v103 > 0 then
+                return tostring((math.floor(v101.upVotes / v103 * 100))) .. "%";
             end;
         end;
         return "--";
     end, {
-        v100
+        v101
     });
-    local v104 = v36(v37.Context);
-    l_useEffect_0(function() --[[ Line: 259 ]]
-        -- upvalues: v75 (copy), v95 (copy)
-        local l_universeId_4 = v75.universeId;
+    local v105 = v36(v37.Context);
+    l_useEffect_0(function() --[[ Line: 269 ]]
+        -- upvalues: v76 (copy), v96 (copy)
+        local l_universeId_4 = v76.universeId;
         if not l_universeId_4 then
             return;
         else
-            v95(v75.networkImpl, l_universeId_4);
+            v96(v76.networkImpl, l_universeId_4);
             return;
         end;
     end, {
-        v75.universeId, 
-        v75.networkImpl
+        v76.universeId, 
+        v76.networkImpl
     });
-    local v106 = l_useCallback_0(function() --[[ Line: 269 ]]
-        -- upvalues: v104 (copy), v38 (ref), v75 (copy), v88 (copy)
-        v104.emit(v38.GameCardThumbnailClicked, {
-            universeId = v75.universeId, 
-            placeId = v88
+    local v107 = l_useCallback_0(function() --[[ Line: 280 ]]
+        -- upvalues: v105 (copy), v38 (ref), v76 (copy), v89 (copy)
+        v105.emit(v38.GameCardThumbnailClicked, {
+            universeId = v76.universeId, 
+            placeId = v89
         });
-        v75.openDetails(v75);
-    end, l_dependencyArray_0(v104, v75.openDetails, v75.universeId, v88));
-    local v107 = l_useCallback_0(function() --[[ Line: 277 ]]
-        -- upvalues: v104 (copy), v38 (ref), v75 (copy), v88 (copy)
-        v104.emit(v38.GameCardPlayButtonClicked, {
-            universeId = v75.universeId, 
-            placeId = v88
+        v76.openDetails(v76);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v105, 
+        v76.openDetails, 
+        v76.universeId, 
+        v89
+    } else l_dependencyArray_0(v105, v76.openDetails, v76.universeId, v89));
+    local v108 = l_useCallback_0(function() --[[ Line: 293 ]]
+        -- upvalues: v105 (copy), v38 (ref), v76 (copy), v89 (copy)
+        v105.emit(v38.GameCardPlayButtonClicked, {
+            universeId = v76.universeId, 
+            placeId = v89
         });
-        v75.onPlayButtonActivated(v75);
-    end, l_dependencyArray_0(v104, v75.onPlayButtonActivated, v75.universeId, v88));
-    local v108 = l_useCallback_0(function() --[[ Line: 285 ]]
-        -- upvalues: v104 (copy), v38 (ref), v75 (copy), v88 (copy)
-        v104.emit(v38.GameCardMetadataClicked, {
-            universeId = v75.universeId, 
-            placeId = v88
+        v76.onPlayButtonActivated(v76);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v105, 
+        v76.onPlayButtonActivated, 
+        v76.universeId, 
+        v89
+    } else l_dependencyArray_0(v105, v76.onPlayButtonActivated, v76.universeId, v89));
+    local v109 = l_useCallback_0(function() --[[ Line: 306 ]]
+        -- upvalues: v105 (copy), v38 (ref), v76 (copy), v89 (copy)
+        v105.emit(v38.GameCardMetadataClicked, {
+            universeId = v76.universeId, 
+            placeId = v89
         });
-        v75.openDetails(v75);
-    end, l_dependencyArray_0(v104, v75.openDetails, v75.universeId, v88));
-    local function v116(v109) --[[ Line: 293 ]] --[[ Name: renderCard ]]
-        -- upvalues: v35 (ref), v106 (copy), v107 (copy), v108 (copy), v8 (ref), v33 (ref)
-        local v110 = not v109.universeId or not v109.gameName or not v109.gameThumbnail or v109.votesStatus == "NotReady" or not v109.gamePlayerCount;
-        local v111 = false;
-        if v109.isPlayButtonEnabled and v109.playabilityStatus then
-            v111 = v109.playabilityStatus.isPlayable == true;
+        v76.openDetails(v76);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v105, 
+        v76.openDetails, 
+        v76.universeId, 
+        v89
+    } else l_dependencyArray_0(v105, v76.openDetails, v76.universeId, v89));
+    local function v117(v110) --[[ Line: 318 ]] --[[ Name: renderCard ]]
+        -- upvalues: v35 (ref), v107 (copy), v108 (copy), v109 (copy), v8 (ref), v33 (ref)
+        local v111 = not v110.universeId or not v110.gameName or not v110.gameThumbnail or v110.votesStatus == "NotReady" or not v110.gamePlayerCount;
+        local v112 = false;
+        if v110.isPlayButtonEnabled and v110.playabilityStatus then
+            v112 = v110.playabilityStatus.isPlayable == true;
         end;
-        local v112 = if v109.isStartOfGroup then v35.Top else if v109.isIncoming then v35.TopRight else v35.TopLeft;
-        local v113 = if v109.openDetails then v106 else nil;
-        local v114 = if v109.onPlayButtonActivated then v107 else nil;
-        local v115 = if v109.openDetails then v108 else nil;
+        local v113 = if v110.isStartOfGroup then v35.Top else if v110.isIncoming then v35.TopRight else v35.TopLeft;
+        local v114 = if v110.openDetails then v107 else nil;
+        local v115 = if v110.onPlayButtonActivated then v108 else nil;
+        local v116 = if v110.openDetails then v109 else nil;
         return v8.createElement(v33, {
-            gameName = v109.gameName, 
-            gameDescription = v109.gameDescription, 
-            gameThumbnail = v109.gameThumbnail, 
-            gameRating = v109.gameRating, 
-            gamePlayerCount = v109.gamePlayerCount, 
+            gameName = v110.gameName, 
+            gameDescription = v110.gameDescription, 
+            gameThumbnail = v110.gameThumbnail, 
+            gameRating = v110.gameRating, 
+            gamePlayerCount = v110.gamePlayerCount, 
             thumbnailAspectRatio = 1.7777777777777777, 
-            thumbnailRoundedVariant = v112, 
-            shouldShowPlayButton = v111, 
-            onPlayButtonActivated = v114, 
-            onThumbnailActivated = v113, 
-            onMetadataActivated = v115, 
-            isRepliedTo = v109.isRepliedTo, 
-            isIncoming = v109.isIncoming, 
-            isPending = v109.isPending, 
-            isLoading = v110, 
-            LayoutOrder = v109.layoutOrder
+            thumbnailRoundedVariant = v113, 
+            shouldShowPlayButton = v112, 
+            onPlayButtonActivated = v115, 
+            onThumbnailActivated = v114, 
+            onMetadataActivated = v116, 
+            isRepliedTo = v110.isRepliedTo, 
+            isIncoming = v110.isIncoming, 
+            isPending = v110.isPending, 
+            isLoading = v111, 
+            LayoutOrder = v110.layoutOrder
         });
     end;
-    local v117 = v43();
-    local v118 = not v52() or not v117 or false;
+    local v118 = v43();
+    local v119 = not v52() or not v118 or false;
     return l_withLocalization_0({
         purchaseGameText = "Feature.GameDetails.Heading.PurchaseGame", 
         viewDetailsText = "Feature.Chat.Action.ViewAssetDetails", 
         playText = "Common.VisitGame.Label.Play", 
         noDescriptionText = "Feature.Chat.Label.NoDescriptionYet"
-    })(function(_) --[[ Line: 344 ]]
-        -- upvalues: v9 (ref), v75 (copy), v78 (copy), v81 (copy), v86 (copy), v88 (copy), l_name_0 (copy), v90 (copy), v91 (copy), v118 (copy), v87 (copy), v49 (ref), v95 (copy), v82 (copy), v103 (copy), v101 (copy), v116 (copy)
-        local v120 = v9.Dictionary.join(v75, {
-            details = v78, 
-            playabilityStatus = v81, 
-            gameIcon = v86, 
-            placeId = v88, 
+    })(function(_) --[[ Line: 369 ]]
+        -- upvalues: v9 (ref), v76 (copy), v79 (copy), v82 (copy), v87 (copy), v89 (copy), l_name_0 (copy), v91 (copy), v92 (copy), v119 (copy), v88 (copy), v49 (ref), v96 (copy), v83 (copy), v104 (copy), v102 (copy), v117 (copy)
+        local v121 = v9.Dictionary.join(v76, {
+            details = v79, 
+            playabilityStatus = v82, 
+            gameIcon = v87, 
+            placeId = v89, 
             gameName = l_name_0, 
-            gameDescription = v90, 
-            gamePrice = v91, 
-            isPlayButtonEnabled = v118, 
-            viewDetailsEnabled = v87[v49.GameDetail], 
-            fetchGameData = v95, 
-            gameThumbnail = v82, 
-            gameRating = v103, 
-            gamePlayerCount = v78.playing or 0, 
-            votesStatus = v101
+            gameDescription = v91, 
+            gamePrice = v92, 
+            isPlayButtonEnabled = v119, 
+            viewDetailsEnabled = v88[v49.GameDetail], 
+            fetchGameData = v96, 
+            gameThumbnail = v83, 
+            gameRating = v104, 
+            gamePlayerCount = v79.playing or 0, 
+            votesStatus = v102
         });
-        return v116(v120);
+        return v117(v121);
     end);
 end;
 return l_RoactServices_0.connect({

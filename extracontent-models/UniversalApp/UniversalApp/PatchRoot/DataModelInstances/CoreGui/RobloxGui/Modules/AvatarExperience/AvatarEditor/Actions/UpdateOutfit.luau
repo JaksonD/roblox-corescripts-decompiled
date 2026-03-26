@@ -3,9 +3,12 @@ local l_CoreGui_0 = game:GetService("CoreGui");
 local v2 = require(l_CorePackages_0.Packages.Rodux);
 local l_Modules_0 = l_CoreGui_0.RobloxGui.Modules;
 local _ = require(l_Modules_0.AvatarExperience.Common.Types);
-return v2.makeActionCreator(script.Name, function(v5, v6) --[[ Line: 13 ]]
+local l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXFixMakeupLookGrantOutfitHoisting;
+return v2.makeActionCreator(script.Name, function(v6, v7, v8) --[[ Line: 18 ]]
+    -- upvalues: l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 (copy)
     return {
-        outfitId = tostring(v5), 
-        isEditable = v6
+        outfitId = tostring(v6), 
+        isEditable = v7, 
+        outfitType = if l_FFlagAXFixMakeupLookGrantOutfitHoisting_0 then v8 else nil
     };
 end);

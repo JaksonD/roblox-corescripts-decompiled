@@ -26,88 +26,89 @@ local l_useSocialBlockingModalAnalytics_0 = v23.useSocialBlockingModalAnalytics;
 local l_EventNames_0 = v23.EventNames;
 local l_FFlagEnableAbuseReportRevampFlow_0 = require(l_Parent_0.SharedFlags).FFlagEnableAbuseReportRevampFlow;
 local l_FFlagDisableBlockAndReport_0 = require(l_Parent_0.SharedFlags).FFlagDisableBlockAndReport;
-return function() --[[ Line: 47 ]] --[[ Name: BlockingModal ]]
-    -- upvalues: l_useNavigation_0 (copy), l_FFlagDisableBlockAndReport_0 (copy), l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_useScreenSize_0 (copy), l_useLayerCollector_0 (copy), v2 (copy), l_useSocialBlockingModalAnalytics_0 (copy), l_EventNames_0 (copy), v22 (copy), v21 (copy), l_FFlagEnableAbuseReportRevampFlow_0 (copy), l_OpenDynamicAbuseReport_0 (copy), l_AbuseVector_0 (copy), l_CloseCentralOverlay_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Url_0 (copy), v16 (copy), l_useLocalization_0 (copy), l_ButtonType_0 (copy), l_InteractiveAlert_0 (copy)
-    local v28 = l_useNavigation_0();
-    local v29 = v28.getParam("navProps");
-    local l_userId_0 = v29.userId;
-    local l_onBlockSuccess_0 = v29.onBlockSuccess;
-    local l_openReportUser_0 = v29.openReportUser;
-    local v33 = if l_FFlagDisableBlockAndReport_0 then v29.disableReportOption else nil;
-    local v34 = l_useLocalUserId_0();
-    local v35 = l_useDispatch_0();
-    local v36 = l_useScreenSize_0();
-    local v37 = l_useLayerCollector_0();
-    if not v36 and v37 and v37.absoluteSize then
-        v36 = v37.absoluteSize;
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+return function() --[[ Line: 48 ]] --[[ Name: BlockingModal ]]
+    -- upvalues: l_useNavigation_0 (copy), l_FFlagDisableBlockAndReport_0 (copy), l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_useScreenSize_0 (copy), l_useLayerCollector_0 (copy), v2 (copy), l_useSocialBlockingModalAnalytics_0 (copy), l_EventNames_0 (copy), v22 (copy), v21 (copy), l_FFlagEnableAbuseReportRevampFlow_0 (copy), l_OpenDynamicAbuseReport_0 (copy), l_AbuseVector_0 (copy), l_CloseCentralOverlay_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Url_0 (copy), v16 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_ButtonType_0 (copy), l_InteractiveAlert_0 (copy)
+    local v29 = l_useNavigation_0();
+    local v30 = v29.getParam("navProps");
+    local l_userId_0 = v30.userId;
+    local l_onBlockSuccess_0 = v30.onBlockSuccess;
+    local l_openReportUser_0 = v30.openReportUser;
+    local v34 = if l_FFlagDisableBlockAndReport_0 then v30.disableReportOption else nil;
+    local v35 = l_useLocalUserId_0();
+    local v36 = l_useDispatch_0();
+    local v37 = l_useScreenSize_0();
+    local v38 = l_useLayerCollector_0();
+    if not v37 and v38 and v38.absoluteSize then
+        v37 = v38.absoluteSize;
     end;
-    local v38 = v2.useCallback(function() --[[ Line: 65 ]]
-        -- upvalues: v28 (copy)
-        v28.pop();
+    local v39 = v2.useCallback(function() --[[ Line: 66 ]]
+        -- upvalues: v29 (copy)
+        v29.pop();
     end, {
-        v28
+        v29
     });
     local l_fireAnalyticsEvent_0 = l_useSocialBlockingModalAnalytics_0({
         userId = l_userId_0
     }).fireAnalyticsEvent;
-    v2.useEffect(function() --[[ Line: 71 ]]
+    v2.useEffect(function() --[[ Line: 72 ]]
         -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.SocialBlockingModalSeen);
     end, {
         l_userId_0
     });
-    local v40 = v22();
-    local v42 = v2.useCallback(function() --[[ Line: 77 ]]
-        -- upvalues: v35 (copy), v21 (ref), l_userId_0 (copy), v34 (copy), l_onBlockSuccess_0 (copy), v40 (copy), v38 (copy)
-        v35(v21.BlockUserById.API({
+    local v41 = v22();
+    local v43 = v2.useCallback(function() --[[ Line: 78 ]]
+        -- upvalues: v36 (copy), v21 (ref), l_userId_0 (copy), v35 (copy), l_onBlockSuccess_0 (copy), v41 (copy), v39 (copy)
+        v36(v21.BlockUserById.API({
             userId = l_userId_0, 
-            currentUserId = v34
-        })):andThen(function() --[[ Line: 82 ]]
+            currentUserId = v35
+        })):andThen(function() --[[ Line: 83 ]]
             -- upvalues: l_onBlockSuccess_0 (ref)
             if l_onBlockSuccess_0 then
                 l_onBlockSuccess_0();
             end;
-        end):catch(function(v41) --[[ Line: 87 ]]
-            -- upvalues: v40 (ref)
-            v40(v41);
+        end):catch(function(v42) --[[ Line: 88 ]]
+            -- upvalues: v41 (ref)
+            v41(v42);
         end);
-        v38();
+        v39();
     end, {
         l_onBlockSuccess_0, 
-        v38, 
+        v39, 
         l_userId_0, 
-        v34, 
         v35, 
-        v40
+        v36, 
+        v41
     });
-    local v43 = v2.useCallback(function() --[[ Line: 94 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v42 (copy)
+    local v44 = v2.useCallback(function() --[[ Line: 95 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v43 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.SocialBlockingModalBlockPressed);
-        v42();
+        v43();
     end, {
-        v42, 
+        v43, 
         l_userId_0, 
         l_fireAnalyticsEvent_0
     });
-    local v44 = v2.useCallback(function() --[[ Line: 100 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v42 (copy), l_openReportUser_0 (copy), l_FFlagEnableAbuseReportRevampFlow_0 (ref), v35 (copy), l_OpenDynamicAbuseReport_0 (ref), l_AbuseVector_0 (ref), l_userId_0 (copy), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_Url_0 (ref)
+    local v45 = v2.useCallback(function() --[[ Line: 101 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v43 (copy), l_openReportUser_0 (copy), l_FFlagEnableAbuseReportRevampFlow_0 (ref), v36 (copy), l_OpenDynamicAbuseReport_0 (ref), l_AbuseVector_0 (ref), l_userId_0 (copy), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_Url_0 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.SocialBlockingModalBlockAndReportPressed);
-        v42();
+        v43();
         if l_openReportUser_0 then
             l_openReportUser_0();
             return;
         elseif l_FFlagEnableAbuseReportRevampFlow_0 then
-            v35(l_OpenDynamicAbuseReport_0({
+            v36(l_OpenDynamicAbuseReport_0({
                 abuseVector = l_AbuseVector_0.UserProfile, 
                 targetId = l_userId_0, 
-                onClose = function() --[[ Line: 111 ]] --[[ Name: onClose ]]
-                    -- upvalues: v35 (ref), l_CloseCentralOverlay_0 (ref)
-                    v35(l_CloseCentralOverlay_0());
+                onClose = function() --[[ Line: 112 ]] --[[ Name: onClose ]]
+                    -- upvalues: v36 (ref), l_CloseCentralOverlay_0 (ref)
+                    v36(l_CloseCentralOverlay_0());
                 end
             }));
             return;
         else
-            v35(l_NavigateDown_0({
+            v36(l_NavigateDown_0({
                 name = l_AppPage_0.GenericWebPage, 
                 detail = ("%*abusereport/userprofile?id=%*"):format(l_Url_0.BASE_URL, l_userId_0), 
                 extraProps = {
@@ -117,78 +118,78 @@ return function() --[[ Line: 47 ]] --[[ Name: BlockingModal ]]
             return;
         end;
     end, {
-        v42, 
-        v35, 
+        v43, 
+        v36, 
         l_userId_0, 
         l_fireAnalyticsEvent_0, 
         l_openReportUser_0
     });
-    local v45 = v2.useCallback(function() --[[ Line: 135 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v38 (copy)
+    local v46 = v2.useCallback(function() --[[ Line: 136 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v39 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.SocialBlockingModalCancelPressed);
-        v38();
+        v39();
     end, {
-        v38, 
+        v39, 
         l_fireAnalyticsEvent_0
     });
-    local v46 = v16.Hooks.useUserProfilesFetch({
+    local v47 = v16.Hooks.useUserProfilesFetch({
         userIds = {
             l_userId_0
         }, 
         query = v16.Queries.userProfilesCombinedNameByUserIds
     });
-    local v47 = if v46.data then v16.Selectors.getCombinedNameFromId(v46.data, l_userId_0) else nil;
-    local v48 = l_useLocalization_0({
+    local v48 = if v47.data then v16.Selectors.getCombinedNameFromId(v47.data, l_userId_0) else nil;
+    local v49 = l_useLocalization_0({
         title = {
             "Feature.BlockingModal.Heading.BlockUser"; 
-            DisplayName = v47
+            DisplayName = v48
         }, 
-        bodyText = "Feature.BlockingModal.Message.BlockConfirmation", 
+        bodyText = l_FFlagConnectionsToFriendsRename_0 and "Feature.BlockingModal.Message.BlockConfirmation.FriendsRename" or "Feature.BlockingModal.Message.BlockConfirmation", 
         cancelBtnText = "Feature.BlockingModal.Action.Cancel", 
         blockBtnText = "Feature.BlockingModal.Action.Block", 
         blockAndReportBtnText = "Feature.BlockingModal.Action.BlockAndReport"
     });
-    local v50 = v2.useMemo(function() --[[ Line: 161 ]]
-        -- upvalues: l_ButtonType_0 (ref), v48 (copy), v45 (copy), l_FFlagDisableBlockAndReport_0 (ref), v33 (copy), v44 (copy), v43 (copy)
-        local v49 = {};
-        table.insert(v49, {
+    local v51 = v2.useMemo(function() --[[ Line: 164 ]]
+        -- upvalues: l_ButtonType_0 (ref), v49 (copy), v46 (copy), l_FFlagDisableBlockAndReport_0 (ref), v34 (copy), v45 (copy), v44 (copy)
+        local v50 = {};
+        table.insert(v50, {
             buttonType = l_ButtonType_0.Secondary, 
             props = {
-                text = v48.cancelBtnText, 
-                onActivated = v45
+                text = v49.cancelBtnText, 
+                onActivated = v46
             }
         });
-        if not l_FFlagDisableBlockAndReport_0 or not v33 then
-            table.insert(v49, {
+        if not l_FFlagDisableBlockAndReport_0 or not v34 then
+            table.insert(v50, {
                 buttonType = l_ButtonType_0.Alert, 
                 props = {
-                    text = v48.blockAndReportBtnText, 
-                    onActivated = v44
+                    text = v49.blockAndReportBtnText, 
+                    onActivated = v45
                 }
             });
         end;
-        table.insert(v49, {
+        table.insert(v50, {
             buttonType = l_ButtonType_0.Alert, 
             props = {
-                text = v48.blockBtnText, 
-                onActivated = v43
+                text = v49.blockBtnText, 
+                onActivated = v44
             }
         });
-        return v49;
+        return v50;
     end, {
-        v48, 
+        v49, 
+        v46, 
         v45, 
-        v44, 
-        v33, 
-        v43
+        v34, 
+        v44
     });
     return v2.createElement(l_InteractiveAlert_0, {
-        screenSize = v36, 
-        title = v48.title, 
-        bodyText = v48.bodyText, 
+        screenSize = v37, 
+        title = v49.title, 
+        bodyText = v49.bodyText, 
         richText = true, 
         buttonStackInfo = {
-            buttons = v50 or {}
+            buttons = v51 or {}
         }
     });
 end;

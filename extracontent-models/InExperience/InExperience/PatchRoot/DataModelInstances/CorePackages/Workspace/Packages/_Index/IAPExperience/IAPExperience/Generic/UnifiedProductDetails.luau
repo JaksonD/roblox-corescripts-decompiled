@@ -139,16 +139,16 @@ return function(v28) --[[ Line: 79 ]]
     }, {
         ItemCost = if v30 then if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then v3.createElement(l_Text_0, {
             LayoutOrder = 1, 
-            Text = v35 .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then " " .. l_priceSuffix_0 else "", 
+            Text = v35 .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then "" .. l_priceSuffix_0 else "", 
             tag = if v18 then v41 else "auto-xy text-align-x-left text-wrap text-body-small content-emphasis", 
             RichText = true
         }) else v3.createElement(l_Text_0, {
             LayoutOrder = 1, 
-            Text = utf8.char(57346) .. " " .. v2(l_LocalizationService_0.RobloxLocaleId, v30) .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then " " .. l_priceSuffix_0 else "", 
+            Text = utf8.char(57346) .. " " .. v2(l_LocalizationService_0.RobloxLocaleId, v30) .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then "" .. l_priceSuffix_0 else "", 
             tag = "auto-xy text-align-x-left text-wrap text-title-medium content-emphasis"
         }) else if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v28.itemDisplayPrice then v3.createElement(l_Text_0, {
             LayoutOrder = 1, 
-            Text = v28.itemDisplayPrice .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then " " .. l_priceSuffix_0 else "", 
+            Text = v28.itemDisplayPrice .. if l_priceSuffix_0 and l_priceSuffix_0 ~= "" then "" .. l_priceSuffix_0 else "", 
             tag = if v18 then v41 else "auto-xy text-align-x-left text-wrap text-body-small content-emphasis"
         }) else nil, 
         OriginalPrice = if v37 and v36 then v3.createElement(l_Text_0, {

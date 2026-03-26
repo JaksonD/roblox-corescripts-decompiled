@@ -15,8 +15,8 @@ local l_ImageSetButton_0 = v3.Core.ImageSet.ImageSetButton;
 local l_Images_0 = v3.App.ImageSet.Images;
 local l_getLocalizedStrings_0 = l_LocalizationHelper_0.getLocalizedStrings;
 local v16 = require(l_script_FirstAncestor_0.Context.FriendsListContext);
-local v17 = require(l_script_FirstAncestor_0.utils.getRenameFriendsToConnectionsEnabledFriendsMenu);
 local l_FFlagEnableAppChatFocusableFixes_0 = v6.FFlagEnableAppChatFocusableFixes;
+local l_FFlagConnectionsToFriendsRename_0 = v6.FFlagConnectionsToFriendsRename;
 local v19 = l_Images_0["icons/menu/search"];
 local v20 = l_Images_0["icons/actions/edit/clear"];
 local v21 = 8;
@@ -28,9 +28,9 @@ local v26 = 16;
 local v27 = v23 + v25 + v24;
 local v28 = 4;
 local v29 = {
-    searchPlaceHolder = v17() and "Feature.FriendsMenu.Label.SearchForConnections" or "Feature.SettingsHub.Label.SearchForFriendsPlaceholder"
+    searchPlaceHolder = l_FFlagConnectionsToFriendsRename_0 and "Feature.SettingsHub.Label.SearchForFriendsPlaceholder.FriendsRename" or "Feature.FriendsMenu.Label.SearchForConnections"
 };
-local function v44(v30, v31) --[[ Line: 52 ]]
+local function v44(v30, v31) --[[ Line: 51 ]]
     -- upvalues: l_useStyle_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_useTokens_0 (copy), v2 (copy), v16 (copy), l_getLocalizedStrings_0 (copy), v29 (copy), v21 (ref), v22 (ref), v23 (ref), v25 (ref), v24 (ref), v26 (ref), v28 (ref), v27 (ref), l_useCursor_0 (copy), v7 (copy), l_GetFFlagEnableFriendsListSearchNormalizationErrorFix_0 (copy), l_Debounce_0 (copy), l_ImageSetLabel_0 (copy), v19 (copy), l_ImageSetButton_0 (copy), v20 (copy)
     local v32 = l_useStyle_0();
     local v33 = if l_FFlagEnableAppChatFocusableFixes_0 then l_useTokens_0() else nil;
@@ -55,16 +55,16 @@ local function v44(v30, v31) --[[ Line: 52 ]]
     local l_searchFriends_0 = v34.searchFriends;
     local v40 = #l_searchFriendsString_0 > 0;
     local v41 = nil;
-    v41 = if l_GetFFlagEnableFriendsListSearchNormalizationErrorFix_0() then v2.useCallback(l_Debounce_0(function(v42) --[[ Line: 85 ]]
+    v41 = if l_GetFFlagEnableFriendsListSearchNormalizationErrorFix_0() then v2.useCallback(l_Debounce_0(function(v42) --[[ Line: 84 ]]
         -- upvalues: l_searchFriends_0 (copy)
         l_searchFriends_0(v42.Text:lower());
     end, 0.5), {
         l_searchFriends_0
-    }) else function(v43) --[[ Line: 93 ]]
+    }) else function(v43) --[[ Line: 92 ]]
         -- upvalues: l_searchFriends_0 (copy)
         l_searchFriends_0(v43.Text);
     end;
-    v2.useEffect(function() --[[ Line: 100 ]]
+    v2.useEffect(function() --[[ Line: 99 ]]
         -- upvalues: v36 (ref), v30 (copy)
         if v36.current and v30.focusElement then
             v36.current:CaptureFocus();
@@ -132,7 +132,7 @@ local function v44(v30, v31) --[[ Line: 52 ]]
             Image = v20, 
             ImageColor3 = v32.Theme.IconEmphasis.Color, 
             ImageTransparency = v32.Theme.IconEmphasis.Transparency, 
-            [v2.Event.Activated] = function() --[[ Line: 166 ]]
+            [v2.Event.Activated] = function() --[[ Line: 165 ]]
                 -- upvalues: l_searchFriends_0 (copy)
                 l_searchFriends_0("");
             end, 

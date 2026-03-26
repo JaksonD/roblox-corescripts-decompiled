@@ -4,21 +4,22 @@ local l_useNavigation_0 = require(l_Parent_0.Navigation).useNavigation;
 local l_HeaderBar_0 = require(l_Parent_0.UIBlox).App.Bar.HeaderBar;
 local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
 local v5 = require(l_Parent_0.AppHeaderBar);
-return function(v6) --[[ Line: 20 ]] --[[ Name: AddFriendsPageHeader ]]
-    -- upvalues: l_useLocalization_0 (copy), l_useNavigation_0 (copy), v1 (copy), v5 (copy), l_HeaderBar_0 (copy)
-    local l_topBarHeight_0 = v6.topBarHeight;
-    local v8 = l_useLocalization_0({
-        titleText = "CommonUI.Features.Label.AddConnections"
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+return function(v7) --[[ Line: 22 ]] --[[ Name: AddFriendsPageHeader ]]
+    -- upvalues: l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useNavigation_0 (copy), v1 (copy), v5 (copy), l_HeaderBar_0 (copy)
+    local l_topBarHeight_0 = v7.topBarHeight;
+    local v9 = l_useLocalization_0({
+        titleText = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Feature.Friends.Heading.AddFriends" or "CommonUI.Features.Label.AddConnections"
     });
-    local v9 = l_useNavigation_0();
-    local v10 = v1.useMemo(function() --[[ Line: 29 ]]
-        -- upvalues: v5 (ref), v9 (copy)
-        return v5.makeBackButton(function() --[[ Line: 30 ]]
-            -- upvalues: v9 (ref)
-            v9.pop();
+    local v10 = l_useNavigation_0();
+    local v11 = v1.useMemo(function() --[[ Line: 33 ]]
+        -- upvalues: v5 (ref), v10 (copy)
+        return v5.makeBackButton(function() --[[ Line: 34 ]]
+            -- upvalues: v10 (ref)
+            v10.pop();
         end);
     end, {
-        v9
+        v10
     });
     return v1.createElement("Frame", {
         BackgroundTransparency = 1, 
@@ -27,9 +28,9 @@ return function(v6) --[[ Line: 20 ]] --[[ Name: AddFriendsPageHeader ]]
         ZIndex = 2
     }, {
         headerBar = v1.createElement(l_HeaderBar_0, {
-            title = v8.titleText, 
+            title = v9.titleText, 
             barHeight = l_topBarHeight_0, 
-            renderLeft = v10, 
+            renderLeft = v11, 
             isSecondary = true, 
             paddingTop = UDim.new(0, 0), 
             paddingBottom = UDim.new(0, 0)

@@ -28,7 +28,7 @@ local v26 = require(script.Parent.UserCellWithCheckboxDeprecated);
 local v27 = require(l_script_FirstAncestor_0.Components.Cells.AvatarCircle);
 local v28 = require(script.Parent.PaginatedChatMembersDeprecated);
 local v29 = require(script.Parent.SelectedMembersBarDeprecated);
-local l_FFlagAppChatEnableHandheldScalingFixes_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableHandheldScalingFixes;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 local function _(v31, v32) --[[ Line: 41 ]] --[[ Name: isUserSelected ]]
     -- upvalues: l_List_0 (copy)
     return l_List_0.findWhere(v31, function(v33) --[[ Line: 42 ]]
@@ -42,17 +42,15 @@ local v37 = 12;
 local v38 = 12;
 local v39 = game:DefineFastInt("AppChatSelectChatMembersDebounceTime", 250);
 return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
-    -- upvalues: l_useLocalization_0 (copy), l_useTokens_0 (copy), l_FFlagAppChatEnableHandheldScalingFixes_0 (copy), v35 (ref), l_v35_0 (ref), v37 (ref), v38 (ref), l_useStyle_0 (copy), l_useTextSizeOffset_0 (copy), l_createNextOrder_0 (copy), l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v2 (copy), l_setTimeout_0 (copy), v39 (copy), l_useUserProfilesFetch_0 (copy), v19 (copy), v12 (copy), l_List_0 (copy), v17 (copy), v21 (copy), l_dependencyArray_0 (copy), l_clearTimeout_0 (copy), v5 (copy), v27 (copy), v26 (copy), l_UserModel_0 (copy), v4 (copy), v29 (copy), l_TextField_0 (copy), l_Images_0 (copy), v28 (copy)
+    -- upvalues: l_useLocalization_0 (copy), l_useTokens_0 (copy), v35 (ref), l_v35_0 (ref), v37 (ref), v38 (ref), l_useStyle_0 (copy), l_useTextSizeOffset_0 (copy), l_createNextOrder_0 (copy), l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v2 (copy), l_setTimeout_0 (copy), v39 (copy), l_useUserProfilesFetch_0 (copy), v19 (copy), v12 (copy), l_List_0 (copy), v17 (copy), v21 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_clearTimeout_0 (copy), v5 (copy), v27 (copy), v26 (copy), l_UserModel_0 (copy), v4 (copy), v29 (copy), l_TextField_0 (copy), l_Images_0 (copy), v28 (copy)
     local v41 = l_useLocalization_0({
         suggested = "Feature.Friends.Label.Suggested"
     });
     local v42 = l_useTokens_0();
-    if l_FFlagAppChatEnableHandheldScalingFixes_0 then
-        v35 = v42.Size.Size_1200;
-        l_v35_0 = v42.Size.Size_1200;
-        v37 = v42.Padding.Medium;
-        v38 = v42.Padding.Medium;
-    end;
+    v35 = v42.Size.Size_1200;
+    l_v35_0 = v42.Size.Size_1200;
+    v37 = v42.Padding.Medium;
+    v38 = v42.Padding.Medium;
     local v43 = l_useStyle_0();
     local v44 = l_useTextSizeOffset_0();
     local v45 = v35 + 2 * v44;
@@ -61,7 +59,7 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
     local v48 = l_createNextOrder_0();
     local v49 = l_useDispatch_0();
     local v50 = l_useLocalUserId_0();
-    local v51 = v2.useRef(l_setTimeout_0(function() --[[ Line: 104 ]]
+    local v51 = v2.useRef(l_setTimeout_0(function() --[[ Line: 101 ]]
 
     end, v39));
     local v52 = v2.useRef("");
@@ -70,32 +68,36 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
         userIds = v53, 
         query = v19.Queries.userProfilesCombinedNameAndUsernameByUserIds
     });
-    local v63 = v2.useCallback(function(v56) --[[ Line: 113 ]]
+    local v63 = v2.useCallback(function(v56) --[[ Line: 111 ]]
         -- upvalues: v49 (copy), v12 (ref), v50 (copy), l_List_0 (ref), v54 (copy), v17 (ref), v40 (copy), v21 (ref)
         v49(v12.SearchFriendsByQuery.API(v50, {
             query = v56, 
             limit = 20
-        })):andThen(function(v57) --[[ Line: 118 ]]
+        })):andThen(function(v57) --[[ Line: 116 ]]
             -- upvalues: l_List_0 (ref), v54 (ref), v17 (ref), v40 (ref), v21 (ref)
-            local v59 = l_List_0.map(v57.responseBody.PageItems, function(v58) --[[ Line: 119 ]]
+            local v59 = l_List_0.map(v57.responseBody.PageItems, function(v58) --[[ Line: 117 ]]
                 return (tostring(v58.id));
             end);
-            v54(v17.List.filter(v59, function(v60) --[[ Line: 122 ]]
+            v54(v17.List.filter(v59, function(v60) --[[ Line: 120 ]]
                 -- upvalues: v40 (ref), v21 (ref)
                 local v61 = v40.conversation or {
                     participants = {}
                 };
                 return not v21(v60, v61);
             end));
-        end):catch(function(v62) --[[ Line: 129 ]]
+        end):catch(function(v62) --[[ Line: 127 ]]
             print("error", v62);
         end);
-    end, l_dependencyArray_0(v49, v50, v40.conversation));
-    local v65 = v2.useCallback(function(v64) --[[ Line: 134 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v49, 
+        v50, 
+        v40.conversation
+    } else l_dependencyArray_0(v49, v50, v40.conversation));
+    local v65 = v2.useCallback(function(v64) --[[ Line: 136 ]]
         -- upvalues: l_clearTimeout_0 (ref), v51 (copy), v52 (copy), l_setTimeout_0 (ref), v63 (copy), v54 (copy), v39 (ref)
         l_clearTimeout_0(v51.current);
         v52.current = v64;
-        v51.current = l_setTimeout_0(function() --[[ Line: 137 ]]
+        v51.current = l_setTimeout_0(function() --[[ Line: 139 ]]
             -- upvalues: v64 (copy), v63 (ref), v54 (ref)
             if v64 ~= "" then
                 v63(v64);
@@ -108,7 +110,7 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
     end, {
         v63
     });
-    local v67 = v2.useCallback(function(v66) --[[ Line: 146 ]]
+    local v67 = v2.useCallback(function(v66) --[[ Line: 149 ]]
         -- upvalues: v2 (ref), v5 (ref), v27 (ref), v40 (copy), l_Theme_0 (copy), l_Font_0 (copy)
         return v2.createElement("Frame", {
             Size = UDim2.fromScale(1, 1), 
@@ -123,7 +125,7 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
                 thumbnails = {
                     v66.thumbnail
                 }, 
-                onActivated = function() --[[ Line: 158 ]] --[[ Name: onActivated ]]
+                onActivated = function() --[[ Line: 161 ]] --[[ Name: onActivated ]]
                     -- upvalues: v40 (ref), v66 (copy)
                     v40.onEntryActivated(v66);
                 end, 
@@ -147,8 +149,12 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
                 TextTruncate = Enum.TextTruncate.AtEnd
             })
         });
-    end, l_dependencyArray_0(v40.onEntryActivated, l_Theme_0, l_Font_0));
-    local v84 = v2.useCallback(function(v68) --[[ Line: 183 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v40.onEntryActivated, 
+        l_Theme_0, 
+        l_Font_0
+    } else l_dependencyArray_0(v40.onEntryActivated, l_Theme_0, l_Font_0));
+    local v84 = v2.useCallback(function(v68) --[[ Line: 191 ]]
         -- upvalues: v2 (ref), v40 (copy), v45 (copy), v26 (ref), v43 (copy), l_List_0 (ref)
         local l_item_0 = v68.item;
         local l_createElement_0 = v2.createElement;
@@ -183,14 +189,20 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
         v77.cellContent = l_createElement_2(l_v26_0, v80);
         v73.userCell = l_createElement_1(v75, v76, v77);
         return l_createElement_0(v71, v72, v73);
-    end, l_dependencyArray_0(v40.onEntryActivated, v40.selectedUsers, v40.isDebugEnabled, v43, v44));
-    local v85 = v2.useCallback(function() --[[ Line: 205 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v40.onEntryActivated, 
+        v40.selectedUsers, 
+        v40.isDebugEnabled, 
+        v43, 
+        v44
+    } else l_dependencyArray_0(v40.onEntryActivated, v40.selectedUsers, v40.isDebugEnabled, v43, v44));
+    local v85 = v2.useCallback(function() --[[ Line: 223 ]]
         -- upvalues: v65 (copy)
         v65("");
     end, {
         v65
     });
-    local v102 = v2.useCallback(function(v86) --[[ Line: 210 ]]
+    local v102 = v2.useCallback(function(v86) --[[ Line: 228 ]]
         -- upvalues: v2 (ref), v40 (copy), v45 (copy), v26 (ref), v43 (copy), l_List_0 (ref)
         local l_item_1 = v86.item;
         local l_createElement_3 = v2.createElement;
@@ -238,7 +250,7 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
     local v105 = if v40.shouldShowSelectChatMembersBar then v38 * 2 else v38;
     local v106 = l_v35_0 + v104 + v105;
     local v107 = #v53 == 0;
-    local v111 = v2.useMemo(function() --[[ Line: 247 ]]
+    local v111 = v2.useMemo(function() --[[ Line: 266 ]]
         -- upvalues: v55 (copy), v107 (copy), v53 (copy), v19 (ref), l_UserModel_0 (ref)
         local v108 = {};
         if v55.data and not v107 then
@@ -253,7 +265,11 @@ return function(v40) --[[ Line: 82 ]] --[[ Name: SelectChatMembers ]]
             end;
         end;
         return v108;
-    end, l_dependencyArray_0(v53, v55.data, v107));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v53, 
+        v55.data, 
+        v107
+    } else l_dependencyArray_0(v53, v55.data, v107));
     return v2.createElement(v4, {
         Size = UDim2.new(1, 0, 1, 0), 
         BackgroundTransparency = l_Theme_0.BackgroundDefault.Transparency, 

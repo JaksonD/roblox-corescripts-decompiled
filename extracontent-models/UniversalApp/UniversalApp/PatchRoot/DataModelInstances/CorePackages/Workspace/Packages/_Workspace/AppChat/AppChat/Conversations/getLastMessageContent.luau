@@ -10,7 +10,7 @@ local v8 = require(l_script_FirstAncestor_0.Models.MessageModel);
 local l_GetFFlagEnableSocialCards_0 = v4.GetFFlagEnableSocialCards;
 local v10 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableHiddenMessages);
 local l_FFlagAppChatExcludeSyntheticPreviewFromMessages_0 = require(l_script_FirstAncestor_0.Flags).FFlagAppChatExcludeSyntheticPreviewFromMessages;
-local v12 = game:DefineFastFlag("AppChatSwapHiddenMessageVisibilityAndPreviewContent", false);
+local v12 = game:DefineFastFlag("AppChatSwapHiddenMessageVisibilityAndPreviewContent1", false);
 local function v14(v13) --[[ Line: 23 ]] --[[ Name: getMessageContent ]]
     -- upvalues: v12 (copy), v10 (copy), v8 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v7 (copy), l_Url_0 (copy), l_GetFFlagEnableSocialCards_0 (copy)
     if v12 then

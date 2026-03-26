@@ -9,7 +9,12 @@ return function(v7, v8, v9, v10, v11, v12) --[[ Line: 16 ]] --[[ Name: initiateR
     -- upvalues: v3 (copy), v4 (copy), v5 (copy), v1 (copy), v2 (copy)
     local v13 = v3.get();
     if v8 and v8.onFlowComplete then
-        v13.setOnFlowComplete(v8.onFlowComplete);
+        if v8.onFlowComplete then
+            v13.setOnFlowComplete(v8.onFlowComplete);
+        end;
+        if v8.onBackButtonActivated then
+            v13.setOnBackButtonActivated(v8.onBackButtonActivated);
+        end;
     end;
     if v7 then
         v13.setPurchaseUIOptions(v7);

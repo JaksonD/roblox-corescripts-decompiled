@@ -21,11 +21,11 @@ local function v18(v12) --[[ Line: 27 ]] --[[ Name: RobloxSubscriptionDiscountRo
         l_RobloxLocaleId_0, 
         l_discount_0.amountInRobux
     });
-    local v16 = l_discount_0.percentage > 0;
+    local v16 = l_discount_0.percent > 0;
     local v17 = v8({
         discountLabel = if v16 then {
             "IAPExperience.PurchasePrompt.Label.BlackbirdDiscount"; 
-            discountPercentage = l_discount_0.percentage
+            discountPercentage = l_discount_0.percent
         } else "IAPExperience.PurchasePrompt.Label.BlackbirdDiscountNoPercent"
     });
     return v2.createElement(v9, {
@@ -45,11 +45,11 @@ local function v25(v19) --[[ Line: 51 ]] --[[ Name: GenericDiscountRow ]]
         l_RobloxLocaleId_1, 
         l_discount_1.amountInRobux
     });
-    local v23 = l_discount_1.percentage > 0;
+    local v23 = l_discount_1.percent > 0;
     local v24 = v8({
         discountLabel = if v23 then {
             "IAPExperience.PurchasePrompt.Label.GenericDiscount"; 
-            discountPercentage = l_discount_1.percentage
+            discountPercentage = l_discount_1.percent
         } else "IAPExperience.PurchasePrompt.Label.GenericDiscountNoPercent"
     });
     return v2.createElement(v9, {
@@ -59,7 +59,7 @@ local function v25(v19) --[[ Line: 51 ]] --[[ Name: GenericDiscountRow ]]
     });
 end;
 local v26 = {
-    [l_DiscountType_0.RobloxSubscription] = v18
+    [l_DiscountType_0.BlackbirdSubscription] = v18
 };
 return function(v27) --[[ Line: 79 ]] --[[ Name: DiscountRow ]]
     -- upvalues: v26 (copy), v25 (copy), v2 (copy)

@@ -7,73 +7,80 @@ local l_NavigateDown_0 = require(l_CorePackages_0.Workspace.Packages.NavigationR
 local v6 = require(l_CorePackages_0.Workspace.Packages.GameDetail);
 local l_SetGameDetailsPeekViewState_0 = v6.PeekView.SetGameDetailsPeekViewState;
 local l_UseGameDetailsPeekView_0 = v6.PeekView.UseGameDetailsPeekView;
+local v9 = require(l_CorePackages_0.Workspace.Packages.GameDetailTelemetry);
+local l_FFlagEDPTTITrackingEnabled_0 = v9.FFlagEDPTTITrackingEnabled;
+local l_EDPTTIConstants_0 = v9.EDPTTIConstants;
 local l_FFlagLuaAppSduiEdpEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEdpEnabled;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v11 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
-local v12 = require(l_Modules_0.LuaApp.Util.startNewPeekViewHistory);
-local function _(v13, v14) --[[ Line: 19 ]] --[[ Name: openBriefGameDetailsPeekView ]]
-    -- upvalues: v12 (copy), l_SetGameDetailsPeekViewState_0 (copy), l_PeekViewState_0 (copy), v11 (copy)
-    local v15 = v12(v13, v14);
-    local l_newRoute_0 = v15.newRoute;
-    local l_newHistory_0 = v15.newHistory;
-    v13:dispatch(l_SetGameDetailsPeekViewState_0(l_PeekViewState_0.Closed));
-    v13:dispatch(v11(l_newRoute_0, l_newHistory_0));
+local v14 = require(l_Modules_0.LuaApp.Thunks.ResetNavigationHistory);
+local v15 = require(l_Modules_0.LuaApp.Util.startNewPeekViewHistory);
+local l_EDPTTIManager_0 = v9.EDPTTIManager;
+local function _(v17, v18) --[[ Line: 24 ]] --[[ Name: openBriefGameDetailsPeekView ]]
+    -- upvalues: v15 (copy), l_SetGameDetailsPeekViewState_0 (copy), l_PeekViewState_0 (copy), v14 (copy)
+    local v19 = v15(v17, v18);
+    local l_newRoute_0 = v19.newRoute;
+    local l_newHistory_0 = v19.newHistory;
+    v17:dispatch(l_SetGameDetailsPeekViewState_0(l_PeekViewState_0.Closed));
+    v17:dispatch(v14(l_newRoute_0, l_newHistory_0));
 end;
-local function v22(v19, v20) --[[ Line: 28 ]] --[[ Name: openFullGameDetailsPeekView ]]
+local function v26(v23, v24) --[[ Line: 33 ]] --[[ Name: openFullGameDetailsPeekView ]]
     -- upvalues: v1 (copy), l_NavigateDown_0 (copy)
-    local v21 = v1.Dictionary.join(v20, {
-        extraProps = v1.Dictionary.join(v20.extraProps or {}, {
+    local v25 = v1.Dictionary.join(v24, {
+        extraProps = v1.Dictionary.join(v24.extraProps or {}, {
             mountAsFullView = true
         })
     });
-    v19:dispatch(l_NavigateDown_0(v21));
-end;
-local function _(v23, v24) --[[ Line: 35 ]] --[[ Name: openExperienceDetailsPage ]]
-    -- upvalues: v1 (copy), l_AppPage_0 (copy), l_NavigateDown_0 (copy)
-    local v25 = v1.Dictionary.join(v24, {
-        name = l_AppPage_0.ExperienceDetail
-    });
     v23:dispatch(l_NavigateDown_0(v25));
 end;
-return function(v27, v28) --[[ Line: 42 ]]
-    -- upvalues: l_FFlagLuaAppSduiEdpEnabled_0 (copy), l_CorePackages_0 (copy), l_AppPage_0 (copy), v1 (copy), l_FormFactor_0 (copy), l_UseGameDetailsPeekView_0 (copy), l_PeekViewState_0 (copy), v22 (copy), v12 (copy), l_SetGameDetailsPeekViewState_0 (copy), v11 (copy), l_NavigateDown_0 (copy)
-    return function(v29) --[[ Line: 43 ]]
-        -- upvalues: l_FFlagLuaAppSduiEdpEnabled_0 (ref), l_CorePackages_0 (ref), l_AppPage_0 (ref), v28 (ref), v1 (ref), v27 (copy), l_FormFactor_0 (ref), l_UseGameDetailsPeekView_0 (ref), l_PeekViewState_0 (ref), v22 (ref), v12 (ref), l_SetGameDetailsPeekViewState_0 (ref), v11 (ref), l_NavigateDown_0 (ref)
-        if l_FFlagLuaAppSduiEdpEnabled_0 then
-            local v30 = require(l_CorePackages_0.Workspace.Packages.GameDetail);
-            local l_SduiLoadTimer_0 = require(l_CorePackages_0.Workspace.Packages.SduiSharedUtilities).SduiLoadTimer;
-            local l_fetchExperienceDetailsPage_0 = v30.fetchExperienceDetailsPage;
-            local v33 = l_SduiLoadTimer_0.createLoadTimer(l_AppPage_0.ExperienceDetail);
-            v28 = v1.Dictionary.join(v28 or {}, {
-                pageTimer = v33
-            });
-            l_fetchExperienceDetailsPage_0(tostring(v27), v33);
+local function _(v27, v28) --[[ Line: 40 ]] --[[ Name: openExperienceDetailsPage ]]
+    -- upvalues: v1 (copy), l_AppPage_0 (copy), l_NavigateDown_0 (copy)
+    local v29 = v1.Dictionary.join(v28, {
+        name = l_AppPage_0.ExperienceDetail
+    });
+    v27:dispatch(l_NavigateDown_0(v29));
+end;
+return function(v31, v32) --[[ Line: 47 ]]
+    -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (copy), l_EDPTTIManager_0 (copy), l_EDPTTIConstants_0 (copy), l_FFlagLuaAppSduiEdpEnabled_0 (copy), l_CorePackages_0 (copy), l_AppPage_0 (copy), v1 (copy), l_FormFactor_0 (copy), l_UseGameDetailsPeekView_0 (copy), l_PeekViewState_0 (copy), v26 (copy), v15 (copy), l_SetGameDetailsPeekViewState_0 (copy), v14 (copy), l_NavigateDown_0 (copy)
+    return function(v33) --[[ Line: 48 ]]
+        -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (ref), l_EDPTTIManager_0 (ref), l_EDPTTIConstants_0 (ref), l_FFlagLuaAppSduiEdpEnabled_0 (ref), l_CorePackages_0 (ref), l_AppPage_0 (ref), v32 (ref), v1 (ref), v31 (copy), l_FormFactor_0 (ref), l_UseGameDetailsPeekView_0 (ref), l_PeekViewState_0 (ref), v26 (ref), v15 (ref), l_SetGameDetailsPeekViewState_0 (ref), v14 (ref), l_NavigateDown_0 (ref)
+        if l_FFlagEDPTTITrackingEnabled_0 then
+            l_EDPTTIManager_0.startTracking(l_EDPTTIConstants_0.EDP_ENTRY_PATH.GAME_DETAIL_OPEN_GAME_DETAILS);
         end;
-        local v34 = {
+        if l_FFlagLuaAppSduiEdpEnabled_0 then
+            local v34 = require(l_CorePackages_0.Workspace.Packages.GameDetail);
+            local l_SduiLoadTimer_0 = require(l_CorePackages_0.Workspace.Packages.SduiSharedUtilities).SduiLoadTimer;
+            local l_fetchExperienceDetailsPage_0 = v34.fetchExperienceDetailsPage;
+            local v37 = l_SduiLoadTimer_0.createLoadTimer(l_AppPage_0.ExperienceDetail);
+            v32 = v1.Dictionary.join(v32 or {}, {
+                pageTimer = v37
+            });
+            l_fetchExperienceDetailsPage_0(tostring(v31), v37);
+        end;
+        local v38 = {
             name = l_AppPage_0.GameDetail, 
-            detail = tostring(v27), 
-            extraProps = v28
+            detail = tostring(v31), 
+            extraProps = v32
         };
-        local v35 = v29:getState();
-        local l_FormFactor_1 = v35.FormFactor;
-        local l_viewState_0 = v35.GameDetailsPeekView.viewState;
+        local v39 = v33:getState();
+        local l_FormFactor_1 = v39.FormFactor;
+        local l_viewState_0 = v39.GameDetailsPeekView.viewState;
         if l_FormFactor_1 == l_FormFactor_0.COMPACT and l_UseGameDetailsPeekView_0() then
-            if l_viewState_0 == l_PeekViewState_0.Full or l_viewState_0 == l_PeekViewState_0.Extended or v28 and v28.mountAsFullView then
-                v22(v29, v34);
+            if l_viewState_0 == l_PeekViewState_0.Full or l_viewState_0 == l_PeekViewState_0.Extended or v32 and v32.mountAsFullView then
+                v26(v33, v38);
                 return;
             else
-                local v38 = v12(v29, v34);
-                local l_newRoute_1 = v38.newRoute;
-                local l_newHistory_1 = v38.newHistory;
-                v29:dispatch(l_SetGameDetailsPeekViewState_0(l_PeekViewState_0.Closed));
-                v29:dispatch(v11(l_newRoute_1, l_newHistory_1));
+                local v42 = v15(v33, v38);
+                local l_newRoute_1 = v42.newRoute;
+                local l_newHistory_1 = v42.newHistory;
+                v33:dispatch(l_SetGameDetailsPeekViewState_0(l_PeekViewState_0.Closed));
+                v33:dispatch(v14(l_newRoute_1, l_newHistory_1));
                 return;
             end;
         else
-            local v41 = v1.Dictionary.join(v34, {
+            local v45 = v1.Dictionary.join(v38, {
                 name = l_AppPage_0.ExperienceDetail
             });
-            v29:dispatch(l_NavigateDown_0(v41));
+            v33:dispatch(l_NavigateDown_0(v45));
             return;
         end;
     end;

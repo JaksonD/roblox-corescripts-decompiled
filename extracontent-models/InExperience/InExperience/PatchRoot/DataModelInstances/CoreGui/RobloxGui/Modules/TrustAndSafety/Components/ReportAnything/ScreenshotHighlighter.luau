@@ -31,7 +31,7 @@ return function(v8) --[[ Line: 24 ]] --[[ Name: ScreenshotHighlighter ]]
         end;
     end;
     local function v26(_, _) --[[ Line: 56 ]]
-        -- upvalues: v17 (copy)
+
     end;
     local function v29(_, _) --[[ Line: 68 ]]
         -- upvalues: v11 (copy), v12 (copy)

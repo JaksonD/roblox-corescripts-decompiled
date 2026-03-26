@@ -10,7 +10,7 @@ local l_NavigationTab_0 = v3.App.Navigation.NavigationTab;
 local l_NavigationTabLayout_0 = v3.App.Navigation.Enum.NavigationTabLayout;
 local l_useLocalization_0 = v4.Hooks.useLocalization;
 local l_FFlagAppNavLabelScaling_0 = v5.FFlagAppNavLabelScaling;
-return v2.memo(function(v12) --[[ Line: 49 ]] --[[ Name: AppNavItem ]]
+return v2.memo(function(v12) --[[ Line: 50 ]] --[[ Name: AppNavItem ]]
     -- upvalues: l_useStyle_0 (copy), l_useLocalization_0 (copy), v2 (copy), l_ControlState_0 (copy), l_FFlagAppNavLabelScaling_0 (copy), l_NavigationTab_0 (copy), l_NavigationTabLayout_0 (copy)
     local l_Tokens_0 = l_useStyle_0().Tokens;
     local v14 = l_useLocalization_0({
@@ -19,7 +19,7 @@ return v2.memo(function(v12) --[[ Line: 49 ]] --[[ Name: AppNavItem ]]
     local v15, v16 = v2.useState(l_ControlState_0.Initialize);
     local l_Footer_0 = l_Tokens_0.Semantic.Typography.Footer;
     local v18 = v12.systemBarLabelTextSizeBinding.default:getBinding();
-    v2.useEffect(function() --[[ Line: 58 ]]
+    v2.useEffect(function() --[[ Line: 59 ]]
         -- upvalues: l_FFlagAppNavLabelScaling_0 (ref), v12 (copy), v14 (copy), l_Footer_0 (copy), l_Tokens_0 (copy)
         if l_FFlagAppNavLabelScaling_0 then
             v12.systemBarLabelTextSizeBinding.default:setTextToMaxSize(v14.labelText or "", l_Footer_0.Font, Vector2.new(l_Tokens_0.Global.Space_600, l_Tokens_0.Global.Space_600), l_Tokens_0.Global.FontSize_50);
@@ -36,7 +36,7 @@ return v2.memo(function(v12) --[[ Line: 49 ]] --[[ Name: AppNavItem ]]
     return v2.createElement(l_NavigationTab_0, {
         iconImage = v12.item.iconImage, 
         iconCheckedImage = v12.item.iconCheckedImage, 
-        renderIcon = v12.item.renderIcon and function(v19) --[[ Line: 79 ]]
+        renderIcon = v12.item.renderIcon and function(v19) --[[ Line: 80 ]]
             -- upvalues: v12 (copy), v15 (copy)
             return v12.item.renderIcon(v19, v15);
         end or nil, 
@@ -55,12 +55,12 @@ return v2.memo(function(v12) --[[ Line: 49 ]] --[[ Name: AppNavItem ]]
         anchorPoint = if v12.isCenterPositioned then Vector2.new(0.5, 0.5) else nil, 
         position = if v12.isCenterPositioned then UDim2.fromScale(0.5, 0.5) else nil, 
         onActivated = v12.item.onActivated, 
-        onStateChanged = v12.item.renderIcon and function(_, v21) --[[ Line: 99 ]]
+        onStateChanged = v12.item.renderIcon and function(_, v21) --[[ Line: 100 ]]
             -- upvalues: v16 (copy)
             v16(v21);
         end or nil
     });
-end, function(v22, v23) --[[ Line: 40 ]] --[[ Name: arePropsEqual ]]
+end, function(v22, v23) --[[ Line: 41 ]] --[[ Name: arePropsEqual ]]
     -- upvalues: v1 (copy)
     return v1.Dictionary.equals(v22.item, v23.item) and v22.systemBarLabelTextSizeBinding == v23.systemBarLabelTextSizeBinding and v22.isChecked == v23.isChecked and v22.isCenterPositioned == v23.isCenterPositioned and v22.hasLabel == v23.hasLabel;
 end);

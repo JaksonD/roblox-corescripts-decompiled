@@ -111,7 +111,7 @@ if l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 then
         return v99.AvatarExperience.AvatarScene.OutfitTryOn.LookAnalyticsInfo;
     end;
 end;
-local function v109(v100, v101) --[[ Line: 152 ]] --[[ Name: getAvatarEditorCategoryIndexesByName ]]
+local function _(v100, v101) --[[ Line: 152 ]] --[[ Name: getAvatarEditorCategoryIndexesByName ]]
     -- upvalues: v29 (copy)
     local v102 = v29();
     local v103 = nil;
@@ -257,7 +257,7 @@ local v161 = {
     deleteAvatarLabel = "Feature.Catalog.Action.DeleteAvatar"
 };
 return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
-    -- upvalues: l_UserInputService_0 (copy), v37 (copy), l_isGamepadInput_0 (copy), l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 (copy), l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), l_useSelector_0 (copy), v85 (copy), l_getUseSelectorDeepEquals_0 (copy), v83 (copy), v48 (copy), l_useNavigation_0 (copy), v44 (copy), v14 (copy), v13 (copy), v12 (copy), v98 (ref), l_useLocalization_0 (copy), v161 (copy), l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v81 (copy), v87 (copy), v89 (copy), v91 (copy), v93 (copy), v95 (copy), v97 (copy), v24 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v19 (copy), v54 (copy), v55 (copy), v43 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v5 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy), v26 (copy), l_AvatarScreen_0 (copy), v42 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusController_0 (copy), v32 (copy), v33 (copy), v31 (copy), l_PeekViewState_0 (copy), v36 (copy), v22 (copy), v18 (copy), l_FFlagAXFixLookDetailsContextualMenu_0 (copy), v78 (copy), v56 (copy), v79 (copy), v77 (copy), v23 (copy), v119 (ref), l_FFlagAXDurablesSupport_0 (copy), v160 (copy), v28 (copy), v109 (copy), v30 (copy), v35 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v27 (copy), v74 (copy), v76 (copy), v75 (copy), l_NumberLocalization_0 (copy), v3 (copy), v21 (copy)
+    -- upvalues: l_UserInputService_0 (copy), v37 (copy), l_isGamepadInput_0 (copy), l_FFlagAXEnableUnifiedPurchaseFlowForLooks_0 (copy), l_useAvatarRoute_0 (copy), l_useDispatch_0 (copy), l_useSelector_0 (copy), v85 (copy), l_getUseSelectorDeepEquals_0 (copy), v83 (copy), v48 (copy), l_useNavigation_0 (copy), v44 (copy), v14 (copy), v13 (copy), v12 (copy), v98 (ref), l_useLocalization_0 (copy), v161 (copy), l_useStyle_0 (copy), l_useDesignTokens_0 (copy), v81 (copy), v87 (copy), v89 (copy), v91 (copy), v93 (copy), v95 (copy), v97 (copy), v24 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v19 (copy), v54 (copy), v55 (copy), v43 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v5 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy), v26 (copy), l_AvatarScreen_0 (copy), v42 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_useFocusController_0 (copy), v32 (copy), v33 (copy), v31 (copy), l_PeekViewState_0 (copy), v36 (copy), v22 (copy), v18 (copy), l_FFlagAXFixLookDetailsContextualMenu_0 (copy), v78 (copy), v56 (copy), v79 (copy), v77 (copy), v23 (copy), v119 (ref), l_FFlagAXDurablesSupport_0 (copy), v160 (copy), v28 (copy), v30 (copy), v29 (copy), v35 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v27 (copy), v74 (copy), v76 (copy), v75 (copy), l_NumberLocalization_0 (copy), v3 (copy), v21 (copy)
     local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
     local v164, _ = v37.useState(l_isGamepadInput_0(l_l_UserInputService_0_LastInputType_0));
     local v166, v167 = v37.useState(false);
@@ -592,8 +592,8 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
         v231 = v238;
         v229 = v239;
     end;
-    local v258 = if l_FFlagAXMISEnableMultiShopping_0 and v199 and v162.alwaysBuyAll then v37.useCallback(function() --[[ Line: 744 ]]
-        -- upvalues: v119 (ref), v199 (copy), v190 (copy), v191 (copy), v192 (copy), v174 (copy), v175 (copy), l_FFlagAXDurablesSupport_0 (ref), v187 (copy), v189 (copy), l_AvatarScreen_0 (ref), v212 (copy), v180 (copy), v28 (ref), v109 (ref), v30 (ref), v35 (ref), v172 (copy), v162 (copy), v24 (ref), v177 (copy), v173 (copy), v18 (ref)
+    local v270 = if l_FFlagAXMISEnableMultiShopping_0 and v199 and v162.alwaysBuyAll then v37.useCallback(function() --[[ Line: 744 ]]
+        -- upvalues: v119 (ref), v199 (copy), v190 (copy), v191 (copy), v192 (copy), v174 (copy), v175 (copy), l_FFlagAXDurablesSupport_0 (ref), v187 (copy), v189 (copy), l_AvatarScreen_0 (ref), v212 (copy), v180 (copy), v28 (ref), v30 (ref), v29 (ref), v35 (ref), v172 (copy), v162 (copy), v24 (ref), v177 (copy), v173 (copy), v18 (ref)
         local v240, _, v242, _ = v119(v199, v190, v191, v192, v174, v175, if l_FFlagAXDurablesSupport_0 then v187 else nil);
         local v244 = nil;
         local v245 = nil;
@@ -604,16 +604,27 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
             };
             v180.sendAXCounter(v28.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux);
         elseif v242 == 0 and v175 ~= nil then
-            local v246, v247 = v109(v30.CharacterKey);
+            local l_CharacterKey_0 = v30.CharacterKey;
+            local v247 = v29();
+            local v248 = nil;
+            local v249 = nil;
+            for v250, v251 in v247 do
+                if v251.Name == l_CharacterKey_0 then
+                    v248 = v250;
+                    break;
+                end;
+            end;
+            local l_v248_0 = v248;
+            local l_v249_0 = v249;
             v244 = l_AvatarScreen_0.LeaveCatalogToAvatarPrompt;
             v245 = {
                 onOverlayClosed = v212, 
-                categoryOverride = v246, 
-                subcategoryOverride = v247
+                categoryOverride = l_v248_0, 
+                subcategoryOverride = l_v249_0
             };
             v180.sendAXCounter(v28.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase);
         else
-            local v248 = v35.getOwnedItemsInLook(v199, v174, v175);
+            local v254 = v35.getOwnedItemsInLook(v199, v174, v175);
             if v175 ~= nil then
                 v244 = l_AvatarScreen_0.PurchaseLookPrompt;
                 v245 = {
@@ -623,7 +634,7 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
                     showWearAfterPurchase = true, 
                     fromAvatarRoute = v172, 
                     allLookItems = v199, 
-                    ownedItemsInLook = v248, 
+                    ownedItemsInLook = v254, 
                     isTryOnFromOutsideAX = v162.isTryOnFromOutsideAX
                 };
                 if v24.isWithinViewContext(v172, l_AvatarScreen_0.CatalogSearch) then
@@ -657,42 +668,53 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
         v199, 
         if l_FFlagAXDurablesSupport_0 then v187 else nil
     }) else v37.useCallback(function() --[[ Line: 846 ]]
-        -- upvalues: v160 (ref), v187 (copy), v190 (copy), v191 (copy), v192 (copy), v174 (copy), v175 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v189 (copy), l_AvatarScreen_0 (ref), v212 (copy), v180 (copy), v28 (ref), v5 (ref), v109 (ref), v30 (ref), v35 (ref), v172 (copy), v162 (copy), v24 (ref), v177 (copy), v173 (copy), v18 (ref)
-        local v249, _, v251 = v160(v187, v190, v191, v192, v174, v175);
-        local v252 = nil;
-        local v253 = nil;
+        -- upvalues: v160 (ref), v187 (copy), v190 (copy), v191 (copy), v192 (copy), v174 (copy), v175 (copy), l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v189 (copy), l_AvatarScreen_0 (ref), v212 (copy), v180 (copy), v28 (ref), v5 (ref), v30 (ref), v29 (ref), v35 (ref), v172 (copy), v162 (copy), v24 (ref), v177 (copy), v173 (copy), v18 (ref)
+        local v255, _, v257 = v160(v187, v190, v191, v192, v174, v175);
+        local v258 = nil;
+        local v259 = nil;
         if l_FFlagAddPerformanceMetricsToUnifiedPurchaseModal_0 then
-            local v254 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
-            l_TimeToInteractiveTracker_0.trackStart(v254);
-            l_TimeToInteractiveTracker_0.updateMetadata(v254, {
+            local v260 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.Catalog);
+            l_TimeToInteractiveTracker_0.trackStart(v260);
+            l_TimeToInteractiveTracker_0.updateMetadata(v260, {
                 page = l_ProductPurchaseSurface_0.Catalog, 
                 category = "legacy_purchase_modal"
             });
         end;
-        if v189 < v249 then
-            v252 = l_AvatarScreen_0.InsufficientRobuxPrompt;
-            v253 = {
+        if v189 < v255 then
+            v258 = l_AvatarScreen_0.InsufficientRobuxPrompt;
+            v259 = {
                 onOverlayClosed = v212
             };
             v180.sendAXCounter(v28.Counter.AvatarWidget.AvatarsWidgetBuyClickedInsufficientRobux);
-        elseif v5.isEmpty(v251) and v175 ~= nil then
-            local v255, v256 = v109(v30.CharacterKey);
-            v252 = l_AvatarScreen_0.LeaveCatalogToAvatarPrompt;
-            v253 = {
+        elseif v5.isEmpty(v257) and v175 ~= nil then
+            local l_CharacterKey_1 = v30.CharacterKey;
+            local v262 = v29();
+            local v263 = nil;
+            local v264 = nil;
+            for v265, v266 in v262 do
+                if v266.Name == l_CharacterKey_1 then
+                    v263 = v265;
+                    break;
+                end;
+            end;
+            local l_v263_0 = v263;
+            local l_v264_0 = v264;
+            v258 = l_AvatarScreen_0.LeaveCatalogToAvatarPrompt;
+            v259 = {
                 onOverlayClosed = v212, 
-                categoryOverride = v255, 
-                subcategoryOverride = v256
+                categoryOverride = l_v263_0, 
+                subcategoryOverride = l_v264_0
             };
             v180.sendAXCounter(v28.Counter.AvatarWidget.AvatarsWidgetBuyClickedNoItemsToPurchase);
         else
-            local v257 = v35.getOwnedTryOnItems(v187, v174, v175);
+            local v269 = v35.getOwnedTryOnItems(v187, v174, v175);
             if v175 ~= nil then
-                v252 = l_AvatarScreen_0.PurchaseLookPrompt;
-                v253 = {
-                    itemsToPurchase = v251, 
+                v258 = l_AvatarScreen_0.PurchaseLookPrompt;
+                v259 = {
+                    itemsToPurchase = v257, 
                     lookId = v175, 
-                    ownedTryOnItems = v257, 
-                    priceInRobux = v249, 
+                    ownedTryOnItems = v269, 
+                    priceInRobux = v255, 
                     showSaveAsCharacter = true, 
                     showWearAfterPurchase = true, 
                     fromAvatarRoute = v172, 
@@ -705,14 +727,14 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
                 end;
             else
                 v180.sendAXCounter(v28.Counter.AvatarWidget.AvatarsWidgetBuyClickedMissingLookId);
-                v253 = {
+                v259 = {
                     onOverlayClosed = v212
                 };
             end;
         end;
         v173(v18(function() --[[ Line: 935 ]]
-            -- upvalues: v177 (ref), v252 (ref), v253 (ref)
-            v177.navigate(v252, v253);
+            -- upvalues: v177 (ref), v258 (ref), v259 (ref)
+            v177.navigate(v258, v259);
         end));
     end, {
         v187, 
@@ -742,85 +764,85 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
             onOverlayClosed = v212
         }).onButtonPressWithUnifiedPurchaseFlow;
         if v168 then
-            v258 = l_onButtonPressWithUnifiedPurchaseFlow_0;
+            v270 = l_onButtonPressWithUnifiedPurchaseFlow_0;
         end;
     end;
-    local v264 = if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then nil else v37.useCallback(function() --[[ Line: 977 ]]
+    local v276 = if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then nil else v37.useCallback(function() --[[ Line: 977 ]]
         -- upvalues: v187 (copy), v35 (ref), v174 (copy), v175 (copy)
-        local v260 = 0;
-        for _, v262 in v187 do
-            if v262.selectedInTryOnManager then
-                local v263 = v35.getItemInfo(v262.itemId, v262.itemType, v174, v175);
-                if not v263 or not v263.quantityOwned or v263.quantityOwned == 0 then
+        local v272 = 0;
+        for _, v274 in v187 do
+            if v274.selectedInTryOnManager then
+                local v275 = v35.getItemInfo(v274.itemId, v274.itemType, v174, v175);
+                if not v275 or not v275.quantityOwned or v275.quantityOwned == 0 then
                     return false;
                 else
-                    v260 = v260 + 1;
+                    v272 = v272 + 1;
                 end;
             end;
         end;
-        return v260 > 0;
+        return v272 > 0;
     end, {
         v187, 
         v174, 
         v175
     });
-    local v270 = if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then v37.useCallback(function(v265) --[[ Line: 1000 ]]
+    local v282 = if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then v37.useCallback(function(v277) --[[ Line: 1000 ]]
         -- upvalues: v199 (copy), v35 (ref), v174 (copy)
         if v199 == nil then
             return false;
         else
-            local v266 = 0;
-            for _, v268 in v199 do
-                local v269 = if v268.itemType then v35.getItemInfo(v268.id, v268.itemType, v174, v265) else nil;
-                if not v269 or not v269.quantityOwned or v269.quantityOwned == 0 then
+            local v278 = 0;
+            for _, v280 in v199 do
+                local v281 = if v280.itemType then v35.getItemInfo(v280.id, v280.itemType, v174, v277) else nil;
+                if not v281 or not v281.quantityOwned or v281.quantityOwned == 0 then
                     return false;
                 else
-                    v266 = v266 + 1;
+                    v278 = v278 + 1;
                 end;
             end;
-            return v266 > 0;
+            return v278 > 0;
         end;
     end, {
         v174, 
         v199
     }) else nil;
     local l_v74_0 = v74;
-    local v272 = false;
-    local v273 = nil;
-    local v274 = v231 and v5.isEmpty(v231);
+    local v284 = false;
+    local v285 = nil;
+    local v286 = v231 and v5.isEmpty(v231);
     if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then
-        v274 = v228 == 0;
+        v286 = v228 == 0;
     end;
-    if v274 then
-        v273 = "";
-        local v275 = v264 and v264();
+    if v286 then
+        v285 = "";
+        local v287 = v276 and v276();
         if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then
-            v275 = v270 and v270(v175) ~= nil;
+            v287 = v282 and v282(v175) ~= nil;
         end;
-        if v175 ~= nil and v275 then
+        if v175 ~= nil and v287 then
             l_v74_0 = v76;
         else
             l_v74_0 = v75;
-            v272 = true;
+            v284 = true;
         end;
     elseif v226 == 0 then
         l_v74_0 = nil;
-        v273 = v182.freeText;
+        v285 = v182.freeText;
     else
-        v273 = l_NumberLocalization_0.localize(string.format("%.0f", v226), v179:GetLocale());
+        v285 = l_NumberLocalization_0.localize(string.format("%.0f", v226), v179:GetLocale());
     end;
     if v189 == nil then
-        v272 = true;
+        v284 = true;
     end;
-    local v276 = v179:Format("Feature.Avatar.Label.TryOnManagerDescriptor", {
+    local v288 = v179:Format("Feature.Avatar.Label.TryOnManagerDescriptor", {
         numItems = if l_FFlagAXMISEnableMultiShopping_0 and v162.alwaysBuyAll then v227 else v230
     });
     local l_hideDescriptor_0 = v162.hideDescriptor;
-    local v278 = v3.createElement("TextLabel", {
+    local v290 = v3.createElement("TextLabel", {
         LayoutOrder = 1, 
         BackgroundTransparency = 1, 
         Size = UDim2.new(1, 0, 0, v186.Global.Size_400), 
-        Text = v276, 
+        Text = v288, 
         TextSize = l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize, 
         Font = l_Font_0.Header2.Font, 
         TextColor3 = l_Theme_0.SecondaryContent.Color, 
@@ -829,7 +851,7 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
         TextXAlignment = Enum.TextXAlignment.Left, 
         TextYAlignment = Enum.TextYAlignment.Top
     });
-    local v279 = v37.useCallback(function() --[[ Line: 1080 ]]
+    local v291 = v37.useCallback(function() --[[ Line: 1080 ]]
         -- upvalues: v225 (copy), v167 (copy)
         v225();
         v167(true);
@@ -837,42 +859,42 @@ return function(v162) --[[ Line: 357 ]] --[[ Name: LookDetailsBottomBar ]]
         v225, 
         v167
     });
-    local v280 = v37.useMemo(function() --[[ Line: 1085 ]]
-        -- upvalues: v273 (ref), l_v74_0 (ref), v229 (ref), v272 (ref), v186 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), v183 (copy), v258 (ref)
+    local v292 = v37.useMemo(function() --[[ Line: 1085 ]]
+        -- upvalues: v285 (ref), l_v74_0 (ref), v229 (ref), v284 (ref), v186 (copy), l_FFlagAXMISEnableMultiShopping_0 (ref), v183 (copy), v270 (ref)
         return {
-            buttonText = v273, 
+            buttonText = v285, 
             buttonIcon = l_v74_0, 
             buttonIsLoading = v229, 
-            buttonIsDisabled = v272, 
+            buttonIsDisabled = v284, 
             buttonIconPadding = v186.Global.Space_50, 
             buttonIconSize = if l_FFlagAXMISEnableMultiShopping_0 then v186.Global.Size_250 else v186.Global.Size_400, 
             buttonColor = v183.Theme.ContextualPrimaryDefault.Color, 
             buttonTextColor = v183.Theme.ContextualPrimaryContent.Color, 
-            onActivated = not v272 and v258 or nil
+            onActivated = not v284 and v270 or nil
         };
     end, {
-        v273, 
+        v285, 
         l_v74_0, 
         v229, 
-        v272, 
+        v284, 
         v186, 
         v183, 
-        v258
+        v270
     });
-    local v281 = v205 and not v203 and v206 ~= nil;
+    local v293 = v205 and not v203 and v206 ~= nil;
     return v3.createElement(v21, {
         bottomPadding = 0, 
-        buttonProps = v280, 
+        buttonProps = v292, 
         hideGradient = true, 
         isMoreButtonSelected = v166, 
         leftPadding = 0, 
-        onMoreButtonActivated = v279, 
+        onMoreButtonActivated = v291, 
         rightPadding = 0, 
         showMoreButton = true, 
-        showMiddleButton = v281, 
-        onMiddleButtonActivated = if v281 then v206.onActivated else nil, 
-        middleButtonIcon = if v281 then v206.icon else nil, 
-        topComponent = if l_hideDescriptor_0 then nil else v278, 
+        showMiddleButton = v293, 
+        onMiddleButtonActivated = if v293 then v206.onActivated else nil, 
+        middleButtonIcon = if v293 then v206.icon else nil, 
+        topComponent = if l_hideDescriptor_0 then nil else v290, 
         topComponentHeight = l_hideDescriptor_0 and 0 or v186.Global.Size_400, 
         ZIndex = 1
     });

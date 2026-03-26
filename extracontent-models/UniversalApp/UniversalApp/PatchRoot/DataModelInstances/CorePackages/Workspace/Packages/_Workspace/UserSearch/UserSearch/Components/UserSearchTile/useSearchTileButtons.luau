@@ -21,118 +21,119 @@ local v19 = require(l_script_FirstAncestor_0.Utils.PresenceHelpers);
 local l_FocusNavigationEventNameEnum_0 = require(l_Parent_0.FocusNavigationUtils).FocusNavigationEventNameEnum;
 local l_FriendRequestNicknamesIXP_0 = require(l_Parent_0.FriendRequestNicknames).FriendRequestNicknamesIXP;
 local l_FFlagUserSearchAddFocusActionsSupport_0 = require(l_Parent_0.SharedFlags).FFlagUserSearchAddFocusActionsSupport;
-return function(v23, v24) --[[ Line: 49 ]]
-    -- upvalues: l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), v7 (copy), l_FriendRequestNicknamesIXP_0 (copy), l_useStyle_0 (copy), l_useJoinUserInExperience_0 (copy), l_Contexts_0 (copy), l_Images_0 (copy), v19 (copy), l_FFlagUserSearchAddFocusActionsSupport_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v12 (copy), l_SetCurrentToastMessage_0 (copy), v8 (copy), v2 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Enums_0 (copy)
-    local v25 = l_useLocalUserId_0();
-    local v26 = l_useDispatch_0();
-    local v27 = v7(v23.userId);
-    local v28 = l_FriendRequestNicknamesIXP_0.useFriendRequestNicknames();
-    local v29 = l_useStyle_0();
-    local v30 = l_useJoinUserInExperience_0(v23.userId, {
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+return function(v24, v25) --[[ Line: 52 ]]
+    -- upvalues: l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), v7 (copy), l_FriendRequestNicknamesIXP_0 (copy), l_useStyle_0 (copy), l_useJoinUserInExperience_0 (copy), l_Contexts_0 (copy), l_Images_0 (copy), v19 (copy), l_FFlagUserSearchAddFocusActionsSupport_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v12 (copy), l_SetCurrentToastMessage_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v8 (copy), v2 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Enums_0 (copy)
+    local v26 = l_useLocalUserId_0();
+    local v27 = l_useDispatch_0();
+    local v28 = v7(v24.userId);
+    local v29 = l_FriendRequestNicknamesIXP_0.useFriendRequestNicknames();
+    local v30 = l_useStyle_0();
+    local v31 = l_useJoinUserInExperience_0(v24.userId, {
         analyticProps = {
             context = l_Contexts_0.PlayerSearch, 
-            subpage = v23.subpage
+            subpage = v24.subpage
         }
     });
-    local v31 = if v23.shouldUseCompactTiles then l_Images_0["icons/common/plus_small"] else l_Images_0["icons/actions/friends/friendAdd"];
-    local v32 = if v23.shouldUseCompactTiles then l_Images_0["icons/common/plus_small"] else l_Images_0["icons/actions/friends/friendpending"];
-    local v33 = l_Images_0["icons/common/play"];
-    if v27.status == Enum.FriendStatus.Friend and v23.shouldUseCompactTiles and v19.isUserInGame(v23.userPresence) then
+    local v32 = if v24.shouldUseCompactTiles then l_Images_0["icons/common/plus_small"] else l_Images_0["icons/actions/friends/friendAdd"];
+    local v33 = if v24.shouldUseCompactTiles then l_Images_0["icons/common/plus_small"] else l_Images_0["icons/actions/friends/friendpending"];
+    local v34 = l_Images_0["icons/common/play"];
+    if v28.status == Enum.FriendStatus.Friend and v24.shouldUseCompactTiles and v19.isUserInGame(v24.userPresence) then
         return {
             {
-                icon = v33, 
+                icon = v34, 
                 isSecondary = false, 
-                isDisabled = v30.isLoading, 
-                onActivated = function() --[[ Line: 82 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v30 (copy)
-                    v30.joinExperience();
+                isDisabled = v31.isLoading, 
+                onActivated = function() --[[ Line: 85 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v31 (copy)
+                    v31.joinExperience();
                 end, 
-                imageColor = v29.Theme.ContextualPrimaryContent.Color, 
-                backgroundColor = v29.Theme.OnlineStatus.Color, 
-                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v23.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToPlay else nil
+                imageColor = v30.Theme.ContextualPrimaryContent.Color, 
+                backgroundColor = v30.Theme.OnlineStatus.Color, 
+                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v24.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToPlay else nil
             }
         };
-    elseif v27.isMyself or v27.status == Enum.FriendStatus.Friend then
+    elseif v28.isMyself or v28.status == Enum.FriendStatus.Friend then
         return nil;
-    elseif v27.status == Enum.FriendStatus.FriendRequestReceived then
+    elseif v28.status == Enum.FriendStatus.FriendRequestReceived then
         return {
             {
-                icon = v31, 
+                icon = v32, 
                 isSecondary = false, 
                 isDisabled = false, 
-                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v23.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToAcceptFriendRequest else nil, 
-                onActivated = function() --[[ Line: 106 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v26 (copy), v12 (ref), v23 (copy), v25 (copy), l_SetCurrentToastMessage_0 (ref), v24 (copy), v8 (ref)
-                    v26(v12.AcceptFriendRequestFromUserId.API({
-                        targetUserId = v23.userId, 
-                        currentUserId = v25
-                    })):andThen(function() --[[ Line: 111 ]]
-                        -- upvalues: v26 (ref), l_SetCurrentToastMessage_0 (ref)
-                        v26(l_SetCurrentToastMessage_0({
-                            toastMessage = "Feature.Friends.Action.ConnectionAdded"
+                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v24.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToAcceptFriendRequest else nil, 
+                onActivated = function() --[[ Line: 109 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v27 (copy), v12 (ref), v24 (copy), v26 (copy), l_SetCurrentToastMessage_0 (ref), l_FFlagConnectionsToFriendsRename_0 (ref), v25 (copy), v8 (ref)
+                    v27(v12.AcceptFriendRequestFromUserId.API({
+                        targetUserId = v24.userId, 
+                        currentUserId = v26
+                    })):andThen(function() --[[ Line: 114 ]]
+                        -- upvalues: v27 (ref), l_SetCurrentToastMessage_0 (ref), l_FFlagConnectionsToFriendsRename_0 (ref)
+                        v27(l_SetCurrentToastMessage_0({
+                            toastMessage = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendAdded" or "Feature.Friends.Action.ConnectionAdded"
                         }));
-                    end):catch(function() --[[ Line: 116 ]]
-                        -- upvalues: v26 (ref), l_SetCurrentToastMessage_0 (ref)
-                        v26(l_SetCurrentToastMessage_0({
+                    end):catch(function() --[[ Line: 121 ]]
+                        -- upvalues: v27 (ref), l_SetCurrentToastMessage_0 (ref)
+                        v27(l_SetCurrentToastMessage_0({
                             toastMessage = "Feature.Toast.NetworkingError.SomethingIsWrong"
                         }));
                     end);
-                    if v24 then
-                        v24(v8.PlayerFriendAccept);
+                    if v25 then
+                        v25(v8.PlayerFriendAccept);
                     end;
                 end
             }
         };
-    elseif v27.status == Enum.FriendStatus.FriendRequestSent then
+    elseif v28.status == Enum.FriendStatus.FriendRequestSent then
         return {
             {
-                icon = v32, 
+                icon = v33, 
                 isSecondary = false, 
                 isDisabled = true, 
                 onActivated = v2.noop()
             }
         };
-    elseif not v27.status or v27.status == Enum.FriendStatus.NotFriend then
+    elseif not v28.status or v28.status == Enum.FriendStatus.NotFriend then
         return {
             {
-                icon = v31, 
+                icon = v32, 
                 isSecondary = false, 
                 isDisabled = false, 
-                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v23.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToAcceptFriendRequest else nil, 
-                onActivated = function() --[[ Line: 145 ]] --[[ Name: onActivated ]]
-                    -- upvalues: l_FriendRequestNicknamesIXP_0 (ref), v28 (copy), v24 (copy), v8 (ref), v26 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v23 (copy), l_Enums_0 (ref), v12 (ref), v25 (copy), l_SetCurrentToastMessage_0 (ref)
-                    if l_FriendRequestNicknamesIXP_0.FFlagFriendRequestNicknames and v28 then
-                        if v24 then
-                            v24(v8.PlayerFriendRequest);
+                focusEventName = if l_FFlagUserSearchAddFocusActionsSupport_0 and v24.shouldAddFocusEventName then l_FocusNavigationEventNameEnum_0.HoldToAcceptFriendRequest else nil, 
+                onActivated = function() --[[ Line: 150 ]] --[[ Name: onActivated ]]
+                    -- upvalues: l_FriendRequestNicknamesIXP_0 (ref), v29 (copy), v25 (copy), v8 (ref), v27 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v24 (copy), l_Enums_0 (ref), v12 (ref), v26 (copy), l_SetCurrentToastMessage_0 (ref), l_FFlagConnectionsToFriendsRename_0 (ref)
+                    if l_FriendRequestNicknamesIXP_0.FFlagFriendRequestNicknames and v29 then
+                        if v25 then
+                            v25(v8.PlayerFriendRequest);
                         end;
-                        v26(l_NavigateDown_0({
+                        v27(l_NavigateDown_0({
                             name = l_AppPage_0.SetNicknameModal, 
                             extraProps = {
                                 friendRequestParams = {
-                                    targetUserId = v23.userId, 
+                                    targetUserId = v24.userId, 
                                     source = l_Enums_0.FriendshipOriginSourceType.PlayerSearch.rawValue()
                                 }
                             }
                         }));
                         return;
                     else
-                        v26(v12.RequestFriendshipFromUserId.API({
-                            targetUserId = v23.userId, 
-                            currentUserId = v25, 
+                        v27(v12.RequestFriendshipFromUserId.API({
+                            targetUserId = v24.userId, 
+                            currentUserId = v26, 
                             friendshipOriginSourceType = l_Enums_0.FriendshipOriginSourceType.PlayerSearch.rawValue()
-                        })):andThen(function() --[[ Line: 165 ]]
-                            -- upvalues: v26 (ref), l_SetCurrentToastMessage_0 (ref)
-                            v26(l_SetCurrentToastMessage_0({
-                                toastMessage = "Feature.Friends.Action.ConnectionRequestSent"
+                        })):andThen(function() --[[ Line: 170 ]]
+                            -- upvalues: v27 (ref), l_SetCurrentToastMessage_0 (ref), l_FFlagConnectionsToFriendsRename_0 (ref)
+                            v27(l_SetCurrentToastMessage_0({
+                                toastMessage = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendRequestSent" or "Feature.Friends.Action.ConnectionRequestSent"
                             }));
-                        end):catch(function() --[[ Line: 170 ]]
-                            -- upvalues: v26 (ref), l_SetCurrentToastMessage_0 (ref)
-                            v26(l_SetCurrentToastMessage_0({
+                        end):catch(function() --[[ Line: 177 ]]
+                            -- upvalues: v27 (ref), l_SetCurrentToastMessage_0 (ref)
+                            v27(l_SetCurrentToastMessage_0({
                                 toastMessage = "Feature.Toast.NetworkingError.SomethingIsWrong"
                             }));
                         end);
-                        if v24 then
-                            v24(v8.PlayerFriendRequest);
+                        if v25 then
+                            v25(v8.PlayerFriendRequest);
                         end;
                         return;
                     end;

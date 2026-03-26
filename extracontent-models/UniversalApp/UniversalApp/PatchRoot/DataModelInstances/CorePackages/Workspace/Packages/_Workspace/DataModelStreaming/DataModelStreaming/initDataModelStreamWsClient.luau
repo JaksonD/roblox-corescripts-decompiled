@@ -1,40 +1,48 @@
 game:DefineFastFlag("LuaAppEnableCompactDataModelPayload", false);
 game:DefineFastFlag("LuaAppCatchWebSocketServiceError", false);
+game:DefineFastFlag("LuaAppEnableWebViewStateTrackerInDataModelStreaming", false);
 local l_Parent_0 = script.Parent.Parent.Parent.Parent;
 local v1 = require(l_Parent_0.Loggers).Logger:new("DataModelStreaming");
 local l_HttpService_0 = game:GetService("HttpService");
 local v3 = require(script.Parent.getDataModelStreamAllowedHosts);
 local v4 = require(script.Parent.getDataModelRoot);
 local v5 = require(script.Parent.compactDataModelPayload);
-local v6 = v3();
-local v7 = 0;
-local v8 = nil;
-local v9 = nil;
-local l_status_0, _ = pcall(function() --[[ Line: 17 ]]
-    -- upvalues: v9 (ref)
-    v9 = game:GetService("WebSocketService");
+local l_WebViewStateTracker_0 = require(l_Parent_0.WebViewUtils).WebViewStateTracker;
+local l_FFlagEnableWebViewStateTracker_0 = require(l_Parent_0.SharedFlags).FFlagEnableWebViewStateTracker;
+local v8 = v3();
+local v9 = 0;
+local v10 = nil;
+local v11 = nil;
+local l_status_0, _ = pcall(function() --[[ Line: 20 ]]
+    -- upvalues: v11 (ref)
+    v11 = game:GetService("WebSocketService");
 end);
 if not l_status_0 then
-    return function() --[[ Line: 22 ]]
+    return function() --[[ Line: 25 ]]
         -- upvalues: v1 (copy)
         v1:error("WebSocketService is not available...");
     end;
 else
-    local function v16(v12, v13) --[[ Line: 27 ]] --[[ Name: splitIntoChunks ]]
-        local v14 = {};
-        for v15 = 1, #v12, v13 do
-            table.insert(v14, (string.sub(v12, v15, v15 + v13 - 1)));
+    local function v18(v14, v15) --[[ Line: 30 ]] --[[ Name: splitIntoChunks ]]
+        local v16 = {};
+        for v17 = 1, #v14, v15 do
+            table.insert(v16, (string.sub(v14, v17, v17 + v15 - 1)));
         end;
-        return v14;
+        return v16;
     end;
-    local function v26(v17, v18, v19) --[[ Line: 35 ]] --[[ Name: streamDataModel ]]
-        -- upvalues: l_HttpService_0 (copy), v5 (copy), v4 (copy), v1 (copy), v16 (copy)
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 36 ]]
-            -- upvalues: l_HttpService_0 (ref), v5 (ref), v4 (ref), v19 (copy)
-            if game:GetFastFlag("LuaAppEnableCompactDataModelPayload") then
-                return l_HttpService_0:JSONEncode(v5(v4(v19)));
+    local function v28(v19, v20, v21) --[[ Line: 38 ]] --[[ Name: streamDataModel ]]
+        -- upvalues: l_FFlagEnableWebViewStateTracker_0 (copy), l_WebViewStateTracker_0 (copy), l_HttpService_0 (copy), v5 (copy), v4 (copy), v1 (copy), v18 (copy)
+        local l_status_1, l_result_1 = pcall(function() --[[ Line: 39 ]]
+            -- upvalues: l_FFlagEnableWebViewStateTracker_0 (ref), l_WebViewStateTracker_0 (ref), l_HttpService_0 (ref), v5 (ref), v4 (ref), v21 (copy)
+            if l_FFlagEnableWebViewStateTracker_0 and game:GetFastFlag("LuaAppEnableWebViewStateTrackerInDataModelStreaming") and l_WebViewStateTracker_0.isOpen() then
+                return l_HttpService_0:JSONEncode({
+                    type = "webview", 
+                    webViewMetadata = l_WebViewStateTracker_0.getWebViewMetadata()
+                });
+            elseif game:GetFastFlag("LuaAppEnableCompactDataModelPayload") then
+                return l_HttpService_0:JSONEncode(v5(v4(v21)));
             else
-                return l_HttpService_0:JSONEncode(v4(v19));
+                return l_HttpService_0:JSONEncode(v4(v21));
             end;
         end);
         if not l_status_1 then
@@ -42,78 +50,78 @@ else
             return;
         else
             v1:info((("Streaming data model, total size: %*"):format(#l_result_1)));
-            local v22 = v16(l_result_1, 262144);
-            local v23 = #v22;
-            for v24, v25 in ipairs(v22) do
-                v17:Send((("DM_STREAM_CHUNK:%*:%*:%*:%*"):format(v18, v23, v24, v25)));
+            local v24 = v18(l_result_1, 262144);
+            local v25 = #v24;
+            for v26, v27 in ipairs(v24) do
+                v19:Send((("DM_STREAM_CHUNK:%*:%*:%*:%*"):format(v20, v25, v26, v27)));
             end;
             return;
         end;
     end;
-    local function _() --[[ Line: 58 ]] --[[ Name: getHostToTry ]]
-        -- upvalues: v8 (ref), v7 (ref), v6 (copy)
-        if v8 then
-            return v8;
+    local function _() --[[ Line: 71 ]] --[[ Name: getHostToTry ]]
+        -- upvalues: v10 (ref), v9 (ref), v8 (copy)
+        if v10 then
+            return v10;
         else
-            v7 = v7 + 1;
-            if v7 > #v6 then
+            v9 = v9 + 1;
+            if v9 > #v8 then
                 return nil;
             else
-                return v6[v7];
+                return v8[v9];
             end;
         end;
     end;
-    local function v28() --[[ Line: 71 ]] --[[ Name: initDataModelStreamWsClient ]]
-        -- upvalues: v8 (ref), v7 (ref), v6 (copy), v9 (ref), v1 (copy), v28 (copy), l_HttpService_0 (copy), v26 (copy)
-        local v29;
-        if v8 then
-            v29 = v8;
+    local function v30() --[[ Line: 84 ]] --[[ Name: initDataModelStreamWsClient ]]
+        -- upvalues: v10 (ref), v9 (ref), v8 (copy), v11 (ref), v1 (copy), v30 (copy), l_HttpService_0 (copy), v28 (copy)
+        local v31;
+        if v10 then
+            v31 = v10;
         else
-            v7 = v7 + 1;
-            v29 = if v7 > #v6 then nil else v6[v7];
+            v9 = v9 + 1;
+            v31 = if v9 > #v8 then nil else v8[v9];
         end;
-        if not v29 then
+        if not v31 then
             return;
         else
-            local v30 = nil;
+            local v32 = nil;
             if game:GetFastFlag("LuaAppCatchWebSocketServiceError") then
-                local l_status_2, l_result_2 = pcall(function() --[[ Line: 80 ]]
-                    -- upvalues: v9 (ref), v29 (copy)
-                    return v9:CreateClient(v29);
+                local l_status_2, l_result_2 = pcall(function() --[[ Line: 93 ]]
+                    -- upvalues: v11 (ref), v31 (copy)
+                    return v11:CreateClient(v31);
                 end);
                 if not l_status_2 or not l_result_2 then
                     v1:error("Failed to create WebSocket client");
                     return;
                 else
-                    v30 = l_result_2;
+                    v32 = l_result_2;
                 end;
             else
-                v30 = v9:CreateClient(v29);
+                v32 = v11:CreateClient(v31);
             end;
-            v30.Closed:Connect(function() --[[ Line: 92 ]]
-                -- upvalues: v28 (ref)
-                v28();
+            v32.Closed:Connect(function() --[[ Line: 105 ]]
+                -- upvalues: v30 (ref)
+                v30();
             end);
-            v30.MessageReceived:Connect(function(v33) --[[ Line: 96 ]]
-                -- upvalues: v8 (ref), v29 (copy), l_HttpService_0 (ref), v26 (ref), v30 (ref)
-                v8 = v29;
-                if v33:match("%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x") then
-                    print("[" .. "DataModelStreaming" .. "] uuid[" .. v33 .. "]");
+            v32.MessageReceived:Connect(function(v35) --[[ Line: 109 ]]
+                -- upvalues: v10 (ref), v31 (copy), l_HttpService_0 (ref), v28 (ref), v32 (ref)
+                v10 = v31;
+                if v35:match("%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x") then
+                    print("[" .. "DataModelStreaming" .. "] uuid[" .. v35 .. "]");
                 end;
-                local l_status_3, l_result_3 = pcall(function() --[[ Line: 107 ]]
-                    -- upvalues: l_HttpService_0 (ref), v33 (copy)
-                    return l_HttpService_0:JSONDecode(v33);
+                local l_status_3, l_result_3 = pcall(function() --[[ Line: 120 ]]
+                    -- upvalues: l_HttpService_0 (ref), v35 (copy)
+                    return l_HttpService_0:JSONDecode(v35);
                 end);
                 if l_status_3 and l_result_3.type == "data_model" then
-                    local v36 = l_HttpService_0:GenerateGUID(false);
+                    local v38 = l_HttpService_0:GenerateGUID(false);
                     if l_result_3.request_id then
-                        v36 = l_result_3.request_id;
+                        v38 = l_result_3.request_id;
                     end;
-                    v26(v30, v36, l_result_3.properties);
+                    v28(v32, v38, l_result_3.properties);
                 end;
             end);
             return;
         end;
     end;
-    return v28;
+    return v30;
 end;

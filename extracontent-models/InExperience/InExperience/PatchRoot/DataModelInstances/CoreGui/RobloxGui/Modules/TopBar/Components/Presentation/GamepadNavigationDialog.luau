@@ -17,77 +17,75 @@ local l_Actions_0 = l_Parent_0.Parent.Actions;
 local v16 = require(l_Actions_0.SetGamepadNavigationDialogOpen);
 local v17 = require(l_Parent_1.Flags.GetFStringGamepadNavigationDialogABTestLayerName);
 local v18 = require(l_Parent_1.Flags.FFlagAlwaysShowGamepadNavigationDialog);
-local v19 = require(l_Parent_1.Flags.FFlagAlwaysSelectButtonDismissesGamepadNavigationDialog);
-local v20 = require(l_Parent_1.Flags.GetFIntGamepadNavigationDialogShowCount);
-local v21 = require(l_Parent_1.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux);
-local function v27(_) --[[ Line: 33 ]] --[[ Name: GamepadNavigationDialogContainer ]]
-    -- upvalues: v5 (copy), l_UserInputService_0 (copy), l_GuiService_0 (copy), v12 (copy), v18 (copy), v19 (copy), v20 (copy)
-    local v23, v24 = v5.useState(false);
-    v5.useEffect(function() --[[ Line: 36 ]]
-        -- upvalues: l_UserInputService_0 (ref), v24 (copy), l_GuiService_0 (ref)
-        local v25 = nil;
-        local function v26() --[[ Line: 38 ]] --[[ Name: disconnectGamepadConnected ]]
-            -- upvalues: v25 (ref)
-            if v25 then
-                v25:Disconnect();
-                v25 = nil;
+local v19 = require(l_Parent_1.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux);
+local function v25(_) --[[ Line: 31 ]] --[[ Name: GamepadNavigationDialogContainer ]]
+    -- upvalues: v5 (copy), l_UserInputService_0 (copy), l_GuiService_0 (copy), v12 (copy), v18 (copy)
+    local v21, v22 = v5.useState(false);
+    v5.useEffect(function() --[[ Line: 34 ]]
+        -- upvalues: l_UserInputService_0 (ref), v22 (copy), l_GuiService_0 (ref)
+        local v23 = nil;
+        local function v24() --[[ Line: 36 ]] --[[ Name: disconnectGamepadConnected ]]
+            -- upvalues: v23 (ref)
+            if v23 then
+                v23:Disconnect();
+                v23 = nil;
             end;
         end;
         if l_UserInputService_0:GetGamepadConnected(Enum.UserInputType.Gamepad1) then
-            v24(true);
+            v22(true);
         else
-            v25 = l_UserInputService_0.GamepadConnected:Connect(function() --[[ Line: 48 ]]
-                -- upvalues: v24 (ref), v25 (ref)
-                v24(true);
-                if v25 then
-                    v25:Disconnect();
-                    v25 = nil;
+            v23 = l_UserInputService_0.GamepadConnected:Connect(function() --[[ Line: 46 ]]
+                -- upvalues: v22 (ref), v23 (ref)
+                v22(true);
+                if v23 then
+                    v23:Disconnect();
+                    v23 = nil;
                 end;
             end);
         end;
-        l_GuiService_0:GetPropertyChangedSignal("MenuIsOpen"):Connect(v26);
-        return v26;
+        l_GuiService_0:GetPropertyChangedSignal("MenuIsOpen"):Connect(v24);
+        return v24;
     end, {});
-    if v23 then
+    if v21 then
         return (v5.createElement(v12, {
             isGamepadNavigationDialogEnabled = v18, 
-            selectButtonDismissesGamepadNavigationDialog = v19, 
+            selectButtonDismissesGamepadNavigationDialog = false, 
             appStorageKey = "GamepadMenuVirtualCursorPromptShown", 
-            maxShownCount = v20(), 
-            isGamepadNavigationDialogOpen = v23, 
-            SetGamepadNavigationDialogOpen = v24
+            maxShownCount = 1, 
+            isGamepadNavigationDialogOpen = v21, 
+            SetGamepadNavigationDialogOpen = v22
         }));
     else
         return nil;
     end;
 end;
-local v28 = v17();
-local v32 = v10.connectUserLayer({
-    v28
-}, function(v29, _) --[[ Line: 74 ]]
-    -- upvalues: v28 (copy), v18 (copy), v19 (copy), v20 (copy)
-    local v31 = v29[v28] or {};
+local v26 = v17();
+local v30 = v10.connectUserLayer({
+    v26
+}, function(v27, _) --[[ Line: 72 ]]
+    -- upvalues: v26 (copy), v18 (copy)
+    local v29 = v27[v26] or {};
     return {
-        isGamepadNavigationDialogEnabled = v18 or v31.isGamepadNavigationDialogEnabled, 
-        selectButtonDismissesGamepadNavigationDialog = v19 or v31.selectButtonDismissesGamepadNavigationDialog, 
+        isGamepadNavigationDialogEnabled = v18 or v29.isGamepadNavigationDialogEnabled, 
+        selectButtonDismissesGamepadNavigationDialog = v29.selectButtonDismissesGamepadNavigationDialog, 
         appStorageKey = "GamepadMenuVirtualCursorPromptShown", 
-        maxShownCount = v20()
+        maxShownCount = 1
     };
 end)(v12);
-if v21 then
-    return v27;
+if v19 then
+    return v25;
 else
-    return v7.connect(function(v33) --[[ Line: 90 ]]
+    return v7.connect(function(v31) --[[ Line: 87 ]]
         return {
-            isGamepadNavigationDialogOpen = v33.displayOptions.isGamepadNavigationDialogOpen
+            isGamepadNavigationDialogOpen = v31.displayOptions.isGamepadNavigationDialogOpen
         };
-    end, function(v34) --[[ Line: 94 ]]
+    end, function(v32) --[[ Line: 91 ]]
         -- upvalues: v16 (copy)
         return {
-            SetGamepadNavigationDialogOpen = function(v35) --[[ Line: 96 ]] --[[ Name: SetGamepadNavigationDialogOpen ]]
-                -- upvalues: v34 (copy), v16 (ref)
-                return v34(v16(v35));
+            SetGamepadNavigationDialogOpen = function(v33) --[[ Line: 93 ]] --[[ Name: SetGamepadNavigationDialogOpen ]]
+                -- upvalues: v32 (copy), v16 (ref)
+                return v32(v16(v33));
             end
         };
-    end)(v32);
+    end)(v30);
 end;

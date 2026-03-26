@@ -184,7 +184,7 @@ else
         do
             local l_v54_0, l_v55_0 = v54, v55;
             v26.getOpenVRMenuHandler = function(_) --[[ Line: 234 ]] --[[ Name: getOpenVRMenuHandler ]]
-                -- upvalues: l_v53_0 (copy), l_v54_0 (ref), l_v55_0 (ref), v21 (ref), v48 (copy)
+                -- upvalues: l_v53_0 (copy), l_v54_0 (ref), l_v55_0 (ref), v21 (ref), l_VRHub_0 (copy), l_RbxAnalyticsService_0 (copy), v46 (copy)
                 local v62 = l_v53_0.handleInput({
                     onPress = function() --[[ Line: 236 ]] --[[ Name: onPress ]]
                         -- upvalues: l_v54_0 (ref), l_v55_0 (ref)
@@ -201,9 +201,16 @@ else
                         allowReleaseAfterHold = true
                     }, 
                     onRelease = function() --[[ Line: 248 ]] --[[ Name: onRelease ]]
-                        -- upvalues: l_v55_0 (ref), v48 (ref), l_v54_0 (ref)
+                        -- upvalues: l_v55_0 (ref), l_VRHub_0 (ref), l_RbxAnalyticsService_0 (ref), v46 (ref), l_v54_0 (ref)
                         if not l_v55_0 then
-                            v48("OpenVRMenu");
+                            if not l_VRHub_0.ShowTopBar then
+                                l_VRHub_0:SetShowTopBar(true);
+                                l_RbxAnalyticsService_0:ReportCounter("VR-BindAction-ToggleGui-On");
+                            else
+                                l_VRHub_0:SetShowTopBar(false);
+                                v46.closeInGameMenu();
+                                l_RbxAnalyticsService_0:ReportCounter("VR-BindAction-ToggleGui-Off");
+                            end;
                         end;
                         l_v54_0 = false;
                         l_v55_0 = false;

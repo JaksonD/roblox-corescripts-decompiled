@@ -31,16 +31,25 @@ return function(v4, v5, v6, v7, v8) --[[ Line: 10 ]]
                 end;
             end;
         end;
-        v11(v5, nil, CFrame.new(), v10.root, v10);
-        local v25 = Vector3.new();
-        local v26 = Vector3.new();
+        local v25 = CFrame.new();
+        local l_root_0 = v10.root;
+        local l_v5_FirstChild_0 = v5:FindFirstChild(l_root_0);
+        local l_v25_0 = v25;
+        l_v5_FirstChild_0.CFrame = l_v25_0;
+        if v10.children then
+            for v29, v30 in v10.children do
+                v11(v5, l_root_0, l_v25_0, v29, v30);
+            end;
+        end;
+        v25 = Vector3.new();
+        l_root_0 = Vector3.new();
         v25 = if v9.maxOverall then v9.maxOverall else Vector3.new();
-        v26 = if v9.minOverall then v9.minOverall else Vector3.new();
+        l_root_0 = if v9.minOverall then v9.minOverall else Vector3.new();
         if v9.minOverall == nil or v9.maxOverall == nil then
             return false;
         else
-            v4.Size = Vector3.new(v25.X - v26.X, v25.Y - v26.Y, v25.Z - v26.Z);
-            v4.Position = Vector3.new(v26.X + v4.Size.X / 2, v26.Y + v4.Size.Y / 2, v26.Z + v4.Size.Z / 2);
+            v4.Size = Vector3.new(v25.X - l_root_0.X, v25.Y - l_root_0.Y, v25.Z - l_root_0.Z);
+            v4.Position = Vector3.new(l_root_0.X + v4.Size.X / 2, l_root_0.Y + v4.Size.Y / 2, l_root_0.Z + v4.Size.Z / 2);
         end;
     end;
     return true;

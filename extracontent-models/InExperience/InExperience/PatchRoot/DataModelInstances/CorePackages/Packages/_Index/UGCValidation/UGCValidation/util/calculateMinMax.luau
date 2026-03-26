@@ -7,10 +7,10 @@ local function _(v0, v1, v2) --[[ Line: 5 ]] --[[ Name: compare ]]
 end;
 return function(v4, v5, v6, v7) --[[ Line: 14 ]] --[[ Name: calculateMinMax ]]
     local l_min_0 = math.min;
-    local v9 = if v4 and v6 then Vector3.new(l_min_0(v4.X, v6.X), l_min_0(v4.Y, v6.Y), l_min_0(v4.Z, v6.Z)) else v4 or v6;
+    local v9 = if v4 and v6 then Vector3.new(l_min_0(v4.X, v6.X), l_min_0(v4.Y, v6.Y), (l_min_0(v4.Z, v6.Z))) else v4 or v6;
     local l_max_0 = math.max;
     if v5 and v7 then
-        return v9, (Vector3.new(l_max_0(v5.X, v7.X), l_max_0(v5.Y, v7.Y), l_max_0(v5.Z, v7.Z)));
+        return v9, (Vector3.new(l_max_0(v5.X, v7.X), l_max_0(v5.Y, v7.Y), (l_max_0(v5.Z, v7.Z))));
     else
         return v9, v5 or v7;
     end;

@@ -35,7 +35,7 @@ local v21 = v7(function(v16, v17, v18) --[[ Line: 30 ]]
         return {};
     end;
 end);
-if l_FFlagExpChatUseMessagesStore_0 then
+if l_FFlagExpChatUseMessagesStore_0 and not v9 then
     v15.init = function(v22) --[[ Line: 50 ]] --[[ Name: init ]]
         -- upvalues: v3 (copy)
         v22.state = {
@@ -88,13 +88,15 @@ if l_FFlagExpChatUseMessagesStore_0 then
     end;
 end;
 v15.render = function(v36) --[[ Line: 108 ]] --[[ Name: render ]]
-    -- upvalues: l_FFlagExpChatUseMessagesStore_0 (copy), v21 (copy), v4 (copy), v13 (copy), v9 (copy)
+    -- upvalues: v9 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v21 (copy), v4 (copy), v13 (copy)
     local v37 = nil;
-    if l_FFlagExpChatUseMessagesStore_0 then
-        local l_messagesState_0 = v36.state.messagesState;
-        v37 = if l_messagesState_0 then v21(l_messagesState_0, v36.props.isChannelBarVisible, v36.props.targetTextChannel) else {};
-    else
-        v37 = v21(v36.props.messages, v36.props.isChannelBarVisible, v36.props.targetTextChannel);
+    if not v9 then
+        if l_FFlagExpChatUseMessagesStore_0 then
+            local l_messagesState_0 = v36.state.messagesState;
+            v37 = if l_messagesState_0 then v21(l_messagesState_0, v36.props.isChannelBarVisible, v36.props.targetTextChannel) else {};
+        else
+            v37 = v21(v36.props.messages, v36.props.isChannelBarVisible, v36.props.targetTextChannel);
+        end;
     end;
     return v4.createElement(v13, {
         LayoutOrder = v36.props.LayoutOrder, 
@@ -119,7 +121,7 @@ v15.render = function(v36) --[[ Line: 108 ]] --[[ Name: render ]]
         onUnfocus = v36.props.onUnfocus
     });
 end;
-return v5.connect(function(v39) --[[ Line: 146 ]]
+return v5.connect(function(v39) --[[ Line: 148 ]]
     -- upvalues: v9 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy)
     return {
         chatIntervention = v39.ChatIntervention, 
@@ -128,10 +130,10 @@ return v5.connect(function(v39) --[[ Line: 146 ]]
         verifiedUserIds = if l_FFlagEnableVerifiedBadgeStore_0 then nil else v39.VerifiedUsers, 
         targetTextChannel = v39.TextChannels.targetTextChannel
     };
-end, function(_) --[[ Line: 154 ]]
+end, function(_) --[[ Line: 156 ]]
     -- upvalues: v10 (copy), v2 (copy)
     return {
-        onFocus = function() --[[ Line: 156 ]] --[[ Name: onFocus ]]
+        onFocus = function() --[[ Line: 158 ]] --[[ Name: onFocus ]]
             -- upvalues: v10 (ref), v2 (ref)
             if v10 then
                 return v2(false).setContextMenuOpen();
@@ -139,7 +141,7 @@ end, function(_) --[[ Line: 154 ]]
                 return v2(false).setTextboxFocus();
             end;
         end, 
-        onUnfocus = function() --[[ Line: 164 ]] --[[ Name: onUnfocus ]]
+        onUnfocus = function() --[[ Line: 166 ]] --[[ Name: onUnfocus ]]
             -- upvalues: v10 (ref), v2 (ref)
             if v10 then
                 return v2(false).clearContextMenuOpen();

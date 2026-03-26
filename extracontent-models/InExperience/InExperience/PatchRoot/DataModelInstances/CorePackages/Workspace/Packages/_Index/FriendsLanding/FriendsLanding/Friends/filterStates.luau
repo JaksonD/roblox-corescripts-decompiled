@@ -3,5 +3,6 @@ return {
     InExperience = "InExperience", 
     Online = "Online", 
     Offline = "Offline", 
-    Inactive = "Inactive"
+    Inactive = "Inactive", 
+    Trusted = "Trusted"
 };

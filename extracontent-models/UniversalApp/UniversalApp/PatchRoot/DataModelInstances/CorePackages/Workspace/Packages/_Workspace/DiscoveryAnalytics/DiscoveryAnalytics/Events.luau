@@ -9,6 +9,7 @@ return {
     gamePlayIntent = require(script.gamePlayIntent), 
     gameShareExperienceLink = require(script.gameShareExperienceLink), 
     gameVote = require(script.gameVote), 
+    invalidPlayIntent = require(script.invalidPlayIntent), 
     unlockPlayIntent = require(script.unlockPlayIntent), 
     sortDeeplinkFailureCounter = require(script.sortDeeplinkFailureCounter), 
     gameConnectionsPlayedChipClicked = if l_FFlagSduiExperienceDetailsSocialProof_0 then require(script.gameConnectionsPlayedChipClicked) else nil, 

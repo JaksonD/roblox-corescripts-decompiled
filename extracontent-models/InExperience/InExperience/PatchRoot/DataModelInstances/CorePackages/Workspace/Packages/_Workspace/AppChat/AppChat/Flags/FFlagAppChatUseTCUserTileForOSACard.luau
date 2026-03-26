@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AppChatUseTCUserTileForOSACard", false);
+return game:DefineFastFlag("AppChatUseTCUserTileForOSACard1", false);

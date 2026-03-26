@@ -9,6 +9,7 @@ return {
     OpenJoinFriends = "OpenJoinFriends", 
     OpenMarketplaceTryOn = "OpenMarketplaceTryOn", 
     OpenSeeAll = "OpenSeeAll", 
+    OpenSocialLink = "OpenSocialLink", 
     OpenSponsoredTooltip = "OpenSponsoredTooltip", 
     PlayButtonClick = "PlayButtonClick", 
     DismissDialog = "DismissDialog", 

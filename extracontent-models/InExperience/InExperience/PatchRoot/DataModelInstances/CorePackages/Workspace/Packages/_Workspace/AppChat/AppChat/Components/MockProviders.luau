@@ -24,10 +24,11 @@ local v22 = require(l_Parent_0.RoactRodux);
 local v23 = require(l_Parent_0.RoactNavigation);
 local v24 = {
     withUiModeSupport = false, 
-    withLayerCollector = true
+    withLayerCollector = true, 
+    withApolloProvider = true
 };
-return function(v25) --[[ Line: 55 ]] --[[ Name: MockProviders ]]
-    -- upvalues: v11 (copy), v24 (copy), l_RealtimeProvider_0 (copy), l_FoundationProvider_0 (copy), l_StyleProviderWithDefaultTheme_0 (copy), l_LocalizationProvider_0 (copy), l_Signal_0 (copy), l_LayerCollectorProvider_0 (copy), v22 (copy), v21 (copy), v12 (copy), v13 (copy), l_mockApolloClient_0 (copy), v17 (copy), v14 (copy), v4 (copy), v15 (copy), v19 (copy), l_HapticFeedbackConfig_0 (copy), v23 (copy), v2 (copy), l_ProviderContainer_0 (copy)
+return function(v25) --[[ Line: 57 ]] --[[ Name: MockProviders ]]
+    -- upvalues: v11 (copy), v24 (copy), l_RealtimeProvider_0 (copy), l_FoundationProvider_0 (copy), l_StyleProviderWithDefaultTheme_0 (copy), l_LocalizationProvider_0 (copy), l_Signal_0 (copy), l_LayerCollectorProvider_0 (copy), v22 (copy), v21 (copy), v12 (copy), v13 (copy), v4 (copy), l_mockApolloClient_0 (copy), v17 (copy), v14 (copy), v15 (copy), v19 (copy), l_HapticFeedbackConfig_0 (copy), v23 (copy), v2 (copy), l_ProviderContainer_0 (copy)
     local v26 = v11.Dictionary.union(v24, v25);
     local v27 = {};
     if v26.realtime then
@@ -56,7 +57,7 @@ return function(v25) --[[ Line: 55 ]] --[[ Name: MockProviders ]]
         class = l_LocalizationProvider_0, 
         props = {
             localization = {
-                Format = function(_, v29) --[[ Line: 88 ]] --[[ Name: Format ]]
+                Format = function(_, v29) --[[ Line: 90 ]] --[[ Name: Format ]]
                     return v29;
                 end, 
                 changed = l_Signal_0.new()
@@ -72,7 +73,7 @@ return function(v25) --[[ Line: 55 ]] --[[ Name: MockProviders ]]
     table.insert(v27, {
         class = v22.StoreProvider, 
         props = {
-            store = v26.rodux and v26.rodux.store or v21.Store.new(function() --[[ Line: 106 ]]
+            store = v26.rodux and v26.rodux.store or v21.Store.new(function() --[[ Line: 108 ]]
                 -- upvalues: v26 (copy)
                 return v26.rodux and v26.rodux.state or {};
             end, v26.rodux and v26.rodux.state, {
@@ -89,21 +90,23 @@ return function(v25) --[[ Line: 55 ]] --[[ Name: MockProviders ]]
             }
         }
     });
-    local v30 = l_mockApolloClient_0({});
-    local v31 = v17.createMockApolloProfiles();
-    v14.TestUtils.writeProfileDataToCache(v30, v31);
     table.insert(v27, {
         class = v4.DesignTokenProvider, 
         props = {
             tokenMappers = {}
         }
     });
-    table.insert(v27, {
-        class = v15.ApolloProvider, 
-        props = {
-            client = v30
-        }
-    });
+    if v26.withApolloProvider then
+        local v30 = l_mockApolloClient_0({});
+        local v31 = v17.createMockApolloProfiles();
+        v14.TestUtils.writeProfileDataToCache(v30, v31);
+        table.insert(v27, {
+            class = v15.ApolloProvider, 
+            props = {
+                client = v30
+            }
+        });
+    end;
     table.insert(v27, {
         class = v19.InteractionFeedbackContext.Provider, 
         props = {
@@ -119,31 +122,31 @@ return function(v25) --[[ Line: 55 ]] --[[ Name: MockProviders ]]
                     routeName = "", 
                     key = ""
                 }, 
-                dispatch = function() --[[ Line: 153 ]] --[[ Name: dispatch ]]
+                dispatch = function() --[[ Line: 157 ]] --[[ Name: dispatch ]]
 
                 end, 
-                goBack = function() --[[ Line: 154 ]] --[[ Name: goBack ]]
+                goBack = function() --[[ Line: 158 ]] --[[ Name: goBack ]]
 
                 end, 
-                addListener = function() --[[ Line: 155 ]] --[[ Name: addListener ]]
+                addListener = function() --[[ Line: 159 ]] --[[ Name: addListener ]]
 
                 end, 
-                isFocused = function() --[[ Line: 156 ]] --[[ Name: isFocused ]]
+                isFocused = function() --[[ Line: 160 ]] --[[ Name: isFocused ]]
 
                 end, 
-                setParams = function() --[[ Line: 157 ]] --[[ Name: setParams ]]
+                setParams = function() --[[ Line: 161 ]] --[[ Name: setParams ]]
 
                 end, 
-                getParam = function() --[[ Line: 158 ]] --[[ Name: getParam ]]
+                getParam = function() --[[ Line: 162 ]] --[[ Name: getParam ]]
 
                 end, 
-                replace = function() --[[ Line: 159 ]] --[[ Name: replace ]]
+                replace = function() --[[ Line: 163 ]] --[[ Name: replace ]]
 
                 end, 
-                push = function() --[[ Line: 160 ]] --[[ Name: push ]]
+                push = function() --[[ Line: 164 ]] --[[ Name: push ]]
 
                 end, 
-                getScreenProps = function() --[[ Line: 161 ]] --[[ Name: getScreenProps ]]
+                getScreenProps = function() --[[ Line: 165 ]] --[[ Name: getScreenProps ]]
 
                 end
             }

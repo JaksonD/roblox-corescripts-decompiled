@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AppIaStatusBar", false);
+return game:DefineFastFlag("AppIaStatusBar3", false);

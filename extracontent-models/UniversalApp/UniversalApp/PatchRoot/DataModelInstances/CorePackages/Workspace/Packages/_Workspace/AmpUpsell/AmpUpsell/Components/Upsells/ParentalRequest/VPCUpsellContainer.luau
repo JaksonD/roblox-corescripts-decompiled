@@ -105,11 +105,18 @@ return function(v32) --[[ Line: 49 ]] --[[ Name: VPCUpsellContainer ]]
     local v69, v70 = v2.useState(0);
     local l_onRetryAmp_0 = v32.onRetryAmp;
     local function v72() --[[ Line: 129 ]] --[[ Name: onRetryVPC ]]
-        -- upvalues: v70 (copy), v69 (copy), v50 (copy), v48 (copy), v68 (copy), v46 (copy), l_recourseAction_0 (copy), l_ActionTypeEnum_0 (ref), l_VPCStepEnum_0 (ref)
+        -- upvalues: v70 (copy), v69 (copy), v50 (copy), v48 (copy), v57 (copy), l_isStringEmail_0 (ref), v55 (copy), v59 (copy), v46 (copy), l_recourseAction_0 (copy), l_ActionTypeEnum_0 (ref), l_VPCStepEnum_0 (ref)
         v70(v69 + 1);
         v50({});
         v48("Unknown");
-        v68("");
+        v57("");
+        if l_isStringEmail_0("") then
+            v55(true);
+            v59("");
+        else
+            v55(false);
+            v59("");
+        end;
         v46(if l_recourseAction_0 == l_ActionTypeEnum_0.ParentLink then l_VPCStepEnum_0.NewParentCollectEmail else l_VPCStepEnum_0.AlreadyLinkedSendRequest);
     end;
     local function v81() --[[ Line: 141 ]] --[[ Name: getLinkedParentEmailsAndSendRequestToAllParents ]]

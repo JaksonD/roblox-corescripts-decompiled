@@ -16,33 +16,34 @@ local l_StandardButtonSize_0 = v3.App.Button.Enum.StandardButtonSize;
 local v15 = require(l_script_FirstAncestor_0.Utils.useLocalUserInfo);
 local v16 = require(l_script_FirstAncestor_0.Analytics.useAnalytics);
 local v17 = require(l_script_FirstAncestor_0.Analytics.EventNames);
-local v18 = l_Images_0["icons/menu/scanqr"];
-local v19 = l_Images_0["icons/navigation/close"];
-return function(v20) --[[ Line: 44 ]]
-    -- upvalues: l_useLocalization_0 (copy), v6 (copy), l_useStyle_0 (copy), v15 (copy), v16 (copy), v2 (copy), v17 (copy), l_ImageSetLabel_0 (copy), v18 (copy), l_StyledTextLabel_0 (copy), l_IconButton_0 (copy), v19 (copy), l_IconSize_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_StandardButtonSize_0 (copy)
-    local v21 = l_useLocalization_0({
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v19 = l_Images_0["icons/menu/scanqr"];
+local v20 = l_Images_0["icons/navigation/close"];
+return function(v21) --[[ Line: 46 ]]
+    -- upvalues: l_useLocalization_0 (copy), v6 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useStyle_0 (copy), v15 (copy), v16 (copy), v2 (copy), v17 (copy), l_ImageSetLabel_0 (copy), v19 (copy), l_StyledTextLabel_0 (copy), l_IconButton_0 (copy), v20 (copy), l_IconSize_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), l_StandardButtonSize_0 (copy)
+    local v22 = l_useLocalization_0({
         notificationRequest = v6.NotificationRequestText, 
-        acceptFriend = v6.AcceptConnection
+        acceptFriend = if l_FFlagConnectionsToFriendsRename_0 then v6.AcceptFriend else v6.AcceptConnection
     });
-    local v22 = l_useStyle_0();
-    local v23 = v15(v20.userId);
-    local v24 = v16();
-    local v25, v26 = v2.useState(false);
-    v2.useEffect(function() --[[ Line: 55 ]]
-        -- upvalues: v24 (copy), v17 (ref), v20 (copy)
-        v24.fireEvent(v17.QRPageFriendRequestBannerShown, {
-            qrCodeBannerQueueSize = v20.notificationQueueSize
+    local v23 = l_useStyle_0();
+    local v24 = v15(v21.userId);
+    local v25 = v16();
+    local v26, v27 = v2.useState(false);
+    v2.useEffect(function() --[[ Line: 57 ]]
+        -- upvalues: v25 (copy), v17 (ref), v21 (copy)
+        v25.fireEvent(v17.QRPageFriendRequestBannerShown, {
+            qrCodeBannerQueueSize = v21.notificationQueueSize
         });
     end, {
-        v20.userId
+        v21.userId
     });
     return v2.createElement("Frame", {
         ZIndex = 2, 
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.fromScale(1, 0), 
         BorderSizePixel = 0, 
-        BackgroundColor3 = v22.Theme.BackgroundUIDefault.Color, 
-        BackgroundTransparency = v22.Theme.BackgroundUIDefault.Transparency
+        BackgroundColor3 = v23.Theme.BackgroundUIDefault.Color, 
+        BackgroundTransparency = v23.Theme.BackgroundUIDefault.Transparency
     }, {
         UIPadding = v2.createElement("UIPadding", {
             PaddingBottom = UDim.new(0, 12), 
@@ -54,8 +55,8 @@ return function(v20) --[[ Line: 44 ]]
             CornerRadius = UDim.new(0, 8)
         }), 
         UIStroke = v2.createElement("UIStroke", {
-            Color = v22.Theme.Divider.Color, 
-            Transparency = v22.Theme.Divider.Transparency, 
+            Color = v23.Theme.Divider.Color, 
+            Transparency = v23.Theme.Divider.Transparency, 
             Thickness = 1
         }), 
         Layout = v2.createElement("UIListLayout", {
@@ -86,10 +87,10 @@ return function(v20) --[[ Line: 44 ]]
                 BorderSizePixel = 0
             }, {
                 QRImage = v2.createElement(l_ImageSetLabel_0, {
-                    Image = v18, 
+                    Image = v19, 
                     BackgroundTransparency = 1, 
                     ImageTransparency = 0, 
-                    ImageColor3 = v22.Theme.TextEmphasis.Color, 
+                    ImageColor3 = v23.Theme.TextEmphasis.Color, 
                     Size = UDim2.new(0, 40, 0, 40)
                 })
             }), 
@@ -108,9 +109,9 @@ return function(v20) --[[ Line: 44 ]]
                 }), 
                 Username = v2.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 1, 
-                    text = v23.displayName, 
-                    fontStyle = v22.Font.Header2, 
-                    colorStyle = v22.Theme.TextDefault, 
+                    text = v24.displayName, 
+                    fontStyle = v23.Font.Header2, 
+                    colorStyle = v23.Theme.TextDefault, 
                     size = UDim2.new(1, 0, 0, 20), 
                     automaticSize = Enum.AutomaticSize.Y, 
                     textXAlignment = Enum.TextXAlignment.Left, 
@@ -125,9 +126,9 @@ return function(v20) --[[ Line: 44 ]]
                 }), 
                 Description = v2.createElement(l_StyledTextLabel_0, {
                     layoutOrder = 3, 
-                    text = v21.notificationRequest, 
-                    fontStyle = v22.Font.Body, 
-                    colorStyle = v22.Theme.TextDefault, 
+                    text = v22.notificationRequest, 
+                    fontStyle = v23.Font.Body, 
+                    colorStyle = v23.Theme.TextDefault, 
                     size = UDim2.new(1, 0, 0, 28), 
                     automaticSize = Enum.AutomaticSize.Y, 
                     textXAlignment = Enum.TextXAlignment.Left, 
@@ -143,9 +144,9 @@ return function(v20) --[[ Line: 44 ]]
                 BorderSizePixel = 0
             }, {
                 CloseButton = v2.createElement(l_IconButton_0, {
-                    icon = v19, 
+                    icon = v20, 
                     iconSize = l_IconSize_0.Medium, 
-                    onActivated = v20.onClose, 
+                    onActivated = v21.onClose, 
                     anchorPoint = Vector2.new(0.13, 0.13)
                 })
             })
@@ -154,13 +155,13 @@ return function(v20) --[[ Line: 44 ]]
             buttonType = l_ButtonType_0.PrimarySystem, 
             layoutOrder = 2, 
             standardSize = l_StandardButtonSize_0.Small, 
-            text = v21.acceptFriend, 
-            fontStyle = v22.Font.CaptionBody, 
-            isDisabled = v25, 
-            onActivated = function() --[[ Line: 182 ]] --[[ Name: onActivated ]]
-                -- upvalues: v26 (copy), v20 (copy)
-                v26(true);
-                v20.onAccept(v20.userId);
+            text = v22.acceptFriend, 
+            fontStyle = v23.Font.CaptionBody, 
+            isDisabled = v26, 
+            onActivated = function() --[[ Line: 184 ]] --[[ Name: onActivated ]]
+                -- upvalues: v27 (copy), v21 (copy)
+                v27(true);
+                v21.onAccept(v21.userId);
             end
         })
     });

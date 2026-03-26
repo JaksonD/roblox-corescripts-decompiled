@@ -15,101 +15,102 @@ local l_EventNames_0 = v11.EventNames;
 local l_Contexts_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Contexts;
 local l_FStringConnectionGraphCoreAmpNameSpace_0 = require(l_Parent_0.SharedFlags).FStringConnectionGraphCoreAmpNameSpace;
 local l_FFlagTCUpdateProfileCTAButton_0 = require(l_Parent_0.SharedFlags).FFlagTCUpdateProfileCTAButton;
-local function v32(v17) --[[ Line: 32 ]] --[[ Name: TrustedFriendsVPCPrologue ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_useTCAnalytics_0 (copy), v1 (copy), l_EventNames_0 (copy), l_NavigateBack_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), l_FStringConnectionGraphCoreAmpNameSpace_0 (copy), l_Contexts_0 (copy), l_OpenAmpWizardContainer_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_ButtonVariant_0 (copy)
-    local v18 = l_useNavigation_0();
-    local v19 = l_useDispatch_0();
-    local v20 = l_useLocalization_0({
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local function v33(v18) --[[ Line: 33 ]] --[[ Name: TrustedFriendsVPCPrologue ]]
+    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useTCAnalytics_0 (copy), v1 (copy), l_EventNames_0 (copy), l_NavigateBack_0 (copy), l_FFlagTCUpdateProfileCTAButton_0 (copy), l_FStringConnectionGraphCoreAmpNameSpace_0 (copy), l_Contexts_0 (copy), l_OpenAmpWizardContainer_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_ButtonVariant_0 (copy)
+    local v19 = l_useNavigation_0();
+    local v20 = l_useDispatch_0();
+    local v21 = l_useLocalization_0({
         cancel = "CommonUI.Controls.Action.Cancel", 
         ask = "Feature.Friends.Label.Ask", 
         askYourParent = "Feature.Friends.Label.AskYourParent", 
-        vpcRequired = "Feature.Friends.Label.AddConnectionVPC"
+        vpcRequired = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.AddFriendVPC" or "Feature.Friends.Label.AddConnectionVPC"
     });
     local l_fireAnalyticsEvent_0 = l_useTCAnalytics_0({
-        friendId = v17.userId
+        friendId = v18.userId
     }).fireAnalyticsEvent;
-    local v22 = v1.useCallback(function() --[[ Line: 47 ]]
-        -- upvalues: v18 (copy)
-        v18.pop();
+    local v23 = v1.useCallback(function() --[[ Line: 50 ]]
+        -- upvalues: v19 (copy)
+        v19.pop();
     end, {
-        v18
+        v19
     });
-    local v23 = v1.useCallback(function() --[[ Line: 51 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v22 (copy)
+    local v24 = v1.useCallback(function() --[[ Line: 54 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v23 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsVPCCancelClicked);
-        v22();
+        v23();
     end, {
-        v22, 
+        v23, 
         l_fireAnalyticsEvent_0
     });
-    local v26 = v1.useCallback(function(_, _) --[[ Line: 56 ]]
-        -- upvalues: v19 (copy), l_NavigateBack_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), v17 (copy)
-        v19(l_NavigateBack_0(true));
-        if l_FFlagTCUpdateProfileCTAButton_0 and v17.completionCallback then
-            v17.completionCallback();
+    local v27 = v1.useCallback(function(_, _) --[[ Line: 59 ]]
+        -- upvalues: v20 (copy), l_NavigateBack_0 (ref), l_FFlagTCUpdateProfileCTAButton_0 (ref), v18 (copy)
+        v20(l_NavigateBack_0(true));
+        if l_FFlagTCUpdateProfileCTAButton_0 and v18.completionCallback then
+            v18.completionCallback();
         end;
     end, {
-        v19, 
-        if l_FFlagTCUpdateProfileCTAButton_0 then v17.completionCallback else nil
+        v20, 
+        if l_FFlagTCUpdateProfileCTAButton_0 then v18.completionCallback else nil
     });
-    local v31 = v1.useCallback(function() --[[ Line: 64 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v22 (copy), l_FStringConnectionGraphCoreAmpNameSpace_0 (ref), v17 (copy), l_Contexts_0 (ref), v19 (copy), l_OpenAmpWizardContainer_0 (ref), v26 (copy)
+    local v32 = v1.useCallback(function() --[[ Line: 67 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v23 (copy), l_FStringConnectionGraphCoreAmpNameSpace_0 (ref), v18 (copy), l_Contexts_0 (ref), v20 (copy), l_OpenAmpWizardContainer_0 (ref), v27 (copy)
         l_fireAnalyticsEvent_0(l_EventNames_0.TrustedFriendsVPCAskClicked);
-        v22();
+        v23();
         local l_l_FStringConnectionGraphCoreAmpNameSpace_0_0 = l_FStringConnectionGraphCoreAmpNameSpace_0;
-        local v28 = {
-            targetUserId = v17.userId
-        };
         local v29 = {
+            targetUserId = v18.userId
+        };
+        local v30 = {
             {
                 name = "targetUser", 
                 type = "UserId", 
-                value = v17.userId
+                value = v18.userId
             }
         };
         local l_TrustedFriendsVPCPrologue_0 = l_Contexts_0.TrustedFriendsVPCPrologue;
-        v19(l_OpenAmpWizardContainer_0("TriggerTrustedFriendVPCRecourse", v26, v28, l_TrustedFriendsVPCPrologue_0, v29, l_l_FStringConnectionGraphCoreAmpNameSpace_0_0));
+        v20(l_OpenAmpWizardContainer_0("TriggerTrustedFriendVPCRecourse", v27, v29, l_TrustedFriendsVPCPrologue_0, v30, l_l_FStringConnectionGraphCoreAmpNameSpace_0_0));
     end, {
-        v19, 
+        v20, 
         l_fireAnalyticsEvent_0, 
-        v22
+        v23
     });
     return v1.createElement(l_Dialog_0.Root, {
         size = l_DialogSize_0.Small
     }, {
         Title = v1.createElement(l_Dialog_0.Title, {
             LayoutOrder = 1, 
-            text = v20.askYourParent
+            text = v21.askYourParent
         }), 
         Content = v1.createElement(l_Dialog_0.Content, {
             LayoutOrder = 2
         }, {
             Text = v1.createElement(l_Dialog_0.Text, {
-                Text = v20.vpcRequired
+                Text = v21.vpcRequired
             })
         }), 
         Buttons = v1.createElement(l_Dialog_0.Actions, {
             LayoutOrder = 3, 
             actions = {
                 {
-                    text = v20.ask, 
+                    text = v21.ask, 
                     variant = l_ButtonVariant_0.Emphasis, 
-                    onActivated = v31
+                    onActivated = v32
                 }, 
                 {
-                    text = v20.cancel, 
+                    text = v21.cancel, 
                     variant = l_ButtonVariant_0.Standard, 
-                    onActivated = v23
+                    onActivated = v24
                 }
             }
         })
     });
 end;
 return {
-    Screen = function(v33) --[[ Line: 118 ]]
-        -- upvalues: v1 (copy), v32 (copy)
-        return v1.createElement(v32, {
-            userId = v33.navigation.getParam("userId")
+    Screen = function(v34) --[[ Line: 121 ]]
+        -- upvalues: v1 (copy), v33 (copy)
+        return v1.createElement(v33, {
+            userId = v34.navigation.getParam("userId")
         });
     end
 };

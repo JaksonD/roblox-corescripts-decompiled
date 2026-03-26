@@ -18,230 +18,235 @@ local v16 = require(l_Modules_0.Personalization.Flags.FFlagUpdateDividerStartBou
 local l_Modules_1 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules;
 local l_FeedItemModel_0 = l_Modules_1.Personalization.OmniFeed.DataStore.FeedItemModel;
 local l_OmniFeedProps_0 = l_Modules_1.Personalization.OmniFeed.OmniFeedProps;
-local v20 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local l_FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding_0 = v20.FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding;
-local l_FFlagLuaAppUseSortsWithDividersFString_0 = v20.FFlagLuaAppUseSortsWithDividersFString;
-local l_isSubjectToDesktopPolicies_0 = v20.isSubjectToDesktopPolicies;
-local l_FStringLuaAppSortsWithDividers_0 = v20.FStringLuaAppSortsWithDividers;
-local l_FFlagUseOmniFeedDividerOverrides_0 = v20.FFlagUseOmniFeedDividerOverrides;
-local l_FIntOmniFeedDividerHeightOverride_0 = v20.FIntOmniFeedDividerHeightOverride;
-local l_FIntOmniFeedDividerPaddingOverride_0 = v20.FIntOmniFeedDividerPaddingOverride;
-local l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 = v20.FFlagLuaAppEnableRelativeGuiHomeForAll;
-local l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 = v20.FFlagLuaAppEnableRelativeGuiHomeWithIxp;
-local v30 = {};
+local l_CompositionTags_0 = require(l_CorePackages_0.Workspace.Packages.AppComposition).CompositionTags;
+local v21 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local l_FFlagLuaAppCompositionSupport_0 = v21.FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = v21.FFlagLuaAppCompositionAlways;
+local l_FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding_0 = v21.FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding;
+local l_FFlagLuaAppUseSortsWithDividersFString_0 = v21.FFlagLuaAppUseSortsWithDividersFString;
+local l_isSubjectToDesktopPolicies_0 = v21.isSubjectToDesktopPolicies;
+local l_FStringLuaAppSortsWithDividers_0 = v21.FStringLuaAppSortsWithDividers;
+local l_FFlagUseOmniFeedDividerOverrides_0 = v21.FFlagUseOmniFeedDividerOverrides;
+local l_FIntOmniFeedDividerHeightOverride_0 = v21.FIntOmniFeedDividerHeightOverride;
+local l_FIntOmniFeedDividerPaddingOverride_0 = v21.FIntOmniFeedDividerPaddingOverride;
+local l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 = v21.FFlagLuaAppEnableRelativeGuiHomeForAll;
+local l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 = v21.FFlagLuaAppEnableRelativeGuiHomeWithIxp;
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = v21.FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
+local v34 = {};
 if l_FFlagLuaAppUseSortsWithDividersFString_0 then
-    for v31 in l_FStringLuaAppSortsWithDividers_0:gmatch("(%w+)") do
-        v30[v31] = true;
+    for v35 in l_FStringLuaAppSortsWithDividers_0:gmatch("(%w+)") do
+        v34[v35] = true;
     end;
 end;
 local l_SORT_INDEX_SELECTION_ORDER_MULTIPLIER_0 = v2.Constants.SORT_INDEX_SELECTION_ORDER_MULTIPLIER;
 local l_SORT_SELECTION_ORDER_BASE_0 = v2.Constants.SORT_SELECTION_ORDER_BASE;
-local function _(v34, v35) --[[ Line: 65 ]] --[[ Name: scaleSizeForPlatform ]]
-    return v34 * v35.Global.Stroke_100;
+local function _(v38, v39) --[[ Line: 75 ]] --[[ Name: scaleSizeForPlatform ]]
+    return v38 * v39.Global.Stroke_100;
 end;
-local function _(v37) --[[ Line: 69 ]] --[[ Name: isGridTile ]]
+local function _(v41) --[[ Line: 79 ]] --[[ Name: isGridTile ]]
     -- upvalues: l_OmniFeedConstants_0 (copy)
-    local v38 = v37.treatmentProps.topicLayoutData and v37.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
-    local v39 = true;
-    if v38 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
-        v39 = v38 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
+    local v42 = v41.treatmentProps.topicLayoutData and v41.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
+    local v43 = true;
+    if v42 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
+        v43 = v42 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
     end;
-    return v39;
+    return v43;
 end;
-local function v56(v41, v42, v43, v44, v45, v46, v47) --[[ Line: 77 ]] --[[ Name: shouldAddDividerOrExtraPadding ]]
-    -- upvalues: v16 (copy), l_FFlagLuaAppUseSortsWithDividersFString_0 (copy), v30 (copy), l_OmniFeedTypes_0 (copy), l_isSubjectToDesktopPolicies_0 (copy), l_OmniFeedConstants_0 (copy), l_AppPage_0 (copy)
-    local v48 = false;
-    local v49 = false;
-    if (v16 and 0 or v47 and 0 or 1) + v41 - 1 < v43 and v43 < v42 then
-        local v50 = v45[v43 - 1];
-        local v51 = v45[v43];
-        local v52 = v45[v43 + 1];
-        if v50 and v50.pageSection ~= v51.pageSection then
-            v50 = nil;
+local function v60(v45, v46, v47, v48, v49, v50, v51) --[[ Line: 87 ]] --[[ Name: shouldAddDividerOrExtraPadding ]]
+    -- upvalues: v16 (copy), l_FFlagLuaAppUseSortsWithDividersFString_0 (copy), v34 (copy), l_OmniFeedTypes_0 (copy), l_isSubjectToDesktopPolicies_0 (copy), l_OmniFeedConstants_0 (copy), l_AppPage_0 (copy)
+    local v52 = false;
+    local v53 = false;
+    if (v16 and 0 or v51 and 0 or 1) + v45 - 1 < v47 and v47 < v46 then
+        local v54 = v49[v47 - 1];
+        local v55 = v49[v47];
+        local v56 = v49[v47 + 1];
+        if v54 and v54.pageSection ~= v55.pageSection then
+            v54 = nil;
         end;
-        if v52 and v52.pageSection ~= v51.pageSection then
-            v52 = nil;
+        if v56 and v56.pageSection ~= v55.pageSection then
+            v56 = nil;
         end;
-        if l_FFlagLuaAppUseSortsWithDividersFString_0 and (v51.itemId and v51.itemId.topicId and v30[v51.itemId.topicId] or v52 and v52.itemId and v52.itemId.topicId and v30[v52.itemId.topicId]) then
-            v49 = true;
+        if l_FFlagLuaAppUseSortsWithDividersFString_0 and (v55.itemId and v55.itemId.topicId and v34[v55.itemId.topicId] or v56 and v56.itemId and v56.itemId.topicId and v34[v56.itemId.topicId]) then
+            v53 = true;
         end;
-        if v44.treatmentType == l_OmniFeedTypes_0.HomeGameGrid and v52 and v52.treatmentType ~= l_OmniFeedTypes_0.HomeGameGrid or v44.treatmentType ~= l_OmniFeedTypes_0.HomeGameGrid and v50 and v50.treatmentType == l_OmniFeedTypes_0.HomeGameGrid and v52 and v52.treatmentType == l_OmniFeedTypes_0.HomeGameGrid then
-            v49 = true;
-        elseif v47 then
-            v48 = true;
+        if v48.treatmentType == l_OmniFeedTypes_0.HomeGameGrid and v56 and v56.treatmentType ~= l_OmniFeedTypes_0.HomeGameGrid or v48.treatmentType ~= l_OmniFeedTypes_0.HomeGameGrid and v54 and v54.treatmentType == l_OmniFeedTypes_0.HomeGameGrid and v56 and v56.treatmentType == l_OmniFeedTypes_0.HomeGameGrid then
+            v53 = true;
+        elseif v51 then
+            v52 = true;
         elseif l_isSubjectToDesktopPolicies_0() then
-            local v53 = false;
-            if v44.treatmentType == l_OmniFeedTypes_0.Carousel then
-                v53 = false;
-                if v52 ~= nil then
-                    v53 = false;
-                    if v52.treatmentType == l_OmniFeedTypes_0.HomeGameGrid then
-                        local v54 = v44.treatmentProps.topicLayoutData and v44.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
-                        v53 = true;
-                        if v54 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
-                            v53 = v54 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
+            local v57 = false;
+            if v48.treatmentType == l_OmniFeedTypes_0.Carousel then
+                v57 = false;
+                if v56 ~= nil then
+                    v57 = false;
+                    if v56.treatmentType == l_OmniFeedTypes_0.HomeGameGrid then
+                        local v58 = v48.treatmentProps.topicLayoutData and v48.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
+                        v57 = true;
+                        if v58 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
+                            v57 = v58 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
                         end;
-                        if v53 then
-                            v54 = v52;
-                            local v55 = v54.treatmentProps.topicLayoutData and v54.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
-                            v53 = true;
-                            if v55 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
-                                v53 = v55 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
+                        if v57 then
+                            v58 = v56;
+                            local v59 = v58.treatmentProps.topicLayoutData and v58.treatmentProps.topicLayoutData[l_OmniFeedConstants_0.TopicLayoutDataKeys.ComponentType];
+                            v57 = true;
+                            if v59 ~= l_OmniFeedConstants_0.ComponentTypeDataKeys.GridTile then
+                                v57 = v59 == l_OmniFeedConstants_0.ComponentTypeDataKeys.EventTile;
                             end;
                         end;
                     end;
                 end;
             end;
-            v48 = v53;
+            v52 = v57;
         end;
     end;
-    if v46 == l_AppPage_0.SearchPage and v43 < v42 then
-        v49 = true;
+    if v50 == l_AppPage_0.SearchPage and v47 < v46 then
+        v53 = true;
     end;
-    return v49, v48;
+    return v53, v52;
 end;
-return v1.memo(function(v57) --[[ Line: 162 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useStyle_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v1 (copy), l_FFlagUseOmniFeedDividerOverrides_0 (copy), l_FIntOmniFeedDividerPaddingOverride_0 (copy), l_FIntOmniFeedDividerHeightOverride_0 (copy), l_FeedItemModel_0 (copy), l_SORT_SELECTION_ORDER_BASE_0 (copy), l_SORT_INDEX_SELECTION_ORDER_MULTIPLIER_0 (copy), l_OmniFeedProps_0 (copy), v7 (copy), l_OmniFeedTypes_0 (copy), v15 (copy), l_FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding_0 (copy), v56 (copy), l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 (copy), l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 (copy)
-    local v58 = l_useDesignTokens_0();
+return v1.memo(function(v61) --[[ Line: 172 ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useStyle_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v1 (copy), l_FFlagUseOmniFeedDividerOverrides_0 (copy), l_FIntOmniFeedDividerPaddingOverride_0 (copy), l_FIntOmniFeedDividerHeightOverride_0 (copy), l_FeedItemModel_0 (copy), l_SORT_SELECTION_ORDER_BASE_0 (copy), l_SORT_INDEX_SELECTION_ORDER_MULTIPLIER_0 (copy), l_OmniFeedProps_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), v7 (copy), l_OmniFeedTypes_0 (copy), v15 (copy), l_FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding_0 (copy), v60 (copy), l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 (copy), l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_CompositionTags_0 (copy)
+    local v62 = l_useDesignTokens_0();
     local l_Color_0 = l_useStyle_0().Theme.BackgroundContrast.Color;
-    local v60 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    local v61 = {
+    local v64 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    local v65 = {
         Layout = v1.createElement("UIListLayout", {
             SortOrder = Enum.SortOrder.LayoutOrder, 
             FillDirection = Enum.FillDirection.Vertical
         })
     };
-    local v62 = 1;
-    local v63 = v57.layoutPadding or 0;
-    local l_v63_0 = v63;
-    local v65 = v63 / 2;
+    local v66 = 1;
+    local v67 = v61.layoutPadding or 0;
+    local l_v67_0 = v67;
+    local v69 = v67 / 2;
     if l_FFlagUseOmniFeedDividerOverrides_0 then
         if l_FIntOmniFeedDividerPaddingOverride_0 >= 0 then
-            l_v63_0 = l_FIntOmniFeedDividerPaddingOverride_0 * v58.Global.Stroke_100;
+            l_v67_0 = l_FIntOmniFeedDividerPaddingOverride_0 * v62.Global.Stroke_100;
         end;
         if l_FIntOmniFeedDividerHeightOverride_0 >= 0 then
-            v65 = l_FIntOmniFeedDividerHeightOverride_0 * v58.Global.Stroke_100;
+            v69 = l_FIntOmniFeedDividerHeightOverride_0 * v62.Global.Stroke_100;
         end;
     end;
-    local l_omniFeedItems_0 = v57.omniFeedItems;
-    local v67 = nil;
-    local v68 = nil;
-    for v69 = 1, #l_omniFeedItems_0 do
-        if l_omniFeedItems_0[v69].pageSection == v57.omniFeedPageSection then
-            if not v67 then
-                v67 = v69;
+    local l_omniFeedItems_0 = v61.omniFeedItems;
+    local v71 = nil;
+    local v72 = nil;
+    for v73 = 1, #l_omniFeedItems_0 do
+        if l_omniFeedItems_0[v73].pageSection == v61.omniFeedPageSection then
+            if not v71 then
+                v71 = v73;
             end;
-            v68 = v69;
+            v72 = v73;
         end;
     end;
-    v67 = v67 or 1;
-    v68 = v68 or #l_omniFeedItems_0;
-    local v70 = v57.numberOfItemsToBeRendered or v68 - v67 + 1;
-    local v71 = 1;
-    local l_pageContext_0 = v57.pageContext;
-    local v73 = v57.topMargin or 0;
-    local v74 = v57.bottomMargin or 0;
-    local v75 = true;
-    for v76, v77 in l_omniFeedItems_0 do
-        if v70 >= v76 - v67 + 1 then
-            local v78 = v77.treatmentProps or {};
-            local v79 = l_FeedItemModel_0.getUniqueNameForAnalytics(v77);
-            local v80 = l_SORT_SELECTION_ORDER_BASE_0 + v76 * l_SORT_INDEX_SELECTION_ORDER_MULTIPLIER_0;
-            local v81 = l_OmniFeedProps_0.new(v76, v71, v57.onItemsUpdatedSignalRef and v57.onItemsUpdatedSignalRef.current, v57.refreshSignalRef and v57.refreshSignalRef.current, l_pageContext_0, v57.scrollingFrameRef, v57.sduiContext, v80, v57.defaultContainerSize);
-            v78 = v7.Dictionary.join({
-                [l_OmniFeedProps_0.key] = v81
-            }, v78);
-            if v71 then
-                local v82 = l_FeedItemModel_0.getNumberOfRows(v77);
-                if not v82 then
-                    v71 = nil;
+    v71 = v71 or 1;
+    v72 = v72 or #l_omniFeedItems_0;
+    local v74 = v61.numberOfItemsToBeRendered or v72 - v71 + 1;
+    local v75 = 1;
+    local l_pageContext_0 = v61.pageContext;
+    local v77 = v61.topMargin or 0;
+    local v78 = v61.bottomMargin or 0;
+    local v79 = true;
+    for v80, v81 in l_omniFeedItems_0 do
+        if v74 >= v80 - v71 + 1 then
+            local v82 = v81.treatmentProps or {};
+            local v83 = l_FeedItemModel_0.getUniqueNameForAnalytics(v81);
+            local v84 = l_SORT_SELECTION_ORDER_BASE_0 + v80 * l_SORT_INDEX_SELECTION_ORDER_MULTIPLIER_0;
+            local v85 = l_OmniFeedProps_0.new(v80, v75, v61.onItemsUpdatedSignalRef and v61.onItemsUpdatedSignalRef.current, v61.refreshSignalRef and v61.refreshSignalRef.current, l_pageContext_0, v61.scrollingFrameRef, v61.sduiContext, v84, v61.defaultContainerSize, if l_FFlagLuaAppCompositionSupport_0 then v61.appCompositionEnabled else nil, if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v61.onTileImageLoaded else nil);
+            v82 = v7.Dictionary.join({
+                [l_OmniFeedProps_0.key] = v85
+            }, v82);
+            if v75 then
+                local v86 = l_FeedItemModel_0.getNumberOfRows(v81);
+                if not v86 then
+                    v75 = nil;
                 else
-                    v71 = v71 + v82;
+                    v75 = v75 + v86;
                 end;
             end;
-            if v57.omniFeedPageSection == v77.pageSection then
-                local v83 = not v75;
-                local v84 = v83 and v77.treatmentType == l_OmniFeedTypes_0.UpsellCard;
-                local v85 = if v77.itemId then v77.itemId.sortIndex else nil;
-                local v86 = if v85 and v57.sortsData then v57.sortsData[v85] else nil;
-                if v86 and (not v86.topic or v86.topic == "") then
-                    v83 = false;
+            if v61.omniFeedPageSection == v81.pageSection then
+                local v87 = not v79;
+                local v88 = v87 and v81.treatmentType == l_OmniFeedTypes_0.UpsellCard;
+                local v89 = if v81.itemId then v81.itemId.sortIndex else nil;
+                local v90 = if v89 and v61.sortsData then v61.sortsData[v89] else nil;
+                if v90 and (not v90.topic or v90.topic == "") then
+                    v87 = false;
                 end;
-                if v83 then
-                    v61["feedPaddingTop_" .. tostring(v76)] = v1.createElement("Frame", {
-                        Size = if v84 then UDim2.new(1, 0, 0, v58.Global.Space_150) else UDim2.new(1, 0, 0, l_v63_0), 
+                if v87 then
+                    v65["feedPaddingTop_" .. tostring(v80)] = v1.createElement("Frame", {
+                        Size = if v88 then UDim2.new(1, 0, 0, v62.Global.Space_150) else UDim2.new(1, 0, 0, l_v67_0), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        LayoutOrder = v62
+                        LayoutOrder = v66
                     });
-                    v62 = v62 + 1;
+                    v66 = v66 + 1;
                 end;
-                v61["feedItem_" .. tostring(v76)] = v1.createElement(v15, {
-                    omniFeedItemType = v77.treatmentType, 
-                    layoutOrder = v62, 
-                    feedItemNameId = v79, 
-                    itemProps = v78, 
-                    itemIndex = v76, 
-                    impressionsTag = v57.impressionsTag, 
-                    zIndex = v70 - v76
+                v65["feedItem_" .. tostring(v80)] = v1.createElement(v15, {
+                    omniFeedItemType = v81.treatmentType, 
+                    layoutOrder = v66, 
+                    feedItemNameId = v83, 
+                    itemProps = v82, 
+                    itemIndex = v80, 
+                    impressionsTag = v61.impressionsTag, 
+                    zIndex = v74 - v80
                 });
-                v62 = v62 + 1;
+                v66 = v66 + 1;
                 if not l_FFlagLuaAppRemoveOmniFeedDividersAndExtraPadding_0 then
-                    local v87, v88 = v56(v67, v68, v76, v77, l_omniFeedItems_0, l_pageContext_0, v60);
-                    if v87 or v88 then
-                        v61["feedPaddingBottom_" .. tostring(v76)] = v1.createElement("Frame", {
-                            Size = UDim2.new(1, 0, 0, l_v63_0), 
+                    local v91, v92 = v60(v71, v72, v80, v81, l_omniFeedItems_0, l_pageContext_0, v64);
+                    if v91 or v92 then
+                        v65["feedPaddingBottom_" .. tostring(v80)] = v1.createElement("Frame", {
+                            Size = UDim2.new(1, 0, 0, l_v67_0), 
                             BackgroundTransparency = 1, 
                             BorderSizePixel = 0, 
-                            LayoutOrder = v62
+                            LayoutOrder = v66
                         });
-                        v62 = v62 + 1;
+                        v66 = v66 + 1;
                     end;
-                    if v87 then
-                        v61["feedDivider_" .. tostring(v76)] = v1.createElement("Frame", {
-                            Size = UDim2.new(1, 0, 0, v65), 
+                    if v91 then
+                        v65["feedDivider_" .. tostring(v80)] = v1.createElement("Frame", {
+                            Size = UDim2.new(1, 0, 0, v69), 
                             BackgroundTransparency = 0, 
                             BackgroundColor3 = l_Color_0, 
                             BorderSizePixel = 0, 
-                            LayoutOrder = v62
+                            LayoutOrder = v66
                         });
-                        v62 = v62 + 1;
+                        v66 = v66 + 1;
                     end;
                 end;
-                if v76 - v67 + 1 == v70 and v57.hasNextPage then
-                    v61["loadingBlank_" .. tostring(v76)] = v1.createElement("Frame", {
+                if v80 - v71 + 1 == v74 and v61.hasNextPage then
+                    v65["loadingBlank_" .. tostring(v80)] = v1.createElement("Frame", {
                         Size = UDim2.new(1, 0, 0, 10), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        LayoutOrder = v62
+                        LayoutOrder = v66
                     });
-                    v62 = v62 + 1;
+                    v66 = v66 + 1;
                 end;
-                if v75 then
-                    v75 = false;
+                if v79 then
+                    v79 = false;
                 end;
             end;
         else
             break;
         end;
     end;
-    v61.Padding = v1.createElement(v1.Fragment, nil, {
+    v65.Padding = v1.createElement(v1.Fragment, nil, {
         PaddingTop = v1.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, v73), 
+            Size = UDim2.new(1, 0, 0, v77), 
             BackgroundTransparency = 1, 
             LayoutOrder = 0
         }), 
         PaddingBottom = v1.createElement("Frame", {
-            Size = UDim2.new(1, 0, 0, v74), 
+            Size = UDim2.new(1, 0, 0, v78), 
             BackgroundTransparency = 1, 
-            LayoutOrder = v62
+            LayoutOrder = v66
         })
     });
-    local v89 = if not not l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 or l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 then v57.enableRelativeGui and "RelativeGui" or "Frame" else "Frame";
-    return v1.createElement(v89, {
+    local v93 = if not not l_FFlagLuaAppEnableRelativeGuiHomeForAll_0 or l_FFlagLuaAppEnableRelativeGuiHomeWithIxp_0 then v61.enableRelativeGui and "RelativeGui" or "Frame" else "Frame";
+    return v1.createElement(v93, {
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
-        BorderSizePixel = 0
-    }, v61);
+        BorderSizePixel = 0, 
+        [v1.Tag] = if not not l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v61.appCompositionEnabled then v61.contentTag or l_CompositionTags_0.ContentRegion.Body else nil
+    }, v65);
 end);

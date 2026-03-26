@@ -1,7 +1,9 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("AvatarExperienceInspectAndBuy");
-local v1 = {};
-local v2 = require(l_script_FirstAncestor_0.Enums.PriceStatus);
-v1.AssetLocalizationKeys = {
+local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local l_FFlagAXInspectAndBuyMakeupSupport_0 = require(l_Parent_0.AvatarExperienceFlags).FFlagAXInspectAndBuyMakeupSupport;
+local v3 = {};
+local v4 = require(l_script_FirstAncestor_0.Enums.PriceStatus);
+v3.AssetLocalizationKeys = {
     [tostring(Enum.AssetType.Hat.Value)] = "Feature.Avatar.Label.Hat", 
     [tostring(Enum.AssetType.HairAccessory.Value)] = "Feature.Avatar.Label.Hair", 
     [tostring(Enum.AssetType.FaceAccessory.Value)] = "Feature.Avatar.Label.Face", 
@@ -24,24 +26,29 @@ v1.AssetLocalizationKeys = {
     [tostring(Enum.AssetType.Face.Value)] = "Feature.Avatar.Label.ClassicFaces", 
     [tostring(Enum.AssetType.Head.Value)] = "Feature.Avatar.Label.ClassicHeads"
 };
-v1.BundleLocalizationKeys = {
+if l_FFlagAXInspectAndBuyMakeupSupport_0 then
+    v3.AssetLocalizationKeys[tostring(Enum.AssetType.EyeMakeup.Value)] = "Feature.Catalog.Label.EyeMakeup";
+    v3.AssetLocalizationKeys[tostring(Enum.AssetType.FaceMakeup.Value)] = "Feature.Catalog.Label.FaceMakeup";
+    v3.AssetLocalizationKeys[tostring(Enum.AssetType.LipMakeup.Value)] = "Feature.Catalog.Label.LipMakeup";
+end;
+v3.BundleLocalizationKeys = {
     [tostring(Enum.BundleType.BodyParts.Value)] = "Feature.Catalog.Label.Body", 
     [tostring(Enum.BundleType.Animations.Value)] = "Feature.Catalog.Label.Animation", 
     [tostring(Enum.BundleType.Shoes.Value)] = "Feature.Avatar.Label.Shoes", 
     [tostring(Enum.BundleType.DynamicHead.Value)] = "Feature.Avatar.Label.DynamicHead"
 };
-local v3 = {
-    [v2.Owned] = "Feature.Catalog.Label.Owned", 
-    [v2.Free] = "Feature.Catalog.LabelFree", 
-    [v2.QuantityLimitReached] = "InGame.InspectMenu.Action.LimitReached", 
-    [v2.SoldOut] = "InGame.InspectMenu.Action.SoldOut", 
-    [v2.OffSale] = "Feature.Catalog.LabelOffSale", 
-    [v2.Unavailable] = "Feature.Catalog.Label.Checkout.Unavailable", 
-    [v2.InExperienceOnly] = "Feature.Catalog.Label.InSingleExperience", 
-    [v2.PurchaseFromRoblox] = "Feature.Catalog.Heading.BuyItem", 
-    [v2.PurchaseFromResale] = "Feature.Catalog.Heading.BuyItem"
+local v5 = {
+    [v4.Owned] = "Feature.Catalog.Label.Owned", 
+    [v4.Free] = "Feature.Catalog.LabelFree", 
+    [v4.QuantityLimitReached] = "InGame.InspectMenu.Action.LimitReached", 
+    [v4.SoldOut] = "InGame.InspectMenu.Action.SoldOut", 
+    [v4.OffSale] = "Feature.Catalog.LabelOffSale", 
+    [v4.Unavailable] = "Feature.Catalog.Label.Checkout.Unavailable", 
+    [v4.InExperienceOnly] = "Feature.Catalog.Label.InSingleExperience", 
+    [v4.PurchaseFromRoblox] = "Feature.Catalog.Heading.BuyItem", 
+    [v4.PurchaseFromResale] = "Feature.Catalog.Heading.BuyItem"
 };
-local v4 = {
+local v6 = {
     category = "Feature.Catalog.Label.Category", 
     quantitySold = "Feature.Catalog.Label.QuantitySold", 
     originalPrice = "Feature.Catalog.Label.OriginalPrice", 
@@ -54,10 +61,10 @@ local v4 = {
     includedParts = "Feature.Catalog.Label.IncludedParts", 
     madein = "Feature.Catalog.Label.Attribution"
 };
-v1.PriceStatusLocalizationKeys = v3;
-v1.ItemDetailsLocalizationKeys = v4;
-v1.BatchItemDetailsPerformFetchKey = "BatchItemDetailsV2";
-v1.ShowPlayableAttributionMapper = {
+v3.PriceStatusLocalizationKeys = v5;
+v3.ItemDetailsLocalizationKeys = v6;
+v3.BatchItemDetailsPerformFetchKey = "BatchItemDetailsV2";
+v3.ShowPlayableAttributionMapper = {
     UnplayableOtherReason = true, 
     Playable = true, 
     GuestProhibited = true, 
@@ -77,4 +84,4 @@ v1.ShowPlayableAttributionMapper = {
     ContextualPlayabilityRegionalCompliance = true, 
     ContextualPlayabilityUnverifiedSeventeenPlusUser = true
 };
-return v1;
+return v3;

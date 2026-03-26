@@ -662,10 +662,8 @@ if l_FFlagTCParentChildAutoUpgrade_0 then
                     }, 
                     {
                         name = v10.TrustedContactsModal, 
-                        extraProps = {
-                            userId = v139, 
-                            source = "Deeplink_Profile_TrustedFriends"
-                        }
+                        userId = v139, 
+                        source = "Deeplink_Profile_TrustedFriends"
                     }
                 }
             };
@@ -676,7 +674,7 @@ end;
 l_game_FastString_4 = game:GetFastString("ProfileDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_4, 
-    function(v140, v141) --[[ Line: 583 ]]
+    function(v140, v141) --[[ Line: 581 ]]
         -- upvalues: v12 (copy), v23 (copy), v10 (copy), v21 (copy)
         local v142 = v12.isNotNil(v140.userid, "userId");
         local l_friendshipsourcetype_0 = v140.friendshipsourcetype;
@@ -713,7 +711,7 @@ l_default_0:registerURL((l_game_FastString_4:gsub("%%", "\\")));
 l_game_FastString_4 = game:GetFastString("GroupsDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_4, 
-    function(v145) --[[ Line: 614 ]]
+    function(v145) --[[ Line: 612 ]]
         -- upvalues: v23 (copy), v12 (copy), l_FFlagLuaAppForumsDeeplinkFix_0 (copy), v10 (copy), l_GetFFlagUseCommunitiesTranslation_0 (copy), v21 (copy)
         local v146 = nil;
         v146 = if v145.forumcategoryid and v145.forumcategoryid ~= "" and v145.forumpostid and v145.forumpostid ~= "" and v145.forumcommentid and v145.forumcommentid ~= "" then v23.user.forumComment({
@@ -750,7 +748,7 @@ l_default_0:registerURL((l_game_FastString_4:gsub("%%", "\\")));
 l_game_FastString_4 = game:GetFastString("ContactsDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_4, 
-    function(v147, _) --[[ Line: 659 ]]
+    function(v147, _) --[[ Line: 657 ]]
         -- upvalues: v10 (copy), l_Constants_0 (copy), l_FFlagCiDeprecateFindFriendsModal_0 (copy), l_contactImporterModalInfo_0 (copy), l_AppStorageService_0 (copy), l_LocalPlayer_0 (copy)
         local v149 = nil;
         v149 = if v147.contactid and v147.contactid ~= "" then {
@@ -786,7 +784,7 @@ table.insert(v72, {
     end
 });
 l_default_0:registerURL((l_game_FastString_4:gsub("%%", "\\")));
-v87(game:GetFastString("StaticShareLinkHttpPattern"), function(v150, v151, v152, v153) --[[ Line: 707 ]]
+v87(game:GetFastString("StaticShareLinkHttpPattern"), function(v150, v151, v152, v153) --[[ Line: 705 ]]
     -- upvalues: v36 (copy), v5 (copy)
     return v36(v150, v151, v5.Dictionary.join(v152, {
         isViaAppsFlyer = false
@@ -795,7 +793,7 @@ end);
 l_game_FastString_4 = game:GetFastString("StaticShareLinkDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_4, 
-    function(v154, v155, v156, v157) --[[ Line: 714 ]]
+    function(v154, v155, v156, v157) --[[ Line: 712 ]]
         -- upvalues: v36 (copy), v5 (copy)
         return v36(v154, v155, v5.Dictionary.join(v156, {
             isViaAppsFlyer = true
@@ -806,7 +804,7 @@ l_default_0:registerURL((l_game_FastString_4:gsub("%%", "\\")));
 l_game_FastString_4 = game:GetFastString("ShareLinkDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_4, 
-    function(v158, v159) --[[ Line: 719 ]]
+    function(v158, v159) --[[ Line: 717 ]]
         -- upvalues: v35 (copy), v5 (copy)
         return v35(v5.Dictionary.join(v158, {
             isViaAppsFlyer = true
@@ -814,7 +812,7 @@ table.insert(v72, {
     end
 });
 l_default_0:registerURL((l_game_FastString_4:gsub("%%", "\\")));
-l_game_FastString_4 = function(v160, v161) --[[ Line: 723 ]]
+l_game_FastString_4 = function(v160, v161) --[[ Line: 721 ]]
     -- upvalues: v35 (copy), v5 (copy)
     return v35(v5.Dictionary.join(v160, {
         isViaAppsFlyer = false
@@ -823,7 +821,7 @@ end;
 v87(game:GetFastString("ShareLinkHttpPattern"), l_game_FastString_4);
 v87(game:GetFastString("ShortShareLinkHttpPattern"), l_game_FastString_4);
 if game:GetFastFlag("EnableJoinLinkWebDeepLink") then
-    v87(game:GetFastString("JoinLinkHttpPattern"), function(v162, v163, v164) --[[ Line: 731 ]]
+    v87(game:GetFastString("JoinLinkHttpPattern"), function(v162, v163, v164) --[[ Line: 729 ]]
         -- upvalues: v37 (copy)
         return v37(v162, v163, v164);
     end);
@@ -831,7 +829,7 @@ end;
 local l_game_FastString_5 = game:GetFastString("CatalogEquipDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_5, 
-    function(v166) --[[ Line: 736 ]]
+    function(v166) --[[ Line: 734 ]]
         -- upvalues: l_AvatarScreen_0 (copy)
         local v167 = {
             itemId = v166.itemid, 
@@ -862,7 +860,7 @@ if v56 then
     l_game_FastString_5 = game:GetFastString("CatalogSearchDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_5, 
-        function(v168) --[[ Line: 759 ]]
+        function(v168) --[[ Line: 757 ]]
             -- upvalues: l_AvatarScreen_0 (copy), l_FFlagAXHandleTaxonomyIdsDeepLinks_0 (copy), l_FFlagAXDurablesSupport_0 (copy)
             local v169 = {};
             local v170 = {
@@ -919,7 +917,7 @@ end;
 l_game_FastString_5 = game:GetFastString("ExperienceSortDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_5, 
-    function(v171, ...) --[[ Line: 809 ]]
+    function(v171, ...) --[[ Line: 807 ]]
         -- upvalues: v32 (copy), v10 (copy), l_FFlagLuaAppSortDeeplinkFix_0 (copy)
         if not v171.sortId then
             return;
@@ -949,7 +947,7 @@ l_default_0:registerURL((l_game_FastString_5:gsub("%%", "\\")));
 l_game_FastString_5 = game:GetFastString("CatalogDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_5, 
-    function() --[[ Line: 833 ]]
+    function() --[[ Line: 831 ]]
         -- upvalues: l_AvatarScreen_0 (copy)
         return {
             {
@@ -972,7 +970,7 @@ l_default_0:registerURL((l_game_FastString_5:gsub("%%", "\\")));
 l_game_FastString_5 = game:GetFastString("ItemDetailsDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_5, 
-    function(v174) --[[ Line: 845 ]]
+    function(v174) --[[ Line: 843 ]]
         -- upvalues: v12 (copy), v14 (copy), l_AvatarScreen_0 (copy), v55 (copy)
         local v175 = v12.isNotNil(v174.itemid, "itemId");
         local v176 = v12.isNotNil(v174.itemtype, "itemType");
@@ -1028,7 +1026,7 @@ table.insert(v72, {
     end
 });
 l_default_0:registerURL((l_game_FastString_5:gsub("%%", "\\")));
-v87(game:GetFastString("ItemDetailsHttpPattern"), function(v184, _, v186) --[[ Line: 896 ]]
+v87(game:GetFastString("ItemDetailsHttpPattern"), function(v184, _, v186) --[[ Line: 894 ]]
     -- upvalues: v14 (copy), v5 (copy), l_AvatarScreen_0 (copy)
     local l_Asset_0 = v14.ItemType.Asset;
     local v188 = l_Asset_0 .. v184;
@@ -1063,7 +1061,7 @@ v87(game:GetFastString("ItemDetailsHttpPattern"), function(v184, _, v186) --[[ L
     });
 end);
 if v54 then
-    v87(game:GetFastString("BundleItemDetailsHttpPattern"), function(v189, _, v191) --[[ Line: 931 ]]
+    v87(game:GetFastString("BundleItemDetailsHttpPattern"), function(v189, _, v191) --[[ Line: 929 ]]
         -- upvalues: v14 (copy), v5 (copy), l_AvatarScreen_0 (copy)
         local l_Bundle_0 = v14.ItemType.Bundle;
         local v193 = l_Bundle_0 .. v189;
@@ -1091,7 +1089,7 @@ if v54 then
     end);
 end;
 if v55 then
-    v87(game:GetFastString("LookItemDetailsHttpPattern"), function(v195, _, v197) --[[ Line: 958 ]]
+    v87(game:GetFastString("LookItemDetailsHttpPattern"), function(v195, _, v197) --[[ Line: 956 ]]
         -- upvalues: v14 (copy), v5 (copy), l_AvatarScreen_0 (copy)
         local v198 = v14.ItemType.Look .. v195;
         local l_history_1 = v197.history;
@@ -1119,7 +1117,7 @@ if v46 then
     local l_game_FastString_6 = game:GetFastString("ItemRedemptionDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_6, 
-        function(v201) --[[ Line: 984 ]]
+        function(v201) --[[ Line: 982 ]]
             -- upvalues: v12 (copy), v14 (copy), l_AvatarScreen_0 (copy)
             local v202 = v12.isNotNil(v201.itemid, "itemId");
             local v203 = v12.isNotNil(v201.itemtype, "itemType");
@@ -1173,7 +1171,7 @@ if v46 then
     });
     l_default_0:registerURL((l_game_FastString_6:gsub("%%", "\\")));
 end;
-v87(game:GetFastString("CatalogHttpPattern"), function(v210, v211) --[[ Line: 1032 ]]
+v87(game:GetFastString("CatalogHttpPattern"), function(v210, v211) --[[ Line: 1030 ]]
     -- upvalues: v61 (copy), v5 (copy), l_AvatarScreen_0 (copy), v27 (copy)
     if v61 then
         return v5.List.join(v211.history, {
@@ -1203,7 +1201,7 @@ end);
 local l_game_FastString_7 = game:GetFastString("FriendsPageDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_7, 
-    function() --[[ Line: 1056 ]]
+    function() --[[ Line: 1054 ]]
         -- upvalues: v10 (copy)
         return {
             {
@@ -1227,7 +1225,7 @@ if v49 then
     l_game_FastString_7 = game:GetFastString("BuyRobuxDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_7, 
-        function(v213) --[[ Line: 1069 ]]
+        function(v213) --[[ Line: 1067 ]]
             -- upvalues: v10 (copy)
             local v214 = {};
             if v213.analyticid and v213.analyticid ~= "" then
@@ -1260,7 +1258,7 @@ if v48() then
     l_game_FastString_7 = game:GetFastString("GiftCardsPageDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_7, 
-        function() --[[ Line: 1093 ]]
+        function() --[[ Line: 1091 ]]
             -- upvalues: v10 (copy), v23 (copy), v21 (copy)
             return {
                 {
@@ -1286,7 +1284,7 @@ if v48() then
     });
     l_default_0:registerURL((l_game_FastString_7:gsub("%%", "\\")));
 end;
-l_game_FastString_7 = function(v215, _) --[[ Line: 1116 ]] --[[ Name: handleCurrencyTransferLink ]]
+l_game_FastString_7 = function(v215, _) --[[ Line: 1114 ]] --[[ Name: handleCurrencyTransferLink ]]
     -- upvalues: v10 (copy)
     local l_direction_0 = v215.direction;
     if not l_direction_0 or l_direction_0 ~= "send" and l_direction_0 ~= "receive" then
@@ -1340,7 +1338,7 @@ if v51() then
     local l_game_FastString_9 = game:GetFastString("SystemMessageDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_9, 
-        function() --[[ Line: 1161 ]]
+        function() --[[ Line: 1159 ]]
             -- upvalues: v10 (copy), v23 (copy), v21 (copy)
             return {
                 {
@@ -1370,7 +1368,7 @@ if game:GetFastFlag("EnableExternalWebDeeplink") then
     local l_game_FastString_10 = game:GetFastString("ExternalWebUrlDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_10, 
-        function(v222) --[[ Line: 1182 ]]
+        function(v222) --[[ Line: 1180 ]]
             -- upvalues: v31 (copy), v10 (copy), v21 (copy)
             local l_domain_0 = v222.domain;
             local v224 = nil;
@@ -1411,7 +1409,7 @@ if v47() then
     local l_game_FastString_11 = game:GetFastString("CrossDeviceLoginDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_11, 
-        function(v227) --[[ Line: 1217 ]]
+        function(v227) --[[ Line: 1215 ]]
             -- upvalues: v12 (copy), v66 (copy), v10 (copy)
             local v228 = v12.isNotNil(v227.code, "code");
             local l_source_0 = v227.source;
@@ -1436,7 +1434,7 @@ end;
 local l_game_FastString_12 = game:GetFastString("EventDetailsPageDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_12, 
-    function(v231) --[[ Line: 1236 ]]
+    function(v231) --[[ Line: 1234 ]]
         -- upvalues: v10 (copy), v12 (copy)
         return {
             {
@@ -1460,7 +1458,7 @@ l_default_0:registerURL((l_game_FastString_12:gsub("%%", "\\")));
 l_game_FastString_12 = game:GetFastString("AppealsPortalDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_12, 
-    function(v232) --[[ Line: 1251 ]]
+    function(v232) --[[ Line: 1249 ]]
         -- upvalues: v66 (copy), v10 (copy), v23 (copy)
         return {
             {
@@ -1488,7 +1486,7 @@ if v39 then
     l_game_FastString_12 = game:GetFastString("PrivacySettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1272 ]]
+        function() --[[ Line: 1270 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v233 = v23.static.settings.privacy();
             return (l_game_FastString_1(v233, "Feature.AccountSettings.Heading.Tab.Privacy"));
@@ -1500,7 +1498,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("AppPermissionsSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1279 ]]
+        function() --[[ Line: 1277 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v234 = v23.static.settings.appPermissions();
             return (l_game_FastString_1(v234, "Feature.AccountSettings.Heading.Tab.AppPermissions"));
@@ -1510,7 +1508,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("ScreentimeSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1284 ]]
+        function() --[[ Line: 1282 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v235 = v23.static.settings.screentimeSettings();
             return (l_game_FastString_1(v235, "Feature.AccountSettings.Heading.ScreenTime"));
@@ -1520,7 +1518,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("CommunicationSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1288 ]]
+        function() --[[ Line: 1286 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v236 = v23.static.settings.communicationSettings();
             return (l_game_FastString_1(v236, "Feature.AccountSettings.Heading.Communications"));
@@ -1530,7 +1528,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("BlockedUsersSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1293 ]]
+        function() --[[ Line: 1291 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v237 = v23.static.settings.blockedUsersSettings();
             return (l_game_FastString_1(v237, "Feature.AccountSettings.Heading.BlockedUsersV2"));
@@ -1540,7 +1538,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("BlockedExpSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1298 ]]
+        function() --[[ Line: 1296 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v238 = v23.static.settings.blockedExperiencesSettings();
             return (l_game_FastString_1(v238, "Feature.AccountSettings.Heading.BlockedExperiences"));
@@ -1550,7 +1548,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("ExperienceChatSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1303 ]]
+        function() --[[ Line: 1301 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v239 = v23.static.settings.experienceChatSettings();
             return (l_game_FastString_1(v239, "Feature.AccountSettings.Heading.ExperienceChat"));
@@ -1560,7 +1558,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("PartySettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1308 ]]
+        function() --[[ Line: 1306 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v240 = v23.static.settings.partySettings();
             return (l_game_FastString_1(v240, "Feature.AccountSettings.Label.Party"));
@@ -1570,7 +1568,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("VoiceSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1313 ]]
+        function() --[[ Line: 1311 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v241 = v23.static.settings.voiceSettings();
             return (l_game_FastString_1(v241, "Feature.AccountSettings.Heading.VoiceChat"));
@@ -1580,7 +1578,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("TradingInventorySettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1318 ]]
+        function() --[[ Line: 1316 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v242 = v23.static.settings.tradingInventorySettings();
             return (l_game_FastString_1(v242, "Feature.AccountSettings.Heading.TradingAndInventory"));
@@ -1590,7 +1588,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("FriendsContactsSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1323 ]]
+        function() --[[ Line: 1321 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v243 = v23.static.settings.friendsContactsSettings();
             return (l_game_FastString_1(v243, "Feature.AccountSettings.Heading.FriendsAndContacts"));
@@ -1600,7 +1598,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("PrivateServerSettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1328 ]]
+        function() --[[ Line: 1326 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v244 = v23.static.settings.privateServerSettings();
             return (l_game_FastString_1(v244, "Feature.AccountSettings.Heading.PrivateServers"));
@@ -1610,7 +1608,7 @@ if v43 then
     l_game_FastString_12 = game:GetFastString("VisibilitySettingsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1333 ]]
+        function() --[[ Line: 1331 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v245 = v23.static.settings.visibilitySettings();
             return (l_game_FastString_1(v245, "Feature.AccountSettings.Heading.Visibility"));
@@ -1622,7 +1620,7 @@ if v40 then
     l_game_FastString_12 = game:GetFastString("ParentalControlsDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1340 ]]
+        function() --[[ Line: 1338 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v246 = v23.static.settings.parentalControls();
             return (l_game_FastString_1(v246, "Feature.AccountSettings.Heading.Tab.ParentalControls"));
@@ -1634,7 +1632,7 @@ if v41 then
     l_game_FastString_12 = game:GetFastString("AccountInfoDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1347 ]]
+        function() --[[ Line: 1345 ]]
             -- upvalues: v23 (copy), l_game_FastString_1 (copy)
             local v247 = v23.static.settings.account();
             return (l_game_FastString_1(v247, "Feature.AccountSettings.Heading.Tab.AccountInfo"));
@@ -1645,7 +1643,7 @@ end;
 l_game_FastString_12 = game:GetFastString("SpendingSettingsDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_12, 
-    function() --[[ Line: 1353 ]]
+    function() --[[ Line: 1351 ]]
         -- upvalues: v23 (copy), l_game_FastString_1 (copy)
         local v248 = v23.static.settings.billing();
         return (l_game_FastString_1(v248, "Feature.AccountSettings.Heading.Tab.Billing"));
@@ -1656,7 +1654,7 @@ if v42 then
     l_game_FastString_12 = game:GetFastString("DevicePreferencesDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function() --[[ Line: 1359 ]]
+        function() --[[ Line: 1357 ]]
             -- upvalues: v66 (copy), v10 (copy)
             return {
                 {
@@ -1679,7 +1677,7 @@ if l_GetFFlagEnableSecurityAlertDeeplink_0() then
     l_game_FastString_12 = game:GetFastString("SecurityAlertDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function(v249, _) --[[ Line: 1371 ]]
+        function(v249, _) --[[ Line: 1369 ]]
             -- upvalues: l_GetFFlagGenerateLinkWithChannel_0 (copy), v23 (copy), v10 (copy), v21 (copy)
             if v249.payload and v249.payload ~= "" and v249.username and v249.username ~= "" then
                 local v251 = nil;
@@ -1726,7 +1724,7 @@ end;
 l_game_FastString_12 = game:GetFastString("SquadLobbyDeepLinkPattern");
 table.insert(v72, {
     l_game_FastString_12, 
-    function(v252, _) --[[ Line: 1412 ]]
+    function(v252, _) --[[ Line: 1410 ]]
         -- upvalues: v12 (copy), v10 (copy), l_FFlagEnableSquadDeeplinkWithChatId_0 (copy)
         local v254 = v12.isNotNil(v252.partyid, "partyId");
         return {
@@ -1747,7 +1745,7 @@ if l_FFlagEnableCommsFAEUpsell_0 then
     l_game_FastString_12 = game:GetFastString("FAEUpsellOverlayDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function(v255) --[[ Line: 1430 ]]
+        function(v255) --[[ Line: 1428 ]]
             -- upvalues: v12 (copy), v73 (copy), v10 (copy)
             local v256 = v73[v12.isNotNil(v255.source, "source")] or "";
             local v257 = v255.is_phase2 == "true";
@@ -1768,7 +1766,7 @@ if l_FFlagEnableCommsFAEUpsell_0 then
     l_game_FastString_12 = game:GetFastString("FAEDeepLinkPattern");
     table.insert(v72, {
         l_game_FastString_12, 
-        function(v258) --[[ Line: 1448 ]]
+        function(v258) --[[ Line: 1446 ]]
             -- upvalues: v12 (copy), v73 (copy), v10 (copy)
             local v259 = v73[v12.isNotNil(v258.source, "source")] or "";
             return {
@@ -1788,7 +1786,7 @@ end;
 l_game_FastString_12 = game:GetFastString("EnterAppFromLockScreenWidget");
 table.insert(v72, {
     l_game_FastString_12, 
-    function(_, _) --[[ Line: 1460 ]]
+    function(_, _) --[[ Line: 1458 ]]
         -- upvalues: v17 (copy)
         v17("Default");
         return nil;

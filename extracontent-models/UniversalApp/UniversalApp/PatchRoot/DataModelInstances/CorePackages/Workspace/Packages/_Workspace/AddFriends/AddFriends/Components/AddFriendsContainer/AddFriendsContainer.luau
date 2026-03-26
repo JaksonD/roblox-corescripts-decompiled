@@ -43,131 +43,132 @@ local l_FFlagAddFriendsPYMKPresence_0 = require(l_Parent_0.SharedFlags).FFlagAdd
 local l_FFlagAddFriendsPYMKPresenceAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsPYMKPresenceAnalytics;
 local l_FFlagAddFriendsUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsUserListEnabled;
 local l_FFlagAddFriendsSessionId_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsSessionId;
-return function(v45) --[[ Line: 73 ]] --[[ Name: AddFriendsContainer ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), v28 (copy), l_getSessionIdByKey_0 (copy), l_RECOMMENDATION_SESSION_ID_KEY_0 (copy), v29 (copy), l_AddFriendsSelector_0 (copy), v10 (copy), l_AnalyticsSetup_0 (copy), l_dependencyArray_0 (copy), l_FriendsNetworking_0 (copy), v9 (copy), v11 (copy), l_FFlagAddFriendsSessionId_0 (copy), v7 (copy), v23 (copy), l_RecommendationSourceEnum_0 (copy), l_ContextualInfoTypes_0 (copy), l_RoduxFriends_0 (copy), l_RoduxAnalytics_0 (copy), l_FFlagAddFriendsPYMKPresence_0 (copy), v24 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), l_EventNames_0 (copy), l_BreakpointConfig_0 (copy), v34 (copy), v36 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), l_reportPromiseLoadingTimeWrapper_0 (copy), l_Namespaces_0 (copy), v30 (copy), l_FFlagConnectionsHubLayerExposure_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v37 (copy)
-    local v46 = l_useNavigation_0();
-    local v47 = l_useDispatch_0();
-    local v48 = l_useLocalization_0({
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+return function(v46) --[[ Line: 74 ]] --[[ Name: AddFriendsContainer ]]
+    -- upvalues: l_useNavigation_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), v28 (copy), l_getSessionIdByKey_0 (copy), l_RECOMMENDATION_SESSION_ID_KEY_0 (copy), v29 (copy), l_AddFriendsSelector_0 (copy), v10 (copy), l_AnalyticsSetup_0 (copy), l_dependencyArray_0 (copy), l_FriendsNetworking_0 (copy), v9 (copy), v11 (copy), l_FFlagAddFriendsSessionId_0 (copy), v7 (copy), v23 (copy), l_RecommendationSourceEnum_0 (copy), l_ContextualInfoTypes_0 (copy), l_RoduxFriends_0 (copy), l_RoduxAnalytics_0 (copy), l_FFlagAddFriendsPYMKPresence_0 (copy), v24 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), l_EventNames_0 (copy), l_BreakpointConfig_0 (copy), v34 (copy), v36 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), l_reportPromiseLoadingTimeWrapper_0 (copy), l_Namespaces_0 (copy), v30 (copy), l_FFlagConnectionsHubLayerExposure_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v37 (copy)
+    local v47 = l_useNavigation_0();
+    local v48 = l_useDispatch_0();
+    local v49 = l_useLocalization_0({
         networkErrorText = "Feature.Toast.NetworkingError.SomethingIsWrong", 
-        friendAddedText = "Feature.Friends.Action.ConnectionAdded", 
+        friendAddedText = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendAdded" or "Feature.Friends.Action.ConnectionAdded", 
         requestIgnoredText = "Feature.AddFriends.Action.RequestIgnored", 
         allRequestsIgnoredText = "Feature.Profile.Action.AllRequestsIgnored", 
         allRequestsIgnoredBackgroundedText = "Feature.AddFriends.Label.DeclineAllBackgrounded", 
-        requestSentText = "Feature.Friends.Action.ConnectionRequestSent"
+        requestSentText = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendRequestSent" or "Feature.Friends.Action.ConnectionRequestSent"
     });
-    local v49 = l_useLocalUserId_0();
-    local v50 = l_useSelector_0(v28);
-    local v52 = l_useSelector_0(function(v51) --[[ Line: 88 ]]
+    local v50 = l_useLocalUserId_0();
+    local v51 = l_useSelector_0(v28);
+    local v53 = l_useSelector_0(function(v52) --[[ Line: 93 ]]
         -- upvalues: l_getSessionIdByKey_0 (ref), l_RECOMMENDATION_SESSION_ID_KEY_0 (ref)
-        return l_getSessionIdByKey_0(v51)(l_RECOMMENDATION_SESSION_ID_KEY_0);
+        return l_getSessionIdByKey_0(v52)(l_RECOMMENDATION_SESSION_ID_KEY_0);
     end);
-    local v53 = l_useSelector_0(v29);
-    local v55 = l_useSelector_0(function(v54) --[[ Line: 93 ]]
+    local v54 = l_useSelector_0(v29);
+    local v56 = l_useSelector_0(function(v55) --[[ Line: 98 ]]
         -- upvalues: l_AddFriendsSelector_0 (ref)
-        return l_AddFriendsSelector_0(v54, "Friends.requests.nextPageCursor");
+        return l_AddFriendsSelector_0(v55, "Friends.requests.nextPageCursor");
     end);
-    local v56 = v10.useMemo(function() --[[ Line: 97 ]]
-        -- upvalues: l_AnalyticsSetup_0 (ref), v49 (copy), v52 (copy)
+    local v57 = v10.useMemo(function() --[[ Line: 102 ]]
+        -- upvalues: l_AnalyticsSetup_0 (ref), v50 (copy), v53 (copy)
         return l_AnalyticsSetup_0({
             infoForAllEvents = {
-                uid = v49, 
-                recommendationSessionId = v52
+                uid = v50, 
+                recommendationSessionId = v53
             }
         }).fireAnalyticsEvent;
-    end, l_dependencyArray_0(v49, v52));
-    local v58 = v10.useCallback(function(v57) --[[ Line: 106 ]]
-        -- upvalues: v47 (copy), l_FriendsNetworking_0 (ref)
-        return v47(l_FriendsNetworking_0.GetFriendRequestsCount.API(v57));
-    end, l_dependencyArray_0(v47));
-    local v60 = v10.useCallback(function(v59) --[[ Line: 110 ]]
-        -- upvalues: v47 (copy), l_FriendsNetworking_0 (ref)
-        return v47(l_FriendsNetworking_0.ClearNewFriendRequests.API({
-            currentUserId = v59
+    end, l_dependencyArray_0(v50, v53));
+    local v59 = v10.useCallback(function(v58) --[[ Line: 111 ]]
+        -- upvalues: v48 (copy), l_FriendsNetworking_0 (ref)
+        return v48(l_FriendsNetworking_0.GetFriendRequestsCount.API(v58));
+    end, l_dependencyArray_0(v48));
+    local v61 = v10.useCallback(function(v60) --[[ Line: 115 ]]
+        -- upvalues: v48 (copy), l_FriendsNetworking_0 (ref)
+        return v48(l_FriendsNetworking_0.ClearNewFriendRequests.API({
+            currentUserId = v60
         }));
-    end, l_dependencyArray_0(v47));
-    local v74 = v10.useCallback(function(v61) --[[ Line: 116 ]]
-        -- upvalues: v9 (ref), v11 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), v47 (copy), l_FriendsNetworking_0 (ref), v23 (ref)
-        local function v68(v62) --[[ Line: 118 ]]
-            local v63 = {};
+    end, l_dependencyArray_0(v48));
+    local v75 = v10.useCallback(function(v62) --[[ Line: 121 ]]
+        -- upvalues: v9 (ref), v11 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), v48 (copy), l_FriendsNetworking_0 (ref), v23 (ref)
+        local function v69(v63) --[[ Line: 123 ]]
             local v64 = {};
-            for _, v66 in pairs(v62) do
-                table.insert(v63, v66.id);
-                local l_sourceUniverseId_0 = v66.friendRequest.sourceUniverseId;
+            local v65 = {};
+            for _, v67 in pairs(v63) do
+                table.insert(v64, v67.id);
+                local l_sourceUniverseId_0 = v67.friendRequest.sourceUniverseId;
                 if l_sourceUniverseId_0 ~= nil and l_sourceUniverseId_0 ~= 0 then
-                    table.insert(v64, l_sourceUniverseId_0);
+                    table.insert(v65, l_sourceUniverseId_0);
                 end;
             end;
             return {
-                userIds = v63, 
-                universeIds = v64
+                userIds = v64, 
+                universeIds = v65
             };
         end;
-        return v9.new(function(v69, v70) --[[ Line: 134 ]]
-            -- upvalues: v61 (ref), v11 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), v47 (ref), l_FriendsNetworking_0 (ref), v68 (copy), v23 (ref), v9 (ref)
-            v61 = v11.join(v61 or {}, {
-                currentUserId = v61.localUserId, 
+        return v9.new(function(v70, v71) --[[ Line: 139 ]]
+            -- upvalues: v62 (ref), v11 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), v48 (ref), l_FriendsNetworking_0 (ref), v69 (copy), v23 (ref), v9 (ref)
+            v62 = v11.join(v62 or {}, {
+                currentUserId = v62.localUserId, 
                 sessionId = if l_FFlagAddFriendsSessionId_0 then v7.getSessionId() else nil
             });
-            v47(l_FriendsNetworking_0.GetFriendRequests.API(v61)):andThen(function(v71) --[[ Line: 140 ]]
-                -- upvalues: v68 (ref), v47 (ref), l_FriendsNetworking_0 (ref), v23 (ref), v9 (ref), v69 (copy), v70 (copy)
-                local v72 = v68(v71.responseBody.data);
-                local v73 = {};
-                if next(v72.userIds) ~= nil then
-                    table.insert(v73, v47(l_FriendsNetworking_0.GetFollowingExists.API({
-                        targetUserIds = v72.userIds
+            v48(l_FriendsNetworking_0.GetFriendRequests.API(v62)):andThen(function(v72) --[[ Line: 145 ]]
+                -- upvalues: v69 (ref), v48 (ref), l_FriendsNetworking_0 (ref), v23 (ref), v9 (ref), v70 (copy), v71 (copy)
+                local v73 = v69(v72.responseBody.data);
+                local v74 = {};
+                if next(v73.userIds) ~= nil then
+                    table.insert(v74, v48(l_FriendsNetworking_0.GetFollowingExists.API({
+                        targetUserIds = v73.userIds
                     })));
                 end;
-                if next(v72.universeIds) ~= nil then
-                    table.insert(v73, v47(v23.GetExperiencesDetails.API(v72.universeIds)));
+                if next(v73.universeIds) ~= nil then
+                    table.insert(v74, v48(v23.GetExperiencesDetails.API(v73.universeIds)));
                 end;
-                v9.all(v73):andThen(function() --[[ Line: 156 ]]
-                    -- upvalues: v69 (ref), v71 (copy)
-                    v69(v71);
-                end):catch(v70);
-            end):catch(v70);
+                v9.all(v74):andThen(function() --[[ Line: 161 ]]
+                    -- upvalues: v70 (ref), v72 (copy)
+                    v70(v72);
+                end):catch(v71);
+            end):catch(v71);
         end);
-    end, l_dependencyArray_0(v47));
-    local v86 = v10.useCallback(function(v75) --[[ Line: 165 ]]
-        -- upvalues: v47 (copy), l_FriendsNetworking_0 (ref), l_RecommendationSourceEnum_0 (ref), v11 (ref), l_ContextualInfoTypes_0 (ref), l_RoduxFriends_0 (ref), l_RoduxAnalytics_0 (ref), l_RECOMMENDATION_SESSION_ID_KEY_0 (ref), v9 (ref), l_FFlagAddFriendsPYMKPresence_0 (ref), v24 (ref), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v56 (copy), l_EventNames_0 (ref)
-        return v47(l_FriendsNetworking_0.GetFriendRecommendationsFromUserId.API({
-            targetUserId = v75.localUserId, 
+    end, l_dependencyArray_0(v48));
+    local v87 = v10.useCallback(function(v76) --[[ Line: 170 ]]
+        -- upvalues: v48 (copy), l_FriendsNetworking_0 (ref), l_RecommendationSourceEnum_0 (ref), v11 (ref), l_ContextualInfoTypes_0 (ref), l_RoduxFriends_0 (ref), l_RoduxAnalytics_0 (ref), l_RECOMMENDATION_SESSION_ID_KEY_0 (ref), v9 (ref), l_FFlagAddFriendsPYMKPresence_0 (ref), v24 (ref), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v57 (copy), l_EventNames_0 (ref)
+        return v48(l_FriendsNetworking_0.GetFriendRecommendationsFromUserId.API({
+            targetUserId = v76.localUserId, 
             source = l_RecommendationSourceEnum_0.AddFriendsPage
-        })):andThen(function(v76) --[[ Line: 170 ]]
-            -- upvalues: v11 (ref), l_ContextualInfoTypes_0 (ref), v47 (ref), l_RoduxFriends_0 (ref), l_RecommendationSourceEnum_0 (ref), l_RoduxAnalytics_0 (ref), l_RECOMMENDATION_SESSION_ID_KEY_0 (ref), v9 (ref)
-            local l_data_0 = v76.responseBody.data;
-            local v79 = v11.map(l_data_0, function(v78) --[[ Line: 172 ]]
+        })):andThen(function(v77) --[[ Line: 175 ]]
+            -- upvalues: v11 (ref), l_ContextualInfoTypes_0 (ref), v48 (ref), l_RoduxFriends_0 (ref), l_RecommendationSourceEnum_0 (ref), l_RoduxAnalytics_0 (ref), l_RECOMMENDATION_SESSION_ID_KEY_0 (ref), v9 (ref)
+            local l_data_0 = v77.responseBody.data;
+            local v80 = v11.map(l_data_0, function(v79) --[[ Line: 177 ]]
                 -- upvalues: l_ContextualInfoTypes_0 (ref)
-                if v78.contextType == l_ContextualInfoTypes_0.Contacts then
-                    return v78.contactId;
+                if v79.contextType == l_ContextualInfoTypes_0.Contacts then
+                    return v79.contactId;
                 else
-                    return v78.id;
+                    return v79.id;
                 end;
             end);
-            v47(l_RoduxFriends_0.Actions.RecommendationSourceCreated({
+            v48(l_RoduxFriends_0.Actions.RecommendationSourceCreated({
                 source = l_RecommendationSourceEnum_0.AddFriendsPage, 
-                recommendationIds = v79
+                recommendationIds = v80
             }));
-            local l_recommendationRequestId_0 = v76.responseBody.recommendationRequestId;
-            v47(l_RoduxAnalytics_0.Actions.SessionIdUpdated({
+            local l_recommendationRequestId_0 = v77.responseBody.recommendationRequestId;
+            v48(l_RoduxAnalytics_0.Actions.SessionIdUpdated({
                 sessionKey = l_RECOMMENDATION_SESSION_ID_KEY_0, 
                 sessionId = l_recommendationRequestId_0
             }));
-            return v9.resolve(v76);
-        end):andThen(function(v81) --[[ Line: 189 ]]
-            -- upvalues: l_FFlagAddFriendsPYMKPresence_0 (ref), v11 (ref), l_ContextualInfoTypes_0 (ref), v47 (ref), v24 (ref), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v56 (ref), l_EventNames_0 (ref), v9 (ref)
+            return v9.resolve(v77);
+        end):andThen(function(v82) --[[ Line: 194 ]]
+            -- upvalues: l_FFlagAddFriendsPYMKPresence_0 (ref), v11 (ref), l_ContextualInfoTypes_0 (ref), v48 (ref), v24 (ref), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v57 (ref), l_EventNames_0 (ref), v9 (ref)
             if l_FFlagAddFriendsPYMKPresence_0 then
-                local l_data_1 = v81.responseBody.data;
-                local v85 = v11.reduce(l_data_1, function(v83, v84) --[[ Line: 192 ]]
+                local l_data_1 = v82.responseBody.data;
+                local v86 = v11.reduce(l_data_1, function(v84, v85) --[[ Line: 197 ]]
                     -- upvalues: l_ContextualInfoTypes_0 (ref)
-                    if v84.contextType ~= l_ContextualInfoTypes_0.Contacts then
-                        table.insert(v83, v84.id);
+                    if v85.contextType ~= l_ContextualInfoTypes_0.Contacts then
+                        table.insert(v84, v85.id);
                     end;
-                    return v83;
+                    return v84;
                 end, {});
-                if #v85 > 0 then
-                    v47(v24.GetPresencesFromUserIds.API(v85));
+                if #v86 > 0 then
+                    v48(v24.GetPresencesFromUserIds.API(v86));
                     if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then
-                        v56(l_EventNames_0.PYMKUserPresenceLoad);
+                        v57(l_EventNames_0.PYMKUserPresenceLoad);
                     end;
                 end;
                 return v9.resolve();
@@ -175,150 +176,150 @@ return function(v45) --[[ Line: 73 ]] --[[ Name: AddFriendsContainer ]]
                 return;
             end;
         end);
-    end, l_dependencyArray_0(v47, if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v56 else nil));
-    local v88 = l_useSelector_0(function(v87) --[[ Line: 212 ]]
-        return v87.ScreenSize;
+    end, l_dependencyArray_0(v48, if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v57 else nil));
+    local v89 = l_useSelector_0(function(v88) --[[ Line: 217 ]]
+        return v88.ScreenSize;
     end).X >= l_BreakpointConfig_0.getMinWidthFor(v34.Keys.Medium);
-    local v89 = v10.useCallback(function() --[[ Line: 218 ]]
-        -- upvalues: v88 (copy)
-        if v88 then
+    local v90 = v10.useCallback(function() --[[ Line: 223 ]]
+        -- upvalues: v89 (copy)
+        if v89 then
             return 50;
         else
             return 25;
         end;
-    end, l_dependencyArray_0(v88));
-    local v96 = v10.useCallback(function(_, v91, v92) --[[ Line: 222 ]]
-        -- upvalues: v56 (copy), l_EventNames_0 (ref)
-        v56(l_EventNames_0.AddFriendsPageLoadingTime, {
-            status = v91.status, 
-            loadingTime = v92, 
-            statValue = v92
+    end, l_dependencyArray_0(v89));
+    local v97 = v10.useCallback(function(_, v92, v93) --[[ Line: 227 ]]
+        -- upvalues: v57 (copy), l_EventNames_0 (ref)
+        v57(l_EventNames_0.AddFriendsPageLoadingTime, {
+            status = v92.status, 
+            loadingTime = v93, 
+            statValue = v93
         });
-        local v93 = nil;
-        local v94 = v91.result[3];
-        if v94 then
-            local v95 = v94.responseBody.data or {};
-            v93 = v95 and #v95;
+        local v94 = nil;
+        local v95 = v92.result[3];
+        if v95 then
+            local v96 = v95.responseBody.data or {};
+            v94 = v96 and #v96;
         else
-            v93 = 0;
+            v94 = 0;
         end;
-        v56(l_EventNames_0.PageLoad, {
-            recommendationCount = v93, 
-            status = v91.status
+        v57(l_EventNames_0.PageLoad, {
+            recommendationCount = v94, 
+            status = v92.status
         });
-    end, l_dependencyArray_0(v56));
-    local v98 = v10.useCallback(function(v97) --[[ Line: 244 ]]
-        -- upvalues: v47 (copy), v36 (ref)
-        if not v97 then
+    end, l_dependencyArray_0(v57));
+    local v99 = v10.useCallback(function(v98) --[[ Line: 249 ]]
+        -- upvalues: v48 (copy), v36 (ref)
+        if not v98 then
             return;
         else
-            v47(v36.Actions.SetCurrentToastMessage({
+            v48(v36.Actions.SetCurrentToastMessage({
                 isLocalized = true, 
-                toastMessage = v97.toastTitle, 
-                toastIcon = v97.iconImage
+                toastMessage = v98.toastTitle, 
+                toastIcon = v98.iconImage
             }));
             return;
         end;
-    end, l_dependencyArray_0(v46));
-    local v101 = v10.useCallback(function(v99, v100) --[[ Line: 257 ]]
-        -- upvalues: v98 (copy), v48 (copy)
-        return function(...) --[[ Line: 258 ]]
-            -- upvalues: v99 (copy), v98 (ref), v100 (copy), v48 (ref)
-            return v99(...):andThen(function() --[[ Line: 260 ]]
-                -- upvalues: v98 (ref), v100 (ref)
-                v98(v100);
-            end):catch(function() --[[ Line: 263 ]]
-                -- upvalues: v98 (ref), v48 (ref)
-                v98({
-                    toastTitle = v48.networkErrorText
+    end, l_dependencyArray_0(v47));
+    local v102 = v10.useCallback(function(v100, v101) --[[ Line: 262 ]]
+        -- upvalues: v99 (copy), v49 (copy)
+        return function(...) --[[ Line: 263 ]]
+            -- upvalues: v100 (copy), v99 (ref), v101 (copy), v49 (ref)
+            return v100(...):andThen(function() --[[ Line: 265 ]]
+                -- upvalues: v99 (ref), v101 (ref)
+                v99(v101);
+            end):catch(function() --[[ Line: 268 ]]
+                -- upvalues: v99 (ref), v49 (ref)
+                v99({
+                    toastTitle = v49.networkErrorText
                 });
             end);
         end;
-    end, l_dependencyArray_0(v98, v48.networkErrorText));
-    local v102 = v10.useCallback(function() --[[ Line: 269 ]]
-        -- upvalues: v9 (ref), v58 (copy), v49 (copy), v74 (copy), l_FFlagAddFriendsUserListEnabled_0 (ref), v89 (copy), v86 (copy)
+    end, l_dependencyArray_0(v99, v49.networkErrorText));
+    local v103 = v10.useCallback(function() --[[ Line: 274 ]]
+        -- upvalues: v9 (ref), v59 (copy), v50 (copy), v75 (copy), l_FFlagAddFriendsUserListEnabled_0 (ref), v90 (copy), v87 (copy)
         return v9.all({
-            v58(v49), 
-            v74({
+            v59(v50), 
+            v75({
                 isRefresh = true, 
-                localUserId = v49, 
-                limit = l_FFlagAddFriendsUserListEnabled_0 and 25 or v89()
+                localUserId = v50, 
+                limit = l_FFlagAddFriendsUserListEnabled_0 and 25 or v90()
             }), 
-            v86({
-                localUserId = v49
+            v87({
+                localUserId = v50
             })
         });
     end, {});
-    local v105 = v10.useCallback(v101(function() --[[ Line: 282 ]]
-        -- upvalues: l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), l_reportPromiseLoadingTimeWrapper_0 (ref), v102 (copy), v96 (copy), v9 (ref)
+    local v106 = v10.useCallback(v102(function() --[[ Line: 287 ]]
+        -- upvalues: l_FFlagAddFriendsSessionId_0 (ref), v7 (ref), l_reportPromiseLoadingTimeWrapper_0 (ref), v103 (copy), v97 (copy), v9 (ref)
         if l_FFlagAddFriendsSessionId_0 then
             v7.initializeSession();
         end;
-        return l_reportPromiseLoadingTimeWrapper_0(v102, function() --[[ Line: 288 ]]
+        return l_reportPromiseLoadingTimeWrapper_0(v103, function() --[[ Line: 293 ]]
             return {
                 fetch = "add_friends_page_load"
             };
         end, {
-            fireEvent = v96
-        })():andThen(function(v103) --[[ Line: 293 ]]
+            fireEvent = v97
+        })():andThen(function(v104) --[[ Line: 298 ]]
             -- upvalues: v9 (ref)
-            return v9.resolve(v103);
-        end):catch(function(_) --[[ Line: 296 ]]
+            return v9.resolve(v104);
+        end):catch(function(_) --[[ Line: 301 ]]
 
         end);
-    end), l_dependencyArray_0(v86, v74, v58, v49));
-    local v107 = v10.useCallback(v101(function(v106) --[[ Line: 302 ]]
-        -- upvalues: v74 (copy), l_FFlagAddFriendsUserListEnabled_0 (ref), v89 (copy), v49 (copy)
-        return v74({
-            limit = l_FFlagAddFriendsUserListEnabled_0 and 25 or v89(), 
-            cursor = v106, 
-            localUserId = v49
+    end), l_dependencyArray_0(v87, v75, v59, v50));
+    local v108 = v10.useCallback(v102(function(v107) --[[ Line: 307 ]]
+        -- upvalues: v75 (copy), l_FFlagAddFriendsUserListEnabled_0 (ref), v90 (copy), v50 (copy)
+        return v75({
+            limit = l_FFlagAddFriendsUserListEnabled_0 and 25 or v90(), 
+            cursor = v107, 
+            localUserId = v50
         });
-    end), l_dependencyArray_0(if l_FFlagAddFriendsUserListEnabled_0 then nil else v89));
-    local v109 = v10.useCallback(function(v108) --[[ Line: 312 ]]
-        -- upvalues: v56 (copy), l_EventNames_0 (ref), l_Namespaces_0 (ref)
-        v56(l_EventNames_0.ShowMoreBtnClick, {
-            namespace = if v108 == l_Namespaces_0.FriendRequests then l_Namespaces_0.FriendRequests else l_Namespaces_0.PYMK
+    end), l_dependencyArray_0(if l_FFlagAddFriendsUserListEnabled_0 then nil else v90));
+    local v110 = v10.useCallback(function(v109) --[[ Line: 317 ]]
+        -- upvalues: v57 (copy), l_EventNames_0 (ref), l_Namespaces_0 (ref)
+        v57(l_EventNames_0.ShowMoreBtnClick, {
+            namespace = if v109 == l_Namespaces_0.FriendRequests then l_Namespaces_0.FriendRequests else l_Namespaces_0.PYMK
         });
-    end, l_dependencyArray_0(v56));
-    local v111 = v10.useCallback(function(v110) --[[ Line: 318 ]]
-        -- upvalues: v55 (copy), v107 (copy), v109 (copy), v30 (ref)
-        if v55 then
-            v107(v55, v110);
+    end, l_dependencyArray_0(v57));
+    local v112 = v10.useCallback(function(v111) --[[ Line: 323 ]]
+        -- upvalues: v56 (copy), v108 (copy), v110 (copy), v30 (ref)
+        if v56 then
+            v108(v56, v111);
         end;
-        v109(v30.FriendRequests);
-    end, l_dependencyArray_0(v53, v107, v55));
-    local v112 = v10.useCallback(function() --[[ Line: 326 ]]
-        -- upvalues: v56 (copy), l_EventNames_0 (ref)
-        v56(l_EventNames_0.UserSearchClick);
-    end, l_dependencyArray_0(v56));
-    v10.useEffect(function() --[[ Line: 330 ]]
-        -- upvalues: l_FFlagConnectionsHubLayerExposure_0 (ref), l_IXPService_0 (ref), l_AppUserLayers_0 (ref), v105 (copy), v60 (copy), v49 (copy), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref)
+        v110(v30.FriendRequests);
+    end, l_dependencyArray_0(v54, v108, v56));
+    local v113 = v10.useCallback(function() --[[ Line: 331 ]]
+        -- upvalues: v57 (copy), l_EventNames_0 (ref)
+        v57(l_EventNames_0.UserSearchClick);
+    end, l_dependencyArray_0(v57));
+    v10.useEffect(function() --[[ Line: 335 ]]
+        -- upvalues: l_FFlagConnectionsHubLayerExposure_0 (ref), l_IXPService_0 (ref), l_AppUserLayers_0 (ref), v106 (copy), v61 (copy), v50 (copy), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref)
         if l_FFlagConnectionsHubLayerExposure_0 then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(l_AppUserLayers_0.ConnectionsHubExposureLayer);
         end;
-        v105();
-        v60(v49);
-        return function() --[[ Line: 338 ]]
-            -- upvalues: v60 (ref), v49 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref)
-            v60(v49);
+        v106();
+        v61(v50);
+        return function() --[[ Line: 343 ]]
+            -- upvalues: v61 (ref), v50 (ref), l_FFlagAddFriendsSessionId_0 (ref), v7 (ref)
+            v61(v50);
             if l_FFlagAddFriendsSessionId_0 then
                 v7.destroySession();
             end;
         end;
     end, {});
-    local v113 = v50 and #v50 or 0;
-    local v114 = if l_FFlagAddFriendsUserListEnabled_0 then v113 > 0 and 10 or 25 else v113 > 0 and 5 or 6;
+    local v114 = v51 and #v51 or 0;
+    local v115 = if l_FFlagAddFriendsUserListEnabled_0 then v114 > 0 and 10 or 25 else v114 > 0 and 5 or 6;
     return v10.createElement(v37, {
-        initialRequestsRows = v114, 
-        requestsPageSize = l_FFlagAddFriendsUserListEnabled_0 and 25 or v89(), 
-        navigateToLuaAppPages = v45.navigateToLuaAppPages, 
-        friendRecommendationsSessionId = v52, 
-        friendRecommendations = v50, 
-        friendRequests = v53, 
-        handleLoadMoreRequests = v111, 
-        refreshPage = v105, 
-        fireSearchbarPressedEvent = v112, 
-        fireOnShowMore = v109
+        initialRequestsRows = v115, 
+        requestsPageSize = l_FFlagAddFriendsUserListEnabled_0 and 25 or v90(), 
+        navigateToLuaAppPages = v46.navigateToLuaAppPages, 
+        friendRecommendationsSessionId = v53, 
+        friendRecommendations = v51, 
+        friendRequests = v54, 
+        handleLoadMoreRequests = v112, 
+        refreshPage = v106, 
+        fireSearchbarPressedEvent = v113, 
+        fireOnShowMore = v110
     });
 end;

@@ -6,60 +6,73 @@ local l_TwoByOneGameTile_0 = require(l_Parent_0.GameTile).TwoByOneGameTile;
 local l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 = v1.FFlagLuaAppSupportSponsoredExplicitFeedback;
 local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = v1.FFlagLuaAppEnableCustomSpawnSponsored;
 local l_FFlagLuaAppTwoByOneTileExperimentVariants_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileExperimentVariants;
-local v12 = v3.memo(function(v8) --[[ Line: 41 ]]
-    -- upvalues: l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), v3 (copy), l_TwoByOneGameTile_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy)
-    local v9 = -((v8.maxItemIndex or 0) + 1);
-    local v10 = if v8.zIndex then v8.zIndex + v9 else v9;
-    local v11 = nil;
-    if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 and v8.item.badgePosition and v8.item.badgeAnalyticsId and v8.item.badgeType and (v8.item.badgeText or v8.item.badgeIcon) then
-        v11 = {
-            [v8.item.badgePosition] = {
+local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = v1.FFlagLuaAppTwoByOneTileTelemetryFix;
+local v14 = v3.memo(function(v9) --[[ Line: 44 ]]
+    -- upvalues: l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), v3 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), l_TwoByOneGameTile_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy)
+    local v10 = -((v9.maxItemIndex or 0) + 1);
+    local v11 = if v9.zIndex then v9.zIndex + v10 else v10;
+    local v12 = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v3.useCallback(function() --[[ Line: 50 ]]
+        -- upvalues: v9 (copy)
+        if v9.onSelectionGained then
+            v9.onSelectionGained(v9.item, v9.index, v9.item.universeId);
+        end;
+    end, {
+        v9.onSelectionGained, 
+        v9.item, 
+        v9.index
+    }) else nil;
+    local v13 = nil;
+    if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 and v9.item.badgePosition and v9.item.badgeAnalyticsId and v9.item.badgeType and (v9.item.badgeText or v9.item.badgeIcon) then
+        v13 = {
+            [v9.item.badgePosition] = {
                 {
-                    analyticsId = v8.item.badgeAnalyticsId, 
-                    tileBadgeType = v8.item.badgeType, 
-                    text = v8.item.badgeText, 
-                    icons = if v8.item.badgeIcon then {
-                        v8.item.badgeIcon
+                    analyticsId = v9.item.badgeAnalyticsId, 
+                    tileBadgeType = v9.item.badgeType, 
+                    text = v9.item.badgeText, 
+                    icons = if v9.item.badgeIcon then {
+                        v9.item.badgeIcon
                     } else nil, 
-                    tileBadgeComponentType = v8.item.badgeComponentType
+                    tileBadgeComponentType = v9.item.badgeComponentType
                 }
             }
         };
     end;
     return v3.createElement(l_TwoByOneGameTile_0, {
-        size = v8.item.sizeOverride, 
-        layoutOrder = v8.index, 
-        zIndex = v10, 
-        universeId = v8.item.universeId, 
-        placeId = v8.item.placeId, 
-        topicId = v8.topicId, 
-        logoImageAssetId = v8.item.logoAssetId, 
-        logoAspectRatio = v8.item.logoAspectRatio, 
-        headline = v8.item.headline, 
-        subtitle = v8.item.subtitle, 
-        ctaText = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v8.item.ctaText else nil, 
-        tileVariant = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v8.item.tileVariant else nil, 
-        badgeOverride = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v11 else nil, 
-        payerName = v8.item.payerName, 
-        adId = v8.item.adId, 
-        isSponsored = v8.item.isSponsored, 
-        sponsoredUserCohort = v8.sponsoredUserCohort, 
-        appPage = v8.appPage, 
-        setGameHidden = v8.setGameHidden, 
-        isHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v8.isHidden else nil, 
-        hoverKey = ("TwoByOneTile_%*_%*_%*"):format(v8.impressionsTag or "", v8.index or "0", v8.item.universeId), 
-        impressionsTag = v8.impressionsTag, 
-        index = v8.index, 
-        reportGameDetailOpened = v8.reportGameDetailOpened, 
-        reportExperienceLaunched = v8.reportExperienceLaunched, 
-        enableSponsoredFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v8.enableSponsoredFeedback else nil, 
-        enableReportAd = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v8.enableReportAd else nil, 
-        enableExplicitFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v8.enableExplicitFeedback else nil, 
-        placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v8.item.placeIdOverride else nil, 
-        launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v8.item.launchDataOverride else nil
+        size = v9.item.sizeOverride, 
+        layoutOrder = v9.index, 
+        zIndex = v11, 
+        universeId = v9.item.universeId, 
+        placeId = v9.item.placeId, 
+        topicId = v9.topicId, 
+        logoImageAssetId = v9.item.logoAssetId, 
+        logoAspectRatio = v9.item.logoAspectRatio, 
+        headline = v9.item.headline, 
+        subtitle = v9.item.subtitle, 
+        ctaText = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v9.item.ctaText else nil, 
+        tileVariant = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v9.item.tileVariant else nil, 
+        badgeOverride = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v13 else nil, 
+        payerName = v9.item.payerName, 
+        adId = v9.item.adId, 
+        isSponsored = v9.item.isSponsored, 
+        sponsoredUserCohort = v9.sponsoredUserCohort, 
+        appPage = v9.appPage, 
+        setGameHidden = v9.setGameHidden, 
+        isHidden = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.isHidden else nil, 
+        hoverKey = ("TwoByOneTile_%*_%*_%*"):format(v9.impressionsTag or "", v9.index or "0", v9.item.universeId), 
+        impressionsTag = v9.impressionsTag, 
+        index = v9.index, 
+        reportGameDetailOpened = v9.reportGameDetailOpened, 
+        reportExperienceLaunched = v9.reportExperienceLaunched, 
+        enableSponsoredFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableSponsoredFeedback else nil, 
+        enableReportAd = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableReportAd else nil, 
+        enableExplicitFeedback = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v9.enableExplicitFeedback else nil, 
+        placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v9.item.placeIdOverride else nil, 
+        launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v9.item.launchDataOverride else nil, 
+        onSelectionGained = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v12 else nil, 
+        onSelectionLost = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v9.onSelectionLost else nil
     });
 end);
-return function(v13) --[[ Line: 107 ]]
-    -- upvalues: v3 (copy), v12 (copy), l_GameCollectionItemTypes_0 (copy)
-    return v3.createElement(v12, v13), l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile;
+return function(v15) --[[ Line: 120 ]]
+    -- upvalues: v3 (copy), v14 (copy), l_GameCollectionItemTypes_0 (copy)
+    return v3.createElement(v14, v15), l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile;
 end;

@@ -32,7 +32,9 @@ local l_FFlagEnableSocialProofVerticalUserListSheet_0 = v5.FFlagEnableSocialProo
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole;
 local v32 = game:DefineFastFlag("TCEducationModalSideBarPolicy", false);
 local l_FFlagEnableBlackbird_0 = v5.FFlagEnableBlackbird;
-local v34 = {
+local l_FFlagLuaAppEnableStratusStreamingTestOnly_0 = v5.FFlagLuaAppEnableStratusStreamingTestOnly;
+local l_FFlagEnableMobileGameJoinCard_0 = v5.FFlagEnableMobileGameJoinCard;
+local v36 = {
     [v3.None] = {
         nameLocalizationKey = "CommonUI.Features.Label.Nil", 
         disableAppTopBanner = true
@@ -596,31 +598,31 @@ local v34 = {
     } else nil
 };
 if l_GetFFlagLuaAppChallengeDialogContainerPageEnabled_0() then
-    v34[v3.ChallengeDialogModalContainer] = {
+    v36[v3.ChallengeDialogModalContainer] = {
         tabBarHidden = v4.Hidden, 
         renderUnderlyingPage = true
     };
 end;
 if l_GetFFlagEnableAbuseReport10ft_0() then
-    v34[v3.ReportScreen] = {
+    v36[v3.ReportScreen] = {
         nameLocalizationKey = "Feature.GameDetails.Label.ReportAbuse", 
         tabBarHidden = v4.Visible, 
         renderUnderlyingPage = false
     };
 end;
 if v12() then
-    v34[v3.ChallengeNativeWrapper] = {
+    v36[v3.ChallengeNativeWrapper] = {
         nativeWrapper = true, 
         tabBarHidden = v4.Hidden, 
         renderUnderlyingPage = true
     };
 end;
 if v13() then
-    v34[v3.PlatformAccountRouter] = {
+    v36[v3.PlatformAccountRouter] = {
         tabBarHidden = v4.Hidden
     };
 end;
-v34[v3.DiscoverabilityOverlay] = {
+v36[v3.DiscoverabilityOverlay] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -628,7 +630,7 @@ v34[v3.DiscoverabilityOverlay] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v34[v3.FindFriendsModal] = {
+v36[v3.FindFriendsModal] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -636,7 +638,7 @@ v34[v3.FindFriendsModal] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v34[v3.ContactsRevokedAccessDialog] = {
+v36[v3.ContactsRevokedAccessDialog] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -644,7 +646,7 @@ v34[v3.ContactsRevokedAccessDialog] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v34[v3.SettingsPermissionInteractiveAlert] = {
+v36[v3.SettingsPermissionInteractiveAlert] = {
     tabBarHidden = v4.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
@@ -652,7 +654,7 @@ v34[v3.SettingsPermissionInteractiveAlert] = {
     disableBackButton = true, 
     overlayEnabled = true
 };
-v34[v3.TrustedContactsEducationModal] = {
+v36[v3.TrustedContactsEducationModal] = {
     tabBarHidden = if v32 then nil else v4.Hidden, 
     bottomTabBarHidden = not v32 or nil, 
     sideTabBarHidden = not v32 or nil, 
@@ -661,25 +663,25 @@ v34[v3.TrustedContactsEducationModal] = {
     overlayEnabled = true
 };
 if l_FFlagProfilePlatformAddTC_0 then
-    v34[v3.TrustedContactsModal] = {
+    v36[v3.TrustedContactsModal] = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     };
 end;
 if l_FFlagTCVerifiedParentalControl_0 then
-    v34[v3.TrustedFriendsVPCPrologue] = {
+    v36[v3.TrustedFriendsVPCPrologue] = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     };
 end;
-v34[v3.FAEUpsell] = {
+v36[v3.FAEUpsell] = {
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v34[v3.FriendsRenameInfoModal] = {
+v36[v3.FriendsRenameInfoModal] = {
     tabBarHidden = v4.PolicyDependent, 
     isPeekView = true, 
     renderUnderlyingPage = true, 
@@ -688,51 +690,66 @@ v34[v3.FriendsRenameInfoModal] = {
     absorbInput = true
 };
 if l_FFlagEnableSocialProofUserList_0 then
-    v34[v3.FriendsOwnedUserList] = {
+    v36[v3.FriendsOwnedUserList] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
 if l_FFlagEnableSocialProofVerticalUserListSheet_0 then
-    v34[v3.SocialProofVerticalUserListSheet] = {
+    v36[v3.SocialProofVerticalUserListSheet] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
-v34[v3.MutualConnectionList] = {
+v36[v3.MutualConnectionList] = {
     renderUnderlyingPage = true, 
     isPeekView = true, 
     overlayEnabled = true
 };
-v34[v3.BlockingModal] = {
+v36[v3.BlockingModal] = {
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
-v34[v3.AboutDetailsSheet] = {
+v36[v3.AboutDetailsSheet] = {
     isPeekView = true, 
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
 if l_FFlagEnableNapDedicatedPage_0 then
-    v34[v3.NotApprovedPage] = {
+    v36[v3.NotApprovedPage] = {
         tabBarHidden = v4.Hidden, 
         disableBackButton = true, 
         disableAppTopBanner = true
     };
 end;
 if l_FFlagEnableLeftNavOnConsole_0 then
-    v34[v3.AdjustScreen] = {
+    v36[v3.AdjustScreen] = {
         tabBarHidden = v4.Hidden
     };
 end;
 if l_FFlagEnableBlackbird_0 then
-    v34[v3.Blackbird] = {
+    v36[v3.Blackbird] = {
         webView = true, 
         nativeWrapper = true, 
         tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
         renderUnderlyingPage = true
     };
 end;
-return v34;
+if l_FFlagLuaAppEnableStratusStreamingTestOnly_0 then
+    v36[v3.VideoServer] = {
+        tabBarHidden = v4.Hidden, 
+        nameLocalizationKey = "CommonUI.Features.Label.Nil", 
+        disableAppTopBanner = true, 
+        disableBackButton = true
+    };
+end;
+if l_FFlagEnableMobileGameJoinCard_0 then
+    v36[v3.GameJoinCard] = {
+        isPeekView = true, 
+        renderUnderlyingPage = true, 
+        overlayEnabled = true
+    };
+end;
+return v36;

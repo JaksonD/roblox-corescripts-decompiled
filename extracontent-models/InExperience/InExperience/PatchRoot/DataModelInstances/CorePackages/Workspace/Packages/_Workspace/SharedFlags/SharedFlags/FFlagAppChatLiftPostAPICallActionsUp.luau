@@ -1,1 +1,1 @@
-return require(script.Parent.FFlagAppChatEnableGroupOSA) and game:DefineFastFlag("AppChatLiftPostAPICallActionsUp", false);
+return require(script.Parent.FFlagAppChatEnableGroupOSA) and game:DefineFastFlag("AppChatLiftPostAPICallActionsUp1", false);

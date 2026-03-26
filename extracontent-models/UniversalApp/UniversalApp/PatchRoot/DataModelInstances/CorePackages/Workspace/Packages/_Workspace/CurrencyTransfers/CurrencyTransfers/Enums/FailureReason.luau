@@ -13,7 +13,8 @@ local v0 = {
     TransferAlreadyProcessed = "TransferAlreadyProcessed", 
     InvalidTransferState = "InvalidTransferState", 
     AmpRecourseAvailable = "AmpRecourseAvailable", 
-    TransferDisabledForUser = "TransferDisabledForUser"
+    TransferDisabledForUser = "TransferDisabledForUser", 
+    ReceiverNotAllowed = "ReceiverNotAllowed"
 };
 local v1 = {
     [0] = v0.Invalid, 
@@ -30,9 +31,10 @@ local v1 = {
     [11] = v0.TransferAlreadyProcessed, 
     [12] = v0.InvalidTransferState, 
     [13] = v0.AmpRecourseAvailable, 
-    [14] = v0.TransferDisabledForUser
+    [14] = v0.TransferDisabledForUser, 
+    [15] = v0.ReceiverNotAllowed
 };
-v0.fromValue = function(v2) --[[ Line: 56 ]] --[[ Name: fromValue ]]
+v0.fromValue = function(v2) --[[ Line: 59 ]] --[[ Name: fromValue ]]
     -- upvalues: v1 (copy), v0 (copy)
     if v2 == nil then
         return nil;

@@ -18,67 +18,71 @@ local v16 = require(l_script_FirstAncestor_0.Conversations.Actions.DismissedChat
 local v17 = require(l_Parent_0.SharedFlags);
 local v18 = require(l_script_FirstAncestor_0.Flags.FIntAppChatModalSeenImpressionDelayMs);
 local l_FFlagAppChatEnableDoubleOptIn_0 = v17.FFlagAppChatEnableDoubleOptIn;
-local v20 = {
+local v20 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatNudgeToChatUpsellEnabled);
+local v21 = {
     [l_ConversationOverlay_0.TrustedConnectionCreated] = v13, 
     [l_ConversationOverlay_0.AddTrustedConnectionU18] = if l_FFlagAppChatEnableDoubleOptIn_0 then v13 else nil, 
     [l_ConversationOverlay_0.TrustedConnectionRequestU18] = if l_FFlagAppChatEnableDoubleOptIn_0 then v13 else nil
 };
-return v5.memo(function(v21) --[[ Line: 49 ]]
-    -- upvalues: l_useSelector_0 (copy), v8 (copy), v12 (copy), v5 (copy), v20 (copy), v10 (copy), v14 (copy), l_useDispatch_0 (copy), v11 (copy), l_ModalSequence_0 (copy), v18 (copy), v4 (copy), v3 (copy), v16 (copy)
-    local v23 = l_useSelector_0(function(v22) --[[ Line: 51 ]]
-        -- upvalues: v8 (ref), v21 (copy), v12 (ref)
-        return v8(v22, (("ChatAppReducer.Modals.conversationOverlays.%*"):format(v21.conversationId))) or v12.default;
+if v20 then
+    v21[l_ConversationOverlay_0.NudgeToChatUpsell] = require(script.Parent.NudgeToChatUpsellContainer);
+end;
+return v5.memo(function(v22) --[[ Line: 55 ]]
+    -- upvalues: l_useSelector_0 (copy), v8 (copy), v12 (copy), v5 (copy), v21 (copy), v10 (copy), v14 (copy), l_useDispatch_0 (copy), v11 (copy), l_ModalSequence_0 (copy), v18 (copy), v4 (copy), v3 (copy), v16 (copy)
+    local v24 = l_useSelector_0(function(v23) --[[ Line: 57 ]]
+        -- upvalues: v8 (ref), v22 (copy), v12 (ref)
+        return v8(v23, (("ChatAppReducer.Modals.conversationOverlays.%*"):format(v22.conversationId))) or v12.default;
     end);
-    v23 = v5.useMemo(function() --[[ Line: 57 ]]
-        -- upvalues: v23 (ref)
-        return v23;
+    v24 = v5.useMemo(function() --[[ Line: 63 ]]
+        -- upvalues: v24 (ref)
+        return v24;
     end, {
-        v21.conversationId
+        v22.conversationId
     });
-    local l_modal_layout_0 = v23.modal_layout;
-    local v25 = v20[v23.modal_variant];
-    local v26 = v10(v21.conversationId) and v25 ~= nil;
-    local v27 = v14(v21.conversationId);
-    local v28 = l_useDispatch_0();
+    local l_modal_layout_0 = v24.modal_layout;
+    local v26 = v21[v24.modal_variant];
+    local v27 = v10(v22.conversationId) and v26 ~= nil;
+    local v28 = v14(v22.conversationId);
+    local v29 = l_useDispatch_0();
     v11({
         modalSequence = l_ModalSequence_0.ConversationOverlay, 
         modalId = l_modal_layout_0.id, 
-        modalVariant = v23.modal_variant, 
+        modalVariant = v24.modal_variant, 
         actionToRecord = l_modal_layout_0.seen_record_action, 
         delayMs = v18, 
-        canRecordAction = v26, 
-        conversationId = v21.conversationId
+        canRecordAction = v27, 
+        conversationId = v22.conversationId
     });
-    v5.useEffect(function() --[[ Line: 76 ]]
-        -- upvalues: v26 (copy), v21 (copy)
-        if not v26 then
-            v21.dismissModal();
+    v5.useEffect(function() --[[ Line: 82 ]]
+        -- upvalues: v27 (copy), v22 (copy)
+        if not v27 then
+            v22.dismissModal();
         end;
     end, {
-        v26
+        v27
     });
-    local v30 = v5.useCallback(function() --[[ Line: 83 ]]
-        -- upvalues: v27 (copy), v23 (ref), v4 (ref), v3 (ref), v21 (copy), v28 (copy), v16 (ref)
-        v27(v23.modal_layout.dismissed_record_action, v4.Constants.ModalSequence.ConversationOverlay, v23.modal_layout.id, v23.modal_variant):catch(function(v29) --[[ Line: 89 ]]
-            -- upvalues: v3 (ref), v23 (ref)
-            v3:warning((("Error in ConversationOverlayContainer %* -> RecordModalSequenceResponse: %*"):format(v23.modal_layout.id, (tostring(v29)))));
+    local v31 = v5.useCallback(function() --[[ Line: 89 ]]
+        -- upvalues: v28 (copy), v24 (ref), v4 (ref), v3 (ref), v22 (copy), v29 (copy), v16 (ref)
+        v28(v24.modal_layout.dismissed_record_action, v4.Constants.ModalSequence.ConversationOverlay, v24.modal_layout.id, v24.modal_variant):catch(function(v30) --[[ Line: 95 ]]
+            -- upvalues: v3 (ref), v24 (ref)
+            v3:warning((("Error in ConversationOverlayContainer %* -> RecordModalSequenceResponse: %*"):format(v24.modal_layout.id, (tostring(v30)))));
         end);
-        v21.dismissModal();
-        v28(v16(v4.Constants.ModalSequence.ConversationOverlay, v21.conversationId));
+        v22.dismissModal();
+        v29(v16(v4.Constants.ModalSequence.ConversationOverlay, v22.conversationId));
     end, {
-        v21.conversationId, 
-        v23.modal_layout.dismissed_record_action, 
-        v23.modal_layout.id, 
-        v23.modal_variant, 
-        v27, 
+        v22.conversationId, 
+        v24.modal_layout.dismissed_record_action, 
+        v24.modal_layout.id, 
+        v24.modal_variant, 
         v28, 
-        v21.dismissModal
+        v29, 
+        v22.dismissModal
     });
-    if v26 then
-        return v5.createElement(v25, {
-            conversationId = v21.conversationId, 
-            modalVariant = v23.modal_variant, 
-            dismissModal = v30
+    if v27 then
+        return v5.createElement(v26, {
+            conversationId = v22.conversationId, 
+            modalVariant = v24.modal_variant, 
+            dismissModal = v31
         });
     else
         return nil;

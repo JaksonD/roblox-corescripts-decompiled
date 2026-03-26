@@ -2,6 +2,7 @@ return {
     PlayerProfile = "PlayerProfile", 
     CTAButtons = {
         EditAvatar = "editAvatar", 
+        EditLook = "editLook", 
         EditProfile = "editProfile", 
         Chat = "chatAttempt", 
         OpenEditProfilePage = "OpenEditProfilePage", 

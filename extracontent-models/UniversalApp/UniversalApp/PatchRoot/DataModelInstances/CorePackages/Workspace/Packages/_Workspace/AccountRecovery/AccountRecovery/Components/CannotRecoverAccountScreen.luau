@@ -31,32 +31,35 @@ return function(v25) --[[ Line: 44 ]]
     local v29 = l_useDesignTokens_0();
     local v30 = l_useRoactService_0(l_RoactNetworking_0);
     local v31 = v25.navigation.getParam("userID");
-    local v32, v33 = v2.useState("");
-    local v34, v35 = v2.useState("");
-    local v36, v37 = v2.useState(Vector2.new(0, 0));
+    local v32 = v25.navigation.getParam("isConsole") or false;
+    local v33, v34 = v2.useState("");
+    local v35, v36 = v2.useState("");
+    local v37, v38 = v2.useState(Vector2.new(0, 0));
     l_useClearFocusOnUnmount_0();
-    v2.useEffect(function() --[[ Line: 60 ]]
-        -- upvalues: v31 (copy), l_GetUserById_0 (ref), v30 (copy), v35 (copy), v33 (copy), l_Logger_0 (ref)
+    v2.useEffect(function() --[[ Line: 61 ]]
+        -- upvalues: v31 (copy), l_GetUserById_0 (ref), v30 (copy), v36 (copy), v34 (copy), l_Logger_0 (ref)
         if v31 and v31 ~= 0 then
-            l_GetUserById_0(v30, (("%*"):format(v31))):andThen(function(v38) --[[ Line: 62 ]]
-                -- upvalues: v35 (ref), v33 (ref)
-                v35(v38.name);
-                v33(v38.displayName);
-            end):catch(function(v39) --[[ Line: 65 ]]
+            l_GetUserById_0(v30, (("%*"):format(v31))):andThen(function(v39) --[[ Line: 63 ]]
+                -- upvalues: v36 (ref), v34 (ref)
+                v36(v39.name);
+                v34(v39.displayName);
+            end):catch(function(v40) --[[ Line: 66 ]]
                 -- upvalues: l_Logger_0 (ref)
-                l_Logger_0:warning("Error getting user info: {}", v39);
+                l_Logger_0:warning("Error getting user info: {}", v40);
             end);
         end;
     end, {});
-    local function v41(v40) --[[ Line: 71 ]]
-        -- upvalues: v36 (copy), v37 (copy)
-        if v36 ~= v40.AbsoluteSize then
-            v37(v40.AbsoluteSize);
+    local function v42(v41) --[[ Line: 72 ]]
+        -- upvalues: v37 (copy), v38 (copy)
+        if v37 ~= v41.AbsoluteSize then
+            v38(v41.AbsoluteSize);
         end;
     end;
-    local v42 = l_useLocalization_0({
+    local v43 = l_useLocalization_0({
+        useAnotherDeviceHeadingText = "Authentication.AccountRecovery.Heading.UseAnotherDevice", 
         cannotRecoverAccountHeadingText = "Authentication.AccountRecovery.Heading.CannotRecoverAccount", 
         bodyText = "Authentication.AccountRecovery.Description.CannotRecoverAccount", 
+        platformNotSupportedText = "Authentication.AccountRecovery.Description.PlatformNotSupported", 
         okButtonText = "Authentication.AccountRecovery.Action.Ok"
     });
     return v2.createElement(l_FullscreenPageWithSafeArea_0, {
@@ -84,11 +87,11 @@ return function(v25) --[[ Line: 44 ]]
                 BackgroundTransparency = 1, 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 Size = UDim2.new(1, 0, 0, 0), 
-                [v2.Change.AbsoluteSize] = v41
+                [v2.Change.AbsoluteSize] = v42
             }, {
                 Header = v2.createElement(v23, {
                     LayoutOrder = 1, 
-                    recoveryHeadingText = v42.cannotRecoverAccountHeadingText, 
+                    recoveryHeadingText = v32 and v43.useAnotherDeviceHeadingText or v43.cannotRecoverAccountHeadingText, 
                     currentComponent = "cannotRecoverAccount", 
                     recoverySessionId = v26.state.recoverySessionId
                 })
@@ -101,7 +104,7 @@ return function(v25) --[[ Line: 44 ]]
                     ScrollingDirection = Enum.ScrollingDirection.Y, 
                     scrollBarVisibility = l_Visibility_0.Auto
                 }, 
-                Size = UDim2.new(1, 0, 1, -v36.Y)
+                Size = UDim2.new(1, 0, 1, -v37.Y)
             }, {
                 UIPadding = v2.createElement("UIPadding", {
                     PaddingLeft = UDim.new(0, v29.Global.Space_100), 
@@ -112,15 +115,15 @@ return function(v25) --[[ Line: 44 ]]
                     FillDirection = Enum.FillDirection.Vertical, 
                     Padding = UDim.new(0, v29.Global.Space_20)
                 }), 
-                UserHeader = v2.createElement(v24, {
+                UserHeader = v31 and v31 ~= 0 and v2.createElement(v24, {
                     LayoutOrder = 1, 
                     userId = ("%*"):format(v31), 
-                    displayName = v32, 
-                    username = v34
+                    displayName = v33, 
+                    username = v35
                 }), 
                 Body = v2.createElement(l_Text_0, {
                     LayoutOrder = 2, 
-                    Text = v42.bodyText, 
+                    Text = v32 and v43.platformNotSupportedText or v43.bodyText, 
                     TextWrapped = true, 
                     fontStyle = v28.Typography.BodyMedium, 
                     textStyle = v28.Color.Content.Default, 
@@ -137,9 +140,9 @@ return function(v25) --[[ Line: 44 ]]
                     LayoutOrder = 3, 
                     variant = l_ButtonVariant_0.Emphasis, 
                     size = l_InputSize_0.Medium, 
-                    text = v42.okButtonText, 
+                    text = v43.okButtonText, 
                     width = UDim.new(1, 0), 
-                    onActivated = function() --[[ Line: 163 ]] --[[ Name: onActivated ]]
+                    onActivated = function() --[[ Line: 167 ]] --[[ Name: onActivated ]]
                         -- upvalues: v26 (copy)
                         v26.parentNavigation.goBack();
                     end

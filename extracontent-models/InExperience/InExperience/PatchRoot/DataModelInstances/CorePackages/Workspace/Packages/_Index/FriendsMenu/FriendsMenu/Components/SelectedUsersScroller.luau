@@ -14,121 +14,122 @@ local v12 = require(l_script_FirstAncestor_0.Constants);
 local v13 = require(script.Parent.FriendsMenuUserCard);
 local v14 = require(l_Context_0.SelectedUsersContext);
 local v15 = require(l_script_FirstAncestor_0.utils.getRenameFriendsToConnectionsEnabledFriendsMenu);
+local l_FFlagConnectionsToFriendsRename_0 = v8.FFlagConnectionsToFriendsRename;
 local l_FFlagEnableAppChatFocusableFixes_0 = v8.FFlagEnableAppChatFocusableFixes;
-return function(v17) --[[ Line: 32 ]]
-    -- upvalues: v4 (copy), v14 (copy), v7 (copy), l_useLastInputMode_0 (copy), l_useFocusGuiObject_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), v15 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v13 (copy), l_dependencyArray_0 (copy), v12 (copy)
-    local v18 = v4.useContext(v14);
-    local v19 = v7.useBreakpointYOrLarger(v7.Keys.Medium);
-    local v20 = l_useLastInputMode_0();
-    local v21 = l_useFocusGuiObject_0();
-    local v22 = v4.useRef({});
-    local v23 = v4.useRef(nil);
-    local v24 = l_useStyle_0();
-    local l_Theme_0 = v24.Theme;
-    local l_Font_0 = v24.Font;
-    local v27 = l_useLocalization_0({
+return function(v18) --[[ Line: 33 ]]
+    -- upvalues: v4 (copy), v14 (copy), v7 (copy), l_useLastInputMode_0 (copy), l_useFocusGuiObject_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v15 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), v13 (copy), l_dependencyArray_0 (copy), v12 (copy)
+    local v19 = v4.useContext(v14);
+    local v20 = v7.useBreakpointYOrLarger(v7.Keys.Medium);
+    local v21 = l_useLastInputMode_0();
+    local v22 = l_useFocusGuiObject_0();
+    local v23 = v4.useRef({});
+    local v24 = v4.useRef(nil);
+    local v25 = l_useStyle_0();
+    local l_Theme_0 = v25.Theme;
+    local l_Font_0 = v25.Font;
+    local v28 = l_useLocalization_0({
         selectedFriendsCountText = {
-            v15() and "Feature.FriendsMenu.Label.SelectedConnectionsCount" or "Feature.FriendsMenu.Label.SelectedFriendsCount"; 
-            numerator = v18.selectedFriendsSize, 
-            denominator = v17.selectionLimit
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.FriendsMenu.Label.SelectedFriendsCount" or v15() and "Feature.FriendsMenu.Label.SelectedConnectionsCount" or "Feature.FriendsMenu.Label.SelectedFriendsCount"; 
+            numerator = v19.selectedFriendsSize, 
+            denominator = v18.selectionLimit
         }, 
         selectedFriendsCountNoLimitText = {
-            v15() and "Feature.FriendsMenu.Label.SelectedConnectionsCountNoLimit" or "Feature.FriendsMenu.Label.SelectedFriendsCountNoLimit"; 
-            selectedCount = v18.selectedFriendsSize
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.FriendsMenu.Label.SelectedFriendsCountNoLimit" or v15() and "Feature.FriendsMenu.Label.SelectedConnectionsCountNoLimit" or "Feature.FriendsMenu.Label.SelectedFriendsCountNoLimit"; 
+            selectedCount = v19.selectedFriendsSize
         }
     });
-    local v39 = v4.useMemo(function() --[[ Line: 62 ]]
-        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v22 (copy), v4 (ref), v18 (copy), v13 (ref), v23 (copy)
+    local v40 = v4.useMemo(function() --[[ Line: 69 ]]
+        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v23 (copy), v4 (ref), v19 (copy), v13 (ref), v24 (copy)
         if not l_FFlagEnableAppChatFocusableFixes_0 then
             return {};
         else
-            v22.current = {};
-            local v28 = {
+            v23.current = {};
+            local v29 = {
                 UIListLayout = v4.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
                     Padding = UDim.new(0, 8), 
                     SortOrder = Enum.SortOrder.LayoutOrder
                 })
             };
-            local v29 = {};
-            for v30, v31 in pairs(v18.selectedFriends) do
-                table.insert(v29, {
-                    userId = v30, 
-                    userData = v31
+            local v30 = {};
+            for v31, v32 in pairs(v19.selectedFriends) do
+                table.insert(v30, {
+                    userId = v31, 
+                    userData = v32
                 });
             end;
-            table.sort(v29, function(v32, v33) --[[ Line: 80 ]]
-                return v32.userData.layoutOrder < v33.userData.layoutOrder;
+            table.sort(v30, function(v33, v34) --[[ Line: 87 ]]
+                return v33.userData.layoutOrder < v34.userData.layoutOrder;
             end);
-            for v34, v35 in ipairs(v29) do
-                local l_userId_0 = v35.userId;
-                local l_userData_0 = v35.userData;
-                v28["User-" .. tostring(l_userId_0)] = v4.createElement(v13, {
+            for v35, v36 in ipairs(v30) do
+                local l_userId_0 = v36.userId;
+                local l_userData_0 = v36.userData;
+                v29["User-" .. tostring(l_userId_0)] = v4.createElement(v13, {
                     displayName = l_userData_0.displayName, 
                     layoutOrder = l_userData_0.layoutOrder, 
                     userId = l_userId_0, 
                     unremovable = l_userData_0.unremovable, 
-                    onRemoved = function() --[[ Line: 93 ]] --[[ Name: onRemoved ]]
-                        -- upvalues: v23 (ref), v34 (copy)
-                        v23.current = v34;
+                    onRemoved = function() --[[ Line: 100 ]] --[[ Name: onRemoved ]]
+                        -- upvalues: v24 (ref), v35 (copy)
+                        v24.current = v35;
                     end, 
-                    ref = function(v38) --[[ Line: 96 ]] --[[ Name: ref ]]
-                        -- upvalues: v22 (ref), v34 (copy)
-                        v22.current[v34] = v38;
+                    ref = function(v39) --[[ Line: 103 ]] --[[ Name: ref ]]
+                        -- upvalues: v23 (ref), v35 (copy)
+                        v23.current[v35] = v39;
                     end
                 });
             end;
-            return v28;
+            return v29;
         end;
-    end, l_dependencyArray_0(v18.selectedFriends));
-    local v43 = v4.useMemo(function() --[[ Line: 104 ]]
-        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v4 (ref), v18 (copy), v13 (ref)
+    end, l_dependencyArray_0(v19.selectedFriends));
+    local v44 = v4.useMemo(function() --[[ Line: 111 ]]
+        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v4 (ref), v19 (copy), v13 (ref)
         if l_FFlagEnableAppChatFocusableFixes_0 then
             return {};
         else
-            local v40 = {
+            local v41 = {
                 UIListLayout = v4.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
                     Padding = UDim.new(0, 8), 
                     SortOrder = Enum.SortOrder.LayoutOrder
                 })
             };
-            for v41, v42 in pairs(v18.selectedFriends) do
-                v40["User-" .. tostring(v41)] = v4.createElement(v13, {
-                    displayName = v42.displayName, 
-                    layoutOrder = v42.layoutOrder, 
-                    userId = v41, 
-                    unremovable = v42.unremovable
+            for v42, v43 in pairs(v19.selectedFriends) do
+                v41["User-" .. tostring(v42)] = v4.createElement(v13, {
+                    displayName = v43.displayName, 
+                    layoutOrder = v43.layoutOrder, 
+                    userId = v42, 
+                    unremovable = v43.unremovable
                 });
             end;
-            return v40;
+            return v41;
         end;
-    end, l_dependencyArray_0(v18.selectedFriends));
-    v4.useEffect(function() --[[ Line: 128 ]]
-        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v23 (copy), v20 (copy), v22 (copy), v21 (copy)
-        if not l_FFlagEnableAppChatFocusableFixes_0 or not v23.current or v20 ~= "Focus" then
+    end, l_dependencyArray_0(v19.selectedFriends));
+    v4.useEffect(function() --[[ Line: 135 ]]
+        -- upvalues: l_FFlagEnableAppChatFocusableFixes_0 (ref), v24 (copy), v21 (copy), v23 (copy), v22 (copy)
+        if not l_FFlagEnableAppChatFocusableFixes_0 or not v24.current or v21 ~= "Focus" then
             return;
         else
-            local l_current_0 = v22.current;
-            local v45 = #l_current_0;
-            if v45 == 0 then
-                v23.current = nil;
+            local l_current_0 = v23.current;
+            local v46 = #l_current_0;
+            if v46 == 0 then
+                v24.current = nil;
                 return;
             else
-                local v46 = l_current_0[math.clamp(v23.current, 1, v45)];
-                if v46 and v46.Parent then
-                    v21(v46);
+                local v47 = l_current_0[math.clamp(v24.current, 1, v46)];
+                if v47 and v47.Parent then
+                    v22(v47);
                 end;
-                v23.current = nil;
+                v24.current = nil;
                 return;
             end;
         end;
-    end, l_dependencyArray_0(v18.selectedFriends, v21, v20));
+    end, l_dependencyArray_0(v19.selectedFriends, v22, v21));
     return v4.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
-        LayoutOrder = v17.layoutOrder
+        LayoutOrder = v18.layoutOrder
     }, {
         VerticalLayout = v4.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
@@ -141,13 +142,13 @@ return function(v17) --[[ Line: 32 ]]
             BackgroundTransparency = 1, 
             Font = l_Font_0.Header2.Font, 
             LayoutOrder = 0, 
-            Text = if v17.selectionLimit then v27.selectedFriendsCountText else v27.selectedFriendsCountNoLimitText, 
+            Text = if v18.selectionLimit then v28.selectedFriendsCountText else v28.selectedFriendsCountNoLimitText, 
             TextColor3 = l_Theme_0.TextEmphasis.Color, 
             TextSize = l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize, 
             TextTransparency = l_Theme_0.TextEmphasis.Transparency, 
             TextXAlignment = Enum.TextXAlignment.Left
         }), 
-        SelectedUsers = if v18.selectedFriendsSize ~= 0 and v19 then v4.createElement("ScrollingFrame", {
+        SelectedUsers = if v19.selectedFriendsSize ~= 0 and v20 then v4.createElement("ScrollingFrame", {
             Size = UDim2.new(1, 0, 0, v12.FRIEND_MENU_CARD_SIZE), 
             AutomaticCanvasSize = Enum.AutomaticSize.XY, 
             BackgroundTransparency = 1, 
@@ -155,6 +156,6 @@ return function(v17) --[[ Line: 32 ]]
             ScrollBarThickness = 0, 
             ScrollingDirection = Enum.ScrollingDirection.X, 
             Selectable = not l_FFlagEnableAppChatFocusableFixes_0 and nil
-        }, if l_FFlagEnableAppChatFocusableFixes_0 then v39 else v43) else nil
+        }, if l_FFlagEnableAppChatFocusableFixes_0 then v40 else v44) else nil
     });
 end;

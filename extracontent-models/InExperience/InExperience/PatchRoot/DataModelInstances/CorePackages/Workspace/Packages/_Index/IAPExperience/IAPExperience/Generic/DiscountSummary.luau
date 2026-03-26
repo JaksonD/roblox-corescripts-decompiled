@@ -50,7 +50,7 @@ return function(v16) --[[ Line: 33 ]] --[[ Name: DiscountSummary ]]
     local v31 = v2.useMemo(function() --[[ Line: 67 ]]
         -- upvalues: l_discounts_0 (copy), l_DiscountType_0 (ref)
         for _, v30 in ipairs(l_discounts_0) do
-            if v30.type == l_DiscountType_0.RobloxSubscription then
+            if v30.type == l_DiscountType_0.BlackbirdSubscription then
                 return true;
             end;
         end;

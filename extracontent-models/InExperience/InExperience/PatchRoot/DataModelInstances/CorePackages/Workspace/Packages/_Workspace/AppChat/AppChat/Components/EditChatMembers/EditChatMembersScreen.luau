@@ -11,39 +11,40 @@ local v9 = require(l_script_FirstAncestor_0.TopBarProvider);
 local v10 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
 local v11 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarSignalsStore);
 local v12 = require(l_script_FirstAncestor_0.Components.SelectChatMembers.createSystemMenuButton);
-local v13 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersContainer);
-local v14 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersIxpEnabled);
-local v15 = require(l_script_FirstAncestor_0.Flags.FStringAppChatUseNewSelectChatMembersIxpLayer);
-local v16 = if v13 then require(script.Parent.EditChatMembersContainer) else require(script.Parent.EditChatMembersContainerDeprecated);
-local v17 = require(script.Parent.Logger);
-local v18 = v5.PureComponent:extend("EditChatMembersScreen");
-v18.defaultProps = {};
-v18.navigationOptions = function() --[[ Line: 30 ]]
-    -- upvalues: v8 (copy), v5 (copy), v9 (copy), v3 (copy), v4 (copy), l_withLocalization_0 (copy), v12 (copy)
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v14 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersContainer);
+local v15 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUseNewSelectChatMembersIxpEnabled);
+local v16 = require(l_script_FirstAncestor_0.Flags.FStringAppChatUseNewSelectChatMembersIxpLayer);
+local v17 = if v14 then require(script.Parent.EditChatMembersContainer) else require(script.Parent.EditChatMembersContainerDeprecated);
+local v18 = require(script.Parent.Logger);
+local v19 = v5.PureComponent:extend("EditChatMembersScreen");
+v19.defaultProps = {};
+v19.navigationOptions = function() --[[ Line: 31 ]]
+    -- upvalues: l_FFlagConnectionsToFriendsRename_0 (copy), v8 (copy), v5 (copy), v9 (copy), v3 (copy), v4 (copy), l_withLocalization_0 (copy), v12 (copy)
     return {
         headerText = {
-            raw = v8.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Chat.Label.AddConnections" or "Feature.Chat.Label.AddFriends", 
+            raw = l_FFlagConnectionsToFriendsRename_0 and "Feature.Chat.Label.AddFriends" or v8.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Chat.Label.AddConnections" or "Feature.Chat.Label.AddFriends", 
             shouldLocalize = true
         }, 
         backButtonEnabled = true, 
-        renderRight = function() --[[ Line: 41 ]] --[[ Name: renderRight ]]
+        renderRight = function() --[[ Line: 45 ]] --[[ Name: renderRight ]]
             -- upvalues: v5 (ref), v9 (ref), v3 (ref), v4 (ref), l_withLocalization_0 (ref), v12 (ref)
             return v5.createElement(v9, {
                 screenName = v3.EditChatMembers, 
-                render = function(v19) --[[ Line: 44 ]] --[[ Name: render ]]
+                render = function(v20) --[[ Line: 48 ]] --[[ Name: render ]]
                     -- upvalues: v3 (ref), v4 (ref), l_withLocalization_0 (ref), v12 (ref)
-                    local v20 = v19.getScreenTopBar(v3.EditChatMembers);
-                    v4.isType(v20, "table", "screenTopBar");
+                    local v21 = v20.getScreenTopBar(v3.EditChatMembers);
+                    v4.isType(v21, "table", "screenTopBar");
                     return l_withLocalization_0({
                         systemButtonText = "Feature.Chat.Action.Add", 
                         networkErrorText = "Feature.Chat.Response.NetworkError", 
                         invalidParticipantText = "Feature.Chat.Toast.Error.InvalidUserSelected"
-                    })(function(v21) --[[ Line: 52 ]]
-                        -- upvalues: v12 (ref), v20 (copy)
+                    })(function(v22) --[[ Line: 56 ]]
+                        -- upvalues: v12 (ref), v21 (copy)
                         return v12({
-                            localizedStrings = v21, 
-                            isDisabled = not v20.systemButtonEnabled, 
-                            onActivated = v20.systemButtonActivated
+                            localizedStrings = v22, 
+                            isDisabled = not v21.systemButtonEnabled, 
+                            onActivated = v21.systemButtonActivated
                         });
                     end);
                 end
@@ -51,84 +52,84 @@ v18.navigationOptions = function() --[[ Line: 30 ]]
         end
     };
 end;
-v18.init = function(v22) --[[ Line: 65 ]] --[[ Name: init ]]
-    -- upvalues: v14 (copy), v6 (copy), l_IXPService_0 (copy), v15 (copy), v17 (copy), v3 (copy), v11 (copy), v10 (copy), v4 (copy)
-    v22.ixpSubscription = if v14 then v22.props.navigation.addListener(v6.Events.WillFocus, function() --[[ Line: 67 ]]
-        -- upvalues: l_IXPService_0 (ref), v15 (ref)
-        l_IXPService_0:LogFlagLinkedUserLayerExposure(v15);
+v19.init = function(v23) --[[ Line: 69 ]] --[[ Name: init ]]
+    -- upvalues: v15 (copy), v6 (copy), l_IXPService_0 (copy), v16 (copy), v18 (copy), v3 (copy), v11 (copy), v10 (copy), v4 (copy)
+    v23.ixpSubscription = if v15 then v23.props.navigation.addListener(v6.Events.WillFocus, function() --[[ Line: 71 ]]
+        -- upvalues: l_IXPService_0 (ref), v16 (ref)
+        l_IXPService_0:LogFlagLinkedUserLayerExposure(v16);
     end) else nil;
-    v22.navigateToConversation = function(v23) --[[ Line: 71 ]]
-        -- upvalues: v17 (ref), v22 (copy), v3 (ref)
-        v17:info("Navigate To Conversation: {} from {screen}", v23);
-        v22.props.navigation.navigate(v3.ChatConversation, {
-            conversationId = v23
+    v23.navigateToConversation = function(v24) --[[ Line: 75 ]]
+        -- upvalues: v18 (ref), v23 (copy), v3 (ref)
+        v18:info("Navigate To Conversation: {} from {screen}", v24);
+        v23.props.navigation.navigate(v3.ChatConversation, {
+            conversationId = v24
         });
     end;
-    v22.navigateToToast = function(v24) --[[ Line: 76 ]]
-        -- upvalues: v17 (ref), v22 (copy), v3 (ref)
-        v17:info("Navigate To Toast from {screen}");
-        v22.props.navigation.navigate(v3.RoactChatToast, v24);
+    v23.navigateToToast = function(v25) --[[ Line: 80 ]]
+        -- upvalues: v18 (ref), v23 (copy), v3 (ref)
+        v18:info("Navigate To Toast from {screen}");
+        v23.props.navigation.navigate(v3.RoactChatToast, v25);
     end;
-    v22.setSystemButtonActivated = function(v25) --[[ Line: 81 ]]
-        -- upvalues: v11 (ref), v10 (ref), v3 (ref), v22 (copy), v4 (ref)
+    v23.setSystemButtonActivated = function(v26) --[[ Line: 85 ]]
+        -- upvalues: v11 (ref), v10 (ref), v3 (ref), v23 (copy), v4 (ref)
         if v11 then
             v10(false).setScreenTopBar(v3.EditChatMembers, {
-                systemButtonActivated = v25
+                systemButtonActivated = v26
             });
             return;
         else
-            local v26 = v22.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v4.isNotNil(v26, "setScreenTopBar in screenProps");
-            v26(v3.EditChatMembers, {
-                systemButtonActivated = v25
+            local v27 = v23.props.navigation.getScreenProps("setScreenTopBar", nil);
+            v4.isNotNil(v27, "setScreenTopBar in screenProps");
+            v27(v3.EditChatMembers, {
+                systemButtonActivated = v26
             });
             return;
         end;
     end;
-    v22.setSystemButtonEnabled = function(v27) --[[ Line: 95 ]]
-        -- upvalues: v11 (ref), v10 (ref), v3 (ref), v22 (copy), v4 (ref)
+    v23.setSystemButtonEnabled = function(v28) --[[ Line: 99 ]]
+        -- upvalues: v11 (ref), v10 (ref), v3 (ref), v23 (copy), v4 (ref)
         if v11 then
             v10(false).setScreenTopBar(v3.EditChatMembers, {
-                systemButtonEnabled = v27
+                systemButtonEnabled = v28
             });
             return;
         else
-            local v28 = v22.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v4.isNotNil(v28, "setScreenTopBar in screenProps");
-            v28(v3.EditChatMembers, {
-                systemButtonEnabled = v27
+            local v29 = v23.props.navigation.getScreenProps("setScreenTopBar", nil);
+            v4.isNotNil(v29, "setScreenTopBar in screenProps");
+            v29(v3.EditChatMembers, {
+                systemButtonEnabled = v28
             });
             return;
         end;
     end;
 end;
-v18.render = function(v29) --[[ Line: 110 ]] --[[ Name: render ]]
-    -- upvalues: v4 (copy), v17 (copy), v5 (copy), v16 (copy)
-    local v30 = v4.isNotNil(v29.props.navigation, "navigation in EditChatMembersScreen");
-    local v31 = v30.getParam("conversation", nil);
-    if not v31 then
-        v17:warning("Conversation info required to open {screen}");
+v19.render = function(v30) --[[ Line: 114 ]] --[[ Name: render ]]
+    -- upvalues: v4 (copy), v18 (copy), v5 (copy), v17 (copy)
+    local v31 = v4.isNotNil(v30.props.navigation, "navigation in EditChatMembersScreen");
+    local v32 = v31.getParam("conversation", nil);
+    if not v32 then
+        v18:warning("Conversation info required to open {screen}");
         return nil;
     else
-        return v5.createElement(v16, {
-            topBarHeight = v30.getScreenProps("topBarHeight", 0), 
-            conversation = v31, 
-            navigateToConversation = v29.navigateToConversation, 
-            navigateToToast = v29.navigateToToast, 
-            setSystemButtonActivated = v29.setSystemButtonActivated, 
-            setSystemButtonEnabled = v29.setSystemButtonEnabled
+        return v5.createElement(v17, {
+            topBarHeight = v31.getScreenProps("topBarHeight", 0), 
+            conversation = v32, 
+            navigateToConversation = v30.navigateToConversation, 
+            navigateToToast = v30.navigateToToast, 
+            setSystemButtonActivated = v30.setSystemButtonActivated, 
+            setSystemButtonEnabled = v30.setSystemButtonEnabled
         });
     end;
 end;
-v18.didMount = function(v32) --[[ Line: 129 ]] --[[ Name: didMount ]]
-    -- upvalues: v17 (copy)
-    v17:info("{screen} mounted");
-    v32.setSystemButtonEnabled(false);
+v19.didMount = function(v33) --[[ Line: 133 ]] --[[ Name: didMount ]]
+    -- upvalues: v18 (copy)
+    v18:info("{screen} mounted");
+    v33.setSystemButtonEnabled(false);
 end;
-v18.willUnmount = function(v33) --[[ Line: 134 ]] --[[ Name: willUnmount ]]
-    -- upvalues: v14 (copy)
-    if v14 then
-        v33.ixpSubscription.remove();
+v19.willUnmount = function(v34) --[[ Line: 138 ]] --[[ Name: willUnmount ]]
+    -- upvalues: v15 (copy)
+    if v15 then
+        v34.ixpSubscription.remove();
     end;
 end;
-return v18;
+return v19;

@@ -123,13 +123,13 @@ local function v55(v46, v47, v48, v49) --[[ Line: 113 ]] --[[ Name: handleCopyLi
     end);
 end;
 return function(v56, v57, v58) --[[ Line: 149 ]] --[[ Name: useExperienceDetailsShare ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useAppPolicy_0 (copy), v1 (copy), v55 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v39 (copy), v45 (copy), l_Players_0 (copy), l_gameShareExperienceLink_0 (copy), l_default_0 (copy)
+    -- upvalues: l_useDispatch_0 (copy), l_useAppPolicy_0 (copy), v1 (copy), v55 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v39 (copy), v45 (copy), l_Players_0 (copy), l_gameShareExperienceLink_0 (copy), l_default_0 (copy), l_UrlBuilder_0 (copy)
     local v59 = l_useDispatch_0();
     local v61 = l_useAppPolicy_0(function(v60) --[[ Line: 155 ]]
         return v60.shouldShareToAccountProvider();
     end);
     return v1.useCallback(function() --[[ Line: 159 ]]
-        -- upvalues: v57 (copy), v61 (copy), v55 (ref), v56 (copy), v58 (copy), v59 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v39 (ref), v45 (ref), l_Players_0 (ref), l_gameShareExperienceLink_0 (ref), l_default_0 (ref)
+        -- upvalues: v57 (copy), v61 (copy), v55 (ref), v56 (copy), v58 (copy), v59 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), v39 (ref), v45 (ref), l_Players_0 (ref), l_gameShareExperienceLink_0 (ref), l_default_0 (ref), l_UrlBuilder_0 (ref)
         if not v57 then
             return;
         elseif not v61 then
@@ -163,20 +163,28 @@ return function(v56, v57, v58) --[[ Line: 149 ]] --[[ Name: useExperienceDetails
                     context = "GameDetailsMoreWebURL"
                 });
             end):catch(function(_) --[[ Line: 204 ]]
-                -- upvalues: v45 (ref), v56 (ref), v57 (ref), l_Players_0 (ref), l_gameShareExperienceLink_0 (ref), v58 (ref), l_default_0 (ref)
-                local v67, v68 = v45(nil, v56, v57);
-                local v69 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId;
+                -- upvalues: v56 (ref), v57 (ref), l_UrlBuilder_0 (ref), l_Players_0 (ref), l_gameShareExperienceLink_0 (ref), v58 (ref), l_default_0 (ref)
+                local l_v56_0 = v56;
+                local l_v57_0 = v57;
+                local _ = nil;
+                local v70 = nil;
+                local v71 = l_UrlBuilder_0.game.info.appsflyer({
+                    universeId = l_v56_0, 
+                    placeId = l_v57_0
+                });
+                local l_v70_0 = v70;
+                l_v56_0 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId;
                 l_gameShareExperienceLink_0({
                     ctx = v58, 
-                    uid = tostring(v69), 
+                    uid = tostring(l_v56_0), 
                     placeId = v57, 
                     shortShareLinkFailed = true, 
                     shareToAppsflyer = true, 
-                    stamp = v68, 
+                    stamp = l_v70_0, 
                     linkId = nil
                 }, v58);
                 l_default_0:shareUrl({
-                    url = v67, 
+                    url = v71, 
                     context = "GameDetailsMoreWebURL"
                 });
             end);

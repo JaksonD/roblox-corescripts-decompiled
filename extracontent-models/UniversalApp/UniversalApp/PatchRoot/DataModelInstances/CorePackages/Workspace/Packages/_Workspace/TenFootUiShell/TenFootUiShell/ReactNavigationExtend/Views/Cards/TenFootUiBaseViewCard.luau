@@ -17,89 +17,95 @@ local l_useEarlyIsFocused_0 = v11.useEarlyIsFocused;
 local v16 = require(l_Parent_0.LuauPolyfill);
 local l_Array_0 = v16.Array;
 local l_Object_0 = v16.Object;
-local function v20(v19) --[[ Line: 37 ]] --[[ Name: getAdorneeSizeFromScreenSize ]]
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local l_CompositionStyleSheet_0 = require(l_Parent_0.AppComposition).CompositionStyleSheet;
+local function v22(v21) --[[ Line: 42 ]] --[[ Name: getAdorneeSizeFromScreenSize ]]
     -- upvalues: v7 (copy)
-    return (Vector3.new(v19.X, v19.Y, v7.ADORNEE_DEPTH));
+    return (Vector3.new(v21.X, v21.Y, v7.ADORNEE_DEPTH));
 end;
-local function _(v21) --[[ Line: 41 ]] --[[ Name: getCanvasSize ]]
+local function _(v23) --[[ Line: 46 ]] --[[ Name: getCanvasSize ]]
     -- upvalues: l_ScreenKind_0 (copy), v7 (copy)
-    if (v21.options.screenKind or l_ScreenKind_0.Default) == l_ScreenKind_0.FullScreen then
+    if (v23.options.screenKind or l_ScreenKind_0.Default) == l_ScreenKind_0.FullScreen then
         return v7.FULLSCREEN_CANVAS_SIZE;
     else
         return v7.DEFAULT_CANVAS_SIZE;
     end;
 end;
-local function v26(v23) --[[ Line: 50 ]] --[[ Name: combineTransparencies ]]
+local function v28(v25) --[[ Line: 55 ]] --[[ Name: combineTransparencies ]]
     -- upvalues: l_Array_0 (copy)
-    return 1 - l_Array_0.reduce(v23, function(v24, v25) --[[ Line: 52 ]]
-        return v24 * (1 - (v25 or 0));
+    return 1 - l_Array_0.reduce(v25, function(v26, v27) --[[ Line: 57 ]]
+        return v26 * (1 - (v27 or 0));
     end, 1);
 end;
-local function v28(...) --[[ Line: 57 ]] --[[ Name: useCombinedTransparency ]]
-    -- upvalues: v3 (copy), v26 (copy)
-    local v27 = {
+local function v30(...) --[[ Line: 62 ]] --[[ Name: useCombinedTransparency ]]
+    -- upvalues: v3 (copy), v28 (copy)
+    local v29 = {
         ...
     };
-    return v3.useMemo(function() --[[ Line: 59 ]]
-        -- upvalues: v3 (ref), v27 (copy), v26 (ref)
-        return v3.joinBindings(v27):map(v26);
-    end, v27);
+    return v3.useMemo(function() --[[ Line: 64 ]]
+        -- upvalues: v3 (ref), v29 (copy), v28 (ref)
+        return v3.joinBindings(v29):map(v28);
+    end, v29);
 end;
-local function _(v29, v30) --[[ Line: 64 ]] --[[ Name: getIsSelectionFocusable ]]
+local function _(v31, v32) --[[ Line: 69 ]] --[[ Name: getIsSelectionFocusable ]]
     -- upvalues: l_getCurrentRouteKey_0 (copy), l_getRouteKeyIsInNavigationState_0 (copy)
-    local v31 = l_getCurrentRouteKey_0(v29);
-    if v30.options.hasSubNavigation and v31 ~= nil then
-        return (l_getRouteKeyIsInNavigationState_0(v31, v30.state));
+    local v33 = l_getCurrentRouteKey_0(v31);
+    if v32.options.hasSubNavigation and v33 ~= nil then
+        return (l_getRouteKeyIsInNavigationState_0(v33, v32.state));
     else
-        return v31 == v30.key;
+        return v33 == v32.key;
     end;
 end;
-local function _(v33, v34) --[[ Line: 72 ]] --[[ Name: getScreenKind ]]
+local function _(v35, v36) --[[ Line: 77 ]] --[[ Name: getScreenKind ]]
     -- upvalues: l_getActiveChildNavigationOptionsRecursively_0 (copy), l_ScreenKind_0 (copy)
-    return (if v34.options.hasSubNavigation then l_getActiveChildNavigationOptionsRecursively_0(v33).screenKind else nil) or v34.options.screenKind or l_ScreenKind_0.Default;
+    return (if v36.options.hasSubNavigation then l_getActiveChildNavigationOptionsRecursively_0(v35).screenKind else nil) or v36.options.screenKind or l_ScreenKind_0.Default;
 end;
-return function(v36) --[[ Line: 82 ]] --[[ Name: TenFootUiBaseViewCard ]]
-    -- upvalues: l_useCameraFacingGeometry_0 (copy), v7 (copy), l_useEarlyIsFocused_0 (copy), l_getCurrentRouteKey_0 (copy), l_getRouteKeyIsInNavigationState_0 (copy), l_getActiveChildNavigationOptionsRecursively_0 (copy), l_ScreenKind_0 (copy), v28 (copy), v3 (copy), l_Object_0 (copy), v10 (copy), v9 (copy), l_SurfaceGuiWithAdornee_0 (copy), v20 (copy)
-    local l_descriptor_0 = v36.descriptor;
-    local l_screenProps_0 = v36.screenProps;
-    local l_navigation_0 = v36.navigation;
-    local v40 = l_useCameraFacingGeometry_0(v7.DEFAULT_SCREEN_DISTANCE_TO_CAMERA);
-    local v41 = l_useEarlyIsFocused_0() and v36.isActiveCard;
-    local v42 = l_getCurrentRouteKey_0(l_navigation_0);
-    local v43 = if l_descriptor_0.options.hasSubNavigation and v42 ~= nil then l_getRouteKeyIsInNavigationState_0(v42, l_descriptor_0.state) else v42 == l_descriptor_0.key;
-    v42 = (if l_descriptor_0.options.hasSubNavigation then l_getActiveChildNavigationOptionsRecursively_0(l_navigation_0).screenKind else nil) or l_descriptor_0.options.screenKind or l_ScreenKind_0.Default;
-    local v44 = v36.isVisible and (l_screenProps_0.isVisible == nil or l_screenProps_0.isVisible);
-    local v45 = v28(v36.groupTransparency, l_screenProps_0.groupTransparency);
-    local v46 = v3.useMemo(function() --[[ Line: 95 ]]
-        -- upvalues: l_Object_0 (ref), l_screenProps_0 (copy), v44 (copy), v45 (copy)
+return function(v38) --[[ Line: 87 ]] --[[ Name: TenFootUiBaseViewCard ]]
+    -- upvalues: l_useCameraFacingGeometry_0 (copy), v7 (copy), l_useEarlyIsFocused_0 (copy), l_getCurrentRouteKey_0 (copy), l_getRouteKeyIsInNavigationState_0 (copy), l_getActiveChildNavigationOptionsRecursively_0 (copy), l_ScreenKind_0 (copy), v30 (copy), v3 (copy), l_Object_0 (copy), v10 (copy), v9 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_CompositionStyleSheet_0 (copy), l_SurfaceGuiWithAdornee_0 (copy), v22 (copy)
+    local l_descriptor_0 = v38.descriptor;
+    local l_screenProps_0 = v38.screenProps;
+    local l_navigation_0 = v38.navigation;
+    local v42 = l_useCameraFacingGeometry_0(v7.DEFAULT_SCREEN_DISTANCE_TO_CAMERA);
+    local v43 = l_useEarlyIsFocused_0() and v38.isActiveCard;
+    local v44 = l_getCurrentRouteKey_0(l_navigation_0);
+    local v45 = if l_descriptor_0.options.hasSubNavigation and v44 ~= nil then l_getRouteKeyIsInNavigationState_0(v44, l_descriptor_0.state) else v44 == l_descriptor_0.key;
+    v44 = (if l_descriptor_0.options.hasSubNavigation then l_getActiveChildNavigationOptionsRecursively_0(l_navigation_0).screenKind else nil) or l_descriptor_0.options.screenKind or l_ScreenKind_0.Default;
+    local v46 = v38.isVisible and (l_screenProps_0.isVisible == nil or l_screenProps_0.isVisible);
+    local v47 = v30(v38.groupTransparency, l_screenProps_0.groupTransparency);
+    local v48 = v3.useMemo(function() --[[ Line: 100 ]]
+        -- upvalues: l_Object_0 (ref), l_screenProps_0 (copy), v46 (copy), v47 (copy)
         return l_Object_0.assign({}, l_screenProps_0, {
-            isVisible = v44, 
-            groupTransparency = v45
+            isVisible = v46, 
+            groupTransparency = v47
         });
     end, {
         l_screenProps_0, 
-        v44, 
-        v45
+        v46, 
+        v47
     });
-    local v47 = v3.createElement(v10, {
-        screenKind = v42, 
-        groupTransparency = v45
+    local v49 = v3.createElement(v10, {
+        screenKind = v44, 
+        groupTransparency = v47
     }, {
         SceneView = v3.createElement(v9, {
             component = l_descriptor_0.getComponent(), 
             navigation = l_descriptor_0.navigation, 
-            screenProps = v46, 
-            isFocusable = v41 and v43, 
+            screenProps = v48, 
+            isFocusable = v43 and v45, 
             shouldRestoreFocus = l_descriptor_0.options.enableFocusRestoration
         })
     });
+    local v50 = if l_FFlagLuaAppCompositionSupport_0 then v3.createElement(v3.Fragment, nil, {
+        CompositionStyleSheet = v3.createElement(l_CompositionStyleSheet_0), 
+        Content = v49
+    }) else v49;
     return v3.createElement(l_SurfaceGuiWithAdornee_0, {
         name = l_descriptor_0.key, 
-        adorneeSize = v40.viewportFillDimensions:map(v20), 
-        adorneeCFrame = v36.adorneeCFrame, 
+        adorneeSize = v42.viewportFillDimensions:map(v22), 
+        adorneeCFrame = v38.adorneeCFrame, 
         adorneeParent = l_screenProps_0.worldContainer, 
         canvasSize = if (l_descriptor_0.options.screenKind or l_ScreenKind_0.Default) == l_ScreenKind_0.FullScreen then v7.FULLSCREEN_CANVAS_SIZE else v7.DEFAULT_CANVAS_SIZE, 
-        isVisible = v44, 
+        isVisible = v46, 
         surfaceGuiParent = l_screenProps_0.surfaceGuiContainer
-    }, v47);
+    }, v50);
 end;

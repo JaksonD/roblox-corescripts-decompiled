@@ -1,199 +1,248 @@
+local l_TextChatService_0 = game:GetService("TextChatService");
+local l_Players_0 = game:GetService("Players");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("ExpChat");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_Parent_0.React);
-local v3 = require(l_Parent_0.Signals);
-local v4 = require(l_Parent_0.SignalsReact);
-local v5 = require(l_script_FirstAncestor_0.ChatWindow.UI.TranslatedTextMessageV2);
-local v6 = require(l_script_FirstAncestor_0.Config);
-local function v7() --[[ Line: 11 ]]
-
-end;
-return function(v8) --[[ Line: 37 ]] --[[ Name: useV2MessagePool ]]
-    -- upvalues: v4 (copy), v2 (copy), v6 (copy), v3 (copy), v5 (copy), v7 (copy)
-    local l_messagesStore_0 = v8.messagesStore;
-    local l_enabled_0 = v8.enabled;
-    local v11 = v4.useSignalState(l_messagesStore_0.getWindowMessageAddedCount);
-    local v13 = v2.useMemo(function() --[[ Line: 45 ]]
-        -- upvalues: v6 (ref), v8 (copy)
-        local l_DefaultChatWindowMessagePropertiesInstanceSettings_0 = v6.DefaultChatWindowMessagePropertiesInstanceSettings;
-        return {
-            FontFace = v8.chatWindowSettings.FontFace or l_DefaultChatWindowMessagePropertiesInstanceSettings_0.FontFace, 
-            TextSize = v8.chatWindowSettings.TextSize or l_DefaultChatWindowMessagePropertiesInstanceSettings_0.TextSize, 
-            TextColor3 = v8.chatWindowSettings.TextColor3 or l_DefaultChatWindowMessagePropertiesInstanceSettings_0.TextColor3, 
-            TextStrokeColor3 = v8.chatWindowSettings.TextStrokeColor3 or l_DefaultChatWindowMessagePropertiesInstanceSettings_0.TextStrokeColor3, 
-            TextStrokeTransparency = v8.chatWindowSettings.TextStrokeTransparency or l_DefaultChatWindowMessagePropertiesInstanceSettings_0.TextStrokeTransparency
-        };
-    end, {
-        v8.chatWindowSettings
-    });
-    local v14, v15 = v2.useBinding(v13);
-    v2.useEffect(function() --[[ Line: 58 ]]
-        -- upvalues: v15 (copy), v13 (copy)
-        v15(v13);
-    end, {
-        v13
-    });
-    local v16 = v2.useBinding(false);
-    local v17 = v2.useRef(nil);
-    if not v17.current then
-        local v18 = {};
-        for v19 = 1, 50 do
-            local v20, v21 = v2.createBinding("");
-            local v22, v23 = v2.createBinding("");
-            local v24, v25 = v2.createBinding(false);
-            local v26, v27 = v2.createBinding(0);
-            local v28, v29 = v2.createBinding(false);
-            v18[v19] = {
-                bodyText = v20, 
-                setBodyText = v21, 
-                prefixText = v22, 
-                setPrefixText = v23, 
-                shouldShowTranslation = v24, 
-                setShowTranslation = v25, 
-                layoutOrder = v26, 
-                setLayoutOrder = v27, 
-                visible = v28, 
-                setVisible = v29, 
-                userId = {
-                    current = 0
-                }, 
-                useTranslation = {
-                    current = false
-                }, 
-                messageId = {
-                    current = ""
-                }
+local v4 = require(l_Parent_0.React);
+local v5 = require(l_Parent_0.Signals);
+local v6 = require(l_Parent_0.DataHydration);
+local l_VerifiedBadgeDisplayStore_0 = require(l_Parent_0.UserProfiles).Stores.VerifiedBadgeDisplayStore;
+local l_FFlagEnableVerifiedBadgeStore_0 = require(l_Parent_0.SharedFlags).FFlagEnableVerifiedBadgeStore;
+local v9 = require(l_script_FirstAncestor_0.ChatWindow.UI.TranslatedTextMessageV2);
+local v10 = require(l_script_FirstAncestor_0.shouldSendHighFrequencyTelemetry);
+local l_Helpers_0 = l_script_FirstAncestor_0.ChatWindow.Helpers;
+local v12 = require(l_Helpers_0.getMessageSettings);
+local v13 = require(l_Helpers_0.getMessageText);
+local l_Flags_0 = l_script_FirstAncestor_0.Flags;
+local v15 = require(l_Flags_0.getFFlagExpChatUseUpdatedMessageRendered);
+local v16 = require(l_Flags_0.getFIntExpChatMessageRenderUserThrottlePermyriad)();
+local v17 = require(l_Flags_0.getFFlagExpChatExcludeFOMORenders);
+local v18 = require(l_Flags_0.FFlagExpChatTcIndicator);
+local v19 = require(l_Flags_0.FFlagExpChatTcOptimization);
+local v20 = require(l_Flags_0.FFlagExpChatEnableFOMOUpsell);
+local v21 = require(l_Flags_0.FFlagExpChatEnableCrossAgeChatActivity);
+local v22 = if v18 then v6.TrustedConnections.TrustedConnectionsStore.get() else nil;
+return function(v23) --[[ Line: 59 ]] --[[ Name: useV2MessagePool ]]
+    -- upvalues: v4 (copy), v5 (copy), v12 (copy), v13 (copy), l_FFlagEnableVerifiedBadgeStore_0 (copy), l_VerifiedBadgeDisplayStore_0 (copy), v15 (copy), v10 (copy), v16 (copy), v17 (copy), l_TextChatService_0 (copy), v18 (copy), v19 (copy), v20 (copy), v21 (copy), l_Players_0 (copy), v22 (copy), v9 (copy)
+    local l_messagesStore_0 = v23.messagesStore;
+    local l_enabled_0 = v23.enabled;
+    local l_chatWindowSettings_0 = v23.chatWindowSettings;
+    local v27 = v4.useRef(nil);
+    if l_enabled_0 and not v27.current then
+        local v28 = {};
+        for v29 = 1, 50 do
+            local v30, v31 = v4.createBinding("");
+            local v32, v33 = v4.createBinding("");
+            local v34, v35 = v4.createBinding(false);
+            local v36, v37 = v4.createBinding(0);
+            local v38, v39 = v4.createBinding(false);
+            local v40, v41 = v4.createBinding(l_chatWindowSettings_0);
+            local v42, v43 = v4.createBinding(l_chatWindowSettings_0);
+            local v44, v45 = v4.createBinding(false);
+            local v46, v47 = v4.createBinding(false);
+            local v48 = v4.createRef();
+            v48.current = {};
+            v28[v29] = {
+                bodyText = v30, 
+                setBodyText = v31, 
+                prefixText = v32, 
+                setPrefixText = v33, 
+                shouldShowTranslation = v34, 
+                setShowTranslation = v35, 
+                layoutOrder = v36, 
+                setLayoutOrder = v37, 
+                visible = v38, 
+                setVisible = v39, 
+                bodyTextProperties = v40, 
+                setBodyTextProperties = v41, 
+                prefixTextProperties = v42, 
+                setPrefixTextProperties = v43, 
+                message = v48, 
+                isUserVerified = v44, 
+                setIsUserVerified = v45, 
+                isTrustedConnection = v46, 
+                setIsTrustedConnection = v47
             };
         end;
-        v17.current = v18;
+        v27.current = v28;
     end;
-    v2.useEffect(function() --[[ Line: 95 ]]
-        -- upvalues: l_enabled_0 (copy), v17 (copy), l_messagesStore_0 (copy), v3 (ref), v8 (copy)
+    v4.useEffect(function() --[[ Line: 107 ]]
+        -- upvalues: l_enabled_0 (copy), v27 (copy), l_messagesStore_0 (copy), v5 (ref), v12 (ref), l_chatWindowSettings_0 (copy), v23 (copy), v13 (ref), l_FFlagEnableVerifiedBadgeStore_0 (ref), l_VerifiedBadgeDisplayStore_0 (ref), v15 (ref), v10 (ref), v16 (ref), v17 (ref), l_TextChatService_0 (ref), v18 (ref), v19 (ref), v20 (ref), v21 (ref), l_Players_0 (ref), v22 (ref)
         if not l_enabled_0 then
-            return function() --[[ Line: 97 ]]
+            return function() --[[ Line: 109 ]]
 
             end;
         else
-            local v30 = {};
-            for v31 = 1, 50 do
-                local v32 = "msg-component-" .. v31;
-                local v33 = v17.current[v31];
-                local v34 = l_messagesStore_0.registerMessageComponent(v32);
-                local v35 = l_messagesStore_0.getLayoutOrderSignal(v32);
-                local v41 = v3.createEffect(function(v36) --[[ Line: 108 ]]
-                    -- upvalues: v34 (copy), l_messagesStore_0 (ref), v33 (copy)
-                    local v37 = v34(v36);
-                    if v37 then
-                        local v38 = l_messagesStore_0.getMessage(v37)(v36);
-                        if v38 then
-                            v33.setBodyText(v38.text or "");
-                            v33.setPrefixText(v38.prefixText or "");
-                            local l_setShowTranslation_0 = v33.setShowTranslation;
-                            local v40 = false;
-                            if v38.translation ~= nil then
-                                v40 = v38.translation ~= "";
+            local v49 = {};
+            for v50 = 1, 50 do
+                local v51 = "msg-component-" .. v50;
+                local v52 = v27.current[v50];
+                local v53 = l_messagesStore_0.registerMessageComponent(v51);
+                local v54 = l_messagesStore_0.getLayoutOrderSignal(v51);
+                local v67 = v5.createEffect(function(v55) --[[ Line: 120 ]]
+                    -- upvalues: v53 (copy), l_messagesStore_0 (ref), v12 (ref), l_chatWindowSettings_0 (ref), v23 (ref), v13 (ref), v52 (copy), l_FFlagEnableVerifiedBadgeStore_0 (ref), l_VerifiedBadgeDisplayStore_0 (ref)
+                    local v56 = v53(v55);
+                    if v56 then
+                        local v57 = l_messagesStore_0.getMessage(v56)(v55);
+                        if v57 then
+                            local v58 = v12(v57, l_chatWindowSettings_0);
+                            local v59 = v23.showTranslationButton and v58.translation ~= nil and v58.translation ~= "";
+                            local l_useTranslation_0 = v58.useTranslation;
+                            local v61 = v13(l_useTranslation_0, v58.translation, v58.text);
+                            local v62 = v58.prefixText or "";
+                            local l_bodyTextProperties_0 = v58.bodyTextProperties;
+                            local l_prefixTextProperties_0 = v58.prefixTextProperties;
+                            v52.setBodyText(v61);
+                            v52.setPrefixText(v62);
+                            v52.setShowTranslation(v59);
+                            v52.setVisible(true);
+                            v52.setBodyTextProperties(l_bodyTextProperties_0);
+                            v52.setPrefixTextProperties(l_prefixTextProperties_0);
+                            v52.message.current = v57;
+                            if l_FFlagEnableVerifiedBadgeStore_0 then
+                                local v65 = tonumber(v57.userId);
+                                if v65 then
+                                    local v66 = l_VerifiedBadgeDisplayStore_0.get();
+                                    v52.setIsUserVerified(v66.isBadgeVisible(v65));
+                                    return;
+                                else
+                                    v52.setIsUserVerified(false);
+                                    return;
+                                end;
+                            else
+                                v52.setIsUserVerified(false);
+                                return;
                             end;
-                            l_setShowTranslation_0(v40);
-                            v33.setVisible(true);
-                            v33.userId.current = v38.userId or 0;
-                            v33.useTranslation.current = v38.useTranslation or false;
-                            v33.messageId.current = v38.messageId;
-                            return;
                         end;
                     else
-                        v33.setVisible(false);
+                        v52.setVisible(false);
+                        v52.setIsUserVerified(false);
                     end;
                 end);
-                local v43 = if v35 then v3.createEffect(function(v42) --[[ Line: 128 ]]
-                    -- upvalues: v33 (copy), v35 (copy)
-                    v33.setLayoutOrder(v35(v42));
+                local v69 = if v54 then v5.createEffect(function(v68) --[[ Line: 163 ]]
+                    -- upvalues: v52 (copy), v54 (copy)
+                    v52.setLayoutOrder(v54(v68));
                 end) else nil;
-                table.insert(v30, {
-                    cleanupMsg = v41, 
-                    cleanupLayout = v43, 
-                    componentId = v32
+                local v73 = if v15() then v5.createEffect(function(v70) --[[ Line: 171 ]]
+                    -- upvalues: v53 (copy), l_messagesStore_0 (ref), v10 (ref), v16 (ref), v17 (ref), l_TextChatService_0 (ref)
+                    local v71 = v53(v70);
+                    if v71 then
+                        local v72 = l_messagesStore_0.getMessage(v71)(false);
+                        if v72 and v72.textChatMessageInstance and v10(v16) and (not v17() or not v72.isHiddenMessage) then
+                            l_TextChatService_0:SendExpChatMessageClientRendered(v72.textChatMessageInstance, "chat_window");
+                        end;
+                    end;
+                end) else nil;
+                local v83 = if v18 then v5.createEffect(function(v74) --[[ Line: 194 ]]
+                    -- upvalues: v53 (copy), l_messagesStore_0 (ref), v19 (ref), v20 (ref), v21 (ref), l_Players_0 (ref), v22 (ref), v52 (copy)
+                    local v75 = v53(v74);
+                    if v75 then
+                        local v76 = l_messagesStore_0.getMessage(v75)(false);
+                        if v76 then
+                            local l_userId_0 = v76.userId;
+                            local v78 = if v19 and (v20 or v21) then v76.isHiddenMessage else nil;
+                            local v79 = l_userId_0 and l_userId_0 ~= "";
+                            if v19 then
+                                local v80 = l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId and tostring(l_Players_0.LocalPlayer.UserId);
+                                local v81 = v80 and v80 == l_userId_0;
+                                v79 = v79 and not v81 and not v78;
+                            end;
+                            local v82 = if v79 then v22.getIsTrustedConnection(l_userId_0).data(v74) else false;
+                            v52.setIsTrustedConnection(v82);
+                        end;
+                    end;
+                end) else nil;
+                table.insert(v49, {
+                    cleanupMsg = v67, 
+                    cleanupLayout = v69, 
+                    cleanupTelemetry = v73, 
+                    cleanupTc = v83, 
+                    componentId = v51
                 });
             end;
-            local v44 = if v8.isChannelBarVisible and v8.targetTextChannel then v8.targetTextChannel.Name else nil;
-            l_messagesStore_0.setActiveChannelFilter(v44);
+            local v84 = if v23.isChannelBarVisible and v23.targetTextChannel then v23.targetTextChannel.Name else nil;
+            l_messagesStore_0.setActiveChannelFilter(v84);
             l_messagesStore_0.repopulateMessageComponents();
-            return function() --[[ Line: 148 ]]
-                -- upvalues: v30 (copy), l_messagesStore_0 (ref)
-                for _, v46 in ipairs(v30) do
-                    if v46.cleanupMsg then
-                        pcall(v46.cleanupMsg);
+            return function() --[[ Line: 241 ]]
+                -- upvalues: v49 (copy), l_messagesStore_0 (ref)
+                for _, v86 in ipairs(v49) do
+                    if v86.cleanupMsg then
+                        pcall(v86.cleanupMsg);
                     end;
-                    if v46.cleanupLayout then
-                        pcall(v46.cleanupLayout);
+                    if v86.cleanupLayout then
+                        pcall(v86.cleanupLayout);
                     end;
-                    l_messagesStore_0.unregisterMessageComponent(v46.componentId);
+                    if v86.cleanupTelemetry then
+                        pcall(v86.cleanupTelemetry);
+                    end;
+                    if v86.cleanupTc then
+                        pcall(v86.cleanupTc);
+                    end;
+                    l_messagesStore_0.unregisterMessageComponent(v86.componentId);
                 end;
             end;
         end;
     end, {});
-    local v47 = v2.useRef(false);
-    v2.useEffect(function() --[[ Line: 163 ]]
-        -- upvalues: l_enabled_0 (copy), v47 (copy), v8 (copy), l_messagesStore_0 (copy)
+    local v87 = v4.useRef(false);
+    v4.useEffect(function() --[[ Line: 262 ]]
+        -- upvalues: l_enabled_0 (copy), v87 (copy), v23 (copy), l_messagesStore_0 (copy)
         if not l_enabled_0 then
-            v47.current = false;
+            v87.current = false;
             return;
-        elseif not v47.current then
-            v47.current = true;
+        elseif not v87.current then
+            v87.current = true;
             return;
         else
-            local v48 = if v8.isChannelBarVisible and v8.targetTextChannel then v8.targetTextChannel.Name else nil;
-            l_messagesStore_0.setActiveChannelFilter(v48);
+            local v88 = if v23.isChannelBarVisible and v23.targetTextChannel then v23.targetTextChannel.Name else nil;
+            l_messagesStore_0.setActiveChannelFilter(v88);
             l_messagesStore_0.repopulateMessageComponents();
             return;
         end;
     end, {
         l_enabled_0, 
-        v8.targetTextChannel, 
-        v8.isChannelBarVisible
+        v23.targetTextChannel, 
+        v23.isChannelBarVisible
     });
     return {
-        children = v2.useMemo(function() --[[ Line: 180 ]]
-            -- upvalues: l_enabled_0 (copy), v17 (copy), v2 (ref), v5 (ref), v14 (copy), v8 (copy), v16 (copy), v7 (ref)
+        children = v4.useMemo(function() --[[ Line: 279 ]]
+            -- upvalues: l_enabled_0 (copy), v27 (copy), v4 (ref), v9 (ref), v23 (copy), l_chatWindowSettings_0 (copy)
             if not l_enabled_0 then
                 return nil;
             else
-                local v49 = {};
-                for v50 = 1, 50 do
-                    local v51 = "msg-component-" .. v50;
-                    local v52 = v17.current[v50];
-                    v49[v51] = v2.createElement(v5, {
-                        originalBodyText = v52.bodyText, 
-                        originalPrefixText = v52.prefixText, 
-                        shouldShowTranslationToggle = v52.shouldShowTranslation, 
-                        bodyTextProperties = v14, 
-                        prefixTextProperties = v14, 
-                        layoutOrder = v52.layoutOrder, 
-                        visible = v52.visible, 
-                        textTransparency = v8.textTransparency, 
-                        isUserVerified = v16, 
-                        userId = v52.userId, 
-                        useTranslation = v52.useTranslation, 
-                        messageId = v52.messageId, 
-                        isSpatialUIEnabled = v8.isSpatialUIEnabled, 
-                        chatWindowSettings = v8.chatWindowSettings, 
-                        onTextMessageLabelButtonActivated = v8.onTextMessageLabelButtonActivated or v7, 
-                        onToggle = v8.onToggle or v7
+                local v89 = {};
+                for v90 = 1, 50 do
+                    local v91 = "msg-component-" .. v90;
+                    local v92 = v27.current[v90];
+                    v89[v91] = v4.createElement(v9, {
+                        originalBodyText = v92.bodyText, 
+                        originalPrefixText = v92.prefixText, 
+                        shouldShowTranslationToggle = v92.shouldShowTranslation, 
+                        bodyTextProperties = v92.bodyTextProperties, 
+                        prefixTextProperties = v92.prefixTextProperties, 
+                        layoutOrder = v92.layoutOrder, 
+                        visible = v92.visible, 
+                        textTransparency = v23.textTransparency, 
+                        isUserVerified = v92.isUserVerified, 
+                        userId = v92.userId, 
+                        useTranslation = v92.useTranslation, 
+                        messageId = v92.messageId, 
+                        isSpatialUIEnabled = v23.isSpatialUIEnabled, 
+                        chatWindowSettings = l_chatWindowSettings_0, 
+                        onTextMessageLabelButtonActivated = v23.onTextMessageLabelButtonActivated, 
+                        message = v92.message, 
+                        isTrustedConnection = v92.isTrustedConnection
                     });
                 end;
-                v49["$layout"] = v2.createElement("UIListLayout", {
-                    Padding = UDim.new(0, 4), 
+                v89["$layout"] = v4.createElement("UIListLayout", {
                     SortOrder = Enum.SortOrder.LayoutOrder
                 });
-                return v49;
+                return v89;
             end;
         end, {
             l_enabled_0, 
-            v8.textTransparency, 
-            v8.isSpatialUIEnabled, 
-            v8.chatWindowSettings, 
-            v8.onTextMessageLabelButtonActivated, 
-            v8.onToggle
-        }), 
-        windowMessageAddedCount = v11
+            v23.textTransparency, 
+            v23.isSpatialUIEnabled, 
+            v23.chatWindowSettings, 
+            v23.onTextMessageLabelButtonActivated
+        })
     };
 end;

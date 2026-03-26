@@ -12,7 +12,7 @@ local v9 = {
     primaryIconSize = 32, 
     isDisabled = false, 
     Size = UDim2.new(1, 0, 1, 0), 
-    onActivated = function() --[[ Line: 43 ]] --[[ Name: onActivated ]]
+    onActivated = function() --[[ Line: 44 ]] --[[ Name: onActivated ]]
         print("IconWithTextCell onActivated");
     end, 
     secondaryIcon = "", 
@@ -30,7 +30,7 @@ local v9 = {
     }), 
     showDivider = true
 };
-return l_memo_0(function(v10) --[[ Line: 66 ]] --[[ Name: IconWithTextCell ]]
+return l_memo_0(function(v10) --[[ Line: 67 ]] --[[ Name: IconWithTextCell ]]
     -- upvalues: v2 (copy), v9 (copy), v3 (copy), v6 (copy), l_ImageSetLabel_0 (copy)
     local v11 = v2.Dictionary.join(v9, v10);
     local l_style_0 = v11.style;
@@ -49,7 +49,8 @@ return l_memo_0(function(v10) --[[ Line: 66 ]] --[[ Name: IconWithTextCell ]]
         dividerColor3 = l_Theme_0.Divider.Color, 
         dividerTransparency = l_Theme_0.Divider.Transparency, 
         isDisabled = v11.isDisabled, 
-        avatarCircleCellWidth = v11.iconCellWidth
+        avatarCircleCellWidth = v11.iconCellWidth, 
+        testId = v10.testId
     }, {
         leftFrame = v3.createElement("Frame", {
             AnchorPoint = Vector2.new(0, 0.5), 

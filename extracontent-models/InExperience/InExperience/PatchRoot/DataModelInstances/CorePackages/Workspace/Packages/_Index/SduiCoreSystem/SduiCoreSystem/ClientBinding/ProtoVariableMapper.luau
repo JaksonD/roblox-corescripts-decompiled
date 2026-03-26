@@ -75,13 +75,16 @@ return {
         end;
     end, 
     mapHydrationContentTypeToLua = function(v30) --[[ Line: 152 ]] --[[ Name: mapHydrationContentTypeToLua ]]
-        -- upvalues: v8 (copy), v15 (copy), v5 (copy)
+        -- upvalues: v8 (copy), v5 (copy)
         if v30 == nil then
             return nil;
         else
             local v31 = v8[v30];
             if not v31 then
-                v31 = v15(v30, "HYDRATION_CONTENT_TYPE_", false);
+                local v32 = string.match(v30, "^HYDRATION_CONTENT_TYPE_(.*)");
+                v31 = if not v32 then v30 else v32:lower():gsub("_(%l)", function(v33) --[[ Line: 66 ]]
+                    return v33:upper();
+                end);
                 v8[v30] = v31;
             end;
             local l_v31_0 = v31;
@@ -92,37 +95,37 @@ return {
             end;
         end;
     end, 
-    mapActionTypeToLua = function(v33) --[[ Line: 135 ]] --[[ Name: mapActionTypeToLua ]]
+    mapActionTypeToLua = function(v35) --[[ Line: 135 ]] --[[ Name: mapActionTypeToLua ]]
         -- upvalues: v8 (copy), v15 (copy), v3 (copy)
-        if v33 == nil then
+        if v35 == nil then
             return nil;
         else
-            local v34 = v8[v33];
-            if not v34 then
-                v34 = v15(v33, "ACTION_TYPE_", true);
-                v8[v33] = v34;
+            local v36 = v8[v35];
+            if not v36 then
+                v36 = v15(v35, "ACTION_TYPE_", true);
+                v8[v35] = v36;
             end;
-            local l_v34_0 = v34;
-            if v3[l_v34_0] then
-                return v3[l_v34_0];
+            local l_v36_0 = v36;
+            if v3[l_v36_0] then
+                return v3[l_v36_0];
             else
                 return nil;
             end;
         end;
     end, 
-    mapPropName = function(v36) --[[ Line: 172 ]] --[[ Name: mapPropName ]]
+    mapPropName = function(v38) --[[ Line: 172 ]] --[[ Name: mapPropName ]]
         -- upvalues: v8 (copy), l_snakeToCamel_0 (copy)
-        if v36 == nil then
+        if v38 == nil then
             return nil;
-        elseif typeof(v36) == "number" then
-            return v36;
+        elseif typeof(v38) == "number" then
+            return v38;
         else
-            local v37 = v8[v36];
-            if not v37 then
-                v37 = l_snakeToCamel_0(v36);
-                v8[v36] = v37;
+            local v39 = v8[v38];
+            if not v39 then
+                v39 = l_snakeToCamel_0(v38);
+                v8[v38] = v39;
             end;
-            return v37;
+            return v39;
         end;
     end, 
     mapProtoEngineEnumToLua = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v26 else nil

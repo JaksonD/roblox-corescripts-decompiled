@@ -48,373 +48,375 @@ local l_SearchTypes_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppEnu
 local v47 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
 local l_useNavBarPlacement_0 = v47.useNavBarPlacement;
 local l_useIsStickyShortcutBarEnabled_0 = require(l_CorePackages_0.Workspace.Packages.AppShortcutBar).Hooks.useIsStickyShortcutBarEnabled;
+local l_useAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).useAppPolicy;
 local l_ConvertUniverseIdToString_0 = v37.ConvertUniverseIdToString;
 local l_CommunityListExperimentation_0 = require(l_CorePackages_0.Workspace.Packages.Groups).Experiments.CommunityListExperimentation;
 local l_GetFFlagEnableCommunityListExperimentation_0 = v37.GetFFlagEnableCommunityListExperimentation;
-local v53 = require(l_CorePackages_0.Packages.RoactAppExperiment);
+local v54 = require(l_CorePackages_0.Packages.RoactAppExperiment);
 local l_AppUserLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppUserLayers;
-local v55 = require(l_script_FirstAncestor_0.LuaApp.Common.withThrottleFramerateGivenPolicy);
+local v56 = require(l_script_FirstAncestor_0.LuaApp.Common.withThrottleFramerateGivenPolicy);
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default;
 local l_default_1 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
-local v58 = game:DefineFastFlag("SocialTabShouldRequestPushPermissions", false);
+local v59 = game:DefineFastFlag("SocialTabShouldRequestPushPermissions", false);
 local l_GetFFlagIsSquadEnabled_0 = v37.GetFFlagIsSquadEnabled;
 local l_GetFFlagEnablePushNotificationsUpsellModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnablePushNotificationsUpsellModal;
-local v61 = game:DefineFastFlag("PushUpsellExposureLogFix", false);
+local v62 = game:DefineFastFlag("PushUpsellExposureLogFix", false);
 local l_GetFStringPushUpsellVariantName_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFStringPushUpsellVariantName;
 local l_FFlagSquadAppChatRTNFix_0 = v37.FFlagSquadAppChatRTNFix;
 local l_FFlagShareTargetGameCleanup_0 = v37.FFlagShareTargetGameCleanup;
 local l_FFlagLuaAppEnableStickyShortcutBar_0 = v37.FFlagLuaAppEnableStickyShortcutBar;
 local l_FFlagContactImporterIXPCleanup_0 = v37.FFlagContactImporterIXPCleanup;
 local l_FFlagCreateConnectionsHub_0 = v37.FFlagCreateConnectionsHub;
-local v68 = require(l_script_FirstAncestor_0.LuaApp.Flags.FFlagFixSocialTabBottomBarCutOff);
-local v69 = v3.PureComponent:extend("SocialTabUniversalAppWrapper");
-v69.defaultProps = {
-    renderSocialTab = function() --[[ Line: 104 ]] --[[ Name: renderSocialTab ]]
+local v69 = require(l_script_FirstAncestor_0.LuaApp.Flags.FFlagFixSocialTabBottomBarCutOff);
+local l_FFlagGuacStickyShortcutBarEnabled_0 = v37.FFlagGuacStickyShortcutBarEnabled;
+local v71 = v3.PureComponent:extend("SocialTabUniversalAppWrapper");
+v71.defaultProps = {
+    renderSocialTab = function() --[[ Line: 106 ]] --[[ Name: renderSocialTab ]]
         -- upvalues: v3 (copy), v31 (copy)
         return v3.createElement(v31);
     end, 
-    renderRoactChat = function() --[[ Line: 107 ]] --[[ Name: renderRoactChat ]]
+    renderRoactChat = function() --[[ Line: 109 ]] --[[ Name: renderRoactChat ]]
         -- upvalues: l_Context_0 (copy), v3 (copy), l_EntryPoint_0 (copy)
-        return l_Context_0.with(function(v70) --[[ Line: 108 ]]
+        return l_Context_0.with(function(v72) --[[ Line: 110 ]]
             -- upvalues: v3 (ref), l_EntryPoint_0 (ref)
-            return v70.wasEverVisible and v3.createElement(l_EntryPoint_0, v70) or nil;
+            return v72.wasEverVisible and v3.createElement(l_EntryPoint_0, v72) or nil;
         end);
     end, 
     runService = l_RunService_0
 };
-v69.init = function(v71) --[[ Line: 116 ]] --[[ Name: init ]]
-    -- upvalues: v3 (copy), l_AndroidBackButtonConnection_0 (copy), v21 (copy), v27 (copy), v17 (copy), l_RobloxEventReceiver_0 (copy), v40 (copy), l_Logger_0 (copy), v5 (copy), l_EnumScreens_0 (copy), l_llama_0 (copy), v12 (copy), l_GetFFlagEnableCommunityListExperimentation_0 (copy), l_CommunityListExperimentation_0 (copy), v24 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_Contexts_0 (copy), l_SearchTypes_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v34 (copy), l_RunService_0 (copy), l_GetDefaultQualityLevel_0 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v58 (copy), l_GetFFlagEnablePushNotificationsUpsellModal_0 (copy), v61 (copy), v36 (copy), l_default_1 (copy), l_default_0 (copy), l_memoize_0 (copy), l_UserInputService_0 (copy), l_EntryPoint_0 (copy), v41 (copy), v42 (copy), l_RoactAnalyticsCommonGameEvents_0 (copy), v14 (copy), v44 (copy), v45 (copy), v13 (copy), l_ConvertUniverseIdToString_0 (copy), l_SetAppLoaded_0 (copy), v15 (copy), l_FFlagContactImporterIXPCleanup_0 (copy)
-    v71.state = {
-        wasChatEverTapped = v71.props.isVisible, 
+v71.init = function(v73) --[[ Line: 118 ]] --[[ Name: init ]]
+    -- upvalues: v3 (copy), l_AndroidBackButtonConnection_0 (copy), v21 (copy), v27 (copy), v17 (copy), l_RobloxEventReceiver_0 (copy), v40 (copy), l_Logger_0 (copy), v5 (copy), l_EnumScreens_0 (copy), l_llama_0 (copy), v12 (copy), l_GetFFlagEnableCommunityListExperimentation_0 (copy), l_CommunityListExperimentation_0 (copy), v24 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_Contexts_0 (copy), l_SearchTypes_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v34 (copy), l_RunService_0 (copy), l_GetDefaultQualityLevel_0 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v59 (copy), l_GetFFlagEnablePushNotificationsUpsellModal_0 (copy), v62 (copy), v36 (copy), l_default_1 (copy), l_default_0 (copy), l_memoize_0 (copy), l_UserInputService_0 (copy), l_EntryPoint_0 (copy), v41 (copy), v42 (copy), l_RoactAnalyticsCommonGameEvents_0 (copy), v14 (copy), v44 (copy), v45 (copy), v13 (copy), l_ConvertUniverseIdToString_0 (copy), l_SetAppLoaded_0 (copy), v15 (copy), l_FFlagContactImporterIXPCleanup_0 (copy)
+    v73.state = {
+        wasChatEverTapped = v73.props.isVisible, 
         externalNavigationByScreen = {}
     };
-    v71.chatToastRef = v3.createRef();
-    v71.androidBackButtonConnection = l_AndroidBackButtonConnection_0(v71.props.guiService, v21);
-    v71.androidBackButtonConnectionSocialTab = l_AndroidBackButtonConnection_0(v71.props.guiService, v21);
-    v71._rnBypassActionSignal = v27.new();
-    v71._rnBypassActionSignalSocialTab = v27.new();
-    v71.backButtonEnabled = false;
-    v71._performanceTesting = v17;
-    v71._robloxEventReceiver = l_RobloxEventReceiver_0.new(v71.props.notificationService);
-    v71.renderOnLoaded = function() --[[ Line: 143 ]]
-        -- upvalues: v71 (copy), v3 (ref), v40 (ref)
-        if not v71.state.wasChatEverTapped then
+    v73.chatToastRef = v3.createRef();
+    v73.androidBackButtonConnection = l_AndroidBackButtonConnection_0(v73.props.guiService, v21);
+    v73.androidBackButtonConnectionSocialTab = l_AndroidBackButtonConnection_0(v73.props.guiService, v21);
+    v73._rnBypassActionSignal = v27.new();
+    v73._rnBypassActionSignalSocialTab = v27.new();
+    v73.backButtonEnabled = false;
+    v73._performanceTesting = v17;
+    v73._robloxEventReceiver = l_RobloxEventReceiver_0.new(v73.props.notificationService);
+    v73.renderOnLoaded = function() --[[ Line: 145 ]]
+        -- upvalues: v73 (copy), v3 (ref), v40 (ref)
+        if not v73.state.wasChatEverTapped then
             return nil;
         else
             return v3.createFragment({
-                screen = v71.props.renderSocialTab(), 
+                screen = v73.props.renderSocialTab(), 
                 externalNavigation = v3.createElement(v40, {
-                    navigationByScreen = v71.state.externalNavigationByScreen
+                    navigationByScreen = v73.state.externalNavigationByScreen
                 })
             });
         end;
     end;
-    v71.setBackButtonEnabled = function(v72) --[[ Line: 156 ]]
-        -- upvalues: v71 (copy)
-        v71.backButtonEnabled = v72;
+    v73.setBackButtonEnabled = function(v74) --[[ Line: 158 ]]
+        -- upvalues: v73 (copy)
+        v73.backButtonEnabled = v74;
     end;
-    v71.setTabBarVisibleFromChat = function(v73) --[[ Line: 160 ]]
-        -- upvalues: v71 (copy)
-        local v74 = v71.props.shouldSystemBarUsuallyBePresent and true or v73;
-        v71.props.setTabBarVisibleFromChat(v74);
+    v73.setTabBarVisibleFromChat = function(v75) --[[ Line: 162 ]]
+        -- upvalues: v73 (copy)
+        local v76 = v73.props.shouldSystemBarUsuallyBePresent and true or v75;
+        v73.props.setTabBarVisibleFromChat(v76);
     end;
-    v71.setActiveConversationId = function(v75) --[[ Line: 165 ]]
-        -- upvalues: l_Logger_0 (ref), v71 (copy), v3 (ref)
-        l_Logger_0:debug("{} setting activeConversationId as {}", script.Name, v75);
-        v71:setState({
-            activeConversationId = v75 or v3.None
+    v73.setActiveConversationId = function(v77) --[[ Line: 167 ]]
+        -- upvalues: l_Logger_0 (ref), v73 (copy), v3 (ref)
+        l_Logger_0:debug("{} setting activeConversationId as {}", script.Name, v77);
+        v73:setState({
+            activeConversationId = v77 or v3.None
         });
     end;
-    v71.getActiveConversationId = function() --[[ Line: 172 ]]
-        -- upvalues: v71 (copy)
-        return v71.state.activeConversationId;
+    v73.getActiveConversationId = function() --[[ Line: 174 ]]
+        -- upvalues: v73 (copy)
+        return v73.state.activeConversationId;
     end;
-    v71.initRoactChatNavigation = function() --[[ Line: 177 ]]
-        -- upvalues: v71 (copy), v5 (ref), l_EnumScreens_0 (ref)
-        v71._rnBypassActionSignalSocialTab:fire(v5.Actions.navigate({
+    v73.initRoactChatNavigation = function() --[[ Line: 179 ]]
+        -- upvalues: v73 (copy), v5 (ref), l_EnumScreens_0 (ref)
+        v73._rnBypassActionSignalSocialTab:fire(v5.Actions.navigate({
             routeName = l_EnumScreens_0.RoactChat
         }));
     end;
-    v71.updateExternalNavigationForScreen = function(v76, v77) --[[ Line: 183 ]]
-        -- upvalues: v71 (copy), l_llama_0 (ref)
-        v71:setState(function(v78, _) --[[ Line: 184 ]]
-            -- upvalues: v76 (copy), l_llama_0 (ref), v77 (copy)
-            if v76 then
+    v73.updateExternalNavigationForScreen = function(v78, v79) --[[ Line: 185 ]]
+        -- upvalues: v73 (copy), l_llama_0 (ref)
+        v73:setState(function(v80, _) --[[ Line: 186 ]]
+            -- upvalues: v78 (copy), l_llama_0 (ref), v79 (copy)
+            if v78 then
                 return {
-                    externalNavigationByScreen = l_llama_0.Dictionary.join(v78.externalNavigationByScreen, {
-                        [v77] = v76
+                    externalNavigationByScreen = l_llama_0.Dictionary.join(v80.externalNavigationByScreen, {
+                        [v79] = v78
                     })
                 };
             else
-                local v80 = l_llama_0.Dictionary.copy(v78.externalNavigationByScreen);
-                v80[v77] = nil;
+                local v82 = l_llama_0.Dictionary.copy(v80.externalNavigationByScreen);
+                v82[v79] = nil;
                 return {
-                    externalNavigationByScreen = v80
+                    externalNavigationByScreen = v82
                 };
             end;
         end);
     end;
-    v71.navigateDownToNotifications = function(v81) --[[ Line: 201 ]]
-        -- upvalues: v71 (copy)
-        v81 = v81 or false;
-        v71.props.navigateDownToNotifications(function() --[[ Line: 204 ]]
-            -- upvalues: v81 (ref), v71 (ref)
-            if v81 then
-                v71.setTabBarVisibleFromChat(true);
+    v73.navigateDownToNotifications = function(v83) --[[ Line: 203 ]]
+        -- upvalues: v73 (copy)
+        v83 = v83 or false;
+        v73.props.navigateDownToNotifications(function() --[[ Line: 206 ]]
+            -- upvalues: v83 (ref), v73 (ref)
+            if v83 then
+                v73.setTabBarVisibleFromChat(true);
             end;
         end);
     end;
-    v71.navigateToCoHubAddConnections = function() --[[ Line: 211 ]]
-        -- upvalues: v71 (copy), v12 (ref)
-        v71.props.navigation.navigate(v12.CoHubAddConnections);
+    v73.navigateToCoHubAddConnections = function() --[[ Line: 213 ]]
+        -- upvalues: v73 (copy), v12 (ref)
+        v73.props.navigation.navigate(v12.CoHubAddConnections);
     end;
-    v71.openProfileWebView = function(v82) --[[ Line: 215 ]]
-        -- upvalues: v71 (copy)
-        v71.props.navigateDownToViewUserProfile(v82, function() --[[ Line: 216 ]]
-            -- upvalues: v71 (ref)
-            if v71.props.wideMode then
-                v71.setTabBarVisibleFromChat(v71.props.wideMode);
+    v73.openProfileWebView = function(v84) --[[ Line: 217 ]]
+        -- upvalues: v73 (copy)
+        v73.props.navigateDownToViewUserProfile(v84, function() --[[ Line: 218 ]]
+            -- upvalues: v73 (ref)
+            if v73.props.wideMode then
+                v73.setTabBarVisibleFromChat(v73.props.wideMode);
             end;
         end);
     end;
-    v71.openProfilePeekView = function(v83, v84) --[[ Line: 223 ]]
-        -- upvalues: v71 (copy)
-        v71.props.openProfilePeekView(v83, {
-            onClose = function() --[[ Line: 225 ]] --[[ Name: onClose ]]
-                -- upvalues: v71 (ref), v84 (copy)
-                if v71.state.getIsTabBarEnabled then
-                    v71.setTabBarVisibleFromChat(v71.state.getIsTabBarEnabled());
+    v73.openProfilePeekView = function(v85, v86) --[[ Line: 225 ]]
+        -- upvalues: v73 (copy)
+        v73.props.openProfilePeekView(v85, {
+            onClose = function() --[[ Line: 227 ]] --[[ Name: onClose ]]
+                -- upvalues: v73 (ref), v86 (copy)
+                if v73.state.getIsTabBarEnabled then
+                    v73.setTabBarVisibleFromChat(v73.state.getIsTabBarEnabled());
                 end;
-                if v84 and v84.onClose then
-                    v84.onClose();
+                if v86 and v86.onClose then
+                    v86.onClose();
                 end;
             end, 
-            onOpen = function() --[[ Line: 234 ]] --[[ Name: onOpen ]]
-                -- upvalues: v71 (ref), v84 (copy)
-                v71.setTabBarVisibleFromChat(false);
-                if v84 and v84.onOpen then
-                    v84.onOpen();
+            onOpen = function() --[[ Line: 236 ]] --[[ Name: onOpen ]]
+                -- upvalues: v73 (ref), v86 (copy)
+                v73.setTabBarVisibleFromChat(false);
+                if v86 and v86.onOpen then
+                    v86.onOpen();
                 end;
             end, 
             resetPeekView = true
         });
     end;
-    v71.navigateDownToReportAbuse = function(v85, v86) --[[ Line: 244 ]]
-        -- upvalues: v71 (copy)
-        if v71.props.useLuafiedReportFlow then
-            v71.props.openReportDialog(v85, v86);
+    v73.navigateDownToReportAbuse = function(v87, v88) --[[ Line: 246 ]]
+        -- upvalues: v73 (copy)
+        if v73.props.useLuafiedReportFlow then
+            v73.props.openReportDialog(v87, v88);
             return;
         else
-            v71.props.navigateDownToReportAbuse(v85, v86);
+            v73.props.navigateDownToReportAbuse(v87, v88);
             return;
         end;
     end;
-    v71.navigateDownToPrivacySettings = function() --[[ Line: 252 ]]
-        -- upvalues: v71 (copy)
-        v71.props.navigateDownToPrivacySettings();
+    v73.navigateDownToPrivacySettings = function() --[[ Line: 254 ]]
+        -- upvalues: v73 (copy)
+        v73.props.navigateDownToPrivacySettings();
     end;
-    v71.navigateDownToGroups = function() --[[ Line: 256 ]]
-        -- upvalues: v71 (copy), l_GetFFlagEnableCommunityListExperimentation_0 (ref), l_CommunityListExperimentation_0 (ref)
-        local function v87() --[[ Line: 257 ]]
-            -- upvalues: v71 (ref)
-            v71.setTabBarVisibleFromChat(true);
+    v73.navigateDownToGroups = function() --[[ Line: 258 ]]
+        -- upvalues: v73 (copy), l_GetFFlagEnableCommunityListExperimentation_0 (ref), l_CommunityListExperimentation_0 (ref)
+        local function v89() --[[ Line: 259 ]]
+            -- upvalues: v73 (ref)
+            v73.setTabBarVisibleFromChat(true);
         end;
         if l_GetFFlagEnableCommunityListExperimentation_0() then
             l_CommunityListExperimentation_0.logExposure();
         end;
         if l_GetFFlagEnableCommunityListExperimentation_0() and l_CommunityListExperimentation_0.getCommunityListEnabled() then
-            v71.props.openGroupsListPage(v87);
+            v73.props.openGroupsListPage(v89);
             return;
         else
-            v71.props.navigateDownToGroups(v87);
+            v73.props.navigateDownToGroups(v89);
             return;
         end;
     end;
-    v71.navigateDownToAddFriends = function() --[[ Line: 274 ]]
-        -- upvalues: v71 (copy)
-        v71.props.navigateDownToAddFriends(function() --[[ Line: 275 ]]
-            -- upvalues: v71 (ref)
-            v71.setTabBarVisibleFromChat(true);
+    v73.navigateDownToAddFriends = function() --[[ Line: 276 ]]
+        -- upvalues: v73 (copy)
+        v73.props.navigateDownToAddFriends(function() --[[ Line: 277 ]]
+            -- upvalues: v73 (ref)
+            v73.setTabBarVisibleFromChat(true);
         end);
     end;
-    v71.navigateToHomePage = function() --[[ Line: 280 ]]
-        -- upvalues: v71 (copy), v12 (ref)
-        v71.props.navigation.navigate(v12.Home);
+    v73.navigateToHomePage = function() --[[ Line: 282 ]]
+        -- upvalues: v73 (copy), v12 (ref)
+        v73.props.navigation.navigate(v12.Home);
     end;
-    v71.FriendFinder = function() --[[ Line: 284 ]]
-        -- upvalues: v71 (copy)
-        v71.props.navigateDownToFriendFinder(function() --[[ Line: 285 ]]
-            -- upvalues: v71 (ref)
-            v71.setTabBarVisibleFromChat(true);
+    v73.FriendFinder = function() --[[ Line: 286 ]]
+        -- upvalues: v73 (copy)
+        v73.props.navigateDownToFriendFinder(function() --[[ Line: 287 ]]
+            -- upvalues: v73 (ref)
+            v73.setTabBarVisibleFromChat(true);
         end);
     end;
-    v71.AddFriendsAccountProvider = function(v88) --[[ Line: 290 ]]
-        -- upvalues: v71 (copy)
-        v71.props.navigateDownToAddFriendsAccountProvider(v88);
+    v73.AddFriendsAccountProvider = function(v90) --[[ Line: 292 ]]
+        -- upvalues: v73 (copy)
+        v73.props.navigateDownToAddFriendsAccountProvider(v90);
     end;
-    v71.setIsTabBarEnabled = function(v89) --[[ Line: 294 ]]
-        -- upvalues: v71 (copy)
-        v71:setState({
-            getIsTabBarEnabled = v89
+    v73.setIsTabBarEnabled = function(v91) --[[ Line: 296 ]]
+        -- upvalues: v73 (copy)
+        v73:setState({
+            getIsTabBarEnabled = v91
         });
     end;
-    v71.openUserContextualMenu = function(v90) --[[ Line: 300 ]]
-        -- upvalues: l_llama_0 (ref), v71 (copy), v24 (ref)
-        local l_onClose_0 = v90.onClose;
-        v90 = l_llama_0.Dictionary.join(v90, {
-            onCloseGameDetails = function() --[[ Line: 304 ]] --[[ Name: onCloseGameDetails ]]
-                -- upvalues: v71 (ref)
-                v71.setTabBarVisibleFromChat(true);
+    v73.openUserContextualMenu = function(v92) --[[ Line: 302 ]]
+        -- upvalues: l_llama_0 (ref), v73 (copy), v24 (ref)
+        local l_onClose_0 = v92.onClose;
+        v92 = l_llama_0.Dictionary.join(v92, {
+            onCloseGameDetails = function() --[[ Line: 306 ]] --[[ Name: onCloseGameDetails ]]
+                -- upvalues: v73 (ref)
+                v73.setTabBarVisibleFromChat(true);
             end, 
-            onClose = function() --[[ Line: 307 ]] --[[ Name: onClose ]]
+            onClose = function() --[[ Line: 309 ]] --[[ Name: onClose ]]
                 -- upvalues: l_onClose_0 (copy)
                 if l_onClose_0 then
                     l_onClose_0();
                 end;
             end, 
-            onCloseProfileWebview = function() --[[ Line: 312 ]] --[[ Name: onCloseProfileWebview ]]
-                -- upvalues: v71 (ref)
-                v71.setTabBarVisibleFromChat(true);
+            onCloseProfileWebview = function() --[[ Line: 314 ]] --[[ Name: onCloseProfileWebview ]]
+                -- upvalues: v73 (ref)
+                v73.setTabBarVisibleFromChat(true);
             end, 
-            user = v24(v90.user)
+            user = v24(v92.user)
         });
-        v71.props.openContextualMenu(v90);
+        v73.props.openContextualMenu(v92);
     end;
-    v71.navigateToUserInfo = function(v92, v93) --[[ Line: 321 ]]
-        -- upvalues: v71 (copy), l_llama_0 (ref), v24 (ref)
-        if not v93 then
-            v71.openProfileWebView(v92);
+    v73.navigateToUserInfo = function(v94, v95) --[[ Line: 323 ]]
+        -- upvalues: v73 (copy), l_llama_0 (ref), v24 (ref)
+        if not v95 then
+            v73.openProfileWebView(v94);
             return;
         else
-            local v94 = v93.contextualMenuProps or {};
-            if v93.contextualMenuProps then
-                v94 = l_llama_0.Dictionary.join(v94, {
-                    onCloseGameDetails = function() --[[ Line: 330 ]] --[[ Name: onCloseGameDetails ]]
-                        -- upvalues: v71 (ref)
-                        v71.setTabBarVisibleFromChat(true);
+            local v96 = v95.contextualMenuProps or {};
+            if v95.contextualMenuProps then
+                v96 = l_llama_0.Dictionary.join(v96, {
+                    onCloseGameDetails = function() --[[ Line: 332 ]] --[[ Name: onCloseGameDetails ]]
+                        -- upvalues: v73 (ref)
+                        v73.setTabBarVisibleFromChat(true);
                     end, 
-                    onClose = function() --[[ Line: 333 ]] --[[ Name: onClose ]]
-                        -- upvalues: v93 (copy)
-                        if v93.contextualMenuProps.onClose then
-                            v93.contextualMenuProps.onClose();
+                    onClose = function() --[[ Line: 335 ]] --[[ Name: onClose ]]
+                        -- upvalues: v95 (copy)
+                        if v95.contextualMenuProps.onClose then
+                            v95.contextualMenuProps.onClose();
                         end;
                     end, 
-                    onCloseProfileWebview = function() --[[ Line: 338 ]] --[[ Name: onCloseProfileWebview ]]
-                        -- upvalues: v71 (ref)
-                        v71.setTabBarVisibleFromChat(true);
+                    onCloseProfileWebview = function() --[[ Line: 340 ]] --[[ Name: onCloseProfileWebview ]]
+                        -- upvalues: v73 (ref)
+                        v73.setTabBarVisibleFromChat(true);
                     end, 
-                    user = v24(v93.contextualMenuProps.user)
+                    user = v24(v95.contextualMenuProps.user)
                 });
             end;
-            local v95 = l_llama_0.Dictionary.join(v93.profilePeekViewProps or {}, {
+            local v97 = l_llama_0.Dictionary.join(v95.profilePeekViewProps or {}, {
                 resetPeekView = true, 
-                onClose = function() --[[ Line: 347 ]] --[[ Name: onClose ]]
-                    -- upvalues: v71 (ref), v93 (copy)
-                    if v71.state.getIsTabBarEnabled then
-                        v71.setTabBarVisibleFromChat(v71.state.getIsTabBarEnabled());
+                onClose = function() --[[ Line: 349 ]] --[[ Name: onClose ]]
+                    -- upvalues: v73 (ref), v95 (copy)
+                    if v73.state.getIsTabBarEnabled then
+                        v73.setTabBarVisibleFromChat(v73.state.getIsTabBarEnabled());
                     end;
-                    if v93.profilePeekViewProps and v93.profilePeekViewProps.onClose then
-                        v93.profilePeekViewProps.onClose();
-                    end;
-                end, 
-                onOpen = function() --[[ Line: 355 ]] --[[ Name: onOpen ]]
-                    -- upvalues: v71 (ref), v93 (copy)
-                    v71.setTabBarVisibleFromChat(false);
-                    if v93.profilePeekViewProps and v93.profilePeekViewProps.onOpen then
-                        v93.profilePeekViewProps.onOpen();
+                    if v95.profilePeekViewProps and v95.profilePeekViewProps.onClose then
+                        v95.profilePeekViewProps.onClose();
                     end;
                 end, 
-                source = v93.source
+                onOpen = function() --[[ Line: 357 ]] --[[ Name: onOpen ]]
+                    -- upvalues: v73 (ref), v95 (copy)
+                    v73.setTabBarVisibleFromChat(false);
+                    if v95.profilePeekViewProps and v95.profilePeekViewProps.onOpen then
+                        v95.profilePeekViewProps.onOpen();
+                    end;
+                end, 
+                source = v95.source
             });
-            v71.props.navigateToUserInfo(v92, {
-                contextualMenuProps = v94, 
-                profilePeekViewProps = v95, 
-                openJoinable = v93.openJoinable, 
-                entryPoint = v93.entryPoint
+            v73.props.navigateToUserInfo(v94, {
+                contextualMenuProps = v96, 
+                profilePeekViewProps = v97, 
+                openJoinable = v95.openJoinable, 
+                entryPoint = v95.entryPoint
             });
             return;
         end;
     end;
-    v71.navigateToLuaAppPages = {
-        [l_EnumScreens_0.GameDetail] = v71.props.navigateToGameDetails, 
-        [l_EnumScreens_0.ViewUserProfile] = v71.navigateToUserInfo, 
-        [l_EnumScreens_0.Notifications] = v71.navigateDownToNotifications, 
-        [l_EnumScreens_0.LearnMore] = v71.props.openLearnMoreLink, 
-        [l_EnumScreens_0.ReportAbuse] = v71.navigateDownToReportAbuse, 
-        [l_EnumScreens_0.PrivacySettings] = v71.navigateDownToPrivacySettings, 
-        [l_EnumScreens_0.CoHubAddConnections] = if l_FFlagCreateConnectionsHub_0 then v71.navigateToCoHubAddConnections else nil, 
-        [l_EnumScreens_0.AddFriends] = v71.navigateDownToAddFriends, 
-        [l_EnumScreens_0.Groups] = v71.navigateDownToGroups, 
-        [l_EnumScreens_0.FriendFinder] = v71.FriendFinder, 
-        [l_EnumScreens_0.AddFriendsAccountProvider] = v71.AddFriendsAccountProvider, 
-        [l_EnumScreens_0.ViewUser] = v71.openUserContextualMenu, 
-        [l_EnumScreens_0.VerifiedBadgeModal] = v71.props.openVerifiedBadgeModal, 
-        [l_EnumScreens_0.DiscoverabilityModal] = v71.props.openDiscoverabilityModal, 
-        [l_EnumScreens_0.ProfileQRCode] = function() --[[ Line: 399 ]]
-            -- upvalues: v71 (copy), l_Contexts_0 (ref)
-            v71.props.navigateTo3DQRCodePage({
+    v73.navigateToLuaAppPages = {
+        [l_EnumScreens_0.GameDetail] = v73.props.navigateToGameDetails, 
+        [l_EnumScreens_0.ViewUserProfile] = v73.navigateToUserInfo, 
+        [l_EnumScreens_0.Notifications] = v73.navigateDownToNotifications, 
+        [l_EnumScreens_0.LearnMore] = v73.props.openLearnMoreLink, 
+        [l_EnumScreens_0.ReportAbuse] = v73.navigateDownToReportAbuse, 
+        [l_EnumScreens_0.PrivacySettings] = v73.navigateDownToPrivacySettings, 
+        [l_EnumScreens_0.CoHubAddConnections] = if l_FFlagCreateConnectionsHub_0 then v73.navigateToCoHubAddConnections else nil, 
+        [l_EnumScreens_0.AddFriends] = v73.navigateDownToAddFriends, 
+        [l_EnumScreens_0.Groups] = v73.navigateDownToGroups, 
+        [l_EnumScreens_0.FriendFinder] = v73.FriendFinder, 
+        [l_EnumScreens_0.AddFriendsAccountProvider] = v73.AddFriendsAccountProvider, 
+        [l_EnumScreens_0.ViewUser] = v73.openUserContextualMenu, 
+        [l_EnumScreens_0.VerifiedBadgeModal] = v73.props.openVerifiedBadgeModal, 
+        [l_EnumScreens_0.DiscoverabilityModal] = v73.props.openDiscoverabilityModal, 
+        [l_EnumScreens_0.ProfileQRCode] = function() --[[ Line: 401 ]]
+            -- upvalues: v73 (copy), l_Contexts_0 (ref)
+            v73.props.navigateTo3DQRCodePage({
                 source = l_Contexts_0.AddFriends
             });
         end, 
-        [l_EnumScreens_0.SearchPage] = function() --[[ Line: 404 ]]
-            -- upvalues: v71 (copy), v12 (ref), l_SearchTypes_0 (ref)
-            v71.props.navigation.navigate(v12.SearchPage, {
+        [l_EnumScreens_0.SearchPage] = function() --[[ Line: 406 ]]
+            -- upvalues: v73 (copy), v12 (ref), l_SearchTypes_0 (ref)
+            v73.props.navigation.navigate(v12.SearchPage, {
                 defaultSearchType = l_SearchTypes_0.Players
             });
         end, 
-        [l_EnumScreens_0.AmpWizardContainer] = v71.props.openAmpWizardContainer, 
-        [l_EnumScreens_0.Home] = if l_GetFFlagIsSquadEnabled_0() then v71.navigateToHomePage else nil
+        [l_EnumScreens_0.AmpWizardContainer] = v73.props.openAmpWizardContainer, 
+        [l_EnumScreens_0.Home] = if l_GetFFlagIsSquadEnabled_0() then v73.navigateToHomePage else nil
     };
-    v71.luaAppPages = {
+    v73.luaAppPages = {
         playerSearchPage = v34
     };
-    local v96 = nil;
-    v96 = l_RunService_0.RenderStepped:Connect(function() --[[ Line: 421 ]]
-        -- upvalues: v96 (ref), l_GetDefaultQualityLevel_0 (ref)
-        if v96 then
-            v96:Disconnect();
+    local v98 = nil;
+    v98 = l_RunService_0.RenderStepped:Connect(function() --[[ Line: 423 ]]
+        -- upvalues: v98 (ref), l_GetDefaultQualityLevel_0 (ref)
+        if v98 then
+            v98:Disconnect();
         end;
         settings().Rendering.QualityLevel = l_GetDefaultQualityLevel_0();
     end);
-    v71.onBackButtonPressed = function() --[[ Line: 432 ]]
-        -- upvalues: v71 (copy), v5 (ref)
-        if v71.props.canGoBack then
-            v71.props.navigateBack();
+    v73.onBackButtonPressed = function() --[[ Line: 434 ]]
+        -- upvalues: v73 (copy), v5 (ref)
+        if v73.props.canGoBack then
+            v73.props.navigateBack();
             return;
-        elseif v71.backButtonEnabled then
-            v71._rnBypassActionSignal:fire(v5.Actions.back());
+        elseif v73.backButtonEnabled then
+            v73._rnBypassActionSignal:fire(v5.Actions.back());
             return;
         else
-            v71.androidBackButtonConnection.showExitDialog();
+            v73.androidBackButtonConnection.showExitDialog();
             return;
         end;
     end;
-    v71.isAndroidBackButtonHandlerDisabled = function(v97) --[[ Line: 442 ]]
+    v73.isAndroidBackButtonHandlerDisabled = function(v99) --[[ Line: 444 ]]
         -- upvalues: v12 (ref), l_FFlagShareTargetGameCleanup_0 (ref)
-        local v98 = true;
-        if v97 ~= v12.GameDetail then
-            v98 = (if l_FFlagShareTargetGameCleanup_0 then nil else v97 == v12.ShareGameToChat) or v97 == v12.AvatarExperienceWrapperTransparent or v97 == v12.AvatarExperienceWrapper or v97 == v12.ProfilePlatform;
+        local v100 = true;
+        if v99 ~= v12.GameDetail then
+            v100 = (if l_FFlagShareTargetGameCleanup_0 then nil else v99 == v12.ShareGameToChat) or v99 == v12.AvatarExperienceWrapperTransparent or v99 == v12.AvatarExperienceWrapper or v99 == v12.ProfilePlatform;
         end;
-        return v98;
+        return v100;
     end;
-    v71._navigatingFromSocialTabEvent = nil;
-    v71.setNavigatingFromSocialTabEvent = function(v99) --[[ Line: 452 ]]
-        -- upvalues: v71 (copy), l_EnumScreens_0 (ref)
-        v71._navigatingFromSocialTabEvent = {
+    v73._navigatingFromSocialTabEvent = nil;
+    v73.setNavigatingFromSocialTabEvent = function(v101) --[[ Line: 454 ]]
+        -- upvalues: v73 (copy), l_EnumScreens_0 (ref)
+        v73._navigatingFromSocialTabEvent = {
             startTime = os.clock(), 
             startPage = l_EnumScreens_0.SocialTab, 
-            endPage = v99
+            endPage = v101
         };
     end;
-    v71.getNavigatingFromSocialTabEvent = function() --[[ Line: 460 ]]
-        -- upvalues: v71 (copy)
-        return v71._navigatingFromSocialTabEvent;
+    v73.getNavigatingFromSocialTabEvent = function() --[[ Line: 462 ]]
+        -- upvalues: v73 (copy)
+        return v73._navigatingFromSocialTabEvent;
     end;
-    if v58 then
-        local v100 = v71.props.shouldShowPushUpsell and v71.props.notificationsCanReceivePush;
-        if l_GetFFlagEnablePushNotificationsUpsellModal_0 and v100 then
-            if v71.props.pushUpsellVariant ~= nil then
-                if if v61 then v71.props.pushUpsellVariant == 0 else v71.props.pushUpsellVariant > -1 then
+    if v59 then
+        local v102 = v73.props.shouldShowPushUpsell and v73.props.notificationsCanReceivePush;
+        if l_GetFFlagEnablePushNotificationsUpsellModal_0 and v102 then
+            if v73.props.pushUpsellVariant ~= nil then
+                if if v62 then v73.props.pushUpsellVariant == 0 else v73.props.pushUpsellVariant > -1 then
                     local l_PushUpsellEventConfig_0 = v36.PushUpsellEventConfig;
                     local l_ModalEventConstants_0 = v36.ModalEventConstants;
                     l_default_1:logRobloxTelemetryEvent(l_PushUpsellEventConfig_0, {}, {
@@ -422,48 +424,48 @@ v69.init = function(v71) --[[ Line: 116 ]] --[[ Name: init ]]
                         [l_ModalEventConstants_0.EntryPoint] = v12.Chat
                     });
                 end;
-                if v71.props.pushUpsellVariant <= 0 then
-                    local v103 = {
+                if v73.props.pushUpsellVariant <= 0 then
+                    local v105 = {
                         l_default_0.Permissions.POST_NOTIFICATIONS
                     };
-                    l_default_0:requestPermissions(v103);
+                    l_default_0:requestPermissions(v105);
                 end;
             end;
-        elseif v100 then
-            local v104 = {
+        elseif v102 then
+            local v106 = {
                 l_default_0.Permissions.POST_NOTIFICATIONS
             };
-            l_default_0:requestPermissions(v104);
+            l_default_0:requestPermissions(v106);
         end;
     end;
-    v71.generateContext = l_memoize_0(function(v105, v106, v107, v108, v109, v110, v111, v112, v113, v114) --[[ Line: 500 ]]
-        -- upvalues: v71 (copy), l_Logger_0 (ref), l_UserInputService_0 (ref), l_EntryPoint_0 (ref), v27 (ref), v41 (ref), v42 (ref), l_RoactAnalyticsCommonGameEvents_0 (ref), v14 (ref), v44 (ref), v45 (ref), v13 (ref), v12 (ref), l_ConvertUniverseIdToString_0 (ref), l_SetAppLoaded_0 (ref), v15 (ref), v17 (ref), v21 (ref), l_FFlagContactImporterIXPCleanup_0 (ref)
+    v73.generateContext = l_memoize_0(function(v107, v108, v109, v110, v111, v112, v113, v114, v115, v116) --[[ Line: 502 ]]
+        -- upvalues: v73 (copy), l_Logger_0 (ref), l_UserInputService_0 (ref), l_EntryPoint_0 (ref), v27 (ref), v41 (ref), v42 (ref), l_RoactAnalyticsCommonGameEvents_0 (ref), v14 (ref), v44 (ref), v45 (ref), v13 (ref), v12 (ref), l_ConvertUniverseIdToString_0 (ref), l_SetAppLoaded_0 (ref), v15 (ref), v17 (ref), v21 (ref), l_FFlagContactImporterIXPCleanup_0 (ref)
         return {
-            wasEverVisible = v71.state.wasEverVisible, 
-            localUserId = v106, 
-            isVisible = v105, 
-            pageType = v109, 
-            parameters = v110, 
-            navigationProps = v107, 
+            wasEverVisible = v73.state.wasEverVisible, 
+            localUserId = v108, 
+            isVisible = v107, 
+            pageType = v111, 
+            parameters = v112, 
+            navigationProps = v109, 
             logger = l_Logger_0, 
-            navigateToLuaAppPages = v71.navigateToLuaAppPages, 
-            rnBypassActionSignal = v71._rnBypassActionSignal, 
-            rnBypassActionSignalSocialTab = v71._rnBypassActionSignalSocialTab, 
-            getActiveConversationId = v71.getActiveConversationId, 
-            setActiveConversationId = v71.setActiveConversationId, 
-            setBackButtonEnabled = v71.setBackButtonEnabled, 
-            setTabBarVisible = v71.setTabBarVisibleFromChat, 
-            luaAppPages = v71.luaAppPages, 
-            wideMode = v111, 
-            notificationCount = v108, 
-            robloxEventReceiver = v71._robloxEventReceiver, 
+            navigateToLuaAppPages = v73.navigateToLuaAppPages, 
+            rnBypassActionSignal = v73._rnBypassActionSignal, 
+            rnBypassActionSignalSocialTab = v73._rnBypassActionSignalSocialTab, 
+            getActiveConversationId = v73.getActiveConversationId, 
+            setActiveConversationId = v73.setActiveConversationId, 
+            setBackButtonEnabled = v73.setBackButtonEnabled, 
+            setTabBarVisible = v73.setTabBarVisibleFromChat, 
+            luaAppPages = v73.luaAppPages, 
+            wideMode = v113, 
+            notificationCount = v110, 
+            robloxEventReceiver = v73._robloxEventReceiver, 
             userInputService = l_UserInputService_0, 
             roactChatEntryPoint = l_EntryPoint_0, 
-            androidBackButtonConnection = v71.androidBackButtonConnectionSocialTab, 
+            androidBackButtonConnection = v73.androidBackButtonConnectionSocialTab, 
             signal = v27, 
-            androidBackButtonHandlerDisabled = v71.isAndroidBackButtonHandlerDisabled(v112), 
-            setIsTabBarEnabled = v113 and v71.setIsTabBarEnabled or nil, 
-            isLuaProfilePageEnabled = v113, 
+            androidBackButtonHandlerDisabled = v73.isAndroidBackButtonHandlerDisabled(v114), 
+            setIsTabBarEnabled = v115 and v73.setIsTabBarEnabled or nil, 
+            isLuaProfilePageEnabled = v115, 
             useRoactService = v41, 
             roactAnalytics = v42, 
             roactAnalyticsCommonGameEvents = l_RoactAnalyticsCommonGameEvents_0, 
@@ -473,136 +475,139 @@ v69.init = function(v71) --[[ Line: 116 ]] --[[ Name: init ]]
             presenceType = v13.PresenceType, 
             appPage = v12, 
             convertUniverseIdToString = l_ConvertUniverseIdToString_0, 
-            setNavigatingFromSocialTabEvent = v71.setNavigatingFromSocialTabEvent, 
-            getNavigatingFromSocialTabEvent = v71.getNavigatingFromSocialTabEvent, 
-            luaAddFriendsPageEnabled = v114, 
+            setNavigatingFromSocialTabEvent = v73.setNavigatingFromSocialTabEvent, 
+            getNavigatingFromSocialTabEvent = v73.getNavigatingFromSocialTabEvent, 
+            luaAddFriendsPageEnabled = v116, 
             setAppLoaded = l_SetAppLoaded_0, 
-            fetchUnreadConversationCount = v71.props.fetchUnreadConversationCount, 
-            notificationService = v71.props.notificationService, 
+            fetchUnreadConversationCount = v73.props.fetchUnreadConversationCount, 
+            notificationService = v73.props.notificationService, 
             config = v15, 
-            toggleChatPaused = v71.props.toggleChatPaused, 
+            toggleChatPaused = v73.props.toggleChatPaused, 
             performanceTesting = v17, 
             notificationType = v21, 
-            contactImporterAndPYMKEnabled = if l_FFlagContactImporterIXPCleanup_0 then nil else v71.props.contactImporterAndPYMKEnabled and v71.props.isContactImporterPolicyEnabled or nil, 
-            diagService = v71.props.roactAnalytics.Diag, 
-            eventIngestService = v71.props.eventIngestService, 
-            openProfilePeekView = v71.props.openProfilePeekView, 
-            closeCentralOverlay = v71.props.closeCentralOverlay, 
-            openLearnMoreLink = v71.props.openLearnMoreLink, 
-            showToast = v71.props.showToast, 
-            updateExternalNavigationForScreen = v71.updateExternalNavigationForScreen, 
-            initialRouteName = v71.props.initialRouteName, 
-            openPlayerContextualMenu = v71.props.openPlayerContextualMenu
+            contactImporterAndPYMKEnabled = if l_FFlagContactImporterIXPCleanup_0 then nil else v73.props.contactImporterAndPYMKEnabled and v73.props.isContactImporterPolicyEnabled or nil, 
+            diagService = v73.props.roactAnalytics.Diag, 
+            eventIngestService = v73.props.eventIngestService, 
+            openProfilePeekView = v73.props.openProfilePeekView, 
+            closeCentralOverlay = v73.props.closeCentralOverlay, 
+            openLearnMoreLink = v73.props.openLearnMoreLink, 
+            showToast = v73.props.showToast, 
+            updateExternalNavigationForScreen = v73.updateExternalNavigationForScreen, 
+            initialRouteName = v73.props.initialRouteName, 
+            openPlayerContextualMenu = v73.props.openPlayerContextualMenu
         };
     end);
 end;
-v69.render = function(v115) --[[ Line: 586 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), v3 (copy), l_Context_0 (copy), v26 (copy), v68 (copy), v47 (copy), l_ChatEventReceiver_0 (copy), l_FFlagSquadAppChatRTNFix_0 (copy), l_SquadAppChatEventReceiver_0 (copy)
-    return l_withStyle_0(function(_) --[[ Line: 589 ]]
-        -- upvalues: v115 (copy), v3 (ref), l_Context_0 (ref), v26 (ref), v68 (ref), v47 (ref), l_ChatEventReceiver_0 (ref), l_FFlagSquadAppChatRTNFix_0 (ref), l_SquadAppChatEventReceiver_0 (ref)
-        local l_initRoactChatNavigation_0 = v115.initRoactChatNavigation;
+v71.render = function(v117) --[[ Line: 588 ]] --[[ Name: render ]]
+    -- upvalues: l_withStyle_0 (copy), v3 (copy), l_Context_0 (copy), v26 (copy), v69 (copy), v47 (copy), l_ChatEventReceiver_0 (copy), l_FFlagSquadAppChatRTNFix_0 (copy), l_SquadAppChatEventReceiver_0 (copy)
+    return l_withStyle_0(function(_) --[[ Line: 591 ]]
+        -- upvalues: v117 (copy), v3 (ref), l_Context_0 (ref), v26 (ref), v69 (ref), v47 (ref), l_ChatEventReceiver_0 (ref), l_FFlagSquadAppChatRTNFix_0 (ref), l_SquadAppChatEventReceiver_0 (ref)
+        local l_initRoactChatNavigation_0 = v117.initRoactChatNavigation;
         return v3.createElement(l_Context_0.Provider, {
-            value = v115.generateContext(v115.props.isVisible, v115.props.localUserId, v115.props.navigationProps, v115.props.notificationCount, v115.props.pageType, v115.props.parameters, v115.props.wideMode, v115.props.currentAppPage, true, v115.props.luaAddFriendsPageEnabled)
+            value = v117.generateContext(v117.props.isVisible, v117.props.localUserId, v117.props.navigationProps, v117.props.notificationCount, v117.props.pageType, v117.props.parameters, v117.props.wideMode, v117.props.currentAppPage, true, v117.props.luaAddFriendsPageEnabled)
         }, {
             SocialTab = v3.createElement(v26, {
                 BorderSizePixel = 0, 
-                BackgroundColor3 = v115.props.BackgroundColor, 
-                BackgroundTransparency = v115.props.BackgroundTransparency, 
-                useFullScalePage = v115.props.useFullScalePage, 
+                BackgroundColor3 = v117.props.BackgroundColor, 
+                BackgroundTransparency = v117.props.BackgroundTransparency, 
+                useFullScalePage = v117.props.useFullScalePage, 
                 includeStatusBar = true, 
-                includeBottomBar = (not not v68 or v115.props.wideMode) and v115.props.navBarPlacement == v47.Placement.Bottom
+                includeBottomBar = (not not v69 or v117.props.wideMode) and v117.props.navBarPlacement == v47.Placement.Bottom
             }, {
                 ChatEventReceiver = v3.createElement(l_ChatEventReceiver_0, {
-                    robloxEventReceiver = v115._robloxEventReceiver, 
-                    rnBypassActionSignal = v115._rnBypassActionSignal, 
+                    robloxEventReceiver = v117._robloxEventReceiver, 
+                    rnBypassActionSignal = v117._rnBypassActionSignal, 
                     initRoactChatNavigation = l_initRoactChatNavigation_0, 
-                    activeConversationId = v115.state.activeConversationId
+                    activeConversationId = v117.state.activeConversationId
                 }), 
-                SocialTab = v115.renderOnLoaded(), 
+                SocialTab = v117.renderOnLoaded(), 
                 SquadAppChatEventReceiver = if l_FFlagSquadAppChatRTNFix_0 then v3.createElement(l_SquadAppChatEventReceiver_0) else nil
             })
         });
     end);
 end;
-v69.didMount = function(v118) --[[ Line: 631 ]] --[[ Name: didMount ]]
+v71.didMount = function(v120) --[[ Line: 633 ]] --[[ Name: didMount ]]
     -- upvalues: l_Logger_0 (copy)
     l_Logger_0:info("Initializing SocialTabUniversalAppWrapper");
-    if v118.props.isVisible and v118.props.toggleChatPaused ~= nil then
-        v118.props.toggleChatPaused(false);
+    if v120.props.isVisible and v120.props.toggleChatPaused ~= nil then
+        v120.props.toggleChatPaused(false);
     end;
 end;
-v69.didUpdate = function(v119, v120, _) --[[ Line: 641 ]] --[[ Name: didUpdate ]]
+v71.didUpdate = function(v121, v122, _) --[[ Line: 643 ]] --[[ Name: didUpdate ]]
     -- upvalues: v15 (copy)
-    if v120.isVisible ~= v119.props.isVisible then
-        v119.androidBackButtonConnection.disconnect();
-        if not v120.isVisible then
-            v119._performanceTesting:Initialize();
-            v119.props.setThrottleFramerateEnabled(v15.General.PerformanceTestingMode == Enum.VirtualInputMode.None);
-            v119.props.toggleChatPaused(false);
+    if v122.isVisible ~= v121.props.isVisible then
+        v121.androidBackButtonConnection.disconnect();
+        if not v122.isVisible then
+            v121._performanceTesting:Initialize();
+            v121.props.setThrottleFramerateEnabled(v15.General.PerformanceTestingMode == Enum.VirtualInputMode.None);
+            v121.props.toggleChatPaused(false);
             return;
         else
-            v119._performanceTesting:Stop();
-            v119.props.setThrottleFramerateEnabled(false);
-            v119.props.toggleChatPaused(true);
+            v121._performanceTesting:Stop();
+            v121.props.setThrottleFramerateEnabled(false);
+            v121.props.toggleChatPaused(true);
         end;
     end;
 end;
-v69.getDerivedStateFromProps = function(v122, v123) --[[ Line: 657 ]] --[[ Name: getDerivedStateFromProps ]]
+v71.getDerivedStateFromProps = function(v124, v125) --[[ Line: 659 ]] --[[ Name: getDerivedStateFromProps ]]
     -- upvalues: v22 (copy)
-    local v124 = nil;
-    local v125 = nil;
     local v126 = nil;
-    if v122.isVisible then
-        v124 = true;
-    end;
-    if v122.retrievalStatus == v22.Done then
-        v125 = true;
-    end;
-    if v123.wasChatEverTapped == false and v122.isVisible == true then
+    local v127 = nil;
+    local v128 = nil;
+    if v124.isVisible then
         v126 = true;
     end;
+    if v124.retrievalStatus == v22.Done then
+        v127 = true;
+    end;
+    if v125.wasChatEverTapped == false and v124.isVisible == true then
+        v128 = true;
+    end;
     return {
-        wasChatEverTapped = v126, 
-        wasEverVisible = v124, 
-        wasEverDoneRetrieving = v125
+        wasChatEverTapped = v128, 
+        wasEverVisible = v126, 
+        wasEverDoneRetrieving = v127
     };
 end;
-v69.willUnmount = function(v127) --[[ Line: 681 ]] --[[ Name: willUnmount ]]
-    v127.androidBackButtonConnection.disconnect();
+v71.willUnmount = function(v129) --[[ Line: 683 ]] --[[ Name: willUnmount ]]
+    v129.androidBackButtonConnection.disconnect();
 end;
-v69 = v55((l_UniversalAppPolicy_0.connect(function(v128) --[[ Line: 686 ]]
+v71 = v56((l_UniversalAppPolicy_0.connect(function(v130) --[[ Line: 688 ]]
     -- upvalues: l_GetFFlagLuafiedReportEntryPoints_0 (copy)
     return {
-        isContactImporterPolicyEnabled = v128.getContactImporterEnabled(), 
-        shouldSystemBarUsuallyBePresent = v128.getShouldSystemBarUsuallyBePresent(), 
-        useLuafiedReportFlow = if l_GetFFlagLuafiedReportEntryPoints_0() then v128.getUseLuafiedReportFlow() else nil, 
-        shouldShowPushUpsell = v128.getPushNotificationsUpsell(), 
-        notificationsCanReceivePush = v128.getNotificationsCanReceivePush()
+        isContactImporterPolicyEnabled = v130.getContactImporterEnabled(), 
+        shouldSystemBarUsuallyBePresent = v130.getShouldSystemBarUsuallyBePresent(), 
+        useLuafiedReportFlow = if l_GetFFlagLuafiedReportEntryPoints_0() then v130.getUseLuafiedReportFlow() else nil, 
+        shouldShowPushUpsell = v130.getPushNotificationsUpsell(), 
+        notificationsCanReceivePush = v130.getNotificationsCanReceivePush()
     };
-end)(v69)));
-v69 = v53.connectUserLayer({
+end)(v71)));
+v71 = v54.connectUserLayer({
     l_AppUserLayers_0.SocialFriendsLayer, 
     l_AppUserLayers_0.PushNotificationPrompt
-}, function(v129, _) --[[ Line: 701 ]]
+}, function(v131, _) --[[ Line: 703 ]]
     -- upvalues: l_AppUserLayers_0 (copy), l_FFlagContactImporterIXPCleanup_0 (copy), l_OffPlatformFriendRequestsIXP_0 (copy), l_GetFStringPushUpsellVariantName_0 (copy), l_GetFFlagEnablePushNotificationsUpsellModal_0 (copy)
-    local v131 = v129[l_AppUserLayers_0.SocialFriendsLayer] or {};
-    local v132 = if l_FFlagContactImporterIXPCleanup_0 then nil else l_OffPlatformFriendRequestsIXP_0.getExperimentVariant(v129);
-    local v133 = if l_FFlagContactImporterIXPCleanup_0 then nil else l_OffPlatformFriendRequestsIXP_0.experimentOrRolloutEnabled(v129);
-    local v134 = v129[l_AppUserLayers_0.PushNotificationPrompt] or {};
-    local v135 = l_GetFStringPushUpsellVariantName_0();
+    local v133 = v131[l_AppUserLayers_0.SocialFriendsLayer] or {};
+    local v134 = if l_FFlagContactImporterIXPCleanup_0 then nil else l_OffPlatformFriendRequestsIXP_0.getExperimentVariant(v131);
+    local v135 = if l_FFlagContactImporterIXPCleanup_0 then nil else l_OffPlatformFriendRequestsIXP_0.experimentOrRolloutEnabled(v131);
+    local v136 = v131[l_AppUserLayers_0.PushNotificationPrompt] or {};
+    local v137 = l_GetFStringPushUpsellVariantName_0();
     return {
-        luaAddFriendsPageEnabled = v131.show_lua_add_friends_page == "True", 
-        contactImporterAndPYMKEnabled = if l_FFlagContactImporterIXPCleanup_0 then nil else v133, 
-        contactImporterExperimentVariant = if l_FFlagContactImporterIXPCleanup_0 then nil else v132, 
-        pushUpsellVariant = if l_GetFFlagEnablePushNotificationsUpsellModal_0() then v134[v135] or -1 else nil
+        luaAddFriendsPageEnabled = v133.show_lua_add_friends_page == "True", 
+        contactImporterAndPYMKEnabled = if l_FFlagContactImporterIXPCleanup_0 then nil else v135, 
+        contactImporterExperimentVariant = if l_FFlagContactImporterIXPCleanup_0 then nil else v134, 
+        pushUpsellVariant = if l_GetFFlagEnablePushNotificationsUpsellModal_0() then v136[v137] or -1 else nil
     };
-end)(v69);
-return function(v136) --[[ Line: 723 ]] --[[ Name: SocialTabUniversalAppWrapperContainer ]]
-    -- upvalues: l_useNavBarPlacement_0 (copy), l_FFlagLuaAppEnableStickyShortcutBar_0 (copy), l_useIsStickyShortcutBarEnabled_0 (copy), v3 (copy), v69 (ref), v9 (copy)
-    local v137 = l_useNavBarPlacement_0();
-    local v138 = if l_FFlagLuaAppEnableStickyShortcutBar_0 then l_useIsStickyShortcutBarEnabled_0() else nil;
-    return v3.createElement(v69, v9.Dictionary.join(v136, {
-        navBarPlacement = v137, 
-        useFullScalePage = if l_FFlagLuaAppEnableStickyShortcutBar_0 then v138 else nil
+end)(v71);
+return function(v138) --[[ Line: 725 ]] --[[ Name: SocialTabUniversalAppWrapperContainer ]]
+    -- upvalues: l_useNavBarPlacement_0 (copy), l_FFlagGuacStickyShortcutBarEnabled_0 (copy), l_useAppPolicy_0 (copy), l_FFlagLuaAppEnableStickyShortcutBar_0 (copy), l_useIsStickyShortcutBarEnabled_0 (copy), v3 (copy), v71 (ref), v9 (copy)
+    local v139 = l_useNavBarPlacement_0();
+    local v140 = nil;
+    v140 = if l_FFlagGuacStickyShortcutBarEnabled_0 then l_useAppPolicy_0(function(v141) --[[ Line: 730 ]]
+        return v141.getStickyShortcutBarEnabled();
+    end) else if l_FFlagLuaAppEnableStickyShortcutBar_0 then l_useIsStickyShortcutBarEnabled_0() else nil;
+    return v3.createElement(v71, v9.Dictionary.join(v138, {
+        navBarPlacement = v139, 
+        useFullScalePage = if not not l_FFlagLuaAppEnableStickyShortcutBar_0 or l_FFlagGuacStickyShortcutBarEnabled_0 then v140 else nil
     }));
 end;

@@ -10,7 +10,11 @@ local v4 = {
         v2.TransferInput
     }, 
     [v2.TransferInput] = {
-        v2.TransferConfirm
+        v2.TransferConfirm, 
+        v2.TransferInsufficientBalance
+    }, 
+    [v2.TransferInsufficientBalance] = {
+        v2.TransferInput
     }, 
     [v2.TransferConfirm] = {
         v2.TransferInput, 
@@ -20,7 +24,7 @@ local v4 = {
         v2.TransferSuccess
     }
 };
-local _ = function(v5, v6) --[[ Line: 18 ]] --[[ Name: isValidPromptStateTransition ]]
+local _ = function(v5, v6) --[[ Line: 19 ]] --[[ Name: isValidPromptStateTransition ]]
     -- upvalues: v4 (copy)
     local v7 = v4[v5];
     for _, v9 in ipairs(v7) do
@@ -30,7 +34,7 @@ local _ = function(v5, v6) --[[ Line: 18 ]] --[[ Name: isValidPromptStateTransit
     end;
     return false;
 end;
-return function(v11, v12) --[[ Line: 28 ]] --[[ Name: setTransferPromptState ]]
+return function(v11, v12) --[[ Line: 29 ]] --[[ Name: setTransferPromptState ]]
     -- upvalues: v4 (copy), v2 (copy)
     local v13 = false;
     local l_setPromptState_0 = v11.setPromptState;

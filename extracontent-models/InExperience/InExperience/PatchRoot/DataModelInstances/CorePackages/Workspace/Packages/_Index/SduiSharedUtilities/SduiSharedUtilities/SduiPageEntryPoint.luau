@@ -29,33 +29,34 @@ local l_FFlagLuaAppSduiBadgeDetailsComponents_0 = require(l_Parent_0.SharedFlags
 local l_FFlagSduiCoreBadgeDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiCoreBadgeDetailsSupport;
 local l_FFlagSduiFeedOptionalScrollingFrameFix_0 = require(l_Parent_0.SharedFlags).FFlagSduiFeedOptionalScrollingFrameFix;
 local l_FFlagLuaAppSduiPageEntryPointSnackbar_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSduiPageEntryPointSnackbar;
-return v4.memo(function(v31) --[[ Line: 89 ]] --[[ Name: SduiPageEntryPoint ]]
-    -- upvalues: l_useTokens_0 (copy), l_useDispatch_0 (copy), v4 (copy), v17 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (copy), v13 (copy), l_DataHydrationTypes_0 (copy), l_NavigateBack_0 (copy), v9 (copy), l_useCloseWithBackButton_0 (copy), l_FFlagLuaAppSduiPageEntryPointSnackbar_0 (copy), v25 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy), v20 (copy), l_usePageSideMargin_0 (copy), l_CollectionItemSize_0 (copy), l_getSduiComponentWrapper_0 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (copy), v19 (copy), l_NavButtonType_0 (copy), v5 (copy), l_Loading_0 (copy), v22 (copy), v3 (copy), l_Snackbar_0 (copy), l_CoreGui_0 (copy)
-    local l_appPage_0 = v31.appPage;
-    local v33 = v31.configKey or l_appPage_0;
-    local v34 = ("SduiPageEntryPoint-%*"):format(v33);
-    local l_pageTimer_0 = v31.pageTimer;
-    local v36 = l_useTokens_0();
-    local v37 = l_useDispatch_0();
-    local v39 = v4.useCallback(function(v38) --[[ Line: 99 ]]
-        -- upvalues: v17 (ref), v33 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (ref), v31 (copy)
-        return v17().getRootConfig(v33, v38, if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v31.identifier else nil);
+local l_FFlagSduiExperienceDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiExperienceDetailsSupport;
+return v4.memo(function(v32) --[[ Line: 93 ]] --[[ Name: SduiPageEntryPoint ]]
+    -- upvalues: l_useTokens_0 (copy), l_useDispatch_0 (copy), v4 (copy), v17 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (copy), v13 (copy), l_DataHydrationTypes_0 (copy), l_NavigateBack_0 (copy), v9 (copy), l_useCloseWithBackButton_0 (copy), l_FFlagLuaAppSduiPageEntryPointSnackbar_0 (copy), v25 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy), v20 (copy), l_usePageSideMargin_0 (copy), l_CollectionItemSize_0 (copy), l_getSduiComponentWrapper_0 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (copy), l_FFlagSduiExperienceDetailsSupport_0 (copy), v19 (copy), l_NavButtonType_0 (copy), v5 (copy), l_Loading_0 (copy), v22 (copy), v3 (copy), l_Snackbar_0 (copy), l_CoreGui_0 (copy)
+    local l_appPage_0 = v32.appPage;
+    local v34 = v32.configKey or l_appPage_0;
+    local v35 = ("SduiPageEntryPoint-%*"):format(v34);
+    local l_pageTimer_0 = v32.pageTimer;
+    local v37 = l_useTokens_0();
+    local v38 = l_useDispatch_0();
+    local v40 = v4.useCallback(function(v39) --[[ Line: 103 ]]
+        -- upvalues: v17 (ref), v34 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (ref), v32 (copy)
+        return v17().getRootConfig(v34, v39, if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v32.identifier else nil);
     end, {
-        v33, 
-        if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v31.identifier else nil
+        v34, 
+        if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v32.identifier else nil
     });
-    local v40 = v13.useSignalState(v39);
-    local v42 = v4.useCallback(function(v41) --[[ Line: 109 ]]
-        -- upvalues: v17 (ref), v33 (copy)
-        return v17().getTitle(v33, v41);
+    local v41 = v13.useSignalState(v40);
+    local v43 = v4.useCallback(function(v42) --[[ Line: 113 ]]
+        -- upvalues: v17 (ref), v34 (copy)
+        return v17().getTitle(v34, v42);
     end, {
-        v33
+        v34
     });
-    local v43 = v13.useSignalState(v42) or v31.pageTitle;
-    local v44 = v13.useSignalState(v17().getData(v33).status);
-    local v45 = v44 == l_DataHydrationTypes_0.DataStatus.NotReady;
-    local v46 = v44 == l_DataHydrationTypes_0.DataStatus.Failed;
-    v4.useEffect(function() --[[ Line: 119 ]]
+    local v44 = v13.useSignalState(v43) or v32.pageTitle;
+    local v45 = v13.useSignalState(v17().getData(v34).status);
+    local v46 = v45 == l_DataHydrationTypes_0.DataStatus.NotReady;
+    local v47 = v45 == l_DataHydrationTypes_0.DataStatus.Failed;
+    v4.useEffect(function() --[[ Line: 123 ]]
         -- upvalues: l_pageTimer_0 (copy)
         if l_pageTimer_0 then
             l_pageTimer_0.logComponentMounted();
@@ -63,143 +64,143 @@ return v4.memo(function(v31) --[[ Line: 89 ]] --[[ Name: SduiPageEntryPoint ]]
     end, {
         l_pageTimer_0
     });
-    v4.useEffect(function() --[[ Line: 125 ]]
-        -- upvalues: l_pageTimer_0 (copy), v40 (copy)
-        if l_pageTimer_0 and v40 then
+    v4.useEffect(function() --[[ Line: 129 ]]
+        -- upvalues: l_pageTimer_0 (copy), v41 (copy)
+        if l_pageTimer_0 and v41 then
             l_pageTimer_0.logComponentReady();
         end;
     end, {
         l_pageTimer_0, 
-        v40
+        v41
     });
-    local v47 = v4.useMemo(function() --[[ Line: 131 ]]
-        -- upvalues: v33 (copy), l_appPage_0 (copy)
+    local v48 = v4.useMemo(function() --[[ Line: 135 ]]
+        -- upvalues: v34 (copy), l_appPage_0 (copy)
         return {
-            configKey = v33, 
+            configKey = v34, 
             appPage = l_appPage_0
         };
     end, {
-        v33, 
+        v34, 
         l_appPage_0
     });
-    local v48, v49 = v4.useState(nil);
-    v4.useRef(v48).current = v48;
-    local v50 = v4.useCallback(function() --[[ Line: 143 ]]
-        -- upvalues: v31 (copy), v37 (copy), l_NavigateBack_0 (ref)
-        if v31.onCloseActivated then
-            v31.onCloseActivated();
+    local v49, v50 = v4.useState(nil);
+    v4.useRef(v49).current = v49;
+    local v51 = v4.useCallback(function() --[[ Line: 147 ]]
+        -- upvalues: v32 (copy), v38 (copy), l_NavigateBack_0 (ref)
+        if v32.onCloseActivated then
+            v32.onCloseActivated();
             return;
         else
-            v37(l_NavigateBack_0());
+            v38(l_NavigateBack_0());
             return;
         end;
     end, {
-        v37, 
-        v31.onCloseActivated
+        v38, 
+        v32.onCloseActivated
     });
-    local _, v52 = v9.useMostRecentOrDefaultFocusBehavior(v49);
-    local v53 = l_useCloseWithBackButton_0(v52, v50);
-    local v54 = if l_FFlagLuaAppSduiPageEntryPointSnackbar_0 then v25(v33) else nil;
-    local v55 = nil;
+    local _, v53 = v9.useMostRecentOrDefaultFocusBehavior(v50);
+    local v54 = l_useCloseWithBackButton_0(v53, v51);
+    local v55 = if l_FFlagLuaAppSduiPageEntryPointSnackbar_0 then v25(v34) else nil;
     local v56 = nil;
     local v57 = nil;
     local v58 = nil;
     local v59 = nil;
+    local v60 = nil;
     if l_FFlagSduiCoreBadgeDetailsSupport_0 then
-        local v60, v61 = v4.useState(nil);
-        v55 = v60;
+        local v61, v62 = v4.useState(nil);
         v56 = v61;
-        v57 = v20(l_appPage_0, v55, 0);
-        v58 = v48 == nil;
-        v59 = l_usePageSideMargin_0(v48);
+        v57 = v62;
+        v58 = v20(l_appPage_0, v56, 0);
+        v59 = v49 == nil;
+        v60 = l_usePageSideMargin_0(v49);
     else
-        v57 = v20(l_appPage_0, v48);
-        v59 = v13.useSignalState(v57.getPageLayoutConfig(l_CollectionItemSize_0.Small)).sideMargin;
+        v58 = v20(l_appPage_0, v49);
+        v60 = v13.useSignalState(v58.getPageLayoutConfig(l_CollectionItemSize_0.Small)).sideMargin;
     end;
-    local v63 = v4.useMemo(function() --[[ Line: 179 ]]
-        -- upvalues: v40 (copy), l_getSduiComponentWrapper_0 (ref), v4 (ref), v34 (copy), v57 (ref), v47 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (ref), v31 (copy)
-        if v40 == nil then
+    local v64 = v4.useMemo(function() --[[ Line: 183 ]]
+        -- upvalues: v41 (copy), l_getSduiComponentWrapper_0 (ref), v4 (ref), v35 (copy), v58 (ref), v48 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (ref), v32 (copy)
+        if v41 == nil then
             return nil;
         else
-            local v62 = l_getSduiComponentWrapper_0(v40);
-            return v4.createElement(v62, {
-                debugName = v34, 
-                componentConfig = v40, 
-                sduiContext = v57, 
-                localAnalyticsData = v47, 
+            local v63 = l_getSduiComponentWrapper_0(v41);
+            return v4.createElement(v63, {
+                debugName = v35, 
+                componentConfig = v41, 
+                sduiContext = v58, 
+                localAnalyticsData = v48, 
                 extraLocalProps = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 then {
-                    pageBottomPadding = v31.pageBottomPadding, 
-                    scrollingFrameRef = v31.scrollingFrameRef
+                    pageBottomPadding = v32.pageBottomPadding, 
+                    scrollingFrameRef = v32.scrollingFrameRef
                 } else nil
             });
         end;
     end, {
-        v40, 
-        v34, 
-        v57, 
-        v47
+        v41, 
+        v35, 
+        v58, 
+        v48
     });
-    local v64 = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 then v31.scrollingFrameRef ~= nil else nil;
+    local v65 = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 then v32.scrollingFrameRef ~= nil else nil;
     return v4.createElement("Frame", {
-        Size = UDim2.new(1, 0, v64 and 0 or 1, 0), 
-        AutomaticSize = if v64 then Enum.AutomaticSize.Y else nil, 
+        Size = UDim2.new(1, 0, v65 and 0 or 1, 0), 
+        AutomaticSize = if v65 then Enum.AutomaticSize.Y else nil, 
         BorderSizePixel = 0, 
-        BackgroundTransparency = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 and v31.backgroundStyle then v31.backgroundStyle.Transparency else 0, 
-        BackgroundColor3 = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 and v31.backgroundStyle then v31.backgroundStyle.Color3 else v36.Color.Surface.Surface_0.Color3, 
-        ref = v53, 
-        ClipsDescendants = l_FFlagSduiCoreBadgeDetailsSupport_0 and true or nil
+        BackgroundTransparency = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 and v32.backgroundStyle then v32.backgroundStyle.Transparency else 0, 
+        BackgroundColor3 = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 and v32.backgroundStyle then v32.backgroundStyle.Color3 else v37.Color.Surface.Surface_0.Color3, 
+        ref = v54, 
+        ClipsDescendants = if l_FFlagSduiExperienceDetailsSupport_0 and v32.clipsDescendantsOverride ~= nil then v32.clipsDescendantsOverride else l_FFlagSduiCoreBadgeDetailsSupport_0 and true or nil
     }, {
         UIListLayout = v4.createElement("UIListLayout", {
             FillDirection = Enum.FillDirection.Vertical, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             HorizontalAlignment = if l_FFlagSduiCoreBadgeDetailsSupport_0 then Enum.HorizontalAlignment.Center else nil
         }), 
-        PageHeader = if l_FFlagSduiCoreBadgeDetailsSupport_0 and v58 then nil else if v31.includeNavigationHeaderBar then v4.createElement(v19, {
-            title = v43, 
-            pageSideMargin = v59, 
+        PageHeader = if l_FFlagSduiCoreBadgeDetailsSupport_0 and v59 then nil else if v32.includeNavigationHeaderBar then v4.createElement(v19, {
+            title = v44, 
+            pageSideMargin = v60, 
             layoutOrder = 1, 
-            renderUtilities = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v31.renderUtilities else nil, 
-            navButtonType = v31.navButtonType or l_NavButtonType_0.back, 
-            closeCallback = v50
+            renderUtilities = if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then v32.renderUtilities else nil, 
+            navButtonType = v32.navButtonType or l_NavButtonType_0.back, 
+            closeCallback = v51
         }) else nil, 
-        PageBody = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v45 then v4.createElement(v5.View, {
+        PageBody = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v46 then v4.createElement(v5.View, {
             Size = UDim2.new(1, 0, 1, 0)
         }, v4.createElement(l_Loading_0, {
             AnchorPoint = Vector2.new(0.5, 0.5), 
             Position = UDim2.fromScale(0.5, 0.5)
-        })) else if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v46 then v4.createElement(v22, {
-            refresh = v31.refresh
+        })) else if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v47 then v4.createElement(v22, {
+            refresh = v32.refresh
         }) else v4.createElement("Frame", {
             BorderSizePixel = 0, 
-            Size = UDim2.new(1, (not l_FFlagSduiCoreBadgeDetailsSupport_0 or v31.disableRootPadding) and 0 or -2 * v59, v64 and 0 or 1, 0), 
-            AutomaticSize = if v64 then Enum.AutomaticSize.Y else nil, 
+            Size = UDim2.new(1, (not l_FFlagSduiCoreBadgeDetailsSupport_0 or v32.disableRootPadding) and 0 or -2 * v60, v65 and 0 or 1, 0), 
+            AutomaticSize = if v65 then Enum.AutomaticSize.Y else nil, 
             BackgroundTransparency = 1, 
             LayoutOrder = 2, 
-            ref = if l_FFlagSduiCoreBadgeDetailsSupport_0 then v56 else nil
+            ref = if l_FFlagSduiCoreBadgeDetailsSupport_0 then v57 else nil
         }, {
-            UIFlexItem = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v64 then nil else v4.createElement("UIFlexItem", {
+            UIFlexItem = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v65 then nil else v4.createElement("UIFlexItem", {
                 FlexMode = Enum.UIFlexMode.Fill
             }), 
-            Content = if l_FFlagSduiCoreBadgeDetailsSupport_0 and v58 then nil else if not l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v45 then v4.createElement(l_Loading_0, {
+            Content = if l_FFlagSduiCoreBadgeDetailsSupport_0 and v59 then nil else if not l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v46 then v4.createElement(l_Loading_0, {
                 AnchorPoint = Vector2.new(0.5, 0.5), 
                 Position = UDim2.fromScale(0.5, 0.5)
-            }) else if not l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v46 then v4.createElement(v22, {
-                refresh = v31.refresh
-            }) else v63
+            }) else if not l_FFlagSduiFeedOptionalScrollingFrameFix_0 and v47 then v4.createElement(v22, {
+                refresh = v32.refresh
+            }) else v64
         }), 
-        SnackbarPortal = if v54 and v54.snackbarConfig then v3.createPortal({
+        SnackbarPortal = if v55 and v55.snackbarConfig then v3.createPortal({
             SduiSnackbarScreenGui = v4.createElement("ScreenGui", {
-                DisplayOrder = v31.snackbarPortalLayoutOrder, 
+                DisplayOrder = v32.snackbarPortalLayoutOrder, 
                 ZIndexBehavior = Enum.ZIndexBehavior.Sibling, 
                 IgnoreGuiInset = true
             }, {
                 Snackbar = v4.createElement(l_Snackbar_0, {
-                    title = v54.snackbarConfig.title, 
-                    icon = v54.snackbarConfig.icon, 
-                    Position = UDim2.new(0.5, 0, 1, -v36.Padding.XLarge), 
+                    title = v55.snackbarConfig.title, 
+                    icon = v55.snackbarConfig.icon, 
+                    Position = UDim2.new(0.5, 0, 1, -v37.Padding.XLarge), 
                     AnchorPoint = Vector2.new(0.5, 1), 
                     AutomaticSize = Enum.AutomaticSize.XY, 
-                    onClose = v54.onDismiss
+                    onClose = v55.onDismiss
                 })
             })
         }, l_CoreGui_0) else nil

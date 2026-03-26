@@ -294,6 +294,16 @@ return {
             buttonSurface = v13
         }
     }, 
+    [v7.CTAButtonEditLook] = {
+        context = l_Contexts_0.PlayerProfile, 
+        eventType = l_EventTypes_0.ButtonClick, 
+        additionalInfo = {
+            btn = v3.CTAButtons.EditLook
+        }, 
+        formatRulesForAdditionalInfo = {
+            buttonSurface = v13
+        }
+    }, 
     [v7.CTAButtonShareProfile] = {
         context = l_Contexts_0.PlayerProfile, 
         eventType = l_EventTypes_0.ButtonClick, 

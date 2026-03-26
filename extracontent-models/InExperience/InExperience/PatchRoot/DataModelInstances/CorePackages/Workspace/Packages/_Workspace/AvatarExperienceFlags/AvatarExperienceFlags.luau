@@ -92,6 +92,7 @@ return {
     FFlagAXCatalogCategoryTooltip = require(script.FFlagAXCatalogCategoryTooltip), 
     FFlagAXModeratedItemsFlow = require(script.FFlagAXModeratedItemsFlow), 
     FFlagAXHideMenuOnScroll = require(script.FFlagAXHideMenuOnScroll), 
+    FFlagAXBlockMakeupEquipR6 = require(script.FFlagAXBlockMakeupEquipR6), 
     FFlagAXShowCategoriesWhenNetworkFails = require(script.FFlagAXShowCategoriesWhenNetworkFails), 
     FFlagAXFixRecommendedItemCreatorType = require(script.FFlagAXFixRecommendedItemCreatorType), 
     FFlagAXRemoveCatalogCategoryNavKey = require(script.FFlagAXRemoveCatalogCategoryNavKey), 
@@ -115,6 +116,7 @@ return {
     FFlagAXMigrateAnimationTabsToMVVM = require(script.FFlagAXMigrateAnimationTabsToMVVM), 
     FFlagAXCatalogV2EncodeParams = require(script.FFlagAXCatalogV2EncodeParams), 
     FFlagAXCatalogMakeupSupport = require(script.FFlagAXCatalogMakeupSupport), 
+    FFlagAXUnifiedPurchasePromptMakeupLooksSaveLookType = require(script.FFlagAXUnifiedPurchasePromptMakeupLooksSaveLookType), 
     FFlagAXCatalogMakeupTaxonomy = require(script.FFlagAXCatalogMakeupTaxonomy), 
     FFlagAXAddLookTypeEnumForLogging = require(script.FFlagAXAddLookTypeEnumForLogging), 
     FFlagAXEnableTaxonomyM20ExposureLoggingCatalog = require(script.FFlagAXEnableTaxonomyM20ExposureLoggingCatalog), 
@@ -123,6 +125,7 @@ return {
     FFlagAXCatalogBodySuits = require(script.FFlagAXCatalogBodySuits), 
     FFlagAXShowBodySuitsCategoryInCatalog = require(script.FFlagAXShowBodySuitsCategoryInCatalog), 
     FFlagAXCatalogM41Props = require(script.FFlagAXCatalogM41Props), 
+    FFlagAXFixFocusGuiObjectFocusRef = require(script.FFlagAXFixFocusGuiObjectFocusRef), 
     FFlagAXCatalogM41FullMasks = require(script.FFlagAXCatalogM41FullMasks), 
     FFlagAXCatalogM41HandAndArm = require(script.FFlagAXCatalogM41HandAndArm), 
     FFlagAXM41AllCategoriesToTaxonomy = require(script.FFlagAXM41AllCategoriesToTaxonomy), 
@@ -171,6 +174,7 @@ return {
     FStringAXDurablesSupportExposureLayer = require(script.FStringAXDurablesSupportExposureLayer), 
     FFlagAvatarSwitcherExpiredItemsWarning = require(script.FFlagAvatarSwitcherExpiredItemsWarning), 
     FFlagAXMakeupEquipping = require(script.FFlagAXMakeupEquipping), 
+    FFlagAXCommunityAvatarsMakeupEquipping = require(script.FFlagAXCommunityAvatarsMakeupEquipping), 
     FFlagAXAddSurfaceToAdvancedCustomizationControlBarClickEvent = require(script.FFlagAXAddSurfaceToAdvancedCustomizationControlBarClickEvent), 
     FFlagAXInferCategorySelection = require(script.FFlagAXInferCategorySelection), 
     FFlagEnableHeadShapeForCharacterManager = require(script.FFlagEnableHeadShapeForCharacterManager), 
@@ -234,5 +238,7 @@ return {
     FFlagAXEnhancedAvatarHeadsFtuxConsoleDismiss = require(script.FFlagAXEnhancedAvatarHeadsFtuxConsoleDismiss), 
     FFlagAXEnhancedAvatarHeadsFtuxUseMemStorage = require(script.FFlagAXEnhancedAvatarHeadsFtuxUseMemStorage), 
     FIntAXEnhancedAvatarHeadsFtuxDelay = require(script.FIntAXEnhancedAvatarHeadsFtuxDelay), 
-    FFlagAXFixGamepadNavigationOnOutfitManagement = require(script.FFlagAXFixGamepadNavigationOnOutfitManagement)
+    FFlagAXFixGamepadNavigationOnOutfitManagement = require(script.FFlagAXFixGamepadNavigationOnOutfitManagement), 
+    FFlagAXInspectAndBuyMakeupSupport = require(script.FFlagAXInspectAndBuyMakeupSupport), 
+    FFlagAXFixMakeupLookGrantOutfitHoisting = require(script.FFlagAXFixMakeupLookGrantOutfitHoisting)
 };

@@ -1,7 +1,7 @@
 local l_Parent_0 = script.Parent.Parent;
 local l_ExperimentCacheManager_0 = require(l_Parent_0.ExperimentCacheManager).ExperimentCacheManager;
-local v2 = game:DefineFastInt("FlyoutTestVariantRollout9", -1);
-local v3 = game:DefineFastFlag("EnableFlyoutIxp9", false);
+local v2 = game:DefineFastInt("FlyoutTestVariantRollout11", -1);
+local v3 = game:DefineFastFlag("EnableFlyoutIxp11", false);
 local v4 = game:DefineFastString("FlyoutIxpLayer", "Universality.MorePage");
 local v5 = game:DefineFastString("FlyoutIxpVariantKey", "flyout_side_panel_type");
 local v6 = game:DefineFastInt("IxpFlyoutControl", 0);

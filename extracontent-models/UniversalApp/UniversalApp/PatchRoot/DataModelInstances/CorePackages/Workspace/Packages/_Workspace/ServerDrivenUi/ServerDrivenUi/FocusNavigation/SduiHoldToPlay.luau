@@ -20,9 +20,9 @@ local l_SessionType_0 = v16.SessionType;
 local l_HoldToPlayLauncher_0 = require(l_Parent_0.DiscoveryAnalytics).Constants.Context.HoldToPlayLauncher;
 local _ = require(l_Parent_0.SduiCoreSystem);
 local v21 = require(l_script_FirstAncestor_0.FocusNavigation.SduiFocusNavActions);
-local v22 = require(l_script_FirstAncestor_0.Analytics.useSduiReportExperienceLaunched);
-return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
-    -- upvalues: v3 (copy), l_useButtonHold_0 (copy), l_Constants_0 (copy), l_ButtonHoldStateEnum_0 (copy), l_AppShortcutBarContext_0 (copy), l_GuiService_0 (copy), l_GetInputModeStore_0 (copy), v4 (copy), l_FocusNavigationEventNameEnum_0 (copy), l_usePlayButtonState_0 (copy), l_useOnPlayButtonCallback_0 (copy), l_HoldToPlayLauncher_0 (copy), v22 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), l_PlayButtonStates_0 (copy), v21 (copy)
+local l_useSduiReportExperienceLaunched_0 = require(l_Parent_0.SduiSharedContent).useSduiReportExperienceLaunched;
+return v3.memo(function(v23) --[[ Line: 50 ]] --[[ Name: SduiHoldToPlay ]]
+    -- upvalues: v3 (copy), l_useButtonHold_0 (copy), l_Constants_0 (copy), l_ButtonHoldStateEnum_0 (copy), l_AppShortcutBarContext_0 (copy), l_GuiService_0 (copy), l_GetInputModeStore_0 (copy), v4 (copy), l_FocusNavigationEventNameEnum_0 (copy), l_usePlayButtonState_0 (copy), l_useOnPlayButtonCallback_0 (copy), l_HoldToPlayLauncher_0 (copy), l_useSduiReportExperienceLaunched_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), l_PlayButtonStates_0 (copy), v21 (copy)
     local l_dependencies_0 = v23.sduiContext.dependencies;
     local l_networking_0 = l_dependencies_0.networking;
     local l_sessionService_0 = l_dependencies_0.sessionService;
@@ -38,7 +38,7 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
     local v30 = v28.holdState == l_ButtonHoldStateEnum_0.COMPLETED;
     local v31 = l_AppShortcutBarContext_0.useDispatchButtonHoldStarted();
     local v32 = l_AppShortcutBarContext_0.useDispatchButtonHoldEnded();
-    local v33 = v3.useMemo(function() --[[ Line: 64 ]]
+    local v33 = v3.useMemo(function() --[[ Line: 65 ]]
         -- upvalues: v23 (copy), l_GuiService_0 (ref)
         if v23.guiObject then
             return v23.guiObject;
@@ -52,7 +52,7 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
     if v28.holdState ~= l_ButtonHoldStateEnum_0.HOLDING then
         v34 = v28.holdState == l_ButtonHoldStateEnum_0.COMPLETED;
     end;
-    v3.useEffect(function() --[[ Line: 75 ]]
+    v3.useEffect(function() --[[ Line: 76 ]]
         -- upvalues: v34 (copy), l_GetInputModeStore_0 (ref), v23 (copy), v4 (ref)
         if v34 then
             local v35 = l_GetInputModeStore_0(false).getLastInputType(false);
@@ -60,7 +60,7 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
                 v23.setDisabledForHold(true);
             end;
         end;
-        return function() --[[ Line: 83 ]]
+        return function() --[[ Line: 84 ]]
             -- upvalues: v23 (ref)
             if v23.setDisabledForHold then
                 v23.setDisabledForHold(false);
@@ -70,7 +70,7 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
         v34, 
         v23.setDisabledForHold
     });
-    v3.useEffect(function() --[[ Line: 95 ]]
+    v3.useEffect(function() --[[ Line: 96 ]]
         -- upvalues: v27 (copy), v29 (copy), v31 (copy), l_FocusNavigationEventNameEnum_0 (ref), v28 (copy), v32 (copy)
         if not v27.current and v29 then
             v27.current = true;
@@ -91,8 +91,8 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
     });
     local v36 = l_usePlayButtonState_0(l_networking_0, v23.universeId);
     local v37 = l_useOnPlayButtonCallback_0(v23.universeId, nil, l_HoldToPlayLauncher_0, nil, nil);
-    local v38 = v22(v23.sduiContext, v23.analyticsContext, v23.universeId, v23.placeId);
-    v3.useEffect(function() --[[ Line: 111 ]]
+    local v38 = l_useSduiReportExperienceLaunched_0(v23.sduiContext, v23.analyticsContext, v23.universeId, v23.placeId);
+    v3.useEffect(function() --[[ Line: 112 ]]
         -- upvalues: v30 (copy), v36 (copy), l_SetGamePlaySession_0 (ref), l_sessionService_0 (copy), l_SessionType_0 (ref), v37 (copy), v38 (copy), v28 (copy), l_PlayButtonStates_0 (ref)
         if v30 then
             local l_playButtonState_0 = v36.playButtonState;
@@ -110,7 +110,7 @@ return v3.memo(function(v23) --[[ Line: 49 ]] --[[ Name: SduiHoldToPlay ]]
         v38, 
         v37
     });
-    local v40 = v3.useMemo(function() --[[ Line: 131 ]]
+    local v40 = v3.useMemo(function() --[[ Line: 132 ]]
         -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v28 (copy)
         return {
             keys = {

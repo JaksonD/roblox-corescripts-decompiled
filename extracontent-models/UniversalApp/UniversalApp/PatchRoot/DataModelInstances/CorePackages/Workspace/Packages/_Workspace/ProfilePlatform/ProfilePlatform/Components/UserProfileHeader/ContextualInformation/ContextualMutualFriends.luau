@@ -8,108 +8,109 @@ local v6 = require(l_Parent_0.UIBlox);
 local l_Images_0 = v6.App.ImageSet.Images;
 local l_PlayerContext_0 = v6.App.Indicator.PlayerContext;
 local v9 = require(l_Parent_0.UserProfiles);
-local function v12(v10, v11) --[[ Line: 29 ]] --[[ Name: truncateSomeNames ]]
-    if v11.shouldTruncateLongNames and #v10 >= 13 then
-        return string.format("%s%s", string.sub(v10, 1, 12), "\226\128\166");
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local function v13(v11, v12) --[[ Line: 31 ]] --[[ Name: truncateSomeNames ]]
+    if v12.shouldTruncateLongNames and #v11 >= 13 then
+        return string.format("%s%s", string.sub(v11, 1, 12), "\226\128\166");
     else
-        return v10;
+        return v11;
     end;
 end;
-local function v18(v13, v14) --[[ Line: 36 ]] --[[ Name: getNamesListText ]]
-    -- upvalues: v3 (copy), v12 (copy)
-    local v15 = {};
-    for v16 = 1, math.min(#v13, 3) do
-        table.insert(v15, v13[v16]);
+local function v19(v14, v15) --[[ Line: 38 ]] --[[ Name: getNamesListText ]]
+    -- upvalues: v3 (copy), v13 (copy)
+    local v16 = {};
+    for v17 = 1, math.min(#v14, 3) do
+        table.insert(v16, v14[v17]);
     end;
-    return table.concat(v3.List.map(v15, function(v17) --[[ Line: 44 ]]
-        -- upvalues: v12 (ref), v14 (copy)
-        return v12(v17, v14);
+    return table.concat(v3.List.map(v16, function(v18) --[[ Line: 46 ]]
+        -- upvalues: v13 (ref), v15 (copy)
+        return v13(v18, v15);
     end), ", ");
 end;
-local function _(v19, v20, v21) --[[ Line: 51 ]] --[[ Name: getOthersText ]]
-    local l_oneMutualFriendText_0 = v21.oneMutualFriendText;
-    local l_pluralMutualFriendsText_0 = v21.pluralMutualFriendsText;
-    local l_oneOtherMutualFriendText_0 = v21.oneOtherMutualFriendText;
-    local l_pluralOtherMutualFriendsText_0 = v21.pluralOtherMutualFriendsText;
-    if v19 == 1 then
+local function _(v20, v21, v22) --[[ Line: 53 ]] --[[ Name: getOthersText ]]
+    local l_oneMutualFriendText_0 = v22.oneMutualFriendText;
+    local l_pluralMutualFriendsText_0 = v22.pluralMutualFriendsText;
+    local l_oneOtherMutualFriendText_0 = v22.oneOtherMutualFriendText;
+    local l_pluralOtherMutualFriendsText_0 = v22.pluralOtherMutualFriendsText;
+    if v20 == 1 then
         return l_oneMutualFriendText_0;
-    elseif v19 <= 3 then
+    elseif v20 <= 3 then
         return l_pluralMutualFriendsText_0;
     else
-        local v26 = v19 - v20;
-        return (("+ %* %*"):format(v26, if v26 == 1 then l_oneOtherMutualFriendText_0 else l_pluralOtherMutualFriendsText_0));
+        local v27 = v20 - v21;
+        return (("+ %* %*"):format(v27, if v27 == 1 then l_oneOtherMutualFriendText_0 else l_pluralOtherMutualFriendsText_0));
     end;
 end;
-local function _(v28, v29, v30, v31) --[[ Line: 74 ]] --[[ Name: getText ]]
-    -- upvalues: v18 (copy)
-    local v32 = v18(v29, v30);
-    local v33 = math.min(#v29, 3);
-    local l_oneMutualFriendText_1 = v31.oneMutualFriendText;
-    local l_pluralMutualFriendsText_1 = v31.pluralMutualFriendsText;
-    local l_oneOtherMutualFriendText_1 = v31.oneOtherMutualFriendText;
-    local l_pluralOtherMutualFriendsText_1 = v31.pluralOtherMutualFriendsText;
-    local v38;
-    if v28 == 1 then
-        v38 = l_oneMutualFriendText_1;
-    elseif v28 <= 3 then
-        v38 = l_pluralMutualFriendsText_1;
+local function _(v29, v30, v31, v32) --[[ Line: 76 ]] --[[ Name: getText ]]
+    -- upvalues: v19 (copy)
+    local v33 = v19(v30, v31);
+    local v34 = math.min(#v30, 3);
+    local l_oneMutualFriendText_1 = v32.oneMutualFriendText;
+    local l_pluralMutualFriendsText_1 = v32.pluralMutualFriendsText;
+    local l_oneOtherMutualFriendText_1 = v32.oneOtherMutualFriendText;
+    local l_pluralOtherMutualFriendsText_1 = v32.pluralOtherMutualFriendsText;
+    local v39;
+    if v29 == 1 then
+        v39 = l_oneMutualFriendText_1;
+    elseif v29 <= 3 then
+        v39 = l_pluralMutualFriendsText_1;
     else
-        local v39 = v28 - v33;
-        v38 = ("+ %* %*"):format(v39, if v39 == 1 then l_oneOtherMutualFriendText_1 else l_pluralOtherMutualFriendsText_1);
+        local v40 = v29 - v34;
+        v39 = ("+ %* %*"):format(v40, if v40 == 1 then l_oneOtherMutualFriendText_1 else l_pluralOtherMutualFriendsText_1);
     end;
-    return (("%* %*"):format(v32, v38));
+    return (("%* %*"):format(v33, v39));
 end;
-return function(v41) --[[ Line: 83 ]] --[[ Name: contextualPresence ]]
-    -- upvalues: l_useLocalization_0 (copy), v5 (copy), v3 (copy), v9 (copy), v18 (copy), v2 (copy), l_PlayerContext_0 (copy), l_Images_0 (copy)
-    local v42 = l_useLocalization_0({
-        oneMutualFriendText = v5.OneMutualConnection, 
-        pluralMutualFriendsText = v5.PluralMutualConnections, 
-        oneOtherMutualFriendText = v5.OneOtherMutualConnection, 
-        pluralOtherMutualFriendsText = v5.PluralOtherMutualConnections
+return function(v42) --[[ Line: 85 ]] --[[ Name: contextualPresence ]]
+    -- upvalues: l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v5 (copy), v3 (copy), v9 (copy), v19 (copy), v2 (copy), l_PlayerContext_0 (copy), l_Images_0 (copy)
+    local v43 = l_useLocalization_0({
+        oneMutualFriendText = if l_FFlagConnectionsToFriendsRename_0 then v5.OneMutualFriend else v5.OneMutualConnection, 
+        pluralMutualFriendsText = if l_FFlagConnectionsToFriendsRename_0 then v5.PluralMutualFriends else v5.PluralMutualConnections, 
+        oneOtherMutualFriendText = if l_FFlagConnectionsToFriendsRename_0 then v5.OneOtherMutualFriend else v5.OneOtherMutualConnection, 
+        pluralOtherMutualFriendsText = if l_FFlagConnectionsToFriendsRename_0 then v5.PluralOtherMutualFriends else v5.PluralOtherMutualConnections
     });
-    local l_mutualFriendsCount_0 = v41.mutualFriendsCount;
-    local v45 = v3.List.map(v41.mutualFriends, function(v44) --[[ Line: 93 ]]
-        return (tostring(v44));
+    local l_mutualFriendsCount_0 = v42.mutualFriendsCount;
+    local v46 = v3.List.map(v42.mutualFriends, function(v45) --[[ Line: 103 ]]
+        return (tostring(v45));
     end);
-    local v46 = v9.Hooks.useUserProfilesFetch({
-        userIds = v45, 
+    local v47 = v9.Hooks.useUserProfilesFetch({
+        userIds = v46, 
         query = v9.Queries.userProfilesCombinedNameByUserIds
     });
-    local v47 = {};
-    local v48 = "";
-    local v49 = #v41.mutualFriends;
-    if v46.data then
-        for v50, v51 in ipairs(v45) do
-            local v52 = v9.Selectors.getCombinedNameFromId(v46.data, v51);
-            v48 = v48 .. v52;
-            if v50 ~= v49 then
-                v48 = v48 .. ", ";
+    local v48 = {};
+    local v49 = "";
+    local v50 = #v42.mutualFriends;
+    if v47.data then
+        for v51, v52 in ipairs(v46) do
+            local v53 = v9.Selectors.getCombinedNameFromId(v47.data, v52);
+            v49 = v49 .. v53;
+            if v51 ~= v50 then
+                v49 = v49 .. ", ";
             end;
-            v47[v50] = v52;
+            v48[v51] = v53;
         end;
     end;
-    local v53 = {
+    local v54 = {
         shouldTruncateLongNames = l_mutualFriendsCount_0 > 1
     };
-    local v54 = v18(v47, v53);
-    local v55 = math.min(#v47, 3);
-    local l_oneMutualFriendText_2 = v42.oneMutualFriendText;
-    local l_pluralMutualFriendsText_2 = v42.pluralMutualFriendsText;
-    local l_oneOtherMutualFriendText_2 = v42.oneOtherMutualFriendText;
-    local l_pluralOtherMutualFriendsText_2 = v42.pluralOtherMutualFriendsText;
-    local v60;
+    local v55 = v19(v48, v54);
+    local v56 = math.min(#v48, 3);
+    local l_oneMutualFriendText_2 = v43.oneMutualFriendText;
+    local l_pluralMutualFriendsText_2 = v43.pluralMutualFriendsText;
+    local l_oneOtherMutualFriendText_2 = v43.oneOtherMutualFriendText;
+    local l_pluralOtherMutualFriendsText_2 = v43.pluralOtherMutualFriendsText;
+    local v61;
     if l_mutualFriendsCount_0 == 1 then
-        v60 = l_oneMutualFriendText_2;
+        v61 = l_oneMutualFriendText_2;
     elseif l_mutualFriendsCount_0 <= 3 then
-        v60 = l_pluralMutualFriendsText_2;
+        v61 = l_pluralMutualFriendsText_2;
     else
-        local v61 = l_mutualFriendsCount_0 - v55;
-        v60 = ("+ %* %*"):format(v61, if v61 == 1 then l_oneOtherMutualFriendText_2 else l_pluralOtherMutualFriendsText_2);
+        local v62 = l_mutualFriendsCount_0 - v56;
+        v61 = ("+ %* %*"):format(v62, if v62 == 1 then l_oneOtherMutualFriendText_2 else l_pluralOtherMutualFriendsText_2);
     end;
-    local v62 = ("%* %*"):format(v54, v60);
+    local v63 = ("%* %*"):format(v55, v61);
     return v2.createElement(l_PlayerContext_0, {
         icon = l_Images_0["icons/status/player/friend"], 
-        text = v62, 
+        text = v63, 
         textHeight = 30
     });
 end;

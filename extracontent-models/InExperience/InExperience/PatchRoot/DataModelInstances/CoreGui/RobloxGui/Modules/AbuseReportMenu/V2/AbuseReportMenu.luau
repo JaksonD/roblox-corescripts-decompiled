@@ -15,15 +15,13 @@ local l_LocalizationProvider_0 = require(l_CorePackages_0.Workspace.Packages.Loc
 local function v15(v14) --[[ Line: 41 ]] --[[ Name: AbuseReportMenuContent ]]
     -- upvalues: v4 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_DynamicReportInExpContainer_0 (copy)
     return v4.createElement("Frame", {
-        AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
         Position = UDim2.new(0, 0, 0, 0), 
-        Size = UDim2.new(1, 0, 0, 0)
+        Size = UDim2.new(1, 0, 1, 0)
     }, {
         FocusNavigationCoreScriptsWrapper = v4.createElement(l_FocusRoot_0, {
             frameProps = {
-                AutomaticSize = Enum.AutomaticSize.Y, 
-                Size = UDim2.new(1, 0, 0, 0)
+                Size = UDim2.new(1, 0, 1, 0)
             }, 
             isAutoFocusRoot = true, 
             isIsolated = true, 
@@ -35,7 +33,7 @@ local function v15(v14) --[[ Line: 41 ]] --[[ Name: AbuseReportMenuContent ]]
         })
     });
 end;
-return function(v16) --[[ Line: 64 ]] --[[ Name: AbuseReportMenu ]]
+return function(v16) --[[ Line: 62 ]] --[[ Name: AbuseReportMenu ]]
     -- upvalues: l_Localization_0 (copy), l_LocalizationService_0 (copy), v4 (copy), l_CoreScriptsRootProvider_0 (copy), l_LocalizationProvider_0 (copy), l_RoactServices_0 (copy), l_RoactNetworking_0 (copy), l_requestInternalWrapper_0 (copy), l_HttpService_0 (copy), v15 (copy)
     local v17 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
     return v4.createElement(l_CoreScriptsRootProvider_0, nil, v4.createElement(l_LocalizationProvider_0, {

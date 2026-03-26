@@ -45,8 +45,8 @@ local function v21(v19, v20) --[[ Line: 44 ]] --[[ Name: renderKey ]]
         });
     end;
 end;
-local function v32(v22, v23) --[[ Line: 60 ]] --[[ Name: renderInputIconContainer ]]
-    -- upvalues: l_Roact_0 (copy), v21 (copy), v18 (copy)
+local function v38(v22, v23) --[[ Line: 60 ]] --[[ Name: renderInputIconContainer ]]
+    -- upvalues: l_Roact_0 (copy), v21 (copy), v18 (copy), v7 (copy)
     local v24 = {};
     local v25 = not v23 and 7 or 0;
     v24.ListLayout = l_Roact_0.createElement("UIListLayout", {
@@ -70,13 +70,33 @@ local function v32(v22, v23) --[[ Line: 60 ]] --[[ Name: renderInputIconContaine
                 v24["groupedInput" .. v31] = v21(v30, v26);
                 v26 = v26 + 1;
                 if v29 < #v28 then
-                    v24["groupedDivider" .. v31] = v18("+", v26);
+                    local v32 = "groupedDivider" .. v31;
+                    local l_v26_0 = v26;
+                    local v34 = UDim2.new(0, 19, 0, 16);
+                    v24[v32] = l_Roact_0.createElement(v7, {
+                        themeKey = "TextEmphasis", 
+                        fontKey = "Header1", 
+                        Text = "+", 
+                        Size = v34, 
+                        TextYAlignment = nil, 
+                        LayoutOrder = l_v26_0
+                    });
                     v26 = v26 + 1;
                 end;
             end;
         end;
         if not v23 and v27 < #v22 then
-            v24["divider" .. v27] = v18("/", v26);
+            local v35 = "divider" .. v27;
+            local l_v26_1 = v26;
+            local v37 = UDim2.new(0, 19, 0, 16);
+            v24[v35] = l_Roact_0.createElement(v7, {
+                themeKey = "TextEmphasis", 
+                fontKey = "Header1", 
+                Text = "/", 
+                Size = v37, 
+                TextYAlignment = nil, 
+                LayoutOrder = l_v26_1
+            });
             v26 = v26 + 1;
         end;
     end;
@@ -86,17 +106,17 @@ local function v32(v22, v23) --[[ Line: 60 ]] --[[ Name: renderInputIconContaine
         Position = UDim2.new(1, 0, 0, 0)
     }, v24);
 end;
-return function(v33) --[[ Line: 115 ]] --[[ Name: ControlEntry ]]
-    -- upvalues: v6 (copy), v12 (copy), v11 (copy), l_Roact_0 (copy), v7 (copy), v10 (copy), v32 (copy)
+return function(v39) --[[ Line: 115 ]] --[[ Name: ControlEntry ]]
+    -- upvalues: v6 (copy), v12 (copy), v11 (copy), l_Roact_0 (copy), v7 (copy), v10 (copy), v38 (copy)
     if v6.propValidation then
-        assert(v12(v33));
+        assert(v12(v39));
     end;
     return v11({
-        actionDescription = v33.actionDescription
-    })(function(v34) --[[ Line: 122 ]]
-        -- upvalues: l_Roact_0 (ref), v33 (copy), v7 (ref), v10 (ref), v32 (ref)
+        actionDescription = v39.actionDescription
+    })(function(v40) --[[ Line: 122 ]]
+        -- upvalues: l_Roact_0 (ref), v39 (copy), v7 (ref), v10 (ref), v38 (ref)
         return l_Roact_0.createElement("Frame", {
-            LayoutOrder = v33.LayoutOrder, 
+            LayoutOrder = v39.LayoutOrder, 
             BackgroundTransparency = 1, 
             Size = UDim2.new(1, 0, 0, 50)
         }, {
@@ -107,13 +127,13 @@ return function(v33) --[[ Line: 115 ]] --[[ Name: ControlEntry ]]
                 Size = UDim2.new(0, 200, 0, 22), 
                 AnchorPoint = Vector2.new(0, 0.5), 
                 Position = UDim2.new(0, 0, 0.5, 0), 
-                Text = v34.actionDescription
+                Text = v40.actionDescription
             }), 
-            Divider = v33.hasDivider and l_Roact_0.createElement(v10, {
+            Divider = v39.hasDivider and l_Roact_0.createElement(v10, {
                 Size = UDim2.new(1, 0, 0, 1), 
                 Position = UDim2.new(0, 0, 1, -1)
             }), 
-            Inputs = v32(v33.inputs, v33.isList)
+            Inputs = v38(v39.inputs, v39.isList)
         });
     end);
 end;

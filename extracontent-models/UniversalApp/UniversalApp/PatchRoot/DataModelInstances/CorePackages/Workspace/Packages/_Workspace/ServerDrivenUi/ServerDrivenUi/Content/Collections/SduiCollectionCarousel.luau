@@ -33,327 +33,332 @@ local v31 = require(l_script_FirstAncestor_0.Content.Collections.useUniformItemH
 local v32 = require(l_script_FirstAncestor_0.Content.Collections.ItemHeightMode);
 local v33 = require(l_Parent_0.SharedFlags);
 local l_FFlagLuaAppLayoutParamsInContext_0 = v33.FFlagLuaAppLayoutParamsInContext;
+local l_FFlagLuaAppCompositionSupport_0 = v33.FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = v33.FFlagLuaAppCompositionAlways;
 local l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 = v33.FFlagAddItemHeightModeToSduiCollectionCarousel;
 local l_FFlagSduiServerCompat_0 = v33.FFlagSduiServerCompat;
-local v37 = {};
-return v2.memo(function(v38) --[[ Line: 125 ]] --[[ Name: SduiCollectionCarousel ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v2 (copy), v4 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v5 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_findAnalyticsField_0 (copy), v37 (copy), l_SduiBuilder_0 (copy), v29 (copy), l_useCollectionImpressionsSignal_0 (copy), v20 (copy), l_SduiParseHelpers_0 (copy), l_SduiErrors_0 (copy), v21 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_useTokens_0 (copy), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (copy), v32 (copy), v31 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), l_getSduiComponentWrapper_0 (copy), v26 (copy), l_HoverTileCoordinator_0 (copy), v30 (copy), l_CollectionCarousel_0 (copy), l_WaitForPropWrapper_0 (copy), l_FrameBoundsImpressionsTracker_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_ScrollDetector_0 (copy)
-    local v39 = nil;
-    v39 = if l_FFlagSduiServerCompat_0 then v38.layoutOrder else v38.LayoutOrder;
-    local l_sduiContext_0 = v38.sduiContext;
-    local v46 = v2.useMemo(function() --[[ Line: 136 ]]
-        -- upvalues: v38 (copy)
-        if not v38.items then
+local l_FFlagLuaAppUseFrameBoundsImpressions_0 = v33.FFlagLuaAppUseFrameBoundsImpressions;
+local v40 = {};
+return v2.memo(function(v41) --[[ Line: 131 ]] --[[ Name: SduiCollectionCarousel ]]
+    -- upvalues: l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagSduiServerCompat_0 (copy), v2 (copy), v4 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v5 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), l_findAnalyticsField_0 (copy), v40 (copy), l_SduiBuilder_0 (copy), v29 (copy), l_useCollectionImpressionsSignal_0 (copy), v20 (copy), l_SduiParseHelpers_0 (copy), l_SduiErrors_0 (copy), v21 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_useTokens_0 (copy), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (copy), v32 (copy), v31 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), l_getSduiComponentWrapper_0 (copy), v26 (copy), l_HoverTileCoordinator_0 (copy), v30 (copy), l_CollectionCarousel_0 (copy), l_WaitForPropWrapper_0 (copy), l_FFlagLuaAppUseFrameBoundsImpressions_0 (copy), l_FrameBoundsImpressionsTracker_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_ScrollDetector_0 (copy)
+    local v42 = l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v41.appCompositionEnabled;
+    local v43 = nil;
+    v43 = if l_FFlagSduiServerCompat_0 then v41.layoutOrder else v41.LayoutOrder;
+    local l_sduiContext_0 = v41.sduiContext;
+    local v50 = v2.useMemo(function() --[[ Line: 144 ]]
+        -- upvalues: v41 (copy)
+        if not v41.items then
             return {};
         else
-            for _, v42 in v38.items do
-                if v38.itemTemplateKey and v42.templateKey == nil then
-                    v42.templateKey = v38.itemTemplateKey;
+            for _, v46 in v41.items do
+                if v41.itemTemplateKey and v46.templateKey == nil then
+                    v46.templateKey = v41.itemTemplateKey;
                 end;
             end;
-            if v38.maxItemsToShow and #v38.items > v38.maxItemsToShow then
-                local v43 = {};
-                for v44, v45 in v38.items do
-                    if v44 == v38.maxItemsToShow + 1 then
-                        if v38.overflowItem then
-                            table.insert(v43, v38.overflowItem);
-                            return v43;
+            if v41.maxItemsToShow and #v41.items > v41.maxItemsToShow then
+                local v47 = {};
+                for v48, v49 in v41.items do
+                    if v48 == v41.maxItemsToShow + 1 then
+                        if v41.overflowItem then
+                            table.insert(v47, v41.overflowItem);
+                            return v47;
                         else
                             break;
                         end;
                     else
-                        table.insert(v43, v45);
+                        table.insert(v47, v49);
                     end;
                 end;
-                return v43;
+                return v47;
             else
-                return v38.items;
+                return v41.items;
             end;
         end;
     end, {
-        v38.items, 
-        v38.itemTemplateKey, 
-        v38.maxItemsToShow, 
-        v38.overflowItem
+        v41.items, 
+        v41.itemTemplateKey, 
+        v41.maxItemsToShow, 
+        v41.overflowItem
     });
-    local v47, v48 = v2.useState(nil);
-    local v49 = v2.useRef(nil);
-    local v50 = if v38.layoutOverrides then v4.Dictionary.join(v38.layoutOverrides, {
-        sideMargin = v38.pageSideMargin
+    local v51, v52 = v2.useState(nil);
+    local v53 = v2.useRef(nil);
+    local v54 = if v41.layoutOverrides then v4.Dictionary.join(v41.layoutOverrides, {
+        sideMargin = v41.pageSideMargin
     }) else {
-        sideMargin = v38.pageSideMargin
+        sideMargin = v41.pageSideMargin
     };
-    local v51 = nil;
+    local v55 = nil;
     if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v53 = v2.useCallback(function(v52) --[[ Line: 175 ]]
-            -- upvalues: l_sduiContext_0 (copy), v38 (copy)
-            return l_sduiContext_0.getPageLayoutConfig(v38.collectionItemSize)(v52);
+        local v57 = v2.useCallback(function(v56) --[[ Line: 183 ]]
+            -- upvalues: l_sduiContext_0 (copy), v41 (copy)
+            return l_sduiContext_0.getPageLayoutConfig(v41.collectionItemSize)(v56);
         end, {
-            v38.collectionItemSize, 
+            v41.collectionItemSize, 
             l_sduiContext_0.getPageLayoutConfig
         });
-        v51 = v5.useSignalState(v53);
+        v55 = v5.useSignalState(v57);
     else
-        v51 = l_useCollectionLayoutParams_0(v38.collectionItemSize or l_CollectionItemSize_0.Small, v47, false, v50);
+        v55 = l_useCollectionLayoutParams_0(v41.collectionItemSize or l_CollectionItemSize_0.Small, v51, false, v54);
     end;
-    local v54 = if v46 then #v46 else 0;
-    local v55 = l_findAnalyticsField_0("componentType", v38.analyticsContext.analyticsData or v37) or l_SduiBuilder_0.getComponentType(v38.componentConfig, l_sduiContext_0);
-    local v56, v57 = v29(v38.analyticsContext, v55, v54, v54, l_sduiContext_0, v38.startRow, v38.componentConfig.__isClientBinding);
-    local v58 = v2.useRef({});
-    local v59, v60 = l_useCollectionImpressionsSignal_0(v38.scrollViewPositionChangedSignal);
-    local v61 = v20(v38.index, v57.current, l_sduiContext_0, v38.debugName);
-    local v64 = v2.useCallback(function(v62) --[[ Line: 221 ]]
-        -- upvalues: v46 (copy), v56 (copy), l_SduiParseHelpers_0 (ref), l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v61 (copy), v57 (copy), v21 (ref), v58 (copy), v38 (copy), l_reportUnifiedLoggingImpressions_0 (ref)
-        if v46 == nil or #v46 == 0 then
-            if v62 and #v62 > 0 then
-                local v63 = if v56 then l_SduiParseHelpers_0.stringifyValue(v56.analyticsData) else nil;
+    local v58 = if v50 then #v50 else 0;
+    local v59 = l_findAnalyticsField_0("componentType", v41.analyticsContext.analyticsData or v40) or l_SduiBuilder_0.getComponentType(v41.componentConfig, l_sduiContext_0);
+    local v60, v61 = v29(v41.analyticsContext, v59, v58, v58, l_sduiContext_0, v41.startRow, v41.componentConfig.__isClientBinding);
+    local v62 = v2.useRef({});
+    local v63, v64 = l_useCollectionImpressionsSignal_0(v41.scrollViewPositionChangedSignal);
+    local v65 = v20(v41.index, v61.current, l_sduiContext_0, v41.debugName);
+    local v68 = v2.useCallback(function(v66) --[[ Line: 229 ]]
+        -- upvalues: v50 (copy), v60 (copy), l_SduiParseHelpers_0 (ref), l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v65 (copy), v61 (copy), v21 (ref), v62 (copy), v41 (copy), l_reportUnifiedLoggingImpressions_0 (ref)
+        if v50 == nil or #v50 == 0 then
+            if v66 and #v66 > 0 then
+                local v67 = if v60 then l_SduiParseHelpers_0.stringifyValue(v60.analyticsData) else nil;
                 l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.FailedToLogImpressions, {
                     componentType = "CollectionCarousel", 
-                    name = v61, 
-                    message = ("Failed to log impressions. No configs. indexes: %* analytics: %*"):format(table.concat(v62, ","), v63)
+                    name = v65, 
+                    message = ("Failed to log impressions. No configs. indexes: %* analytics: %*"):format(table.concat(v66, ","), v67)
                 }, l_sduiContext_0.appPage);
             end;
             return;
         else
-            assert(v46, "itemConfigs must exist");
-            if v57.current and v57.current.contentType == "Game" then
-                v21(v62, v58.current, v46, v56, v57.current, v38.startRow, l_sduiContext_0, nil, nil, v61);
+            assert(v50, "itemConfigs must exist");
+            if v61.current and v61.current.contentType == "Game" then
+                v21(v66, v62.current, v50, v60, v61.current, v41.startRow, l_sduiContext_0, nil, nil, v65);
             end;
-            l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v62, v58.current, v57.current, v38.startRow);
+            l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v66, v62.current, v61.current, v41.startRow);
             return;
         end;
     end, {
-        v46, 
-        v38.startRow, 
+        v50, 
+        v41.startRow, 
         l_sduiContext_0, 
-        v57, 
-        v58, 
-        v56, 
-        v61
+        v61, 
+        v62, 
+        v60, 
+        v65
     });
     local l_Scale_0 = l_useTokens_0().Config.UI.Scale;
-    local v66 = nil;
-    local v67 = nil;
-    local v68 = nil;
-    if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then
-        v66 = v38.itemHeightMode == v32.Uniform;
-        v67 = v31(v66);
-        v68 = v67.onItemSizeChanged;
-    end;
-    local v69 = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v67 then v67.measuredMaxHeight ~= nil else false;
     local v70 = nil;
+    local v71 = nil;
+    local v72 = nil;
     if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then
-        if v66 then
-            local l_measuredMaxHeight_0 = v67.measuredMaxHeight;
+        v70 = v41.itemHeightMode == v32.Uniform;
+        v71 = v31(v70);
+        v72 = v71.onItemSizeChanged;
+    end;
+    local v73 = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v71 then v71.measuredMaxHeight ~= nil else false;
+    local v74 = nil;
+    if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then
+        if v70 then
+            local l_measuredMaxHeight_0 = v71.measuredMaxHeight;
             if l_measuredMaxHeight_0 and l_measuredMaxHeight_0 > 0 then
-                v70 = UDim.new(0, l_measuredMaxHeight_0 / l_Scale_0);
+                v74 = UDim.new(0, l_measuredMaxHeight_0 / l_Scale_0);
             end;
-        elseif v38.itemHeightMode ~= v32.Auto then
-            v70 = v38.itemHeightFromWidth;
+        elseif v41.itemHeightMode ~= v32.Auto then
+            v74 = v41.itemHeightFromWidth;
         end;
     else
-        v70 = v38.itemHeightFromWidth;
+        v74 = v41.itemHeightFromWidth;
     end;
-    local v72 = false;
-    if v70 == nil then
-        v72 = #v46 > 0;
+    local v76 = false;
+    if v74 == nil then
+        v76 = #v50 > 0;
     end;
-    local v75 = v2.useCallback(function(v73) --[[ Line: 309 ]]
-        -- upvalues: l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (ref), v66 (ref), v67 (ref), v70 (ref), l_Scale_0 (copy), v38 (copy)
+    local v79 = v2.useCallback(function(v77) --[[ Line: 317 ]]
+        -- upvalues: l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (ref), v70 (ref), v71 (ref), v74 (ref), l_Scale_0 (copy), v41 (copy)
         if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then
-            if v66 then
-                local l_measuredMaxHeight_1 = v67.measuredMaxHeight;
+            if v70 then
+                local l_measuredMaxHeight_1 = v71.measuredMaxHeight;
                 if l_measuredMaxHeight_1 and l_measuredMaxHeight_1 > 0 then
                     return l_measuredMaxHeight_1;
                 else
                     return 0;
                 end;
-            elseif v70 then
-                return v73 * v70.Scale + v70.Offset * l_Scale_0;
+            elseif v74 then
+                return v77 * v74.Scale + v74.Offset * l_Scale_0;
             else
                 return 0;
             end;
-        elseif v38.itemHeightFromWidth then
-            return v73 * v38.itemHeightFromWidth.Scale + v38.itemHeightFromWidth.Offset * l_Scale_0;
+        elseif v41.itemHeightFromWidth then
+            return v77 * v41.itemHeightFromWidth.Scale + v41.itemHeightFromWidth.Offset * l_Scale_0;
         else
             return 0;
         end;
     end, {
-        if not l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v38.itemHeightFromWidth else nil, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v66 else nil, 
+        if not l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v41.itemHeightFromWidth else nil, 
         if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v70 else nil, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v67.measuredMaxHeight else nil, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v74 else nil, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v71.measuredMaxHeight else nil, 
         l_Scale_0
     });
-    local v84 = v2.useCallback(function(v76, v77, v78, _) --[[ Line: 340 ]]
-        -- upvalues: l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v61 (copy), v2 (ref), l_findAnalyticsField_0 (ref), v37 (ref), l_SduiBuilder_0 (ref), v58 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), v56 (copy), v38 (copy), l_FFlagSduiServerCompat_0 (ref), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (ref), v66 (ref), v69 (copy), v26 (ref), v72 (copy), v68 (ref), v67 (ref)
-        if not v76 then
+    local v88 = v2.useCallback(function(v80, v81, v82, _) --[[ Line: 348 ]]
+        -- upvalues: l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v65 (copy), v2 (ref), l_findAnalyticsField_0 (ref), v40 (ref), l_SduiBuilder_0 (ref), v62 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), v60 (copy), v41 (copy), l_FFlagSduiServerCompat_0 (ref), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (ref), v70 (ref), v73 (copy), v26 (ref), v76 (copy), v72 (ref), v71 (ref)
+        if not v80 then
             l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilItem, {
                 componentType = "CollectionCarousel", 
-                name = v61, 
-                message = ("Nil item in CollectionCarousel.renderItem at index %*"):format(v77)
+                name = v65, 
+                message = ("Nil item in CollectionCarousel.renderItem at index %*"):format(v81)
             }, l_sduiContext_0.appPage);
             return v2.createElement(v2.Fragment), "nil";
         else
-            local v80 = l_findAnalyticsField_0("componentType", v76.analyticsData or v37) or l_SduiBuilder_0.getComponentType(v76, l_sduiContext_0);
-            if not v80 then
+            local v84 = l_findAnalyticsField_0("componentType", v80.analyticsData or v40) or l_SduiBuilder_0.getComponentType(v80, l_sduiContext_0);
+            if not v84 then
                 l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentType, {
                     componentType = "CollectionCarousel", 
-                    name = v61, 
-                    message = ("Nil componentType in CollectionCarousel.renderItem at index %*"):format(v77)
+                    name = v65, 
+                    message = ("Nil componentType in CollectionCarousel.renderItem at index %*"):format(v81)
                 }, l_sduiContext_0.appPage);
                 return v2.createElement(v2.Fragment), "nil";
             else
-                local v81 = {
-                    itemPosition = v77, 
-                    itemComponentType = v80, 
-                    componentType = v80
+                local v85 = {
+                    itemPosition = v81, 
+                    itemComponentType = v84, 
+                    componentType = v84
                 };
-                v58.current[v77] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v76.analyticsData, nil, v81, v80);
-                local v82 = l_getSduiComponentWrapper_0(v76);
-                local v83 = v2.createElement(v82, {
-                    componentConfig = v76, 
+                v62.current[v81] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v80.analyticsData, nil, v85, v84);
+                local v86 = l_getSduiComponentWrapper_0(v80);
+                local v87 = v2.createElement(v86, {
+                    componentConfig = v80, 
                     sduiContext = l_sduiContext_0, 
-                    parentAnalyticsContext = if v76.__isClientBinding then nil else v56, 
+                    parentAnalyticsContext = if v80.__isClientBinding then nil else v60, 
                     extraLocalProps = {
-                        scrollViewPositionChangedSignal = v38.scrollViewPositionChangedSignal, 
-                        verticalScrollingFrameRef = v38.verticalScrollingFrameRef, 
-                        index = v77, 
-                        SelectionOrder = if not (not not l_FFlagSduiServerCompat_0 or v38.disableSelectionOrder) and v38.selectionOrderBase then v38.selectionOrderBase + v77 else nil, 
-                        selectionOrder = if not (not l_FFlagSduiServerCompat_0 or v38.disableSelectionOrder) and v38.selectionOrderBase then v38.selectionOrderBase + v77 else nil, 
-                        size = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 and v69 then UDim2.new(1, 0, 1, 0) else nil
+                        scrollViewPositionChangedSignal = v41.scrollViewPositionChangedSignal, 
+                        verticalScrollingFrameRef = v41.verticalScrollingFrameRef, 
+                        index = v81, 
+                        SelectionOrder = if not (not not l_FFlagSduiServerCompat_0 or v41.disableSelectionOrder) and v41.selectionOrderBase then v41.selectionOrderBase + v81 else nil, 
+                        selectionOrder = if not (not l_FFlagSduiServerCompat_0 or v41.disableSelectionOrder) and v41.selectionOrderBase then v41.selectionOrderBase + v81 else nil, 
+                        size = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 and v73 then UDim2.new(1, 0, 1, 0) else nil
                     }, 
-                    debugName = ("%*_%*"):format(v80, v77), 
-                    localAnalyticsData = v81
+                    debugName = ("%*_%*"):format(v84, v81), 
+                    localAnalyticsData = v85
                 });
                 return v2.createElement(v26, {
-                    index = v77, 
-                    impressionsTag = v61, 
-                    Size = if not l_FFlagSduiServerCompat_0 then v78 else nil, 
-                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then if v72 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 then Enum.AutomaticSize.Y else nil else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then v78 else nil, 
-                    automaticSize = if l_FFlagSduiServerCompat_0 then if v72 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 then Enum.AutomaticSize.Y else nil else nil, 
-                    onItemSizeChanged = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 then v68 else nil, 
-                    minHeightBinding = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 then v67.measuredMaxHeightBinding else nil
+                    index = v81, 
+                    impressionsTag = v65, 
+                    Size = if not l_FFlagSduiServerCompat_0 then v82 else nil, 
+                    AutomaticSize = if not l_FFlagSduiServerCompat_0 then if v76 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 then Enum.AutomaticSize.Y else nil else nil, 
+                    size = if l_FFlagSduiServerCompat_0 then v82 else nil, 
+                    automaticSize = if l_FFlagSduiServerCompat_0 then if v76 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 then Enum.AutomaticSize.Y else nil else nil, 
+                    onItemSizeChanged = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 then v72 else nil, 
+                    minHeightBinding = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 then v71.measuredMaxHeightBinding else nil
                 }, {
-                    Item = v83
-                }), v80 or "unknown";
+                    Item = v87
+                }), v84 or "unknown";
             end;
         end;
     end, {
         l_sduiContext_0, 
-        v38.analyticsContext, 
-        v38.scrollViewPositionChangedSignal, 
-        v38.verticalScrollingFrameRef, 
-        v56, 
-        v72, 
-        v61, 
-        v38.index, 
-        v38.disableSelectionOrder, 
-        v38.selectionOrderBase, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v66 else nil, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v68 else nil, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v69 else nil, 
-        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v67.measuredMaxHeightBinding else nil
+        v41.analyticsContext, 
+        v41.scrollViewPositionChangedSignal, 
+        v41.verticalScrollingFrameRef, 
+        v60, 
+        v76, 
+        v65, 
+        v41.index, 
+        v41.disableSelectionOrder, 
+        v41.selectionOrderBase, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v70 else nil, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v72 else nil, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v73 else nil, 
+        if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then v71.measuredMaxHeightBinding else nil
     });
-    local v88 = v2.useMemo(function() --[[ Line: 459 ]]
-        -- upvalues: v38 (copy), v2 (ref), v56 (copy)
-        local v85 = nil;
-        if v38.children then
-            v85 = {};
-            for v86, v87 in v38.children do
-                v85[v86] = v2.cloneElement(v87, {
-                    parentAnalyticsContext = v56
+    local v92 = v2.useMemo(function() --[[ Line: 467 ]]
+        -- upvalues: v41 (copy), v2 (ref), v60 (copy)
+        local v89 = nil;
+        if v41.children then
+            v89 = {};
+            for v90, v91 in v41.children do
+                v89[v90] = v2.cloneElement(v91, {
+                    parentAnalyticsContext = v60
                 });
             end;
         end;
-        return v85;
+        return v89;
     end, {
-        v56, 
-        v38.children
+        v60, 
+        v41.children
     });
-    local v89 = v2.useCallback(function() --[[ Line: 475 ]]
+    local v93 = v2.useCallback(function() --[[ Line: 483 ]]
         -- upvalues: l_HoverTileCoordinator_0 (ref)
         l_HoverTileCoordinator_0.default:reset();
     end, {});
-    local v90 = v30(v49, v57, l_sduiContext_0);
-    local v91 = v2.useMemo(function() --[[ Line: 481 ]]
-        -- upvalues: v38 (copy), v2 (ref), v56 (copy)
-        if v38.headerComponent then
-            return v2.cloneElement(v38.headerComponent, {
-                parentAnalyticsContext = v56
+    local v94 = v30(v53, v61, l_sduiContext_0);
+    local v95 = v2.useMemo(function() --[[ Line: 489 ]]
+        -- upvalues: v41 (copy), v2 (ref), v60 (copy)
+        if v41.headerComponent then
+            return v2.cloneElement(v41.headerComponent, {
+                parentAnalyticsContext = v60
             });
         else
             return nil;
         end;
     end, {
-        v56, 
-        v38.headerComponent
+        v60, 
+        v41.headerComponent
     });
-    local v92 = v2.useMemo(function() --[[ Line: 490 ]]
-        -- upvalues: v38 (copy), v2 (ref), v56 (copy), v47 (copy)
-        if v38.focusNavActionsComponent then
-            return v2.cloneElement(v38.focusNavActionsComponent, {
-                parentAnalyticsContext = v56, 
+    local v96 = v2.useMemo(function() --[[ Line: 498 ]]
+        -- upvalues: v41 (copy), v2 (ref), v60 (copy), v51 (copy)
+        if v41.focusNavActionsComponent then
+            return v2.cloneElement(v41.focusNavActionsComponent, {
+                parentAnalyticsContext = v60, 
                 extraLocalProps = {
-                    guiObject = v47
+                    guiObject = v51
                 }
             });
         else
             return nil;
         end;
     end, {
-        v56, 
-        v38.focusNavActionsComponent, 
-        v47
+        v60, 
+        v41.focusNavActionsComponent, 
+        v51
     });
-    return v2.createElement(v2.Fragment, nil, v4.Dictionary.join(v88 or v37, {
+    return v2.createElement(v2.Fragment, nil, v4.Dictionary.join(v92 or v40, {
         CollectionCarousel = v2.createElement(l_CollectionCarousel_0, {
-            onReachedThresholdFromEnd = v38.onScrollToEnd, 
-            thresholdFromEnd = v38.scrollThresholdFromEnd, 
-            containerRef = v48, 
-            scrollingFrameRef = v49, 
-            getItemHeight = v75, 
-            items = v46, 
-            renderItem = v84, 
-            numColumns = v51.numColumns, 
-            fractionalItemAmount = v51.fractionalItemAmount, 
-            columnGap = v51.columnGap, 
-            sideMargin = v51.sideMargin, 
-            onViewableItemsChanged = v60, 
-            onChangeCanvasPosition = v60, 
-            LayoutOrder = v39, 
-            scrollingEnabledOverride = v38.scrollingEnabledOverride, 
-            AutomaticSize = if not not v72 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v66 then Enum.AutomaticSize.Y else nil, 
-            headerComponent = v91, 
-            backgroundMuralUrl = v38.backgroundMuralUrl, 
-            onScrollButtonEnter = v89, 
-            numItemsToRenderOffScreen = v38.numItemsToRenderOffScreen, 
-            testId = if v38.testId then v38.testId else "--sdui-collection-carousel"
+            collectionItemSize = if v42 then v41.collectionItemSize else nil, 
+            onReachedThresholdFromEnd = v41.onScrollToEnd, 
+            thresholdFromEnd = v41.scrollThresholdFromEnd, 
+            containerRef = v52, 
+            scrollingFrameRef = v53, 
+            getItemHeight = v79, 
+            items = v50, 
+            renderItem = v88, 
+            numColumns = if v42 then nil else v55.numColumns, 
+            fractionalItemAmount = if v42 then nil else v55.fractionalItemAmount, 
+            columnGap = if v42 then nil else v55.columnGap, 
+            sideMargin = if v42 then nil else v55.sideMargin, 
+            onViewableItemsChanged = v64, 
+            onChangeCanvasPosition = v64, 
+            LayoutOrder = v43, 
+            scrollingEnabledOverride = v41.scrollingEnabledOverride, 
+            AutomaticSize = if not not v76 or l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 and v70 then Enum.AutomaticSize.Y else nil, 
+            headerComponent = v95, 
+            backgroundMuralUrl = v41.backgroundMuralUrl, 
+            onScrollButtonEnter = v93, 
+            numItemsToRenderOffScreen = v41.numItemsToRenderOffScreen, 
+            testId = if v41.testId then v41.testId else "--sdui-collection-carousel"
         }), 
         ImpressionDetector = v2.createElement(l_WaitForPropWrapper_0, {
-            waitForProp = v38.startRow, 
-            maxUpdatesToDelay = v38.numUpdatesToDelayImpressions, 
-            wrappedComponent = if v38.shouldUseFrameBoundsForImpressions then v2.createElement(l_FrameBoundsImpressionsTracker_0, {
-                parentRef = v49, 
+            waitForProp = v41.startRow, 
+            maxUpdatesToDelay = v41.numUpdatesToDelayImpressions, 
+            wrappedComponent = if not not l_FFlagLuaAppUseFrameBoundsImpressions_0 or v41.shouldUseFrameBoundsForImpressions then v2.createElement(l_FrameBoundsImpressionsTracker_0, {
+                parentRef = v53, 
                 pageContext = l_sduiContext_0.appPage, 
-                impressionsTag = v61, 
-                scrollViewPositionChangedSignal = v59, 
-                sendImpressions = v64, 
-                dataUpdatedTimestamp = v38.sduiContext.dataUpdatedTimestamp
+                impressionsTag = v65, 
+                scrollViewPositionChangedSignal = v63, 
+                sendImpressions = v68, 
+                dataUpdatedTimestamp = v41.sduiContext.dataUpdatedTimestamp
             }) else v2.createElement(l_ScreenSizeImpressionsTracker_0, {
-                parentRef = v49, 
+                parentRef = v53, 
                 pageContext = l_sduiContext_0.appPage, 
-                impressionsTag = v61, 
-                scrollViewPositionChangedSignal = v59, 
-                sendImpressions = v64, 
-                dataUpdatedTimestamp = v38.sduiContext.dataUpdatedTimestamp
+                impressionsTag = v65, 
+                scrollViewPositionChangedSignal = v63, 
+                sendImpressions = v68, 
+                dataUpdatedTimestamp = v41.sduiContext.dataUpdatedTimestamp
             })
         }), 
         ScrollDetector = v2.createElement(l_ScrollDetector_0, {
-            scrollingFrameRef = v49, 
-            sendScrollEvent = v90
+            scrollingFrameRef = v53, 
+            sendScrollEvent = v94
         }), 
-        FocusNavActions = v92
+        FocusNavActions = v96
     }));
 end);

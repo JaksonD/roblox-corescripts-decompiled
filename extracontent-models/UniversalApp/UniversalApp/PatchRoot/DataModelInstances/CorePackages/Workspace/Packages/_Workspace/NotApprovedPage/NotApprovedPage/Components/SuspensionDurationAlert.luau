@@ -11,24 +11,23 @@ local l_useTokens_0 = v4.Hooks.useTokens;
 local v10 = require(l_Parent_0.BuilderIcons);
 local l_TriangleExclamation_0 = v10.Icon.TriangleExclamation;
 local l_IconVariant_0 = v10.IconVariant;
-local v13 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapPageNavigationContext);
-return v3.memo(function(v14) --[[ Line: 30 ]] --[[ Name: SuspensionDurationAlert ]]
-    -- upvalues: l_useTokens_0 (copy), l_useNotApprovedPageContext_0 (copy), v3 (copy), l_View_0 (copy), l_Icon_0 (copy), l_TriangleExclamation_0 (copy), l_IconSize_0 (copy), l_IconVariant_0 (copy), v13 (copy), l_Text_0 (copy)
-    local v15 = l_useTokens_0();
+return v3.memo(function(v13) --[[ Line: 28 ]] --[[ Name: SuspensionDurationAlert ]]
+    -- upvalues: l_useTokens_0 (copy), l_useNotApprovedPageContext_0 (copy), v3 (copy), l_View_0 (copy), l_Icon_0 (copy), l_TriangleExclamation_0 (copy), l_IconSize_0 (copy), l_IconVariant_0 (copy), l_Text_0 (copy)
+    local v14 = l_useTokens_0();
     local l_translations_0 = l_useNotApprovedPageContext_0().translations;
     return v3.createElement(l_View_0, {
         tag = "size-full-0 auto-y row gap-medium padding-medium align-y-center stroke-thick stroke-default radius-medium bg-shift-100", 
-        LayoutOrder = v14.layoutOrder, 
+        LayoutOrder = v13.layoutOrder, 
         testId = "suspension-duration-alert"
     }, {
         Icon = v3.createElement(l_Icon_0, {
             name = l_TriangleExclamation_0, 
             size = l_IconSize_0.Medium, 
             variant = l_IconVariant_0.Filled, 
-            style = v15.Color.System.Warning, 
+            style = v14.Color.System.Warning, 
             LayoutOrder = 1
         }), 
-        Text = if v13 then v3.createElement(l_View_0, {
+        Text = v3.createElement(l_View_0, {
             tag = "auto-xy row gap-xsmall", 
             LayoutOrder = 2
         }, {
@@ -39,14 +38,9 @@ return v3.memo(function(v14) --[[ Line: 30 ]] --[[ Name: SuspensionDurationAlert
             }), 
             Value = v3.createElement(l_Text_0, {
                 tag = "auto-xy text-body-medium text-align-x-left text-wrap", 
-                Text = v14.timeRemaining, 
+                Text = v13.timeRemaining, 
                 LayoutOrder = 2
             })
-        }) else v3.createElement(l_Text_0, {
-            tag = "auto-xy text-body-medium text-align-x-left text-wrap", 
-            Text = ("<b>%*</b> %*"):format(l_translations_0.suspensionLabel, v14.timeRemaining), 
-            RichText = true, 
-            LayoutOrder = 2
         })
     });
 end);

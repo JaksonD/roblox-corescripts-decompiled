@@ -1,4 +1,5 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("FriendsLanding");
 return require(l_script_FirstAncestor_0.dependencies).enumerate(script.Name, {
-    ConnectionsHeader = "CommonUI.Features.Label.Connections"
+    ConnectionsHeader = "CommonUI.Features.Label.Connections", 
+    FriendsHeader = "CommonUI.Features.Label.Friends"
 });

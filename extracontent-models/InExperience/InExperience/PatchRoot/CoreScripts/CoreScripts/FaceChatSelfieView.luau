@@ -1913,7 +1913,7 @@ local function v369(v367) --[[ Line: 2307 ]] --[[ Name: onCharacterAdded ]]
     end;
 end;
 playerAdded = function(v370) --[[ Line: 2323 ]] --[[ Name: playerAdded ]]
-    -- upvalues: l_Players_0 (copy), v67 (ref), v127 (copy), v369 (copy), v364 (copy), v126 (copy), v349 (copy)
+    -- upvalues: l_Players_0 (copy), v67 (ref), v127 (copy), v369 (copy), v364 (copy), v126 (copy), v100 (ref)
     if v370 ~= nil and v370 == l_Players_0.LocalPlayer then
         debugPrint("Self View: playerAdded()");
         if v67 ~= nil then
@@ -1926,12 +1926,14 @@ playerAdded = function(v370) --[[ Line: 2323 ]] --[[ Name: playerAdded ]]
         v364(v371);
         v126[v127.CharacterAdded] = v370.CharacterAdded:Connect(v364);
         v126[v127.CharacterRemoving] = v370.CharacterRemoving:Connect(function() --[[ Line: 2341 ]]
-            -- upvalues: v127 (ref), v349 (ref)
+            -- upvalues: v127 (ref), v100 (ref)
             clearObserver(v127.DescendantAdded);
             clearObserver(v127.DescendantRemoving);
             clearObserver(v127.HeadSize);
             clearObserver(v127.Color);
-            v349(nil);
+            debugPrint("Self View: updateClone()");
+            clearClone();
+            v100 = false;
             clearObserver(v127.CharacterRemoving);
         end);
     end;

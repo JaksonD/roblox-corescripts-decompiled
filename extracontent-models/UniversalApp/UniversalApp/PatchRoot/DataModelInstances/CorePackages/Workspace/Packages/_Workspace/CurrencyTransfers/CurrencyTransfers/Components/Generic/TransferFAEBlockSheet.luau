@@ -21,20 +21,21 @@ local v19 = require(l_Parent_0.AmpUpsell);
 local l_AccessResponseEnum_0 = v19.AmpEnums.AccessResponseEnum;
 local l_InExpAmpWizardController_0 = v19.InExpAmpWizardController;
 local v22 = require(l_script_FirstAncestor_0.Constants.AmpWizardTransferConstants);
-return function(v23) --[[ Line: 47 ]] --[[ Name: TransferFAEBlockSheet ]]
-    -- upvalues: l_useLocalization_0 (copy), v14 (copy), v18 (copy), v2 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), l_View_0 (copy), l_Text_0 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), l_Button_0 (copy), v17 (copy), l_InExpAmpWizardController_0 (copy), l_AccessResponseEnum_0 (copy), v16 (copy), v15 (copy), v22 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
-    local v24 = l_useLocalization_0({
+local v23 = require(l_script_FirstAncestor_0.Utils.getCounterUserId);
+return function(v24) --[[ Line: 48 ]] --[[ Name: TransferFAEBlockSheet ]]
+    -- upvalues: l_useLocalization_0 (copy), v14 (copy), v18 (copy), v2 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), l_View_0 (copy), l_Text_0 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), l_Button_0 (copy), v17 (copy), v23 (copy), l_InExpAmpWizardController_0 (copy), l_AccessResponseEnum_0 (copy), v16 (copy), v15 (copy), v22 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
+    local v25 = l_useLocalization_0({
         RequireSenderFAE = "Features.Transfers.Transfer.Block.RequireSenderFAE", 
         RequireReceiverFAE = "Features.Transfers.Transfer.Block.RequireReceiverFAE", 
         RequireFAE = "Features.Transfers.Transfer.Body.RequireFAE", 
         Continue = "Features.Transfers.Action.Continue"
     });
-    local v25 = v14();
-    local l_direction_0 = v23.direction;
-    local l_triggerOnClose_0 = v25.triggerOnClose;
-    local v28 = v25.getSelectedAmount(false);
-    local v29 = if l_direction_0 == v18.Send then v24.RequireSenderFAE else v24.RequireReceiverFAE;
-    local l_RequireFAE_0 = v24.RequireFAE;
+    local v26 = v14();
+    local l_direction_0 = v24.direction;
+    local l_triggerOnClose_0 = v26.triggerOnClose;
+    local v29 = v26.getSelectedAmount(false);
+    local v30 = if l_direction_0 == v18.Send then v25.RequireSenderFAE else v25.RequireReceiverFAE;
+    local l_RequireFAE_0 = v25.RequireFAE;
     return v2.createElement(l_Sheet_0.Root, {
         preferCenterSheet = true, 
         snapPoints = {
@@ -90,7 +91,7 @@ return function(v23) --[[ Line: 47 ]] --[[ Name: TransferFAEBlockSheet ]]
                     })
                 }), 
                 TitleText = v2.createElement(l_Text_0, {
-                    Text = v29, 
+                    Text = v30, 
                     tag = "text-heading-medium content-emphasis text-align-x-left text-wrap padding-top-xlarge", 
                     Size = UDim2.new(1, 0, 0, 0), 
                     AutomaticSize = Enum.AutomaticSize.Y, 
@@ -115,31 +116,42 @@ return function(v23) --[[ Line: 47 ]] --[[ Name: TransferFAEBlockSheet ]]
                     tag = "row auto-y size-full-0 gap-small"
                 }, {
                     v2.createElement(l_Button_0, {
-                        text = v24.Continue, 
-                        onActivated = function() --[[ Line: 144 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v23 (copy), v25 (copy), v17 (ref), l_InExpAmpWizardController_0 (ref), l_AccessResponseEnum_0 (ref), l_direction_0 (copy), v18 (ref), v16 (ref), v15 (ref), v28 (copy), l_triggerOnClose_0 (copy), v22 (ref)
-                            if v23.ampFeatureCheck then
-                                local v31 = v25.getPromptState(false);
-                                v25.setPreviousPromptState(v31);
-                                v25.setPromptState(v17.Hidden);
-                                l_InExpAmpWizardController_0.OpenAmpWizardContainerInExp(v23.ampFeatureCheck, function(v32, _) --[[ Line: 155 ]]
-                                    -- upvalues: v25 (ref), l_AccessResponseEnum_0 (ref), l_direction_0 (ref), v18 (ref), v16 (ref), v15 (ref), v28 (ref), l_triggerOnClose_0 (ref)
-                                    local v34 = v25.getPreviousPromptState(false);
-                                    if v34 then
-                                        v25.setPromptState(v34);
+                        text = v25.Continue, 
+                        onActivated = function() --[[ Line: 145 ]] --[[ Name: onActivated ]]
+                            -- upvalues: v24 (copy), v26 (copy), v17 (ref), v23 (ref), l_direction_0 (copy), l_InExpAmpWizardController_0 (ref), l_AccessResponseEnum_0 (ref), v18 (ref), v16 (ref), v15 (ref), v29 (copy), l_triggerOnClose_0 (copy), v22 (ref)
+                            if v24.ampFeatureCheck then
+                                local v32 = v26.getPromptState(false);
+                                v26.setPreviousPromptState(v32);
+                                v26.setPromptState(v17.Hidden);
+                                local v33 = v23(v26, l_direction_0);
+                                local v34 = nil;
+                                if v33 then
+                                    v34 = {
+                                        {
+                                            name = "targetUser", 
+                                            value = tostring(v33), 
+                                            type = "UserId"
+                                        }
+                                    };
+                                end;
+                                l_InExpAmpWizardController_0.OpenAmpWizardContainerInExp(v24.ampFeatureCheck, function(v35, _) --[[ Line: 165 ]]
+                                    -- upvalues: v26 (ref), l_AccessResponseEnum_0 (ref), l_direction_0 (ref), v18 (ref), v16 (ref), v15 (ref), v29 (ref), l_triggerOnClose_0 (ref)
+                                    local v37 = v26.getPreviousPromptState(false);
+                                    if v37 then
+                                        v26.setPromptState(v37);
                                     end;
-                                    if v32 == l_AccessResponseEnum_0.Granted then
+                                    if v35 == l_AccessResponseEnum_0.Granted then
                                         if l_direction_0 == v18.Receive then
-                                            v16(v25);
+                                            v16(v26);
                                             return;
                                         elseif l_direction_0 == v18.Send then
-                                            v15(v25, v28 or 0);
+                                            v15(v26, v29 or 0);
                                             return;
                                         end;
                                     else
                                         l_triggerOnClose_0();
                                     end;
-                                end, nil, v22.ENTRY_POINT_EVENT_CTX, v22.NAMESPACE_NAME);
+                                end, nil, v22.ENTRY_POINT_EVENT_CTX, v34, v22.NAMESPACE_NAME);
                                 return;
                             else
                                 print("No ampFeatureCheck available");

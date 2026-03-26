@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ExpChatPerfTracking", false);
+return game:DefineFastFlag("ExpChatPerfTracking2", false);

@@ -35,5 +35,6 @@ return {
     CONTACTS_FIND_FRIENDS_DESCRIPTION_PV = "Feature.Contacts.FindFriendsBanner.DescriptionPV", 
     SYNC_CONTACTS = "Feature.AddFriends.Label.SyncWithContacts", 
     CONTACTS_LIST_DESCRIPTION = "Feature.Contacts.Description.ContactsListDescription", 
-    ADD_CONTACTS_AS_TRUSTED_CONNECTION_DESCRIPTION = "Feature.Contacts.Description.AddFromContactsDescription"
+    ADD_CONTACTS_AS_TRUSTED_CONNECTION_DESCRIPTION = "Feature.Contacts.Description.AddFromContactsDescription", 
+    ADD_CONTACTS_AS_TRUSTED_FRIENDS_DESCRIPTION = "Feature.Contacts.Description.AddFromContactsTrustedFriends"
 };

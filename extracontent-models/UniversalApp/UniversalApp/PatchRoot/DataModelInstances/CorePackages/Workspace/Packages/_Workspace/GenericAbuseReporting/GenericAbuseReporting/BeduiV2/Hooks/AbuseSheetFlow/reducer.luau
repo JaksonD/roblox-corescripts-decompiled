@@ -3,7 +3,7 @@ local l_HttpService_0 = game:GetService("HttpService");
 local l_LocalPlayer_0 = game:GetService("Players").LocalPlayer;
 local v3 = require(l_Parent_0.Dash);
 local _ = require(script.Parent.AbuseSheetFlowTypes);
-local function v7(v5, v6) --[[ Line: 33 ]] --[[ Name: getInitialState ]]
+local function v7(v5, v6) --[[ Line: 31 ]] --[[ Name: getInitialState ]]
     -- upvalues: l_LocalPlayer_0 (copy)
     return {
         runId = v5, 
@@ -23,11 +23,11 @@ local function v7(v5, v6) --[[ Line: 33 ]] --[[ Name: getInitialState ]]
 end;
 return {
     getInitialState = v7, 
-    getNewRunId = function() --[[ Line: 73 ]] --[[ Name: getNewRunId ]]
+    getNewRunId = function() --[[ Line: 71 ]] --[[ Name: getNewRunId ]]
         -- upvalues: l_HttpService_0 (copy)
         return l_HttpService_0:GenerateGUID(false);
     end, 
-    selectContext = function(v8) --[[ Line: 77 ]] --[[ Name: selectContext ]]
+    selectContext = function(v8) --[[ Line: 75 ]] --[[ Name: selectContext ]]
         local v9 = {};
         for _, v11 in v8.stack do
             if v11.context then
@@ -38,7 +38,7 @@ return {
         end;
         return v9;
     end, 
-    selectFormData = function(v14) --[[ Line: 89 ]] --[[ Name: selectFormData ]]
+    selectFormData = function(v14) --[[ Line: 87 ]] --[[ Name: selectFormData ]]
         local v15 = {};
         for _, v17 in v14.stack do
             if v17.data then
@@ -49,7 +49,7 @@ return {
         end;
         return v15;
     end, 
-    reducer = function(v20, v21) --[[ Line: 101 ]] --[[ Name: reducer ]]
+    reducer = function(v20, v21) --[[ Line: 99 ]] --[[ Name: reducer ]]
         -- upvalues: v3 (copy), v7 (copy)
         local v22 = nil;
         if v21.type == "gotoNode" then

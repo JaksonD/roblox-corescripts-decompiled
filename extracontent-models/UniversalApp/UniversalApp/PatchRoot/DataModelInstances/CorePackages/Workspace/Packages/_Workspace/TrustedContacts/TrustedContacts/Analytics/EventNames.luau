@@ -17,5 +17,6 @@ return {
     TCToastNotificationAcceptClicked = "TCToastNotificationAcceptClicked", 
     TrustedFriendsVPCPrologueOpened = "TrustedFriendsVPCPrologueOpened", 
     TrustedFriendsVPCAskClicked = "TrustedFriendsVPCAskClicked", 
-    TrustedFriendsVPCCancelClicked = "TrustedFriendsVPCCancelClicked"
+    TrustedFriendsVPCCancelClicked = "TrustedFriendsVPCCancelClicked", 
+    TCUpsellLearnMoreClicked = "TCUpsellLearnMoreClicked"
 };

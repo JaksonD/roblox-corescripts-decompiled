@@ -1,5 +1,6 @@
 return {
     DiscountType = {
-        RobloxSubscription = "RobloxSubscription"
+        BlackbirdSubscription = "BlackbirdSubscription", 
+        Uncategorized = "Uncategorized"
     }
 };

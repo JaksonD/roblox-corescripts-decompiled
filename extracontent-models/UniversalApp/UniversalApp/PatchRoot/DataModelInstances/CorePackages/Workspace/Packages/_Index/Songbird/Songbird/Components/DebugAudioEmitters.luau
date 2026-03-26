@@ -53,7 +53,7 @@ local function v12(v6) --[[ Line: 68 ]] --[[ Name: spawnAudioEmitter ]]
         l_Sound_0.SoundId = v6.assetId;
         l_Sound_0.Looped = true;
         l_Sound_0.RollOffMinDistance = 10;
-        l_Sound_0.RollOffMaxDistance = Vector3.new(50, 0, 50, 0).X * 0.8;
+        l_Sound_0.RollOffMaxDistance = 40;
         l_Sound_0.Parent = l_Part_0;
         l_Sound_0:Play();
     else

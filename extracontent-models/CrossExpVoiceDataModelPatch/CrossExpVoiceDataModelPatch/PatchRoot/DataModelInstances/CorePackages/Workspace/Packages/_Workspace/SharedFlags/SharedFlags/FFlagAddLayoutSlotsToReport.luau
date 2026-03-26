@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AddLayoutSlotsToReport", false);
+return game:DefineFastFlag("AddLayoutSlotsToReport2", false);

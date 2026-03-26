@@ -23,75 +23,77 @@ local v21 = require(l_Parent_0.Dash);
 local l_SetGamePlaySession_0 = v20.SetGamePlaySession;
 local l_SessionType_0 = v20.SessionType;
 local v24 = require(l_Parent_0.Loggers).Logger:new(script.Name);
-local l_getFFlagAppChatPCMFixBlocking_0 = require(l_Parent_0.SharedFlags).getFFlagAppChatPCMFixBlocking;
+local v25 = require(l_Parent_0.SharedFlags);
+local l_FFlagConnectionsToFriendsRename_0 = v25.FFlagConnectionsToFriendsRename;
+local l_getFFlagAppChatPCMFixBlocking_0 = v25.getFFlagAppChatPCMFixBlocking;
 local l_RecommendationContextType_0 = require(l_Parent_0.FriendsRodux).config({
     keyPath = "PlayerContextualMenu.Friends"
 }).Enums.RecommendationContextType;
 local l_useRecommendationContextualInfoDisplay_0 = require(l_Parent_0.SocialCommon).Hooks.useRecommendationContextualInfoDisplay;
 local _ = require(script.Parent.Types);
-local v29 = require(script.Parent.getPresenceIcon);
-local v30 = require(script.Parent.getPresenceText);
-local v31 = require(l_Parent_0.UIBlox);
-local l_Images_0 = v31.App.ImageSet.Images;
-local l_Button_0 = v31.App.Button.Button;
-local l_ButtonType_0 = v31.App.Button.Enum.ButtonType;
+local v31 = require(script.Parent.getPresenceIcon);
+local v32 = require(script.Parent.getPresenceText);
+local v33 = require(l_Parent_0.UIBlox);
+local l_Images_0 = v33.App.ImageSet.Images;
+local l_Button_0 = v33.App.Button.Button;
+local l_ButtonType_0 = v33.App.Button.Enum.ButtonType;
 local l_useDesignTokens_0 = require(l_Parent_0.Style).useDesignTokens;
-local v36 = require(l_script_FirstAncestor_0.Analytics);
-local l_setupFireEvent_0 = v36.setupFireEvent;
-local l_EventNames_0 = v36.EventNames;
-local l_AnalyticsService_0 = v36.AnalyticsService;
-local v40 = require(l_script_FirstAncestor_0.Http.Friends);
-local v41 = require(l_script_FirstAncestor_0.Http.Blocking);
-local v42 = require(l_script_FirstAncestor_0.Components.PlayerContextualMenuComponent);
-local v43 = require(script.Parent.HttpRequest.useHttpRequest);
+local v38 = require(l_script_FirstAncestor_0.Analytics);
+local l_setupFireEvent_0 = v38.setupFireEvent;
+local l_EventNames_0 = v38.EventNames;
+local l_AnalyticsService_0 = v38.AnalyticsService;
+local v42 = require(l_script_FirstAncestor_0.Http.Friends);
+local v43 = require(l_script_FirstAncestor_0.Http.Blocking);
+local v44 = require(l_script_FirstAncestor_0.Components.PlayerContextualMenuComponent);
+local v45 = require(script.Parent.HttpRequest.useHttpRequest);
 local _ = require(l_Parent_0.FriendsNetworking).Enums;
-local v45 = require(l_script_FirstAncestor_0.Flags.FFlagUserProfileConsoleUseNewReportFlow);
-local v46 = nil;
-local v47 = nil;
+local v47 = require(l_script_FirstAncestor_0.Flags.FFlagUserProfileConsoleUseNewReportFlow);
 local v48 = nil;
 local v49 = nil;
-if v45 then
-    v46 = require(l_Parent_0.CentralOverlay).Thunks.CloseCentralOverlay;
-    v47 = require(l_Parent_0.GenericAbuseReporting);
-    v48 = v47.Enums.AbuseVector;
-    v49 = v47.Thunks.OpenDynamicAbuseReport;
+local v50 = nil;
+local v51 = nil;
+if v47 then
+    v48 = require(l_Parent_0.CentralOverlay).Thunks.CloseCentralOverlay;
+    v49 = require(l_Parent_0.GenericAbuseReporting);
+    v50 = v49.Enums.AbuseVector;
+    v51 = v49.Thunks.OpenDynamicAbuseReport;
 end;
-local v50 = game:DefineFastString("PlayerContextualMenuVendorImagePath", "rbxasset://textures/ui/Shell/Icons/PlatformLogo.png");
-local v51 = require(l_script_FirstAncestor_0.Flags.FFlagUserBlockingApiPlayerContextMenuEnabled);
-local v52 = game:DefineFastFlag("FFlagPCMAcceptWidthAsProp", false);
+local v52 = game:DefineFastString("PlayerContextualMenuVendorImagePath", "rbxasset://textures/ui/Shell/Icons/PlatformLogo.png");
+local v53 = require(l_script_FirstAncestor_0.Flags.FFlagUserBlockingApiPlayerContextMenuEnabled);
+local v54 = game:DefineFastFlag("FFlagPCMAcceptWidthAsProp", false);
 local l_FFlagSkipBlockModal_0 = require(l_Parent_0.SharedFlags).FFlagSkipBlockModal;
-local v54 = if game:GetEngineFeature("PlatformFriendsService") and game:GetEngineFeature("PlatformFriendsProfile") then game:GetService("PlatformFriendsService") else nil;
-local function v55() --[[ Line: 105 ]] --[[ Name: NO_OPT_CALLBACK ]]
+local v56 = if game:GetEngineFeature("PlatformFriendsService") and game:GetEngineFeature("PlatformFriendsProfile") then game:GetService("PlatformFriendsService") else nil;
+local function v57() --[[ Line: 106 ]] --[[ Name: NO_OPT_CALLBACK ]]
 
 end;
-local function v62(v56, v57, v58, v59, v60) --[[ Line: 107 ]] --[[ Name: launchGameWithAnalytics ]]
+local function v64(v58, v59, v60, v61, v62) --[[ Line: 108 ]] --[[ Name: launchGameWithAnalytics ]]
     -- upvalues: l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), l_EventNames_0 (copy), l_HttpService_0 (copy), v15 (copy), l_AnalyticsService_0 (copy), l_ExperienceService_0 (copy)
-    l_SetGamePlaySession_0(v60, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
-    v56(l_EventNames_0.JoinExperience, {
-        profileUserId = v58
+    l_SetGamePlaySession_0(v62, l_SessionType_0.StructuralIdentifier.GamePlayFromFriendsList, true);
+    v58(l_EventNames_0.JoinExperience, {
+        profileUserId = v60
     });
-    local v61 = l_HttpService_0:GenerateGUID(false);
+    local v63 = l_HttpService_0:GenerateGUID(false);
     v15.Events.gamePlayIntent(l_AnalyticsService_0.EventStream, v15.Constants.Context.PlayerContextualMenu, {
-        friendId = v58, 
-        pageName = v57, 
-        placeId = if v59 then v59.locationPlaceId else nil, 
-        rootPlaceId = if v59 then v59.locationRootPlaceId else nil, 
-        joinAttemptId = v61
+        friendId = v60, 
+        pageName = v59, 
+        placeId = if v61 then v61.locationPlaceId else nil, 
+        rootPlaceId = if v61 then v61.locationRootPlaceId else nil, 
+        joinAttemptId = v63
     });
     l_ExperienceService_0:LaunchExperience({
-        userId = v58, 
-        joinAttemptId = v61
+        userId = v60, 
+        joinAttemptId = v63
     }, "PlayerContextualMenu");
 end;
-local v63 = {
+local v65 = {
     enableExperienceCTAs = true, 
     width = UDim.new(0, 400)
 };
-local v64 = {
-    AcceptConnection = "CommonUI.Features.Label.AcceptConnection", 
-    AddConnection = "CommonUI.Features.Label.AddConnection", 
-    IgnoreConnectionRequest = "Feature.AddFriends.Action.IgnoreConnectionRequest", 
-    RemoveConnection = "CommonUI.Features.Label.RemoveConnection", 
+local v66 = {
+    AcceptConnection = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.AcceptFriend" or "CommonUI.Features.Label.AcceptConnection", 
+    AddConnection = l_FFlagConnectionsToFriendsRename_0 and "Feature.Profile.Label.AddFriend" or "CommonUI.Features.Label.AddConnection", 
+    IgnoreConnectionRequest = l_FFlagConnectionsToFriendsRename_0 and "Feature.AddFriends.Action.IgnoreFriendRequest" or "Feature.AddFriends.Action.IgnoreConnectionRequest", 
+    RemoveConnection = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.Unfriend" or "CommonUI.Features.Label.RemoveConnection", 
     Block = "Feature.Friends.Action.Block", 
     Unblock = "Feature.Friends.Action.Unblock", 
     Chat = "CommonUI.Features.Label.Chat", 
@@ -100,174 +102,174 @@ local v64 = {
     Report = "Feature.Catalog.Action.Report", 
     ViewDetails = "Feature.Profile.Label.ViewDetails", 
     ViewPlatformProfile = "Feature.Friends.Action.ViewPlatformProfile", 
-    ConnectionAdded = "Feature.Friends.Action.ConnectionAdded", 
-    ConnectionRequestSent = "Feature.Friends.Action.ConnectionRequestSent", 
-    ConnectionRemoved = "Feature.Friends.Label.ConnectionRemoved", 
+    ConnectionAdded = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendAdded" or "Feature.Friends.Action.ConnectionAdded", 
+    ConnectionRequestSent = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendRequestSent" or "Feature.Friends.Action.ConnectionRequestSent", 
+    ConnectionRemoved = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendRemoved" or "Feature.Friends.Label.ConnectionRemoved", 
     FriendRequestIgnored = "Feature.AddFriends.Action.RequestIgnored", 
     SomethingIsWrong = "Feature.Toast.NetworkingError.SomethingIsWrong", 
     UserBlocked = "Feature.Profile.Action.UserBlocked"
 };
-return function(v65) --[[ Line: 197 ]] --[[ Name: PlayerContextualMenuContainer ]]
-    -- upvalues: v3 (copy), v63 (copy), l_RoactRodux_0 (copy), v9 (copy), v16 (copy), l_AppSessionService_0 (copy), l_useLocalization_0 (copy), v64 (copy), v14 (copy), v4 (copy), l_setupFireEvent_0 (copy), l_AnalyticsService_0 (copy), l_dependencyArray_0 (copy), v43 (copy), l_Url_0 (copy), l_getFFlagAppChatPCMFixBlocking_0 (copy), v51 (copy), v41 (copy), v24 (copy), l_useDesignTokens_0 (copy), v5 (copy), v54 (copy), l_RecommendationContextType_0 (copy), v29 (copy), v30 (copy), l_useRecommendationContextualInfoDisplay_0 (copy), l_EventNames_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v15 (copy), l_getCurrentRouteState_0 (copy), l_AppPage_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v62 (copy), v45 (copy), v49 (ref), v48 (ref), v46 (ref), l_FFlagSkipBlockModal_0 (copy), v40 (copy), l_Images_0 (copy), v50 (copy), v55 (copy), v21 (copy), v42 (copy), v52 (copy)
-    local v66 = v3.Dictionary.union(v63, v65);
-    local v67 = l_RoactRodux_0.useDispatch();
-    local v68 = v9.useLocalUserId();
-    local v69 = v16.useNavigation();
-    local v70 = v9.useRoactService(l_AppSessionService_0);
-    local v71 = l_useLocalization_0(v64);
-    local v72 = {
-        toastMessage = v71.SomethingIsWrong, 
+return function(v67) --[[ Line: 212 ]] --[[ Name: PlayerContextualMenuContainer ]]
+    -- upvalues: v3 (copy), v65 (copy), l_RoactRodux_0 (copy), v9 (copy), v16 (copy), l_AppSessionService_0 (copy), l_useLocalization_0 (copy), v66 (copy), v14 (copy), v4 (copy), l_setupFireEvent_0 (copy), l_AnalyticsService_0 (copy), l_dependencyArray_0 (copy), v45 (copy), l_Url_0 (copy), l_getFFlagAppChatPCMFixBlocking_0 (copy), v53 (copy), v43 (copy), v24 (copy), l_useDesignTokens_0 (copy), v5 (copy), v56 (copy), l_RecommendationContextType_0 (copy), v31 (copy), v32 (copy), l_useRecommendationContextualInfoDisplay_0 (copy), l_EventNames_0 (copy), l_SetGamePlaySession_0 (copy), l_SessionType_0 (copy), v15 (copy), l_getCurrentRouteState_0 (copy), l_AppPage_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy), v64 (copy), v47 (copy), v51 (ref), v50 (ref), v48 (ref), l_FFlagSkipBlockModal_0 (copy), v42 (copy), l_Images_0 (copy), v52 (copy), v57 (copy), v21 (copy), v44 (copy), v54 (copy)
+    local v68 = v3.Dictionary.union(v65, v67);
+    local v69 = l_RoactRodux_0.useDispatch();
+    local v70 = v9.useLocalUserId();
+    local v71 = v16.useNavigation();
+    local v72 = v9.useRoactService(l_AppSessionService_0);
+    local v73 = l_useLocalization_0(v66);
+    local v74 = {
+        toastMessage = v73.SomethingIsWrong, 
         isLocalized = true, 
         toastType = v14.Enums.ToastType.NetworkingError
     };
-    local v73 = v4.useMemo(function() --[[ Line: 213 ]]
-        -- upvalues: l_setupFireEvent_0 (ref), l_AnalyticsService_0 (ref), v68 (copy)
+    local v75 = v4.useMemo(function() --[[ Line: 228 ]]
+        -- upvalues: l_setupFireEvent_0 (ref), l_AnalyticsService_0 (ref), v70 (copy)
         return l_setupFireEvent_0({
             analytics = l_AnalyticsService_0, 
             infoForAllEvents = {
-                uid = v68
+                uid = v70
             }
         });
-    end, l_dependencyArray_0(v68));
-    local v74 = v43();
-    local v75, v76 = v4.useState({
+    end, l_dependencyArray_0(v70));
+    local v76 = v45();
+    local v77, v78 = v4.useState({
         status = "NotStarted", 
         isPlayable = false
     });
-    v4.useEffect(function() --[[ Line: 229 ]]
-        -- upvalues: v66 (copy), v76 (copy), v74 (copy), l_Url_0 (ref)
-        if v66.subjectPresence and v66.subjectPresence.locationUniverseId then
-            v76({
+    v4.useEffect(function() --[[ Line: 244 ]]
+        -- upvalues: v68 (copy), v78 (copy), v76 (copy), l_Url_0 (ref)
+        if v68.subjectPresence and v68.subjectPresence.locationUniverseId then
+            v78({
                 status = "Fetching", 
                 isPlayable = false
             });
-            v74(l_Url_0.GAME_URL .. "v1/games/multiget-playability-status?universeIds=" .. v66.subjectPresence.locationUniverseId, "GET"):andThen(function(v77) --[[ Line: 241 ]]
-                -- upvalues: v76 (ref)
-                if v77.responseBody and v77.responseBody[1] then
-                    v76({
+            v76(l_Url_0.GAME_URL .. "v1/games/multiget-playability-status?universeIds=" .. v68.subjectPresence.locationUniverseId, "GET"):andThen(function(v79) --[[ Line: 256 ]]
+                -- upvalues: v78 (ref)
+                if v79.responseBody and v79.responseBody[1] then
+                    v78({
                         status = "Finished", 
-                        isPlayable = v77.responseBody[1].isPlayable
+                        isPlayable = v79.responseBody[1].isPlayable
                     });
                 end;
-            end):catch(function(_) --[[ Line: 249 ]]
-                -- upvalues: v76 (ref)
-                v76({
+            end):catch(function(_) --[[ Line: 264 ]]
+                -- upvalues: v78 (ref)
+                v78({
                     status = "Failed", 
                     isPlayable = false
                 });
             end);
         end;
     end, {
-        (tostring(v66.subjectPresence))
+        (tostring(v68.subjectPresence))
     });
-    local v79 = nil;
+    local v81 = nil;
     if l_getFFlagAppChatPCMFixBlocking_0() then
-        v79 = l_RoactRodux_0.useSelector(function(v80) --[[ Line: 261 ]]
-            -- upvalues: v51 (ref), v66 (copy)
-            return (if v51 then v80.PlayerContextualMenu.UserBlocking.isBlockedByMe else v80.PlayerContextualMenu.IsBlockedByMe)[v66.subjectUserId] == nil;
+        v81 = l_RoactRodux_0.useSelector(function(v82) --[[ Line: 276 ]]
+            -- upvalues: v53 (ref), v68 (copy)
+            return (if v53 then v82.PlayerContextualMenu.UserBlocking.isBlockedByMe else v82.PlayerContextualMenu.IsBlockedByMe)[v68.subjectUserId] == nil;
         end);
-        v4.useEffect(function() --[[ Line: 269 ]]
-            -- upvalues: v79 (ref), v67 (copy), v41 (ref), v66 (copy), v24 (ref)
-            if v79 then
-                v67(v41.IsBlockedById.API({
-                    userId = v66.subjectUserId
-                })):andThen(function() --[[ Line: 274 ]]
+        v4.useEffect(function() --[[ Line: 284 ]]
+            -- upvalues: v81 (ref), v69 (copy), v43 (ref), v68 (copy), v24 (ref)
+            if v81 then
+                v69(v43.IsBlockedById.API({
+                    userId = v68.subjectUserId
+                })):andThen(function() --[[ Line: 289 ]]
 
-                end):catch(function() --[[ Line: 275 ]]
+                end):catch(function() --[[ Line: 290 ]]
                     -- upvalues: v24 (ref)
                     v24:warning("Failed to check if subject user is blocked");
                 end);
             end;
         end, {
-            v79, 
-            v67, 
-            v66.subjectUserId
+            v81, 
+            v69, 
+            v68.subjectUserId
         });
     end;
-    local v82 = l_useDesignTokens_0(function(v81) --[[ Line: 282 ]]
+    local v84 = l_useDesignTokens_0(function(v83) --[[ Line: 297 ]]
         return {
-            iconEmphasis = v81.Semantic.Icon.Emphasis, 
-            onlinePresence = v81.Semantic.Color.Common.Online, 
-            joinEventButtonHeight = v81.Global.Size_600
+            iconEmphasis = v83.Semantic.Icon.Emphasis, 
+            onlinePresence = v83.Semantic.Color.Common.Online, 
+            joinEventButtonHeight = v83.Global.Size_600
         };
     end);
-    local v83 = v5.Hooks.useUserProfilesFetch({
+    local v85 = v5.Hooks.useUserProfilesFetch({
         userIds = {
-            v66.subjectUserId
+            v68.subjectUserId
         }, 
         query = v5.Queries.userProfilesDisplayUserPlatformNamesByUserIds
     });
-    local v84 = "";
-    local v85 = "";
     local v86 = "";
     local v87 = "";
-    if v83.data then
-        v84 = v5.Selectors.getUsernameFromId(v83.data, v66.subjectUserId);
-        v85 = v5.Selectors.getDisplayNameFromId(v83.data, v66.subjectUserId);
-        v86 = v5.Selectors.getPlatformNameFromId(v83.data, v66.subjectUserId);
-        if v54 then
-            v87 = v5.Selectors.getPlatformProfileIdFromId(v83.data, v66.subjectUserId);
+    local v88 = "";
+    local v89 = "";
+    if v85.data then
+        v86 = v5.Selectors.getUsernameFromId(v85.data, v68.subjectUserId);
+        v87 = v5.Selectors.getDisplayNameFromId(v85.data, v68.subjectUserId);
+        v88 = v5.Selectors.getPlatformNameFromId(v85.data, v68.subjectUserId);
+        if v56 then
+            v89 = v5.Selectors.getPlatformProfileIdFromId(v85.data, v68.subjectUserId);
         end;
     end;
-    local v88 = if v86 then v86 ~= "" else false;
-    if v66.recommendationContext == l_RecommendationContextType_0.Contacts then
-        v85 = v66.contactName or "";
+    local v90 = if v88 then v88 ~= "" else false;
+    if v68.recommendationContext == l_RecommendationContextType_0.Contacts then
+        v87 = v68.contactName or "";
     end;
-    local v89, v90 = v29(v66.subjectPresence, v82);
-    if v66.robloxFriendshipStatus ~= Enum.FriendStatus.Friend then
-        v89 = nil;
-        v90 = nil;
+    local v91, v92 = v31(v68.subjectPresence, v84);
+    if v68.robloxFriendshipStatus ~= Enum.FriendStatus.Friend then
+        v91 = nil;
+        v92 = nil;
     end;
-    local v91 = if v66.robloxFriendshipStatus == Enum.FriendStatus.Friend then v30(v66.subjectPresence) else nil;
-    if v66.recommendationContext then
-        local v92 = l_useRecommendationContextualInfoDisplay_0({
-            contextType = v66.recommendationContext, 
-            mutualFriendsCount = v66.mutualFriendsCount
+    local v93 = if v68.robloxFriendshipStatus == Enum.FriendStatus.Friend then v32(v68.subjectPresence) else nil;
+    if v68.recommendationContext then
+        local v94 = l_useRecommendationContextualInfoDisplay_0({
+            contextType = v68.recommendationContext, 
+            mutualFriendsCount = v68.mutualFriendsCount
         });
-        v91 = v92.text;
-        v89 = v92.icon;
+        v93 = v94.text;
+        v91 = v94.icon;
     end;
-    local v94 = v4.useCallback(function() --[[ Line: 333 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v70 (copy), l_SetGamePlaySession_0 (ref), l_SessionType_0 (ref), v15 (ref), l_AnalyticsService_0 (ref), l_getCurrentRouteState_0 (ref), v69 (copy), l_AppPage_0 (ref)
-        v73(l_EventNames_0.ViewExperienceDetails, {
-            profileUserId = v66.subjectUserId
+    local v96 = v4.useCallback(function() --[[ Line: 348 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), v72 (copy), l_SetGamePlaySession_0 (ref), l_SessionType_0 (ref), v15 (ref), l_AnalyticsService_0 (ref), l_getCurrentRouteState_0 (ref), v71 (copy), l_AppPage_0 (ref)
+        v75(l_EventNames_0.ViewExperienceDetails, {
+            profileUserId = v68.subjectUserId
         });
-        v67(v66.closeCentralOverlayThunk());
-        if v66.subjectPresence and v66.subjectPresence.locationUniverseId then
-            local v93 = tostring(v66.subjectPresence.locationUniverseId);
-            if v70 then
-                l_SetGamePlaySession_0(v70, l_SessionType_0.StructuralIdentifier.GameDetailSource, false);
+        v69(v68.closeCentralOverlayThunk());
+        if v68.subjectPresence and v68.subjectPresence.locationUniverseId then
+            local v95 = tostring(v68.subjectPresence.locationUniverseId);
+            if v72 then
+                l_SetGamePlaySession_0(v72, l_SessionType_0.StructuralIdentifier.GameDetailSource, false);
             end;
             v15.Events.gameDetailReferral(l_AnalyticsService_0.EventStream, v15.Constants.Context.PlayerContextualMenu, {
-                pg = l_getCurrentRouteState_0(v69).routeName, 
-                universeId = v93, 
-                pid = v66.subjectPresence.locationPlaceId, 
-                friendId = v66.subjectUserId
+                pg = l_getCurrentRouteState_0(v71).routeName, 
+                universeId = v95, 
+                pid = v68.subjectPresence.locationPlaceId, 
+                friendId = v68.subjectUserId
             });
-            v69.navigate(l_AppPage_0.ExperienceDetail, {
-                detail = v93
+            v71.navigate(l_AppPage_0.ExperienceDetail, {
+                detail = v95
             });
         end;
     end, {
-        v73, 
-        v66.subjectUserId, 
-        v66.closeCentralOverlayThunk, 
-        v66.subjectPresence, 
-        v69, 
-        v70
+        v75, 
+        v68.subjectUserId, 
+        v68.closeCentralOverlayThunk, 
+        v68.subjectPresence, 
+        v71, 
+        v72
     });
-    local v95 = v4.useMemo(function() --[[ Line: 371 ]]
-        -- upvalues: v66 (copy), v75 (copy), v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v94 (copy), v82 (copy), v71 (copy)
-        if v66.enableExperienceCTAs then
-            if (if v66.subjectPresence then v66.subjectPresence.status == "InGame" else false) and not v75.isPlayable then
-                return function() --[[ Line: 379 ]]
-                    -- upvalues: v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v94 (ref), v82 (ref), v71 (ref)
+    local v97 = v4.useMemo(function() --[[ Line: 386 ]]
+        -- upvalues: v68 (copy), v77 (copy), v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v96 (copy), v84 (copy), v73 (copy)
+        if v68.enableExperienceCTAs then
+            if (if v68.subjectPresence then v68.subjectPresence.status == "InGame" else false) and not v77.isPlayable then
+                return function() --[[ Line: 394 ]]
+                    -- upvalues: v4 (ref), l_Button_0 (ref), l_ButtonType_0 (ref), v96 (ref), v84 (ref), v73 (ref)
                     return v4.createElement(l_Button_0, {
                         buttonType = l_ButtonType_0.PrimarySystem, 
-                        onActivated = v94, 
+                        onActivated = v96, 
                         isLoading = false, 
-                        size = UDim2.new(1, 0, 0, v82.joinEventButtonHeight), 
-                        text = v71.ViewDetails, 
+                        size = UDim2.new(1, 0, 0, v84.joinEventButtonHeight), 
+                        text = v73.ViewDetails, 
                         layoutOrder = 100
                     });
                 end;
@@ -275,45 +277,45 @@ return function(v65) --[[ Line: 197 ]] --[[ Name: PlayerContextualMenuContainer 
                 return nil;
             end;
         else
-            return function() --[[ Line: 396 ]]
+            return function() --[[ Line: 411 ]]
                 -- upvalues: v4 (ref)
                 return v4.createElement("Folder");
             end;
         end;
     end, {
-        v75, 
-        tostring(v66.subjectPresence), 
-        v66.enableExperienceCTAs
+        v77, 
+        tostring(v68.subjectPresence), 
+        v68.enableExperienceCTAs
     });
-    local v96 = if v66.robloxFriendshipStatus == Enum.FriendStatus.Friend and v66.subjectPresence and v66.subjectPresence.status == "InGame" then v71.Join else nil;
-    local v97 = v4.useCallback(function() --[[ Line: 414 ]]
-        -- upvalues: v62 (ref), v73 (copy), l_getCurrentRouteState_0 (ref), v69 (copy), v66 (copy), v70 (copy)
-        v62(v73, l_getCurrentRouteState_0(v69).routeName, v66.subjectUserId, v66.subjectPresence, v70);
-    end, l_dependencyArray_0(v73, v69, v66.subjectUserId, v66.subjectPresence, v70));
-    local v98 = v4.useCallback(function() --[[ Line: 425 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v45 (ref), v49 (ref), v48 (ref), v46 (ref), v69 (copy), l_AppPage_0 (ref)
-        v73(l_EventNames_0.ReportPlayer, {
-            profileUserId = v66.subjectUserId
+    local v98 = if v68.robloxFriendshipStatus == Enum.FriendStatus.Friend and v68.subjectPresence and v68.subjectPresence.status == "InGame" then v73.Join else nil;
+    local v99 = v4.useCallback(function() --[[ Line: 429 ]]
+        -- upvalues: v64 (ref), v75 (copy), l_getCurrentRouteState_0 (ref), v71 (copy), v68 (copy), v72 (copy)
+        v64(v75, l_getCurrentRouteState_0(v71).routeName, v68.subjectUserId, v68.subjectPresence, v72);
+    end, l_dependencyArray_0(v75, v71, v68.subjectUserId, v68.subjectPresence, v72));
+    local v100 = v4.useCallback(function() --[[ Line: 440 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), v47 (ref), v51 (ref), v50 (ref), v48 (ref), v71 (copy), l_AppPage_0 (ref)
+        v75(l_EventNames_0.ReportPlayer, {
+            profileUserId = v68.subjectUserId
         });
-        if v66.onReportActivated then
-            v66.onReportActivated();
+        if v68.onReportActivated then
+            v68.onReportActivated();
             return;
         else
-            v67(v66.closeCentralOverlayThunk());
-            if v45 then
-                v67(v49({
-                    abuseVector = v48.UserProfile, 
-                    targetId = v66.subjectUserId, 
-                    onClose = function() --[[ Line: 436 ]] --[[ Name: onClose ]]
-                        -- upvalues: v67 (ref), v46 (ref)
-                        v67(v46());
+            v69(v68.closeCentralOverlayThunk());
+            if v47 then
+                v69(v51({
+                    abuseVector = v50.UserProfile, 
+                    targetId = v68.subjectUserId, 
+                    onClose = function() --[[ Line: 451 ]] --[[ Name: onClose ]]
+                        -- upvalues: v69 (ref), v48 (ref)
+                        v69(v48());
                     end
                 }));
                 return;
             else
-                v69.navigate(l_AppPage_0.ReportScreen, {
+                v71.navigate(l_AppPage_0.ReportScreen, {
                     reportData = {
-                        assetId = v66.subjectUserId, 
+                        assetId = v68.subjectUserId, 
                         reportAbuseVector = "user", 
                         context = "profile", 
                         platform = "console"
@@ -322,38 +324,38 @@ return function(v65) --[[ Line: 197 ]] --[[ Name: PlayerContextualMenuContainer 
                 return;
             end;
         end;
-    end, l_dependencyArray_0(v67, v69, v66.subjectUserId, v66.closeCentralOverlayThunk, v66.onReportActivated));
-    local v99 = if v54 then v4.useCallback(function() --[[ Line: 463 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v54 (ref), v87 (ref)
-        v73(l_EventNames_0.ViewPlatformProfile, {
-            profileUserId = v66.subjectUserId
+    end, l_dependencyArray_0(v69, v71, v68.subjectUserId, v68.closeCentralOverlayThunk, v68.onReportActivated));
+    local v101 = if v56 then v4.useCallback(function() --[[ Line: 478 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v56 (ref), v89 (ref)
+        v75(l_EventNames_0.ViewPlatformProfile, {
+            profileUserId = v68.subjectUserId
         });
-        v54:ShowProfile(v87);
+        v56:ShowProfile(v89);
     end, {
-        v87, 
-        v67, 
+        v89, 
         v69, 
-        v66.subjectUserId, 
-        v66.closeCentralOverlayThunk
+        v71, 
+        v68.subjectUserId, 
+        v68.closeCentralOverlayThunk
     }) else nil;
-    local v101 = v4.useCallback(function() --[[ Line: 472 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), l_FFlagSkipBlockModal_0 (ref), v67 (copy), v69 (copy), l_AppPage_0 (ref), v14 (ref), v71 (copy), v41 (ref), v68 (copy), v72 (copy)
-        v73(l_EventNames_0.BlockPlayer, {
-            profileUserId = v66.subjectUserId
+    local v103 = v4.useCallback(function() --[[ Line: 487 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), l_FFlagSkipBlockModal_0 (ref), v69 (copy), v71 (copy), l_AppPage_0 (ref), v14 (ref), v73 (copy), v43 (ref), v70 (copy), v74 (copy)
+        v75(l_EventNames_0.BlockPlayer, {
+            profileUserId = v68.subjectUserId
         });
-        if not l_FFlagSkipBlockModal_0 or not v66.skipBlockModal then
-            if v66.onBlockActivated then
-                v66.onBlockActivated();
+        if not l_FFlagSkipBlockModal_0 or not v68.skipBlockModal then
+            if v68.onBlockActivated then
+                v68.onBlockActivated();
                 return;
             else
-                v67(v66.closeCentralOverlayThunk());
-                v69.push(l_AppPage_0.BlockingModal, {
+                v69(v68.closeCentralOverlayThunk());
+                v71.push(l_AppPage_0.BlockingModal, {
                     navProps = {
-                        userId = v66.subjectUserId, 
-                        onBlockSuccess = function() --[[ Line: 483 ]] --[[ Name: onBlockSuccess ]]
-                            -- upvalues: v67 (ref), v14 (ref), v71 (ref)
-                            v67(v14.Actions.SetCurrentToastMessage({
-                                toastMessage = v71.UserBlocked, 
+                        userId = v68.subjectUserId, 
+                        onBlockSuccess = function() --[[ Line: 498 ]] --[[ Name: onBlockSuccess ]]
+                            -- upvalues: v69 (ref), v14 (ref), v73 (ref)
+                            v69(v14.Actions.SetCurrentToastMessage({
+                                toastMessage = v73.UserBlocked, 
                                 isLocalized = true, 
                                 toastType = v14.Enums.ToastType.SuccessConfirmation
                             }));
@@ -363,272 +365,272 @@ return function(v65) --[[ Line: 197 ]] --[[ Name: PlayerContextualMenuContainer 
                 return;
             end;
         else
-            v67(v41.BlockUserById.API({
-                userId = v66.subjectUserId, 
-                currentUserId = v68
-            })):andThen(function() --[[ Line: 498 ]]
-                -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
-                v67(v14.Actions.SetCurrentToastMessage({
-                    toastMessage = v71.UserBlocked, 
+            v69(v43.BlockUserById.API({
+                userId = v68.subjectUserId, 
+                currentUserId = v70
+            })):andThen(function() --[[ Line: 513 ]]
+                -- upvalues: v69 (ref), v14 (ref), v73 (ref), v68 (ref)
+                v69(v14.Actions.SetCurrentToastMessage({
+                    toastMessage = v73.UserBlocked, 
                     isLocalized = true, 
                     toastType = v14.Enums.ToastType.SuccessConfirmation
                 }));
-                v67(v66.closeCentralOverlayThunk());
-            end):catch(function(_) --[[ Line: 506 ]]
-                -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-                v67(v14.Actions.SetCurrentToastMessage(v72));
+                v69(v68.closeCentralOverlayThunk());
+            end):catch(function(_) --[[ Line: 521 ]]
+                -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+                v69(v14.Actions.SetCurrentToastMessage(v74));
             end);
             return;
         end;
-    end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId, v66.onBlockActivated, if l_FFlagSkipBlockModal_0 then v66.skipBlockModal else nil));
-    local v103 = v4.useCallback(function() --[[ Line: 522 ]]
-        -- upvalues: v67 (copy), v41 (ref), v66 (copy), v68 (copy), v14 (ref), v72 (copy)
-        v67(v41.UnblockUserById.API({
-            userId = v66.subjectUserId, 
-            currentUserId = v68
-        })):andThen(function() --[[ Line: 527 ]]
-            -- upvalues: v67 (ref), v66 (ref)
-            v67(v66.closeCentralOverlayThunk());
-        end):catch(function(_) --[[ Line: 530 ]]
-            -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-            v67(v14.Actions.SetCurrentToastMessage(v72));
-        end);
-    end, l_dependencyArray_0(v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v104 = v4.useCallback(function() --[[ Line: 535 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
-        v73(l_EventNames_0.Unfriend, {
-            profileUserId = v66.subjectUserId
-        });
-        v67(v40.UnfriendTargetUserId.API({
-            targetUserId = v66.subjectUserId, 
-            currentUserId = v68
+    end, l_dependencyArray_0(v73, v70, v69, v68.closeCentralOverlayThunk, v68.subjectUserId, v68.onBlockActivated, if l_FFlagSkipBlockModal_0 then v68.skipBlockModal else nil));
+    local v105 = v4.useCallback(function() --[[ Line: 537 ]]
+        -- upvalues: v69 (copy), v43 (ref), v68 (copy), v70 (copy), v14 (ref), v74 (copy)
+        v69(v43.UnblockUserById.API({
+            userId = v68.subjectUserId, 
+            currentUserId = v70
         })):andThen(function() --[[ Line: 542 ]]
-            -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
-            v67(v14.Actions.SetCurrentToastMessage({
-                toastMessage = v71.ConnectionRemoved, 
-                isLocalized = true, 
-                toastType = v14.Enums.ToastType.SuccessConfirmation
-            }));
-            v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 550 ]]
-            -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-            v67(v14.Actions.SetCurrentToastMessage(v72));
+            -- upvalues: v69 (ref), v68 (ref)
+            v69(v68.closeCentralOverlayThunk());
+        end):catch(function(_) --[[ Line: 545 ]]
+            -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+            v69(v14.Actions.SetCurrentToastMessage(v74));
         end);
-    end, l_dependencyArray_0(v71, v68, v67, v66.subjectUserId, v66.closeCentralOverlayThunk));
-    local v105 = v4.useCallback(function() --[[ Line: 556 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), l_RecommendationContextType_0 (ref), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
-        v73(l_EventNames_0.RequestFriendship, {
-            profileUserId = v66.subjectUserId
+    end, l_dependencyArray_0(v70, v69, v68.closeCentralOverlayThunk, v68.subjectUserId));
+    local v106 = v4.useCallback(function() --[[ Line: 550 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), v42 (ref), v70 (copy), v14 (ref), v73 (copy), v74 (copy)
+        v75(l_EventNames_0.Unfriend, {
+            profileUserId = v68.subjectUserId
         });
-        v67(if v66.recommendationContext == l_RecommendationContextType_0.Contacts and v66.contactId then v40.RequestFriendshipFromContactId.API({
-            contactId = v66.contactId, 
-            currentUserId = v68
-        }) else v40.RequestFriendshipFromUserId.API({
-            targetUserId = v66.subjectUserId, 
-            currentUserId = v68, 
-            friendshipOriginSourceType = v66.friendshipOriginSourceType
-        })):andThen(function() --[[ Line: 568 ]]
-            -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
-            v67(v14.Actions.SetCurrentToastMessage({
-                toastMessage = v71.ConnectionRequestSent, 
+        v69(v42.UnfriendTargetUserId.API({
+            targetUserId = v68.subjectUserId, 
+            currentUserId = v70
+        })):andThen(function() --[[ Line: 557 ]]
+            -- upvalues: v69 (ref), v14 (ref), v73 (ref), v68 (ref)
+            v69(v14.Actions.SetCurrentToastMessage({
+                toastMessage = v73.ConnectionRemoved, 
                 isLocalized = true, 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
-            v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 576 ]]
-            -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-            v67(v14.Actions.SetCurrentToastMessage(v72));
+            v69(v68.closeCentralOverlayThunk());
+        end):catch(function() --[[ Line: 565 ]]
+            -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+            v69(v14.Actions.SetCurrentToastMessage(v74));
+        end);
+    end, l_dependencyArray_0(v73, v70, v69, v68.subjectUserId, v68.closeCentralOverlayThunk));
+    local v107 = v4.useCallback(function() --[[ Line: 571 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), l_RecommendationContextType_0 (ref), v42 (ref), v70 (copy), v14 (ref), v73 (copy), v74 (copy)
+        v75(l_EventNames_0.RequestFriendship, {
+            profileUserId = v68.subjectUserId
+        });
+        v69(if v68.recommendationContext == l_RecommendationContextType_0.Contacts and v68.contactId then v42.RequestFriendshipFromContactId.API({
+            contactId = v68.contactId, 
+            currentUserId = v70
+        }) else v42.RequestFriendshipFromUserId.API({
+            targetUserId = v68.subjectUserId, 
+            currentUserId = v70, 
+            friendshipOriginSourceType = v68.friendshipOriginSourceType
+        })):andThen(function() --[[ Line: 583 ]]
+            -- upvalues: v69 (ref), v14 (ref), v73 (ref), v68 (ref)
+            v69(v14.Actions.SetCurrentToastMessage({
+                toastMessage = v73.ConnectionRequestSent, 
+                isLocalized = true, 
+                toastType = v14.Enums.ToastType.SuccessConfirmation
+            }));
+            v69(v68.closeCentralOverlayThunk());
+        end):catch(function() --[[ Line: 591 ]]
+            -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+            v69(v14.Actions.SetCurrentToastMessage(v74));
         end);
     end, {
-        v71, 
-        v68, 
-        v67, 
-        v66.closeCentralOverlayThunk, 
-        v66.subjectUserId, 
-        v66.recommendationContext, 
-        v66.contactId, 
-        v66.friendshipOriginSourceType
+        v73, 
+        v70, 
+        v69, 
+        v68.closeCentralOverlayThunk, 
+        v68.subjectUserId, 
+        v68.recommendationContext, 
+        v68.contactId, 
+        v68.friendshipOriginSourceType
     });
-    local v106 = v4.useCallback(function() --[[ Line: 592 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
-        v73(l_EventNames_0.AcceptFriendRequest, {
-            profileUserId = v66.subjectUserId
+    local v108 = v4.useCallback(function() --[[ Line: 607 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), v42 (ref), v70 (copy), v14 (ref), v73 (copy), v74 (copy)
+        v75(l_EventNames_0.AcceptFriendRequest, {
+            profileUserId = v68.subjectUserId
         });
-        v67(v40.AcceptFriendRequestFromUserId.API({
-            targetUserId = v66.subjectUserId, 
-            currentUserId = v68
-        })):andThen(function() --[[ Line: 599 ]]
-            -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
-            v67(v14.Actions.SetCurrentToastMessage({
-                toastMessage = v71.ConnectionAdded, 
+        v69(v42.AcceptFriendRequestFromUserId.API({
+            targetUserId = v68.subjectUserId, 
+            currentUserId = v70
+        })):andThen(function() --[[ Line: 614 ]]
+            -- upvalues: v69 (ref), v14 (ref), v73 (ref), v68 (ref)
+            v69(v14.Actions.SetCurrentToastMessage({
+                toastMessage = v73.ConnectionAdded, 
                 isLocalized = true, 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
-            v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 607 ]]
-            -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-            v67(v14.Actions.SetCurrentToastMessage(v72));
+            v69(v68.closeCentralOverlayThunk());
+        end):catch(function() --[[ Line: 622 ]]
+            -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+            v69(v14.Actions.SetCurrentToastMessage(v74));
         end);
-    end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v107 = v4.useCallback(function() --[[ Line: 612 ]]
-        -- upvalues: v73 (copy), l_EventNames_0 (ref), v66 (copy), v67 (copy), v40 (ref), v68 (copy), v14 (ref), v71 (copy), v72 (copy)
-        v73(l_EventNames_0.IgnoreFriendRequest, {
-            profileUserId = v66.subjectUserId
+    end, l_dependencyArray_0(v73, v70, v69, v68.closeCentralOverlayThunk, v68.subjectUserId));
+    local v109 = v4.useCallback(function() --[[ Line: 627 ]]
+        -- upvalues: v75 (copy), l_EventNames_0 (ref), v68 (copy), v69 (copy), v42 (ref), v70 (copy), v14 (ref), v73 (copy), v74 (copy)
+        v75(l_EventNames_0.IgnoreFriendRequest, {
+            profileUserId = v68.subjectUserId
         });
-        v67(v40.DeclineFriendRequestFromUserId.API({
-            targetUserId = v66.subjectUserId, 
-            currentUserId = v68
-        })):andThen(function() --[[ Line: 619 ]]
-            -- upvalues: v67 (ref), v14 (ref), v71 (ref), v66 (ref)
-            v67(v14.Actions.SetCurrentToastMessage({
-                toastMessage = v71.FriendRequestIgnored, 
+        v69(v42.DeclineFriendRequestFromUserId.API({
+            targetUserId = v68.subjectUserId, 
+            currentUserId = v70
+        })):andThen(function() --[[ Line: 634 ]]
+            -- upvalues: v69 (ref), v14 (ref), v73 (ref), v68 (ref)
+            v69(v14.Actions.SetCurrentToastMessage({
+                toastMessage = v73.FriendRequestIgnored, 
                 isLocalized = true, 
                 toastType = v14.Enums.ToastType.SuccessConfirmation
             }));
-            v67(v66.closeCentralOverlayThunk());
-        end):catch(function() --[[ Line: 627 ]]
-            -- upvalues: v67 (ref), v14 (ref), v72 (ref)
-            v67(v14.Actions.SetCurrentToastMessage(v72));
+            v69(v68.closeCentralOverlayThunk());
+        end):catch(function() --[[ Line: 642 ]]
+            -- upvalues: v69 (ref), v14 (ref), v74 (ref)
+            v69(v14.Actions.SetCurrentToastMessage(v74));
         end);
-    end, l_dependencyArray_0(v71, v68, v67, v66.closeCentralOverlayThunk, v66.subjectUserId));
-    local v109 = l_RoactRodux_0.useSelector(function(v108) --[[ Line: 632 ]]
-        -- upvalues: v51 (ref), v66 (copy)
-        return (if v51 then v108.PlayerContextualMenu.UserBlocking.isBlockedByMe else v108.PlayerContextualMenu.IsBlockedByMe)[v66.subjectUserId] or false;
+    end, l_dependencyArray_0(v73, v70, v69, v68.closeCentralOverlayThunk, v68.subjectUserId));
+    local v111 = l_RoactRodux_0.useSelector(function(v110) --[[ Line: 647 ]]
+        -- upvalues: v53 (ref), v68 (copy)
+        return (if v53 then v110.PlayerContextualMenu.UserBlocking.isBlockedByMe else v110.PlayerContextualMenu.IsBlockedByMe)[v68.subjectUserId] or false;
     end);
-    local v122 = v4.useMemo(function() --[[ Line: 641 ]]
-        -- upvalues: l_Images_0 (ref), v71 (copy), v98 (copy), v50 (ref), v99 (copy), v101 (copy), v79 (ref), v103 (copy), v104 (copy), v105 (copy), v55 (ref), v106 (copy), v107 (copy), v109 (copy), v66 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v3 (ref), v54 (ref), v87 (ref), v21 (ref)
-        local v110 = {
-            icon = l_Images_0["icons/actions/feedback"], 
-            text = v71.Report, 
-            onActivated = v98
-        };
-        local v111 = {
-            icon = v50, 
-            text = v71.ViewPlatformProfile, 
-            onActivated = v99
-        };
+    local v124 = v4.useMemo(function() --[[ Line: 656 ]]
+        -- upvalues: l_Images_0 (ref), v73 (copy), v100 (copy), v52 (ref), v101 (copy), v103 (copy), v81 (ref), v105 (copy), v106 (copy), v107 (copy), v57 (ref), v108 (copy), v109 (copy), v111 (copy), v68 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v3 (ref), v56 (ref), v89 (ref), v21 (ref)
         local v112 = {
-            icon = l_Images_0["icons/actions/block"], 
-            text = v71.Block, 
-            onActivated = v101, 
-            disabled = v79
+            icon = l_Images_0["icons/actions/feedback"], 
+            text = v73.Report, 
+            onActivated = v100
         };
         local v113 = {
-            icon = l_Images_0["icons/actions/block"], 
-            text = v71.Unblock, 
-            onActivated = v103
+            icon = v52, 
+            text = v73.ViewPlatformProfile, 
+            onActivated = v101
         };
         local v114 = {
-            icon = l_Images_0["icons/actions/friends/friendRemove"], 
-            text = v71.RemoveConnection, 
-            onActivated = v104
+            icon = l_Images_0["icons/actions/block"], 
+            text = v73.Block, 
+            onActivated = v103, 
+            disabled = v81
         };
         local v115 = {
-            icon = l_Images_0["icons/actions/friends/friendAdd"], 
-            text = v71.AddConnection, 
+            icon = l_Images_0["icons/actions/block"], 
+            text = v73.Unblock, 
             onActivated = v105
         };
         local v116 = {
-            icon = l_Images_0["icons/actions/friends/friendpending"], 
-            text = v71.PendingRequest, 
-            onActivated = v55
-        };
-        local v117 = {
-            icon = l_Images_0["icons/actions/friends/friendpending"], 
-            text = v71.AcceptConnection, 
+            icon = l_Images_0["icons/actions/friends/friendRemove"], 
+            text = v73.RemoveConnection, 
             onActivated = v106
         };
-        local v118 = {
-            icon = l_Images_0["icons/actions/reject"], 
-            text = v71.IgnoreConnectionRequest, 
+        local v117 = {
+            icon = l_Images_0["icons/actions/friends/friendAdd"], 
+            text = v73.AddConnection, 
             onActivated = v107
         };
-        local function v121() --[[ Line: 697 ]] --[[ Name: makeCtas ]]
-            -- upvalues: v109 (ref), v113 (copy), v112 (copy), v66 (ref), v110 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v114 (copy), v115 (copy), v116 (copy), v117 (copy), v118 (copy), v3 (ref)
-            local v119 = if v109 then v113 else v112;
-            local v120 = {};
-            v120 = if v66.robloxFriendshipStatus == Enum.FriendStatus.Friend then {
-                v110, 
-                if l_getFFlagAppChatPCMFixBlocking_0() then v119 else v112, 
-                v114
-            } else if v66.robloxFriendshipStatus == Enum.FriendStatus.NotFriend then if v66.contactId then {
-                v115
+        local v118 = {
+            icon = l_Images_0["icons/actions/friends/friendpending"], 
+            text = v73.PendingRequest, 
+            onActivated = v57
+        };
+        local v119 = {
+            icon = l_Images_0["icons/actions/friends/friendpending"], 
+            text = v73.AcceptConnection, 
+            onActivated = v108
+        };
+        local v120 = {
+            icon = l_Images_0["icons/actions/reject"], 
+            text = v73.IgnoreConnectionRequest, 
+            onActivated = v109
+        };
+        local function v123() --[[ Line: 712 ]] --[[ Name: makeCtas ]]
+            -- upvalues: v111 (ref), v115 (copy), v114 (copy), v68 (ref), v112 (copy), l_getFFlagAppChatPCMFixBlocking_0 (ref), v116 (copy), v117 (copy), v118 (copy), v119 (copy), v120 (copy), v3 (ref)
+            local v121 = if v111 then v115 else v114;
+            local v122 = {};
+            v122 = if v68.robloxFriendshipStatus == Enum.FriendStatus.Friend then {
+                v112, 
+                if l_getFFlagAppChatPCMFixBlocking_0() then v121 else v114, 
+                v116
+            } else if v68.robloxFriendshipStatus == Enum.FriendStatus.NotFriend then if v68.contactId then {
+                v117
             } else {
-                v115, 
-                v110, 
-                v119
-            } else if v66.robloxFriendshipStatus == Enum.FriendStatus.FriendRequestSent then {
-                v116, 
-                v110, 
-                v119
-            } else if v66.robloxFriendshipStatus == Enum.FriendStatus.FriendRequestReceived then {
                 v117, 
+                v112, 
+                v121
+            } else if v68.robloxFriendshipStatus == Enum.FriendStatus.FriendRequestSent then {
                 v118, 
-                v110, 
-                v119
+                v112, 
+                v121
+            } else if v68.robloxFriendshipStatus == Enum.FriendStatus.FriendRequestReceived then {
+                v119, 
+                v120, 
+                v112, 
+                v121
             } else {
-                v110, 
-                v119
+                v112, 
+                v121
             };
-            if v66.additionalButtons then
-                v120 = v3.List.join(v120, v66.additionalButtons);
+            if v68.additionalButtons then
+                v122 = v3.List.join(v122, v68.additionalButtons);
             end;
-            return v120;
+            return v122;
         end;
-        if v54 and v54:IsProfileEnabled() and v87 and v87 ~= "" then
+        if v56 and v56:IsProfileEnabled() and v89 and v89 ~= "" then
             return v21.append({
-                v111
-            }, (v121()));
+                v113
+            }, (v123()));
         else
-            return (v121());
+            return (v123());
         end;
-    end, v3.Dictionary.union(if v54 then {
-        v66.robloxFriendshipStatus, 
-        v109, 
-        v87, 
-        v66.contactId, 
-        v66.additionalButtons
+    end, v3.Dictionary.union(if v56 then {
+        v68.robloxFriendshipStatus, 
+        v111, 
+        v89, 
+        v68.contactId, 
+        v68.additionalButtons
     } else {
-        v66.robloxFriendshipStatus, 
-        v109, 
-        v66.contactId, 
-        v66.additionalButtons
+        v68.robloxFriendshipStatus, 
+        v111, 
+        v68.contactId, 
+        v68.additionalButtons
     }, if l_getFFlagAppChatPCMFixBlocking_0() then {
-        v79
+        v81
     } else {}));
-    return v4.createElement(v42, {
-        headerProps = v4.useMemo(function() --[[ Line: 775 ]]
-            -- upvalues: v85 (ref), v83 (copy), v66 (copy), l_RecommendationContextType_0 (ref), v84 (ref), v86 (ref), v88 (copy), v50 (ref), v91 (ref), v89 (ref), v90 (ref), v96 (copy), v97 (copy), v95 (copy)
+    return v4.createElement(v44, {
+        headerProps = v4.useMemo(function() --[[ Line: 790 ]]
+            -- upvalues: v87 (ref), v85 (copy), v68 (copy), l_RecommendationContextType_0 (ref), v86 (ref), v88 (ref), v90 (copy), v52 (ref), v93 (ref), v91 (ref), v92 (ref), v98 (copy), v99 (copy), v97 (copy)
             return {
                 displayNameItem = {
-                    labelText = v85, 
+                    labelText = v87, 
                     icon = nil, 
-                    isLoading = v83.loading
+                    isLoading = v85.loading
                 }, 
-                userNameItem = if v66.recommendationContext == l_RecommendationContextType_0.Contacts then nil else {
-                    labelText = "@" .. v84, 
+                userNameItem = if v68.recommendationContext == l_RecommendationContextType_0.Contacts then nil else {
+                    labelText = "@" .. v86, 
                     icon = nil, 
-                    isLoading = v83.loading
+                    isLoading = v85.loading
                 }, 
-                vendorNameItem = if v86 == "" then nil else {
-                    labelText = v86 or "", 
-                    icon = v88 and {
-                        Image = v50, 
+                vendorNameItem = if v88 == "" then nil else {
+                    labelText = v88 or "", 
+                    icon = v90 and {
+                        Image = v52, 
                         ImageRectOffset = Vector2.zero, 
                         ImageRectSize = Vector2.zero
                     } or nil, 
-                    isLoading = v83.loading
+                    isLoading = v85.loading
                 }, 
-                contextText = v91, 
-                contextIcon = v89, 
-                contextIconColor = if v90 then v90.Color3 else nil, 
-                contextIconTransparency = if v90 then v90.Transparency else nil, 
-                joinEventText = v96, 
-                joinEventOnActivated = v97, 
-                renderJoinEventButton = v95
+                contextText = v93, 
+                contextIcon = v91, 
+                contextIconColor = if v92 then v92.Color3 else nil, 
+                contextIconTransparency = if v92 then v92.Transparency else nil, 
+                joinEventText = v98, 
+                joinEventOnActivated = v99, 
+                renderJoinEventButton = v97
             };
-        end, l_dependencyArray_0(v83, v85, v84, v86, v88, v89, v91, v90, v95, v96, v97, v66.recommendationContext)), 
-        buttonProps = v122, 
-        width = if v52 then v66.width else UDim.new(0, 400)
+        end, l_dependencyArray_0(v85, v87, v86, v88, v90, v91, v93, v92, v97, v98, v99, v68.recommendationContext)), 
+        buttonProps = v124, 
+        width = if v54 then v68.width else UDim.new(0, 400)
     });
 end;

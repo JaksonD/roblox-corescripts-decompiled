@@ -267,45 +267,54 @@ v10.getBodyPartsToParents = function() --[[ Line: 300 ]] --[[ Name: getBodyParts
             return;
         end;
     end;
-    v108(v8.root, nil, v8);
-    return v107;
-end;
-v10.getAssetMeshesValidationSpaceTransforms = function(v114, v115) --[[ Line: 319 ]] --[[ Name: getAssetMeshesValidationSpaceTransforms ]]
-    -- upvalues: v10 (copy), v7 (copy)
-    local l_assetTypeEnum_0 = v115.assetTypeEnum;
-    assert(l_assetTypeEnum_0);
-    local v117 = {};
-    if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
-        table.insert(v117, v114.Name);
+    local l_root_0 = v8.root;
+    local l_v8_0 = v8;
+    v107[l_root_0] = "HumanoidRootPart";
+    if not l_v8_0.children then
+        return v107;
     else
-        for _, v119 in v114:GetChildren() do
-            if v119:IsA("MeshPart") then
-                table.insert(v117, v119.Name);
+        for v116, v117 in l_v8_0.children do
+            v108(v116, l_root_0, v117);
+        end;
+        return v107;
+    end;
+end;
+v10.getAssetMeshesValidationSpaceTransforms = function(v118, v119) --[[ Line: 319 ]] --[[ Name: getAssetMeshesValidationSpaceTransforms ]]
+    -- upvalues: v10 (copy), v7 (copy)
+    local l_assetTypeEnum_0 = v119.assetTypeEnum;
+    assert(l_assetTypeEnum_0);
+    local v121 = {};
+    if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
+        table.insert(v121, v118.Name);
+    else
+        for _, v123 in v118:GetChildren() do
+            if v123:IsA("MeshPart") then
+                table.insert(v121, v123.Name);
             end;
         end;
     end;
-    local v120 = v10.calculateAllTransformsForAsset(l_assetTypeEnum_0, v114);
-    local function v122(v121) --[[ Line: 340 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: l_assetTypeEnum_0 (copy), v114 (copy)
+    local v124 = v10.calculateAllTransformsForAsset(l_assetTypeEnum_0, v118);
+    local function v126(v125) --[[ Line: 340 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: l_assetTypeEnum_0 (copy), v118 (copy)
         if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
-            return v114;
+            return v118;
         else
-            return (v114:FindFirstChild(v121));
+            return (v118:FindFirstChild(v125));
         end;
     end;
     if l_assetTypeEnum_0 ~= Enum.AssetType.DynamicHead and l_assetTypeEnum_0 ~= Enum.AssetType.Torso then
-        for v123, v124 in (v10.calculateStraightenedLimb(l_assetTypeEnum_0, v120, v122)) do
-            v120[v123] = v124;
+        for v127, v128 in (v10.calculateStraightenedLimb(l_assetTypeEnum_0, v124, v126)) do
+            v124[v127] = v128;
         end;
     end;
-    local v125 = v7(v117, v122, v115);
-    local v126 = {};
-    for _, v128 in v117 do
-        v126[v128] = {
-            CFrame = v120[v128], 
-            scale = v125[v128]
+    local v129 = v7(v121, v126, v119);
+    local v130 = {};
+    for _, v132 in v121 do
+        v130[v132] = {
+            CFrame = v124[v132], 
+            scale = v129[v132]
         };
     end;
-    return v126;
+    return v130;
 end;
 return v10;

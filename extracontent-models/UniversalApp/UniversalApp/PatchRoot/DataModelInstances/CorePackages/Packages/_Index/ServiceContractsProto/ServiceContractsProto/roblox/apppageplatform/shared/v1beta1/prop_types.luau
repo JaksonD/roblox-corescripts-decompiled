@@ -6,14 +6,14 @@ local v4 = require(script.Parent.prop_condition);
 local v5 = {};
 v5.__index = v5;
 local l_v5_0 = v5 --[[ copy: 5 -> 6 ]];
-v5.new = function(v7) --[[ Line: 2892 ]] --[[ Name: new ]]
+v5.new = function(v7) --[[ Line: 2914 ]] --[[ Name: new ]]
     -- upvalues: l_v5_0 (copy)
     return (setmetatable({
         str = (not (v7 ~= nil) or v7.str == nil) and "" or v7.str, 
         args = if not (v7 ~= nil) or v7.args == nil then {} else v7.args
     }, l_v5_0));
 end;
-v5.encode = function(v8) --[[ Line: 2899 ]] --[[ Name: encode ]]
+v5.encode = function(v8) --[[ Line: 2921 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v9 = buffer.create(0);
     local v10 = 0;
@@ -46,7 +46,7 @@ v5.encode = function(v8) --[[ Line: 2899 ]] --[[ Name: encode ]]
     buffer.copy(v20, 0, v9, 0, v10);
     return v20;
 end;
-v5.decode = function(v21) --[[ Line: 2927 ]] --[[ Name: decode ]]
+v5.decode = function(v21) --[[ Line: 2949 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_0 (copy), v0 (copy), v2 (copy)
     local v22 = l_v5_0.new();
     local v23 = 0;
@@ -98,7 +98,7 @@ v5.decode = function(v21) --[[ Line: 2927 ]] --[[ Name: decode ]]
     end;
     return v22;
 end;
-v5.jsonEncode = function(v29) --[[ Line: 2982 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v29) --[[ Line: 3004 ]] --[[ Name: jsonEncode ]]
     local v30 = {};
     if v29.str ~= nil and v29.str ~= "" then
         v30.str = v29.str;
@@ -112,7 +112,7 @@ v5.jsonEncode = function(v29) --[[ Line: 2982 ]] --[[ Name: jsonEncode ]]
     end;
     return v30;
 end;
-v5.jsonDecode = function(v34) --[[ Line: 3000 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v34) --[[ Line: 3022 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_0 (copy), v2 (copy)
     local v35 = l_v5_0.new();
     if v34.str ~= nil then
@@ -136,13 +136,13 @@ v1.default:register(v2.StringFormat);
 v5 = {};
 v5.__index = v5;
 local l_v5_1 = v5 --[[ copy: 5 -> 7 ]];
-v5.new = function(v40) --[[ Line: 3033 ]] --[[ Name: new ]]
+v5.new = function(v40) --[[ Line: 3055 ]] --[[ Name: new ]]
     -- upvalues: l_v5_1 (copy)
     return (setmetatable({
         kind = if not (v40 ~= nil) or v40.kind == nil then nil else v40.kind
     }, l_v5_1));
 end;
-v5.encode = function(v41) --[[ Line: 3039 ]] --[[ Name: encode ]]
+v5.encode = function(v41) --[[ Line: 3061 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v42 = buffer.create(0);
     local v43 = 0;
@@ -163,7 +163,7 @@ v5.encode = function(v41) --[[ Line: 3039 ]] --[[ Name: encode ]]
     buffer.copy(v48, 0, v42, 0, v43);
     return v48;
 end;
-v5.decode = function(v49) --[[ Line: 3058 ]] --[[ Name: decode ]]
+v5.decode = function(v49) --[[ Line: 3080 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_1 (copy), v0 (copy)
     local v50 = l_v5_1.new();
     local v51 = 0;
@@ -219,7 +219,7 @@ v5.decode = function(v49) --[[ Line: 3058 ]] --[[ Name: decode ]]
     end;
     return v50;
 end;
-v5.jsonEncode = function(v57) --[[ Line: 3106 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v57) --[[ Line: 3128 ]] --[[ Name: jsonEncode ]]
     local v58 = {};
     if v57.kind ~= nil then
         if v57.kind.type == "literal" then
@@ -231,7 +231,7 @@ v5.jsonEncode = function(v57) --[[ Line: 3106 ]] --[[ Name: jsonEncode ]]
     end;
     return v58;
 end;
-v5.jsonDecode = function(v59) --[[ Line: 3120 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v59) --[[ Line: 3142 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_1 (copy)
     local v60 = l_v5_1.new();
     if v59.literal ~= nil then
@@ -263,14 +263,14 @@ v1.default:register(v2.StringFormat_FormatArg);
 v5 = {};
 v5.__index = v5;
 local l_v5_2 = v5 --[[ copy: 5 -> 8 ]];
-v5.new = function(v62) --[[ Line: 3152 ]] --[[ Name: new ]]
+v5.new = function(v62) --[[ Line: 3174 ]] --[[ Name: new ]]
     -- upvalues: l_v5_2 (copy)
     return (setmetatable({
         key = (not (v62 ~= nil) or v62.key == nil) and "" or v62.key, 
         value = if not (v62 ~= nil) or v62.value == nil then nil else v62.value
     }, l_v5_2));
 end;
-v5.encode = function(v63) --[[ Line: 3159 ]] --[[ Name: encode ]]
+v5.encode = function(v63) --[[ Line: 3181 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v64 = buffer.create(0);
     local v65 = 0;
@@ -291,7 +291,7 @@ v5.encode = function(v63) --[[ Line: 3159 ]] --[[ Name: encode ]]
     buffer.copy(v71, 0, v64, 0, v65);
     return v71;
 end;
-v5.decode = function(v72) --[[ Line: 3179 ]] --[[ Name: decode ]]
+v5.decode = function(v72) --[[ Line: 3201 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_2 (copy), v0 (copy), v2 (copy)
     local v73 = l_v5_2.new();
     local v74 = 0;
@@ -341,7 +341,7 @@ v5.decode = function(v72) --[[ Line: 3179 ]] --[[ Name: decode ]]
     end;
     return v73;
 end;
-v5.jsonEncode = function(v80) --[[ Line: 3227 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v80) --[[ Line: 3249 ]] --[[ Name: jsonEncode ]]
     local v81 = {};
     if v80.key ~= nil and v80.key ~= "" then
         v81.key = v80.key;
@@ -351,7 +351,7 @@ v5.jsonEncode = function(v80) --[[ Line: 3227 ]] --[[ Name: jsonEncode ]]
     end;
     return v81;
 end;
-v5.jsonDecode = function(v82) --[[ Line: 3241 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v82) --[[ Line: 3263 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_2 (copy), v2 (copy)
     local v83 = l_v5_2.new();
     if v82.key ~= nil then
@@ -371,13 +371,13 @@ v1.default:register(v2.StringFormat_ArgsEntry);
 v5 = {};
 v5.__index = v5;
 local l_v5_3 = v5 --[[ copy: 5 -> 9 ]];
-v5.new = function(v85) --[[ Line: 3269 ]] --[[ Name: new ]]
+v5.new = function(v85) --[[ Line: 3291 ]] --[[ Name: new ]]
     -- upvalues: l_v5_3 (copy)
     return (setmetatable({
         kind = if not (v85 ~= nil) or v85.kind == nil then nil else v85.kind
     }, l_v5_3));
 end;
-v5.encode = function(v86) --[[ Line: 3275 ]] --[[ Name: encode ]]
+v5.encode = function(v86) --[[ Line: 3297 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v87 = buffer.create(0);
     local v88 = 0;
@@ -415,7 +415,7 @@ v5.encode = function(v86) --[[ Line: 3275 ]] --[[ Name: encode ]]
     buffer.copy(v101, 0, v87, 0, v88);
     return v101;
 end;
-v5.decode = function(v102) --[[ Line: 3305 ]] --[[ Name: decode ]]
+v5.decode = function(v102) --[[ Line: 3327 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_3 (copy), v0 (copy), v2 (copy)
     local v103 = l_v5_3.new();
     local v104 = 0;
@@ -498,7 +498,7 @@ v5.decode = function(v102) --[[ Line: 3305 ]] --[[ Name: decode ]]
     end;
     return v103;
 end;
-v5.jsonEncode = function(v110) --[[ Line: 3368 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v110) --[[ Line: 3390 ]] --[[ Name: jsonEncode ]]
     local v111 = {};
     if v110.kind ~= nil then
         if v110.kind.type == "literal" then
@@ -519,7 +519,7 @@ v5.jsonEncode = function(v110) --[[ Line: 3368 ]] --[[ Name: jsonEncode ]]
     end;
     return v111;
 end;
-v5.jsonDecode = function(v112) --[[ Line: 3388 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v112) --[[ Line: 3410 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_3 (copy), v2 (copy)
     local v113 = l_v5_3.new();
     if v112.literal ~= nil then
@@ -569,14 +569,14 @@ v1.default:register(v2.StringProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_4 = v5 --[[ copy: 5 -> 10 ]];
-v5.new = function(v115) --[[ Line: 3433 ]] --[[ Name: new ]]
+v5.new = function(v115) --[[ Line: 3455 ]] --[[ Name: new ]]
     -- upvalues: l_v5_4 (copy)
     return (setmetatable({
         condition = if not (v115 ~= nil) or v115.condition == nil then nil else v115.condition, 
         kind = if not (v115 ~= nil) or v115.kind == nil then nil else v115.kind
     }, l_v5_4));
 end;
-v5.encode = function(v116) --[[ Line: 3442 ]] --[[ Name: encode ]]
+v5.encode = function(v116) --[[ Line: 3464 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v117 = buffer.create(0);
     local v118 = 0;
@@ -615,7 +615,7 @@ v5.encode = function(v116) --[[ Line: 3442 ]] --[[ Name: encode ]]
     buffer.copy(v131, 0, v117, 0, v118);
     return v131;
 end;
-v5.decode = function(v132) --[[ Line: 3474 ]] --[[ Name: decode ]]
+v5.decode = function(v132) --[[ Line: 3496 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_4 (copy), v0 (copy), v4 (copy), v2 (copy)
     local v133 = l_v5_4.new();
     local v134 = 0;
@@ -695,7 +695,7 @@ v5.decode = function(v132) --[[ Line: 3474 ]] --[[ Name: decode ]]
     end;
     return v133;
 end;
-v5.jsonEncode = function(v140) --[[ Line: 3537 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v140) --[[ Line: 3559 ]] --[[ Name: jsonEncode ]]
     local v141 = {};
     if v140.condition ~= nil then
         v141.condition = v140.condition:jsonEncode();
@@ -716,7 +716,7 @@ v5.jsonEncode = function(v140) --[[ Line: 3537 ]] --[[ Name: jsonEncode ]]
     end;
     return v141;
 end;
-v5.jsonDecode = function(v142) --[[ Line: 3559 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v142) --[[ Line: 3581 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_4 (copy), v4 (copy), v2 (copy)
     local v143 = l_v5_4.new();
     if v142.condition ~= nil then
@@ -763,13 +763,13 @@ v1.default:register(v2.StringProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_5 = v5 --[[ copy: 5 -> 11 ]];
-v5.new = function(v145) --[[ Line: 3604 ]] --[[ Name: new ]]
+v5.new = function(v145) --[[ Line: 3626 ]] --[[ Name: new ]]
     -- upvalues: l_v5_5 (copy)
     return (setmetatable({
         options = if not (v145 ~= nil) or v145.options == nil then {} else v145.options
     }, l_v5_5));
 end;
-v5.encode = function(v146) --[[ Line: 3612 ]] --[[ Name: encode ]]
+v5.encode = function(v146) --[[ Line: 3634 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v147 = buffer.create(0);
     local v148 = 0;
@@ -786,7 +786,7 @@ v5.encode = function(v146) --[[ Line: 3612 ]] --[[ Name: encode ]]
     buffer.copy(v154, 0, v147, 0, v148);
     return v154;
 end;
-v5.decode = function(v155) --[[ Line: 3629 ]] --[[ Name: decode ]]
+v5.decode = function(v155) --[[ Line: 3651 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_5 (copy), v0 (copy), v2 (copy)
     local v156 = l_v5_5.new();
     local v157 = 0;
@@ -830,7 +830,7 @@ v5.decode = function(v155) --[[ Line: 3629 ]] --[[ Name: decode ]]
     end;
     return v156;
 end;
-v5.jsonEncode = function(v163) --[[ Line: 3672 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v163) --[[ Line: 3694 ]] --[[ Name: jsonEncode ]]
     local v164 = {};
     if v163.options ~= nil and #v163.options > 0 then
         local v165 = {};
@@ -841,7 +841,7 @@ v5.jsonEncode = function(v163) --[[ Line: 3672 ]] --[[ Name: jsonEncode ]]
     end;
     return v164;
 end;
-v5.jsonDecode = function(v168) --[[ Line: 3686 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v168) --[[ Line: 3708 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_5 (copy), v2 (copy)
     local v169 = l_v5_5.new();
     if v168.options ~= nil then
@@ -862,13 +862,13 @@ v1.default:register(v2.StringProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_6 = v5 --[[ copy: 5 -> 12 ]];
-v5.new = function(v174) --[[ Line: 3715 ]] --[[ Name: new ]]
+v5.new = function(v174) --[[ Line: 3737 ]] --[[ Name: new ]]
     -- upvalues: l_v5_6 (copy)
     return (setmetatable({
         kind = if not (v174 ~= nil) or v174.kind == nil then nil else v174.kind
     }, l_v5_6));
 end;
-v5.encode = function(v175) --[[ Line: 3721 ]] --[[ Name: encode ]]
+v5.encode = function(v175) --[[ Line: 3743 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v176 = buffer.create(0);
     local v177 = 0;
@@ -900,7 +900,7 @@ v5.encode = function(v175) --[[ Line: 3721 ]] --[[ Name: encode ]]
     buffer.copy(v187, 0, v176, 0, v177);
     return v187;
 end;
-v5.decode = function(v188) --[[ Line: 3747 ]] --[[ Name: decode ]]
+v5.decode = function(v188) --[[ Line: 3769 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_6 (copy), v0 (copy), v2 (copy)
     local v189 = l_v5_6.new();
     local v190 = 0;
@@ -976,7 +976,7 @@ v5.decode = function(v188) --[[ Line: 3747 ]] --[[ Name: decode ]]
     end;
     return v189;
 end;
-v5.jsonEncode = function(v196) --[[ Line: 3805 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v196) --[[ Line: 3827 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
     local v197 = {};
     if v196.kind ~= nil then
@@ -995,7 +995,7 @@ v5.jsonEncode = function(v196) --[[ Line: 3805 ]] --[[ Name: jsonEncode ]]
     end;
     return v197;
 end;
-v5.jsonDecode = function(v198) --[[ Line: 3823 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v198) --[[ Line: 3845 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_6 (copy), v0 (copy), v2 (copy)
     local v199 = l_v5_6.new();
     if v198.literal ~= nil then
@@ -1039,14 +1039,14 @@ v1.default:register(v2.FloatProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_7 = v5 --[[ copy: 5 -> 13 ]];
-v5.new = function(v201) --[[ Line: 3864 ]] --[[ Name: new ]]
+v5.new = function(v201) --[[ Line: 3886 ]] --[[ Name: new ]]
     -- upvalues: l_v5_7 (copy)
     return (setmetatable({
         condition = if not (v201 ~= nil) or v201.condition == nil then nil else v201.condition, 
         kind = if not (v201 ~= nil) or v201.kind == nil then nil else v201.kind
     }, l_v5_7));
 end;
-v5.encode = function(v202) --[[ Line: 3873 ]] --[[ Name: encode ]]
+v5.encode = function(v202) --[[ Line: 3895 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v203 = buffer.create(0);
     local v204 = 0;
@@ -1079,7 +1079,7 @@ v5.encode = function(v202) --[[ Line: 3873 ]] --[[ Name: encode ]]
     buffer.copy(v214, 0, v203, 0, v204);
     return v214;
 end;
-v5.decode = function(v215) --[[ Line: 3901 ]] --[[ Name: decode ]]
+v5.decode = function(v215) --[[ Line: 3923 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_7 (copy), v0 (copy), v4 (copy)
     local v216 = l_v5_7.new();
     local v217 = 0;
@@ -1152,7 +1152,7 @@ v5.decode = function(v215) --[[ Line: 3901 ]] --[[ Name: decode ]]
     end;
     return v216;
 end;
-v5.jsonEncode = function(v223) --[[ Line: 3959 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v223) --[[ Line: 3981 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
     local v224 = {};
     if v223.condition ~= nil then
@@ -1171,7 +1171,7 @@ v5.jsonEncode = function(v223) --[[ Line: 3959 ]] --[[ Name: jsonEncode ]]
     end;
     return v224;
 end;
-v5.jsonDecode = function(v225) --[[ Line: 3979 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v225) --[[ Line: 4001 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_7 (copy), v4 (copy), v0 (copy)
     local v226 = l_v5_7.new();
     if v225.condition ~= nil then
@@ -1212,13 +1212,13 @@ v1.default:register(v2.FloatProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_8 = v5 --[[ copy: 5 -> 14 ]];
-v5.new = function(v228) --[[ Line: 4020 ]] --[[ Name: new ]]
+v5.new = function(v228) --[[ Line: 4042 ]] --[[ Name: new ]]
     -- upvalues: l_v5_8 (copy)
     return (setmetatable({
         options = if not (v228 ~= nil) or v228.options == nil then {} else v228.options
     }, l_v5_8));
 end;
-v5.encode = function(v229) --[[ Line: 4028 ]] --[[ Name: encode ]]
+v5.encode = function(v229) --[[ Line: 4050 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v230 = buffer.create(0);
     local v231 = 0;
@@ -1235,7 +1235,7 @@ v5.encode = function(v229) --[[ Line: 4028 ]] --[[ Name: encode ]]
     buffer.copy(v237, 0, v230, 0, v231);
     return v237;
 end;
-v5.decode = function(v238) --[[ Line: 4045 ]] --[[ Name: decode ]]
+v5.decode = function(v238) --[[ Line: 4067 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_8 (copy), v0 (copy), v2 (copy)
     local v239 = l_v5_8.new();
     local v240 = 0;
@@ -1279,7 +1279,7 @@ v5.decode = function(v238) --[[ Line: 4045 ]] --[[ Name: decode ]]
     end;
     return v239;
 end;
-v5.jsonEncode = function(v246) --[[ Line: 4088 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v246) --[[ Line: 4110 ]] --[[ Name: jsonEncode ]]
     local v247 = {};
     if v246.options ~= nil and #v246.options > 0 then
         local v248 = {};
@@ -1290,7 +1290,7 @@ v5.jsonEncode = function(v246) --[[ Line: 4088 ]] --[[ Name: jsonEncode ]]
     end;
     return v247;
 end;
-v5.jsonDecode = function(v251) --[[ Line: 4102 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v251) --[[ Line: 4124 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_8 (copy), v2 (copy)
     local v252 = l_v5_8.new();
     if v251.options ~= nil then
@@ -1311,13 +1311,13 @@ v1.default:register(v2.FloatProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_9 = v5 --[[ copy: 5 -> 15 ]];
-v5.new = function(v257) --[[ Line: 4131 ]] --[[ Name: new ]]
+v5.new = function(v257) --[[ Line: 4153 ]] --[[ Name: new ]]
     -- upvalues: l_v5_9 (copy)
     return (setmetatable({
         kind = if not (v257 ~= nil) or v257.kind == nil then nil else v257.kind
     }, l_v5_9));
 end;
-v5.encode = function(v258) --[[ Line: 4137 ]] --[[ Name: encode ]]
+v5.encode = function(v258) --[[ Line: 4159 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v259 = buffer.create(0);
     local v260 = 0;
@@ -1349,7 +1349,7 @@ v5.encode = function(v258) --[[ Line: 4137 ]] --[[ Name: encode ]]
     buffer.copy(v270, 0, v259, 0, v260);
     return v270;
 end;
-v5.decode = function(v271) --[[ Line: 4163 ]] --[[ Name: decode ]]
+v5.decode = function(v271) --[[ Line: 4185 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
     local v272 = l_v5_9.new();
     local v273 = 0;
@@ -1425,7 +1425,7 @@ v5.decode = function(v271) --[[ Line: 4163 ]] --[[ Name: decode ]]
     end;
     return v272;
 end;
-v5.jsonEncode = function(v279) --[[ Line: 4221 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v279) --[[ Line: 4243 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
     local v280 = {};
     if v279.kind ~= nil then
@@ -1444,7 +1444,7 @@ v5.jsonEncode = function(v279) --[[ Line: 4221 ]] --[[ Name: jsonEncode ]]
     end;
     return v280;
 end;
-v5.jsonDecode = function(v281) --[[ Line: 4239 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v281) --[[ Line: 4261 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_9 (copy), v0 (copy), v2 (copy)
     local v282 = l_v5_9.new();
     if v281.literal ~= nil then
@@ -1488,14 +1488,14 @@ v1.default:register(v2.DoubleProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_10 = v5 --[[ copy: 5 -> 16 ]];
-v5.new = function(v284) --[[ Line: 4280 ]] --[[ Name: new ]]
+v5.new = function(v284) --[[ Line: 4302 ]] --[[ Name: new ]]
     -- upvalues: l_v5_10 (copy)
     return (setmetatable({
         condition = if not (v284 ~= nil) or v284.condition == nil then nil else v284.condition, 
         kind = if not (v284 ~= nil) or v284.kind == nil then nil else v284.kind
     }, l_v5_10));
 end;
-v5.encode = function(v285) --[[ Line: 4289 ]] --[[ Name: encode ]]
+v5.encode = function(v285) --[[ Line: 4311 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v286 = buffer.create(0);
     local v287 = 0;
@@ -1528,7 +1528,7 @@ v5.encode = function(v285) --[[ Line: 4289 ]] --[[ Name: encode ]]
     buffer.copy(v297, 0, v286, 0, v287);
     return v297;
 end;
-v5.decode = function(v298) --[[ Line: 4317 ]] --[[ Name: decode ]]
+v5.decode = function(v298) --[[ Line: 4339 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_10 (copy), v0 (copy), v4 (copy)
     local v299 = l_v5_10.new();
     local v300 = 0;
@@ -1601,7 +1601,7 @@ v5.decode = function(v298) --[[ Line: 4317 ]] --[[ Name: decode ]]
     end;
     return v299;
 end;
-v5.jsonEncode = function(v306) --[[ Line: 4375 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v306) --[[ Line: 4397 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
     local v307 = {};
     if v306.condition ~= nil then
@@ -1620,7 +1620,7 @@ v5.jsonEncode = function(v306) --[[ Line: 4375 ]] --[[ Name: jsonEncode ]]
     end;
     return v307;
 end;
-v5.jsonDecode = function(v308) --[[ Line: 4395 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v308) --[[ Line: 4417 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_10 (copy), v4 (copy), v0 (copy)
     local v309 = l_v5_10.new();
     if v308.condition ~= nil then
@@ -1661,13 +1661,13 @@ v1.default:register(v2.DoubleProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_11 = v5 --[[ copy: 5 -> 17 ]];
-v5.new = function(v311) --[[ Line: 4436 ]] --[[ Name: new ]]
+v5.new = function(v311) --[[ Line: 4458 ]] --[[ Name: new ]]
     -- upvalues: l_v5_11 (copy)
     return (setmetatable({
         options = if not (v311 ~= nil) or v311.options == nil then {} else v311.options
     }, l_v5_11));
 end;
-v5.encode = function(v312) --[[ Line: 4444 ]] --[[ Name: encode ]]
+v5.encode = function(v312) --[[ Line: 4466 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v313 = buffer.create(0);
     local v314 = 0;
@@ -1684,7 +1684,7 @@ v5.encode = function(v312) --[[ Line: 4444 ]] --[[ Name: encode ]]
     buffer.copy(v320, 0, v313, 0, v314);
     return v320;
 end;
-v5.decode = function(v321) --[[ Line: 4461 ]] --[[ Name: decode ]]
+v5.decode = function(v321) --[[ Line: 4483 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_11 (copy), v0 (copy), v2 (copy)
     local v322 = l_v5_11.new();
     local v323 = 0;
@@ -1728,7 +1728,7 @@ v5.decode = function(v321) --[[ Line: 4461 ]] --[[ Name: decode ]]
     end;
     return v322;
 end;
-v5.jsonEncode = function(v329) --[[ Line: 4504 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v329) --[[ Line: 4526 ]] --[[ Name: jsonEncode ]]
     local v330 = {};
     if v329.options ~= nil and #v329.options > 0 then
         local v331 = {};
@@ -1739,7 +1739,7 @@ v5.jsonEncode = function(v329) --[[ Line: 4504 ]] --[[ Name: jsonEncode ]]
     end;
     return v330;
 end;
-v5.jsonDecode = function(v334) --[[ Line: 4518 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v334) --[[ Line: 4540 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_11 (copy), v2 (copy)
     local v335 = l_v5_11.new();
     if v334.options ~= nil then
@@ -1760,13 +1760,13 @@ v1.default:register(v2.DoubleProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_12 = v5 --[[ copy: 5 -> 18 ]];
-v5.new = function(v340) --[[ Line: 4547 ]] --[[ Name: new ]]
+v5.new = function(v340) --[[ Line: 4569 ]] --[[ Name: new ]]
     -- upvalues: l_v5_12 (copy)
     return (setmetatable({
         kind = if not (v340 ~= nil) or v340.kind == nil then nil else v340.kind
     }, l_v5_12));
 end;
-v5.encode = function(v341) --[[ Line: 4553 ]] --[[ Name: encode ]]
+v5.encode = function(v341) --[[ Line: 4575 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v342 = buffer.create(0);
     local v343 = 0;
@@ -1798,7 +1798,7 @@ v5.encode = function(v341) --[[ Line: 4553 ]] --[[ Name: encode ]]
     buffer.copy(v353, 0, v342, 0, v343);
     return v353;
 end;
-v5.decode = function(v354) --[[ Line: 4579 ]] --[[ Name: decode ]]
+v5.decode = function(v354) --[[ Line: 4601 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_12 (copy), v0 (copy), v2 (copy)
     local v355 = l_v5_12.new();
     local v356 = 0;
@@ -1874,7 +1874,7 @@ v5.decode = function(v354) --[[ Line: 4579 ]] --[[ Name: decode ]]
     end;
     return v355;
 end;
-v5.jsonEncode = function(v362) --[[ Line: 4637 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v362) --[[ Line: 4659 ]] --[[ Name: jsonEncode ]]
     local v363 = {};
     if v362.kind ~= nil then
         if v362.kind.type == "literal" then
@@ -1892,7 +1892,7 @@ v5.jsonEncode = function(v362) --[[ Line: 4637 ]] --[[ Name: jsonEncode ]]
     end;
     return v363;
 end;
-v5.jsonDecode = function(v364) --[[ Line: 4655 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v364) --[[ Line: 4677 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_12 (copy), v2 (copy)
     local v365 = l_v5_12.new();
     if v364.literal ~= nil then
@@ -1936,14 +1936,14 @@ v1.default:register(v2.Int32Prop);
 v5 = {};
 v5.__index = v5;
 local l_v5_13 = v5 --[[ copy: 5 -> 19 ]];
-v5.new = function(v367) --[[ Line: 4696 ]] --[[ Name: new ]]
+v5.new = function(v367) --[[ Line: 4718 ]] --[[ Name: new ]]
     -- upvalues: l_v5_13 (copy)
     return (setmetatable({
         condition = if not (v367 ~= nil) or v367.condition == nil then nil else v367.condition, 
         kind = if not (v367 ~= nil) or v367.kind == nil then nil else v367.kind
     }, l_v5_13));
 end;
-v5.encode = function(v368) --[[ Line: 4705 ]] --[[ Name: encode ]]
+v5.encode = function(v368) --[[ Line: 4727 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v369 = buffer.create(0);
     local v370 = 0;
@@ -1976,7 +1976,7 @@ v5.encode = function(v368) --[[ Line: 4705 ]] --[[ Name: encode ]]
     buffer.copy(v380, 0, v369, 0, v370);
     return v380;
 end;
-v5.decode = function(v381) --[[ Line: 4733 ]] --[[ Name: decode ]]
+v5.decode = function(v381) --[[ Line: 4755 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_13 (copy), v0 (copy), v4 (copy)
     local v382 = l_v5_13.new();
     local v383 = 0;
@@ -2049,7 +2049,7 @@ v5.decode = function(v381) --[[ Line: 4733 ]] --[[ Name: decode ]]
     end;
     return v382;
 end;
-v5.jsonEncode = function(v389) --[[ Line: 4791 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v389) --[[ Line: 4813 ]] --[[ Name: jsonEncode ]]
     local v390 = {};
     if v389.condition ~= nil then
         v390.condition = v389.condition:jsonEncode();
@@ -2067,7 +2067,7 @@ v5.jsonEncode = function(v389) --[[ Line: 4791 ]] --[[ Name: jsonEncode ]]
     end;
     return v390;
 end;
-v5.jsonDecode = function(v391) --[[ Line: 4811 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v391) --[[ Line: 4833 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_13 (copy), v4 (copy)
     local v392 = l_v5_13.new();
     if v391.condition ~= nil then
@@ -2108,13 +2108,13 @@ v1.default:register(v2.Int32Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_14 = v5 --[[ copy: 5 -> 20 ]];
-v5.new = function(v394) --[[ Line: 4852 ]] --[[ Name: new ]]
+v5.new = function(v394) --[[ Line: 4874 ]] --[[ Name: new ]]
     -- upvalues: l_v5_14 (copy)
     return (setmetatable({
         options = if not (v394 ~= nil) or v394.options == nil then {} else v394.options
     }, l_v5_14));
 end;
-v5.encode = function(v395) --[[ Line: 4860 ]] --[[ Name: encode ]]
+v5.encode = function(v395) --[[ Line: 4882 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v396 = buffer.create(0);
     local v397 = 0;
@@ -2131,7 +2131,7 @@ v5.encode = function(v395) --[[ Line: 4860 ]] --[[ Name: encode ]]
     buffer.copy(v403, 0, v396, 0, v397);
     return v403;
 end;
-v5.decode = function(v404) --[[ Line: 4877 ]] --[[ Name: decode ]]
+v5.decode = function(v404) --[[ Line: 4899 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_14 (copy), v0 (copy), v2 (copy)
     local v405 = l_v5_14.new();
     local v406 = 0;
@@ -2175,7 +2175,7 @@ v5.decode = function(v404) --[[ Line: 4877 ]] --[[ Name: decode ]]
     end;
     return v405;
 end;
-v5.jsonEncode = function(v412) --[[ Line: 4920 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v412) --[[ Line: 4942 ]] --[[ Name: jsonEncode ]]
     local v413 = {};
     if v412.options ~= nil and #v412.options > 0 then
         local v414 = {};
@@ -2186,7 +2186,7 @@ v5.jsonEncode = function(v412) --[[ Line: 4920 ]] --[[ Name: jsonEncode ]]
     end;
     return v413;
 end;
-v5.jsonDecode = function(v417) --[[ Line: 4934 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v417) --[[ Line: 4956 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_14 (copy), v2 (copy)
     local v418 = l_v5_14.new();
     if v417.options ~= nil then
@@ -2207,13 +2207,13 @@ v1.default:register(v2.Int32Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_15 = v5 --[[ copy: 5 -> 21 ]];
-v5.new = function(v423) --[[ Line: 4963 ]] --[[ Name: new ]]
+v5.new = function(v423) --[[ Line: 4985 ]] --[[ Name: new ]]
     -- upvalues: l_v5_15 (copy)
     return (setmetatable({
         kind = if not (v423 ~= nil) or v423.kind == nil then nil else v423.kind
     }, l_v5_15));
 end;
-v5.encode = function(v424) --[[ Line: 4969 ]] --[[ Name: encode ]]
+v5.encode = function(v424) --[[ Line: 4991 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v425 = buffer.create(0);
     local v426 = 0;
@@ -2245,7 +2245,7 @@ v5.encode = function(v424) --[[ Line: 4969 ]] --[[ Name: encode ]]
     buffer.copy(v436, 0, v425, 0, v426);
     return v436;
 end;
-v5.decode = function(v437) --[[ Line: 4995 ]] --[[ Name: decode ]]
+v5.decode = function(v437) --[[ Line: 5017 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_15 (copy), v0 (copy), v2 (copy)
     local v438 = l_v5_15.new();
     local v439 = 0;
@@ -2321,7 +2321,7 @@ v5.decode = function(v437) --[[ Line: 4995 ]] --[[ Name: decode ]]
     end;
     return v438;
 end;
-v5.jsonEncode = function(v445) --[[ Line: 5053 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v445) --[[ Line: 5075 ]] --[[ Name: jsonEncode ]]
     local v446 = {};
     if v445.kind ~= nil then
         if v445.kind.type == "literal" then
@@ -2339,7 +2339,7 @@ v5.jsonEncode = function(v445) --[[ Line: 5053 ]] --[[ Name: jsonEncode ]]
     end;
     return v446;
 end;
-v5.jsonDecode = function(v447) --[[ Line: 5071 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v447) --[[ Line: 5093 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_15 (copy), v2 (copy)
     local v448 = l_v5_15.new();
     if v447.literal ~= nil then
@@ -2383,14 +2383,14 @@ v1.default:register(v2.Int64Prop);
 v5 = {};
 v5.__index = v5;
 local l_v5_16 = v5 --[[ copy: 5 -> 22 ]];
-v5.new = function(v450) --[[ Line: 5112 ]] --[[ Name: new ]]
+v5.new = function(v450) --[[ Line: 5134 ]] --[[ Name: new ]]
     -- upvalues: l_v5_16 (copy)
     return (setmetatable({
         condition = if not (v450 ~= nil) or v450.condition == nil then nil else v450.condition, 
         kind = if not (v450 ~= nil) or v450.kind == nil then nil else v450.kind
     }, l_v5_16));
 end;
-v5.encode = function(v451) --[[ Line: 5121 ]] --[[ Name: encode ]]
+v5.encode = function(v451) --[[ Line: 5143 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v452 = buffer.create(0);
     local v453 = 0;
@@ -2423,7 +2423,7 @@ v5.encode = function(v451) --[[ Line: 5121 ]] --[[ Name: encode ]]
     buffer.copy(v463, 0, v452, 0, v453);
     return v463;
 end;
-v5.decode = function(v464) --[[ Line: 5149 ]] --[[ Name: decode ]]
+v5.decode = function(v464) --[[ Line: 5171 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_16 (copy), v0 (copy), v4 (copy)
     local v465 = l_v5_16.new();
     local v466 = 0;
@@ -2496,7 +2496,7 @@ v5.decode = function(v464) --[[ Line: 5149 ]] --[[ Name: decode ]]
     end;
     return v465;
 end;
-v5.jsonEncode = function(v472) --[[ Line: 5207 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v472) --[[ Line: 5229 ]] --[[ Name: jsonEncode ]]
     local v473 = {};
     if v472.condition ~= nil then
         v473.condition = v472.condition:jsonEncode();
@@ -2514,7 +2514,7 @@ v5.jsonEncode = function(v472) --[[ Line: 5207 ]] --[[ Name: jsonEncode ]]
     end;
     return v473;
 end;
-v5.jsonDecode = function(v474) --[[ Line: 5227 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v474) --[[ Line: 5249 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_16 (copy), v4 (copy)
     local v475 = l_v5_16.new();
     if v474.condition ~= nil then
@@ -2555,13 +2555,13 @@ v1.default:register(v2.Int64Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_17 = v5 --[[ copy: 5 -> 23 ]];
-v5.new = function(v477) --[[ Line: 5268 ]] --[[ Name: new ]]
+v5.new = function(v477) --[[ Line: 5290 ]] --[[ Name: new ]]
     -- upvalues: l_v5_17 (copy)
     return (setmetatable({
         options = if not (v477 ~= nil) or v477.options == nil then {} else v477.options
     }, l_v5_17));
 end;
-v5.encode = function(v478) --[[ Line: 5276 ]] --[[ Name: encode ]]
+v5.encode = function(v478) --[[ Line: 5298 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v479 = buffer.create(0);
     local v480 = 0;
@@ -2578,7 +2578,7 @@ v5.encode = function(v478) --[[ Line: 5276 ]] --[[ Name: encode ]]
     buffer.copy(v486, 0, v479, 0, v480);
     return v486;
 end;
-v5.decode = function(v487) --[[ Line: 5293 ]] --[[ Name: decode ]]
+v5.decode = function(v487) --[[ Line: 5315 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_17 (copy), v0 (copy), v2 (copy)
     local v488 = l_v5_17.new();
     local v489 = 0;
@@ -2622,7 +2622,7 @@ v5.decode = function(v487) --[[ Line: 5293 ]] --[[ Name: decode ]]
     end;
     return v488;
 end;
-v5.jsonEncode = function(v495) --[[ Line: 5336 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v495) --[[ Line: 5358 ]] --[[ Name: jsonEncode ]]
     local v496 = {};
     if v495.options ~= nil and #v495.options > 0 then
         local v497 = {};
@@ -2633,7 +2633,7 @@ v5.jsonEncode = function(v495) --[[ Line: 5336 ]] --[[ Name: jsonEncode ]]
     end;
     return v496;
 end;
-v5.jsonDecode = function(v500) --[[ Line: 5350 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v500) --[[ Line: 5372 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_17 (copy), v2 (copy)
     local v501 = l_v5_17.new();
     if v500.options ~= nil then
@@ -2654,13 +2654,13 @@ v1.default:register(v2.Int64Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_18 = v5 --[[ copy: 5 -> 24 ]];
-v5.new = function(v506) --[[ Line: 5379 ]] --[[ Name: new ]]
+v5.new = function(v506) --[[ Line: 5401 ]] --[[ Name: new ]]
     -- upvalues: l_v5_18 (copy)
     return (setmetatable({
         kind = if not (v506 ~= nil) or v506.kind == nil then nil else v506.kind
     }, l_v5_18));
 end;
-v5.encode = function(v507) --[[ Line: 5385 ]] --[[ Name: encode ]]
+v5.encode = function(v507) --[[ Line: 5407 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v508 = buffer.create(0);
     local v509 = 0;
@@ -2687,7 +2687,7 @@ v5.encode = function(v507) --[[ Line: 5385 ]] --[[ Name: encode ]]
     buffer.copy(v517, 0, v508, 0, v509);
     return v517;
 end;
-v5.decode = function(v518) --[[ Line: 5408 ]] --[[ Name: decode ]]
+v5.decode = function(v518) --[[ Line: 5430 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_18 (copy), v0 (copy), v2 (copy)
     local v519 = l_v5_18.new();
     local v520 = 0;
@@ -2754,7 +2754,7 @@ v5.decode = function(v518) --[[ Line: 5408 ]] --[[ Name: decode ]]
     end;
     return v519;
 end;
-v5.jsonEncode = function(v526) --[[ Line: 5461 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v526) --[[ Line: 5483 ]] --[[ Name: jsonEncode ]]
     local v527 = {};
     if v526.kind ~= nil then
         if v526.kind.type == "literal" then
@@ -2769,7 +2769,7 @@ v5.jsonEncode = function(v526) --[[ Line: 5461 ]] --[[ Name: jsonEncode ]]
     end;
     return v527;
 end;
-v5.jsonDecode = function(v528) --[[ Line: 5477 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v528) --[[ Line: 5499 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_18 (copy), v2 (copy)
     local v529 = l_v5_18.new();
     if v528.literal ~= nil then
@@ -2807,14 +2807,14 @@ v1.default:register(v2.BoolProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_19 = v5 --[[ copy: 5 -> 25 ]];
-v5.new = function(v531) --[[ Line: 5514 ]] --[[ Name: new ]]
+v5.new = function(v531) --[[ Line: 5536 ]] --[[ Name: new ]]
     -- upvalues: l_v5_19 (copy)
     return (setmetatable({
         condition = if not (v531 ~= nil) or v531.condition == nil then nil else v531.condition, 
         kind = if not (v531 ~= nil) or v531.kind == nil then nil else v531.kind
     }, l_v5_19));
 end;
-v5.encode = function(v532) --[[ Line: 5523 ]] --[[ Name: encode ]]
+v5.encode = function(v532) --[[ Line: 5545 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v533 = buffer.create(0);
     local v534 = 0;
@@ -2842,7 +2842,7 @@ v5.encode = function(v532) --[[ Line: 5523 ]] --[[ Name: encode ]]
     buffer.copy(v542, 0, v533, 0, v534);
     return v542;
 end;
-v5.decode = function(v543) --[[ Line: 5548 ]] --[[ Name: decode ]]
+v5.decode = function(v543) --[[ Line: 5570 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_19 (copy), v0 (copy), v4 (copy)
     local v544 = l_v5_19.new();
     local v545 = 0;
@@ -2906,7 +2906,7 @@ v5.decode = function(v543) --[[ Line: 5548 ]] --[[ Name: decode ]]
     end;
     return v544;
 end;
-v5.jsonEncode = function(v551) --[[ Line: 5601 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v551) --[[ Line: 5623 ]] --[[ Name: jsonEncode ]]
     local v552 = {};
     if v551.condition ~= nil then
         v552.condition = v551.condition:jsonEncode();
@@ -2921,7 +2921,7 @@ v5.jsonEncode = function(v551) --[[ Line: 5601 ]] --[[ Name: jsonEncode ]]
     end;
     return v552;
 end;
-v5.jsonDecode = function(v553) --[[ Line: 5619 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v553) --[[ Line: 5641 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_19 (copy), v4 (copy)
     local v554 = l_v5_19.new();
     if v553.condition ~= nil then
@@ -2956,13 +2956,13 @@ v1.default:register(v2.BoolProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_20 = v5 --[[ copy: 5 -> 26 ]];
-v5.new = function(v556) --[[ Line: 5656 ]] --[[ Name: new ]]
+v5.new = function(v556) --[[ Line: 5678 ]] --[[ Name: new ]]
     -- upvalues: l_v5_20 (copy)
     return (setmetatable({
         options = if not (v556 ~= nil) or v556.options == nil then {} else v556.options
     }, l_v5_20));
 end;
-v5.encode = function(v557) --[[ Line: 5664 ]] --[[ Name: encode ]]
+v5.encode = function(v557) --[[ Line: 5686 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v558 = buffer.create(0);
     local v559 = 0;
@@ -2979,7 +2979,7 @@ v5.encode = function(v557) --[[ Line: 5664 ]] --[[ Name: encode ]]
     buffer.copy(v565, 0, v558, 0, v559);
     return v565;
 end;
-v5.decode = function(v566) --[[ Line: 5681 ]] --[[ Name: decode ]]
+v5.decode = function(v566) --[[ Line: 5703 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_20 (copy), v0 (copy), v2 (copy)
     local v567 = l_v5_20.new();
     local v568 = 0;
@@ -3023,7 +3023,7 @@ v5.decode = function(v566) --[[ Line: 5681 ]] --[[ Name: decode ]]
     end;
     return v567;
 end;
-v5.jsonEncode = function(v574) --[[ Line: 5724 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v574) --[[ Line: 5746 ]] --[[ Name: jsonEncode ]]
     local v575 = {};
     if v574.options ~= nil and #v574.options > 0 then
         local v576 = {};
@@ -3034,7 +3034,7 @@ v5.jsonEncode = function(v574) --[[ Line: 5724 ]] --[[ Name: jsonEncode ]]
     end;
     return v575;
 end;
-v5.jsonDecode = function(v579) --[[ Line: 5738 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v579) --[[ Line: 5760 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_20 (copy), v2 (copy)
     local v580 = l_v5_20.new();
     if v579.options ~= nil then
@@ -3055,13 +3055,13 @@ v1.default:register(v2.BoolProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_21 = v5 --[[ copy: 5 -> 27 ]];
-v5.new = function(v585) --[[ Line: 5767 ]] --[[ Name: new ]]
+v5.new = function(v585) --[[ Line: 5789 ]] --[[ Name: new ]]
     -- upvalues: l_v5_21 (copy)
     return (setmetatable({
         kind = if not (v585 ~= nil) or v585.kind == nil then nil else v585.kind
     }, l_v5_21));
 end;
-v5.encode = function(v586) --[[ Line: 5773 ]] --[[ Name: encode ]]
+v5.encode = function(v586) --[[ Line: 5795 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v587 = buffer.create(0);
     local v588 = 0;
@@ -3089,7 +3089,7 @@ v5.encode = function(v586) --[[ Line: 5773 ]] --[[ Name: encode ]]
     buffer.copy(v597, 0, v587, 0, v588);
     return v597;
 end;
-v5.decode = function(v598) --[[ Line: 5797 ]] --[[ Name: decode ]]
+v5.decode = function(v598) --[[ Line: 5819 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_21 (copy), v0 (copy), v3 (copy), v2 (copy)
     local v599 = l_v5_21.new();
     local v600 = 0;
@@ -3154,7 +3154,7 @@ v5.decode = function(v598) --[[ Line: 5797 ]] --[[ Name: decode ]]
     end;
     return v599;
 end;
-v5.jsonEncode = function(v606) --[[ Line: 5850 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v606) --[[ Line: 5872 ]] --[[ Name: jsonEncode ]]
     local v607 = {};
     if v606.kind ~= nil then
         if v606.kind.type == "literal" then
@@ -3169,7 +3169,7 @@ v5.jsonEncode = function(v606) --[[ Line: 5850 ]] --[[ Name: jsonEncode ]]
     end;
     return v607;
 end;
-v5.jsonDecode = function(v608) --[[ Line: 5866 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v608) --[[ Line: 5888 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_21 (copy), v3 (copy), v2 (copy)
     local v609 = l_v5_21.new();
     if v608.literal ~= nil then
@@ -3207,14 +3207,14 @@ v1.default:register(v2.StructProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_22 = v5 --[[ copy: 5 -> 28 ]];
-v5.new = function(v611) --[[ Line: 5903 ]] --[[ Name: new ]]
+v5.new = function(v611) --[[ Line: 5925 ]] --[[ Name: new ]]
     -- upvalues: l_v5_22 (copy)
     return (setmetatable({
         condition = if not (v611 ~= nil) or v611.condition == nil then nil else v611.condition, 
         kind = if not (v611 ~= nil) or v611.kind == nil then nil else v611.kind
     }, l_v5_22));
 end;
-v5.encode = function(v612) --[[ Line: 5912 ]] --[[ Name: encode ]]
+v5.encode = function(v612) --[[ Line: 5934 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v613 = buffer.create(0);
     local v614 = 0;
@@ -3243,7 +3243,7 @@ v5.encode = function(v612) --[[ Line: 5912 ]] --[[ Name: encode ]]
     buffer.copy(v623, 0, v613, 0, v614);
     return v623;
 end;
-v5.decode = function(v624) --[[ Line: 5938 ]] --[[ Name: decode ]]
+v5.decode = function(v624) --[[ Line: 5960 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_22 (copy), v0 (copy), v4 (copy), v3 (copy)
     local v625 = l_v5_22.new();
     local v626 = 0;
@@ -3305,7 +3305,7 @@ v5.decode = function(v624) --[[ Line: 5938 ]] --[[ Name: decode ]]
     end;
     return v625;
 end;
-v5.jsonEncode = function(v632) --[[ Line: 5991 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v632) --[[ Line: 6013 ]] --[[ Name: jsonEncode ]]
     local v633 = {};
     if v632.condition ~= nil then
         v633.condition = v632.condition:jsonEncode();
@@ -3320,7 +3320,7 @@ v5.jsonEncode = function(v632) --[[ Line: 5991 ]] --[[ Name: jsonEncode ]]
     end;
     return v633;
 end;
-v5.jsonDecode = function(v634) --[[ Line: 6009 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v634) --[[ Line: 6031 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_22 (copy), v4 (copy), v3 (copy)
     local v635 = l_v5_22.new();
     if v634.condition ~= nil then
@@ -3355,13 +3355,13 @@ v1.default:register(v2.StructProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_23 = v5 --[[ copy: 5 -> 29 ]];
-v5.new = function(v637) --[[ Line: 6046 ]] --[[ Name: new ]]
+v5.new = function(v637) --[[ Line: 6068 ]] --[[ Name: new ]]
     -- upvalues: l_v5_23 (copy)
     return (setmetatable({
         options = if not (v637 ~= nil) or v637.options == nil then {} else v637.options
     }, l_v5_23));
 end;
-v5.encode = function(v638) --[[ Line: 6054 ]] --[[ Name: encode ]]
+v5.encode = function(v638) --[[ Line: 6076 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v639 = buffer.create(0);
     local v640 = 0;
@@ -3378,7 +3378,7 @@ v5.encode = function(v638) --[[ Line: 6054 ]] --[[ Name: encode ]]
     buffer.copy(v646, 0, v639, 0, v640);
     return v646;
 end;
-v5.decode = function(v647) --[[ Line: 6071 ]] --[[ Name: decode ]]
+v5.decode = function(v647) --[[ Line: 6093 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_23 (copy), v0 (copy), v2 (copy)
     local v648 = l_v5_23.new();
     local v649 = 0;
@@ -3422,7 +3422,7 @@ v5.decode = function(v647) --[[ Line: 6071 ]] --[[ Name: decode ]]
     end;
     return v648;
 end;
-v5.jsonEncode = function(v655) --[[ Line: 6114 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v655) --[[ Line: 6136 ]] --[[ Name: jsonEncode ]]
     local v656 = {};
     if v655.options ~= nil and #v655.options > 0 then
         local v657 = {};
@@ -3433,7 +3433,7 @@ v5.jsonEncode = function(v655) --[[ Line: 6114 ]] --[[ Name: jsonEncode ]]
     end;
     return v656;
 end;
-v5.jsonDecode = function(v660) --[[ Line: 6128 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v660) --[[ Line: 6150 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_23 (copy), v2 (copy)
     local v661 = l_v5_23.new();
     if v660.options ~= nil then
@@ -3454,13 +3454,13 @@ v1.default:register(v2.StructProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_24 = v5 --[[ copy: 5 -> 30 ]];
-v5.new = function(v666) --[[ Line: 6157 ]] --[[ Name: new ]]
+v5.new = function(v666) --[[ Line: 6179 ]] --[[ Name: new ]]
     -- upvalues: l_v5_24 (copy)
     return (setmetatable({
         kind = if not (v666 ~= nil) or v666.kind == nil then nil else v666.kind
     }, l_v5_24));
 end;
-v5.encode = function(v667) --[[ Line: 6163 ]] --[[ Name: encode ]]
+v5.encode = function(v667) --[[ Line: 6185 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v668 = buffer.create(0);
     local v669 = 0;
@@ -3493,7 +3493,7 @@ v5.encode = function(v667) --[[ Line: 6163 ]] --[[ Name: encode ]]
     buffer.copy(v680, 0, v668, 0, v669);
     return v680;
 end;
-v5.decode = function(v681) --[[ Line: 6190 ]] --[[ Name: decode ]]
+v5.decode = function(v681) --[[ Line: 6212 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_24 (copy), v0 (copy), v2 (copy)
     local v682 = l_v5_24.new();
     local v683 = 0;
@@ -3567,7 +3567,7 @@ v5.decode = function(v681) --[[ Line: 6190 ]] --[[ Name: decode ]]
     end;
     return v682;
 end;
-v5.jsonEncode = function(v689) --[[ Line: 6249 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v689) --[[ Line: 6271 ]] --[[ Name: jsonEncode ]]
     local v690 = {};
     if v689.kind ~= nil then
         if v689.kind.type == "literal" then
@@ -3585,7 +3585,7 @@ v5.jsonEncode = function(v689) --[[ Line: 6249 ]] --[[ Name: jsonEncode ]]
     end;
     return v690;
 end;
-v5.jsonDecode = function(v691) --[[ Line: 6267 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v691) --[[ Line: 6289 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_24 (copy), v2 (copy)
     local v692 = l_v5_24.new();
     if v691.literal ~= nil then
@@ -3629,14 +3629,14 @@ v1.default:register(v2.ImageStringProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_25 = v5 --[[ copy: 5 -> 31 ]];
-v5.new = function(v694) --[[ Line: 6310 ]] --[[ Name: new ]]
+v5.new = function(v694) --[[ Line: 6332 ]] --[[ Name: new ]]
     -- upvalues: l_v5_25 (copy)
     return (setmetatable({
         condition = if not (v694 ~= nil) or v694.condition == nil then nil else v694.condition, 
         kind = if not (v694 ~= nil) or v694.kind == nil then nil else v694.kind
     }, l_v5_25));
 end;
-v5.encode = function(v695) --[[ Line: 6319 ]] --[[ Name: encode ]]
+v5.encode = function(v695) --[[ Line: 6341 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v696 = buffer.create(0);
     local v697 = 0;
@@ -3670,7 +3670,7 @@ v5.encode = function(v695) --[[ Line: 6319 ]] --[[ Name: encode ]]
     buffer.copy(v708, 0, v696, 0, v697);
     return v708;
 end;
-v5.decode = function(v709) --[[ Line: 6348 ]] --[[ Name: decode ]]
+v5.decode = function(v709) --[[ Line: 6370 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_25 (copy), v0 (copy), v4 (copy), v2 (copy)
     local v710 = l_v5_25.new();
     local v711 = 0;
@@ -3741,7 +3741,7 @@ v5.decode = function(v709) --[[ Line: 6348 ]] --[[ Name: decode ]]
     end;
     return v710;
 end;
-v5.jsonEncode = function(v717) --[[ Line: 6406 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v717) --[[ Line: 6428 ]] --[[ Name: jsonEncode ]]
     local v718 = {};
     if v717.condition ~= nil then
         v718.condition = v717.condition:jsonEncode();
@@ -3759,7 +3759,7 @@ v5.jsonEncode = function(v717) --[[ Line: 6406 ]] --[[ Name: jsonEncode ]]
     end;
     return v718;
 end;
-v5.jsonDecode = function(v719) --[[ Line: 6426 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v719) --[[ Line: 6448 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_25 (copy), v4 (copy), v2 (copy)
     local v720 = l_v5_25.new();
     if v719.condition ~= nil then
@@ -3800,13 +3800,13 @@ v1.default:register(v2.ImageStringProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_26 = v5 --[[ copy: 5 -> 32 ]];
-v5.new = function(v722) --[[ Line: 6469 ]] --[[ Name: new ]]
+v5.new = function(v722) --[[ Line: 6491 ]] --[[ Name: new ]]
     -- upvalues: l_v5_26 (copy)
     return (setmetatable({
         options = if not (v722 ~= nil) or v722.options == nil then {} else v722.options
     }, l_v5_26));
 end;
-v5.encode = function(v723) --[[ Line: 6477 ]] --[[ Name: encode ]]
+v5.encode = function(v723) --[[ Line: 6499 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v724 = buffer.create(0);
     local v725 = 0;
@@ -3823,7 +3823,7 @@ v5.encode = function(v723) --[[ Line: 6477 ]] --[[ Name: encode ]]
     buffer.copy(v731, 0, v724, 0, v725);
     return v731;
 end;
-v5.decode = function(v732) --[[ Line: 6494 ]] --[[ Name: decode ]]
+v5.decode = function(v732) --[[ Line: 6516 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_26 (copy), v0 (copy), v2 (copy)
     local v733 = l_v5_26.new();
     local v734 = 0;
@@ -3867,7 +3867,7 @@ v5.decode = function(v732) --[[ Line: 6494 ]] --[[ Name: decode ]]
     end;
     return v733;
 end;
-v5.jsonEncode = function(v740) --[[ Line: 6537 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v740) --[[ Line: 6559 ]] --[[ Name: jsonEncode ]]
     local v741 = {};
     if v740.options ~= nil and #v740.options > 0 then
         local v742 = {};
@@ -3878,7 +3878,7 @@ v5.jsonEncode = function(v740) --[[ Line: 6537 ]] --[[ Name: jsonEncode ]]
     end;
     return v741;
 end;
-v5.jsonDecode = function(v745) --[[ Line: 6551 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v745) --[[ Line: 6573 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_26 (copy), v2 (copy)
     local v746 = l_v5_26.new();
     if v745.options ~= nil then
@@ -3899,13 +3899,13 @@ v1.default:register(v2.ImageStringProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_27 = v5 --[[ copy: 5 -> 33 ]];
-v5.new = function(v751) --[[ Line: 6582 ]] --[[ Name: new ]]
+v5.new = function(v751) --[[ Line: 6604 ]] --[[ Name: new ]]
     -- upvalues: l_v5_27 (copy)
     return (setmetatable({
         kind = if not (v751 ~= nil) or v751.kind == nil then nil else v751.kind
     }, l_v5_27));
 end;
-v5.encode = function(v752) --[[ Line: 6588 ]] --[[ Name: encode ]]
+v5.encode = function(v752) --[[ Line: 6610 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v753 = buffer.create(0);
     local v754 = 0;
@@ -3938,7 +3938,7 @@ v5.encode = function(v752) --[[ Line: 6588 ]] --[[ Name: encode ]]
     buffer.copy(v765, 0, v753, 0, v754);
     return v765;
 end;
-v5.decode = function(v766) --[[ Line: 6615 ]] --[[ Name: decode ]]
+v5.decode = function(v766) --[[ Line: 6637 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_27 (copy), v0 (copy), v2 (copy)
     local v767 = l_v5_27.new();
     local v768 = 0;
@@ -4012,7 +4012,7 @@ v5.decode = function(v766) --[[ Line: 6615 ]] --[[ Name: decode ]]
     end;
     return v767;
 end;
-v5.jsonEncode = function(v774) --[[ Line: 6673 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v774) --[[ Line: 6695 ]] --[[ Name: jsonEncode ]]
     local v775 = {};
     if v774.kind ~= nil then
         if v774.kind.type == "literal" then
@@ -4030,7 +4030,7 @@ v5.jsonEncode = function(v774) --[[ Line: 6673 ]] --[[ Name: jsonEncode ]]
     end;
     return v775;
 end;
-v5.jsonDecode = function(v776) --[[ Line: 6691 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v776) --[[ Line: 6713 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_27 (copy), v2 (copy)
     local v777 = l_v5_27.new();
     if v776.literal ~= nil then
@@ -4074,14 +4074,14 @@ v1.default:register(v2.ImageSetProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_28 = v5 --[[ copy: 5 -> 34 ]];
-v5.new = function(v779) --[[ Line: 6732 ]] --[[ Name: new ]]
+v5.new = function(v779) --[[ Line: 6754 ]] --[[ Name: new ]]
     -- upvalues: l_v5_28 (copy)
     return (setmetatable({
         condition = if not (v779 ~= nil) or v779.condition == nil then nil else v779.condition, 
         kind = if not (v779 ~= nil) or v779.kind == nil then nil else v779.kind
     }, l_v5_28));
 end;
-v5.encode = function(v780) --[[ Line: 6741 ]] --[[ Name: encode ]]
+v5.encode = function(v780) --[[ Line: 6763 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v781 = buffer.create(0);
     local v782 = 0;
@@ -4115,7 +4115,7 @@ v5.encode = function(v780) --[[ Line: 6741 ]] --[[ Name: encode ]]
     buffer.copy(v793, 0, v781, 0, v782);
     return v793;
 end;
-v5.decode = function(v794) --[[ Line: 6770 ]] --[[ Name: decode ]]
+v5.decode = function(v794) --[[ Line: 6792 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_28 (copy), v0 (copy), v4 (copy), v2 (copy)
     local v795 = l_v5_28.new();
     local v796 = 0;
@@ -4186,7 +4186,7 @@ v5.decode = function(v794) --[[ Line: 6770 ]] --[[ Name: decode ]]
     end;
     return v795;
 end;
-v5.jsonEncode = function(v802) --[[ Line: 6828 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v802) --[[ Line: 6850 ]] --[[ Name: jsonEncode ]]
     local v803 = {};
     if v802.condition ~= nil then
         v803.condition = v802.condition:jsonEncode();
@@ -4204,7 +4204,7 @@ v5.jsonEncode = function(v802) --[[ Line: 6828 ]] --[[ Name: jsonEncode ]]
     end;
     return v803;
 end;
-v5.jsonDecode = function(v804) --[[ Line: 6848 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v804) --[[ Line: 6870 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_28 (copy), v4 (copy), v2 (copy)
     local v805 = l_v5_28.new();
     if v804.condition ~= nil then
@@ -4245,13 +4245,13 @@ v1.default:register(v2.ImageSetProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_29 = v5 --[[ copy: 5 -> 35 ]];
-v5.new = function(v807) --[[ Line: 6889 ]] --[[ Name: new ]]
+v5.new = function(v807) --[[ Line: 6911 ]] --[[ Name: new ]]
     -- upvalues: l_v5_29 (copy)
     return (setmetatable({
         options = if not (v807 ~= nil) or v807.options == nil then {} else v807.options
     }, l_v5_29));
 end;
-v5.encode = function(v808) --[[ Line: 6897 ]] --[[ Name: encode ]]
+v5.encode = function(v808) --[[ Line: 6919 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v809 = buffer.create(0);
     local v810 = 0;
@@ -4268,7 +4268,7 @@ v5.encode = function(v808) --[[ Line: 6897 ]] --[[ Name: encode ]]
     buffer.copy(v816, 0, v809, 0, v810);
     return v816;
 end;
-v5.decode = function(v817) --[[ Line: 6914 ]] --[[ Name: decode ]]
+v5.decode = function(v817) --[[ Line: 6936 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_29 (copy), v0 (copy), v2 (copy)
     local v818 = l_v5_29.new();
     local v819 = 0;
@@ -4312,7 +4312,7 @@ v5.decode = function(v817) --[[ Line: 6914 ]] --[[ Name: decode ]]
     end;
     return v818;
 end;
-v5.jsonEncode = function(v825) --[[ Line: 6957 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v825) --[[ Line: 6979 ]] --[[ Name: jsonEncode ]]
     local v826 = {};
     if v825.options ~= nil and #v825.options > 0 then
         local v827 = {};
@@ -4323,7 +4323,7 @@ v5.jsonEncode = function(v825) --[[ Line: 6957 ]] --[[ Name: jsonEncode ]]
     end;
     return v826;
 end;
-v5.jsonDecode = function(v830) --[[ Line: 6971 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v830) --[[ Line: 6993 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_29 (copy), v2 (copy)
     local v831 = l_v5_29.new();
     if v830.options ~= nil then
@@ -4344,13 +4344,13 @@ v1.default:register(v2.ImageSetProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_30 = v5 --[[ copy: 5 -> 36 ]];
-v5.new = function(v836) --[[ Line: 7000 ]] --[[ Name: new ]]
+v5.new = function(v836) --[[ Line: 7022 ]] --[[ Name: new ]]
     -- upvalues: l_v5_30 (copy)
     return (setmetatable({
         kind = if not (v836 ~= nil) or v836.kind == nil then nil else v836.kind
     }, l_v5_30));
 end;
-v5.encode = function(v837) --[[ Line: 7006 ]] --[[ Name: encode ]]
+v5.encode = function(v837) --[[ Line: 7028 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v838 = buffer.create(0);
     local v839 = 0;
@@ -4382,7 +4382,7 @@ v5.encode = function(v837) --[[ Line: 7006 ]] --[[ Name: encode ]]
     buffer.copy(v849, 0, v838, 0, v839);
     return v849;
 end;
-v5.decode = function(v850) --[[ Line: 7032 ]] --[[ Name: decode ]]
+v5.decode = function(v850) --[[ Line: 7054 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_30 (copy), v0 (copy), v2 (copy)
     local v851 = l_v5_30.new();
     local v852 = 0;
@@ -4456,7 +4456,7 @@ v5.decode = function(v850) --[[ Line: 7032 ]] --[[ Name: decode ]]
     end;
     return v851;
 end;
-v5.jsonEncode = function(v858) --[[ Line: 7090 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v858) --[[ Line: 7112 ]] --[[ Name: jsonEncode ]]
     local v859 = {};
     if v858.kind ~= nil then
         if v858.kind.type == "literal" then
@@ -4474,7 +4474,7 @@ v5.jsonEncode = function(v858) --[[ Line: 7090 ]] --[[ Name: jsonEncode ]]
     end;
     return v859;
 end;
-v5.jsonDecode = function(v860) --[[ Line: 7108 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v860) --[[ Line: 7130 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_30 (copy), v2 (copy)
     local v861 = l_v5_30.new();
     if v860.literal ~= nil then
@@ -4518,14 +4518,14 @@ v1.default:register(v2.ColorProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_31 = v5 --[[ copy: 5 -> 37 ]];
-v5.new = function(v863) --[[ Line: 7149 ]] --[[ Name: new ]]
+v5.new = function(v863) --[[ Line: 7171 ]] --[[ Name: new ]]
     -- upvalues: l_v5_31 (copy)
     return (setmetatable({
         condition = if not (v863 ~= nil) or v863.condition == nil then nil else v863.condition, 
         kind = if not (v863 ~= nil) or v863.kind == nil then nil else v863.kind
     }, l_v5_31));
 end;
-v5.encode = function(v864) --[[ Line: 7158 ]] --[[ Name: encode ]]
+v5.encode = function(v864) --[[ Line: 7180 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v865 = buffer.create(0);
     local v866 = 0;
@@ -4558,7 +4558,7 @@ v5.encode = function(v864) --[[ Line: 7158 ]] --[[ Name: encode ]]
     buffer.copy(v876, 0, v865, 0, v866);
     return v876;
 end;
-v5.decode = function(v877) --[[ Line: 7186 ]] --[[ Name: decode ]]
+v5.decode = function(v877) --[[ Line: 7208 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_31 (copy), v0 (copy), v4 (copy)
     local v878 = l_v5_31.new();
     local v879 = 0;
@@ -4629,7 +4629,7 @@ v5.decode = function(v877) --[[ Line: 7186 ]] --[[ Name: decode ]]
     end;
     return v878;
 end;
-v5.jsonEncode = function(v885) --[[ Line: 7244 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v885) --[[ Line: 7266 ]] --[[ Name: jsonEncode ]]
     local v886 = {};
     if v885.condition ~= nil then
         v886.condition = v885.condition:jsonEncode();
@@ -4647,7 +4647,7 @@ v5.jsonEncode = function(v885) --[[ Line: 7244 ]] --[[ Name: jsonEncode ]]
     end;
     return v886;
 end;
-v5.jsonDecode = function(v887) --[[ Line: 7264 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v887) --[[ Line: 7286 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_31 (copy), v4 (copy)
     local v888 = l_v5_31.new();
     if v887.condition ~= nil then
@@ -4688,13 +4688,13 @@ v1.default:register(v2.ColorProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_32 = v5 --[[ copy: 5 -> 38 ]];
-v5.new = function(v890) --[[ Line: 7305 ]] --[[ Name: new ]]
+v5.new = function(v890) --[[ Line: 7327 ]] --[[ Name: new ]]
     -- upvalues: l_v5_32 (copy)
     return (setmetatable({
         options = if not (v890 ~= nil) or v890.options == nil then {} else v890.options
     }, l_v5_32));
 end;
-v5.encode = function(v891) --[[ Line: 7313 ]] --[[ Name: encode ]]
+v5.encode = function(v891) --[[ Line: 7335 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v892 = buffer.create(0);
     local v893 = 0;
@@ -4711,7 +4711,7 @@ v5.encode = function(v891) --[[ Line: 7313 ]] --[[ Name: encode ]]
     buffer.copy(v899, 0, v892, 0, v893);
     return v899;
 end;
-v5.decode = function(v900) --[[ Line: 7330 ]] --[[ Name: decode ]]
+v5.decode = function(v900) --[[ Line: 7352 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_32 (copy), v0 (copy), v2 (copy)
     local v901 = l_v5_32.new();
     local v902 = 0;
@@ -4755,7 +4755,7 @@ v5.decode = function(v900) --[[ Line: 7330 ]] --[[ Name: decode ]]
     end;
     return v901;
 end;
-v5.jsonEncode = function(v908) --[[ Line: 7373 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v908) --[[ Line: 7395 ]] --[[ Name: jsonEncode ]]
     local v909 = {};
     if v908.options ~= nil and #v908.options > 0 then
         local v910 = {};
@@ -4766,7 +4766,7 @@ v5.jsonEncode = function(v908) --[[ Line: 7373 ]] --[[ Name: jsonEncode ]]
     end;
     return v909;
 end;
-v5.jsonDecode = function(v913) --[[ Line: 7387 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v913) --[[ Line: 7409 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_32 (copy), v2 (copy)
     local v914 = l_v5_32.new();
     if v913.options ~= nil then
@@ -4787,13 +4787,13 @@ v1.default:register(v2.ColorProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_33 = v5 --[[ copy: 5 -> 39 ]];
-v5.new = function(v919) --[[ Line: 7416 ]] --[[ Name: new ]]
+v5.new = function(v919) --[[ Line: 7438 ]] --[[ Name: new ]]
     -- upvalues: l_v5_33 (copy)
     return (setmetatable({
         kind = if not (v919 ~= nil) or v919.kind == nil then nil else v919.kind
     }, l_v5_33));
 end;
-v5.encode = function(v920) --[[ Line: 7422 ]] --[[ Name: encode ]]
+v5.encode = function(v920) --[[ Line: 7444 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v921 = buffer.create(0);
     local v922 = 0;
@@ -4815,7 +4815,7 @@ v5.encode = function(v920) --[[ Line: 7422 ]] --[[ Name: encode ]]
     buffer.copy(v928, 0, v921, 0, v922);
     return v928;
 end;
-v5.decode = function(v929) --[[ Line: 7442 ]] --[[ Name: decode ]]
+v5.decode = function(v929) --[[ Line: 7464 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_33 (copy), v0 (copy), v2 (copy)
     local v930 = l_v5_33.new();
     local v931 = 0;
@@ -4871,7 +4871,7 @@ v5.decode = function(v929) --[[ Line: 7442 ]] --[[ Name: decode ]]
     end;
     return v930;
 end;
-v5.jsonEncode = function(v937) --[[ Line: 7491 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v937) --[[ Line: 7513 ]] --[[ Name: jsonEncode ]]
     local v938 = {};
     if v937.kind ~= nil then
         if v937.kind.type == "token" then
@@ -4883,7 +4883,7 @@ v5.jsonEncode = function(v937) --[[ Line: 7491 ]] --[[ Name: jsonEncode ]]
     end;
     return v938;
 end;
-v5.jsonDecode = function(v939) --[[ Line: 7505 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v939) --[[ Line: 7527 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_33 (copy), v2 (copy)
     local v940 = l_v5_33.new();
     if v939.token ~= nil then
@@ -4909,14 +4909,14 @@ v1.default:register(v2.TypographyProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_34 = v5 --[[ copy: 5 -> 40 ]];
-v5.new = function(v942) --[[ Line: 7536 ]] --[[ Name: new ]]
+v5.new = function(v942) --[[ Line: 7558 ]] --[[ Name: new ]]
     -- upvalues: l_v5_34 (copy)
     return (setmetatable({
         condition = if not (v942 ~= nil) or v942.condition == nil then nil else v942.condition, 
         kind = if not (v942 ~= nil) or v942.kind == nil then nil else v942.kind
     }, l_v5_34));
 end;
-v5.encode = function(v943) --[[ Line: 7545 ]] --[[ Name: encode ]]
+v5.encode = function(v943) --[[ Line: 7567 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v944 = buffer.create(0);
     local v945 = 0;
@@ -4937,7 +4937,7 @@ v5.encode = function(v943) --[[ Line: 7545 ]] --[[ Name: encode ]]
     buffer.copy(v951, 0, v944, 0, v945);
     return v951;
 end;
-v5.decode = function(v952) --[[ Line: 7567 ]] --[[ Name: decode ]]
+v5.decode = function(v952) --[[ Line: 7589 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_34 (copy), v0 (copy), v4 (copy)
     local v953 = l_v5_34.new();
     local v954 = 0;
@@ -4990,7 +4990,7 @@ v5.decode = function(v952) --[[ Line: 7567 ]] --[[ Name: decode ]]
     end;
     return v953;
 end;
-v5.jsonEncode = function(v960) --[[ Line: 7615 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v960) --[[ Line: 7637 ]] --[[ Name: jsonEncode ]]
     local v961 = {};
     if v960.condition ~= nil then
         v961.condition = v960.condition:jsonEncode();
@@ -5000,7 +5000,7 @@ v5.jsonEncode = function(v960) --[[ Line: 7615 ]] --[[ Name: jsonEncode ]]
     end;
     return v961;
 end;
-v5.jsonDecode = function(v962) --[[ Line: 7631 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v962) --[[ Line: 7653 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_34 (copy), v4 (copy)
     local v963 = l_v5_34.new();
     if v962.condition ~= nil then
@@ -5023,13 +5023,13 @@ v1.default:register(v2.TypographyProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_35 = v5 --[[ copy: 5 -> 41 ]];
-v5.new = function(v965) --[[ Line: 7662 ]] --[[ Name: new ]]
+v5.new = function(v965) --[[ Line: 7684 ]] --[[ Name: new ]]
     -- upvalues: l_v5_35 (copy)
     return (setmetatable({
         options = if not (v965 ~= nil) or v965.options == nil then {} else v965.options
     }, l_v5_35));
 end;
-v5.encode = function(v966) --[[ Line: 7670 ]] --[[ Name: encode ]]
+v5.encode = function(v966) --[[ Line: 7692 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v967 = buffer.create(0);
     local v968 = 0;
@@ -5046,7 +5046,7 @@ v5.encode = function(v966) --[[ Line: 7670 ]] --[[ Name: encode ]]
     buffer.copy(v974, 0, v967, 0, v968);
     return v974;
 end;
-v5.decode = function(v975) --[[ Line: 7687 ]] --[[ Name: decode ]]
+v5.decode = function(v975) --[[ Line: 7709 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_35 (copy), v0 (copy), v2 (copy)
     local v976 = l_v5_35.new();
     local v977 = 0;
@@ -5090,7 +5090,7 @@ v5.decode = function(v975) --[[ Line: 7687 ]] --[[ Name: decode ]]
     end;
     return v976;
 end;
-v5.jsonEncode = function(v983) --[[ Line: 7730 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v983) --[[ Line: 7752 ]] --[[ Name: jsonEncode ]]
     local v984 = {};
     if v983.options ~= nil and #v983.options > 0 then
         local v985 = {};
@@ -5101,7 +5101,7 @@ v5.jsonEncode = function(v983) --[[ Line: 7730 ]] --[[ Name: jsonEncode ]]
     end;
     return v984;
 end;
-v5.jsonDecode = function(v988) --[[ Line: 7744 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v988) --[[ Line: 7766 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_35 (copy), v2 (copy)
     local v989 = l_v5_35.new();
     if v988.options ~= nil then
@@ -5122,13 +5122,13 @@ v1.default:register(v2.TypographyProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_36 = v5 --[[ copy: 5 -> 42 ]];
-v5.new = function(v994) --[[ Line: 7775 ]] --[[ Name: new ]]
+v5.new = function(v994) --[[ Line: 7797 ]] --[[ Name: new ]]
     -- upvalues: l_v5_36 (copy)
     return (setmetatable({
         kind = if not (v994 ~= nil) or v994.kind == nil then nil else v994.kind
     }, l_v5_36));
 end;
-v5.encode = function(v995) --[[ Line: 7781 ]] --[[ Name: encode ]]
+v5.encode = function(v995) --[[ Line: 7803 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v996 = buffer.create(0);
     local v997 = 0;
@@ -5150,7 +5150,7 @@ v5.encode = function(v995) --[[ Line: 7781 ]] --[[ Name: encode ]]
     buffer.copy(v1003, 0, v996, 0, v997);
     return v1003;
 end;
-v5.decode = function(v1004) --[[ Line: 7801 ]] --[[ Name: decode ]]
+v5.decode = function(v1004) --[[ Line: 7823 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_36 (copy), v0 (copy), v2 (copy)
     local v1005 = l_v5_36.new();
     local v1006 = 0;
@@ -5206,7 +5206,7 @@ v5.decode = function(v1004) --[[ Line: 7801 ]] --[[ Name: decode ]]
     end;
     return v1005;
 end;
-v5.jsonEncode = function(v1012) --[[ Line: 7850 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1012) --[[ Line: 7872 ]] --[[ Name: jsonEncode ]]
     local v1013 = {};
     if v1012.kind ~= nil then
         if v1012.kind.type == "token" then
@@ -5218,7 +5218,7 @@ v5.jsonEncode = function(v1012) --[[ Line: 7850 ]] --[[ Name: jsonEncode ]]
     end;
     return v1013;
 end;
-v5.jsonDecode = function(v1014) --[[ Line: 7864 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1014) --[[ Line: 7886 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_36 (copy), v2 (copy)
     local v1015 = l_v5_36.new();
     if v1014.token ~= nil then
@@ -5244,14 +5244,14 @@ v1.default:register(v2.TypographyFontProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_37 = v5 --[[ copy: 5 -> 43 ]];
-v5.new = function(v1017) --[[ Line: 7895 ]] --[[ Name: new ]]
+v5.new = function(v1017) --[[ Line: 7917 ]] --[[ Name: new ]]
     -- upvalues: l_v5_37 (copy)
     return (setmetatable({
         condition = if not (v1017 ~= nil) or v1017.condition == nil then nil else v1017.condition, 
         kind = if not (v1017 ~= nil) or v1017.kind == nil then nil else v1017.kind
     }, l_v5_37));
 end;
-v5.encode = function(v1018) --[[ Line: 7904 ]] --[[ Name: encode ]]
+v5.encode = function(v1018) --[[ Line: 7926 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1019 = buffer.create(0);
     local v1020 = 0;
@@ -5272,7 +5272,7 @@ v5.encode = function(v1018) --[[ Line: 7904 ]] --[[ Name: encode ]]
     buffer.copy(v1026, 0, v1019, 0, v1020);
     return v1026;
 end;
-v5.decode = function(v1027) --[[ Line: 7926 ]] --[[ Name: decode ]]
+v5.decode = function(v1027) --[[ Line: 7948 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_37 (copy), v0 (copy), v4 (copy)
     local v1028 = l_v5_37.new();
     local v1029 = 0;
@@ -5325,7 +5325,7 @@ v5.decode = function(v1027) --[[ Line: 7926 ]] --[[ Name: decode ]]
     end;
     return v1028;
 end;
-v5.jsonEncode = function(v1035) --[[ Line: 7974 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1035) --[[ Line: 7996 ]] --[[ Name: jsonEncode ]]
     local v1036 = {};
     if v1035.condition ~= nil then
         v1036.condition = v1035.condition:jsonEncode();
@@ -5335,7 +5335,7 @@ v5.jsonEncode = function(v1035) --[[ Line: 7974 ]] --[[ Name: jsonEncode ]]
     end;
     return v1036;
 end;
-v5.jsonDecode = function(v1037) --[[ Line: 7990 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1037) --[[ Line: 8012 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_37 (copy), v4 (copy)
     local v1038 = l_v5_37.new();
     if v1037.condition ~= nil then
@@ -5358,13 +5358,13 @@ v1.default:register(v2.TypographyFontProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_38 = v5 --[[ copy: 5 -> 44 ]];
-v5.new = function(v1040) --[[ Line: 8021 ]] --[[ Name: new ]]
+v5.new = function(v1040) --[[ Line: 8043 ]] --[[ Name: new ]]
     -- upvalues: l_v5_38 (copy)
     return (setmetatable({
         options = if not (v1040 ~= nil) or v1040.options == nil then {} else v1040.options
     }, l_v5_38));
 end;
-v5.encode = function(v1041) --[[ Line: 8029 ]] --[[ Name: encode ]]
+v5.encode = function(v1041) --[[ Line: 8051 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1042 = buffer.create(0);
     local v1043 = 0;
@@ -5381,7 +5381,7 @@ v5.encode = function(v1041) --[[ Line: 8029 ]] --[[ Name: encode ]]
     buffer.copy(v1049, 0, v1042, 0, v1043);
     return v1049;
 end;
-v5.decode = function(v1050) --[[ Line: 8046 ]] --[[ Name: decode ]]
+v5.decode = function(v1050) --[[ Line: 8068 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_38 (copy), v0 (copy), v2 (copy)
     local v1051 = l_v5_38.new();
     local v1052 = 0;
@@ -5425,7 +5425,7 @@ v5.decode = function(v1050) --[[ Line: 8046 ]] --[[ Name: decode ]]
     end;
     return v1051;
 end;
-v5.jsonEncode = function(v1058) --[[ Line: 8089 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1058) --[[ Line: 8111 ]] --[[ Name: jsonEncode ]]
     local v1059 = {};
     if v1058.options ~= nil and #v1058.options > 0 then
         local v1060 = {};
@@ -5436,7 +5436,7 @@ v5.jsonEncode = function(v1058) --[[ Line: 8089 ]] --[[ Name: jsonEncode ]]
     end;
     return v1059;
 end;
-v5.jsonDecode = function(v1063) --[[ Line: 8103 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1063) --[[ Line: 8125 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_38 (copy), v2 (copy)
     local v1064 = l_v5_38.new();
     if v1063.options ~= nil then
@@ -5457,13 +5457,13 @@ v1.default:register(v2.TypographyFontProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_39 = v5 --[[ copy: 5 -> 45 ]];
-v5.new = function(v1069) --[[ Line: 8134 ]] --[[ Name: new ]]
+v5.new = function(v1069) --[[ Line: 8156 ]] --[[ Name: new ]]
     -- upvalues: l_v5_39 (copy)
     return (setmetatable({
         kind = if not (v1069 ~= nil) or v1069.kind == nil then nil else v1069.kind
     }, l_v5_39));
 end;
-v5.encode = function(v1070) --[[ Line: 8140 ]] --[[ Name: encode ]]
+v5.encode = function(v1070) --[[ Line: 8162 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1071 = buffer.create(0);
     local v1072 = 0;
@@ -5485,7 +5485,7 @@ v5.encode = function(v1070) --[[ Line: 8140 ]] --[[ Name: encode ]]
     buffer.copy(v1078, 0, v1071, 0, v1072);
     return v1078;
 end;
-v5.decode = function(v1079) --[[ Line: 8160 ]] --[[ Name: decode ]]
+v5.decode = function(v1079) --[[ Line: 8182 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_39 (copy), v0 (copy), v2 (copy)
     local v1080 = l_v5_39.new();
     local v1081 = 0;
@@ -5541,7 +5541,7 @@ v5.decode = function(v1079) --[[ Line: 8160 ]] --[[ Name: decode ]]
     end;
     return v1080;
 end;
-v5.jsonEncode = function(v1087) --[[ Line: 8209 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1087) --[[ Line: 8231 ]] --[[ Name: jsonEncode ]]
     local v1088 = {};
     if v1087.kind ~= nil then
         if v1087.kind.type == "token" then
@@ -5553,7 +5553,7 @@ v5.jsonEncode = function(v1087) --[[ Line: 8209 ]] --[[ Name: jsonEncode ]]
     end;
     return v1088;
 end;
-v5.jsonDecode = function(v1089) --[[ Line: 8223 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1089) --[[ Line: 8245 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_39 (copy), v2 (copy)
     local v1090 = l_v5_39.new();
     if v1089.token ~= nil then
@@ -5579,14 +5579,14 @@ v1.default:register(v2.ColorStyleProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_40 = v5 --[[ copy: 5 -> 46 ]];
-v5.new = function(v1092) --[[ Line: 8254 ]] --[[ Name: new ]]
+v5.new = function(v1092) --[[ Line: 8276 ]] --[[ Name: new ]]
     -- upvalues: l_v5_40 (copy)
     return (setmetatable({
         condition = if not (v1092 ~= nil) or v1092.condition == nil then nil else v1092.condition, 
         kind = if not (v1092 ~= nil) or v1092.kind == nil then nil else v1092.kind
     }, l_v5_40));
 end;
-v5.encode = function(v1093) --[[ Line: 8263 ]] --[[ Name: encode ]]
+v5.encode = function(v1093) --[[ Line: 8285 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1094 = buffer.create(0);
     local v1095 = 0;
@@ -5607,7 +5607,7 @@ v5.encode = function(v1093) --[[ Line: 8263 ]] --[[ Name: encode ]]
     buffer.copy(v1101, 0, v1094, 0, v1095);
     return v1101;
 end;
-v5.decode = function(v1102) --[[ Line: 8285 ]] --[[ Name: decode ]]
+v5.decode = function(v1102) --[[ Line: 8307 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_40 (copy), v0 (copy), v4 (copy)
     local v1103 = l_v5_40.new();
     local v1104 = 0;
@@ -5660,7 +5660,7 @@ v5.decode = function(v1102) --[[ Line: 8285 ]] --[[ Name: decode ]]
     end;
     return v1103;
 end;
-v5.jsonEncode = function(v1110) --[[ Line: 8333 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1110) --[[ Line: 8355 ]] --[[ Name: jsonEncode ]]
     local v1111 = {};
     if v1110.condition ~= nil then
         v1111.condition = v1110.condition:jsonEncode();
@@ -5670,7 +5670,7 @@ v5.jsonEncode = function(v1110) --[[ Line: 8333 ]] --[[ Name: jsonEncode ]]
     end;
     return v1111;
 end;
-v5.jsonDecode = function(v1112) --[[ Line: 8349 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1112) --[[ Line: 8371 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_40 (copy), v4 (copy)
     local v1113 = l_v5_40.new();
     if v1112.condition ~= nil then
@@ -5693,13 +5693,13 @@ v1.default:register(v2.ColorStyleProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_41 = v5 --[[ copy: 5 -> 47 ]];
-v5.new = function(v1115) --[[ Line: 8380 ]] --[[ Name: new ]]
+v5.new = function(v1115) --[[ Line: 8402 ]] --[[ Name: new ]]
     -- upvalues: l_v5_41 (copy)
     return (setmetatable({
         options = if not (v1115 ~= nil) or v1115.options == nil then {} else v1115.options
     }, l_v5_41));
 end;
-v5.encode = function(v1116) --[[ Line: 8388 ]] --[[ Name: encode ]]
+v5.encode = function(v1116) --[[ Line: 8410 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1117 = buffer.create(0);
     local v1118 = 0;
@@ -5716,7 +5716,7 @@ v5.encode = function(v1116) --[[ Line: 8388 ]] --[[ Name: encode ]]
     buffer.copy(v1124, 0, v1117, 0, v1118);
     return v1124;
 end;
-v5.decode = function(v1125) --[[ Line: 8405 ]] --[[ Name: decode ]]
+v5.decode = function(v1125) --[[ Line: 8427 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_41 (copy), v0 (copy), v2 (copy)
     local v1126 = l_v5_41.new();
     local v1127 = 0;
@@ -5760,7 +5760,7 @@ v5.decode = function(v1125) --[[ Line: 8405 ]] --[[ Name: decode ]]
     end;
     return v1126;
 end;
-v5.jsonEncode = function(v1133) --[[ Line: 8448 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1133) --[[ Line: 8470 ]] --[[ Name: jsonEncode ]]
     local v1134 = {};
     if v1133.options ~= nil and #v1133.options > 0 then
         local v1135 = {};
@@ -5771,7 +5771,7 @@ v5.jsonEncode = function(v1133) --[[ Line: 8448 ]] --[[ Name: jsonEncode ]]
     end;
     return v1134;
 end;
-v5.jsonDecode = function(v1138) --[[ Line: 8462 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1138) --[[ Line: 8484 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_41 (copy), v2 (copy)
     local v1139 = l_v5_41.new();
     if v1138.options ~= nil then
@@ -5792,13 +5792,13 @@ v1.default:register(v2.ColorStyleProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_42 = v5 --[[ copy: 5 -> 48 ]];
-v5.new = function(v1144) --[[ Line: 8493 ]] --[[ Name: new ]]
+v5.new = function(v1144) --[[ Line: 8515 ]] --[[ Name: new ]]
     -- upvalues: l_v5_42 (copy)
     return (setmetatable({
         kind = if not (v1144 ~= nil) or v1144.kind == nil then nil else v1144.kind
     }, l_v5_42));
 end;
-v5.encode = function(v1145) --[[ Line: 8499 ]] --[[ Name: encode ]]
+v5.encode = function(v1145) --[[ Line: 8521 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1146 = buffer.create(0);
     local v1147 = 0;
@@ -5825,7 +5825,7 @@ v5.encode = function(v1145) --[[ Line: 8499 ]] --[[ Name: encode ]]
     buffer.copy(v1155, 0, v1146, 0, v1147);
     return v1155;
 end;
-v5.decode = function(v1156) --[[ Line: 8522 ]] --[[ Name: decode ]]
+v5.decode = function(v1156) --[[ Line: 8544 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_42 (copy), v0 (copy), v2 (copy)
     local v1157 = l_v5_42.new();
     local v1158 = 0;
@@ -5890,7 +5890,7 @@ v5.decode = function(v1156) --[[ Line: 8522 ]] --[[ Name: decode ]]
     end;
     return v1157;
 end;
-v5.jsonEncode = function(v1164) --[[ Line: 8576 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1164) --[[ Line: 8598 ]] --[[ Name: jsonEncode ]]
     local v1165 = {};
     if v1164.kind ~= nil then
         if v1164.kind.type == "literal" then
@@ -5905,7 +5905,7 @@ v5.jsonEncode = function(v1164) --[[ Line: 8576 ]] --[[ Name: jsonEncode ]]
     end;
     return v1165;
 end;
-v5.jsonDecode = function(v1166) --[[ Line: 8592 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1166) --[[ Line: 8614 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_42 (copy), v2 (copy)
     local v1167 = l_v5_42.new();
     if v1166.literal ~= nil then
@@ -5943,14 +5943,14 @@ v1.default:register(v2.FillBehaviorProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_43 = v5 --[[ copy: 5 -> 49 ]];
-v5.new = function(v1169) --[[ Line: 8631 ]] --[[ Name: new ]]
+v5.new = function(v1169) --[[ Line: 8653 ]] --[[ Name: new ]]
     -- upvalues: l_v5_43 (copy)
     return (setmetatable({
         condition = if not (v1169 ~= nil) or v1169.condition == nil then nil else v1169.condition, 
         kind = if not (v1169 ~= nil) or v1169.kind == nil then nil else v1169.kind
     }, l_v5_43));
 end;
-v5.encode = function(v1170) --[[ Line: 8640 ]] --[[ Name: encode ]]
+v5.encode = function(v1170) --[[ Line: 8662 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1171 = buffer.create(0);
     local v1172 = 0;
@@ -5978,7 +5978,7 @@ v5.encode = function(v1170) --[[ Line: 8640 ]] --[[ Name: encode ]]
     buffer.copy(v1180, 0, v1171, 0, v1172);
     return v1180;
 end;
-v5.decode = function(v1181) --[[ Line: 8665 ]] --[[ Name: decode ]]
+v5.decode = function(v1181) --[[ Line: 8687 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_43 (copy), v0 (copy), v4 (copy)
     local v1182 = l_v5_43.new();
     local v1183 = 0;
@@ -6040,7 +6040,7 @@ v5.decode = function(v1181) --[[ Line: 8665 ]] --[[ Name: decode ]]
     end;
     return v1182;
 end;
-v5.jsonEncode = function(v1189) --[[ Line: 8718 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1189) --[[ Line: 8740 ]] --[[ Name: jsonEncode ]]
     local v1190 = {};
     if v1189.condition ~= nil then
         v1190.condition = v1189.condition:jsonEncode();
@@ -6055,7 +6055,7 @@ v5.jsonEncode = function(v1189) --[[ Line: 8718 ]] --[[ Name: jsonEncode ]]
     end;
     return v1190;
 end;
-v5.jsonDecode = function(v1191) --[[ Line: 8736 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1191) --[[ Line: 8758 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_43 (copy), v4 (copy)
     local v1192 = l_v5_43.new();
     if v1191.condition ~= nil then
@@ -6090,13 +6090,13 @@ v1.default:register(v2.FillBehaviorProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_44 = v5 --[[ copy: 5 -> 50 ]];
-v5.new = function(v1194) --[[ Line: 8775 ]] --[[ Name: new ]]
+v5.new = function(v1194) --[[ Line: 8797 ]] --[[ Name: new ]]
     -- upvalues: l_v5_44 (copy)
     return (setmetatable({
         options = if not (v1194 ~= nil) or v1194.options == nil then {} else v1194.options
     }, l_v5_44));
 end;
-v5.encode = function(v1195) --[[ Line: 8783 ]] --[[ Name: encode ]]
+v5.encode = function(v1195) --[[ Line: 8805 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1196 = buffer.create(0);
     local v1197 = 0;
@@ -6113,7 +6113,7 @@ v5.encode = function(v1195) --[[ Line: 8783 ]] --[[ Name: encode ]]
     buffer.copy(v1203, 0, v1196, 0, v1197);
     return v1203;
 end;
-v5.decode = function(v1204) --[[ Line: 8800 ]] --[[ Name: decode ]]
+v5.decode = function(v1204) --[[ Line: 8822 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_44 (copy), v0 (copy), v2 (copy)
     local v1205 = l_v5_44.new();
     local v1206 = 0;
@@ -6157,7 +6157,7 @@ v5.decode = function(v1204) --[[ Line: 8800 ]] --[[ Name: decode ]]
     end;
     return v1205;
 end;
-v5.jsonEncode = function(v1212) --[[ Line: 8843 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1212) --[[ Line: 8865 ]] --[[ Name: jsonEncode ]]
     local v1213 = {};
     if v1212.options ~= nil and #v1212.options > 0 then
         local v1214 = {};
@@ -6168,7 +6168,7 @@ v5.jsonEncode = function(v1212) --[[ Line: 8843 ]] --[[ Name: jsonEncode ]]
     end;
     return v1213;
 end;
-v5.jsonDecode = function(v1217) --[[ Line: 8857 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1217) --[[ Line: 8879 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_44 (copy), v2 (copy)
     local v1218 = l_v5_44.new();
     if v1217.options ~= nil then
@@ -6189,13 +6189,13 @@ v1.default:register(v2.FillBehaviorProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_45 = v5 --[[ copy: 5 -> 51 ]];
-v5.new = function(v1223) --[[ Line: 8888 ]] --[[ Name: new ]]
+v5.new = function(v1223) --[[ Line: 8910 ]] --[[ Name: new ]]
     -- upvalues: l_v5_45 (copy)
     return (setmetatable({
         kind = if not (v1223 ~= nil) or v1223.kind == nil then nil else v1223.kind
     }, l_v5_45));
 end;
-v5.encode = function(v1224) --[[ Line: 8894 ]] --[[ Name: encode ]]
+v5.encode = function(v1224) --[[ Line: 8916 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1225 = buffer.create(0);
     local v1226 = 0;
@@ -6222,7 +6222,7 @@ v5.encode = function(v1224) --[[ Line: 8894 ]] --[[ Name: encode ]]
     buffer.copy(v1234, 0, v1225, 0, v1226);
     return v1234;
 end;
-v5.decode = function(v1235) --[[ Line: 8917 ]] --[[ Name: decode ]]
+v5.decode = function(v1235) --[[ Line: 8939 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_45 (copy), v0 (copy), v2 (copy)
     local v1236 = l_v5_45.new();
     local v1237 = 0;
@@ -6287,7 +6287,7 @@ v5.decode = function(v1235) --[[ Line: 8917 ]] --[[ Name: decode ]]
     end;
     return v1236;
 end;
-v5.jsonEncode = function(v1243) --[[ Line: 8971 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1243) --[[ Line: 8993 ]] --[[ Name: jsonEncode ]]
     local v1244 = {};
     if v1243.kind ~= nil then
         if v1243.kind.type == "literal" then
@@ -6302,7 +6302,7 @@ v5.jsonEncode = function(v1243) --[[ Line: 8971 ]] --[[ Name: jsonEncode ]]
     end;
     return v1244;
 end;
-v5.jsonDecode = function(v1245) --[[ Line: 8987 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1245) --[[ Line: 9009 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_45 (copy), v2 (copy)
     local v1246 = l_v5_45.new();
     if v1245.literal ~= nil then
@@ -6340,14 +6340,14 @@ v1.default:register(v2.InputSizeProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_46 = v5 --[[ copy: 5 -> 52 ]];
-v5.new = function(v1248) --[[ Line: 9026 ]] --[[ Name: new ]]
+v5.new = function(v1248) --[[ Line: 9048 ]] --[[ Name: new ]]
     -- upvalues: l_v5_46 (copy)
     return (setmetatable({
         condition = if not (v1248 ~= nil) or v1248.condition == nil then nil else v1248.condition, 
         kind = if not (v1248 ~= nil) or v1248.kind == nil then nil else v1248.kind
     }, l_v5_46));
 end;
-v5.encode = function(v1249) --[[ Line: 9035 ]] --[[ Name: encode ]]
+v5.encode = function(v1249) --[[ Line: 9057 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1250 = buffer.create(0);
     local v1251 = 0;
@@ -6375,7 +6375,7 @@ v5.encode = function(v1249) --[[ Line: 9035 ]] --[[ Name: encode ]]
     buffer.copy(v1259, 0, v1250, 0, v1251);
     return v1259;
 end;
-v5.decode = function(v1260) --[[ Line: 9060 ]] --[[ Name: decode ]]
+v5.decode = function(v1260) --[[ Line: 9082 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_46 (copy), v0 (copy), v4 (copy)
     local v1261 = l_v5_46.new();
     local v1262 = 0;
@@ -6437,7 +6437,7 @@ v5.decode = function(v1260) --[[ Line: 9060 ]] --[[ Name: decode ]]
     end;
     return v1261;
 end;
-v5.jsonEncode = function(v1268) --[[ Line: 9113 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1268) --[[ Line: 9135 ]] --[[ Name: jsonEncode ]]
     local v1269 = {};
     if v1268.condition ~= nil then
         v1269.condition = v1268.condition:jsonEncode();
@@ -6452,7 +6452,7 @@ v5.jsonEncode = function(v1268) --[[ Line: 9113 ]] --[[ Name: jsonEncode ]]
     end;
     return v1269;
 end;
-v5.jsonDecode = function(v1270) --[[ Line: 9131 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1270) --[[ Line: 9153 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_46 (copy), v4 (copy)
     local v1271 = l_v5_46.new();
     if v1270.condition ~= nil then
@@ -6487,13 +6487,13 @@ v1.default:register(v2.InputSizeProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_47 = v5 --[[ copy: 5 -> 53 ]];
-v5.new = function(v1273) --[[ Line: 9168 ]] --[[ Name: new ]]
+v5.new = function(v1273) --[[ Line: 9190 ]] --[[ Name: new ]]
     -- upvalues: l_v5_47 (copy)
     return (setmetatable({
         options = if not (v1273 ~= nil) or v1273.options == nil then {} else v1273.options
     }, l_v5_47));
 end;
-v5.encode = function(v1274) --[[ Line: 9176 ]] --[[ Name: encode ]]
+v5.encode = function(v1274) --[[ Line: 9198 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1275 = buffer.create(0);
     local v1276 = 0;
@@ -6510,7 +6510,7 @@ v5.encode = function(v1274) --[[ Line: 9176 ]] --[[ Name: encode ]]
     buffer.copy(v1282, 0, v1275, 0, v1276);
     return v1282;
 end;
-v5.decode = function(v1283) --[[ Line: 9193 ]] --[[ Name: decode ]]
+v5.decode = function(v1283) --[[ Line: 9215 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_47 (copy), v0 (copy), v2 (copy)
     local v1284 = l_v5_47.new();
     local v1285 = 0;
@@ -6554,7 +6554,7 @@ v5.decode = function(v1283) --[[ Line: 9193 ]] --[[ Name: decode ]]
     end;
     return v1284;
 end;
-v5.jsonEncode = function(v1291) --[[ Line: 9236 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1291) --[[ Line: 9258 ]] --[[ Name: jsonEncode ]]
     local v1292 = {};
     if v1291.options ~= nil and #v1291.options > 0 then
         local v1293 = {};
@@ -6565,7 +6565,7 @@ v5.jsonEncode = function(v1291) --[[ Line: 9236 ]] --[[ Name: jsonEncode ]]
     end;
     return v1292;
 end;
-v5.jsonDecode = function(v1296) --[[ Line: 9250 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1296) --[[ Line: 9272 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_47 (copy), v2 (copy)
     local v1297 = l_v5_47.new();
     if v1296.options ~= nil then
@@ -6586,13 +6586,13 @@ v1.default:register(v2.InputSizeProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_48 = v5 --[[ copy: 5 -> 54 ]];
-v5.new = function(v1302) --[[ Line: 9281 ]] --[[ Name: new ]]
+v5.new = function(v1302) --[[ Line: 9303 ]] --[[ Name: new ]]
     -- upvalues: l_v5_48 (copy)
     return (setmetatable({
         kind = if not (v1302 ~= nil) or v1302.kind == nil then nil else v1302.kind
     }, l_v5_48));
 end;
-v5.encode = function(v1303) --[[ Line: 9287 ]] --[[ Name: encode ]]
+v5.encode = function(v1303) --[[ Line: 9309 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1304 = buffer.create(0);
     local v1305 = 0;
@@ -6624,7 +6624,7 @@ v5.encode = function(v1303) --[[ Line: 9287 ]] --[[ Name: encode ]]
     buffer.copy(v1315, 0, v1304, 0, v1305);
     return v1315;
 end;
-v5.decode = function(v1316) --[[ Line: 9313 ]] --[[ Name: decode ]]
+v5.decode = function(v1316) --[[ Line: 9335 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_48 (copy), v0 (copy), v2 (copy)
     local v1317 = l_v5_48.new();
     local v1318 = 0;
@@ -6698,7 +6698,7 @@ v5.decode = function(v1316) --[[ Line: 9313 ]] --[[ Name: decode ]]
     end;
     return v1317;
 end;
-v5.jsonEncode = function(v1324) --[[ Line: 9371 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1324) --[[ Line: 9393 ]] --[[ Name: jsonEncode ]]
     local v1325 = {};
     if v1324.kind ~= nil then
         if v1324.kind.type == "literal" then
@@ -6716,7 +6716,7 @@ v5.jsonEncode = function(v1324) --[[ Line: 9371 ]] --[[ Name: jsonEncode ]]
     end;
     return v1325;
 end;
-v5.jsonDecode = function(v1326) --[[ Line: 9389 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1326) --[[ Line: 9411 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_48 (copy), v2 (copy)
     local v1327 = l_v5_48.new();
     if v1326.literal ~= nil then
@@ -6760,14 +6760,14 @@ v1.default:register(v2.UDimProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_49 = v5 --[[ copy: 5 -> 55 ]];
-v5.new = function(v1329) --[[ Line: 9430 ]] --[[ Name: new ]]
+v5.new = function(v1329) --[[ Line: 9452 ]] --[[ Name: new ]]
     -- upvalues: l_v5_49 (copy)
     return (setmetatable({
         condition = if not (v1329 ~= nil) or v1329.condition == nil then nil else v1329.condition, 
         kind = if not (v1329 ~= nil) or v1329.kind == nil then nil else v1329.kind
     }, l_v5_49));
 end;
-v5.encode = function(v1330) --[[ Line: 9439 ]] --[[ Name: encode ]]
+v5.encode = function(v1330) --[[ Line: 9461 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1331 = buffer.create(0);
     local v1332 = 0;
@@ -6800,7 +6800,7 @@ v5.encode = function(v1330) --[[ Line: 9439 ]] --[[ Name: encode ]]
     buffer.copy(v1342, 0, v1331, 0, v1332);
     return v1342;
 end;
-v5.decode = function(v1343) --[[ Line: 9467 ]] --[[ Name: decode ]]
+v5.decode = function(v1343) --[[ Line: 9489 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_49 (copy), v0 (copy), v4 (copy)
     local v1344 = l_v5_49.new();
     local v1345 = 0;
@@ -6871,7 +6871,7 @@ v5.decode = function(v1343) --[[ Line: 9467 ]] --[[ Name: decode ]]
     end;
     return v1344;
 end;
-v5.jsonEncode = function(v1351) --[[ Line: 9525 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1351) --[[ Line: 9547 ]] --[[ Name: jsonEncode ]]
     local v1352 = {};
     if v1351.condition ~= nil then
         v1352.condition = v1351.condition:jsonEncode();
@@ -6889,7 +6889,7 @@ v5.jsonEncode = function(v1351) --[[ Line: 9525 ]] --[[ Name: jsonEncode ]]
     end;
     return v1352;
 end;
-v5.jsonDecode = function(v1353) --[[ Line: 9545 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1353) --[[ Line: 9567 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_49 (copy), v4 (copy)
     local v1354 = l_v5_49.new();
     if v1353.condition ~= nil then
@@ -6930,13 +6930,13 @@ v1.default:register(v2.UDimProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_50 = v5 --[[ copy: 5 -> 56 ]];
-v5.new = function(v1356) --[[ Line: 9586 ]] --[[ Name: new ]]
+v5.new = function(v1356) --[[ Line: 9608 ]] --[[ Name: new ]]
     -- upvalues: l_v5_50 (copy)
     return (setmetatable({
         options = if not (v1356 ~= nil) or v1356.options == nil then {} else v1356.options
     }, l_v5_50));
 end;
-v5.encode = function(v1357) --[[ Line: 9594 ]] --[[ Name: encode ]]
+v5.encode = function(v1357) --[[ Line: 9616 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1358 = buffer.create(0);
     local v1359 = 0;
@@ -6953,7 +6953,7 @@ v5.encode = function(v1357) --[[ Line: 9594 ]] --[[ Name: encode ]]
     buffer.copy(v1365, 0, v1358, 0, v1359);
     return v1365;
 end;
-v5.decode = function(v1366) --[[ Line: 9611 ]] --[[ Name: decode ]]
+v5.decode = function(v1366) --[[ Line: 9633 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_50 (copy), v0 (copy), v2 (copy)
     local v1367 = l_v5_50.new();
     local v1368 = 0;
@@ -6997,7 +6997,7 @@ v5.decode = function(v1366) --[[ Line: 9611 ]] --[[ Name: decode ]]
     end;
     return v1367;
 end;
-v5.jsonEncode = function(v1374) --[[ Line: 9654 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1374) --[[ Line: 9676 ]] --[[ Name: jsonEncode ]]
     local v1375 = {};
     if v1374.options ~= nil and #v1374.options > 0 then
         local v1376 = {};
@@ -7008,7 +7008,7 @@ v5.jsonEncode = function(v1374) --[[ Line: 9654 ]] --[[ Name: jsonEncode ]]
     end;
     return v1375;
 end;
-v5.jsonDecode = function(v1379) --[[ Line: 9668 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1379) --[[ Line: 9690 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_50 (copy), v2 (copy)
     local v1380 = l_v5_50.new();
     if v1379.options ~= nil then
@@ -7029,13 +7029,13 @@ v1.default:register(v2.UDimProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_51 = v5 --[[ copy: 5 -> 57 ]];
-v5.new = function(v1385) --[[ Line: 9697 ]] --[[ Name: new ]]
+v5.new = function(v1385) --[[ Line: 9719 ]] --[[ Name: new ]]
     -- upvalues: l_v5_51 (copy)
     return (setmetatable({
         kind = if not (v1385 ~= nil) or v1385.kind == nil then nil else v1385.kind
     }, l_v5_51));
 end;
-v5.encode = function(v1386) --[[ Line: 9703 ]] --[[ Name: encode ]]
+v5.encode = function(v1386) --[[ Line: 9725 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1387 = buffer.create(0);
     local v1388 = 0;
@@ -7067,7 +7067,7 @@ v5.encode = function(v1386) --[[ Line: 9703 ]] --[[ Name: encode ]]
     buffer.copy(v1398, 0, v1387, 0, v1388);
     return v1398;
 end;
-v5.decode = function(v1399) --[[ Line: 9729 ]] --[[ Name: decode ]]
+v5.decode = function(v1399) --[[ Line: 9751 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_51 (copy), v0 (copy), v2 (copy)
     local v1400 = l_v5_51.new();
     local v1401 = 0;
@@ -7141,7 +7141,7 @@ v5.decode = function(v1399) --[[ Line: 9729 ]] --[[ Name: decode ]]
     end;
     return v1400;
 end;
-v5.jsonEncode = function(v1407) --[[ Line: 9787 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1407) --[[ Line: 9809 ]] --[[ Name: jsonEncode ]]
     local v1408 = {};
     if v1407.kind ~= nil then
         if v1407.kind.type == "literal" then
@@ -7159,7 +7159,7 @@ v5.jsonEncode = function(v1407) --[[ Line: 9787 ]] --[[ Name: jsonEncode ]]
     end;
     return v1408;
 end;
-v5.jsonDecode = function(v1409) --[[ Line: 9805 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1409) --[[ Line: 9827 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_51 (copy), v2 (copy)
     local v1410 = l_v5_51.new();
     if v1409.literal ~= nil then
@@ -7203,14 +7203,14 @@ v1.default:register(v2.UDim2Prop);
 v5 = {};
 v5.__index = v5;
 local l_v5_52 = v5 --[[ copy: 5 -> 58 ]];
-v5.new = function(v1412) --[[ Line: 9846 ]] --[[ Name: new ]]
+v5.new = function(v1412) --[[ Line: 9868 ]] --[[ Name: new ]]
     -- upvalues: l_v5_52 (copy)
     return (setmetatable({
         condition = if not (v1412 ~= nil) or v1412.condition == nil then nil else v1412.condition, 
         kind = if not (v1412 ~= nil) or v1412.kind == nil then nil else v1412.kind
     }, l_v5_52));
 end;
-v5.encode = function(v1413) --[[ Line: 9855 ]] --[[ Name: encode ]]
+v5.encode = function(v1413) --[[ Line: 9877 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1414 = buffer.create(0);
     local v1415 = 0;
@@ -7243,7 +7243,7 @@ v5.encode = function(v1413) --[[ Line: 9855 ]] --[[ Name: encode ]]
     buffer.copy(v1425, 0, v1414, 0, v1415);
     return v1425;
 end;
-v5.decode = function(v1426) --[[ Line: 9883 ]] --[[ Name: decode ]]
+v5.decode = function(v1426) --[[ Line: 9905 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_52 (copy), v0 (copy), v4 (copy)
     local v1427 = l_v5_52.new();
     local v1428 = 0;
@@ -7314,7 +7314,7 @@ v5.decode = function(v1426) --[[ Line: 9883 ]] --[[ Name: decode ]]
     end;
     return v1427;
 end;
-v5.jsonEncode = function(v1434) --[[ Line: 9941 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1434) --[[ Line: 9963 ]] --[[ Name: jsonEncode ]]
     local v1435 = {};
     if v1434.condition ~= nil then
         v1435.condition = v1434.condition:jsonEncode();
@@ -7332,7 +7332,7 @@ v5.jsonEncode = function(v1434) --[[ Line: 9941 ]] --[[ Name: jsonEncode ]]
     end;
     return v1435;
 end;
-v5.jsonDecode = function(v1436) --[[ Line: 9961 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1436) --[[ Line: 9983 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_52 (copy), v4 (copy)
     local v1437 = l_v5_52.new();
     if v1436.condition ~= nil then
@@ -7373,13 +7373,13 @@ v1.default:register(v2.UDim2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_53 = v5 --[[ copy: 5 -> 59 ]];
-v5.new = function(v1439) --[[ Line: 10002 ]] --[[ Name: new ]]
+v5.new = function(v1439) --[[ Line: 10024 ]] --[[ Name: new ]]
     -- upvalues: l_v5_53 (copy)
     return (setmetatable({
         options = if not (v1439 ~= nil) or v1439.options == nil then {} else v1439.options
     }, l_v5_53));
 end;
-v5.encode = function(v1440) --[[ Line: 10010 ]] --[[ Name: encode ]]
+v5.encode = function(v1440) --[[ Line: 10032 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1441 = buffer.create(0);
     local v1442 = 0;
@@ -7396,7 +7396,7 @@ v5.encode = function(v1440) --[[ Line: 10010 ]] --[[ Name: encode ]]
     buffer.copy(v1448, 0, v1441, 0, v1442);
     return v1448;
 end;
-v5.decode = function(v1449) --[[ Line: 10027 ]] --[[ Name: decode ]]
+v5.decode = function(v1449) --[[ Line: 10049 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_53 (copy), v0 (copy), v2 (copy)
     local v1450 = l_v5_53.new();
     local v1451 = 0;
@@ -7440,7 +7440,7 @@ v5.decode = function(v1449) --[[ Line: 10027 ]] --[[ Name: decode ]]
     end;
     return v1450;
 end;
-v5.jsonEncode = function(v1457) --[[ Line: 10070 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1457) --[[ Line: 10092 ]] --[[ Name: jsonEncode ]]
     local v1458 = {};
     if v1457.options ~= nil and #v1457.options > 0 then
         local v1459 = {};
@@ -7451,7 +7451,7 @@ v5.jsonEncode = function(v1457) --[[ Line: 10070 ]] --[[ Name: jsonEncode ]]
     end;
     return v1458;
 end;
-v5.jsonDecode = function(v1462) --[[ Line: 10084 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1462) --[[ Line: 10106 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_53 (copy), v2 (copy)
     local v1463 = l_v5_53.new();
     if v1462.options ~= nil then
@@ -7472,13 +7472,13 @@ v1.default:register(v2.UDim2Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_54 = v5 --[[ copy: 5 -> 60 ]];
-v5.new = function(v1468) --[[ Line: 10113 ]] --[[ Name: new ]]
+v5.new = function(v1468) --[[ Line: 10135 ]] --[[ Name: new ]]
     -- upvalues: l_v5_54 (copy)
     return (setmetatable({
         kind = if not (v1468 ~= nil) or v1468.kind == nil then nil else v1468.kind
     }, l_v5_54));
 end;
-v5.encode = function(v1469) --[[ Line: 10119 ]] --[[ Name: encode ]]
+v5.encode = function(v1469) --[[ Line: 10141 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1470 = buffer.create(0);
     local v1471 = 0;
@@ -7510,7 +7510,7 @@ v5.encode = function(v1469) --[[ Line: 10119 ]] --[[ Name: encode ]]
     buffer.copy(v1481, 0, v1470, 0, v1471);
     return v1481;
 end;
-v5.decode = function(v1482) --[[ Line: 10145 ]] --[[ Name: decode ]]
+v5.decode = function(v1482) --[[ Line: 10167 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_54 (copy), v0 (copy), v2 (copy)
     local v1483 = l_v5_54.new();
     local v1484 = 0;
@@ -7584,7 +7584,7 @@ v5.decode = function(v1482) --[[ Line: 10145 ]] --[[ Name: decode ]]
     end;
     return v1483;
 end;
-v5.jsonEncode = function(v1490) --[[ Line: 10203 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1490) --[[ Line: 10225 ]] --[[ Name: jsonEncode ]]
     local v1491 = {};
     if v1490.kind ~= nil then
         if v1490.kind.type == "literal" then
@@ -7602,7 +7602,7 @@ v5.jsonEncode = function(v1490) --[[ Line: 10203 ]] --[[ Name: jsonEncode ]]
     end;
     return v1491;
 end;
-v5.jsonDecode = function(v1492) --[[ Line: 10221 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1492) --[[ Line: 10243 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_54 (copy), v2 (copy)
     local v1493 = l_v5_54.new();
     if v1492.literal ~= nil then
@@ -7646,14 +7646,14 @@ v1.default:register(v2.Vector2Prop);
 v5 = {};
 v5.__index = v5;
 local l_v5_55 = v5 --[[ copy: 5 -> 61 ]];
-v5.new = function(v1495) --[[ Line: 10262 ]] --[[ Name: new ]]
+v5.new = function(v1495) --[[ Line: 10284 ]] --[[ Name: new ]]
     -- upvalues: l_v5_55 (copy)
     return (setmetatable({
         condition = if not (v1495 ~= nil) or v1495.condition == nil then nil else v1495.condition, 
         kind = if not (v1495 ~= nil) or v1495.kind == nil then nil else v1495.kind
     }, l_v5_55));
 end;
-v5.encode = function(v1496) --[[ Line: 10271 ]] --[[ Name: encode ]]
+v5.encode = function(v1496) --[[ Line: 10293 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1497 = buffer.create(0);
     local v1498 = 0;
@@ -7686,7 +7686,7 @@ v5.encode = function(v1496) --[[ Line: 10271 ]] --[[ Name: encode ]]
     buffer.copy(v1508, 0, v1497, 0, v1498);
     return v1508;
 end;
-v5.decode = function(v1509) --[[ Line: 10299 ]] --[[ Name: decode ]]
+v5.decode = function(v1509) --[[ Line: 10321 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_55 (copy), v0 (copy), v4 (copy)
     local v1510 = l_v5_55.new();
     local v1511 = 0;
@@ -7757,7 +7757,7 @@ v5.decode = function(v1509) --[[ Line: 10299 ]] --[[ Name: decode ]]
     end;
     return v1510;
 end;
-v5.jsonEncode = function(v1517) --[[ Line: 10357 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1517) --[[ Line: 10379 ]] --[[ Name: jsonEncode ]]
     local v1518 = {};
     if v1517.condition ~= nil then
         v1518.condition = v1517.condition:jsonEncode();
@@ -7775,7 +7775,7 @@ v5.jsonEncode = function(v1517) --[[ Line: 10357 ]] --[[ Name: jsonEncode ]]
     end;
     return v1518;
 end;
-v5.jsonDecode = function(v1519) --[[ Line: 10377 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1519) --[[ Line: 10399 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_55 (copy), v4 (copy)
     local v1520 = l_v5_55.new();
     if v1519.condition ~= nil then
@@ -7816,13 +7816,13 @@ v1.default:register(v2.Vector2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_56 = v5 --[[ copy: 5 -> 62 ]];
-v5.new = function(v1522) --[[ Line: 10418 ]] --[[ Name: new ]]
+v5.new = function(v1522) --[[ Line: 10440 ]] --[[ Name: new ]]
     -- upvalues: l_v5_56 (copy)
     return (setmetatable({
         options = if not (v1522 ~= nil) or v1522.options == nil then {} else v1522.options
     }, l_v5_56));
 end;
-v5.encode = function(v1523) --[[ Line: 10426 ]] --[[ Name: encode ]]
+v5.encode = function(v1523) --[[ Line: 10448 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1524 = buffer.create(0);
     local v1525 = 0;
@@ -7839,7 +7839,7 @@ v5.encode = function(v1523) --[[ Line: 10426 ]] --[[ Name: encode ]]
     buffer.copy(v1531, 0, v1524, 0, v1525);
     return v1531;
 end;
-v5.decode = function(v1532) --[[ Line: 10443 ]] --[[ Name: decode ]]
+v5.decode = function(v1532) --[[ Line: 10465 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_56 (copy), v0 (copy), v2 (copy)
     local v1533 = l_v5_56.new();
     local v1534 = 0;
@@ -7883,7 +7883,7 @@ v5.decode = function(v1532) --[[ Line: 10443 ]] --[[ Name: decode ]]
     end;
     return v1533;
 end;
-v5.jsonEncode = function(v1540) --[[ Line: 10486 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1540) --[[ Line: 10508 ]] --[[ Name: jsonEncode ]]
     local v1541 = {};
     if v1540.options ~= nil and #v1540.options > 0 then
         local v1542 = {};
@@ -7894,7 +7894,7 @@ v5.jsonEncode = function(v1540) --[[ Line: 10486 ]] --[[ Name: jsonEncode ]]
     end;
     return v1541;
 end;
-v5.jsonDecode = function(v1545) --[[ Line: 10500 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1545) --[[ Line: 10522 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_56 (copy), v2 (copy)
     local v1546 = l_v5_56.new();
     if v1545.options ~= nil then
@@ -7915,13 +7915,13 @@ v1.default:register(v2.Vector2Prop_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_57 = v5 --[[ copy: 5 -> 63 ]];
-v5.new = function(v1551) --[[ Line: 10529 ]] --[[ Name: new ]]
+v5.new = function(v1551) --[[ Line: 10551 ]] --[[ Name: new ]]
     -- upvalues: l_v5_57 (copy)
     return (setmetatable({
         kind = if not (v1551 ~= nil) or v1551.kind == nil then nil else v1551.kind
     }, l_v5_57));
 end;
-v5.encode = function(v1552) --[[ Line: 10535 ]] --[[ Name: encode ]]
+v5.encode = function(v1552) --[[ Line: 10557 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1553 = buffer.create(0);
     local v1554 = 0;
@@ -7943,7 +7943,7 @@ v5.encode = function(v1552) --[[ Line: 10535 ]] --[[ Name: encode ]]
     buffer.copy(v1560, 0, v1553, 0, v1554);
     return v1560;
 end;
-v5.decode = function(v1561) --[[ Line: 10555 ]] --[[ Name: decode ]]
+v5.decode = function(v1561) --[[ Line: 10577 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_57 (copy), v0 (copy), v2 (copy)
     local v1562 = l_v5_57.new();
     local v1563 = 0;
@@ -7999,7 +7999,7 @@ v5.decode = function(v1561) --[[ Line: 10555 ]] --[[ Name: decode ]]
     end;
     return v1562;
 end;
-v5.jsonEncode = function(v1569) --[[ Line: 10603 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1569) --[[ Line: 10625 ]] --[[ Name: jsonEncode ]]
     local v1570 = {};
     if v1569.kind ~= nil then
         if v1569.kind.type == "literal" then
@@ -8011,7 +8011,7 @@ v5.jsonEncode = function(v1569) --[[ Line: 10603 ]] --[[ Name: jsonEncode ]]
     end;
     return v1570;
 end;
-v5.jsonDecode = function(v1571) --[[ Line: 10617 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1571) --[[ Line: 10639 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_57 (copy), v2 (copy)
     local v1572 = l_v5_57.new();
     if v1571.literal ~= nil then
@@ -8043,13 +8043,13 @@ v1.default:register(v2.TemplateArg);
 v5 = {};
 v5.__index = v5;
 local l_v5_58 = v5 --[[ copy: 5 -> 64 ]];
-v5.new = function(v1574) --[[ Line: 10649 ]] --[[ Name: new ]]
+v5.new = function(v1574) --[[ Line: 10671 ]] --[[ Name: new ]]
     -- upvalues: l_v5_58 (copy)
     return (setmetatable({
         kind = if not (v1574 ~= nil) or v1574.kind == nil then nil else v1574.kind
     }, l_v5_58));
 end;
-v5.encode = function(v1575) --[[ Line: 10655 ]] --[[ Name: encode ]]
+v5.encode = function(v1575) --[[ Line: 10677 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1576 = buffer.create(0);
     local v1577 = 0;
@@ -8090,7 +8090,7 @@ v5.encode = function(v1575) --[[ Line: 10655 ]] --[[ Name: encode ]]
     buffer.copy(v1590, 0, v1576, 0, v1577);
     return v1590;
 end;
-v5.decode = function(v1591) --[[ Line: 10686 ]] --[[ Name: decode ]]
+v5.decode = function(v1591) --[[ Line: 10708 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_58 (copy), v0 (copy)
     local v1592 = l_v5_58.new();
     local v1593 = 0;
@@ -8188,7 +8188,7 @@ v5.decode = function(v1591) --[[ Line: 10686 ]] --[[ Name: decode ]]
     end;
     return v1592;
 end;
-v5.jsonEncode = function(v1599) --[[ Line: 10754 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1599) --[[ Line: 10776 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
     local v1600 = {};
     if v1599.kind ~= nil then
@@ -8213,7 +8213,7 @@ v5.jsonEncode = function(v1599) --[[ Line: 10754 ]] --[[ Name: jsonEncode ]]
     end;
     return v1600;
 end;
-v5.jsonDecode = function(v1601) --[[ Line: 10776 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1601) --[[ Line: 10798 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_58 (copy), v0 (copy)
     local v1602 = l_v5_58.new();
     if v1601.string_value ~= nil then
@@ -8299,13 +8299,13 @@ v1.default:register(v2.TemplateArg_LiteralValue);
 v5 = {};
 v5.__index = v5;
 local l_v5_59 = v5 --[[ copy: 5 -> 65 ]];
-v5.new = function(v1604) --[[ Line: 10844 ]] --[[ Name: new ]]
+v5.new = function(v1604) --[[ Line: 10866 ]] --[[ Name: new ]]
     -- upvalues: l_v5_59 (copy)
     return (setmetatable({
         kind = if not (v1604 ~= nil) or v1604.kind == nil then nil else v1604.kind
     }, l_v5_59));
 end;
-v5.encode = function(v1605) --[[ Line: 10850 ]] --[[ Name: encode ]]
+v5.encode = function(v1605) --[[ Line: 10872 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1606 = buffer.create(0);
     local v1607 = 0;
@@ -8328,7 +8328,7 @@ v5.encode = function(v1605) --[[ Line: 10850 ]] --[[ Name: encode ]]
     buffer.copy(v1614, 0, v1606, 0, v1607);
     return v1614;
 end;
-v5.decode = function(v1615) --[[ Line: 10871 ]] --[[ Name: decode ]]
+v5.decode = function(v1615) --[[ Line: 10893 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_59 (copy), v0 (copy), v2 (copy)
     local v1616 = l_v5_59.new();
     local v1617 = 0;
@@ -8384,7 +8384,7 @@ v5.decode = function(v1615) --[[ Line: 10871 ]] --[[ Name: decode ]]
     end;
     return v1616;
 end;
-v5.jsonEncode = function(v1623) --[[ Line: 10920 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1623) --[[ Line: 10942 ]] --[[ Name: jsonEncode ]]
     local v1624 = {};
     if v1623.kind ~= nil then
         if v1623.kind.type == "literal" then
@@ -8396,7 +8396,7 @@ v5.jsonEncode = function(v1623) --[[ Line: 10920 ]] --[[ Name: jsonEncode ]]
     end;
     return v1624;
 end;
-v5.jsonDecode = function(v1625) --[[ Line: 10934 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1625) --[[ Line: 10956 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_59 (copy), v2 (copy)
     local v1626 = l_v5_59.new();
     if v1625.literal ~= nil then
@@ -8422,14 +8422,14 @@ v1.default:register(v2.NestedComponentProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_60 = v5 --[[ copy: 5 -> 66 ]];
-v5.new = function(v1628) --[[ Line: 10966 ]] --[[ Name: new ]]
+v5.new = function(v1628) --[[ Line: 10988 ]] --[[ Name: new ]]
     -- upvalues: l_v5_60 (copy)
     return (setmetatable({
         condition = if not (v1628 ~= nil) or v1628.condition == nil then nil else v1628.condition, 
         kind = if not (v1628 ~= nil) or v1628.kind == nil then nil else v1628.kind
     }, l_v5_60));
 end;
-v5.encode = function(v1629) --[[ Line: 10975 ]] --[[ Name: encode ]]
+v5.encode = function(v1629) --[[ Line: 10997 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1630 = buffer.create(0);
     local v1631 = 0;
@@ -8451,7 +8451,7 @@ v5.encode = function(v1629) --[[ Line: 10975 ]] --[[ Name: encode ]]
     buffer.copy(v1638, 0, v1630, 0, v1631);
     return v1638;
 end;
-v5.decode = function(v1639) --[[ Line: 10998 ]] --[[ Name: decode ]]
+v5.decode = function(v1639) --[[ Line: 11020 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_60 (copy), v0 (copy), v4 (copy), v2 (copy)
     local v1640 = l_v5_60.new();
     local v1641 = 0;
@@ -8504,7 +8504,7 @@ v5.decode = function(v1639) --[[ Line: 10998 ]] --[[ Name: decode ]]
     end;
     return v1640;
 end;
-v5.jsonEncode = function(v1647) --[[ Line: 11046 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1647) --[[ Line: 11068 ]] --[[ Name: jsonEncode ]]
     local v1648 = {};
     if v1647.condition ~= nil then
         v1648.condition = v1647.condition:jsonEncode();
@@ -8514,7 +8514,7 @@ v5.jsonEncode = function(v1647) --[[ Line: 11046 ]] --[[ Name: jsonEncode ]]
     end;
     return v1648;
 end;
-v5.jsonDecode = function(v1649) --[[ Line: 11062 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1649) --[[ Line: 11084 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_60 (copy), v4 (copy), v2 (copy)
     local v1650 = l_v5_60.new();
     if v1649.condition ~= nil then
@@ -8537,13 +8537,13 @@ v1.default:register(v2.NestedComponentProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_61 = v5 --[[ copy: 5 -> 67 ]];
-v5.new = function(v1652) --[[ Line: 11094 ]] --[[ Name: new ]]
+v5.new = function(v1652) --[[ Line: 11116 ]] --[[ Name: new ]]
     -- upvalues: l_v5_61 (copy)
     return (setmetatable({
         options = if not (v1652 ~= nil) or v1652.options == nil then {} else v1652.options
     }, l_v5_61));
 end;
-v5.encode = function(v1653) --[[ Line: 11102 ]] --[[ Name: encode ]]
+v5.encode = function(v1653) --[[ Line: 11124 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1654 = buffer.create(0);
     local v1655 = 0;
@@ -8560,7 +8560,7 @@ v5.encode = function(v1653) --[[ Line: 11102 ]] --[[ Name: encode ]]
     buffer.copy(v1661, 0, v1654, 0, v1655);
     return v1661;
 end;
-v5.decode = function(v1662) --[[ Line: 11119 ]] --[[ Name: decode ]]
+v5.decode = function(v1662) --[[ Line: 11141 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_61 (copy), v0 (copy), v2 (copy)
     local v1663 = l_v5_61.new();
     local v1664 = 0;
@@ -8604,7 +8604,7 @@ v5.decode = function(v1662) --[[ Line: 11119 ]] --[[ Name: decode ]]
     end;
     return v1663;
 end;
-v5.jsonEncode = function(v1670) --[[ Line: 11162 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1670) --[[ Line: 11184 ]] --[[ Name: jsonEncode ]]
     local v1671 = {};
     if v1670.options ~= nil and #v1670.options > 0 then
         local v1672 = {};
@@ -8615,7 +8615,7 @@ v5.jsonEncode = function(v1670) --[[ Line: 11162 ]] --[[ Name: jsonEncode ]]
     end;
     return v1671;
 end;
-v5.jsonDecode = function(v1675) --[[ Line: 11176 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1675) --[[ Line: 11198 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_61 (copy), v2 (copy)
     local v1676 = l_v5_61.new();
     if v1675.options ~= nil then
@@ -8636,14 +8636,14 @@ v1.default:register(v2.NestedComponentProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_62 = v5 --[[ copy: 5 -> 68 ]];
-v5.new = function(v1681) --[[ Line: 11207 ]] --[[ Name: new ]]
+v5.new = function(v1681) --[[ Line: 11229 ]] --[[ Name: new ]]
     -- upvalues: l_v5_62 (copy)
     return (setmetatable({
         inputs = if not (v1681 ~= nil) or v1681.inputs == nil then {} else v1681.inputs, 
         roblox_component = (not (v1681 ~= nil) or v1681.roblox_component == nil) and "" or v1681.roblox_component
     }, l_v5_62));
 end;
-v5.encode = function(v1682) --[[ Line: 11216 ]] --[[ Name: encode ]]
+v5.encode = function(v1682) --[[ Line: 11238 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1683 = buffer.create(0);
     local v1684 = 0;
@@ -8676,7 +8676,7 @@ v5.encode = function(v1682) --[[ Line: 11216 ]] --[[ Name: encode ]]
     buffer.copy(v1694, 0, v1683, 0, v1684);
     return v1694;
 end;
-v5.decode = function(v1695) --[[ Line: 11244 ]] --[[ Name: decode ]]
+v5.decode = function(v1695) --[[ Line: 11266 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_62 (copy), v0 (copy), v2 (copy)
     local v1696 = l_v5_62.new();
     local v1697 = 0;
@@ -8728,7 +8728,7 @@ v5.decode = function(v1695) --[[ Line: 11244 ]] --[[ Name: decode ]]
     end;
     return v1696;
 end;
-v5.jsonEncode = function(v1703) --[[ Line: 11299 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1703) --[[ Line: 11321 ]] --[[ Name: jsonEncode ]]
     local v1704 = {};
     if v1703.inputs ~= nil and next(v1703.inputs) ~= nil then
         local v1705 = {};
@@ -8742,7 +8742,7 @@ v5.jsonEncode = function(v1703) --[[ Line: 11299 ]] --[[ Name: jsonEncode ]]
     end;
     return v1704;
 end;
-v5.jsonDecode = function(v1708) --[[ Line: 11317 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1708) --[[ Line: 11339 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_62 (copy), v2 (copy)
     local v1709 = l_v5_62.new();
     if v1708.inputs ~= nil then
@@ -8769,14 +8769,14 @@ v1.default:register(v2.NestedComponentProp_TemplateData);
 v5 = {};
 v5.__index = v5;
 local l_v5_63 = v5 --[[ copy: 5 -> 69 ]];
-v5.new = function(v1714) --[[ Line: 11356 ]] --[[ Name: new ]]
+v5.new = function(v1714) --[[ Line: 11378 ]] --[[ Name: new ]]
     -- upvalues: l_v5_63 (copy)
     return (setmetatable({
         key = (not (v1714 ~= nil) or v1714.key == nil) and "" or v1714.key, 
         value = if not (v1714 ~= nil) or v1714.value == nil then nil else v1714.value
     }, l_v5_63));
 end;
-v5.encode = function(v1715) --[[ Line: 11365 ]] --[[ Name: encode ]]
+v5.encode = function(v1715) --[[ Line: 11387 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1716 = buffer.create(0);
     local v1717 = 0;
@@ -8797,7 +8797,7 @@ v5.encode = function(v1715) --[[ Line: 11365 ]] --[[ Name: encode ]]
     buffer.copy(v1723, 0, v1716, 0, v1717);
     return v1723;
 end;
-v5.decode = function(v1724) --[[ Line: 11387 ]] --[[ Name: decode ]]
+v5.decode = function(v1724) --[[ Line: 11409 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_63 (copy), v0 (copy), v2 (copy)
     local v1725 = l_v5_63.new();
     local v1726 = 0;
@@ -8847,7 +8847,7 @@ v5.decode = function(v1724) --[[ Line: 11387 ]] --[[ Name: decode ]]
     end;
     return v1725;
 end;
-v5.jsonEncode = function(v1732) --[[ Line: 11437 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1732) --[[ Line: 11459 ]] --[[ Name: jsonEncode ]]
     local v1733 = {};
     if v1732.key ~= nil and v1732.key ~= "" then
         v1733.key = v1732.key;
@@ -8857,7 +8857,7 @@ v5.jsonEncode = function(v1732) --[[ Line: 11437 ]] --[[ Name: jsonEncode ]]
     end;
     return v1733;
 end;
-v5.jsonDecode = function(v1734) --[[ Line: 11453 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1734) --[[ Line: 11475 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_63 (copy), v2 (copy)
     local v1735 = l_v5_63.new();
     if v1734.key ~= nil then
@@ -8877,13 +8877,13 @@ v1.default:register(v2.NestedComponentProp_TemplateData_InputsEntry);
 v5 = {};
 v5.__index = v5;
 local l_v5_64 = v5 --[[ copy: 5 -> 70 ]];
-v5.new = function(v1737) --[[ Line: 11483 ]] --[[ Name: new ]]
+v5.new = function(v1737) --[[ Line: 11505 ]] --[[ Name: new ]]
     -- upvalues: l_v5_64 (copy)
     return (setmetatable({
         kind = if not (v1737 ~= nil) or v1737.kind == nil then nil else v1737.kind
     }, l_v5_64));
 end;
-v5.encode = function(v1738) --[[ Line: 11491 ]] --[[ Name: encode ]]
+v5.encode = function(v1738) --[[ Line: 11513 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1739 = buffer.create(0);
     local v1740 = 0;
@@ -8918,7 +8918,7 @@ v5.encode = function(v1738) --[[ Line: 11491 ]] --[[ Name: encode ]]
     buffer.copy(v1753, 0, v1739, 0, v1740);
     return v1753;
 end;
-v5.decode = function(v1754) --[[ Line: 11520 ]] --[[ Name: decode ]]
+v5.decode = function(v1754) --[[ Line: 11542 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_64 (copy), v0 (copy), v2 (copy)
     local v1755 = l_v5_64.new();
     local v1756 = 0;
@@ -8992,7 +8992,7 @@ v5.decode = function(v1754) --[[ Line: 11520 ]] --[[ Name: decode ]]
     end;
     return v1755;
 end;
-v5.jsonEncode = function(v1762) --[[ Line: 11588 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1762) --[[ Line: 11610 ]] --[[ Name: jsonEncode ]]
     local v1763 = {};
     if v1762.kind ~= nil then
         if v1762.kind.type == "array_map" then
@@ -9010,7 +9010,7 @@ v5.jsonEncode = function(v1762) --[[ Line: 11588 ]] --[[ Name: jsonEncode ]]
     end;
     return v1763;
 end;
-v5.jsonDecode = function(v1764) --[[ Line: 11606 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1764) --[[ Line: 11628 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_64 (copy), v2 (copy)
     local v1765 = l_v5_64.new();
     if v1764.array_map ~= nil then
@@ -9066,14 +9066,14 @@ v1.default:register(v2.LazyNestedComponentListProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_65 = v5 --[[ copy: 5 -> 71 ]];
-v5.new = function(v1767) --[[ Line: 11677 ]] --[[ Name: new ]]
+v5.new = function(v1767) --[[ Line: 11699 ]] --[[ Name: new ]]
     -- upvalues: l_v5_65 (copy)
     return (setmetatable({
         condition = if not (v1767 ~= nil) or v1767.condition == nil then nil else v1767.condition, 
         kind = if not (v1767 ~= nil) or v1767.kind == nil then nil else v1767.kind
     }, l_v5_65));
 end;
-v5.encode = function(v1768) --[[ Line: 11686 ]] --[[ Name: encode ]]
+v5.encode = function(v1768) --[[ Line: 11708 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1769 = buffer.create(0);
     local v1770 = 0;
@@ -9103,7 +9103,7 @@ v5.encode = function(v1768) --[[ Line: 11686 ]] --[[ Name: encode ]]
     buffer.copy(v1780, 0, v1769, 0, v1770);
     return v1780;
 end;
-v5.decode = function(v1781) --[[ Line: 11715 ]] --[[ Name: decode ]]
+v5.decode = function(v1781) --[[ Line: 11737 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_65 (copy), v0 (copy), v4 (copy), v2 (copy)
     local v1782 = l_v5_65.new();
     local v1783 = 0;
@@ -9165,7 +9165,7 @@ v5.decode = function(v1781) --[[ Line: 11715 ]] --[[ Name: decode ]]
     end;
     return v1782;
 end;
-v5.jsonEncode = function(v1789) --[[ Line: 11774 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1789) --[[ Line: 11796 ]] --[[ Name: jsonEncode ]]
     local v1790 = {};
     if v1789.condition ~= nil then
         v1790.condition = v1789.condition:jsonEncode();
@@ -9180,7 +9180,7 @@ v5.jsonEncode = function(v1789) --[[ Line: 11774 ]] --[[ Name: jsonEncode ]]
     end;
     return v1790;
 end;
-v5.jsonDecode = function(v1791) --[[ Line: 11794 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1791) --[[ Line: 11816 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_65 (copy), v4 (copy), v2 (copy)
     local v1792 = l_v5_65.new();
     if v1791.condition ~= nil then
@@ -9215,13 +9215,13 @@ v1.default:register(v2.LazyNestedComponentListProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_66 = v5 --[[ copy: 5 -> 72 ]];
-v5.new = function(v1794) --[[ Line: 11842 ]] --[[ Name: new ]]
+v5.new = function(v1794) --[[ Line: 11864 ]] --[[ Name: new ]]
     -- upvalues: l_v5_66 (copy)
     return (setmetatable({
         options = if not (v1794 ~= nil) or v1794.options == nil then {} else v1794.options
     }, l_v5_66));
 end;
-v5.encode = function(v1795) --[[ Line: 11850 ]] --[[ Name: encode ]]
+v5.encode = function(v1795) --[[ Line: 11872 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1796 = buffer.create(0);
     local v1797 = 0;
@@ -9238,7 +9238,7 @@ v5.encode = function(v1795) --[[ Line: 11850 ]] --[[ Name: encode ]]
     buffer.copy(v1803, 0, v1796, 0, v1797);
     return v1803;
 end;
-v5.decode = function(v1804) --[[ Line: 11869 ]] --[[ Name: decode ]]
+v5.decode = function(v1804) --[[ Line: 11891 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_66 (copy), v0 (copy), v2 (copy)
     local v1805 = l_v5_66.new();
     local v1806 = 0;
@@ -9282,7 +9282,7 @@ v5.decode = function(v1804) --[[ Line: 11869 ]] --[[ Name: decode ]]
     end;
     return v1805;
 end;
-v5.jsonEncode = function(v1812) --[[ Line: 11914 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1812) --[[ Line: 11936 ]] --[[ Name: jsonEncode ]]
     local v1813 = {};
     if v1812.options ~= nil and #v1812.options > 0 then
         local v1814 = {};
@@ -9293,7 +9293,7 @@ v5.jsonEncode = function(v1812) --[[ Line: 11914 ]] --[[ Name: jsonEncode ]]
     end;
     return v1813;
 end;
-v5.jsonDecode = function(v1817) --[[ Line: 11930 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1817) --[[ Line: 11952 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_66 (copy), v2 (copy)
     local v1818 = l_v5_66.new();
     if v1817.options ~= nil then
@@ -9314,7 +9314,7 @@ v1.default:register(v2.LazyNestedComponentListProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_67 = v5 --[[ copy: 5 -> 73 ]];
-v5.new = function(v1823) --[[ Line: 11961 ]] --[[ Name: new ]]
+v5.new = function(v1823) --[[ Line: 11983 ]] --[[ Name: new ]]
     -- upvalues: l_v5_67 (copy)
     return (setmetatable({
         binding_path = (not (v1823 ~= nil) or v1823.binding_path == nil) and "" or v1823.binding_path, 
@@ -9322,7 +9322,7 @@ v5.new = function(v1823) --[[ Line: 11961 ]] --[[ Name: new ]]
         inputs = if not (v1823 ~= nil) or v1823.inputs == nil then {} else v1823.inputs
     }, l_v5_67));
 end;
-v5.encode = function(v1824) --[[ Line: 11971 ]] --[[ Name: encode ]]
+v5.encode = function(v1824) --[[ Line: 11993 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1825 = buffer.create(0);
     local v1826 = 0;
@@ -9361,7 +9361,7 @@ v5.encode = function(v1824) --[[ Line: 11971 ]] --[[ Name: encode ]]
     buffer.copy(v1838, 0, v1825, 0, v1826);
     return v1838;
 end;
-v5.decode = function(v1839) --[[ Line: 12006 ]] --[[ Name: decode ]]
+v5.decode = function(v1839) --[[ Line: 12028 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_67 (copy), v0 (copy), v2 (copy)
     local v1840 = l_v5_67.new();
     local v1841 = 0;
@@ -9419,7 +9419,7 @@ v5.decode = function(v1839) --[[ Line: 12006 ]] --[[ Name: decode ]]
     end;
     return v1840;
 end;
-v5.jsonEncode = function(v1847) --[[ Line: 12068 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1847) --[[ Line: 12090 ]] --[[ Name: jsonEncode ]]
     local v1848 = {};
     if v1847.binding_path ~= nil and v1847.binding_path ~= "" then
         v1848.bindingPath = v1847.binding_path;
@@ -9436,7 +9436,7 @@ v5.jsonEncode = function(v1847) --[[ Line: 12068 ]] --[[ Name: jsonEncode ]]
     end;
     return v1848;
 end;
-v5.jsonDecode = function(v1852) --[[ Line: 12092 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1852) --[[ Line: 12114 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_67 (copy), v2 (copy)
     local v1853 = l_v5_67.new();
     if v1852.binding_path ~= nil then
@@ -9469,14 +9469,14 @@ v1.default:register(v2.LazyNestedComponentListProp_TemplateData);
 v5 = {};
 v5.__index = v5;
 local l_v5_68 = v5 --[[ copy: 5 -> 74 ]];
-v5.new = function(v1858) --[[ Line: 12140 ]] --[[ Name: new ]]
+v5.new = function(v1858) --[[ Line: 12162 ]] --[[ Name: new ]]
     -- upvalues: l_v5_68 (copy)
     return (setmetatable({
         key = (not (v1858 ~= nil) or v1858.key == nil) and "" or v1858.key, 
         value = if not (v1858 ~= nil) or v1858.value == nil then nil else v1858.value
     }, l_v5_68));
 end;
-v5.encode = function(v1859) --[[ Line: 12152 ]] --[[ Name: encode ]]
+v5.encode = function(v1859) --[[ Line: 12174 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1860 = buffer.create(0);
     local v1861 = 0;
@@ -9497,7 +9497,7 @@ v5.encode = function(v1859) --[[ Line: 12152 ]] --[[ Name: encode ]]
     buffer.copy(v1867, 0, v1860, 0, v1861);
     return v1867;
 end;
-v5.decode = function(v1868) --[[ Line: 12174 ]] --[[ Name: decode ]]
+v5.decode = function(v1868) --[[ Line: 12196 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_68 (copy), v0 (copy), v2 (copy)
     local v1869 = l_v5_68.new();
     local v1870 = 0;
@@ -9547,7 +9547,7 @@ v5.decode = function(v1868) --[[ Line: 12174 ]] --[[ Name: decode ]]
     end;
     return v1869;
 end;
-v5.jsonEncode = function(v1876) --[[ Line: 12224 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1876) --[[ Line: 12246 ]] --[[ Name: jsonEncode ]]
     local v1877 = {};
     if v1876.key ~= nil and v1876.key ~= "" then
         v1877.key = v1876.key;
@@ -9557,7 +9557,7 @@ v5.jsonEncode = function(v1876) --[[ Line: 12224 ]] --[[ Name: jsonEncode ]]
     end;
     return v1877;
 end;
-v5.jsonDecode = function(v1878) --[[ Line: 12240 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1878) --[[ Line: 12262 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_68 (copy), v2 (copy)
     local v1879 = l_v5_68.new();
     if v1878.key ~= nil then
@@ -9577,13 +9577,13 @@ v1.default:register(v2.LazyNestedComponentListProp_TemplateData_InputsEntry);
 v5 = {};
 v5.__index = v5;
 local l_v5_69 = v5 --[[ copy: 5 -> 75 ]];
-v5.new = function(v1881) --[[ Line: 12271 ]] --[[ Name: new ]]
+v5.new = function(v1881) --[[ Line: 12293 ]] --[[ Name: new ]]
     -- upvalues: l_v5_69 (copy)
     return (setmetatable({
         items = if not (v1881 ~= nil) or v1881.items == nil then {} else v1881.items
     }, l_v5_69));
 end;
-v5.encode = function(v1882) --[[ Line: 12279 ]] --[[ Name: encode ]]
+v5.encode = function(v1882) --[[ Line: 12301 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1883 = buffer.create(0);
     local v1884 = 0;
@@ -9600,7 +9600,7 @@ v5.encode = function(v1882) --[[ Line: 12279 ]] --[[ Name: encode ]]
     buffer.copy(v1890, 0, v1883, 0, v1884);
     return v1890;
 end;
-v5.decode = function(v1891) --[[ Line: 12298 ]] --[[ Name: decode ]]
+v5.decode = function(v1891) --[[ Line: 12320 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_69 (copy), v0 (copy), v2 (copy)
     local v1892 = l_v5_69.new();
     local v1893 = 0;
@@ -9644,7 +9644,7 @@ v5.decode = function(v1891) --[[ Line: 12298 ]] --[[ Name: decode ]]
     end;
     return v1892;
 end;
-v5.jsonEncode = function(v1899) --[[ Line: 12343 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1899) --[[ Line: 12365 ]] --[[ Name: jsonEncode ]]
     local v1900 = {};
     if v1899.items ~= nil and #v1899.items > 0 then
         local v1901 = {};
@@ -9655,7 +9655,7 @@ v5.jsonEncode = function(v1899) --[[ Line: 12343 ]] --[[ Name: jsonEncode ]]
     end;
     return v1900;
 end;
-v5.jsonDecode = function(v1904) --[[ Line: 12359 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1904) --[[ Line: 12381 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_69 (copy), v2 (copy)
     local v1905 = l_v5_69.new();
     if v1904.items ~= nil then
@@ -9676,7 +9676,7 @@ v1.default:register(v2.LazyNestedComponentListProp_TemplateDataList);
 v5 = {};
 v5.__index = v5;
 local l_v5_70 = v5 --[[ copy: 5 -> 76 ]];
-v5.new = function(v1910) --[[ Line: 12390 ]] --[[ Name: new ]]
+v5.new = function(v1910) --[[ Line: 12412 ]] --[[ Name: new ]]
     -- upvalues: l_v5_70 (copy)
     return (setmetatable({
         entry_map_path = (not (v1910 ~= nil) or v1910.entry_map_path == nil) and "" or v1910.entry_map_path, 
@@ -9684,7 +9684,7 @@ v5.new = function(v1910) --[[ Line: 12390 ]] --[[ Name: new ]]
         template_data_map = if not (v1910 ~= nil) or v1910.template_data_map == nil then {} else v1910.template_data_map
     }, l_v5_70));
 end;
-v5.encode = function(v1911) --[[ Line: 12400 ]] --[[ Name: encode ]]
+v5.encode = function(v1911) --[[ Line: 12422 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1912 = buffer.create(0);
     local v1913 = 0;
@@ -9724,7 +9724,7 @@ v5.encode = function(v1911) --[[ Line: 12400 ]] --[[ Name: encode ]]
     buffer.copy(v1926, 0, v1912, 0, v1913);
     return v1926;
 end;
-v5.decode = function(v1927) --[[ Line: 12436 ]] --[[ Name: decode ]]
+v5.decode = function(v1927) --[[ Line: 12458 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_70 (copy), v0 (copy), v2 (copy)
     local v1928 = l_v5_70.new();
     local v1929 = 0;
@@ -9782,7 +9782,7 @@ v5.decode = function(v1927) --[[ Line: 12436 ]] --[[ Name: decode ]]
     end;
     return v1928;
 end;
-v5.jsonEncode = function(v1935) --[[ Line: 12500 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1935) --[[ Line: 12522 ]] --[[ Name: jsonEncode ]]
     local v1936 = {};
     if v1935.entry_map_path ~= nil and v1935.entry_map_path ~= "" then
         v1936.entryMapPath = v1935.entry_map_path;
@@ -9799,7 +9799,7 @@ v5.jsonEncode = function(v1935) --[[ Line: 12500 ]] --[[ Name: jsonEncode ]]
     end;
     return v1936;
 end;
-v5.jsonDecode = function(v1940) --[[ Line: 12524 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1940) --[[ Line: 12546 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_70 (copy), v2 (copy)
     local v1941 = l_v5_70.new();
     if v1940.entry_map_path ~= nil then
@@ -9839,13 +9839,13 @@ v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData);
 v5 = {};
 v5.__index = v5;
 local l_v5_71 = v5 --[[ copy: 5 -> 77 ]];
-v5.new = function(v1949) --[[ Line: 12584 ]] --[[ Name: new ]]
+v5.new = function(v1949) --[[ Line: 12606 ]] --[[ Name: new ]]
     -- upvalues: l_v5_71 (copy)
     return (setmetatable({
         kind = if not (v1949 ~= nil) or v1949.kind == nil then nil else v1949.kind
     }, l_v5_71));
 end;
-v5.encode = function(v1950) --[[ Line: 12595 ]] --[[ Name: encode ]]
+v5.encode = function(v1950) --[[ Line: 12617 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1951 = buffer.create(0);
     local v1952 = 0;
@@ -9867,7 +9867,7 @@ v5.encode = function(v1950) --[[ Line: 12595 ]] --[[ Name: encode ]]
     buffer.copy(v1958, 0, v1951, 0, v1952);
     return v1958;
 end;
-v5.decode = function(v1959) --[[ Line: 12617 ]] --[[ Name: decode ]]
+v5.decode = function(v1959) --[[ Line: 12639 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_71 (copy), v0 (copy), v2 (copy)
     local v1960 = l_v5_71.new();
     local v1961 = 0;
@@ -9923,7 +9923,7 @@ v5.decode = function(v1959) --[[ Line: 12617 ]] --[[ Name: decode ]]
     end;
     return v1960;
 end;
-v5.jsonEncode = function(v1967) --[[ Line: 12672 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1967) --[[ Line: 12694 ]] --[[ Name: jsonEncode ]]
     local v1968 = {};
     if v1967.kind ~= nil then
         if v1967.kind.type == "literal" then
@@ -9935,7 +9935,7 @@ v5.jsonEncode = function(v1967) --[[ Line: 12672 ]] --[[ Name: jsonEncode ]]
     end;
     return v1968;
 end;
-v5.jsonDecode = function(v1969) --[[ Line: 12688 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1969) --[[ Line: 12710 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_71 (copy), v2 (copy)
     local v1970 = l_v5_71.new();
     if v1969.literal ~= nil then
@@ -9967,13 +9967,13 @@ v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrde
 v5 = {};
 v5.__index = v5;
 local l_v5_72 = v5 --[[ copy: 5 -> 78 ]];
-v5.new = function(v1972) --[[ Line: 12729 ]] --[[ Name: new ]]
+v5.new = function(v1972) --[[ Line: 12751 ]] --[[ Name: new ]]
     -- upvalues: l_v5_72 (copy)
     return (setmetatable({
         items = if not (v1972 ~= nil) or v1972.items == nil then {} else v1972.items
     }, l_v5_72));
 end;
-v5.encode = function(v1973) --[[ Line: 12740 ]] --[[ Name: encode ]]
+v5.encode = function(v1973) --[[ Line: 12762 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v1974 = buffer.create(0);
     local v1975 = 0;
@@ -9989,7 +9989,7 @@ v5.encode = function(v1973) --[[ Line: 12740 ]] --[[ Name: encode ]]
     buffer.copy(v1980, 0, v1974, 0, v1975);
     return v1980;
 end;
-v5.decode = function(v1981) --[[ Line: 12758 ]] --[[ Name: decode ]]
+v5.decode = function(v1981) --[[ Line: 12780 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_72 (copy), v0 (copy)
     local v1982 = l_v5_72.new();
     local v1983 = 0;
@@ -10033,7 +10033,7 @@ v5.decode = function(v1981) --[[ Line: 12758 ]] --[[ Name: decode ]]
     end;
     return v1982;
 end;
-v5.jsonEncode = function(v1989) --[[ Line: 12803 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v1989) --[[ Line: 12825 ]] --[[ Name: jsonEncode ]]
     local v1990 = {};
     if v1989.items ~= nil and #v1989.items > 0 then
         local v1991 = {};
@@ -10044,7 +10044,7 @@ v5.jsonEncode = function(v1989) --[[ Line: 12803 ]] --[[ Name: jsonEncode ]]
     end;
     return v1990;
 end;
-v5.jsonDecode = function(v1994) --[[ Line: 12819 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v1994) --[[ Line: 12841 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_72 (copy)
     local v1995 = l_v5_72.new();
     if v1994.items ~= nil then
@@ -10065,14 +10065,14 @@ v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_EntryOrde
 v5 = {};
 v5.__index = v5;
 local l_v5_73 = v5 --[[ copy: 5 -> 79 ]];
-v5.new = function(v2000) --[[ Line: 12854 ]] --[[ Name: new ]]
+v5.new = function(v2000) --[[ Line: 12876 ]] --[[ Name: new ]]
     -- upvalues: l_v5_73 (copy)
     return (setmetatable({
         key = (not (v2000 ~= nil) or v2000.key == nil) and "" or v2000.key, 
         value = if not (v2000 ~= nil) or v2000.value == nil then nil else v2000.value
     }, l_v5_73));
 end;
-v5.encode = function(v2001) --[[ Line: 12866 ]] --[[ Name: encode ]]
+v5.encode = function(v2001) --[[ Line: 12888 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2002 = buffer.create(0);
     local v2003 = 0;
@@ -10093,7 +10093,7 @@ v5.encode = function(v2001) --[[ Line: 12866 ]] --[[ Name: encode ]]
     buffer.copy(v2009, 0, v2002, 0, v2003);
     return v2009;
 end;
-v5.decode = function(v2010) --[[ Line: 12888 ]] --[[ Name: decode ]]
+v5.decode = function(v2010) --[[ Line: 12910 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_73 (copy), v0 (copy), v2 (copy)
     local v2011 = l_v5_73.new();
     local v2012 = 0;
@@ -10143,7 +10143,7 @@ v5.decode = function(v2010) --[[ Line: 12888 ]] --[[ Name: decode ]]
     end;
     return v2011;
 end;
-v5.jsonEncode = function(v2018) --[[ Line: 12938 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2018) --[[ Line: 12960 ]] --[[ Name: jsonEncode ]]
     local v2019 = {};
     if v2018.key ~= nil and v2018.key ~= "" then
         v2019.key = v2018.key;
@@ -10153,7 +10153,7 @@ v5.jsonEncode = function(v2018) --[[ Line: 12938 ]] --[[ Name: jsonEncode ]]
     end;
     return v2019;
 end;
-v5.jsonDecode = function(v2020) --[[ Line: 12954 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2020) --[[ Line: 12976 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_73 (copy), v2 (copy)
     local v2021 = l_v5_73.new();
     if v2020.key ~= nil then
@@ -10173,13 +10173,13 @@ v1.default:register(v2.LazyNestedComponentListProp_OrderedTemplateData_TemplateD
 v5 = {};
 v5.__index = v5;
 local l_v5_74 = v5 --[[ copy: 5 -> 80 ]];
-v5.new = function(v2023) --[[ Line: 12985 ]] --[[ Name: new ]]
+v5.new = function(v2023) --[[ Line: 13007 ]] --[[ Name: new ]]
     -- upvalues: l_v5_74 (copy)
     return (setmetatable({
         kind = if not (v2023 ~= nil) or v2023.kind == nil then nil else v2023.kind
     }, l_v5_74));
 end;
-v5.encode = function(v2024) --[[ Line: 12991 ]] --[[ Name: encode ]]
+v5.encode = function(v2024) --[[ Line: 13013 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2025 = buffer.create(0);
     local v2026 = 0;
@@ -10206,7 +10206,7 @@ v5.encode = function(v2024) --[[ Line: 12991 ]] --[[ Name: encode ]]
     buffer.copy(v2034, 0, v2025, 0, v2026);
     return v2034;
 end;
-v5.decode = function(v2035) --[[ Line: 13014 ]] --[[ Name: decode ]]
+v5.decode = function(v2035) --[[ Line: 13036 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_74 (copy), v0 (copy), v2 (copy)
     local v2036 = l_v5_74.new();
     local v2037 = 0;
@@ -10271,7 +10271,7 @@ v5.decode = function(v2035) --[[ Line: 13014 ]] --[[ Name: decode ]]
     end;
     return v2036;
 end;
-v5.jsonEncode = function(v2043) --[[ Line: 13067 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2043) --[[ Line: 13089 ]] --[[ Name: jsonEncode ]]
     local v2044 = {};
     if v2043.kind ~= nil then
         if v2043.kind.type == "literal" then
@@ -10286,7 +10286,7 @@ v5.jsonEncode = function(v2043) --[[ Line: 13067 ]] --[[ Name: jsonEncode ]]
     end;
     return v2044;
 end;
-v5.jsonDecode = function(v2045) --[[ Line: 13083 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2045) --[[ Line: 13105 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_74 (copy), v2 (copy)
     local v2046 = l_v5_74.new();
     if v2045.literal ~= nil then
@@ -10324,14 +10324,14 @@ v1.default:register(v2.IconProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_75 = v5 --[[ copy: 5 -> 81 ]];
-v5.new = function(v2048) --[[ Line: 13120 ]] --[[ Name: new ]]
+v5.new = function(v2048) --[[ Line: 13142 ]] --[[ Name: new ]]
     -- upvalues: l_v5_75 (copy)
     return (setmetatable({
         condition = if not (v2048 ~= nil) or v2048.condition == nil then nil else v2048.condition, 
         kind = if not (v2048 ~= nil) or v2048.kind == nil then nil else v2048.kind
     }, l_v5_75));
 end;
-v5.encode = function(v2049) --[[ Line: 13129 ]] --[[ Name: encode ]]
+v5.encode = function(v2049) --[[ Line: 13151 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2050 = buffer.create(0);
     local v2051 = 0;
@@ -10359,7 +10359,7 @@ v5.encode = function(v2049) --[[ Line: 13129 ]] --[[ Name: encode ]]
     buffer.copy(v2059, 0, v2050, 0, v2051);
     return v2059;
 end;
-v5.decode = function(v2060) --[[ Line: 13154 ]] --[[ Name: decode ]]
+v5.decode = function(v2060) --[[ Line: 13176 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_75 (copy), v0 (copy), v4 (copy)
     local v2061 = l_v5_75.new();
     local v2062 = 0;
@@ -10421,7 +10421,7 @@ v5.decode = function(v2060) --[[ Line: 13154 ]] --[[ Name: decode ]]
     end;
     return v2061;
 end;
-v5.jsonEncode = function(v2068) --[[ Line: 13207 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2068) --[[ Line: 13229 ]] --[[ Name: jsonEncode ]]
     local v2069 = {};
     if v2068.condition ~= nil then
         v2069.condition = v2068.condition:jsonEncode();
@@ -10436,7 +10436,7 @@ v5.jsonEncode = function(v2068) --[[ Line: 13207 ]] --[[ Name: jsonEncode ]]
     end;
     return v2069;
 end;
-v5.jsonDecode = function(v2070) --[[ Line: 13225 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2070) --[[ Line: 13247 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_75 (copy), v4 (copy)
     local v2071 = l_v5_75.new();
     if v2070.condition ~= nil then
@@ -10471,13 +10471,13 @@ v1.default:register(v2.IconProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
 local l_v5_76 = v5 --[[ copy: 5 -> 82 ]];
-v5.new = function(v2073) --[[ Line: 13262 ]] --[[ Name: new ]]
+v5.new = function(v2073) --[[ Line: 13284 ]] --[[ Name: new ]]
     -- upvalues: l_v5_76 (copy)
     return (setmetatable({
         options = if not (v2073 ~= nil) or v2073.options == nil then {} else v2073.options
     }, l_v5_76));
 end;
-v5.encode = function(v2074) --[[ Line: 13270 ]] --[[ Name: encode ]]
+v5.encode = function(v2074) --[[ Line: 13292 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2075 = buffer.create(0);
     local v2076 = 0;
@@ -10494,7 +10494,7 @@ v5.encode = function(v2074) --[[ Line: 13270 ]] --[[ Name: encode ]]
     buffer.copy(v2082, 0, v2075, 0, v2076);
     return v2082;
 end;
-v5.decode = function(v2083) --[[ Line: 13287 ]] --[[ Name: decode ]]
+v5.decode = function(v2083) --[[ Line: 13309 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_76 (copy), v0 (copy), v2 (copy)
     local v2084 = l_v5_76.new();
     local v2085 = 0;
@@ -10538,7 +10538,7 @@ v5.decode = function(v2083) --[[ Line: 13287 ]] --[[ Name: decode ]]
     end;
     return v2084;
 end;
-v5.jsonEncode = function(v2091) --[[ Line: 13330 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2091) --[[ Line: 13352 ]] --[[ Name: jsonEncode ]]
     local v2092 = {};
     if v2091.options ~= nil and #v2091.options > 0 then
         local v2093 = {};
@@ -10549,7 +10549,7 @@ v5.jsonEncode = function(v2091) --[[ Line: 13330 ]] --[[ Name: jsonEncode ]]
     end;
     return v2092;
 end;
-v5.jsonDecode = function(v2096) --[[ Line: 13344 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2096) --[[ Line: 13366 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_76 (copy), v2 (copy)
     local v2097 = l_v5_76.new();
     if v2096.options ~= nil then
@@ -10570,25 +10570,25 @@ v1.default:register(v2.IconProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
 local l_v5_77 = v5 --[[ copy: 5 -> 83 ]];
-v5.new = function(v2102) --[[ Line: 13373 ]] --[[ Name: new ]]
+v5.new = function(v2102) --[[ Line: 13395 ]] --[[ Name: new ]]
     -- upvalues: l_v5_77 (copy)
     return (setmetatable({
-        kind = if not (v2102 ~= nil) or v2102.kind == nil then nil else v2102.kind
+        oneof_prop = if not (v2102 ~= nil) or v2102.oneof_prop == nil then nil else v2102.oneof_prop
     }, l_v5_77));
 end;
-v5.encode = function(v2103) --[[ Line: 13379 ]] --[[ Name: encode ]]
+v5.encode = function(v2103) --[[ Line: 13401 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2104 = buffer.create(0);
     local v2105 = 0;
-    if v2103.kind ~= nil then
-        if v2103.kind.type == "literal" then
-            local v2106 = v2103.kind.value:encode();
+    if v2103.oneof_prop ~= nil then
+        if v2103.oneof_prop.type == "string_prop" then
+            local v2106 = v2103.oneof_prop.value:encode();
             local v2107, v2108 = v0.writeTag(v2104, v2105, 1, v0.wireTypes.lengthDelimited);
             v2107, v2108 = v0.writeBuffer(v2107, v2108, v2106, buffer.len(v2106));
             v2104 = v2107;
             v2105 = v2108;
-        elseif v2103.kind.type == "conditional" then
-            local v2109 = v2103.kind.value:encode();
+        elseif v2103.oneof_prop.type == "int32_prop" then
+            local v2109 = v2103.oneof_prop.value:encode();
             local v2110, v2111 = v0.writeTag(v2104, v2105, 2, v0.wireTypes.lengthDelimited);
             v2110, v2111 = v0.writeBuffer(v2110, v2111, v2109, buffer.len(v2109));
             v2104 = v2110;
@@ -10599,7 +10599,7 @@ v5.encode = function(v2103) --[[ Line: 13379 ]] --[[ Name: encode ]]
     buffer.copy(v2112, 0, v2104, 0, v2105);
     return v2112;
 end;
-v5.decode = function(v2113) --[[ Line: 13400 ]] --[[ Name: decode ]]
+v5.decode = function(v2113) --[[ Line: 13422 ]] --[[ Name: decode ]]
     -- upvalues: l_v5_77 (copy), v0 (copy), v2 (copy)
     local v2114 = l_v5_77.new();
     local v2115 = 0;
@@ -10621,18 +10621,18 @@ v5.decode = function(v2113) --[[ Line: 13400 ]] --[[ Name: decode ]]
                 v2119, v2120 = v0.readBuffer(v2113, v2115);
                 v2118 = v2119;
                 v2115 = v2120;
-                v2114.kind = {
-                    type = "literal", 
-                    value = v2.GradientProp_GradientData.decode(v2118)
+                v2114.oneof_prop = {
+                    type = "string_prop", 
+                    value = v2.StringProp.decode(v2118)
                 };
             elseif v2116 == 2 then
                 v2118 = nil;
                 v2119, v2120 = v0.readBuffer(v2113, v2115);
                 v2118 = v2119;
                 v2115 = v2120;
-                v2114.kind = {
-                    type = "conditional", 
-                    value = v2.GradientProp_ConditionalOptions.decode(v2118)
+                v2114.oneof_prop = {
+                    type = "int32_prop", 
+                    value = v2.Int32Prop.decode(v2118)
                 };
             else
                 v2118 = nil;
@@ -10655,75 +10655,87 @@ v5.decode = function(v2113) --[[ Line: 13400 ]] --[[ Name: decode ]]
     end;
     return v2114;
 end;
-v5.jsonEncode = function(v2121) --[[ Line: 13448 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2121) --[[ Line: 13470 ]] --[[ Name: jsonEncode ]]
     local v2122 = {};
-    if v2121.kind ~= nil then
-        if v2121.kind.type == "literal" then
-            v2122.literal = v2121.kind.value:jsonEncode();
+    if v2121.oneof_prop ~= nil then
+        if v2121.oneof_prop.type == "string_prop" then
+            v2122.stringProp = v2121.oneof_prop.value:jsonEncode();
             return v2122;
-        elseif v2121.kind.type == "conditional" then
-            v2122.conditional = v2121.kind.value:jsonEncode();
+        elseif v2121.oneof_prop.type == "int32_prop" then
+            v2122.int32Prop = v2121.oneof_prop.value:jsonEncode();
         end;
     end;
     return v2122;
 end;
-v5.jsonDecode = function(v2123) --[[ Line: 13462 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2123) --[[ Line: 13484 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v5_77 (copy), v2 (copy)
     local v2124 = l_v5_77.new();
-    if v2123.literal ~= nil then
-        v2124.kind = {
-            type = "literal", 
-            value = v2.GradientProp_GradientData.jsonDecode(v2123.literal)
+    if v2123.string_prop ~= nil then
+        v2124.oneof_prop = {
+            type = "string_prop", 
+            value = v2.StringProp.jsonDecode(v2123.string_prop)
         };
     end;
-    if v2123.conditional ~= nil then
-        v2124.kind = {
-            type = "conditional", 
-            value = v2.GradientProp_ConditionalOptions.jsonDecode(v2123.conditional)
+    if v2123.stringProp ~= nil then
+        v2124.oneof_prop = {
+            type = "string_prop", 
+            value = v2.StringProp.jsonDecode(v2123.stringProp)
+        };
+    end;
+    if v2123.int32_prop ~= nil then
+        v2124.oneof_prop = {
+            type = "int32_prop", 
+            value = v2.Int32Prop.jsonDecode(v2123.int32_prop)
+        };
+    end;
+    if v2123.int32Prop ~= nil then
+        v2124.oneof_prop = {
+            type = "int32_prop", 
+            value = v2.Int32Prop.jsonDecode(v2123.int32Prop)
         };
     end;
     return v2124;
 end;
 v5.descriptor = {
-    name = "GradientProp", 
-    fullName = "roblox.apppageplatform.shared.v1beta1.GradientProp"
+    name = "IconSizeProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.IconSizeProp"
 };
-v2.GradientProp = v5;
-v1.default:register(v2.GradientProp);
+v2.IconSizeProp = v5;
+v1.default:register(v2.IconSizeProp);
 v5 = {};
 v5.__index = v5;
 local l_v5_78 = v5 --[[ copy: 5 -> 84 ]];
-v5.new = function(v2126) --[[ Line: 13491 ]] --[[ Name: new ]]
+v5.new = function(v2126) --[[ Line: 13520 ]] --[[ Name: new ]]
     -- upvalues: l_v5_78 (copy)
     return (setmetatable({
-        condition = if not (v2126 ~= nil) or v2126.condition == nil then nil else v2126.condition, 
         kind = if not (v2126 ~= nil) or v2126.kind == nil then nil else v2126.kind
     }, l_v5_78));
 end;
-v5.encode = function(v2127) --[[ Line: 13500 ]] --[[ Name: encode ]]
+v5.encode = function(v2127) --[[ Line: 13526 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v2128 = buffer.create(0);
     local v2129 = 0;
-    if v2127.condition ~= nil then
-        local v2130 = v2127.condition:encode();
-        local v2131, v2132 = v0.writeTag(v2128, v2129, 1, v0.wireTypes.lengthDelimited);
-        v2131, v2132 = v0.writeBuffer(v2131, v2132, v2130, buffer.len(v2130));
-        v2128 = v2131;
-        v2129 = v2132;
-    end;
-    if v2127.kind ~= nil and v2127.kind.type == "literal" then
-        local v2133 = v2127.kind.value:encode();
-        local v2134, v2135 = v0.writeTag(v2128, v2129, 2, v0.wireTypes.lengthDelimited);
-        v2134, v2135 = v0.writeBuffer(v2134, v2135, v2133, buffer.len(v2133));
-        v2128 = v2134;
-        v2129 = v2135;
+    if v2127.kind ~= nil then
+        if v2127.kind.type == "literal" then
+            local v2130 = v2127.kind.value:encode();
+            local v2131, v2132 = v0.writeTag(v2128, v2129, 1, v0.wireTypes.lengthDelimited);
+            v2131, v2132 = v0.writeBuffer(v2131, v2132, v2130, buffer.len(v2130));
+            v2128 = v2131;
+            v2129 = v2132;
+        elseif v2127.kind.type == "conditional" then
+            local v2133 = v2127.kind.value:encode();
+            local v2134, v2135 = v0.writeTag(v2128, v2129, 2, v0.wireTypes.lengthDelimited);
+            v2134, v2135 = v0.writeBuffer(v2134, v2135, v2133, buffer.len(v2133));
+            v2128 = v2134;
+            v2129 = v2135;
+        end;
     end;
     local v2136 = buffer.create(v2129);
     buffer.copy(v2136, 0, v2128, 0, v2129);
     return v2136;
 end;
-v5.decode = function(v2137) --[[ Line: 13523 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_78 (copy), v0 (copy), v4 (copy), v2 (copy)
+v5.decode = function(v2137) --[[ Line: 13547 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_78 (copy), v0 (copy), v2 (copy)
     local v2138 = l_v5_78.new();
     local v2139 = 0;
     while v2139 < buffer.len(v2137) do
@@ -10744,15 +10756,18 @@ v5.decode = function(v2137) --[[ Line: 13523 ]] --[[ Name: decode ]]
                 v2143, v2144 = v0.readBuffer(v2137, v2139);
                 v2142 = v2143;
                 v2139 = v2144;
-                v2138.condition = v4.PropCondition.decode(v2142);
+                v2138.kind = {
+                    type = "literal", 
+                    value = v2.GradientProp_GradientData.decode(v2142)
+                };
             elseif v2140 == 2 then
                 v2142 = nil;
                 v2143, v2144 = v0.readBuffer(v2137, v2139);
                 v2142 = v2143;
                 v2139 = v2144;
                 v2138.kind = {
-                    type = "literal", 
-                    value = v2.GradientProp_GradientData.decode(v2142)
+                    type = "conditional", 
+                    value = v2.GradientProp_ConditionalOptions.decode(v2142)
                 };
             else
                 v2142 = nil;
@@ -10775,29 +10790,149 @@ v5.decode = function(v2137) --[[ Line: 13523 ]] --[[ Name: decode ]]
     end;
     return v2138;
 end;
-v5.jsonEncode = function(v2145) --[[ Line: 13571 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2145) --[[ Line: 13595 ]] --[[ Name: jsonEncode ]]
     local v2146 = {};
-    if v2145.condition ~= nil then
-        v2146.condition = v2145.condition:jsonEncode();
-    end;
-    if v2145.kind ~= nil and v2145.kind.type == "literal" then
-        v2146.literal = v2145.kind.value:jsonEncode();
+    if v2145.kind ~= nil then
+        if v2145.kind.type == "literal" then
+            v2146.literal = v2145.kind.value:jsonEncode();
+            return v2146;
+        elseif v2145.kind.type == "conditional" then
+            v2146.conditional = v2145.kind.value:jsonEncode();
+        end;
     end;
     return v2146;
 end;
-v5.jsonDecode = function(v2147) --[[ Line: 13587 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_78 (copy), v4 (copy), v2 (copy)
+v5.jsonDecode = function(v2147) --[[ Line: 13609 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_78 (copy), v2 (copy)
     local v2148 = l_v5_78.new();
-    if v2147.condition ~= nil then
-        v2148.condition = v4.PropCondition.jsonDecode(v2147.condition);
-    end;
     if v2147.literal ~= nil then
         v2148.kind = {
             type = "literal", 
             value = v2.GradientProp_GradientData.jsonDecode(v2147.literal)
         };
     end;
+    if v2147.conditional ~= nil then
+        v2148.kind = {
+            type = "conditional", 
+            value = v2.GradientProp_ConditionalOptions.jsonDecode(v2147.conditional)
+        };
+    end;
     return v2148;
+end;
+v5.descriptor = {
+    name = "GradientProp", 
+    fullName = "roblox.apppageplatform.shared.v1beta1.GradientProp"
+};
+v2.GradientProp = v5;
+v1.default:register(v2.GradientProp);
+v5 = {};
+v5.__index = v5;
+local l_v5_79 = v5 --[[ copy: 5 -> 85 ]];
+v5.new = function(v2150) --[[ Line: 13638 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_79 (copy)
+    return (setmetatable({
+        condition = if not (v2150 ~= nil) or v2150.condition == nil then nil else v2150.condition, 
+        kind = if not (v2150 ~= nil) or v2150.kind == nil then nil else v2150.kind
+    }, l_v5_79));
+end;
+v5.encode = function(v2151) --[[ Line: 13647 ]] --[[ Name: encode ]]
+    -- upvalues: v0 (copy)
+    local v2152 = buffer.create(0);
+    local v2153 = 0;
+    if v2151.condition ~= nil then
+        local v2154 = v2151.condition:encode();
+        local v2155, v2156 = v0.writeTag(v2152, v2153, 1, v0.wireTypes.lengthDelimited);
+        v2155, v2156 = v0.writeBuffer(v2155, v2156, v2154, buffer.len(v2154));
+        v2152 = v2155;
+        v2153 = v2156;
+    end;
+    if v2151.kind ~= nil and v2151.kind.type == "literal" then
+        local v2157 = v2151.kind.value:encode();
+        local v2158, v2159 = v0.writeTag(v2152, v2153, 2, v0.wireTypes.lengthDelimited);
+        v2158, v2159 = v0.writeBuffer(v2158, v2159, v2157, buffer.len(v2157));
+        v2152 = v2158;
+        v2153 = v2159;
+    end;
+    local v2160 = buffer.create(v2153);
+    buffer.copy(v2160, 0, v2152, 0, v2153);
+    return v2160;
+end;
+v5.decode = function(v2161) --[[ Line: 13670 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_79 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v2162 = l_v5_79.new();
+    local v2163 = 0;
+    while v2163 < buffer.len(v2161) do
+        local v2164 = nil;
+        local v2165 = nil;
+        local v2166, v2167, v2168 = v0.readTag(v2161, v2163);
+        v2164 = v2166;
+        v2165 = v2167;
+        v2163 = v2168;
+        if v2165 == v0.wireTypes.varint then
+            v2166 = nil;
+            v2167, v2168 = v0.readVarInt(v2161, v2163);
+            v2166 = v2167;
+            v2163 = v2168;
+        elseif v2165 == v0.wireTypes.lengthDelimited then
+            if v2164 == 1 then
+                v2166 = nil;
+                v2167, v2168 = v0.readBuffer(v2161, v2163);
+                v2166 = v2167;
+                v2163 = v2168;
+                v2162.condition = v4.PropCondition.decode(v2166);
+            elseif v2164 == 2 then
+                v2166 = nil;
+                v2167, v2168 = v0.readBuffer(v2161, v2163);
+                v2166 = v2167;
+                v2163 = v2168;
+                v2162.kind = {
+                    type = "literal", 
+                    value = v2.GradientProp_GradientData.decode(v2166)
+                };
+            else
+                v2166 = nil;
+                v2167, v2168 = v0.readVarInt(v2161, v2163);
+                v2163 = v2168 + v2167;
+            end;
+        elseif v2165 == v0.wireTypes.i32 then
+            v2166 = nil;
+            v2167, v2168 = v0.readFixed32(v2161, v2163);
+            v2166 = v2167;
+            v2163 = v2168;
+        elseif v2165 == v0.wireTypes.i64 then
+            v2166 = nil;
+            v2167, v2168 = v0.readFixed64(v2161, v2163);
+            v2166 = v2167;
+            v2163 = v2168;
+        else
+            error("Unsupported wire type: " .. v2165);
+        end;
+    end;
+    return v2162;
+end;
+v5.jsonEncode = function(v2169) --[[ Line: 13718 ]] --[[ Name: jsonEncode ]]
+    local v2170 = {};
+    if v2169.condition ~= nil then
+        v2170.condition = v2169.condition:jsonEncode();
+    end;
+    if v2169.kind ~= nil and v2169.kind.type == "literal" then
+        v2170.literal = v2169.kind.value:jsonEncode();
+    end;
+    return v2170;
+end;
+v5.jsonDecode = function(v2171) --[[ Line: 13734 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_79 (copy), v4 (copy), v2 (copy)
+    local v2172 = l_v5_79.new();
+    if v2171.condition ~= nil then
+        v2172.condition = v4.PropCondition.jsonDecode(v2171.condition);
+    end;
+    if v2171.literal ~= nil then
+        v2172.kind = {
+            type = "literal", 
+            value = v2.GradientProp_GradientData.jsonDecode(v2171.literal)
+        };
+    end;
+    return v2172;
 end;
 v5.descriptor = {
     name = "GradientProp_ConditionalOption", 
@@ -10807,96 +10942,96 @@ v2.GradientProp_ConditionalOption = v5;
 v1.default:register(v2.GradientProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_79 = v5 --[[ copy: 5 -> 85 ]];
-v5.new = function(v2150) --[[ Line: 13616 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_79 (copy)
+local l_v5_80 = v5 --[[ copy: 5 -> 86 ]];
+v5.new = function(v2174) --[[ Line: 13763 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_80 (copy)
     return (setmetatable({
-        options = if not (v2150 ~= nil) or v2150.options == nil then {} else v2150.options
-    }, l_v5_79));
+        options = if not (v2174 ~= nil) or v2174.options == nil then {} else v2174.options
+    }, l_v5_80));
 end;
-v5.encode = function(v2151) --[[ Line: 13624 ]] --[[ Name: encode ]]
+v5.encode = function(v2175) --[[ Line: 13771 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2152 = buffer.create(0);
-    local v2153 = 0;
-    if v2151.options ~= nil and #v2151.options > 0 then
-        for _, v2155 in v2151.options do
-            local v2156 = v2155:encode();
-            local v2157, v2158 = v0.writeTag(v2152, v2153, 1, v0.wireTypes.lengthDelimited);
-            v2157, v2158 = v0.writeBuffer(v2157, v2158, v2156, buffer.len(v2156));
-            v2152 = v2157;
-            v2153 = v2158;
+    local v2176 = buffer.create(0);
+    local v2177 = 0;
+    if v2175.options ~= nil and #v2175.options > 0 then
+        for _, v2179 in v2175.options do
+            local v2180 = v2179:encode();
+            local v2181, v2182 = v0.writeTag(v2176, v2177, 1, v0.wireTypes.lengthDelimited);
+            v2181, v2182 = v0.writeBuffer(v2181, v2182, v2180, buffer.len(v2180));
+            v2176 = v2181;
+            v2177 = v2182;
         end;
     end;
-    local v2159 = buffer.create(v2153);
-    buffer.copy(v2159, 0, v2152, 0, v2153);
-    return v2159;
+    local v2183 = buffer.create(v2177);
+    buffer.copy(v2183, 0, v2176, 0, v2177);
+    return v2183;
 end;
-v5.decode = function(v2160) --[[ Line: 13641 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_79 (copy), v0 (copy), v2 (copy)
-    local v2161 = l_v5_79.new();
-    local v2162 = 0;
-    while v2162 < buffer.len(v2160) do
-        local v2163 = nil;
-        local v2164 = nil;
-        local v2165, v2166, v2167 = v0.readTag(v2160, v2162);
-        v2163 = v2165;
-        v2164 = v2166;
-        v2162 = v2167;
-        if v2164 == v0.wireTypes.varint then
-            v2165 = nil;
-            v2166, v2167 = v0.readVarInt(v2160, v2162);
-            v2165 = v2166;
-            v2162 = v2167;
-        elseif v2164 == v0.wireTypes.lengthDelimited then
-            if v2163 == 1 then
-                v2165 = nil;
-                v2166, v2167 = v0.readBuffer(v2160, v2162);
-                v2165 = v2166;
-                v2162 = v2167;
-                table.insert(v2161.options, v2.GradientProp_ConditionalOption.decode(v2165));
+v5.decode = function(v2184) --[[ Line: 13788 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_80 (copy), v0 (copy), v2 (copy)
+    local v2185 = l_v5_80.new();
+    local v2186 = 0;
+    while v2186 < buffer.len(v2184) do
+        local v2187 = nil;
+        local v2188 = nil;
+        local v2189, v2190, v2191 = v0.readTag(v2184, v2186);
+        v2187 = v2189;
+        v2188 = v2190;
+        v2186 = v2191;
+        if v2188 == v0.wireTypes.varint then
+            v2189 = nil;
+            v2190, v2191 = v0.readVarInt(v2184, v2186);
+            v2189 = v2190;
+            v2186 = v2191;
+        elseif v2188 == v0.wireTypes.lengthDelimited then
+            if v2187 == 1 then
+                v2189 = nil;
+                v2190, v2191 = v0.readBuffer(v2184, v2186);
+                v2189 = v2190;
+                v2186 = v2191;
+                table.insert(v2185.options, v2.GradientProp_ConditionalOption.decode(v2189));
             else
-                v2165 = nil;
-                v2166, v2167 = v0.readVarInt(v2160, v2162);
-                v2162 = v2167 + v2166;
+                v2189 = nil;
+                v2190, v2191 = v0.readVarInt(v2184, v2186);
+                v2186 = v2191 + v2190;
             end;
-        elseif v2164 == v0.wireTypes.i32 then
-            v2165 = nil;
-            v2166, v2167 = v0.readFixed32(v2160, v2162);
-            v2165 = v2166;
-            v2162 = v2167;
-        elseif v2164 == v0.wireTypes.i64 then
-            v2165 = nil;
-            v2166, v2167 = v0.readFixed64(v2160, v2162);
-            v2165 = v2166;
-            v2162 = v2167;
+        elseif v2188 == v0.wireTypes.i32 then
+            v2189 = nil;
+            v2190, v2191 = v0.readFixed32(v2184, v2186);
+            v2189 = v2190;
+            v2186 = v2191;
+        elseif v2188 == v0.wireTypes.i64 then
+            v2189 = nil;
+            v2190, v2191 = v0.readFixed64(v2184, v2186);
+            v2189 = v2190;
+            v2186 = v2191;
         else
-            error("Unsupported wire type: " .. v2164);
+            error("Unsupported wire type: " .. v2188);
         end;
     end;
-    return v2161;
+    return v2185;
 end;
-v5.jsonEncode = function(v2168) --[[ Line: 13684 ]] --[[ Name: jsonEncode ]]
-    local v2169 = {};
-    if v2168.options ~= nil and #v2168.options > 0 then
-        local v2170 = {};
-        for _, v2172 in v2168.options do
-            table.insert(v2170, v2172:jsonEncode());
+v5.jsonEncode = function(v2192) --[[ Line: 13831 ]] --[[ Name: jsonEncode ]]
+    local v2193 = {};
+    if v2192.options ~= nil and #v2192.options > 0 then
+        local v2194 = {};
+        for _, v2196 in v2192.options do
+            table.insert(v2194, v2196:jsonEncode());
         end;
-        v2169.options = v2170;
+        v2193.options = v2194;
     end;
-    return v2169;
+    return v2193;
 end;
-v5.jsonDecode = function(v2173) --[[ Line: 13698 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_79 (copy), v2 (copy)
-    local v2174 = l_v5_79.new();
-    if v2173.options ~= nil then
-        local v2175 = {};
-        for _, v2177 in v2173.options do
-            table.insert(v2175, v2.GradientProp_ConditionalOption.jsonDecode(v2177));
+v5.jsonDecode = function(v2197) --[[ Line: 13845 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_80 (copy), v2 (copy)
+    local v2198 = l_v5_80.new();
+    if v2197.options ~= nil then
+        local v2199 = {};
+        for _, v2201 in v2197.options do
+            table.insert(v2199, v2.GradientProp_ConditionalOption.jsonDecode(v2201));
         end;
-        v2174.options = v2175;
+        v2198.options = v2199;
     end;
-    return v2174;
+    return v2198;
 end;
 v5.descriptor = {
     name = "GradientProp_ConditionalOptions", 
@@ -10906,178 +11041,178 @@ v2.GradientProp_ConditionalOptions = v5;
 v1.default:register(v2.GradientProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_80 = v5 --[[ copy: 5 -> 86 ]];
-v5.new = function(v2179) --[[ Line: 13727 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_80 (copy)
+local l_v5_81 = v5 --[[ copy: 5 -> 87 ]];
+v5.new = function(v2203) --[[ Line: 13874 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_81 (copy)
     return (setmetatable({
-        start_color = (not (v2179 ~= nil) or v2179.start_color == nil) and "" or v2179.start_color, 
-        end_color = (not (v2179 ~= nil) or v2179.end_color == nil) and "" or v2179.end_color, 
-        start_opacity = (not (v2179 ~= nil) or v2179.start_opacity == nil) and 0 or v2179.start_opacity, 
-        end_opacity = (not (v2179 ~= nil) or v2179.end_opacity == nil) and 0 or v2179.end_opacity, 
-        degree = (not (v2179 ~= nil) or v2179.degree == nil) and 0 or v2179.degree
-    }, l_v5_80));
+        start_color = (not (v2203 ~= nil) or v2203.start_color == nil) and "" or v2203.start_color, 
+        end_color = (not (v2203 ~= nil) or v2203.end_color == nil) and "" or v2203.end_color, 
+        start_opacity = (not (v2203 ~= nil) or v2203.start_opacity == nil) and 0 or v2203.start_opacity, 
+        end_opacity = (not (v2203 ~= nil) or v2203.end_opacity == nil) and 0 or v2203.end_opacity, 
+        degree = (not (v2203 ~= nil) or v2203.degree == nil) and 0 or v2203.degree
+    }, l_v5_81));
 end;
-v5.encode = function(v2180) --[[ Line: 13739 ]] --[[ Name: encode ]]
+v5.encode = function(v2204) --[[ Line: 13886 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2181 = buffer.create(0);
-    local v2182 = 0;
-    if v2180.start_color ~= nil and v2180.start_color ~= "" then
-        local v2183, v2184 = v0.writeTag(v2181, v2182, 1, v0.wireTypes.lengthDelimited);
-        v2183, v2184 = v0.writeString(v2183, v2184, v2180.start_color);
-        v2181 = v2183;
-        v2182 = v2184;
+    local v2205 = buffer.create(0);
+    local v2206 = 0;
+    if v2204.start_color ~= nil and v2204.start_color ~= "" then
+        local v2207, v2208 = v0.writeTag(v2205, v2206, 1, v0.wireTypes.lengthDelimited);
+        v2207, v2208 = v0.writeString(v2207, v2208, v2204.start_color);
+        v2205 = v2207;
+        v2206 = v2208;
     end;
-    if v2180.end_color ~= nil and v2180.end_color ~= "" then
-        local v2185, v2186 = v0.writeTag(v2181, v2182, 2, v0.wireTypes.lengthDelimited);
-        v2185, v2186 = v0.writeString(v2185, v2186, v2180.end_color);
-        v2181 = v2185;
-        v2182 = v2186;
+    if v2204.end_color ~= nil and v2204.end_color ~= "" then
+        local v2209, v2210 = v0.writeTag(v2205, v2206, 2, v0.wireTypes.lengthDelimited);
+        v2209, v2210 = v0.writeString(v2209, v2210, v2204.end_color);
+        v2205 = v2209;
+        v2206 = v2210;
     end;
-    if v2180.start_opacity ~= nil and v2180.start_opacity ~= 0 then
-        local v2187, v2188 = v0.writeTag(v2181, v2182, 3, v0.wireTypes.i32);
-        v2187, v2188 = v0.writeFloat(v2187, v2188, v2180.start_opacity);
-        v2181 = v2187;
-        v2182 = v2188;
+    if v2204.start_opacity ~= nil and v2204.start_opacity ~= 0 then
+        local v2211, v2212 = v0.writeTag(v2205, v2206, 3, v0.wireTypes.i32);
+        v2211, v2212 = v0.writeFloat(v2211, v2212, v2204.start_opacity);
+        v2205 = v2211;
+        v2206 = v2212;
     end;
-    if v2180.end_opacity ~= nil and v2180.end_opacity ~= 0 then
-        local v2189, v2190 = v0.writeTag(v2181, v2182, 4, v0.wireTypes.i32);
-        v2189, v2190 = v0.writeFloat(v2189, v2190, v2180.end_opacity);
-        v2181 = v2189;
-        v2182 = v2190;
+    if v2204.end_opacity ~= nil and v2204.end_opacity ~= 0 then
+        local v2213, v2214 = v0.writeTag(v2205, v2206, 4, v0.wireTypes.i32);
+        v2213, v2214 = v0.writeFloat(v2213, v2214, v2204.end_opacity);
+        v2205 = v2213;
+        v2206 = v2214;
     end;
-    if v2180.degree ~= nil and v2180.degree ~= 0 then
-        local v2191, v2192 = v0.writeTag(v2181, v2182, 5, v0.wireTypes.varint);
-        v2191, v2192 = v0.writeVarInt(v2191, v2192, v2180.degree);
-        v2181 = v2191;
-        v2182 = v2192;
+    if v2204.degree ~= nil and v2204.degree ~= 0 then
+        local v2215, v2216 = v0.writeTag(v2205, v2206, 5, v0.wireTypes.varint);
+        v2215, v2216 = v0.writeVarInt(v2215, v2216, v2204.degree);
+        v2205 = v2215;
+        v2206 = v2216;
     end;
-    local v2193 = buffer.create(v2182);
-    buffer.copy(v2193, 0, v2181, 0, v2182);
-    return v2193;
+    local v2217 = buffer.create(v2206);
+    buffer.copy(v2217, 0, v2205, 0, v2206);
+    return v2217;
 end;
-v5.decode = function(v2194) --[[ Line: 13773 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_80 (copy), v0 (copy)
-    local v2195 = l_v5_80.new();
-    local v2196 = 0;
-    while v2196 < buffer.len(v2194) do
-        local v2197 = nil;
-        local v2198 = nil;
-        local v2199, v2200, v2201 = v0.readTag(v2194, v2196);
-        v2197 = v2199;
-        v2198 = v2200;
-        v2196 = v2201;
-        if v2198 == v0.wireTypes.varint then
-            if v2197 == 5 then
-                v2199 = nil;
-                v2200, v2201 = v0.readVarIntI32(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
-                v2195.degree = v2199;
+v5.decode = function(v2218) --[[ Line: 13920 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_81 (copy), v0 (copy)
+    local v2219 = l_v5_81.new();
+    local v2220 = 0;
+    while v2220 < buffer.len(v2218) do
+        local v2221 = nil;
+        local v2222 = nil;
+        local v2223, v2224, v2225 = v0.readTag(v2218, v2220);
+        v2221 = v2223;
+        v2222 = v2224;
+        v2220 = v2225;
+        if v2222 == v0.wireTypes.varint then
+            if v2221 == 5 then
+                v2223 = nil;
+                v2224, v2225 = v0.readVarIntI32(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
+                v2219.degree = v2223;
             else
-                v2199 = nil;
-                v2200, v2201 = v0.readVarInt(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
+                v2223 = nil;
+                v2224, v2225 = v0.readVarInt(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
             end;
-        elseif v2198 == v0.wireTypes.lengthDelimited then
-            if v2197 == 1 then
-                v2199 = nil;
-                v2200, v2201 = v0.readBuffer(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
-                v2195.start_color = buffer.tostring(v2199);
-            elseif v2197 == 2 then
-                v2199 = nil;
-                v2200, v2201 = v0.readBuffer(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
-                v2195.end_color = buffer.tostring(v2199);
+        elseif v2222 == v0.wireTypes.lengthDelimited then
+            if v2221 == 1 then
+                v2223 = nil;
+                v2224, v2225 = v0.readBuffer(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
+                v2219.start_color = buffer.tostring(v2223);
+            elseif v2221 == 2 then
+                v2223 = nil;
+                v2224, v2225 = v0.readBuffer(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
+                v2219.end_color = buffer.tostring(v2223);
             else
-                v2199 = nil;
-                v2200, v2201 = v0.readVarInt(v2194, v2196);
-                v2196 = v2201 + v2200;
+                v2223 = nil;
+                v2224, v2225 = v0.readVarInt(v2218, v2220);
+                v2220 = v2225 + v2224;
             end;
-        elseif v2198 == v0.wireTypes.i32 then
-            if v2197 == 3 then
-                v2199 = nil;
-                v2200, v2201 = v0.readFloat(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
-                v2195.start_opacity = v2199;
-            elseif v2197 == 4 then
-                v2199 = nil;
-                v2200, v2201 = v0.readFloat(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
-                v2195.end_opacity = v2199;
+        elseif v2222 == v0.wireTypes.i32 then
+            if v2221 == 3 then
+                v2223 = nil;
+                v2224, v2225 = v0.readFloat(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
+                v2219.start_opacity = v2223;
+            elseif v2221 == 4 then
+                v2223 = nil;
+                v2224, v2225 = v0.readFloat(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
+                v2219.end_opacity = v2223;
             else
-                v2199 = nil;
-                v2200, v2201 = v0.readFixed32(v2194, v2196);
-                v2199 = v2200;
-                v2196 = v2201;
+                v2223 = nil;
+                v2224, v2225 = v0.readFixed32(v2218, v2220);
+                v2223 = v2224;
+                v2220 = v2225;
             end;
-        elseif v2198 == v0.wireTypes.i64 then
-            v2199 = nil;
-            v2200, v2201 = v0.readFixed64(v2194, v2196);
-            v2199 = v2200;
-            v2196 = v2201;
+        elseif v2222 == v0.wireTypes.i64 then
+            v2223 = nil;
+            v2224, v2225 = v0.readFixed64(v2218, v2220);
+            v2223 = v2224;
+            v2220 = v2225;
         else
-            error("Unsupported wire type: " .. v2198);
+            error("Unsupported wire type: " .. v2222);
         end;
     end;
-    return v2195;
+    return v2219;
 end;
-v5.jsonEncode = function(v2202) --[[ Line: 13836 ]] --[[ Name: jsonEncode ]]
+v5.jsonEncode = function(v2226) --[[ Line: 13983 ]] --[[ Name: jsonEncode ]]
     -- upvalues: v0 (copy)
-    local v2203 = {};
-    if v2202.start_color ~= nil and v2202.start_color ~= "" then
-        v2203.startColor = v2202.start_color;
+    local v2227 = {};
+    if v2226.start_color ~= nil and v2226.start_color ~= "" then
+        v2227.startColor = v2226.start_color;
     end;
-    if v2202.end_color ~= nil and v2202.end_color ~= "" then
-        v2203.endColor = v2202.end_color;
+    if v2226.end_color ~= nil and v2226.end_color ~= "" then
+        v2227.endColor = v2226.end_color;
     end;
-    if v2202.start_opacity ~= nil and v2202.start_opacity ~= 0 then
-        v2203.startOpacity = v0.json.serializeNumber(v2202.start_opacity);
+    if v2226.start_opacity ~= nil and v2226.start_opacity ~= 0 then
+        v2227.startOpacity = v0.json.serializeNumber(v2226.start_opacity);
     end;
-    if v2202.end_opacity ~= nil and v2202.end_opacity ~= 0 then
-        v2203.endOpacity = v0.json.serializeNumber(v2202.end_opacity);
+    if v2226.end_opacity ~= nil and v2226.end_opacity ~= 0 then
+        v2227.endOpacity = v0.json.serializeNumber(v2226.end_opacity);
     end;
-    if v2202.degree ~= nil and v2202.degree ~= 0 then
-        v2203.degree = v2202.degree;
+    if v2226.degree ~= nil and v2226.degree ~= 0 then
+        v2227.degree = v2226.degree;
     end;
-    return v2203;
+    return v2227;
 end;
-v5.jsonDecode = function(v2204) --[[ Line: 13862 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_80 (copy), v0 (copy)
-    local v2205 = l_v5_80.new();
-    if v2204.start_color ~= nil then
-        v2205.start_color = v2204.start_color;
+v5.jsonDecode = function(v2228) --[[ Line: 14009 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_81 (copy), v0 (copy)
+    local v2229 = l_v5_81.new();
+    if v2228.start_color ~= nil then
+        v2229.start_color = v2228.start_color;
     end;
-    if v2204.startColor ~= nil then
-        v2205.start_color = v2204.startColor;
+    if v2228.startColor ~= nil then
+        v2229.start_color = v2228.startColor;
     end;
-    if v2204.end_color ~= nil then
-        v2205.end_color = v2204.end_color;
+    if v2228.end_color ~= nil then
+        v2229.end_color = v2228.end_color;
     end;
-    if v2204.endColor ~= nil then
-        v2205.end_color = v2204.endColor;
+    if v2228.endColor ~= nil then
+        v2229.end_color = v2228.endColor;
     end;
-    if v2204.start_opacity ~= nil then
-        v2205.start_opacity = v0.json.deserializeNumber(v2204.start_opacity);
+    if v2228.start_opacity ~= nil then
+        v2229.start_opacity = v0.json.deserializeNumber(v2228.start_opacity);
     end;
-    if v2204.startOpacity ~= nil then
-        v2205.start_opacity = v0.json.deserializeNumber(v2204.startOpacity);
+    if v2228.startOpacity ~= nil then
+        v2229.start_opacity = v0.json.deserializeNumber(v2228.startOpacity);
     end;
-    if v2204.end_opacity ~= nil then
-        v2205.end_opacity = v0.json.deserializeNumber(v2204.end_opacity);
+    if v2228.end_opacity ~= nil then
+        v2229.end_opacity = v0.json.deserializeNumber(v2228.end_opacity);
     end;
-    if v2204.endOpacity ~= nil then
-        v2205.end_opacity = v0.json.deserializeNumber(v2204.endOpacity);
+    if v2228.endOpacity ~= nil then
+        v2229.end_opacity = v0.json.deserializeNumber(v2228.endOpacity);
     end;
-    if v2204.degree ~= nil then
-        v2205.degree = v2204.degree;
+    if v2228.degree ~= nil then
+        v2229.degree = v2228.degree;
     end;
-    return v2205;
+    return v2229;
 end;
 v5.descriptor = {
     name = "GradientProp_GradientData", 
@@ -11087,149 +11222,149 @@ v2.GradientProp_GradientData = v5;
 v1.default:register(v2.GradientProp_GradientData);
 v5 = {};
 v5.__index = v5;
-local l_v5_81 = v5 --[[ copy: 5 -> 87 ]];
-v5.new = function(v2207) --[[ Line: 13918 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_81 (copy)
+local l_v5_82 = v5 --[[ copy: 5 -> 88 ]];
+v5.new = function(v2231) --[[ Line: 14065 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_82 (copy)
     return (setmetatable({
-        kind = if not (v2207 ~= nil) or v2207.kind == nil then nil else v2207.kind
-    }, l_v5_81));
+        kind = if not (v2231 ~= nil) or v2231.kind == nil then nil else v2231.kind
+    }, l_v5_82));
 end;
-v5.encode = function(v2208) --[[ Line: 13924 ]] --[[ Name: encode ]]
+v5.encode = function(v2232) --[[ Line: 14071 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2209 = buffer.create(0);
-    local v2210 = 0;
-    if v2208.kind ~= nil then
-        if v2208.kind.type == "literal" then
-            local v2211 = v2208.kind.value:encode();
-            local v2212, v2213 = v0.writeTag(v2209, v2210, 1, v0.wireTypes.lengthDelimited);
-            v2212, v2213 = v0.writeBuffer(v2212, v2213, v2211, buffer.len(v2211));
-            v2209 = v2212;
-            v2210 = v2213;
-        elseif v2208.kind.type == "binding_path" then
-            local v2214, v2215 = v0.writeTag(v2209, v2210, 2, v0.wireTypes.lengthDelimited);
-            v2214, v2215 = v0.writeString(v2214, v2215, v2208.kind.value);
-            v2209 = v2214;
-            v2210 = v2215;
-        elseif v2208.kind.type == "conditional" then
-            local v2216 = v2208.kind.value:encode();
-            local v2217, v2218 = v0.writeTag(v2209, v2210, 3, v0.wireTypes.lengthDelimited);
-            v2217, v2218 = v0.writeBuffer(v2217, v2218, v2216, buffer.len(v2216));
-            v2209 = v2217;
-            v2210 = v2218;
+    local v2233 = buffer.create(0);
+    local v2234 = 0;
+    if v2232.kind ~= nil then
+        if v2232.kind.type == "literal" then
+            local v2235 = v2232.kind.value:encode();
+            local v2236, v2237 = v0.writeTag(v2233, v2234, 1, v0.wireTypes.lengthDelimited);
+            v2236, v2237 = v0.writeBuffer(v2236, v2237, v2235, buffer.len(v2235));
+            v2233 = v2236;
+            v2234 = v2237;
+        elseif v2232.kind.type == "binding_path" then
+            local v2238, v2239 = v0.writeTag(v2233, v2234, 2, v0.wireTypes.lengthDelimited);
+            v2238, v2239 = v0.writeString(v2238, v2239, v2232.kind.value);
+            v2233 = v2238;
+            v2234 = v2239;
+        elseif v2232.kind.type == "conditional" then
+            local v2240 = v2232.kind.value:encode();
+            local v2241, v2242 = v0.writeTag(v2233, v2234, 3, v0.wireTypes.lengthDelimited);
+            v2241, v2242 = v0.writeBuffer(v2241, v2242, v2240, buffer.len(v2240));
+            v2233 = v2241;
+            v2234 = v2242;
         end;
     end;
-    local v2219 = buffer.create(v2210);
-    buffer.copy(v2219, 0, v2209, 0, v2210);
-    return v2219;
+    local v2243 = buffer.create(v2234);
+    buffer.copy(v2243, 0, v2233, 0, v2234);
+    return v2243;
 end;
-v5.decode = function(v2220) --[[ Line: 13948 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_81 (copy), v0 (copy), v2 (copy)
-    local v2221 = l_v5_81.new();
-    local v2222 = 0;
-    while v2222 < buffer.len(v2220) do
-        local v2223 = nil;
-        local v2224 = nil;
-        local v2225, v2226, v2227 = v0.readTag(v2220, v2222);
-        v2223 = v2225;
-        v2224 = v2226;
-        v2222 = v2227;
-        if v2224 == v0.wireTypes.varint then
-            v2225 = nil;
-            v2226, v2227 = v0.readVarInt(v2220, v2222);
-            v2225 = v2226;
-            v2222 = v2227;
-        elseif v2224 == v0.wireTypes.lengthDelimited then
-            if v2223 == 1 then
-                v2225 = nil;
-                v2226, v2227 = v0.readBuffer(v2220, v2222);
-                v2225 = v2226;
-                v2222 = v2227;
-                v2221.kind = {
+v5.decode = function(v2244) --[[ Line: 14095 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_82 (copy), v0 (copy), v2 (copy)
+    local v2245 = l_v5_82.new();
+    local v2246 = 0;
+    while v2246 < buffer.len(v2244) do
+        local v2247 = nil;
+        local v2248 = nil;
+        local v2249, v2250, v2251 = v0.readTag(v2244, v2246);
+        v2247 = v2249;
+        v2248 = v2250;
+        v2246 = v2251;
+        if v2248 == v0.wireTypes.varint then
+            v2249 = nil;
+            v2250, v2251 = v0.readVarInt(v2244, v2246);
+            v2249 = v2250;
+            v2246 = v2251;
+        elseif v2248 == v0.wireTypes.lengthDelimited then
+            if v2247 == 1 then
+                v2249 = nil;
+                v2250, v2251 = v0.readBuffer(v2244, v2246);
+                v2249 = v2250;
+                v2246 = v2251;
+                v2245.kind = {
                     type = "literal", 
-                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2225)
+                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2249)
                 };
-            elseif v2223 == 2 then
-                v2225 = nil;
-                v2226, v2227 = v0.readBuffer(v2220, v2222);
-                v2225 = v2226;
-                v2222 = v2227;
-                v2221.kind = {
+            elseif v2247 == 2 then
+                v2249 = nil;
+                v2250, v2251 = v0.readBuffer(v2244, v2246);
+                v2249 = v2250;
+                v2246 = v2251;
+                v2245.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2225)
+                    value = buffer.tostring(v2249)
                 };
-            elseif v2223 == 3 then
-                v2225 = nil;
-                v2226, v2227 = v0.readBuffer(v2220, v2222);
-                v2225 = v2226;
-                v2222 = v2227;
-                v2221.kind = {
+            elseif v2247 == 3 then
+                v2249 = nil;
+                v2250, v2251 = v0.readBuffer(v2244, v2246);
+                v2249 = v2250;
+                v2246 = v2251;
+                v2245.kind = {
                     type = "conditional", 
-                    value = v2.ArrayOfStructProp_ConditionalOptions.decode(v2225)
+                    value = v2.ArrayOfStructProp_ConditionalOptions.decode(v2249)
                 };
             else
-                v2225 = nil;
-                v2226, v2227 = v0.readVarInt(v2220, v2222);
-                v2222 = v2227 + v2226;
+                v2249 = nil;
+                v2250, v2251 = v0.readVarInt(v2244, v2246);
+                v2246 = v2251 + v2250;
             end;
-        elseif v2224 == v0.wireTypes.i32 then
-            v2225 = nil;
-            v2226, v2227 = v0.readFixed32(v2220, v2222);
-            v2225 = v2226;
-            v2222 = v2227;
-        elseif v2224 == v0.wireTypes.i64 then
-            v2225 = nil;
-            v2226, v2227 = v0.readFixed64(v2220, v2222);
-            v2225 = v2226;
-            v2222 = v2227;
+        elseif v2248 == v0.wireTypes.i32 then
+            v2249 = nil;
+            v2250, v2251 = v0.readFixed32(v2244, v2246);
+            v2249 = v2250;
+            v2246 = v2251;
+        elseif v2248 == v0.wireTypes.i64 then
+            v2249 = nil;
+            v2250, v2251 = v0.readFixed64(v2244, v2246);
+            v2249 = v2250;
+            v2246 = v2251;
         else
-            error("Unsupported wire type: " .. v2224);
+            error("Unsupported wire type: " .. v2248);
         end;
     end;
-    return v2221;
+    return v2245;
 end;
-v5.jsonEncode = function(v2228) --[[ Line: 14002 ]] --[[ Name: jsonEncode ]]
-    local v2229 = {};
-    if v2228.kind ~= nil then
-        if v2228.kind.type == "literal" then
-            v2229.literal = v2228.kind.value:jsonEncode();
-            return v2229;
-        elseif v2228.kind.type == "binding_path" then
-            v2229.bindingPath = v2228.kind.value;
-            return v2229;
-        elseif v2228.kind.type == "conditional" then
-            v2229.conditional = v2228.kind.value:jsonEncode();
+v5.jsonEncode = function(v2252) --[[ Line: 14149 ]] --[[ Name: jsonEncode ]]
+    local v2253 = {};
+    if v2252.kind ~= nil then
+        if v2252.kind.type == "literal" then
+            v2253.literal = v2252.kind.value:jsonEncode();
+            return v2253;
+        elseif v2252.kind.type == "binding_path" then
+            v2253.bindingPath = v2252.kind.value;
+            return v2253;
+        elseif v2252.kind.type == "conditional" then
+            v2253.conditional = v2252.kind.value:jsonEncode();
         end;
     end;
-    return v2229;
+    return v2253;
 end;
-v5.jsonDecode = function(v2230) --[[ Line: 14018 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_81 (copy), v2 (copy)
-    local v2231 = l_v5_81.new();
-    if v2230.literal ~= nil then
-        v2231.kind = {
+v5.jsonDecode = function(v2254) --[[ Line: 14165 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_82 (copy), v2 (copy)
+    local v2255 = l_v5_82.new();
+    if v2254.literal ~= nil then
+        v2255.kind = {
             type = "literal", 
-            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2230.literal)
+            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2254.literal)
         };
     end;
-    if v2230.binding_path ~= nil then
-        v2231.kind = {
+    if v2254.binding_path ~= nil then
+        v2255.kind = {
             type = "binding_path", 
-            value = v2230.binding_path
+            value = v2254.binding_path
         };
     end;
-    if v2230.bindingPath ~= nil then
-        v2231.kind = {
+    if v2254.bindingPath ~= nil then
+        v2255.kind = {
             type = "binding_path", 
-            value = v2230.bindingPath
+            value = v2254.bindingPath
         };
     end;
-    if v2230.conditional ~= nil then
-        v2231.kind = {
+    if v2254.conditional ~= nil then
+        v2255.kind = {
             type = "conditional", 
-            value = v2.ArrayOfStructProp_ConditionalOptions.jsonDecode(v2230.conditional)
+            value = v2.ArrayOfStructProp_ConditionalOptions.jsonDecode(v2254.conditional)
         };
     end;
-    return v2231;
+    return v2255;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp", 
@@ -11239,145 +11374,145 @@ v2.ArrayOfStructProp = v5;
 v1.default:register(v2.ArrayOfStructProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_82 = v5 --[[ copy: 5 -> 88 ]];
-v5.new = function(v2233) --[[ Line: 14058 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_82 (copy)
+local l_v5_83 = v5 --[[ copy: 5 -> 89 ]];
+v5.new = function(v2257) --[[ Line: 14205 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_83 (copy)
     return (setmetatable({
-        condition = if not (v2233 ~= nil) or v2233.condition == nil then nil else v2233.condition, 
-        kind = if not (v2233 ~= nil) or v2233.kind == nil then nil else v2233.kind
-    }, l_v5_82));
+        condition = if not (v2257 ~= nil) or v2257.condition == nil then nil else v2257.condition, 
+        kind = if not (v2257 ~= nil) or v2257.kind == nil then nil else v2257.kind
+    }, l_v5_83));
 end;
-v5.encode = function(v2234) --[[ Line: 14067 ]] --[[ Name: encode ]]
+v5.encode = function(v2258) --[[ Line: 14214 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2235 = buffer.create(0);
-    local v2236 = 0;
-    if v2234.condition ~= nil then
-        local v2237 = v2234.condition:encode();
-        local v2238, v2239 = v0.writeTag(v2235, v2236, 1, v0.wireTypes.lengthDelimited);
-        v2238, v2239 = v0.writeBuffer(v2238, v2239, v2237, buffer.len(v2237));
-        v2235 = v2238;
-        v2236 = v2239;
+    local v2259 = buffer.create(0);
+    local v2260 = 0;
+    if v2258.condition ~= nil then
+        local v2261 = v2258.condition:encode();
+        local v2262, v2263 = v0.writeTag(v2259, v2260, 1, v0.wireTypes.lengthDelimited);
+        v2262, v2263 = v0.writeBuffer(v2262, v2263, v2261, buffer.len(v2261));
+        v2259 = v2262;
+        v2260 = v2263;
     end;
-    if v2234.kind ~= nil then
-        if v2234.kind.type == "literal" then
-            local v2240 = v2234.kind.value:encode();
-            local v2241, v2242 = v0.writeTag(v2235, v2236, 2, v0.wireTypes.lengthDelimited);
-            v2241, v2242 = v0.writeBuffer(v2241, v2242, v2240, buffer.len(v2240));
-            v2235 = v2241;
-            v2236 = v2242;
-        elseif v2234.kind.type == "binding_path" then
-            local v2243, v2244 = v0.writeTag(v2235, v2236, 3, v0.wireTypes.lengthDelimited);
-            v2243, v2244 = v0.writeString(v2243, v2244, v2234.kind.value);
-            v2235 = v2243;
-            v2236 = v2244;
+    if v2258.kind ~= nil then
+        if v2258.kind.type == "literal" then
+            local v2264 = v2258.kind.value:encode();
+            local v2265, v2266 = v0.writeTag(v2259, v2260, 2, v0.wireTypes.lengthDelimited);
+            v2265, v2266 = v0.writeBuffer(v2265, v2266, v2264, buffer.len(v2264));
+            v2259 = v2265;
+            v2260 = v2266;
+        elseif v2258.kind.type == "binding_path" then
+            local v2267, v2268 = v0.writeTag(v2259, v2260, 3, v0.wireTypes.lengthDelimited);
+            v2267, v2268 = v0.writeString(v2267, v2268, v2258.kind.value);
+            v2259 = v2267;
+            v2260 = v2268;
         end;
     end;
-    local v2245 = buffer.create(v2236);
-    buffer.copy(v2245, 0, v2235, 0, v2236);
-    return v2245;
+    local v2269 = buffer.create(v2260);
+    buffer.copy(v2269, 0, v2259, 0, v2260);
+    return v2269;
 end;
-v5.decode = function(v2246) --[[ Line: 14093 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_82 (copy), v0 (copy), v4 (copy), v2 (copy)
-    local v2247 = l_v5_82.new();
-    local v2248 = 0;
-    while v2248 < buffer.len(v2246) do
-        local v2249 = nil;
-        local v2250 = nil;
-        local v2251, v2252, v2253 = v0.readTag(v2246, v2248);
-        v2249 = v2251;
-        v2250 = v2252;
-        v2248 = v2253;
-        if v2250 == v0.wireTypes.varint then
-            v2251 = nil;
-            v2252, v2253 = v0.readVarInt(v2246, v2248);
-            v2251 = v2252;
-            v2248 = v2253;
-        elseif v2250 == v0.wireTypes.lengthDelimited then
-            if v2249 == 1 then
-                v2251 = nil;
-                v2252, v2253 = v0.readBuffer(v2246, v2248);
-                v2251 = v2252;
-                v2248 = v2253;
-                v2247.condition = v4.PropCondition.decode(v2251);
-            elseif v2249 == 2 then
-                v2251 = nil;
-                v2252, v2253 = v0.readBuffer(v2246, v2248);
-                v2251 = v2252;
-                v2248 = v2253;
-                v2247.kind = {
+v5.decode = function(v2270) --[[ Line: 14240 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_83 (copy), v0 (copy), v4 (copy), v2 (copy)
+    local v2271 = l_v5_83.new();
+    local v2272 = 0;
+    while v2272 < buffer.len(v2270) do
+        local v2273 = nil;
+        local v2274 = nil;
+        local v2275, v2276, v2277 = v0.readTag(v2270, v2272);
+        v2273 = v2275;
+        v2274 = v2276;
+        v2272 = v2277;
+        if v2274 == v0.wireTypes.varint then
+            v2275 = nil;
+            v2276, v2277 = v0.readVarInt(v2270, v2272);
+            v2275 = v2276;
+            v2272 = v2277;
+        elseif v2274 == v0.wireTypes.lengthDelimited then
+            if v2273 == 1 then
+                v2275 = nil;
+                v2276, v2277 = v0.readBuffer(v2270, v2272);
+                v2275 = v2276;
+                v2272 = v2277;
+                v2271.condition = v4.PropCondition.decode(v2275);
+            elseif v2273 == 2 then
+                v2275 = nil;
+                v2276, v2277 = v0.readBuffer(v2270, v2272);
+                v2275 = v2276;
+                v2272 = v2277;
+                v2271.kind = {
                     type = "literal", 
-                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2251)
+                    value = v2.ArrayOfStructProp_ArrayOfStructs.decode(v2275)
                 };
-            elseif v2249 == 3 then
-                v2251 = nil;
-                v2252, v2253 = v0.readBuffer(v2246, v2248);
-                v2251 = v2252;
-                v2248 = v2253;
-                v2247.kind = {
+            elseif v2273 == 3 then
+                v2275 = nil;
+                v2276, v2277 = v0.readBuffer(v2270, v2272);
+                v2275 = v2276;
+                v2272 = v2277;
+                v2271.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2251)
+                    value = buffer.tostring(v2275)
                 };
             else
-                v2251 = nil;
-                v2252, v2253 = v0.readVarInt(v2246, v2248);
-                v2248 = v2253 + v2252;
+                v2275 = nil;
+                v2276, v2277 = v0.readVarInt(v2270, v2272);
+                v2272 = v2277 + v2276;
             end;
-        elseif v2250 == v0.wireTypes.i32 then
-            v2251 = nil;
-            v2252, v2253 = v0.readFixed32(v2246, v2248);
-            v2251 = v2252;
-            v2248 = v2253;
-        elseif v2250 == v0.wireTypes.i64 then
-            v2251 = nil;
-            v2252, v2253 = v0.readFixed64(v2246, v2248);
-            v2251 = v2252;
-            v2248 = v2253;
+        elseif v2274 == v0.wireTypes.i32 then
+            v2275 = nil;
+            v2276, v2277 = v0.readFixed32(v2270, v2272);
+            v2275 = v2276;
+            v2272 = v2277;
+        elseif v2274 == v0.wireTypes.i64 then
+            v2275 = nil;
+            v2276, v2277 = v0.readFixed64(v2270, v2272);
+            v2275 = v2276;
+            v2272 = v2277;
         else
-            error("Unsupported wire type: " .. v2250);
+            error("Unsupported wire type: " .. v2274);
         end;
     end;
-    return v2247;
+    return v2271;
 end;
-v5.jsonEncode = function(v2254) --[[ Line: 14146 ]] --[[ Name: jsonEncode ]]
-    local v2255 = {};
-    if v2254.condition ~= nil then
-        v2255.condition = v2254.condition:jsonEncode();
+v5.jsonEncode = function(v2278) --[[ Line: 14293 ]] --[[ Name: jsonEncode ]]
+    local v2279 = {};
+    if v2278.condition ~= nil then
+        v2279.condition = v2278.condition:jsonEncode();
     end;
-    if v2254.kind ~= nil then
-        if v2254.kind.type == "literal" then
-            v2255.literal = v2254.kind.value:jsonEncode();
-            return v2255;
-        elseif v2254.kind.type == "binding_path" then
-            v2255.bindingPath = v2254.kind.value;
+    if v2278.kind ~= nil then
+        if v2278.kind.type == "literal" then
+            v2279.literal = v2278.kind.value:jsonEncode();
+            return v2279;
+        elseif v2278.kind.type == "binding_path" then
+            v2279.bindingPath = v2278.kind.value;
         end;
     end;
-    return v2255;
+    return v2279;
 end;
-v5.jsonDecode = function(v2256) --[[ Line: 14164 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_82 (copy), v4 (copy), v2 (copy)
-    local v2257 = l_v5_82.new();
-    if v2256.condition ~= nil then
-        v2257.condition = v4.PropCondition.jsonDecode(v2256.condition);
+v5.jsonDecode = function(v2280) --[[ Line: 14311 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_83 (copy), v4 (copy), v2 (copy)
+    local v2281 = l_v5_83.new();
+    if v2280.condition ~= nil then
+        v2281.condition = v4.PropCondition.jsonDecode(v2280.condition);
     end;
-    if v2256.literal ~= nil then
-        v2257.kind = {
+    if v2280.literal ~= nil then
+        v2281.kind = {
             type = "literal", 
-            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2256.literal)
+            value = v2.ArrayOfStructProp_ArrayOfStructs.jsonDecode(v2280.literal)
         };
     end;
-    if v2256.binding_path ~= nil then
-        v2257.kind = {
+    if v2280.binding_path ~= nil then
+        v2281.kind = {
             type = "binding_path", 
-            value = v2256.binding_path
+            value = v2280.binding_path
         };
     end;
-    if v2256.bindingPath ~= nil then
-        v2257.kind = {
+    if v2280.bindingPath ~= nil then
+        v2281.kind = {
             type = "binding_path", 
-            value = v2256.bindingPath
+            value = v2280.bindingPath
         };
     end;
-    return v2257;
+    return v2281;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ConditionalOption", 
@@ -11387,96 +11522,96 @@ v2.ArrayOfStructProp_ConditionalOption = v5;
 v1.default:register(v2.ArrayOfStructProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_83 = v5 --[[ copy: 5 -> 89 ]];
-v5.new = function(v2259) --[[ Line: 14204 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_83 (copy)
+local l_v5_84 = v5 --[[ copy: 5 -> 90 ]];
+v5.new = function(v2283) --[[ Line: 14351 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_84 (copy)
     return (setmetatable({
-        options = if not (v2259 ~= nil) or v2259.options == nil then {} else v2259.options
-    }, l_v5_83));
+        options = if not (v2283 ~= nil) or v2283.options == nil then {} else v2283.options
+    }, l_v5_84));
 end;
-v5.encode = function(v2260) --[[ Line: 14212 ]] --[[ Name: encode ]]
+v5.encode = function(v2284) --[[ Line: 14359 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2261 = buffer.create(0);
-    local v2262 = 0;
-    if v2260.options ~= nil and #v2260.options > 0 then
-        for _, v2264 in v2260.options do
-            local v2265 = v2264:encode();
-            local v2266, v2267 = v0.writeTag(v2261, v2262, 1, v0.wireTypes.lengthDelimited);
-            v2266, v2267 = v0.writeBuffer(v2266, v2267, v2265, buffer.len(v2265));
-            v2261 = v2266;
-            v2262 = v2267;
+    local v2285 = buffer.create(0);
+    local v2286 = 0;
+    if v2284.options ~= nil and #v2284.options > 0 then
+        for _, v2288 in v2284.options do
+            local v2289 = v2288:encode();
+            local v2290, v2291 = v0.writeTag(v2285, v2286, 1, v0.wireTypes.lengthDelimited);
+            v2290, v2291 = v0.writeBuffer(v2290, v2291, v2289, buffer.len(v2289));
+            v2285 = v2290;
+            v2286 = v2291;
         end;
     end;
-    local v2268 = buffer.create(v2262);
-    buffer.copy(v2268, 0, v2261, 0, v2262);
-    return v2268;
+    local v2292 = buffer.create(v2286);
+    buffer.copy(v2292, 0, v2285, 0, v2286);
+    return v2292;
 end;
-v5.decode = function(v2269) --[[ Line: 14229 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_83 (copy), v0 (copy), v2 (copy)
-    local v2270 = l_v5_83.new();
-    local v2271 = 0;
-    while v2271 < buffer.len(v2269) do
-        local v2272 = nil;
-        local v2273 = nil;
-        local v2274, v2275, v2276 = v0.readTag(v2269, v2271);
-        v2272 = v2274;
-        v2273 = v2275;
-        v2271 = v2276;
-        if v2273 == v0.wireTypes.varint then
-            v2274 = nil;
-            v2275, v2276 = v0.readVarInt(v2269, v2271);
-            v2274 = v2275;
-            v2271 = v2276;
-        elseif v2273 == v0.wireTypes.lengthDelimited then
-            if v2272 == 1 then
-                v2274 = nil;
-                v2275, v2276 = v0.readBuffer(v2269, v2271);
-                v2274 = v2275;
-                v2271 = v2276;
-                table.insert(v2270.options, v2.ArrayOfStructProp_ConditionalOption.decode(v2274));
+v5.decode = function(v2293) --[[ Line: 14376 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_84 (copy), v0 (copy), v2 (copy)
+    local v2294 = l_v5_84.new();
+    local v2295 = 0;
+    while v2295 < buffer.len(v2293) do
+        local v2296 = nil;
+        local v2297 = nil;
+        local v2298, v2299, v2300 = v0.readTag(v2293, v2295);
+        v2296 = v2298;
+        v2297 = v2299;
+        v2295 = v2300;
+        if v2297 == v0.wireTypes.varint then
+            v2298 = nil;
+            v2299, v2300 = v0.readVarInt(v2293, v2295);
+            v2298 = v2299;
+            v2295 = v2300;
+        elseif v2297 == v0.wireTypes.lengthDelimited then
+            if v2296 == 1 then
+                v2298 = nil;
+                v2299, v2300 = v0.readBuffer(v2293, v2295);
+                v2298 = v2299;
+                v2295 = v2300;
+                table.insert(v2294.options, v2.ArrayOfStructProp_ConditionalOption.decode(v2298));
             else
-                v2274 = nil;
-                v2275, v2276 = v0.readVarInt(v2269, v2271);
-                v2271 = v2276 + v2275;
+                v2298 = nil;
+                v2299, v2300 = v0.readVarInt(v2293, v2295);
+                v2295 = v2300 + v2299;
             end;
-        elseif v2273 == v0.wireTypes.i32 then
-            v2274 = nil;
-            v2275, v2276 = v0.readFixed32(v2269, v2271);
-            v2274 = v2275;
-            v2271 = v2276;
-        elseif v2273 == v0.wireTypes.i64 then
-            v2274 = nil;
-            v2275, v2276 = v0.readFixed64(v2269, v2271);
-            v2274 = v2275;
-            v2271 = v2276;
+        elseif v2297 == v0.wireTypes.i32 then
+            v2298 = nil;
+            v2299, v2300 = v0.readFixed32(v2293, v2295);
+            v2298 = v2299;
+            v2295 = v2300;
+        elseif v2297 == v0.wireTypes.i64 then
+            v2298 = nil;
+            v2299, v2300 = v0.readFixed64(v2293, v2295);
+            v2298 = v2299;
+            v2295 = v2300;
         else
-            error("Unsupported wire type: " .. v2273);
+            error("Unsupported wire type: " .. v2297);
         end;
     end;
-    return v2270;
+    return v2294;
 end;
-v5.jsonEncode = function(v2277) --[[ Line: 14272 ]] --[[ Name: jsonEncode ]]
-    local v2278 = {};
-    if v2277.options ~= nil and #v2277.options > 0 then
-        local v2279 = {};
-        for _, v2281 in v2277.options do
-            table.insert(v2279, v2281:jsonEncode());
+v5.jsonEncode = function(v2301) --[[ Line: 14419 ]] --[[ Name: jsonEncode ]]
+    local v2302 = {};
+    if v2301.options ~= nil and #v2301.options > 0 then
+        local v2303 = {};
+        for _, v2305 in v2301.options do
+            table.insert(v2303, v2305:jsonEncode());
         end;
-        v2278.options = v2279;
+        v2302.options = v2303;
     end;
-    return v2278;
+    return v2302;
 end;
-v5.jsonDecode = function(v2282) --[[ Line: 14286 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_83 (copy), v2 (copy)
-    local v2283 = l_v5_83.new();
-    if v2282.options ~= nil then
-        local v2284 = {};
-        for _, v2286 in v2282.options do
-            table.insert(v2284, v2.ArrayOfStructProp_ConditionalOption.jsonDecode(v2286));
+v5.jsonDecode = function(v2306) --[[ Line: 14433 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_84 (copy), v2 (copy)
+    local v2307 = l_v5_84.new();
+    if v2306.options ~= nil then
+        local v2308 = {};
+        for _, v2310 in v2306.options do
+            table.insert(v2308, v2.ArrayOfStructProp_ConditionalOption.jsonDecode(v2310));
         end;
-        v2283.options = v2284;
+        v2307.options = v2308;
     end;
-    return v2283;
+    return v2307;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ConditionalOptions", 
@@ -11486,96 +11621,96 @@ v2.ArrayOfStructProp_ConditionalOptions = v5;
 v1.default:register(v2.ArrayOfStructProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_84 = v5 --[[ copy: 5 -> 90 ]];
-v5.new = function(v2288) --[[ Line: 14317 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_84 (copy)
+local l_v5_85 = v5 --[[ copy: 5 -> 91 ]];
+v5.new = function(v2312) --[[ Line: 14464 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_85 (copy)
     return (setmetatable({
-        entry = if not (v2288 ~= nil) or v2288.entry == nil then {} else v2288.entry
-    }, l_v5_84));
+        entry = if not (v2312 ~= nil) or v2312.entry == nil then {} else v2312.entry
+    }, l_v5_85));
 end;
-v5.encode = function(v2289) --[[ Line: 14325 ]] --[[ Name: encode ]]
+v5.encode = function(v2313) --[[ Line: 14472 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2290 = buffer.create(0);
-    local v2291 = 0;
-    if v2289.entry ~= nil and #v2289.entry > 0 then
-        for _, v2293 in v2289.entry do
-            local v2294 = v2293:encode();
-            local v2295, v2296 = v0.writeTag(v2290, v2291, 1, v0.wireTypes.lengthDelimited);
-            v2295, v2296 = v0.writeBuffer(v2295, v2296, v2294, buffer.len(v2294));
-            v2290 = v2295;
-            v2291 = v2296;
+    local v2314 = buffer.create(0);
+    local v2315 = 0;
+    if v2313.entry ~= nil and #v2313.entry > 0 then
+        for _, v2317 in v2313.entry do
+            local v2318 = v2317:encode();
+            local v2319, v2320 = v0.writeTag(v2314, v2315, 1, v0.wireTypes.lengthDelimited);
+            v2319, v2320 = v0.writeBuffer(v2319, v2320, v2318, buffer.len(v2318));
+            v2314 = v2319;
+            v2315 = v2320;
         end;
     end;
-    local v2297 = buffer.create(v2291);
-    buffer.copy(v2297, 0, v2290, 0, v2291);
-    return v2297;
+    local v2321 = buffer.create(v2315);
+    buffer.copy(v2321, 0, v2314, 0, v2315);
+    return v2321;
 end;
-v5.decode = function(v2298) --[[ Line: 14342 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_84 (copy), v0 (copy), v3 (copy)
-    local v2299 = l_v5_84.new();
-    local v2300 = 0;
-    while v2300 < buffer.len(v2298) do
-        local v2301 = nil;
-        local v2302 = nil;
-        local v2303, v2304, v2305 = v0.readTag(v2298, v2300);
-        v2301 = v2303;
-        v2302 = v2304;
-        v2300 = v2305;
-        if v2302 == v0.wireTypes.varint then
-            v2303 = nil;
-            v2304, v2305 = v0.readVarInt(v2298, v2300);
-            v2303 = v2304;
-            v2300 = v2305;
-        elseif v2302 == v0.wireTypes.lengthDelimited then
-            if v2301 == 1 then
-                v2303 = nil;
-                v2304, v2305 = v0.readBuffer(v2298, v2300);
-                v2303 = v2304;
-                v2300 = v2305;
-                table.insert(v2299.entry, v3.Struct.decode(v2303));
+v5.decode = function(v2322) --[[ Line: 14489 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_85 (copy), v0 (copy), v3 (copy)
+    local v2323 = l_v5_85.new();
+    local v2324 = 0;
+    while v2324 < buffer.len(v2322) do
+        local v2325 = nil;
+        local v2326 = nil;
+        local v2327, v2328, v2329 = v0.readTag(v2322, v2324);
+        v2325 = v2327;
+        v2326 = v2328;
+        v2324 = v2329;
+        if v2326 == v0.wireTypes.varint then
+            v2327 = nil;
+            v2328, v2329 = v0.readVarInt(v2322, v2324);
+            v2327 = v2328;
+            v2324 = v2329;
+        elseif v2326 == v0.wireTypes.lengthDelimited then
+            if v2325 == 1 then
+                v2327 = nil;
+                v2328, v2329 = v0.readBuffer(v2322, v2324);
+                v2327 = v2328;
+                v2324 = v2329;
+                table.insert(v2323.entry, v3.Struct.decode(v2327));
             else
-                v2303 = nil;
-                v2304, v2305 = v0.readVarInt(v2298, v2300);
-                v2300 = v2305 + v2304;
+                v2327 = nil;
+                v2328, v2329 = v0.readVarInt(v2322, v2324);
+                v2324 = v2329 + v2328;
             end;
-        elseif v2302 == v0.wireTypes.i32 then
-            v2303 = nil;
-            v2304, v2305 = v0.readFixed32(v2298, v2300);
-            v2303 = v2304;
-            v2300 = v2305;
-        elseif v2302 == v0.wireTypes.i64 then
-            v2303 = nil;
-            v2304, v2305 = v0.readFixed64(v2298, v2300);
-            v2303 = v2304;
-            v2300 = v2305;
+        elseif v2326 == v0.wireTypes.i32 then
+            v2327 = nil;
+            v2328, v2329 = v0.readFixed32(v2322, v2324);
+            v2327 = v2328;
+            v2324 = v2329;
+        elseif v2326 == v0.wireTypes.i64 then
+            v2327 = nil;
+            v2328, v2329 = v0.readFixed64(v2322, v2324);
+            v2327 = v2328;
+            v2324 = v2329;
         else
-            error("Unsupported wire type: " .. v2302);
+            error("Unsupported wire type: " .. v2326);
         end;
     end;
-    return v2299;
+    return v2323;
 end;
-v5.jsonEncode = function(v2306) --[[ Line: 14385 ]] --[[ Name: jsonEncode ]]
-    local v2307 = {};
-    if v2306.entry ~= nil and #v2306.entry > 0 then
-        local v2308 = {};
-        for _, v2310 in v2306.entry do
-            table.insert(v2308, v2310:jsonEncode());
+v5.jsonEncode = function(v2330) --[[ Line: 14532 ]] --[[ Name: jsonEncode ]]
+    local v2331 = {};
+    if v2330.entry ~= nil and #v2330.entry > 0 then
+        local v2332 = {};
+        for _, v2334 in v2330.entry do
+            table.insert(v2332, v2334:jsonEncode());
         end;
-        v2307.entry = v2308;
+        v2331.entry = v2332;
     end;
-    return v2307;
+    return v2331;
 end;
-v5.jsonDecode = function(v2311) --[[ Line: 14399 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_84 (copy), v3 (copy)
-    local v2312 = l_v5_84.new();
-    if v2311.entry ~= nil then
-        local v2313 = {};
-        for _, v2315 in v2311.entry do
-            table.insert(v2313, v3.Struct.jsonDecode(v2315));
+v5.jsonDecode = function(v2335) --[[ Line: 14546 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_85 (copy), v3 (copy)
+    local v2336 = l_v5_85.new();
+    if v2335.entry ~= nil then
+        local v2337 = {};
+        for _, v2339 in v2335.entry do
+            table.insert(v2337, v3.Struct.jsonDecode(v2339));
         end;
-        v2312.entry = v2313;
+        v2336.entry = v2337;
     end;
-    return v2312;
+    return v2336;
 end;
 v5.descriptor = {
     name = "ArrayOfStructProp_ArrayOfStructs", 
@@ -11585,171 +11720,171 @@ v2.ArrayOfStructProp_ArrayOfStructs = v5;
 v1.default:register(v2.ArrayOfStructProp_ArrayOfStructs);
 v5 = {};
 v5.__index = v5;
-local l_v5_85 = v5 --[[ copy: 5 -> 91 ]];
-v5.new = function(v2317) --[[ Line: 14430 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_85 (copy)
+local l_v5_86 = v5 --[[ copy: 5 -> 92 ]];
+v5.new = function(v2341) --[[ Line: 14577 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_86 (copy)
     return (setmetatable({
-        kind = if not (v2317 ~= nil) or v2317.kind == nil then nil else v2317.kind
-    }, l_v5_85));
+        kind = if not (v2341 ~= nil) or v2341.kind == nil then nil else v2341.kind
+    }, l_v5_86));
 end;
-v5.encode = function(v2318) --[[ Line: 14436 ]] --[[ Name: encode ]]
+v5.encode = function(v2342) --[[ Line: 14583 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2319 = buffer.create(0);
-    local v2320 = 0;
-    if v2318.kind ~= nil then
-        if v2318.kind.type == "literal" then
-            local v2321, v2322 = v0.writeTag(v2319, v2320, 1, v0.wireTypes.lengthDelimited);
-            v2321, v2322 = v0.writeString(v2321, v2322, v2318.kind.value);
-            v2319 = v2321;
-            v2320 = v2322;
-        elseif v2318.kind.type == "token" then
-            local v2323, v2324 = v0.writeTag(v2319, v2320, 2, v0.wireTypes.lengthDelimited);
-            v2323, v2324 = v0.writeString(v2323, v2324, v2318.kind.value);
-            v2319 = v2323;
-            v2320 = v2324;
-        elseif v2318.kind.type == "conditional" then
-            local v2325 = v2318.kind.value:encode();
-            local v2326, v2327 = v0.writeTag(v2319, v2320, 3, v0.wireTypes.lengthDelimited);
-            v2326, v2327 = v0.writeBuffer(v2326, v2327, v2325, buffer.len(v2325));
-            v2319 = v2326;
-            v2320 = v2327;
-        elseif v2318.kind.type == "binding_path" then
-            local v2328, v2329 = v0.writeTag(v2319, v2320, 4, v0.wireTypes.lengthDelimited);
-            v2328, v2329 = v0.writeString(v2328, v2329, v2318.kind.value);
-            v2319 = v2328;
-            v2320 = v2329;
+    local v2343 = buffer.create(0);
+    local v2344 = 0;
+    if v2342.kind ~= nil then
+        if v2342.kind.type == "literal" then
+            local v2345, v2346 = v0.writeTag(v2343, v2344, 1, v0.wireTypes.lengthDelimited);
+            v2345, v2346 = v0.writeString(v2345, v2346, v2342.kind.value);
+            v2343 = v2345;
+            v2344 = v2346;
+        elseif v2342.kind.type == "token" then
+            local v2347, v2348 = v0.writeTag(v2343, v2344, 2, v0.wireTypes.lengthDelimited);
+            v2347, v2348 = v0.writeString(v2347, v2348, v2342.kind.value);
+            v2343 = v2347;
+            v2344 = v2348;
+        elseif v2342.kind.type == "conditional" then
+            local v2349 = v2342.kind.value:encode();
+            local v2350, v2351 = v0.writeTag(v2343, v2344, 3, v0.wireTypes.lengthDelimited);
+            v2350, v2351 = v0.writeBuffer(v2350, v2351, v2349, buffer.len(v2349));
+            v2343 = v2350;
+            v2344 = v2351;
+        elseif v2342.kind.type == "binding_path" then
+            local v2352, v2353 = v0.writeTag(v2343, v2344, 4, v0.wireTypes.lengthDelimited);
+            v2352, v2353 = v0.writeString(v2352, v2353, v2342.kind.value);
+            v2343 = v2352;
+            v2344 = v2353;
         end;
     end;
-    local v2330 = buffer.create(v2320);
-    buffer.copy(v2330, 0, v2319, 0, v2320);
-    return v2330;
+    local v2354 = buffer.create(v2344);
+    buffer.copy(v2354, 0, v2343, 0, v2344);
+    return v2354;
 end;
-v5.decode = function(v2331) --[[ Line: 14462 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_85 (copy), v0 (copy), v2 (copy)
-    local v2332 = l_v5_85.new();
-    local v2333 = 0;
-    while v2333 < buffer.len(v2331) do
-        local v2334 = nil;
-        local v2335 = nil;
-        local v2336, v2337, v2338 = v0.readTag(v2331, v2333);
-        v2334 = v2336;
-        v2335 = v2337;
-        v2333 = v2338;
-        if v2335 == v0.wireTypes.varint then
-            v2336 = nil;
-            v2337, v2338 = v0.readVarInt(v2331, v2333);
-            v2336 = v2337;
-            v2333 = v2338;
-        elseif v2335 == v0.wireTypes.lengthDelimited then
-            if v2334 == 1 then
-                v2336 = nil;
-                v2337, v2338 = v0.readBuffer(v2331, v2333);
-                v2336 = v2337;
-                v2333 = v2338;
-                v2332.kind = {
+v5.decode = function(v2355) --[[ Line: 14609 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_86 (copy), v0 (copy), v2 (copy)
+    local v2356 = l_v5_86.new();
+    local v2357 = 0;
+    while v2357 < buffer.len(v2355) do
+        local v2358 = nil;
+        local v2359 = nil;
+        local v2360, v2361, v2362 = v0.readTag(v2355, v2357);
+        v2358 = v2360;
+        v2359 = v2361;
+        v2357 = v2362;
+        if v2359 == v0.wireTypes.varint then
+            v2360 = nil;
+            v2361, v2362 = v0.readVarInt(v2355, v2357);
+            v2360 = v2361;
+            v2357 = v2362;
+        elseif v2359 == v0.wireTypes.lengthDelimited then
+            if v2358 == 1 then
+                v2360 = nil;
+                v2361, v2362 = v0.readBuffer(v2355, v2357);
+                v2360 = v2361;
+                v2357 = v2362;
+                v2356.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2336)
+                    value = buffer.tostring(v2360)
                 };
-            elseif v2334 == 2 then
-                v2336 = nil;
-                v2337, v2338 = v0.readBuffer(v2331, v2333);
-                v2336 = v2337;
-                v2333 = v2338;
-                v2332.kind = {
+            elseif v2358 == 2 then
+                v2360 = nil;
+                v2361, v2362 = v0.readBuffer(v2355, v2357);
+                v2360 = v2361;
+                v2357 = v2362;
+                v2356.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2336)
+                    value = buffer.tostring(v2360)
                 };
-            elseif v2334 == 3 then
-                v2336 = nil;
-                v2337, v2338 = v0.readBuffer(v2331, v2333);
-                v2336 = v2337;
-                v2333 = v2338;
-                v2332.kind = {
+            elseif v2358 == 3 then
+                v2360 = nil;
+                v2361, v2362 = v0.readBuffer(v2355, v2357);
+                v2360 = v2361;
+                v2357 = v2362;
+                v2356.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledFloatProp_ConditionalOptions.decode(v2336)
+                    value = v2.UiScaledFloatProp_ConditionalOptions.decode(v2360)
                 };
-            elseif v2334 == 4 then
-                v2336 = nil;
-                v2337, v2338 = v0.readBuffer(v2331, v2333);
-                v2336 = v2337;
-                v2333 = v2338;
-                v2332.kind = {
+            elseif v2358 == 4 then
+                v2360 = nil;
+                v2361, v2362 = v0.readBuffer(v2355, v2357);
+                v2360 = v2361;
+                v2357 = v2362;
+                v2356.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2336)
+                    value = buffer.tostring(v2360)
                 };
             else
-                v2336 = nil;
-                v2337, v2338 = v0.readVarInt(v2331, v2333);
-                v2333 = v2338 + v2337;
+                v2360 = nil;
+                v2361, v2362 = v0.readVarInt(v2355, v2357);
+                v2357 = v2362 + v2361;
             end;
-        elseif v2335 == v0.wireTypes.i32 then
-            v2336 = nil;
-            v2337, v2338 = v0.readFixed32(v2331, v2333);
-            v2336 = v2337;
-            v2333 = v2338;
-        elseif v2335 == v0.wireTypes.i64 then
-            v2336 = nil;
-            v2337, v2338 = v0.readFixed64(v2331, v2333);
-            v2336 = v2337;
-            v2333 = v2338;
+        elseif v2359 == v0.wireTypes.i32 then
+            v2360 = nil;
+            v2361, v2362 = v0.readFixed32(v2355, v2357);
+            v2360 = v2361;
+            v2357 = v2362;
+        elseif v2359 == v0.wireTypes.i64 then
+            v2360 = nil;
+            v2361, v2362 = v0.readFixed64(v2355, v2357);
+            v2360 = v2361;
+            v2357 = v2362;
         else
-            error("Unsupported wire type: " .. v2335);
+            error("Unsupported wire type: " .. v2359);
         end;
     end;
-    return v2332;
+    return v2356;
 end;
-v5.jsonEncode = function(v2339) --[[ Line: 14521 ]] --[[ Name: jsonEncode ]]
-    local v2340 = {};
-    if v2339.kind ~= nil then
-        if v2339.kind.type == "literal" then
-            v2340.literal = v2339.kind.value;
-            return v2340;
-        elseif v2339.kind.type == "token" then
-            v2340.token = v2339.kind.value;
-            return v2340;
-        elseif v2339.kind.type == "conditional" then
-            v2340.conditional = v2339.kind.value:jsonEncode();
-            return v2340;
-        elseif v2339.kind.type == "binding_path" then
-            v2340.bindingPath = v2339.kind.value;
+v5.jsonEncode = function(v2363) --[[ Line: 14668 ]] --[[ Name: jsonEncode ]]
+    local v2364 = {};
+    if v2363.kind ~= nil then
+        if v2363.kind.type == "literal" then
+            v2364.literal = v2363.kind.value;
+            return v2364;
+        elseif v2363.kind.type == "token" then
+            v2364.token = v2363.kind.value;
+            return v2364;
+        elseif v2363.kind.type == "conditional" then
+            v2364.conditional = v2363.kind.value:jsonEncode();
+            return v2364;
+        elseif v2363.kind.type == "binding_path" then
+            v2364.bindingPath = v2363.kind.value;
         end;
     end;
-    return v2340;
+    return v2364;
 end;
-v5.jsonDecode = function(v2341) --[[ Line: 14539 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_85 (copy), v2 (copy)
-    local v2342 = l_v5_85.new();
-    if v2341.literal ~= nil then
-        v2342.kind = {
+v5.jsonDecode = function(v2365) --[[ Line: 14686 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_86 (copy), v2 (copy)
+    local v2366 = l_v5_86.new();
+    if v2365.literal ~= nil then
+        v2366.kind = {
             type = "literal", 
-            value = v2341.literal
+            value = v2365.literal
         };
     end;
-    if v2341.token ~= nil then
-        v2342.kind = {
+    if v2365.token ~= nil then
+        v2366.kind = {
             type = "token", 
-            value = v2341.token
+            value = v2365.token
         };
     end;
-    if v2341.conditional ~= nil then
-        v2342.kind = {
+    if v2365.conditional ~= nil then
+        v2366.kind = {
             type = "conditional", 
-            value = v2.UiScaledFloatProp_ConditionalOptions.jsonDecode(v2341.conditional)
+            value = v2.UiScaledFloatProp_ConditionalOptions.jsonDecode(v2365.conditional)
         };
     end;
-    if v2341.binding_path ~= nil then
-        v2342.kind = {
+    if v2365.binding_path ~= nil then
+        v2366.kind = {
             type = "binding_path", 
-            value = v2341.binding_path
+            value = v2365.binding_path
         };
     end;
-    if v2341.bindingPath ~= nil then
-        v2342.kind = {
+    if v2365.bindingPath ~= nil then
+        v2366.kind = {
             type = "binding_path", 
-            value = v2341.bindingPath
+            value = v2365.bindingPath
         };
     end;
-    return v2342;
+    return v2366;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp", 
@@ -11759,167 +11894,167 @@ v2.UiScaledFloatProp = v5;
 v1.default:register(v2.UiScaledFloatProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_86 = v5 --[[ copy: 5 -> 92 ]];
-v5.new = function(v2344) --[[ Line: 14582 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_86 (copy)
+local l_v5_87 = v5 --[[ copy: 5 -> 93 ]];
+v5.new = function(v2368) --[[ Line: 14729 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_87 (copy)
     return (setmetatable({
-        condition = if not (v2344 ~= nil) or v2344.condition == nil then nil else v2344.condition, 
-        kind = if not (v2344 ~= nil) or v2344.kind == nil then nil else v2344.kind
-    }, l_v5_86));
+        condition = if not (v2368 ~= nil) or v2368.condition == nil then nil else v2368.condition, 
+        kind = if not (v2368 ~= nil) or v2368.kind == nil then nil else v2368.kind
+    }, l_v5_87));
 end;
-v5.encode = function(v2345) --[[ Line: 14591 ]] --[[ Name: encode ]]
+v5.encode = function(v2369) --[[ Line: 14738 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2346 = buffer.create(0);
-    local v2347 = 0;
-    if v2345.condition ~= nil then
-        local v2348 = v2345.condition:encode();
-        local v2349, v2350 = v0.writeTag(v2346, v2347, 1, v0.wireTypes.lengthDelimited);
-        v2349, v2350 = v0.writeBuffer(v2349, v2350, v2348, buffer.len(v2348));
-        v2346 = v2349;
-        v2347 = v2350;
+    local v2370 = buffer.create(0);
+    local v2371 = 0;
+    if v2369.condition ~= nil then
+        local v2372 = v2369.condition:encode();
+        local v2373, v2374 = v0.writeTag(v2370, v2371, 1, v0.wireTypes.lengthDelimited);
+        v2373, v2374 = v0.writeBuffer(v2373, v2374, v2372, buffer.len(v2372));
+        v2370 = v2373;
+        v2371 = v2374;
     end;
-    if v2345.kind ~= nil then
-        if v2345.kind.type == "literal" then
-            local v2351, v2352 = v0.writeTag(v2346, v2347, 2, v0.wireTypes.lengthDelimited);
-            v2351, v2352 = v0.writeString(v2351, v2352, v2345.kind.value);
-            v2346 = v2351;
-            v2347 = v2352;
-        elseif v2345.kind.type == "token" then
-            local v2353, v2354 = v0.writeTag(v2346, v2347, 3, v0.wireTypes.lengthDelimited);
-            v2353, v2354 = v0.writeString(v2353, v2354, v2345.kind.value);
-            v2346 = v2353;
-            v2347 = v2354;
-        elseif v2345.kind.type == "binding_path" then
-            local v2355, v2356 = v0.writeTag(v2346, v2347, 4, v0.wireTypes.lengthDelimited);
-            v2355, v2356 = v0.writeString(v2355, v2356, v2345.kind.value);
-            v2346 = v2355;
-            v2347 = v2356;
+    if v2369.kind ~= nil then
+        if v2369.kind.type == "literal" then
+            local v2375, v2376 = v0.writeTag(v2370, v2371, 2, v0.wireTypes.lengthDelimited);
+            v2375, v2376 = v0.writeString(v2375, v2376, v2369.kind.value);
+            v2370 = v2375;
+            v2371 = v2376;
+        elseif v2369.kind.type == "token" then
+            local v2377, v2378 = v0.writeTag(v2370, v2371, 3, v0.wireTypes.lengthDelimited);
+            v2377, v2378 = v0.writeString(v2377, v2378, v2369.kind.value);
+            v2370 = v2377;
+            v2371 = v2378;
+        elseif v2369.kind.type == "binding_path" then
+            local v2379, v2380 = v0.writeTag(v2370, v2371, 4, v0.wireTypes.lengthDelimited);
+            v2379, v2380 = v0.writeString(v2379, v2380, v2369.kind.value);
+            v2370 = v2379;
+            v2371 = v2380;
         end;
     end;
-    local v2357 = buffer.create(v2347);
-    buffer.copy(v2357, 0, v2346, 0, v2347);
-    return v2357;
+    local v2381 = buffer.create(v2371);
+    buffer.copy(v2381, 0, v2370, 0, v2371);
+    return v2381;
 end;
-v5.decode = function(v2358) --[[ Line: 14619 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_86 (copy), v0 (copy), v4 (copy)
-    local v2359 = l_v5_86.new();
-    local v2360 = 0;
-    while v2360 < buffer.len(v2358) do
-        local v2361 = nil;
-        local v2362 = nil;
-        local v2363, v2364, v2365 = v0.readTag(v2358, v2360);
-        v2361 = v2363;
-        v2362 = v2364;
-        v2360 = v2365;
-        if v2362 == v0.wireTypes.varint then
-            v2363 = nil;
-            v2364, v2365 = v0.readVarInt(v2358, v2360);
-            v2363 = v2364;
-            v2360 = v2365;
-        elseif v2362 == v0.wireTypes.lengthDelimited then
-            if v2361 == 1 then
-                v2363 = nil;
-                v2364, v2365 = v0.readBuffer(v2358, v2360);
-                v2363 = v2364;
-                v2360 = v2365;
-                v2359.condition = v4.PropCondition.decode(v2363);
-            elseif v2361 == 2 then
-                v2363 = nil;
-                v2364, v2365 = v0.readBuffer(v2358, v2360);
-                v2363 = v2364;
-                v2360 = v2365;
-                v2359.kind = {
+v5.decode = function(v2382) --[[ Line: 14766 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_87 (copy), v0 (copy), v4 (copy)
+    local v2383 = l_v5_87.new();
+    local v2384 = 0;
+    while v2384 < buffer.len(v2382) do
+        local v2385 = nil;
+        local v2386 = nil;
+        local v2387, v2388, v2389 = v0.readTag(v2382, v2384);
+        v2385 = v2387;
+        v2386 = v2388;
+        v2384 = v2389;
+        if v2386 == v0.wireTypes.varint then
+            v2387 = nil;
+            v2388, v2389 = v0.readVarInt(v2382, v2384);
+            v2387 = v2388;
+            v2384 = v2389;
+        elseif v2386 == v0.wireTypes.lengthDelimited then
+            if v2385 == 1 then
+                v2387 = nil;
+                v2388, v2389 = v0.readBuffer(v2382, v2384);
+                v2387 = v2388;
+                v2384 = v2389;
+                v2383.condition = v4.PropCondition.decode(v2387);
+            elseif v2385 == 2 then
+                v2387 = nil;
+                v2388, v2389 = v0.readBuffer(v2382, v2384);
+                v2387 = v2388;
+                v2384 = v2389;
+                v2383.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2363)
+                    value = buffer.tostring(v2387)
                 };
-            elseif v2361 == 3 then
-                v2363 = nil;
-                v2364, v2365 = v0.readBuffer(v2358, v2360);
-                v2363 = v2364;
-                v2360 = v2365;
-                v2359.kind = {
+            elseif v2385 == 3 then
+                v2387 = nil;
+                v2388, v2389 = v0.readBuffer(v2382, v2384);
+                v2387 = v2388;
+                v2384 = v2389;
+                v2383.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2363)
+                    value = buffer.tostring(v2387)
                 };
-            elseif v2361 == 4 then
-                v2363 = nil;
-                v2364, v2365 = v0.readBuffer(v2358, v2360);
-                v2363 = v2364;
-                v2360 = v2365;
-                v2359.kind = {
+            elseif v2385 == 4 then
+                v2387 = nil;
+                v2388, v2389 = v0.readBuffer(v2382, v2384);
+                v2387 = v2388;
+                v2384 = v2389;
+                v2383.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2363)
+                    value = buffer.tostring(v2387)
                 };
             else
-                v2363 = nil;
-                v2364, v2365 = v0.readVarInt(v2358, v2360);
-                v2360 = v2365 + v2364;
+                v2387 = nil;
+                v2388, v2389 = v0.readVarInt(v2382, v2384);
+                v2384 = v2389 + v2388;
             end;
-        elseif v2362 == v0.wireTypes.i32 then
-            v2363 = nil;
-            v2364, v2365 = v0.readFixed32(v2358, v2360);
-            v2363 = v2364;
-            v2360 = v2365;
-        elseif v2362 == v0.wireTypes.i64 then
-            v2363 = nil;
-            v2364, v2365 = v0.readFixed64(v2358, v2360);
-            v2363 = v2364;
-            v2360 = v2365;
+        elseif v2386 == v0.wireTypes.i32 then
+            v2387 = nil;
+            v2388, v2389 = v0.readFixed32(v2382, v2384);
+            v2387 = v2388;
+            v2384 = v2389;
+        elseif v2386 == v0.wireTypes.i64 then
+            v2387 = nil;
+            v2388, v2389 = v0.readFixed64(v2382, v2384);
+            v2387 = v2388;
+            v2384 = v2389;
         else
-            error("Unsupported wire type: " .. v2362);
+            error("Unsupported wire type: " .. v2386);
         end;
     end;
-    return v2359;
+    return v2383;
 end;
-v5.jsonEncode = function(v2366) --[[ Line: 14677 ]] --[[ Name: jsonEncode ]]
-    local v2367 = {};
-    if v2366.condition ~= nil then
-        v2367.condition = v2366.condition:jsonEncode();
+v5.jsonEncode = function(v2390) --[[ Line: 14824 ]] --[[ Name: jsonEncode ]]
+    local v2391 = {};
+    if v2390.condition ~= nil then
+        v2391.condition = v2390.condition:jsonEncode();
     end;
-    if v2366.kind ~= nil then
-        if v2366.kind.type == "literal" then
-            v2367.literal = v2366.kind.value;
-            return v2367;
-        elseif v2366.kind.type == "token" then
-            v2367.token = v2366.kind.value;
-            return v2367;
-        elseif v2366.kind.type == "binding_path" then
-            v2367.bindingPath = v2366.kind.value;
+    if v2390.kind ~= nil then
+        if v2390.kind.type == "literal" then
+            v2391.literal = v2390.kind.value;
+            return v2391;
+        elseif v2390.kind.type == "token" then
+            v2391.token = v2390.kind.value;
+            return v2391;
+        elseif v2390.kind.type == "binding_path" then
+            v2391.bindingPath = v2390.kind.value;
         end;
     end;
-    return v2367;
+    return v2391;
 end;
-v5.jsonDecode = function(v2368) --[[ Line: 14697 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_86 (copy), v4 (copy)
-    local v2369 = l_v5_86.new();
-    if v2368.condition ~= nil then
-        v2369.condition = v4.PropCondition.jsonDecode(v2368.condition);
+v5.jsonDecode = function(v2392) --[[ Line: 14844 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_87 (copy), v4 (copy)
+    local v2393 = l_v5_87.new();
+    if v2392.condition ~= nil then
+        v2393.condition = v4.PropCondition.jsonDecode(v2392.condition);
     end;
-    if v2368.literal ~= nil then
-        v2369.kind = {
+    if v2392.literal ~= nil then
+        v2393.kind = {
             type = "literal", 
-            value = v2368.literal
+            value = v2392.literal
         };
     end;
-    if v2368.token ~= nil then
-        v2369.kind = {
+    if v2392.token ~= nil then
+        v2393.kind = {
             type = "token", 
-            value = v2368.token
+            value = v2392.token
         };
     end;
-    if v2368.binding_path ~= nil then
-        v2369.kind = {
+    if v2392.binding_path ~= nil then
+        v2393.kind = {
             type = "binding_path", 
-            value = v2368.binding_path
+            value = v2392.binding_path
         };
     end;
-    if v2368.bindingPath ~= nil then
-        v2369.kind = {
+    if v2392.bindingPath ~= nil then
+        v2393.kind = {
             type = "binding_path", 
-            value = v2368.bindingPath
+            value = v2392.bindingPath
         };
     end;
-    return v2369;
+    return v2393;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp_ConditionalOption", 
@@ -11929,96 +12064,96 @@ v2.UiScaledFloatProp_ConditionalOption = v5;
 v1.default:register(v2.UiScaledFloatProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_87 = v5 --[[ copy: 5 -> 93 ]];
-v5.new = function(v2371) --[[ Line: 14740 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_87 (copy)
+local l_v5_88 = v5 --[[ copy: 5 -> 94 ]];
+v5.new = function(v2395) --[[ Line: 14887 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_88 (copy)
     return (setmetatable({
-        options = if not (v2371 ~= nil) or v2371.options == nil then {} else v2371.options
-    }, l_v5_87));
+        options = if not (v2395 ~= nil) or v2395.options == nil then {} else v2395.options
+    }, l_v5_88));
 end;
-v5.encode = function(v2372) --[[ Line: 14748 ]] --[[ Name: encode ]]
+v5.encode = function(v2396) --[[ Line: 14895 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2373 = buffer.create(0);
-    local v2374 = 0;
-    if v2372.options ~= nil and #v2372.options > 0 then
-        for _, v2376 in v2372.options do
-            local v2377 = v2376:encode();
-            local v2378, v2379 = v0.writeTag(v2373, v2374, 1, v0.wireTypes.lengthDelimited);
-            v2378, v2379 = v0.writeBuffer(v2378, v2379, v2377, buffer.len(v2377));
-            v2373 = v2378;
-            v2374 = v2379;
+    local v2397 = buffer.create(0);
+    local v2398 = 0;
+    if v2396.options ~= nil and #v2396.options > 0 then
+        for _, v2400 in v2396.options do
+            local v2401 = v2400:encode();
+            local v2402, v2403 = v0.writeTag(v2397, v2398, 1, v0.wireTypes.lengthDelimited);
+            v2402, v2403 = v0.writeBuffer(v2402, v2403, v2401, buffer.len(v2401));
+            v2397 = v2402;
+            v2398 = v2403;
         end;
     end;
-    local v2380 = buffer.create(v2374);
-    buffer.copy(v2380, 0, v2373, 0, v2374);
-    return v2380;
+    local v2404 = buffer.create(v2398);
+    buffer.copy(v2404, 0, v2397, 0, v2398);
+    return v2404;
 end;
-v5.decode = function(v2381) --[[ Line: 14765 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_87 (copy), v0 (copy), v2 (copy)
-    local v2382 = l_v5_87.new();
-    local v2383 = 0;
-    while v2383 < buffer.len(v2381) do
-        local v2384 = nil;
-        local v2385 = nil;
-        local v2386, v2387, v2388 = v0.readTag(v2381, v2383);
-        v2384 = v2386;
-        v2385 = v2387;
-        v2383 = v2388;
-        if v2385 == v0.wireTypes.varint then
-            v2386 = nil;
-            v2387, v2388 = v0.readVarInt(v2381, v2383);
-            v2386 = v2387;
-            v2383 = v2388;
-        elseif v2385 == v0.wireTypes.lengthDelimited then
-            if v2384 == 1 then
-                v2386 = nil;
-                v2387, v2388 = v0.readBuffer(v2381, v2383);
-                v2386 = v2387;
-                v2383 = v2388;
-                table.insert(v2382.options, v2.UiScaledFloatProp_ConditionalOption.decode(v2386));
+v5.decode = function(v2405) --[[ Line: 14912 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_88 (copy), v0 (copy), v2 (copy)
+    local v2406 = l_v5_88.new();
+    local v2407 = 0;
+    while v2407 < buffer.len(v2405) do
+        local v2408 = nil;
+        local v2409 = nil;
+        local v2410, v2411, v2412 = v0.readTag(v2405, v2407);
+        v2408 = v2410;
+        v2409 = v2411;
+        v2407 = v2412;
+        if v2409 == v0.wireTypes.varint then
+            v2410 = nil;
+            v2411, v2412 = v0.readVarInt(v2405, v2407);
+            v2410 = v2411;
+            v2407 = v2412;
+        elseif v2409 == v0.wireTypes.lengthDelimited then
+            if v2408 == 1 then
+                v2410 = nil;
+                v2411, v2412 = v0.readBuffer(v2405, v2407);
+                v2410 = v2411;
+                v2407 = v2412;
+                table.insert(v2406.options, v2.UiScaledFloatProp_ConditionalOption.decode(v2410));
             else
-                v2386 = nil;
-                v2387, v2388 = v0.readVarInt(v2381, v2383);
-                v2383 = v2388 + v2387;
+                v2410 = nil;
+                v2411, v2412 = v0.readVarInt(v2405, v2407);
+                v2407 = v2412 + v2411;
             end;
-        elseif v2385 == v0.wireTypes.i32 then
-            v2386 = nil;
-            v2387, v2388 = v0.readFixed32(v2381, v2383);
-            v2386 = v2387;
-            v2383 = v2388;
-        elseif v2385 == v0.wireTypes.i64 then
-            v2386 = nil;
-            v2387, v2388 = v0.readFixed64(v2381, v2383);
-            v2386 = v2387;
-            v2383 = v2388;
+        elseif v2409 == v0.wireTypes.i32 then
+            v2410 = nil;
+            v2411, v2412 = v0.readFixed32(v2405, v2407);
+            v2410 = v2411;
+            v2407 = v2412;
+        elseif v2409 == v0.wireTypes.i64 then
+            v2410 = nil;
+            v2411, v2412 = v0.readFixed64(v2405, v2407);
+            v2410 = v2411;
+            v2407 = v2412;
         else
-            error("Unsupported wire type: " .. v2385);
+            error("Unsupported wire type: " .. v2409);
         end;
     end;
-    return v2382;
+    return v2406;
 end;
-v5.jsonEncode = function(v2389) --[[ Line: 14808 ]] --[[ Name: jsonEncode ]]
-    local v2390 = {};
-    if v2389.options ~= nil and #v2389.options > 0 then
-        local v2391 = {};
-        for _, v2393 in v2389.options do
-            table.insert(v2391, v2393:jsonEncode());
+v5.jsonEncode = function(v2413) --[[ Line: 14955 ]] --[[ Name: jsonEncode ]]
+    local v2414 = {};
+    if v2413.options ~= nil and #v2413.options > 0 then
+        local v2415 = {};
+        for _, v2417 in v2413.options do
+            table.insert(v2415, v2417:jsonEncode());
         end;
-        v2390.options = v2391;
+        v2414.options = v2415;
     end;
-    return v2390;
+    return v2414;
 end;
-v5.jsonDecode = function(v2394) --[[ Line: 14822 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_87 (copy), v2 (copy)
-    local v2395 = l_v5_87.new();
-    if v2394.options ~= nil then
-        local v2396 = {};
-        for _, v2398 in v2394.options do
-            table.insert(v2396, v2.UiScaledFloatProp_ConditionalOption.jsonDecode(v2398));
+v5.jsonDecode = function(v2418) --[[ Line: 14969 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_88 (copy), v2 (copy)
+    local v2419 = l_v5_88.new();
+    if v2418.options ~= nil then
+        local v2420 = {};
+        for _, v2422 in v2418.options do
+            table.insert(v2420, v2.UiScaledFloatProp_ConditionalOption.jsonDecode(v2422));
         end;
-        v2395.options = v2396;
+        v2419.options = v2420;
     end;
-    return v2395;
+    return v2419;
 end;
 v5.descriptor = {
     name = "UiScaledFloatProp_ConditionalOptions", 
@@ -12028,171 +12163,171 @@ v2.UiScaledFloatProp_ConditionalOptions = v5;
 v1.default:register(v2.UiScaledFloatProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_88 = v5 --[[ copy: 5 -> 94 ]];
-v5.new = function(v2400) --[[ Line: 14853 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_88 (copy)
+local l_v5_89 = v5 --[[ copy: 5 -> 95 ]];
+v5.new = function(v2424) --[[ Line: 15000 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_89 (copy)
     return (setmetatable({
-        kind = if not (v2400 ~= nil) or v2400.kind == nil then nil else v2400.kind
-    }, l_v5_88));
+        kind = if not (v2424 ~= nil) or v2424.kind == nil then nil else v2424.kind
+    }, l_v5_89));
 end;
-v5.encode = function(v2401) --[[ Line: 14859 ]] --[[ Name: encode ]]
+v5.encode = function(v2425) --[[ Line: 15006 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2402 = buffer.create(0);
-    local v2403 = 0;
-    if v2401.kind ~= nil then
-        if v2401.kind.type == "literal" then
-            local v2404, v2405 = v0.writeTag(v2402, v2403, 1, v0.wireTypes.lengthDelimited);
-            v2404, v2405 = v0.writeString(v2404, v2405, v2401.kind.value);
-            v2402 = v2404;
-            v2403 = v2405;
-        elseif v2401.kind.type == "token" then
-            local v2406, v2407 = v0.writeTag(v2402, v2403, 2, v0.wireTypes.lengthDelimited);
-            v2406, v2407 = v0.writeString(v2406, v2407, v2401.kind.value);
-            v2402 = v2406;
-            v2403 = v2407;
-        elseif v2401.kind.type == "conditional" then
-            local v2408 = v2401.kind.value:encode();
-            local v2409, v2410 = v0.writeTag(v2402, v2403, 3, v0.wireTypes.lengthDelimited);
-            v2409, v2410 = v0.writeBuffer(v2409, v2410, v2408, buffer.len(v2408));
-            v2402 = v2409;
-            v2403 = v2410;
-        elseif v2401.kind.type == "binding_path" then
-            local v2411, v2412 = v0.writeTag(v2402, v2403, 4, v0.wireTypes.lengthDelimited);
-            v2411, v2412 = v0.writeString(v2411, v2412, v2401.kind.value);
-            v2402 = v2411;
-            v2403 = v2412;
+    local v2426 = buffer.create(0);
+    local v2427 = 0;
+    if v2425.kind ~= nil then
+        if v2425.kind.type == "literal" then
+            local v2428, v2429 = v0.writeTag(v2426, v2427, 1, v0.wireTypes.lengthDelimited);
+            v2428, v2429 = v0.writeString(v2428, v2429, v2425.kind.value);
+            v2426 = v2428;
+            v2427 = v2429;
+        elseif v2425.kind.type == "token" then
+            local v2430, v2431 = v0.writeTag(v2426, v2427, 2, v0.wireTypes.lengthDelimited);
+            v2430, v2431 = v0.writeString(v2430, v2431, v2425.kind.value);
+            v2426 = v2430;
+            v2427 = v2431;
+        elseif v2425.kind.type == "conditional" then
+            local v2432 = v2425.kind.value:encode();
+            local v2433, v2434 = v0.writeTag(v2426, v2427, 3, v0.wireTypes.lengthDelimited);
+            v2433, v2434 = v0.writeBuffer(v2433, v2434, v2432, buffer.len(v2432));
+            v2426 = v2433;
+            v2427 = v2434;
+        elseif v2425.kind.type == "binding_path" then
+            local v2435, v2436 = v0.writeTag(v2426, v2427, 4, v0.wireTypes.lengthDelimited);
+            v2435, v2436 = v0.writeString(v2435, v2436, v2425.kind.value);
+            v2426 = v2435;
+            v2427 = v2436;
         end;
     end;
-    local v2413 = buffer.create(v2403);
-    buffer.copy(v2413, 0, v2402, 0, v2403);
-    return v2413;
+    local v2437 = buffer.create(v2427);
+    buffer.copy(v2437, 0, v2426, 0, v2427);
+    return v2437;
 end;
-v5.decode = function(v2414) --[[ Line: 14885 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_88 (copy), v0 (copy), v2 (copy)
-    local v2415 = l_v5_88.new();
-    local v2416 = 0;
-    while v2416 < buffer.len(v2414) do
-        local v2417 = nil;
-        local v2418 = nil;
-        local v2419, v2420, v2421 = v0.readTag(v2414, v2416);
-        v2417 = v2419;
-        v2418 = v2420;
-        v2416 = v2421;
-        if v2418 == v0.wireTypes.varint then
-            v2419 = nil;
-            v2420, v2421 = v0.readVarInt(v2414, v2416);
-            v2419 = v2420;
-            v2416 = v2421;
-        elseif v2418 == v0.wireTypes.lengthDelimited then
-            if v2417 == 1 then
-                v2419 = nil;
-                v2420, v2421 = v0.readBuffer(v2414, v2416);
-                v2419 = v2420;
-                v2416 = v2421;
-                v2415.kind = {
+v5.decode = function(v2438) --[[ Line: 15032 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_89 (copy), v0 (copy), v2 (copy)
+    local v2439 = l_v5_89.new();
+    local v2440 = 0;
+    while v2440 < buffer.len(v2438) do
+        local v2441 = nil;
+        local v2442 = nil;
+        local v2443, v2444, v2445 = v0.readTag(v2438, v2440);
+        v2441 = v2443;
+        v2442 = v2444;
+        v2440 = v2445;
+        if v2442 == v0.wireTypes.varint then
+            v2443 = nil;
+            v2444, v2445 = v0.readVarInt(v2438, v2440);
+            v2443 = v2444;
+            v2440 = v2445;
+        elseif v2442 == v0.wireTypes.lengthDelimited then
+            if v2441 == 1 then
+                v2443 = nil;
+                v2444, v2445 = v0.readBuffer(v2438, v2440);
+                v2443 = v2444;
+                v2440 = v2445;
+                v2439.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2419)
+                    value = buffer.tostring(v2443)
                 };
-            elseif v2417 == 2 then
-                v2419 = nil;
-                v2420, v2421 = v0.readBuffer(v2414, v2416);
-                v2419 = v2420;
-                v2416 = v2421;
-                v2415.kind = {
+            elseif v2441 == 2 then
+                v2443 = nil;
+                v2444, v2445 = v0.readBuffer(v2438, v2440);
+                v2443 = v2444;
+                v2440 = v2445;
+                v2439.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2419)
+                    value = buffer.tostring(v2443)
                 };
-            elseif v2417 == 3 then
-                v2419 = nil;
-                v2420, v2421 = v0.readBuffer(v2414, v2416);
-                v2419 = v2420;
-                v2416 = v2421;
-                v2415.kind = {
+            elseif v2441 == 3 then
+                v2443 = nil;
+                v2444, v2445 = v0.readBuffer(v2438, v2440);
+                v2443 = v2444;
+                v2440 = v2445;
+                v2439.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledUDimProp_ConditionalOptions.decode(v2419)
+                    value = v2.UiScaledUDimProp_ConditionalOptions.decode(v2443)
                 };
-            elseif v2417 == 4 then
-                v2419 = nil;
-                v2420, v2421 = v0.readBuffer(v2414, v2416);
-                v2419 = v2420;
-                v2416 = v2421;
-                v2415.kind = {
+            elseif v2441 == 4 then
+                v2443 = nil;
+                v2444, v2445 = v0.readBuffer(v2438, v2440);
+                v2443 = v2444;
+                v2440 = v2445;
+                v2439.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2419)
+                    value = buffer.tostring(v2443)
                 };
             else
-                v2419 = nil;
-                v2420, v2421 = v0.readVarInt(v2414, v2416);
-                v2416 = v2421 + v2420;
+                v2443 = nil;
+                v2444, v2445 = v0.readVarInt(v2438, v2440);
+                v2440 = v2445 + v2444;
             end;
-        elseif v2418 == v0.wireTypes.i32 then
-            v2419 = nil;
-            v2420, v2421 = v0.readFixed32(v2414, v2416);
-            v2419 = v2420;
-            v2416 = v2421;
-        elseif v2418 == v0.wireTypes.i64 then
-            v2419 = nil;
-            v2420, v2421 = v0.readFixed64(v2414, v2416);
-            v2419 = v2420;
-            v2416 = v2421;
+        elseif v2442 == v0.wireTypes.i32 then
+            v2443 = nil;
+            v2444, v2445 = v0.readFixed32(v2438, v2440);
+            v2443 = v2444;
+            v2440 = v2445;
+        elseif v2442 == v0.wireTypes.i64 then
+            v2443 = nil;
+            v2444, v2445 = v0.readFixed64(v2438, v2440);
+            v2443 = v2444;
+            v2440 = v2445;
         else
-            error("Unsupported wire type: " .. v2418);
+            error("Unsupported wire type: " .. v2442);
         end;
     end;
-    return v2415;
+    return v2439;
 end;
-v5.jsonEncode = function(v2422) --[[ Line: 14944 ]] --[[ Name: jsonEncode ]]
-    local v2423 = {};
-    if v2422.kind ~= nil then
-        if v2422.kind.type == "literal" then
-            v2423.literal = v2422.kind.value;
-            return v2423;
-        elseif v2422.kind.type == "token" then
-            v2423.token = v2422.kind.value;
-            return v2423;
-        elseif v2422.kind.type == "conditional" then
-            v2423.conditional = v2422.kind.value:jsonEncode();
-            return v2423;
-        elseif v2422.kind.type == "binding_path" then
-            v2423.bindingPath = v2422.kind.value;
+v5.jsonEncode = function(v2446) --[[ Line: 15091 ]] --[[ Name: jsonEncode ]]
+    local v2447 = {};
+    if v2446.kind ~= nil then
+        if v2446.kind.type == "literal" then
+            v2447.literal = v2446.kind.value;
+            return v2447;
+        elseif v2446.kind.type == "token" then
+            v2447.token = v2446.kind.value;
+            return v2447;
+        elseif v2446.kind.type == "conditional" then
+            v2447.conditional = v2446.kind.value:jsonEncode();
+            return v2447;
+        elseif v2446.kind.type == "binding_path" then
+            v2447.bindingPath = v2446.kind.value;
         end;
     end;
-    return v2423;
+    return v2447;
 end;
-v5.jsonDecode = function(v2424) --[[ Line: 14962 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_88 (copy), v2 (copy)
-    local v2425 = l_v5_88.new();
-    if v2424.literal ~= nil then
-        v2425.kind = {
+v5.jsonDecode = function(v2448) --[[ Line: 15109 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_89 (copy), v2 (copy)
+    local v2449 = l_v5_89.new();
+    if v2448.literal ~= nil then
+        v2449.kind = {
             type = "literal", 
-            value = v2424.literal
+            value = v2448.literal
         };
     end;
-    if v2424.token ~= nil then
-        v2425.kind = {
+    if v2448.token ~= nil then
+        v2449.kind = {
             type = "token", 
-            value = v2424.token
+            value = v2448.token
         };
     end;
-    if v2424.conditional ~= nil then
-        v2425.kind = {
+    if v2448.conditional ~= nil then
+        v2449.kind = {
             type = "conditional", 
-            value = v2.UiScaledUDimProp_ConditionalOptions.jsonDecode(v2424.conditional)
+            value = v2.UiScaledUDimProp_ConditionalOptions.jsonDecode(v2448.conditional)
         };
     end;
-    if v2424.binding_path ~= nil then
-        v2425.kind = {
+    if v2448.binding_path ~= nil then
+        v2449.kind = {
             type = "binding_path", 
-            value = v2424.binding_path
+            value = v2448.binding_path
         };
     end;
-    if v2424.bindingPath ~= nil then
-        v2425.kind = {
+    if v2448.bindingPath ~= nil then
+        v2449.kind = {
             type = "binding_path", 
-            value = v2424.bindingPath
+            value = v2448.bindingPath
         };
     end;
-    return v2425;
+    return v2449;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp", 
@@ -12202,167 +12337,167 @@ v2.UiScaledUDimProp = v5;
 v1.default:register(v2.UiScaledUDimProp);
 v5 = {};
 v5.__index = v5;
-local l_v5_89 = v5 --[[ copy: 5 -> 95 ]];
-v5.new = function(v2427) --[[ Line: 15005 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_89 (copy)
+local l_v5_90 = v5 --[[ copy: 5 -> 96 ]];
+v5.new = function(v2451) --[[ Line: 15152 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_90 (copy)
     return (setmetatable({
-        condition = if not (v2427 ~= nil) or v2427.condition == nil then nil else v2427.condition, 
-        kind = if not (v2427 ~= nil) or v2427.kind == nil then nil else v2427.kind
-    }, l_v5_89));
+        condition = if not (v2451 ~= nil) or v2451.condition == nil then nil else v2451.condition, 
+        kind = if not (v2451 ~= nil) or v2451.kind == nil then nil else v2451.kind
+    }, l_v5_90));
 end;
-v5.encode = function(v2428) --[[ Line: 15014 ]] --[[ Name: encode ]]
+v5.encode = function(v2452) --[[ Line: 15161 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2429 = buffer.create(0);
-    local v2430 = 0;
-    if v2428.condition ~= nil then
-        local v2431 = v2428.condition:encode();
-        local v2432, v2433 = v0.writeTag(v2429, v2430, 1, v0.wireTypes.lengthDelimited);
-        v2432, v2433 = v0.writeBuffer(v2432, v2433, v2431, buffer.len(v2431));
-        v2429 = v2432;
-        v2430 = v2433;
+    local v2453 = buffer.create(0);
+    local v2454 = 0;
+    if v2452.condition ~= nil then
+        local v2455 = v2452.condition:encode();
+        local v2456, v2457 = v0.writeTag(v2453, v2454, 1, v0.wireTypes.lengthDelimited);
+        v2456, v2457 = v0.writeBuffer(v2456, v2457, v2455, buffer.len(v2455));
+        v2453 = v2456;
+        v2454 = v2457;
     end;
-    if v2428.kind ~= nil then
-        if v2428.kind.type == "literal" then
-            local v2434, v2435 = v0.writeTag(v2429, v2430, 2, v0.wireTypes.lengthDelimited);
-            v2434, v2435 = v0.writeString(v2434, v2435, v2428.kind.value);
-            v2429 = v2434;
-            v2430 = v2435;
-        elseif v2428.kind.type == "token" then
-            local v2436, v2437 = v0.writeTag(v2429, v2430, 3, v0.wireTypes.lengthDelimited);
-            v2436, v2437 = v0.writeString(v2436, v2437, v2428.kind.value);
-            v2429 = v2436;
-            v2430 = v2437;
-        elseif v2428.kind.type == "binding_path" then
-            local v2438, v2439 = v0.writeTag(v2429, v2430, 4, v0.wireTypes.lengthDelimited);
-            v2438, v2439 = v0.writeString(v2438, v2439, v2428.kind.value);
-            v2429 = v2438;
-            v2430 = v2439;
+    if v2452.kind ~= nil then
+        if v2452.kind.type == "literal" then
+            local v2458, v2459 = v0.writeTag(v2453, v2454, 2, v0.wireTypes.lengthDelimited);
+            v2458, v2459 = v0.writeString(v2458, v2459, v2452.kind.value);
+            v2453 = v2458;
+            v2454 = v2459;
+        elseif v2452.kind.type == "token" then
+            local v2460, v2461 = v0.writeTag(v2453, v2454, 3, v0.wireTypes.lengthDelimited);
+            v2460, v2461 = v0.writeString(v2460, v2461, v2452.kind.value);
+            v2453 = v2460;
+            v2454 = v2461;
+        elseif v2452.kind.type == "binding_path" then
+            local v2462, v2463 = v0.writeTag(v2453, v2454, 4, v0.wireTypes.lengthDelimited);
+            v2462, v2463 = v0.writeString(v2462, v2463, v2452.kind.value);
+            v2453 = v2462;
+            v2454 = v2463;
         end;
     end;
-    local v2440 = buffer.create(v2430);
-    buffer.copy(v2440, 0, v2429, 0, v2430);
-    return v2440;
+    local v2464 = buffer.create(v2454);
+    buffer.copy(v2464, 0, v2453, 0, v2454);
+    return v2464;
 end;
-v5.decode = function(v2441) --[[ Line: 15042 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_89 (copy), v0 (copy), v4 (copy)
-    local v2442 = l_v5_89.new();
-    local v2443 = 0;
-    while v2443 < buffer.len(v2441) do
-        local v2444 = nil;
-        local v2445 = nil;
-        local v2446, v2447, v2448 = v0.readTag(v2441, v2443);
-        v2444 = v2446;
-        v2445 = v2447;
-        v2443 = v2448;
-        if v2445 == v0.wireTypes.varint then
-            v2446 = nil;
-            v2447, v2448 = v0.readVarInt(v2441, v2443);
-            v2446 = v2447;
-            v2443 = v2448;
-        elseif v2445 == v0.wireTypes.lengthDelimited then
-            if v2444 == 1 then
-                v2446 = nil;
-                v2447, v2448 = v0.readBuffer(v2441, v2443);
-                v2446 = v2447;
-                v2443 = v2448;
-                v2442.condition = v4.PropCondition.decode(v2446);
-            elseif v2444 == 2 then
-                v2446 = nil;
-                v2447, v2448 = v0.readBuffer(v2441, v2443);
-                v2446 = v2447;
-                v2443 = v2448;
-                v2442.kind = {
+v5.decode = function(v2465) --[[ Line: 15189 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_90 (copy), v0 (copy), v4 (copy)
+    local v2466 = l_v5_90.new();
+    local v2467 = 0;
+    while v2467 < buffer.len(v2465) do
+        local v2468 = nil;
+        local v2469 = nil;
+        local v2470, v2471, v2472 = v0.readTag(v2465, v2467);
+        v2468 = v2470;
+        v2469 = v2471;
+        v2467 = v2472;
+        if v2469 == v0.wireTypes.varint then
+            v2470 = nil;
+            v2471, v2472 = v0.readVarInt(v2465, v2467);
+            v2470 = v2471;
+            v2467 = v2472;
+        elseif v2469 == v0.wireTypes.lengthDelimited then
+            if v2468 == 1 then
+                v2470 = nil;
+                v2471, v2472 = v0.readBuffer(v2465, v2467);
+                v2470 = v2471;
+                v2467 = v2472;
+                v2466.condition = v4.PropCondition.decode(v2470);
+            elseif v2468 == 2 then
+                v2470 = nil;
+                v2471, v2472 = v0.readBuffer(v2465, v2467);
+                v2470 = v2471;
+                v2467 = v2472;
+                v2466.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2446)
+                    value = buffer.tostring(v2470)
                 };
-            elseif v2444 == 3 then
-                v2446 = nil;
-                v2447, v2448 = v0.readBuffer(v2441, v2443);
-                v2446 = v2447;
-                v2443 = v2448;
-                v2442.kind = {
+            elseif v2468 == 3 then
+                v2470 = nil;
+                v2471, v2472 = v0.readBuffer(v2465, v2467);
+                v2470 = v2471;
+                v2467 = v2472;
+                v2466.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2446)
+                    value = buffer.tostring(v2470)
                 };
-            elseif v2444 == 4 then
-                v2446 = nil;
-                v2447, v2448 = v0.readBuffer(v2441, v2443);
-                v2446 = v2447;
-                v2443 = v2448;
-                v2442.kind = {
+            elseif v2468 == 4 then
+                v2470 = nil;
+                v2471, v2472 = v0.readBuffer(v2465, v2467);
+                v2470 = v2471;
+                v2467 = v2472;
+                v2466.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2446)
+                    value = buffer.tostring(v2470)
                 };
             else
-                v2446 = nil;
-                v2447, v2448 = v0.readVarInt(v2441, v2443);
-                v2443 = v2448 + v2447;
+                v2470 = nil;
+                v2471, v2472 = v0.readVarInt(v2465, v2467);
+                v2467 = v2472 + v2471;
             end;
-        elseif v2445 == v0.wireTypes.i32 then
-            v2446 = nil;
-            v2447, v2448 = v0.readFixed32(v2441, v2443);
-            v2446 = v2447;
-            v2443 = v2448;
-        elseif v2445 == v0.wireTypes.i64 then
-            v2446 = nil;
-            v2447, v2448 = v0.readFixed64(v2441, v2443);
-            v2446 = v2447;
-            v2443 = v2448;
+        elseif v2469 == v0.wireTypes.i32 then
+            v2470 = nil;
+            v2471, v2472 = v0.readFixed32(v2465, v2467);
+            v2470 = v2471;
+            v2467 = v2472;
+        elseif v2469 == v0.wireTypes.i64 then
+            v2470 = nil;
+            v2471, v2472 = v0.readFixed64(v2465, v2467);
+            v2470 = v2471;
+            v2467 = v2472;
         else
-            error("Unsupported wire type: " .. v2445);
+            error("Unsupported wire type: " .. v2469);
         end;
     end;
-    return v2442;
+    return v2466;
 end;
-v5.jsonEncode = function(v2449) --[[ Line: 15100 ]] --[[ Name: jsonEncode ]]
-    local v2450 = {};
-    if v2449.condition ~= nil then
-        v2450.condition = v2449.condition:jsonEncode();
+v5.jsonEncode = function(v2473) --[[ Line: 15247 ]] --[[ Name: jsonEncode ]]
+    local v2474 = {};
+    if v2473.condition ~= nil then
+        v2474.condition = v2473.condition:jsonEncode();
     end;
-    if v2449.kind ~= nil then
-        if v2449.kind.type == "literal" then
-            v2450.literal = v2449.kind.value;
-            return v2450;
-        elseif v2449.kind.type == "token" then
-            v2450.token = v2449.kind.value;
-            return v2450;
-        elseif v2449.kind.type == "binding_path" then
-            v2450.bindingPath = v2449.kind.value;
+    if v2473.kind ~= nil then
+        if v2473.kind.type == "literal" then
+            v2474.literal = v2473.kind.value;
+            return v2474;
+        elseif v2473.kind.type == "token" then
+            v2474.token = v2473.kind.value;
+            return v2474;
+        elseif v2473.kind.type == "binding_path" then
+            v2474.bindingPath = v2473.kind.value;
         end;
     end;
-    return v2450;
+    return v2474;
 end;
-v5.jsonDecode = function(v2451) --[[ Line: 15120 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_89 (copy), v4 (copy)
-    local v2452 = l_v5_89.new();
-    if v2451.condition ~= nil then
-        v2452.condition = v4.PropCondition.jsonDecode(v2451.condition);
+v5.jsonDecode = function(v2475) --[[ Line: 15267 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_90 (copy), v4 (copy)
+    local v2476 = l_v5_90.new();
+    if v2475.condition ~= nil then
+        v2476.condition = v4.PropCondition.jsonDecode(v2475.condition);
     end;
-    if v2451.literal ~= nil then
-        v2452.kind = {
+    if v2475.literal ~= nil then
+        v2476.kind = {
             type = "literal", 
-            value = v2451.literal
+            value = v2475.literal
         };
     end;
-    if v2451.token ~= nil then
-        v2452.kind = {
+    if v2475.token ~= nil then
+        v2476.kind = {
             type = "token", 
-            value = v2451.token
+            value = v2475.token
         };
     end;
-    if v2451.binding_path ~= nil then
-        v2452.kind = {
+    if v2475.binding_path ~= nil then
+        v2476.kind = {
             type = "binding_path", 
-            value = v2451.binding_path
+            value = v2475.binding_path
         };
     end;
-    if v2451.bindingPath ~= nil then
-        v2452.kind = {
+    if v2475.bindingPath ~= nil then
+        v2476.kind = {
             type = "binding_path", 
-            value = v2451.bindingPath
+            value = v2475.bindingPath
         };
     end;
-    return v2452;
+    return v2476;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp_ConditionalOption", 
@@ -12372,96 +12507,96 @@ v2.UiScaledUDimProp_ConditionalOption = v5;
 v1.default:register(v2.UiScaledUDimProp_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-local l_v5_90 = v5 --[[ copy: 5 -> 96 ]];
-v5.new = function(v2454) --[[ Line: 15163 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_90 (copy)
+local l_v5_91 = v5 --[[ copy: 5 -> 97 ]];
+v5.new = function(v2478) --[[ Line: 15310 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_91 (copy)
     return (setmetatable({
-        options = if not (v2454 ~= nil) or v2454.options == nil then {} else v2454.options
-    }, l_v5_90));
+        options = if not (v2478 ~= nil) or v2478.options == nil then {} else v2478.options
+    }, l_v5_91));
 end;
-v5.encode = function(v2455) --[[ Line: 15171 ]] --[[ Name: encode ]]
+v5.encode = function(v2479) --[[ Line: 15318 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2456 = buffer.create(0);
-    local v2457 = 0;
-    if v2455.options ~= nil and #v2455.options > 0 then
-        for _, v2459 in v2455.options do
-            local v2460 = v2459:encode();
-            local v2461, v2462 = v0.writeTag(v2456, v2457, 1, v0.wireTypes.lengthDelimited);
-            v2461, v2462 = v0.writeBuffer(v2461, v2462, v2460, buffer.len(v2460));
-            v2456 = v2461;
-            v2457 = v2462;
+    local v2480 = buffer.create(0);
+    local v2481 = 0;
+    if v2479.options ~= nil and #v2479.options > 0 then
+        for _, v2483 in v2479.options do
+            local v2484 = v2483:encode();
+            local v2485, v2486 = v0.writeTag(v2480, v2481, 1, v0.wireTypes.lengthDelimited);
+            v2485, v2486 = v0.writeBuffer(v2485, v2486, v2484, buffer.len(v2484));
+            v2480 = v2485;
+            v2481 = v2486;
         end;
     end;
-    local v2463 = buffer.create(v2457);
-    buffer.copy(v2463, 0, v2456, 0, v2457);
-    return v2463;
+    local v2487 = buffer.create(v2481);
+    buffer.copy(v2487, 0, v2480, 0, v2481);
+    return v2487;
 end;
-v5.decode = function(v2464) --[[ Line: 15188 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_90 (copy), v0 (copy), v2 (copy)
-    local v2465 = l_v5_90.new();
-    local v2466 = 0;
-    while v2466 < buffer.len(v2464) do
-        local v2467 = nil;
-        local v2468 = nil;
-        local v2469, v2470, v2471 = v0.readTag(v2464, v2466);
-        v2467 = v2469;
-        v2468 = v2470;
-        v2466 = v2471;
-        if v2468 == v0.wireTypes.varint then
-            v2469 = nil;
-            v2470, v2471 = v0.readVarInt(v2464, v2466);
-            v2469 = v2470;
-            v2466 = v2471;
-        elseif v2468 == v0.wireTypes.lengthDelimited then
-            if v2467 == 1 then
-                v2469 = nil;
-                v2470, v2471 = v0.readBuffer(v2464, v2466);
-                v2469 = v2470;
-                v2466 = v2471;
-                table.insert(v2465.options, v2.UiScaledUDimProp_ConditionalOption.decode(v2469));
+v5.decode = function(v2488) --[[ Line: 15335 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_91 (copy), v0 (copy), v2 (copy)
+    local v2489 = l_v5_91.new();
+    local v2490 = 0;
+    while v2490 < buffer.len(v2488) do
+        local v2491 = nil;
+        local v2492 = nil;
+        local v2493, v2494, v2495 = v0.readTag(v2488, v2490);
+        v2491 = v2493;
+        v2492 = v2494;
+        v2490 = v2495;
+        if v2492 == v0.wireTypes.varint then
+            v2493 = nil;
+            v2494, v2495 = v0.readVarInt(v2488, v2490);
+            v2493 = v2494;
+            v2490 = v2495;
+        elseif v2492 == v0.wireTypes.lengthDelimited then
+            if v2491 == 1 then
+                v2493 = nil;
+                v2494, v2495 = v0.readBuffer(v2488, v2490);
+                v2493 = v2494;
+                v2490 = v2495;
+                table.insert(v2489.options, v2.UiScaledUDimProp_ConditionalOption.decode(v2493));
             else
-                v2469 = nil;
-                v2470, v2471 = v0.readVarInt(v2464, v2466);
-                v2466 = v2471 + v2470;
+                v2493 = nil;
+                v2494, v2495 = v0.readVarInt(v2488, v2490);
+                v2490 = v2495 + v2494;
             end;
-        elseif v2468 == v0.wireTypes.i32 then
-            v2469 = nil;
-            v2470, v2471 = v0.readFixed32(v2464, v2466);
-            v2469 = v2470;
-            v2466 = v2471;
-        elseif v2468 == v0.wireTypes.i64 then
-            v2469 = nil;
-            v2470, v2471 = v0.readFixed64(v2464, v2466);
-            v2469 = v2470;
-            v2466 = v2471;
+        elseif v2492 == v0.wireTypes.i32 then
+            v2493 = nil;
+            v2494, v2495 = v0.readFixed32(v2488, v2490);
+            v2493 = v2494;
+            v2490 = v2495;
+        elseif v2492 == v0.wireTypes.i64 then
+            v2493 = nil;
+            v2494, v2495 = v0.readFixed64(v2488, v2490);
+            v2493 = v2494;
+            v2490 = v2495;
         else
-            error("Unsupported wire type: " .. v2468);
+            error("Unsupported wire type: " .. v2492);
         end;
     end;
-    return v2465;
+    return v2489;
 end;
-v5.jsonEncode = function(v2472) --[[ Line: 15231 ]] --[[ Name: jsonEncode ]]
-    local v2473 = {};
-    if v2472.options ~= nil and #v2472.options > 0 then
-        local v2474 = {};
-        for _, v2476 in v2472.options do
-            table.insert(v2474, v2476:jsonEncode());
+v5.jsonEncode = function(v2496) --[[ Line: 15378 ]] --[[ Name: jsonEncode ]]
+    local v2497 = {};
+    if v2496.options ~= nil and #v2496.options > 0 then
+        local v2498 = {};
+        for _, v2500 in v2496.options do
+            table.insert(v2498, v2500:jsonEncode());
         end;
-        v2473.options = v2474;
+        v2497.options = v2498;
     end;
-    return v2473;
+    return v2497;
 end;
-v5.jsonDecode = function(v2477) --[[ Line: 15245 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_90 (copy), v2 (copy)
-    local v2478 = l_v5_90.new();
-    if v2477.options ~= nil then
-        local v2479 = {};
-        for _, v2481 in v2477.options do
-            table.insert(v2479, v2.UiScaledUDimProp_ConditionalOption.jsonDecode(v2481));
+v5.jsonDecode = function(v2501) --[[ Line: 15392 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_91 (copy), v2 (copy)
+    local v2502 = l_v5_91.new();
+    if v2501.options ~= nil then
+        local v2503 = {};
+        for _, v2505 in v2501.options do
+            table.insert(v2503, v2.UiScaledUDimProp_ConditionalOption.jsonDecode(v2505));
         end;
-        v2478.options = v2479;
+        v2502.options = v2503;
     end;
-    return v2478;
+    return v2502;
 end;
 v5.descriptor = {
     name = "UiScaledUDimProp_ConditionalOptions", 
@@ -12471,171 +12606,171 @@ v2.UiScaledUDimProp_ConditionalOptions = v5;
 v1.default:register(v2.UiScaledUDimProp_ConditionalOptions);
 v5 = {};
 v5.__index = v5;
-local l_v5_91 = v5 --[[ copy: 5 -> 97 ]];
-v5.new = function(v2483) --[[ Line: 15276 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_91 (copy)
+local l_v5_92 = v5 --[[ copy: 5 -> 98 ]];
+v5.new = function(v2507) --[[ Line: 15423 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_92 (copy)
     return (setmetatable({
-        kind = if not (v2483 ~= nil) or v2483.kind == nil then nil else v2483.kind
-    }, l_v5_91));
+        kind = if not (v2507 ~= nil) or v2507.kind == nil then nil else v2507.kind
+    }, l_v5_92));
 end;
-v5.encode = function(v2484) --[[ Line: 15282 ]] --[[ Name: encode ]]
+v5.encode = function(v2508) --[[ Line: 15429 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2485 = buffer.create(0);
-    local v2486 = 0;
-    if v2484.kind ~= nil then
-        if v2484.kind.type == "literal" then
-            local v2487, v2488 = v0.writeTag(v2485, v2486, 1, v0.wireTypes.lengthDelimited);
-            v2487, v2488 = v0.writeString(v2487, v2488, v2484.kind.value);
-            v2485 = v2487;
-            v2486 = v2488;
-        elseif v2484.kind.type == "token" then
-            local v2489, v2490 = v0.writeTag(v2485, v2486, 2, v0.wireTypes.lengthDelimited);
-            v2489, v2490 = v0.writeString(v2489, v2490, v2484.kind.value);
-            v2485 = v2489;
-            v2486 = v2490;
-        elseif v2484.kind.type == "conditional" then
-            local v2491 = v2484.kind.value:encode();
-            local v2492, v2493 = v0.writeTag(v2485, v2486, 3, v0.wireTypes.lengthDelimited);
-            v2492, v2493 = v0.writeBuffer(v2492, v2493, v2491, buffer.len(v2491));
-            v2485 = v2492;
-            v2486 = v2493;
-        elseif v2484.kind.type == "binding_path" then
-            local v2494, v2495 = v0.writeTag(v2485, v2486, 4, v0.wireTypes.lengthDelimited);
-            v2494, v2495 = v0.writeString(v2494, v2495, v2484.kind.value);
-            v2485 = v2494;
-            v2486 = v2495;
+    local v2509 = buffer.create(0);
+    local v2510 = 0;
+    if v2508.kind ~= nil then
+        if v2508.kind.type == "literal" then
+            local v2511, v2512 = v0.writeTag(v2509, v2510, 1, v0.wireTypes.lengthDelimited);
+            v2511, v2512 = v0.writeString(v2511, v2512, v2508.kind.value);
+            v2509 = v2511;
+            v2510 = v2512;
+        elseif v2508.kind.type == "token" then
+            local v2513, v2514 = v0.writeTag(v2509, v2510, 2, v0.wireTypes.lengthDelimited);
+            v2513, v2514 = v0.writeString(v2513, v2514, v2508.kind.value);
+            v2509 = v2513;
+            v2510 = v2514;
+        elseif v2508.kind.type == "conditional" then
+            local v2515 = v2508.kind.value:encode();
+            local v2516, v2517 = v0.writeTag(v2509, v2510, 3, v0.wireTypes.lengthDelimited);
+            v2516, v2517 = v0.writeBuffer(v2516, v2517, v2515, buffer.len(v2515));
+            v2509 = v2516;
+            v2510 = v2517;
+        elseif v2508.kind.type == "binding_path" then
+            local v2518, v2519 = v0.writeTag(v2509, v2510, 4, v0.wireTypes.lengthDelimited);
+            v2518, v2519 = v0.writeString(v2518, v2519, v2508.kind.value);
+            v2509 = v2518;
+            v2510 = v2519;
         end;
     end;
-    local v2496 = buffer.create(v2486);
-    buffer.copy(v2496, 0, v2485, 0, v2486);
-    return v2496;
+    local v2520 = buffer.create(v2510);
+    buffer.copy(v2520, 0, v2509, 0, v2510);
+    return v2520;
 end;
-v5.decode = function(v2497) --[[ Line: 15308 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_91 (copy), v0 (copy), v2 (copy)
-    local v2498 = l_v5_91.new();
-    local v2499 = 0;
-    while v2499 < buffer.len(v2497) do
-        local v2500 = nil;
-        local v2501 = nil;
-        local v2502, v2503, v2504 = v0.readTag(v2497, v2499);
-        v2500 = v2502;
-        v2501 = v2503;
-        v2499 = v2504;
-        if v2501 == v0.wireTypes.varint then
-            v2502 = nil;
-            v2503, v2504 = v0.readVarInt(v2497, v2499);
-            v2502 = v2503;
-            v2499 = v2504;
-        elseif v2501 == v0.wireTypes.lengthDelimited then
-            if v2500 == 1 then
-                v2502 = nil;
-                v2503, v2504 = v0.readBuffer(v2497, v2499);
-                v2502 = v2503;
-                v2499 = v2504;
-                v2498.kind = {
+v5.decode = function(v2521) --[[ Line: 15455 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_92 (copy), v0 (copy), v2 (copy)
+    local v2522 = l_v5_92.new();
+    local v2523 = 0;
+    while v2523 < buffer.len(v2521) do
+        local v2524 = nil;
+        local v2525 = nil;
+        local v2526, v2527, v2528 = v0.readTag(v2521, v2523);
+        v2524 = v2526;
+        v2525 = v2527;
+        v2523 = v2528;
+        if v2525 == v0.wireTypes.varint then
+            v2526 = nil;
+            v2527, v2528 = v0.readVarInt(v2521, v2523);
+            v2526 = v2527;
+            v2523 = v2528;
+        elseif v2525 == v0.wireTypes.lengthDelimited then
+            if v2524 == 1 then
+                v2526 = nil;
+                v2527, v2528 = v0.readBuffer(v2521, v2523);
+                v2526 = v2527;
+                v2523 = v2528;
+                v2522.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2502)
+                    value = buffer.tostring(v2526)
                 };
-            elseif v2500 == 2 then
-                v2502 = nil;
-                v2503, v2504 = v0.readBuffer(v2497, v2499);
-                v2502 = v2503;
-                v2499 = v2504;
-                v2498.kind = {
+            elseif v2524 == 2 then
+                v2526 = nil;
+                v2527, v2528 = v0.readBuffer(v2521, v2523);
+                v2526 = v2527;
+                v2523 = v2528;
+                v2522.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2502)
+                    value = buffer.tostring(v2526)
                 };
-            elseif v2500 == 3 then
-                v2502 = nil;
-                v2503, v2504 = v0.readBuffer(v2497, v2499);
-                v2502 = v2503;
-                v2499 = v2504;
-                v2498.kind = {
+            elseif v2524 == 3 then
+                v2526 = nil;
+                v2527, v2528 = v0.readBuffer(v2521, v2523);
+                v2526 = v2527;
+                v2523 = v2528;
+                v2522.kind = {
                     type = "conditional", 
-                    value = v2.UiScaledUDim2Prop_ConditionalOptions.decode(v2502)
+                    value = v2.UiScaledUDim2Prop_ConditionalOptions.decode(v2526)
                 };
-            elseif v2500 == 4 then
-                v2502 = nil;
-                v2503, v2504 = v0.readBuffer(v2497, v2499);
-                v2502 = v2503;
-                v2499 = v2504;
-                v2498.kind = {
+            elseif v2524 == 4 then
+                v2526 = nil;
+                v2527, v2528 = v0.readBuffer(v2521, v2523);
+                v2526 = v2527;
+                v2523 = v2528;
+                v2522.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2502)
+                    value = buffer.tostring(v2526)
                 };
             else
-                v2502 = nil;
-                v2503, v2504 = v0.readVarInt(v2497, v2499);
-                v2499 = v2504 + v2503;
+                v2526 = nil;
+                v2527, v2528 = v0.readVarInt(v2521, v2523);
+                v2523 = v2528 + v2527;
             end;
-        elseif v2501 == v0.wireTypes.i32 then
-            v2502 = nil;
-            v2503, v2504 = v0.readFixed32(v2497, v2499);
-            v2502 = v2503;
-            v2499 = v2504;
-        elseif v2501 == v0.wireTypes.i64 then
-            v2502 = nil;
-            v2503, v2504 = v0.readFixed64(v2497, v2499);
-            v2502 = v2503;
-            v2499 = v2504;
+        elseif v2525 == v0.wireTypes.i32 then
+            v2526 = nil;
+            v2527, v2528 = v0.readFixed32(v2521, v2523);
+            v2526 = v2527;
+            v2523 = v2528;
+        elseif v2525 == v0.wireTypes.i64 then
+            v2526 = nil;
+            v2527, v2528 = v0.readFixed64(v2521, v2523);
+            v2526 = v2527;
+            v2523 = v2528;
         else
-            error("Unsupported wire type: " .. v2501);
+            error("Unsupported wire type: " .. v2525);
         end;
     end;
-    return v2498;
+    return v2522;
 end;
-v5.jsonEncode = function(v2505) --[[ Line: 15367 ]] --[[ Name: jsonEncode ]]
-    local v2506 = {};
-    if v2505.kind ~= nil then
-        if v2505.kind.type == "literal" then
-            v2506.literal = v2505.kind.value;
-            return v2506;
-        elseif v2505.kind.type == "token" then
-            v2506.token = v2505.kind.value;
-            return v2506;
-        elseif v2505.kind.type == "conditional" then
-            v2506.conditional = v2505.kind.value:jsonEncode();
-            return v2506;
-        elseif v2505.kind.type == "binding_path" then
-            v2506.bindingPath = v2505.kind.value;
+v5.jsonEncode = function(v2529) --[[ Line: 15514 ]] --[[ Name: jsonEncode ]]
+    local v2530 = {};
+    if v2529.kind ~= nil then
+        if v2529.kind.type == "literal" then
+            v2530.literal = v2529.kind.value;
+            return v2530;
+        elseif v2529.kind.type == "token" then
+            v2530.token = v2529.kind.value;
+            return v2530;
+        elseif v2529.kind.type == "conditional" then
+            v2530.conditional = v2529.kind.value:jsonEncode();
+            return v2530;
+        elseif v2529.kind.type == "binding_path" then
+            v2530.bindingPath = v2529.kind.value;
         end;
     end;
-    return v2506;
+    return v2530;
 end;
-v5.jsonDecode = function(v2507) --[[ Line: 15385 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_91 (copy), v2 (copy)
-    local v2508 = l_v5_91.new();
-    if v2507.literal ~= nil then
-        v2508.kind = {
+v5.jsonDecode = function(v2531) --[[ Line: 15532 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_92 (copy), v2 (copy)
+    local v2532 = l_v5_92.new();
+    if v2531.literal ~= nil then
+        v2532.kind = {
             type = "literal", 
-            value = v2507.literal
+            value = v2531.literal
         };
     end;
-    if v2507.token ~= nil then
-        v2508.kind = {
+    if v2531.token ~= nil then
+        v2532.kind = {
             type = "token", 
-            value = v2507.token
+            value = v2531.token
         };
     end;
-    if v2507.conditional ~= nil then
-        v2508.kind = {
+    if v2531.conditional ~= nil then
+        v2532.kind = {
             type = "conditional", 
-            value = v2.UiScaledUDim2Prop_ConditionalOptions.jsonDecode(v2507.conditional)
+            value = v2.UiScaledUDim2Prop_ConditionalOptions.jsonDecode(v2531.conditional)
         };
     end;
-    if v2507.binding_path ~= nil then
-        v2508.kind = {
+    if v2531.binding_path ~= nil then
+        v2532.kind = {
             type = "binding_path", 
-            value = v2507.binding_path
+            value = v2531.binding_path
         };
     end;
-    if v2507.bindingPath ~= nil then
-        v2508.kind = {
+    if v2531.bindingPath ~= nil then
+        v2532.kind = {
             type = "binding_path", 
-            value = v2507.bindingPath
+            value = v2531.bindingPath
         };
     end;
-    return v2508;
+    return v2532;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop", 
@@ -12645,167 +12780,167 @@ v2.UiScaledUDim2Prop = v5;
 v1.default:register(v2.UiScaledUDim2Prop);
 v5 = {};
 v5.__index = v5;
-local l_v5_92 = v5 --[[ copy: 5 -> 98 ]];
-v5.new = function(v2510) --[[ Line: 15428 ]] --[[ Name: new ]]
-    -- upvalues: l_v5_92 (copy)
+local l_v5_93 = v5 --[[ copy: 5 -> 99 ]];
+v5.new = function(v2534) --[[ Line: 15575 ]] --[[ Name: new ]]
+    -- upvalues: l_v5_93 (copy)
     return (setmetatable({
-        condition = if not (v2510 ~= nil) or v2510.condition == nil then nil else v2510.condition, 
-        kind = if not (v2510 ~= nil) or v2510.kind == nil then nil else v2510.kind
-    }, l_v5_92));
+        condition = if not (v2534 ~= nil) or v2534.condition == nil then nil else v2534.condition, 
+        kind = if not (v2534 ~= nil) or v2534.kind == nil then nil else v2534.kind
+    }, l_v5_93));
 end;
-v5.encode = function(v2511) --[[ Line: 15437 ]] --[[ Name: encode ]]
+v5.encode = function(v2535) --[[ Line: 15584 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2512 = buffer.create(0);
-    local v2513 = 0;
-    if v2511.condition ~= nil then
-        local v2514 = v2511.condition:encode();
-        local v2515, v2516 = v0.writeTag(v2512, v2513, 1, v0.wireTypes.lengthDelimited);
-        v2515, v2516 = v0.writeBuffer(v2515, v2516, v2514, buffer.len(v2514));
-        v2512 = v2515;
-        v2513 = v2516;
+    local v2536 = buffer.create(0);
+    local v2537 = 0;
+    if v2535.condition ~= nil then
+        local v2538 = v2535.condition:encode();
+        local v2539, v2540 = v0.writeTag(v2536, v2537, 1, v0.wireTypes.lengthDelimited);
+        v2539, v2540 = v0.writeBuffer(v2539, v2540, v2538, buffer.len(v2538));
+        v2536 = v2539;
+        v2537 = v2540;
     end;
-    if v2511.kind ~= nil then
-        if v2511.kind.type == "literal" then
-            local v2517, v2518 = v0.writeTag(v2512, v2513, 2, v0.wireTypes.lengthDelimited);
-            v2517, v2518 = v0.writeString(v2517, v2518, v2511.kind.value);
-            v2512 = v2517;
-            v2513 = v2518;
-        elseif v2511.kind.type == "token" then
-            local v2519, v2520 = v0.writeTag(v2512, v2513, 3, v0.wireTypes.lengthDelimited);
-            v2519, v2520 = v0.writeString(v2519, v2520, v2511.kind.value);
-            v2512 = v2519;
-            v2513 = v2520;
-        elseif v2511.kind.type == "binding_path" then
-            local v2521, v2522 = v0.writeTag(v2512, v2513, 4, v0.wireTypes.lengthDelimited);
-            v2521, v2522 = v0.writeString(v2521, v2522, v2511.kind.value);
-            v2512 = v2521;
-            v2513 = v2522;
+    if v2535.kind ~= nil then
+        if v2535.kind.type == "literal" then
+            local v2541, v2542 = v0.writeTag(v2536, v2537, 2, v0.wireTypes.lengthDelimited);
+            v2541, v2542 = v0.writeString(v2541, v2542, v2535.kind.value);
+            v2536 = v2541;
+            v2537 = v2542;
+        elseif v2535.kind.type == "token" then
+            local v2543, v2544 = v0.writeTag(v2536, v2537, 3, v0.wireTypes.lengthDelimited);
+            v2543, v2544 = v0.writeString(v2543, v2544, v2535.kind.value);
+            v2536 = v2543;
+            v2537 = v2544;
+        elseif v2535.kind.type == "binding_path" then
+            local v2545, v2546 = v0.writeTag(v2536, v2537, 4, v0.wireTypes.lengthDelimited);
+            v2545, v2546 = v0.writeString(v2545, v2546, v2535.kind.value);
+            v2536 = v2545;
+            v2537 = v2546;
         end;
     end;
-    local v2523 = buffer.create(v2513);
-    buffer.copy(v2523, 0, v2512, 0, v2513);
-    return v2523;
+    local v2547 = buffer.create(v2537);
+    buffer.copy(v2547, 0, v2536, 0, v2537);
+    return v2547;
 end;
-v5.decode = function(v2524) --[[ Line: 15465 ]] --[[ Name: decode ]]
-    -- upvalues: l_v5_92 (copy), v0 (copy), v4 (copy)
-    local v2525 = l_v5_92.new();
-    local v2526 = 0;
-    while v2526 < buffer.len(v2524) do
-        local v2527 = nil;
-        local v2528 = nil;
-        local v2529, v2530, v2531 = v0.readTag(v2524, v2526);
-        v2527 = v2529;
-        v2528 = v2530;
-        v2526 = v2531;
-        if v2528 == v0.wireTypes.varint then
-            v2529 = nil;
-            v2530, v2531 = v0.readVarInt(v2524, v2526);
-            v2529 = v2530;
-            v2526 = v2531;
-        elseif v2528 == v0.wireTypes.lengthDelimited then
-            if v2527 == 1 then
-                v2529 = nil;
-                v2530, v2531 = v0.readBuffer(v2524, v2526);
-                v2529 = v2530;
-                v2526 = v2531;
-                v2525.condition = v4.PropCondition.decode(v2529);
-            elseif v2527 == 2 then
-                v2529 = nil;
-                v2530, v2531 = v0.readBuffer(v2524, v2526);
-                v2529 = v2530;
-                v2526 = v2531;
-                v2525.kind = {
+v5.decode = function(v2548) --[[ Line: 15612 ]] --[[ Name: decode ]]
+    -- upvalues: l_v5_93 (copy), v0 (copy), v4 (copy)
+    local v2549 = l_v5_93.new();
+    local v2550 = 0;
+    while v2550 < buffer.len(v2548) do
+        local v2551 = nil;
+        local v2552 = nil;
+        local v2553, v2554, v2555 = v0.readTag(v2548, v2550);
+        v2551 = v2553;
+        v2552 = v2554;
+        v2550 = v2555;
+        if v2552 == v0.wireTypes.varint then
+            v2553 = nil;
+            v2554, v2555 = v0.readVarInt(v2548, v2550);
+            v2553 = v2554;
+            v2550 = v2555;
+        elseif v2552 == v0.wireTypes.lengthDelimited then
+            if v2551 == 1 then
+                v2553 = nil;
+                v2554, v2555 = v0.readBuffer(v2548, v2550);
+                v2553 = v2554;
+                v2550 = v2555;
+                v2549.condition = v4.PropCondition.decode(v2553);
+            elseif v2551 == 2 then
+                v2553 = nil;
+                v2554, v2555 = v0.readBuffer(v2548, v2550);
+                v2553 = v2554;
+                v2550 = v2555;
+                v2549.kind = {
                     type = "literal", 
-                    value = buffer.tostring(v2529)
+                    value = buffer.tostring(v2553)
                 };
-            elseif v2527 == 3 then
-                v2529 = nil;
-                v2530, v2531 = v0.readBuffer(v2524, v2526);
-                v2529 = v2530;
-                v2526 = v2531;
-                v2525.kind = {
+            elseif v2551 == 3 then
+                v2553 = nil;
+                v2554, v2555 = v0.readBuffer(v2548, v2550);
+                v2553 = v2554;
+                v2550 = v2555;
+                v2549.kind = {
                     type = "token", 
-                    value = buffer.tostring(v2529)
+                    value = buffer.tostring(v2553)
                 };
-            elseif v2527 == 4 then
-                v2529 = nil;
-                v2530, v2531 = v0.readBuffer(v2524, v2526);
-                v2529 = v2530;
-                v2526 = v2531;
-                v2525.kind = {
+            elseif v2551 == 4 then
+                v2553 = nil;
+                v2554, v2555 = v0.readBuffer(v2548, v2550);
+                v2553 = v2554;
+                v2550 = v2555;
+                v2549.kind = {
                     type = "binding_path", 
-                    value = buffer.tostring(v2529)
+                    value = buffer.tostring(v2553)
                 };
             else
-                v2529 = nil;
-                v2530, v2531 = v0.readVarInt(v2524, v2526);
-                v2526 = v2531 + v2530;
+                v2553 = nil;
+                v2554, v2555 = v0.readVarInt(v2548, v2550);
+                v2550 = v2555 + v2554;
             end;
-        elseif v2528 == v0.wireTypes.i32 then
-            v2529 = nil;
-            v2530, v2531 = v0.readFixed32(v2524, v2526);
-            v2529 = v2530;
-            v2526 = v2531;
-        elseif v2528 == v0.wireTypes.i64 then
-            v2529 = nil;
-            v2530, v2531 = v0.readFixed64(v2524, v2526);
-            v2529 = v2530;
-            v2526 = v2531;
+        elseif v2552 == v0.wireTypes.i32 then
+            v2553 = nil;
+            v2554, v2555 = v0.readFixed32(v2548, v2550);
+            v2553 = v2554;
+            v2550 = v2555;
+        elseif v2552 == v0.wireTypes.i64 then
+            v2553 = nil;
+            v2554, v2555 = v0.readFixed64(v2548, v2550);
+            v2553 = v2554;
+            v2550 = v2555;
         else
-            error("Unsupported wire type: " .. v2528);
+            error("Unsupported wire type: " .. v2552);
         end;
     end;
-    return v2525;
+    return v2549;
 end;
-v5.jsonEncode = function(v2532) --[[ Line: 15523 ]] --[[ Name: jsonEncode ]]
-    local v2533 = {};
-    if v2532.condition ~= nil then
-        v2533.condition = v2532.condition:jsonEncode();
+v5.jsonEncode = function(v2556) --[[ Line: 15670 ]] --[[ Name: jsonEncode ]]
+    local v2557 = {};
+    if v2556.condition ~= nil then
+        v2557.condition = v2556.condition:jsonEncode();
     end;
-    if v2532.kind ~= nil then
-        if v2532.kind.type == "literal" then
-            v2533.literal = v2532.kind.value;
-            return v2533;
-        elseif v2532.kind.type == "token" then
-            v2533.token = v2532.kind.value;
-            return v2533;
-        elseif v2532.kind.type == "binding_path" then
-            v2533.bindingPath = v2532.kind.value;
+    if v2556.kind ~= nil then
+        if v2556.kind.type == "literal" then
+            v2557.literal = v2556.kind.value;
+            return v2557;
+        elseif v2556.kind.type == "token" then
+            v2557.token = v2556.kind.value;
+            return v2557;
+        elseif v2556.kind.type == "binding_path" then
+            v2557.bindingPath = v2556.kind.value;
         end;
     end;
-    return v2533;
+    return v2557;
 end;
-v5.jsonDecode = function(v2534) --[[ Line: 15543 ]] --[[ Name: jsonDecode ]]
-    -- upvalues: l_v5_92 (copy), v4 (copy)
-    local v2535 = l_v5_92.new();
-    if v2534.condition ~= nil then
-        v2535.condition = v4.PropCondition.jsonDecode(v2534.condition);
+v5.jsonDecode = function(v2558) --[[ Line: 15690 ]] --[[ Name: jsonDecode ]]
+    -- upvalues: l_v5_93 (copy), v4 (copy)
+    local v2559 = l_v5_93.new();
+    if v2558.condition ~= nil then
+        v2559.condition = v4.PropCondition.jsonDecode(v2558.condition);
     end;
-    if v2534.literal ~= nil then
-        v2535.kind = {
+    if v2558.literal ~= nil then
+        v2559.kind = {
             type = "literal", 
-            value = v2534.literal
+            value = v2558.literal
         };
     end;
-    if v2534.token ~= nil then
-        v2535.kind = {
+    if v2558.token ~= nil then
+        v2559.kind = {
             type = "token", 
-            value = v2534.token
+            value = v2558.token
         };
     end;
-    if v2534.binding_path ~= nil then
-        v2535.kind = {
+    if v2558.binding_path ~= nil then
+        v2559.kind = {
             type = "binding_path", 
-            value = v2534.binding_path
+            value = v2558.binding_path
         };
     end;
-    if v2534.bindingPath ~= nil then
-        v2535.kind = {
+    if v2558.bindingPath ~= nil then
+        v2559.kind = {
             type = "binding_path", 
-            value = v2534.bindingPath
+            value = v2558.bindingPath
         };
     end;
-    return v2535;
+    return v2559;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop_ConditionalOption", 
@@ -12815,95 +12950,95 @@ v2.UiScaledUDim2Prop_ConditionalOption = v5;
 v1.default:register(v2.UiScaledUDim2Prop_ConditionalOption);
 v5 = {};
 v5.__index = v5;
-v5.new = function(v2536) --[[ Line: 15586 ]] --[[ Name: new ]]
+v5.new = function(v2560) --[[ Line: 15733 ]] --[[ Name: new ]]
     -- upvalues: v5 (copy)
     return (setmetatable({
-        options = if not (v2536 ~= nil) or v2536.options == nil then {} else v2536.options
+        options = if not (v2560 ~= nil) or v2560.options == nil then {} else v2560.options
     }, v5));
 end;
-v5.encode = function(v2537) --[[ Line: 15594 ]] --[[ Name: encode ]]
+v5.encode = function(v2561) --[[ Line: 15741 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
-    local v2538 = buffer.create(0);
-    local v2539 = 0;
-    if v2537.options ~= nil and #v2537.options > 0 then
-        for _, v2541 in v2537.options do
-            local v2542 = v2541:encode();
-            local v2543, v2544 = v0.writeTag(v2538, v2539, 1, v0.wireTypes.lengthDelimited);
-            v2543, v2544 = v0.writeBuffer(v2543, v2544, v2542, buffer.len(v2542));
-            v2538 = v2543;
-            v2539 = v2544;
+    local v2562 = buffer.create(0);
+    local v2563 = 0;
+    if v2561.options ~= nil and #v2561.options > 0 then
+        for _, v2565 in v2561.options do
+            local v2566 = v2565:encode();
+            local v2567, v2568 = v0.writeTag(v2562, v2563, 1, v0.wireTypes.lengthDelimited);
+            v2567, v2568 = v0.writeBuffer(v2567, v2568, v2566, buffer.len(v2566));
+            v2562 = v2567;
+            v2563 = v2568;
         end;
     end;
-    local v2545 = buffer.create(v2539);
-    buffer.copy(v2545, 0, v2538, 0, v2539);
-    return v2545;
+    local v2569 = buffer.create(v2563);
+    buffer.copy(v2569, 0, v2562, 0, v2563);
+    return v2569;
 end;
-v5.decode = function(v2546) --[[ Line: 15611 ]] --[[ Name: decode ]]
+v5.decode = function(v2570) --[[ Line: 15758 ]] --[[ Name: decode ]]
     -- upvalues: v5 (copy), v0 (copy), v2 (copy)
-    local v2547 = v5.new();
-    local v2548 = 0;
-    while v2548 < buffer.len(v2546) do
-        local v2549 = nil;
-        local v2550 = nil;
-        local v2551, v2552, v2553 = v0.readTag(v2546, v2548);
-        v2549 = v2551;
-        v2550 = v2552;
-        v2548 = v2553;
-        if v2550 == v0.wireTypes.varint then
-            v2551 = nil;
-            v2552, v2553 = v0.readVarInt(v2546, v2548);
-            v2551 = v2552;
-            v2548 = v2553;
-        elseif v2550 == v0.wireTypes.lengthDelimited then
-            if v2549 == 1 then
-                v2551 = nil;
-                v2552, v2553 = v0.readBuffer(v2546, v2548);
-                v2551 = v2552;
-                v2548 = v2553;
-                table.insert(v2547.options, v2.UiScaledUDim2Prop_ConditionalOption.decode(v2551));
+    local v2571 = v5.new();
+    local v2572 = 0;
+    while v2572 < buffer.len(v2570) do
+        local v2573 = nil;
+        local v2574 = nil;
+        local v2575, v2576, v2577 = v0.readTag(v2570, v2572);
+        v2573 = v2575;
+        v2574 = v2576;
+        v2572 = v2577;
+        if v2574 == v0.wireTypes.varint then
+            v2575 = nil;
+            v2576, v2577 = v0.readVarInt(v2570, v2572);
+            v2575 = v2576;
+            v2572 = v2577;
+        elseif v2574 == v0.wireTypes.lengthDelimited then
+            if v2573 == 1 then
+                v2575 = nil;
+                v2576, v2577 = v0.readBuffer(v2570, v2572);
+                v2575 = v2576;
+                v2572 = v2577;
+                table.insert(v2571.options, v2.UiScaledUDim2Prop_ConditionalOption.decode(v2575));
             else
-                v2551 = nil;
-                v2552, v2553 = v0.readVarInt(v2546, v2548);
-                v2548 = v2553 + v2552;
+                v2575 = nil;
+                v2576, v2577 = v0.readVarInt(v2570, v2572);
+                v2572 = v2577 + v2576;
             end;
-        elseif v2550 == v0.wireTypes.i32 then
-            v2551 = nil;
-            v2552, v2553 = v0.readFixed32(v2546, v2548);
-            v2551 = v2552;
-            v2548 = v2553;
-        elseif v2550 == v0.wireTypes.i64 then
-            v2551 = nil;
-            v2552, v2553 = v0.readFixed64(v2546, v2548);
-            v2551 = v2552;
-            v2548 = v2553;
+        elseif v2574 == v0.wireTypes.i32 then
+            v2575 = nil;
+            v2576, v2577 = v0.readFixed32(v2570, v2572);
+            v2575 = v2576;
+            v2572 = v2577;
+        elseif v2574 == v0.wireTypes.i64 then
+            v2575 = nil;
+            v2576, v2577 = v0.readFixed64(v2570, v2572);
+            v2575 = v2576;
+            v2572 = v2577;
         else
-            error("Unsupported wire type: " .. v2550);
+            error("Unsupported wire type: " .. v2574);
         end;
     end;
-    return v2547;
+    return v2571;
 end;
-v5.jsonEncode = function(v2554) --[[ Line: 15654 ]] --[[ Name: jsonEncode ]]
-    local v2555 = {};
-    if v2554.options ~= nil and #v2554.options > 0 then
-        local v2556 = {};
-        for _, v2558 in v2554.options do
-            table.insert(v2556, v2558:jsonEncode());
+v5.jsonEncode = function(v2578) --[[ Line: 15801 ]] --[[ Name: jsonEncode ]]
+    local v2579 = {};
+    if v2578.options ~= nil and #v2578.options > 0 then
+        local v2580 = {};
+        for _, v2582 in v2578.options do
+            table.insert(v2580, v2582:jsonEncode());
         end;
-        v2555.options = v2556;
+        v2579.options = v2580;
     end;
-    return v2555;
+    return v2579;
 end;
-v5.jsonDecode = function(v2559) --[[ Line: 15668 ]] --[[ Name: jsonDecode ]]
+v5.jsonDecode = function(v2583) --[[ Line: 15815 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v5 (copy), v2 (copy)
-    local v2560 = v5.new();
-    if v2559.options ~= nil then
-        local v2561 = {};
-        for _, v2563 in v2559.options do
-            table.insert(v2561, v2.UiScaledUDim2Prop_ConditionalOption.jsonDecode(v2563));
+    local v2584 = v5.new();
+    if v2583.options ~= nil then
+        local v2585 = {};
+        for _, v2587 in v2583.options do
+            table.insert(v2585, v2.UiScaledUDim2Prop_ConditionalOption.jsonDecode(v2587));
         end;
-        v2560.options = v2561;
+        v2584.options = v2585;
     end;
-    return v2560;
+    return v2584;
 end;
 v5.descriptor = {
     name = "UiScaledUDim2Prop_ConditionalOptions", 
@@ -12985,6 +13120,7 @@ return {
     IconProp = v2.IconProp, 
     IconProp_ConditionalOption = v2.IconProp_ConditionalOption, 
     IconProp_ConditionalOptions = v2.IconProp_ConditionalOptions, 
+    IconSizeProp = v2.IconSizeProp, 
     GradientProp = v2.GradientProp, 
     GradientProp_ConditionalOption = v2.GradientProp_ConditionalOption, 
     GradientProp_ConditionalOptions = v2.GradientProp_ConditionalOptions, 

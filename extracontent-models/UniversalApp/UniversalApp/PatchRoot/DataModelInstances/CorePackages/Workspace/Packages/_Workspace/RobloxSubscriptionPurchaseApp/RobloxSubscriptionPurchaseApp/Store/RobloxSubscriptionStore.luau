@@ -6,7 +6,7 @@ local _ = require(l_script_FirstAncestor_0.Enums.RobloxSubscriptionFlowCompleteR
 local _ = require(l_script_FirstAncestor_0.Models.GetRobloxSubscriptionProductsModel);
 local _ = require(l_script_FirstAncestor_0.types);
 local v7 = nil;
-local function v36() --[[ Line: 48 ]]
+local function v40() --[[ Line: 50 ]]
     -- upvalues: v2 (copy), v3 (copy)
     local v8, v9 = v2.createSignal(v3.Unspecified);
     local v10, v11 = v2.createSignal(nil);
@@ -16,28 +16,39 @@ local function v36() --[[ Line: 48 ]]
     local v18, v19 = v2.createSignal(false);
     local v20, v21 = v2.createSignal({});
     local v22, v23 = v2.createSignal({});
-    local v26 = v2.createComputed(function(v24) --[[ Line: 59 ]]
+    local v26 = v2.createComputed(function(v24) --[[ Line: 61 ]]
         -- upvalues: v10 (copy)
         local v25 = v10(v24);
         return v25 and v25.ProductKey and v25.ProductKey.Id or "";
     end);
     local v27 = nil;
     local v28 = nil;
-    local function v30(v29) --[[ Line: 70 ]] --[[ Name: setOnFlowComplete ]]
+    local v29 = nil;
+    local function v31(v30) --[[ Line: 72 ]] --[[ Name: setOnFlowComplete ]]
         -- upvalues: v27 (ref)
-        v27 = v29;
+        v27 = v30;
     end;
-    local function v32(v31) --[[ Line: 74 ]] --[[ Name: triggerOnFlowComplete ]]
+    local function v33(v32) --[[ Line: 76 ]] --[[ Name: triggerOnFlowComplete ]]
         -- upvalues: v27 (ref)
         if v27 then
-            v27(v31);
+            v27(v32);
         end;
     end;
-    local function v34(v33) --[[ Line: 80 ]] --[[ Name: setOnUnmountUI ]]
-        -- upvalues: v28 (ref)
-        v28 = v33;
+    local function v35(v34) --[[ Line: 82 ]] --[[ Name: setOnBackButtonActivated ]]
+        -- upvalues: v29 (ref)
+        v29 = v34;
     end;
-    local function v35() --[[ Line: 84 ]] --[[ Name: triggerUnmountUI ]]
+    local function v36() --[[ Line: 86 ]] --[[ Name: triggerOnBackButtonActivated ]]
+        -- upvalues: v29 (ref)
+        if v29 then
+            v29();
+        end;
+    end;
+    local function v38(v37) --[[ Line: 92 ]] --[[ Name: setOnUnmountUI ]]
+        -- upvalues: v28 (ref)
+        v28 = v37;
+    end;
+    local function v39() --[[ Line: 96 ]] --[[ Name: triggerUnmountUI ]]
         -- upvalues: v28 (ref)
         if v28 then
             v28();
@@ -57,26 +68,28 @@ local function v36() --[[ Line: 48 ]]
         setPaymentSessionId = v17, 
         getEntryContext = v20, 
         setEntryContext = v21, 
-        setOnFlowComplete = v30, 
-        triggerOnFlowComplete = v32, 
+        setOnFlowComplete = v31, 
+        triggerOnFlowComplete = v33, 
         getPurchaseUIOptions = v14, 
         setPurchaseUIOptions = v15, 
         getIsNativePurchase = v18, 
         setIsNativePurchase = v19, 
         getRobloxSubscriptionProductId = v26, 
-        setOnUnmountUI = v34, 
-        triggerUnmountUI = v35
+        setOnUnmountUI = v38, 
+        triggerUnmountUI = v39, 
+        setOnBackButtonActivated = v35, 
+        triggerOnBackButtonActivated = v36
     };
 end;
 return {
-    get = function() --[[ Line: 118 ]]
-        -- upvalues: v7 (ref), v2 (copy), v36 (copy)
+    get = function() --[[ Line: 132 ]]
+        -- upvalues: v7 (ref), v2 (copy), v40 (copy)
         if v7 == nil then
-            v7 = v2.createComputed(v36)(false);
+            v7 = v2.createComputed(v40)(false);
         end;
         return v7;
     end, 
-    cleanup = function() --[[ Line: 125 ]]
+    cleanup = function() --[[ Line: 139 ]]
         -- upvalues: v7 (ref)
         v7 = nil;
     end

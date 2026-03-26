@@ -10,72 +10,73 @@ local l_useMutualFriendsText_0 = v7.Hooks.useMutualFriendsText;
 local l_ContextualInfoTypes_0 = v7.Enums.ContextualInfoTypes;
 local l_PresenceType_0 = require(l_script_FirstAncestor_0.Rodux.RoduxPresence).Enums.PresenceType;
 local l_FFlagUserSearchUseThisIsYou_0 = require(l_Parent_0.SharedFlags).FFlagUserSearchUseThisIsYou;
-local v12 = l_Images_0["icons/status/player/friend"];
-local v13 = l_Images_0["icons/status/player/following"];
-local function v17(v14, v15) --[[ Line: 27 ]]
-    if not v14 or #v14 == 0 then
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+local v13 = l_Images_0["icons/status/player/friend"];
+local v14 = l_Images_0["icons/status/player/following"];
+local function v18(v15, v16) --[[ Line: 28 ]]
+    if not v15 or #v15 == 0 then
         return false;
     else
-        for v16 = 1, #v14 do
-            if string.lower(v14[v16]) == string.lower(v15) then
-                return v14[v16];
+        for v17 = 1, #v15 do
+            if string.lower(v15[v17]) == string.lower(v16) then
+                return v15[v17];
             end;
         end;
         return false;
     end;
 end;
-return function(v18) --[[ Line: 55 ]]
-    -- upvalues: v3 (copy), l_useLocalization_0 (copy), l_FFlagUserSearchUseThisIsYou_0 (copy), l_useMutualFriendsText_0 (copy), l_ContextualInfoTypes_0 (copy), v17 (copy), l_PresenceType_0 (copy), v12 (copy), v13 (copy)
-    local v19 = v3(v18.userId);
-    local l_shouldUseCompactTiles_0 = v18.shouldUseCompactTiles;
-    local l_shouldUseCompactTiles_1 = v18.shouldUseCompactTiles;
-    local v22 = l_useLocalization_0({
-        youAreFriends = if l_shouldUseCompactTiles_0 then nil else "Feature.PlayerSearchResults.Label.YouAreConnections", 
+return function(v19) --[[ Line: 56 ]]
+    -- upvalues: v3 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_FFlagUserSearchUseThisIsYou_0 (copy), l_useMutualFriendsText_0 (copy), l_ContextualInfoTypes_0 (copy), v18 (copy), l_PresenceType_0 (copy), v13 (copy), v14 (copy)
+    local v20 = v3(v19.userId);
+    local l_shouldUseCompactTiles_0 = v19.shouldUseCompactTiles;
+    local l_shouldUseCompactTiles_1 = v19.shouldUseCompactTiles;
+    local v23 = l_useLocalization_0({
+        youAreFriends = if l_shouldUseCompactTiles_0 then nil else l_FFlagConnectionsToFriendsRename_0 and "Feature.PlayerSearchResults.Label.YouAreFriends" or "Feature.PlayerSearchResults.Label.YouAreConnections", 
         youAreFollowing = if l_shouldUseCompactTiles_0 then nil else "Feature.PlayerSearchResults.Label.YouAreFollowing", 
         thisIsYou = l_FFlagUserSearchUseThisIsYou_0 and "Feature.PlayerSearchResults.Label.ThisIsYou" or if l_shouldUseCompactTiles_0 then nil else "Feature.PlayerSearchResults.Label.ThisIsYou", 
-        friend = l_shouldUseCompactTiles_0 and "CommonUI.Features.Label.Connection" or nil, 
+        friend = if l_shouldUseCompactTiles_0 then l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.Friend" or "CommonUI.Features.Label.Connection" else nil, 
         following = l_shouldUseCompactTiles_0 and "Feature.Friends.Label.Following" or nil, 
         you = l_shouldUseCompactTiles_0 and "Feature.PlayerSearchResults.Label.You" or nil, 
         newUsername = "Feature.PlayerSearchResults.Label.NewUsername", 
         frequents = "Feature.Friends.Label.Frequent"
     });
-    local l_profileInsight_0 = v18.profileInsight;
-    local v24 = l_profileInsight_0 and l_profileInsight_0.mutualFriends and #l_profileInsight_0.mutualFriends or 0;
-    local v25 = l_useMutualFriendsText_0(v24);
-    if v19.isMyself then
+    local l_profileInsight_0 = v19.profileInsight;
+    local v25 = l_profileInsight_0 and l_profileInsight_0.mutualFriends and #l_profileInsight_0.mutualFriends or 0;
+    local v26 = l_useMutualFriendsText_0(v25);
+    if v20.isMyself then
         return {
-            text = if l_FFlagUserSearchUseThisIsYou_0 then v22.thisIsYou else if l_shouldUseCompactTiles_0 then v22.you else v22.thisIsYou
+            text = if l_FFlagUserSearchUseThisIsYou_0 then v23.thisIsYou else if l_shouldUseCompactTiles_0 then v23.you else v23.thisIsYou
         }, l_ContextualInfoTypes_0.IsMyself;
-    elseif v17(v18.previousUsernames, v18.searchKeyword) then
+    elseif v18(v19.previousUsernames, v19.searchKeyword) then
         return {
-            text = v22.newUsername
+            text = v23.newUsername
         }, l_ContextualInfoTypes_0.PreviousUsername;
-    elseif v19.status == Enum.FriendStatus.Friend then
-        if v18.shouldUseCompactTiles and v18.userPresence and v18.userPresence.userPresenceType == l_PresenceType_0.InGame and v18.userPresence.lastLocation and v18.userPresence.universeId then
+    elseif v20.status == Enum.FriendStatus.Friend then
+        if v19.shouldUseCompactTiles and v19.userPresence and v19.userPresence.userPresenceType == l_PresenceType_0.InGame and v19.userPresence.lastLocation and v19.userPresence.universeId then
             return {
-                text = v18.userPresence.lastLocation
+                text = v19.userPresence.lastLocation
             }, l_ContextualInfoTypes_0.ExperienceLastLocation;
         else
             return {
-                text = if l_shouldUseCompactTiles_0 then v22.friend else v22.youAreFriends, 
-                icon = if l_shouldUseCompactTiles_1 then nil else v12
+                text = if l_shouldUseCompactTiles_0 then v23.friend else v23.youAreFriends, 
+                icon = if l_shouldUseCompactTiles_1 then nil else v13
             }, l_ContextualInfoTypes_0.Friend;
         end;
-    elseif v19.following == true then
+    elseif v20.following == true then
         return {
-            text = if l_shouldUseCompactTiles_0 then v22.following else v22.youAreFollowing, 
-            icon = if l_shouldUseCompactTiles_1 then nil else v13
+            text = if l_shouldUseCompactTiles_0 then v23.following else v23.youAreFollowing, 
+            icon = if l_shouldUseCompactTiles_1 then nil else v14
         }, l_ContextualInfoTypes_0.Following;
     else
         if l_profileInsight_0 then
-            if v24 > 0 then
+            if v25 > 0 then
                 return {
-                    text = v25, 
-                    icon = if l_shouldUseCompactTiles_1 then nil else v12
+                    text = v26, 
+                    icon = if l_shouldUseCompactTiles_1 then nil else v13
                 }, l_ContextualInfoTypes_0.MutualFriends;
             elseif l_profileInsight_0.isOfflineFrequents then
                 return {
-                    text = v22.frequents
+                    text = v23.frequents
                 }, l_ContextualInfoTypes_0.Frequents;
             end;
         end;

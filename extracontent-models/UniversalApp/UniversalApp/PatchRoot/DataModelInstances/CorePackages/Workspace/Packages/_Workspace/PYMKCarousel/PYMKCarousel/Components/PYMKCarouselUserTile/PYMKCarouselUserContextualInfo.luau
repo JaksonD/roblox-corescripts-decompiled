@@ -12,54 +12,55 @@ local v10 = require(l_Parent_0.Common.TextKeys);
 local l_CarouselUserContextualInfo_0 = v3.Components.CarouselUserTile.CarouselUserContextualInfo;
 local l_useRecommendationContextualInfoDisplay_0 = v3.Hooks.useRecommendationContextualInfoDisplay;
 local l_RecommendationContextType_0 = l_RoduxFriends_0.Enums.RecommendationContextType;
-local function v17(v14) --[[ Line: 32 ]]
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_1.SharedFlags).FFlagConnectionsToFriendsRename;
+local function v18(v15) --[[ Line: 34 ]]
     -- upvalues: l_useLocalization_0 (copy)
-    local v15 = l_useLocalization_0({
-        contextualText = v14.textKey
+    local v16 = l_useLocalization_0({
+        contextualText = v15.textKey
     });
-    local v16 = if v14.textKey then v15.contextualText else v14.text;
-    if v14.formatter then
-        return (v14.formatter(v16));
+    local v17 = if v15.textKey then v16.contextualText else v15.text;
+    if v15.formatter then
+        return (v15.formatter(v17));
     else
-        return v16;
+        return v17;
     end;
 end;
-return function(v18) --[[ Line: 41 ]]
-    -- upvalues: l_useSelector_0 (copy), l_RoduxFriends_0 (copy), l_getDeepValue_0 (copy), l_useRecommendationContextualInfoDisplay_0 (copy), v10 (copy), l_RecommendationContextType_0 (copy), l_React_0 (copy), v17 (copy), l_Roact_0 (copy), l_CarouselUserContextualInfo_0 (copy)
-    local v19 = tostring(v18.userId);
-    local v21 = l_useSelector_0(function(v20) --[[ Line: 43 ]]
-        return (tostring(v20.LocalUserId));
+return function(v19) --[[ Line: 43 ]]
+    -- upvalues: l_useSelector_0 (copy), l_RoduxFriends_0 (copy), l_getDeepValue_0 (copy), l_useRecommendationContextualInfoDisplay_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v10 (copy), l_RecommendationContextType_0 (copy), l_React_0 (copy), v18 (copy), l_Roact_0 (copy), l_CarouselUserContextualInfo_0 (copy)
+    local v20 = tostring(v19.userId);
+    local v22 = l_useSelector_0(function(v21) --[[ Line: 45 ]]
+        return (tostring(v21.LocalUserId));
     end);
-    local v23 = l_useSelector_0(function(v22) --[[ Line: 47 ]]
-        -- upvalues: l_RoduxFriends_0 (ref), v21 (copy), v19 (copy)
-        return l_RoduxFriends_0.Selectors.selectRecommendationsForUserId(v22)(v21)[v19] or {};
+    local v24 = l_useSelector_0(function(v23) --[[ Line: 49 ]]
+        -- upvalues: l_RoduxFriends_0 (ref), v22 (copy), v20 (copy)
+        return l_RoduxFriends_0.Selectors.selectRecommendationsForUserId(v23)(v22)[v20] or {};
     end);
-    local v25 = l_useSelector_0(function(v24) --[[ Line: 51 ]]
-        -- upvalues: l_getDeepValue_0 (ref), v19 (copy)
-        return l_getDeepValue_0(v24, string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", v19)) or false;
+    local v26 = l_useSelector_0(function(v25) --[[ Line: 53 ]]
+        -- upvalues: l_getDeepValue_0 (ref), v20 (copy)
+        return l_getDeepValue_0(v25, string.format("PYMKCarousel.Friends.recommendations.hasIncomingFriendRequest.%s", v20)) or false;
     end);
-    local v26 = {
-        text = l_useRecommendationContextualInfoDisplay_0(v23).text
+    local v27 = {
+        text = l_useRecommendationContextualInfoDisplay_0(v24).text
     };
-    if v25 then
-        v26 = {
-            textKey = v10.ConnectionRequestContext
+    if v26 then
+        v27 = {
+            textKey = if l_FFlagConnectionsToFriendsRename_0 then v10.FriendRequestContext else v10.ConnectionRequestContext
         };
     end;
-    if v18.contextType == l_RecommendationContextType_0.Contacts then
-        v26 = {
+    if v19.contextType == l_RecommendationContextType_0.Contacts then
+        v27 = {
             textKey = v10.FromContacts
         };
     end;
-    local v27 = l_React_0.useCallback(v17(v26), {
-        v26
+    local v28 = l_React_0.useCallback(v18(v27), {
+        v27
     });
     return l_Roact_0.createElement(l_CarouselUserContextualInfo_0, {
         label = {
-            text = v27, 
-            font = v26.font, 
-            colorStyle = v26.colorStyle
+            text = v28, 
+            font = v27.font, 
+            colorStyle = v27.colorStyle
         }, 
-        lineWidth = v18.lineWidth
+        lineWidth = v19.lineWidth
     });
 end;

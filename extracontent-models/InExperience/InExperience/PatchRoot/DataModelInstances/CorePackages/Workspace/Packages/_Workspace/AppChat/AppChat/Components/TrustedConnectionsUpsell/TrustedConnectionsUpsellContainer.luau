@@ -23,155 +23,156 @@ local v21 = require(l_script_FirstAncestor_0.Telemetry.useTelemetry);
 local v22 = require(l_script_FirstAncestor_0.Telemetry.Layers.AppTelemetryLayer);
 local l_Container_0 = v7.TrustedContactsModal.Container;
 local l_FFlagAppChatEnableDoubleOptIn_0 = v14.FFlagAppChatEnableDoubleOptIn;
-local v25 = require(l_script_FirstAncestor_0.Flags.FIntUnfilteredThreadsPvDelayMs);
-local v26 = {
+local l_FFlagConnectionsToFriendsRename_0 = v14.FFlagConnectionsToFriendsRename;
+local v26 = require(l_script_FirstAncestor_0.Flags.FIntUnfilteredThreadsPvDelayMs);
+local v27 = {
     [l_ConversationOverlay_0.TrustedConnectionCreated] = l_Container_0
 };
-local function v28(v27) --[[ Line: 60 ]]
+local function v29(v28) --[[ Line: 61 ]]
     return {
         shouldOverrideNavigation = true, 
-        onClosed = v27.onClosed, 
-        isVerticallyConstrained = v27.isVerticallyConstrained, 
-        userId = v27.userId
+        onClosed = v28.onClosed, 
+        isVerticallyConstrained = v28.isVerticallyConstrained, 
+        userId = v28.userId
     };
 end;
-local v30 = {
+local v31 = {
     [l_ConversationOverlay_0.TrustedConnectionCreated] = {
         component = l_Container_0, 
-        mapProps = function(v29) --[[ Line: 71 ]] --[[ Name: mapProps ]]
+        mapProps = function(v30) --[[ Line: 72 ]] --[[ Name: mapProps ]]
             return {
-                isVerticallyConstrained = v29.isVerticallyConstrained, 
-                userId = v29.userId, 
-                onClosed = v29.onClosed, 
-                onAcknowledged = v29.onAcknowledged, 
-                onRemovedTrustedConnection = v29.onRemovedTrustedConnection, 
+                isVerticallyConstrained = v30.isVerticallyConstrained, 
+                userId = v30.userId, 
+                onClosed = v30.onClosed, 
+                onAcknowledged = v30.onAcknowledged, 
+                onRemovedTrustedConnection = v30.onRemovedTrustedConnection, 
                 shouldOverrideNavigation = true
             };
         end
     }, 
     [l_ConversationOverlay_0.AddTrustedConnectionU18] = {
         component = l_Container_0, 
-        mapProps = v28
+        mapProps = v29
     }, 
     [l_ConversationOverlay_0.TrustedConnectionRequestU18] = {
         component = l_Container_0, 
-        mapProps = v28
+        mapProps = v29
     }
 };
-return function(v31) --[[ Line: 103 ]]
-    -- upvalues: v9 (copy), v10 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useLocalization_0 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), v17 (copy), v21 (copy), v22 (copy), v6 (copy), v19 (copy), v16 (copy), v25 (copy), v15 (copy), v20 (copy), v5 (copy), v2 (copy), v18 (copy), v30 (copy), v26 (copy)
-    local v32 = v9(v31.conversationId) or "";
-    local v33 = v10();
-    local v34 = l_useDispatch_0();
-    local v35 = l_useNavigation_0();
-    local v36 = l_useLocalization_0({
-        toastText = "Feature.Friends.TrustedConnection.Toast.TrustedConnectionRemoved"
+return function(v32) --[[ Line: 104 ]]
+    -- upvalues: v9 (copy), v10 (copy), l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), v17 (copy), v21 (copy), v22 (copy), v6 (copy), v19 (copy), v16 (copy), v26 (copy), v15 (copy), v20 (copy), v5 (copy), v2 (copy), v18 (copy), v31 (copy), v27 (copy)
+    local v33 = v9(v32.conversationId) or "";
+    local v34 = v10();
+    local v35 = l_useDispatch_0();
+    local v36 = l_useNavigation_0();
+    local v37 = l_useLocalization_0({
+        toastText = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.TrustedFriend.Toast.TrustedFriendRemoved" or "Feature.Friends.TrustedConnection.Toast.TrustedConnectionRemoved"
     });
-    local l_modalVariant_0 = v31.modalVariant;
-    local v38 = if l_FFlagAppChatEnableDoubleOptIn_0 then v17() else nil;
-    local v39 = v21(v22.Context);
-    v6.useEffect(function() --[[ Line: 115 ]]
-        -- upvalues: v39 (copy), v19 (ref), l_modalVariant_0 (copy)
-        v39.emit(v19.Events.ModalRendered, {
+    local l_modalVariant_0 = v32.modalVariant;
+    local v39 = if l_FFlagAppChatEnableDoubleOptIn_0 then v17() else nil;
+    local v40 = v21(v22.Context);
+    v6.useEffect(function() --[[ Line: 118 ]]
+        -- upvalues: v40 (copy), v19 (ref), l_modalVariant_0 (copy)
+        v40.emit(v19.Events.ModalRendered, {
             modalVariant = l_modalVariant_0
         });
     end, {
         l_modalVariant_0
     });
-    local v40 = v6.useCallback(function() --[[ Line: 122 ]]
-        -- upvalues: v31 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (ref), v16 (ref), v25 (ref), v34 (copy), v15 (ref), v38 (copy)
-        v31.dismissModal();
+    local v41 = v6.useCallback(function() --[[ Line: 125 ]]
+        -- upvalues: v32 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (ref), v16 (ref), v26 (ref), v35 (copy), v15 (ref), v39 (copy)
+        v32.dismissModal();
         if l_FFlagAppChatEnableDoubleOptIn_0 then
-            v16.delay(v25 / 1000):andThen(function() --[[ Line: 125 ]]
-                -- upvalues: v34 (ref), v15 (ref), v31 (ref), v38 (ref)
-                v34(v15(v31.conversationId, v38));
+            v16.delay(v26 / 1000):andThen(function() --[[ Line: 128 ]]
+                -- upvalues: v35 (ref), v15 (ref), v32 (ref), v39 (ref)
+                v35(v15(v32.conversationId, v39));
             end);
         end;
     end, {
-        v31.conversationId, 
+        v32.conversationId, 
         l_modalVariant_0, 
-        v34, 
-        v31.dismissModal, 
-        v38
+        v35, 
+        v32.dismissModal, 
+        v39
     });
-    local v42 = v6.useCallback(function() --[[ Line: 138 ]]
-        -- upvalues: v39 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v34 (copy), v5 (ref), v32 (copy), v2 (ref), v18 (ref), v36 (copy)
-        v39.emit(v19.Events.ModalAction, {
+    local v43 = v6.useCallback(function() --[[ Line: 141 ]]
+        -- upvalues: v40 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v35 (copy), v5 (ref), v33 (copy), v2 (ref), v18 (ref), v37 (copy)
+        v40.emit(v19.Events.ModalAction, {
             modalVariant = l_modalVariant_0, 
             action = v20.Enums.ModalActions.SecondaryCta
         });
-        v34(v5.RemoveTC.API(v32)):andThen(function() --[[ Line: 145 ]]
-            -- upvalues: v39 (ref), v19 (ref), l_modalVariant_0 (ref), v20 (ref)
-            v39.emit(v19.Events.ModalActionResult, {
+        v35(v5.RemoveTC.API(v33)):andThen(function() --[[ Line: 148 ]]
+            -- upvalues: v40 (ref), v19 (ref), l_modalVariant_0 (ref), v20 (ref)
+            v40.emit(v19.Events.ModalActionResult, {
                 modalVariant = l_modalVariant_0, 
                 action = v20.Enums.ModalActions.SecondaryCta, 
                 actionResult = v20.Enums.ModalActionResults.Success
             });
-        end):catch(function(v41) --[[ Line: 152 ]]
-            -- upvalues: v39 (ref), v19 (ref), l_modalVariant_0 (ref), v20 (ref), v2 (ref), v32 (ref)
-            v39.emit(v19.Events.ModalActionResult, {
+        end):catch(function(v42) --[[ Line: 155 ]]
+            -- upvalues: v40 (ref), v19 (ref), l_modalVariant_0 (ref), v20 (ref), v2 (ref), v33 (ref)
+            v40.emit(v19.Events.ModalActionResult, {
                 modalVariant = l_modalVariant_0, 
                 action = v20.Enums.ModalActions.SecondaryCta, 
                 actionResult = v20.Enums.ModalActionResults.Failure
             });
-            v2:warning((("Error removing trusted connection for user %*: %*"):format(v32, (tostring(v41)))));
+            v2:warning((("Error removing trusted connection for user %*: %*"):format(v33, (tostring(v42)))));
         end);
         v18.SetUIBloxToast({
             sequenceNumber = DateTime.now().UnixTimestamp, 
-            toastTitle = v36.toastText
+            toastTitle = v37.toastText
         });
     end, {
-        v40, 
+        v41, 
+        v36, 
         v35, 
-        v34, 
-        v32, 
-        v39, 
+        v33, 
+        v40, 
         l_modalVariant_0
     });
-    local v43 = v6.useCallback(function() --[[ Line: 165 ]]
-        -- upvalues: v39 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v40 (copy)
-        v39.emit(v19.Events.ModalAction, {
+    local v44 = v6.useCallback(function() --[[ Line: 168 ]]
+        -- upvalues: v40 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v41 (copy)
+        v40.emit(v19.Events.ModalAction, {
             modalVariant = l_modalVariant_0, 
             action = v20.Enums.ModalActions.PrimaryCta
         });
-        v40();
+        v41();
     end, {
+        v41, 
         v40, 
-        v39, 
         l_modalVariant_0
     });
-    local v44 = v6.useCallback(function() --[[ Line: 172 ]]
-        -- upvalues: v39 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v40 (copy)
-        v39.emit(v19.Events.ModalAction, {
+    local v45 = v6.useCallback(function() --[[ Line: 175 ]]
+        -- upvalues: v40 (copy), v19 (ref), l_modalVariant_0 (copy), v20 (ref), v41 (copy)
+        v40.emit(v19.Events.ModalAction, {
             modalVariant = l_modalVariant_0, 
             action = v20.Enums.ModalActions.Dismiss
         });
-        v40();
+        v41();
     end, {
+        v41, 
         v40, 
-        v39, 
         l_modalVariant_0
     });
     if l_FFlagAppChatEnableDoubleOptIn_0 then
-        local v45 = v30[l_modalVariant_0];
-        if v45 then
-            return v6.createElement(v45.component, v45.mapProps({
-                isVerticallyConstrained = v33, 
-                userId = v32, 
-                onClosed = v44, 
-                onAcknowledged = v43, 
-                onRemovedTrustedConnection = v42
+        local v46 = v31[l_modalVariant_0];
+        if v46 then
+            return v6.createElement(v46.component, v46.mapProps({
+                isVerticallyConstrained = v34, 
+                userId = v33, 
+                onClosed = v45, 
+                onAcknowledged = v44, 
+                onRemovedTrustedConnection = v43
             }));
         end;
     else
-        local v46 = v26[l_modalVariant_0];
-        if v46 then
-            return v6.createElement(v46, {
-                isVerticallyConstrained = v33, 
-                userId = v32, 
-                onClosed = v44, 
-                onAcknowledged = v43, 
-                onRemovedTrustedConnection = v42, 
+        local v47 = v27[l_modalVariant_0];
+        if v47 then
+            return v6.createElement(v47, {
+                isVerticallyConstrained = v34, 
+                userId = v33, 
+                onClosed = v45, 
+                onAcknowledged = v44, 
+                onRemovedTrustedConnection = v43, 
                 shouldOverrideNavigation = true
             });
         end;

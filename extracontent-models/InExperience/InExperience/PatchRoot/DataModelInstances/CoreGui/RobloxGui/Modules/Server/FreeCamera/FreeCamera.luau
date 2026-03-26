@@ -753,8 +753,8 @@ v93 = function(v229) --[[ Line: 922 ]] --[[ Name: StepFreecam ]]
         v235 = CFrame.new(v85) * CFrame.fromOrientation(v86.x, v86.y, 0) * CFrame.new(v230 * Vector3.new(64, 64, 64, 0) * v229);
     end;
     if v32 and v59 and v64 then
-        local v237 = v230.Z * Vector3.new(64, 64, 64, 0).Z * v229;
-        local v238 = v230.Y * Vector3.new(64, 64, 64, 0).Y * v229;
+        local v237 = v230.Z * 64 * v229;
+        local v238 = v230.Y * 64 * v229;
         v60 = l_clamp_0(v60 + v237, 5, 50);
         v61 = l_clamp_0(v61 + v238, -10, 10);
         local v239 = CFrame.new(v64.Position + Vector3.new(0, v61, 0));

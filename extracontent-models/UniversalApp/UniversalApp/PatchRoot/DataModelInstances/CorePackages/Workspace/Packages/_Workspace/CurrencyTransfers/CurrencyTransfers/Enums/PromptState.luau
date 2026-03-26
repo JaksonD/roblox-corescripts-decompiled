@@ -5,6 +5,7 @@ return {
     TransferStarted = "TransferStarted", 
     TransferError = "TransferError", 
     TransferInput = "TransferInput", 
+    TransferInsufficientBalance = "TransferInsufficientBalance", 
     TransferConfirm = "TransferConfirm", 
     TransferProcessing = "TransferProcessing", 
     TransferSuccess = "TransferSuccess", 

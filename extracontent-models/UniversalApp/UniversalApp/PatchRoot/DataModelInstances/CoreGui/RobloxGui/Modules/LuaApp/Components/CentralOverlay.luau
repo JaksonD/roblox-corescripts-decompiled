@@ -48,9 +48,10 @@ local l_FFlagEnableUnifiedProductPurchaseFlow_0 = require(l_CorePackages_0.Works
 local l_FFlagEnableSystemTrayModals_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSystemTrayModals;
 local l_FFlagRemoveCentralOverlayScrimForUnifiedPurchaseModal_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagRemoveCentralOverlayScrimForUnifiedPurchaseModal;
 local l_FFlagLuaAppSduiBadgeDetailsComponents_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiBadgeDetailsComponents;
-local v50 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppFixStudioNotchSupport);
-local v51 = game:DefineFastFlag("LuaAppFixCentralOverlayDeviceSafe", false);
-local v52 = {
+local l_FFlagLuaAppPlayButtonUpsellLinking_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppPlayButtonUpsellLinking;
+local v51 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppFixStudioNotchSupport);
+local v52 = game:DefineFastFlag("LuaAppFixCentralOverlayDeviceSafe", false);
+local v53 = {
     [v9.PlacesList] = true, 
     [v9.PeopleList] = true, 
     [v9.ExperienceGuidelinesExplained] = true, 
@@ -102,7 +103,8 @@ local v52 = {
     [v9.AccountSwitchingErrorOverlay] = v33 and true or nil, 
     [v9.CloseOnlyInteractiveAlert] = true, 
     [v9.ConfirmationDialog] = l_FFlagLuaAppSduiBadgeDetailsComponents_0 and true or nil, 
-    [v9.UpsellModal] = true, 
+    [v9.UpsellModal] = not l_FFlagLuaAppPlayButtonUpsellLinking_0 or nil, 
+    [v9.PlayButtonUpsellDialog] = l_FFlagLuaAppPlayButtonUpsellLinking_0 and true or nil, 
     [v9.SquadPrompt] = l_GetFFlagIsSquadEnabled_0() and true or nil, 
     [v9.VngContactInfoFormWebviewPopup] = true, 
     [v9.VngComplianceLoadingPopup] = l_GetFFlagUseUpdatedVNGAgreementsWorkflow_0() and true or nil, 
@@ -129,62 +131,62 @@ local v52 = {
     [v9.UnifiedProductPurchaseModal] = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then not l_FFlagRemoveCentralOverlayScrimForUnifiedPurchaseModal_0 or false else nil
 };
 local l_OverlayComponent_0 = require(l_Modules_0.LuaApp.Components.CentralOverlayUtils).OverlayComponent;
-local v54 = v3.PureComponent:extend("CentralOverlay");
-v54.defaultProps = {
+local v55 = v3.PureComponent:extend("CentralOverlay");
+v55.defaultProps = {
     hideCentralOverlay = false
 };
-v54.init = function(v55) --[[ Line: 158 ]] --[[ Name: init ]]
+v55.init = function(v56) --[[ Line: 161 ]] --[[ Name: init ]]
     -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v6 (copy), v3 (copy)
-    v55.focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.createFocusController();
-    v55.defaultChildRef = v3.createRef();
+    v56.focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v6.createFocusController();
+    v56.defaultChildRef = v3.createRef();
 end;
-v54.render = function(v56) --[[ Line: 163 ]] --[[ Name: render ]]
-    -- upvalues: l_GetFFlagApplyResolutionScale_0 (copy), l_getVirtualResolutionScale_0 (copy), l_withStyle_0 (copy), l_getSafeAreaSize_0 (copy), v10 (copy), v7 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v24 (copy), v11 (copy), v51 (copy), v8 (copy), v3 (copy), l_CoreGui_0 (copy), v23 (copy), v50 (copy)
-    local v57 = if l_GetFFlagApplyResolutionScale_0() then l_getVirtualResolutionScale_0() else 1;
-    local l_displayOrder_0 = v56.props.displayOrder;
-    local l_overlayComponent_0 = v56.props.overlayComponent;
-    local l_arguments_0 = v56.props.arguments;
-    local v61 = if l_GetFFlagApplyResolutionScale_0() then Vector2.new(v56.props.screenSize.X * v57, v56.props.screenSize.Y * v57) else v56.props.screenSize;
-    local l_globalGuiInset_0 = v56.props.globalGuiInset;
-    local l_shouldCreateBackgroundWrapper_0 = v56.props.shouldCreateBackgroundWrapper;
-    if v61.X <= 0 or v61.Y <= 0 then
+v55.render = function(v57) --[[ Line: 166 ]] --[[ Name: render ]]
+    -- upvalues: l_GetFFlagApplyResolutionScale_0 (copy), l_getVirtualResolutionScale_0 (copy), l_withStyle_0 (copy), l_getSafeAreaSize_0 (copy), v10 (copy), v7 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v24 (copy), v11 (copy), v52 (copy), v8 (copy), v3 (copy), l_CoreGui_0 (copy), v23 (copy), v51 (copy)
+    local v58 = if l_GetFFlagApplyResolutionScale_0() then l_getVirtualResolutionScale_0() else 1;
+    local l_displayOrder_0 = v57.props.displayOrder;
+    local l_overlayComponent_0 = v57.props.overlayComponent;
+    local l_arguments_0 = v57.props.arguments;
+    local v62 = if l_GetFFlagApplyResolutionScale_0() then Vector2.new(v57.props.screenSize.X * v58, v57.props.screenSize.Y * v58) else v57.props.screenSize;
+    local l_globalGuiInset_0 = v57.props.globalGuiInset;
+    local l_shouldCreateBackgroundWrapper_0 = v57.props.shouldCreateBackgroundWrapper;
+    if v62.X <= 0 or v62.Y <= 0 then
         return nil;
     else
-        return l_withStyle_0(function(v64) --[[ Line: 178 ]]
-            -- upvalues: l_getSafeAreaSize_0 (ref), v61 (copy), l_globalGuiInset_0 (copy), v10 (ref), v56 (copy), l_arguments_0 (ref), v7 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v24 (ref), l_shouldCreateBackgroundWrapper_0 (copy), v11 (ref), v51 (ref), l_overlayComponent_0 (copy), v8 (ref), v3 (ref), l_CoreGui_0 (ref), v23 (ref), v50 (ref), l_displayOrder_0 (copy)
-            local v65 = l_getSafeAreaSize_0(v61, l_globalGuiInset_0);
+        return l_withStyle_0(function(v65) --[[ Line: 181 ]]
+            -- upvalues: l_getSafeAreaSize_0 (ref), v62 (copy), l_globalGuiInset_0 (copy), v10 (ref), v57 (copy), l_arguments_0 (ref), v7 (ref), l_FFlagAXMigrateAXToGlobalAutofocus_0 (ref), v24 (ref), l_shouldCreateBackgroundWrapper_0 (copy), v11 (ref), v52 (ref), l_overlayComponent_0 (copy), v8 (ref), v3 (ref), l_CoreGui_0 (ref), v23 (ref), v51 (ref), l_displayOrder_0 (copy)
+            local v66 = l_getSafeAreaSize_0(v62, l_globalGuiInset_0);
             local l_Black_0 = v10.Black;
-            local v67 = 0.3;
-            if v64 then
-                if v56.props.includeStatusBar then
-                    v65 = UDim2.new(0, v65.X.Offset, 0, v65.Y.Offset);
+            local v68 = 0.3;
+            if v65 then
+                if v57.props.includeStatusBar then
+                    v66 = UDim2.new(0, v66.X.Offset, 0, v66.Y.Offset);
                 end;
-                l_Black_0 = v64.Theme.Overlay.Color;
-                v67 = v64.Theme.Overlay.Transparency;
+                l_Black_0 = v65.Theme.Overlay.Color;
+                v68 = v65.Theme.Overlay.Transparency;
             end;
             l_arguments_0 = v7.Dictionary.join(l_arguments_0, {
-                defaultChildRef = v56.defaultChildRef, 
-                focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v56.focusController, 
+                defaultChildRef = v57.defaultChildRef, 
+                focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v57.focusController, 
                 closeCentralOverlayThunk = v24
             });
-            local v68 = l_shouldCreateBackgroundWrapper_0 and v11.createElement("Frame", {
-                Position = UDim2.fromOffset(v51 and 0 or -l_globalGuiInset_0.left, -l_globalGuiInset_0.top), 
-                Size = UDim2.fromOffset(v61.X, v61.Y), 
+            local v69 = l_shouldCreateBackgroundWrapper_0 and v11.createElement("Frame", {
+                Position = UDim2.fromOffset(v52 and 0 or -l_globalGuiInset_0.left, -l_globalGuiInset_0.top), 
+                Size = UDim2.fromOffset(v62.X, v62.Y), 
                 BackgroundColor3 = l_Black_0, 
-                BackgroundTransparency = v67, 
+                BackgroundTransparency = v68, 
                 BorderSizePixel = 0, 
                 Selectable = false, 
                 Active = true
             }, {
                 SafeAreaFrame = v11.createElement("Frame", {
-                    Position = UDim2.fromOffset(v51 and 0 or l_globalGuiInset_0.left, l_globalGuiInset_0.top), 
-                    Size = v65, 
+                    Position = UDim2.fromOffset(v52 and 0 or l_globalGuiInset_0.left, l_globalGuiInset_0.top), 
+                    Size = v66, 
                     BackgroundTransparency = 1, 
                     ClipsDescendants = true, 
                     Selectable = false
                 }, {
                     Prompt = if l_overlayComponent_0 then v11.createElement(l_overlayComponent_0, v8.JoinDictionaries(l_arguments_0, {
-                        containerWidth = v65.X.Offset
+                        containerWidth = v66.X.Offset
                     })) else nil
                 })
             }) or if l_overlayComponent_0 then v11.createElement(l_overlayComponent_0, l_arguments_0) else nil;
@@ -193,13 +195,13 @@ v54.render = function(v56) --[[ Line: 163 ]] --[[ Name: render ]]
             }, {
                 PortalUIForOverlay = l_overlayComponent_0 and v11.createElement(v23, {
                     ZIndexBehavior = Enum.ZIndexBehavior.Sibling, 
-                    ScreenInsets = if v50() then Enum.ScreenInsets.None else nil, 
+                    ScreenInsets = if v51() then Enum.ScreenInsets.None else nil, 
                     DisplayOrder = l_displayOrder_0
                 }, {
                     WrappingFrame = v11.createElement("Frame", {
                         Size = UDim2.fromScale(1, 1), 
                         BackgroundTransparency = 1, 
-                        ref = v56.props.forwardRef, 
+                        ref = v57.props.forwardRef, 
                         Selectable = false, 
                         SelectionGroup = true, 
                         SelectionBehaviorDown = Enum.SelectionBehavior.Stop, 
@@ -207,95 +209,95 @@ v54.render = function(v56) --[[ Line: 163 ]] --[[ Name: render ]]
                         SelectionBehaviorLeft = Enum.SelectionBehavior.Stop, 
                         SelectionBehaviorRight = Enum.SelectionBehavior.Stop
                     }, {
-                        OverlayComponent = v68
+                        OverlayComponent = v69
                     })
                 })
             });
         end);
     end;
 end;
-v54 = v5.connect(function(v69, _) --[[ Line: 259 ]]
-    -- upvalues: l_OverlayComponent_0 (copy), v52 (copy)
-    local l_OverlayType_0 = v69.CentralOverlay.OverlayType;
+v55 = v5.connect(function(v70, _) --[[ Line: 262 ]]
+    -- upvalues: l_OverlayComponent_0 (copy), v53 (copy)
+    local l_OverlayType_0 = v70.CentralOverlay.OverlayType;
     return {
         overlayComponent = l_OverlayComponent_0[l_OverlayType_0], 
-        shouldCreateBackgroundWrapper = v52[l_OverlayType_0], 
-        arguments = v69.CentralOverlay.Arguments, 
-        screenSize = v69.ScreenSize, 
-        globalGuiInset = v69.GlobalGuiInset
+        shouldCreateBackgroundWrapper = v53[l_OverlayType_0], 
+        arguments = v70.CentralOverlay.Arguments, 
+        screenSize = v70.ScreenSize, 
+        globalGuiInset = v70.GlobalGuiInset
     };
-end, function(v72) --[[ Line: 269 ]]
+end, function(v73) --[[ Line: 272 ]]
     -- upvalues: v24 (copy)
     return {
-        closePrompt = function() --[[ Line: 271 ]] --[[ Name: closePrompt ]]
-            -- upvalues: v72 (copy), v24 (ref)
-            v72(v24());
+        closePrompt = function() --[[ Line: 274 ]] --[[ Name: closePrompt ]]
+            -- upvalues: v73 (copy), v24 (ref)
+            v73(v24());
         end
     };
-end)(v54);
-local function v74(v73) --[[ Line: 277 ]]
-    -- upvalues: l_useIsSpatial_0 (copy), v11 (copy), v25 (copy), v54 (ref)
+end)(v55);
+local function v75(v74) --[[ Line: 280 ]]
+    -- upvalues: l_useIsSpatial_0 (copy), v11 (copy), v25 (copy), v55 (ref)
     if l_useIsSpatial_0() then
-        return v11.createElement(v25, v73);
+        return v11.createElement(v25, v74);
     else
-        return v11.createElement(v54, v73);
+        return v11.createElement(v55, v74);
     end;
 end;
-local v75 = {
+local v76 = {
     [Enum.KeyCode.ButtonB] = l_FocusNavigationEventNameEnum_0.NavigateBack, 
     [Enum.KeyCode.Escape] = l_FocusNavigationEventNameEnum_0.NavigateBack
 };
-return function(v76) --[[ Line: 291 ]]
-    -- upvalues: l_useSelector_0 (copy), l_OverlayComponent_0 (copy), v11 (copy), l_useRegisterFocusNavigableSurface_0 (copy), l_useDeRegisterFocusNavigableSurface_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useDispatch_0 (copy), v9 (copy), v22 (copy), v24 (copy), v20 (copy), v75 (copy), l_FocusNavigationEventNameEnum_0 (copy), v74 (copy), v7 (copy)
-    local v78 = l_useSelector_0(function(v77) --[[ Line: 294 ]]
+return function(v77) --[[ Line: 294 ]]
+    -- upvalues: l_useSelector_0 (copy), l_OverlayComponent_0 (copy), v11 (copy), l_useRegisterFocusNavigableSurface_0 (copy), l_useDeRegisterFocusNavigableSurface_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useDispatch_0 (copy), v9 (copy), v22 (copy), v24 (copy), v20 (copy), v76 (copy), l_FocusNavigationEventNameEnum_0 (copy), v75 (copy), v7 (copy)
+    local v79 = l_useSelector_0(function(v78) --[[ Line: 297 ]]
         -- upvalues: l_OverlayComponent_0 (ref)
-        return l_OverlayComponent_0[v77.CentralOverlay.OverlayType] ~= nil;
+        return l_OverlayComponent_0[v78.CentralOverlay.OverlayType] ~= nil;
     end);
-    local v79, v80 = v11.useState(nil);
-    local v81 = l_useRegisterFocusNavigableSurface_0();
-    local v82 = l_useDeRegisterFocusNavigableSurface_0();
-    v11.useEffect(function() --[[ Line: 303 ]]
-        -- upvalues: v79 (copy), v78 (copy), v81 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v82 (copy)
-        if v79 and v78 then
-            v81(l_FocusNavigableSurfaceIdentifierEnum_0.CentralOverlay, v79);
+    local v80, v81 = v11.useState(nil);
+    local v82 = l_useRegisterFocusNavigableSurface_0();
+    local v83 = l_useDeRegisterFocusNavigableSurface_0();
+    v11.useEffect(function() --[[ Line: 306 ]]
+        -- upvalues: v80 (copy), v79 (copy), v82 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v83 (copy)
+        if v80 and v79 then
+            v82(l_FocusNavigableSurfaceIdentifierEnum_0.CentralOverlay, v80);
             return;
         else
-            v82(l_FocusNavigableSurfaceIdentifierEnum_0.CentralOverlay, v79);
+            v83(l_FocusNavigableSurfaceIdentifierEnum_0.CentralOverlay, v80);
             return;
         end;
     end, {
+        v80, 
         v79, 
-        v78, 
-        v81, 
-        v82
+        v82, 
+        v83
     });
-    local v83 = l_useDispatch_0();
-    local v85 = l_useSelector_0(function(v84) --[[ Line: 313 ]]
-        return v84.CentralOverlay.OverlayType;
+    local v84 = l_useDispatch_0();
+    local v86 = l_useSelector_0(function(v85) --[[ Line: 316 ]]
+        return v85.CentralOverlay.OverlayType;
     end);
-    local v86 = {
+    local v87 = {
         [v9.NotApprovedPage] = true, 
         [v9.AccountReactivationPrompt] = true, 
         [v9.AccountLockModal] = true
     };
-    local v88 = v11.useMemo(function() --[[ Line: 324 ]]
-        -- upvalues: v86 (copy), v85 (copy), v22 (ref), v83 (copy), v24 (ref)
-        if v86[v85] then
+    local v89 = v11.useMemo(function() --[[ Line: 327 ]]
+        -- upvalues: v87 (copy), v86 (copy), v22 (ref), v84 (copy), v24 (ref)
+        if v87[v86] then
             return nil;
         else
-            return v22.onRelease(function(v87) --[[ Line: 329 ]]
-                -- upvalues: v83 (ref), v24 (ref)
-                v83(v24());
-                v87:cancel();
+            return v22.onRelease(function(v88) --[[ Line: 332 ]]
+                -- upvalues: v84 (ref), v24 (ref)
+                v84(v24());
+                v88:cancel();
             end);
         end;
     end, {
-        v83, 
-        v85
+        v84, 
+        v86
     });
-    local v89 = v20.useEventMap(v75, v80);
-    local v90 = v20.useEventHandler(l_FocusNavigationEventNameEnum_0.NavigateBack, v88, nil, v89);
-    return v11.createElement(v74, v7.Dictionary.join(v76, {
-        forwardRef = v90
+    local v90 = v20.useEventMap(v76, v81);
+    local v91 = v20.useEventHandler(l_FocusNavigationEventNameEnum_0.NavigateBack, v89, nil, v90);
+    return v11.createElement(v75, v7.Dictionary.join(v77, {
+        forwardRef = v91
     }));
 end;

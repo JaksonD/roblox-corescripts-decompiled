@@ -27,213 +27,220 @@ local v25 = require(l_script_FirstAncestor_0.Common.Enums);
 local v26 = require(script.Parent.getFriendStatusFromProfileResponse);
 local v27 = require(script.Parent.getIsTrustedConnectionsStatusFromProfileResponse);
 local v28 = require(l_script_FirstAncestor_0.Networking.refreshProfilePlatformActionInfo);
-local l_isPresenceInGame_0 = require(l_Parent_0.SocialCommon).Utils.isPresenceInGame;
 local l_LoadingStages_0 = v8.Analytics.Enums.LoadingStages;
-local v31 = require(l_script_FirstAncestor_0.Analytics.LoadingStagesExtension);
-local v32 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableVR);
-local v33 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformImproveLoadingPage);
-local v34 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLazyLoadingComponents);
+local v30 = require(l_script_FirstAncestor_0.Analytics.LoadingStagesExtension);
+local v31 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableVR);
+local v32 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableLazyLoadingComponents);
 local l_FFlagProfilePlatformTrustedConnectionsMVP_0 = v7.FFlagProfilePlatformTrustedConnectionsMVP;
-local l_FFlagSocialCarouselRemoveJoinGameCard_0 = v7.FFlagSocialCarouselRemoveJoinGameCard;
-local v37 = game:DefineFastString("SocialProfilePeekViewLayer", "Social.ProfilePeekView");
-local v38 = game:DefineFastString("SocialProfilePeekViewSecondaryLayer", "Social.ProfilePeekView.Secondary");
-local v39 = game:DefineFastString("SocialSelfProfileViewLayer", "Social.SelfProfileView");
+local v34 = game:DefineFastString("SocialProfilePeekViewLayer", "Social.ProfilePeekView");
+local v35 = game:DefineFastString("SocialProfilePeekViewSecondaryLayer", "Social.ProfilePeekView.Secondary");
+local v36 = game:DefineFastString("SocialSelfProfileViewLayer", "Social.SelfProfileView");
 local l_IXPService_0 = game:GetService("IXPService");
-local v41 = game:DefineFastFlag("EnableSocialProfilePeekViewExposureEvents", false);
-local v42 = game:DefineFastFlag("ProfilePlatformEnableRefreshSignal", false);
-local v43 = game:DefineFastFlag("ProfilePlatformEnableSessionization", false);
-local v44 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformFixAnalyticsPrimaryAction);
-local v45 = if v43 then game:GetService("SessionService") else nil;
-local v46 = if v43 then require(l_Parent_0.RobloxAppSessionization).SessionType else nil;
-local v47 = require(script.Parent.ProfilePlatformPage);
-local v48 = require(script.Parent.ProfilePlatformLoadingPage);
-local v49 = require(l_script_FirstAncestor_0.Networking.getProfilePlatform);
+local v38 = game:DefineFastFlag("EnableSocialProfilePeekViewExposureEvents", false);
+local v39 = game:DefineFastFlag("ProfilePlatformEnableRefreshSignal", false);
+local v40 = game:DefineFastFlag("ProfilePlatformEnableSessionization", false);
+local v41 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformFixAnalyticsPrimaryAction);
+local v42 = if v40 then game:GetService("SessionService") else nil;
+local v43 = if v40 then require(l_Parent_0.RobloxAppSessionization).SessionType else nil;
+local l_FFlagPPVBackgroundPrefetchAvatar_0 = v7.FFlagPPVBackgroundPrefetchAvatar;
+local v45 = if l_FFlagPPVBackgroundPrefetchAvatar_0 then require(l_Parent_0.EditProfileBackground).AvatarModelPrefetch else nil;
+local v46 = require(script.Parent.ProfilePlatformPage);
+local v47 = require(l_script_FirstAncestor_0.Networking.getProfilePlatform);
 return function() --[[ Line: 68 ]]
-    -- upvalues: v4 (copy), v21 (copy), v23 (copy), l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (copy), v3 (copy), v20 (copy), v33 (copy), v19 (copy), v9 (copy), v24 (copy), l_LoadingStages_0 (copy), v49 (copy), v34 (copy), l_FFlagSocialCarouselRemoveJoinGameCard_0 (copy), v32 (copy), v44 (copy), v2 (copy), v25 (copy), v26 (copy), v27 (copy), v11 (copy), v6 (copy), v28 (copy), v31 (copy), v42 (copy), l_useSignalState_0 (copy), l_ProfileRefreshSignal_0 (copy), l_dependencyArray_0 (copy), l_useEffectOnMount_0 (copy), v41 (copy), l_IXPService_0 (copy), v37 (copy), v38 (copy), v39 (copy), v43 (copy), v45 (copy), v46 (copy), v10 (copy), v18 (copy), v22 (copy), l_isPresenceInGame_0 (copy), v48 (copy), v47 (copy)
-    local v50, v51 = v4.useState(true);
-    local v52 = v21();
-    local v53 = v23();
-    local l_profileId_0 = v52.profileId;
-    local l_profileType_0 = v52.profileType;
-    local v56 = l_useLocalUserId_0();
-    local v57 = tostring(l_profileId_0) == tostring(v56);
-    local v58 = l_useDispatch_0();
-    local v59 = if l_FFlagProfilePlatformTrustedConnectionsMVP_0 then v3.useNavigation() else nil;
-    local v60 = v20();
-    local v61 = if v33 then next(v60) == nil else nil;
-    local v62 = v19();
-    local v63 = v4.useRef(0);
-    local function v73(v64) --[[ Line: 92 ]]
-        -- upvalues: v9 (ref), v53 (copy), v24 (ref), l_LoadingStages_0 (ref), v58 (copy), v49 (ref), l_profileId_0 (copy), l_profileType_0 (copy), v62 (copy), v34 (ref), l_FFlagSocialCarouselRemoveJoinGameCard_0 (ref), v51 (copy), v32 (ref), v44 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v52 (copy), v11 (ref), v59 (copy), v6 (ref), v28 (ref), v31 (ref)
-        local v65 = v9.Stopwatch.get(v9.Events.ProfileOpened);
-        v53.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-            statValue = if v65 then v65.timeElapsed else nil, 
+    -- upvalues: v4 (copy), v21 (copy), v23 (copy), l_useLocalUserId_0 (copy), l_useDispatch_0 (copy), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (copy), v3 (copy), v20 (copy), v19 (copy), v9 (copy), v24 (copy), l_LoadingStages_0 (copy), v47 (copy), v32 (copy), v31 (copy), v41 (copy), v2 (copy), v25 (copy), v26 (copy), v27 (copy), v11 (copy), v6 (copy), v28 (copy), v30 (copy), l_FFlagPPVBackgroundPrefetchAvatar_0 (copy), l_useEffectOnMount_0 (copy), v45 (copy), v39 (copy), l_useSignalState_0 (copy), l_ProfileRefreshSignal_0 (copy), l_dependencyArray_0 (copy), v38 (copy), l_IXPService_0 (copy), v34 (copy), v35 (copy), v36 (copy), v40 (copy), v42 (copy), v43 (copy), v10 (copy), v18 (copy), v22 (copy), v46 (copy)
+    local v48, v49 = v4.useState(true);
+    local v50 = v21();
+    local v51 = v23();
+    local l_profileId_0 = v50.profileId;
+    local l_profileType_0 = v50.profileType;
+    local v54 = l_useLocalUserId_0();
+    local v55 = tostring(l_profileId_0) == tostring(v54);
+    local v56 = l_useDispatch_0();
+    local v57 = if l_FFlagProfilePlatformTrustedConnectionsMVP_0 then v3.useNavigation() else nil;
+    local v58 = v20();
+    local v59 = v19();
+    local v60 = v4.useRef(0);
+    local function v70(v61) --[[ Line: 89 ]]
+        -- upvalues: v9 (ref), v51 (copy), v24 (ref), l_LoadingStages_0 (ref), v56 (copy), v47 (ref), l_profileId_0 (copy), l_profileType_0 (copy), v59 (copy), v32 (ref), v49 (copy), v31 (ref), v41 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v50 (copy), v11 (ref), v57 (copy), v6 (ref), v28 (ref), v30 (ref)
+        local v62 = v9.Stopwatch.get(v9.Events.ProfileOpened);
+        v51.fireAnalyticsEvent(v24.ProfileLoadingStage, {
+            statValue = if v62 then v62.timeElapsed else nil, 
             status = l_LoadingStages_0.Fetching, 
             isProfilePlatform = true
         });
-        v58(v49.API({
+        v56(v47.API({
             profileId = l_profileId_0, 
             profileType = l_profileType_0, 
-            components = v62, 
+            components = v59, 
             includeComponentOrdering = true, 
-            onlyEssentialComponents = v34 and true or nil
-        })):andThen(function(v66) --[[ Line: 108 ]]
-            -- upvalues: l_FFlagSocialCarouselRemoveJoinGameCard_0 (ref), v34 (ref), v51 (ref), v32 (ref), v64 (copy), v53 (ref), v24 (ref), v44 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v52 (ref), v58 (ref), v11 (ref), l_profileId_0 (ref), v59 (ref), v6 (ref), v28 (ref)
-            if l_FFlagSocialCarouselRemoveJoinGameCard_0 or v34 then
-                v51(false);
+            onlyEssentialComponents = v32 and true or nil
+        })):andThen(function(v63) --[[ Line: 105 ]]
+            -- upvalues: v32 (ref), v49 (ref), v31 (ref), v61 (copy), v51 (ref), v24 (ref), v41 (ref), v2 (ref), v25 (ref), l_FFlagProfilePlatformTrustedConnectionsMVP_0 (ref), v26 (ref), v27 (ref), v50 (ref), v56 (ref), v11 (ref), l_profileId_0 (ref), v57 (ref), v6 (ref), v28 (ref)
+            if v32 then
+                v49(false);
             end;
-            if v32 and v64 > 1 then
-                v53.fireAnalyticsEvent(v24.ProfilePlatformPageReloaded, {
-                    reloadCount = v64
+            if v31 and v61 > 1 then
+                v51.fireAnalyticsEvent(v24.ProfilePlatformPageReloaded, {
+                    reloadCount = v61
                 });
                 return;
             else
-                local v67 = nil;
-                if v44 then
-                    local v68 = v2(v66, (("responseBody.components.%*.buttons"):format(v25.Components.Actions)));
-                    v67 = if v68 and v68[1] then v68[1].type else nil;
+                local v64 = nil;
+                if v41 then
+                    local v65 = v2(v63, (("responseBody.components.%*.buttons"):format(v25.Components.Actions)));
+                    v64 = if v65 and v65[1] then v65[1].type else nil;
                 else
-                    v67 = v2(v66, (("responseBody.components.%*.primary"):format(v25.Components.Actions)));
+                    v64 = v2(v63, (("responseBody.components.%*.primary"):format(v25.Components.Actions)));
                 end;
-                if l_FFlagProfilePlatformTrustedConnectionsMVP_0 and v26(v66) == v25.FriendStatus.Friends and not v27(v66) and v52.sourceInfo.source == v25.Sources.QrCode then
-                    v58(v11.API(l_profileId_0)):andThen(function(v69) --[[ Line: 135 ]]
-                        -- upvalues: v59 (ref), v6 (ref), l_profileId_0 (ref), v58 (ref), v28 (ref)
-                        if v69.responseBody == true then
-                            v59.push(v6.AppPage.TrustedContactsModal, {
+                if l_FFlagProfilePlatformTrustedConnectionsMVP_0 and v26(v63) == v25.FriendStatus.Friends and not v27(v63) and v50.sourceInfo.source == v25.Sources.QrCode then
+                    v56(v11.API(l_profileId_0)):andThen(function(v66) --[[ Line: 132 ]]
+                        -- upvalues: v57 (ref), v6 (ref), l_profileId_0 (ref), v56 (ref), v28 (ref)
+                        if v66.responseBody == true then
+                            v57.push(v6.AppPage.TrustedContactsModal, {
                                 userId = l_profileId_0, 
                                 sentFromQrCode = true, 
-                                onRequestSent = function() --[[ Line: 140 ]] --[[ Name: onRequestSent ]]
-                                    -- upvalues: v58 (ref), v28 (ref), l_profileId_0 (ref)
-                                    return v58(v28(l_profileId_0));
+                                onRequestSent = function() --[[ Line: 137 ]] --[[ Name: onRequestSent ]]
+                                    -- upvalues: v56 (ref), v28 (ref), l_profileId_0 (ref)
+                                    return v56(v28(l_profileId_0));
                                 end
                             });
                         end;
                     end);
                 end;
-                v53.fireAnalyticsEvent(v24.ProfilePageLoadedWithData, {
-                    friendStatus = v26(v66), 
-                    absolutePosition = v52.sourceInfo.homepageCarouselAbsolutePosition, 
-                    isHomePageCarousel = v52.sourceInfo.source == v25.Sources.HomepageFriendsCarousel, 
-                    source = v52.sourceInfo.source, 
-                    isRecommendation = v52.sourceInfo.isRecommendation, 
-                    v52.sourceInfo.recommendationContextType, 
-                    recommendationRank = v52.sourceInfo.recommendationRank, 
-                    recommendationSessionId = v52.sourceInfo.recommendationSessionId, 
-                    shareLinkId = v52.sourceInfo.shareLinkId, 
-                    primaryAction = v67
+                v51.fireAnalyticsEvent(v24.ProfilePageLoadedWithData, {
+                    friendStatus = v26(v63), 
+                    absolutePosition = v50.sourceInfo.homepageCarouselAbsolutePosition, 
+                    isHomePageCarousel = v50.sourceInfo.source == v25.Sources.HomepageFriendsCarousel, 
+                    source = v50.sourceInfo.source, 
+                    isRecommendation = v50.sourceInfo.isRecommendation, 
+                    v50.sourceInfo.recommendationContextType, 
+                    recommendationRank = v50.sourceInfo.recommendationRank, 
+                    recommendationSessionId = v50.sourceInfo.recommendationSessionId, 
+                    shareLinkId = v50.sourceInfo.shareLinkId, 
+                    primaryAction = v64
                 });
                 return;
             end;
-        end):catch(function(_) --[[ Line: 163 ]]
-            -- upvalues: v53 (ref), v24 (ref), v65 (copy), l_LoadingStages_0 (ref)
-            v53.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                statValue = if v65 then v65.timeElapsed else nil, 
+        end):catch(function(_) --[[ Line: 160 ]]
+            -- upvalues: v51 (ref), v24 (ref), v62 (copy), l_LoadingStages_0 (ref)
+            v51.fireAnalyticsEvent(v24.ProfileLoadingStage, {
+                statValue = if v62 then v62.timeElapsed else nil, 
                 status = l_LoadingStages_0.Failed, 
                 isProfilePlatform = true
             });
         end);
-        if v34 then
-            v58(v49.API({
+        if v32 then
+            v56(v47.API({
                 profileId = l_profileId_0, 
                 profileType = l_profileType_0, 
-                components = v62, 
+                components = v59, 
                 includeComponentOrdering = true, 
                 onlyEssentialComponents = false
-            })):andThen(function(_) --[[ Line: 179 ]]
-                -- upvalues: v53 (ref), v24 (ref), v65 (copy), v31 (ref)
-                v53.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                    statValue = if v65 then v65.timeElapsed else nil, 
-                    status = v31.LazyLoaded, 
+            })):andThen(function(_) --[[ Line: 176 ]]
+                -- upvalues: v51 (ref), v24 (ref), v62 (copy), v30 (ref)
+                v51.fireAnalyticsEvent(v24.ProfileLoadingStage, {
+                    statValue = if v62 then v62.timeElapsed else nil, 
+                    status = v30.LazyLoaded, 
                     isProfilePlatform = true
                 });
-            end):catch(function(_) --[[ Line: 186 ]]
-                -- upvalues: v53 (ref), v24 (ref), v65 (copy), l_LoadingStages_0 (ref)
-                v53.fireAnalyticsEvent(v24.ProfileLoadingStage, {
-                    statValue = if v65 then v65.timeElapsed else nil, 
+            end):catch(function(_) --[[ Line: 183 ]]
+                -- upvalues: v51 (ref), v24 (ref), v62 (copy), l_LoadingStages_0 (ref)
+                v51.fireAnalyticsEvent(v24.ProfileLoadingStage, {
+                    statValue = if v62 then v62.timeElapsed else nil, 
                     status = l_LoadingStages_0.Failed, 
                     isProfilePlatform = true
                 });
             end);
         end;
     end;
-    if v42 then
-        local v74 = l_useSignalState_0(l_ProfileRefreshSignal_0.getProfileRefreshSignal);
-        local v75 = v4.useRef(0);
-        local l_v74_0 = v74 --[[ copy: 15 -> 17 ]];
-        v4.useEffect(function() --[[ Line: 200 ]]
-            -- upvalues: v57 (copy), l_v74_0 (copy), v75 (copy), v73 (copy)
-            if v57 and l_v74_0 > v75.current then
-                v75.current = l_v74_0;
-                v73();
+    if l_FFlagPPVBackgroundPrefetchAvatar_0 then
+        l_useEffectOnMount_0(function() --[[ Line: 194 ]]
+            -- upvalues: l_profileType_0 (copy), v25 (ref), l_profileId_0 (copy), v45 (ref)
+            if l_profileType_0 ~= v25.ProfileTypes.User then
+                return;
+            else
+                local v71 = tonumber(l_profileId_0);
+                if v71 then
+                    v45.prefetch(v71);
+                end;
+                return;
             end;
-        end, l_dependencyArray_0(v74, v57, l_profileId_0, v73));
+        end);
     end;
-    if v32 then
+    if v39 then
+        local v72 = l_useSignalState_0(l_ProfileRefreshSignal_0.getProfileRefreshSignal);
+        local v73 = v4.useRef(0);
+        local l_v72_0 = v72 --[[ copy: 14 -> 16 ]];
         v4.useEffect(function() --[[ Line: 209 ]]
-            -- upvalues: v63 (copy), v73 (copy)
-            local v77 = v63.current + 1;
-            v63.current = v77;
-            v73(v77);
+            -- upvalues: v55 (copy), l_v72_0 (copy), v73 (copy), v70 (copy)
+            if v55 and l_v72_0 > v73.current then
+                v73.current = l_v72_0;
+                v70();
+            end;
+        end, l_dependencyArray_0(v72, v55, l_profileId_0, v70));
+    end;
+    if v31 then
+        v4.useEffect(function() --[[ Line: 218 ]]
+            -- upvalues: v60 (copy), v70 (copy)
+            local v75 = v60.current + 1;
+            v60.current = v75;
+            v70(v75);
         end, {
-            v62
+            v59
         });
     else
-        l_useEffectOnMount_0(function() --[[ Line: 215 ]]
-            -- upvalues: v73 (copy)
-            v73();
+        l_useEffectOnMount_0(function() --[[ Line: 224 ]]
+            -- upvalues: v70 (copy)
+            v70();
         end);
     end;
-    v4.useEffect(function() --[[ Line: 220 ]]
-        -- upvalues: v9 (ref), v53 (copy), v24 (ref)
-        return function() --[[ Line: 221 ]]
-            -- upvalues: v9 (ref), v53 (ref), v24 (ref)
+    v4.useEffect(function() --[[ Line: 229 ]]
+        -- upvalues: v9 (ref), v51 (copy), v24 (ref)
+        return function() --[[ Line: 230 ]]
+            -- upvalues: v9 (ref), v51 (ref), v24 (ref)
             v9.Stopwatch.stop(v9.Events.ProfileOpened);
-            v53.fireAnalyticsEvent(v24.ProfileClosed);
+            v51.fireAnalyticsEvent(v24.ProfileClosed);
         end;
     end, {});
-    if v41 then
-        l_useEffectOnMount_0(function() --[[ Line: 229 ]]
-            -- upvalues: l_IXPService_0 (ref), v37 (ref), v38 (ref), v57 (copy), v39 (ref)
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v37);
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v38);
-            if v57 then
-                l_IXPService_0:LogFlagLinkedUserLayerExposure(v39);
+    if v38 then
+        l_useEffectOnMount_0(function() --[[ Line: 238 ]]
+            -- upvalues: l_IXPService_0 (ref), v34 (ref), v35 (ref), v55 (copy), v36 (ref)
+            l_IXPService_0:LogFlagLinkedUserLayerExposure(v34);
+            l_IXPService_0:LogFlagLinkedUserLayerExposure(v35);
+            if v55 then
+                l_IXPService_0:LogFlagLinkedUserLayerExposure(v36);
             end;
         end);
     end;
-    if v43 then
-        v4.useEffect(function() --[[ Line: 239 ]]
-            -- upvalues: v45 (ref), v46 (ref), v52 (copy)
-            local v78 = nil;
-            if v45:SessionExists(v46.StructuralIdentifier.ProfilePlatformPage) then
-                v78 = v45:GetMetadata(v46.StructuralIdentifier.ProfilePlatformPage, v46.Metadata.ProfilePlatformPage.ProfileSessionId);
+    if v40 then
+        v4.useEffect(function() --[[ Line: 248 ]]
+            -- upvalues: v42 (ref), v43 (ref), v50 (copy)
+            local v76 = nil;
+            if v42:SessionExists(v43.StructuralIdentifier.ProfilePlatformPage) then
+                v76 = v42:GetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId);
             else
-                v45:SetSession(v46.StructuralIdentifier.Level2a, v46.StructuralIdentifier.ProfilePlatformPage, v46.StructuralIdentifier.ProfilePlatformPage);
+                v42:SetSession(v43.StructuralIdentifier.Level2a, v43.StructuralIdentifier.ProfilePlatformPage, v43.StructuralIdentifier.ProfilePlatformPage);
             end;
-            v45:SetMetadata(v46.StructuralIdentifier.ProfilePlatformPage, v46.Metadata.ProfilePlatformPage.ProfileSessionId, v52.profileSessionId);
-            return function() --[[ Line: 259 ]]
-                -- upvalues: v78 (ref), v45 (ref), v46 (ref)
-                if v78 ~= nil then
-                    v45:SetMetadata(v46.StructuralIdentifier.ProfilePlatformPage, v46.Metadata.ProfilePlatformPage.ProfileSessionId, v78);
+            v42:SetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId, v50.profileSessionId);
+            return function() --[[ Line: 268 ]]
+                -- upvalues: v76 (ref), v42 (ref), v43 (ref)
+                if v76 ~= nil then
+                    v42:SetMetadata(v43.StructuralIdentifier.ProfilePlatformPage, v43.Metadata.ProfilePlatformPage.ProfileSessionId, v76);
                     return;
                 else
-                    v45:RemoveSession(v46.StructuralIdentifier.ProfilePlatformPage);
+                    v42:RemoveSession(v43.StructuralIdentifier.ProfilePlatformPage);
                     return;
                 end;
             end;
         end, {});
     end;
-    local v79 = v4.useMemo(function() --[[ Line: 274 ]]
-        -- upvalues: v10 (ref), v18 (ref), v60 (copy), l_profileType_0 (copy), v4 (ref), v22 (ref)
-        return v10.Dictionary.union(v18(v60.components, v60.componentOrdering, l_profileType_0), {
+    local v77 = v4.useMemo(function() --[[ Line: 283 ]]
+        -- upvalues: v10 (ref), v18 (ref), v58 (copy), l_profileType_0 (copy), v4 (ref), v22 (ref)
+        return v10.Dictionary.union(v18(v58.components, v58.componentOrdering, l_profileType_0), {
             ProfilePlatformEventReceiver = v4.createElement(v22)
         });
-    end, l_dependencyArray_0(v60.components, v60.componentOrdering));
-    if l_FFlagSocialCarouselRemoveJoinGameCard_0 and l_profileType_0 == v25.ProfileTypes.User and v50 and l_isPresenceInGame_0(v52.initialPresence) and (not v33 or v61) then
-        return v4.createElement(v48);
-    else
-        return v4.createElement(v47, {
-            children = if v34 and v50 then {} else v79
-        });
-    end;
+    end, l_dependencyArray_0(v58.components, v58.componentOrdering));
+    return v4.createElement(v46, {
+        children = if v32 and v48 then {} else v77
+    });
 end;

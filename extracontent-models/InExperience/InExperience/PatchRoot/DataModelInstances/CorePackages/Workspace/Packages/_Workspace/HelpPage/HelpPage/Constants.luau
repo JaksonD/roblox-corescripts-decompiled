@@ -5,13 +5,12 @@ local v3 = require(l_Parent_0.Enums.ExtraKeysEnum);
 local v4 = require(l_Parent_0.Enums.TouchControlsEnum);
 local l_Enums_0 = v2.Enums;
 local l_IconName_0 = v2.Enums.IconName;
-local v7 = game:DefineFastFlag("AddPSDpadIconToHelpPage", false);
-local v8 = {
+local v7 = {
     ZOOM = l_Enums_0.IconName.HandDualArrows, 
     TAP = l_Enums_0.IconName.HandHalfEllipse, 
     ROTATE = l_Enums_0.IconName.HandCurvedArrowLeft
 };
-local v9 = {
+local v8 = {
     [v3.Fn] = 1, 
     [Enum.KeyCode.LeftControl] = 2, 
     [Enum.KeyCode.LeftAlt] = 3, 
@@ -40,7 +39,7 @@ local v9 = {
     [v3.MouseWheel] = 167, 
     [Enum.KeyCode.MouseRightButton] = 168
 };
-local v10 = {
+local v9 = {
     [v3.MouseWheel] = "CoreScripts.InGameMenu.Controls.MouseWheel", 
     [Enum.KeyCode.Up] = "CoreScripts.InGameMenu.Controls.UpArrow", 
     [Enum.KeyCode.Down] = "CoreScripts.InGameMenu.Controls.DownArrow", 
@@ -52,7 +51,7 @@ local v10 = {
     [Enum.KeyCode.MouseRightButton] = "CoreScripts.InGameMenu.Controls.RightMouseButton", 
     [Enum.KeyCode.LeftShift] = "CoreScripts.InGameMenu.Controls.Shift"
 };
-local v11 = {
+local v10 = {
     [v3.Fn] = "Fn", 
     [v3.NumSequence] = "1,2,3...", 
     [Enum.KeyCode.LeftControl] = "Ctrl", 
@@ -74,12 +73,12 @@ local v11 = {
     [Enum.KeyCode.F11] = "F11", 
     [Enum.KeyCode.F12] = "F12"
 };
-local v12 = {
+local v11 = {
     [Enum.Platform.PS5] = true, 
     [Enum.Platform.PS4] = true, 
     [Enum.Platform.PS3] = true
 };
-local v13 = {
+local v12 = {
     [Enum.KeyCode.ButtonL2] = 1, 
     [Enum.KeyCode.ButtonL1] = 2, 
     [Enum.KeyCode.ButtonSelect] = 3, 
@@ -101,7 +100,7 @@ local v13 = {
     [Enum.KeyCode.ButtonR1] = 19, 
     [Enum.KeyCode.ButtonR2] = 20
 };
-local v14 = {
+local v13 = {
     [Enum.KeyCode.ButtonL2] = l_IconName_0.XboxLt, 
     [Enum.KeyCode.ButtonL1] = l_IconName_0.XboxLb, 
     [Enum.KeyCode.ButtonSelect] = l_IconName_0.XboxView, 
@@ -122,7 +121,7 @@ local v14 = {
     [Enum.KeyCode.ButtonR1] = l_IconName_0.XboxRb, 
     [Enum.KeyCode.ButtonR2] = l_IconName_0.XboxRt
 };
-local v15 = {
+local v14 = {
     [Enum.KeyCode.ButtonL2] = l_IconName_0.PsL2, 
     [Enum.KeyCode.ButtonL1] = l_IconName_0.PsL1, 
     [Enum.KeyCode.ButtonSelect] = l_IconName_0.Ps4Share, 
@@ -131,7 +130,7 @@ local v15 = {
     [Enum.KeyCode.DPadLeft] = l_IconName_0.PsDpadLeft, 
     [Enum.KeyCode.DPadRight] = l_IconName_0.PsDpadRight, 
     [Enum.KeyCode.DPadDown] = l_IconName_0.PsDpadDown, 
-    [v3.DPad] = if v7 then l_IconName_0.PsDpad else l_IconName_0.GenericDpad, 
+    [v3.DPad] = l_IconName_0.PsDpad, 
     [Enum.KeyCode.Thumbstick1] = l_IconName_0.PsStickLeft, 
     [Enum.KeyCode.ButtonL3] = l_IconName_0.PsL3, 
     [Enum.KeyCode.ButtonR3] = l_IconName_0.PsR3, 
@@ -144,12 +143,12 @@ local v15 = {
     [Enum.KeyCode.ButtonR1] = l_IconName_0.PsR1, 
     [Enum.KeyCode.ButtonR2] = l_IconName_0.PsR2
 };
-local v16 = {
+local v15 = {
     [v3.TouchPad] = l_IconName_0.Ps5Touchpad, 
     [Enum.KeyCode.ButtonSelect] = l_IconName_0.Ps5Share, 
     [Enum.KeyCode.ButtonStart] = l_IconName_0.Ps5Options
 };
-local v17 = {
+local v16 = {
     [Enum.KeyCode.ButtonSelect] = l_IconName_0.XboxMenu, 
     [Enum.KeyCode.Thumbstick1] = l_IconName_0.XboxStickLeftDirectional, 
     [Enum.KeyCode.ButtonL3] = l_IconName_0.XboxStickLeft, 
@@ -160,11 +159,11 @@ local v17 = {
     [Enum.KeyCode.ButtonR3] = l_IconName_0.XboxStickRight, 
     [Enum.KeyCode.Thumbstick2] = l_IconName_0.XboxStickRightDirectional
 };
-local v18 = {
+local v17 = {
     LEFT_COL = 11, 
     BOTTOM_RIGHT_COL = 13
 };
-local v19 = {
+local v18 = {
     IMAGE_ASPECT_RATIO = 1.289, 
     IMAGE_MULTIPLIER_DEFAULT = 0.5, 
     COL_SCALE_PORTRAIT = 0.75, 
@@ -176,18 +175,18 @@ local v19 = {
     RIGHT_COL_SCALE_VR = 0.715, 
     NO_PADDING_CUTOFF_Y = 650
 };
-local v20 = {
-    [v4.TopLeft] = v8.ZOOM, 
-    [v4.TopMidTap] = v8.TAP, 
-    [v4.TopMidRotate] = v8.ROTATE, 
-    [v4.TopRightTap] = v8.TAP, 
-    [v4.TopRightRotate] = v8.ROTATE, 
-    [v4.BottomLeftTap] = v8.TAP, 
-    [v4.BottomLeftRotate] = v8.ROTATE, 
+local v19 = {
+    [v4.TopLeft] = v7.ZOOM, 
+    [v4.TopMidTap] = v7.TAP, 
+    [v4.TopMidRotate] = v7.ROTATE, 
+    [v4.TopRightTap] = v7.TAP, 
+    [v4.TopRightRotate] = v7.ROTATE, 
+    [v4.BottomLeftTap] = v7.TAP, 
+    [v4.BottomLeftRotate] = v7.ROTATE, 
     [v4.BottomMid] = nil, 
-    [v4.BottomRight] = v8.TAP
+    [v4.BottomRight] = v7.TAP
 };
-local v21 = {
+local v20 = {
     SMALL_SCREEN_CUTOFF_X = 700, 
     SMALL_SCREEN_CUTOFF_Y = 500, 
     SMALL_SCREEN_OFFSET = 150, 
@@ -201,22 +200,22 @@ return {
             ICON = "icons/menu/help", 
             TEXT = "CoreScripts.Feedback.Help.MainHeader"
         }, 
-        KEYCODES_LOCALIZED = v10, 
-        KEYCODES_UNLOCALIZED = v11, 
-        KEYCODE_ORDER = v9, 
+        KEYCODES_LOCALIZED = v9, 
+        KEYCODES_UNLOCALIZED = v10, 
+        KEYCODE_ORDER = v8, 
         SEPARATORS = {
             COMBO = " + ", 
             ALTERNATIVE = "/"
         }, 
-        GAMEPAD_PLAYSTATION_PLATFORMS = v12, 
-        GAMEPAD_LAYOUT_ORDER = v13, 
-        GAMEPAD_ICON_MAP_XBOX = v14, 
-        GAMEPAD_ICON_MAP_PLAYSTATION = v15, 
-        GAMEPAD_ICON_MAP_PLAYSTATION_5 = v16, 
-        GAMEPAD_ICON_MAP_SPATIAL = v17, 
-        GAMEPAD_CUTOFFS = v18, 
-        GAMEPAD_SIZES = v19, 
-        TOUCH_ENUM_TO_ICON = v20, 
-        TOUCH_OFFSETS = v21
+        GAMEPAD_PLAYSTATION_PLATFORMS = v11, 
+        GAMEPAD_LAYOUT_ORDER = v12, 
+        GAMEPAD_ICON_MAP_XBOX = v13, 
+        GAMEPAD_ICON_MAP_PLAYSTATION = v14, 
+        GAMEPAD_ICON_MAP_PLAYSTATION_5 = v15, 
+        GAMEPAD_ICON_MAP_SPATIAL = v16, 
+        GAMEPAD_CUTOFFS = v17, 
+        GAMEPAD_SIZES = v18, 
+        TOUCH_ENUM_TO_ICON = v19, 
+        TOUCH_OFFSETS = v20
     }
 };

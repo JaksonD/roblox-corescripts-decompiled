@@ -6,6 +6,7 @@ return {
     PlayButton = require(script.PlayButton), 
     PlayButtonReferralSource = require(script.PlayButtonReferralSource), 
     PlayButtonStates = require(script.PlayButtonStates), 
+    PlayButtonUpsellDialog = require(script.PlayButtonUpsellDialog), 
     useOnPlayButtonCallback = require(script.useOnPlayButtonCallback), 
     useOnPlaySquadButtonCallback = require(script.useOnPlaySquadButtonCallback), 
     usePlayButtonState = require(script.usePlayButtonState), 

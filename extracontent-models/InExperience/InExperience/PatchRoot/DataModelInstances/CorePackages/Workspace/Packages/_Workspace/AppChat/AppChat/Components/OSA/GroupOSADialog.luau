@@ -43,16 +43,24 @@ local v41 = require(l_script_FirstAncestor_0.Utils.shouldShowU13ChatOptInForConv
 local l_FFlagAppChatEnableU13ChatOptIn_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableU13ChatOptIn;
 local l_FFlagGroupOSAGetConversationParticipants_0 = require(l_script_FirstAncestor_0.Flags).FFlagGroupOSAGetConversationParticipants;
 local v44 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatGroupOsaAnalytics);
-local v45 = game:DefineFastFlag("AppChatGroupOsaNavigateBeforeRecordDecline", false);
-local v46 = game:DefineFastFlag("AppChatGroupOsaPreventBlankDialog", false);
-local v47 = game:DefineFastFlag("AppChatGroupOsaPreventDuplicateSubmit", false);
+local v45 = game:DefineFastFlag("AppChatGroupOsaNavigateBeforeRecordDecline1", false);
+local v46 = game:DefineFastFlag("AppChatGroupOsaPreventBlankDialog1", false);
+local v47 = game:DefineFastFlag("AppChatGroupOsaPreventDuplicateSubmit1", false);
 local v48 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAdjustDeclineToUseRemovedConversation);
 local v49 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatLoadInNewOSAInfo);
 local l_FFlagAppChatLiftPostAPICallActionsUp_0 = require(l_Parent_0.SharedFlags).FFlagAppChatLiftPostAPICallActionsUp;
 local v51 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUpdateConvAfterRecordModalSequence);
 local v52 = require(l_script_FirstAncestor_0.Flags.FFlagSupportViewingUserProfileOnOSA);
 local v53 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatUpdateOSAStrings);
-local v54 = {
+local v54 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatGroupOsaViewDetailsLink);
+local v55 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatHideViewDetailsNoWebview);
+local v56 = game:DefineFastString("AppChatGroupOsaViewDetailsUrl", "https://en.help.roblox.com/hc/en-us/articles/360000432483-Party-chat-In-App");
+local v57 = require(l_Parent_0.InlineRichText);
+local l_Renderer_0 = v57.Renderer;
+local l_LinkBehavior_0 = v57.Enums.LinkBehavior;
+local v60 = require(l_script_FirstAncestor_0.Hooks.useAppPolicy);
+local v61 = game.PlaceId > 0;
+local v62 = {
     source = nil, 
     createdAt = nil, 
     title = ""
@@ -61,517 +69,549 @@ local l_ConversationListOverlay_0 = v5.ModalSequence.ConversationListOverlay;
 local l_OsaContextCard_0 = v5.OptInVariant.OsaContextCard;
 local l_Accept_0 = v5.ModalAction.Accept;
 local l_Decline_0 = v5.ModalAction.Decline;
-local v59 = {
+local v67 = {
     dialogSize = l_DialogSize_0.Medium, 
     disablePortal = false, 
     hasBackdrop = true, 
-    onClose = function() --[[ Line: 104 ]] --[[ Name: onClose ]]
+    onClose = function() --[[ Line: 117 ]] --[[ Name: onClose ]]
 
     end, 
-    onJoin = function() --[[ Line: 105 ]] --[[ Name: onJoin ]]
+    onJoin = function() --[[ Line: 118 ]] --[[ Name: onJoin ]]
 
     end, 
-    onDecline = function() --[[ Line: 106 ]] --[[ Name: onDecline ]]
+    onDecline = function() --[[ Line: 119 ]] --[[ Name: onDecline ]]
 
     end
 };
-local function _(v60, v61) --[[ Line: 109 ]] --[[ Name: resolveModalVariant ]]
+local function _(v68, v69) --[[ Line: 122 ]] --[[ Name: resolveModalVariant ]]
     -- upvalues: v41 (copy), v5 (copy), l_OsaContextCard_0 (copy)
-    if v60 then
-        return v60;
-    elseif v41(v61) then
+    if v68 then
+        return v68;
+    elseif v41(v69) then
         return v5.OptInVariant.ChatOptInInfoCard;
     else
         return l_OsaContextCard_0;
     end;
 end;
-return function(v63) --[[ Line: 122 ]] --[[ Name: GroupOSADialog ]]
-    -- upvalues: v3 (copy), v59 (copy), l_FFlagAppChatEnableU13ChatOptIn_0 (copy), l_OsaContextCard_0 (copy), l_useDispatch_0 (copy), l_useStore_0 (copy), l_useLocalUserId_0 (copy), v49 (copy), l_useTokens_0 (copy), v2 (copy), v47 (copy), l_useEffect_0 (copy), v44 (copy), v34 (copy), v35 (copy), v36 (copy), l_SquadExternalContractContext_0 (copy), v8 (copy), v54 (copy), v41 (copy), v5 (copy), l_API_0 (copy), v7 (copy), l_FFlagGroupOSAGetConversationParticipants_0 (copy), l_useSelector_0 (copy), v9 (copy), v29 (copy), l_useUserProfilesFetch_0 (copy), v21 (copy), l_DateTime_0 (copy), l_getCombinedNameFromId_0 (copy), v6 (copy), l_useLocalization_0 (copy), v53 (copy), l_UserRow_0 (copy), v11 (copy), l_BadgeVariant_0 (copy), v52 (copy), v37 (copy), l_SquadPromptType_0 (copy), v10 (copy), l_Accept_0 (copy), l_ConversationListOverlay_0 (copy), l_FFlagAppChatLiftPostAPICallActionsUp_0 (copy), v51 (copy), v48 (copy), l_API_1 (copy), v45 (copy), l_Decline_0 (copy), v32 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), l_Dialog_0 (copy), v46 (copy), l_Orientation_0 (copy), l_ButtonVariant_0 (copy)
-    local v64 = v3.Dictionary.union(v59, v63);
-    local v65 = if l_FFlagAppChatEnableU13ChatOptIn_0 then v64.modalVariant else l_OsaContextCard_0;
-    local v66 = l_useDispatch_0();
-    local v67 = l_useStore_0();
-    local v68 = l_useLocalUserId_0();
-    local v69 = if v49 then l_useTokens_0() else nil;
-    local v70, v71 = v2.useState(false);
+return function(v71) --[[ Line: 136 ]] --[[ Name: GroupOSADialog ]]
+    -- upvalues: v3 (copy), v67 (copy), l_FFlagAppChatEnableU13ChatOptIn_0 (copy), l_OsaContextCard_0 (copy), l_useDispatch_0 (copy), l_useStore_0 (copy), l_useLocalUserId_0 (copy), v49 (copy), l_useTokens_0 (copy), v54 (copy), v60 (copy), v2 (copy), v61 (copy), l_LinkBehavior_0 (copy), v55 (copy), v47 (copy), l_useEffect_0 (copy), v44 (copy), v34 (copy), v35 (copy), v36 (copy), l_SquadExternalContractContext_0 (copy), v8 (copy), v62 (copy), v41 (copy), v5 (copy), l_API_0 (copy), v7 (copy), l_FFlagGroupOSAGetConversationParticipants_0 (copy), l_useSelector_0 (copy), v9 (copy), v29 (copy), l_useUserProfilesFetch_0 (copy), v21 (copy), l_DateTime_0 (copy), l_getCombinedNameFromId_0 (copy), v6 (copy), l_useLocalization_0 (copy), v53 (copy), v56 (copy), l_UserRow_0 (copy), v11 (copy), l_BadgeVariant_0 (copy), v52 (copy), v37 (copy), l_SquadPromptType_0 (copy), v10 (copy), l_Accept_0 (copy), l_ConversationListOverlay_0 (copy), l_FFlagAppChatLiftPostAPICallActionsUp_0 (copy), v51 (copy), v48 (copy), l_API_1 (copy), v45 (copy), l_Decline_0 (copy), v32 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), l_Dialog_0 (copy), l_Renderer_0 (copy), v46 (copy), l_Orientation_0 (copy), l_ButtonVariant_0 (copy)
+    local v72 = v3.Dictionary.union(v67, v71);
+    local v73 = if l_FFlagAppChatEnableU13ChatOptIn_0 then v72.modalVariant else l_OsaContextCard_0;
+    local v74 = l_useDispatch_0();
+    local v75 = l_useStore_0();
+    local v76 = l_useLocalUserId_0();
+    local v77 = if v49 then l_useTokens_0() else nil;
+    local v79 = if v54 then v60(function(v78) --[[ Line: 148 ]]
+        return v78.getWebViewSupport();
+    end) else nil;
+    local v82 = if v54 then v2.useMemo(function() --[[ Line: 153 ]]
+        -- upvalues: v79 (copy), v61 (ref), l_LinkBehavior_0 (ref), v55 (ref)
+        return {
+            evaluateLinkBehavior = function(_, _) --[[ Line: 155 ]] --[[ Name: evaluateLinkBehavior ]]
+                -- upvalues: v79 (ref), v61 (ref), l_LinkBehavior_0 (ref), v55 (ref)
+                if v79 and not v61 then
+                    return l_LinkBehavior_0.Webview;
+                elseif v55 then
+                    return l_LinkBehavior_0.Hide;
+                else
+                    return l_LinkBehavior_0.LinkingProtocol;
+                end;
+            end
+        };
+    end, {
+        v79
+    }) else nil;
+    local v83, v84 = v2.useState(false);
     if v47 then
-        l_useEffect_0(function() --[[ Line: 138 ]]
-            -- upvalues: v71 (copy)
-            return function() --[[ Line: 139 ]]
-                -- upvalues: v71 (ref)
-                v71(false);
+        l_useEffect_0(function() --[[ Line: 173 ]]
+            -- upvalues: v84 (copy)
+            return function() --[[ Line: 174 ]]
+                -- upvalues: v84 (ref)
+                v84(false);
             end;
         end, {});
     end;
-    local v72 = nil;
+    local v85 = nil;
     if v44 then
-        v72 = v34(v35.Context);
-        l_useEffect_0(function() --[[ Line: 148 ]]
-            -- upvalues: v72 (ref), v36 (ref), v65 (ref), v64 (copy)
-            v72.emit(v36.Events.ModalRendered, {
-                modalVariant = v65, 
-                conversationId = v64.conversationId, 
-                impressionId = v64.impressionId
+        v85 = v34(v35.Context);
+        l_useEffect_0(function() --[[ Line: 183 ]]
+            -- upvalues: v85 (ref), v36 (ref), v73 (ref), v72 (copy)
+            v85.emit(v36.Events.ModalRendered, {
+                modalVariant = v73, 
+                conversationId = v72.conversationId, 
+                impressionId = v72.impressionId
             });
         end, {
-            v64.impressionId, 
-            v64.conversationId, 
-            v65
+            v72.impressionId, 
+            v72.conversationId, 
+            v73
         });
     end;
-    local v73 = v2.useContext(l_SquadExternalContractContext_0);
-    local v74 = v8(v64.conversationId);
-    local v75 = v74 or v54;
+    local v86 = v2.useContext(l_SquadExternalContractContext_0);
+    local v87 = v8(v72.conversationId);
+    local v88 = v87 or v62;
     if l_FFlagAppChatEnableU13ChatOptIn_0 then
-        local l_v65_0 = v65;
-        v65 = if l_v65_0 then l_v65_0 else if v41(v75) then v5.OptInVariant.ChatOptInInfoCard else l_OsaContextCard_0;
+        local l_v73_0 = v73;
+        v73 = if l_v73_0 then l_v73_0 else if v41(v88) then v5.OptInVariant.ChatOptInInfoCard else l_OsaContextCard_0;
     end;
     if v49 then
-        l_useEffect_0(function() --[[ Line: 167 ]]
-            -- upvalues: v64 (copy), v74 (copy), v66 (copy), l_API_0 (ref), v7 (ref)
-            if v64.conversationId and not v74 then
-                v66(l_API_0(v64.conversationId)):catch(function(v77) --[[ Line: 169 ]]
-                    -- upvalues: v7 (ref), v64 (ref)
-                    v7:warning("Error fetching conversation in GroupOSADialog: " .. tostring(v77));
-                    v64.onClose();
+        l_useEffect_0(function() --[[ Line: 202 ]]
+            -- upvalues: v72 (copy), v87 (copy), v74 (copy), l_API_0 (ref), v7 (ref)
+            if v72.conversationId and not v87 then
+                v74(l_API_0(v72.conversationId)):catch(function(v90) --[[ Line: 204 ]]
+                    -- upvalues: v7 (ref), v72 (ref)
+                    v7:warning("Error fetching conversation in GroupOSADialog: " .. tostring(v90));
+                    v72.onClose();
                 end);
             end;
         end, {
-            v66, 
-            v64.conversationId
+            v74, 
+            v72.conversationId
         });
     end;
-    local v78 = nil;
+    local v91 = nil;
     if l_FFlagGroupOSAGetConversationParticipants_0 then
-        local l_source_0 = v75.source;
-        v78 = l_useSelector_0(function(v80) --[[ Line: 181 ]]
-            -- upvalues: v9 (ref), v64 (copy)
-            return v9(v80, (("ChatAppReducer.ParticipantMetadata.%*"):format(v64.conversationId or "")));
+        local l_source_0 = v88.source;
+        v91 = l_useSelector_0(function(v93) --[[ Line: 216 ]]
+            -- upvalues: v9 (ref), v72 (copy)
+            return v9(v93, (("ChatAppReducer.ParticipantMetadata.%*"):format(v72.conversationId or "")));
         end);
-        local l_l_source_0_0 = l_source_0 --[[ copy: 14 -> 37 ]];
-        l_useEffect_0(function() --[[ Line: 185 ]]
-            -- upvalues: l_l_source_0_0 (copy), v64 (copy), v66 (copy), v29 (ref), v7 (ref)
-            if l_l_source_0_0 ~= "channels" or v64.conversationId == nil then
+        local l_l_source_0_0 = l_source_0 --[[ copy: 16 -> 39 ]];
+        l_useEffect_0(function() --[[ Line: 220 ]]
+            -- upvalues: l_l_source_0_0 (copy), v72 (copy), v74 (copy), v29 (ref), v7 (ref)
+            if l_l_source_0_0 ~= "channels" or v72.conversationId == nil then
                 return;
             else
-                v66(v29.rodux.GetConversationsParticipantsMetadata.API({
-                    v64.conversationId
-                })):catch(function() --[[ Line: 191 ]]
+                v74(v29.rodux.GetConversationsParticipantsMetadata.API({
+                    v72.conversationId
+                })):catch(function() --[[ Line: 226 ]]
                     -- upvalues: v7 (ref)
                     v7:warning("Error in GroupOSADialog -> GetConversationsParticipantsMetadata");
                 end);
                 return;
             end;
         end, {
-            v66, 
-            v64.conversationId, 
+            v74, 
+            v72.conversationId, 
             l_source_0
         });
     end;
-    local v84 = if v49 then v2.useMemo(function() --[[ Line: 198 ]]
-        -- upvalues: v78 (ref)
-        if not v78 then
+    local v97 = if v49 then v2.useMemo(function() --[[ Line: 233 ]]
+        -- upvalues: v91 (ref)
+        if not v91 then
             return nil;
         else
-            for v82, v83 in v78 do
-                if v83.isInviter then
-                    return v82;
+            for v95, v96 in v91 do
+                if v96.isInviter then
+                    return v95;
                 end;
             end;
             return nil;
         end;
     end, {
-        v78
+        v91
     }) else nil;
-    local v85 = if v49 then l_useUserProfilesFetch_0({
-        userIds = if v84 then {
-            v84
+    local v98 = if v49 then l_useUserProfilesFetch_0({
+        userIds = if v97 then {
+            v97
         } else {}, 
         query = v21.Queries.userProfilesCombinedNameAndUsernameByUserIds
     }) else nil;
-    local v87 = v2.useMemo(function() --[[ Line: 220 ]]
-        -- upvalues: v75 (copy), v3 (ref), v68 (copy)
-        if not v75 or not v75.participants then
+    local v100 = v2.useMemo(function() --[[ Line: 255 ]]
+        -- upvalues: v88 (copy), v3 (ref), v76 (copy)
+        if not v88 or not v88.participants then
             return {};
         else
-            return v3.List.filter(v75.participants, function(v86) --[[ Line: 224 ]]
-                -- upvalues: v68 (ref)
-                return tostring(v86) ~= v68;
+            return v3.List.filter(v88.participants, function(v99) --[[ Line: 259 ]]
+                -- upvalues: v76 (ref)
+                return tostring(v99) ~= v76;
             end);
         end;
     end, {
-        v75, 
-        v68
+        v88, 
+        v76
     });
-    local v88 = v2.useMemo(function() --[[ Line: 230 ]]
-        -- upvalues: v75 (copy), l_DateTime_0 (ref), v7 (ref), v64 (copy)
-        if v75.createdAt then
-            return l_DateTime_0.fromIsoDate(v75.createdAt):Format("MMM DD, YYYY");
+    local v101 = v2.useMemo(function() --[[ Line: 265 ]]
+        -- upvalues: v88 (copy), l_DateTime_0 (ref), v7 (ref), v72 (copy)
+        if v88.createdAt then
+            return l_DateTime_0.fromIsoDate(v88.createdAt):Format("MMM DD, YYYY");
         else
-            v7:warning("Conversation createdAt not found for conversationId: " .. tostring(v64.conversationId));
+            v7:warning("Conversation createdAt not found for conversationId: " .. tostring(v72.conversationId));
             return " - ";
         end;
     end, {
-        v75, 
-        v64.conversationId
+        v88, 
+        v72.conversationId
     });
-    local v89 = v75.title or "";
-    local v90 = if v85 then v85.data else nil;
-    local v91 = if v85 then v85.loading else false;
-    local v92 = if v49 then v2.useMemo(function() --[[ Line: 243 ]]
-        -- upvalues: v84 (copy), v90 (copy), l_getCombinedNameFromId_0 (ref)
-        if not v84 or not v90 then
+    local v102 = v88.title or "";
+    local v103 = if v98 then v98.data else nil;
+    local v104 = if v98 then v98.loading else false;
+    local v105 = if v49 then v2.useMemo(function() --[[ Line: 278 ]]
+        -- upvalues: v97 (copy), v103 (copy), l_getCombinedNameFromId_0 (ref)
+        if not v97 or not v103 then
             return nil;
         else
-            return l_getCombinedNameFromId_0(v90, v84);
+            return l_getCombinedNameFromId_0(v103, v97);
         end;
     end, {
-        v84, 
-        v90
+        v97, 
+        v103
     }) else nil;
-    local v93 = v75.conversationType == v6.Type.MULTI_USER_CONVERSATION;
-    local v94 = l_useLocalization_0({
+    local v106 = v88.conversationType == v6.Type.MULTI_USER_CONVERSATION;
+    local v107 = l_useLocalization_0({
         titleText = "Feature.Chat.Heading.YouWereInvitedToGroup", 
         inviterTitleText = {
             "Feature.Chat.Heading.UserInvitedYouToJoinAGroup"; 
-            combinedName = v92 or ""
+            combinedName = v105 or ""
         }, 
         inviterTitleTextOneToOne = if v53 then {
             "Feature.Chat.Heading.UserInvitedYouToJoin"; 
-            combinedName = v92 or ""
+            combinedName = v105 or ""
         } else nil, 
         groupCreatedOnText = {
             "Feature.Chat.Description.OSAGroupCreatedOnVariant1"; 
-            group_name = v89, 
-            creation_date = v88
+            group_name = v102, 
+            creation_date = v101
         }, 
         subtitleText = if v53 then {
             "Feature.Chat.Description.ConversationInviteGroupCreatedOn"; 
-            creation_date = v88
+            creation_date = v101
         } else nil, 
-        footerText = "Feature.Chat.Description.OSAGroupDescription", 
+        footerText = if v54 then {
+            "Feature.Chat.Description.OSAGroupDescriptionWithLinker"; 
+            osaViewDetailsUrl = v56
+        } else "Feature.Chat.Description.OSAGroupDescription", 
         joinButtonText = "Feature.Chat.Action.GroupOSAJoin", 
         declineButtonText = "Feature.Chat.Action.GroupOSADoNotJoin", 
         blockedText = "Feature.Chat.Label.Blocked"
     });
-    local v102 = v2.useMemo(function() --[[ Line: 283 ]]
-        -- upvalues: v87 (copy), v78 (ref), v7 (ref), v2 (ref), l_UserRow_0 (ref), v64 (copy), v11 (ref), v94 (copy), l_BadgeVariant_0 (ref)
-        local v95 = {};
-        for v96, v97 in v87 do
-            local v98 = tostring(v97);
-            local v99 = v78 and v78[v98];
-            if not v99 then
-                v7:debug("Metadata not found for participant: " .. v98);
+    local v115 = v2.useMemo(function() --[[ Line: 323 ]]
+        -- upvalues: v100 (copy), v91 (ref), v7 (ref), v2 (ref), l_UserRow_0 (ref), v72 (copy), v11 (ref), v107 (copy), l_BadgeVariant_0 (ref)
+        local v108 = {};
+        for v109, v110 in v100 do
+            local v111 = tostring(v110);
+            local v112 = v91 and v91[v111];
+            if not v112 then
+                v7:debug("Metadata not found for participant: " .. v111);
             end;
-            local v100 = v99 and v99.isBlocked;
-            local v101 = v2.createElement(l_UserRow_0, {
-                entityId = v98, 
+            local v113 = v112 and v112.isBlocked;
+            local v114 = v2.createElement(l_UserRow_0, {
+                entityId = v111, 
                 layoutMode = "wide", 
-                onActivated = v64.onViewUserProfile ~= nil and function() --[[ Line: 301 ]]
-                    -- upvalues: v64 (ref), v98 (copy)
-                    v64.onClose();
-                    v64.onViewUserProfile(v98, {});
+                onActivated = v72.onViewUserProfile ~= nil and function() --[[ Line: 341 ]]
+                    -- upvalues: v72 (ref), v111 (copy)
+                    v72.onClose();
+                    v72.onViewUserProfile(v111, {});
                 end or nil
             });
-            v95["Participant_" .. v98] = v2.createElement(v11.View, {
+            v108["Participant_" .. v111] = v2.createElement(v11.View, {
                 tag = "size-full-0 auto-y", 
-                LayoutOrder = v96
+                LayoutOrder = v109
             }, {
-                Row = v101, 
-                Badge = v100 and v2.createElement(v11.View, {
+                Row = v114, 
+                Badge = v113 and v2.createElement(v11.View, {
                     tag = "auto-xy position-center-right anchor-center-right", 
                     ZIndex = 2
                 }, {
                     BadgeContent = v2.createElement(v11.Badge, {
-                        text = v94.blockedText, 
+                        text = v107.blockedText, 
                         variant = l_BadgeVariant_0.Warning
                     })
                 }) or nil
             });
         end;
-        return v95;
+        return v108;
     end, {
-        v87, 
-        v78, 
-        v94.blockedText, 
-        if v52 then v64.onViewUserProfile else nil, 
-        if v52 then v64.onClose else nil
+        v100, 
+        v91, 
+        v107.blockedText, 
+        if v52 then v72.onViewUserProfile else nil, 
+        if v52 then v72.onClose else nil
     });
-    local v103 = if v44 then v2.useCallback(function() --[[ Line: 336 ]]
-        -- upvalues: v72 (ref), v36 (ref), v65 (ref), v37 (ref), v64 (copy)
-        v72.emit(v36.Events.ModalAction, {
-            modalVariant = v65, 
+    local v116 = if v44 then v2.useCallback(function() --[[ Line: 376 ]]
+        -- upvalues: v85 (ref), v36 (ref), v73 (ref), v37 (ref), v72 (copy)
+        v85.emit(v36.Events.ModalAction, {
+            modalVariant = v73, 
             action = v37.Enums.ModalActions.Dismiss, 
-            conversationId = v64.conversationId, 
-            impressionId = v64.impressionId
+            conversationId = v72.conversationId, 
+            impressionId = v72.impressionId
         });
-        v64.onClose();
+        v72.onClose();
     end, {
-        v64.onClose, 
-        v72, 
-        v64.impressionId, 
-        v64.conversationId, 
-        v65
-    }) else v64.onClose;
-    local v104 = v2.useCallback(function() --[[ Line: 346 ]]
-        -- upvalues: v73 (copy), v67 (copy), l_SquadPromptType_0 (ref)
-        v73.setSquadPrompt(v67, {
+        v72.onClose, 
+        v85, 
+        v72.impressionId, 
+        v72.conversationId, 
+        v73
+    }) else v72.onClose;
+    local v117 = v2.useCallback(function() --[[ Line: 386 ]]
+        -- upvalues: v86 (copy), v75 (copy), l_SquadPromptType_0 (ref)
+        v86.setSquadPrompt(v75, {
             hideCancelButton = true, 
             promptType = l_SquadPromptType_0.Error
         });
     end, {
-        v73.setSquadPrompt, 
-        v67
+        v86.setSquadPrompt, 
+        v75
     });
-    local v105 = v10(v64.conversationId);
-    local v108 = v2.useCallback(function() --[[ Line: 355 ]]
-        -- upvalues: v47 (ref), v70 (copy), v71 (copy), v44 (ref), v65 (ref), v37 (ref), v64 (copy), v72 (ref), v36 (ref), v105 (copy), l_Accept_0 (ref), l_ConversationListOverlay_0 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v51 (ref), v66 (copy), l_API_0 (ref), v3 (ref), v7 (ref), v104 (copy)
+    local v118 = v10(v72.conversationId);
+    local v121 = v2.useCallback(function() --[[ Line: 395 ]]
+        -- upvalues: v47 (ref), v83 (copy), v84 (copy), v44 (ref), v73 (ref), v37 (ref), v72 (copy), v85 (ref), v36 (ref), v118 (copy), l_Accept_0 (ref), l_ConversationListOverlay_0 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v51 (ref), v74 (copy), l_API_0 (ref), v3 (ref), v7 (ref), v117 (copy)
         if v47 then
-            if v70 then
+            if v83 then
                 return;
             else
-                v71(true);
+                v84(true);
             end;
         end;
-        local v106 = nil;
+        local v119 = nil;
         if v44 then
-            v106 = {
-                modalVariant = v65, 
+            v119 = {
+                modalVariant = v73, 
                 action = v37.Enums.ModalActions.PrimaryCta, 
-                conversationId = v64.conversationId, 
-                impressionId = v64.impressionId
+                conversationId = v72.conversationId, 
+                impressionId = v72.impressionId
             };
-            v72.emit(v36.Events.ModalAction, v106);
+            v85.emit(v36.Events.ModalAction, v119);
         end;
-        v105(l_Accept_0, l_ConversationListOverlay_0, nil, v65):andThen(function() --[[ Line: 374 ]]
-            -- upvalues: l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v51 (ref), v64 (ref), v66 (ref), l_API_0 (ref), v44 (ref), v72 (ref), v36 (ref), v3 (ref), v106 (ref), v37 (ref)
-            if not l_FFlagAppChatLiftPostAPICallActionsUp_0 and not v51 and v64.conversationId then
-                v66(l_API_0(v64.conversationId));
+        v118(l_Accept_0, l_ConversationListOverlay_0, nil, v73):andThen(function() --[[ Line: 414 ]]
+            -- upvalues: l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v51 (ref), v72 (ref), v74 (ref), l_API_0 (ref), v44 (ref), v85 (ref), v36 (ref), v3 (ref), v119 (ref), v37 (ref)
+            if not l_FFlagAppChatLiftPostAPICallActionsUp_0 and not v51 and v72.conversationId then
+                v74(l_API_0(v72.conversationId));
             end;
             if v44 then
-                v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v106, {
+                v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v119, {
                     actionResult = v37.Enums.ModalActionResults.Success
                 }));
             end;
-            v64.onJoin();
-        end):catch(function(v107) --[[ Line: 392 ]]
-            -- upvalues: v44 (ref), v72 (ref), v36 (ref), v3 (ref), v106 (ref), v37 (ref), v7 (ref), v104 (ref), v64 (ref)
+            v72.onJoin();
+        end):catch(function(v120) --[[ Line: 432 ]]
+            -- upvalues: v44 (ref), v85 (ref), v36 (ref), v3 (ref), v119 (ref), v37 (ref), v7 (ref), v117 (ref), v72 (ref)
             if v44 then
-                v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v106, {
+                v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v119, {
                     actionResult = v37.Enums.ModalActionResults.Failure
                 }));
             end;
-            v7:warning((("Error in GroupOSADialog Join-> RecordModalSequenceResponse: %*"):format((tostring(v107)))));
-            v104();
-            v64.onClose();
+            v7:warning((("Error in GroupOSADialog Join-> RecordModalSequenceResponse: %*"):format((tostring(v120)))));
+            v117();
+            v72.onClose();
         end);
     end, {
-        v64.onJoin, 
-        v64.onClose, 
-        v104, 
-        v105, 
-        v66, 
-        v64.conversationId, 
-        v65, 
-        if v44 then v72 else nil, 
-        if v44 then v64.impressionId else nil, 
-        if v47 then v70 else nil
+        v72.onJoin, 
+        v72.onClose, 
+        v117, 
+        v118, 
+        v74, 
+        v72.conversationId, 
+        v73, 
+        if v44 then v85 else nil, 
+        if v44 then v72.impressionId else nil, 
+        if v47 then v83 else nil
     });
-    local v112 = v2.useCallback(function() --[[ Line: 420 ]]
-        -- upvalues: v47 (ref), v70 (copy), v71 (copy), v44 (ref), v65 (ref), v37 (ref), v64 (copy), v72 (ref), v36 (ref), v48 (ref), v75 (copy), v6 (ref), v66 (copy), l_API_1 (ref), v68 (copy), v3 (ref), v7 (ref), v104 (copy), v45 (ref), v105 (copy), l_Decline_0 (ref), l_ConversationListOverlay_0 (ref), l_OsaContextCard_0 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v32 (ref)
+    local v125 = v2.useCallback(function() --[[ Line: 460 ]]
+        -- upvalues: v47 (ref), v83 (copy), v84 (copy), v44 (ref), v73 (ref), v37 (ref), v72 (copy), v85 (ref), v36 (ref), v48 (ref), v88 (copy), v6 (ref), v74 (copy), l_API_1 (ref), v76 (copy), v3 (ref), v7 (ref), v117 (copy), v45 (ref), v118 (copy), l_Decline_0 (ref), l_ConversationListOverlay_0 (ref), l_OsaContextCard_0 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v32 (ref)
         if v47 then
-            if v70 then
+            if v83 then
                 return;
             else
-                v71(true);
+                v84(true);
             end;
         end;
-        local v109 = nil;
+        local v122 = nil;
         if v44 then
-            v109 = {
-                modalVariant = v65, 
+            v122 = {
+                modalVariant = v73, 
                 action = v37.Enums.ModalActions.SecondaryCta, 
-                conversationId = v64.conversationId, 
-                impressionId = v64.impressionId
+                conversationId = v72.conversationId, 
+                impressionId = v72.impressionId
             };
-            v72.emit(v36.Events.ModalAction, v109);
+            v85.emit(v36.Events.ModalAction, v122);
         end;
         if v48 then
-            if v64.conversationId then
-                if v75.conversationType == v6.Type.MULTI_USER_CONVERSATION then
-                    v66(l_API_1(v64.conversationId, v68)):andThen(function() --[[ Line: 445 ]]
-                        -- upvalues: v44 (ref), v72 (ref), v36 (ref), v3 (ref), v109 (ref), v37 (ref), v64 (ref)
+            if v72.conversationId then
+                if v88.conversationType == v6.Type.MULTI_USER_CONVERSATION then
+                    v74(l_API_1(v72.conversationId, v76)):andThen(function() --[[ Line: 485 ]]
+                        -- upvalues: v44 (ref), v85 (ref), v36 (ref), v3 (ref), v122 (ref), v37 (ref), v72 (ref)
                         if v44 then
-                            v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v109, {
+                            v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v122, {
                                 actionResult = v37.Enums.ModalActionResults.Success
                             }));
                         end;
-                        v64.onDecline();
-                    end):catch(function(v110) --[[ Line: 456 ]]
-                        -- upvalues: v44 (ref), v72 (ref), v36 (ref), v3 (ref), v109 (ref), v37 (ref), v7 (ref), v104 (ref), v64 (ref)
+                        v72.onDecline();
+                    end):catch(function(v123) --[[ Line: 496 ]]
+                        -- upvalues: v44 (ref), v85 (ref), v36 (ref), v3 (ref), v122 (ref), v37 (ref), v7 (ref), v117 (ref), v72 (ref)
                         if v44 then
-                            v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v109, {
+                            v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v122, {
                                 actionResult = v37.Enums.ModalActionResults.Failure
                             }));
                         end;
-                        v7:warning((("Error in GroupOSADialog Decline -> RemoveUserFromConversation: %*"):format((tostring(v110)))));
-                        v104();
-                        v64.onClose();
+                        v7:warning((("Error in GroupOSADialog Decline -> RemoveUserFromConversation: %*"):format((tostring(v123)))));
+                        v117();
+                        v72.onClose();
                     end);
                 else
                     if v44 then
-                        v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v109, {
+                        v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v122, {
                             actionResult = v37.Enums.ModalActionResults.Success
                         }));
                     end;
-                    v64.onDecline();
+                    v72.onDecline();
                 end;
             end;
         else
             if v45 then
-                v64.onDecline();
+                v72.onDecline();
             end;
-            v105(l_Decline_0, l_ConversationListOverlay_0, nil, l_OsaContextCard_0):andThen(function() --[[ Line: 488 ]]
-                -- upvalues: v44 (ref), v72 (ref), v36 (ref), v3 (ref), v109 (ref), v37 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v64 (ref), v66 (ref), v32 (ref), v45 (ref)
+            v118(l_Decline_0, l_ConversationListOverlay_0, nil, l_OsaContextCard_0):andThen(function() --[[ Line: 528 ]]
+                -- upvalues: v44 (ref), v85 (ref), v36 (ref), v3 (ref), v122 (ref), v37 (ref), l_FFlagAppChatLiftPostAPICallActionsUp_0 (ref), v72 (ref), v74 (ref), v32 (ref), v45 (ref)
                 if v44 then
-                    v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v109, {
+                    v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v122, {
                         actionResult = v37.Enums.ModalActionResults.Success
                     }));
                 end;
-                if not l_FFlagAppChatLiftPostAPICallActionsUp_0 and v64.conversationId then
-                    v66(v32(v64.conversationId));
+                if not l_FFlagAppChatLiftPostAPICallActionsUp_0 and v72.conversationId then
+                    v74(v32(v72.conversationId));
                 end;
                 if not v45 then
-                    v64.onDecline();
+                    v72.onDecline();
                 end;
-            end):catch(function(v111) --[[ Line: 504 ]]
-                -- upvalues: v44 (ref), v72 (ref), v36 (ref), v3 (ref), v109 (ref), v37 (ref), v7 (ref), v104 (ref), v64 (ref)
+            end):catch(function(v124) --[[ Line: 544 ]]
+                -- upvalues: v44 (ref), v85 (ref), v36 (ref), v3 (ref), v122 (ref), v37 (ref), v7 (ref), v117 (ref), v72 (ref)
                 if v44 then
-                    v72.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v109, {
+                    v85.emit(v36.Events.ModalActionResult, v3.Dictionary.union(v122, {
                         actionResult = v37.Enums.ModalActionResults.Failure
                     }));
                 end;
-                v7:warning((("Error in GroupOSADialog Decline -> RecordModalSequenceResponse: %*"):format((tostring(v111)))));
-                v104();
-                v64.onClose();
+                v7:warning((("Error in GroupOSADialog Decline -> RecordModalSequenceResponse: %*"):format((tostring(v124)))));
+                v117();
+                v72.onClose();
             end);
         end;
     end, {
-        v64.onDecline, 
-        v64.onClose, 
-        v104, 
-        if not v48 then v105 else nil, 
-        v66, 
-        v64.conversationId, 
-        v65, 
-        v75, 
-        v68, 
-        if v44 then v72 else nil, 
-        if v44 then v64.impressionId else nil, 
-        if v47 then v70 else nil, 
-        if v48 then v68 else nil
+        v72.onDecline, 
+        v72.onClose, 
+        v117, 
+        if not v48 then v118 else nil, 
+        v74, 
+        v72.conversationId, 
+        v73, 
+        v88, 
+        v76, 
+        if v44 then v85 else nil, 
+        if v44 then v72.impressionId else nil, 
+        if v47 then v83 else nil, 
+        if v48 then v76 else nil
     });
-    local v113 = not v74;
-    local v114 = false;
-    if v75.source == "channels" then
-        v114 = v78 == nil;
+    local v126 = not v87;
+    local v127 = false;
+    if v88.source == "channels" then
+        v127 = v91 == nil;
     end;
-    local v115 = false;
-    if v84 ~= nil then
-        v115 = v91;
+    local v128 = false;
+    if v97 ~= nil then
+        v128 = v104;
     end;
-    local v116 = v49 and (v113 or v114 or v115);
-    local v117 = nil;
-    v117 = if v53 and v92 then if v93 then v94.inviterTitleText else v94.inviterTitleTextOneToOne else if v92 then v94.inviterTitleText else v94.titleText;
-    local v118 = if v49 then v2.useMemo(function() --[[ Line: 556 ]]
-        -- upvalues: v2 (ref), v11 (ref), l_Skeleton_0 (ref), v69 (copy), l_Radius_0 (ref)
+    local v129 = v49 and (v126 or v127 or v128);
+    local v130 = nil;
+    v130 = if v53 and v105 then if v106 then v107.inviterTitleText else v107.inviterTitleTextOneToOne else if v105 then v107.inviterTitleText else v107.titleText;
+    local v131 = if v49 then v2.useMemo(function() --[[ Line: 596 ]]
+        -- upvalues: v2 (ref), v11 (ref), l_Skeleton_0 (ref), v77 (copy), l_Radius_0 (ref)
         return v2.createElement(v11.View, {
             tag = "size-full-0 auto-y col gap-medium margin-top-small"
         }, {
             Heading = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(0.6, 0, 0, v69.Size.Size_1100), 
+                Size = UDim2.new(0.6, 0, 0, v77.Size.Size_1100), 
                 radius = l_Radius_0.Medium, 
                 LayoutOrder = 1
             }), 
             Row1 = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(1, 0, 0, v69.Size.Size_1200), 
+                Size = UDim2.new(1, 0, 0, v77.Size.Size_1200), 
                 radius = l_Radius_0.Medium, 
                 LayoutOrder = 2
             }), 
             Row2 = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(1, 0, 0, v69.Size.Size_1200), 
+                Size = UDim2.new(1, 0, 0, v77.Size.Size_1200), 
                 radius = l_Radius_0.Medium, 
                 LayoutOrder = 3
             }), 
             Row3 = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(1, 0, 0, v69.Size.Size_1200), 
+                Size = UDim2.new(1, 0, 0, v77.Size.Size_1200), 
                 radius = l_Radius_0.Medium, 
                 LayoutOrder = 4
             }), 
             Footer = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(1, 0, 0, v69.Size.Size_800), 
+                Size = UDim2.new(1, 0, 0, v77.Size.Size_800), 
                 radius = l_Radius_0.Medium, 
                 LayoutOrder = 5
             })
         });
     end, {
-        v69
+        v77
     }) else nil;
-    local v119 = v2.useMemo(function() --[[ Line: 590 ]]
-        -- upvalues: v2 (ref), v11 (ref), l_Dialog_0 (ref), v53 (ref), v94 (copy), v102 (copy)
+    local v132 = v2.useMemo(function() --[[ Line: 630 ]]
+        -- upvalues: v2 (ref), v11 (ref), l_Dialog_0 (ref), v53 (ref), v107 (copy), v115 (copy), v54 (ref), l_Renderer_0 (ref), v77 (copy), v82 (copy)
         return v2.createElement(v11.View, {
             tag = "auto-y size-full-0 col gap-medium"
         }, {
             DialogContentHeader = v2.createElement(l_Dialog_0.Text, {
-                Text = if v53 then v94.subtitleText else v94.groupCreatedOnText, 
+                Text = if v53 then v107.subtitleText else v107.groupCreatedOnText, 
                 LayoutOrder = 1
             }), 
             GroupMemberList = v2.createElement(v11.View, {
                 tag = "size-full-0 auto-y col", 
                 LayoutOrder = 2
-            }, v102), 
-            DialogContentFooter = v2.createElement(l_Dialog_0.Text, {
-                Text = v94.footerText, 
+            }, v115), 
+            DialogContentFooter = if v54 then v2.createElement(l_Renderer_0, {
+                text = v107.footerText, 
+                textStyle = v77.Color.Content.Default, 
+                fontStyle = v77.Typography.BodyMedium, 
+                linkerOptions = v82, 
+                wrapperProps = {
+                    tag = "size-full-0 auto-y", 
+                    LayoutOrder = 3
+                }
+            }) else v2.createElement(l_Dialog_0.Text, {
+                Text = v107.footerText, 
                 LayoutOrder = 3
             })
         });
     end, {
-        v94.groupCreatedOnText, 
-        v94.footerText, 
-        v102, 
-        if v53 then v94.subtitleText else nil
+        v107.groupCreatedOnText, 
+        v107.footerText, 
+        v115, 
+        if v53 then v107.subtitleText else nil
     });
-    if v46 and not v74 then
+    if v46 and not v87 then
         return nil;
     else
         return v2.createElement(l_Dialog_0.Root, {
-            size = v64.dialogSize, 
-            onClose = v103, 
-            hasBackdrop = v64.hasBackdrop, 
-            disablePortal = v64.disablePortal
+            size = v72.dialogSize, 
+            onClose = v116, 
+            hasBackdrop = v72.hasBackdrop, 
+            disablePortal = v72.disablePortal
         }, {
-            DialogTitle = not v116 and v2.createElement(l_Dialog_0.Title, {
-                text = v117, 
+            DialogTitle = not v129 and v2.createElement(l_Dialog_0.Title, {
+                text = v130, 
                 LayoutOrder = 1
             }), 
             DialogContent = v2.createElement(l_Dialog_0.Content, {
                 LayoutOrder = 2
-            }, if v116 then v118 else v119), 
-            DialogActions = not v116 and v2.createElement(l_Dialog_0.Actions, {
+            }, if v129 then v131 else v132), 
+            DialogActions = not v129 and v2.createElement(l_Dialog_0.Actions, {
                 LayoutOrder = 3, 
                 orientation = l_Orientation_0.Vertical, 
                 actions = {
                     {
-                        text = v94.joinButtonText, 
+                        text = v107.joinButtonText, 
                         variant = l_ButtonVariant_0.Emphasis, 
-                        onActivated = v108, 
-                        isDisabled = if v47 then v70 else nil
+                        onActivated = v121, 
+                        isDisabled = if v47 then v83 else nil
                     }, 
                     {
-                        text = v94.declineButtonText, 
+                        text = v107.declineButtonText, 
                         variant = l_ButtonVariant_0.Standard, 
-                        onActivated = v112, 
-                        isDisabled = if v47 then v70 else nil
+                        onActivated = v125, 
+                        isDisabled = if v47 then v83 else nil
                     }
                 }
             })

@@ -4,6 +4,7 @@ local v2 = require(l_script_0.Enums.SurfaceName);
 local v3 = require(l_script_0.Enums.SurfaceContext);
 local v4 = require(l_script_0.Components.BlackbirdUpsellBanner);
 local v5 = require(l_script_0.Network.getRobloxSubscriptionProducts);
+local _ = require(l_script_0.types);
 return {
     initiateRobloxSubscriptionPurchase = require(script.Flows.initiateRobloxSubscriptionPurchase), 
     SurfaceContext = v3, 

@@ -1011,4 +1011,17 @@ v23.filterOutfitAssetsWithStatus = function(v419, v420) --[[ Line: 1484 ]] --[[ 
         assets = v421
     });
 end;
+v23.hasMakeup = function(v426) --[[ Line: 1519 ]] --[[ Name: hasMakeup ]]
+    -- upvalues: l_isMakeupAssetType_0 (copy)
+    if not v426 then
+        return false;
+    else
+        for v427, _ in v426 do
+            if l_isMakeupAssetType_0(v427) then
+                return true;
+            end;
+        end;
+        return false;
+    end;
+end;
 return v23;

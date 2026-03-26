@@ -5,199 +5,250 @@ local v3 = require(l_Parent_0.React);
 local l_useCallback_0 = v3.useCallback;
 local l_useRef_0 = v3.useRef;
 local l_useEffect_0 = v3.useEffect;
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v8 = require(l_script_FirstAncestor_0.Utils.Constants);
-local v9 = require(l_script_FirstAncestor_0.Http.PostDismissIntervention);
+local v7 = require(l_script_FirstAncestor_0.Utils.Constants);
 local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
-local v11 = require(l_Parent_0.FocusNavigationUtils);
-local l_FocusNavigableSurfaceIdentifierEnum_0 = v11.FocusNavigableSurfaceIdentifierEnum;
-local l_FocusRoot_0 = v11.FocusRoot;
-local v14 = require(l_script_FirstAncestor_0.Hooks.useInterventionPlacement);
-local v15 = require(l_script_FirstAncestor_0.InterventionAnalytics);
-local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
-local v17 = require(l_Parent_0.Responsive);
-local l_usePreferredInput_0 = v17.usePreferredInput;
-local v19 = require(l_script_FirstAncestor_0.Hooks.useWebView);
-local v20 = require(l_Parent_0.Foundation);
-local l_Dialog_0 = v20.Dialog;
-local l_DialogSize_0 = v20.Enums.DialogSize;
-local l_ButtonVariant_0 = v20.Enums.ButtonVariant;
-local l_ButtonSize_0 = v20.Enums.ButtonSize;
-local l_View_0 = v20.View;
-local l_Text_0 = v20.Text;
-local l_Button_0 = v20.Button;
-local l_Skeleton_0 = v20.Skeleton;
-local l_Radius_0 = v20.Enums.Radius;
-local l_useTokens_0 = v20.Hooks.useTokens;
+local v9 = require(l_script_FirstAncestor_0.InterventionAnalytics);
 local l_LinkingProtocol_0 = require(l_Parent_0.LinkingProtocol).LinkingProtocol;
-return v3.memo(function(v32) --[[ Line: 62 ]] --[[ Name: GenericInterventionDialog ]]
-    -- upvalues: l_useTokens_0 (copy), l_useRef_0 (copy), v14 (copy), l_useLocalization_0 (copy), v8 (copy), l_usePreferredInput_0 (copy), v17 (copy), l_UrlBuilder_0 (copy), v19 (copy), l_LinkingProtocol_0 (copy), l_useEffect_0 (copy), v15 (copy), l_useCallback_0 (copy), v9 (copy), l_dependencyArray_0 (copy), l_VRService_0 (copy), v3 (copy), l_Text_0 (copy), l_View_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy)
-    local v33 = l_useTokens_0();
-    local v34 = l_useRef_0(DateTime.now().UnixTimestampMillis);
-    local v35 = v14();
-    local v36 = l_useLocalization_0(v8.localizationKeys);
-    local v37 = l_usePreferredInput_0() == v17.Input.Directional;
-    local v38 = l_UrlBuilder_0.static.appealsPortal.main();
-    local v39 = v19(v38, v36.AppealsPortalTitleText);
+local v11 = require(l_script_FirstAncestor_0.Http.PostDismissIntervention);
+local v12 = require(l_Parent_0.Responsive);
+local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
+local v14 = require(l_script_FirstAncestor_0.Hooks.useInterventionPlacement);
+local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
+local l_usePreferredInput_0 = v12.usePreferredInput;
+local v17 = require(l_script_FirstAncestor_0.Hooks.useInterventionFocusRoot);
+local v18 = require(l_script_FirstAncestor_0.Hooks.useWebView);
+local v19 = require(l_Parent_0.FocusNavigationUtils);
+local l_FocusNavigableSurfaceIdentifierEnum_0 = v19.FocusNavigableSurfaceIdentifierEnum;
+local l_FocusRoot_0 = v19.FocusRoot;
+local v22 = require(l_Parent_0.Foundation);
+local l_Dialog_0 = v22.Dialog;
+local l_DialogSize_0 = v22.Enums.DialogSize;
+local l_ButtonVariant_0 = v22.Enums.ButtonVariant;
+local l_ButtonSize_0 = v22.Enums.ButtonSize;
+local l_View_0 = v22.View;
+local l_Text_0 = v22.Text;
+local l_Button_0 = v22.Button;
+local l_Skeleton_0 = v22.Skeleton;
+local l_Radius_0 = v22.Enums.Radius;
+local l_useTokens_0 = v22.Hooks.useTokens;
+local v33 = require(l_script_FirstAncestor_0.Flags.FFlagFeatureRestrictionMiscFixes);
+return v3.memo(function(v34) --[[ Line: 65 ]] --[[ Name: GenericInterventionDialog ]]
+    -- upvalues: l_useTokens_0 (copy), l_useRef_0 (copy), v14 (copy), l_useLocalization_0 (copy), v7 (copy), l_usePreferredInput_0 (copy), v12 (copy), l_UrlBuilder_0 (copy), v18 (copy), l_LinkingProtocol_0 (copy), v33 (copy), v17 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_useEffect_0 (copy), v9 (copy), l_useCallback_0 (copy), v11 (copy), l_dependencyArray_0 (copy), l_VRService_0 (copy), v3 (copy), l_Text_0 (copy), l_View_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), l_FocusRoot_0 (copy)
+    local v35 = l_useTokens_0();
+    local v36 = l_useRef_0(DateTime.now().UnixTimestampMillis);
+    local v37 = v14();
+    local v38 = l_useLocalization_0(v7.localizationKeys);
+    local v39 = l_usePreferredInput_0() == v12.Input.Directional;
+    local v40 = l_UrlBuilder_0.static.appealsPortal.main();
+    local v41 = v18(v40, v38.AppealsPortalTitleText);
     local l_default_0 = l_LinkingProtocol_0.default;
-    l_useEffect_0(function() --[[ Line: 74 ]]
-        -- upvalues: v15 (ref), v32 (copy), v35 (copy), v34 (copy)
-        v15.sendAnalyticsEvent(v15.TelemetryConfigs.DialogRendered, {
-            eventType = v15.Constants.EventTypes.ModalAppeared, 
-            interventionType = v32.interventionTypeForAnalytics, 
-            placement = v35, 
-            renderedTimestamp = v34.current, 
-            eventId = v32.eventId, 
-            evidence = v32.evidence, 
-            duration = v32.durationForAnalytics, 
-            acknowledgeable = v32.acknowledgeable
+    local v43 = if v33 then v17({
+        surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.ModerationOverlay, 
+        isAutoFocusRoot = true
+    }) else nil;
+    l_useEffect_0(function() --[[ Line: 84 ]]
+        -- upvalues: v9 (ref), v34 (copy), v37 (copy), v36 (copy)
+        v9.sendAnalyticsEvent(v9.TelemetryConfigs.DialogRendered, {
+            eventType = v9.Constants.EventTypes.ModalAppeared, 
+            interventionType = v34.interventionTypeForAnalytics, 
+            placement = v37, 
+            renderedTimestamp = v36.current, 
+            eventId = v34.eventId, 
+            evidence = v34.evidence, 
+            duration = v34.durationForAnalytics, 
+            acknowledgeable = v34.acknowledgeable
         });
     end, {
-        v34
+        v36
     });
-    local v43 = l_useCallback_0(function() --[[ Line: 88 ]]
-        -- upvalues: v15 (ref), v32 (copy), v35 (copy), v34 (copy), v9 (ref)
-        v15.sendAnalyticsEvent(v15.TelemetryConfigs.DialogCtaClicked, {
-            eventType = v15.Constants.EventTypes.CtaClicked, 
-            interventionType = v32.interventionTypeForAnalytics, 
-            placement = v35, 
-            renderedTimestamp = v34.current, 
-            eventId = v32.eventId, 
-            acknowledgeable = v32.acknowledgeable
+    local v46 = l_useCallback_0(function() --[[ Line: 98 ]]
+        -- upvalues: v9 (ref), v34 (copy), v37 (copy), v36 (copy), v11 (ref)
+        v9.sendAnalyticsEvent(v9.TelemetryConfigs.DialogCtaClicked, {
+            eventType = v9.Constants.EventTypes.CtaClicked, 
+            interventionType = v34.interventionTypeForAnalytics, 
+            placement = v37, 
+            renderedTimestamp = v36.current, 
+            eventId = v34.eventId, 
+            acknowledgeable = v34.acknowledgeable
         });
-        if v32.acknowledgeable and v32.interventionId then
-            v9(v32.interventionId):andThen(function(_) --[[ Line: 99 ]]
-                -- upvalues: v15 (ref), v32 (ref), v35 (ref), v34 (ref)
-                v15.sendAnalyticsEvent(v15.TelemetryConfigs.DialogInterventionDismissSuccess, {
-                    eventType = v15.Constants.EventTypes.DialogInterventionDismissSuccess, 
-                    interventionType = v32.interventionTypeForAnalytics, 
-                    placement = v35, 
-                    renderedTimestamp = v34.current, 
-                    eventId = v32.eventId, 
-                    acknowledgeable = v32.acknowledgeable
+        if v34.acknowledgeable and v34.interventionId then
+            v11(v34.interventionId):andThen(function(_) --[[ Line: 109 ]]
+                -- upvalues: v9 (ref), v34 (ref), v37 (ref), v36 (ref)
+                v9.sendAnalyticsEvent(v9.TelemetryConfigs.DialogInterventionDismissSuccess, {
+                    eventType = v9.Constants.EventTypes.DialogInterventionDismissSuccess, 
+                    interventionType = v34.interventionTypeForAnalytics, 
+                    placement = v37, 
+                    renderedTimestamp = v36.current, 
+                    eventId = v34.eventId, 
+                    acknowledgeable = v34.acknowledgeable
                 });
-            end):catch(function(v42) --[[ Line: 111 ]]
-                -- upvalues: v15 (ref), v32 (ref), v35 (ref), v34 (ref)
-                v15.sendAnalyticsEvent(v15.TelemetryConfigs.DialogInterventionDismissFailed, {
-                    eventType = v15.Constants.EventTypes.DialogInterventionDismissFailed, 
-                    interventionType = v32.interventionTypeForAnalytics, 
-                    placement = v35, 
-                    renderedTimestamp = v34.current, 
-                    eventId = v32.eventId, 
-                    error = v42.error, 
-                    acknowledgeable = v32.acknowledgeable
+            end):catch(function(v45) --[[ Line: 121 ]]
+                -- upvalues: v9 (ref), v34 (ref), v37 (ref), v36 (ref)
+                v9.sendAnalyticsEvent(v9.TelemetryConfigs.DialogInterventionDismissFailed, {
+                    eventType = v9.Constants.EventTypes.DialogInterventionDismissFailed, 
+                    interventionType = v34.interventionTypeForAnalytics, 
+                    placement = v37, 
+                    renderedTimestamp = v36.current, 
+                    eventId = v34.eventId, 
+                    error = v45.error, 
+                    acknowledgeable = v34.acknowledgeable
                 });
             end);
         end;
-        v32.onDismiss();
-    end, l_dependencyArray_0(v32.onDismiss, v32.interventionTypeForAnalytics, v35, v34.current, v32.eventId));
-    local v44 = l_useCallback_0(function() --[[ Line: 142 ]]
-        -- upvalues: v15 (ref), v32 (copy), v35 (copy), v34 (copy), l_VRService_0 (ref), v37 (copy), l_default_0 (copy), v38 (copy), v39 (copy)
-        v15.sendAnalyticsEvent(v15.TelemetryConfigs.DialogAppealClicked, {
-            eventType = v15.Constants.EventTypes.AppealClicked, 
-            interventionType = v32.interventionTypeForAnalytics, 
-            placement = v35, 
-            renderedTimestamp = v34.current, 
-            eventId = v32.eventId, 
-            acknowledgeable = v32.acknowledgeable
+        v34.onDismiss();
+    end, l_dependencyArray_0(v34.onDismiss, v34.interventionTypeForAnalytics, v37, v36.current, v34.eventId));
+    local v47 = l_useCallback_0(function() --[[ Line: 152 ]]
+        -- upvalues: v9 (ref), v34 (copy), v37 (copy), v36 (copy), l_VRService_0 (ref), v39 (copy), l_default_0 (copy), v40 (copy), v41 (copy)
+        v9.sendAnalyticsEvent(v9.TelemetryConfigs.DialogAppealClicked, {
+            eventType = v9.Constants.EventTypes.AppealClicked, 
+            interventionType = v34.interventionTypeForAnalytics, 
+            placement = v37, 
+            renderedTimestamp = v36.current, 
+            eventId = v34.eventId, 
+            acknowledgeable = v34.acknowledgeable
         });
-        if l_VRService_0.VREnabled or v37 then
-            l_default_0:openURL(v38);
+        if l_VRService_0.VREnabled or v39 then
+            l_default_0:openURL(v40);
             return;
         else
-            v39();
+            v41();
             return;
         end;
-    end, l_dependencyArray_0(v39, l_default_0, l_VRService_0.VREnabled, v37, v32.interventionTypeForAnalytics, v35, v34.current));
-    local v45 = {};
-    if v32.bodyText and v32.bodyText ~= "" then
-        v45.BodyText = v3.createElement(l_Text_0, {
-            Text = v32.bodyText, 
+    end, l_dependencyArray_0(v41, l_default_0, l_VRService_0.VREnabled, v39, v34.interventionTypeForAnalytics, v37, v36.current));
+    local v48 = {};
+    if v34.bodyText and v34.bodyText ~= "" then
+        v48.BodyText = v3.createElement(l_Text_0, {
+            Text = v34.bodyText, 
             tag = "auto-xy text-body-medium text-content-default text-align-x-left text-wrap", 
             LayoutOrder = 1
         });
     end;
-    if v32.evidence and v32.evidence ~= "" or v32.violationReason and v32.violationReason ~= "" or v32.isAppealable then
-        v45.Evidence = v3.createElement(l_View_0, {
+    if v34.evidence and v34.evidence ~= "" or v34.violationReason and v34.violationReason ~= "" or v34.isAppealable then
+        v48.Evidence = v3.createElement(l_View_0, {
             tag = "size-full-0 auto-y padding-xxsmall", 
             LayoutOrder = 2
         }, {
             v3.createElement(l_View_0, {
                 tag = "size-full-0 auto-y col gap-small padding-medium radius-medium bg-surface-200 stroke-standard stroke-default"
             }, {
-                EvidenceText = v32.evidence and v32.evidence ~= "" and v3.createElement(l_Text_0, {
-                    Text = v32.evidence, 
+                EvidenceText = v34.evidence and v34.evidence ~= "" and v3.createElement(l_Text_0, {
+                    Text = v34.evidence, 
                     tag = "auto-xy text-body-medium text-align-x-left text-wrap", 
                     RichText = true, 
                     LayoutOrder = 1
                 }), 
-                Reason = v32.violationReason and v32.violationReason ~= "" and v3.createElement(l_Text_0, {
-                    Text = ("<b>%*:</b>\n%*"):format(v36.ReasonText, v32.violationReason), 
+                Reason = v34.violationReason and v34.violationReason ~= "" and v3.createElement(l_Text_0, {
+                    Text = ("<b>%*:</b>\n%*"):format(v38.ReasonText, v34.violationReason), 
                     tag = "auto-xy text-body-medium text-align-x-left text-wrap", 
                     RichText = true, 
                     LayoutOrder = 2
                 }), 
-                AppealButton = v32.isAppealable and v3.createElement(l_Button_0, {
-                    text = v36.ReportMistakeText, 
+                AppealButton = v34.isAppealable and v3.createElement(l_Button_0, {
+                    text = v38.ReportMistakeText, 
                     variant = l_ButtonVariant_0.Standard, 
                     size = l_ButtonSize_0.XSmall, 
                     width = UDim.new(1, 0), 
-                    onActivated = v44, 
+                    onActivated = v47, 
                     LayoutOrder = 3
                 })
             })
         });
     end;
-    if v32.dsaMessage and v32.dsaMessage ~= "" then
-        v45.DsaMessage = v3.createElement(l_Text_0, {
-            Text = v32.dsaMessage, 
+    if v34.dsaMessage and v34.dsaMessage ~= "" then
+        v48.DsaMessage = v3.createElement(l_Text_0, {
+            Text = v34.dsaMessage, 
             tag = "auto-xy text-caption-small text-content-default text-align-x-left text-wrap", 
             LayoutOrder = 3
         });
     end;
-    return (v3.createElement(l_FocusRoot_0, {
-        surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp, 
-        isIsolated = true, 
-        isAutoFocusRoot = true
-    }, {
-        v3.createElement(l_Dialog_0.Root, {
+    if v33 then
+        return v3.createElement(l_Dialog_0.Root, {
             size = l_DialogSize_0.Medium, 
-            hasCloseButton = false
+            hasCloseButton = false, 
+            ref = v43, 
+            hasBackdrop = not l_VRService_0.VREnabled, 
+            disablePortal = v37 ~= v7.InterventionPlacementType.InExperience
         }, {
-            DialogTitle = not v32.isLoading and v3.createElement(l_Dialog_0.Title, {
-                text = v32.titleText
+            DialogTitle = not v34.isLoading and v3.createElement(l_Dialog_0.Title, {
+                text = v34.titleText
             }), 
-            DialogContent = v3.createElement(l_Dialog_0.Content, nil, if v32.isLoading then v3.createElement(l_View_0, {
+            DialogContent = v3.createElement(l_Dialog_0.Content, nil, if v34.isLoading then v3.createElement(l_View_0, {
                 tag = "size-full-0 auto-y col gap-medium margin-top-small"
             }, {
                 Heading = v3.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(0.6, 0, 0, v33.Size.Size_1100), 
+                    Size = UDim2.new(0.6, 0, 0, v35.Size.Size_1100), 
                     radius = l_Radius_0.Medium, 
                     LayoutOrder = 1
                 }), 
                 Body = v3.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(1, 0, 0, v33.Size.Size_2000), 
+                    Size = UDim2.new(1, 0, 0, v35.Size.Size_2000), 
                     radius = l_Radius_0.Medium, 
                     LayoutOrder = 2
                 }), 
                 Actions = v3.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(1, 0, 0, v33.Size.Size_800), 
+                    Size = UDim2.new(1, 0, 0, v35.Size.Size_800), 
                     radius = l_Radius_0.Medium, 
                     LayoutOrder = 3
                 })
             }) else v3.createElement(l_View_0, {
                 tag = "size-full-0 auto-y col gap-medium"
-            }, v45)), 
-            DialogActions = not v32.isLoading and v3.createElement(l_Dialog_0.Actions, {
+            }, v48)), 
+            DialogActions = not v34.isLoading and v3.createElement(l_Dialog_0.Actions, {
                 actions = {
                     {
                         variant = l_ButtonVariant_0.Emphasis, 
                         size = l_ButtonSize_0.Small, 
-                        text = v36.OkText, 
-                        onActivated = v43
+                        text = v38.OkText, 
+                        onActivated = v46
                     }
                 }
             })
-        })
-    }));
+        });
+    else
+        return (v3.createElement(l_FocusRoot_0, {
+            surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp, 
+            isIsolated = true, 
+            isAutoFocusRoot = true
+        }, {
+            v3.createElement(l_Dialog_0.Root, {
+                size = l_DialogSize_0.Medium, 
+                hasCloseButton = false
+            }, {
+                DialogTitle = not v34.isLoading and v3.createElement(l_Dialog_0.Title, {
+                    text = v34.titleText
+                }), 
+                DialogContent = v3.createElement(l_Dialog_0.Content, nil, if v34.isLoading then v3.createElement(l_View_0, {
+                    tag = "size-full-0 auto-y col gap-medium margin-top-small"
+                }, {
+                    Heading = v3.createElement(l_Skeleton_0, {
+                        Size = UDim2.new(0.6, 0, 0, v35.Size.Size_1100), 
+                        radius = l_Radius_0.Medium, 
+                        LayoutOrder = 1
+                    }), 
+                    Body = v3.createElement(l_Skeleton_0, {
+                        Size = UDim2.new(1, 0, 0, v35.Size.Size_2000), 
+                        radius = l_Radius_0.Medium, 
+                        LayoutOrder = 2
+                    }), 
+                    Actions = v3.createElement(l_Skeleton_0, {
+                        Size = UDim2.new(1, 0, 0, v35.Size.Size_800), 
+                        radius = l_Radius_0.Medium, 
+                        LayoutOrder = 3
+                    })
+                }) else v3.createElement(l_View_0, {
+                    tag = "size-full-0 auto-y col gap-medium"
+                }, v48)), 
+                DialogActions = not v34.isLoading and v3.createElement(l_Dialog_0.Actions, {
+                    actions = {
+                        {
+                            variant = l_ButtonVariant_0.Emphasis, 
+                            size = l_ButtonSize_0.Small, 
+                            text = v38.OkText, 
+                            onActivated = v46
+                        }
+                    }
+                })
+            })
+        }));
+    end;
 end);

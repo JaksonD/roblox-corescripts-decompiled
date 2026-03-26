@@ -1,74 +1,81 @@
 local l_Parent_0 = script.Parent.Parent;
-local v1 = require(l_Parent_0.Symbols.Symbol).named("FormattedParam");
-local function _(v2) --[[ Line: 13 ]] --[[ Name: isFormattedParam ]]
-    -- upvalues: v1 (copy)
-    local v3 = false;
-    if typeof(v2) == "table" then
-        v3 = v2[v1] == true;
+local v1 = require(l_Parent_0.Flags.FFlagIAPExperienceUseAppLocales);
+local v2 = require(l_Parent_0.Symbols.Symbol).named("FormattedParam");
+local function _(v3) --[[ Line: 17 ]] --[[ Name: isFormattedParam ]]
+    -- upvalues: v2 (copy)
+    local v4 = false;
+    if typeof(v3) == "table" then
+        v4 = v3[v2] == true;
     end;
-    return v3;
+    return v4;
 end;
-local function _(v5) --[[ Line: 17 ]] --[[ Name: createFormattedParam ]]
-    -- upvalues: v1 (copy)
+local function _(v6) --[[ Line: 21 ]] --[[ Name: createFormattedParam ]]
+    -- upvalues: v2 (copy)
     return {
-        [v1] = true, 
-        format = v5
+        [v2] = true, 
+        format = v6
     };
 end;
-local function _(v7, v8) --[[ Line: 27 ]] --[[ Name: getLocalizedString ]]
-    local l_translations_0 = v7.translations;
-    local l_fallbackTranslations_0 = v7.fallbackTranslations;
-    if l_fallbackTranslations_0 ~= nil and l_translations_0[v8] == nil then
-        return l_fallbackTranslations_0[v8];
+local function _(v8, v9) --[[ Line: 31 ]] --[[ Name: getLocalizedString ]]
+    local l_translations_0 = v8.translations;
+    local l_fallbackTranslations_0 = v8.fallbackTranslations;
+    if l_fallbackTranslations_0 ~= nil and l_translations_0[v9] == nil then
+        return l_fallbackTranslations_0[v9];
     else
-        return l_translations_0[v8];
+        return l_translations_0[v9];
     end;
 end;
 return {
-    nestedKeyParam = function(v12) --[[ Line: 48 ]] --[[ Name: nestedKeyParam ]]
-        -- upvalues: v1 (copy)
+    nestedKeyParam = function(v13) --[[ Line: 52 ]] --[[ Name: nestedKeyParam ]]
+        -- upvalues: v1 (copy), v2 (copy)
+        if v1 then
+            error("LocaleService.nestedKeyParam is deprecated. Use RobloxAppLocales.Localization:Format() instead.");
+        end;
         return {
-            [v1] = true, 
-            format = function(v13) --[[ Line: 49 ]]
-                -- upvalues: v12 (copy)
-                local l_v12_0 = v12;
-                local l_translations_1 = v13.translations;
-                local l_fallbackTranslations_1 = v13.fallbackTranslations;
-                if l_fallbackTranslations_1 ~= nil and l_translations_1[l_v12_0] == nil then
-                    return l_fallbackTranslations_1[l_v12_0];
+            [v2] = true, 
+            format = function(v14) --[[ Line: 56 ]]
+                -- upvalues: v13 (copy)
+                local l_v13_0 = v13;
+                local l_translations_1 = v14.translations;
+                local l_fallbackTranslations_1 = v14.fallbackTranslations;
+                if l_fallbackTranslations_1 ~= nil and l_translations_1[l_v13_0] == nil then
+                    return l_fallbackTranslations_1[l_v13_0];
                 else
-                    return l_translations_1[l_v12_0];
+                    return l_translations_1[l_v13_0];
                 end;
             end
         };
     end, 
-    getString = function(v17, v18, v19) --[[ Line: 60 ]] --[[ Name: getString ]]
-        -- upvalues: v1 (copy)
-        assert(v17 ~= nil, "Must provide valid localization context");
-        local l_translations_2 = v17.translations;
-        local l_fallbackTranslations_2 = v17.fallbackTranslations;
-        local v22 = if l_fallbackTranslations_2 ~= nil and l_translations_2[v18] == nil then l_fallbackTranslations_2[v18] else l_translations_2[v18];
-        assert(v22 ~= nil, "Unable to find localization with key: " .. v18);
-        if v22 and v19 ~= nil then
-            for v23, v24 in pairs(v19) do
-                local l_v24_0 = v24;
-                local v26 = ("{%s}"):format(v23);
-                local v27 = false;
-                if typeof(v24) == "table" then
-                    v27 = v24[v1] == true;
+    getString = function(v18, v19, v20) --[[ Line: 67 ]] --[[ Name: getString ]]
+        -- upvalues: v1 (copy), v2 (copy)
+        if v1 then
+            error("LocaleService.getString is deprecated. Use RobloxAppLocales.Localization:Format() instead.");
+        end;
+        assert(v18 ~= nil, "Must provide valid localization context");
+        local l_translations_2 = v18.translations;
+        local l_fallbackTranslations_2 = v18.fallbackTranslations;
+        local v23 = if l_fallbackTranslations_2 ~= nil and l_translations_2[v19] == nil then l_fallbackTranslations_2[v19] else l_translations_2[v19];
+        assert(v23 ~= nil, "Unable to find localization with key: " .. v19);
+        if v23 and v20 ~= nil then
+            for v24, v25 in pairs(v20) do
+                local l_v25_0 = v25;
+                local v27 = ("{%s}"):format(v24);
+                local v28 = false;
+                if typeof(v25) == "table" then
+                    v28 = v25[v2] == true;
                 end;
-                if v27 then
-                    l_v24_0 = v24.format(v17);
+                if v28 then
+                    l_v25_0 = v25.format(v18);
                 end;
                 do
-                    local l_l_v24_0_0 = l_v24_0;
-                    v22 = string.gsub(v22, v26, function() --[[ Line: 73 ]]
-                        -- upvalues: l_l_v24_0_0 (ref)
-                        return l_l_v24_0_0;
+                    local l_l_v25_0_0 = l_v25_0;
+                    v23 = string.gsub(v23, v27, function() --[[ Line: 83 ]]
+                        -- upvalues: l_l_v25_0_0 (ref)
+                        return l_l_v25_0_0;
                     end);
                 end;
             end;
         end;
-        return v22;
+        return v23;
     end
 };

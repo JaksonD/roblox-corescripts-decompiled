@@ -1,7 +1,8 @@
 local l_CoreGui_0 = game:GetService("CoreGui");
 local l_CorePackages_0 = game:GetService("CorePackages");
 local l_SocialService_0 = game:GetService("SocialService");
-local v3 = require(l_CorePackages_0.Packages.React);
+local l_game_EngineFeature_0 = game:GetEngineFeature("DeprecateOldGuiObjectProperties");
+local v4 = require(l_CorePackages_0.Packages.React);
 local l_PeekView_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekView;
 local l_PeekViewState_0 = require(l_CorePackages_0.Workspace.Packages.PeekView).PeekViewState;
 local l_Signal_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Signal;
@@ -10,63 +11,63 @@ local l_SoundGroups_0 = require(l_CorePackages_0.Workspace.Packages.SoundManager
 local l_SoundManager_0 = require(l_CorePackages_0.Workspace.Packages.SoundManager).SoundManager;
 local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive).useIsSpatial;
 local l_RobloxGui_0 = l_CoreGui_0:WaitForChild("RobloxGui");
-local v12 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
+local v13 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
 local l_ContactList_0 = l_RobloxGui_0.Modules.ContactList;
-local v14 = require(l_ContactList_0.dependencies);
-local l_dependencyArray_0 = v14.Hooks.dependencyArray;
-local l_useSelector_0 = v14.Hooks.useSelector;
-local l_useDispatch_0 = v14.Hooks.useDispatch;
-local l_useStyle_0 = v14.UIBlox.Core.Style.useStyle;
-local v19 = require(l_ContactList_0.Analytics.useAnalytics);
-local v20 = require(l_ContactList_0.Analytics.EventNamesEnum);
-local v21 = require(l_ContactList_0.Components.ContactListHeader);
-local v22 = require(l_ContactList_0.Components.CallHistory.CallHistoryContainer);
-local v23 = require(l_ContactList_0.Components.FriendList.FriendListContainer);
-local v24 = require(l_ContactList_0.Components.ContactListSearchBar);
-local v25 = require(l_ContactList_0.Actions.SetCurrentPage);
-local v26 = require(l_ContactList_0.Actions.SetCurrentTag);
-local v27 = require(l_ContactList_0.Actions.OpenOrUpdateDialog);
-local v28 = require(l_ContactList_0.Enums.Pages);
-local v29 = require(l_ContactList_0.Parent.TopBar.Constants);
+local v15 = require(l_ContactList_0.dependencies);
+local l_dependencyArray_0 = v15.Hooks.dependencyArray;
+local l_useSelector_0 = v15.Hooks.useSelector;
+local l_useDispatch_0 = v15.Hooks.useDispatch;
+local l_useStyle_0 = v15.UIBlox.Core.Style.useStyle;
+local v20 = require(l_ContactList_0.Analytics.useAnalytics);
+local v21 = require(l_ContactList_0.Analytics.EventNamesEnum);
+local v22 = require(l_ContactList_0.Components.ContactListHeader);
+local v23 = require(l_ContactList_0.Components.CallHistory.CallHistoryContainer);
+local v24 = require(l_ContactList_0.Components.FriendList.FriendListContainer);
+local v25 = require(l_ContactList_0.Components.ContactListSearchBar);
+local v26 = require(l_ContactList_0.Actions.SetCurrentPage);
+local v27 = require(l_ContactList_0.Actions.SetCurrentTag);
+local v28 = require(l_ContactList_0.Actions.OpenOrUpdateDialog);
+local v29 = require(l_ContactList_0.Enums.Pages);
+local v30 = require(l_ContactList_0.Parent.TopBar.Constants);
 local l_LocalPlayer_0 = game:GetService("Players").LocalPlayer;
 local l_CurrentCamera_0 = workspace.CurrentCamera;
-local v32 = 12 + v29.ApplyDisplayScale(v29.TopBarHeight);
-return function() --[[ Line: 63 ]] --[[ Name: ContactListContainer ]]
-    -- upvalues: v19 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useIsSpatial_0 (copy), v3 (copy), l_CurrentCamera_0 (copy), v32 (copy), l_Signal_0 (copy), l_useSelector_0 (copy), l_SocialService_0 (copy), l_LocalPlayer_0 (copy), v26 (copy), v20 (copy), v28 (copy), v25 (copy), l_SoundManager_0 (copy), l_Sounds_0 (copy), l_SoundGroups_0 (copy), v27 (copy), v12 (copy), l_dependencyArray_0 (copy), l_PeekViewState_0 (copy), v22 (copy), v23 (copy), v21 (copy), v24 (copy), l_PeekView_0 (copy)
-    local v33 = v19();
+local v33 = 12 + v30.ApplyDisplayScale(v30.TopBarHeight);
+return function() --[[ Line: 65 ]] --[[ Name: ContactListContainer ]]
+    -- upvalues: v20 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useIsSpatial_0 (copy), v4 (copy), l_CurrentCamera_0 (copy), v33 (copy), l_Signal_0 (copy), l_useSelector_0 (copy), l_SocialService_0 (copy), l_LocalPlayer_0 (copy), v27 (copy), v21 (copy), v29 (copy), v26 (copy), l_SoundManager_0 (copy), l_Sounds_0 (copy), l_SoundGroups_0 (copy), v28 (copy), v13 (copy), l_dependencyArray_0 (copy), l_game_EngineFeature_0 (copy), l_PeekViewState_0 (copy), v23 (copy), v24 (copy), v22 (copy), v25 (copy), l_PeekView_0 (copy)
+    local v34 = v20();
     local l_Theme_0 = l_useStyle_0().Theme;
-    local v35 = l_useDispatch_0();
-    local v36 = l_useIsSpatial_0();
-    local v37 = v3.useRef(nil);
-    local v38, v39 = v3.useState(0);
-    local v40, v41 = v3.useState(l_CurrentCamera_0.ViewportSize.X < 640);
-    local v42, v43 = v3.useState("");
-    local v44, v45 = v3.useState(l_CurrentCamera_0.ViewportSize.Y - v32);
-    local v46, v47 = v3.useState(nil);
-    local v48 = v3.useRef(l_Signal_0.new());
-    local v50 = v3.useCallback(function(v49) --[[ Line: 86 ]]
-        return v49.Navigation.currentPage;
+    local v36 = l_useDispatch_0();
+    local v37 = l_useIsSpatial_0();
+    local v38 = v4.useRef(nil);
+    local v39, v40 = v4.useState(0);
+    local v41, v42 = v4.useState(l_CurrentCamera_0.ViewportSize.X < 640);
+    local v43, v44 = v4.useState("");
+    local v45, v46 = v4.useState(l_CurrentCamera_0.ViewportSize.Y - v33);
+    local v47, v48 = v4.useState(nil);
+    local v49 = v4.useRef(l_Signal_0.new());
+    local v51 = v4.useCallback(function(v50) --[[ Line: 88 ]]
+        return v50.Navigation.currentPage;
     end, {});
-    local v51 = l_useSelector_0(v50);
-    v3.useEffect(function() --[[ Line: 91 ]]
-        -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref), v36 (copy), v35 (copy), v26 (ref), v33 (copy), v20 (ref), v51 (copy), v28 (ref), v25 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v27 (ref), v12 (ref), v39 (copy), v38 (copy)
-        local v54 = l_SocialService_0.PromptIrisInviteRequested:Connect(function(v52, v53) --[[ Line: 93 ]]
-            -- upvalues: l_LocalPlayer_0 (ref), v36 (ref), v35 (ref), v26 (ref), v33 (ref), v20 (ref), v51 (ref), v28 (ref), v25 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v27 (ref), v12 (ref), l_SocialService_0 (ref)
-            if l_LocalPlayer_0 and l_LocalPlayer_0.UserId == v52.UserId then
-                if not v36 then
-                    v35(v26(v53));
-                    v33.fireEvent(v20.PhoneBookNavigate, {
+    local v52 = l_useSelector_0(v51);
+    v4.useEffect(function() --[[ Line: 93 ]]
+        -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref), v37 (copy), v36 (copy), v27 (ref), v34 (copy), v21 (ref), v52 (copy), v29 (ref), v26 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v28 (ref), v13 (ref), v40 (copy), v39 (copy)
+        local v55 = l_SocialService_0.PromptIrisInviteRequested:Connect(function(v53, v54) --[[ Line: 95 ]]
+            -- upvalues: l_LocalPlayer_0 (ref), v37 (ref), v36 (ref), v27 (ref), v34 (ref), v21 (ref), v52 (ref), v29 (ref), v26 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v28 (ref), v13 (ref), l_SocialService_0 (ref)
+            if l_LocalPlayer_0 and l_LocalPlayer_0.UserId == v53.UserId then
+                if not v37 then
+                    v36(v27(v54));
+                    v34.fireEvent(v21.PhoneBookNavigate, {
                         eventTimestampMs = os.time() * 1000, 
-                        startingPage = v51, 
-                        destinationPage = v28.CallHistory
+                        startingPage = v52, 
+                        destinationPage = v29.CallHistory
                     });
-                    v35(v25(v28.CallHistory));
+                    v36(v26(v29.CallHistory));
                     l_SoundManager_0:PlaySound(l_Sounds_0.Swipe.Name, {
                         Volume = 0.5
                     }, l_SoundGroups_0.Iris);
                     return;
                 else
-                    v35(v27(v12:FormatByKey("Feature.Call.Error.Label.OhNo"), v12:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"), function() --[[ Line: 110 ]]
+                    v36(v28(v13:FormatByKey("Feature.Call.Error.Label.OhNo"), v13:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"), function() --[[ Line: 112 ]]
                         -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
                         l_SocialService_0:InvokeIrisInvitePromptClosed(l_LocalPlayer_0);
                     end));
@@ -74,83 +75,98 @@ return function() --[[ Line: 63 ]] --[[ Name: ContactListContainer ]]
             end;
         end);
         local _ = nil;
-        local v57 = l_SocialService_0.PhoneBookPromptClosed:Connect(function(v56) --[[ Line: 122 ]]
-            -- upvalues: l_LocalPlayer_0 (ref), v33 (ref), v20 (ref), v51 (ref), v35 (ref), v25 (ref), v39 (ref), v38 (ref)
-            if l_LocalPlayer_0 and l_LocalPlayer_0.UserId == v56.UserId then
-                v33.fireEvent(v20.PhoneBookNavigate, {
+        local v58 = l_SocialService_0.PhoneBookPromptClosed:Connect(function(v57) --[[ Line: 124 ]]
+            -- upvalues: l_LocalPlayer_0 (ref), v34 (ref), v21 (ref), v52 (ref), v36 (ref), v26 (ref), v40 (ref), v39 (ref)
+            if l_LocalPlayer_0 and l_LocalPlayer_0.UserId == v57.UserId then
+                v34.fireEvent(v21.PhoneBookNavigate, {
                     eventTimestampMs = os.time() * 1000, 
-                    startingPage = tostring(v51), 
+                    startingPage = tostring(v52), 
                     destinationPage = nil
                 });
-                v35(v25(nil));
-                v39(v38 + 1);
+                v36(v26(nil));
+                v40(v39 + 1);
             end;
         end);
-        return function() --[[ Line: 135 ]]
-            -- upvalues: v54 (copy), v57 (copy)
-            v54:Disconnect();
-            v57:Disconnect();
+        return function() --[[ Line: 137 ]]
+            -- upvalues: v55 (copy), v58 (copy)
+            v55:Disconnect();
+            v58:Disconnect();
         end;
-    end, l_dependencyArray_0(v38, v51));
-    local v58 = v3.useCallback(function() --[[ Line: 141 ]]
-        -- upvalues: v40 (copy), v37 (copy), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v32 (ref), l_SocialService_0 (ref), l_LocalPlayer_0 (ref), v48 (copy)
-        if not v40 and v37.current then
+    end, l_dependencyArray_0(v39, v52));
+    local v59 = v4.useCallback(function() --[[ Line: 143 ]]
+        -- upvalues: v41 (copy), v38 (copy), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), l_game_EngineFeature_0 (ref), v33 (ref), l_SocialService_0 (ref), l_LocalPlayer_0 (ref), v49 (copy)
+        if not v41 and v38.current then
             l_SoundManager_0:PlaySound(l_Sounds_0.Swipe.Name, {
                 Volume = 0.5
             }, l_SoundGroups_0.Iris);
-            pcall(function() --[[ Line: 144 ]]
-                -- upvalues: v37 (ref), v32 (ref), l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
-                v37.current:TweenPosition(UDim2.new(0, -376, 0, v32), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true, function() --[[ Line: 151 ]]
-                    -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
-                    l_SocialService_0:InvokeIrisInvitePromptClosed(l_LocalPlayer_0);
-                end);
+            pcall(function() --[[ Line: 146 ]]
+                -- upvalues: l_game_EngineFeature_0 (ref), v38 (ref), v33 (ref), l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
+                if l_game_EngineFeature_0 then
+                    v38.current:TweenPositionInternal(UDim2.new(0, -376, 0, v33), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true, function() --[[ Line: 154 ]]
+                        -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
+                        l_SocialService_0:InvokeIrisInvitePromptClosed(l_LocalPlayer_0);
+                    end);
+                    return;
+                else
+                    v38.current:TweenPosition(UDim2.new(0, -376, 0, v33), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true, function() --[[ Line: 165 ]]
+                        -- upvalues: l_SocialService_0 (ref), l_LocalPlayer_0 (ref)
+                        l_SocialService_0:InvokeIrisInvitePromptClosed(l_LocalPlayer_0);
+                    end);
+                    return;
+                end;
             end);
             return;
         else
-            if v48 and v48.current then
-                v48.current:fire();
+            if v49 and v49.current then
+                v49.current:fire();
             end;
             return;
         end;
     end, {
-        v40
+        v41
     });
-    local v60 = v3.useCallback(function(v59) --[[ Line: 163 ]]
-        -- upvalues: v43 (copy)
-        v43(v59);
+    local v61 = v4.useCallback(function(v60) --[[ Line: 178 ]]
+        -- upvalues: v44 (copy)
+        v44(v60);
     end, {});
-    v3.useEffect(function() --[[ Line: 168 ]]
-        -- upvalues: l_CurrentCamera_0 (ref), v41 (copy), v45 (copy), v32 (ref)
-        local v61 = l_CurrentCamera_0:GetPropertyChangedSignal("ViewportSize"):Connect(function() --[[ Line: 169 ]]
-            -- upvalues: l_CurrentCamera_0 (ref), v41 (ref), v45 (ref), v32 (ref)
+    v4.useEffect(function() --[[ Line: 183 ]]
+        -- upvalues: l_CurrentCamera_0 (ref), v42 (copy), v46 (copy), v33 (ref)
+        local v62 = l_CurrentCamera_0:GetPropertyChangedSignal("ViewportSize"):Connect(function() --[[ Line: 184 ]]
+            -- upvalues: l_CurrentCamera_0 (ref), v42 (ref), v46 (ref), v33 (ref)
             if l_CurrentCamera_0.ViewportSize.X < 640 then
-                v41(true);
+                v42(true);
             else
-                v41(false);
+                v42(false);
             end;
-            v45(l_CurrentCamera_0.ViewportSize.Y - v32);
+            v46(l_CurrentCamera_0.ViewportSize.Y - v33);
         end);
-        return function() --[[ Line: 179 ]]
-            -- upvalues: v61 (copy)
-            v61:Disconnect();
+        return function() --[[ Line: 194 ]]
+            -- upvalues: v62 (copy)
+            v62:Disconnect();
         end;
     end, {});
-    v3.useEffect(function() --[[ Line: 184 ]]
-        -- upvalues: v51 (copy), v40 (copy), v37 (copy), v32 (ref), v43 (copy)
-        if v51 and not v40 and v37.current then
-            pcall(function() --[[ Line: 186 ]]
-                -- upvalues: v37 (ref), v32 (ref)
-                v37.current:TweenPosition(UDim2.new(0, 12, 0, v32), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.3, true);
+    v4.useEffect(function() --[[ Line: 199 ]]
+        -- upvalues: v52 (copy), v41 (copy), v38 (copy), l_game_EngineFeature_0 (ref), v33 (ref), v44 (copy)
+        if v52 and not v41 and v38.current then
+            pcall(function() --[[ Line: 201 ]]
+                -- upvalues: l_game_EngineFeature_0 (ref), v38 (ref), v33 (ref)
+                if l_game_EngineFeature_0 then
+                    v38.current:TweenPositionInternal(UDim2.new(0, 12, 0, v33), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.3, true);
+                    return;
+                else
+                    v38.current:TweenPosition(UDim2.new(0, 12, 0, v33), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.3, true);
+                    return;
+                end;
             end);
         end;
-        v43("");
+        v44("");
     end, {
-        v40, 
-        v51
+        v41, 
+        v52
     });
-    local v64 = v3.useCallback(function(v62, _) --[[ Line: 201 ]]
-        -- upvalues: l_PeekViewState_0 (ref), l_LocalPlayer_0 (ref), l_SocialService_0 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v47 (copy)
-        if v62 == l_PeekViewState_0.Closed then
+    local v65 = v4.useCallback(function(v63, _) --[[ Line: 226 ]]
+        -- upvalues: l_PeekViewState_0 (ref), l_LocalPlayer_0 (ref), l_SocialService_0 (ref), l_SoundManager_0 (ref), l_Sounds_0 (ref), l_SoundGroups_0 (ref), v48 (copy)
+        if v63 == l_PeekViewState_0.Closed then
             if l_LocalPlayer_0 then
                 l_SocialService_0:InvokeIrisInvitePromptClosed(l_LocalPlayer_0);
             end;
@@ -158,115 +174,115 @@ return function() --[[ Line: 63 ]] --[[ Name: ContactListContainer ]]
                 Volume = 0.5
             }, l_SoundGroups_0.Iris);
         end;
-        v47(v62);
+        v48(v63);
     end, {});
-    local v65 = v3.useCallback(function() --[[ Line: 213 ]]
-        -- upvalues: v33 (copy), v20 (ref), v51 (copy), v28 (ref), v35 (copy), v25 (ref), v47 (copy), l_PeekViewState_0 (ref)
-        v33.fireEvent(v20.PhoneBookSearchClicked, {
+    local v66 = v4.useCallback(function() --[[ Line: 238 ]]
+        -- upvalues: v34 (copy), v21 (ref), v52 (copy), v29 (ref), v36 (copy), v26 (ref), v48 (copy), l_PeekViewState_0 (ref)
+        v34.fireEvent(v21.PhoneBookSearchClicked, {
             eventTimestampMs = os.time() * 1000
         });
-        if v51 ~= v28.FriendList then
-            v33.fireEvent(v20.PhoneBookNavigate, {
+        if v52 ~= v29.FriendList then
+            v34.fireEvent(v21.PhoneBookNavigate, {
                 eventTimestampMs = os.time() * 1000, 
-                startingPage = v51, 
-                destinationPage = v28.FriendList
+                startingPage = v52, 
+                destinationPage = v29.FriendList
             });
         end;
-        v35(v25(v28.FriendList));
-        v47(l_PeekViewState_0.Full);
+        v36(v26(v29.FriendList));
+        v48(l_PeekViewState_0.Full);
     end, {
-        v51
+        v52
     });
-    local v67 = v3.useMemo(function() --[[ Line: 228 ]]
-        -- upvalues: v51 (copy), v28 (ref), v3 (ref), v22 (ref), v58 (copy), v40 (copy), v46 (copy), l_PeekViewState_0 (ref), v42 (copy), v23 (ref), v44 (copy), v32 (ref), l_Theme_0 (copy), v37 (copy), v21 (ref), v24 (ref), v60 (copy), v65 (copy)
-        local v66 = nil;
-        if v51 == v28.CallHistory then
-            v66 = v3.createElement(v22, {
-                dismissCallback = v58, 
-                isSmallScreen = v40, 
-                scrollingEnabled = not v40 or v46 == l_PeekViewState_0.Full, 
-                searchText = v42
+    local v68 = v4.useMemo(function() --[[ Line: 253 ]]
+        -- upvalues: v52 (copy), v29 (ref), v4 (ref), v23 (ref), v59 (copy), v41 (copy), v47 (copy), l_PeekViewState_0 (ref), v43 (copy), v24 (ref), v45 (copy), v33 (ref), l_Theme_0 (copy), v38 (copy), v22 (ref), v25 (ref), v61 (copy), v66 (copy)
+        local v67 = nil;
+        if v52 == v29.CallHistory then
+            v67 = v4.createElement(v23, {
+                dismissCallback = v59, 
+                isSmallScreen = v41, 
+                scrollingEnabled = not v41 or v47 == l_PeekViewState_0.Full, 
+                searchText = v43
             });
-        elseif v51 == v28.FriendList then
-            v66 = v3.createElement(v23, {
-                dismissCallback = v58, 
-                isSmallScreen = v40, 
-                scrollingEnabled = not v40 or v46 == l_PeekViewState_0.Full, 
-                searchText = v42
+        elseif v52 == v29.FriendList then
+            v67 = v4.createElement(v24, {
+                dismissCallback = v59, 
+                isSmallScreen = v41, 
+                scrollingEnabled = not v41 or v47 == l_PeekViewState_0.Full, 
+                searchText = v43
             });
         end;
-        return v3.createElement("ImageButton", {
-            Size = if v40 then UDim2.new(1, 0, 0, v44 - 25) else UDim2.new(0, 376, 1, -v32), 
-            Position = if v40 then UDim2.new(0, 0, 0, 0) else UDim2.new(0, -376, 0, v32), 
+        return v4.createElement("ImageButton", {
+            Size = if v41 then UDim2.new(1, 0, 0, v45 - 25) else UDim2.new(0, 376, 1, -v33), 
+            Position = if v41 then UDim2.new(0, 0, 0, 0) else UDim2.new(0, -376, 0, v33), 
             AutoButtonColor = false, 
             BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
             BackgroundTransparency = l_Theme_0.BackgroundDefault.Transparency, 
             BorderSizePixel = 0, 
-            ref = v37
+            ref = v38
         }, {
-            UICorner = if v40 then nil else v3.createElement("UICorner", {
+            UICorner = if v41 then nil else v4.createElement("UICorner", {
                 CornerRadius = UDim.new(0, 12)
             }), 
-            UIPadding = v3.createElement("UIPadding", {
+            UIPadding = v4.createElement("UIPadding", {
                 PaddingTop = UDim.new(0, 8)
             }), 
-            Layout = v3.createElement("UIListLayout", {
+            Layout = v4.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Vertical, 
                 HorizontalAlignment = Enum.HorizontalAlignment.Center, 
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 Padding = UDim.new(0, 8)
             }), 
-            Header = v3.createElement(v21, {
-                currentPage = v51, 
+            Header = v4.createElement(v22, {
+                currentPage = v52, 
                 headerHeight = 36, 
                 layoutOrder = 1, 
-                dismissCallback = v58
+                dismissCallback = v59
             }), 
-            SearchBar = v3.createElement(v24, {
+            SearchBar = v4.createElement(v25, {
                 layoutOrder = 2, 
-                onSearchChanged = v60, 
+                onSearchChanged = v61, 
                 searchBarHeight = 36, 
-                searchText = v42, 
-                onFocused = v65
+                searchText = v43, 
+                onFocused = v66
             }), 
-            ContentContainer = v3.createElement("Frame", {
+            ContentContainer = v4.createElement("Frame", {
                 BackgroundTransparency = 1, 
                 LayoutOrder = 3, 
                 Size = UDim2.new(1, 0, 1, -88)
-            }, v66)
+            }, v67)
         });
-    end, l_dependencyArray_0(v44, v51, v58, v46, v40, v42));
-    local v68 = {};
-    if v40 then
-        v68["ContactListContent" .. tostring(v38)] = v3.createElement("Frame", {
-            Size = UDim2.new(1, 0, 1, -v32), 
-            Position = UDim2.fromOffset(0, v32), 
+    end, l_dependencyArray_0(v45, v52, v59, v47, v41, v43));
+    local v69 = {};
+    if v41 then
+        v69["ContactListContent" .. tostring(v39)] = v4.createElement("Frame", {
+            Size = UDim2.new(1, 0, 1, -v33), 
+            Position = UDim2.fromOffset(0, v33), 
             BackgroundTransparency = 1
         }, {
-            v3.createElement(l_PeekView_0, {
+            v4.createElement(l_PeekView_0, {
                 briefViewContentHeight = UDim.new(0.6, 0), 
                 canDragFullViewToBrief = true, 
-                closeSignal = v48.current, 
+                closeSignal = v49.current, 
                 elasticBehavior = Enum.ElasticBehavior.Never, 
-                peekViewState = v46, 
-                viewStateChanged = v64
+                peekViewState = v47, 
+                viewStateChanged = v65
             }, {
-                Content = v67
+                Content = v68
             })
         });
     else
-        v68.ContactListContent = v67;
+        v69.ContactListContent = v68;
     end;
-    if v51 then
-        return (v3.createElement("TextButton", {
+    if v52 then
+        return (v4.createElement("TextButton", {
             Size = UDim2.fromScale(1, 1), 
             BackgroundTransparency = 1, 
             Text = "", 
-            [v3.Event.Activated] = function() --[[ Line: 332 ]]
-                -- upvalues: v58 (copy)
-                v58();
+            [v4.Event.Activated] = function() --[[ Line: 357 ]]
+                -- upvalues: v59 (copy)
+                v59();
             end
-        }, v68));
+        }, v69));
     else
         return nil;
     end;

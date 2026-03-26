@@ -3,7 +3,7 @@ local v1 = {
     Name = "MoveToGoalEvent"
 };
 local v2 = nil;
-local function v6(v3, v4) --[[ Line: 11 ]] --[[ Name: spawnGoalArea ]]
+local function _(v3, v4) --[[ Line: 11 ]] --[[ Name: spawnGoalArea ]]
     local l_Part_0 = Instance.new("Part");
     l_Part_0.Anchored = true;
     l_Part_0.CanCollide = false;
@@ -14,13 +14,20 @@ local function v6(v3, v4) --[[ Line: 11 ]] --[[ Name: spawnGoalArea ]]
     return l_Part_0;
 end;
 v1.StartEvent = function(v7) --[[ Line: 24 ]] --[[ Name: StartEvent ]]
-    -- upvalues: v6 (copy), v2 (ref)
-    local v8 = v6(Vector3.new(-8, 6.300000190734863, -31, 0), (Vector3.new(9, 6.300000190734863, -49, 0)));
+    -- upvalues: v2 (ref)
+    local l_Part_1 = Instance.new("Part");
+    l_Part_1.Anchored = true;
+    l_Part_1.CanCollide = false;
+    l_Part_1.Transparency = 1;
+    l_Part_1.Size = Vector3.new(17, 1, 18, 0);
+    l_Part_1.Position = Vector3.new(0.5, 6.300000190734863, -40, 0);
+    l_Part_1.Parent = workspace;
+    local l_l_Part_1_0 = l_Part_1;
     task.wait(1);
-    v2 = v8.Touched:Connect(function(v9) --[[ Line: 32 ]]
-        -- upvalues: v8 (copy), v7 (copy), v2 (ref)
-        if game.Players:GetPlayerFromCharacter(v9.Parent) then
-            v8:Destroy();
+    v2 = l_l_Part_1_0.Touched:Connect(function(v10) --[[ Line: 32 ]]
+        -- upvalues: l_l_Part_1_0 (copy), v7 (copy), v2 (ref)
+        if game.Players:GetPlayerFromCharacter(v10.Parent) then
+            l_l_Part_1_0:Destroy();
             task.wait(0.2);
             v7();
             if v2 then

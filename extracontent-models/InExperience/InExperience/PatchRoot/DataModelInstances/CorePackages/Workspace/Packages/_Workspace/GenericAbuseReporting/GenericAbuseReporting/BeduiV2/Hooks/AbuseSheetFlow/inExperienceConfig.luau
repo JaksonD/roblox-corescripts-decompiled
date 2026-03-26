@@ -265,7 +265,8 @@ return {
     }, 
     nodes = {
         root = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = "Report issue", 
             items = {
                 ["$resource"] = "reportSurfaces"
@@ -304,7 +305,8 @@ return {
             }
         }, 
         voiceChatPlayerSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = "Who do you want to report?", 
             items = {
                 ["$resource"] = "temporaryUsers"
@@ -317,7 +319,8 @@ return {
             next = "voiceChatAbuseSelection"
         }, 
         generalUserSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = "Who do you want to report?", 
             items = {
                 ["$resource"] = "temporaryUsers"
@@ -330,7 +333,8 @@ return {
             next = "generalUserAbuseSelection"
         }, 
         textChatLineSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = "Select one chat to report", 
             items = {
                 ["$resource"] = "textChatMessages"
@@ -343,7 +347,8 @@ return {
             next = "textChatAbuseSelection"
         }, 
         experienceSubSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = "What do you want to report?", 
             items = {
                 ["$resource"] = "experienceTargets"
@@ -369,8 +374,16 @@ return {
                 }
             }
         }, 
+        highlightMode = {
+            type = "paragraph", 
+            title = "Highlight the problem", 
+            paragraph = "Highlight placeholder", 
+            nextButtonText = "Next", 
+            next = "experienceAndHighlightModeAbuseSelection"
+        }, 
         voiceChatAbuseSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = {
                 ["$translate"] = "Title.WhatIssue"
             }, 
@@ -386,7 +399,8 @@ return {
             next = "socialSummary"
         }, 
         textChatAbuseSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = {
                 ["$translate"] = "Title.WhatIssue"
             }, 
@@ -402,7 +416,8 @@ return {
             next = "socialSummary"
         }, 
         generalUserAbuseSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = {
                 ["$translate"] = "Title.WhatIssue"
             }, 
@@ -418,7 +433,8 @@ return {
             next = "socialSummary"
         }, 
         experienceAndHighlightModeAbuseSelection = {
-            type = "chevronList", 
+            type = "list", 
+            variant = "chevron", 
             title = {
                 ["$translate"] = "Title.WhatIssue"
             }, 
@@ -432,6 +448,119 @@ return {
                 ["$translate"] = "Action.Continue"
             }, 
             next = "gameExperienceSummary"
+        }, 
+        socialSummary = {
+            type = "comment", 
+            title = "Report summary", 
+            formKey = "comment", 
+            textAreaLabel = "More details (optional)", 
+            placeholder = "Tell us what happened", 
+            nextButtonText = {
+                ["$translate"] = "Action.Continue"
+            }, 
+            next = {
+                type = "submitForm", 
+                onSuccess = "userConfirmation", 
+                onFailure = "generalError"
+            }
+        }, 
+        gameExperienceSummary = {
+            type = "comment", 
+            title = "Report summary", 
+            formKey = "comment", 
+            textAreaLabel = "More details (optional)", 
+            placeholder = "Tell us what happened", 
+            nextButtonText = "Submit", 
+            next = {
+                type = "submitForm", 
+                onSuccess = "experienceConfirmation", 
+                onFailure = "generalError"
+            }
+        }, 
+        userConfirmation = {
+            type = "confirmation", 
+            title = "Thanks for your report", 
+            message = "Our moderation team will use it to make Roblox safer for you and everyone.", 
+            blockToggle = {
+                label = "Block [username]", 
+                description = "You won't see them anymore", 
+                errorLabel = {
+                    ["$translate"] = "Label.GeneralError"
+                }, 
+                userId = {
+                    ["$attribute"] = "targetId"
+                }, 
+                blockedSnackbarMessage = {
+                    ["$translate"] = "Label.BlockedPerson"
+                }, 
+                unblockedSnackbarMessage = {
+                    ["$translate"] = "Label.UnblockedPerson"
+                }
+            }, 
+            helpline = {
+                ["$switch"] = {
+                    {
+                        condition = {
+                            ["$context"] = "selectedAbuseType.meta.showHelpline"
+                        }, 
+                        value = {
+                            buttonText = {
+                                ["$translate"] = "Action.ViewHelplines"
+                            }, 
+                            heading = "If you or someone you know is struggling, please reach out for help.", 
+                            href = "https://roblox.findahelpline.com/"
+                        }
+                    }
+                }
+            }, 
+            nextButtonText = {
+                ["$translate"] = "Action.Close"
+            }, 
+            next = {
+                type = "close"
+            }
+        }, 
+        experienceConfirmation = {
+            type = "confirmation", 
+            title = "Thanks for your report", 
+            message = "Our moderation team will use it to make Roblox safer for you and everyone.", 
+            helpline = {
+                ["$switch"] = {
+                    {
+                        condition = {
+                            ["$context"] = "selectedAbuseType.meta.showHelpline"
+                        }, 
+                        value = {
+                            buttonText = {
+                                ["$translate"] = "Action.ViewHelplines"
+                            }, 
+                            heading = "If you or someone you know is struggling, please reach out for help.", 
+                            href = "https://roblox.findahelpline.com/"
+                        }
+                    }
+                }
+            }, 
+            nextButtonText = {
+                ["$translate"] = "Action.Close"
+            }, 
+            next = {
+                type = "close"
+            }
+        }, 
+        generalError = {
+            type = "paragraph", 
+            title = {
+                ["$translate"] = "Title.SomethingWentWrong"
+            }, 
+            paragraph = {
+                ["$translate"] = "Description.SomethingWentWrong"
+            }, 
+            nextButtonText = {
+                ["$translate"] = "Action.Close"
+            }, 
+            next = {
+                type = "close"
+            }
         }
     }, 
     submission = {

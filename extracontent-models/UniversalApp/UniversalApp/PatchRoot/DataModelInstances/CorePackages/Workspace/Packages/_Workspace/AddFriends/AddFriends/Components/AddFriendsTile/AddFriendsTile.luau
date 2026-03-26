@@ -58,434 +58,435 @@ local l_FFlagAddFriendsPYMKPresence_0 = require(l_Parent_0.SharedFlags).FFlagAdd
 local l_FFlagAddFriendsPYMKPresenceAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsPYMKPresenceAnalytics;
 local l_FFlagAddFriendsRenderTileRefactor_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsRenderTileRefactor;
 local l_FFlagAddFriendsUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsUserListEnabled;
-return function(v60) --[[ Line: 115 ]] --[[ Name: AddFriendsTile ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useFocusGuiObject_0 (copy), l_useLastInputMode_0 (copy), l_useStyle_0 (copy), l_FFlagPPVEnabledOnConsole_0 (copy), l_usePreferredInput_0 (copy), v8 (copy), v10 (copy), l_dependencyArray_0 (copy), l_useImpressionsTagger_0 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (copy), v54 (copy), l_RecommendationContextType_0 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), l_FFlagAddFriendsPYMKPresence_0 (copy), l_getSessionIdByKey_0 (copy), v39 (copy), l_useLocalization_0 (copy), v48 (copy), v42 (copy), l_EntityTypes_0 (copy), l_Namespaces_0 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), v7 (copy), l_EventNames_0 (copy), l_FriendsNetworking_0 (copy), l_Images_0 (copy), l_FriendshipOriginSourceType_0 (copy), l_useNavigation_0 (copy), l_AppPage_0 (copy), l_Contexts_0 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_convertUserPresenceTypeToString_0 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), v16 (copy), v12 (copy), l_PresenceType_0 (copy), v49 (copy), l_View_0 (copy), l_UserTileEventHandlers_0 (copy), l_PlayerTile_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy)
-    local v61 = l_useDispatch_0();
-    local v62 = l_useFocusGuiObject_0();
-    local v63 = l_useLastInputMode_0();
-    local v64 = l_useStyle_0();
-    local v65 = nil;
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
+return function(v61) --[[ Line: 116 ]] --[[ Name: AddFriendsTile ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useFocusGuiObject_0 (copy), l_useLastInputMode_0 (copy), l_useStyle_0 (copy), l_FFlagPPVEnabledOnConsole_0 (copy), l_usePreferredInput_0 (copy), v8 (copy), v10 (copy), l_dependencyArray_0 (copy), l_useImpressionsTagger_0 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (copy), v54 (copy), l_RecommendationContextType_0 (copy), l_useLocalUserId_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), l_FFlagAddFriendsPYMKPresence_0 (copy), l_getSessionIdByKey_0 (copy), v39 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v48 (copy), v42 (copy), l_EntityTypes_0 (copy), l_Namespaces_0 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), v7 (copy), l_EventNames_0 (copy), l_FriendsNetworking_0 (copy), l_Images_0 (copy), l_FriendshipOriginSourceType_0 (copy), l_useNavigation_0 (copy), l_AppPage_0 (copy), l_Contexts_0 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_convertUserPresenceTypeToString_0 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), v16 (copy), v12 (copy), l_PresenceType_0 (copy), v49 (copy), l_View_0 (copy), l_UserTileEventHandlers_0 (copy), l_PlayerTile_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy)
+    local v62 = l_useDispatch_0();
+    local v63 = l_useFocusGuiObject_0();
+    local v64 = l_useLastInputMode_0();
+    local v65 = l_useStyle_0();
+    local v66 = nil;
     if not l_FFlagPPVEnabledOnConsole_0 then
-        v65 = l_usePreferredInput_0();
+        v66 = l_usePreferredInput_0();
     end;
-    local v66 = v8.useRef(nil);
-    local v67 = v10.usePreferredInput() == v10.Input.Directional;
-    local v69 = v8.useCallback(function() --[[ Line: 129 ]]
-        -- upvalues: v60 (copy), v63 (copy), v66 (copy), v62 (copy)
-        if v60.selected and v63 == "Focus" then
-            local l_current_0 = v66.current;
+    local v67 = v8.useRef(nil);
+    local v68 = v10.usePreferredInput() == v10.Input.Directional;
+    local v70 = v8.useCallback(function() --[[ Line: 130 ]]
+        -- upvalues: v61 (copy), v64 (copy), v67 (copy), v63 (copy)
+        if v61.selected and v64 == "Focus" then
+            local l_current_0 = v67.current;
             if l_current_0 then
-                v62(l_current_0);
+                v63(l_current_0);
             end;
         end;
-    end, l_dependencyArray_0(v60.selected, v63, v66, v62));
-    v8.useEffect(function() --[[ Line: 138 ]]
-        -- upvalues: v69 (copy)
-        v69();
+    end, l_dependencyArray_0(v61.selected, v64, v67, v63));
+    v8.useEffect(function() --[[ Line: 139 ]]
+        -- upvalues: v70 (copy)
+        v70();
     end, {});
-    l_useImpressionsTagger_0(v66, v60.impressionsTag, v60.position);
-    local v70 = if l_FFlagAddFriendsRenderTileRefactor_0 then v60.user.type == v54.Enums.EntityType.Contact else v60.user.contextType and v60.user.contextType == l_RecommendationContextType_0.Contacts;
-    local v71 = l_useLocalUserId_0();
-    local v73 = l_useSelector_0(function(v72) --[[ Line: 150 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return l_AddFriendsSelector_0(v72, "Friends.friendshipStatus.%s", v60.user.id) or nil;
+    l_useImpressionsTagger_0(v67, v61.impressionsTag, v61.position);
+    local v71 = if l_FFlagAddFriendsRenderTileRefactor_0 then v61.user.type == v54.Enums.EntityType.Contact else v61.user.contextType and v61.user.contextType == l_RecommendationContextType_0.Contacts;
+    local v72 = l_useLocalUserId_0();
+    local v74 = l_useSelector_0(function(v73) --[[ Line: 151 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return l_AddFriendsSelector_0(v73, "Friends.friendshipStatus.%s", v61.user.id) or nil;
     end);
-    local v75 = l_useSelector_0(function(v74) --[[ Line: 156 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return (l_AddFriendsSelector_0(v74, "RequestsFromOriginSourceType") or {})[v60.user.id];
+    local v76 = l_useSelector_0(function(v75) --[[ Line: 157 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return (l_AddFriendsSelector_0(v75, "RequestsFromOriginSourceType") or {})[v61.user.id];
     end);
-    local v78 = l_useSelector_0(function(v76) --[[ Line: 161 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        local v77 = (l_AddFriendsSelector_0(v76, "Friends.requests.sourceUniverseIds") or {})[v60.user.id];
-        if v77 ~= nil and v77 ~= 0 then
-            return (l_AddFriendsSelector_0(v76, "Games.byGameId.%s", (tostring(v77))) or {}).name;
+    local v79 = l_useSelector_0(function(v77) --[[ Line: 162 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        local v78 = (l_AddFriendsSelector_0(v77, "Friends.requests.sourceUniverseIds") or {})[v61.user.id];
+        if v78 ~= nil and v78 ~= 0 then
+            return (l_AddFriendsSelector_0(v77, "Games.byGameId.%s", (tostring(v78))) or {}).name;
         else
             return nil;
         end;
     end);
-    local v80 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v79) --[[ Line: 173 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return l_AddFriendsSelector_0(v79, "Friends.requests.mutualFriends.%s", v60.user.id) or {};
+    local v81 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v80) --[[ Line: 174 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return l_AddFriendsSelector_0(v80, "Friends.requests.mutualFriends.%s", v61.user.id) or {};
     end) else nil;
-    local v82 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v81) --[[ Line: 179 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return l_AddFriendsSelector_0(v81, "Friends.contactNamesByUserId.%s", v60.user.id);
+    local v83 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v82) --[[ Line: 180 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return l_AddFriendsSelector_0(v82, "Friends.contactNamesByUserId.%s", v61.user.id);
     end) else nil;
-    local v85 = l_useSelector_0(function(v83) --[[ Line: 184 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        local v84 = l_AddFriendsSelector_0(v83, "IsUserFollowing") or {};
-        return v84[v60.user.id] and v84[v60.user.id].isFollowing or false;
+    local v86 = l_useSelector_0(function(v84) --[[ Line: 185 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        local v85 = l_AddFriendsSelector_0(v84, "IsUserFollowing") or {};
+        return v85[v61.user.id] and v85[v61.user.id].isFollowing or false;
     end);
-    local v88 = l_useSelector_0(function(v86) --[[ Line: 189 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        local v87 = l_AddFriendsSelector_0(v86, "IsUserFollowing") or {};
-        return v87[v60.user.id] and v87[v60.user.id].isFollowed or false;
+    local v89 = l_useSelector_0(function(v87) --[[ Line: 190 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        local v88 = l_AddFriendsSelector_0(v87, "IsUserFollowing") or {};
+        return v88[v61.user.id] and v88[v61.user.id].isFollowed or false;
     end);
-    local v90 = l_useSelector_0(function(v89) --[[ Line: 195 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return l_AddFriendsSelector_0(v89, "Friends.recommendations.hasIncomingFriendRequest.%s", v60.user.id) or false;
+    local v91 = l_useSelector_0(function(v90) --[[ Line: 196 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return l_AddFriendsSelector_0(v90, "Friends.recommendations.hasIncomingFriendRequest.%s", v61.user.id) or false;
     end);
-    local v92 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v91) --[[ Line: 200 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v71 (copy), v60 (copy)
-        return l_AddFriendsSelector_0(v91, "Friends.recommendations.byUserId.%s.%s", v71, v60.user.id) or {};
+    local v93 = if l_FFlagAddFriendsRenderTileRefactor_0 then l_useSelector_0(function(v92) --[[ Line: 201 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v72 (copy), v61 (copy)
+        return l_AddFriendsSelector_0(v92, "Friends.recommendations.byUserId.%s.%s", v72, v61.user.id) or {};
     end) else nil;
-    local v93 = if l_FFlagAddFriendsRenderTileRefactor_0 then v92.contextType else nil;
-    local v94 = if l_FFlagAddFriendsRenderTileRefactor_0 then v92.mutualFriendsCount else nil;
-    local v95 = if l_FFlagAddFriendsRenderTileRefactor_0 then v92.rank else nil;
-    local v97 = if l_FFlagAddFriendsPYMKPresence_0 then l_useSelector_0(function(v96) --[[ Line: 210 ]]
-        -- upvalues: l_AddFriendsSelector_0 (ref), v60 (copy)
-        return l_AddFriendsSelector_0(v96, "Presence.byUserId.%s", v60.user.id) or nil;
+    local v94 = if l_FFlagAddFriendsRenderTileRefactor_0 then v93.contextType else nil;
+    local v95 = if l_FFlagAddFriendsRenderTileRefactor_0 then v93.mutualFriendsCount else nil;
+    local v96 = if l_FFlagAddFriendsRenderTileRefactor_0 then v93.rank else nil;
+    local v98 = if l_FFlagAddFriendsPYMKPresence_0 then l_useSelector_0(function(v97) --[[ Line: 211 ]]
+        -- upvalues: l_AddFriendsSelector_0 (ref), v61 (copy)
+        return l_AddFriendsSelector_0(v97, "Presence.byUserId.%s", v61.user.id) or nil;
     end) else nil;
-    local v99 = l_useSelector_0(function(v98) --[[ Line: 215 ]]
+    local v100 = l_useSelector_0(function(v99) --[[ Line: 216 ]]
         -- upvalues: l_getSessionIdByKey_0 (ref), v39 (ref)
-        return l_getSessionIdByKey_0(v98)(v39.RECOMMENDATION_SESSION_ID_KEY);
+        return l_getSessionIdByKey_0(v99)(v39.RECOMMENDATION_SESSION_ID_KEY);
     end);
-    local v100 = l_useLocalization_0({
-        mutualFriendsText = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v60.user.mutualFriends and #v60.user.mutualFriends == 1 and "Feature.Friends.Label.SingularMutualFriend" or "Feature.Friends.Label.MutualFriends", 
+    local v101 = l_useLocalization_0({
+        mutualFriendsText = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v61.user.mutualFriends and #v61.user.mutualFriends == 1 and "Feature.Friends.Label.SingularMutualFriend" or "Feature.Friends.Label.MutualFriends", 
         sentFromWithContextText = {
             "Feature.Friends.Label.SentFromWithContext"; 
-            gameName = v78 or ""
+            gameName = v79 or ""
         }, 
         youAreFollowingText = "Feature.Friends.Label.YouAreFollowing", 
         followsYouText = "Feature.Friends.Label.FollowsYou", 
         fromContactsText = "Feature.Friends.Description.FoundFromContactImporter", 
-        contactNameText = if if l_FFlagAddFriendsRenderTileRefactor_0 then v82 else v60.user.contactName then {
+        contactNameText = if if l_FFlagAddFriendsRenderTileRefactor_0 then v83 else v61.user.contactName then {
             "Feature.Friends.Description.FromContactsV2"; 
-            contactName = if l_FFlagAddFriendsRenderTileRefactor_0 then v82 else v60.user.contactName
+            contactName = if l_FFlagAddFriendsRenderTileRefactor_0 then v83 else v61.user.contactName
         } else nil, 
-        singularMutualConnection = "Feature.Friends.Label.MutualConnection", 
+        singularMutualConnection = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.MutualFriendTitle" or "Feature.Friends.Label.MutualConnection", 
         mutualConnections = {
-            "Feature.Friends.Label.MutualConnections"; 
-            numConnections = if l_FFlagAddFriendsRenderTileRefactor_0 then v94 or v80 and #v80 else v60.user.mutualFriendsCount or v60.user.mutualFriends and #v60.user.mutualFriends
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.MutualFriendsTitle" or "Feature.Friends.Label.MutualConnections"; 
+            numConnections = if l_FFlagAddFriendsRenderTileRefactor_0 then v95 or v81 and #v81 else v61.user.mutualFriendsCount or v61.user.mutualFriends and #v61.user.mutualFriends
         }, 
         foundThroughQRCode = "Feature.Profile.Label.QRCodeFriendRequest", 
         connectionRequests = "Feature.Friends.Label.ConnectionRequest", 
         frequents = "Feature.Friends.Label.Frequent", 
         fromContacts = "Feature.Friends.Description.FromContacts"
     });
-    local v101, v102 = v8.useMemo(function() --[[ Line: 257 ]]
-        -- upvalues: v48 (ref), l_FFlagAddFriendsRenderTileRefactor_0 (ref), v80 (copy), v60 (copy), v88 (copy), v85 (copy), v78 (copy), v75 (copy), v93 (copy), v94 (copy), v90 (copy), v64 (copy), v100 (copy)
+    local v102, v103 = v8.useMemo(function() --[[ Line: 262 ]]
+        -- upvalues: v48 (ref), l_FFlagAddFriendsRenderTileRefactor_0 (ref), v81 (copy), v61 (copy), v89 (copy), v86 (copy), v79 (copy), v76 (copy), v94 (copy), v95 (copy), v91 (copy), v65 (copy), v101 (copy)
         return v48({
-            mutualFriends = if l_FFlagAddFriendsRenderTileRefactor_0 then v80 else v60.user.mutualFriends, 
-            isUserFollowingMe = v88, 
-            amIFollowingUser = v85, 
-            sentFromExperienceName = v78, 
-            isFriendRequest = v60.isFriendRequest or false, 
-            isRecommendation = v60.isRecommendation, 
-            userPresenceType = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v60.user.userPresenceType, 
-            lastLocation = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v60.user.lastLocation, 
-            originSourceType = v75, 
-            contextType = if l_FFlagAddFriendsRenderTileRefactor_0 then v93 else v60.user.contextType, 
-            mutualFriendsCount = if l_FFlagAddFriendsRenderTileRefactor_0 then v94 else v60.user.mutualFriendsCount, 
-            hasIncomingFriendRequest = v90
-        }, v64, v100);
-    end, l_dependencyArray_0(v60.user, v88, v85, v78, v60.isFriendRequest, v60.isRecommendation, v75, v90, if l_FFlagAddFriendsRenderTileRefactor_0 then v94 else nil, if l_FFlagAddFriendsRenderTileRefactor_0 then v80 else nil, if l_FFlagAddFriendsRenderTileRefactor_0 then v93 else nil, v64, v100));
-    local v103 = v42({
-        targetUserId = v60.user.id, 
-        absolutePosition = v60.position, 
-        rank = if l_FFlagAddFriendsRenderTileRefactor_0 then v95 else v60.user.rank, 
-        contextType = v102, 
-        entityType = if v70 then l_EntityTypes_0.Contact else nil, 
-        namespace = if v60.isFriendRequest then l_Namespaces_0.FriendRequests else l_Namespaces_0.PYMK, 
-        friendStatus = v73, 
-        presence = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then (v97 or {}).userPresenceType else nil
+            mutualFriends = if l_FFlagAddFriendsRenderTileRefactor_0 then v81 else v61.user.mutualFriends, 
+            isUserFollowingMe = v89, 
+            amIFollowingUser = v86, 
+            sentFromExperienceName = v79, 
+            isFriendRequest = v61.isFriendRequest or false, 
+            isRecommendation = v61.isRecommendation, 
+            userPresenceType = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v61.user.userPresenceType, 
+            lastLocation = if l_FFlagAddFriendsRenderTileRefactor_0 then nil else v61.user.lastLocation, 
+            originSourceType = v76, 
+            contextType = if l_FFlagAddFriendsRenderTileRefactor_0 then v94 else v61.user.contextType, 
+            mutualFriendsCount = if l_FFlagAddFriendsRenderTileRefactor_0 then v95 else v61.user.mutualFriendsCount, 
+            hasIncomingFriendRequest = v91
+        }, v65, v101);
+    end, l_dependencyArray_0(v61.user, v89, v86, v79, v61.isFriendRequest, v61.isRecommendation, v76, v91, if l_FFlagAddFriendsRenderTileRefactor_0 then v95 else nil, if l_FFlagAddFriendsRenderTileRefactor_0 then v81 else nil, if l_FFlagAddFriendsRenderTileRefactor_0 then v94 else nil, v65, v101));
+    local v104 = v42({
+        targetUserId = v61.user.id, 
+        absolutePosition = v61.position, 
+        rank = if l_FFlagAddFriendsRenderTileRefactor_0 then v96 else v61.user.rank, 
+        contextType = v103, 
+        entityType = if v71 then l_EntityTypes_0.Contact else nil, 
+        namespace = if v61.isFriendRequest then l_Namespaces_0.FriendRequests else l_Namespaces_0.PYMK, 
+        friendStatus = v74, 
+        presence = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then (v98 or {}).userPresenceType else nil
     });
-    local v105 = v8.useCallback(function(v104) --[[ Line: 303 ]]
-        -- upvalues: v61 (copy), v7 (ref)
-        if not v104 then
+    local v106 = v8.useCallback(function(v105) --[[ Line: 308 ]]
+        -- upvalues: v62 (copy), v7 (ref)
+        if not v105 then
             return;
         else
-            v61(v7.Actions.SetCurrentToastMessage({
-                toastMessage = v104.toastTitle, 
-                toastIcon = v104.iconImage
+            v62(v7.Actions.SetCurrentToastMessage({
+                toastMessage = v105.toastTitle, 
+                toastIcon = v105.iconImage
             }));
             return;
         end;
     end, {
-        v61
+        v62
     });
-    local v108 = v8.useCallback(function(v106, v107) --[[ Line: 314 ]]
-        -- upvalues: v105 (copy)
-        return v106:andThen(function() --[[ Line: 316 ]]
-            -- upvalues: v105 (ref), v107 (copy)
-            v105(v107);
-        end):catch(function() --[[ Line: 319 ]]
-            -- upvalues: v105 (ref)
-            v105({
+    local v109 = v8.useCallback(function(v107, v108) --[[ Line: 319 ]]
+        -- upvalues: v106 (copy)
+        return v107:andThen(function() --[[ Line: 321 ]]
+            -- upvalues: v106 (ref), v108 (copy)
+            v106(v108);
+        end):catch(function() --[[ Line: 324 ]]
+            -- upvalues: v106 (ref)
+            v106({
                 toastTitle = "Feature.Toast.NetworkingError.SomethingIsWrong"
             });
         end);
     end, {
-        v105
+        v106
     });
-    local v109 = v8.useCallback(function() --[[ Line: 324 ]]
-        -- upvalues: v103 (copy), l_EventNames_0 (ref), v108 (copy), v61 (copy), l_FriendsNetworking_0 (ref), v71 (copy), v60 (copy), l_Images_0 (ref)
-        v103(l_EventNames_0.AcceptFriendshipBtnClick);
-        return v108(v61(l_FriendsNetworking_0.AcceptFriendRequestFromUserId.API({
-            currentUserId = v71, 
-            targetUserId = v60.user.id
+    local v110 = v8.useCallback(function() --[[ Line: 329 ]]
+        -- upvalues: v104 (copy), l_EventNames_0 (ref), v109 (copy), v62 (copy), l_FriendsNetworking_0 (ref), v72 (copy), v61 (copy), l_FFlagConnectionsToFriendsRename_0 (ref), l_Images_0 (ref)
+        v104(l_EventNames_0.AcceptFriendshipBtnClick);
+        return v109(v62(l_FriendsNetworking_0.AcceptFriendRequestFromUserId.API({
+            currentUserId = v72, 
+            targetUserId = v61.user.id
         })), {
-            toastTitle = "Feature.Friends.Action.ConnectionAdded", 
+            toastTitle = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendAdded" or "Feature.Friends.Action.ConnectionAdded", 
             iconImage = l_Images_0["icons/actions/friends/friendAdd"]
         });
     end, {
-        v60.user.id, 
-        v71, 
-        v61, 
-        v108, 
-        v103
+        v61.user.id, 
+        v72, 
+        v62, 
+        v109, 
+        v104
     });
-    local v110 = v8.useCallback(function() --[[ Line: 339 ]]
-        -- upvalues: v103 (copy), l_EventNames_0 (ref), v108 (copy), v61 (copy), l_FriendsNetworking_0 (ref), v71 (copy), v60 (copy), l_Images_0 (ref)
-        v103(l_EventNames_0.DeclineFriendshipBtnClick);
-        return v108(v61(l_FriendsNetworking_0.DeclineFriendRequestFromUserId.API({
-            currentUserId = v71, 
-            targetUserId = v60.user.id
+    local v111 = v8.useCallback(function() --[[ Line: 346 ]]
+        -- upvalues: v104 (copy), l_EventNames_0 (ref), v109 (copy), v62 (copy), l_FriendsNetworking_0 (ref), v72 (copy), v61 (copy), l_Images_0 (ref)
+        v104(l_EventNames_0.DeclineFriendshipBtnClick);
+        return v109(v62(l_FriendsNetworking_0.DeclineFriendRequestFromUserId.API({
+            currentUserId = v72, 
+            targetUserId = v61.user.id
         })), {
             toastTitle = "Feature.AddFriends.Action.RequestIgnored", 
             iconImage = l_Images_0["icons/actions/reject"]
         });
     end, {
-        v60.user.id, 
-        v71, 
-        v61, 
-        v108, 
-        v103
+        v61.user.id, 
+        v72, 
+        v62, 
+        v109, 
+        v104
     });
-    local v112 = v8.useCallback(function() --[[ Line: 355 ]]
-        -- upvalues: v103 (copy), l_EventNames_0 (ref), v70 (copy), l_FriendsNetworking_0 (ref), v71 (copy), v60 (copy), l_FriendshipOriginSourceType_0 (ref), v108 (copy), v61 (copy), l_Images_0 (ref)
-        v103(l_EventNames_0.RequestFriendshipBtnClick);
-        local v111 = if v70 then l_FriendsNetworking_0.RequestFriendshipFromContactId.API({
-            currentUserId = v71, 
-            contactId = v60.user.id
+    local v113 = v8.useCallback(function() --[[ Line: 362 ]]
+        -- upvalues: v104 (copy), l_EventNames_0 (ref), v71 (copy), l_FriendsNetworking_0 (ref), v72 (copy), v61 (copy), l_FriendshipOriginSourceType_0 (ref), v109 (copy), v62 (copy), l_FFlagConnectionsToFriendsRename_0 (ref), l_Images_0 (ref)
+        v104(l_EventNames_0.RequestFriendshipBtnClick);
+        local v112 = if v71 then l_FriendsNetworking_0.RequestFriendshipFromContactId.API({
+            currentUserId = v72, 
+            contactId = v61.user.id
         }) else l_FriendsNetworking_0.RequestFriendshipFromUserId.API({
-            currentUserId = v71, 
-            targetUserId = v60.user.id, 
-            friendshipOriginSourceType = if v60.isRecommendation then l_FriendshipOriginSourceType_0.FriendRecommendations.rawValue() else nil
+            currentUserId = v72, 
+            targetUserId = v61.user.id, 
+            friendshipOriginSourceType = if v61.isRecommendation then l_FriendshipOriginSourceType_0.FriendRecommendations.rawValue() else nil
         });
-        return v108(v61(v111), {
-            toastTitle = "Feature.Friends.Action.ConnectionRequestSent", 
+        return v109(v62(v112), {
+            toastTitle = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.FriendRequestSent" or "Feature.Friends.Action.ConnectionRequestSent", 
             iconImage = l_Images_0["icons/actions/friends/friendAdd"]
         });
     end, {
-        v70, 
-        v60.isRecommendation, 
-        v60.user.id, 
         v71, 
-        v61, 
-        v108, 
-        v103
+        v61.isRecommendation, 
+        v61.user.id, 
+        v72, 
+        v62, 
+        v109, 
+        v104
     });
-    local v113 = l_useNavigation_0();
-    local v114 = v8.useCallback(function() --[[ Line: 382 ]]
-        -- upvalues: v103 (copy), l_EventNames_0 (ref), v113 (copy), l_AppPage_0 (ref), v60 (copy), v70 (copy), v99 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (ref), v95 (copy), v73 (copy), v39 (ref), l_Contexts_0 (ref), v102 (copy), v101 (copy)
-        v103(l_EventNames_0.PlayerTileClick);
-        v113.navigate(l_AppPage_0.ProfilePlatform, {
-            detail = v60.user.id, 
+    local v114 = l_useNavigation_0();
+    local v115 = v8.useCallback(function() --[[ Line: 391 ]]
+        -- upvalues: v104 (copy), l_EventNames_0 (ref), v114 (copy), l_AppPage_0 (ref), v61 (copy), v71 (copy), v100 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (ref), v96 (copy), v74 (copy), v39 (ref), l_Contexts_0 (ref), v103 (copy), v102 (copy)
+        v104(l_EventNames_0.PlayerTileClick);
+        v114.navigate(l_AppPage_0.ProfilePlatform, {
+            detail = v61.user.id, 
             extraProps = {
-                profileType = v70 and "Contact" or nil, 
-                recommendationSessionId = v99, 
-                absolutePosition = v60.position, 
-                rank = if l_FFlagAddFriendsRenderTileRefactor_0 then v95 else v60.user.rank, 
-                isRecommendation = v60.isRecommendation, 
-                isContact = v70, 
-                contactProps = if v70 then {
-                    contactId = v60.user.entityId, 
-                    contactname = v60.user.entityDisplayName, 
-                    avatarImageUrl = if l_FFlagAddFriendsRenderTileRefactor_0 then v60.user.thumbnailEntities and v60.user.thumbnailEntities.avatarImageUrl else v60.user.thumbnailEntities.avatarImageUrl
+                profileType = v71 and "Contact" or nil, 
+                recommendationSessionId = v100, 
+                absolutePosition = v61.position, 
+                rank = if l_FFlagAddFriendsRenderTileRefactor_0 then v96 else v61.user.rank, 
+                isRecommendation = v61.isRecommendation, 
+                isContact = v71, 
+                contactProps = if v71 then {
+                    contactId = v61.user.entityId, 
+                    contactname = v61.user.entityDisplayName, 
+                    avatarImageUrl = if l_FFlagAddFriendsRenderTileRefactor_0 then v61.user.thumbnailEntities and v61.user.thumbnailEntities.avatarImageUrl else v61.user.thumbnailEntities.avatarImageUrl
                 } else nil, 
-                friendStatus = v73, 
-                source = if v60.isRecommendation then v39.AddFriendsPYMKSourceName else l_Contexts_0.AddFriends, 
-                contextualInfoType = v102, 
-                contextualInfoDisplay = if v60.isRecommendation then v101 else nil
+                friendStatus = v74, 
+                source = if v61.isRecommendation then v39.AddFriendsPYMKSourceName else l_Contexts_0.AddFriends, 
+                contextualInfoType = v103, 
+                contextualInfoDisplay = if v61.isRecommendation then v102 else nil
             }
         });
     end, {
-        v60.user, 
-        v60.position, 
-        v60.isRecommendation, 
-        v73, 
-        v99, 
-        v70, 
-        v113, 
+        v61.user, 
+        v61.position, 
+        v61.isRecommendation, 
+        v74, 
+        v100, 
+        v71, 
+        v114, 
+        v103, 
         v102, 
-        v101, 
-        if l_FFlagAddFriendsRenderTileRefactor_0 then v95 else nil
+        if l_FFlagAddFriendsRenderTileRefactor_0 then v96 else nil
     });
-    local v116 = v8.useCallback(function() --[[ Line: 424 ]]
-        -- upvalues: v60 (copy), v73 (copy), v61 (copy), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_convertUserPresenceTypeToString_0 (ref), l_FriendshipOriginSourceType_0 (ref)
-        local v115 = if v60.isRecommendation then v73 or Enum.FriendStatus.NotFriend else Enum.FriendStatus.FriendRequestReceived;
-        v61(l_SetCentralOverlay_0(l_CentralOverlayType_0.PlayerContextualMenu, {
-            subjectUserId = v60.user.id, 
-            contactId = v60.user.entityId, 
-            contactName = v60.user.entityDisplayName, 
-            recommendationContext = v60.user.contextType, 
-            mutualFriendsCount = v60.user.mutualFriendsCount, 
-            robloxFriendshipStatus = v115, 
+    local v117 = v8.useCallback(function() --[[ Line: 433 ]]
+        -- upvalues: v61 (copy), v74 (copy), v62 (copy), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_convertUserPresenceTypeToString_0 (ref), l_FriendshipOriginSourceType_0 (ref)
+        local v116 = if v61.isRecommendation then v74 or Enum.FriendStatus.NotFriend else Enum.FriendStatus.FriendRequestReceived;
+        v62(l_SetCentralOverlay_0(l_CentralOverlayType_0.PlayerContextualMenu, {
+            subjectUserId = v61.user.id, 
+            contactId = v61.user.entityId, 
+            contactName = v61.user.entityDisplayName, 
+            recommendationContext = v61.user.contextType, 
+            mutualFriendsCount = v61.user.mutualFriendsCount, 
+            robloxFriendshipStatus = v116, 
             subjectPresence = {
-                locationString = v60.user.lastLocation, 
-                locationPlaceId = v60.user.placeId, 
-                locationRootPlaceId = v60.user.rootPlaceId, 
-                locationUniverseId = v60.user.universeId, 
-                status = l_convertUserPresenceTypeToString_0(v60.user.userPresenceType)
+                locationString = v61.user.lastLocation, 
+                locationPlaceId = v61.user.placeId, 
+                locationRootPlaceId = v61.user.rootPlaceId, 
+                locationUniverseId = v61.user.universeId, 
+                status = l_convertUserPresenceTypeToString_0(v61.user.userPresenceType)
             }, 
-            friendshipOriginSourceType = if v60.isRecommendation then l_FriendshipOriginSourceType_0.FriendRecommendations.rawValue() else nil
+            friendshipOriginSourceType = if v61.isRecommendation then l_FriendshipOriginSourceType_0.FriendRecommendations.rawValue() else nil
         }));
-    end, l_dependencyArray_0(v60.isRecommendation, v73, v60.user, v61));
-    local v117 = v8.useCallback(function() --[[ Line: 453 ]]
-        -- upvalues: l_FFlagPPVEnabledOnConsole_0 (ref), v65 (ref), v10 (ref), v116 (copy), v114 (copy)
-        if not l_FFlagPPVEnabledOnConsole_0 and v65 == v10.Input.Directional then
-            return v116();
+    end, l_dependencyArray_0(v61.isRecommendation, v74, v61.user, v62));
+    local v118 = v8.useCallback(function() --[[ Line: 462 ]]
+        -- upvalues: l_FFlagPPVEnabledOnConsole_0 (ref), v66 (ref), v10 (ref), v117 (copy), v115 (copy)
+        if not l_FFlagPPVEnabledOnConsole_0 and v66 == v10.Input.Directional then
+            return v117();
         else
-            v114();
+            v115();
             return;
         end;
-    end, l_dependencyArray_0(if l_FFlagPPVEnabledOnConsole_0 then nil else v65, if l_FFlagPPVEnabledOnConsole_0 then nil else v116, v114));
-    local v118 = nil;
+    end, l_dependencyArray_0(if l_FFlagPPVEnabledOnConsole_0 then nil else v66, if l_FFlagPPVEnabledOnConsole_0 then nil else v117, v115));
     local v119 = nil;
     local v120 = nil;
+    local v121 = nil;
     if not l_FFlagAddFriendsUserListEnabled_0 then
-        local v121 = v16.Hooks.useUserProfilesFetch({
+        local v122 = v16.Hooks.useUserProfilesFetch({
             userIds = {
-                v60.user.id
+                v61.user.id
             }, 
             query = v16.Queries.userProfilesCombinedNameAndUsernameByUserIds, 
-            skip = v70
+            skip = v71
         });
-        if v70 then
-            v118 = v60.user.entityDisplayName;
-            v119 = nil;
-            v120 = if l_FFlagAddFriendsRenderTileRefactor_0 then v60.user.thumbnailEntities and v60.user.thumbnailEntities.avatarImageUrl else v60.user.thumbnailEntities.avatarImageUrl;
+        if v71 then
+            v119 = v61.user.entityDisplayName;
+            v120 = nil;
+            v121 = if l_FFlagAddFriendsRenderTileRefactor_0 then v61.user.thumbnailEntities and v61.user.thumbnailEntities.avatarImageUrl else v61.user.thumbnailEntities.avatarImageUrl;
         else
-            local v122 = "";
             local v123 = "";
-            if v121 and v121.data then
-                v122 = v16.Selectors.getCombinedNameFromId(v121.data, v60.user.id) or "";
-                v123 = v16.Selectors.getUsernameFromId(v121.data, v60.user.id) or "";
+            local v124 = "";
+            if v122 and v122.data then
+                v123 = v16.Selectors.getCombinedNameFromId(v122.data, v61.user.id) or "";
+                v124 = v16.Selectors.getUsernameFromId(v122.data, v61.user.id) or "";
             end;
-            v118 = v122;
-            v119 = if l_FFlagAddFriendsRenderTileRefactor_0 then "@" .. v123 else "@" .. (v60.user.externalAppDisplayName or v123);
-            v120 = string.format("rbxthumb://type=Avatar&id=%s&w=720&h=720", (tostring(v60.user.id)));
+            v119 = v123;
+            v120 = if l_FFlagAddFriendsRenderTileRefactor_0 then "@" .. v124 else "@" .. (v61.user.externalAppDisplayName or v124);
+            v121 = string.format("rbxthumb://type=Avatar&id=%s&w=720&h=720", (tostring(v61.user.id)));
         end;
     end;
-    local v124 = nil;
     local v125 = nil;
+    local v126 = nil;
     if l_FFlagAddFriendsPYMKPresence_0 then
         if l_FFlagAddFriendsUserListEnabled_0 then
-            v125 = v8.useMemo(function() --[[ Line: 505 ]]
-                -- upvalues: v97 (copy), v12 (ref)
-                if v97 and v97.userPresenceType then
-                    local v126 = tostring(v97.userPresenceType);
-                    return (string.gsub(v126, "PresenceType%.", ""));
+            v126 = v8.useMemo(function() --[[ Line: 514 ]]
+                -- upvalues: v98 (copy), v12 (ref)
+                if v98 and v98.userPresenceType then
+                    local v127 = tostring(v98.userPresenceType);
+                    return (string.gsub(v127, "PresenceType%.", ""));
                 else
                     return v12.Enums.PresenceTypes.Offline;
                 end;
             end, {
-                v97
+                v98
             });
         else
-            local v129 = v8.useMemo(function() --[[ Line: 513 ]]
-                -- upvalues: v97 (copy), l_PresenceType_0 (ref)
-                local v127 = v97 and v97.userPresenceType or nil;
-                local v128 = true;
-                if v127 ~= l_PresenceType_0.Online then
-                    v128 = true;
-                    if v127 ~= l_PresenceType_0.InStudio then
-                        v128 = v127 == l_PresenceType_0.InGame;
+            local v130 = v8.useMemo(function() --[[ Line: 522 ]]
+                -- upvalues: v98 (copy), l_PresenceType_0 (ref)
+                local v128 = v98 and v98.userPresenceType or nil;
+                local v129 = true;
+                if v128 ~= l_PresenceType_0.Online then
+                    v129 = true;
+                    if v128 ~= l_PresenceType_0.InStudio then
+                        v129 = v128 == l_PresenceType_0.InGame;
                     end;
                 end;
-                return v128;
+                return v129;
             end, {
-                v97
+                v98
             });
-            local l_Color_0 = v64.Theme.OnlineStatus.Color;
+            local l_Color_0 = v65.Theme.OnlineStatus.Color;
             local l_l_Color_0_0 = l_Color_0 --[[ copy: 44 -> 46 ]];
-            local l_v129_0 = v129 --[[ copy: 43 -> 47 ]];
-            v124 = v8.useMemo(function() --[[ Line: 524 ]]
-                -- upvalues: l_l_Color_0_0 (copy), l_v129_0 (copy), v118 (ref)
-                local v133 = ("<font color=\"rgb(%*,%*,%*)\">\226\151\143 </font>"):format(math.round(l_l_Color_0_0.R * 255), math.round(l_l_Color_0_0.G * 255), (math.round(l_l_Color_0_0.B * 255)));
-                if l_v129_0 then
-                    return v133 .. v118;
+            local l_v130_0 = v130 --[[ copy: 43 -> 47 ]];
+            v125 = v8.useMemo(function() --[[ Line: 533 ]]
+                -- upvalues: l_l_Color_0_0 (copy), l_v130_0 (copy), v119 (ref)
+                local v134 = ("<font color=\"rgb(%*,%*,%*)\">\226\151\143 </font>"):format(math.round(l_l_Color_0_0.R * 255), math.round(l_l_Color_0_0.G * 255), (math.round(l_l_Color_0_0.B * 255)));
+                if l_v130_0 then
+                    return v134 .. v119;
                 else
-                    return v118;
+                    return v119;
                 end;
             end, {
-                v118, 
-                v129, 
+                v119, 
+                v130, 
                 l_Color_0
             });
         end;
     end;
-    local v134 = v8.useMemo(function() --[[ Line: 536 ]]
-        -- upvalues: v49 (ref), v60 (copy), v90 (copy), v73 (copy), v112 (copy), v109 (copy), v110 (copy), v67 (copy)
+    local v135 = v8.useMemo(function() --[[ Line: 545 ]]
+        -- upvalues: v49 (ref), v61 (copy), v91 (copy), v74 (copy), v113 (copy), v110 (copy), v111 (copy), v68 (copy)
         return v49({
-            isFriendRequest = v60.isFriendRequest or false, 
-            hasIncomingFriendRequest = v90, 
-            friendStatus = v73, 
-            handleRequestFriendship = v112, 
-            handleAcceptFriendRequest = v109, 
-            handleDeclineFriendRequest = v110, 
-            shouldAddFocusEventName = v67
+            isFriendRequest = v61.isFriendRequest or false, 
+            hasIncomingFriendRequest = v91, 
+            friendStatus = v74, 
+            handleRequestFriendship = v113, 
+            handleAcceptFriendRequest = v110, 
+            handleDeclineFriendRequest = v111, 
+            shouldAddFocusEventName = v68
         });
-    end, l_dependencyArray_0(v60.isFriendRequest, v73, v112, v109, v110, v90, v67));
+    end, l_dependencyArray_0(v61.isFriendRequest, v74, v113, v110, v111, v91, v68));
     if l_FFlagAddFriendsUserListEnabled_0 then
-        local v135 = v134 and v134[#v134] or nil;
-        local v136 = v134 and v134[#v134 - 1] or nil;
+        local v136 = v135 and v135[#v135] or nil;
+        local v137 = v135 and v135[#v135 - 1] or nil;
         return v8.createElement(l_View_0, {
             tag = "size-full-0 auto-y", 
-            ref = v66
+            ref = v67
         }, {
-            UserRow = v60.createRow({
-                onRowActivated = v114, 
-                primaryCta = v135 and {
-                    type = v135.type, 
-                    icon = v135.icon, 
-                    isDisabled = v135.isDisabled, 
-                    onActivated = v135.onActivated
-                }, 
-                secondaryCta = v136 and {
+            UserRow = v61.createRow({
+                onRowActivated = v115, 
+                primaryCta = v136 and {
                     type = v136.type, 
                     icon = v136.icon, 
                     isDisabled = v136.isDisabled, 
                     onActivated = v136.onActivated
                 }, 
-                contextualInfo = v101 and {
-                    text = v101.text, 
-                    icon = v101.icon
+                secondaryCta = v137 and {
+                    type = v137.type, 
+                    icon = v137.icon, 
+                    isDisabled = v137.isDisabled, 
+                    onActivated = v137.onActivated
                 }, 
-                presence = v125
+                contextualInfo = v102 and {
+                    text = v102.text, 
+                    icon = v102.icon
+                }, 
+                presence = v126
             }), 
-            UserTileEventHandlers = if v67 then v8.createElement(l_UserTileEventHandlers_0, {
-                buttons = v134, 
-                onTileActivated = v117, 
-                tileRef = v66
+            UserTileEventHandlers = if v68 then v8.createElement(l_UserTileEventHandlers_0, {
+                buttons = v135, 
+                onTileActivated = v118, 
+                tileRef = v67
             }) else nil
         });
     else
         return (v8.createElement("Frame", {
             AnchorPoint = Vector2.new(1, 0.5), 
             Position = UDim2.fromScale(1, 0.5), 
-            Size = UDim2.new(0, v60.size.X, 0, v60.size.Y), 
+            Size = UDim2.new(0, v61.size.X, 0, v61.size.Y), 
             BackgroundTransparency = 1, 
             ZIndex = 1, 
-            LayoutOrder = v60.layoutOrder
+            LayoutOrder = v61.layoutOrder
         }, {
             PlayerTile = v8.createElement(l_PlayerTile_0, {
-                buttonRef = v66, 
-                thumbnail = v120, 
-                title = if l_FFlagAddFriendsPYMKPresence_0 then v124 else v118, 
-                tileSize = UDim2.new(0, v60.size.X, 0, v60.size.Y), 
-                subtitle = v119, 
-                buttons = if v67 then nil else v134, 
-                relevancyInfo = v101, 
-                onActivated = v117, 
+                buttonRef = v67, 
+                thumbnail = v121, 
+                title = if l_FFlagAddFriendsPYMKPresence_0 then v125 else v119, 
+                tileSize = UDim2.new(0, v61.size.X, 0, v61.size.Y), 
+                subtitle = v120, 
+                buttons = if v68 then nil else v135, 
+                relevancyInfo = v102, 
+                onActivated = v118, 
                 Selectable = true, 
                 openTypeFeatures = if l_GetFFlagLuaAppEnableOpenTypeSupport_0() then l_OpenTypeSupport_0:getUserNameStylisticAlternative() else nil
             }), 
-            UserTileEventHandlers = if v67 then v8.createElement(l_UserTileEventHandlers_0, {
-                buttons = v134, 
-                onTileActivated = v117, 
-                tileRef = v66
+            UserTileEventHandlers = if v68 then v8.createElement(l_UserTileEventHandlers_0, {
+                buttons = v135, 
+                onTileActivated = v118, 
+                tileRef = v67
             }) else nil
         }));
     end;

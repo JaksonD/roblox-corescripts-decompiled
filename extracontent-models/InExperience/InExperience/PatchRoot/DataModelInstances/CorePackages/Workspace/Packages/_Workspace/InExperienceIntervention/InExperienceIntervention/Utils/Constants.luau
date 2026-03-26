@@ -22,6 +22,7 @@ return {
         PartyChatNudgeDialog = "partyChatNudgeDialog", 
         PartyChatTimeoutDialog = "partyChatTimeoutDialog", 
         BackendDriven = "BackendDriven", 
+        UniversalFeatureRestriction = "universalFeatureRestriction", 
         None = "none"
     }, 
     AbuseVectorType = {

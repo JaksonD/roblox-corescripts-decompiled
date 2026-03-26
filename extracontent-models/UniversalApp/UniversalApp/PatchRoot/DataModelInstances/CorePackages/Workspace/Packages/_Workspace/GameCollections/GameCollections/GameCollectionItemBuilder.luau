@@ -8,54 +8,57 @@ local v6 = require(l_script_FirstAncestor_0.renderBlankTile);
 local v7 = require(l_Parent_0.Cryo);
 local _ = require(l_Parent_0.React);
 local v9 = require(l_script_FirstAncestor_0.GridLayoutTelemetry);
-local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableHomepageTwoByOneTile;
-local v11 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {
+local v10 = require(l_Parent_0.SharedFlags);
+local l_FFlagLuaAppEnableHomepageTwoByOneTile_0 = v10.FFlagLuaAppEnableHomepageTwoByOneTile;
+local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = v10.FFlagLuaAppTwoByOneTileTelemetryFix;
+local v13 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {
     [l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile] = v4, 
     [l_GameCollectionItemTypes_0.GameCollectionItemType.TwoByOneTile] = v5, 
     [l_GameCollectionItemTypes_0.GameCollectionItemType.Blank] = v6
 } else nil;
 return {
-    BuildCollectionEntries = function(v12, v13, v14, v15, v16, v17, v18, v19) --[[ Line: 34 ]] --[[ Name: BuildCollectionEntries ]]
-        -- upvalues: v3 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), v9 (copy), v7 (copy), l_GameCollectionItemTypes_0 (copy), v11 (copy), v4 (copy), v6 (copy)
-        local v20 = {};
-        local v21 = v3(#v12, v13, v14);
-        local l_layout_0 = v21.layout;
-        local l_totalRows_0 = v21.totalRows;
-        local l_totalCols_0 = v21.totalCols;
-        local v25 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {} else nil;
-        for v26 = 1, l_totalRows_0 do
-            for v27 = 1, l_totalCols_0 do
-                local v28 = l_layout_0[v26] and l_layout_0[v26][v27];
-                if v28 and v28 > 0 then
-                    local v29 = v15 and v15[v28] or nil;
-                    if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 and v29 then
-                        v25[v28] = true;
-                        local v30 = v12[v28];
-                        local v31 = #v20 + 1;
-                        v9.logTilePlaced(v30 and v30.adId, v30 and v30.universeId, v29, v17, v13, l_totalRows_0, v28, v31, v18, v19);
+    BuildCollectionEntries = function(v14, v15, v16, v17, v18, v19, v20, v21) --[[ Line: 35 ]] --[[ Name: BuildCollectionEntries ]]
+        -- upvalues: v3 (copy), l_FFlagLuaAppEnableHomepageTwoByOneTile_0 (copy), v9 (copy), v7 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_GameCollectionItemTypes_0 (copy), v13 (copy), v4 (copy), v6 (copy)
+        local v22 = {};
+        local v23 = v3(#v14, v15, v16);
+        local l_layout_0 = v23.layout;
+        local l_totalRows_0 = v23.totalRows;
+        local l_totalCols_0 = v23.totalCols;
+        local v27 = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then {} else nil;
+        for v28 = 1, l_totalRows_0 do
+            for v29 = 1, l_totalCols_0 do
+                local v30 = l_layout_0[v28] and l_layout_0[v28][v29];
+                if v30 and v30 > 0 then
+                    local v31 = v17 and v17[v30] or nil;
+                    if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 and v31 then
+                        v27[v30] = true;
+                        local v32 = v14[v30];
+                        local v33 = #v22 + 1;
+                        v9.logTilePlaced(v32 and v32.adId, v32 and v32.universeId, v31, v19, v15, l_totalRows_0, v30, v33, v20, v21);
                     end;
-                    table.insert(v20, v7.Dictionary.join(v12[v28], {
-                        spanOverride = v14 and v14[v28] or nil, 
-                        gameCollectionItemTypeOverride = v29, 
-                        showDescription = v29 == l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile and v16 or nil, 
-                        customRenderFunction = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v29 and v11 and v11[v29] or nil else v29 == l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile and v4 or nil
+                    table.insert(v22, v7.Dictionary.join(v14[v30], {
+                        spanOverride = v16 and v16[v30] or nil, 
+                        gameCollectionItemTypeOverride = v31, 
+                        tileType = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v31 or l_GameCollectionItemTypes_0.GameCollectionItemType.GameTile else nil, 
+                        showDescription = v31 == l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile and v18 or nil, 
+                        customRenderFunction = if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 then v31 and v13 and v13[v31] or nil else v31 == l_GameCollectionItemTypes_0.GameCollectionItemType.EmphasisTile and v4 or nil
                     }));
                 else
-                    table.insert(v20, {
+                    table.insert(v22, {
                         gameCollectionItemTypeOverride = l_GameCollectionItemTypes_0.GameCollectionItemType.Blank, 
                         customRenderFunction = v6
                     });
                 end;
             end;
         end;
-        if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 and v15 then
-            for v32, v33 in v15 do
-                if not v25[v32] then
-                    local v34 = v12[v32];
-                    v9.logTileSkipped(v34 and v34.adId, v34 and v34.universeId, v33, v17, v13, l_totalRows_0, v32, v18, v19);
+        if l_FFlagLuaAppEnableHomepageTwoByOneTile_0 and v17 then
+            for v34, v35 in v17 do
+                if not v27[v34] then
+                    local v36 = v14[v34];
+                    v9.logTileSkipped(v36 and v36.adId, v36 and v36.universeId, v35, v19, v15, l_totalRows_0, v34, v20, v21);
                 end;
             end;
         end;
-        return v20;
+        return v22;
     end
 };

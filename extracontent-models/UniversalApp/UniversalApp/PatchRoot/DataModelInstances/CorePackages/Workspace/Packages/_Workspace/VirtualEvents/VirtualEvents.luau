@@ -4,6 +4,7 @@ return {
     AnalyticsEvent = v0.enums.AnalyticsEvent, 
     requests = require(script.requests), 
     EventDetailsPageLoader = require(script.Components.EventDetailsPageLoader), 
+    SduiEventDetailsPage = require(script.Components.SduiEventDetailsPage.SduiEventDetailsPage), 
     ShareEventModal = require(script.Components.ShareEventModal), 
     EventNotificationsModal = v1, 
     EventsListCarousel = require(script.Components.EventsListCarousel.EventsListCarousel), 
@@ -15,5 +16,6 @@ return {
     fireVirtualEventRSVP = require(script.Analytics.fireVirtualEventRSVP), 
     fireEventNotificationEnabled = require(script.Analytics.fireEventNotificationEnabled), 
     fireVirtualEventImpression = require(script.Analytics.fireVirtualEventImpression), 
+    navigateToEventDetails = require(script.Components.SduiEventDetailsPage.navigateToEventDetails), 
     ["jest.config"] = script["jest.config"]
 };

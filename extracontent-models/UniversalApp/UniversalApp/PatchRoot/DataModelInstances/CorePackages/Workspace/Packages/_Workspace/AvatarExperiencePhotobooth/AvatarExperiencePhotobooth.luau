@@ -5,6 +5,7 @@ local v3 = require(script.PhotoboothStoreBridge);
 local v4 = require(script.Enums.PhotoboothCategories);
 local v5 = require(script.Enums.PhotoboothScenes);
 return {
+    ["jest.config"] = script["jest.config"], 
     Context = {
         PhotoboothContext = v1, 
         usePhotoboothContext = require(script.Context.usePhotoboothContext), 

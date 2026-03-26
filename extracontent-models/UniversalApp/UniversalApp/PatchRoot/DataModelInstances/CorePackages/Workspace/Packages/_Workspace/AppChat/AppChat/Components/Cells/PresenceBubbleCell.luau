@@ -15,7 +15,8 @@ local v13 = require(script.Parent.AvatarCircle);
 local l_FFlagEnableAppChatFocusableFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableAppChatFocusableFixes;
 local v15 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableDomLocators);
 local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
-local v17 = {
+local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatConversationListRelativeTimestamps);
+local v18 = {
     BackgroundColor3 = Color3.new(1, 1, 1), 
     BackgroundTransparency = 0, 
     onPressedBackgroundColor3 = Color3.new(0, 0.2, 0.3), 
@@ -59,25 +60,25 @@ local v17 = {
     paddingLeft = 0, 
     paddingRight = 0
 };
-return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
-    -- upvalues: v3 (copy), v17 (copy), v2 (copy), l_useTextSizeOffset_0 (copy), l_Text_0 (copy), v11 (copy), v15 (copy), v12 (copy), v13 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), v6 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_ImageSetLabel_0 (copy)
-    local v19 = v3.Dictionary.join(v17, v18);
-    local v20, v21 = v2.useState(0);
-    local v22 = l_useTextSizeOffset_0();
-    local v23 = v19.subTitleTextSize + v22;
-    local v24 = v19.titleTextSize + v22;
-    local v25 = v19.subTitleTextSize + v22;
-    local v26 = v2.useMemo(function() --[[ Line: 152 ]]
-        -- upvalues: l_Text_0 (ref), v19 (copy)
-        return l_Text_0.GetTextWidth(v19.titleText, v19.titleFont, v19.titleTextSize);
+return v2.memo(function(v19) --[[ Line: 146 ]] --[[ Name: PresenceBubbleCell ]]
+    -- upvalues: v3 (copy), v18 (copy), v2 (copy), l_useTextSizeOffset_0 (copy), l_Text_0 (copy), v11 (copy), v15 (copy), v12 (copy), v13 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), v17 (copy), v6 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_ImageSetLabel_0 (copy)
+    local v20 = v3.Dictionary.join(v18, v19);
+    local v21, v22 = v2.useState(0);
+    local v23 = l_useTextSizeOffset_0();
+    local v24 = v20.subTitleTextSize + v23;
+    local v25 = v20.titleTextSize + v23;
+    local v26 = v20.subTitleTextSize + v23;
+    local v27 = v2.useMemo(function() --[[ Line: 154 ]]
+        -- upvalues: l_Text_0 (ref), v20 (copy)
+        return l_Text_0.GetTextWidth(v20.titleText, v20.titleFont, v20.titleTextSize);
     end, {
-        v19.titleText, 
-        v19.titleFont, 
-        v19.titleTextSize, 
-        v22
+        v20.titleText, 
+        v20.titleFont, 
+        v20.titleTextSize, 
+        v23
     });
-    local v27 = v19.conversationId ~= nil;
-    local v28 = {
+    local v28 = v20.conversationId ~= nil;
+    local v29 = {
         layout = v2.createElement("UIListLayout", {
             VerticalAlignment = Enum.VerticalAlignment.Center, 
             HorizontalAlignment = Enum.HorizontalAlignment.Right, 
@@ -85,30 +86,30 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
             SortOrder = Enum.SortOrder.LayoutOrder
         })
     };
-    local v29 = -(v19.paddingLeft + v19.paddingRight + v19.childWidth);
-    v28 = v3.Dictionary.join(v28, v19.children or {});
+    local v30 = -(v20.paddingLeft + v20.paddingRight + v20.childWidth);
+    v29 = v3.Dictionary.join(v29, v20.children or {});
     return v2.createElement(v11, {
-        Size = v19.Size, 
-        BackgroundTransparency = v19.BackgroundTransparency, 
-        BackgroundColor3 = v19.BackgroundColor3, 
-        dividerColor3 = v19.dividerColor3, 
-        dividerTransparency = v19.dividerTransparency, 
-        avatarCircleCellWidth = v19.avatarCircleCellWidth, 
-        onPressedBackgroundColor3 = v19.onPressedBackgroundColor3, 
-        onPressedBackgroundTransparency = v19.onPressedBackgroundTransparency, 
-        testId = if v15 then v19.testId else nil, 
+        Size = v20.Size, 
+        BackgroundTransparency = v20.BackgroundTransparency, 
+        BackgroundColor3 = v20.BackgroundColor3, 
+        dividerColor3 = v20.dividerColor3, 
+        dividerTransparency = v20.dividerTransparency, 
+        avatarCircleCellWidth = v20.avatarCircleCellWidth, 
+        onPressedBackgroundColor3 = v20.onPressedBackgroundColor3, 
+        onPressedBackgroundTransparency = v20.onPressedBackgroundTransparency, 
+        testId = if v15 then v20.testId else nil, 
         BorderSizePixel = 0, 
         AutoButtonColor = false, 
-        LayoutOrder = v19.LayoutOrder, 
-        onActivated = v19.onActivated, 
-        showDivider = v19.showDivider
+        LayoutOrder = v20.LayoutOrder, 
+        onActivated = v20.onActivated, 
+        showDivider = v20.showDivider
     }, {
         leftAlign = v2.createElement("Frame", {
-            Size = UDim2.new(1, v29, 1, 0), 
+            Size = UDim2.new(1, v30, 1, 0), 
             BackgroundTransparency = 1
         }, {
             uiPadding = v2.createElement("UIPadding", {
-                PaddingLeft = UDim.new(0, v19.paddingLeft)
+                PaddingLeft = UDim.new(0, v20.paddingLeft)
             }), 
             layout = v2.createElement("UIListLayout", {
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
@@ -117,44 +118,44 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
                 SortOrder = Enum.SortOrder.LayoutOrder
             }), 
             circleHolder = v2.createElement("Frame", {
-                Size = UDim2.new(0, v19.avatarCircleCellWidth, 1, 0), 
+                Size = UDim2.new(0, v20.avatarCircleCellWidth, 1, 0), 
                 BackgroundTransparency = 1, 
                 LayoutOrder = 0
             }, {
                 layout = v2.createElement("UIListLayout", {
                     VerticalAlignment = Enum.VerticalAlignment.Center, 
-                    HorizontalAlignment = if v19.hideLeftAvatarPadding then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Center
+                    HorizontalAlignment = if v20.hideLeftAvatarPadding then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Center
                 }), 
-                circleSizeContainer = not v19.isLoading and v2.createElement("Frame", {
-                    Size = UDim2.new(0, v19.avatarCircleSize, 0, v19.avatarCircleSize), 
+                circleSizeContainer = not v20.isLoading and v2.createElement("Frame", {
+                    Size = UDim2.new(0, v20.avatarCircleSize, 0, v20.avatarCircleSize), 
                     BackgroundTransparency = 1
                 }, {
-                    conversationFacePile = if v27 then v2.createElement(v12, {
-                        conversationId = v19.conversationId, 
-                        onActivated = v19.onCircleActivated or v19.onActivated, 
-                        selectable = v19.onCircleActivated ~= nil and nil
+                    conversationFacePile = if v28 then v2.createElement(v12, {
+                        conversationId = v20.conversationId, 
+                        onActivated = v20.onCircleActivated or v20.onActivated, 
+                        selectable = v20.onCircleActivated ~= nil and nil
                     }) else nil, 
-                    avatarCircle = if not v27 then v2.createElement(v13, {
-                        circleColor3 = v19.BackgroundColor3, 
-                        circleTransparency = v19.BackgroundTransparency, 
-                        circleInteriorBackgroundColor3 = v19.avatarCircleBackgroundColor3, 
-                        circleDividerColor3 = v19.avatarCircleDividerColor3, 
-                        circleDividerTransparency = v19.avatarCircleDividerTransparency, 
-                        thumbnails = v19.thumbnails, 
-                        presenceImage = v19.avatarCirclePresenceImage, 
-                        presenceImageColor3 = v19.avatarCirclePresenceImageColor3, 
-                        presenceImageTransparency = v19.avatarCirclePresenceImageTransparency, 
-                        selectable = (not l_FFlagEnableAppChatFocusableFixes_0 or v19.onCircleActivated ~= nil) and nil, 
-                        showNewPresenceImage = v19.showNewPresenceImage, 
-                        onActivated = v19.onCircleActivated or v19.onActivated
+                    avatarCircle = if not v28 then v2.createElement(v13, {
+                        circleColor3 = v20.BackgroundColor3, 
+                        circleTransparency = v20.BackgroundTransparency, 
+                        circleInteriorBackgroundColor3 = v20.avatarCircleBackgroundColor3, 
+                        circleDividerColor3 = v20.avatarCircleDividerColor3, 
+                        circleDividerTransparency = v20.avatarCircleDividerTransparency, 
+                        thumbnails = v20.thumbnails, 
+                        presenceImage = v20.avatarCirclePresenceImage, 
+                        presenceImageColor3 = v20.avatarCirclePresenceImageColor3, 
+                        presenceImageTransparency = v20.avatarCirclePresenceImageTransparency, 
+                        selectable = (not l_FFlagEnableAppChatFocusableFixes_0 or v20.onCircleActivated ~= nil) and nil, 
+                        showNewPresenceImage = v20.showNewPresenceImage, 
+                        onActivated = v20.onCircleActivated or v20.onActivated
                     }) else nil
                 }) or v2.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(0, v19.avatarCircleSize, 0, v19.avatarCircleSize), 
+                    Size = UDim2.new(0, v20.avatarCircleSize, 0, v20.avatarCircleSize), 
                     radius = l_Radius_0.Circle
                 })
             }), 
             conversationInfo = v2.createElement("Frame", {
-                Size = UDim2.new(1, -v19.avatarCircleCellWidth, 1, 0), 
+                Size = UDim2.new(1, -v20.avatarCircleCellWidth, 1, 0), 
                 BackgroundTransparency = 1, 
                 LayoutOrder = 1
             }, {
@@ -165,13 +166,13 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     Padding = UDim.new(0, 2)
                 }), 
-                titleContainer = not v19.isLoading and v2.createElement("Frame", {
+                titleContainer = not v20.isLoading and v2.createElement("Frame", {
                     BackgroundTransparency = 1, 
-                    Size = UDim2.new(1, 0, 0, v24), 
+                    Size = UDim2.new(1, 0, 0, v25), 
                     LayoutOrder = 1, 
-                    [v2.Change.AbsoluteSize] = function(v30) --[[ Line: 267 ]]
-                        -- upvalues: v21 (copy)
-                        v21(v30.AbsoluteSize.X);
+                    [v2.Change.AbsoluteSize] = function(v31) --[[ Line: 269 ]]
+                        -- upvalues: v22 (copy)
+                        v22(v31.AbsoluteSize.X);
                     end
                 }, {
                     layout = v2.createElement("UIListLayout", {
@@ -183,50 +184,50 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
                     }), 
                     title = v2.createElement("TextLabel", {
                         BackgroundTransparency = 1, 
-                        Size = UDim2.new(0, math.min(v26, v20), 0, v24), 
-                        TextSize = v19.titleTextSize, 
-                        TextColor3 = v19.titleTextColor3, 
-                        TextTransparency = v19.titleTextTransparency, 
-                        Font = v19.titleFont, 
-                        Text = v19.titleText or "", 
-                        TextTruncate = Enum.TextTruncate.AtEnd, 
+                        Size = UDim2.new(0, math.min(v27, v21), 0, v25), 
+                        TextSize = v20.titleTextSize, 
+                        TextColor3 = v20.titleTextColor3, 
+                        TextTransparency = v20.titleTextTransparency, 
+                        Font = v20.titleFont, 
+                        Text = v20.titleText or "", 
+                        TextTruncate = if v17 then Enum.TextTruncate.SplitWord else Enum.TextTruncate.AtEnd, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         LayoutOrder = 1
                     }), 
                     subscriptionBadge = v2.createElement(v6.View, {
                         tag = "size-400-400", 
                         LayoutOrder = 2, 
-                        Visible = v19.isRobloxSubscriber == true
+                        Visible = v20.isRobloxSubscriber == true
                     }, {
                         Icon = v2.createElement(v6.Icon, {
                             name = v6.Enums.IconName.PaperAirplane, 
                             size = v6.Enums.IconSize.Small, 
                             style = {
-                                Color3 = v19.titleTextColor3, 
-                                Transparency = v19.titleTextTransparency
+                                Color3 = v20.titleTextColor3, 
+                                Transparency = v20.titleTextTransparency
                             }
                         })
                     }), 
                     secondaryTitle = v2.createElement("TextLabel", {
                         BackgroundTransparency = 1, 
-                        Size = UDim2.new(0, math.max(v20 - v26 - 4 - (l_FFlagEnableBlackbirdCheckDev_0 and v19.isRobloxSubscriber and 20 or 0), 0), 0, v19.secondaryTitleTextSize), 
-                        TextSize = v19.secondaryTitleTextSize, 
-                        TextColor3 = v19.secondaryTitleTextColor3, 
-                        TextTransparency = v19.secondaryTitleTextTransparency, 
-                        Font = v19.secondaryTitleFont, 
-                        Text = v19.secondaryTitleText or "", 
+                        Size = UDim2.new(0, math.max(v21 - v27 - 4 - (l_FFlagEnableBlackbirdCheckDev_0 and v20.isRobloxSubscriber and 20 or 0), 0), 0, v20.secondaryTitleTextSize), 
+                        TextSize = v20.secondaryTitleTextSize, 
+                        TextColor3 = v20.secondaryTitleTextColor3, 
+                        TextTransparency = v20.secondaryTitleTextTransparency, 
+                        Font = v20.secondaryTitleFont, 
+                        Text = v20.secondaryTitleText or "", 
                         TextTruncate = Enum.TextTruncate.AtEnd, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         LayoutOrder = l_FFlagEnableBlackbirdCheckDev_0 and 3 or 2
                     })
                 }) or v2.createElement(l_Skeleton_0, {
-                    Size = UDim2.new(1, 0, 0, v24), 
+                    Size = UDim2.new(1, 0, 0, v25), 
                     radius = l_Radius_0.Small, 
                     LayoutOrder = 1
                 }), 
-                userPresenceLabelWithIcon = if v19.subTitleText then v2.createElement("Frame", {
+                userPresenceLabelWithIcon = if v20.subTitleText then v2.createElement("Frame", {
                     BackgroundTransparency = 1, 
-                    Size = UDim2.new(1, 0, 0, v23), 
+                    Size = UDim2.new(1, 0, 0, v24), 
                     LayoutOrder = 2
                 }, {
                     layout = v2.createElement("UIListLayout", {
@@ -234,42 +235,42 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
                         HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                         FillDirection = Enum.FillDirection.Horizontal, 
                         SortOrder = Enum.SortOrder.LayoutOrder, 
-                        Padding = UDim.new(0, v19.subTitlePadding)
+                        Padding = UDim.new(0, v20.subTitlePadding)
                     }), 
-                    subTitleIcon = if not v19.subTitleIcon or v19.isLoading then nil else v2.createElement(l_ImageSetLabel_0, {
-                        Size = UDim2.new(0, v23, 0, v23), 
+                    subTitleIcon = if not v20.subTitleIcon or v20.isLoading then nil else v2.createElement(l_ImageSetLabel_0, {
+                        Size = UDim2.new(0, v24, 0, v24), 
                         BackgroundTransparency = 1, 
-                        Image = v19.subTitleIcon, 
-                        ImageColor3 = v19.subTitleIconColor3, 
-                        ImageTransparency = v19.subTitleIconTransparency, 
+                        Image = v20.subTitleIcon, 
+                        ImageColor3 = v20.subTitleIconColor3, 
+                        ImageTransparency = v20.subTitleIconTransparency, 
                         LayoutOrder = 1
                     }), 
-                    userPresenceLabel = if v19.isLoading then v2.createElement(l_Skeleton_0, {
-                        Size = UDim2.new(0.6, 0, 0, v25), 
+                    userPresenceLabel = if v20.isLoading then v2.createElement(l_Skeleton_0, {
+                        Size = UDim2.new(0.6, 0, 0, v26), 
                         radius = l_Radius_0.Small, 
                         LayoutOrder = 2
                     }) else v2.createElement("TextLabel", {
                         BackgroundTransparency = 1, 
-                        TextSize = v19.subTitleTextSize + 1, 
-                        TextColor3 = v19.subTitleTextColor3, 
-                        TextTransparency = v19.subTitleTextTransparency, 
+                        TextSize = v20.subTitleTextSize + 1, 
+                        TextColor3 = v20.subTitleTextColor3, 
+                        TextTransparency = v20.subTitleTextTransparency, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
-                        Text = v19.subTitleText, 
+                        Text = v20.subTitleText, 
                         TextTruncate = Enum.TextTruncate.AtEnd, 
-                        Font = v19.subTitleTextFont, 
-                        Size = UDim2.new(1, if v19.subTitleIcon then -v23 - v19.subTitlePadding else 0, 0, v25), 
+                        Font = v20.subTitleTextFont, 
+                        Size = UDim2.new(1, if v20.subTitleIcon then -v24 - v20.subTitlePadding else 0, 0, v26), 
                         LayoutOrder = 2
                     })
                 }) else nil
             })
         }), 
         rightAlign = v2.createElement("Frame", {
-            Size = UDim2.new(0, v19.childWidth, 1, 0), 
-            Position = UDim2.new(1, -v19.childWidth, 0, 0), 
+            Size = UDim2.new(0, v20.childWidth, 1, 0), 
+            Position = UDim2.new(1, -v20.childWidth, 0, 0), 
             BackgroundTransparency = 1
         }, v3.Dictionary.join({
             uiPadding = v2.createElement("UIPadding", {
-                PaddingRight = UDim.new(0, v19.paddingRight)
+                PaddingRight = UDim.new(0, v20.paddingRight)
             }), 
             layout = v2.createElement("UIListLayout", {
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
@@ -277,6 +278,6 @@ return v2.memo(function(v18) --[[ Line: 144 ]] --[[ Name: PresenceBubbleCell ]]
                 FillDirection = Enum.FillDirection.Horizontal, 
                 SortOrder = Enum.SortOrder.LayoutOrder
             })
-        }, v28))
+        }, v29))
     });
 end);

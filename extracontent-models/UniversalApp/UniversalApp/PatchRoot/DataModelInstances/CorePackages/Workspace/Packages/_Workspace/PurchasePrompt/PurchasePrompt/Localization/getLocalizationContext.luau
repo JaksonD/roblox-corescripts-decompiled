@@ -1,10 +1,15 @@
+local l_Parent_0 = script.Parent.Parent;
+local v1 = require(l_Parent_0.Flags.FFlagPurchasePromptUseAppLocales);
 local l_Locales_0 = game:GetService("CoreGui").RobloxGui.Modules.Common:FindFirstChild("Locales");
-return function(v1) --[[ Line: 8 ]] --[[ Name: getLocalizationContext ]]
-    -- upvalues: l_Locales_0 (copy)
-    local l_l_Locales_0_FirstChild_0 = l_Locales_0:FindFirstChild(v1);
+return function(v3) --[[ Line: 13 ]] --[[ Name: getLocalizationContext ]]
+    -- upvalues: v1 (copy), l_Locales_0 (copy)
+    if v1 then
+        error("getLocalizationContext is deprecated. Use RobloxAppLocales.Localization instead.");
+    end;
+    local l_l_Locales_0_FirstChild_0 = l_Locales_0:FindFirstChild(v3);
     if l_l_Locales_0_FirstChild_0 ~= nil then
         return {
-            locale = v1, 
+            locale = v3, 
             translations = require(l_l_Locales_0_FirstChild_0), 
             fallbackTranslations = require(l_Locales_0:FindFirstChild("en-us"))
         };

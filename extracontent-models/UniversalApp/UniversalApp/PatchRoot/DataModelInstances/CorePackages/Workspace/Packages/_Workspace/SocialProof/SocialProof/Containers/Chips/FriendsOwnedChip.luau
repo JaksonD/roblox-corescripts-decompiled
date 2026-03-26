@@ -11,26 +11,28 @@ local v9 = require(l_script_FirstAncestor_0.Hooks.useEntityConnectionsPagination
 local v10 = require(l_script_FirstAncestor_0.Common.Enums);
 local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
 local _ = require(l_script_FirstAncestor_0.Common.Types);
-local l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 = require(l_Parent_0.SharedFlags).FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation;
-return v4.forwardRef(function(v14, v15) --[[ Line: 30 ]] --[[ Name: FriendsOwnedChip ]]
-    -- upvalues: l_useDispatch_0 (copy), v9 (copy), v10 (copy), v4 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_useLocalization_0 (copy), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (copy), l_Chip_0 (copy), l_AvatarGroupType_0 (copy)
-    local l_fromProfile_0 = v14.fromProfile;
-    local l_itemId_0 = v14.itemId;
-    local l_itemType_0 = v14.itemType;
-    local v19 = l_useDispatch_0();
-    local v20 = v9({
+local v13 = require(l_Parent_0.SharedFlags);
+local l_FFlagConnectionsToFriendsRename_0 = v13.FFlagConnectionsToFriendsRename;
+local l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 = v13.FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation;
+return v4.forwardRef(function(v16, v17) --[[ Line: 32 ]] --[[ Name: FriendsOwnedChip ]]
+    -- upvalues: l_useDispatch_0 (copy), v9 (copy), v10 (copy), v4 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 (copy), l_Chip_0 (copy), l_AvatarGroupType_0 (copy)
+    local l_fromProfile_0 = v16.fromProfile;
+    local l_itemId_0 = v16.itemId;
+    local l_itemType_0 = v16.itemType;
+    local v21 = l_useDispatch_0();
+    local v22 = v9({
         entityId = l_itemId_0, 
         entityType = l_itemType_0, 
         connectionType = v10.ConnectionType.Friend
     });
-    local v21 = v20.userIds or {};
-    local v22 = {
-        table.unpack(v21, 1, (math.min(2, #v21)))
+    local v23 = v22.userIds or {};
+    local v24 = {
+        table.unpack(v23, 1, (math.min(2, #v23)))
     };
-    local v23 = v20.totalConnections or 0;
-    local v24 = v4.useCallback(function() --[[ Line: 52 ]]
-        -- upvalues: v19 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_itemId_0 (copy), l_itemType_0 (copy), l_fromProfile_0 (copy)
-        v19(l_NavigateDown_0({
+    local v25 = v22.totalConnections or 0;
+    local v26 = v4.useCallback(function() --[[ Line: 54 ]]
+        -- upvalues: v21 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_itemId_0 (copy), l_itemType_0 (copy), l_fromProfile_0 (copy)
+        v21(l_NavigateDown_0({
             name = l_AppPage_0.FriendsOwnedUserList, 
             extraProps = {
                 entityId = l_itemId_0, 
@@ -39,50 +41,50 @@ return v4.forwardRef(function(v14, v15) --[[ Line: 30 ]] --[[ Name: FriendsOwned
             }
         }));
     end, {
-        v19, 
+        v21, 
         l_itemId_0, 
         l_itemType_0, 
         l_fromProfile_0
     });
-    local v25 = l_useLocalization_0({
+    local v27 = l_useLocalization_0({
         connectionsOwn = {
-            "Feature.Friends.Label.ConnectionsOwn"; 
-            numberOfConnections = v23
+            l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.FriendsOwn" or "Feature.Friends.Label.ConnectionsOwn"; 
+            numberOfConnections = v25
         }, 
-        singleConnectionOwns = "Feature.Friends.Label.ConnectionOwns"
+        singleConnectionOwns = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.FriendOwns" or "Feature.Friends.Label.ConnectionOwns"
     });
-    local v26 = if v23 == 1 then v25.singleConnectionOwns else v25.connectionsOwn;
+    local v28 = if v25 == 1 then v27.singleConnectionOwns else v27.connectionsOwn;
     if l_FFlagEnableSocialProofOnItemDetailsRoactGamepadNavigation_0 then
-        v4.useEffect(function() --[[ Line: 76 ]]
-            -- upvalues: v23 (copy), v14 (copy)
-            if v23 > 0 and v14.chipIsRenderedCallback then
-                v14.chipIsRenderedCallback(true);
+        v4.useEffect(function() --[[ Line: 82 ]]
+            -- upvalues: v25 (copy), v16 (copy)
+            if v25 > 0 and v16.chipIsRenderedCallback then
+                v16.chipIsRenderedCallback(true);
             end;
         end, {
-            v23, 
-            v14.chipIsRenderedCallback
+            v25, 
+            v16.chipIsRenderedCallback
         });
     end;
-    if v23 == 0 then
+    if v25 == 0 then
         return nil;
     else
         return v4.createElement(l_Chip_0, {
-            LayoutOrder = v14.layoutOrder or 0, 
-            text = v26, 
-            onActivated = v24, 
+            LayoutOrder = v16.layoutOrder or 0, 
+            text = v28, 
+            onActivated = v26, 
             leading = {
                 type = "AvatarGroup", 
                 props = {
-                    avatars = v22, 
+                    avatars = v24, 
                     type = l_AvatarGroupType_0.Stacked, 
                     max = 2
                 }
             }, 
-            ref = v15, 
-            NextSelectionUp = v14.NextSelectionUp, 
-            NextSelectionDown = v14.NextSelectionDown, 
-            NextSelectionRight = v14.NextSelectionRight, 
-            NextSelectionLeft = v14.NextSelectionLeft
+            ref = v17, 
+            NextSelectionUp = v16.NextSelectionUp, 
+            NextSelectionDown = v16.NextSelectionDown, 
+            NextSelectionRight = v16.NextSelectionRight, 
+            NextSelectionLeft = v16.NextSelectionLeft
         });
     end;
 end);

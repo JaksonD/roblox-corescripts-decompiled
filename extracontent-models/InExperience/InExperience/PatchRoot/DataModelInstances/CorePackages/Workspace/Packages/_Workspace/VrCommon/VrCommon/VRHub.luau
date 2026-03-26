@@ -165,8 +165,14 @@ local function v28() --[[ Line: 188 ]] --[[ Name: onVRSessionStateChanged ]]
         if v12.LaserPointer and v12.LaserPointer.Mode.Navigation then
             v12.LaserPointer:setMode(v8.Mode.Disabled);
         end;
-        if v12.ControllerModelsEnabled then
-            v18(false);
+        if v12.ControllerModelsEnabled and v12.ControllerModelsEnabled ~= false then
+            v12.ControllerModelsEnabled = false;
+            if v12.LeftControllerModel then
+                v12.LeftControllerModel:setEnabled(false);
+            end;
+            if v12.RightControllerModel then
+                v12.RightControllerModel:setEnabled(false);
+            end;
         end;
     end;
 end;

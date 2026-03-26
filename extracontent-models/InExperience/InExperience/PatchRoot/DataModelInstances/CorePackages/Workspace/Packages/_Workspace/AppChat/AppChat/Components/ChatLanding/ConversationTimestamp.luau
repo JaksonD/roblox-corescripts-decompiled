@@ -9,7 +9,7 @@ v2.defaultProps = {
     paddingY = 0, 
     currentStyle = nil
 };
-v2.render = function(v3) --[[ Line: 17 ]] --[[ Name: render ]]
+v2.render = function(v3) --[[ Line: 16 ]] --[[ Name: render ]]
     -- upvalues: v1 (copy)
     local l_textSize_0 = v3.props.textSize;
     local l_textWidth_0 = v3.props.textWidth;

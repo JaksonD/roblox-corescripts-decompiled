@@ -22,7 +22,7 @@ return {
         local v11 = math.ceil(v10 / 3) * 4;
         local v12 = v10 % 3;
         if v12 == 0 then
-            v9 = v9 .. string.char(0);
+            v9 = v9 .. "\000";
         end;
         local v13 = table.create(v11, 0);
         local v14 = 0;

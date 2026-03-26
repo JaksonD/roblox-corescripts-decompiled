@@ -1,4 +1,4 @@
-local function v4(v0) --[[ Line: 50 ]] --[[ Name: parseEligibleOffers ]]
+local function v4(v0) --[[ Line: 51 ]] --[[ Name: parseEligibleOffers ]]
     assert(type(v0) == "table", "Expected EligibleOffers to be a table");
     local v1 = {};
     for _, v3 in ipairs(v0) do
@@ -11,7 +11,7 @@ local function v4(v0) --[[ Line: 50 ]] --[[ Name: parseEligibleOffers ]]
     end;
     return v1;
 end;
-local function v9(v5) --[[ Line: 64 ]] --[[ Name: parseVirtualTransactionDiscounts ]]
+local function v9(v5) --[[ Line: 65 ]] --[[ Name: parseRobloxSubscriptionDiscounts ]]
     if type(v5) ~= "table" then
         return nil;
     else
@@ -28,24 +28,25 @@ local function v9(v5) --[[ Line: 64 ]] --[[ Name: parseVirtualTransactionDiscoun
         return v6;
     end;
 end;
-local function v11(v10) --[[ Line: 81 ]] --[[ Name: parseFeatureConfig ]]
+local function v11(v10) --[[ Line: 82 ]] --[[ Name: parseFeatureConfig ]]
     -- upvalues: v9 (copy)
     assert(type(v10) == "table", "Expected FeatureConfig to be a table");
     return {
         IsRobuxTransferEnabled = v10.IsRobuxTransferEnabled == true, 
         IsTradingEnabled = v10.IsTradingEnabled == true, 
         IsUgcPublishingEnabled = v10.IsUgcPublishingEnabled == true, 
-        VirtualTransactionDiscounts = v9(v10.VirtualTransactionDiscounts)
+        VirtualTransactionDiscounts = v9(v10.VirtualTransactionDiscounts), 
+        PrivateServerDiscounts = v9(v10.PrivateServerDiscounts)
     };
 end;
-local function _(v12) --[[ Line: 91 ]] --[[ Name: parseRobloxSubscriptionProductDetails ]]
+local function _(v12) --[[ Line: 94 ]] --[[ Name: parseRobloxSubscriptionProductDetails ]]
     -- upvalues: v11 (copy)
     assert(type(v12) == "table", "Expected RobloxSubscriptionProductDetails to be a table");
     return {
         FeatureConfig = v11(v12.FeatureConfig)
     };
 end;
-local function _(v14) --[[ Line: 98 ]] --[[ Name: parseProductTypeDetails ]]
+local function _(v14) --[[ Line: 101 ]] --[[ Name: parseProductTypeDetails ]]
     -- upvalues: v11 (copy)
     assert(type(v14) == "table", "Expected ProductTypeDetails to be a table");
     local v15 = {};
@@ -56,7 +57,7 @@ local function _(v14) --[[ Line: 98 ]] --[[ Name: parseProductTypeDetails ]]
     };
     return v15;
 end;
-local function v19(v18) --[[ Line: 105 ]] --[[ Name: parseLocalizedPrice ]]
+local function v19(v18) --[[ Line: 108 ]] --[[ Name: parseLocalizedPrice ]]
     assert(type(v18) == "table", "Expected LocalizedPrice to be a table");
     return {
         CurrencyCode = tostring(v18.CurrencyCode or ""), 
@@ -64,7 +65,7 @@ local function v19(v18) --[[ Line: 105 ]] --[[ Name: parseLocalizedPrice ]]
         Units = tonumber(v18.Units) or 0
     };
 end;
-local function v21(v20) --[[ Line: 114 ]] --[[ Name: parseProductKey ]]
+local function v21(v20) --[[ Line: 117 ]] --[[ Name: parseProductKey ]]
     if type(v20) ~= "table" then
         return {
             Id = "", 
@@ -78,11 +79,11 @@ local function v21(v20) --[[ Line: 114 ]] --[[ Name: parseProductKey ]]
     end;
 end;
 local v23 = {
-    new = function(v22) --[[ Line: 126 ]] --[[ Name: new ]]
+    new = function(v22) --[[ Line: 129 ]] --[[ Name: new ]]
         return v22;
     end
 };
-v23.format = function(v24) --[[ Line: 131 ]] --[[ Name: format ]]
+v23.format = function(v24) --[[ Line: 134 ]] --[[ Name: format ]]
     -- upvalues: v4 (copy), v19 (copy), v21 (copy), v11 (copy), v23 (copy)
     assert(type(v24) == "table", "Expected products response to be a table");
     local v25 = {};
@@ -116,7 +117,7 @@ v23.format = function(v24) --[[ Line: 131 ]] --[[ Name: format ]]
     end;
     return v25;
 end;
-v23.mock = function(v32) --[[ Line: 155 ]] --[[ Name: mock ]]
+v23.mock = function(v32) --[[ Line: 158 ]] --[[ Name: mock ]]
     -- upvalues: v23 (copy)
     local v33 = {
         EligibleOffers = {
@@ -153,6 +154,13 @@ v23.mock = function(v32) --[[ Line: 155 ]] --[[ Name: mock ]]
                             DiscountPercent = 50, 
                             PeriodIndex = 2, 
                             TierId = "percent_50"
+                        }
+                    }, 
+                    PrivateServerDiscounts = {
+                        {
+                            DiscountPercent = 100, 
+                            PeriodIndex = 0, 
+                            TierId = "free"
                         }
                     }
                 }

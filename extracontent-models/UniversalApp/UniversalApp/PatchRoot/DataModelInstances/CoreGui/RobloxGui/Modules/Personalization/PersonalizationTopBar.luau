@@ -27,83 +27,86 @@ local l_FFlagSearchTopResultsTabEnabledForAll_0 = v20.FFlagSearchTopResultsTabEn
 local l_FFlagLuaAppEnableChartsPageProfileLink_0 = v20.FFlagLuaAppEnableChartsPageProfileLink;
 local v25 = require(l_Modules_0.LuaApp.Flags.FFlagEnableFlyoutSidePanel);
 local l_FFlagLuaAppChartsStickyHeader_0 = v20.FFlagLuaAppChartsStickyHeader;
-local function _(v27) --[[ Line: 34 ]] --[[ Name: makePadding ]]
+local l_FFlagLuaAppCompositionSupport_0 = v20.FFlagLuaAppCompositionSupport;
+local function _(v28) --[[ Line: 37 ]] --[[ Name: makePadding ]]
     -- upvalues: v9 (copy)
-    return function() --[[ Line: 35 ]]
-        -- upvalues: v9 (ref), v27 (copy)
+    return function() --[[ Line: 38 ]]
+        -- upvalues: v9 (ref), v28 (copy)
         return v9.createElement("Frame", {
             BackgroundTransparency = 1, 
-            Size = UDim2.new(0, v27, 1, 0)
+            Size = UDim2.new(0, v28, 1, 0)
         });
     end;
 end;
-local v29 = nil;
+local v30 = nil;
 if l_FFlagLuaAppEnableChartsPageProfileLink_0 then
-    v29 = function(v30) --[[ Line: 45 ]]
+    v30 = function(v31) --[[ Line: 48 ]]
         -- upvalues: v9 (copy), v19 (copy)
-        return function(_) --[[ Line: 46 ]]
-            -- upvalues: v9 (ref), v19 (ref), v30 (copy)
+        return function(_) --[[ Line: 49 ]]
+            -- upvalues: v9 (ref), v19 (ref), v31 (copy)
             return v9.createElement(v19, {
-                source = v30
+                source = v31
             });
         end;
     end;
 end;
-return function(v32) --[[ Line: 57 ]]
-    -- upvalues: l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_FFlagSearchTopResultsTabEnabledForAll_0 (copy), l_useSelector_0 (copy), l_FFlagLuaAppEnableChartsPageProfileLink_0 (copy), v29 (ref), v19 (copy), v9 (copy), v17 (copy), v18 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v25 (copy), l_SearchTypes_0 (copy)
-    local v36, v37 = l_useUserExperiment_0({
+return function(v33) --[[ Line: 60 ]]
+    -- upvalues: l_useUserExperiment_0 (copy), l_AppUserLayers_0 (copy), l_FFlagSearchTopResultsTabEnabledForAll_0 (copy), l_useSelector_0 (copy), l_FFlagLuaAppEnableChartsPageProfileLink_0 (copy), v30 (ref), v19 (copy), v9 (copy), v17 (copy), v18 (copy), l_FFlagLuaAppMoveProfileIntoTopBar_0 (copy), l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 (copy), l_VerticalEfficiencyExperimentation_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), v25 (copy), l_SearchTypes_0 (copy)
+    local v37, v38 = l_useUserExperiment_0({
         l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer
-    }, function(v33) --[[ Line: 60 ]]
+    }, function(v34) --[[ Line: 63 ]]
         -- upvalues: l_AppUserLayers_0 (ref), l_FFlagSearchTopResultsTabEnabledForAll_0 (ref)
-        local v34 = v33[l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer] or {};
-        local l_isSearchTypeAuto_0 = v34.isSearchTypeAuto;
+        local v35 = v34[l_AppUserLayers_0.OmniSearchResultsPageUXExposureLayer] or {};
+        local l_isSearchTypeAuto_0 = v35.isSearchTypeAuto;
         if not l_FFlagSearchTopResultsTabEnabledForAll_0 then
-            return l_isSearchTypeAuto_0, v34.isTopPageEnabled;
+            return l_isSearchTypeAuto_0, v35.isTopPageEnabled;
         else
             return l_isSearchTypeAuto_0, nil;
         end;
     end, false);
-    local v38 = nil;
     local v39 = nil;
-    local v41 = l_useSelector_0(function(v40) --[[ Line: 74 ]]
-        return v40.ScreenSize;
+    local v40 = nil;
+    local v42 = l_useSelector_0(function(v41) --[[ Line: 77 ]]
+        return v41.ScreenSize;
     end);
-    if v32.useGridPageLayout then
-        local v42 = if l_FFlagLuaAppEnableChartsPageProfileLink_0 then v29(v32.profileSource) else v19;
-        local v43 = {};
-        local l_v42_0 = v42;
-        local v45 = 0;
-        local l_v45_0 = v45 --[[ copy: 10 -> 13 ]];
-        local function v47() --[[ Line: 35 ]]
-            -- upvalues: v9 (ref), l_v45_0 (copy)
+    if v33.useGridPageLayout then
+        local v43 = if l_FFlagLuaAppEnableChartsPageProfileLink_0 then v30(v33.profileSource) else v19;
+        local v44 = {};
+        local l_v43_0 = v43;
+        local v46 = 0;
+        local l_v46_0 = v46 --[[ copy: 10 -> 13 ]];
+        local function v48() --[[ Line: 38 ]]
+            -- upvalues: v9 (ref), l_v46_0 (copy)
             return v9.createElement("Frame", {
                 BackgroundTransparency = 1, 
-                Size = UDim2.new(0, l_v45_0, 1, 0)
+                Size = UDim2.new(0, l_v46_0, 1, 0)
             });
         end;
-        v45 = v17.SearchButton;
+        v46 = v17.SearchButton;
         local l_BuyRobuxButton_0 = v17.BuyRobuxButton;
         local l_NotificationsButton_0 = v17.NotificationsButton;
-        v6(v43, 1, l_v42_0, v47, v45, l_BuyRobuxButton_0, l_NotificationsButton_0);
-        v38 = v43;
-        v39 = v41.X < v18.COMPACT_WIDTH_BREAKPOINT;
+        v6(v44, 1, l_v43_0, v48, v46, l_BuyRobuxButton_0, l_NotificationsButton_0);
+        v39 = v44;
+        v40 = v42.X < v18.COMPACT_WIDTH_BREAKPOINT;
     else
-        v38 = {
+        v39 = {
             v17.SearchButton, 
             v17.BuyRobuxButton, 
             v17.NotificationsButton
         };
     end;
-    local v50 = nil;
+    local v51 = nil;
     if l_FFlagLuaAppMoveProfileIntoTopBar_0 then
-        v50 = not v32.useGridPageLayout and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar());
+        v51 = not v33.useGridPageLayout and (not l_FFlagLuaAppMoveProfileIntoTopBarIXP_0 or l_VerticalEfficiencyExperimentation_0.getIsProfileMovedToTopBar());
     end;
     return v9.createElement(v17.Container, {
-        titleText = v32.titleText, 
-        ZIndex = if l_FFlagLuaAppChartsStickyHeader_0 and v32.zIndexOverride then v32.zIndexOverride else 2, 
-        forceCompactMode = v39, 
-        leftItem = if l_FFlagLuaAppMoveProfileIntoTopBar_0 and v50 or v25 then v17.PersonalizationLeftItem else v17.BackButton, 
-        rightItems = v38, 
-        searchType = if not not l_FFlagSearchTopResultsTabEnabledForAll_0 or v37 then l_SearchTypes_0.TopResults else if v36 then l_SearchTypes_0.Auto else nil
+        tag = if l_FFlagLuaAppCompositionSupport_0 then v33.tag else nil, 
+        titleText = v33.titleText, 
+        ZIndex = if l_FFlagLuaAppChartsStickyHeader_0 and v33.zIndexOverride then v33.zIndexOverride else 2, 
+        forceCompactMode = v40, 
+        leftItem = if l_FFlagLuaAppMoveProfileIntoTopBar_0 and v51 or v25 then v17.PersonalizationLeftItem else v17.BackButton, 
+        rightItems = v39, 
+        searchType = if not not l_FFlagSearchTopResultsTabEnabledForAll_0 or v38 then l_SearchTypes_0.TopResults else if v37 then l_SearchTypes_0.Auto else nil, 
+        sideMarginOverride = if l_FFlagLuaAppCompositionSupport_0 then v33.sideMarginOverride else nil
     });
 end;

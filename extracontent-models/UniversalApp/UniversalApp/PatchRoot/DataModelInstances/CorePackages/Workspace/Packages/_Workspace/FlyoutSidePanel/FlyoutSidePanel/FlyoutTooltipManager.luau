@@ -6,10 +6,10 @@ v3.__index = v3;
 local function _(v4, v5) --[[ Line: 23 ]] --[[ Name: isSameDate ]]
     local v6 = os.date("*t", v4);
     local v7 = os.date("*t", v5);
-    local v8 = true;
-    if v6.year ~= v7.year then
-        v8 = true;
-        if v6.month ~= v7.month then
+    local v8 = false;
+    if v6.year == v7.year then
+        v8 = false;
+        if v6.month == v7.month then
             v8 = v6.day == v7.day;
         end;
     end;
@@ -68,10 +68,10 @@ v3.tooltipSeenTimeHelper = function(v25, v26) --[[ Line: 82 ]] --[[ Name: toolti
     local v27 = v25:_getTime();
     local v28 = os.date("*t", v27);
     local v29 = os.date("*t", v26);
-    local v30 = true;
-    if v28.year ~= v29.year then
-        v30 = true;
-        if v28.month ~= v29.month then
+    local v30 = false;
+    if v28.year == v29.year then
+        v30 = false;
+        if v28.month == v29.month then
             v30 = v28.day == v29.day;
         end;
     end;

@@ -24,13 +24,14 @@ local l_FFlagFriendsPageAlwaysOpenPPV_0 = require(l_Parent_0.SharedFlags).FFlagF
 local l_FFlagFriendsPageUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagFriendsPageUserListEnabled;
 local l_FFlagFriendsPageViewBtnEnabled_0 = require(l_Parent_0.SharedFlags).FFlagFriendsPageViewBtnEnabled;
 local v25 = require(l_script_FirstAncestor_0.Flags.FFlagAddFriendsTileTCIndicatorLabel);
-local v26 = l_Roact_0.PureComponent:extend("FriendTile");
-local function v27() --[[ Line: 37 ]]
-    return function() --[[ Line: 38 ]]
+local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
+local v27 = l_Roact_0.PureComponent:extend("FriendTile");
+local function v28() --[[ Line: 38 ]]
+    return function() --[[ Line: 39 ]]
 
     end;
 end;
-v26.validateProps = l_t_0.strictInterface({
+v27.validateProps = l_t_0.strictInterface({
     user = l_t_0.table, 
     index = l_t_0.number, 
     openPlayerProfile = l_t_0.optional(l_t_0.callback), 
@@ -41,6 +42,7 @@ v26.validateProps = l_t_0.strictInterface({
     focusGuiObject = l_t_0.optional(l_t_0.callback), 
     userProfile = l_t_0.optional(l_t_0.table), 
     trustedConnection = l_t_0.optional(l_t_0.boolean), 
+    isRobloxSubscriber = l_t_0.optional(l_t_0.boolean), 
     isLuobu = l_t_0.optional(l_t_0.boolean), 
     buttons = l_t_0.optional(l_t_0.array(l_t_0.strictInterface({
         icon = l_t_0.optional(l_t_0.string), 
@@ -50,156 +52,157 @@ v26.validateProps = l_t_0.strictInterface({
     }))), 
     isPlayerContextualMenuEnabled = l_t_0.optional(l_t_0.boolean)
 });
-v26.defaultProps = {
+v27.defaultProps = {
     user = {
         username = ""
     }, 
-    openPlayerProfile = v27, 
+    openPlayerProfile = v28, 
     isLuobu = false, 
     index = 1, 
     buttons = nil, 
     isPlayerContextualMenuEnabled = false, 
     trustedConnection = false
 };
-v26.init = function(v28) --[[ Line: 80 ]] --[[ Name: init ]]
+v27.init = function(v29) --[[ Line: 82 ]] --[[ Name: init ]]
     -- upvalues: l_memoize_0 (copy), v16 (copy), l_Roact_0 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), v17 (copy)
-    v28.state = {
+    v29.state = {
         isFirstRender = true
     };
-    v28.makeRelevancyInfo = l_memoize_0(v16);
-    v28.playerTileRef = l_Roact_0.createRef();
-    v28.openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v28.props.isPlayerContextualMenuEnabled and function(_, _) --[[ Line: 87 ]]
-        -- upvalues: v28 (copy)
-        local l_user_0 = v28.props.user;
-        return v28.props.openPlayerProfile(l_user_0);
-    end or function(v32, v33) --[[ Line: 91 ]]
-        -- upvalues: v28 (copy)
-        local l_user_1 = v28.props.user;
-        if v32 and v33 then
-            return v28.props.openPlayerProfile(l_user_1.id, v28.props.index, l_user_1, v32, v33);
+    v29.makeRelevancyInfo = l_memoize_0(v16);
+    v29.playerTileRef = l_Roact_0.createRef();
+    v29.openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v29.props.isPlayerContextualMenuEnabled and function(_, _) --[[ Line: 89 ]]
+        -- upvalues: v29 (copy)
+        local l_user_0 = v29.props.user;
+        return v29.props.openPlayerProfile(l_user_0);
+    end or function(v33, v34) --[[ Line: 93 ]]
+        -- upvalues: v29 (copy)
+        local l_user_1 = v29.props.user;
+        if v33 and v34 then
+            return v29.props.openPlayerProfile(l_user_1.id, v29.props.index, l_user_1, v33, v34);
         else
-            return v28.props.openPlayerProfile(l_user_1.id, v28.props.index, l_user_1);
+            return v29.props.openPlayerProfile(l_user_1.id, v29.props.index, l_user_1);
         end;
     end;
-    v28.openPlayerProfileForRelevancyInfo = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else function(v35, v36) --[[ Line: 102 ]]
-        -- upvalues: v28 (copy)
-        return function() --[[ Line: 103 ]]
-            -- upvalues: v28 (ref), v35 (copy), v36 (copy)
-            return v28.openPlayerProfile(v35, v36);
+    v29.openPlayerProfileForRelevancyInfo = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else function(v36, v37) --[[ Line: 104 ]]
+        -- upvalues: v29 (copy)
+        return function() --[[ Line: 105 ]]
+            -- upvalues: v29 (ref), v36 (copy), v37 (copy)
+            return v29.openPlayerProfile(v36, v37);
         end;
     end;
-    v28.checkAndSetSelected = function() --[[ Line: 108 ]]
-        -- upvalues: v28 (copy)
-        if v28.props.selected and v28.props.focusGuiObject then
-            local v37 = v28.playerTileRef:getValue();
-            if v37 then
-                v28.props.focusGuiObject(v37);
+    v29.checkAndSetSelected = function() --[[ Line: 110 ]]
+        -- upvalues: v29 (copy)
+        if v29.props.selected and v29.props.focusGuiObject then
+            local v38 = v29.playerTileRef:getValue();
+            if v38 then
+                v29.props.focusGuiObject(v38);
             end;
         end;
     end;
-    v28.getPresenceType = l_FFlagFriendsPageUserListEnabled_0 and function(v38) --[[ Line: 118 ]]
+    v29.getPresenceType = l_FFlagFriendsPageUserListEnabled_0 and function(v39) --[[ Line: 120 ]]
         -- upvalues: v17 (ref)
-        local v39 = tostring(v38 or "");
-        return string.gsub(v39, "PresenceType%.", "") or v17.Enums.PresenceTypes.Offline;
+        local v40 = tostring(v39 or "");
+        return string.gsub(v40, "PresenceType%.", "") or v17.Enums.PresenceTypes.Offline;
     end or nil;
-    v28.openProfilePeekViewHandle = l_FFlagFriendsPageUserListEnabled_0 and function() --[[ Line: 125 ]]
-        -- upvalues: v28 (copy)
-        return v28.props.openPlayerProfileHandle(v28.props.user.id, v28.props.index);
+    v29.openProfilePeekViewHandle = l_FFlagFriendsPageUserListEnabled_0 and function() --[[ Line: 127 ]]
+        -- upvalues: v29 (copy)
+        return v29.props.openPlayerProfileHandle(v29.props.user.id, v29.props.index);
     end or nil;
 end;
-v26.didMount = function(v40) --[[ Line: 131 ]] --[[ Name: didMount ]]
-    if v40.props.pageLoadingTimeReport then
-        v40.props.pageLoadingTimeReport();
+v27.didMount = function(v41) --[[ Line: 133 ]] --[[ Name: didMount ]]
+    if v41.props.pageLoadingTimeReport then
+        v41.props.pageLoadingTimeReport();
     end;
-    v40.checkAndSetSelected();
+    v41.checkAndSetSelected();
 end;
-v26.render = function(v41) --[[ Line: 139 ]] --[[ Name: render ]]
-    -- upvalues: v14 (copy), v12 (copy), v13 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (copy), l_FFlagFriendsPageViewBtnEnabled_0 (copy), l_ButtonTypes_0 (copy), l_ButtonVariant_0 (copy), v11 (copy), v25 (copy), l_React_0 (copy), v20 (copy), l_Roact_0 (copy), l_PlayerTile_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy)
-    local l_user_2 = v41.props.user;
-    local v43 = v14(l_user_2);
-    local v44 = v12[v43];
-    local v45 = v13[v43];
-    local v46 = nil;
+v27.render = function(v42) --[[ Line: 141 ]] --[[ Name: render ]]
+    -- upvalues: v14 (copy), v12 (copy), v13 (copy), l_withStyle_0 (copy), l_withLocalization_0 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (copy), l_FFlagFriendsPageViewBtnEnabled_0 (copy), l_ButtonTypes_0 (copy), l_ButtonVariant_0 (copy), v11 (copy), v25 (copy), l_React_0 (copy), v20 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_Roact_0 (copy), l_PlayerTile_0 (copy), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (copy), l_OpenTypeSupport_0 (copy)
+    local l_user_2 = v42.props.user;
+    local v44 = v14(l_user_2);
+    local v45 = v12[v44];
+    local v46 = v13[v44];
     local v47 = nil;
-    local v48 = v41.playerTileRef:getValue();
-    if v48 then
-        v46 = v48.AbsoluteSize;
-        v47 = v48.AbsolutePosition;
+    local v48 = nil;
+    local v49 = v42.playerTileRef:getValue();
+    if v49 then
+        v47 = v49.AbsoluteSize;
+        v48 = v49.AbsolutePosition;
     else
-        v41:setState({
+        v42:setState({
             isFirstRender = false
         });
     end;
-    return l_withStyle_0(function(v49) --[[ Line: 157 ]]
-        -- upvalues: l_withLocalization_0 (ref), v44 (copy), l_FFlagFriendsPageUserListEnabled_0 (ref), v41 (copy), l_user_2 (copy), v45 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v46 (ref), v47 (ref), v43 (copy), l_FFlagFriendsPageViewBtnEnabled_0 (ref), l_ButtonTypes_0 (ref), l_ButtonVariant_0 (ref), v11 (ref), v25 (ref), l_React_0 (ref), v20 (ref), l_Roact_0 (ref), l_PlayerTile_0 (ref), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (ref), l_OpenTypeSupport_0 (ref)
+    return l_withStyle_0(function(v50) --[[ Line: 159 ]]
+        -- upvalues: l_withLocalization_0 (ref), v45 (copy), l_FFlagFriendsPageUserListEnabled_0 (ref), v42 (copy), l_user_2 (copy), v46 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v47 (ref), v48 (ref), v44 (copy), l_FFlagFriendsPageViewBtnEnabled_0 (ref), l_ButtonTypes_0 (ref), l_ButtonVariant_0 (ref), v11 (ref), v25 (ref), l_React_0 (ref), v20 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), l_Roact_0 (ref), l_PlayerTile_0 (ref), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (ref), l_OpenTypeSupport_0 (ref)
         return l_withLocalization_0({
-            presenceText = v44, 
+            presenceText = v45, 
             accountDeletedText = "Feature.Friends.Action.AccountDeleted", 
             trustedText = "Feature.Friends.TrustedConnection.Label.Trusted"
-        })(function(v50) --[[ Line: 162 ]]
-            -- upvalues: l_FFlagFriendsPageUserListEnabled_0 (ref), v41 (ref), l_user_2 (ref), v45 (ref), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v46 (ref), v47 (ref), v49 (copy), v43 (ref), l_FFlagFriendsPageViewBtnEnabled_0 (ref), l_ButtonTypes_0 (ref), l_ButtonVariant_0 (ref), v11 (ref), v25 (ref), l_React_0 (ref), v20 (ref), l_Roact_0 (ref), l_PlayerTile_0 (ref), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (ref), l_OpenTypeSupport_0 (ref)
-            local v51 = v50.presenceText or nil;
-            local l_accountDeletedText_0 = v50.accountDeletedText;
-            local l_trustedText_0 = v50.trustedText;
+        })(function(v51) --[[ Line: 164 ]]
+            -- upvalues: l_FFlagFriendsPageUserListEnabled_0 (ref), v42 (ref), l_user_2 (ref), v46 (ref), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v47 (ref), v48 (ref), v50 (copy), v44 (ref), l_FFlagFriendsPageViewBtnEnabled_0 (ref), l_ButtonTypes_0 (ref), l_ButtonVariant_0 (ref), v11 (ref), v25 (ref), l_React_0 (ref), v20 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), l_Roact_0 (ref), l_PlayerTile_0 (ref), l_GetFFlagLuaAppEnableOpenTypeSupport_0 (ref), l_OpenTypeSupport_0 (ref)
+            local v52 = v51.presenceText or nil;
+            local l_accountDeletedText_0 = v51.accountDeletedText;
+            local l_trustedText_0 = v51.trustedText;
             if l_FFlagFriendsPageUserListEnabled_0 then
-                local v54 = v41.makeRelevancyInfo(l_user_2, v51, v45, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v41.openPlayerProfileForRelevancyInfo(v46, v47), v49.Theme, v41.props.index, v41.props.isLuobu, v49.Font, l_accountDeletedText_0, true);
-                return v41.props.createRow({
-                    onRowActivated = v41.openProfilePeekViewHandle, 
-                    contextualInfo = v54 and {
-                        text = v54.text, 
-                        icon = v54.icon
+                local v55 = v42.makeRelevancyInfo(l_user_2, v52, v46, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v42.openPlayerProfileForRelevancyInfo(v47, v48), v50.Theme, v42.props.index, v42.props.isLuobu, v50.Font, l_accountDeletedText_0, true);
+                return v42.props.createRow({
+                    onRowActivated = v42.openProfilePeekViewHandle, 
+                    contextualInfo = v55 and {
+                        text = v55.text, 
+                        icon = v55.icon
                     }, 
-                    presence = v41.getPresenceType(v43), 
+                    presence = v42.getPresenceType(v44), 
                     primaryCta = if l_FFlagFriendsPageViewBtnEnabled_0 then {
                         type = l_ButtonTypes_0.View, 
-                        onActivated = v41.openProfilePeekViewHandle, 
+                        onActivated = v42.openProfilePeekViewHandle, 
                         variant = l_ButtonVariant_0.Standard
                     } else nil
                 });
             else
-                local v55 = nil;
                 local v56 = nil;
-                if v41.props.userProfile then
-                    v55 = v41.props.userProfile.names.combinedName;
-                    v56 = v11.Formatters.formatUsername(v41.props.userProfile.names.username);
-                    l_user_2.isDeleted = v41.props.userProfile.isDeleted;
+                local v57 = nil;
+                if v42.props.userProfile then
+                    v56 = v42.props.userProfile.names.combinedName;
+                    v57 = v11.Formatters.formatUsername(v42.props.userProfile.names.username);
+                    l_user_2.isDeleted = v42.props.userProfile.isDeleted;
                 end;
-                local v57 = if v55 then v55 else l_user_2.displayName;
-                local v58 = if v56 then v56 else "@" .. l_user_2.username;
-                local v59 = if not v25 then (if v41.props.trustedConnection then l_trustedText_0 .. " \226\128\162 " else "") .. v58 else v58;
-                local v60 = if not v55 then nil else v41.makeRelevancyInfo(l_user_2, v51, v45, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v41.openPlayerProfileForRelevancyInfo(v46, v47), v49.Theme, v41.props.index, v41.props.isLuobu, v49.Font, l_accountDeletedText_0, true);
-                local v61 = v41.props.userProfile and v41.props.userProfile.isVerified;
+                local v58 = if v56 then v56 else l_user_2.displayName;
+                local v59 = if v57 then v57 else "@" .. l_user_2.username;
+                local v60 = if not v25 then (if v42.props.trustedConnection then l_trustedText_0 .. " \226\128\162 " else "") .. v59 else v59;
+                local v61 = if not v56 then nil else v42.makeRelevancyInfo(l_user_2, v52, v46, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v42.openPlayerProfileForRelevancyInfo(v47, v48), v50.Theme, v42.props.index, v42.props.isLuobu, v50.Font, l_accountDeletedText_0, true);
+                local v62 = v42.props.userProfile and v42.props.userProfile.isVerified;
                 if v25 then
                     return l_React_0.createElement(v20, {
                         user = l_user_2, 
-                        userPresence = v43, 
-                        title = v57, 
-                        subtitle = v59, 
-                        relevancyInfo = v60, 
-                        index = v41.props.index, 
-                        openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v41.props.openPlayerProfile(l_user_2.id, v41.props.index) else v41.openPlayerProfile(v46, v47, v57, v59, v60), 
-                        playerTileRef = v41.playerTileRef, 
-                        buttons = v41.props.buttons, 
-                        isTrustedConnection = v41.props.trustedConnection, 
-                        isVerified = v61
+                        userPresence = v44, 
+                        title = v58, 
+                        subtitle = v60, 
+                        relevancyInfo = v61, 
+                        index = v42.props.index, 
+                        openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v42.props.openPlayerProfile(l_user_2.id, v42.props.index) else v42.openPlayerProfile(v47, v48, v58, v60, v61), 
+                        playerTileRef = v42.playerTileRef, 
+                        buttons = v42.props.buttons, 
+                        isTrustedConnection = v42.props.trustedConnection, 
+                        isVerified = v62, 
+                        isRobloxSubscriber = if l_FFlagEnableBlackbirdCheckDev_0 then v42.props.isRobloxSubscriber else nil
                     });
                 else
                     return l_Roact_0.createElement(l_PlayerTile_0, {
                         tileSize = UDim2.fromScale(1, 1), 
                         thumbnail = l_user_2.thumbnail, 
-                        title = v57, 
-                        subtitle = v59, 
-                        hasVerifiedBadge = v61, 
-                        onActivated = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v41.props.openPlayerProfile(l_user_2.id, v41.props.index) else v41.openPlayerProfile(v46, v47, v57, v59, v60), 
-                        forwardedRef = v41.playerTileRef, 
-                        buttons = v41.props.buttons, 
+                        title = v58, 
+                        subtitle = v60, 
+                        hasVerifiedBadge = v62, 
+                        onActivated = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v42.props.openPlayerProfile(l_user_2.id, v42.props.index) else v42.openPlayerProfile(v47, v48, v58, v60, v61), 
+                        forwardedRef = v42.playerTileRef, 
+                        buttons = v42.props.buttons, 
                         Selectable = true, 
                         openTypeFeatures = if l_GetFFlagLuaAppEnableOpenTypeSupport_0() then l_OpenTypeSupport_0:getUserNameStylisticAlternative() else nil, 
-                        relevancyInfo = v60
+                        relevancyInfo = v61
                     });
                 end;
             end;
         end);
     end);
 end;
-return v26;
+return v27;

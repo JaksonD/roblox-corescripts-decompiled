@@ -151,7 +151,10 @@ return {
     DontLeaveGameLocalizedKey = "CoreScripts.InGameMenu.Action.DontLeaveGame", 
     DontResetCharacterLocalizedKey = l_FFlagRenameRespawnConfirmationPage_0 and "CoreScripts.InGameMenu.Action.DontRespawnCharacter" or "CoreScripts.InGameMenu.Action.DontResetCharacter", 
     ConnectionLocalizedKey = "CommonUI.Features.Label.Connection", 
+    FriendLocalizedKey = "Feature.Friends.Label.Friend", 
     AddConnectionLocalizedKey = "CommonUI.Features.Label.AddConnection", 
+    AddFriendLocalizedKey = "Feature.Profile.Label.AddFriend", 
     InviteConnectionsLocalizedKey = "CommonUI.Features.Label.InviteConnections", 
+    InviteFriendsLocalizedKey = "Feature.SettingsHub.Heading.InviteFriends", 
     MovementModeDynamicThumbstickKey = "Feature.SettingsHub.Default.DynamicThumbstick"
 };

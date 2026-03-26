@@ -22,192 +22,194 @@ local v20 = require(l_script_FirstAncestor_0.handleSduiApiResponse);
 local v21 = require(l_script_FirstAncestor_0.SduiPageAnalytics);
 local l_FFlagSduiProtobufJsonDecode_0 = require(l_Parent_0.SharedFlags).FFlagSduiProtobufJsonDecode;
 local v23 = game:DefineFastFlag("SduiEnableClearOnEmptyResponse", false);
-return function() --[[ Line: 64 ]] --[[ Name: createSduiApiStore ]]
-    -- upvalues: l_createDataCache_0 (copy), v4 (copy), v9 (copy), l_FFlagSduiProtobufJsonDecode_0 (copy), l_SduiResponseType_0 (copy), l_HttpService_0 (copy), v21 (copy), l_SduiRequestStatus_0 (copy), l_SduiLogger_0 (copy), l_SduiErrors_0 (copy), l_makeProtobufJsonResponseDecoder_0 (copy), l_makeProtoResponseDecoder_0 (copy), v20 (copy), v16 (copy), l_SduiParseHelpers_0 (copy), v23 (copy), v3 (copy), l_createDataResolver_0 (copy)
-    local v24 = l_createDataCache_0();
-    local v25 = {};
+local l_FFlagSduiAllowNoConfigsBuilt_0 = require(l_Parent_0.SharedFlags).FFlagSduiAllowNoConfigsBuilt;
+return function() --[[ Line: 68 ]] --[[ Name: createSduiApiStore ]]
+    -- upvalues: l_createDataCache_0 (copy), v4 (copy), v9 (copy), l_FFlagSduiProtobufJsonDecode_0 (copy), l_SduiResponseType_0 (copy), l_HttpService_0 (copy), v21 (copy), l_SduiRequestStatus_0 (copy), l_SduiLogger_0 (copy), l_SduiErrors_0 (copy), l_makeProtobufJsonResponseDecoder_0 (copy), l_makeProtoResponseDecoder_0 (copy), v20 (copy), v16 (copy), l_FFlagSduiAllowNoConfigsBuilt_0 (copy), l_SduiParseHelpers_0 (copy), v23 (copy), v3 (copy), l_createDataResolver_0 (copy)
+    local v25 = l_createDataCache_0();
     local v26 = {};
     local v27 = {};
-    local function v32(v28) --[[ Line: 77 ]] --[[ Name: getInputDataSignals ]]
-        -- upvalues: v27 (copy), v4 (ref)
-        local v29 = v27[v28];
-        if v29 == nil then
-            local v30, v31 = v4.createSignal(nil);
-            v29 = {
-                get = v30, 
-                set = v31
+    local v28 = {};
+    local function v33(v29) --[[ Line: 81 ]] --[[ Name: getInputDataSignals ]]
+        -- upvalues: v28 (copy), v4 (ref)
+        local v30 = v28[v29];
+        if v30 == nil then
+            local v31, v32 = v4.createSignal(nil);
+            v30 = {
+                get = v31, 
+                set = v32
             };
-            v27[v28] = v29;
+            v28[v29] = v30;
         end;
-        return v29;
+        return v30;
     end;
-    local function v60(v33, v34) --[[ Line: 93 ]] --[[ Name: fetchFunction ]]
-        -- upvalues: v25 (copy), v9 (ref), l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), l_HttpService_0 (ref), v26 (copy), v21 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v20 (ref), v16 (ref), v32 (copy), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref)
-        local v35 = v25[v33];
-        if not v35 then
-            return v9.reject("No request config for key", v33);
+    local function v61(v34, v35) --[[ Line: 97 ]] --[[ Name: fetchFunction ]]
+        -- upvalues: v26 (copy), v9 (ref), l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), l_HttpService_0 (ref), v27 (copy), v21 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v20 (ref), v16 (ref), v33 (copy), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref)
+        local v36 = v26[v34];
+        if not v36 then
+            return v9.reject("No request config for key", v34);
         else
-            local l_url_0 = v35.url;
-            local l_loadTimer_0 = v35.loadTimer;
+            local l_url_0 = v36.url;
+            local l_loadTimer_0 = v36.loadTimer;
             l_loadTimer_0.logUiRequestSent();
-            local v38 = l_FFlagSduiProtobufJsonDecode_0 and v35.responseType == l_SduiResponseType_0.ProtobufJson;
-            local v39 = l_HttpService_0:RequestInternal({
+            local v39 = l_FFlagSduiProtobufJsonDecode_0 and v36.responseType == l_SduiResponseType_0.ProtobufJson;
+            local v40 = l_HttpService_0:RequestInternal({
                 Url = l_url_0, 
                 Method = "GET", 
                 Headers = {
-                    Accept = v38 and "application/json" or "application/x-protobuf"
+                    Accept = v39 and "application/json" or "application/x-protobuf"
                 }
             });
-            return v9.new(function(v40, v41) --[[ Line: 112 ]]
-                -- upvalues: v39 (copy), l_loadTimer_0 (copy), v26 (ref), v33 (copy), v21 (ref), v35 (copy), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (copy), v38 (copy), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v34 (copy), v20 (ref), v16 (ref), v32 (ref), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref)
-                v39:Start(function(v42, v43) --[[ Line: 113 ]]
-                    -- upvalues: l_loadTimer_0 (ref), v26 (ref), v33 (ref), v21 (ref), v35 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (ref), v41 (copy), v38 (ref), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v34 (ref), v20 (ref), v16 (ref), v32 (ref), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref), v40 (copy)
+            return v9.new(function(v41, v42) --[[ Line: 116 ]]
+                -- upvalues: v40 (copy), l_loadTimer_0 (copy), v27 (ref), v34 (copy), v21 (ref), v36 (copy), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (copy), v39 (copy), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v35 (copy), v20 (ref), v16 (ref), v33 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref)
+                v40:Start(function(v43, v44) --[[ Line: 117 ]]
+                    -- upvalues: l_loadTimer_0 (ref), v27 (ref), v34 (ref), v21 (ref), v36 (ref), l_SduiRequestStatus_0 (ref), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), l_url_0 (ref), v42 (copy), v39 (ref), l_makeProtobufJsonResponseDecoder_0 (ref), l_makeProtoResponseDecoder_0 (ref), v35 (ref), v20 (ref), v16 (ref), v33 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref), l_SduiParseHelpers_0 (ref), v23 (ref), v3 (ref), v41 (copy)
                     l_loadTimer_0.logUiResponseReceived();
-                    v26[v33] = false;
-                    v21.sendPageStatusEvent(v35.surfaceKey, v43.StatusCode, v43.HttpError);
-                    if v42 then
-                        local v44 = if v43.StatusCode then tonumber(v43.StatusCode) else nil;
-                        if v44 and v44 >= 400 or v43.HttpError and v43.HttpError ~= Enum.HttpError.OK then
+                    v27[v34] = false;
+                    v21.sendPageStatusEvent(v36.surfaceKey, v44.StatusCode, v44.HttpError);
+                    if v43 then
+                        local v45 = if v44.StatusCode then tonumber(v44.StatusCode) else nil;
+                        if v45 and v45 >= 400 or v44.HttpError and v44.HttpError ~= Enum.HttpError.OK then
                             l_loadTimer_0.updateRequestStatus(l_SduiRequestStatus_0.FailedToLoad);
                             l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                                message = ("Http request not successful for %* StatusCode %* HttpError %*"):format(l_url_0, v43.StatusCode, v43.HttpError), 
-                                name = v35.surfaceKey
-                            }, v35.surfaceKey);
-                            return v41(v43);
+                                message = ("Http request not successful for %* StatusCode %* HttpError %*"):format(l_url_0, v44.StatusCode, v44.HttpError), 
+                                name = v36.surfaceKey
+                            }, v36.surfaceKey);
+                            return v42(v44);
                         else
                             l_loadTimer_0.updateRequestStatus(l_SduiRequestStatus_0.LoadedFromNetwork);
-                            v21.sendPagePayloadSizeEvent(v35.surfaceKey, v43.Body);
-                            local v45 = if v38 then l_makeProtobufJsonResponseDecoder_0(v35.apiProto) else l_makeProtoResponseDecoder_0(v35.apiProto);
-                            local l_status_0, l_result_0 = pcall(function() --[[ Line: 151 ]]
-                                -- upvalues: v35 (ref), v34 (ref), v20 (ref), v43 (copy), l_loadTimer_0 (ref), v45 (copy), v16 (ref), v32 (ref)
-                                local v46 = v35.isPaginated and v34.data(false) ~= nil;
+                            v21.sendPagePayloadSizeEvent(v36.surfaceKey, v44.Body);
+                            local v46 = if v39 then l_makeProtobufJsonResponseDecoder_0(v36.apiProto) else l_makeProtoResponseDecoder_0(v36.apiProto);
+                            local l_status_0, l_result_0 = pcall(function() --[[ Line: 155 ]]
+                                -- upvalues: v36 (ref), v35 (ref), v20 (ref), v44 (copy), l_loadTimer_0 (ref), v46 (copy), v16 (ref), v33 (ref), l_FFlagSduiAllowNoConfigsBuilt_0 (ref)
+                                local v47 = v36.isPaginated and v35.data(false) ~= nil;
                                 return v20({
-                                    response = v43, 
+                                    response = v44, 
                                     loadTimer = l_loadTimer_0, 
-                                    surfaceKey = v35.surfaceKey, 
-                                    configCacheKey = v35.configKey, 
-                                    decodeResponse = v45, 
+                                    surfaceKey = v36.surfaceKey, 
+                                    configCacheKey = v36.configKey, 
+                                    decodeResponse = v46, 
                                     parseHydrationDataFromResponse = v16.parseHydrationDataFromResponse, 
                                     parseTemplateEntriesFromResponse = v16.parseTemplateEntriesFromResponse, 
                                     parsePageEntriesFromResponse = v16.parsePageEntriesFromResponse, 
-                                    getInputDataSignalsForRequest = v32, 
-                                    paginateResponse = v46, 
-                                    buildNextPageUrl = v35.buildNextPageUrl
+                                    getInputDataSignalsForRequest = v33, 
+                                    paginateResponse = v47, 
+                                    buildNextPageUrl = v36.buildNextPageUrl, 
+                                    allowNoConfigsBuilt = if l_FFlagSduiAllowNoConfigsBuilt_0 then v36.allowNoConfigsBuilt else nil
                                 });
                             end);
                             if not l_status_0 then
-                                local v49 = l_SduiParseHelpers_0.stringifyValue(l_result_0);
+                                local v50 = l_SduiParseHelpers_0.stringifyValue(l_result_0);
                                 l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                                    message = ("handleSduiApiResponse not successful for %* err %*"):format(l_url_0, v49), 
-                                    name = v35.surfaceKey
-                                }, v35.surfaceKey);
-                                return v41(v34);
+                                    message = ("handleSduiApiResponse not successful for %* err %*"):format(l_url_0, v50), 
+                                    name = v36.surfaceKey
+                                }, v36.surfaceKey);
+                                return v42(v35);
                             else
-                                local v50 = {};
+                                local v51 = {};
                                 if v23 then
                                     if next(l_result_0) then
-                                        local v51 = v34.data(false);
-                                        for v52, v53 in l_result_0 do
-                                            local v54 = v51 and v51[v52];
-                                            v50[v52] = if v54 then v3.Dictionary.join(v54, v53) else v53;
+                                        local v52 = v35.data(false);
+                                        for v53, v54 in l_result_0 do
+                                            local v55 = v52 and v52[v53];
+                                            v51[v53] = if v55 then v3.Dictionary.join(v55, v54) else v54;
                                         end;
-                                    elseif v35.clearOnEmptyResponse then
-                                        v50[v35.configKey] = {};
+                                    elseif v36.clearOnEmptyResponse then
+                                        v51[v36.configKey] = {};
                                     end;
                                 else
-                                    local v55 = v34.data(false);
-                                    for v56, v57 in l_result_0 do
-                                        local v58 = v55 and v55[v56];
-                                        v50[v56] = if v58 then v3.Dictionary.join(v58, v57) else v57;
+                                    local v56 = v35.data(false);
+                                    for v57, v58 in l_result_0 do
+                                        local v59 = v56 and v56[v57];
+                                        v51[v57] = if v59 then v3.Dictionary.join(v59, v58) else v58;
                                     end;
                                 end;
-                                return v40(v50);
+                                return v41(v51);
                             end;
                         end;
                     else
-                        local v59 = l_SduiParseHelpers_0.stringifyValue(v43);
+                        local v60 = l_SduiParseHelpers_0.stringifyValue(v44);
                         l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToFetchPage, {
-                            message = ("Http request not successful for %* err %*"):format(l_url_0, v59), 
-                            name = v35.surfaceKey
-                        }, v35.surfaceKey);
-                        return v41(v43);
+                            message = ("Http request not successful for %* err %*"):format(l_url_0, v60), 
+                            name = v36.surfaceKey
+                        }, v36.surfaceKey);
+                        return v42(v44);
                     end;
                 end);
             end);
         end;
     end;
-    local v61 = l_createDataResolver_0({
-        cache = v24, 
-        fetchFn = v60, 
+    local v62 = l_createDataResolver_0({
+        cache = v25, 
+        fetchFn = v61, 
         queueProcessDelaySec = 0, 
         supportsMultiGet = false
     });
-    local function v65(v62, v63) --[[ Line: 226 ]] --[[ Name: fetchIfNeeded ]]
-        -- upvalues: l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), v26 (copy), v25 (copy), v61 (copy)
-        if l_FFlagSduiProtobufJsonDecode_0 and v62.responseType == nil then
-            v62.responseType = l_SduiResponseType_0.Protobuf;
+    local function v66(v63, v64) --[[ Line: 233 ]] --[[ Name: fetchIfNeeded ]]
+        -- upvalues: l_FFlagSduiProtobufJsonDecode_0 (ref), l_SduiResponseType_0 (ref), v27 (copy), v26 (copy), v62 (copy)
+        if l_FFlagSduiProtobufJsonDecode_0 and v63.responseType == nil then
+            v63.responseType = l_SduiResponseType_0.Protobuf;
         end;
-        local v64 = v62.configKey or v62.url;
-        v62.configKey = v64;
-        if v26[v64] then
+        local v65 = v63.configKey or v63.url;
+        v63.configKey = v65;
+        if v27[v65] then
             return;
         else
-            v26[v64] = true;
-            v62.loadTimer.logUiRequestQueued();
-            v25[v64] = v62;
-            return v61.getAndFetchItem(v64, v63 and function() --[[ Line: 252 ]]
+            v27[v65] = true;
+            v63.loadTimer.logUiRequestQueued();
+            v26[v65] = v63;
+            return v62.getAndFetchItem(v65, v64 and function() --[[ Line: 259 ]]
                 return true;
             end or nil);
         end;
     end;
-    local function v71(v66, v67, v68) --[[ Line: 263 ]] --[[ Name: getRootConfig ]]
-        -- upvalues: v61 (copy)
-        local v69 = v61.getCachedItem(v66).data(v67);
-        local v70 = v69 and v69[v68 or v66];
-        if v70 then
-            return v70.config;
+    local function v72(v67, v68, v69) --[[ Line: 270 ]] --[[ Name: getRootConfig ]]
+        -- upvalues: v62 (copy)
+        local v70 = v62.getCachedItem(v67).data(v68);
+        local v71 = v70 and v70[v69 or v67];
+        if v71 then
+            return v71.config;
         else
             return nil;
         end;
     end;
-    local function v77(v72, v73, v74) --[[ Line: 279 ]] --[[ Name: getTitle ]]
-        -- upvalues: v61 (copy)
-        local v75 = v61.getCachedItem(v72).data(v73);
-        local v76 = v75 and v75[v74 or v72];
-        if v76 and v76.title ~= "" then
-            return v76.title;
+    local function v78(v73, v74, v75) --[[ Line: 286 ]] --[[ Name: getTitle ]]
+        -- upvalues: v62 (copy)
+        local v76 = v62.getCachedItem(v73).data(v74);
+        local v77 = v76 and v76[v75 or v73];
+        if v77 and v77.title ~= "" then
+            return v77.title;
         else
             return nil;
         end;
     end;
-    local function v83(v78) --[[ Line: 293 ]] --[[ Name: loadMoreFromApi ]]
-        -- upvalues: v26 (copy), v25 (copy), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), v61 (copy), v65 (copy), v3 (ref)
-        if v26[v78.configKey] then
+    local function v84(v79) --[[ Line: 300 ]] --[[ Name: loadMoreFromApi ]]
+        -- upvalues: v27 (copy), v26 (copy), l_SduiLogger_0 (ref), l_SduiErrors_0 (ref), v62 (copy), v66 (copy), v3 (ref)
+        if v27[v79.configKey] then
             return;
         else
-            local v79 = v25[v78.configKey];
-            if not v79 then
+            local v80 = v26[v79.configKey];
+            if not v80 then
                 l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToPaginateRequest, {
-                    message = ("No requestData for %*"):format(v78.configKey)
+                    message = ("No requestData for %*"):format(v79.configKey)
                 }, "unknown");
                 return;
             else
-                local v80 = v61.getCachedItem(v78.configKey).data(false);
-                local v81 = v80 and v80[v78.identifier or v78.configKey];
-                if not v81 then
+                local v81 = v62.getCachedItem(v79.configKey).data(false);
+                local v82 = v81 and v81[v79.identifier or v79.configKey];
+                if not v82 then
                     l_SduiLogger_0.reportError(l_SduiErrors_0.SduiErrorType.FailedToPaginateRequest, {
-                        message = ("No entry data for %*"):format(v78.configKey), 
-                        name = v79.surfaceKey
-                    }, v79.surfaceKey);
+                        message = ("No entry data for %*"):format(v79.configKey), 
+                        name = v80.surfaceKey
+                    }, v80.surfaceKey);
                     return;
                 else
-                    local l_nextPageUrl_0 = v81.nextPageUrl;
+                    local l_nextPageUrl_0 = v82.nextPageUrl;
                     if not l_nextPageUrl_0 or l_nextPageUrl_0 == "" then
                         return;
                     else
-                        v65(v3.Dictionary.join(v79, {
+                        v66(v3.Dictionary.join(v80, {
                             url = l_nextPageUrl_0, 
-                            loadTimer = v78.loadTimer, 
+                            loadTimer = v79.loadTimer, 
                             isPaginated = true
                         }), true);
                         return;
@@ -217,10 +219,10 @@ return function() --[[ Line: 64 ]] --[[ Name: createSduiApiStore ]]
         end;
     end;
     return {
-        fetchIfNeeded = v65, 
-        getData = v61.getCachedItem, 
-        getRootConfig = v71, 
-        getTitle = v77, 
-        loadMoreFromApi = v83
+        fetchIfNeeded = v66, 
+        getData = v62.getCachedItem, 
+        getRootConfig = v72, 
+        getTitle = v78, 
+        loadMoreFromApi = v84
     };
 end;

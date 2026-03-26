@@ -3,49 +3,45 @@ local _ = game:GetService("CorePackages");
 local v2 = require(l_CoreGui_0.RobloxGui.Modules.Stats.StatsUtils);
 local _ = require(l_CoreGui_0.RobloxGui.Modules.Stats.StatsAggregator);
 local v4 = require(l_CoreGui_0.RobloxGui.Modules.Stats.DecoratedValueLabel);
-local l_status_0, l_result_0 = pcall(function() --[[ Line: 23 ]]
-    return settings():GetFFlag("UseNotificationsLocalization");
-end);
-local v7 = l_status_0 and l_result_0;
 local l_TextPanelTopMarginPix_0 = v2.TextPanelTopMarginPix;
-local v9 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
+local v6 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
 l_TextPanelTopMarginPix_0 = l_TextPanelTopMarginPix_0 + v2.TextPanelTitleHeightY;
-local v10 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
+local v7 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
 l_TextPanelTopMarginPix_0 = l_TextPanelTopMarginPix_0 + v2.TextPanelLegendItemHeightY;
-local v11 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
+local v8 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
 l_TextPanelTopMarginPix_0 = l_TextPanelTopMarginPix_0 + v2.TextPanelLegendItemHeightY;
-local v12 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
-local v13 = UDim2.new(1, -v2.TextPanelLeftMarginPix * 2, 0, v2.TextPanelTitleHeightY);
-local v14 = UDim2.new(1, -v2.TextPanelLeftMarginPix * 2, 0, v2.TextPanelLegendItemHeightY);
-local v15 = {};
-v15.__index = v15;
-v15.new = function(v16) --[[ Line: 63 ]] --[[ Name: new ]]
-    -- upvalues: v15 (copy), v2 (copy), v13 (copy), v9 (copy)
-    local v17 = {};
-    setmetatable(v17, v15);
-    v17._statType = v16;
-    v17._frame = Instance.new("Frame");
-    v17._frame.BackgroundTransparency = 1;
-    v17._frame.ZIndex = v2.TextZIndex;
-    v17._titleLabel = Instance.new("TextLabel");
-    v2.StyleTextWidget(v17._titleLabel);
-    v17._titleLabel.FontSize = v2.PanelTitleFontSize;
-    v17._titleLabel.Text = v17:_getTitle();
-    v17._titleLabel.Parent = v17._frame;
-    v17._titleLabel.Size = v13;
-    v17._titleLabel.Position = v9;
-    v17._titleLabel.TextXAlignment = Enum.TextXAlignment.Left;
-    v17._titleLabel.TextYAlignment = Enum.TextYAlignment.Top;
-    v17:_addCurrentValueWidget();
-    v17:_addTargetValueWidget();
-    v17:_addAverageValueWidget();
-    return v17;
+local v9 = UDim2.new(0, v2.TextPanelLeftMarginPix, 0, l_TextPanelTopMarginPix_0);
+local v10 = UDim2.new(1, -v2.TextPanelLeftMarginPix * 2, 0, v2.TextPanelTitleHeightY);
+local v11 = UDim2.new(1, -v2.TextPanelLeftMarginPix * 2, 0, v2.TextPanelLegendItemHeightY);
+local v12 = {};
+v12.__index = v12;
+v12.new = function(v13) --[[ Line: 59 ]] --[[ Name: new ]]
+    -- upvalues: v12 (copy), v2 (copy), v10 (copy), v6 (copy)
+    local v14 = {};
+    setmetatable(v14, v12);
+    v14._statType = v13;
+    v14._frame = Instance.new("Frame");
+    v14._frame.BackgroundTransparency = 1;
+    v14._frame.ZIndex = v2.TextZIndex;
+    v14._titleLabel = Instance.new("TextLabel");
+    v2.StyleTextWidget(v14._titleLabel);
+    v14._titleLabel.FontSize = v2.PanelTitleFontSize;
+    v14._titleLabel.Text = v14:_getTitle();
+    v14._titleLabel.Parent = v14._frame;
+    v14._titleLabel.Size = v10;
+    v14._titleLabel.Position = v6;
+    v14._titleLabel.TextXAlignment = Enum.TextXAlignment.Left;
+    v14._titleLabel.TextYAlignment = Enum.TextYAlignment.Top;
+    v14:_addCurrentValueWidget();
+    v14:_addTargetValueWidget();
+    v14:_addAverageValueWidget();
+    return v14;
 end;
-v15._getTarget = function(v18) --[[ Line: 96 ]] --[[ Name: _getTarget ]]
-    if v18._performanceStats == nil then
+v12._getTarget = function(v15) --[[ Line: 92 ]] --[[ Name: _getTarget ]]
+    if v15._performanceStats == nil then
         return 0;
     else
-        local l_FirstChild_0 = v18._performanceStats:FindFirstChild(v18._statMaxName);
+        local l_FirstChild_0 = v15._performanceStats:FindFirstChild(v15._statMaxName);
         if l_FirstChild_0 == nil then
             return 0;
         else
@@ -53,11 +49,11 @@ v15._getTarget = function(v18) --[[ Line: 96 ]] --[[ Name: _getTarget ]]
         end;
     end;
 end;
-v15._addCurrentValueWidget = function(v20) --[[ Line: 112 ]] --[[ Name: _addCurrentValueWidget ]]
-    -- upvalues: v4 (copy), v7 (copy), v14 (copy), v10 (copy), v2 (copy)
-    v20._currentValueWidget = v4.new(v20._statType, v7 and "InGame.UnknownNamespace.Current" or "Current");
-    v20._currentValueWidget:PlaceInParent(v20._frame, v14, v10);
-    local l_DecorationFrame_0 = v20._currentValueWidget:GetDecorationFrame();
+v12._addCurrentValueWidget = function(v17) --[[ Line: 108 ]] --[[ Name: _addCurrentValueWidget ]]
+    -- upvalues: v4 (copy), v11 (copy), v7 (copy), v2 (copy)
+    v17._currentValueWidget = v4.new(v17._statType, "Current");
+    v17._currentValueWidget:PlaceInParent(v17._frame, v11, v7);
+    local l_DecorationFrame_0 = v17._currentValueWidget:GetDecorationFrame();
     local l_ImageLabel_0 = Instance.new("ImageLabel");
     l_ImageLabel_0.Position = UDim2.new(0.5, -v2.OvalKeySize / 2, 0.5, -v2.OvalKeySize / 2);
     l_ImageLabel_0.Size = UDim2.new(0, v2.OvalKeySize, 0, v2.OvalKeySize);
@@ -65,13 +61,13 @@ v15._addCurrentValueWidget = function(v20) --[[ Line: 112 ]] --[[ Name: _addCurr
     l_ImageLabel_0.BackgroundTransparency = 1;
     l_ImageLabel_0.Image = "rbxasset://textures/ui/PerformanceStats/OvalKey.png";
     l_ImageLabel_0.BorderSizePixel = 0;
-    v20._currentValueDecoration = l_ImageLabel_0;
+    v17._currentValueDecoration = l_ImageLabel_0;
 end;
-v15._addTargetValueWidget = function(v23) --[[ Line: 135 ]] --[[ Name: _addTargetValueWidget ]]
-    -- upvalues: v4 (copy), v7 (copy), v14 (copy), v11 (copy), v2 (copy)
-    v23._targetValueWidget = v4.new(v23._statType, v7 and "InGame.UnknownNamespace.Target" or "Target");
-    v23._targetValueWidget:PlaceInParent(v23._frame, v14, v11);
-    local l_DecorationFrame_1 = v23._targetValueWidget:GetDecorationFrame();
+v12._addTargetValueWidget = function(v20) --[[ Line: 129 ]] --[[ Name: _addTargetValueWidget ]]
+    -- upvalues: v4 (copy), v11 (copy), v8 (copy), v2 (copy)
+    v20._targetValueWidget = v4.new(v20._statType, "Target");
+    v20._targetValueWidget:PlaceInParent(v20._frame, v11, v8);
+    local l_DecorationFrame_1 = v20._targetValueWidget:GetDecorationFrame();
     local l_ImageLabel_1 = Instance.new("ImageLabel");
     l_ImageLabel_1.Position = UDim2.new(0.5, -v2.TargetKeyWidth / 2, 0.5, -v2.TargetKeyHeight / 2);
     l_ImageLabel_1.Size = UDim2.new(0, v2.TargetKeyWidth, 0, v2.TargetKeyHeight);
@@ -79,103 +75,103 @@ v15._addTargetValueWidget = function(v23) --[[ Line: 135 ]] --[[ Name: _addTarge
     l_ImageLabel_1.BackgroundTransparency = 1;
     l_ImageLabel_1.Image = "rbxasset://textures/ui/PerformanceStats/TargetKey.png";
 end;
-v15._addAverageValueWidget = function(v26) --[[ Line: 156 ]] --[[ Name: _addAverageValueWidget ]]
-    -- upvalues: v4 (copy), v7 (copy), v14 (copy), v12 (copy), v2 (copy)
-    v26._averageValueWidget = v4.new(v26._statType, v7 and "InGame.UnknownNamespace.Average" or "Average");
-    v26._averageValueWidget:PlaceInParent(v26._frame, v14, v12);
-    local l_DecorationFrame_2 = v26._averageValueWidget:GetDecorationFrame();
+v12._addAverageValueWidget = function(v23) --[[ Line: 148 ]] --[[ Name: _addAverageValueWidget ]]
+    -- upvalues: v4 (copy), v11 (copy), v9 (copy), v2 (copy)
+    v23._averageValueWidget = v4.new(v23._statType, "Average");
+    v23._averageValueWidget:PlaceInParent(v23._frame, v11, v9);
+    local l_DecorationFrame_2 = v23._averageValueWidget:GetDecorationFrame();
     local l_Frame_0 = Instance.new("Frame");
     l_Frame_0.Position = UDim2.new(0, 0, 0.5, -v2.GraphAverageLineTotalThickness / 2);
     l_Frame_0.Size = UDim2.new(1, 0, 0, v2.GraphAverageLineInnerThickness);
     l_Frame_0.Parent = l_DecorationFrame_2;
     v2.StyleAverageLine(l_Frame_0);
 end;
-v15._getTitle = function(v29) --[[ Line: 175 ]] --[[ Name: _getTitle ]]
+v12._getTitle = function(v26) --[[ Line: 165 ]] --[[ Name: _getTitle ]]
     -- upvalues: v2 (copy)
-    return v2.TypeToName[v29._statType];
+    return v2.TypeToName[v26._statType];
 end;
-v15.PlaceInParent = function(v30, v31, v32, v33) --[[ Line: 179 ]] --[[ Name: PlaceInParent ]]
-    v30._frame.Position = v33;
-    v30._frame.Size = v32;
-    v30._frame.Parent = v31;
+v12.PlaceInParent = function(v27, v28, v29, v30) --[[ Line: 169 ]] --[[ Name: PlaceInParent ]]
+    v27._frame.Position = v30;
+    v27._frame.Size = v29;
+    v27._frame.Parent = v28;
 end;
-v15.SetStatsAggregator = function(v34, v35) --[[ Line: 186 ]] --[[ Name: SetStatsAggregator ]]
-    if v34._aggregator then
-        v34._aggregator:RemoveListener(v34._listenerId);
-        v34._listenerId = nil;
-        v34._aggregator = nil;
+v12.SetStatsAggregator = function(v31, v32) --[[ Line: 176 ]] --[[ Name: SetStatsAggregator ]]
+    if v31._aggregator then
+        v31._aggregator:RemoveListener(v31._listenerId);
+        v31._listenerId = nil;
+        v31._aggregator = nil;
     end;
-    v34._aggregator = v35;
-    v34:_refreshVisibility();
+    v31._aggregator = v32;
+    v31:_refreshVisibility();
 end;
-v15.SetVisible = function(v36, v37) --[[ Line: 198 ]] --[[ Name: SetVisible ]]
-    v36._frame.Visible = v37;
-    v36:_refreshVisibility();
+v12.SetVisible = function(v33, v34) --[[ Line: 188 ]] --[[ Name: SetVisible ]]
+    v33._frame.Visible = v34;
+    v33:_refreshVisibility();
 end;
-v15._shouldBeVisible = function(v38) --[[ Line: 203 ]] --[[ Name: _shouldBeVisible ]]
+v12._shouldBeVisible = function(v35) --[[ Line: 193 ]] --[[ Name: _shouldBeVisible ]]
     -- upvalues: v2 (copy)
     if v2.PerformanceStatsShouldBeVisible() then
-        return v38._frame.Visible;
+        return v35._frame.Visible;
     else
         return false;
     end;
 end;
-v15._refreshVisibility = function(v39) --[[ Line: 211 ]] --[[ Name: _refreshVisibility ]]
-    if v39:_shouldBeVisible() then
-        v39:_startListening();
-        v39:_updateFromAggregator();
+v12._refreshVisibility = function(v36) --[[ Line: 201 ]] --[[ Name: _refreshVisibility ]]
+    if v36:_shouldBeVisible() then
+        v36:_startListening();
+        v36:_updateFromAggregator();
         return;
     else
-        v39:_stopListening();
+        v36:_stopListening();
         return;
     end;
 end;
-v15.OnPerformanceStatsShouldBeVisibleChanged = function(v40) --[[ Line: 220 ]] --[[ Name: OnPerformanceStatsShouldBeVisibleChanged ]]
-    v40:_refreshVisibility();
+v12.OnPerformanceStatsShouldBeVisibleChanged = function(v37) --[[ Line: 210 ]] --[[ Name: OnPerformanceStatsShouldBeVisibleChanged ]]
+    v37:_refreshVisibility();
 end;
-v15._stopListening = function(v41) --[[ Line: 224 ]] --[[ Name: _stopListening ]]
-    if v41._aggregator == nil then
+v12._stopListening = function(v38) --[[ Line: 214 ]] --[[ Name: _stopListening ]]
+    if v38._aggregator == nil then
         return;
-    elseif v41._listenerId == nil then
+    elseif v38._listenerId == nil then
         return;
     else
-        v41._aggregator:RemoveListener(v41._listenerId);
-        v41._listenerId = nil;
+        v38._aggregator:RemoveListener(v38._listenerId);
+        v38._listenerId = nil;
         return;
     end;
 end;
-v15._startListening = function(v42) --[[ Line: 237 ]] --[[ Name: _startListening ]]
-    if v42._aggregator == nil then
+v12._startListening = function(v39) --[[ Line: 227 ]] --[[ Name: _startListening ]]
+    if v39._aggregator == nil then
         return;
-    elseif v42._listenerId ~= nil then
+    elseif v39._listenerId ~= nil then
         return;
     else
-        v42._listenerId = v42._aggregator:AddListener(function() --[[ Line: 246 ]]
-            -- upvalues: v42 (copy)
-            v42:_updateFromAggregator();
+        v39._listenerId = v39._aggregator:AddListener(function() --[[ Line: 236 ]]
+            -- upvalues: v39 (copy)
+            v39:_updateFromAggregator();
         end);
         return;
     end;
 end;
-v15._updateFromAggregator = function(v43) --[[ Line: 251 ]] --[[ Name: _updateFromAggregator ]]
+v12._updateFromAggregator = function(v40) --[[ Line: 241 ]] --[[ Name: _updateFromAggregator ]]
     -- upvalues: v2 (copy)
-    local v44 = 0;
-    local v45 = 0;
-    local v46 = 0;
-    if v43._aggregator ~= nil then
-        v44 = v43._aggregator:GetLatestValue();
-        v45 = v43._aggregator:GetAverage();
-        v46 = v43._aggregator:GetTarget();
+    local v41 = 0;
+    local v42 = 0;
+    local v43 = 0;
+    if v40._aggregator ~= nil then
+        v41 = v40._aggregator:GetLatestValue();
+        v42 = v40._aggregator:GetAverage();
+        v43 = v40._aggregator:GetTarget();
     end;
-    v43._currentValueWidget:SetValue(v44);
-    v43._targetValueWidget:SetValue(v46);
-    v43._averageValueWidget:SetValue(v45);
-    v43._currentValueDecoration.ImageColor3 = v2.GetColorForValue(v44, v46);
+    v40._currentValueWidget:SetValue(v41);
+    v40._targetValueWidget:SetValue(v43);
+    v40._averageValueWidget:SetValue(v42);
+    v40._currentValueDecoration.ImageColor3 = v2.GetColorForValue(v41, v43);
 end;
-v15.SetZIndex = function(v47, v48) --[[ Line: 270 ]] --[[ Name: SetZIndex ]]
-    v47._frame.ZIndex = v48;
-    v47._titleLabel.ZIndex = v48;
-    v47._currentValueWidget:SetZIndex(v48);
-    v47._averageValueWidget:SetZIndex(v48);
+v12.SetZIndex = function(v44, v45) --[[ Line: 260 ]] --[[ Name: SetZIndex ]]
+    v44._frame.ZIndex = v45;
+    v44._titleLabel.ZIndex = v45;
+    v44._currentValueWidget:SetZIndex(v45);
+    v44._averageValueWidget:SetZIndex(v45);
 end;
-return v15;
+return v12;

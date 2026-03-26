@@ -21,7 +21,7 @@ return function() --[[ Line: 17 ]] --[[ Name: createMainCollectionLayoutStore ]]
     return {
         getContainerWidth = v12.getContainerWidth, 
         getDesignSpaceContainerWidth = v12.getDesignSpaceContainerWidth, 
-        getCollectionItemBreakpoint = v12.getCollectionItemBreakpoint, 
+        getItemsPerRow = v12.getItemsPerRow, 
         getNumItemsForAllCategories = v12.getNumItemsForAllCategories, 
         setDefaultContentRegionWidth = v8
     };

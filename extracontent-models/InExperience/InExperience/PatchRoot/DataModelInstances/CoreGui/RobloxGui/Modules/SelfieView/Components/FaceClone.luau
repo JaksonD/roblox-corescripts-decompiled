@@ -586,7 +586,7 @@ local function v118() --[[ Line: 631 ]] --[[ Name: onOuterContainerVisibilityCha
     end;
 end;
 playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
-    -- upvalues: l_LocalPlayer_0 (copy), v18 (ref), v41 (copy), v40 (copy), v115 (copy), v105 (copy), v81 (copy)
+    -- upvalues: l_LocalPlayer_0 (copy), v18 (ref), v41 (copy), v40 (copy), v115 (copy), v105 (copy), v21 (ref), v22 (ref)
     if v119 ~= nil and v119 == l_LocalPlayer_0 then
         if v18 ~= nil then
             v18:Disconnect();
@@ -605,7 +605,7 @@ playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
         end;
         v40[v41.CharacterAdded] = v119.CharacterAdded:Connect(v105);
         v40[v41.CharacterRemoving] = v119.CharacterRemoving:Connect(function() --[[ Line: 669 ]]
-            -- upvalues: v41 (ref), v40 (ref), v81 (ref)
+            -- upvalues: v41 (ref), v40 (ref), v21 (ref), v22 (ref)
             local l_DescendantAdded_1 = v41.DescendantAdded;
             if v40[l_DescendantAdded_1] then
                 v40[l_DescendantAdded_1]:Disconnect();
@@ -626,7 +626,20 @@ playerAdded = function(v119) --[[ Line: 650 ]] --[[ Name: playerAdded ]]
                 v40[l_DescendantAdded_1]:Disconnect();
                 v40[l_DescendantAdded_1] = nil;
             end;
-            v81(nil);
+            stopRenderStepped();
+            l_DescendantAdded_1 = v41.AnimationPlayed;
+            if v40[l_DescendantAdded_1] then
+                v40[l_DescendantAdded_1]:Disconnect();
+                v40[l_DescendantAdded_1] = nil;
+            end;
+            l_DescendantAdded_1 = v41.AnimationPlayedCoreScript;
+            if v40[l_DescendantAdded_1] then
+                v40[l_DescendantAdded_1]:Disconnect();
+                v40[l_DescendantAdded_1] = nil;
+            end;
+            v21 = nil;
+            v22 = {};
+            clearCloneCharacter();
             l_DescendantAdded_1 = v41.CharacterRemoving;
             if v40[l_DescendantAdded_1] then
                 v40[l_DescendantAdded_1]:Disconnect();

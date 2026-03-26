@@ -8,284 +8,295 @@ local v6 = require(l_Parent_0.CollectionViews);
 local l_CollectionGrid_0 = v6.CollectionGrid;
 local l_CollectionItemSize_0 = v6.CollectionViewTypes.CollectionItemSize;
 local l_useCollectionImpressionsSignal_0 = v6.useCollectionImpressionsSignal;
+local l_useCollectionLayout_0 = v6.useCollectionLayout;
 local l_useCollectionLayoutParams_0 = v6.useCollectionLayoutParams;
 local l_WaitForPropWrapper_0 = require(l_Parent_0.GameCollections).WaitForPropWrapper;
-local v12 = require(l_Parent_0.Impressions);
-local l_FrameBoundsImpressionsTracker_0 = v12.FrameBoundsImpressionsTracker;
-local l_ScreenSizeImpressionsTracker_0 = v12.ScreenSizeImpressionsTracker;
+local v13 = require(l_Parent_0.Impressions);
+local l_FrameBoundsImpressionsTracker_0 = v13.FrameBoundsImpressionsTracker;
+local l_ScreenSizeImpressionsTracker_0 = v13.ScreenSizeImpressionsTracker;
 local l_useTokens_0 = require(l_Parent_0.Foundation).Hooks.useTokens;
-local v16 = require(l_Parent_0.SduiCoreSystem);
-local l_findAnalyticsField_0 = v16.findAnalyticsField;
-local v18 = require(l_script_FirstAncestor_0.Analytics.getImpressionsTag);
-local v19 = require(l_script_FirstAncestor_0.Analytics.sendLegacyGameImpressionsForSdui);
-local l_reportUnifiedLoggingImpressions_0 = v16.reportUnifiedLoggingImpressions;
-local l_SduiBuilder_0 = v16.SduiBuilder;
-local l_SduiCollectionAnalyticsBuilder_0 = v16.SduiCollectionAnalyticsBuilder;
-local l_SduiErrors_0 = v16.SduiErrors;
-local l_SduiParseHelpers_0 = v16.SduiParseHelpers;
-local l_getSduiComponentWrapper_0 = v16.getSduiComponentWrapper;
-local v26 = require(l_script_FirstAncestor_0.Content.Collections.SduiCollectionItem);
-local v27 = require(l_script_FirstAncestor_0.Content.Collections.useCollectionAnalyticsContext);
+local v17 = require(l_Parent_0.SduiCoreSystem);
+local l_findAnalyticsField_0 = v17.findAnalyticsField;
+local v19 = require(l_script_FirstAncestor_0.Analytics.getImpressionsTag);
+local v20 = require(l_script_FirstAncestor_0.Analytics.sendLegacyGameImpressionsForSdui);
+local l_reportUnifiedLoggingImpressions_0 = v17.reportUnifiedLoggingImpressions;
+local l_SduiBuilder_0 = v17.SduiBuilder;
+local l_SduiCollectionAnalyticsBuilder_0 = v17.SduiCollectionAnalyticsBuilder;
+local l_SduiErrors_0 = v17.SduiErrors;
+local l_SduiParseHelpers_0 = v17.SduiParseHelpers;
+local l_getSduiComponentWrapper_0 = v17.getSduiComponentWrapper;
+local v27 = require(l_script_FirstAncestor_0.Content.Collections.SduiCollectionItem);
+local v28 = require(l_script_FirstAncestor_0.Content.Collections.useCollectionAnalyticsContext);
 local l_FFlagLuaAppLayoutParamsInContext_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppLayoutParamsInContext;
 local l_FFlagSduiCoreBadgeDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiCoreBadgeDetailsSupport;
+local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCompositionAlways;
 local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-local v31 = {};
-return v2.memo(function(v32) --[[ Line: 127 ]] --[[ Name: SduiCollectionGrid ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v2 (copy), v31 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v5 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), v4 (copy), l_findAnalyticsField_0 (copy), l_SduiBuilder_0 (copy), v27 (copy), l_useCollectionImpressionsSignal_0 (copy), v18 (copy), l_SduiParseHelpers_0 (copy), l_SduiErrors_0 (copy), v19 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_useTokens_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), l_getSduiComponentWrapper_0 (copy), v26 (copy), l_CollectionGrid_0 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy), l_WaitForPropWrapper_0 (copy), l_FrameBoundsImpressionsTracker_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy)
-    local v33 = nil;
-    v33 = if l_FFlagSduiServerCompat_0 then v32.layoutOrder else v32.LayoutOrder;
-    local l_sduiContext_0 = v32.sduiContext;
-    local v37 = v2.useMemo(function() --[[ Line: 138 ]]
-        -- upvalues: v32 (copy), v31 (ref)
-        if v32.items == nil then
-            return v31;
+local v34 = {};
+return v2.memo(function(v35) --[[ Line: 134 ]] --[[ Name: SduiCollectionGrid ]]
+    -- upvalues: l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_FFlagSduiServerCompat_0 (copy), v2 (copy), v34 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v5 (copy), l_useCollectionLayoutParams_0 (copy), l_CollectionItemSize_0 (copy), v4 (copy), l_useCollectionLayout_0 (copy), l_findAnalyticsField_0 (copy), l_SduiBuilder_0 (copy), v28 (copy), l_useCollectionImpressionsSignal_0 (copy), v19 (copy), l_SduiParseHelpers_0 (copy), l_SduiErrors_0 (copy), v20 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_useTokens_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), l_getSduiComponentWrapper_0 (copy), v27 (copy), l_CollectionGrid_0 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy), l_WaitForPropWrapper_0 (copy), l_FrameBoundsImpressionsTracker_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy)
+    local v36 = l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v35.appCompositionEnabled;
+    local v37 = nil;
+    v37 = if l_FFlagSduiServerCompat_0 then v35.layoutOrder else v35.LayoutOrder;
+    local l_sduiContext_0 = v35.sduiContext;
+    local v41 = v2.useMemo(function() --[[ Line: 148 ]]
+        -- upvalues: v35 (copy), v34 (ref)
+        if v35.items == nil then
+            return v34;
         else
-            for _, v36 in v32.items do
-                if v32.itemTemplateKey and v36.templateKey == nil then
-                    v36.templateKey = v32.itemTemplateKey;
+            for _, v40 in v35.items do
+                if v35.itemTemplateKey and v40.templateKey == nil then
+                    v40.templateKey = v35.itemTemplateKey;
                 end;
             end;
-            return v32.items;
+            return v35.items;
         end;
     end, {
-        v32.items, 
-        v32.itemTemplateKey
+        v35.items, 
+        v35.itemTemplateKey
     });
-    local v38, v39 = v2.useState(nil);
-    local v40 = v2.useRef(nil);
-    v40.current = v38;
-    local v41 = nil;
-    if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v43 = v2.useCallback(function(v42) --[[ Line: 158 ]]
-            -- upvalues: l_sduiContext_0 (copy), v32 (copy)
-            return l_sduiContext_0.getPageLayoutConfig(v32.collectionItemSize)(v42);
-        end, {
-            v32.collectionItemSize, 
-            l_sduiContext_0.getPageLayoutConfig
-        });
-        v41 = v5.useSignalState(v43);
-    else
-        v41 = l_useCollectionLayoutParams_0(v32.collectionItemSize or l_CollectionItemSize_0.Small, v38, false, if v32.layoutOverrides then v4.Dictionary.join(v32.layoutOverrides, {
-            overrideLoadMoreThreshold = 1e999, 
-            sideMargin = v32.pageSideMargin
-        }) else {
-            overrideLoadMoreThreshold = 1e999, 
-            sideMargin = v32.pageSideMargin
-        });
+    local v42, v43 = v2.useState(nil);
+    local v44 = v2.useRef(nil);
+    v44.current = v42;
+    local v45 = nil;
+    if not l_FFlagLuaAppCompositionAlways_0 then
+        if l_FFlagLuaAppLayoutParamsInContext_0 then
+            local v47 = v2.useCallback(function(v46) --[[ Line: 170 ]]
+                -- upvalues: l_sduiContext_0 (copy), v35 (copy)
+                return l_sduiContext_0.getPageLayoutConfig(v35.collectionItemSize)(v46);
+            end, {
+                v35.collectionItemSize, 
+                l_sduiContext_0.getPageLayoutConfig
+            });
+            v45 = v5.useSignalState(v47);
+        else
+            v45 = l_useCollectionLayoutParams_0(v35.collectionItemSize or l_CollectionItemSize_0.Small, v42, false, if v35.layoutOverrides then v4.Dictionary.join(v35.layoutOverrides, {
+                overrideLoadMoreThreshold = 1e999, 
+                sideMargin = v35.pageSideMargin
+            }) else {
+                overrideLoadMoreThreshold = 1e999, 
+                sideMargin = v35.pageSideMargin
+            });
+        end;
     end;
-    local v44 = if v37 then #v37 else 0;
-    local l_numColumns_0 = v41.numColumns;
-    local v46 = l_findAnalyticsField_0("componentType", v32.analyticsContext.analyticsData or v31) or l_SduiBuilder_0.getComponentType(v32.componentConfig, l_sduiContext_0);
-    local v47, v48 = v27(v32.analyticsContext, v46, l_numColumns_0, v44, l_sduiContext_0, v32.startRow, v32.componentConfig.__isClientBinding);
-    local v49 = v2.useRef({});
-    local v50, v51 = l_useCollectionImpressionsSignal_0(v32.scrollViewPositionChangedSignal);
-    local v54 = v2.useCallback(function(_, _) --[[ Line: 203 ]]
-        -- upvalues: v32 (copy), v51 (copy)
-        if v32.onCollectionViewabilityChanged then
-            v32.onCollectionViewabilityChanged();
+    local v48 = if v41 then #v41 else 0;
+    local v49 = nil;
+    if l_FFlagLuaAppCompositionSupport_0 then
+        v49 = l_useCollectionLayout_0(v35.collectionItemSize).itemsPerRow;
+    end;
+    local v50 = if v36 then v49 else v45.numColumns;
+    local v51 = l_findAnalyticsField_0("componentType", v35.analyticsContext.analyticsData or v34) or l_SduiBuilder_0.getComponentType(v35.componentConfig, l_sduiContext_0);
+    local v52, v53 = v28(v35.analyticsContext, v51, v50, v48, l_sduiContext_0, v35.startRow, v35.componentConfig.__isClientBinding);
+    local v54 = v2.useRef({});
+    local v55, v56 = l_useCollectionImpressionsSignal_0(v35.scrollViewPositionChangedSignal);
+    local v59 = v2.useCallback(function(_, _) --[[ Line: 220 ]]
+        -- upvalues: v35 (copy), v56 (copy)
+        if v35.onCollectionViewabilityChanged then
+            v35.onCollectionViewabilityChanged();
         end;
-        if v51 then
-            v51();
+        if v56 then
+            v56();
         end;
     end, {
-        v51, 
-        v32.onCollectionViewabilityChanged
+        v56, 
+        v35.onCollectionViewabilityChanged
     });
-    local v55 = v32.impressionsTag or v18(v32.index, v48.current, l_sduiContext_0, v32.debugName);
-    local v58 = v2.useCallback(function(v56) --[[ Line: 219 ]]
-        -- upvalues: v37 (copy), v47 (copy), l_SduiParseHelpers_0 (ref), l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v55 (copy), v48 (copy), v19 (ref), v49 (copy), v32 (copy), l_reportUnifiedLoggingImpressions_0 (ref)
-        if v37 == nil or #v37 == 0 then
-            if v56 and #v56 > 0 then
-                local v57 = if v47 then l_SduiParseHelpers_0.stringifyValue(v47.analyticsData) else nil;
+    local v60 = v35.impressionsTag or v19(v35.index, v53.current, l_sduiContext_0, v35.debugName);
+    local v63 = v2.useCallback(function(v61) --[[ Line: 236 ]]
+        -- upvalues: v41 (copy), v52 (copy), l_SduiParseHelpers_0 (ref), l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v60 (copy), v53 (copy), v20 (ref), v54 (copy), v35 (copy), l_reportUnifiedLoggingImpressions_0 (ref)
+        if v41 == nil or #v41 == 0 then
+            if v61 and #v61 > 0 then
+                local v62 = if v52 then l_SduiParseHelpers_0.stringifyValue(v52.analyticsData) else nil;
                 l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.FailedToLogImpressions, {
                     componentType = "CollectionGrid", 
-                    name = v55, 
-                    message = ("Failed to log impressions. No configs. indexes: %* analytics: %*"):format(table.concat(v56, ","), v57)
+                    name = v60, 
+                    message = ("Failed to log impressions. No configs. indexes: %* analytics: %*"):format(table.concat(v61, ","), v62)
                 }, l_sduiContext_0.appPage);
             end;
             return;
         else
-            assert(v37, "itemConfigs must exist");
-            if v48.current and v48.current.contentType == "Game" then
-                v19(v56, v49.current, v37, v47, v48.current, v32.startRow, l_sduiContext_0, v32.sendGameImpressions, v48.current.itemsPerRow, v55);
+            assert(v41, "itemConfigs must exist");
+            if v53.current and v53.current.contentType == "Game" then
+                v20(v61, v54.current, v41, v52, v53.current, v35.startRow, l_sduiContext_0, v35.sendGameImpressions, v53.current.itemsPerRow, v60);
             end;
-            l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v56, v49.current, v48.current);
+            l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v61, v54.current, v53.current);
             return;
         end;
     end, {
-        v37, 
-        v32.startRow, 
+        v41, 
+        v35.startRow, 
         l_sduiContext_0, 
-        v48, 
-        v49, 
-        v47, 
-        v32.sendGameImpressions, 
-        v55
+        v53, 
+        v54, 
+        v52, 
+        v35.sendGameImpressions, 
+        v60
     });
-    v2.useLayoutEffect(function() --[[ Line: 273 ]]
-        -- upvalues: v32 (copy), v58 (copy)
-        if v32.setLogImpressions then
-            v32.setLogImpressions(v58);
+    v2.useLayoutEffect(function() --[[ Line: 290 ]]
+        -- upvalues: v35 (copy), v63 (copy)
+        if v35.setLogImpressions then
+            v35.setLogImpressions(v63);
         end;
     end, {
-        v58, 
-        v32.setLogImpressions
+        v63, 
+        v35.setLogImpressions
     });
     local l_Scale_0 = l_useTokens_0().Config.UI.Scale;
-    local v61 = v2.useCallback(function(v60) --[[ Line: 282 ]]
-        -- upvalues: v32 (copy), l_Scale_0 (copy)
-        return v60 * v32.itemHeightFromWidth.Scale + v32.itemHeightFromWidth.Offset * l_Scale_0;
+    local v66 = v2.useCallback(function(v65) --[[ Line: 299 ]]
+        -- upvalues: v35 (copy), l_Scale_0 (copy)
+        return v65 * v35.itemHeightFromWidth.Scale + v35.itemHeightFromWidth.Offset * l_Scale_0;
     end, {
-        v32.itemHeightFromWidth, 
+        v35.itemHeightFromWidth, 
         l_Scale_0
     });
-    local v70 = v2.useCallback(function(v62, v63, v64, _) --[[ Line: 288 ]]
-        -- upvalues: l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v55 (copy), v2 (ref), l_findAnalyticsField_0 (ref), v31 (ref), l_SduiBuilder_0 (ref), v49 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), v47 (copy), v32 (copy), l_FFlagSduiServerCompat_0 (ref), v26 (ref)
-        if not v62 then
+    local v75 = v2.useCallback(function(v67, v68, v69, _) --[[ Line: 305 ]]
+        -- upvalues: l_sduiContext_0 (copy), l_SduiErrors_0 (ref), v60 (copy), v2 (ref), l_findAnalyticsField_0 (ref), v34 (ref), l_SduiBuilder_0 (ref), v54 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), v52 (copy), v35 (copy), l_FFlagSduiServerCompat_0 (ref), v27 (ref)
+        if not v67 then
             l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilItem, {
                 componentType = "CollectionGrid", 
-                name = v55, 
-                message = ("Nil item in SduiCollectionGrid.renderItem at index %*"):format(v63)
+                name = v60, 
+                message = ("Nil item in SduiCollectionGrid.renderItem at index %*"):format(v68)
             }, l_sduiContext_0.appPage);
             return v2.createElement(v2.Fragment), "nil";
         else
-            local v66 = l_findAnalyticsField_0("componentType", v62.analyticsData or v31) or l_SduiBuilder_0.getComponentType(v62, l_sduiContext_0);
-            if not v66 then
+            local v71 = l_findAnalyticsField_0("componentType", v67.analyticsData or v34) or l_SduiBuilder_0.getComponentType(v67, l_sduiContext_0);
+            if not v71 then
                 l_sduiContext_0.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentType, {
                     componentType = "CollectionGrid", 
-                    name = v55, 
-                    message = ("Nil componentType in CollectionGrid.renderItem at index %*"):format(v63)
+                    name = v60, 
+                    message = ("Nil componentType in CollectionGrid.renderItem at index %*"):format(v68)
                 }, l_sduiContext_0.appPage);
                 return v2.createElement(v2.Fragment), "nil";
             else
-                local v67 = {
-                    itemPosition = v63, 
-                    itemComponentType = v66, 
-                    componentType = v66
+                local v72 = {
+                    itemPosition = v68, 
+                    itemComponentType = v71, 
+                    componentType = v71
                 };
-                v49.current[v63] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v62.analyticsData, nil, v67, v66);
-                local v68 = l_getSduiComponentWrapper_0(v62);
-                local v69 = v2.createElement(v68, {
-                    componentConfig = v62, 
+                v54.current[v68] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v67.analyticsData, nil, v72, v71);
+                local v73 = l_getSduiComponentWrapper_0(v67);
+                local v74 = v2.createElement(v73, {
+                    componentConfig = v67, 
                     sduiContext = l_sduiContext_0, 
-                    parentAnalyticsContext = if v62.__isClientBinding then nil else v47, 
+                    parentAnalyticsContext = if v67.__isClientBinding then nil else v52, 
                     extraLocalProps = {
-                        scrollViewPositionChangedSignal = v32.scrollViewPositionChangedSignal, 
-                        verticalScrollingFrameRef = v32.verticalScrollingFrameRef, 
-                        index = v63, 
-                        SelectionOrder = if not (not not l_FFlagSduiServerCompat_0 or v32.disableSelectionOrder) and v32.selectionOrderBase then v32.selectionOrderBase + v63 else nil, 
-                        selectionOrder = if not (not l_FFlagSduiServerCompat_0 or v32.disableSelectionOrder) and v32.selectionOrderBase then v32.selectionOrderBase + v63 else nil
+                        scrollViewPositionChangedSignal = v35.scrollViewPositionChangedSignal, 
+                        verticalScrollingFrameRef = v35.verticalScrollingFrameRef, 
+                        index = v68, 
+                        SelectionOrder = if not (not not l_FFlagSduiServerCompat_0 or v35.disableSelectionOrder) and v35.selectionOrderBase then v35.selectionOrderBase + v68 else nil, 
+                        selectionOrder = if not (not l_FFlagSduiServerCompat_0 or v35.disableSelectionOrder) and v35.selectionOrderBase then v35.selectionOrderBase + v68 else nil
                     }, 
-                    debugName = ("%*_%*"):format(v66, v63), 
-                    localAnalyticsData = v67
+                    debugName = ("%*_%*"):format(v71, v68), 
+                    localAnalyticsData = v72
                 });
-                return v2.createElement(v26, {
-                    index = v63, 
-                    impressionsTag = v55, 
-                    Size = if not l_FFlagSduiServerCompat_0 then v64 else nil, 
-                    ZIndex = if not l_FFlagSduiServerCompat_0 then -v63 else nil, 
-                    size = if l_FFlagSduiServerCompat_0 then v64 else nil, 
-                    zIndex = if l_FFlagSduiServerCompat_0 then -v63 else nil
+                return v2.createElement(v27, {
+                    index = v68, 
+                    impressionsTag = v60, 
+                    Size = if not l_FFlagSduiServerCompat_0 then v69 else nil, 
+                    ZIndex = if not l_FFlagSduiServerCompat_0 then -v68 else nil, 
+                    size = if l_FFlagSduiServerCompat_0 then v69 else nil, 
+                    zIndex = if l_FFlagSduiServerCompat_0 then -v68 else nil
                 }, {
-                    Item = v69
-                }), v66 or "unknown";
+                    Item = v74
+                }), v71 or "unknown";
             end;
         end;
     end, {
         l_sduiContext_0, 
-        v32.analyticsContext, 
-        v32.scrollViewPositionChangedSignal, 
-        v32.verticalScrollingFrameRef, 
-        v47, 
-        v55, 
-        v32.index, 
-        v32.disableSelectionOrder, 
-        v32.selectionOrderBase
+        v35.analyticsContext, 
+        v35.scrollViewPositionChangedSignal, 
+        v35.verticalScrollingFrameRef, 
+        v52, 
+        v60, 
+        v35.index, 
+        v35.disableSelectionOrder, 
+        v35.selectionOrderBase
     });
-    local v74 = v2.useMemo(function() --[[ Line: 381 ]]
-        -- upvalues: v32 (copy), v2 (ref), v47 (copy)
-        local v71 = nil;
-        if v32.children then
-            v71 = {};
-            for v72, v73 in v32.children do
-                v71[v72] = v2.cloneElement(v73, {
-                    parentAnalyticsContext = v47
+    local v79 = v2.useMemo(function() --[[ Line: 398 ]]
+        -- upvalues: v35 (copy), v2 (ref), v52 (copy)
+        local v76 = nil;
+        if v35.children then
+            v76 = {};
+            for v77, v78 in v35.children do
+                v76[v77] = v2.cloneElement(v78, {
+                    parentAnalyticsContext = v52
                 });
             end;
         end;
-        return v71;
+        return v76;
     end, {
-        v47, 
-        v32.children
+        v52, 
+        v35.children
     });
-    local v75 = v2.useMemo(function() --[[ Line: 396 ]]
-        -- upvalues: v32 (copy), v2 (ref), v47 (copy)
-        if v32.headerComponent then
-            return v2.cloneElement(v32.headerComponent, {
-                parentAnalyticsContext = v47
+    local v80 = v2.useMemo(function() --[[ Line: 413 ]]
+        -- upvalues: v35 (copy), v2 (ref), v52 (copy)
+        if v35.headerComponent then
+            return v2.cloneElement(v35.headerComponent, {
+                parentAnalyticsContext = v52
             });
         else
             return nil;
         end;
     end, {
-        v47, 
-        v32.headerComponent
+        v52, 
+        v35.headerComponent
     });
-    local v76 = v2.useMemo(function() --[[ Line: 405 ]]
-        -- upvalues: v32 (copy), v2 (ref), v47 (copy), v38 (copy)
-        if v32.focusNavActionsComponent then
-            return v2.cloneElement(v32.focusNavActionsComponent, {
-                parentAnalyticsContext = v47, 
+    local v81 = v2.useMemo(function() --[[ Line: 422 ]]
+        -- upvalues: v35 (copy), v2 (ref), v52 (copy), v42 (copy)
+        if v35.focusNavActionsComponent then
+            return v2.cloneElement(v35.focusNavActionsComponent, {
+                parentAnalyticsContext = v52, 
                 extraLocalProps = {
-                    guiObject = v38
+                    guiObject = v42
                 }
             });
         else
             return nil;
         end;
     end, {
-        v47, 
-        v32.focusNavActionsComponent, 
-        v38
+        v52, 
+        v35.focusNavActionsComponent, 
+        v42
     });
-    return v2.createElement(v2.Fragment, nil, v4.Dictionary.join(v74 or v31, {
+    return v2.createElement(v2.Fragment, nil, v4.Dictionary.join(v79 or v34, {
         CollectionGrid = v2.createElement(l_CollectionGrid_0, {
-            verticalScrollingFrameRef = v32.verticalScrollingFrameRef, 
-            containerRef = v39, 
-            getItemHeight = v61, 
-            items = v37, 
-            renderItem = v70, 
-            numColumns = v41.numColumns, 
-            columnGap = v41.columnGap, 
-            sideMargin = v41.sideMargin, 
-            onViewableItemsChanged = v54, 
-            LayoutOrder = v33, 
-            verticalPadding = v41.verticalPadding, 
+            collectionItemSize = if v36 then v35.collectionItemSize else nil, 
+            verticalScrollingFrameRef = v35.verticalScrollingFrameRef, 
+            containerRef = v43, 
+            getItemHeight = v66, 
+            items = v41, 
+            renderItem = v75, 
+            numColumns = if v36 then nil else v45.numColumns, 
+            columnGap = if v36 then nil else v45.columnGap, 
+            sideMargin = if v36 then nil else v45.sideMargin, 
+            onViewableItemsChanged = v59, 
+            LayoutOrder = v37, 
+            verticalPadding = if v36 then nil else v45.verticalPadding, 
             disableRelativeGap = l_FFlagSduiCoreBadgeDetailsSupport_0 and true or nil, 
-            headerComponent = v75, 
-            testId = if v32.testId then v32.testId else "--sdui-collection-grid", 
-            onReachedThresholdFromEnd = v32.onReachedThresholdFromEnd, 
-            thresholdRowsFromBottom = v32.thresholdRowsFromBottom
+            headerComponent = v80, 
+            testId = if v35.testId then v35.testId else "--sdui-collection-grid", 
+            onReachedThresholdFromEnd = v35.onReachedThresholdFromEnd, 
+            thresholdRowsFromBottom = v35.thresholdRowsFromBottom
         }), 
-        ImpressionDetector = if v32.disableImpressionsDetector then nil else v2.createElement(l_WaitForPropWrapper_0, {
-            waitForProp = v32.startRow, 
-            maxUpdatesToDelay = v32.numUpdatesToDelayImpressions, 
-            wrappedComponent = if v32.shouldUseFrameBoundsForImpressions then v2.createElement(l_FrameBoundsImpressionsTracker_0, {
-                parentRef = v40, 
+        ImpressionDetector = if v35.disableImpressionsDetector then nil else v2.createElement(l_WaitForPropWrapper_0, {
+            waitForProp = v35.startRow, 
+            maxUpdatesToDelay = v35.numUpdatesToDelayImpressions, 
+            wrappedComponent = if v35.shouldUseFrameBoundsForImpressions then v2.createElement(l_FrameBoundsImpressionsTracker_0, {
+                parentRef = v44, 
                 pageContext = l_sduiContext_0.appPage, 
-                impressionsTag = v55, 
-                scrollViewPositionChangedSignal = v50, 
-                sendImpressions = v58, 
-                dataUpdatedTimestamp = v32.sduiContext.dataUpdatedTimestamp
+                impressionsTag = v60, 
+                scrollViewPositionChangedSignal = v55, 
+                sendImpressions = v63, 
+                dataUpdatedTimestamp = v35.sduiContext.dataUpdatedTimestamp
             }) else v2.createElement(l_ScreenSizeImpressionsTracker_0, {
-                parentRef = v40, 
+                parentRef = v44, 
                 pageContext = l_sduiContext_0.appPage, 
-                impressionsTag = v55, 
-                scrollViewPositionChangedSignal = v50, 
-                sendImpressions = v58, 
-                dataUpdatedTimestamp = v32.sduiContext.dataUpdatedTimestamp
+                impressionsTag = v60, 
+                scrollViewPositionChangedSignal = v55, 
+                sendImpressions = v63, 
+                dataUpdatedTimestamp = v35.sduiContext.dataUpdatedTimestamp
             })
         }), 
-        FocusNavActions = v76
+        FocusNavActions = v81
     }));
 end);

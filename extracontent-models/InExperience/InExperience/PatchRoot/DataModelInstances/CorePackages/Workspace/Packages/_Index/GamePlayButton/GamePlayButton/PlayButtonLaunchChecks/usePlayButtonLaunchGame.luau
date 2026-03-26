@@ -20,70 +20,88 @@ local l_IsVRAppBuild_0 = require(l_Parent_0.AppCommonLib).IsVRAppBuild;
 local l_SplashScreenManager_0 = require(l_Parent_0.SplashScreenManager).SplashScreenManager;
 local l_LaunchGame_0 = require(l_Parent_0.GameLaunch).LaunchGame;
 local l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 = require(l_Parent_0.SharedFlags).GetFFlagLuaAppEnableVirtualEventPlaceId;
+local l_FFlagLuaAppEnableStratusStreamingTestOnly_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableStratusStreamingTestOnly;
+local l_NavigateToRoute_0 = require(l_Parent_0.NavigationRodux).Thunks.NavigateToRoute;
+local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
 local l_FFlagLuaAppEnablePlayButtonThrottle_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnablePlayButtonThrottle;
 local l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 = require(l_Parent_0.SharedFlags).FIntLuaAppPlayButtonThrottleTimeSeconds;
 local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
-return function(v25, v26, v27, v28, v29, v30, v31) --[[ Line: 30 ]]
-    -- upvalues: l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), l_AppGame_0 (copy), l_useSelector_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEnablePlayButtonThrottle_0 (copy), v3 (copy), l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_gamePlayIntent_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_joinGamePlayButton_0 (copy), l_IsVRAppBuild_0 (copy), l_SplashScreenManager_0 (copy), l_LaunchGame_0 (copy), l_ReasonForNotVoteable_0 (copy), l_ClearUserGameVotes_0 (copy)
-    local v32 = l_useRoactService_0(l_RoactAnalytics_0);
-    local v33 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v34 = l_useRoactService_0(l_AppGame_0);
-    local v36 = l_useSelector_0(function(v35) --[[ Line: 43 ]]
-        -- upvalues: v25 (copy)
-        return v35.UserGameVotes[v25];
+local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileTelemetryFix;
+return function(v29, v30, v31, v32, v33, v34, v35) --[[ Line: 36 ]]
+    -- upvalues: l_useRoactService_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), l_AppGame_0 (copy), l_useSelector_0 (copy), l_useDispatch_0 (copy), l_FFlagLuaAppEnablePlayButtonThrottle_0 (copy), v3 (copy), l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 (copy), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (copy), l_gamePlayIntent_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_joinGamePlayButton_0 (copy), l_FFlagLuaAppEnableStratusStreamingTestOnly_0 (copy), l_NavigateToRoute_0 (copy), l_AppPage_0 (copy), l_IsVRAppBuild_0 (copy), l_SplashScreenManager_0 (copy), l_LaunchGame_0 (copy), l_ReasonForNotVoteable_0 (copy), l_ClearUserGameVotes_0 (copy)
+    local v36 = l_useRoactService_0(l_RoactAnalytics_0);
+    local v37 = l_useRoactService_0(l_AppEventIngestService_0);
+    local v38 = l_useRoactService_0(l_AppGame_0);
+    local v40 = l_useSelector_0(function(v39) --[[ Line: 49 ]]
+        -- upvalues: v29 (copy)
+        return v39.UserGameVotes[v29];
     end);
-    local v37 = l_useDispatch_0();
-    local v38 = if l_FFlagLuaAppEnablePlayButtonThrottle_0 then v3.useRef(0) else nil;
-    return (v3.useCallback(function(v39) --[[ Line: 50 ]]
-        -- upvalues: l_FFlagLuaAppEnablePlayButtonThrottle_0 (ref), v38 (copy), l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 (ref), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (ref), v26 (copy), v27 (copy), l_gamePlayIntent_0 (ref), v33 (copy), v28 (copy), v25 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), v31 (copy), l_joinGamePlayButton_0 (ref), v32 (copy), v29 (copy), l_IsVRAppBuild_0 (ref), l_SplashScreenManager_0 (ref), l_LaunchGame_0 (ref), v30 (copy), v34 (copy), v36 (copy), l_ReasonForNotVoteable_0 (ref), v37 (copy), l_ClearUserGameVotes_0 (ref)
+    local v41 = l_useDispatch_0();
+    local v42 = if l_FFlagLuaAppEnablePlayButtonThrottle_0 then v3.useRef(0) else nil;
+    return (v3.useCallback(function(v43) --[[ Line: 56 ]]
+        -- upvalues: l_FFlagLuaAppEnablePlayButtonThrottle_0 (ref), v42 (copy), l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 (ref), l_GetFFlagLuaAppEnableVirtualEventPlaceId_0 (ref), v30 (copy), v31 (copy), l_gamePlayIntent_0 (ref), v37 (copy), v32 (copy), v29 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), v35 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (ref), l_joinGamePlayButton_0 (ref), v36 (copy), v33 (copy), l_FFlagLuaAppEnableStratusStreamingTestOnly_0 (ref), v41 (copy), l_NavigateToRoute_0 (ref), l_AppPage_0 (ref), v34 (copy), l_IsVRAppBuild_0 (ref), l_SplashScreenManager_0 (ref), l_LaunchGame_0 (ref), v38 (copy), v40 (copy), l_ReasonForNotVoteable_0 (ref), l_ClearUserGameVotes_0 (ref)
         if l_FFlagLuaAppEnablePlayButtonThrottle_0 then
-            local v40 = tick();
-            if v40 - v38.current < l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 then
+            local v44 = tick();
+            if v44 - v42.current < l_FIntLuaAppPlayButtonThrottleTimeSeconds_0 then
                 return;
             else
-                v38.current = v40;
+                v42.current = v44;
             end;
         end;
-        if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and (not v26 or not v27) or not l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and not v27 then
+        if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and (not v30 or not v31) or not l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() and not v31 then
             return;
         else
-            if v39 ~= nil then
-                v39();
+            if v43 ~= nil then
+                v43();
             else
-                l_gamePlayIntent_0(v33, "PlayButton", {
-                    placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v26 else v27, 
-                    rootPlaceId = tonumber(v27), 
-                    referralSource = v28, 
-                    universeId = v25, 
-                    launchData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and v31 and v31.launchData then v31.launchData else nil
+                l_gamePlayIntent_0(v37, "PlayButton", {
+                    placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v30 else v31, 
+                    rootPlaceId = tonumber(v31), 
+                    referralSource = v32, 
+                    universeId = v29, 
+                    launchData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and v35 and v35.launchData then v35.launchData else nil, 
+                    tileType = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 and v35 then v35.tileType else nil, 
+                    nativeAdData = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 and v35 then v35.nativeAdData else nil
                 });
             end;
-            l_joinGamePlayButton_0(v32.InfluxDb, "gamePlayIntent", {
+            l_joinGamePlayButton_0(v36.InfluxDb, "gamePlayIntent", {
                 isUniversalApp = true, 
-                referralSource = v28, 
-                placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v26 else v27, 
-                ctx = v29
+                referralSource = v32, 
+                placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v30 else v31, 
+                ctx = v33
             });
-            if l_IsVRAppBuild_0() then
-                l_SplashScreenManager_0.initialize(36);
-                wait(0.3);
+            if l_FFlagLuaAppEnableStratusStreamingTestOnly_0 then
+                v41(l_NavigateToRoute_0({
+                    {
+                        name = l_AppPage_0.VideoServer, 
+                        placeId = if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v30 else v31, 
+                        launchSource = v34, 
+                        extraParams = v35
+                    }
+                }));
+                return;
+            else
+                if l_IsVRAppBuild_0() then
+                    l_SplashScreenManager_0.initialize(36);
+                    wait(0.3);
+                end;
+                l_LaunchGame_0(if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v30 else v31, v34, v35, v38);
+                if v40 and v40.reasonForNotVoteable == l_ReasonForNotVoteable_0.PlayGame then
+                    v41(l_ClearUserGameVotes_0(v29));
+                end;
+                return;
             end;
-            l_LaunchGame_0(if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v26 else v27, v30, v31, v34);
-            if v36 and v36.reasonForNotVoteable == l_ReasonForNotVoteable_0.PlayGame then
-                v37(l_ClearUserGameVotes_0(v25));
-            end;
-            return;
         end;
     end, {
-        v33, 
-        v32, 
-        v34, 
+        v37, 
         v36, 
-        v25, 
-        if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v26 else nil, 
-        v27, 
-        v28, 
+        v38, 
+        v40, 
         v29, 
-        if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v31 else nil
+        if l_GetFFlagLuaAppEnableVirtualEventPlaceId_0() then v30 else nil, 
+        v31, 
+        v32, 
+        v33, 
+        if not not l_FFlagLuaAppEnableCustomSpawnSponsored_0 or l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then v35 else nil
     }));
 end;

@@ -8,80 +8,84 @@ local v6 = require(l_script_FirstAncestor_0.createDataResolver);
 local _ = require(l_script_FirstAncestor_0.DataHydrationTypes);
 local v8 = require(script.Parent.fetchAgeRecommendation);
 local v9 = require(script.Parent.AgeRecommendationStoreTypes);
-return function() --[[ Line: 16 ]] --[[ Name: createAgeRecommendationStore ]]
-    -- upvalues: v5 (copy), v6 (copy), l_logResponseError_0 (copy), l_DiscoveryEventErrorLogger_0 (copy), v8 (copy), v9 (copy)
-    local v10 = v5();
-    local v20 = v6({
-        cache = v10, 
+local l_FFlagSduiExperienceDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiExperienceDetailsSupport;
+return function() --[[ Line: 18 ]] --[[ Name: createAgeRecommendationStore ]]
+    -- upvalues: v5 (copy), v6 (copy), l_logResponseError_0 (copy), l_DiscoveryEventErrorLogger_0 (copy), v8 (copy), v9 (copy), l_FFlagSduiExperienceDetailsSupport_0 (copy)
+    local v11 = v5();
+    local v21 = v6({
+        cache = v11, 
         requestBatchSize = 1, 
-        logError = function(v11) --[[ Line: 23 ]] --[[ Name: logError ]]
+        logError = function(v12) --[[ Line: 25 ]] --[[ Name: logError ]]
             -- upvalues: l_logResponseError_0 (ref), l_DiscoveryEventErrorLogger_0 (ref)
-            if type(v11) == "table" then
-                if v11.responseCode then
+            if type(v12) == "table" then
+                if v12.responseCode then
                     l_logResponseError_0("experience-guidelines-api/get-age-recommendation", {
-                        StatusCode = tonumber(v11.responseCode)
+                        StatusCode = tonumber(v12.responseCode)
                     });
                 end;
-                if v11.errorType and v11.errorMessage then
-                    l_DiscoveryEventErrorLogger_0.reportError(v11.errorType, v11.errorMessage, v11.customFields);
+                if v12.errorType and v12.errorMessage then
+                    l_DiscoveryEventErrorLogger_0.reportError(v12.errorType, v12.errorMessage, v12.customFields);
                     return;
                 end;
             else
-                l_DiscoveryEventErrorLogger_0.reportError("FetchAgeRecommendationError", (tostring(v11)));
+                l_DiscoveryEventErrorLogger_0.reportError("FetchAgeRecommendationError", (tostring(v12)));
             end;
         end, 
-        fetchFn = function(v12) --[[ Line: 43 ]] --[[ Name: fetchFn ]]
-            -- upvalues: v8 (ref), v9 (ref)
-            local v13 = next(v12);
-            if not v13 then
+        fetchFn = function(v13) --[[ Line: 45 ]] --[[ Name: fetchFn ]]
+            -- upvalues: v8 (ref), v9 (ref), l_FFlagSduiExperienceDetailsSupport_0 (ref)
+            local v14 = next(v13);
+            if not v14 then
                 error({
                     errorType = "CreateAgeRecommendationStoreMissingUniverseId", 
                     errorMessage = "CreateAgeRecommendationStore requires universeId", 
                     customFields = {
-                        universeId = v13
+                        universeId = v14
                     }
                 });
             end;
-            return v8(v13):andThen(function(v14) --[[ Line: 55 ]]
-                -- upvalues: v13 (copy), v9 (ref)
-                if not v14 or not v14.responseBody then
+            return v8(v14):andThen(function(v15) --[[ Line: 57 ]]
+                -- upvalues: v14 (copy), v9 (ref), l_FFlagSduiExperienceDetailsSupport_0 (ref)
+                if not v15 or not v15.responseBody then
                     error({
-                        responseCode = v14 and v14.responseCode, 
+                        responseCode = v15 and v15.responseCode, 
                         errorType = "FetchAgeRecommendationResponseError", 
-                        errorMessage = v14 and "Missing response body" or "No response", 
+                        errorMessage = v15 and "Missing response body" or "No response", 
                         customFields = {
-                            universeId = v13
+                            universeId = v14
                         }
                     });
                 end;
-                local v15, v16 = v9.ageRecommendationResponseValidator(v14.responseBody);
-                if not v15 then
+                local v16, v17 = v9.ageRecommendationResponseValidator(v15.responseBody);
+                if not v16 then
                     error({
-                        responseCode = v14.responseCode, 
+                        responseCode = v15.responseCode, 
                         errorType = "FetchAgeRecommendationResponseInvalidInterface", 
-                        errorMessage = v16, 
+                        errorMessage = v17, 
                         customFields = {
-                            universeId = v13
+                            universeId = v14
                         }
                     });
                 end;
-                local v17 = {};
-                local l_ageRecommendation_0 = v14.responseBody.ageRecommendationDetails.summary.ageRecommendation;
-                v17[v13] = {
+                local v18 = {};
+                local l_ageRecommendation_0 = v15.responseBody.ageRecommendationDetails.summary.ageRecommendation;
+                v18[v14] = {
                     displayName = l_ageRecommendation_0.displayName, 
-                    displayNameWithHeaderShort = l_ageRecommendation_0.displayNameWithHeaderShort
+                    displayNameWithHeaderShort = l_ageRecommendation_0.displayNameWithHeaderShort, 
+                    igrsRating = if l_FFlagSduiExperienceDetailsSupport_0 then l_ageRecommendation_0.igrsRating else nil, 
+                    igrsRatingDisplayMessage = if l_FFlagSduiExperienceDetailsSupport_0 then l_ageRecommendation_0.igrsRatingDisplayMessage else nil
                 };
-                return v17;
-            end):catch(function(v19) --[[ Line: 86 ]]
-                error(v19);
+                return v18;
+            end):catch(function(v20) --[[ Line: 94 ]]
+                error(v20);
             end);
         end
     });
     return {
-        fetchAgeRecommendation = v20.fetchItem, 
-        getAgeRecommendation = v20.getCachedItem, 
-        getAndFetchAgeRecommendation = v20.getAndFetchItem, 
-        clear = v20.clear, 
-        dispose = v20.dispose
+        fetchAgeRecommendation = v21.fetchItem, 
+        getAgeRecommendation = v21.getCachedItem, 
+        getAndFetchAgeRecommendation = v21.getAndFetchItem, 
+        updateAgeRecommendations = if l_FFlagSduiExperienceDetailsSupport_0 then v11.updateItems else nil, 
+        clear = v21.clear, 
+        dispose = v21.dispose
     };
 end;

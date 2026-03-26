@@ -3,34 +3,34 @@ local l_script_FirstAncestor_0 = script:FindFirstAncestor("GameTile");
 local v2 = require(l_script_FirstAncestor_0.Footer.GridTileIconTextFooter);
 local l_GridTileFriendFooter_0 = require(l_script_FirstAncestor_0.Footer.GridTileFriendFooter).GridTileFriendFooter;
 local v4 = require(l_script_FirstAncestor_0.Footer.GridTileTextFooter);
-local v5 = require(l_script_FirstAncestor_0.SponsoredGamesRecordClick);
-local v6 = require(l_script_FirstAncestor_0.Footer.GameStats);
-local v7 = require(l_script_FirstAncestor_0.Footer.GridTileSponsoredFooter);
-local v8 = require(l_script_FirstAncestor_0.Overlays.GameTileThumbnailBadges);
-local v9 = require(l_script_FirstAncestor_0.sortFriendsByPresenceAndRecencyFactory);
-local v10 = require(l_script_FirstAncestor_0.OpenCentralOverlayForPlacesList);
-local v11 = require(l_script_FirstAncestor_0.GameTileView);
-local v12 = require(l_script_FirstAncestor_0.AppExperienceActionRow);
-local v13 = require(l_script_FirstAncestor_0.GameTileConstants);
-local v14 = require(l_script_FirstAncestor_0.OpenSponsoredTooltip);
-local v15 = require(l_script_FirstAncestor_0.GameTileTypes);
-local v16 = require(l_script_FirstAncestor_0.useIsHoveredTile);
-local v17 = require(l_script_FirstAncestor_0.HoverTileCoordinator);
-local v18 = require(l_script_FirstAncestor_0.getGameTileLayoutData);
-local v19 = require(l_script_FirstAncestor_0.GameTileViewConfig);
-local v20 = require(l_script_FirstAncestor_0.useHasInGameFriends);
-local v21 = require(l_script_FirstAncestor_0.useInGameUserIds);
-local v22 = require(l_script_FirstAncestor_0.Overlays.useValidTileBadges);
-local v23 = require(l_script_FirstAncestor_0.GameTileVideoThumbnail);
-local v24 = require(l_script_FirstAncestor_0.Video.Analytics.VideoEndReason);
-local v25 = require(l_script_FirstAncestor_0.Video.GameVideoPlaybackDetector);
-local v26 = require(l_script_FirstAncestor_0.Video.useHasVideoThumbnailSelector);
-local v27 = require(l_script_FirstAncestor_0.formatExperienceIcon);
-local v28 = require(l_script_FirstAncestor_0.formatExperienceRating);
-local v29 = require(l_script_FirstAncestor_0.formatExperienceThumbnail);
-local v30 = require(l_script_FirstAncestor_0.HiddenGameTile.HiddenTileContent);
-local v31 = require(l_script_FirstAncestor_0.ItemLayoutDataParsingUtils);
+local v5 = require(l_script_FirstAncestor_0.Footer.GameStats);
+local v6 = require(l_script_FirstAncestor_0.Footer.GridTileSponsoredFooter);
+local v7 = require(l_script_FirstAncestor_0.Overlays.GameTileThumbnailBadges);
+local v8 = require(l_script_FirstAncestor_0.sortFriendsByPresenceAndRecencyFactory);
+local v9 = require(l_script_FirstAncestor_0.OpenCentralOverlayForPlacesList);
+local v10 = require(l_script_FirstAncestor_0.GameTileView);
+local v11 = require(l_script_FirstAncestor_0.AppExperienceActionRow);
+local v12 = require(l_script_FirstAncestor_0.GameTileConstants);
+local v13 = require(l_script_FirstAncestor_0.OpenSponsoredTooltip);
+local v14 = require(l_script_FirstAncestor_0.GameTileTypes);
+local v15 = require(l_script_FirstAncestor_0.useIsHoveredTile);
+local v16 = require(l_script_FirstAncestor_0.HoverTileCoordinator);
+local v17 = require(l_script_FirstAncestor_0.getGameTileLayoutData);
+local v18 = require(l_script_FirstAncestor_0.GameTileViewConfig);
+local v19 = require(l_script_FirstAncestor_0.useHasInGameFriends);
+local v20 = require(l_script_FirstAncestor_0.useInGameUserIds);
+local v21 = require(l_script_FirstAncestor_0.Overlays.useValidTileBadges);
+local v22 = require(l_script_FirstAncestor_0.GameTileVideoThumbnail);
+local v23 = require(l_script_FirstAncestor_0.Video.Analytics.VideoEndReason);
+local v24 = require(l_script_FirstAncestor_0.Video.GameVideoPlaybackDetector);
+local v25 = require(l_script_FirstAncestor_0.Video.useHasVideoThumbnailSelector);
+local v26 = require(l_script_FirstAncestor_0.formatExperienceIcon);
+local v27 = require(l_script_FirstAncestor_0.formatExperienceRating);
+local v28 = require(l_script_FirstAncestor_0.formatExperienceThumbnail);
+local v29 = require(l_script_FirstAncestor_0.HiddenGameTile.HiddenTileContent);
+local v30 = require(l_script_FirstAncestor_0.ItemLayoutDataParsingUtils);
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
+local l_GameCollectionItemTypes_0 = require(l_Parent_0.DiscoveryTypes).GameCollectionItemTypes;
 local v33 = require(l_Parent_0.AppBlox);
 local v34 = require(l_Parent_0.React);
 local v35 = require(l_Parent_0.Roact);
@@ -56,9 +56,11 @@ local l_useTokens_0 = require(l_Parent_0.Foundation).Hooks.useTokens;
 local l_getOverflowMenuSignalStore_0 = v33.getOverflowMenuSignalStore;
 local l_useOverflowMenuOpen_0 = v33.useOverflowMenuOpen;
 local l_useTriggerFeedback_0 = require(l_Parent_0.InteractionFeedback).useTriggerFeedback;
-local l_gameTileOverflowMenuAction_0 = require(l_Parent_0.DiscoveryAnalytics).Events.gameTileOverflowMenuAction;
-local v59 = require(l_Parent_0.Responsive);
-local l_usePreferredInput_0 = v59.usePreferredInput;
+local v58 = require(l_Parent_0.DiscoveryAnalytics);
+local l_gameTileOverflowMenuAction_0 = v58.Events.gameTileOverflowMenuAction;
+local l_sponsoredGamesRecordClick_0 = v58.Requests.sponsoredGamesRecordClick;
+local v61 = require(l_Parent_0.Responsive);
+local l_usePreferredInput_0 = v61.usePreferredInput;
 local l_DiscoveryAppLaunchTracker_0 = require(l_Parent_0.AppLaunchTracker).DiscoveryAppLaunchTracker;
 local l_GetFFlagEnableNavigationPerformanceIntervals_0 = require(l_Parent_0.SharedFlags).GetFFlagEnableNavigationPerformanceIntervals;
 local l_FFlagLuaAppTwoByOneTileExperimentVariants_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileExperimentVariants;
@@ -70,7 +72,7 @@ local l_FFlagLuaAppGameTileWideVideoThumbnail_0 = require(l_Parent_0.SharedFlags
 local l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEdpMediaGalleryVideoPreview;
 local l_FFlagLuaAppEdpMediaGalleryFullScreen_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEdpMediaGalleryFullScreen;
 local l_FFlagLuaAppGameDetailsAttributionFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppGameDetailsAttributionFix;
-local v72 = game:DefineFastFlag("LuaAppUseRatingFormatHelper2", false);
+local v74 = game:DefineFastFlag("LuaAppUseRatingFormatHelper2", false);
 local l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix;
 local l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppGameTileOverflowMenuTelemetry;
 local l_FFlagLuaAppHapticTriggeredTelemetry_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHapticTriggeredTelemetry;
@@ -86,18 +88,20 @@ local l_FFlagLuaAppSupportAdRatingFooter_0 = require(l_Parent_0.SharedFlags).FFl
 local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
 local l_FFlagLuaAppCustomSpawnNonNilCheck_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppCustomSpawnNonNilCheck;
 local l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppFixTwoByOneOverflowMenuTelemetry;
+local l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone;
 local l_FFlagLuaAppSupportAdRatingFooterExperiment_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportAdRatingFooterExperiment;
+local l_FFlagLuaAppTwoByOneTileTelemetryFix_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppTwoByOneTileTelemetryFix;
 local l_VideoPlaybackCoordinator_0 = require(l_Parent_0.VideoUtils).VideoPlaybackCoordinator;
-local v90 = require(l_script_FirstAncestor_0.GameTileOverflowMenu);
-local v91 = require(l_script_FirstAncestor_0.getAvailableGameTileOverflowMenuItems);
-local v92 = game:DefineFastInt("LuaAppGameTileVideoDwellTimeInSec", 3);
-local v93 = game:DefineFastInt("LuaAppGameTileVideoVisiblePercent", 80);
+local v94 = require(l_script_FirstAncestor_0.GameTileOverflowMenu);
+local v95 = require(l_script_FirstAncestor_0.getAvailableGameTileOverflowMenuItems);
+local v96 = game:DefineFastInt("LuaAppGameTileVideoDwellTimeInSec", 3);
+local v97 = game:DefineFastInt("LuaAppGameTileVideoVisiblePercent", 80);
 game:DefineFastInt("LuaAppGameTileHoverDelayMs", 130);
-local function _() --[[ Line: 125 ]] --[[ Name: getHoverDelay ]]
+local function _() --[[ Line: 130 ]] --[[ Name: getHoverDelay ]]
     return game:GetFastInt("LuaAppGameTileHoverDelayMs") / 1000;
 end;
-local v95 = v35.PureComponent:extend("AppGameTile");
-v95.validateProps = v40.strictInterface({
+local v99 = v35.PureComponent:extend("AppGameTile");
+v99.validateProps = v40.strictInterface({
     entry = v40.table, 
     reportGameDetailOpened = v40.callback, 
     reportExperienceLaunched = v40.optional(v40.callback), 
@@ -145,6 +149,7 @@ v95.validateProps = v40.strictInterface({
     appPage = v40.optional(v40.string), 
     isHidden = v40.optional(v40.boolean), 
     isNarrowScreenXSmall = v40.optional(v40.boolean), 
+    onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v40.optional(v40.callback) else nil, 
     sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v40.optional(v40.string) else nil, 
     enableSponsoredFeedback = v40.optional(v40.boolean), 
     availableMenuItems = v40.optional(v40.table), 
@@ -190,180 +195,184 @@ v95.validateProps = v40.strictInterface({
     hoverKey = v40.optional(v40.string), 
     triggerFeedback = v40.callback
 });
-local l_Narrow_0 = v15.GameTileLayoutType.Narrow;
-v95.defaultProps = {
+local l_Narrow_0 = v14.GameTileLayoutType.Narrow;
+v99.defaultProps = {
     useHoverTile = false, 
     hasBackground = false, 
     useExperienceTileMetadata = false, 
     useGridTile = false, 
     thumbnailAspectRatioOverride = l_AspectRatioModeEnum_0.Square, 
     gameTileLayoutType = l_Narrow_0, 
-    contentTextLineCount = v13.TileTextLines[l_Narrow_0].titleTextLines, 
+    contentTextLineCount = v12.TileTextLines[l_Narrow_0].titleTextLines, 
     hideGameStats = false
 };
-v95.init = function(v97) --[[ Line: 250 ]] --[[ Name: init ]]
-    -- upvalues: l_DiscoveryAppLaunchTracker_0 (copy), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 (copy), l_gameTileOverflowMenuAction_0 (copy), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppHapticTriggeredTelemetry_0 (copy), l_getOverflowMenuSignalStore_0 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), v17 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_VideoPlaybackCoordinator_0 (copy), v24 (copy), v35 (copy), v12 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), v5 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), l_IntervalPerformanceTracker_0 (copy), v59 (copy), l_ContentProvider_0 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), l_memoize_0 (copy), v9 (copy)
+v99.init = function(v101) --[[ Line: 258 ]] --[[ Name: init ]]
+    -- upvalues: l_DiscoveryAppLaunchTracker_0 (copy), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 (copy), l_gameTileOverflowMenuAction_0 (copy), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppHapticTriggeredTelemetry_0 (copy), l_getOverflowMenuSignalStore_0 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), v16 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_VideoPlaybackCoordinator_0 (copy), v23 (copy), v35 (copy), v11 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_sponsoredGamesRecordClick_0 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (copy), l_GameCollectionItemTypes_0 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), l_IntervalPerformanceTracker_0 (copy), v61 (copy), l_ContentProvider_0 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), l_memoize_0 (copy), v8 (copy)
     if l_DiscoveryAppLaunchTracker_0.isEnabled() and l_DiscoveryAppLaunchTracker_0.default then
         l_DiscoveryAppLaunchTracker_0.default:trackTileInit();
     end;
-    v97.state = {
+    v101.state = {
         isHovered = false, 
         canDisplayFriendFooter = false, 
         isSelected = false
     };
-    v97.onMenuOpenChanged = l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 and function(v98, v99) --[[ Line: 262 ]]
-        -- upvalues: l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 (ref), v97 (copy), l_gameTileOverflowMenuAction_0 (ref), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (ref)
-        local v100 = {
-            ctx = if l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 then nil else v97.props.appPage, 
-            universeId = v97.props.universeId, 
-            sortId = v97.props.topicId, 
-            actionType = v98 and "GameTileOverflowMenuClosed" or "GameTileOverflowMenuOpened", 
-            availableMenuItems = v99
+    v101.onMenuOpenChanged = l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 and function(v102, v103) --[[ Line: 270 ]]
+        -- upvalues: l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 (ref), v101 (copy), l_gameTileOverflowMenuAction_0 (ref), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (ref)
+        local v104 = {
+            ctx = if l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 then nil else v101.props.appPage, 
+            universeId = v101.props.universeId, 
+            sortId = v101.props.topicId, 
+            actionType = v102 and "GameTileOverflowMenuClosed" or "GameTileOverflowMenuOpened", 
+            availableMenuItems = v103
         };
-        l_gameTileOverflowMenuAction_0(v100, if l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 then v97.props.appPage or l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 and "Unknown" or nil else nil);
+        l_gameTileOverflowMenuAction_0(v104, if l_FFlagLuaAppFixExplicitFeedbackTelemetry_0 then v101.props.appPage or l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 and "Unknown" or nil else nil);
     end or nil;
-    v97.onTouchLongPress = function() --[[ Line: 282 ]]
-        -- upvalues: v97 (copy), l_FFlagLuaAppHapticTriggeredTelemetry_0 (ref), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (ref), l_getOverflowMenuSignalStore_0 (ref), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (ref)
-        if next(v97.props.availableMenuItems) ~= nil then
-            if v97.props.triggerFeedback and not v97.props.overflowMenuOpen then
-                local v101 = if l_FFlagLuaAppHapticTriggeredTelemetry_0 then {
-                    universeId = v97.props.universeId, 
-                    sortId = v97.props.topicId
+    v101.onTouchLongPress = function() --[[ Line: 290 ]]
+        -- upvalues: v101 (copy), l_FFlagLuaAppHapticTriggeredTelemetry_0 (ref), l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 (ref), l_getOverflowMenuSignalStore_0 (ref), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (ref)
+        if next(v101.props.availableMenuItems) ~= nil then
+            if v101.props.triggerFeedback and not v101.props.overflowMenuOpen then
+                local v105 = if l_FFlagLuaAppHapticTriggeredTelemetry_0 then {
+                    universeId = v101.props.universeId, 
+                    sortId = v101.props.topicId
                 } else nil;
-                v97.props.triggerFeedback("TileLongPress", "Press", if l_FFlagLuaAppHapticTriggeredTelemetry_0 then v97.props.appPage or l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 and "Unknown" or nil else nil, if l_FFlagLuaAppHapticTriggeredTelemetry_0 then v101 else nil);
+                v101.props.triggerFeedback("TileLongPress", "Press", if l_FFlagLuaAppHapticTriggeredTelemetry_0 then v101.props.appPage or l_FFlagLuaAppFixTwoByOneOverflowMenuTelemetry_0 and "Unknown" or nil else nil, if l_FFlagLuaAppHapticTriggeredTelemetry_0 then v105 else nil);
             end;
-            l_getOverflowMenuSignalStore_0().openMenu(v97.props.hoverKey);
+            l_getOverflowMenuSignalStore_0().openMenu(v101.props.hoverKey);
             if l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 then
-                local v102 = {};
-                for v103, _ in v97.props.availableMenuItems do
-                    table.insert(v102, v103);
+                local v106 = {};
+                for v107, _ in v101.props.availableMenuItems do
+                    table.insert(v106, v107);
                 end;
-                v97.onMenuOpenChanged(false, table.concat(v102, ","));
+                v101.onMenuOpenChanged(false, table.concat(v106, ","));
             end;
         end;
     end;
-    v97.reportExperienceLaunchedFromActionBar = function(...) --[[ Line: 316 ]]
-        -- upvalues: l_FFlagLuaAppGameDetailsAttributionFix_0 (ref), v97 (copy), v17 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v24 (ref)
+    v101.reportExperienceLaunchedFromActionBar = function(...) --[[ Line: 324 ]]
+        -- upvalues: l_FFlagLuaAppGameDetailsAttributionFix_0 (ref), v101 (copy), v16 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v23 (ref)
         if l_FFlagLuaAppGameDetailsAttributionFix_0 then
-            v97.props.recordSponsoredGameClick();
+            v101.props.recordSponsoredGameClick();
         else
-            v97.recordSponsoredGameClick();
+            v101.recordSponsoredGameClick();
         end;
-        if v97.props.isHovered then
-            v17.default:reset();
+        if v101.props.isHovered then
+            v16.default:reset();
         end;
-        if v97.props.reportExperienceLaunched then
-            v97.props.reportExperienceLaunched(...);
+        if v101.props.reportExperienceLaunched then
+            v101.props.reportExperienceLaunched(...);
         end;
         if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
-            l_VideoPlaybackCoordinator_0.default:reset(v24.ExperienceLaunched, nil, v97.props.navigationUniverseId, nil);
+            l_VideoPlaybackCoordinator_0.default:reset(v23.ExperienceLaunched, nil, v101.props.navigationUniverseId, nil);
         end;
     end;
-    v97.renderAppExperienceActionRow = function(_) --[[ Line: 342 ]]
-        -- upvalues: v35 (ref), v12 (ref), v97 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (ref), l_FFlagLuaAppUnifyPlayButtonTile_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref)
-        return v35.createElement(v12, {
-            universeId = v97.props.navigationUniverseId, 
-            referralSource = v97.props.referralSource, 
+    v101.renderAppExperienceActionRow = function(_) --[[ Line: 350 ]]
+        -- upvalues: v35 (ref), v11 (ref), v101 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (ref), l_FFlagLuaAppUnifyPlayButtonTile_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref)
+        return v35.createElement(v11, {
+            universeId = v101.props.navigationUniverseId, 
+            referralSource = v101.props.referralSource, 
             launchSource = "ExperienceTile", 
-            reportExperienceLaunched = v97.reportExperienceLaunchedFromActionBar, 
-            openGameDetails = l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 349 ]]
-                -- upvalues: v97 (ref)
-                v97.props.onGameTileActivated(v97.isMounted);
-            end or v97.onActivated, 
-            entry = v97.props.entry, 
-            launchExperienceEventContext = v97.props.launchExperienceEventContext, 
-            horizontalPadding = v97.props.useGridTile and 0 or nil, 
-            index = v97.props.index, 
+            reportExperienceLaunched = v101.reportExperienceLaunchedFromActionBar, 
+            openGameDetails = l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 357 ]]
+                -- upvalues: v101 (ref)
+                v101.props.onGameTileActivated(v101.isMounted);
+            end or v101.onActivated, 
+            entry = v101.props.entry, 
+            launchExperienceEventContext = v101.props.launchExperienceEventContext, 
+            horizontalPadding = v101.props.useGridTile and 0 or nil, 
+            index = v101.props.index, 
             isUnifiedGameTileEnabled = l_FFlagLuaAppUnifyPlayButtonTile_0 and true or nil, 
-            placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v97.props.entry.placeIdOverride else nil, 
-            launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v97.props.entry.launchDataOverride else nil
+            placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v101.props.entry.placeIdOverride else nil, 
+            launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v101.props.entry.launchDataOverride else nil
         });
     end;
-    v97.onHoverChanged = function(v106) --[[ Line: 365 ]]
-        -- upvalues: v97 (copy)
-        if v106 and v97.props.triggerFeedback then
-            v97.props.triggerFeedback("Default", "Hover");
+    v101.onHoverChanged = function(v110) --[[ Line: 373 ]]
+        -- upvalues: v101 (copy)
+        if v110 and v101.props.triggerFeedback then
+            v101.props.triggerFeedback("Default", "Hover");
         end;
-        v97:setState({
-            isHovered = v106
+        v101:setState({
+            isHovered = v110
         });
     end;
-    v97.gameTileRef = v35.createRef();
-    v97.getTilePosition = function() --[[ Line: 377 ]]
-        -- upvalues: v97 (copy)
-        if v97.gameTileRef.current then
-            return v97.gameTileRef.current.AbsolutePosition;
+    v101.gameTileRef = v35.createRef();
+    v101.getTilePosition = function() --[[ Line: 385 ]]
+        -- upvalues: v101 (copy)
+        if v101.gameTileRef.current then
+            return v101.gameTileRef.current.AbsolutePosition;
         else
             return nil;
         end;
     end;
-    v97.getTileSize = function() --[[ Line: 385 ]]
-        -- upvalues: v97 (copy)
-        if v97.gameTileRef.current then
-            return v97.gameTileRef.current.AbsoluteSize;
+    v101.getTileSize = function() --[[ Line: 393 ]]
+        -- upvalues: v101 (copy)
+        if v101.gameTileRef.current then
+            return v101.gameTileRef.current.AbsoluteSize;
         else
             return nil;
         end;
     end;
-    v97.recordSponsoredGameClick = if l_FFlagLuaAppGameDetailsAttributionFix_0 then nil else function() --[[ Line: 395 ]]
-        -- upvalues: v97 (copy), v5 (ref)
-        local l_networking_0 = v97.props.networking;
-        local l_entry_0 = v97.props.entry;
+    v101.recordSponsoredGameClick = if l_FFlagLuaAppGameDetailsAttributionFix_0 then nil else function() --[[ Line: 403 ]]
+        -- upvalues: v101 (copy), l_sponsoredGamesRecordClick_0 (ref)
+        local l_networking_0 = v101.props.networking;
+        local l_entry_0 = v101.props.entry;
         if l_entry_0.isSponsored then
-            v5(l_networking_0, l_entry_0.adId);
+            l_sponsoredGamesRecordClick_0(l_networking_0, l_entry_0.adId);
         end;
     end;
-    v97.onActivated = if l_FFlagLuaAppGameDetailsAttributionFix_0 then nil else function() --[[ Line: 406 ]]
-        -- upvalues: v97 (copy), v17 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v24 (ref), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), l_IntervalPerformanceTracker_0 (ref)
-        if v97.props.isHovered then
-            v17.default:reset();
+    v101.onActivated = if l_FFlagLuaAppGameDetailsAttributionFix_0 then nil else function() --[[ Line: 414 ]]
+        -- upvalues: v101 (copy), v16 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v23 (ref), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (ref), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (ref), l_GameCollectionItemTypes_0 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), l_IntervalPerformanceTracker_0 (ref)
+        if v101.props.isHovered then
+            v16.default:reset();
         end;
         if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
-            l_VideoPlaybackCoordinator_0.default:reset(v24.TileClicked, nil, v97.props.navigationUniverseId, nil);
+            l_VideoPlaybackCoordinator_0.default:reset(v23.TileClicked, nil, v101.props.navigationUniverseId, nil);
         end;
-        if v97.isMounted then
-            if l_FFlagLuaAppGameTileInteractionFeedback_0 and v97.props.onActivated then
-                v97.props.onActivated();
+        if v101.isMounted then
+            if l_FFlagLuaAppGameTileInteractionFeedback_0 and v101.props.onActivated then
+                v101.props.onActivated();
             end;
-            local l_navigationUniverseId_0 = v97.props.navigationUniverseId;
-            local v110 = {
-                source = v97.props.source, 
-                index = v97.props.index, 
-                referralSource = v97.props.referralSource, 
-                onPeekViewClosed = v97.props.onPeekViewClosed, 
-                placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v97.props.entry.placeIdOverride else nil, 
-                experienceJoinData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v97.props.entry.launchDataOverride) then {
-                    launchData = v97.props.entry.launchDataOverride
+            local l_navigationUniverseId_0 = v101.props.navigationUniverseId;
+            local v114 = {
+                source = v101.props.source, 
+                index = v101.props.index, 
+                referralSource = v101.props.referralSource, 
+                onPeekViewClosed = v101.props.onPeekViewClosed, 
+                placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v101.props.entry.placeIdOverride else nil, 
+                experienceJoinData = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then {
+                    launchData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v101.props.entry.launchDataOverride) then v101.props.entry.launchDataOverride else nil, 
+                    tileType = v101.props.entry.tileType or l_GameCollectionItemTypes_0.GameCollectionItemType.GameTile, 
+                    nativeAdData = v101.props.entry.adId
+                } else if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v101.props.entry.launchDataOverride) then {
+                    launchData = v101.props.entry.launchDataOverride
                 } else nil
             };
             if l_GetFFlagEnableNavigationPerformanceIntervals_0() then
                 l_IntervalPerformanceTracker_0:startTracking("AppGameTile_to_GameDetail", 2);
             end;
-            v97.props.navigateToGameDetails(l_navigationUniverseId_0, v110);
-            local l_index_0 = v97.props.index;
-            v97.props.reportGameDetailOpened(l_index_0, l_navigationUniverseId_0);
-            v97.recordSponsoredGameClick();
+            v101.props.navigateToGameDetails(l_navigationUniverseId_0, v114);
+            local l_index_0 = v101.props.index;
+            v101.props.reportGameDetailOpened(l_index_0, l_navigationUniverseId_0);
+            v101.recordSponsoredGameClick();
         end;
     end;
-    v97.onFriendFooterActivated = function() --[[ Line: 455 ]]
-        -- upvalues: v97 (copy)
-        if v97.isMounted then
-            local l_game_0 = v97.props.game;
-            local v113 = v97.getTileSize();
-            v97.props.openContextualMenu(l_game_0, v113, v97.getTilePosition());
+    v101.onFriendFooterActivated = function() --[[ Line: 474 ]]
+        -- upvalues: v101 (copy)
+        if v101.isMounted then
+            local l_game_0 = v101.props.game;
+            local v117 = v101.getTileSize();
+            v101.props.openContextualMenu(l_game_0, v117, v101.getTilePosition());
         end;
     end;
-    v97.onActivateSponsoredTooltip = function() --[[ Line: 463 ]]
-        -- upvalues: v97 (copy), v59 (ref)
-        if v97.isMounted then
-            v97.props.openSponsoredTooltip(v59.GetInputModeStore(false).getLastInputType(false));
+    v101.onActivateSponsoredTooltip = function() --[[ Line: 482 ]]
+        -- upvalues: v101 (copy), v61 (ref)
+        if v101.isMounted then
+            v101.props.openSponsoredTooltip(v61.GetInputModeStore(false).getLastInputType(false));
         end;
     end;
-    v97.loadWideThumbnail = function() --[[ Line: 471 ]]
-        -- upvalues: v97 (copy), l_ContentProvider_0 (ref)
-        local l_wideThumbnail_0 = v97.props.wideThumbnail;
+    v101.loadWideThumbnail = function() --[[ Line: 490 ]]
+        -- upvalues: v101 (copy), l_ContentProvider_0 (ref)
+        local l_wideThumbnail_0 = v101.props.wideThumbnail;
         if l_wideThumbnail_0 ~= nil then
-            task.spawn(function() --[[ Line: 474 ]]
+            task.spawn(function() --[[ Line: 493 ]]
                 -- upvalues: l_ContentProvider_0 (ref), l_wideThumbnail_0 (copy)
                 l_ContentProvider_0:PreloadAsync({
                     l_wideThumbnail_0
@@ -371,70 +380,70 @@ v95.init = function(v97) --[[ Line: 250 ]] --[[ Name: init ]]
             end);
         end;
     end;
-    v97.getVisitedFriends = function() --[[ Line: 480 ]]
-        -- upvalues: v97 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (ref)
-        local v115 = {};
-        local l_friendVisits_0 = v97.props.friendVisits;
-        for v117 = 1, #l_friendVisits_0 do
-            local v118 = tostring(l_friendVisits_0[v117].userId);
+    v101.getVisitedFriends = function() --[[ Line: 499 ]]
+        -- upvalues: v101 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (ref)
+        local v119 = {};
+        local l_friendVisits_0 = v101.props.friendVisits;
+        for v121 = 1, #l_friendVisits_0 do
+            local v122 = tostring(l_friendVisits_0[v121].userId);
             if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then
-                table.insert(v115, v118);
-            elseif v97.props.users and v97.props.users[v118] then
-                local v119 = v97.props.users[v118];
-                table.insert(v115, {
-                    userId = v118, 
-                    displayName = v119.displayName
+                table.insert(v119, v122);
+            elseif v101.props.users and v101.props.users[v122] then
+                local v123 = v101.props.users[v122];
+                table.insert(v119, {
+                    userId = v122, 
+                    displayName = v123.displayName
                 });
             end;
         end;
-        return v115;
+        return v119;
     end;
-    v97.getSortedFriends = l_memoize_0(function(v120, v121) --[[ Line: 508 ]]
-        -- upvalues: v9 (ref)
-        if not v120 or not v121 then
+    v101.getSortedFriends = l_memoize_0(function(v124, v125) --[[ Line: 527 ]]
+        -- upvalues: v8 (ref)
+        if not v124 or not v125 then
             return {};
         else
-            local v122 = {};
-            for _, v124 in pairs(v121) do
-                local v125 = v120[v124];
-                if v125 and v125.isFriend then
-                    table.insert(v122, {
-                        userId = v125.id, 
-                        displayName = v125.displayName
+            local v126 = {};
+            for _, v128 in pairs(v125) do
+                local v129 = v124[v128];
+                if v129 and v129.isFriend then
+                    table.insert(v126, {
+                        userId = v129.id, 
+                        displayName = v129.displayName
                     });
                 end;
             end;
-            local v126 = v9("displayName");
-            table.sort(v122, v126);
-            return v122;
+            local v130 = v8("displayName");
+            table.sort(v126, v130);
+            return v126;
         end;
     end);
-    v97.onSelectionGained = function() --[[ Line: 530 ]]
-        -- upvalues: v97 (copy)
-        v97:setState({
+    v101.onSelectionGained = function() --[[ Line: 549 ]]
+        -- upvalues: v101 (copy)
+        v101:setState({
             isSelected = true
         });
-        if v97.props.onSelectionGained then
-            v97.props.onSelectionGained(v97.props.entry, v97.props.index, v97.props.navigationUniverseId);
+        if v101.props.onSelectionGained then
+            v101.props.onSelectionGained(v101.props.entry, v101.props.index, v101.props.navigationUniverseId);
         end;
     end;
-    v97.onSelectionLost = function() --[[ Line: 538 ]]
-        -- upvalues: v97 (copy)
-        v97:setState({
+    v101.onSelectionLost = function() --[[ Line: 557 ]]
+        -- upvalues: v101 (copy)
+        v101:setState({
             isSelected = false
         });
-        if v97.props.onSelectionLost then
-            v97.props.onSelectionLost();
+        if v101.props.onSelectionLost then
+            v101.props.onSelectionLost();
         end;
     end;
 end;
-local function _(v127) --[[ Line: 550 ]] --[[ Name: getTextLiteralForTextFooter ]]
-    if v127 == nil then
+local function _(v131) --[[ Line: 569 ]] --[[ Name: getTextLiteralForTextFooter ]]
+    if v131 == nil then
         return nil;
-    elseif v127.type ~= "TextLabel" then
+    elseif v131.type ~= "TextLabel" then
         return nil;
     else
-        local l_text_0 = v127.text;
+        local l_text_0 = v131.text;
         if l_text_0 == nil then
             return nil;
         else
@@ -442,574 +451,579 @@ local function _(v127) --[[ Line: 550 ]] --[[ Name: getTextLiteralForTextFooter 
         end;
     end;
 end;
-v95.renderGridTilesFooter = function(v130) --[[ Line: 564 ]] --[[ Name: renderGridTilesFooter ]]
-    -- upvalues: l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppMigrateGameTileFixConsoleMetadataText_0 (copy), v15 (copy), v35 (copy), v6 (copy), v13 (copy), v34 (copy), v7 (copy), l_FFlagLuaAppUpdateAdMetadata_0 (copy), v4 (copy), l_GridTileFriendFooter_0 (copy), v2 (copy), l_Images_0 (copy)
-    local v131 = v130.props.useHoverTile or v130.props.useExperienceTileMetadata;
-    local l_friendFooterEnabled_0 = v130.props.friendFooterEnabled;
-    local l_hasInGameFriends_0 = v130.props.hasInGameFriends;
-    local v134 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v130.props.inGameUserIds else nil;
-    local l_users_0 = v130.props.users;
-    local l_inGameUsersByGame_0 = v130.props.inGameUsersByGame;
-    local v137 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then nil else v130.getSortedFriends(l_users_0, l_inGameUsersByGame_0);
-    local v138 = l_friendFooterEnabled_0 and if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v134 and #v134 > 0 else l_hasInGameFriends_0;
-    local v139 = v130.props.friendVisits and #v130.props.friendVisits > 0;
+v99.renderGridTilesFooter = function(v134) --[[ Line: 583 ]] --[[ Name: renderGridTilesFooter ]]
+    -- upvalues: l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), l_FFlagLuaAppSupportAdRatingFooter_0 (copy), l_FFlagLuaAppSupportAdRatingFooterExperiment_0 (copy), l_FFlagLuaAppMigrateGameTileFixConsoleMetadataText_0 (copy), v14 (copy), v35 (copy), v5 (copy), v12 (copy), v34 (copy), v6 (copy), l_FFlagLuaAppUpdateAdMetadata_0 (copy), v4 (copy), l_GridTileFriendFooter_0 (copy), v2 (copy), l_Images_0 (copy)
+    local v135 = v134.props.useHoverTile or v134.props.useExperienceTileMetadata;
+    local l_friendFooterEnabled_0 = v134.props.friendFooterEnabled;
+    local l_hasInGameFriends_0 = v134.props.hasInGameFriends;
+    local v138 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v134.props.inGameUserIds else nil;
+    local l_users_0 = v134.props.users;
+    local l_inGameUsersByGame_0 = v134.props.inGameUsersByGame;
+    local v141 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then nil else v134.getSortedFriends(l_users_0, l_inGameUsersByGame_0);
+    local v142 = l_friendFooterEnabled_0 and if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v138 and #v138 > 0 else l_hasInGameFriends_0;
+    local v143 = v134.props.friendVisits and #v134.props.friendVisits > 0;
     local _ = nil;
-    local l_footerLayoutData_0 = v130.props.footerLayoutData;
-    local v142;
+    local l_footerLayoutData_0 = v134.props.footerLayoutData;
+    local v146;
     if l_footerLayoutData_0 == nil then
-        v142 = nil;
+        v146 = nil;
     elseif l_footerLayoutData_0.type ~= "TextLabel" then
-        v142 = nil;
+        v146 = nil;
     else
         local l_text_1 = l_footerLayoutData_0.text;
-        v142 = if l_text_1 == nil then nil else l_text_1.textLiteral;
+        v146 = if l_text_1 == nil then nil else l_text_1.textLiteral;
     end;
     l_footerLayoutData_0 = false;
-    if (v130.props.isHovered or v130.state.isSelected) and v130.props.ageRatingText and not v130.props.hidePlayButton then
-        v142 = v130.props.ageRatingText;
+    if (v134.props.isHovered or v134.state.isSelected) and v134.props.ageRatingText and not v134.props.hidePlayButton then
+        v146 = v134.props.ageRatingText;
         l_footerLayoutData_0 = true;
     end;
-    local v144 = v142 ~= nil;
-    local l_entry_1 = v130.props.entry;
-    local v146 = l_entry_1.isSponsored and (l_entry_1.isShowSponsoredLabel or v130.props.isSponsoredFooterAllowed or l_FFlagLuaAppSupportAdRatingFooter_0 and v130.props.isSponsoredRatingFooterAllowed or l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and v130.props.sponsoredFooterAdLabelText ~= nil);
-    if l_FFlagLuaAppMigrateGameTileFixConsoleMetadataText_0 and v130.props.gameTileLayoutType == v15.GameTileLayoutType.Narrow and v130.props.useExperienceTileMetadata and (v146 or v144) then
-        v131 = false;
+    local v148 = v146 ~= nil;
+    local l_entry_1 = v134.props.entry;
+    local v150 = l_entry_1.isSponsored and (l_entry_1.isShowSponsoredLabel or v134.props.isSponsoredFooterAllowed or l_FFlagLuaAppSupportAdRatingFooter_0 and v134.props.isSponsoredRatingFooterAllowed or l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and v134.props.sponsoredFooterAdLabelText ~= nil);
+    if l_FFlagLuaAppMigrateGameTileFixConsoleMetadataText_0 and v134.props.gameTileLayoutType == v14.GameTileLayoutType.Narrow and v134.props.useExperienceTileMetadata and (v150 or v148) then
+        v135 = false;
     end;
-    local v147 = if l_FFlagLuaAppSupportAdRatingFooter_0 then v35.createElement(v6, {
+    local v151 = if l_FFlagLuaAppSupportAdRatingFooter_0 then v35.createElement(v5, {
         stats = {
-            totalUpVotes = v130.props.totalUpVotes, 
-            totalDownVotes = v130.props.totalDownVotes, 
-            playerCount = if not (v130.props.playerCountStyle == v13.PlayerCountStyleValues.Footer) or l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and v146 then nil else v130.props.entry.playerCount
+            totalUpVotes = v134.props.totalUpVotes, 
+            totalDownVotes = v134.props.totalDownVotes, 
+            playerCount = if not (v134.props.playerCountStyle == v12.PlayerCountStyleValues.Footer) or l_FFlagLuaAppSupportAdRatingFooterExperiment_0 and v150 then nil else v134.props.entry.playerCount
         }, 
-        isGridTile = v130.props.useGridTile, 
-        hideGameStats = v130.props.hideGameStats, 
-        useLargerFont = v131, 
+        isGridTile = v134.props.useGridTile, 
+        hideGameStats = v134.props.hideGameStats, 
+        useLargerFont = v135, 
         isUnifiedGameTile = true, 
-        gameTileLayoutType = v130.props.gameTileLayoutType, 
-        shouldSizeToContentWidth = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v146 else nil
+        gameTileLayoutType = v134.props.gameTileLayoutType, 
+        shouldSizeToContentWidth = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v150 else nil
     }) else nil;
-    if v130.props.hideMetadata then
-        if v130.props.isHovered then
-            if v146 then
-                return v34.createElement(v7, {
-                    useLargerFont = v131, 
-                    onActivateSponsoredTooltip = v130.onActivateSponsoredTooltip, 
+    if v134.props.hideMetadata then
+        if v134.props.isHovered then
+            if v150 then
+                return v34.createElement(v6, {
+                    useLargerFont = v135, 
+                    onActivateSponsoredTooltip = v134.onActivateSponsoredTooltip, 
                     isUnifiedGameTile = true, 
-                    gameTileLayoutType = v130.props.gameTileLayoutType, 
-                    isNarrowScreenXSmall = v130.props.isNarrowScreenXSmall, 
-                    enableSponsoredFeedback = if l_FFlagLuaAppUpdateAdMetadata_0 then v130.props.enableSponsoredFeedback else nil, 
-                    isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v130.props.isSponsoredRatingFooterAllowed else nil, 
-                    gameStatsElement = if l_FFlagLuaAppSupportAdRatingFooter_0 then v147 else nil, 
-                    sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterAdLabelText else nil, 
-                    sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterAdLabelFirst else nil, 
-                    sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterIncludeRatingContent else nil
+                    gameTileLayoutType = v134.props.gameTileLayoutType, 
+                    isNarrowScreenXSmall = v134.props.isNarrowScreenXSmall, 
+                    enableSponsoredFeedback = if l_FFlagLuaAppUpdateAdMetadata_0 then v134.props.enableSponsoredFeedback else nil, 
+                    isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v134.props.isSponsoredRatingFooterAllowed else nil, 
+                    gameStatsElement = if l_FFlagLuaAppSupportAdRatingFooter_0 then v151 else nil, 
+                    sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterAdLabelText else nil, 
+                    sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterAdLabelFirst else nil, 
+                    sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterIncludeRatingContent else nil
                 });
             elseif l_footerLayoutData_0 then
                 return v34.createElement(v4, {
-                    text = v142, 
-                    useLargerFont = v131, 
+                    text = v146, 
+                    useLargerFont = v135, 
                     isUnifiedGameTile = true
                 });
             end;
         end;
         return nil;
-    elseif v146 then
-        return (v34.createElement(v7, {
-            useLargerFont = v131, 
-            onActivateSponsoredTooltip = v130.onActivateSponsoredTooltip, 
+    elseif v150 then
+        return (v34.createElement(v6, {
+            useLargerFont = v135, 
+            onActivateSponsoredTooltip = v134.onActivateSponsoredTooltip, 
             isUnifiedGameTile = true, 
-            gameTileLayoutType = v130.props.gameTileLayoutType, 
-            isNarrowScreenXSmall = v130.props.isNarrowScreenXSmall, 
-            enableSponsoredFeedback = if l_FFlagLuaAppUpdateAdMetadata_0 then v130.props.enableSponsoredFeedback else nil, 
-            isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v130.props.isSponsoredRatingFooterAllowed else nil, 
-            gameStatsElement = if l_FFlagLuaAppSupportAdRatingFooter_0 then v147 else nil, 
-            sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterAdLabelText else nil, 
-            sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterAdLabelFirst else nil, 
-            sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v130.props.sponsoredFooterIncludeRatingContent else nil
+            gameTileLayoutType = v134.props.gameTileLayoutType, 
+            isNarrowScreenXSmall = v134.props.isNarrowScreenXSmall, 
+            enableSponsoredFeedback = if l_FFlagLuaAppUpdateAdMetadata_0 then v134.props.enableSponsoredFeedback else nil, 
+            isSponsoredRatingFooterAllowed = if l_FFlagLuaAppSupportAdRatingFooter_0 then v134.props.isSponsoredRatingFooterAllowed else nil, 
+            gameStatsElement = if l_FFlagLuaAppSupportAdRatingFooter_0 then v151 else nil, 
+            sponsoredFooterAdLabelText = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterAdLabelText else nil, 
+            sponsoredFooterAdLabelFirst = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterAdLabelFirst else nil, 
+            sponsoredFooterIncludeRatingContent = if l_FFlagLuaAppSupportAdRatingFooterExperiment_0 then v134.props.sponsoredFooterIncludeRatingContent else nil
         }));
-    elseif v144 then
+    elseif v148 then
         return (v34.createElement(v4, {
-            text = v142, 
-            useLargerFont = v131, 
+            text = v146, 
+            useLargerFont = v135, 
             isUnifiedGameTile = true
         }));
-    elseif v138 then
+    elseif v142 then
         if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then
             return (v35.createElement(l_GridTileFriendFooter_0, {
                 showOnlineBorder = false, 
-                useLargerFont = v131, 
-                friendUserIds = v134, 
-                onFriendFooterActivated = v130.onFriendFooterActivated
+                useLargerFont = v135, 
+                friendUserIds = v138, 
+                onFriendFooterActivated = v134.onFriendFooterActivated
             }));
         else
             return (v35.createElement(l_GridTileFriendFooter_0, {
                 showOnlineBorder = false, 
-                friends = v137, 
-                useLargerFont = v131
+                friends = v141, 
+                useLargerFont = v135
             }));
         end;
-    elseif v130.props.friendVisitedString then
+    elseif v134.props.friendVisitedString then
         return (v35.createElement(v2, {
             icon = l_Images_0["icons/menu/recent"], 
-            text = v130.props.friendVisitedString, 
-            iconSize = v131 and 32 or 24, 
-            useLargerFont = v131
+            text = v134.props.friendVisitedString, 
+            iconSize = v135 and 32 or 24, 
+            useLargerFont = v135
         }));
-    elseif v139 then
+    elseif v143 then
         if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then
             return (v35.createElement(l_GridTileFriendFooter_0, {
                 showOnlineBorder = false, 
-                friendUserIds = v130.getVisitedFriends(), 
-                useLargerFont = v131
+                friendUserIds = v134.getVisitedFriends(), 
+                useLargerFont = v135
             }));
         else
             return (v35.createElement(l_GridTileFriendFooter_0, {
                 showOnlineBorder = false, 
-                friends = v130.getVisitedFriends(), 
-                useLargerFont = v131
+                friends = v134.getVisitedFriends(), 
+                useLargerFont = v135
             }));
         end;
     elseif l_FFlagLuaAppSupportAdRatingFooter_0 then
-        return v147;
+        return v151;
     else
-        return (v35.createElement(v6, {
+        return (v35.createElement(v5, {
             stats = {
-                totalUpVotes = v130.props.totalUpVotes, 
-                totalDownVotes = v130.props.totalDownVotes, 
-                playerCount = if v130.props.playerCountStyle == v13.PlayerCountStyleValues.Footer then v130.props.entry.playerCount else nil
+                totalUpVotes = v134.props.totalUpVotes, 
+                totalDownVotes = v134.props.totalDownVotes, 
+                playerCount = if v134.props.playerCountStyle == v12.PlayerCountStyleValues.Footer then v134.props.entry.playerCount else nil
             }, 
-            isGridTile = v130.props.useGridTile, 
-            hideGameStats = v130.props.hideGameStats, 
-            useLargerFont = v131, 
+            isGridTile = v134.props.useGridTile, 
+            hideGameStats = v134.props.hideGameStats, 
+            useLargerFont = v135, 
             isUnifiedGameTile = true, 
-            gameTileLayoutType = v130.props.gameTileLayoutType
+            gameTileLayoutType = v134.props.gameTileLayoutType
         }));
     end;
 end;
-v95.renderContent = function(v148, v149, v150, _) --[[ Line: 763 ]] --[[ Name: renderContent ]]
-    -- upvalues: v13 (copy), v19 (copy), v34 (copy), v6 (copy), v30 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), v23 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), v35 (copy), v8 (copy), v90 (copy), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), v11 (copy), l_FFlagLuaAppMigrateGameTileHoverFixes_0 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), v12 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy)
-    local v152 = v148.props.Size or UDim2.fromScale(1, 1);
-    local l_imageThumbnail_0 = v148.props.imageThumbnail;
-    local l_onGameTileActivated_0 = v148.props.onGameTileActivated;
-    local v155 = true;
-    if v148.props.playerCountStyle ~= v13.PlayerCountStyleValues.Always then
-        v155 = v148.props.isHovered and v148.props.playerCountStyle == v13.PlayerCountStyleValues.Hover;
+v99.renderContent = function(v152, v153, v154, _) --[[ Line: 782 ]] --[[ Name: renderContent ]]
+    -- upvalues: v12 (copy), v18 (copy), v34 (copy), v5 (copy), v29 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 (copy), l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), v22 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), v35 (copy), v7 (copy), v94 (copy), l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 (copy), l_FFlagLuaAppEnableWhyThisAdModal_0 (copy), v10 (copy), l_FFlagLuaAppMigrateGameTileHoverFixes_0 (copy), l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), v11 (copy), l_FFlagLuaAppUnifyPlayButtonTile_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy)
+    local v156 = v152.props.Size or UDim2.fromScale(1, 1);
+    local l_imageThumbnail_0 = v152.props.imageThumbnail;
+    local l_onGameTileActivated_0 = v152.props.onGameTileActivated;
+    local v159 = true;
+    if v152.props.playerCountStyle ~= v12.PlayerCountStyleValues.Always then
+        v159 = v152.props.isHovered and v152.props.playerCountStyle == v12.PlayerCountStyleValues.Hover;
     end;
-    local v156 = v19.getImageAspectRatio(v148.props.gameTileLayoutType);
-    local v157 = v148:renderGridTilesFooter();
-    local v158 = if v148.props.hideTitle then nil else v148.props.name;
-    local v159 = if v155 then v34.createElement(v6, {
+    local v160 = v18.getImageAspectRatio(v152.props.gameTileLayoutType);
+    local v161 = v152:renderGridTilesFooter();
+    local v162 = if v152.props.hideTitle then nil else v152.props.name;
+    local v163 = if v159 then v34.createElement(v5, {
         stats = {
-            playerCount = v148.props.entry.playerCount, 
+            playerCount = v152.props.entry.playerCount, 
             displayConcurrentUsersPill = true
         }
     }) else nil;
-    local l_playButtonHeight_0 = v19.getElementSizes(v150.Tokens, v148.props.textSizeOffset, v148.props.contentTextLineCount, v148.props.foundationTokens, true).playButtonHeight;
-    local v161 = if v148.props.isHidden then v34.createElement(v30, {
-        appPage = v148.props.appPage, 
-        collectionId = v148.props.topicId, 
-        setGameHidden = v148.props.setGameHidden, 
-        universeId = v148.props.universeId, 
-        parentRef = v148.props.hoverRef, 
-        hiddenTileType = if not l_FFlagLuaAppEnableSponsoredReportAd_0 or l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 then nil else v148.props.hiddenTileType, 
-        isSponsored = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v148.props.entry.isSponsored else nil
-    }) else if l_FFlagLuaAppGameTileWideVideoThumbnail_0 and v148.props.videoThumbnail then v34.createElement(v23, {
-        video = v148.props.videoThumbnail, 
+    local l_playButtonHeight_0 = v18.getElementSizes(v154.Tokens, v152.props.textSizeOffset, v152.props.contentTextLineCount, v152.props.foundationTokens, true).playButtonHeight;
+    local v165 = if v152.props.isHidden then v34.createElement(v29, {
+        appPage = v152.props.appPage, 
+        collectionId = v152.props.topicId, 
+        setGameHidden = v152.props.setGameHidden, 
+        universeId = v152.props.universeId, 
+        parentRef = v152.props.hoverRef, 
+        hiddenTileType = if not l_FFlagLuaAppEnableSponsoredReportAd_0 or l_FFlagLuaAppRemoveSponsoredReportHiddenState_0 then nil else v152.props.hiddenTileType, 
+        isSponsored = if l_FFlagLuaAppSupportSponsoredExplicitFeedback_0 then v152.props.entry.isSponsored else nil
+    }) else if l_FFlagLuaAppGameTileWideVideoThumbnail_0 and v152.props.videoThumbnail then v34.createElement(v22, {
+        video = v152.props.videoThumbnail, 
         image = l_imageThumbnail_0, 
-        playing = v148.props.isVideoPlaying, 
+        playing = v152.props.isVideoPlaying, 
         looped = true, 
         Size = UDim2.fromScale(1, 1), 
-        isTileContained = v148.props.isContained, 
-        cornerRadius = v150.Tokens.Global.Space_100, 
+        isTileContained = v152.props.isContained, 
+        cornerRadius = v154.Tokens.Global.Space_100, 
         ZIndex = -2, 
-        onActivated = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 816 ]]
-            -- upvalues: l_onGameTileActivated_0 (copy), v148 (copy)
-            l_onGameTileActivated_0(v148.isMounted);
-        end or v148.onActivated else nil, 
-        itemIndex = v148.props.index, 
-        videoAnalytics = v148.props.videoAnalytics
+        onActivated = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 835 ]]
+            -- upvalues: l_onGameTileActivated_0 (copy), v152 (copy)
+            l_onGameTileActivated_0(v152.isMounted);
+        end or v152.onActivated else nil, 
+        itemIndex = v152.props.index, 
+        videoAnalytics = v152.props.videoAnalytics
     }) else nil;
-    local v162 = nil;
-    if l_FFlagLuaAppGameTileWideVideoThumbnail_0 and not v148.props.isVideoPlaying then
-        v162 = if v148.props.tileBadges then v35.createFragment({
-            SocialFeaturePill = v159, 
-            Badge = v34.createElement(v8, {
-                tileBadgesByPosition = v148.props.tileBadges
+    local v166 = nil;
+    if l_FFlagLuaAppGameTileWideVideoThumbnail_0 and not v152.props.isVideoPlaying then
+        v166 = if v152.props.tileBadges then v35.createFragment({
+            SocialFeaturePill = v163, 
+            Badge = v34.createElement(v7, {
+                tileBadgesByPosition = v152.props.tileBadges
             })
-        }) else v159;
+        }) else v163;
     end;
-    local l_isHidden_0 = v148.props.isHidden;
-    local v164 = if not (next(v148.props.availableMenuItems) ~= nil and (v148.props.isHovered or v148.props.overflowMenuOpen or v148.state.isSelected)) or l_isHidden_0 then nil else v34.createElement(v90, {
-        isHovered = v148.props.isHovered, 
-        isSelected = v148.state.isSelected, 
-        universeId = v148.props.universeId, 
-        collectionId = v148.props.topicId, 
-        appPage = v148.props.appPage, 
-        setGameHidden = v148.props.setGameHidden, 
-        menuKey = v148.props.hoverKey, 
-        menuOpen = v148.props.overflowMenuOpen, 
-        onMenuOpenChanged = if l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 then v148.onMenuOpenChanged else nil, 
-        parentRef = v148.props.hoverRef, 
-        isSponsored = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v148.props.entry.isSponsored else nil, 
-        payerName = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v148.props.entry.payerName else nil, 
-        sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v148.props.sponsoredUserCohort else nil, 
-        adId = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v148.props.entry.adId else nil, 
-        availableMenuItems = v148.props.availableMenuItems
+    local l_isHidden_0 = v152.props.isHidden;
+    local v168 = if not (next(v152.props.availableMenuItems) ~= nil and (v152.props.isHovered or v152.props.overflowMenuOpen or v152.state.isSelected)) or l_isHidden_0 then nil else v34.createElement(v94, {
+        isHovered = v152.props.isHovered, 
+        isSelected = v152.state.isSelected, 
+        universeId = v152.props.universeId, 
+        collectionId = v152.props.topicId, 
+        appPage = v152.props.appPage, 
+        setGameHidden = v152.props.setGameHidden, 
+        menuKey = v152.props.hoverKey, 
+        menuOpen = v152.props.overflowMenuOpen, 
+        onMenuOpenChanged = if l_FFlagLuaAppGameTileOverflowMenuTelemetry_0 then v152.onMenuOpenChanged else nil, 
+        parentRef = v152.props.hoverRef, 
+        isSponsored = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v152.props.entry.isSponsored else nil, 
+        payerName = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v152.props.entry.payerName else nil, 
+        sponsoredUserCohort = if l_FFlagLuaAppEnableWhyThisAdModal_0 then v152.props.sponsoredUserCohort else nil, 
+        adId = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v152.props.entry.adId else nil, 
+        availableMenuItems = v152.props.availableMenuItems
     });
     return v34.createElement("Frame", {
-        Size = v152, 
-        ZIndex = v148.props.ZIndex, 
+        Size = v156, 
+        ZIndex = v152.props.ZIndex, 
         BackgroundTransparency = 1, 
-        LayoutOrder = v148.props.layoutOrder, 
-        ref = v148.gameTileRef
+        LayoutOrder = v152.props.layoutOrder, 
+        ref = v152.gameTileRef
     }, {
-        Tile = v34.createElement(v11, {
-            SelectionOrder = v148.props.SelectionOrder, 
+        Tile = v34.createElement(v10, {
+            SelectionOrder = v152.props.SelectionOrder, 
             Selectable = not l_isHidden_0, 
-            hoverPadding = if not not l_FFlagLuaAppMigrateGameTileHoverFixes_0 or v148.props.useGridTile then nil else v150.Tokens.Global.Space_100, 
-            numLinesForTitle = v148.props.contentTextLineCount, 
-            numLinesForMetadata = v148.props.metadataTextLineCount, 
-            imageAspectRatio = v156, 
-            isContained = v148.props.isContained, 
-            containmentSidePadding = v19.getContainmentSidePadding(v150.Tokens, v148.props.gameTileLayoutType, v148.props.foundationTokens), 
+            hoverPadding = if not not l_FFlagLuaAppMigrateGameTileHoverFixes_0 or v152.props.useGridTile then nil else v154.Tokens.Global.Space_100, 
+            numLinesForTitle = v152.props.contentTextLineCount, 
+            numLinesForMetadata = v152.props.metadataTextLineCount, 
+            imageAspectRatio = v160, 
+            isContained = v152.props.isContained, 
+            containmentSidePadding = v18.getContainmentSidePadding(v154.Tokens, v152.props.gameTileLayoutType, v152.props.foundationTokens), 
             Size = UDim2.fromScale(1, 1), 
             image = l_imageThumbnail_0, 
-            thumbnailComponent = v161, 
-            title = if l_isHidden_0 then nil else v158, 
-            isDisabled = l_isHidden_0 and true or v148.props.isDisabled, 
-            onActivated = if not l_FFlagLuaAppGameDetailsAttributionFix_0 or l_isHidden_0 then v148.onActivated else function() --[[ Line: 896 ]]
-                -- upvalues: l_onGameTileActivated_0 (copy), v148 (copy)
-                l_onGameTileActivated_0(v148.isMounted);
+            onTileImageLoaded = if l_FFlagLuaAppHomeFirstTileThumbnailLoadedMilestone_0 then v152.props.onTileImageLoaded else nil, 
+            thumbnailComponent = v165, 
+            title = if l_isHidden_0 then nil else v162, 
+            isDisabled = l_isHidden_0 and true or v152.props.isDisabled, 
+            onActivated = if not l_FFlagLuaAppGameDetailsAttributionFix_0 or l_isHidden_0 then v152.onActivated else function() --[[ Line: 918 ]]
+                -- upvalues: l_onGameTileActivated_0 (copy), v152 (copy)
+                l_onGameTileActivated_0(v152.isMounted);
             end, 
-            onGuiStateChanged = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v148.props.onGuiStateChanged else nil, 
-            onSelectionGained = v148.onSelectionGained, 
-            onSelectionLost = v148.onSelectionLost, 
-            onTouchLongPress = if not l_isHidden_0 then v148.onTouchLongPress else nil, 
-            reducedMotion = v149, 
-            isHovered = not l_isHidden_0 and v148.props.isHovered, 
-            forwardRef = v148.props.hoverRef, 
-            hidePlayButton = l_isHidden_0 and true or v148.props.hidePlayButton, 
-            hoverActionRow = if not not v148.props.hidePlayButton or l_isHidden_0 then nil else v34.createElement(v12, {
-                universeId = v148.props.navigationUniverseId, 
-                referralSource = v148.props.referralSource, 
+            onGuiStateChanged = if l_FFlagLuaAppGameTileInteractionFeedback_0 then v152.props.onGuiStateChanged else nil, 
+            onSelectionGained = v152.onSelectionGained, 
+            onSelectionLost = v152.onSelectionLost, 
+            onTouchLongPress = if not l_isHidden_0 then v152.onTouchLongPress else nil, 
+            reducedMotion = v153, 
+            isHovered = not l_isHidden_0 and v152.props.isHovered, 
+            forwardRef = v152.props.hoverRef, 
+            hidePlayButton = l_isHidden_0 and true or v152.props.hidePlayButton, 
+            hoverActionRow = if not not v152.props.hidePlayButton or l_isHidden_0 then nil else v34.createElement(v11, {
+                universeId = v152.props.navigationUniverseId, 
+                referralSource = v152.props.referralSource, 
                 launchSource = "ExperienceTile", 
-                reportExperienceLaunched = v148.reportExperienceLaunchedFromActionBar, 
-                openGameDetails = l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 915 ]]
-                    -- upvalues: l_onGameTileActivated_0 (copy), v148 (copy)
-                    l_onGameTileActivated_0(v148.isMounted);
-                end or v148.onActivated, 
-                entry = v148.props.entry, 
-                launchExperienceEventContext = v148.props.launchExperienceEventContext, 
+                reportExperienceLaunched = v152.reportExperienceLaunchedFromActionBar, 
+                openGameDetails = l_FFlagLuaAppGameDetailsAttributionFix_0 and function() --[[ Line: 937 ]]
+                    -- upvalues: l_onGameTileActivated_0 (copy), v152 (copy)
+                    l_onGameTileActivated_0(v152.isMounted);
+                end or v152.onActivated, 
+                entry = v152.props.entry, 
+                launchExperienceEventContext = v152.props.launchExperienceEventContext, 
                 fetchDelayInSeconds = game:GetFastInt("LuaAppGameTileHoverDelayMs") / 1000, 
-                index = v148.props.index, 
+                index = v152.props.index, 
                 horizontalPadding = 0, 
                 verticalPadding = 0, 
                 height = l_playButtonHeight_0, 
-                showButtonText = v156 > 1, 
+                showButtonText = v160 > 1, 
                 isUnifiedGameTileEnabled = l_FFlagLuaAppUnifyPlayButtonTile_0 and true or nil, 
-                placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v148.props.entry.placeIdOverride else nil, 
-                launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v148.props.entry.launchDataOverride else nil
+                placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v152.props.entry.placeIdOverride else nil, 
+                launchDataOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v152.props.entry.launchDataOverride else nil
             }), 
-            thumbnailOverlay = if l_isHidden_0 then nil else if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v162 else if v148.props.tileBadges then v35.createFragment({
-                SocialFeaturePill = v159, 
-                Badge = v34.createElement(v8, {
-                    tileBadgesByPosition = v148.props.tileBadges
+            thumbnailOverlay = if l_isHidden_0 then nil else if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v166 else if v152.props.tileBadges then v35.createFragment({
+                SocialFeaturePill = v163, 
+                Badge = v34.createElement(v7, {
+                    tileBadgesByPosition = v152.props.tileBadges
                 })
-            }) else v159, 
-            overflowMenu = v164, 
-            footerMetadata = if l_isHidden_0 then nil else v157, 
+            }) else v163, 
+            overflowMenu = v168, 
+            footerMetadata = if l_isHidden_0 then nil else v161, 
             isUnifiedGameTile = true, 
-            textSizeOffset = v148.props.textSizeOffset, 
-            hideMetadata = v148.props.hideMetadata
+            textSizeOffset = v152.props.textSizeOffset, 
+            hideMetadata = v152.props.hideMetadata
         })
     });
 end;
-v95.render = function(v165) --[[ Line: 957 ]] --[[ Name: render ]]
+v99.render = function(v169) --[[ Line: 979 ]] --[[ Name: render ]]
     -- upvalues: l_DiscoveryAppLaunchTracker_0 (copy), l_withStyle_0 (copy)
     if l_DiscoveryAppLaunchTracker_0.isEnabled() and l_DiscoveryAppLaunchTracker_0.default then
         l_DiscoveryAppLaunchTracker_0.default:trackTileRender();
     end;
-    if v165.props.game == nil then
+    if v169.props.game == nil then
         return nil;
     else
-        return l_withStyle_0(function(v166) --[[ Line: 967 ]]
-            -- upvalues: v165 (copy)
-            local l_ReducedMotion_0 = v166.Settings.ReducedMotion;
-            return v165:renderContent(l_ReducedMotion_0, v166, v165.props.foundationTokens);
+        return l_withStyle_0(function(v170) --[[ Line: 989 ]]
+            -- upvalues: v169 (copy)
+            local l_ReducedMotion_0 = v170.Settings.ReducedMotion;
+            return v169:renderContent(l_ReducedMotion_0, v170, v169.props.foundationTokens);
         end);
     end;
 end;
-v95.didMount = function(v168) --[[ Line: 973 ]] --[[ Name: didMount ]]
+v99.didMount = function(v172) --[[ Line: 995 ]] --[[ Name: didMount ]]
     -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    v168.isMounted = true;
-    l_ImpressionsTagUtility_0.AddTag(v168.gameTileRef, v168.props.impressionsTag, v168.props.index);
-    if not v168.props.useGridTile and v168.props.friendFooterEnabled and v168.props.hasInGameFriends then
-        v168:setState({
+    v172.isMounted = true;
+    l_ImpressionsTagUtility_0.AddTag(v172.gameTileRef, v172.props.impressionsTag, v172.props.index);
+    if not v172.props.useGridTile and v172.props.friendFooterEnabled and v172.props.hasInGameFriends then
+        v172:setState({
             canDisplayFriendFooter = true
         });
     end;
-    if v168.props.useGridTile then
-        v168.loadWideThumbnail();
+    if v172.props.useGridTile then
+        v172.loadWideThumbnail();
     end;
 end;
-v95.willUnmount = function(v169) --[[ Line: 988 ]] --[[ Name: willUnmount ]]
+v99.willUnmount = function(v173) --[[ Line: 1010 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    v169.isMounted = false;
-    l_ImpressionsTagUtility_0.RemoveTag(v169.gameTileRef, v169.props.impressionsTag, v169.props.index);
+    v173.isMounted = false;
+    l_ImpressionsTagUtility_0.RemoveTag(v173.gameTileRef, v173.props.impressionsTag, v173.props.index);
 end;
-v95.didUpdate = function(v170, v171) --[[ Line: 993 ]] --[[ Name: didUpdate ]]
+v99.didUpdate = function(v174, v175) --[[ Line: 1015 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_ImpressionsTagUtility_0 (copy)
-    if v171.impressionsTag ~= v170.props.impressionsTag or v171.index ~= v170.props.index then
-        l_ImpressionsTagUtility_0.RemoveTag(v170.gameTileRef, v171.impressionsTag, v171.index);
-        l_ImpressionsTagUtility_0.AddTag(v170.gameTileRef, v170.props.impressionsTag, v170.props.index);
+    if v175.impressionsTag ~= v174.props.impressionsTag or v175.index ~= v174.props.index then
+        l_ImpressionsTagUtility_0.RemoveTag(v174.gameTileRef, v175.impressionsTag, v175.index);
+        l_ImpressionsTagUtility_0.AddTag(v174.gameTileRef, v174.props.impressionsTag, v174.props.index);
     end;
-    if v170.props.useGridTile and v171.universeId ~= v170.props.universeId then
-        v170.loadWideThumbnail();
+    if v174.props.useGridTile and v175.universeId ~= v174.props.universeId then
+        v174.loadWideThumbnail();
     end;
-    if not v170.props.useGridTile and (v171.friendFooterEnabled ~= v170.props.friendFooterEnabled or v171.hasInGameFriends ~= v170.props.hasInGameFriends) and v170.props.friendFooterEnabled and v170.props.hasInGameFriends then
-        v170:setState({
+    if not v174.props.useGridTile and (v175.friendFooterEnabled ~= v174.props.friendFooterEnabled or v175.hasInGameFriends ~= v174.props.hasInGameFriends) and v174.props.friendFooterEnabled and v174.props.hasInGameFriends then
+        v174:setState({
             canDisplayFriendFooter = true
         });
     end;
 end;
-local function _(v172, v173) --[[ Line: 1018 ]] --[[ Name: formatRating ]]
-    if v172 + v173 == 0 then
+local function _(v176, v177) --[[ Line: 1040 ]] --[[ Name: formatRating ]]
+    if v176 + v177 == 0 then
         return "--";
     else
-        return tostring((math.floor(v172 / (v172 + v173) * 100 + 0.5))) .. "%";
+        return tostring((math.floor(v176 / (v176 + v177) * 100 + 0.5))) .. "%";
     end;
 end;
-v95 = v36.connect(function(v175, v176) --[[ Line: 1026 ]]
-    -- upvalues: l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), l_GameInfosReducer_0 (copy), v13 (copy), v18 (copy), l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 (copy), v31 (copy), v29 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_GameIconReducer_0 (copy), v27 (copy), v72 (copy), v28 (copy)
-    local l_universeId_0 = v176.entry.universeId;
-    local v178 = nil;
+v99 = v36.connect(function(v179, v180) --[[ Line: 1048 ]]
+    -- upvalues: l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), l_GameInfosReducer_0 (copy), v12 (copy), v17 (copy), l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 (copy), v30 (copy), v28 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_GameIconReducer_0 (copy), v26 (copy), v74 (copy), v27 (copy)
+    local l_universeId_0 = v180.entry.universeId;
+    local v182 = nil;
     if not l_FFlagLuaAppGameDetailsAttributionFix_0 then
-        v178 = if v176.entry.navigationUniverseId and v176.entry.navigationUniverseId ~= "" and v176.entry.navigationUniverseId ~= "0" then v176.entry.navigationUniverseId else v176.entry.universeId;
+        v182 = if v180.entry.navigationUniverseId and v180.entry.navigationUniverseId ~= "" and v180.entry.navigationUniverseId ~= "0" then v180.entry.navigationUniverseId else v180.entry.universeId;
     end;
-    local v179 = v175.Personalization[l_GameInfosReducer_0.key][l_universeId_0];
-    local v180 = v179 and v179.totalUpVotes or 0;
-    local v181 = v179 and v179.totalDownVotes or 0;
-    local v182 = v179 and v179.friendActivityTitle or nil;
-    local v183 = nil;
-    local v184 = nil;
-    local v185 = v179 and v179.minimumAge or 0;
-    local v186 = v179 and v179.ageRecommendationDisplayName or "";
+    local v183 = v179.Personalization[l_GameInfosReducer_0.key][l_universeId_0];
+    local v184 = v183 and v183.totalUpVotes or 0;
+    local v185 = v183 and v183.totalDownVotes or 0;
+    local v186 = v183 and v183.friendActivityTitle or nil;
     local v187 = nil;
-    v187 = if v176.gameTileLayoutType == "Event" then v176.playButtonStyle ~= v13.PlayButtonStyleValues.Enabled else v176.gameTileLayoutType == "Wide" and v176.playButtonStyle == v13.PlayButtonStyleValues.Disabled;
-    if v187 or v176.forceHideAgeRatings then
-        v183 = false;
-    elseif v185 ~= 0 and v186 ~= "" then
-        v183 = true;
-        v184 = v186;
-    else
-        v183 = false;
-    end;
-    local v188 = v18(v179, v176.topicId);
-    local v189 = (if l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 then v31.getWideImageAssetId(v188) else v188 and v188.primaryMediaAsset and v188.primaryMediaAsset.wideImageAssetId) or v179 and v179.primaryWideAssetId or nil;
-    local v190 = v29(v189, v176.entry.placeId);
+    local v188 = nil;
+    local v189 = v183 and v183.minimumAge or 0;
+    local v190 = v183 and v183.ageRecommendationDisplayName or "";
     local v191 = nil;
-    if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
-        local v192 = v188 and v188.primaryMediaAsset and v188.primaryMediaAsset.wideVideoAssetId;
-        v191 = if v192 then ("rbxassetid://%*"):format(v192) else nil;
+    v191 = if v180.gameTileLayoutType == "Event" then v180.playButtonStyle ~= v12.PlayButtonStyleValues.Enabled else v180.gameTileLayoutType == "Wide" and v180.playButtonStyle == v12.PlayButtonStyleValues.Disabled;
+    if v191 or v180.forceHideAgeRatings then
+        v187 = false;
+    elseif v189 ~= 0 and v190 ~= "" then
+        v187 = true;
+        v188 = v190;
+    else
+        v187 = false;
     end;
-    local v193 = v175[l_GameIconReducer_0.key][l_universeId_0] and v175[l_GameIconReducer_0.key][l_universeId_0].url or nil;
-    local v194 = if v176.useGridTile then v190 else v27(v193, l_universeId_0);
-    local v195 = if not not v176.useHoverTile or v176.useExperienceTileMetadata then if v72 then v28(v180, v181, nil, true) else v180 + v181 == 0 and "--" or tostring((math.floor(v180 / (v180 + v181) * 100 + 0.5))) .. "%" else nil;
-    local v196 = v179 and v179.friendVisits or {};
-    local v197 = if v179 and v179.friendVisitedString ~= "" then v179.friendVisitedString else nil;
-    local v198 = v188 and v188.footer or nil;
-    local v199 = v188 and v188.title or v179 and v179.name or "";
+    local v192 = v17(v183, v180.topicId);
+    local v193 = (if l_FFlagLuaAppIgnoreEmptyStringWideThumbnail_0 then v30.getWideImageAssetId(v192) else v192 and v192.primaryMediaAsset and v192.primaryMediaAsset.wideImageAssetId) or v183 and v183.primaryWideAssetId or nil;
+    local v194 = v28(v193, v180.entry.placeId);
+    local v195 = nil;
+    if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
+        local v196 = v192 and v192.primaryMediaAsset and v192.primaryMediaAsset.wideVideoAssetId;
+        v195 = if v196 then ("rbxassetid://%*"):format(v196) else nil;
+    end;
+    local v197 = v179[l_GameIconReducer_0.key][l_universeId_0] and v179[l_GameIconReducer_0.key][l_universeId_0].url or nil;
+    local v198 = if v180.useGridTile then v194 else v26(v197, l_universeId_0);
+    local v199 = if not not v180.useHoverTile or v180.useExperienceTileMetadata then if v74 then v27(v184, v185, nil, true) else v184 + v185 == 0 and "--" or tostring((math.floor(v184 / (v184 + v185) * 100 + 0.5))) .. "%" else nil;
+    local v200 = v183 and v183.friendVisits or {};
+    local v201 = if v183 and v183.friendVisitedString ~= "" then v183.friendVisitedString else nil;
+    local v202 = v192 and v192.footer or nil;
+    local v203 = v192 and v192.title or v183 and v183.name or "";
     return {
-        game = v179, 
+        game = v183, 
         universeId = l_universeId_0, 
-        navigationUniverseId = if not l_FFlagLuaAppGameDetailsAttributionFix_0 then v178 else nil, 
-        name = v199, 
-        totalUpVotes = v180, 
-        totalDownVotes = v181, 
-        imageThumbnail = v194, 
-        wideThumbnail = v190, 
-        videoThumbnail = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v191 else nil, 
-        friendActivityTitle = v182, 
-        rating = v195, 
-        showAgeRating = v183, 
-        ageRatingText = v184, 
-        friendVisits = v196, 
-        friendVisitedString = v197, 
-        hidePlayButton = v187, 
-        footerLayoutData = v198
+        navigationUniverseId = if not l_FFlagLuaAppGameDetailsAttributionFix_0 then v182 else nil, 
+        name = v203, 
+        totalUpVotes = v184, 
+        totalDownVotes = v185, 
+        imageThumbnail = v198, 
+        wideThumbnail = v194, 
+        videoThumbnail = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v195 else nil, 
+        friendActivityTitle = v186, 
+        rating = v199, 
+        showAgeRating = v187, 
+        ageRatingText = v188, 
+        friendVisits = v200, 
+        friendVisitedString = v201, 
+        hidePlayButton = v191, 
+        footerLayoutData = v202
     };
-end, function(v200) --[[ Line: 1131 ]]
-    -- upvalues: v10 (copy), v14 (copy)
+end, function(v204) --[[ Line: 1153 ]]
+    -- upvalues: v9 (copy), v13 (copy)
     return {
-        openContextualMenu = function(v201, v202, v203) --[[ Line: 1133 ]] --[[ Name: openContextualMenu ]]
-            -- upvalues: v200 (copy), v10 (ref)
-            v200(v10(v201, v202, v203));
+        openContextualMenu = function(v205, v206, v207) --[[ Line: 1155 ]] --[[ Name: openContextualMenu ]]
+            -- upvalues: v204 (copy), v9 (ref)
+            v204(v9(v205, v206, v207));
         end, 
-        openSponsoredTooltip = function(v204) --[[ Line: 1136 ]] --[[ Name: openSponsoredTooltip ]]
-            -- upvalues: v200 (copy), v14 (ref)
-            return v200(v14(v204));
+        openSponsoredTooltip = function(v208) --[[ Line: 1158 ]] --[[ Name: openSponsoredTooltip ]]
+            -- upvalues: v204 (copy), v13 (ref)
+            return v204(v13(v208));
         end
     };
-end)(v95);
+end)(v99);
 if not l_FFlagLuaAppGameDetailsAttributionFix_0 then
-    v95 = l_RoactServices_0.connect({
+    v99 = l_RoactServices_0.connect({
         networking = l_RoactNetworking_0
-    })(v95);
+    })(v99);
 end;
-return function(v205) --[[ Line: 1148 ]]
-    -- upvalues: v34 (copy), l_useTokens_0 (copy), v16 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), v22 (copy), l_useSelector_0 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), v20 (copy), v21 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), v5 (copy), v17 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_VideoPlaybackCoordinator_0 (copy), v24 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), l_IntervalPerformanceTracker_0 (copy), l_useOverflowMenuOpen_0 (copy), l_useTriggerFeedback_0 (copy), v91 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), v95 (ref), v37 (copy), v26 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (copy), l_usePreferredInput_0 (copy), v25 (copy), v59 (copy), v92 (copy), v93 (copy), l_FFlagLuaAppTileVideoDeviceMemoryBlocking_0 (copy)
-    local v206 = v34.useRef(nil);
-    local v207 = l_useTokens_0();
-    local l_useHoverTile_0 = v205.useHoverTile;
-    local v209 = ("%*_%*_%*"):format(v205.impressionsTag or "", v205.index or "0", v205.gameTileLayoutType or "Narrow");
-    if v205.impressionsTag == nil or v205.index == nil then
+return function(v209) --[[ Line: 1170 ]]
+    -- upvalues: v34 (copy), l_useTokens_0 (copy), v15 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), l_FFlagLuaAppTwoByOneTileExperimentVariants_0 (copy), v21 (copy), l_useSelector_0 (copy), l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 (copy), v19 (copy), v20 (copy), l_FFlagLuaAppGameDetailsAttributionFix_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_sponsoredGamesRecordClick_0 (copy), v16 (copy), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (copy), l_VideoPlaybackCoordinator_0 (copy), v23 (copy), l_FFlagLuaAppGameTileInteractionFeedback_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (copy), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (copy), l_GameCollectionItemTypes_0 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), l_IntervalPerformanceTracker_0 (copy), l_useOverflowMenuOpen_0 (copy), l_useTriggerFeedback_0 (copy), v95 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (copy), v99 (ref), v37 (copy), v25 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (copy), l_usePreferredInput_0 (copy), v24 (copy), v61 (copy), v96 (copy), v97 (copy), l_FFlagLuaAppTileVideoDeviceMemoryBlocking_0 (copy)
+    local v210 = v34.useRef(nil);
+    local v211 = l_useTokens_0();
+    local l_useHoverTile_0 = v209.useHoverTile;
+    local v213 = ("%*_%*_%*"):format(v209.impressionsTag or "", v209.index or "0", v209.gameTileLayoutType or "Narrow");
+    if v209.impressionsTag == nil or v209.index == nil then
         l_useHoverTile_0 = false;
     end;
-    local v210 = v16(v206, v209, l_useHoverTile_0);
-    local v211 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    local v212 = v211 and true or v205.useHoverTile;
-    local v213 = nil;
-    v213 = if v205.useExperienceTileMetadata ~= nil then v205.useExperienceTileMetadata else v211;
-    local v214 = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v22(v205.entry.universeId, v205.topicId, v205.badgeOverride) else v22(v205.entry.universeId, v205.topicId);
-    local v216 = l_useSelector_0(function(v215) --[[ Line: 1173 ]]
-        return v215.LocalUserId;
-    end);
+    local v214 = v15(v210, v213, l_useHoverTile_0);
+    local v215 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    local v216 = v215 and true or v209.useHoverTile;
     local v217 = nil;
+    v217 = if v209.useExperienceTileMetadata ~= nil then v209.useExperienceTileMetadata else v215;
+    local v218 = if l_FFlagLuaAppTwoByOneTileExperimentVariants_0 then v21(v209.entry.universeId, v209.topicId, v209.badgeOverride) else v21(v209.entry.universeId, v209.topicId);
+    local v220 = l_useSelector_0(function(v219) --[[ Line: 1195 ]]
+        return v219.LocalUserId;
+    end);
+    local v221 = nil;
     if not l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then
-        v217 = l_useSelector_0(function(v218) --[[ Line: 1179 ]]
-            return v218.Users;
+        v221 = l_useSelector_0(function(v222) --[[ Line: 1201 ]]
+            return v222.Users;
         end);
     end;
-    local v220 = l_useSelector_0(function(v219) --[[ Line: 1184 ]]
-        -- upvalues: v205 (copy)
-        return v219.InGameUsersByGame[v205.entry.universeId];
+    local v224 = l_useSelector_0(function(v223) --[[ Line: 1206 ]]
+        -- upvalues: v209 (copy)
+        return v223.InGameUsersByGame[v209.entry.universeId];
     end);
-    local v221 = v20(v216, v217, v220);
-    local v222 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v21(v216, v220) else nil;
-    local v223, v224 = v34.useState(false);
-    local v225 = nil;
-    local v226 = nil;
-    local v227 = nil;
-    local v228 = nil;
+    local v225 = v19(v220, v221, v224);
+    local v226 = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v20(v220, v224) else nil;
+    local v227, v228 = v34.useState(false);
+    local v229 = nil;
+    local v230 = nil;
+    local v231 = nil;
+    local v232 = nil;
     if l_FFlagLuaAppGameDetailsAttributionFix_0 then
-        v225 = l_useRoactService_0(l_RoactNetworking_0);
-        v226 = if v205.entry.navigationUniverseId and v205.entry.navigationUniverseId ~= "" and v205.entry.navigationUniverseId ~= "0" then v205.entry.navigationUniverseId else v205.entry.universeId;
-        v228 = v34.useCallback(function() --[[ Line: 1209 ]]
-            -- upvalues: v205 (copy), v5 (ref), v225 (ref)
-            local l_entry_2 = v205.entry;
+        v229 = l_useRoactService_0(l_RoactNetworking_0);
+        v230 = if v209.entry.navigationUniverseId and v209.entry.navigationUniverseId ~= "" and v209.entry.navigationUniverseId ~= "0" then v209.entry.navigationUniverseId else v209.entry.universeId;
+        v232 = v34.useCallback(function() --[[ Line: 1231 ]]
+            -- upvalues: v209 (copy), l_sponsoredGamesRecordClick_0 (ref), v229 (ref)
+            local l_entry_2 = v209.entry;
             if l_entry_2.isSponsored then
-                v5(v225, l_entry_2.adId);
+                l_sponsoredGamesRecordClick_0(v229, l_entry_2.adId);
             end;
         end, {
-            v225, 
-            v205.entry.isSponsored, 
-            v205.entry.adId
+            v229, 
+            v209.entry.isSponsored, 
+            v209.entry.adId
         });
-        v227 = v34.useCallback(function(v230) --[[ Line: 1218 ]]
-            -- upvalues: v205 (copy), v17 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v24 (ref), v226 (ref), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), l_IntervalPerformanceTracker_0 (ref), v228 (ref)
-            if v205.isHovered then
-                v17.default:reset();
+        v231 = v34.useCallback(function(v234) --[[ Line: 1240 ]]
+            -- upvalues: v209 (copy), v16 (ref), l_FFlagLuaAppGameTileWideVideoThumbnail_0 (ref), l_VideoPlaybackCoordinator_0 (ref), v23 (ref), v230 (ref), l_FFlagLuaAppGameTileInteractionFeedback_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), l_FFlagLuaAppTwoByOneTileTelemetryFix_0 (ref), l_FFlagLuaAppCustomSpawnNonNilCheck_0 (ref), l_GameCollectionItemTypes_0 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), l_IntervalPerformanceTracker_0 (ref), v232 (ref)
+            if v209.isHovered then
+                v16.default:reset();
             end;
             if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
-                l_VideoPlaybackCoordinator_0.default:reset(v24.TileClicked, nil, v226, nil);
+                l_VideoPlaybackCoordinator_0.default:reset(v23.TileClicked, nil, v230, nil);
             end;
-            if v230 then
-                if l_FFlagLuaAppGameTileInteractionFeedback_0 and v205.onActivated then
-                    v205.onActivated();
+            if v234 then
+                if l_FFlagLuaAppGameTileInteractionFeedback_0 and v209.onActivated then
+                    v209.onActivated();
                 end;
-                local v231 = {
-                    source = v205.source, 
-                    index = v205.index, 
-                    referralSource = v205.referralSource, 
-                    onPeekViewClosed = v205.onPeekViewClosed, 
-                    placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v205.entry.placeIdOverride else nil, 
-                    experienceJoinData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v205.entry.launchDataOverride) then {
-                        launchData = v205.entry.launchDataOverride
+                local v235 = {
+                    source = v209.source, 
+                    index = v209.index, 
+                    referralSource = v209.referralSource, 
+                    onPeekViewClosed = v209.onPeekViewClosed, 
+                    placeIdOverride = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v209.entry.placeIdOverride else nil, 
+                    experienceJoinData = if l_FFlagLuaAppTwoByOneTileTelemetryFix_0 then {
+                        launchData = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v209.entry.launchDataOverride) then v209.entry.launchDataOverride else nil, 
+                        tileType = v209.entry.tileType or l_GameCollectionItemTypes_0.GameCollectionItemType.GameTile, 
+                        nativeAdData = v209.entry.adId
+                    } else if l_FFlagLuaAppEnableCustomSpawnSponsored_0 and (not l_FFlagLuaAppCustomSpawnNonNilCheck_0 or v209.entry.launchDataOverride) then {
+                        launchData = v209.entry.launchDataOverride
                     } else nil
                 };
                 if l_GetFFlagEnableNavigationPerformanceIntervals_0() then
                     l_IntervalPerformanceTracker_0:startTracking("AppGameTile_to_GameDetail", 2);
                 end;
-                v205.navigateToGameDetails(v226, v231);
-                v205.reportGameDetailOpened(v205.index, v226);
-                v228();
+                v209.navigateToGameDetails(v230, v235);
+                v209.reportGameDetailOpened(v209.index, v230);
+                v232();
             end;
         end, {
-            v205.isHovered, 
-            v205.index, 
-            v205.videoAnalytics, 
-            v205.onActivated, 
-            v205.source, 
-            v205.referralSource, 
-            v205.onPeekViewClosed, 
-            v205.navigateToGameDetails, 
-            v205.reportGameDetailOpened, 
-            v226, 
-            v228, 
-            if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v205.entry.placeIdOverride else nil, 
-            if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v205.entry.launchDataOverride else nil
+            v209.isHovered, 
+            v209.index, 
+            v209.videoAnalytics, 
+            v209.onActivated, 
+            v209.source, 
+            v209.referralSource, 
+            v209.onPeekViewClosed, 
+            v209.navigateToGameDetails, 
+            v209.reportGameDetailOpened, 
+            v230, 
+            v232, 
+            if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v209.entry.placeIdOverride else nil, 
+            if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v209.entry.launchDataOverride else nil
         });
     end;
-    local v232 = l_useOverflowMenuOpen_0(v209);
-    local v233 = l_useTriggerFeedback_0();
-    local v234 = v34.useMemo(function() --[[ Line: 1280 ]]
-        -- upvalues: v91 (ref), v205 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (ref)
-        return v91({
-            isSponsored = v205.entry.isSponsored, 
-            enableExplicitFeedback = v205.enableExplicitFeedback, 
-            enableSponsoredFeedback = v205.enableSponsoredFeedback, 
-            enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v205.enableReportAd else nil
+    local v236 = l_useOverflowMenuOpen_0(v213);
+    local v237 = l_useTriggerFeedback_0();
+    local v238 = v34.useMemo(function() --[[ Line: 1313 ]]
+        -- upvalues: v95 (ref), v209 (copy), l_FFlagLuaAppEnableSponsoredReportAd_0 (ref)
+        return v95({
+            isSponsored = v209.entry.isSponsored, 
+            enableExplicitFeedback = v209.enableExplicitFeedback, 
+            enableSponsoredFeedback = v209.enableSponsoredFeedback, 
+            enableReportAd = if l_FFlagLuaAppEnableSponsoredReportAd_0 then v209.enableReportAd else nil
         });
     end, {
-        v205.entry.isSponsored, 
-        v205.enableExplicitFeedback, 
-        v205.enableSponsoredFeedback, 
-        if l_FFlagLuaAppEnableSponsoredReportAd_0 then v205.enableReportAd else nil
+        v209.entry.isSponsored, 
+        v209.enableExplicitFeedback, 
+        v209.enableSponsoredFeedback, 
+        if l_FFlagLuaAppEnableSponsoredReportAd_0 then v209.enableReportAd else nil
     });
-    local v235 = v34.createElement(v95, v37.Dictionary.join(v205, {
-        useExperienceTileMetadata = v213, 
-        hasBackground = v212, 
-        hoverRef = v206, 
+    local v239 = v34.createElement(v99, v37.Dictionary.join(v209, {
+        useExperienceTileMetadata = v217, 
+        hasBackground = v216, 
+        hoverRef = v210, 
         isHoverSupported = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then l_useHoverTile_0 else nil, 
-        isHovered = v210, 
-        isVideoPlaying = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v223 else nil, 
-        tileBadges = v214, 
-        foundationTokens = v207, 
-        users = v217, 
-        inGameUsersByGame = v220, 
-        hasInGameFriends = v221, 
-        inGameUserIds = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v222 else nil, 
-        networking = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v225 else nil, 
-        navigationUniverseId = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v226 else nil, 
-        onGameTileActivated = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v227 else nil, 
-        recordSponsoredGameClick = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v228 else nil, 
-        overflowMenuOpen = v232, 
-        hoverKey = v209, 
-        triggerFeedback = v233, 
-        availableMenuItems = v234
+        isHovered = v214, 
+        isVideoPlaying = if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then v227 else nil, 
+        tileBadges = v218, 
+        foundationTokens = v211, 
+        users = v221, 
+        inGameUsersByGame = v224, 
+        hasInGameFriends = v225, 
+        inGameUserIds = if l_FFlagLuaAppMigrateGameTileActiveFriendsHydrationFix_0 then v226 else nil, 
+        networking = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v229 else nil, 
+        navigationUniverseId = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v230 else nil, 
+        onGameTileActivated = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v231 else nil, 
+        recordSponsoredGameClick = if l_FFlagLuaAppGameDetailsAttributionFix_0 then v232 else nil, 
+        overflowMenuOpen = v236, 
+        hoverKey = v213, 
+        triggerFeedback = v237, 
+        availableMenuItems = v238
     }));
     if l_FFlagLuaAppGameTileWideVideoThumbnail_0 then
-        local v236 = v26(v205.entry.universeId, v205.topicId);
-        local v237 = if l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 then l_usePreferredInput_0() else nil;
-        if v236 then
+        local v240 = v25(v209.entry.universeId, v209.topicId);
+        local v241 = if l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 then l_usePreferredInput_0() else nil;
+        if v240 then
             return v34.createElement(v34.Fragment, {}, {
-                GameTile = v235, 
-                VideoPlaybackDetector = v34.createElement(v25, {
-                    videoKey = v209, 
-                    itemIndex = v205.index, 
-                    universeId = v205.entry.universeId, 
-                    tileRef = v206, 
+                GameTile = v239, 
+                VideoPlaybackDetector = v34.createElement(v24, {
+                    videoKey = v213, 
+                    itemIndex = v209.index, 
+                    universeId = v209.entry.universeId, 
+                    tileRef = v210, 
                     isHoverSupported = l_useHoverTile_0, 
-                    isHovered = v210, 
-                    autoplay = if l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 then v237 == v59.Input.Touch else nil, 
-                    onPlaybackChange = v224, 
-                    videoAnalytics = v205.videoAnalytics, 
-                    videoDwellTimeInSec = v92, 
-                    videoVisiblePercent = v93, 
-                    pageContext = if l_FFlagLuaAppTileVideoDeviceMemoryBlocking_0 then v205.appPage else nil
+                    isHovered = v214, 
+                    autoplay = if l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 then v241 == v61.Input.Touch else nil, 
+                    onPlaybackChange = v228, 
+                    videoAnalytics = v209.videoAnalytics, 
+                    videoDwellTimeInSec = v96, 
+                    videoVisiblePercent = v97, 
+                    pageContext = if l_FFlagLuaAppTileVideoDeviceMemoryBlocking_0 then v209.appPage else nil
                 })
             });
         end;
     end;
-    return v235;
+    return v239;
 end;

@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AppChatSuppressGroupOSAContextCard", false);
+return game:DefineFastFlag("AppChatSuppressGroupOSAContextCard1", false);

@@ -25,17 +25,21 @@ local v23 = require(l_Parent_0.DiscoveryTypes);
 local l_GameTileConstants_0 = v10.GameTileConstants;
 local v25 = require(l_Parent_0.Responsive);
 local l_useBreakpointXOrSmaller_0 = v25.useBreakpointXOrSmaller;
+local l_useCollectionLayout_0 = require(l_Parent_0.CollectionViews).useCollectionLayout;
+local v28 = require(l_Parent_0.SharedFlags);
+local l_FFlagLuaAppCompositionSupport_0 = v28.FFlagLuaAppCompositionSupport;
+local l_FFlagLuaAppCompositionAlways_0 = v28.FFlagLuaAppCompositionAlways;
 local l_Modules_0 = l_script_FirstAncestor_0.Modules;
-local v28 = require(l_Modules_0.LuaApp.Components.Games.AppFeaturedGameTileTwoByTwo);
-local v29 = require(l_Modules_0.LuaApp.Components.Generic.GridView);
-local v30 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppUpdateGameSortGridRowHeight10ft);
-local v31 = game:DefineFastFlag("LuaAppFixConsoleSeeAllGridContainment", false);
-local v32 = v8.PureComponent:extend("GameGrid");
+local v32 = require(l_Modules_0.LuaApp.Components.Games.AppFeaturedGameTileTwoByTwo);
+local v33 = require(l_Modules_0.LuaApp.Components.Generic.GridView);
+local v34 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppUpdateGameSortGridRowHeight10ft);
+local v35 = game:DefineFastFlag("LuaAppFixConsoleSeeAllGridContainment", false);
+local v36 = v8.PureComponent:extend("GameGrid");
 local l_GAME_GRID_CHILD_PADDING_0 = v23.Constants.GAME_GRID_CHILD_PADDING;
 local l_GAME_GRID_TILE_FOOTER_HEIGHT_0 = v23.Constants.GAME_GRID_TILE_FOOTER_HEIGHT;
-local v35 = l_Symbol_0.named("TilePlaceHolder");
+local v39 = l_Symbol_0.named("TilePlaceHolder");
 local l_Square_0 = l_AspectRatioModeEnum_0.Square;
-v32.defaultProps = {
+v36.defaultProps = {
     friendFooterEnabled = false, 
     useGridTiles = false, 
     getItemMetrics = l_GridMetrics_0.getSmallMetrics, 
@@ -46,220 +50,234 @@ v32.defaultProps = {
     showFriendActivity = false, 
     gameTileLayoutType = l_GameTileTypes_0.GameTileLayoutType.Narrow
 };
-v32.init = function(v37) --[[ Line: 63 ]] --[[ Name: init ]]
+v36.init = function(v41) --[[ Line: 69 ]] --[[ Name: init ]]
     -- upvalues: l_GameTileConstants_0 (copy)
-    v37.navigateToGameDetails = function(v38, v39) --[[ Line: 64 ]]
-        -- upvalues: v37 (copy)
-        v37.props.openGameDetails(v38, v39, v37.props.navigation);
+    v41.navigateToGameDetails = function(v42, v43) --[[ Line: 70 ]]
+        -- upvalues: v41 (copy)
+        v41.props.openGameDetails(v42, v43, v41.props.navigation);
     end;
-    v37.state = {
-        numLinesForTitle = l_GameTileConstants_0.TileTextLines[v37.props.gameTileLayoutType].titleTextLines, 
-        numLinesForMetadata = if v37.props.metadataCompact then l_GameTileConstants_0.TileTextLines[v37.props.gameTileLayoutType].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v37.props.gameTileLayoutType].metadataTextLines
+    v41.state = {
+        numLinesForTitle = l_GameTileConstants_0.TileTextLines[v41.props.gameTileLayoutType].titleTextLines, 
+        numLinesForMetadata = if v41.props.metadataCompact then l_GameTileConstants_0.TileTextLines[v41.props.gameTileLayoutType].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v41.props.gameTileLayoutType].metadataTextLines
     };
 end;
-v32.didUpdate = function(v40, v41, _) --[[ Line: 75 ]] --[[ Name: didUpdate ]]
+v36.didUpdate = function(v44, v45, _) --[[ Line: 81 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_GameTileConstants_0 (copy)
-    if v41.metadataCompact ~= v40.props.metadataCompact then
-        v40:setState({
-            numLinesForMetadata = if v40.props.metadataCompact then l_GameTileConstants_0.TileTextLines[v40.props.gameTileLayoutType].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v40.props.gameTileLayoutType].metadataTextLines
+    if v45.metadataCompact ~= v44.props.metadataCompact then
+        v44:setState({
+            numLinesForMetadata = if v44.props.metadataCompact then l_GameTileConstants_0.TileTextLines[v44.props.gameTileLayoutType].largeMetadataTextLines else l_GameTileConstants_0.TileTextLines[v44.props.gameTileLayoutType].metadataTextLines
         });
     end;
 end;
-v32.renderItem = function(v43, v44, v45, v46, v47) --[[ Line: 85 ]] --[[ Name: renderItem ]]
-    -- upvalues: v8 (copy), v28 (copy), v35 (copy), v31 (copy), l_UiMode_0 (copy), l_AppGameTile_0 (copy)
-    local l_reportGameDetailOpened_0 = v43.props.reportGameDetailOpened;
-    local l_reportExperienceLaunched_0 = v43.props.reportExperienceLaunched;
-    local l_source_0 = v43.props.source;
-    local l_hideGameStats_0 = v43.props.hideGameStats;
-    if type(v44) == "table" and v44.featured then
-        return v8.createElement(v28, {
-            layoutOrder = v46, 
-            entry = v44, 
-            size = v45, 
-            index = v44.realGameEntryIndex or v46, 
+v36.renderItem = function(v47, v48, v49, v50, v51) --[[ Line: 91 ]] --[[ Name: renderItem ]]
+    -- upvalues: v8 (copy), v32 (copy), v39 (copy), v35 (copy), l_UiMode_0 (copy), l_AppGameTile_0 (copy)
+    local l_reportGameDetailOpened_0 = v47.props.reportGameDetailOpened;
+    local l_reportExperienceLaunched_0 = v47.props.reportExperienceLaunched;
+    local l_source_0 = v47.props.source;
+    local l_hideGameStats_0 = v47.props.hideGameStats;
+    if type(v48) == "table" and v48.featured then
+        return v8.createElement(v32, {
+            layoutOrder = v50, 
+            entry = v48, 
+            size = v49, 
+            index = v48.realGameEntryIndex or v50, 
             source = l_source_0, 
             reportGameDetailOpened = l_reportGameDetailOpened_0, 
             reportExperienceLaunched = l_reportExperienceLaunched_0, 
-            impressionsTag = v43.props.impressionsTag, 
-            launchExperienceEventContext = v43.props.launchExperienceEventContext
+            impressionsTag = v47.props.impressionsTag, 
+            launchExperienceEventContext = v47.props.launchExperienceEventContext
         });
-    elseif type(v44) == "userdata" and v44 == v35 then
+    elseif type(v48) == "userdata" and v48 == v39 then
         return v8.createElement("Frame", {
-            LayoutOrder = v46, 
-            Size = UDim2.new(0, v45.X, 0, v45.Y), 
+            LayoutOrder = v50, 
+            Size = UDim2.new(0, v49.X, 0, v49.Y), 
             BackgroundTransparency = 1
         });
     else
-        local v52 = v31 and v43.props.uiModeInfo and v43.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+        local v56 = v35 and v47.props.uiModeInfo and v47.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
         return v8.createElement(l_AppGameTile_0, {
-            layoutOrder = v46, 
-            entry = v44, 
-            Size = UDim2.new(0, v45.X, 0, v45.Y), 
-            index = v44.realGameEntryIndex or v46, 
+            layoutOrder = v50, 
+            entry = v48, 
+            Size = UDim2.new(0, v49.X, 0, v49.Y), 
+            index = v48.realGameEntryIndex or v50, 
             source = l_source_0, 
             reportGameDetailOpened = l_reportGameDetailOpened_0, 
             reportExperienceLaunched = l_reportExperienceLaunched_0, 
             hideGameStats = l_hideGameStats_0, 
-            referralSource = v43.props.referralSource, 
-            rowNum = v47, 
-            showFriendActivity = v43.props.showFriendActivity, 
-            impressionsTag = v43.props.impressionsTag, 
-            friendFooterEnabled = if v43.props.useGridTiles then v43.props.friendFooterEnabled else nil, 
-            useGridTile = v43.props.useGridTiles, 
-            launchExperienceEventContext = v43.props.launchExperienceEventContext, 
-            playerCountStyle = v43.props.playerCountStyle, 
-            isSponsoredFooterAllowed = v43.props.isSponsoredFooterAllowed, 
-            topicId = v43.props.topicId, 
-            gameTileLayoutType = v43.props.gameTileLayoutType, 
-            navigateToGameDetails = v43.navigateToGameDetails, 
-            playButtonStyle = v43.props.playButtonStyle, 
-            isContained = v52 and true or nil, 
-            textSizeOffset = v43.props.textSizeOffset, 
-            contentTextLineCount = v43.state.numLinesForTitle, 
-            metadataTextLineCount = v43.state.numLinesForMetadata, 
-            isNarrowScreenXSmall = v43.props.isNarrowScreenXSmall
+            referralSource = v47.props.referralSource, 
+            rowNum = v51, 
+            showFriendActivity = v47.props.showFriendActivity, 
+            impressionsTag = v47.props.impressionsTag, 
+            friendFooterEnabled = if v47.props.useGridTiles then v47.props.friendFooterEnabled else nil, 
+            useGridTile = v47.props.useGridTiles, 
+            launchExperienceEventContext = v47.props.launchExperienceEventContext, 
+            playerCountStyle = v47.props.playerCountStyle, 
+            isSponsoredFooterAllowed = v47.props.isSponsoredFooterAllowed, 
+            topicId = v47.props.topicId, 
+            gameTileLayoutType = v47.props.gameTileLayoutType, 
+            navigateToGameDetails = v47.navigateToGameDetails, 
+            playButtonStyle = v47.props.playButtonStyle, 
+            isContained = v56 and true or nil, 
+            textSizeOffset = v47.props.textSizeOffset, 
+            contentTextLineCount = v47.state.numLinesForTitle, 
+            metadataTextLineCount = v47.state.numLinesForMetadata, 
+            isNarrowScreenXSmall = v47.props.isNarrowScreenXSmall
         });
     end;
 end;
-v32.render = function(v53) --[[ Line: 145 ]] --[[ Name: render ]]
-    -- upvalues: l_GridMetrics_0 (copy), l_UiMode_0 (copy), l_FormFactor_0 (copy), l_GameTileViewConfig_0 (copy), l_GAME_GRID_TILE_FOOTER_HEIGHT_0 (copy), l_GAME_GRID_CHILD_PADDING_0 (copy), v30 (copy), l_getExperienceTileRelativeHeight_0 (copy), l_Square_0 (copy), v35 (copy), v9 (copy), v8 (copy), v29 (copy)
-    local l_entries_0 = v53.props.entries;
-    local l_LayoutOrder_0 = v53.props.LayoutOrder;
-    local l_numberOfRowsToShow_0 = v53.props.numberOfRowsToShow;
-    local l_windowSize_0 = v53.props.windowSize;
-    local l_screenSize_0 = v53.props.screenSize;
-    local l_horizontalAlignment_0 = v53.props.horizontalAlignment;
-    local l_searchResultGrid_0 = v53.props.searchResultGrid;
-    local v61 = nil;
-    local v62 = l_searchResultGrid_0 and l_GridMetrics_0.getMediumMetrics or v53.props.getItemMetrics;
-    local v63 = nil;
-    local v64 = nil;
+v36.render = function(v57) --[[ Line: 151 ]] --[[ Name: render ]]
+    -- upvalues: l_GridMetrics_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_UiMode_0 (copy), l_FormFactor_0 (copy), l_GameTileViewConfig_0 (copy), l_GAME_GRID_TILE_FOOTER_HEIGHT_0 (copy), l_GAME_GRID_CHILD_PADDING_0 (copy), v34 (copy), l_getExperienceTileRelativeHeight_0 (copy), l_Square_0 (copy), v39 (copy), v9 (copy), v8 (copy), v33 (copy)
+    local l_entries_0 = v57.props.entries;
+    local l_LayoutOrder_0 = v57.props.LayoutOrder;
+    local l_numberOfRowsToShow_0 = v57.props.numberOfRowsToShow;
+    local l_windowSize_0 = v57.props.windowSize;
+    local l_screenSize_0 = v57.props.screenSize;
+    local l_horizontalAlignment_0 = v57.props.horizontalAlignment;
+    local l_searchResultGrid_0 = v57.props.searchResultGrid;
     local v65 = nil;
-    if v53.props.useGridTiles then
-        local v66 = nil;
-        local v67 = nil;
-        local v68 = nil;
-        if v53.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            v68 = 5;
-            v66 = v53.props.designTokens.Global.Space_300;
-            v67 = 51;
-        elseif v53.props.formFactor == l_FormFactor_0.WIDE then
-            v68 = 4;
-            v66 = 8;
-            v67 = 28;
+    local v66 = l_searchResultGrid_0 and l_GridMetrics_0.getMediumMetrics or v57.props.getItemMetrics;
+    local v67 = nil;
+    local v68 = nil;
+    local v69 = nil;
+    if v57.props.useGridTiles then
+        local v70 = nil;
+        local v71 = nil;
+        local v72 = nil;
+        if l_FFlagLuaAppCompositionSupport_0 and v57.props.appCompositionActive then
+            local l_collectionLayout_0 = v57.props.collectionLayout;
+            v72 = l_collectionLayout_0.itemsPerRow;
+            v70 = l_collectionLayout_0.gutter;
+            v71 = l_collectionLayout_0.verticalGap;
+        elseif v57.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+            v72 = 5;
+            v70 = v57.props.designTokens.Global.Space_300;
+            v71 = 51;
+        elseif v57.props.formFactor == l_FormFactor_0.WIDE then
+            v72 = 4;
+            v70 = 8;
+            v71 = 28;
         else
-            v68 = 2;
-            v66 = 8;
-            v67 = 28;
+            v72 = 2;
+            v70 = 8;
+            v71 = 28;
         end;
-        v63 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_0.X, v66, v68).itemWidth;
-        v64 = l_GameTileViewConfig_0.getTileHeight(v53.props.designTokens, v63, v53.props.gameTileLayoutType, false, false, false, v53.props.textSizeOffset, nil, v53.state.numLinesForTitle, v53.state.numLinesForMetadata);
-        v65 = Vector2.new(v66, v67);
+        v67 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_0.X, v70, v72).itemWidth;
+        v68 = l_GameTileViewConfig_0.getTileHeight(v57.props.designTokens, v67, v57.props.gameTileLayoutType, false, false, false, v57.props.textSizeOffset, nil, v57.state.numLinesForTitle, v57.state.numLinesForMetadata);
+        v69 = Vector2.new(v70, v71);
     else
         local l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_GAME_GRID_TILE_FOOTER_HEIGHT_0;
-        v65 = Vector2.new(l_GAME_GRID_CHILD_PADDING_0, l_GAME_GRID_CHILD_PADDING_0 * 2);
-        if v53.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            v65 = Vector2.new(v53.props.cellSpacingHorizontal, v53.props.cellSpacingVertical);
-            v63 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_0.X, v65.X, 8).itemWidth;
+        v69 = Vector2.new(l_GAME_GRID_CHILD_PADDING_0, l_GAME_GRID_CHILD_PADDING_0 * 2);
+        if l_FFlagLuaAppCompositionSupport_0 and v57.props.appCompositionActive then
+            local l_collectionLayout_1 = v57.props.collectionLayout;
+            v69 = Vector2.new(l_collectionLayout_1.gutter, l_collectionLayout_1.verticalGap);
+            v67 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_0.X, l_collectionLayout_1.gutter, l_collectionLayout_1.itemsPerRow).itemWidth;
+            l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_GameTileViewConfig_0.getFooterHeight(v57.props.designTokens, false, false, false, v57.props.textSizeOffset, 0, v57.state.numLinesForTitle, v57.props.foundationTokens, true, v57.state.numLinesForMetadata);
+        elseif v57.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+            v69 = Vector2.new(v57.props.cellSpacingHorizontal, v57.props.cellSpacingVertical);
+            v67 = l_GridMetrics_0.getMetricsForFixedColumns(l_windowSize_0.X, v69.X, 8).itemWidth;
         else
-            v63 = v62(l_windowSize_0.X, l_GAME_GRID_CHILD_PADDING_0).itemWidth;
-            l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_GameTileViewConfig_0.getFooterHeight(v53.props.designTokens, false, false, false, v53.props.textSizeOffset, 0, v53.state.numLinesForTitle, v53.props.foundationTokens, true, v53.state.numLinesForMetadata);
+            v67 = v66(l_windowSize_0.X, l_GAME_GRID_CHILD_PADDING_0).itemWidth;
+            l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_GameTileViewConfig_0.getFooterHeight(v57.props.designTokens, false, false, false, v57.props.textSizeOffset, 0, v57.state.numLinesForTitle, v57.props.foundationTokens, true, v57.state.numLinesForMetadata);
         end;
-        if v30() then
-            l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_getExperienceTileRelativeHeight_0(v53.props.style, l_Square_0, 2).Offset;
+        if v34() then
+            l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0 = l_getExperienceTileRelativeHeight_0(v57.props.style, l_Square_0, 2).Offset;
         end;
-        v64 = math.floor(v63 + l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0);
+        v68 = math.floor(v67 + l_l_GAME_GRID_TILE_FOOTER_HEIGHT_0_0);
     end;
-    local v70 = Vector2.new(v63, v64);
-    if l_searchResultGrid_0 and #l_entries_0 > 0 and v53.props.gameEmphasis then
-        v61 = {};
-        table.insert(v61, v35);
-        table.insert(v61, v35);
-        local v71 = math.floor((l_windowSize_0.X + v65.X) / (v70.X + v65.X)) - 2;
-        local v72 = 2;
-        while v72 < v71 + 2 do
-            if v72 <= #l_entries_0 then
-                table.insert(v61, v9.Dictionary.join(l_entries_0[v72], {
-                    realGameEntryIndex = v72
+    local v76 = Vector2.new(v67, v68);
+    if l_searchResultGrid_0 and #l_entries_0 > 0 and v57.props.gameEmphasis then
+        v65 = {};
+        table.insert(v65, v39);
+        table.insert(v65, v39);
+        local v77 = math.floor((l_windowSize_0.X + v69.X) / (v76.X + v69.X)) - 2;
+        local v78 = 2;
+        while v78 < v77 + 2 do
+            if v78 <= #l_entries_0 then
+                table.insert(v65, v9.Dictionary.join(l_entries_0[v78], {
+                    realGameEntryIndex = v78
                 }));
             else
-                table.insert(v61, v35);
+                table.insert(v65, v39);
             end;
-            v72 = v72 + 1;
+            v78 = v78 + 1;
         end;
-        table.insert(v61, v9.Dictionary.join(l_entries_0[1], {
+        table.insert(v65, v9.Dictionary.join(l_entries_0[1], {
             featured = true, 
             realGameEntryIndex = 1
         }));
-        table.insert(v61, v35);
-        for v73 = v72, #l_entries_0 do
-            table.insert(v61, v9.Dictionary.join(l_entries_0[v73], {
-                realGameEntryIndex = v73
+        table.insert(v65, v39);
+        for v79 = v78, #l_entries_0 do
+            table.insert(v65, v9.Dictionary.join(l_entries_0[v79], {
+                realGameEntryIndex = v79
             }));
         end;
     end;
-    return v8.createElement(v29, {
+    return v8.createElement(v33, {
         layoutOrder = l_LayoutOrder_0, 
-        items = v61 or l_entries_0, 
-        renderItem = function(...) --[[ Line: 285 ]] --[[ Name: renderItem ]]
-            -- upvalues: v53 (copy)
-            return v53:renderItem(...);
+        items = v65 or l_entries_0, 
+        renderItem = function(...) --[[ Line: 316 ]] --[[ Name: renderItem ]]
+            -- upvalues: v57 (copy)
+            return v57:renderItem(...);
         end, 
         windowAbsoluteSize = l_windowSize_0, 
         screenSize = l_screenSize_0, 
-        itemAbsoluteSize = v70, 
-        cellPaddingOffset = v65, 
+        itemAbsoluteSize = v76, 
+        cellPaddingOffset = v69, 
         numberOfRowsToShow = l_numberOfRowsToShow_0, 
         horizontalAlignment = l_horizontalAlignment_0, 
-        onItemsPerRowChanged = v53.props.onItemsPerRowChanged
+        onItemsPerRowChanged = v57.props.onItemsPerRowChanged
     });
 end;
-local v80 = l_withNavigation_0((v15.connect(function(v74, _) --[[ Line: 298 ]]
+local v86 = l_withNavigation_0((v15.connect(function(v80, _) --[[ Line: 329 ]]
     return {
-        formFactor = v74.FormFactor
+        formFactor = v80.FormFactor
     };
-end, function(v76) --[[ Line: 302 ]]
+end, function(v82) --[[ Line: 333 ]]
     -- upvalues: l_OpenGameDetails_0 (copy)
     return {
-        openGameDetails = function(v77, v78, v79) --[[ Line: 304 ]] --[[ Name: openGameDetails ]]
-            -- upvalues: v76 (copy), l_OpenGameDetails_0 (ref)
-            v76(l_OpenGameDetails_0(v77, v79, v78));
+        openGameDetails = function(v83, v84, v85) --[[ Line: 335 ]] --[[ Name: openGameDetails ]]
+            -- upvalues: v82 (copy), l_OpenGameDetails_0 (ref)
+            v82(l_OpenGameDetails_0(v83, v85, v84));
         end
     };
-end)(v32)));
-local l_v80_0 = v80 --[[ copy: 37 -> 38 ]];
-v32 = function(v82) --[[ Line: 313 ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useTokens_0 (copy), l_useUiModeInfo_0 (copy), l_useTextSizeOffset_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v25 (copy), l_GameTileTypes_0 (copy), v9 (copy), v8 (copy), l_v80_0 (copy)
-    local v83 = l_useDesignTokens_0();
-    local v84 = l_useTokens_0();
-    local v85 = l_useUiModeInfo_0();
-    local v86 = l_useTextSizeOffset_0();
-    local v87 = l_useBreakpointXOrSmaller_0(v25.Keys.Small);
-    local v88 = if v82.gameTileLayoutType then v87 and v82.gameTileLayoutType == l_GameTileTypes_0.GameTileLayoutType.Narrow and v86 > 0 else v87 and v86 > 0;
-    local v89 = l_useBreakpointXOrSmaller_0(v25.Keys.XSmall);
-    local v90 = v9.Dictionary.join(v82, {
-        uiModeInfo = v85, 
-        cellSpacingHorizontal = v83.Global.Space_300, 
-        cellSpacingVertical = v83.Global.Space_400, 
-        designTokens = v83, 
-        textSizeOffset = v86, 
-        foundationTokens = v84, 
-        metadataCompact = v88, 
-        isNarrowScreenXSmall = v89
+end)(v36)));
+local l_v86_0 = v86 --[[ copy: 42 -> 43 ]];
+v36 = function(v88) --[[ Line: 344 ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useTokens_0 (copy), l_useUiModeInfo_0 (copy), l_useTextSizeOffset_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v25 (copy), l_GameTileTypes_0 (copy), l_FFlagLuaAppCompositionAlways_0 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_useCollectionLayout_0 (copy), v10 (copy), v9 (copy), v8 (copy), l_v86_0 (copy)
+    local v89 = l_useDesignTokens_0();
+    local v90 = l_useTokens_0();
+    local v91 = l_useUiModeInfo_0();
+    local v92 = l_useTextSizeOffset_0();
+    local v93 = l_useBreakpointXOrSmaller_0(v25.Keys.Small);
+    local v94 = if v88.gameTileLayoutType then v93 and v88.gameTileLayoutType == l_GameTileTypes_0.GameTileLayoutType.Narrow and v92 > 0 else v93 and v92 > 0;
+    local v95 = l_useBreakpointXOrSmaller_0(v25.Keys.XSmall);
+    local v96 = l_FFlagLuaAppCompositionAlways_0 or l_FFlagLuaAppCompositionSupport_0 and v88.appCompositionEnabled;
+    local v97 = if l_FFlagLuaAppCompositionSupport_0 then l_useCollectionLayout_0(v10.getGameTileCollectionItemSize(v88.gameTileLayoutType or l_GameTileTypes_0.GameTileLayoutType.Narrow)) else nil;
+    local v98 = v9.Dictionary.join(v88, {
+        uiModeInfo = v91, 
+        cellSpacingHorizontal = v89.Global.Space_300, 
+        cellSpacingVertical = v89.Global.Space_400, 
+        designTokens = v89, 
+        textSizeOffset = v92, 
+        foundationTokens = v90, 
+        metadataCompact = v94, 
+        isNarrowScreenXSmall = v95, 
+        appCompositionActive = if l_FFlagLuaAppCompositionSupport_0 then v96 else nil, 
+        collectionLayout = if l_FFlagLuaAppCompositionSupport_0 then v97 else nil
     });
-    return v8.createElement(l_v80_0, v90);
+    return v8.createElement(l_v86_0, v98);
 end;
-if v30() then
-    v80 = v32;
-    v32 = function(v91) --[[ Line: 343 ]]
-        -- upvalues: l_useStyle_0 (copy), l_useTextSizeOffset_0 (copy), v9 (copy), v8 (copy), v80 (copy)
-        local v92 = l_useStyle_0();
-        local v93 = l_useTextSizeOffset_0();
-        local v94 = v9.Dictionary.join(v91, {
-            style = v92, 
-            textSizeOffset = v93
+if v34() then
+    v86 = v36;
+    v36 = function(v99) --[[ Line: 386 ]]
+        -- upvalues: l_useStyle_0 (copy), l_useTextSizeOffset_0 (copy), v9 (copy), v8 (copy), v86 (copy)
+        local v100 = l_useStyle_0();
+        local v101 = l_useTextSizeOffset_0();
+        local v102 = v9.Dictionary.join(v99, {
+            style = v100, 
+            textSizeOffset = v101
         });
-        return v8.createElement(v80, v94);
+        return v8.createElement(v86, v102);
     end;
 end;
-return v32;
+return v36;

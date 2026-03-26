@@ -12,86 +12,96 @@ local v10 = require(l_Modules_0.AvatarExperience.Common.Components.withOverlayFo
 local v11 = require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.withMappedNavigationParams);
 local v12 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.SetAvatarType);
 local v13 = require(l_Modules_0.AvatarExperience.AvatarEditor.Thunks.RemoveLayeredClothing);
-local v14 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v14 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.RemoveMakeup);
+local v15 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_InteractiveAlert_0 = v6.App.Dialog.Alert.InteractiveAlert;
 local l_ButtonType_0 = v6.App.Button.Enum.ButtonType;
-local v17 = v2.PureComponent:extend("LayeredClothingR6SwitchPrompt");
-v17.validateProps = v4.strictInterface({
+local l_FFlagAXBlockMakeupEquipR6_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXBlockMakeupEquipR6;
+local v19 = v2.PureComponent:extend("LayeredClothingR6SwitchPrompt");
+v19.validateProps = v4.strictInterface({
     onOverlayClosed = v4.optional(v4.callback), 
     defaultChildRef = v4.optional(v4.table), 
     focusController = v4.optional(v4.table), 
     navigation = v4.table, 
     screenSize = v4.Vector2, 
     setAvatarType = v4.callback, 
-    removeLayeredClothing = v4.callback
+    removeLayeredClothing = v4.callback, 
+    removeMakeup = if l_FFlagAXBlockMakeupEquipR6_0 then v4.callback else nil
 });
-v17.init = function(v18) --[[ Line: 55 ]] --[[ Name: init ]]
-    -- upvalues: v14 (copy), v8 (copy)
-    v18.switchToR6 = function() --[[ Line: 56 ]]
-        -- upvalues: v18 (copy), v14 (ref)
-        v18.props.removeLayeredClothing();
-        v18.props.setAvatarType(v14.AvatarType.R6);
-        v18.closePrompt();
+v19.init = function(v20) --[[ Line: 60 ]] --[[ Name: init ]]
+    -- upvalues: l_FFlagAXBlockMakeupEquipR6_0 (copy), v15 (copy), v8 (copy)
+    v20.switchToR6 = function() --[[ Line: 61 ]]
+        -- upvalues: v20 (copy), l_FFlagAXBlockMakeupEquipR6_0 (ref), v15 (ref)
+        v20.props.removeLayeredClothing();
+        if l_FFlagAXBlockMakeupEquipR6_0 then
+            v20.props.removeMakeup();
+        end;
+        v20.props.setAvatarType(v15.AvatarType.R6);
+        v20.closePrompt();
     end;
-    v18.closePrompt = function() --[[ Line: 62 ]]
-        -- upvalues: v8 (ref), v18 (copy)
-        v8.closeOverlay(v18.props.navigation);
+    v20.closePrompt = function() --[[ Line: 70 ]]
+        -- upvalues: v8 (ref), v20 (copy)
+        v8.closeOverlay(v20.props.navigation);
     end;
 end;
-v17.renderLocalized = function(v19, v20) --[[ Line: 67 ]] --[[ Name: renderLocalized ]]
+v19.renderLocalized = function(v21, v22) --[[ Line: 75 ]] --[[ Name: renderLocalized ]]
     -- upvalues: v2 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy)
     return v2.createElement(l_InteractiveAlert_0, {
-        title = v20.titleText, 
-        bodyText = v20.bodyText, 
+        title = v22.titleText, 
+        bodyText = v22.bodyText, 
         buttonStackInfo = {
             buttons = {
                 {
                     props = {
-                        onActivated = v19.closePrompt, 
-                        text = v20.cancelButtonText
+                        onActivated = v21.closePrompt, 
+                        text = v22.cancelButtonText
                     }, 
                     isDefaultChild = true
                 }, 
                 {
                     buttonType = l_ButtonType_0.PrimarySystem, 
                     props = {
-                        onActivated = v19.switchToR6, 
-                        text = v20.confirmButtonText
+                        onActivated = v21.switchToR6, 
+                        text = v22.confirmButtonText
                     }
                 }
             }
         }, 
         position = UDim2.fromScale(0.5, 0.5), 
-        screenSize = v19.props.screenSize, 
-        defaultChildRef = v19.props.defaultChildRef
+        screenSize = v21.props.screenSize, 
+        defaultChildRef = v21.props.defaultChildRef
     });
 end;
-v17.render = function(v21) --[[ Line: 95 ]] --[[ Name: render ]]
+v19.render = function(v23) --[[ Line: 103 ]] --[[ Name: render ]]
     -- upvalues: l_withLocalization_0 (copy)
     return l_withLocalization_0({
         titleText = "Common.AlertsAndOptions.Title.Warning", 
         bodyText = "Feature.Avatar.Label.LayeredClothingSwitchR6Warning", 
         confirmButtonText = "CommonUI.Controls.Action.Confirm", 
         cancelButtonText = "Feature.Avatar.Action.Cancel"
-    })(function(v22) --[[ Line: 101 ]]
-        -- upvalues: v21 (copy)
-        return v21:renderLocalized(v22);
+    })(function(v24) --[[ Line: 109 ]]
+        -- upvalues: v23 (copy)
+        return v23:renderLocalized(v24);
     end);
 end;
-return (v11((v10((v3.connect(function(v23, _) --[[ Line: 106 ]] --[[ Name: mapStateToProps ]]
+return (v11((v10((v3.connect(function(v25, _) --[[ Line: 114 ]] --[[ Name: mapStateToProps ]]
     return {
-        screenSize = v23.ScreenSize
+        screenSize = v25.ScreenSize
     };
-end, function(v25) --[[ Line: 112 ]] --[[ Name: mapDispatchToProps ]]
-    -- upvalues: v12 (copy), v13 (copy)
+end, function(v27) --[[ Line: 120 ]] --[[ Name: mapDispatchToProps ]]
+    -- upvalues: v12 (copy), v13 (copy), l_FFlagAXBlockMakeupEquipR6_0 (copy), v14 (copy)
     return {
-        setAvatarType = function(v26) --[[ Line: 114 ]] --[[ Name: setAvatarType ]]
-            -- upvalues: v25 (copy), v12 (ref)
-            v25(v12(v26));
+        setAvatarType = function(v28) --[[ Line: 122 ]] --[[ Name: setAvatarType ]]
+            -- upvalues: v27 (copy), v12 (ref)
+            v27(v12(v28));
         end, 
-        removeLayeredClothing = function() --[[ Line: 117 ]] --[[ Name: removeLayeredClothing ]]
-            -- upvalues: v25 (copy), v13 (ref)
-            v25(v13());
-        end
+        removeLayeredClothing = function() --[[ Line: 125 ]] --[[ Name: removeLayeredClothing ]]
+            -- upvalues: v27 (copy), v13 (ref)
+            v27(v13());
+        end, 
+        removeMakeup = l_FFlagAXBlockMakeupEquipR6_0 and function() --[[ Line: 129 ]]
+            -- upvalues: v27 (copy), v14 (ref)
+            v27(v14());
+        end or nil
     };
-end)(v17))))));
+end)(v19))))));

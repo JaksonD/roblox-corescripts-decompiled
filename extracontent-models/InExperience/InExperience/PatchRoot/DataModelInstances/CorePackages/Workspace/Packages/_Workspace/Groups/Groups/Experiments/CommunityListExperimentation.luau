@@ -37,7 +37,7 @@ return {
     logExposure = function() --[[ Line: 28 ]] --[[ Name: logExposure ]]
         -- upvalues: l_GetFFlagEnableCommunityListExperimentation_0 (copy), l_IXPService_0 (copy), l_GetFStringSocialCommunityAppLayer_0 (copy)
         if l_GetFFlagEnableCommunityListExperimentation_0() then
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(l_GetFStringSocialCommunityAppLayer_0());
+            l_IXPService_0:LogUserLayerExposure(l_GetFStringSocialCommunityAppLayer_0());
         end;
     end
 };

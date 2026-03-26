@@ -1,6 +1,8 @@
 local l_Parent_0 = script:FindFirstAncestor("PeopleReactView").Parent;
+local v1 = require(l_Parent_0.SharedFlags);
 local l_GetFFlagFixPeoplePageCardTooltip_0 = require(l_Parent_0.PeopleService).getService("Flags").GetFFlagFixPeoplePageCardTooltip;
-local v2 = game:DefineFastString("UniversesExposedToPeopleCardsTooltipKey", "UniversesExposedToCardTooltipKey2");
+local l_FFlagConnectionsToFriendsRename_0 = v1.FFlagConnectionsToFriendsRename;
+local v4 = game:DefineFastString("UniversesExposedToPeopleCardsTooltipKey", "UniversesExposedToCardTooltipKey2");
 return {
     PEOPLEPAGE = {
         PAGE_ID = "peoplepage", 
@@ -22,7 +24,8 @@ return {
         }, 
         CORE_BUTTONS = {
             LOCALIZED_STRINGS = {
-                INVITE_CONNECTIONS = "CommonUI.Features.Label.InviteConnections", 
+                INVITE_FRIENDS = "CoreScripts.InGameMenu.PageTitle.InviteFriends", 
+                INVITE_CONNECTIONS = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.InviteConnections", 
                 MUTE_ALL = "Feature.SettingsHub.Action.MuteAll", 
                 UNMUTE_ALL = "Feature.SettingsHub.Action.UnmuteAll", 
                 MUTE_SELF = "CoreScripts.InGameMenu.QuickActions.MuteSelf", 
@@ -46,8 +49,8 @@ return {
                 FRIEND = "CoreScripts.InGameMenu.GameSettings.Friend", 
                 ADD_FRIEND = "CoreScripts.InGameMenu.Actions.AddFriend", 
                 REQUEST_SENT = "CoreScripts.InGameMenu.GameSettings.RequestSent", 
-                CONNECTION = "CommonUI.Features.Label.Connection", 
-                ADD_CONNECTION = "CommonUI.Features.Label.AddConnection", 
+                CONNECTION = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.Connection", 
+                ADD_CONNECTION = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.AddConnection", 
                 MUTE = "Feature.SettingsHub.Label.Mute", 
                 UNMUTE = "Feature.SettingsHub.Label.Unmute", 
                 REPORT = "CoreScripts.InGameMenu.QuickActions.Report"
@@ -72,7 +75,7 @@ return {
                 SELECT_USERNAME_TO_VIEW_PROFILE = "Feature.SettingsHub.Description.SelectUsernameToViewProfile", 
                 OK = "Feature.SettingsHub.Action.Ok"
             }, 
-            UNIVERSES_EXPOSED_TO_CARD_TOOLTIP = if l_GetFFlagFixPeoplePageCardTooltip_0() then v2 else "UniversesExposedToCardTooltipKey2"
+            UNIVERSES_EXPOSED_TO_CARD_TOOLTIP = if l_GetFFlagFixPeoplePageCardTooltip_0() then v4 else "UniversesExposedToCardTooltipKey2"
         }
     }
 };

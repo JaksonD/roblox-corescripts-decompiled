@@ -14,75 +14,51 @@ local l_useNotApprovedPageContext_0 = require(l_script_FirstAncestor_0.Contexts.
 local l_usePageNavigation_0 = require(l_script_FirstAncestor_0.Contexts.PageNavigationContext).usePageNavigation;
 local v14 = require(l_script_FirstAncestor_0.Components.HeaderProgressBar);
 local l_STATIC_PAGE_NAMES_0 = require(l_script_FirstAncestor_0.Components.pageItemConfigs.PageItemConfigUtils).STATIC_PAGE_NAMES;
-local v16 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapPageNavigationContext);
-local v17 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapMiddlePages);
-return v3.memo(function(v18) --[[ Line: 42 ]] --[[ Name: HeaderButtons ]]
-    -- upvalues: v16 (copy), l_usePageNavigation_0 (copy), l_useState_0 (copy), v5 (copy), l_useNotApprovedPageContext_0 (copy), v17 (copy), l_STATIC_PAGE_NAMES_0 (copy), v3 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_Button_0 (copy), v14 (copy)
-    local v19 = if v16 then l_usePageNavigation_0() else nil;
-    local v20, v21 = l_useState_0(false);
-    local v22 = v5(v21, v18.LogoutThunk);
+local v16 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapMiddlePages);
+return v3.memo(function(v17) --[[ Line: 39 ]] --[[ Name: HeaderButtons ]]
+    -- upvalues: l_usePageNavigation_0 (copy), l_useState_0 (copy), v5 (copy), l_useNotApprovedPageContext_0 (copy), v16 (copy), l_STATIC_PAGE_NAMES_0 (copy), v3 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_Button_0 (copy), v14 (copy)
+    local v18 = l_usePageNavigation_0();
+    local v19, v20 = l_useState_0(false);
+    local v21 = v5(v20, v17.LogoutThunk);
     local l_translations_0 = l_useNotApprovedPageContext_0().translations;
-    local v24 = v17 and v19 and v19.currentPageName == l_STATIC_PAGE_NAMES_0.SecondChanceIntro;
-    if v16 and v19 then
-        local l_createElement_0 = v3.createElement;
-        local l_l_View_0_0 = l_View_0;
-        local v27 = {
-            tag = "size-full-0 auto-y col gap-large padding-y-large"
-        };
-        local v28 = {
-            Buttons = v3.createElement(l_View_0, {
-                tag = "size-full-0 auto-y row flex-between padding-left-large padding-right-xxlarge", 
-                LayoutOrder = 1
-            }, {
-                BackButton = v3.createElement(l_IconButton_0, {
-                    icon = "chevron-large-left", 
-                    variant = l_ButtonVariant_0.Utility, 
-                    isCircular = true, 
-                    onActivated = v19.goToPreviousPage, 
-                    LayoutOrder = 1, 
-                    size = l_ButtonSize_0.Small, 
-                    testId = "back-button"
-                }), 
-                LogoutButton = v19.isLastPage and v3.createElement(l_Button_0, {
-                    text = l_translations_0.logoutButton, 
-                    onActivated = v22, 
-                    variant = l_ButtonVariant_0.Text, 
-                    isLoading = v20, 
-                    isDisabled = v20, 
-                    size = l_ButtonSize_0.Small, 
-                    LayoutOrder = 2
-                })
-            })
-        };
-        local v29 = false;
-        if v19.totalPages > 2 then
-            v29 = not v24 and v3.createElement(l_View_0, {
-                tag = "size-full-0 auto-y padding-x-xxlarge", 
-                LayoutOrder = 2
-            }, v3.createElement(v14, nil));
-        end;
-        v28.ProgressBar = v29;
-        return (l_createElement_0(l_l_View_0_0, v27, v28));
-    else
-        return (v3.createElement(l_View_0, {
-            tag = "size-full-0 auto-y row flex-between padding-small padding-right-xxlarge"
+    local v23 = v16 and v18 and v18.currentPageName == l_STATIC_PAGE_NAMES_0.SecondChanceIntro;
+    local l_createElement_0 = v3.createElement;
+    local l_l_View_0_0 = l_View_0;
+    local v26 = {
+        tag = "size-full-0 auto-y col gap-large padding-y-large"
+    };
+    local v27 = {
+        Buttons = v3.createElement(l_View_0, {
+            tag = "size-full-0 auto-y row flex-between padding-left-large padding-right-xxlarge", 
+            LayoutOrder = 1
         }, {
-            BackButton = v3.createElement(l_Button_0, {
-                icon = "icons/actions/cycleLeft", 
-                text = l_translations_0.backButton, 
-                onActivated = v18.goBackOnePage, 
-                variant = l_ButtonVariant_0.Text, 
-                testId = "back-button", 
-                LayoutOrder = 1
+            BackButton = v3.createElement(l_IconButton_0, {
+                icon = "chevron-large-left", 
+                variant = l_ButtonVariant_0.Utility, 
+                isCircular = true, 
+                onActivated = v18.goToPreviousPage, 
+                LayoutOrder = 1, 
+                size = l_ButtonSize_0.Small, 
+                testId = "back-button"
             }), 
-            LogoutButton = v3.createElement(l_Button_0, {
+            LogoutButton = v18.isLastPage and v3.createElement(l_Button_0, {
                 text = l_translations_0.logoutButton, 
-                onActivated = v22, 
+                onActivated = v21, 
                 variant = l_ButtonVariant_0.Text, 
-                isLoading = v20, 
-                isDisabled = v20, 
+                isLoading = v19, 
+                isDisabled = v19, 
+                size = l_ButtonSize_0.Small, 
                 LayoutOrder = 2
             })
-        }));
+        })
+    };
+    local v28 = false;
+    if v18.totalPages > 2 then
+        v28 = not v23 and v3.createElement(l_View_0, {
+            tag = "size-full-0 auto-y padding-x-xxlarge", 
+            LayoutOrder = 2
+        }, v3.createElement(v14, nil));
     end;
+    v27.ProgressBar = v28;
+    return l_createElement_0(l_l_View_0_0, v26, v27);
 end);

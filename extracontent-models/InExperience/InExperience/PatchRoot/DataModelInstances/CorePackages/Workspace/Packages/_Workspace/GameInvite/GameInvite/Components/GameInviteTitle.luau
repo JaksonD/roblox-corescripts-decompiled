@@ -30,82 +30,84 @@ local l_useAppPolicy_0 = v9.useAppPolicy;
 local v29 = require(l_Parent_0.SharedFlags);
 local l_GetFFlagEnableGameInviteModalVRSupport_0 = v29.GetFFlagEnableGameInviteModalVRSupport;
 local l_FFlagHideCloseButtonEdp_0 = v29.FFlagHideCloseButtonEdp;
+local l_FFlagConnectionsToFriendsRename_0 = v29.FFlagConnectionsToFriendsRename;
 local l_TitleIconSize_0 = v21.Layout.TitleIconSize;
 local l_SidePadding_0 = v21.Layout.SidePadding;
-local v34 = l_Images_0["icons/navigation/close"];
-local v35 = l_Images_0["icons/menu/search"];
-local v36 = {
+local v35 = l_Images_0["icons/navigation/close"];
+local v36 = l_Images_0["icons/menu/search"];
+local v37 = {
     cancelText = "Feature.SettingsHub.Action.CancelSearch", 
-    inviteConnections = "CommonUI.Features.Label.InviteConnections", 
+    inviteFriends = l_FFlagConnectionsToFriendsRename_0 and "CoreScripts.InGameMenu.PageTitle.InviteFriends" or nil, 
+    inviteConnections = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.InviteConnections", 
     copyLink = "Feature.SocialShare.Action.CopyLink"
 };
-local function v40(v37, v38, v39) --[[ Line: 56 ]]
+local function v41(v38, v39, v40) --[[ Line: 62 ]]
     -- upvalues: l_GetFFlagEnableGameInviteModalVRSupport_0 (copy), l_IsVRAppBuild_0 (copy), v18 (copy)
     if l_GetFFlagEnableGameInviteModalVRSupport_0() then
-        return not l_IsVRAppBuild_0() and v39 and not v38 and v37 and v37.isCoreScript and v37.serverType == "StandardServer" and v18(v37.gameDetails);
+        return not l_IsVRAppBuild_0() and v40 and not v39 and v38 and v38.isCoreScript and v38.serverType == "StandardServer" and v18(v38.gameDetails);
     else
-        return not v38 and v39 and v37 and v37.isCoreScript and v37.serverType == "StandardServer" and v18(v37.gameDetails);
+        return not v39 and v40 and v38 and v38.isCoreScript and v38.serverType == "StandardServer" and v18(v38.gameDetails);
     end;
 end;
-return function(v41) --[[ Line: 85 ]]
-    -- upvalues: l_useStyle_0 (copy), v7 (copy), v22 (copy), v23 (copy), l_FriendsListContext_0 (copy), l_InviteFriendContext_0 (copy), l_getLocalizedStrings_0 (copy), v36 (copy), l_useAppPolicy_0 (copy), l_DeviceInfo_0 (copy), v40 (copy), l_TextService_0 (copy), l_TitleIconSize_0 (copy), v16 (copy), l_SidePadding_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_ImageSetButton_0 (copy), v34 (copy), v35 (copy), v17 (copy), l_FriendsMenuSearch_0 (copy), v15 (copy)
-    local v42 = l_useStyle_0();
-    local v43 = v7.useContext(v22);
-    local v44 = v7.useContext(v23);
-    local v45 = v7.useContext(l_FriendsListContext_0);
-    local v46 = v7.useContext(l_InviteFriendContext_0);
-    local v47, v48 = v7.useState(false);
-    local v49 = l_getLocalizedStrings_0(v36);
-    local l_searchFriends_0 = v45.searchFriends;
-    local v52 = l_useAppPolicy_0(function(v51) --[[ Line: 97 ]]
-        return v51.getExperienceInviteShareLinkEnabled();
+return function(v42) --[[ Line: 91 ]]
+    -- upvalues: l_useStyle_0 (copy), v7 (copy), v22 (copy), v23 (copy), l_FriendsListContext_0 (copy), l_InviteFriendContext_0 (copy), l_getLocalizedStrings_0 (copy), v37 (copy), l_useAppPolicy_0 (copy), l_DeviceInfo_0 (copy), v41 (copy), l_TextService_0 (copy), l_TitleIconSize_0 (copy), v16 (copy), l_SidePadding_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_ImageSetButton_0 (copy), v35 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v36 (copy), v17 (copy), l_FriendsMenuSearch_0 (copy), v15 (copy)
+    local v43 = l_useStyle_0();
+    local v44 = v7.useContext(v22);
+    local v45 = v7.useContext(v23);
+    local v46 = v7.useContext(l_FriendsListContext_0);
+    local v47 = v7.useContext(l_InviteFriendContext_0);
+    local v48, v49 = v7.useState(false);
+    local v50 = l_getLocalizedStrings_0(v37);
+    local l_searchFriends_0 = v46.searchFriends;
+    local v53 = l_useAppPolicy_0(function(v52) --[[ Line: 103 ]]
+        return v52.getExperienceInviteShareLinkEnabled();
     end);
-    local v53 = v43.modalMode == "compact";
-    local l_isFullWidth_0 = v43.isFullWidth;
-    local v55 = l_DeviceInfo_0.isDesktopDevice();
-    local v56 = l_DeviceInfo_0.isConsole();
-    local v57 = v40(v44, v56, v52);
-    local v58 = v55 and not l_isFullWidth_0;
-    local v59 = v42.Font.BaseSize * v42.Font.Header2.RelativeSize;
-    local v60 = v42.Font.BaseSize * v42.Font.Body.RelativeSize;
-    local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v49.copyLink, v59, v42.Font.Header2.Font, Vector2.new(300 - l_TitleIconSize_0, 1e999));
-    local v62 = nil;
-    local v63 = 0;
-    if v57 then
-        if v55 and v58 then
-            local v64 = math.ceil(l_l_TextService_0_TextSize_0.X) + 10;
-            v62 = UDim2.new(0, v64, 1, 0);
-            v63 = v63 + v64;
+    local v54 = v44.modalMode == "compact";
+    local l_isFullWidth_0 = v44.isFullWidth;
+    local v56 = l_DeviceInfo_0.isDesktopDevice();
+    local v57 = l_DeviceInfo_0.isConsole();
+    local v58 = v41(v45, v57, v53);
+    local v59 = v56 and not l_isFullWidth_0;
+    local v60 = v43.Font.BaseSize * v43.Font.Header2.RelativeSize;
+    local v61 = v43.Font.BaseSize * v43.Font.Body.RelativeSize;
+    local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v50.copyLink, v60, v43.Font.Header2.Font, Vector2.new(300 - l_TitleIconSize_0, 1e999));
+    local v63 = nil;
+    local v64 = 0;
+    if v58 then
+        if v56 and v59 then
+            local v65 = math.ceil(l_l_TextService_0_TextSize_0.X) + 10;
+            v63 = UDim2.new(0, v65, 1, 0);
+            v64 = v64 + v65;
         else
-            v62 = UDim2.new(0, l_TitleIconSize_0, 0, l_TitleIconSize_0);
-            v63 = v63 + l_TitleIconSize_0;
+            v63 = UDim2.new(0, l_TitleIconSize_0, 0, l_TitleIconSize_0);
+            v64 = v64 + l_TitleIconSize_0;
         end;
     end;
-    if v53 then
-        v63 = v63 + l_TitleIconSize_0;
+    if v54 then
+        v64 = v64 + l_TitleIconSize_0;
     end;
-    if v53 and v57 then
-        v63 = v63 + 4;
+    if v54 and v58 then
+        v64 = v64 + 4;
     end;
-    local function v65() --[[ Line: 138 ]]
-        -- upvalues: v16 (ref), v46 (copy)
-        v16:closeModal(v46.getMaxRecipientRowNum());
+    local function v66() --[[ Line: 144 ]]
+        -- upvalues: v16 (ref), v47 (copy)
+        v16:closeModal(v47.getMaxRecipientRowNum());
     end;
-    local function v66() --[[ Line: 142 ]]
-        -- upvalues: v48 (copy)
-        v48(true);
+    local function v67() --[[ Line: 148 ]]
+        -- upvalues: v49 (copy)
+        v49(true);
     end;
-    local function v67() --[[ Line: 146 ]]
-        -- upvalues: v48 (copy), l_searchFriends_0 (copy)
-        v48(false);
+    local function v68() --[[ Line: 152 ]]
+        -- upvalues: v49 (copy), l_searchFriends_0 (copy)
+        v49(false);
         l_searchFriends_0("");
     end;
-    if not v53 and v47 then
-        v48(false);
+    if not v54 and v48 then
+        v49(false);
         l_searchFriends_0("");
     end;
-    local v68 = v7.useMemo(function() --[[ Line: 157 ]]
-        -- upvalues: v7 (ref), l_SidePadding_0 (ref), v63 (ref), l_FFlagHideCloseButtonEdp_0 (ref), v41 (copy), l_ImageSetButton_0 (ref), l_TitleIconSize_0 (ref), v65 (copy), v34 (ref), v42 (copy), v49 (copy), v59 (copy), v53 (copy), v66 (copy), v35 (ref), v57 (copy), v17 (ref), v55 (copy), v58 (copy), v62 (ref)
+    local v69 = v7.useMemo(function() --[[ Line: 163 ]]
+        -- upvalues: v7 (ref), l_SidePadding_0 (ref), v64 (ref), l_FFlagHideCloseButtonEdp_0 (ref), v42 (copy), l_ImageSetButton_0 (ref), l_TitleIconSize_0 (ref), v66 (copy), v35 (ref), v43 (copy), l_FFlagConnectionsToFriendsRename_0 (ref), v50 (copy), v60 (copy), v54 (copy), v67 (copy), v36 (ref), v58 (copy), v17 (ref), v56 (copy), v59 (copy), v63 (ref)
         return {
             UIPadding = v7.createElement("UIPadding", {
                 PaddingLeft = UDim.new(0, l_SidePadding_0), 
@@ -117,7 +119,7 @@ return function(v41) --[[ Line: 85 ]]
                 VerticalAlignment = Enum.VerticalAlignment.Center
             }), 
             LeftActionContainer = v7.createElement("Frame", {
-                Size = UDim2.new(0, v63, 1, 0), 
+                Size = UDim2.new(0, v64, 1, 0), 
                 LayoutOrder = 0, 
                 BackgroundTransparency = 1
             }, {
@@ -128,29 +130,29 @@ return function(v41) --[[ Line: 85 ]]
                     HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                     Padding = UDim.new(0, 4)
                 }), 
-                CloseButton = if l_FFlagHideCloseButtonEdp_0 and v41.hideCloseButton then nil else v7.createElement(l_ImageSetButton_0, {
+                CloseButton = if l_FFlagHideCloseButtonEdp_0 and v42.hideCloseButton then nil else v7.createElement(l_ImageSetButton_0, {
                     BackgroundTransparency = 1, 
                     Size = UDim2.new(0, l_TitleIconSize_0, 0, l_TitleIconSize_0), 
-                    [v7.Event.Activated] = v65, 
-                    Image = v34, 
-                    ImageColor3 = v42.Theme.IconEmphasis.Color, 
-                    ImageTransparency = v42.Theme.IconEmphasis.Transparency, 
+                    [v7.Event.Activated] = v66, 
+                    Image = v35, 
+                    ImageColor3 = v43.Theme.IconEmphasis.Color, 
+                    ImageTransparency = v43.Theme.IconEmphasis.Transparency, 
                     BorderSizePixel = 0
                 })
             }), 
             Title = v7.createElement("TextLabel", {
                 BackgroundTransparency = 1, 
-                Text = v49.inviteConnections, 
-                TextSize = v59, 
+                Text = if l_FFlagConnectionsToFriendsRename_0 then v50.inviteFriends else v50.inviteConnections, 
+                TextSize = v60, 
                 TextWrapped = true, 
                 TextXAlignment = Enum.TextXAlignment.Center, 
-                TextColor3 = v42.Theme.TextEmphasis.Color, 
-                Font = v42.Font.Header2.Font, 
-                Size = UDim2.new(1, v63 * 2 * -1, 1, 0), 
+                TextColor3 = v43.Theme.TextEmphasis.Color, 
+                Font = v43.Font.Header2.Font, 
+                Size = UDim2.new(1, v64 * 2 * -1, 1, 0), 
                 LayoutOrder = 1
             }), 
             RightActionContainer = v7.createElement("Frame", {
-                Size = UDim2.new(0, v63, 1, 0), 
+                Size = UDim2.new(0, v64, 1, 0), 
                 LayoutOrder = 2, 
                 BackgroundTransparency = 1
             }, {
@@ -161,34 +163,34 @@ return function(v41) --[[ Line: 85 ]]
                     HorizontalAlignment = Enum.HorizontalAlignment.Right, 
                     Padding = UDim.new(0, 4)
                 }), 
-                SearchButton = v53 and v7.createElement(l_ImageSetButton_0, {
+                SearchButton = v54 and v7.createElement(l_ImageSetButton_0, {
                     LayoutOrder = 0, 
                     BackgroundTransparency = 1, 
                     AnchorPoint = Vector2.new(0.5, 0.5), 
                     Size = UDim2.new(0, l_TitleIconSize_0, 0, l_TitleIconSize_0), 
-                    [v7.Event.Activated] = v66, 
-                    Image = v35, 
-                    ImageColor3 = v42.Theme.IconEmphasis.Color, 
-                    ImageTransparency = v42.Theme.IconEmphasis.Transparency, 
+                    [v7.Event.Activated] = v67, 
+                    Image = v36, 
+                    ImageColor3 = v43.Theme.IconEmphasis.Color, 
+                    ImageTransparency = v43.Theme.IconEmphasis.Transparency, 
                     BorderSizePixel = 0
                 }) or nil, 
-                ShareGameInviteLink = v57 and v7.createElement(v17, {
+                ShareGameInviteLink = v58 and v7.createElement(v17, {
                     layoutOrder = 1, 
-                    isDesktop = v55, 
-                    isFullSize = v58, 
-                    size = v62
+                    isDesktop = v56, 
+                    isFullSize = v59, 
+                    size = v63
                 }) or nil
             })
         };
     end, {
-        v47, 
+        v48, 
+        v59, 
+        v54, 
         v58, 
-        v53, 
-        v57, 
-        v55
+        v56
     });
-    local v69 = v7.useMemo(function() --[[ Line: 236 ]]
-        -- upvalues: v7 (ref), l_FriendsMenuSearch_0 (ref), v15 (ref), v60 (copy), v42 (copy), v49 (copy), v67 (copy)
+    local v70 = v7.useMemo(function() --[[ Line: 244 ]]
+        -- upvalues: v7 (ref), l_FriendsMenuSearch_0 (ref), v15 (ref), v61 (copy), v43 (copy), v50 (copy), v68 (copy)
         return {
             UIListLayout = v7.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal, 
@@ -201,7 +203,7 @@ return function(v41) --[[ Line: 85 ]]
                 layoutOrder = 0, 
                 size = UDim2.new(1, -120, 1, -20), 
                 focusElement = true, 
-                onFocus = function() --[[ Line: 249 ]] --[[ Name: onFocus ]]
+                onFocus = function() --[[ Line: 257 ]] --[[ Name: onFocus ]]
                     -- upvalues: v15 (ref)
                     v15:onSearchFocused();
                 end
@@ -212,21 +214,21 @@ return function(v41) --[[ Line: 85 ]]
                 AnchorPoint = Vector2.new(1, 0.5), 
                 Position = UDim2.new(1, 0, 0.5, 0), 
                 Size = UDim2.new(0, 100, 1, 0), 
-                TextSize = v60, 
-                TextColor3 = v42.Theme.UIDefault.Color, 
-                Text = v49.cancelText, 
-                Font = v42.Font.Body.Font, 
-                [v7.Event.Activated] = v67
+                TextSize = v61, 
+                TextColor3 = v43.Theme.UIDefault.Color, 
+                Text = v50.cancelText, 
+                Font = v43.Font.Body.Font, 
+                [v7.Event.Activated] = v68
             })
         };
     end, {
-        v47
+        v48
     });
     return v7.createElement("Frame", {
         BackgroundTransparency = 1, 
         AnchorPoint = Vector2.new(0, 1), 
-        LayoutOrder = v41.layoutOrder, 
+        LayoutOrder = v42.layoutOrder, 
         Position = UDim2.new(0, 0, 1, 0), 
-        Size = v41.size
-    }, if v47 then v69 else v68);
+        Size = v42.size
+    }, if v48 then v70 else v69);
 end;

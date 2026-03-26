@@ -11,13 +11,16 @@ local l_useFocusGuiObject_0 = require(l_CorePackages_0.Packages.ReactFocusNaviga
 local v10 = require(script.Parent.DropDownButtonAnimator);
 local l_Images_0 = v7.App.ImageSet.Images;
 local v12 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
+local l_FFlagConnectionsToFriendsRename_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename;
 local l_LocalPlayer_0 = l_Players_0.LocalPlayer;
-local v14 = {
-    removeConnection = "CommonUI.Features.Label.RemoveConnection", 
-    connectionRequest = "InGame.PlayerDropDown.Action.ConnectionRequest"
+local v15 = {
+    unfriend = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Action.Unfriend" or nil, 
+    friendRequest = l_FFlagConnectionsToFriendsRename_0 and "Feature.Friends.Label.FriendRequest" or nil, 
+    removeConnection = if l_FFlagConnectionsToFriendsRename_0 then nil else "CommonUI.Features.Label.RemoveConnection", 
+    connectionRequest = if l_FFlagConnectionsToFriendsRename_0 then nil else "InGame.PlayerDropDown.Action.ConnectionRequest"
 };
-local v15 = v5.PureComponent:extend("FriendDropDownButton");
-v15.validateProps = v6.strictInterface({
+local v16 = v5.PureComponent:extend("FriendDropDownButton");
+v16.validateProps = v6.strictInterface({
     layoutOrder = v6.integer, 
     playerRelationship = v6.strictInterface({
         isBlocked = v6.boolean, 
@@ -32,48 +35,48 @@ v15.validateProps = v6.strictInterface({
     isUsingGamepad = v6.optional(v6.boolean), 
     focusGuiObject = v6.callback
 });
-local function v20(v16) --[[ Line: 47 ]] --[[ Name: getFriendTextAndIcon ]]
-    -- upvalues: l_Images_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v14 (copy), v12 (copy)
-    local v17 = l_Images_0["icons/actions/friends/friendAdd"];
-    local v18 = l_Images_0["icons/actions/friends/friendRemove"];
-    local v19 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
-    if v16 == Enum.FriendStatus.Friend then
-        return v19:Format(v14.removeConnection), v18;
-    elseif v16 == Enum.FriendStatus.Unknown or v16 == Enum.FriendStatus.NotFriend then
-        return v19:Format(v14.connectionRequest), v17;
-    elseif v16 == Enum.FriendStatus.FriendRequestSent then
-        return v12:FormatByKey("InGame.PlayerDropDown.CancelRequest"), v17;
-    elseif v16 == Enum.FriendStatus.FriendRequestReceived then
-        return v12:FormatByKey("InGame.PlayerDropDown.Accept"), v17;
+local function v21(v17) --[[ Line: 55 ]] --[[ Name: getFriendTextAndIcon ]]
+    -- upvalues: l_Images_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v15 (copy), v12 (copy)
+    local v18 = l_Images_0["icons/actions/friends/friendAdd"];
+    local v19 = l_Images_0["icons/actions/friends/friendRemove"];
+    local v20 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
+    if v17 == Enum.FriendStatus.Friend then
+        return v20:Format(if l_FFlagConnectionsToFriendsRename_0 then v15.unfriend else v15.removeConnection), v19;
+    elseif v17 == Enum.FriendStatus.Unknown or v17 == Enum.FriendStatus.NotFriend then
+        return v20:Format(if l_FFlagConnectionsToFriendsRename_0 then v15.friendRequest else v15.connectionRequest), v18;
+    elseif v17 == Enum.FriendStatus.FriendRequestSent then
+        return v12:FormatByKey("InGame.PlayerDropDown.CancelRequest"), v18;
+    elseif v17 == Enum.FriendStatus.FriendRequestReceived then
+        return v12:FormatByKey("InGame.PlayerDropDown.Accept"), v18;
     else
-        return v19:Format(v14.connectionRequest), v17;
+        return v20:Format(v15.connectionRequest), v18;
     end;
 end;
-v15.init = function(v21) --[[ Line: 65 ]] --[[ Name: init ]]
+v16.init = function(v22) --[[ Line: 81 ]] --[[ Name: init ]]
     -- upvalues: v5 (copy)
-    v21.state = {
+    v22.state = {
         unfriendConfirm = false
     };
-    v21.dropDownButtonAnimatorRef = v5.createRef();
-    v21.onAnimationComplete = function() --[[ Line: 72 ]]
-        -- upvalues: v21 (copy)
-        if v21.props.isUsingGamepad then
-            v21.props.focusGuiObject(v21.dropDownButtonAnimatorRef.current);
+    v22.dropDownButtonAnimatorRef = v5.createRef();
+    v22.onAnimationComplete = function() --[[ Line: 88 ]]
+        -- upvalues: v22 (copy)
+        if v22.props.isUsingGamepad then
+            v22.props.focusGuiObject(v22.dropDownButtonAnimatorRef.current);
         end;
     end;
 end;
-v15.render = function(v22) --[[ Line: 79 ]] --[[ Name: render ]]
-    -- upvalues: l_LocalPlayer_0 (copy), l_RbxAnalyticsService_0 (copy), v20 (copy), v5 (copy), v10 (copy)
-    local l_playerRelationship_0 = v22.props.playerRelationship;
-    local l_selectedPlayer_0 = v22.props.selectedPlayer;
-    local v25 = nil;
-    v25 = (not (l_playerRelationship_0.friendStatus == Enum.FriendStatus.Friend) or v22.state.unfriendConfirm) and function() --[[ Line: 91 ]]
-        -- upvalues: l_playerRelationship_0 (copy), l_LocalPlayer_0 (ref), l_selectedPlayer_0 (copy), v22 (copy), l_RbxAnalyticsService_0 (ref)
+v16.render = function(v23) --[[ Line: 95 ]] --[[ Name: render ]]
+    -- upvalues: l_LocalPlayer_0 (copy), l_RbxAnalyticsService_0 (copy), v21 (copy), v5 (copy), v10 (copy)
+    local l_playerRelationship_0 = v23.props.playerRelationship;
+    local l_selectedPlayer_0 = v23.props.selectedPlayer;
+    local v26 = nil;
+    v26 = (not (l_playerRelationship_0.friendStatus == Enum.FriendStatus.Friend) or v23.state.unfriendConfirm) and function() --[[ Line: 107 ]]
+        -- upvalues: l_playerRelationship_0 (copy), l_LocalPlayer_0 (ref), l_selectedPlayer_0 (copy), v23 (copy), l_RbxAnalyticsService_0 (ref)
         if l_playerRelationship_0.friendStatus == Enum.FriendStatus.Friend then
             l_LocalPlayer_0:RevokeFriendship(l_selectedPlayer_0);
             return;
         elseif l_playerRelationship_0.friendStatus == Enum.FriendStatus.Unknown or l_playerRelationship_0.friendStatus == Enum.FriendStatus.NotFriend then
-            v22.props.requestFriendship(l_selectedPlayer_0, false);
+            v23.props.requestFriendship(l_selectedPlayer_0, false);
             return;
         elseif l_playerRelationship_0.friendStatus == Enum.FriendStatus.FriendRequestSent then
             l_RbxAnalyticsService_0:ReportCounter("PlayerDropDown-RevokeFriendship");
@@ -84,75 +87,75 @@ v15.render = function(v22) --[[ Line: 79 ]] --[[ Name: render ]]
             if l_playerRelationship_0.friendStatus == Enum.FriendStatus.FriendRequestReceived then
                 l_RbxAnalyticsService_0:ReportCounter("PlayerDropDown-RequestFriendship");
                 l_RbxAnalyticsService_0:TrackEvent("Game", "RequestFriendship", "PlayerDropDown");
-                v22.props.requestFriendship(l_selectedPlayer_0, true);
+                v23.props.requestFriendship(l_selectedPlayer_0, true);
             end;
             return;
         end;
-    end or function() --[[ Line: 85 ]]
-        -- upvalues: v22 (copy)
-        v22:setState({
+    end or function() --[[ Line: 101 ]]
+        -- upvalues: v23 (copy)
+        v23:setState({
             unfriendConfirm = true
         });
     end;
-    local v26 = nil;
+    local v27 = nil;
     if l_playerRelationship_0.friendStatus == Enum.FriendStatus.FriendRequestReceived then
-        v26 = function() --[[ Line: 113 ]]
+        v27 = function() --[[ Line: 129 ]]
             -- upvalues: l_LocalPlayer_0 (ref), l_selectedPlayer_0 (copy)
             l_LocalPlayer_0:RevokeFriendship(l_selectedPlayer_0);
         end;
     end;
-    local v27 = nil;
-    if v22.state.unfriendConfirm then
-        v27 = function() --[[ Line: 119 ]]
-            -- upvalues: v22 (copy)
-            v22:setState({
+    local v28 = nil;
+    if v23.state.unfriendConfirm then
+        v28 = function() --[[ Line: 135 ]]
+            -- upvalues: v23 (copy)
+            v23:setState({
                 unfriendConfirm = false
             });
         end;
     end;
-    local v28, v29 = v20(l_playerRelationship_0.friendStatus);
+    local v29, v30 = v21(l_playerRelationship_0.friendStatus);
     return v5.createElement(v10, {
-        layoutOrder = v22.props.layoutOrder, 
-        text = v28, 
-        icon = v29, 
+        layoutOrder = v23.props.layoutOrder, 
+        text = v29, 
+        icon = v30, 
         lastButton = false, 
-        onActivated = v25, 
-        forceShowOptions = v22.state.unfriendConfirm, 
+        onActivated = v26, 
+        forceShowOptions = v23.state.unfriendConfirm, 
         selectedPlayer = l_selectedPlayer_0, 
-        onDecline = v26, 
-        onDismiss = v27, 
-        contentVisible = v22.props.contentVisible, 
-        forwardRef = v22.dropDownButtonAnimatorRef, 
-        onAnimationComplete = v22.onAnimationComplete
+        onDecline = v27, 
+        onDismiss = v28, 
+        contentVisible = v23.props.contentVisible, 
+        forwardRef = v23.dropDownButtonAnimatorRef, 
+        onAnimationComplete = v23.onAnimationComplete
     });
 end;
-v15.didUpdate = function(v30, v31, v32) --[[ Line: 143 ]] --[[ Name: didUpdate ]]
-    if v31.playerRelationship.friendStatus ~= v30.props.playerRelationship.friendStatus then
-        v30:setState({
+v16.didUpdate = function(v31, v32, v33) --[[ Line: 159 ]] --[[ Name: didUpdate ]]
+    if v32.playerRelationship.friendStatus ~= v31.props.playerRelationship.friendStatus then
+        v31:setState({
             unfriendConfirm = false
         });
     end;
-    if v31.selectedPlayer ~= v30.props.selectedPlayer or v31.dropDownOpen ~= v30.props.dropDownOpen then
-        v30:setState({
+    if v32.selectedPlayer ~= v31.props.selectedPlayer or v32.dropDownOpen ~= v31.props.dropDownOpen then
+        v31:setState({
             unfriendConfirm = false
         });
     end;
-    if v30.props.isUsingGamepad then
-        local v33 = v30.state.unfriendConfirm or v30.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived;
-        local v34 = v32.unfriendConfirm or v31.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived;
-        if v33 and v33 ~= v34 then
-            v30.props.focusGuiObject(v30.dropDownButtonAnimatorRef.current);
+    if v31.props.isUsingGamepad then
+        local v34 = v31.state.unfriendConfirm or v31.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived;
+        local v35 = v33.unfriendConfirm or v32.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived;
+        if v34 and v34 ~= v35 then
+            v31.props.focusGuiObject(v31.dropDownButtonAnimatorRef.current);
             return;
         end;
-    elseif v31.isUsingGamepad ~= v30.props.isUsingGamepad then
-        v30.props.focusGuiObject(nil);
+    elseif v32.isUsingGamepad ~= v31.props.isUsingGamepad then
+        v31.props.focusGuiObject(nil);
     end;
 end;
-FriendDropDownButtonWrapper = function(v35) --[[ Line: 170 ]] --[[ Name: FriendDropDownButtonWrapper ]]
-    -- upvalues: l_useFocusGuiObject_0 (copy), v5 (copy), v15 (copy), v4 (copy)
-    local v36 = l_useFocusGuiObject_0();
-    return v5.createElement(v15, v4.Dictionary.join(v35, {
-        focusGuiObject = v36
+FriendDropDownButtonWrapper = function(v36) --[[ Line: 188 ]] --[[ Name: FriendDropDownButtonWrapper ]]
+    -- upvalues: l_useFocusGuiObject_0 (copy), v5 (copy), v16 (copy), v4 (copy)
+    local v37 = l_useFocusGuiObject_0();
+    return v5.createElement(v16, v4.Dictionary.join(v36, {
+        focusGuiObject = v37
     }));
 end;
 return FriendDropDownButtonWrapper;

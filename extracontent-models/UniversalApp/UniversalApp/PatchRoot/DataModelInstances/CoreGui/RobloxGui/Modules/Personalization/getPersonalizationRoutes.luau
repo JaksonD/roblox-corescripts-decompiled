@@ -10,16 +10,17 @@ local l_FFlagEnableTopSongsSort_0 = require(l_CorePackages_0.Workspace.Packages.
 local l_FFlagLuaAppSortDeeplinkFix_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSortDeeplinkFix;
 local l_FFlagLuaAppBadgesSeeAllEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgesSeeAllEnabled;
 local l_FFlagLuaAppBadgeDetailsEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppBadgeDetailsEnabled;
+local l_FFlagLuaAppSduiEventDetailsEnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppSduiEventDetailsEnabled;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
 local l_FlyoutSidePanelIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).FlyoutSidePanelIXP;
 local l_FFlagAppIaHomeSubTab_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAppIaHomeSubTab;
-return function() --[[ Line: 28 ]]
-    -- upvalues: l_AppPage_0 (copy), l_createLazyComponent_0 (copy), l_Modules_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_ScreenKind_0 (copy), l_CorePackages_0 (copy), l_FFlagAppIaHomeSubTab_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v7 (copy), l_default_0 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_FFlagLuaAppBadgeDetailsEnabled_0 (copy), l_FFlagEnableTopSongsSort_0 (copy), l_FFlagLuaAppSortDeeplinkFix_0 (copy)
-    local v16 = {
+return function() --[[ Line: 30 ]]
+    -- upvalues: l_AppPage_0 (copy), l_createLazyComponent_0 (copy), l_Modules_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_ScreenKind_0 (copy), l_CorePackages_0 (copy), l_FFlagAppIaHomeSubTab_0 (copy), l_FlyoutSidePanelIXP_0 (copy), v7 (copy), l_default_0 (copy), l_FFlagLuaAppBadgesSeeAllEnabled_0 (copy), l_FFlagLuaAppBadgeDetailsEnabled_0 (copy), l_FFlagLuaAppSduiEventDetailsEnabled_0 (copy), l_FFlagEnableTopSongsSort_0 (copy), l_FFlagLuaAppSortDeeplinkFix_0 (copy)
+    local v17 = {
         {
             [l_AppPage_0.GamesList] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 32 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 34 ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.Games.GamesList);
                 end), 
@@ -31,7 +32,7 @@ return function() --[[ Line: 28 ]]
         }, 
         {
             [l_AppPage_0.ExperienceDetail] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 43 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 45 ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.ExperienceDetails.Navigation.ExperienceDetailsSelector);
                 end), 
@@ -43,7 +44,7 @@ return function() --[[ Line: 28 ]]
         }, 
         {
             [l_AppPage_0.SearchPage] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 54 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 56 ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.Search.AdaptiveSearchPage);
                 end), 
@@ -56,7 +57,7 @@ return function() --[[ Line: 28 ]]
         }, 
         {
             [l_AppPage_0.GameFilterMenuPeekView] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 66 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 68 ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.GameFilters).FilterMenuPeekView;
                 end), 
@@ -68,33 +69,33 @@ return function() --[[ Line: 28 ]]
         }
     };
     if l_FFlagAppIaHomeSubTab_0 and l_FlyoutSidePanelIXP_0.isHomeSubTabEnabled() then
-        table.insert(v16, {
+        table.insert(v17, {
             [v7.Constants.HomeContainerName] = {
-                getScreen = function() --[[ Line: 80 ]] --[[ Name: getScreen ]]
+                getScreen = function() --[[ Line: 82 ]] --[[ Name: getScreen ]]
                     -- upvalues: l_Modules_0 (ref)
                     return (require(l_Modules_0.Personalization.HomeContainer.HomeContainerPage));
                 end
             }
         });
     else
-        table.insert(v16, {
-            [l_AppPage_0.Home] = l_createLazyComponent_0(function() --[[ Line: 87 ]]
+        table.insert(v17, {
+            [l_AppPage_0.Home] = l_createLazyComponent_0(function() --[[ Line: 89 ]]
                 -- upvalues: l_default_0 (ref), l_Modules_0 (ref)
                 l_default_0:logEventOnce("lazily_require_home_page");
                 return require(l_Modules_0.Personalization.Home.HomePage);
             end)
         });
-        table.insert(v16, {
-            [l_AppPage_0.Games] = l_createLazyComponent_0(function() --[[ Line: 93 ]]
+        table.insert(v17, {
+            [l_AppPage_0.Games] = l_createLazyComponent_0(function() --[[ Line: 95 ]]
                 -- upvalues: l_Modules_0 (ref)
                 return require(l_Modules_0.Personalization.Games.GamesPage);
             end)
         });
     end;
     if l_FFlagLuaAppBadgesSeeAllEnabled_0 then
-        table.insert(v16, {
+        table.insert(v17, {
             [l_AppPage_0.BadgesSeeAll] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 102 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 104 ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.Badges).BadgesSeeAllPage;
                 end), 
@@ -105,9 +106,9 @@ return function() --[[ Line: 28 ]]
         });
     end;
     if l_FFlagLuaAppBadgeDetailsEnabled_0 then
-        table.insert(v16, {
+        table.insert(v17, {
             [l_AppPage_0.BadgeDetails] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 115 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 117 ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.Badges).BadgeDetailsPage;
                 end), 
@@ -118,10 +119,24 @@ return function() --[[ Line: 28 ]]
             }
         });
     end;
+    if l_FFlagLuaAppSduiEventDetailsEnabled_0 then
+        table.insert(v17, {
+            [l_AppPage_0.EventDetails] = {
+                screen = l_createLazyComponent_0(function() --[[ Line: 131 ]]
+                    -- upvalues: l_CorePackages_0 (ref)
+                    return require(l_CorePackages_0.Workspace.Packages.VirtualEvents).SduiEventDetailsPage;
+                end), 
+                navigationOptions = {
+                    transparent = true, 
+                    absorbInput = true
+                }
+            }
+        });
+    end;
     if l_FFlagEnableTopSongsSort_0 then
-        table.insert(v16, {
+        table.insert(v17, {
             [l_AppPage_0.SongDetail] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 129 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 145 ]]
                     -- upvalues: l_CorePackages_0 (ref)
                     return require(l_CorePackages_0.Workspace.Packages.SongDetails).SongDetailPage;
                 end), 
@@ -131,9 +146,9 @@ return function() --[[ Line: 28 ]]
                 }
             }
         });
-        table.insert(v16, {
+        table.insert(v17, {
             [l_AppPage_0.SongList] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 141 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 157 ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.Personalization.Songs.SongGridPage);
                 end), 
@@ -144,9 +159,9 @@ return function() --[[ Line: 28 ]]
         });
     end;
     if l_FFlagLuaAppSortDeeplinkFix_0 then
-        table.insert(v16, {
+        table.insert(v17, {
             [l_AppPage_0.DeeplinkGamesList] = {
-                screen = l_createLazyComponent_0(function() --[[ Line: 154 ]]
+                screen = l_createLazyComponent_0(function() --[[ Line: 170 ]]
                     -- upvalues: l_Modules_0 (ref)
                     return require(l_Modules_0.LuaApp.Components.Games.DeeplinkGamesListWrapper);
                 end), 
@@ -157,5 +172,5 @@ return function() --[[ Line: 28 ]]
             }
         });
     end;
-    return v16;
+    return v17;
 end;

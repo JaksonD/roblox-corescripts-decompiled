@@ -48,7 +48,9 @@ return function(v0) --[[ Line: 1 ]]
                         v17(v24, v23, v20 + 1);
                     end;
                 else
-                    v13(v23, v24, v22);
+                    local v25 = if type(v23) == "string" then string.format("%s", v23) else string.format("[%s]", (tostring(v23)));
+                    local v26 = v5(v24);
+                    v0(string.format("%s%s = %s,%s", v22, v25, v26, ""));
                 end;
             end;
             v0(string.format("%s}%s", v21, v20 > 0 and "," or ""));

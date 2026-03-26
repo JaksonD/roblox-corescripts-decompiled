@@ -1,1 +1,1 @@
-return game:DefineFastFlag("UnifiedPurchaseModalLayoutRefactor", false);
+return game:DefineFastFlag("UnifiedPurchaseModalLayoutRefactor2", false);

@@ -69,15 +69,21 @@ local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSqu
 local l_FFlagDebugEnableTCDoubleOptIn_DEV_0 = require(l_Parent_0.SharedFlags).FFlagDebugEnableTCDoubleOptIn_DEV;
 local l_FFlagAppChatEnableDoubleOptIn_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableDoubleOptIn;
 local l_FFlagEnableAEGIS2AppChatConversationBanner_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2AppChatConversationBanner;
-local v71 = game:DefineFastInt("AppChatGetAllMessagesDepth", 100);
+local l_FFlagAppChatShowOSAOnPageEntry_0 = require(l_Parent_0.SharedFlags).FFlagAppChatShowOSAOnPageEntry;
+local v72 = game:DefineFastInt("AppChatGetAllMessagesDepth", 100);
 local l_FFlagIsSquadEnabledAMP_0 = require(l_Parent_0.SharedFlags).FFlagIsSquadEnabledAMP;
-local v73 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatSuppressGroupOSAContextCard);
+local v74 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatSuppressGroupOSAContextCard);
 local l_FFlagAppChatNavigateBackIfOSAUnacknowledged_0 = require(l_Parent_0.SharedFlags).FFlagAppChatNavigateBackIfOSAUnacknowledged;
-local v75 = require(l_script_FirstAncestor_0.Utils.shouldShowOSAForConversation);
-local function _(v76) --[[ Line: 87 ]] --[[ Name: isOverlayNavigation ]]
-    return v76 and v76.action and v76.action.params and v76.action.params.isOverlay or false;
+local v76 = require(l_script_FirstAncestor_0.Utils.shouldShowOSAForConversation);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v78 = require(l_script_FirstAncestor_0.Utils.shouldShowU13ChatOptInForConversation);
+local l_navigateWithOsaGate_0 = require(l_script_FirstAncestor_0.Utils).navigateWithOsaGate;
+local v80 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatReactToFaeForOsa);
+local v81 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatNudgeToChatUpsell_DEV);
+local function _(v82) --[[ Line: 95 ]] --[[ Name: isOverlayNavigation ]]
+    return v82 and v82.action and v82.action.params and v82.action.params.isOverlay or false;
 end;
-local v79 = {
+local v85 = {
     topBarHeight = 0, 
     wideMode = false, 
     chatInputPlaceholderKey = "Feature.Chat.Label.ChatInputPlaceholder", 
@@ -105,756 +111,839 @@ local v79 = {
     pendingStateBodyKey = "Feature.Chat.Message.ChatIsUnfiltered", 
     connectUnavailableWithUserKey = "Feature.Chat.RobloxConnectUnavailableWithUser", 
     chatUnavailableWithUserKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "Feature.Chat.Message.PartyUnavailableWithUser" or "Feature.Chat.Message.ChatUnavailableWithUser", 
-    getReadingMessagesIsEnabled = function() --[[ Line: 114 ]] --[[ Name: getReadingMessagesIsEnabled ]]
+    getReadingMessagesIsEnabled = function() --[[ Line: 122 ]] --[[ Name: getReadingMessagesIsEnabled ]]
 
     end, 
-    updateConversationTitle = function(_) --[[ Line: 115 ]] --[[ Name: updateConversationTitle ]]
+    updateConversationTitle = function(_) --[[ Line: 123 ]] --[[ Name: updateConversationTitle ]]
 
     end, 
-    navigateToScreen = function() --[[ Line: 116 ]] --[[ Name: navigateToScreen ]]
+    navigateToScreen = function() --[[ Line: 124 ]] --[[ Name: navigateToScreen ]]
 
     end, 
     inputBarDisabledKey = "Feature.Chat.Label.ChatDisabled", 
-    navigateToChatLanding = function() --[[ Line: 118 ]] --[[ Name: navigateToChatLanding ]]
+    navigateToChatLanding = function() --[[ Line: 126 ]] --[[ Name: navigateToChatLanding ]]
 
     end, 
-    releaseInputBarFocus = function() --[[ Line: 119 ]] --[[ Name: releaseInputBarFocus ]]
+    releaseInputBarFocus = function() --[[ Line: 127 ]] --[[ Name: releaseInputBarFocus ]]
 
     end, 
-    navigateToSquadLobby = function() --[[ Line: 120 ]] --[[ Name: navigateToSquadLobby ]]
+    navigateToSquadLobby = function() --[[ Line: 128 ]] --[[ Name: navigateToSquadLobby ]]
 
     end, 
-    navigateToConversationOverlay = function() --[[ Line: 121 ]] --[[ Name: navigateToConversationOverlay ]]
+    navigateToConversationOverlay = function() --[[ Line: 129 ]] --[[ Name: navigateToConversationOverlay ]]
 
     end, 
     getCanAccessParty = true
 };
-local function v86(v80) --[[ Line: 126 ]] --[[ Name: getOsaState ]]
-    -- upvalues: v73 (copy), v14 (copy)
-    local v81 = v80 and v80.fetchedOldestMessage;
-    local v82 = not v73 or not v80 or v80.conversationType ~= v14.Type.MULTI_USER_CONVERSATION;
-    local v83 = v80 and v82 and (v80.source == "friends" or v80.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Unacknowledged or v80.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Acknowledged);
-    local v84 = v80 and v80.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Unacknowledged;
-    local v85 = v80 and v80.source == "friends";
+local function v92(v86) --[[ Line: 134 ]] --[[ Name: getOsaState ]]
+    -- upvalues: v74 (copy), v14 (copy)
+    local v87 = v86 and v86.fetchedOldestMessage;
+    local v88 = not v74 or not v86 or v86.conversationType ~= v14.Type.MULTI_USER_CONVERSATION;
+    local v89 = v86 and v88 and (v86.source == "friends" or v86.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Unacknowledged or v86.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Acknowledged);
+    local v90 = v86 and v86.osaAcknowledgementStatus == v14.OsaAcknowledgementStatus.Unacknowledged;
+    local v91 = v86 and v86.source == "friends";
     return {
-        shouldShowOsaCardInConversation = v83, 
-        fetchedOldestMessage = v81, 
-        shouldShowOsaCardOnInitialLoad = v83 and v84 and not v85, 
-        shouldShowOsaCardNow = v83 and (v81 or v85)
+        shouldShowOsaCardInConversation = v89, 
+        fetchedOldestMessage = v87, 
+        shouldShowOsaCardOnInitialLoad = v89 and v90 and not v91, 
+        shouldShowOsaCardNow = v89 and (v87 or v91)
     };
 end;
-ChatConversationContainer = function(v87) --[[ Line: 154 ]] --[[ Name: ChatConversationContainer ]]
-    -- upvalues: v5 (copy), v79 (copy), v11 (copy), v4 (copy), v10 (copy), v24 (copy), v18 (copy), v19 (copy), v32 (copy), l_HttpService_0 (copy), l_useLocalUserId_0 (copy), v34 (copy), v38 (copy), v46 (copy), l_useEffect_0 (copy), l_FFlagAppChatNavigateBackIfOSAUnacknowledged_0 (copy), v75 (copy), l_FFlagAppChatInterventionFocusFix_0 (copy), l_useSignal_0 (copy), l_interventionTreatmentShownSignal_0 (copy), l_Constants_0 (copy), v29 (copy), v31 (copy), v30 (copy), v25 (copy), v26 (copy), v12 (copy), v86 (copy), v56 (copy), v57 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), v37 (copy), v60 (copy), v27 (copy), v28 (copy), l_useLocalization_0 (copy), v44 (copy), v42 (copy), v43 (copy), l_useDispatch_0 (copy), v33 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), v52 (copy), v16 (copy), v3 (copy), l_FFlagDebugEnableTCDoubleOptIn_DEV_0 (copy), v54 (copy), l_FFlagTCUpsellModalEnabled_DEV_0 (copy), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), v53 (copy), l_getFFlagAppChatEnableIntervention_0 (copy), l_useSelector_0 (copy), v40 (copy), v41 (copy), v45 (copy), v13 (copy), v36 (copy), v55 (copy), v14 (copy), v15 (copy), l_dependencyArray_0 (copy), l_chatInputBoxDisabledPressedSignal_0 (copy), v58 (copy), v62 (copy), v59 (copy), v6 (copy), v50 (copy), v51 (copy), v71 (copy), l_FFlagIsSquadEnabledAMP_0 (copy), v9 (copy), v8 (copy)
-    local v88 = v5.Dictionary.join(v79, v87);
-    local v89 = v11();
-    local v91 = v4.useCallback(function(v90) --[[ Line: 157 ]]
-        -- upvalues: v89 (copy), v10 (ref), v88 (copy)
-        v89:navigate(v10.NavigationEvents.ChatConversationProfile);
-        v88.openViewProfile(v90);
+ChatConversationContainer = function(v93) --[[ Line: 162 ]] --[[ Name: ChatConversationContainer ]]
+    -- upvalues: v5 (copy), v85 (copy), v11 (copy), v4 (copy), v10 (copy), v24 (copy), v18 (copy), v19 (copy), v32 (copy), l_HttpService_0 (copy), l_useLocalUserId_0 (copy), v34 (copy), v38 (copy), v46 (copy), l_useDispatch_0 (copy), l_useEffect_0 (copy), l_FFlagAppChatNavigateBackIfOSAUnacknowledged_0 (copy), l_FFlagAppChatShowOSAOnPageEntry_0 (copy), v6 (copy), l_navigateWithOsaGate_0 (copy), v76 (copy), v80 (copy), v78 (copy), l_FFlagAppChatInterventionFocusFix_0 (copy), l_useSignal_0 (copy), l_interventionTreatmentShownSignal_0 (copy), l_Constants_0 (copy), v29 (copy), v31 (copy), v30 (copy), v25 (copy), v26 (copy), v12 (copy), v92 (copy), v56 (copy), v57 (copy), l_GetFFlagEnableAppChatInExperience_0 (copy), v37 (copy), v60 (copy), v27 (copy), v28 (copy), l_useLocalization_0 (copy), v44 (copy), v42 (copy), v43 (copy), v33 (copy), l_FFlagAppChatEnableDoubleOptIn_0 (copy), v52 (copy), v16 (copy), v3 (copy), l_FFlagDebugEnableTCDoubleOptIn_DEV_0 (copy), v54 (copy), l_FFlagTCUpsellModalEnabled_DEV_0 (copy), v81 (copy), l_FFlagEnableAEGIS2AppChatConversationBanner_0 (copy), v53 (copy), l_getFFlagAppChatEnableIntervention_0 (copy), l_useSelector_0 (copy), v40 (copy), v41 (copy), v45 (copy), v13 (copy), v36 (copy), v55 (copy), v14 (copy), v15 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_chatInputBoxDisabledPressedSignal_0 (copy), v58 (copy), v62 (copy), v59 (copy), v50 (copy), v51 (copy), v72 (copy), l_FFlagIsSquadEnabledAMP_0 (copy), v9 (copy), v8 (copy)
+    local v94 = v5.Dictionary.join(v85, v93);
+    local v95 = v11();
+    local v97 = v4.useCallback(function(v96) --[[ Line: 165 ]]
+        -- upvalues: v95 (copy), v10 (ref), v94 (copy)
+        v95:navigate(v10.NavigationEvents.ChatConversationProfile);
+        v94.openViewProfile(v96);
     end, {
-        v88.openViewProfile, 
-        v89
+        v94.openViewProfile, 
+        v95
     });
-    local v92 = v24(v18);
-    local v93 = v19(v88.conversationId);
-    local v94 = nil;
-    local v95 = v32(v93);
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 165 ]]
-        -- upvalues: l_HttpService_0 (ref), v95 (copy)
-        return l_HttpService_0:JSONEncode(v95);
+    local v98 = v24(v18);
+    local v99 = v19(v94.conversationId);
+    local v100 = nil;
+    local v101 = v32(v99);
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 173 ]]
+        -- upvalues: l_HttpService_0 (ref), v101 (copy)
+        return l_HttpService_0:JSONEncode(v101);
     end);
-    v94 = if l_status_0 then l_result_0 else "[]";
-    local v98 = nil;
-    local v99 = nil;
-    local v100 = l_useLocalUserId_0();
-    local v101 = v34();
-    local v102 = v38();
-    local v103 = v46();
-    l_useEffect_0(function() --[[ Line: 178 ]]
-        -- upvalues: v103 (copy), v88 (copy)
-        if not v103 then
-            v88.navigateToChatLanding();
+    v100 = if l_status_0 then l_result_0 else "[]";
+    local v104 = nil;
+    local v105 = nil;
+    local v106 = l_useLocalUserId_0();
+    local v107 = v34();
+    local v108 = v38();
+    local v109 = v46();
+    local v110 = l_useDispatch_0();
+    l_useEffect_0(function() --[[ Line: 187 ]]
+        -- upvalues: v109 (copy), v94 (copy)
+        if not v109 then
+            v94.navigateToChatLanding();
         end;
     end, {
-        v103, 
-        v88.navigateToChatLanding
+        v109, 
+        v94.navigateToChatLanding
     });
     if l_FFlagAppChatNavigateBackIfOSAUnacknowledged_0 then
-        local v104 = if v88.navigation and v88.navigation.getParam then v88.navigation.getParam("isNavigatedFromGroupOSAJoin", false) else false;
-        local l_v104_0 = v104 --[[ copy: 16 -> 69 ]];
-        l_useEffect_0(function() --[[ Line: 190 ]]
-            -- upvalues: l_v104_0 (copy), v75 (ref), v93 (ref), v88 (copy)
-            if not l_v104_0 and v75(v93) then
-                v88.navigateToChatLanding();
+        local v111 = if v94.navigation and v94.navigation.getParam then v94.navigation.getParam("isNavigatedFromGroupOSAJoin", false) else false;
+        if l_FFlagAppChatShowOSAOnPageEntry_0 then
+            l_useEffect_0(function() --[[ Line: 200 ]]
+                -- upvalues: v94 (copy), v6 (ref), l_navigateWithOsaGate_0 (ref), v110 (copy)
+                if not v94.navigation or not v94.navigation.addListener then
+                    return;
+                else
+                    local v112 = v94.navigation.addListener(v6.Events.WillFocus, function() --[[ Line: 204 ]]
+                        -- upvalues: l_navigateWithOsaGate_0 (ref), v94 (ref), v110 (ref)
+                        l_navigateWithOsaGate_0({
+                            conversationId = v94.conversationId, 
+                            dispatch = v110, 
+                            onAccepted = function() --[[ Line: 208 ]] --[[ Name: onAccepted ]]
+
+                            end, 
+                            onDeclined = function() --[[ Line: 209 ]] --[[ Name: onDeclined ]]
+                                -- upvalues: v94 (ref)
+                                v94.navigateToChatLanding();
+                            end
+                        });
+                    end);
+                    return function() --[[ Line: 214 ]]
+                        -- upvalues: v112 (copy)
+                        if v112 then
+                            v112:remove();
+                        end;
+                    end;
+                end;
+            end, {
+                v94.navigation, 
+                v94.conversationId, 
+                v110
+            });
+        else
+            local l_v111_0 = v111 --[[ copy: 17 -> 69 ]];
+            l_useEffect_0(function() --[[ Line: 221 ]]
+                -- upvalues: l_v111_0 (copy), v76 (ref), v99 (ref), v94 (copy)
+                if not l_v111_0 and v76(v99) then
+                    v94.navigateToChatLanding();
+                end;
+            end, {
+                v99, 
+                v94.navigateToChatLanding, 
+                v111
+            });
+        end;
+    end;
+    if v80 then
+        l_useEffect_0(function() --[[ Line: 231 ]]
+            -- upvalues: v99 (ref), v76 (ref), v78 (ref), l_navigateWithOsaGate_0 (ref), v94 (copy), v110 (copy)
+            if not v99 then
+                return;
+            else
+                local v114 = v76(v99);
+                local v115 = v78(v99);
+                if v114 or v115 then
+                    l_navigateWithOsaGate_0({
+                        conversationId = v94.conversationId, 
+                        dispatch = v110, 
+                        onAccepted = function() --[[ Line: 241 ]] --[[ Name: onAccepted ]]
+
+                        end, 
+                        onDeclined = function() --[[ Line: 242 ]] --[[ Name: onDeclined ]]
+                            -- upvalues: v94 (ref)
+                            v94.navigateToChatLanding();
+                        end
+                    });
+                end;
+                return;
             end;
         end, {
-            v93, 
-            v88.navigateToChatLanding, 
-            v104
+            v99, 
+            v94.conversationId, 
+            v110
         });
     end;
     if l_FFlagAppChatInterventionFocusFix_0 then
-        l_useSignal_0(l_interventionTreatmentShownSignal_0, v4.useCallback(function(v106) --[[ Line: 200 ]]
-            -- upvalues: l_Constants_0 (ref), v88 (copy)
-            if v106 == l_Constants_0.TreatmentType.PartyChatNudgeDialog or v106 == l_Constants_0.TreatmentType.PartyChatTimeoutDialog then
-                v88.releaseInputBarFocus();
+        l_useSignal_0(l_interventionTreatmentShownSignal_0, v4.useCallback(function(v116) --[[ Line: 259 ]]
+            -- upvalues: l_Constants_0 (ref), v94 (copy)
+            if v116 == l_Constants_0.TreatmentType.PartyChatNudgeDialog or v116 == l_Constants_0.TreatmentType.PartyChatTimeoutDialog then
+                v94.releaseInputBarFocus();
             end;
         end, {
-            v88.releaseInputBarFocus
+            v94.releaseInputBarFocus
         }));
     end;
-    v99 = v29.Hooks.useUserProfilesFetch({
-        userIds = v31(v93, v100), 
+    v105 = v29.Hooks.useUserProfilesFetch({
+        userIds = v31(v99, v106), 
         query = v29.Queries.userProfilesCombinedNameAndUsernameByUserIds
     });
-    local v107 = v29.Hooks.useUserProfilesFetch({
+    local v117 = v29.Hooks.useUserProfilesFetch({
         userIds = {
-            (tostring(v100))
+            (tostring(v106))
         }, 
         query = v29.Queries.userProfilesCombinedNameAndUsernameByUserIds
     });
-    v98 = v30(v93, v99.data and v99.data.userProfiles, if v107.data then v29.Selectors.getCombinedNameFromId(v107.data, (tostring(v100))) else "");
-    local v108 = v25();
-    local v109 = v26(v88.conversationId);
-    local v110 = v4.useRef({
+    v104 = v30(v99, v105.data and v105.data.userProfiles, if v117.data then v29.Selectors.getCombinedNameFromId(v117.data, (tostring(v106))) else "");
+    local v118 = v25();
+    local v119 = v26(v94.conversationId);
+    local v120 = v4.useRef({
         itemList = {}, 
         previousMessagesState = {}, 
         previousSendingMessagesState = {}, 
         previousMessagesResult = {}
     });
-    local v111 = v4.useMemo(function() --[[ Line: 239 ]]
-        -- upvalues: v110 (copy), v12 (ref), v93 (ref), v88 (copy), v108 (copy), v100 (copy)
-        v110.current = v12({
-            conversation = v93, 
-            conversationId = v88.conversationId, 
-            Users = v108, 
-            localUserId = v100
-        }, v110.current);
-        return v110.current.itemList;
+    local v121 = v4.useMemo(function() --[[ Line: 298 ]]
+        -- upvalues: v120 (copy), v12 (ref), v99 (ref), v94 (copy), v118 (copy), v106 (copy)
+        v120.current = v12({
+            conversation = v99, 
+            conversationId = v94.conversationId, 
+            Users = v118, 
+            localUserId = v106
+        }, v120.current);
+        return v120.current.itemList;
     end, {
-        v93, 
-        v88.conversationId, 
-        v108, 
-        v100
+        v99, 
+        v94.conversationId, 
+        v118, 
+        v106
     });
-    local v112 = v86(v93);
-    local v114 = v4.useMemo(function() --[[ Line: 252 ]]
-        -- upvalues: v112 (copy), v111 (copy), v56 (ref), v57 (ref)
-        local v113 = {};
-        if v112.shouldShowOsaCardOnInitialLoad and not v112.fetchedOldestMessage then
-            return v113;
+    local v122 = v92(v99);
+    local v124 = v4.useMemo(function() --[[ Line: 311 ]]
+        -- upvalues: v122 (copy), v121 (copy), v56 (ref), v57 (ref)
+        local v123 = {};
+        if v122.shouldShowOsaCardOnInitialLoad and not v122.fetchedOldestMessage then
+            return v123;
         else
-            v113 = table.clone(v111);
-            if v112.shouldShowOsaCardNow then
-                table.insert(v113, {
+            v123 = table.clone(v121);
+            if v122.shouldShowOsaCardNow then
+                table.insert(v123, {
                     messageType = v56.Custom, 
                     customEntryType = v57.OsaContextCardOneToOne, 
                     stable_key = v57.OsaContextCardOneToOne
                 });
             end;
-            return v113;
+            return v123;
         end;
     end, {
-        v111, 
-        v93, 
-        v112.shouldShowOsaCardOnInitialLoad, 
-        v112.shouldShowOsaCardInConversation, 
-        v112.shouldShowOsaCardNow, 
-        v112.fetchedOldestMessage
+        v121, 
+        v99, 
+        v122.shouldShowOsaCardOnInitialLoad, 
+        v122.shouldShowOsaCardInConversation, 
+        v122.shouldShowOsaCardNow, 
+        v122.fetchedOldestMessage
     });
-    local v115 = if v109[1] and v99.data then v29.Selectors.getCombinedNameFromId(v99.data, v109[1].id) else nil;
-    local v116 = if v109[2] and v99.data then v29.Selectors.getCombinedNameFromId(v99.data, v109[2].id) else nil;
-    local v117 = true;
-    if #v109 == 1 and not v115 then
-        v117 = false;
-    elseif #v109 == 2 and (not v115 or not v116) then
-        v117 = false;
+    local v125 = if v119[1] and v105.data then v29.Selectors.getCombinedNameFromId(v105.data, v119[1].id) else nil;
+    local v126 = if v119[2] and v105.data then v29.Selectors.getCombinedNameFromId(v105.data, v119[2].id) else nil;
+    local v127 = true;
+    if #v119 == 1 and not v125 then
+        v127 = false;
+    elseif #v119 == 2 and (not v125 or not v126) then
+        v127 = false;
     end;
-    local v118 = l_GetFFlagEnableAppChatInExperience_0() and v37();
-    local v119 = nil;
-    local v120 = nil;
-    local v121 = nil;
-    local v122 = nil;
+    local v128 = l_GetFFlagEnableAppChatInExperience_0() and v37();
+    local v129 = nil;
+    local v130 = nil;
+    local v131 = nil;
+    local v132 = nil;
     if v60() then
-        v119 = v27();
-        v120 = v28();
-        if v119 then
-            v122 = v119.senderTargetId == v100;
-            v121 = if not v122 and v99.data then v29.Selectors.getCombinedNameFromId(v99.data, v119.senderTargetId) else nil;
+        v129 = v27();
+        v130 = v28();
+        if v129 then
+            v132 = v129.senderTargetId == v106;
+            v131 = if not v132 and v105.data then v29.Selectors.getCombinedNameFromId(v105.data, v129.senderTargetId) else nil;
         end;
     end;
-    local v123 = l_useLocalization_0({
-        chatInputPlaceholder = v88.chatInputPlaceholderKey, 
+    local v133 = l_useLocalization_0({
+        chatInputPlaceholder = v94.chatInputPlaceholderKey, 
         replyChatInputPlaceholder = {
-            v88.replyChatInputPlaceholderKey; 
-            DISPLAY_NAME = v121
+            v94.replyChatInputPlaceholderKey; 
+            DISPLAY_NAME = v131
         }, 
-        replyToYourselfChatInputPlaceholder = v88.replyToYourselfChatInputPlaceholderKey, 
-        invalidMessageTypeText = v88.notImplementedMessageTypeKey, 
-        messageDefaultNoticeText = v88.messageDefaultNoticeKey, 
-        messageModeratedNoticeText = v88.messageModeratedNoticeKey, 
-        messageHiddenNoticeText = v88.messageHiddenNoticeKey, 
-        networkErrorText = v88.networkErrorTextKey, 
-        newText = v88.newTextKey, 
-        schedulePartyText = v88.schedulePartyTextKey, 
-        unknownUserText = v88.unknownUserTextKey, 
+        replyToYourselfChatInputPlaceholder = v94.replyToYourselfChatInputPlaceholderKey, 
+        invalidMessageTypeText = v94.notImplementedMessageTypeKey, 
+        messageDefaultNoticeText = v94.messageDefaultNoticeKey, 
+        messageModeratedNoticeText = v94.messageModeratedNoticeKey, 
+        messageHiddenNoticeText = v94.messageHiddenNoticeKey, 
+        networkErrorText = v94.networkErrorTextKey, 
+        newText = v94.newTextKey, 
+        schedulePartyText = v94.schedulePartyTextKey, 
+        unknownUserText = v94.unknownUserTextKey, 
         oneUserTyping = {
             "Feature.Chat.Message.OneUserTyping"; 
-            DISPLAY_NAME = v115
+            DISPLAY_NAME = v125
         }, 
         twoUsersTyping = {
             "Feature.Chat.Message.TwoUsersTyping"; 
-            DISPLAY_NAME_1 = v115, 
-            DISPLAY_NAME_2 = v116
+            DISPLAY_NAME_1 = v125, 
+            DISPLAY_NAME_2 = v126
         }, 
-        severalUsersTyping = v88.severalUsersTyping, 
-        bottomModalText = v88.chatUnavailableWithUserKey, 
-        inputBarDisabledText = v88.inputBarDisabledKey
+        severalUsersTyping = v94.severalUsersTyping, 
+        bottomModalText = v94.chatUnavailableWithUserKey, 
+        inputBarDisabledText = v94.inputBarDisabledKey
     });
-    local v124 = v44(v42.Context);
-    local v125 = v43.useMergeState();
-    local v126 = v43.useClearState();
-    local v127 = l_useDispatch_0();
-    local v128 = v93 and v93.moderationType or v5.None;
-    local v129 = v93 and v93.userPendingStatus or v5.None;
-    l_useEffect_0(function() --[[ Line: 347 ]]
-        -- upvalues: v125 (copy), v88 (copy), v128 (copy), v129 (copy)
-        v125({
-            conversationId = v88.conversationId, 
-            moderationType = v128, 
-            userPendingStatus = v129
+    local v134 = v44(v42.Context);
+    local v135 = v43.useMergeState();
+    local v136 = v43.useClearState();
+    local v137 = v99 and v99.moderationType or v5.None;
+    local v138 = v99 and v99.userPendingStatus or v5.None;
+    l_useEffect_0(function() --[[ Line: 405 ]]
+        -- upvalues: v135 (copy), v94 (copy), v137 (copy), v138 (copy)
+        v135({
+            conversationId = v94.conversationId, 
+            moderationType = v137, 
+            userPendingStatus = v138
         });
     end, {
-        v125, 
-        v88.conversationId, 
-        v128, 
-        v129
+        v135, 
+        v94.conversationId, 
+        v137, 
+        v138
     });
-    local v130 = v33(v93 or {});
-    local v131 = v93 and v93.source;
+    local v139 = v33(v99 or {});
+    local v140 = v99 and v99.source;
     if l_FFlagAppChatEnableDoubleOptIn_0 then
-        local v132, v133 = v52(v16.rodux.GetModalSequence.API, v88.conversationId);
-        local l_v133_0 = v133 --[[ copy: 41 -> 67 ]];
-        local l_v132_0 = v132 --[[ copy: 40 -> 68 ]];
-        l_useEffect_0(function() --[[ Line: 363 ]]
-            -- upvalues: l_v133_0 (copy), v130 (copy), v131 (copy), v127 (copy), v16 (ref), v88 (copy), v118 (copy), v3 (ref), l_v132_0 (copy)
-            if not l_v133_0 then
+        local v141, v142 = v52(v16.rodux.GetModalSequence.API, v94.conversationId);
+        local l_v142_0 = v142 --[[ copy: 41 -> 67 ]];
+        local l_v141_0 = v141 --[[ copy: 40 -> 68 ]];
+        l_useEffect_0(function() --[[ Line: 421 ]]
+            -- upvalues: l_v142_0 (copy), v139 (copy), v140 (copy), v110 (copy), v16 (ref), v94 (copy), v128 (copy), v3 (ref), l_v141_0 (copy)
+            if not l_v142_0 then
                 return;
             else
-                if v130 and v131 == "channels" then
-                    v127(v16.rodux.GetPendingStateModal.API(v88.conversationId, v118)):catch(function(v136) --[[ Line: 369 ]]
+                if v139 and v140 == "channels" then
+                    v110(v16.rodux.GetPendingStateModal.API(v94.conversationId, v128)):catch(function(v145) --[[ Line: 427 ]]
                         -- upvalues: v3 (ref)
-                        v3:warning((("GetPendingStateModal error in ChatConversationContainer %*"):format((tostring(v136)))));
+                        v3:warning((("GetPendingStateModal error in ChatConversationContainer %*"):format((tostring(v145)))));
                     end);
                 end;
-                if not v130 then
-                    v127(l_v132_0({
+                if not v139 then
+                    v110(l_v141_0({
                         modalSequence = v16.Constants.ModalSequence.ConversationTopModal, 
-                        isInExperience = v118
-                    })):catch(function(v137) --[[ Line: 378 ]]
+                        isInExperience = v128
+                    })):catch(function(v146) --[[ Line: 436 ]]
                         -- upvalues: v3 (ref)
-                        v3:warning((("GetModalSequence for ConversationTopModal error in ChatConversationContainer %*"):format((tostring(v137)))));
+                        v3:warning((("GetModalSequence for ConversationTopModal error in ChatConversationContainer %*"):format((tostring(v146)))));
                     end);
                 end;
                 return;
             end;
         end, {
-            v88.conversationId, 
-            v133, 
-            v118, 
-            v130, 
-            v131
+            v94.conversationId, 
+            v142, 
+            v128, 
+            v139, 
+            v140
         });
     else
-        l_useEffect_0(function() --[[ Line: 386 ]]
-            -- upvalues: v131 (copy), v130 (copy), v127 (copy), v16 (ref), v88 (copy), v118 (copy)
-            if v131 ~= "channels" then
+        l_useEffect_0(function() --[[ Line: 444 ]]
+            -- upvalues: v140 (copy), v139 (copy), v110 (copy), v16 (ref), v94 (copy), v128 (copy)
+            if v140 ~= "channels" then
                 return;
-            elseif v130 then
-                v127(v16.rodux.GetPendingStateModal.API(v88.conversationId, v118)):catch(function(v138) --[[ Line: 392 ]]
-                    warn("GetPendingStateModal error in ChatConversationContainer " .. tostring(v138));
+            elseif v139 then
+                v110(v16.rodux.GetPendingStateModal.API(v94.conversationId, v128)):catch(function(v147) --[[ Line: 450 ]]
+                    warn("GetPendingStateModal error in ChatConversationContainer " .. tostring(v147));
                 end);
                 return;
             else
-                v127(v16.rodux.GetConversationTopModal.API(v88.conversationId, v118)):catch(function(v139) --[[ Line: 398 ]]
-                    warn("GetConversationTopModal error in ChatConversationContainer " .. tostring(v139));
+                v110(v16.rodux.GetConversationTopModal.API(v94.conversationId, v128)):catch(function(v148) --[[ Line: 456 ]]
+                    warn("GetConversationTopModal error in ChatConversationContainer " .. tostring(v148));
                 end);
                 return;
             end;
         end, {
-            v88.conversationId, 
-            v127, 
-            v131
+            v94.conversationId, 
+            v110, 
+            v140
         });
     end;
-    local v140, v141 = v52(v16.rodux.GetModalSequence.API, v88.conversationId);
-    l_useEffect_0(function() --[[ Line: 409 ]]
-        -- upvalues: v130 (copy), v141 (ref), v127 (copy), v140 (copy), v16 (ref), v118 (copy), v3 (ref)
-        if not v130 and v141 then
-            v127(v140({
+    local v149, v150 = v52(v16.rodux.GetModalSequence.API, v94.conversationId);
+    l_useEffect_0(function() --[[ Line: 467 ]]
+        -- upvalues: v139 (copy), v150 (ref), v110 (copy), v149 (copy), v16 (ref), v128 (copy), v3 (ref)
+        if not v139 and v150 then
+            v110(v149({
                 modalSequence = v16.Constants.ModalSequence.ConversationOverlay, 
-                isInExperience = v118
-            })):catch(function(v142) --[[ Line: 414 ]]
+                isInExperience = v128
+            })):catch(function(v151) --[[ Line: 472 ]]
                 -- upvalues: v3 (ref)
-                v3:warning((("GetModalSequence error in ChatConversationContainer %*"):format((tostring(v142)))));
+                v3:warning((("GetModalSequence error in ChatConversationContainer %*"):format((tostring(v151)))));
             end);
         end;
     end, {
-        v141, 
-        v88.conversationId, 
-        v130, 
-        v118, 
-        v128
+        v150, 
+        v94.conversationId, 
+        v139, 
+        v128, 
+        v137
     });
     if l_FFlagDebugEnableTCDoubleOptIn_DEV_0 then
         v54({
             keyCode = Enum.KeyCode.O, 
             modifierKey = Enum.ModifierKey.Ctrl
-        }, function() --[[ Line: 421 ]]
-            -- upvalues: v3 (ref), v127 (copy), v88 (copy), v16 (ref)
+        }, function() --[[ Line: 479 ]]
+            -- upvalues: v3 (ref), v110 (copy), v94 (copy), v16 (ref)
             v3:debug("Ctrl + O pressed, showing new TC double opt in banner");
-            v127({
+            v110({
                 type = "DEBUG_ShowNewTopModal", 
-                conversationId = v88.conversationId, 
+                conversationId = v94.conversationId, 
                 modalVariant = v16.Constants.ConversationTopModal.AddTrustedConnection
             });
         end, {
-            v127, 
-            v88.conversationId
+            v110, 
+            v94.conversationId
         });
         v54({
             keyCode = Enum.KeyCode.P, 
             modifierKey = Enum.ModifierKey.Ctrl
-        }, function() --[[ Line: 430 ]]
-            -- upvalues: v3 (ref), v127 (copy), v88 (copy), v16 (ref)
+        }, function() --[[ Line: 488 ]]
+            -- upvalues: v3 (ref), v110 (copy), v94 (copy), v16 (ref)
             v3:debug("Ctrl + P pressed, showing new TC double opt in request banner");
-            v127({
+            v110({
                 type = "DEBUG_ShowNewTopModal", 
-                conversationId = v88.conversationId, 
+                conversationId = v94.conversationId, 
                 modalVariant = v16.Constants.ConversationTopModal.TrustedConnectionRequest
             });
         end, {
-            v127, 
-            v88.conversationId
+            v110, 
+            v94.conversationId
         });
     end;
     if l_FFlagTCUpsellModalEnabled_DEV_0 then
         v54({
             keyCode = Enum.KeyCode.L, 
             modifierKey = Enum.ModifierKey.Ctrl
-        }, function() --[[ Line: 441 ]]
-            -- upvalues: v3 (ref), v127 (copy), v88 (copy), v16 (ref)
+        }, function() --[[ Line: 499 ]]
+            -- upvalues: v3 (ref), v110 (copy), v94 (copy), v16 (ref)
             v3:debug("Ctrl + L pressed, showing new TC created overlay");
-            v127({
+            v110({
                 type = "DEBUG_ShowNewTCOverlay", 
-                conversationId = v88.conversationId, 
+                conversationId = v94.conversationId, 
                 modalVariant = v16.Constants.ConversationOverlay.TrustedConnectionCreated
             });
         end, {
-            v127, 
-            v88.conversationId
+            v110, 
+            v94.conversationId
+        });
+    end;
+    if v81 then
+        v54({
+            keyCode = Enum.KeyCode.N, 
+            modifierKey = Enum.ModifierKey.Ctrl
+        }, function() --[[ Line: 510 ]]
+            -- upvalues: v3 (ref), v110 (copy), v94 (copy), v16 (ref)
+            v3:debug("Ctrl + N pressed, showing nudge to chat upsell overlay");
+            v110({
+                type = "DEBUG_ShowNudgeToChatUpsellOverlay", 
+                conversationId = v94.conversationId, 
+                modalVariant = v16.Constants.ConversationOverlay.NudgeToChatUpsell
+            });
+        end, {
+            v110, 
+            v94.conversationId
         });
     end;
     if l_FFlagEnableAEGIS2AppChatConversationBanner_0 then
-        local v143 = nil;
-        local v144, v145 = v52(v16.rodux.GetModalSequence.API, v88.conversationId);
-        v143 = v144;
-        v141 = v145;
+        local v152 = nil;
+        local v153, v154 = v52(v16.rodux.GetModalSequence.API, v94.conversationId);
+        v152 = v153;
+        v150 = v154;
         do
-            local l_v143_0 = v143;
-            l_useEffect_0(function() --[[ Line: 457 ]]
-                -- upvalues: v141 (ref), v127 (copy), l_v143_0 (ref), v16 (ref), v118 (copy), v3 (ref)
-                if not v141 then
+            local l_v152_0 = v152;
+            l_useEffect_0(function() --[[ Line: 526 ]]
+                -- upvalues: v150 (ref), v110 (copy), l_v152_0 (ref), v16 (ref), v128 (copy), v3 (ref)
+                if not v150 then
                     return;
                 else
-                    v127(l_v143_0({
+                    v110(l_v152_0({
                         modalSequence = v16.Constants.ModalSequence.ConversationBottomModal, 
-                        isInExperience = v118
-                    })):catch(function(v147) --[[ Line: 465 ]]
+                        isInExperience = v128
+                    })):catch(function(v156) --[[ Line: 534 ]]
                         -- upvalues: v3 (ref)
-                        v3:warning((("GetModalSequence for ConversationBottomModal error in ChatConversationContainer %*"):format((tostring(v147)))));
+                        v3:warning((("GetModalSequence for ConversationBottomModal error in ChatConversationContainer %*"):format((tostring(v156)))));
                     end);
                     return;
                 end;
             end, {
-                v88.conversationId, 
-                v141, 
-                v118
+                v94.conversationId, 
+                v150, 
+                v128
             });
         end;
     end;
-    local v148 = v53(v88.conversationId);
-    l_useEffect_0(function() --[[ Line: 473 ]]
-        -- upvalues: v148 (copy), v88 (copy)
-        if v148 then
-            v88.navigateToConversationOverlay();
+    local v157 = v53(v94.conversationId);
+    l_useEffect_0(function() --[[ Line: 542 ]]
+        -- upvalues: v157 (copy), v94 (copy)
+        if v157 then
+            v94.navigateToConversationOverlay();
         end;
     end, {
-        v148, 
-        v88.conversationId
+        v157, 
+        v94.conversationId
     });
-    local v149 = nil;
-    local v150 = nil;
-    local v151 = nil;
-    local v152 = nil;
+    local v158 = nil;
+    local v159 = nil;
+    local v160 = nil;
+    local v161 = nil;
     if l_getFFlagAppChatEnableIntervention_0() then
-        local v153 = v131 ~= "channels";
-        local l_v153_0 = v153 --[[ copy: 47 -> 65 ]];
-        local v156 = l_useSelector_0(function(v155) --[[ Line: 485 ]]
-            -- upvalues: l_v153_0 (copy), v16 (ref), v88 (copy), v40 (ref)
-            return (if l_v153_0 then v16.rodux.GetChatModerationStatuses.getStatus(v155) else v16.rodux.GetChatModerationStatuses.getStatus(v155, v88.conversationId)) == v40.Enum.NetworkStatus.NotStarted;
+        local v162 = v140 ~= "channels";
+        local l_v162_0 = v162 --[[ copy: 47 -> 65 ]];
+        local v165 = l_useSelector_0(function(v164) --[[ Line: 554 ]]
+            -- upvalues: l_v162_0 (copy), v16 (ref), v94 (copy), v40 (ref)
+            return (if l_v162_0 then v16.rodux.GetChatModerationStatuses.getStatus(v164) else v16.rodux.GetChatModerationStatuses.getStatus(v164, v94.conversationId)) == v40.Enum.NetworkStatus.NotStarted;
         end);
-        local l_v156_0 = v156 --[[ copy: 48 -> 66 ]];
-        l_useEffect_0(function() --[[ Line: 492 ]]
-            -- upvalues: l_v156_0 (copy), v127 (copy), v16 (ref), l_v153_0 (copy), v88 (copy)
-            if l_v156_0 then
-                v127(v16.rodux.GetChatModerationStatuses.API(if l_v153_0 then nil else {
-                    v88.conversationId
-                })):catch(function(v158) --[[ Line: 498 ]]
-                    warn("GetChatModerationStatuses error in ChatConversationContainer " .. tostring(v158));
+        local l_v165_0 = v165 --[[ copy: 48 -> 66 ]];
+        l_useEffect_0(function() --[[ Line: 561 ]]
+            -- upvalues: l_v165_0 (copy), v110 (copy), v16 (ref), l_v162_0 (copy), v94 (copy)
+            if l_v165_0 then
+                v110(v16.rodux.GetChatModerationStatuses.API(if l_v162_0 then nil else {
+                    v94.conversationId
+                })):catch(function(v167) --[[ Line: 567 ]]
+                    warn("GetChatModerationStatuses error in ChatConversationContainer " .. tostring(v167));
                 end);
             end;
         end, {
-            v88.conversationId, 
-            v153, 
-            v127, 
-            v156
+            v94.conversationId, 
+            v162, 
+            v110, 
+            v165
         });
-        local v159 = v41({
-            conversationId = v88.conversationId, 
-            conversationModerationType = v128
+        local v168 = v41({
+            conversationId = v94.conversationId, 
+            conversationModerationType = v137
         });
-        v149 = v159.isTimedOut;
-        v150 = v159.timeoutEndTimestamp;
-        v151 = v159.decisionEventId;
-        v152 = v159.duration;
+        v158 = v168.isTimedOut;
+        v159 = v168.timeoutEndTimestamp;
+        v160 = v168.decisionEventId;
+        v161 = v168.duration;
     end;
-    local v160 = nil;
-    l_useEffect_0(function() --[[ Line: 515 ]]
-        -- upvalues: v124 (copy), v45 (ref), v111 (copy)
-        v124.emit(v45.ScreenRendered, {
-            loadedMessageCount = #v111
+    local v169 = nil;
+    l_useEffect_0(function() --[[ Line: 584 ]]
+        -- upvalues: v134 (copy), v45 (ref), v121 (copy)
+        v134.emit(v45.ScreenRendered, {
+            loadedMessageCount = #v121
         });
     end, {
-        v88.conversationId
+        v94.conversationId
     });
-    v160 = v4.useCallback(function(v161) --[[ Line: 523 ]]
-        -- upvalues: v124 (copy), v45 (ref), v126 (copy)
-        v124.emit(v45.ScreenExit, {
-            conversationExitType = v161
+    v169 = v4.useCallback(function(v170) --[[ Line: 592 ]]
+        -- upvalues: v134 (copy), v45 (ref), v136 (copy)
+        v134.emit(v45.ScreenExit, {
+            conversationExitType = v170
         });
-        v126();
+        v136();
     end, {
-        v124, 
-        v126
+        v134, 
+        v136
     });
-    v93 = v93 or {};
-    local v162 = false;
-    if v93.participantPendingStatus ~= v13.UserPendingStatus.Pending then
-        v162 = v102;
+    v99 = v99 or {};
+    local v171 = false;
+    if v99.participantPendingStatus ~= v13.UserPendingStatus.Pending then
+        v171 = v108;
     end;
-    local v163 = not v162 and v102;
-    local v164 = v36({
+    local v172 = not v171 and v108;
+    local v173 = v36({
         v55.ViewUserProfile
     });
-    local v165 = v93.conversationType == v14.Type.MULTI_USER_CONVERSATION;
-    local v167 = l_useSelector_0(function(v166) --[[ Line: 543 ]]
-        -- upvalues: v165 (copy), v93 (ref)
-        return v165 and v93.initiator == v166.LocalUserId;
+    local v174 = v99.conversationType == v14.Type.MULTI_USER_CONVERSATION;
+    local v176 = l_useSelector_0(function(v175) --[[ Line: 612 ]]
+        -- upvalues: v174 (copy), v99 (ref)
+        return v174 and v99.initiator == v175.LocalUserId;
     end);
-    local function v169(v168) --[[ Line: 548 ]]
-        -- upvalues: v164 (copy), v55 (ref), v91 (copy), v88 (copy), v15 (ref), v130 (copy), v165 (copy), v167 (copy)
-        if v164[v55.ViewUserProfile] then
-            v91(v168);
+    local function v178(v177) --[[ Line: 617 ]]
+        -- upvalues: v173 (copy), v55 (ref), v97 (copy), v94 (copy), v15 (ref), v139 (copy), v174 (copy), v176 (copy)
+        if v173[v55.ViewUserProfile] then
+            v97(v177);
             return;
         else
-            v88.navigateToScreen(v15.ParticipantDialog, {
-                conversationId = v88.conversationId, 
-                participantId = v168, 
-                showRemoveUserButton = not v130 and v165 and v167
+            v94.navigateToScreen(v15.ParticipantDialog, {
+                conversationId = v94.conversationId, 
+                participantId = v177, 
+                showRemoveUserButton = not v139 and v174 and v176
             }, true);
             return;
         end;
     end;
-    local v170 = if v119 then if v122 then v123.replyToYourselfChatInputPlaceholder else v123.replyChatInputPlaceholder else v123.chatInputPlaceholder;
-    l_useEffect_0(function() --[[ Line: 565 ]]
-        -- upvalues: v88 (copy), v98 (ref)
-        v88.updateConversationTitle(v98);
-    end, l_dependencyArray_0(v98, v88.updateConversationTitle));
-    local v171 = if l_getFFlagAppChatEnableIntervention_0() then v4.useCallback(function() --[[ Line: 570 ]]
-        -- upvalues: l_chatInputBoxDisabledPressedSignal_0 (ref), v150 (ref), v151 (ref), v152 (ref)
+    local v179 = if v129 then if v132 then v133.replyToYourselfChatInputPlaceholder else v133.replyChatInputPlaceholder else v133.chatInputPlaceholder;
+    l_useEffect_0(function() --[[ Line: 635 ]]
+        -- upvalues: v94 (copy), v104 (ref)
+        v94.updateConversationTitle(v104);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v104, 
+        v94.updateConversationTitle
+    } else l_dependencyArray_0(v104, v94.updateConversationTitle));
+    local v180 = if l_getFFlagAppChatEnableIntervention_0() then v4.useCallback(function() --[[ Line: 644 ]]
+        -- upvalues: l_chatInputBoxDisabledPressedSignal_0 (ref), v159 (ref), v160 (ref), v161 (ref)
         l_chatInputBoxDisabledPressedSignal_0:fire({
-            endTimestamp = v150, 
-            decisionEventId = v151, 
-            duration = v152
+            endTimestamp = v159, 
+            decisionEventId = v160, 
+            duration = v161
         });
     end, {
-        v150, 
-        v151, 
-        v152
+        v159, 
+        v160, 
+        v161
     }) else nil;
-    local v172, v173 = v4.useState(v88.navigation and v88.navigation.isFocused and v88.navigation.isFocused());
-    local v174 = nil;
-    local v175 = nil;
+    local v181, v182 = v4.useState(v94.navigation and v94.navigation.isFocused and v94.navigation.isFocused());
+    local v183 = nil;
+    local v184 = nil;
     if v58 then
-        v174 = v172;
-        if v62 and v88.isFocused and not v88.isFocused() then
-            v174 = false;
+        v183 = v181;
+        if v62 and v94.isFocused and not v94.isFocused() then
+            v183 = false;
         end;
-        v175 = v174 and not v130;
+        v184 = v183 and not v139;
     end;
-    local v176 = nil;
+    local v185 = nil;
     if v58 then
-        local v177 = v4.useRef(false);
-        local l_v177_0 = v177 --[[ copy: 61 -> 64 ]];
-        v4.useEffect(function() --[[ Line: 600 ]]
-            -- upvalues: l_v177_0 (copy), v162 (copy)
-            l_v177_0.current = not v162;
+        local v186 = v4.useRef(false);
+        local l_v186_0 = v186 --[[ copy: 61 -> 64 ]];
+        v4.useEffect(function() --[[ Line: 674 ]]
+            -- upvalues: l_v186_0 (copy), v171 (copy)
+            l_v186_0.current = not v171;
         end, {
-            v88.conversationId, 
-            v162
+            v94.conversationId, 
+            v171
         });
-        local v180 = v4.useCallback(function(v179) --[[ Line: 604 ]]
-            -- upvalues: v59 (ref), v88 (copy), v175 (ref), l_v177_0 (copy), v3 (ref), v111 (copy)
+        local v189 = v4.useCallback(function(v188) --[[ Line: 678 ]]
+            -- upvalues: v59 (ref), v94 (copy), v184 (ref), l_v186_0 (copy), v3 (ref), v121 (copy)
             if not v59.isActive(v59.Events.ChatConversationTTI, {
-                conversationId = v88.conversationId
-            }) or not v175 then
+                conversationId = v94.conversationId
+            }) or not v184 then
                 return;
-            elseif not l_v177_0.current then
-                v3:debug("TTI: Messages ready but waiting for input bar (chatInputBarReady={}, reason={})", l_v177_0.current, v179);
+            elseif not l_v186_0.current then
+                v3:debug("TTI: Messages ready but waiting for input bar (chatInputBarReady={}, reason={})", l_v186_0.current, v188);
                 return;
             else
                 v59.finish(v59.Events.ChatConversationTTI, {
-                    conversationId = v88.conversationId, 
-                    numElementsRendered = #v111
+                    conversationId = v94.conversationId, 
+                    numElementsRendered = #v121
                 });
                 return;
             end;
         end, {
-            v88.conversationId, 
-            v172, 
-            v130, 
-            #v111
+            v94.conversationId, 
+            v181, 
+            v139, 
+            #v121
         });
-        v4.useEffect(function() --[[ Line: 628 ]]
-            -- upvalues: v180 (copy)
-            v180("messages_ready");
+        v4.useEffect(function() --[[ Line: 702 ]]
+            -- upvalues: v189 (copy)
+            v189("messages_ready");
         end, {
-            v180, 
-            #v111, 
-            v88.conversationId
+            v189, 
+            #v121, 
+            v94.conversationId
         });
-        v176 = v4.useCallback(function() --[[ Line: 632 ]]
-            -- upvalues: l_v177_0 (copy), v180 (copy)
-            l_v177_0.current = true;
-            v180("input_bar_ready");
+        v185 = v4.useCallback(function() --[[ Line: 706 ]]
+            -- upvalues: l_v186_0 (copy), v189 (copy)
+            l_v186_0.current = true;
+            v189("input_bar_ready");
         end, {
-            v180
+            v189
         });
     end;
     if v58 then
-        local v181 = v4.useRef(nil);
-        local l_v181_0 = v181 --[[ copy: 61 -> 63 ]];
-        v4.useEffect(function() --[[ Line: 646 ]]
-            -- upvalues: v3 (ref), v88 (copy), l_v181_0 (copy), v59 (ref)
-            v3:debug("Perf: Resetting message perf tracking for conversation {}", v88.conversationId);
-            l_v181_0.current = nil;
-            local v183 = {
-                conversationId = v88.conversationId
+        local v190 = v4.useRef(nil);
+        local l_v190_0 = v190 --[[ copy: 61 -> 63 ]];
+        v4.useEffect(function() --[[ Line: 720 ]]
+            -- upvalues: v3 (ref), v94 (copy), l_v190_0 (copy), v59 (ref)
+            v3:debug("Perf: Resetting message perf tracking for conversation {}", v94.conversationId);
+            l_v190_0.current = nil;
+            local v192 = {
+                conversationId = v94.conversationId
             };
-            v59.cancel(v59.Events.MessageSendToPendingRender, v183);
-            v59.cancel(v59.Events.MessageSendResponseToFinalRender, v183);
-            v59.cancel(v59.Events.MessageSendToFinalRender, v183);
-            v59.cancel(v59.Events.MessageReceiveToRender, v183);
+            v59.cancel(v59.Events.MessageSendToPendingRender, v192);
+            v59.cancel(v59.Events.MessageSendResponseToFinalRender, v192);
+            v59.cancel(v59.Events.MessageSendToFinalRender, v192);
+            v59.cancel(v59.Events.MessageReceiveToRender, v192);
         end, {
-            v88.conversationId
+            v94.conversationId
         });
-        v4.useEffect(function() --[[ Line: 659 ]]
-            -- upvalues: v111 (copy), v88 (copy), v100 (copy), l_v181_0 (copy), v59 (ref)
-            local v184 = v111[1];
-            if not v184 or not v184.id then
+        v4.useEffect(function() --[[ Line: 733 ]]
+            -- upvalues: v121 (copy), v94 (copy), v106 (copy), l_v190_0 (copy), v59 (ref)
+            local v193 = v121[1];
+            if not v193 or not v193.id then
                 return;
             else
-                local v185 = {
-                    conversationId = v88.conversationId
+                local v194 = {
+                    conversationId = v94.conversationId
                 };
-                local v186 = v184.senderTargetId == v100;
-                if not v184.isSending and (v184.senderType == "system" or not v186) then
-                    if v184.id ~= l_v181_0.current then
-                        l_v181_0.current = v184.id;
-                        v59.finish(v59.Events.MessageReceiveToRender, v185);
+                local v195 = v193.senderTargetId == v106;
+                if not v193.isSending and (v193.senderType == "system" or not v195) then
+                    if v193.id ~= l_v190_0.current then
+                        l_v190_0.current = v193.id;
+                        v59.finish(v59.Events.MessageReceiveToRender, v194);
                     end;
-                elseif v59.isActive(v59.Events.MessageReceiveToRender, v185) then
-                    v59.cancel(v59.Events.MessageReceiveToRender, v185);
+                elseif v59.isActive(v59.Events.MessageReceiveToRender, v194) then
+                    v59.cancel(v59.Events.MessageReceiveToRender, v194);
                 end;
-                if not v186 then
+                if not v195 then
                     return;
-                elseif v184.isSending then
-                    v59.finish(v59.Events.MessageSendToPendingRender, v185);
+                elseif v193.isSending then
+                    v59.finish(v59.Events.MessageSendToPendingRender, v194);
                     return;
                 else
-                    v59.finish(v59.Events.MessageSendResponseToFinalRender, v185);
-                    v59.finish(v59.Events.MessageSendToFinalRender, v185);
+                    v59.finish(v59.Events.MessageSendResponseToFinalRender, v194);
+                    v59.finish(v59.Events.MessageSendToFinalRender, v194);
                     return;
                 end;
             end;
         end, {
-            v111, 
-            v100, 
-            v88.conversationId
+            v121, 
+            v106, 
+            v94.conversationId
         });
     end;
-    l_useEffect_0(function() --[[ Line: 704 ]]
-        -- upvalues: v88 (copy), v6 (ref), v58 (ref), v173 (copy), v59 (ref)
-        local v189 = v88.navigation and v88.navigation.addListener and v88.navigation.addListener(v6.Events.WillBlur, function(v187) --[[ Line: 707 ]]
-            -- upvalues: v58 (ref), v173 (ref), v59 (ref), v88 (ref)
+    l_useEffect_0(function() --[[ Line: 778 ]]
+        -- upvalues: v94 (copy), v6 (ref), v58 (ref), v182 (copy), v59 (ref)
+        local v198 = v94.navigation and v94.navigation.addListener and v94.navigation.addListener(v6.Events.WillBlur, function(v196) --[[ Line: 781 ]]
+            -- upvalues: v58 (ref), v182 (ref), v59 (ref), v94 (ref)
             if v58 then
-                local v188 = v187 and v187.action and v187.action.params and v187.action.params.isOverlay or false;
-                v173(v188);
-                if v188 then
+                local v197 = v196 and v196.action and v196.action.params and v196.action.params.isOverlay or false;
+                v182(v197);
+                if v197 then
                     return;
                 elseif v59.isActive(v59.Events.ChatConversationTTI, {
-                    conversationId = v88.conversationId
+                    conversationId = v94.conversationId
                 }) then
                     v59.cancel(v59.Events.ChatConversationTTI, {
-                        conversationId = v88.conversationId
+                        conversationId = v94.conversationId
                     });
                     return;
                 end;
-            elseif v187 and v187.action and v187.action.params and v187.action.params.isOverlay then
-                v173(true);
+            elseif v196 and v196.action and v196.action.params and v196.action.params.isOverlay then
+                v182(true);
                 return;
             else
-                v173(false);
+                v182(false);
             end;
         end);
-        local v191 = v88.navigation and v88.navigation.addListener and v88.navigation.addListener(v6.Events.WillFocus, function(_) --[[ Line: 738 ]]
-            -- upvalues: v173 (ref)
-            v173(true);
+        local v200 = v94.navigation and v94.navigation.addListener and v94.navigation.addListener(v6.Events.WillFocus, function(_) --[[ Line: 812 ]]
+            -- upvalues: v182 (ref)
+            v182(true);
         end);
-        return function() --[[ Line: 742 ]]
-            -- upvalues: v189 (copy), v191 (copy)
-            if v189 then
-                v189.remove();
+        return function() --[[ Line: 816 ]]
+            -- upvalues: v198 (copy), v200 (copy)
+            if v198 then
+                v198.remove();
             end;
-            if v191 then
-                v191.remove();
+            if v200 then
+                v200.remove();
             end;
         end;
     end, {
-        v88.navigation, 
-        v88.conversationId
+        v94.navigation, 
+        v94.conversationId
     });
-    l_useEffect_0(function() --[[ Line: 753 ]]
-        -- upvalues: v112 (copy), v127 (copy), v50 (ref), v51 (ref), v88 (copy), v71 (ref), v123 (copy)
-        if v112.shouldShowOsaCardOnInitialLoad then
-            v127(v50(v51, v88.conversationId, v71)):catch(function() --[[ Line: 757 ]]
-                -- upvalues: v88 (ref), v123 (ref)
-                v88.navigateToToast({
+    l_useEffect_0(function() --[[ Line: 827 ]]
+        -- upvalues: v122 (copy), v110 (copy), v50 (ref), v51 (ref), v94 (copy), v72 (ref), v133 (copy)
+        if v122.shouldShowOsaCardOnInitialLoad then
+            v110(v50(v51, v94.conversationId, v72)):catch(function() --[[ Line: 831 ]]
+                -- upvalues: v94 (ref), v133 (ref)
+                v94.navigateToToast({
                     toastProps = {
                         toastContent = {
-                            toastTitle = v123.networkErrorText
+                            toastTitle = v133.networkErrorText
                         }
                     }
                 });
             end);
         end;
     end, {
-        v112.shouldShowOsaCardOnInitialLoad
+        v122.shouldShowOsaCardOnInitialLoad
     });
-    local v192 = not l_FFlagIsSquadEnabledAMP_0 or v88.getCanAccessParty;
+    local v201 = not l_FFlagIsSquadEnabledAMP_0 or v94.getCanAccessParty;
     if v58 then
-        if not v174 then
+        if not v183 then
             return nil;
-        elseif v130 then
+        elseif v139 then
             return v4.createElement(v9, {
-                conversationId = v88.conversationId, 
-                topBarHeight = v88.topBarHeight, 
-                networkErrorText = v123.networkErrorText, 
-                navigateToToast = v88.navigateToToast, 
-                wideMode = v88.wideMode, 
-                onConversationUnmount = v160, 
-                navigateBack = v88.navigateBack
+                conversationId = v94.conversationId, 
+                topBarHeight = v94.topBarHeight, 
+                networkErrorText = v133.networkErrorText, 
+                navigateToToast = v94.navigateToToast, 
+                wideMode = v94.wideMode, 
+                onConversationUnmount = v169, 
+                navigateBack = v94.navigateBack
             });
         else
-            return v4.createElement(v8, v5.Dictionary.join(v88, v92, v123, {
-                moreMenuEnabled = if l_FFlagIsSquadEnabledAMP_0 then v192 else nil, 
-                conversation = v93, 
-                conversationTitle = v98, 
-                itemList = v114, 
-                localUserId = v100, 
-                openGameDetailsPage = v88.openGameDetailsPage, 
-                openViewProfile = v169, 
-                readingMessagesIsEnabled = v88.getReadingMessagesIsEnabled(), 
-                Users = v108, 
-                usersTyping = v109, 
-                displayNamesAvailable = v117, 
-                onConversationUnmount = v160, 
-                recipientIdsSerialized = v94, 
-                chatIsVisible = v101, 
-                chatInputPlaceholder = v170, 
-                replyingToMessage = v119, 
-                replyingToMessageDispatch = v120, 
-                shouldShowChatInputBar = v162, 
-                shouldShowLegacyBottomModal = v163, 
-                shouldDisableChatInputBar = v149, 
-                onChatInputBarReady = if v58 then v176 else nil, 
-                inputBarDisabledEndTimestampDisplay = v150, 
-                onDisabledInputBarActivated = v171, 
-                scrollToTopOnInitialOsaLoad = v112.shouldShowOsaCardOnInitialLoad and v112.fetchedOldestMessage, 
-                navigateToSquadLobby = if v192 then v88.navigateToSquadLobby else nil, 
-                shouldHideMoreMenuButton = if v192 then not v162 else nil
+            return v4.createElement(v8, v5.Dictionary.join(v94, v98, v133, {
+                moreMenuEnabled = if l_FFlagIsSquadEnabledAMP_0 then v201 else nil, 
+                conversation = v99, 
+                conversationTitle = v104, 
+                itemList = v124, 
+                localUserId = v106, 
+                openGameDetailsPage = v94.openGameDetailsPage, 
+                openViewProfile = v178, 
+                readingMessagesIsEnabled = v94.getReadingMessagesIsEnabled(), 
+                Users = v118, 
+                usersTyping = v119, 
+                displayNamesAvailable = v127, 
+                onConversationUnmount = v169, 
+                recipientIdsSerialized = v100, 
+                chatIsVisible = v107, 
+                chatInputPlaceholder = v179, 
+                replyingToMessage = v129, 
+                replyingToMessageDispatch = v130, 
+                shouldShowChatInputBar = v171, 
+                shouldShowLegacyBottomModal = v172, 
+                shouldDisableChatInputBar = v158, 
+                onChatInputBarReady = if v58 then v185 else nil, 
+                inputBarDisabledEndTimestampDisplay = v159, 
+                onDisabledInputBarActivated = v180, 
+                scrollToTopOnInitialOsaLoad = v122.shouldShowOsaCardOnInitialLoad and v122.fetchedOldestMessage, 
+                navigateToSquadLobby = if v201 then v94.navigateToSquadLobby else nil, 
+                shouldHideMoreMenuButton = if v201 then not v171 else nil
             }));
         end;
-    elseif not v172 then
+    elseif not v181 then
         return nil;
-    elseif v62 and v88.isFocused and not v88.isFocused() then
+    elseif v62 and v94.isFocused and not v94.isFocused() then
         return nil;
-    elseif v130 then
+    elseif v139 then
         return v4.createElement(v9, {
-            conversationId = v88.conversationId, 
-            topBarHeight = v88.topBarHeight, 
-            networkErrorText = v123.networkErrorText, 
-            navigateToToast = v88.navigateToToast, 
-            wideMode = v88.wideMode, 
-            onConversationUnmount = v160, 
-            navigateBack = v88.navigateBack, 
-            style = v88.style
+            conversationId = v94.conversationId, 
+            topBarHeight = v94.topBarHeight, 
+            networkErrorText = v133.networkErrorText, 
+            navigateToToast = v94.navigateToToast, 
+            wideMode = v94.wideMode, 
+            onConversationUnmount = v169, 
+            navigateBack = v94.navigateBack, 
+            style = v94.style
         });
     else
-        return v4.createElement(v8, v5.Dictionary.join(v88, v92, v123, {
-            moreMenuEnabled = if l_FFlagIsSquadEnabledAMP_0 then v192 else nil, 
-            conversation = v93, 
-            conversationTitle = v98, 
-            itemList = v114, 
-            localUserId = v100, 
-            openGameDetailsPage = v88.openGameDetailsPage, 
-            openViewProfile = v169, 
-            readingMessagesIsEnabled = v88.getReadingMessagesIsEnabled(), 
-            Users = v108, 
-            usersTyping = v109, 
-            displayNamesAvailable = v117, 
-            onConversationUnmount = v160, 
-            recipientIdsSerialized = v94, 
-            chatIsVisible = v101, 
-            chatInputPlaceholder = v170, 
-            replyingToMessage = v119, 
-            replyingToMessageDispatch = v120, 
-            shouldShowChatInputBar = v162, 
-            shouldShowLegacyBottomModal = v163, 
-            shouldDisableChatInputBar = v149, 
-            onChatInputBarReady = if v58 then v176 else nil, 
-            inputBarDisabledEndTimestampDisplay = v150, 
-            onDisabledInputBarActivated = v171, 
-            scrollToTopOnInitialOsaLoad = v112.shouldShowOsaCardOnInitialLoad and v112.fetchedOldestMessage, 
-            navigateToSquadLobby = if v192 then v88.navigateToSquadLobby else nil, 
-            shouldHideMoreMenuButton = if v192 then not v162 else nil
+        return v4.createElement(v8, v5.Dictionary.join(v94, v98, v133, {
+            moreMenuEnabled = if l_FFlagIsSquadEnabledAMP_0 then v201 else nil, 
+            conversation = v99, 
+            conversationTitle = v104, 
+            itemList = v124, 
+            localUserId = v106, 
+            openGameDetailsPage = v94.openGameDetailsPage, 
+            openViewProfile = v178, 
+            readingMessagesIsEnabled = v94.getReadingMessagesIsEnabled(), 
+            Users = v118, 
+            usersTyping = v119, 
+            displayNamesAvailable = v127, 
+            onConversationUnmount = v169, 
+            recipientIdsSerialized = v100, 
+            chatIsVisible = v107, 
+            chatInputPlaceholder = v179, 
+            replyingToMessage = v129, 
+            replyingToMessageDispatch = v130, 
+            shouldShowChatInputBar = v171, 
+            shouldShowLegacyBottomModal = v172, 
+            shouldDisableChatInputBar = v158, 
+            onChatInputBarReady = if v58 then v185 else nil, 
+            inputBarDisabledEndTimestampDisplay = v159, 
+            onDisabledInputBarActivated = v180, 
+            scrollToTopOnInitialOsaLoad = v122.shouldShowOsaCardOnInitialLoad and v122.fetchedOldestMessage, 
+            navigateToSquadLobby = if v201 then v94.navigateToSquadLobby else nil, 
+            shouldHideMoreMenuButton = if v201 then not v171 else nil
         }));
     end;
 end;
-return l_UniversalAppPolicy_0.connect(function(v193) --[[ Line: 871 ]]
+return l_UniversalAppPolicy_0.connect(function(v202) --[[ Line: 945 ]]
     return {
-        viewProfileOnAvatarPressed = v193.getChatTapConversationThumbnail(), 
-        getCanAccessParty = v193.getCanAccessParty()
+        viewProfileOnAvatarPressed = v202.getChatTapConversationThumbnail(), 
+        getCanAccessParty = v202.getCanAccessParty()
     };
 end)(ChatConversationContainer);

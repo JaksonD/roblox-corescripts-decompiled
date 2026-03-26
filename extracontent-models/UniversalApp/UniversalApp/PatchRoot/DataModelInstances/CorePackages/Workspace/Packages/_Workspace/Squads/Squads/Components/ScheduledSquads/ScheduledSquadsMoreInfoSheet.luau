@@ -26,97 +26,102 @@ local l_useCurrentSquadId_0 = v6.Hooks.useCurrentSquadId;
 local v25 = require(l_script_FirstAncestor_0.Components.ScheduledSquads.ScheduledSquadSheet);
 local v26 = require(l_script_FirstAncestor_0.Enums.ScheduledSquadActionEnum);
 local v27 = require(l_script_FirstAncestor_0.Enums.ScheduledSquadActionSourceEnum);
-return function(v28) --[[ Line: 46 ]] --[[ Name: ScheduledSquadsMoreInfoSheet ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v5 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadId_0 (copy), l_useStore_0 (copy), v3 (copy), l_SquadPromptType_0 (copy), l_UserProfileStore_0 (copy), l_useLocalization_0 (copy), l_View_0 (copy), l_Avatar_0 (copy), l_Text_0 (copy), l_deleteScheduledSquad_0 (copy), l_EventNames_0 (copy), v26 (copy), v27 (copy), l_unsubscribeFromScheduledSquad_0 (copy), l_subscribeToScheduledSquad_0 (copy), v25 (copy), l_Sheet_0 (copy), l_LocalizationService_0 (copy), v4 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy)
-    local v29 = l_useDispatch_0();
-    local v30 = l_useLocalUserId_0();
-    local v31 = v5.useContext(l_SquadExternalContractContext_0);
-    local v32 = l_useCurrentSquadId_0();
-    local v33 = l_useStore_0();
-    local v34 = v31.useGetConversationFromId(v28.scheduledSquad.parentChannelId);
-    local v35 = DateTime.fromIsoDate(v28.scheduledSquad.startTime);
-    local v36 = v35 and v35.UnixTimestamp < DateTime.now().UnixTimestamp;
-    local v37, v38 = v5.useState(false);
-    local v39, v40 = v5.useState(v28.scheduledSquad.subscribers);
-    local v42 = v5.useMemo(function() --[[ Line: 60 ]]
-        -- upvalues: v3 (ref), v39 (copy)
-        return v3.List.map(v39, function(v41) --[[ Line: 61 ]]
-            return (tostring(v41.userId));
+local v28 = game:DefineFastFlag("EnableScheduledSquadsOnCloseFix", false);
+return function(v29) --[[ Line: 48 ]] --[[ Name: ScheduledSquadsMoreInfoSheet ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v5 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadId_0 (copy), l_useStore_0 (copy), v3 (copy), v28 (copy), l_SquadPromptType_0 (copy), l_UserProfileStore_0 (copy), l_useLocalization_0 (copy), l_View_0 (copy), l_Avatar_0 (copy), l_Text_0 (copy), l_deleteScheduledSquad_0 (copy), l_EventNames_0 (copy), v26 (copy), v27 (copy), l_unsubscribeFromScheduledSquad_0 (copy), l_subscribeToScheduledSquad_0 (copy), v25 (copy), l_Sheet_0 (copy), l_LocalizationService_0 (copy), v4 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy)
+    local v30 = l_useDispatch_0();
+    local v31 = l_useLocalUserId_0();
+    local v32 = v5.useContext(l_SquadExternalContractContext_0);
+    local v33 = l_useCurrentSquadId_0();
+    local v34 = l_useStore_0();
+    local v35 = v32.useGetConversationFromId(v29.scheduledSquad.parentChannelId);
+    local v36 = DateTime.fromIsoDate(v29.scheduledSquad.startTime);
+    local v37 = v36 and v36.UnixTimestamp < DateTime.now().UnixTimestamp;
+    local v38, v39 = v5.useState(false);
+    local v40, v41 = v5.useState(v29.scheduledSquad.subscribers);
+    local v43 = v5.useMemo(function() --[[ Line: 62 ]]
+        -- upvalues: v3 (ref), v40 (copy)
+        return v3.List.map(v40, function(v42) --[[ Line: 63 ]]
+            return (tostring(v42.userId));
         end);
     end, {
-        v39
+        v40
     });
-    v5.useEffect(function() --[[ Line: 66 ]]
-        -- upvalues: v40 (copy), v28 (copy)
-        v40(v28.scheduledSquad.subscribers);
+    v5.useEffect(function() --[[ Line: 68 ]]
+        -- upvalues: v41 (copy), v29 (copy)
+        v41(v29.scheduledSquad.subscribers);
     end, {
-        v28.scheduledSquad.subscribers
+        v29.scheduledSquad.subscribers
     });
-    local v43 = tostring(v28.scheduledSquad.initiatorId) == tostring(v30);
-    local v45 = v5.useMemo(function() --[[ Line: 71 ]]
-        -- upvalues: v43 (copy), v3 (ref), v42 (copy), v30 (copy)
-        return v43 or v3.List.findWhere(v42, function(v44) --[[ Line: 73 ]]
-            -- upvalues: v30 (ref)
-            return v44 == tostring(v30);
+    local v44 = tostring(v29.scheduledSquad.initiatorId) == tostring(v31);
+    local v46 = v5.useMemo(function() --[[ Line: 73 ]]
+        -- upvalues: v44 (copy), v3 (ref), v43 (copy), v31 (copy)
+        return v44 or v3.List.findWhere(v43, function(v45) --[[ Line: 75 ]]
+            -- upvalues: v31 (ref)
+            return v45 == tostring(v31);
         end) ~= nil;
     end, {
-        v43, 
-        v30, 
-        v42
+        v44, 
+        v31, 
+        v43
     });
-    local v46, v47 = v5.useState({});
-    local v48, v49 = v5.useState(true);
-    local v50 = v5.useCallback(function() --[[ Line: 82 ]]
-        -- upvalues: v38 (copy), v28 (copy)
-        v38(false);
-        if v28.onClose then
-            v28.onClose();
+    local v47, v48 = v5.useState({});
+    local v49, v50 = v5.useState(true);
+    local v51 = v5.useCallback(function() --[[ Line: 84 ]]
+        -- upvalues: v39 (copy), v29 (copy)
+        v39(false);
+        if v29.onClose then
+            v29.onClose();
         end;
     end, {
-        v28.onClose
+        v29.onClose
     });
-    local v51 = v5.useCallback(function() --[[ Line: 89 ]]
-        -- upvalues: v31 (copy), v33 (copy), l_SquadPromptType_0 (ref)
-        v31.setSquadPrompt(v33, {
+    local v52 = v5.useCallback(function() --[[ Line: 92 ]]
+        -- upvalues: v28 (ref), v51 (copy), v32 (copy), v34 (copy), l_SquadPromptType_0 (ref)
+        if v28 then
+            v51();
+        end;
+        v32.setSquadPrompt(v34, {
             hideCancelButton = true, 
             promptType = l_SquadPromptType_0.Error
         });
     end, {
-        v31.setSquadPrompt, 
-        v33
+        if v28 then v51 else nil, 
+        v32.setSquadPrompt, 
+        v34
     });
-    v5.useEffect(function() --[[ Line: 97 ]]
-        -- upvalues: v49 (copy), l_UserProfileStore_0 (ref), v3 (ref), v42 (copy), v34 (copy), v47 (copy), v50 (copy), v51 (copy)
-        v49(true);
-        l_UserProfileStore_0.get().fetchNamesByUserIds(v3.List.join(v42, v34 and v34.participants or {}), function(v52) --[[ Line: 100 ]]
-            -- upvalues: v47 (ref), v49 (ref), v50 (ref), v51 (ref)
-            if v52.status == "success" then
-                local v53 = {};
-                for _, v55 in v52.data do
-                    v53[v55.userId] = v55.names.getCombinedName(false);
+    v5.useEffect(function() --[[ Line: 105 ]]
+        -- upvalues: v50 (copy), l_UserProfileStore_0 (ref), v3 (ref), v43 (copy), v35 (copy), v48 (copy), v51 (copy), v52 (copy)
+        v50(true);
+        l_UserProfileStore_0.get().fetchNamesByUserIds(v3.List.join(v43, v35 and v35.participants or {}), function(v53) --[[ Line: 108 ]]
+            -- upvalues: v48 (ref), v50 (ref), v51 (ref), v52 (ref)
+            if v53.status == "success" then
+                local v54 = {};
+                for _, v56 in v53.data do
+                    v54[v56.userId] = v56.names.getCombinedName(false);
                 end;
-                v47(v53);
-                v49(false);
+                v48(v54);
+                v50(false);
                 return;
             else
-                if v52.status == "failed" then
-                    v49(false);
-                    v50();
+                if v53.status == "failed" then
+                    v50(false);
                     v51();
+                    v52();
                 end;
                 return;
             end;
         end);
     end, {
-        v50, 
         v51, 
-        v49, 
-        v42, 
-        v31.setSquadPrompt, 
-        v33, 
-        v34 and v34.participants or nil
+        v52, 
+        v50, 
+        v43, 
+        v32.setSquadPrompt, 
+        v34, 
+        v35 and v35.participants or nil
     });
-    local v56 = l_useLocalization_0({
+    local v57 = l_useLocalization_0({
         deleteText = "Feature.Squads.Action.Delete", 
         dontJoinText = "Feature.Squads.Action.DontJoin", 
         editText = "Feature.Squads.Action.Edit", 
@@ -126,154 +131,154 @@ return function(v28) --[[ Line: 46 ]] --[[ Name: ScheduledSquadsMoreInfoSheet ]]
         partyText = "Feature.Squads.Label.Party", 
         usersPartyText = {
             "Feature.Squads.Label.UsersParty"; 
-            displayName = v46[tostring(v28.scheduledSquad.initiatorId)]
+            displayName = v47[tostring(v29.scheduledSquad.initiatorId)]
         }, 
         willYouJoinScheduledPartyText = {
             "Feature.Squads.Label.WillYouJoinScheduledParty"; 
-            displayName = v46[tostring(v28.scheduledSquad.initiatorId)]
+            displayName = v47[tostring(v29.scheduledSquad.initiatorId)]
         }
     });
-    local v60 = v5.useMemo(function() --[[ Line: 144 ]]
-        -- upvalues: v39 (copy), v5 (ref), l_View_0 (ref), l_Avatar_0 (ref), l_Text_0 (ref), v46 (copy)
-        local v57 = {};
-        for _, v59 in v39 do
-            table.insert(v57, v5.createElement(l_View_0, {
+    local v61 = v5.useMemo(function() --[[ Line: 152 ]]
+        -- upvalues: v40 (copy), v5 (ref), l_View_0 (ref), l_Avatar_0 (ref), l_Text_0 (ref), v47 (copy)
+        local v58 = {};
+        for _, v60 in v40 do
+            table.insert(v58, v5.createElement(l_View_0, {
                 tag = "size-full-0 auto-y row align-x-left align-y-center gap-small"
             }, {
                 Avatar = v5.createElement(l_Avatar_0, {
                     LayoutOrder = 1, 
-                    userId = v59.userId
+                    userId = v60.userId
                 }), 
                 DisplayName = v5.createElement(l_Text_0, {
                     LayoutOrder = 2, 
-                    Text = v46[tostring(v59.userId)], 
+                    Text = v47[tostring(v60.userId)], 
                     tag = "auto-xy fill text-truncate-end text-title-medium text-align-x-left"
                 })
             }));
         end;
-        return v57;
+        return v58;
     end, {
-        v46, 
-        v39
+        v47, 
+        v40
     });
-    local v65 = v5.useMemo(function() --[[ Line: 169 ]]
-        -- upvalues: v34 (copy), v3 (ref), v42 (copy), v5 (ref), l_View_0 (ref), l_Avatar_0 (ref), l_Text_0 (ref), v46 (copy)
-        local v61 = {};
-        if v34 and v34.participants then
-            local v62 = v3.List.toSet(v42);
-            for _, v64 in v34.participants do
-                if not v62[tostring(v64)] then
-                    table.insert(v61, v5.createElement(l_View_0, {
+    local v66 = v5.useMemo(function() --[[ Line: 177 ]]
+        -- upvalues: v35 (copy), v3 (ref), v43 (copy), v5 (ref), l_View_0 (ref), l_Avatar_0 (ref), l_Text_0 (ref), v47 (copy)
+        local v62 = {};
+        if v35 and v35.participants then
+            local v63 = v3.List.toSet(v43);
+            for _, v65 in v35.participants do
+                if not v63[tostring(v65)] then
+                    table.insert(v62, v5.createElement(l_View_0, {
                         tag = "size-full-0 auto-y row align-x-left align-y-center gap-small padding-y-small"
                     }, {
                         Avatar = v5.createElement(l_Avatar_0, {
                             LayoutOrder = 1, 
-                            userId = v64
+                            userId = v65
                         }), 
                         DisplayName = v5.createElement(l_Text_0, {
                             LayoutOrder = 2, 
-                            Text = v46[tostring(v64)], 
+                            Text = v47[tostring(v65)], 
                             tag = "auto-xy fill text-truncate-end text-title-medium text-align-x-left"
                         })
                     }));
                 end;
             end;
         end;
-        return v61;
+        return v62;
     end, {
-        v46, 
-        v42, 
-        v34 and v34.participants
+        v47, 
+        v43, 
+        v35 and v35.participants
     });
-    local v66 = v5.useCallback(function() --[[ Line: 201 ]]
-        -- upvalues: v50 (copy), v29 (copy), l_deleteScheduledSquad_0 (ref), v28 (copy), v31 (copy), l_EventNames_0 (ref), v26 (ref), v27 (ref), v32 (copy)
-        v50();
-        v29(l_deleteScheduledSquad_0(v28.scheduledSquad.scheduledGroupUpId, v31.setSquadPrompt));
-        v31.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
+    local v67 = v5.useCallback(function() --[[ Line: 209 ]]
+        -- upvalues: v51 (copy), v30 (copy), l_deleteScheduledSquad_0 (ref), v29 (copy), v32 (copy), l_EventNames_0 (ref), v26 (ref), v27 (ref), v33 (copy)
+        v51();
+        v30(l_deleteScheduledSquad_0(v29.scheduledSquad.scheduledGroupUpId, v32.setSquadPrompt));
+        v32.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
             actionType = v26.Delete, 
-            conversationId = v28.scheduledSquad.parentChannelId, 
-            scheduledSquadId = v28.scheduledSquad.scheduledGroupUpId, 
+            conversationId = v29.scheduledSquad.parentChannelId, 
+            scheduledSquadId = v29.scheduledSquad.scheduledGroupUpId, 
             source = v27.ScheduledSquadsMoreInfoSheet, 
-            squadId = v32, 
-            squadLocation = v31.squadLocation
+            squadId = v33, 
+            squadLocation = v32.squadLocation
         });
     end, {
-        v32, 
-        v50, 
-        v28.scheduledSquad.parentChannelId, 
-        v28.scheduledSquad.scheduledGroupUpId, 
-        v31.fireSquadAnalytics, 
-        v31.setSquadPrompt, 
-        v31.squadLocation, 
-        v33
+        v33, 
+        v51, 
+        v29.scheduledSquad.parentChannelId, 
+        v29.scheduledSquad.scheduledGroupUpId, 
+        v32.fireSquadAnalytics, 
+        v32.setSquadPrompt, 
+        v32.squadLocation, 
+        v34
     });
-    local function v68() --[[ Line: 226 ]]
-        -- upvalues: v40 (copy), v3 (ref), v39 (copy), v30 (copy)
-        v40(v3.List.filter(v39, function(v67) --[[ Line: 227 ]]
-            -- upvalues: v30 (ref)
-            return tostring(v67.userId) ~= tostring(v30);
+    local function v69() --[[ Line: 234 ]]
+        -- upvalues: v41 (copy), v3 (ref), v40 (copy), v31 (copy)
+        v41(v3.List.filter(v40, function(v68) --[[ Line: 235 ]]
+            -- upvalues: v31 (ref)
+            return tostring(v68.userId) ~= tostring(v31);
         end));
     end;
-    local function v69() --[[ Line: 232 ]]
-        -- upvalues: v40 (copy), v3 (ref), v39 (copy), v30 (copy)
-        v40(v3.List.join(v39, {
+    local function v70() --[[ Line: 240 ]]
+        -- upvalues: v41 (copy), v3 (ref), v40 (copy), v31 (copy)
+        v41(v3.List.join(v40, {
             {
-                userId = tostring(v30)
+                userId = tostring(v31)
             }
         }));
     end;
-    local v70 = v5.useCallback(function() --[[ Line: 237 ]]
-        -- upvalues: v45 (copy), l_unsubscribeFromScheduledSquad_0 (ref), v28 (copy), v68 (copy), v51 (copy), l_subscribeToScheduledSquad_0 (ref), v69 (copy), v31 (copy), l_EventNames_0 (ref), v26 (ref), v27 (ref), v32 (copy)
-        if v45 then
+    local v71 = v5.useCallback(function() --[[ Line: 245 ]]
+        -- upvalues: v46 (copy), l_unsubscribeFromScheduledSquad_0 (ref), v29 (copy), v69 (copy), v52 (copy), l_subscribeToScheduledSquad_0 (ref), v70 (copy), v32 (copy), l_EventNames_0 (ref), v26 (ref), v27 (ref), v33 (copy)
+        if v46 then
             l_unsubscribeFromScheduledSquad_0({
-                scheduledGroupUpId = v28.scheduledSquad.scheduledGroupUpId
-            }, v68, v51);
+                scheduledGroupUpId = v29.scheduledSquad.scheduledGroupUpId
+            }, v69, v52);
         else
             l_subscribeToScheduledSquad_0({
-                scheduledGroupUpId = v28.scheduledSquad.scheduledGroupUpId
-            }, v69, v51);
+                scheduledGroupUpId = v29.scheduledSquad.scheduledGroupUpId
+            }, v70, v52);
         end;
-        v31.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
-            actionType = if v45 then v26.Unsubscribe else v26.Subscribe, 
-            conversationId = v28.scheduledSquad.parentChannelId, 
-            scheduledSquadId = v28.scheduledSquad.scheduledGroupUpId, 
+        v32.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
+            actionType = if v46 then v26.Unsubscribe else v26.Subscribe, 
+            conversationId = v29.scheduledSquad.parentChannelId, 
+            scheduledSquadId = v29.scheduledSquad.scheduledGroupUpId, 
             source = v27.ScheduledSquadsMoreInfoSheet, 
-            squadId = v32, 
-            squadLocation = v31.squadLocation
+            squadId = v33, 
+            squadLocation = v32.squadLocation
         });
     end, {
-        v45, 
-        v31.squadLocation, 
-        v32, 
-        v28.scheduledSquad, 
-        v31.fireSquadAnalytics, 
-        v51, 
-        v68, 
+        v46, 
+        v32.squadLocation, 
+        v33, 
+        v29.scheduledSquad, 
+        v32.fireSquadAnalytics, 
+        v52, 
         v69, 
-        v32
+        v70, 
+        v33
     });
-    local v71 = v5.useCallback(function() --[[ Line: 277 ]]
-        -- upvalues: v38 (copy), v31 (copy), l_EventNames_0 (ref), v26 (ref), v28 (copy), v27 (ref), v32 (copy)
-        v38(true);
-        v31.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
+    local v72 = v5.useCallback(function() --[[ Line: 285 ]]
+        -- upvalues: v39 (copy), v32 (copy), l_EventNames_0 (ref), v26 (ref), v29 (copy), v27 (ref), v33 (copy)
+        v39(true);
+        v32.fireSquadAnalytics(l_EventNames_0.ScheduledSquadAction, {
             actionType = v26.Edit, 
-            conversationId = v28.scheduledSquad.parentChannelId, 
-            scheduledSquadId = v28.scheduledSquad.scheduledGroupUpId, 
+            conversationId = v29.scheduledSquad.parentChannelId, 
+            scheduledSquadId = v29.scheduledSquad.scheduledGroupUpId, 
             source = v27.ScheduledSquadsMoreInfoSheet, 
-            squadId = v32, 
-            squadLocation = v31.squadLocation
+            squadId = v33, 
+            squadLocation = v32.squadLocation
         });
     end, {
-        v32, 
-        v28.scheduledSquad, 
-        v31.fireSquadAnalytics, 
-        v31.squadLocation
+        v33, 
+        v29.scheduledSquad, 
+        v32.fireSquadAnalytics, 
+        v32.squadLocation
     });
-    if v37 then
+    if v38 then
         return v5.createElement(v25, {
-            isOpen = v28.isOpen, 
-            onClose = v50, 
-            scheduledSquad = v28.scheduledSquad, 
+            isOpen = v29.isOpen, 
+            onClose = v51, 
+            scheduledSquad = v29.scheduledSquad, 
             snapPoints = {
                 0.4, 
                 0.7
@@ -281,8 +286,8 @@ return function(v28) --[[ Line: 46 ]] --[[ Name: ScheduledSquadsMoreInfoSheet ]]
         });
     else
         return (v5.createElement(l_Sheet_0.Root, {
-            onClose = v50, 
-            isOpen = v28.isOpen, 
+            onClose = v51, 
+            isOpen = v29.isOpen, 
             preferCenterSheet = true, 
             snapPoints = {
                 0.4, 
@@ -295,70 +300,70 @@ return function(v28) --[[ Line: 46 ]] --[[ Name: ScheduledSquadsMoreInfoSheet ]]
                 }, {
                     ScheduledSquadTitle = v5.createElement(l_Text_0, {
                         LayoutOrder = 1, 
-                        Text = if not v36 and v45 then v56.usersPartyText else if v36 or v45 then v56.partyText else v56.willYouJoinScheduledPartyText, 
+                        Text = if not v37 and v46 then v57.usersPartyText else if v37 or v46 then v57.partyText else v57.willYouJoinScheduledPartyText, 
                         tag = "size-full-0 auto-y text-heading-medium text-align-x-left text-truncate-end"
                     }), 
                     DateTime = v5.createElement(l_Text_0, {
                         LayoutOrder = 2, 
-                        Text = if v35 then v35:FormatLocalTime("LLL", l_LocalizationService_0.RobloxLocaleId) else "", 
+                        Text = if v36 then v36:FormatLocalTime("LLL", l_LocalizationService_0.RobloxLocaleId) else "", 
                         tag = "size-full-0 auto-y text-body-medium text-align-x-left"
                     })
                 })
             }), 
             Content = v5.createElement(l_Sheet_0.Content, {}, {
-                Loading = if v48 then v5.createElement(v4.Loading, {}) else nil, 
-                View = if not v48 then v5.createElement(l_View_0, {
+                Loading = if v49 then v5.createElement(v4.Loading, {}) else nil, 
+                View = if not v49 then v5.createElement(l_View_0, {
                     tag = "size-full-0 auto-y col gap-small padding-y-small"
                 }, {
                     SubscribedUsersText = v5.createElement(l_Text_0, {
                         LayoutOrder = 1, 
-                        Text = ("%*"):format(v56.goingText), 
+                        Text = ("%*"):format(v57.goingText), 
                         tag = "size-full-0 auto-y content-emphasis text-align-x-left"
                     }), 
                     SubscribedUsers = v5.createElement(l_View_0, {
                         LayoutOrder = 2, 
                         tag = "size-full-0 auto-y col gap-small"
-                    }, unpack(v60)), 
+                    }, unpack(v61)), 
                     NotSubscribedUsersText = v5.createElement(l_Text_0, {
                         LayoutOrder = 3, 
-                        Text = ("%*"):format(v56.notGoingText), 
+                        Text = ("%*"):format(v57.notGoingText), 
                         tag = "size-full-0 auto-y content-emphasis text-align-x-left"
                     }), 
                     NotSubscribedUsers = v5.createElement(l_View_0, {
                         LayoutOrder = 4, 
                         tag = "size-full-0 auto-y col gap-small"
-                    }, unpack(v65))
+                    }, unpack(v66))
                 }) else nil
             }), 
-            Actions = if not v36 then v5.createElement(l_Sheet_0.Actions, {}, {
+            Actions = if not v37 then v5.createElement(l_Sheet_0.Actions, {}, {
                 v5.createElement(l_View_0, {
                     tag = "size-full-0 auto-y col gap-small"
                 }, {
-                    JoinButton = if not not v43 or v45 then nil else v5.createElement(l_Button_0, {
+                    JoinButton = if not not v44 or v46 then nil else v5.createElement(l_Button_0, {
                         LayoutOrder = 1, 
-                        onActivated = v70, 
-                        text = v56.joinText, 
+                        onActivated = v71, 
+                        text = v57.joinText, 
                         variant = l_ButtonVariant_0.Emphasis, 
                         width = UDim.new(1, 0)
                     }), 
-                    DontJoinButton = if not v43 and v45 then v5.createElement(l_Button_0, {
+                    DontJoinButton = if not v44 and v46 then v5.createElement(l_Button_0, {
                         LayoutOrder = 2, 
-                        onActivated = v70, 
-                        text = v56.dontJoinText, 
-                        variant = l_ButtonVariant_0.Standard, 
-                        width = UDim.new(1, 0)
-                    }) else nil, 
-                    EditButton = if v43 then v5.createElement(l_Button_0, {
-                        LayoutOrder = 3, 
                         onActivated = v71, 
-                        text = v56.editText, 
+                        text = v57.dontJoinText, 
                         variant = l_ButtonVariant_0.Standard, 
                         width = UDim.new(1, 0)
                     }) else nil, 
-                    DeleteButton = if v43 then v5.createElement(l_Button_0, {
+                    EditButton = if v44 then v5.createElement(l_Button_0, {
+                        LayoutOrder = 3, 
+                        onActivated = v72, 
+                        text = v57.editText, 
+                        variant = l_ButtonVariant_0.Standard, 
+                        width = UDim.new(1, 0)
+                    }) else nil, 
+                    DeleteButton = if v44 then v5.createElement(l_Button_0, {
                         LayoutOrder = 4, 
-                        onActivated = v66, 
-                        text = v56.deleteText, 
+                        onActivated = v67, 
+                        text = v57.deleteText, 
                         variant = l_ButtonVariant_0.Alert, 
                         width = UDim.new(1, 0)
                     }) else nil

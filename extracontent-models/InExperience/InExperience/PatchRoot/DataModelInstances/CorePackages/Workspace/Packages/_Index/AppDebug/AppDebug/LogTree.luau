@@ -81,50 +81,51 @@ local function v39(v33, v34, v35) --[[ Line: 103 ]] --[[ Name: formatLog ]]
     end;
     return v37;
 end;
-local function v45(_, v41, v42) --[[ Line: 113 ]] --[[ Name: logToConsole ]]
-    -- upvalues: v39 (copy), l_Levels_0 (copy)
+local function v46(_, v41, v42) --[[ Line: 113 ]] --[[ Name: logToConsole ]]
+    -- upvalues: l_Levels_0 (copy)
     local l_level_1 = v42.level;
-    local v44 = v39(v41, v42, false);
+    local l_level_2 = v42.level;
+    local v45 = string.format("%s [%s] %s", l_level_2:sub(1, 1), v42.loggerName, v41);
     if l_level_1 == l_Levels_0.Error or l_level_1 == l_Levels_0.Warning then
-        warn(v44);
+        warn(v45);
         return;
     else
-        print(v44);
+        print(v45);
         return;
     end;
 end;
-local function _(v46) --[[ Line: 123 ]] --[[ Name: splitNonEmpty ]]
+local function _(v47) --[[ Line: 123 ]] --[[ Name: splitNonEmpty ]]
     -- upvalues: v2 (copy)
-    local v47 = v2.splitOn(v46, "%s+");
-    return v2.filter(v47, function(v48) --[[ Line: 125 ]]
-        return #v48 > 0;
+    local v48 = v2.splitOn(v47, "%s+");
+    return v2.filter(v48, function(v49) --[[ Line: 125 ]]
+        return #v49 > 0;
     end);
 end;
 return {
     logger = v27, 
     formatLog = v39, 
-    logToConsole = v45, 
-    setLogTags = function(v50, v51) --[[ Line: 130 ]] --[[ Name: setLogTags ]]
+    logToConsole = v46, 
+    setLogTags = function(v51, v52) --[[ Line: 130 ]] --[[ Name: setLogTags ]]
         -- upvalues: v5 (copy), v2 (copy), l_Levels_0 (copy), v8 (copy), v25 (copy)
-        local v52 = v5.new(v51);
-        local v53 = v2.splitOn(v50, "%s+");
-        for _, v56 in (v2.filter(v53, function(v54) --[[ Line: 125 ]]
-            return #v54 > 0;
+        local v53 = v5.new(v52);
+        local v54 = v2.splitOn(v51, "%s+");
+        for _, v57 in (v2.filter(v54, function(v55) --[[ Line: 125 ]]
+            return #v55 > 0;
         end)) do
-            local v57 = v56:split(":");
-            local v58, v59;
-            if #v57 ~= 2 then
-                warn("Invalid LogTree value: " .. v56);
-                v58 = nil;
+            local v58 = v57:split(":");
+            local v59, v60;
+            if #v58 ~= 2 then
+                warn("Invalid LogTree value: " .. v57);
                 v59 = nil;
+                v60 = nil;
             else
-                local v60, v61 = table.unpack(v57);
-                v58 = v2.trim(v60);
-                v59 = l_Levels_0.fromString(v61);
+                local v61, v62 = table.unpack(v58);
+                v59 = v2.trim(v61);
+                v60 = l_Levels_0.fromString(v62);
             end;
-            if v58 ~= nil then
-                local v62 = tostring(v58);
-                (v8[v62] or v25(v62)):addSink((v52:newSink(v59)));
+            if v59 ~= nil then
+                local v63 = tostring(v59);
+                (v8[v63] or v25(v63)):addSink((v53:newSink(v60)));
             end;
         end;
     end

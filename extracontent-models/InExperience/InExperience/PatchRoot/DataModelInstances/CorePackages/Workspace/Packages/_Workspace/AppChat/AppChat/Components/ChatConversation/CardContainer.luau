@@ -2,94 +2,84 @@ local l_IXPService_0 = game:GetService("IXPService");
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("AppChat");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v3 = require(l_Parent_0.Foundation);
-local l_getStandardSizeAvatarHeadShotRbxthumb_0 = require(l_Parent_0.UserLib).Utils.getStandardSizeAvatarHeadShotRbxthumb;
-local v5 = require(l_Parent_0.React);
-local v6 = require(l_Parent_0.SocialCards);
-local v7 = require(script.Parent.ChatMessageContainerConstants);
+local v4 = require(l_Parent_0.React);
+local v5 = require(l_Parent_0.SocialCards);
 local l_useLocalUserId_0 = require(l_Parent_0.RobloxAppHooks).useLocalUserId;
-local v9 = require(l_script_FirstAncestor_0.Contexts.ChatPagePadding.useChatPagePadding);
+local v7 = require(l_script_FirstAncestor_0.Contexts.ChatPagePadding.useChatPagePadding);
 local l_useChatPlacementContext_0 = require(l_script_FirstAncestor_0.Contexts.ChatPlacementContext).useChatPlacementContext;
-local l_Cards_0 = v6.Cards;
+local l_Cards_0 = v5.Cards;
 local l_UserTile_0 = require(l_Parent_0.UserTile).UserTile;
 local l_LayoutMode_0 = require(l_Parent_0.UserTile).LayoutMode;
 local l_UserPresence_0 = require(l_Parent_0.Foundation).Enums.UserPresence;
 local l_useTokens_0 = v3.Hooks.useTokens;
-local v16 = require(l_script_FirstAncestor_0.Hooks.useFoundationPresence);
-local v17 = require(l_script_FirstAncestor_0.Hooks.useGetConversationFromId);
-local v18 = require(l_script_FirstAncestor_0.Models.Conversation);
-local l_FFlagAppChatEnableConversationUserTileAvatars_0 = require(l_Parent_0.SharedFlags).FFlagAppChatEnableConversationUserTileAvatars;
-local v20 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableMessageAuthorPresence);
-local v21 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxpEnabled);
-local v22 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
-return function(v23) --[[ Line: 40 ]] --[[ Name: CardContainer ]]
-    -- upvalues: l_useLocalUserId_0 (copy), l_useTokens_0 (copy), v9 (copy), l_useChatPlacementContext_0 (copy), v16 (copy), v17 (copy), v18 (copy), v5 (copy), v21 (copy), l_IXPService_0 (copy), v22 (copy), l_FFlagAppChatEnableConversationUserTileAvatars_0 (copy), v7 (copy), v3 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v20 (copy), l_UserPresence_0 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_Cards_0 (copy)
-    local v24 = l_useLocalUserId_0();
-    local v25 = tostring(v24) == v23.senderTargetId;
-    local v26 = l_useTokens_0();
-    local v27 = v9();
-    local v28 = l_useChatPlacementContext_0();
-    local v29 = v16(v23.senderTargetId or "");
-    local v30 = v17(v23.conversationId or "");
-    local v31 = v30 and v30.conversationType == v18.Type.MULTI_USER_CONVERSATION;
-    v5.useEffect(function() --[[ Line: 51 ]]
-        -- upvalues: v21 (ref), l_IXPService_0 (ref), v22 (ref)
-        if v21 then
-            l_IXPService_0:LogFlagLinkedUserLayerExposure(v22);
+local v14 = require(l_script_FirstAncestor_0.Hooks.useFoundationPresence);
+local v15 = require(l_script_FirstAncestor_0.Hooks.useGetConversationFromId);
+local v16 = require(l_script_FirstAncestor_0.Models.Conversation);
+local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableMessageAuthorPresence);
+local v18 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxpEnabled);
+local v19 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
+return function(v20) --[[ Line: 35 ]] --[[ Name: CardContainer ]]
+    -- upvalues: l_useLocalUserId_0 (copy), l_useTokens_0 (copy), v7 (copy), l_useChatPlacementContext_0 (copy), v14 (copy), v15 (copy), v16 (copy), v4 (copy), v18 (copy), l_IXPService_0 (copy), v19 (copy), v3 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v17 (copy), l_UserPresence_0 (copy), l_Cards_0 (copy)
+    local v21 = l_useLocalUserId_0();
+    local v22 = tostring(v21) == v20.senderTargetId;
+    local v23 = l_useTokens_0();
+    local v24 = v7();
+    local v25 = l_useChatPlacementContext_0();
+    local v26 = v14(v20.senderTargetId or "");
+    local v27 = v15(v20.conversationId or "");
+    local v28 = v27 and v27.conversationType == v16.Type.MULTI_USER_CONVERSATION;
+    v4.useEffect(function() --[[ Line: 46 ]]
+        -- upvalues: v18 (ref), l_IXPService_0 (ref), v19 (ref)
+        if v18 then
+            l_IXPService_0:LogFlagLinkedUserLayerExposure(v19);
         end;
     end, {});
-    local v32 = v5.useMemo(function() --[[ Line: 57 ]]
-        -- upvalues: v26 (copy)
-        return Vector2.new(v26.Size.Size_700, v26.Size.Size_700);
+    local v29 = v4.useMemo(function() --[[ Line: 52 ]]
+        -- upvalues: v23 (copy)
+        return Vector2.new(v23.Size.Size_700, v23.Size.Size_700);
     end, {
-        v26
+        v23
     });
-    local v33 = if l_FFlagAppChatEnableConversationUserTileAvatars_0 then v26.Size.Size_200 else v7.TAIL_WIDTH;
-    local v34 = nil;
-    v34 = if not v23.senderTargetId then Enum.HorizontalAlignment.Center else if v25 then Enum.HorizontalAlignment.Right else Enum.HorizontalAlignment.Left;
-    return v5.createElement(v3.View, {
+    local l_Size_200_0 = v23.Size.Size_200;
+    local v31 = nil;
+    v31 = if not v20.senderTargetId then Enum.HorizontalAlignment.Center else if v22 then Enum.HorizontalAlignment.Right else Enum.HorizontalAlignment.Left;
+    return v4.createElement(v3.View, {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.fromScale(1, 0), 
         layout = {
             FillDirection = Enum.FillDirection.Horizontal, 
-            HorizontalAlignment = v34, 
-            Padding = UDim.new(0, v33), 
+            HorizontalAlignment = v31, 
+            Padding = UDim.new(0, l_Size_200_0), 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             VerticalAlignment = Enum.VerticalAlignment.Bottom
         }, 
         padding = {
-            bottom = if l_FFlagAppChatEnableConversationUserTileAvatars_0 then nil else UDim.new(0, v26.Padding.XXSmall), 
-            left = UDim.new(0, v27.left), 
-            right = UDim.new(0, v27.right), 
-            top = if l_FFlagAppChatEnableConversationUserTileAvatars_0 then UDim.new(0, v26.Padding.XSmall) else UDim.new(0, v26.Padding.XXSmall)
+            left = UDim.new(0, v24.left), 
+            right = UDim.new(0, v24.right), 
+            top = UDim.new(0, v23.Padding.XSmall)
         }
     }, {
-        Avatar = if l_FFlagAppChatEnableConversationUserTileAvatars_0 and v23.senderTargetId and v23.senderTargetId ~= v24 then v5.createElement(v3.View, {
-            Size = UDim2.new(0, v32.X, 0, v32.Y), 
-            LayoutOrder = v25 and 2 or 1
+        Avatar = if v20.senderTargetId and v20.senderTargetId ~= v21 then v4.createElement(v3.View, {
+            Size = UDim2.new(0, v29.X, 0, v29.Y), 
+            LayoutOrder = v22 and 2 or 1
         }, {
-            v5.createElement(l_UserTile_0, {
-                userId = v23.senderTargetId, 
+            v4.createElement(l_UserTile_0, {
+                userId = v20.senderTargetId, 
                 layoutMode = l_LayoutMode_0.compact, 
-                userPresenceType = if v20 and v31 then v29.presence else l_UserPresence_0.None
+                userPresenceType = if v17 and v28 then v26.presence else l_UserPresence_0.None
             })
-        }) else if not l_FFlagAppChatEnableConversationUserTileAvatars_0 and v23.senderTargetId and v23.senderTargetId ~= v24 then v5.createElement(v3.Image, {
-            Size = UDim2.fromOffset(v32.X, v32.Y), 
-            backgroundStyle = v26.Color.Shift.Shift_200, 
-            cornerRadius = UDim.new(0, v26.Radius.Circle), 
-            Image = l_getStandardSizeAvatarHeadShotRbxthumb_0(v23.senderTargetId), 
-            LayoutOrder = v25 and 2 or 1
         }) else nil, 
-        Cards = if v23.cards then v5.createElement(v3.View, {
+        Cards = if v20.cards then v4.createElement(v3.View, {
             AutomaticSize = Enum.AutomaticSize.Y, 
-            Size = UDim2.new(1, if v23.senderTargetId then -(v32.X + v33) else 0, 0, 0), 
-            LayoutOrder = v25 and 1 or 2
-        }, v5.createElement(l_Cards_0, {
+            Size = UDim2.new(1, if v20.senderTargetId then -(v29.X + l_Size_200_0) else 0, 0, 0), 
+            LayoutOrder = v22 and 1 or 2
+        }, v4.createElement(l_Cards_0, {
             analyticsInfo = {
-                moduleLocation = v28.chatPlacement
+                moduleLocation = v25.chatPlacement
             }, 
-            anchorPoint = if v25 then Vector2.new(1, 0) else Vector2.new(0, 0), 
-            position = if v25 then UDim2.fromScale(1, 0) else UDim2.fromScale(0, 0), 
-            cards = v23.cards
+            anchorPoint = if v22 then Vector2.new(1, 0) else Vector2.new(0, 0), 
+            position = if v22 then UDim2.fromScale(1, 0) else UDim2.fromScale(0, 0), 
+            cards = v20.cards
         })) else nil
     });
 end;

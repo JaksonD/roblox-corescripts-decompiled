@@ -184,7 +184,18 @@ if l_LocalPlayer_0.Character then
     v46(l_LocalPlayer_0.Character);
 end;
 l_LocalPlayer_0.CharacterAdded:connect(function(v47) --[[ Line: 178 ]]
-    -- upvalues: v38 (copy), v46 (copy)
-    v38(false);
+    -- upvalues: v4 (ref), l_Frame_0 (copy), v5 (ref), v6 (ref), v46 (copy)
+    if v4 then
+        l_Frame_0.Visible = false;
+        v4 = nil;
+        if v5 then
+            v5:disconnect();
+            v5 = nil;
+        end;
+        if v6 then
+            v6:disconnect();
+            v6 = nil;
+        end;
+    end;
     v46(v47);
 end);

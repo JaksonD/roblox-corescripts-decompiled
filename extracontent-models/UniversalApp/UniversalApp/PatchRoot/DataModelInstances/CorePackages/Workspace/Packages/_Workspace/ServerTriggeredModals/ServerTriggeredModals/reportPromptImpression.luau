@@ -9,7 +9,7 @@ local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
 local l_UrlBase_0 = require(l_Parent_0.UrlBuilder).UrlBase;
 local v9 = l_UrlBuilder_0.new({
     base = l_UrlBase_0.APIS, 
-    path = "modals-api/v1/prompt/impression"
+    path = "modals-api/v1/prompts/impression"
 });
 return function(v10, v11) --[[ Line: 21 ]]
     -- upvalues: v9 (copy), l_HttpService_0 (copy), v3 (copy), v5 (copy), v4 (copy), v6 (copy)
@@ -32,7 +32,7 @@ return function(v10, v11) --[[ Line: 21 ]]
             -- upvalues: v5 (ref), v4 (ref), v16 (copy), v6 (ref), v15 (copy)
             local v19 = v18 and v18.StatusCode;
             if not v17 or v19 ~= 200 then
-                v5("modals-api/v1/prompt/impression", v19);
+                v5("modals-api/v1/prompts/impression", v19);
                 v4:error((("Report Prompt Impression request error with status code: %*"):format(v19)));
                 v16();
                 return;
@@ -40,7 +40,7 @@ return function(v10, v11) --[[ Line: 21 ]]
                 local v20 = v18 and v18.Stats and v18.Stats.RoundTripTime;
                 local v21 = v20 and v20 * 1000;
                 if v21 then
-                    v6("modals-api/v1/prompt/impression", v21, v19);
+                    v6("modals-api/v1/prompts/impression", v21, v19);
                 end;
                 v15();
                 return;

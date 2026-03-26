@@ -8,34 +8,35 @@ local _ = require(l_CorePackages_0.Workspace.Packages.DiscoveryTypes);
 local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
 local l_useAppPolicy_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).useAppPolicy;
 local _ = require(l_CorePackages_0.Workspace.Packages.ServerDrivenUi);
+local l_FFlagLuaAppCompositionSupport_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppCompositionSupport;
 local l_OmniFeedImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.DiscoveryMonolith).Modules.Personalization.OmniFeed.OmniFeedImpressionsDetector;
-local v11 = require(script.Parent.OmniFeedItemsContainer);
-local v12 = {};
-return function(v13) --[[ Line: 35 ]]
-    -- upvalues: l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v1 (copy), l_Signal_0 (copy), l_useDesignTokens_0 (copy), l_useSelector_0 (copy), v12 (copy), v11 (copy), l_OmniFeedImpressionsDetector_0 (copy)
-    local v15 = l_useAppPolicy_0(function(v14) --[[ Line: 36 ]]
-        return v14.useGridPageLayout();
+local v12 = require(script.Parent.OmniFeedItemsContainer);
+local v13 = {};
+return function(v14) --[[ Line: 40 ]]
+    -- upvalues: l_useAppPolicy_0 (copy), l_useUiModeInfo_0 (copy), l_UiMode_0 (copy), v1 (copy), l_Signal_0 (copy), l_useDesignTokens_0 (copy), l_useSelector_0 (copy), v13 (copy), v12 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), l_OmniFeedImpressionsDetector_0 (copy)
+    local v16 = l_useAppPolicy_0(function(v15) --[[ Line: 41 ]]
+        return v15.useGridPageLayout();
     end);
-    local v16 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
-    v15 = v15 and not v16;
-    local v17 = v1.useRef(l_Signal_0.new());
-    local v18 = l_useDesignTokens_0();
-    local l_BackgroundColor_0 = v18.LuaApps.App.Page.BackgroundColor;
-    local l_BackgroundTransparency_0 = v18.LuaApps.App.Page.BackgroundTransparency;
-    local v21 = v1.useMemo(function() --[[ Line: 51 ]]
-        -- upvalues: v18 (copy), v15 (ref)
-        return v18.LuaApps.HomeOmniFeed.getLayoutSpacing(v15);
+    local v17 = l_useUiModeInfo_0().uiMode == l_UiMode_0.TenFoot;
+    v16 = v16 and not v17;
+    local v18 = v1.useRef(l_Signal_0.new());
+    local v19 = l_useDesignTokens_0();
+    local l_BackgroundColor_0 = v19.LuaApps.App.Page.BackgroundColor;
+    local l_BackgroundTransparency_0 = v19.LuaApps.App.Page.BackgroundTransparency;
+    local v22 = v1.useMemo(function() --[[ Line: 56 ]]
+        -- upvalues: v19 (copy), v16 (ref)
+        return v19.LuaApps.HomeOmniFeed.getLayoutSpacing(v16);
     end, {
-        v15, 
-        v18
+        v16, 
+        v19
     });
-    local v22 = v13.topPadding or v21.topMargin;
-    local v23 = v13.bottomPadding or 80;
-    local v25 = l_useSelector_0(function(v24) --[[ Line: 59 ]]
-        -- upvalues: v13 (copy)
-        return v24.OmniRecommendations[v13.pageContext];
+    local v23 = v14.topPadding or v22.topMargin;
+    local v24 = v14.bottomPadding or 80;
+    local v26 = l_useSelector_0(function(v25) --[[ Line: 64 ]]
+        -- upvalues: v14 (copy)
+        return v25.OmniRecommendations[v14.pageContext];
     end);
-    local v26 = v25 and v25.sorts or v12;
+    local v27 = v26 and v26.sorts or v13;
     return v1.createElement("Frame", {
         Position = UDim2.fromScale(0, 0), 
         Size = UDim2.fromScale(1, 0), 
@@ -44,25 +45,27 @@ return function(v13) --[[ Line: 35 ]]
         BorderSizePixel = 0, 
         AutomaticSize = Enum.AutomaticSize.Y
     }, {
-        OmniFeed = v1.createElement(v11, {
-            omniFeedItems = v13.omniFeedItems, 
-            pageContext = v13.pageContext, 
-            sduiContext = v13.sduiContext, 
-            impressionsTag = v13.impressionsTag, 
-            topMargin = v22, 
-            bottomMargin = v23, 
-            layoutPadding = v21.layoutPadding, 
-            onItemsUpdatedSignalRef = v17, 
-            defaultContainerSize = v13.defaultContainerSize, 
-            sortsData = v26, 
-            omniFeedPageSection = v13.omniFeedPageSection, 
-            enableRelativeGui = v13.enableRelativeGui
+        OmniFeed = v1.createElement(v12, {
+            omniFeedItems = v14.omniFeedItems, 
+            pageContext = v14.pageContext, 
+            sduiContext = v14.sduiContext, 
+            impressionsTag = v14.impressionsTag, 
+            topMargin = v23, 
+            bottomMargin = v24, 
+            layoutPadding = v22.layoutPadding, 
+            onItemsUpdatedSignalRef = v18, 
+            defaultContainerSize = v14.defaultContainerSize, 
+            sortsData = v27, 
+            omniFeedPageSection = v14.omniFeedPageSection, 
+            enableRelativeGui = v14.enableRelativeGui, 
+            appCompositionEnabled = if l_FFlagLuaAppCompositionSupport_0 then v14.appCompositionEnabled else nil, 
+            contentTag = if l_FFlagLuaAppCompositionSupport_0 then v14.contentTag else nil
         }), 
         OmniFeedImpressionsDetector = v1.createElement(l_OmniFeedImpressionsDetector_0, {
-            onItemsUpdatedSignal = v17.current, 
-            impressionsTag = v13.impressionsTag, 
-            omniFeedItems = v13.omniFeedItems, 
-            eventContext = v13.analyticsContext
+            onItemsUpdatedSignal = v18.current, 
+            impressionsTag = v14.impressionsTag, 
+            omniFeedItems = v14.omniFeedItems, 
+            eventContext = v14.analyticsContext
         })
     });
 end;

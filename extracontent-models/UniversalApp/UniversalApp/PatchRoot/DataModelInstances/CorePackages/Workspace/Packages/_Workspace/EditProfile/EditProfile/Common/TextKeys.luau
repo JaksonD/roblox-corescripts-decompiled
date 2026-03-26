@@ -1,3 +1,5 @@
+local l_Parent_0 = script:FindFirstAncestor("EditProfile").Parent;
+local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
 return {
     About = "CommonUI.Features.Label.About", 
     AboutModalCaption = "Feature.Profile.Description.AboutModalCaption", 
@@ -14,7 +16,7 @@ return {
     EditDisplayName = "Feature.Profile.Heading.EditDisplayName", 
     AgedUpDisplayName = "Feature.Profile.Heading.AgedUpDisplayName", 
     AgedUpDisplayNameCaption = "Feature.Profile.Label.AgedUpDisplayNameCaption", 
-    AgedUpDisplayNameConnectionsCaption = "Feature.Profile.Label.AgedUpDisplayNameConnectionsCaption", 
+    AgedUpDisplayNameConnectionsCaption = l_FFlagConnectionsToFriendsRename_0 and "Feature.Profile.Label.AgedUpDisplayNameFriendsCaption" or "Feature.Profile.Label.AgedUpDisplayNameConnectionsCaption", 
     AgedUpDisplayNameError = "Feature.Profile.Label.AgedUpDisplayNameFailed", 
     AgedUpDisplayNameMixedCharactersError = "Feature.DisplayName.ErrorMessage.NameMoreThanOneCharacterKind", 
     AgedUpDisplayNameModalCaption = "Feature.Profile.Label.AgedUpDisplayNameModalCaption", 

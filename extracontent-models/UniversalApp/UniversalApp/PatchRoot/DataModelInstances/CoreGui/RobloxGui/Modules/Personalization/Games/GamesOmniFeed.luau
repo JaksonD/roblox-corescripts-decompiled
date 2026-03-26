@@ -38,167 +38,168 @@ local l_FFlagLuaAppLayoutParamsInContext_0 = v34.FFlagLuaAppLayoutParamsInContex
 local l_FFlagLuaAppChartsStickyHeader_0 = v34.FFlagLuaAppChartsStickyHeader;
 local l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 = v34.FFlagLuaAppChartsResetFetchingStatusOnFilterChange;
 local l_FFlagLuaAppFixChartsRenderOnFail_0 = v34.FFlagLuaAppFixChartsRenderOnFail;
+local l_FFlagLuaAppCompositionCharts_0 = v34.FFlagLuaAppCompositionCharts;
 local l_Games_0 = l_AppPage_0.Games;
-local v44 = l_FFlagLuaAppFixChartsRenderOnFail_0 and function(v41) --[[ Line: 56 ]]
+local v45 = l_FFlagLuaAppFixChartsRenderOnFail_0 and function(v42) --[[ Line: 57 ]]
     -- upvalues: v29 (copy), v2 (copy), l_EmptyState_0 (copy)
-    local v42 = v29({
+    local v43 = v29({
         failedMessage = "Feature.EmptyStatePage.Message.NoInternet"
     });
-    local v43 = v2.useCallback(function() --[[ Line: 61 ]]
-        -- upvalues: v41 (copy)
-        v41.fetchGamesPageData();
+    local v44 = v2.useCallback(function() --[[ Line: 62 ]]
+        -- upvalues: v42 (copy)
+        v42.fetchGamesPageData();
     end, {
-        v41.fetchGamesPageData
+        v42.fetchGamesPageData
     });
     return v2.createElement(l_EmptyState_0, {
-        onActivated = v43, 
-        text = v42.failedMessage
+        onActivated = v44, 
+        text = v43.failedMessage
     });
 end or nil;
-return function(v45) --[[ Line: 79 ]]
-    -- upvalues: l_FFlagAppIaScrollAway_0 (copy), l_useRoactService_0 (copy), l_AppSessionService_0 (copy), l_RoactNetworking_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), l_useNavigation_0 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v2 (copy), l_useSelector_0 (copy), l_Games_0 (copy), l_useDispatch_0 (copy), v12 (copy), l_FetchGamesPageData_0 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (copy), l_RetrievalStatus_1 (copy), v30 (copy), v31 (copy), l_feedScroll_0 (copy), v11 (copy), v33 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), l_useCollectionLayoutConfig_0 (copy), v22 (copy), v28 (copy), l_SessionType_0 (copy), l_DiscoverPageSession_0 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_0 (copy), v32 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), l_FFlagLuaAppFixChartsRenderOnFail_0 (copy), v44 (copy), v29 (copy), l_EmptyState_0 (copy)
-    local v46 = if l_FFlagAppIaScrollAway_0 then v45.canvasTopPadding else nil;
-    local v47 = l_useRoactService_0(l_AppSessionService_0);
-    local v48 = l_useRoactService_0(l_RoactNetworking_0);
-    local v49 = l_useRoactService_0(l_RoactAnalytics_0);
-    local v50 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v51 = l_useNavigation_0();
-    local v52 = if not l_FFlagLuaAppLayoutParamsInContext_0 then v2.useRef(nil) else nil;
-    local v53 = nil;
+return function(v46) --[[ Line: 80 ]]
+    -- upvalues: l_FFlagAppIaScrollAway_0 (copy), l_useRoactService_0 (copy), l_AppSessionService_0 (copy), l_RoactNetworking_0 (copy), l_RoactAnalytics_0 (copy), l_AppEventIngestService_0 (copy), l_useNavigation_0 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), v2 (copy), l_useSelector_0 (copy), l_Games_0 (copy), l_useDispatch_0 (copy), v12 (copy), l_FetchGamesPageData_0 (copy), l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (copy), l_RetrievalStatus_1 (copy), v30 (copy), v31 (copy), l_feedScroll_0 (copy), v11 (copy), v33 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), l_useCollectionLayoutConfig_0 (copy), v22 (copy), v28 (copy), l_SessionType_0 (copy), l_DiscoverPageSession_0 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_0 (copy), v32 (copy), l_FFlagLuaAppChartsStickyHeader_0 (copy), l_FFlagLuaAppCompositionCharts_0 (copy), l_FFlagLuaAppFixChartsRenderOnFail_0 (copy), v45 (copy), v29 (copy), l_EmptyState_0 (copy)
+    local v47 = if l_FFlagAppIaScrollAway_0 then v46.canvasTopPadding else nil;
+    local v48 = l_useRoactService_0(l_AppSessionService_0);
+    local v49 = l_useRoactService_0(l_RoactNetworking_0);
+    local v50 = l_useRoactService_0(l_RoactAnalytics_0);
+    local v51 = l_useRoactService_0(l_AppEventIngestService_0);
+    local v52 = l_useNavigation_0();
+    local v53 = if not l_FFlagLuaAppLayoutParamsInContext_0 then v2.useRef(nil) else nil;
     local v54 = nil;
+    local v55 = nil;
     if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v55, v56 = v2.useState(nil);
-        v53 = v55;
+        local v56, v57 = v2.useState(nil);
         v54 = v56;
+        v55 = v57;
     end;
-    local v58 = l_useSelector_0(function(v57) --[[ Line: 92 ]]
-        return v57.Startup.GamesPageDataStatus;
+    local v59 = l_useSelector_0(function(v58) --[[ Line: 93 ]]
+        return v58.Startup.GamesPageDataStatus;
     end);
-    local v60 = l_useSelector_0(function(v59) --[[ Line: 95 ]]
+    local v61 = l_useSelector_0(function(v60) --[[ Line: 96 ]]
         -- upvalues: l_Games_0 (ref)
-        return v59.Personalization.OrderedOmniItems[l_Games_0];
+        return v60.Personalization.OrderedOmniItems[l_Games_0];
     end);
-    local v61 = l_useDispatch_0();
-    local v63 = l_useSelector_0(function(v62) --[[ Line: 99 ]]
-        return v62.ScreenSize;
+    local v62 = l_useDispatch_0();
+    local v64 = l_useSelector_0(function(v63) --[[ Line: 100 ]]
+        return v63.ScreenSize;
     end);
-    local v65 = l_useSelector_0(function(v64) --[[ Line: 103 ]]
-        return v64.Personalization.DiscoveryNextPageId;
+    local v66 = l_useSelector_0(function(v65) --[[ Line: 104 ]]
+        return v65.Personalization.DiscoveryNextPageId;
     end);
-    local v66 = v2.useRef(nil);
-    local v68 = v2.useCallback(function(v67) --[[ Line: 108 ]]
-        -- upvalues: v66 (copy), v12 (ref), v61 (copy), l_FetchGamesPageData_0 (ref), v48 (copy), v49 (copy)
-        if v67 and v66.current == v67 then
+    local v67 = v2.useRef(nil);
+    local v69 = v2.useCallback(function(v68) --[[ Line: 109 ]]
+        -- upvalues: v67 (copy), v12 (ref), v62 (copy), l_FetchGamesPageData_0 (ref), v49 (copy), v50 (copy)
+        if v68 and v67.current == v68 then
             return v12.reject("Already fetching");
         else
-            v66.current = v67;
-            return (v61(l_FetchGamesPageData_0(v48, v49, v67)));
+            v67.current = v68;
+            return (v62(l_FetchGamesPageData_0(v49, v50, v68)));
         end;
     end, {
-        v61, 
-        v48, 
-        v49
+        v62, 
+        v49, 
+        v50
     });
-    local function v69() --[[ Line: 121 ]]
-        -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v58 (copy), l_RetrievalStatus_1 (ref), v65 (copy), v68 (copy), v12 (ref)
-        if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v58.status else v58) ~= l_RetrievalStatus_1.Fetching and v65 and v65 ~= "" then
-            return v68(v65);
+    local function v70() --[[ Line: 122 ]]
+        -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v59 (copy), l_RetrievalStatus_1 (ref), v66 (copy), v69 (copy), v12 (ref)
+        if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v59.status else v59) ~= l_RetrievalStatus_1.Fetching and v66 and v66 ~= "" then
+            return v69(v66);
         else
             return v12.reject("Cannot load page");
         end;
     end;
-    local function v71(v70) --[[ Line: 138 ]]
-        -- upvalues: v61 (copy), v30 (ref), l_Games_0 (ref)
-        v61(v30(v70, l_Games_0));
+    local function v72(v71) --[[ Line: 139 ]]
+        -- upvalues: v62 (copy), v30 (ref), l_Games_0 (ref)
+        v62(v30(v71, l_Games_0));
     end;
-    local v72 = v2.useCallback(function() --[[ Line: 141 ]]
-        -- upvalues: v61 (copy), v31 (ref), v68 (copy)
-        v61(v31());
-        return v68();
+    local v73 = v2.useCallback(function() --[[ Line: 142 ]]
+        -- upvalues: v62 (copy), v31 (ref), v69 (copy)
+        v62(v31());
+        return v69();
     end, {
-        v61, 
-        v68
+        v62, 
+        v69
     });
-    local function v79(v73, v74, v75) --[[ Line: 146 ]]
-        -- upvalues: l_FFlagLuaAppLayoutParamsInContext_0 (ref), v53 (ref), v52 (copy), v63 (copy), l_feedScroll_0 (ref), v50 (copy), l_Games_0 (ref)
+    local function v80(v74, v75, v76) --[[ Line: 147 ]]
+        -- upvalues: l_FFlagLuaAppLayoutParamsInContext_0 (ref), v54 (ref), v53 (copy), v64 (copy), l_feedScroll_0 (ref), v51 (copy), l_Games_0 (ref)
         local l_Y_0 = Enum.ScrollingDirection.Y;
         if l_Y_0 then
-            local v77 = nil;
+            local v78 = nil;
             if l_FFlagLuaAppLayoutParamsInContext_0 then
-                v77 = v53 and v53.AbsoluteSize.Y or 0;
+                v78 = v54 and v54.AbsoluteSize.Y or 0;
             else
-                v77 = 0;
-                if v52.current then
-                    v77 = v52.current.AbsoluteSize.Y;
+                v78 = 0;
+                if v53.current then
+                    v78 = v53.current.AbsoluteSize.Y;
                 end;
             end;
-            local v78 = {
-                distance = v73, 
-                screenSizeX = v63.X, 
-                screenSizeY = v63.Y, 
-                scrollAreaSize = v77, 
-                scrollDepth = if v77 > 0 then v73 / v77 else nil, 
-                startDepth = if v77 > 0 then v75 / v77 else nil, 
-                startPos = v75, 
-                scrollDuration = v74
+            local v79 = {
+                distance = v74, 
+                screenSizeX = v64.X, 
+                screenSizeY = v64.Y, 
+                scrollAreaSize = v78, 
+                scrollDepth = if v78 > 0 then v74 / v78 else nil, 
+                startDepth = if v78 > 0 then v76 / v78 else nil, 
+                startPos = v76, 
+                scrollDuration = v75
             };
-            l_feedScroll_0(v50, l_Games_0, l_Y_0, v78);
+            l_feedScroll_0(v51, l_Games_0, l_Y_0, v79);
         end;
     end;
-    local v80 = v60 and v60.allItems or {};
-    local v81 = v60 and v60.hasLocalItems or false;
-    v2.useEffect(function() --[[ Line: 178 ]]
-        -- upvalues: v81 (copy), v61 (copy), v30 (ref), l_Games_0 (ref)
-        if not v81 then
-            v61(v30({}, l_Games_0));
+    local v81 = v61 and v61.allItems or {};
+    local v82 = v61 and v61.hasLocalItems or false;
+    v2.useEffect(function() --[[ Line: 179 ]]
+        -- upvalues: v82 (copy), v62 (copy), v30 (ref), l_Games_0 (ref)
+        if not v82 then
+            v62(v30({}, l_Games_0));
         end;
     end, {
-        v81, 
-        v71
+        v82, 
+        v72
     });
-    local v82 = nil;
     local v83 = nil;
+    local v84 = nil;
     if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then
-        local l_status_0 = v58.status;
-        v82 = if not (not (not (l_status_0 ~= l_RetrievalStatus_1.Fetching) or l_status_0 == l_RetrievalStatus_1.Failed) or v58.isRefreshFetch) and v80 and #v80 > 0 then l_RetrievalStatus_1.Done else l_status_0;
+        local l_status_0 = v59.status;
+        v83 = if not (not (not (l_status_0 ~= l_RetrievalStatus_1.Fetching) or l_status_0 == l_RetrievalStatus_1.Failed) or v59.isRefreshFetch) and v81 and #v81 > 0 then l_RetrievalStatus_1.Done else l_status_0;
     else
-        local v85, v86 = v2.useState(v58);
-        v82 = v85;
+        local v86, v87 = v2.useState(v59);
         v83 = v86;
+        v84 = v87;
     end;
-    v2.useEffect(function() --[[ Line: 198 ]]
-        -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v58 (copy), l_RetrievalStatus_1 (ref), v68 (copy), v51 (copy), v11 (ref), v82 (ref), v83 (ref)
-        if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v58.status else v58) == l_RetrievalStatus_1.NotStarted then
-            v68();
+    v2.useEffect(function() --[[ Line: 199 ]]
+        -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v59 (copy), l_RetrievalStatus_1 (ref), v69 (copy), v52 (copy), v11 (ref), v83 (ref), v84 (ref)
+        if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v59.status else v59) == l_RetrievalStatus_1.NotStarted then
+            v69();
         end;
-        local v87 = v51.addListener(v11.Events.WillFocus, function() --[[ Line: 209 ]]
-            -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v58 (ref), l_RetrievalStatus_1 (ref), v68 (ref)
-            if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v58.status else v58) == l_RetrievalStatus_1.NotStarted then
-                v68();
+        local v88 = v52.addListener(v11.Events.WillFocus, function() --[[ Line: 210 ]]
+            -- upvalues: l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 (ref), v59 (ref), l_RetrievalStatus_1 (ref), v69 (ref)
+            if (if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then v59.status else v59) == l_RetrievalStatus_1.NotStarted then
+                v69();
             end;
         end);
-        if not l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 and v82 ~= l_RetrievalStatus_1.Done then
-            v83(v58);
+        if not l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 and v83 ~= l_RetrievalStatus_1.Done then
+            v84(v59);
         end;
-        return function() --[[ Line: 225 ]]
-            -- upvalues: v87 (copy)
-            if v87 ~= nil then
-                v87.remove();
+        return function() --[[ Line: 226 ]]
+            -- upvalues: v88 (copy)
+            if v88 ~= nil then
+                v88.remove();
             end;
         end;
     end, {
-        v51, 
-        v58, 
-        if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then nil else v82
+        v52, 
+        v59, 
+        if l_FFlagLuaAppChartsResetFetchingStatusOnFilterChange_0 then nil else v83
     });
     if v33 then
-        v2.useEffect(function() --[[ Line: 237 ]]
+        v2.useEffect(function() --[[ Line: 238 ]]
             -- upvalues: l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
             l_IXPService_0:LogUserLayerExposure(l_AppUserLayers_0.DiscoverPageLayer);
         end, {});
     end;
-    local v88 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v53) else nil;
-    local v89 = v22.useSduiContextFromRoduxAndProcessConfigs(l_Games_0, if l_FFlagLuaAppLayoutParamsInContext_0 then v88 else nil);
+    local v89 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v54) else nil;
+    local v90 = v22.useSduiContextFromRoduxAndProcessConfigs(l_Games_0, if l_FFlagLuaAppLayoutParamsInContext_0 then v89 else nil);
     return v2.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0), 
         BackgroundTransparency = 1, 
@@ -206,49 +207,50 @@ return function(v45) --[[ Line: 79 ]]
     }, {
         PageSessionManager = v2.createElement(v28, {
             appPage = l_Games_0, 
-            setPageSession = function() --[[ Line: 257 ]] --[[ Name: setPageSession ]]
-                -- upvalues: v47 (copy), l_SessionType_0 (ref), l_DiscoverPageSession_0 (ref)
-                if v47 ~= nil then
-                    v47:SetSession(l_SessionType_0.StructuralIdentifier.Level1, l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo, l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo);
-                    v47:SetMetadata(l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo, l_SessionType_0.Metadata.DiscoverPage.DiscoverSessionId, l_DiscoverPageSession_0:Get());
+            setPageSession = function() --[[ Line: 258 ]] --[[ Name: setPageSession ]]
+                -- upvalues: v48 (copy), l_SessionType_0 (ref), l_DiscoverPageSession_0 (ref)
+                if v48 ~= nil then
+                    v48:SetSession(l_SessionType_0.StructuralIdentifier.Level1, l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo, l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo);
+                    v48:SetMetadata(l_SessionType_0.StructuralIdentifier.DiscoverPageSessionInfo, l_SessionType_0.Metadata.DiscoverPage.DiscoverSessionId, l_DiscoverPageSession_0:Get());
                 end;
             end
         }), 
         LoadingStateContainer = v2.createElement(l_LoadingStateContainer_0, {
-            dataStatus = l_RetrievalStatus_0.fromRawValue(v82), 
-            onRetry = v68, 
-            renderOnLoaded = function() --[[ Line: 276 ]] --[[ Name: renderOnLoaded ]]
-                -- upvalues: v2 (ref), v32 (ref), l_Games_0 (ref), v72 (copy), v80 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (ref), v54 (ref), v52 (copy), v65 (copy), v69 (copy), v79 (copy), l_FFlagAppIaScrollAway_0 (ref), v46 (copy), v89 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v45 (copy)
+            dataStatus = l_RetrievalStatus_0.fromRawValue(v83), 
+            onRetry = v69, 
+            renderOnLoaded = function() --[[ Line: 277 ]] --[[ Name: renderOnLoaded ]]
+                -- upvalues: v2 (ref), v32 (ref), l_Games_0 (ref), v73 (copy), v81 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (ref), v55 (ref), v53 (copy), v66 (copy), v70 (copy), v80 (copy), l_FFlagAppIaScrollAway_0 (ref), v47 (copy), v90 (copy), l_FFlagLuaAppChartsStickyHeader_0 (ref), v46 (copy), l_FFlagLuaAppCompositionCharts_0 (ref)
                 return v2.createElement(v32, {
                     pageContext = l_Games_0, 
-                    refresh = v72, 
-                    omniFeedItems = v80, 
+                    refresh = v73, 
+                    omniFeedItems = v81, 
                     impressionsTag = "GAMESFEEDITEM_IMPRESSIONS", 
-                    scrollingFrameRef = if l_FFlagLuaAppLayoutParamsInContext_0 then v54 else v52, 
+                    scrollingFrameRef = if l_FFlagLuaAppLayoutParamsInContext_0 then v55 else v53, 
                     analyticsContext = "GamesOmniFeed", 
-                    hasNextPage = v65 and v65 ~= "", 
-                    loadNext = v69 or nil, 
-                    sendScrollEvent = v79, 
-                    canvasTopPadding = if l_FFlagAppIaScrollAway_0 then v46 else nil, 
-                    sduiContext = v89, 
-                    topPadding = if l_FFlagLuaAppChartsStickyHeader_0 then v45.topPadding else nil
+                    hasNextPage = v66 and v66 ~= "", 
+                    loadNext = v70 or nil, 
+                    sendScrollEvent = v80, 
+                    canvasTopPadding = if l_FFlagAppIaScrollAway_0 then v47 else nil, 
+                    sduiContext = v90, 
+                    topPadding = if l_FFlagLuaAppChartsStickyHeader_0 then v46.topPadding else nil, 
+                    appCompositionEnabled = l_FFlagLuaAppCompositionCharts_0 and true or nil
                 });
             end, 
-            renderOnFailed = l_FFlagLuaAppFixChartsRenderOnFail_0 and function() --[[ Line: 295 ]]
-                -- upvalues: v2 (ref), v44 (ref), v68 (copy)
-                return v2.createElement(v44, {
-                    fetchGamesPageData = v68
+            renderOnFailed = l_FFlagLuaAppFixChartsRenderOnFail_0 and function() --[[ Line: 297 ]]
+                -- upvalues: v2 (ref), v45 (ref), v69 (copy)
+                return v2.createElement(v45, {
+                    fetchGamesPageData = v69
                 });
-            end or function() --[[ Line: 300 ]]
-                -- upvalues: v29 (ref), v2 (ref), l_EmptyState_0 (ref), v68 (copy)
-                return function(_) --[[ Line: 301 ]]
-                    -- upvalues: v29 (ref), v2 (ref), l_EmptyState_0 (ref), v68 (ref)
-                    local v91 = v29({
+            end or function() --[[ Line: 302 ]]
+                -- upvalues: v29 (ref), v2 (ref), l_EmptyState_0 (ref), v69 (copy)
+                return function(_) --[[ Line: 303 ]]
+                    -- upvalues: v29 (ref), v2 (ref), l_EmptyState_0 (ref), v69 (ref)
+                    local v92 = v29({
                         failedMessage = "Feature.EmptyStatePage.Message.NoInternet"
                     });
                     return v2.createElement(l_EmptyState_0, {
-                        onActivated = v68, 
-                        text = v91.failedMessage
+                        onActivated = v69, 
+                        text = v92.failedMessage
                     });
                 end;
             end

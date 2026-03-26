@@ -18,5 +18,6 @@ return {
     DefaultThemeLayer = "ConsumerPlatforms.Themes", 
     AuthenticationStylingLayer = game:GetFastString("LuaAppAuthenticationStylingLayer"), 
     AccountRecoveryUILayer = game:GetFastString("AccountRecoveryUILayer"), 
-    ConsumerPlatformsIOSUIRefactor = game:GetFastString("ConsumerPlatformsIOSUIRefactor")
+    ConsumerPlatformsIOSUIRefactor = game:GetFastString("ConsumerPlatformsIOSUIRefactor"), 
+    AndroidWidgetLayer = "ConsumerPlatforms.AndroidWidgets"
 };

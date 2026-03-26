@@ -4,57 +4,58 @@ local l_TextService_0 = game:GetService("TextService");
 local l_Players_0 = game:GetService("Players");
 local _ = game:GetService("CoreGui");
 local l_LocalizationService_0 = game:GetService("LocalizationService");
-local v6 = nil;
-pcall(function() --[[ Line: 10 ]]
-    -- upvalues: v6 (ref)
-    v6 = game:GetService("PlatformService");
+local l_game_EngineFeature_0 = game:GetEngineFeature("DeprecateOldGuiObjectProperties");
+local v7 = nil;
+pcall(function() --[[ Line: 12 ]]
+    -- upvalues: v7 (ref)
+    v7 = game:GetService("PlatformService");
 end);
-local v9 = {
-    IsFinite = function(v7) --[[ Line: 15 ]] --[[ Name: IsFinite ]]
-        local v8 = false;
-        if v7 == v7 then
-            v8 = false;
-            if v7 ~= 1e999 then
-                v8 = v7 ~= -1e999;
+local v10 = {
+    IsFinite = function(v8) --[[ Line: 17 ]] --[[ Name: IsFinite ]]
+        local v9 = false;
+        if v8 == v8 then
+            v9 = false;
+            if v8 ~= 1e999 then
+                v9 = v8 ~= -1e999;
             end;
         end;
-        return v8;
+        return v9;
     end
 };
-v9.FindAncestorOfType = function(v10, v11) --[[ Line: 19 ]] --[[ Name: FindAncestorOfType ]]
-    -- upvalues: v9 (copy)
-    local v12 = v10 and v10.Parent;
-    if v12 then
-        if v12:IsA(v11) then
-            return v12;
+v10.FindAncestorOfType = function(v11, v12) --[[ Line: 21 ]] --[[ Name: FindAncestorOfType ]]
+    -- upvalues: v10 (copy)
+    local v13 = v11 and v11.Parent;
+    if v13 then
+        if v13:IsA(v12) then
+            return v13;
         else
-            return v9.FindAncestorOfType(v12, v11);
+            return v10.FindAncestorOfType(v13, v12);
         end;
     else
         return nil;
     end;
 end;
-v9.CalculateRelativeDimensions = function(v13, v14, v15, _) --[[ Line: 31 ]] --[[ Name: CalculateRelativeDimensions ]]
-    -- upvalues: l_GuiService_0 (copy), v9 (copy)
+v10.CalculateRelativeDimensions = function(v14, v15, v16, _) --[[ Line: 33 ]] --[[ Name: CalculateRelativeDimensions ]]
+    -- upvalues: l_GuiService_0 (copy), v10 (copy)
     local l_l_GuiService_0_ScreenResolution_0 = l_GuiService_0:GetScreenResolution();
-    local v18 = v9.FindAncestorOfType(v13, "SurfaceGui");
-    if v18 then
-        l_l_GuiService_0_ScreenResolution_0 = v18.CanvasSize;
+    local v19 = v10.FindAncestorOfType(v14, "SurfaceGui");
+    if v19 then
+        l_l_GuiService_0_ScreenResolution_0 = v19.CanvasSize;
     end;
-    local v19 = v14 / v15;
-    if v15.y > 0 and l_l_GuiService_0_ScreenResolution_0.y > 0 then
-        v19 = v19 * (v15.x / v15.y / (l_l_GuiService_0_ScreenResolution_0.x / l_l_GuiService_0_ScreenResolution_0.y));
-        local l_Parent_0 = v13.Parent;
+    local v20 = v15 / v16;
+    if v16.y > 0 and l_l_GuiService_0_ScreenResolution_0.y > 0 then
+        v20 = v20 * (v16.x / v16.y / (l_l_GuiService_0_ScreenResolution_0.x / l_l_GuiService_0_ScreenResolution_0.y));
+        local l_Parent_0 = v14.Parent;
         if l_Parent_0 then
-            local v21 = 1 / (l_Parent_0.AbsoluteSize / l_l_GuiService_0_ScreenResolution_0);
-            if v9.IsFinite(v21.x) and v9.IsFinite(v21.y) then
-                return UDim2.new(v21.x * v19.x, 0, v21.y * v19.y, 0);
+            local v22 = 1 / (l_Parent_0.AbsoluteSize / l_l_GuiService_0_ScreenResolution_0);
+            if v10.IsFinite(v22.x) and v10.IsFinite(v22.y) then
+                return UDim2.new(v22.x * v20.x, 0, v22.y * v20.y, 0);
             end;
         end;
     end;
-    return UDim2.new(v19.x, 0, v19.y, 0);
+    return UDim2.new(v20.x, 0, v20.y, 0);
 end;
-v9.Enum = {
+v10.Enum = {
     Anchor = {
         TopLeft = 1, 
         TopMiddle = 2, 
@@ -67,290 +68,296 @@ v9.Enum = {
         BottomRight = 9
     }
 };
-v9.CalculateFit = function(v22, v23) --[[ Line: 76 ]] --[[ Name: CalculateFit ]]
-    local v24 = v22.AbsoluteSize / v23;
-    local v25 = v23 * math.min(v24.X, v24.Y);
-    return UDim2.new(0, v25.X, 0, v25.Y);
+v10.CalculateFit = function(v23, v24) --[[ Line: 78 ]] --[[ Name: CalculateFit ]]
+    local v25 = v23.AbsoluteSize / v24;
+    local v26 = v24 * math.min(v25.X, v25.Y);
+    return UDim2.new(0, v26.X, 0, v26.Y);
 end;
-v9.CalculateFill = function(v26, v27) --[[ Line: 84 ]] --[[ Name: CalculateFill ]]
-    local v28 = v26.AbsoluteSize / v27;
-    local v29 = v27 * math.max(v28.X, v28.Y);
-    return UDim2.new(0, v29.X, 0, v29.Y);
+v10.CalculateFill = function(v27, v28) --[[ Line: 86 ]] --[[ Name: CalculateFill ]]
+    local v29 = v27.AbsoluteSize / v28;
+    local v30 = v28 * math.max(v29.X, v29.Y);
+    return UDim2.new(0, v30.X, 0, v30.Y);
 end;
-local v30 = {};
-local function _(v31, v32) --[[ Line: 95 ]] --[[ Name: getActiveTween ]]
-    -- upvalues: v30 (copy)
-    return v30[v31] and v30[v31][v32];
+local v31 = {};
+local function _(v32, v33) --[[ Line: 97 ]] --[[ Name: getActiveTween ]]
+    -- upvalues: v31 (copy)
+    return v31[v32] and v31[v32][v33];
 end;
-local function _(v34, v35, v36) --[[ Line: 99 ]] --[[ Name: setActiveTween ]]
-    -- upvalues: v30 (copy)
-    if not v30[v34] then
-        v30[v34] = {};
+local function _(v35, v36, v37) --[[ Line: 101 ]] --[[ Name: setActiveTween ]]
+    -- upvalues: v31 (copy)
+    if not v31[v35] then
+        v31[v35] = {};
     end;
-    v30[v34][v35] = v36;
+    v31[v35][v36] = v37;
 end;
-v9.Linear = function(v38, v39, v40, v41) --[[ Line: 106 ]] --[[ Name: Linear ]]
-    if v41 <= v38 then
-        return v39 + v40;
+v10.Linear = function(v39, v40, v41, v42) --[[ Line: 108 ]] --[[ Name: Linear ]]
+    if v42 <= v39 then
+        return v40 + v41;
     else
-        return v40 * v38 / v41 + v39;
-    end;
-end;
-v9.EaseOutQuad = function(v42, v43, v44, v45) --[[ Line: 112 ]] --[[ Name: EaseOutQuad ]]
-    if v45 <= v42 then
-        return v43 + v44;
-    else
-        v42 = v42 / v45;
-        return -v44 * v42 * (v42 - 2) + v43;
+        return v41 * v39 / v42 + v40;
     end;
 end;
-v9.EaseInOutQuad = function(v46, v47, v48, v49) --[[ Line: 119 ]] --[[ Name: EaseInOutQuad ]]
-    if v49 <= v46 then
-        return v47 + v48;
+v10.EaseOutQuad = function(v43, v44, v45, v46) --[[ Line: 114 ]] --[[ Name: EaseOutQuad ]]
+    if v46 <= v43 then
+        return v44 + v45;
     else
-        v46 = v46 / (v49 / 2);
-        if v46 < 1 then
-            return v48 / 2 * v46 * v46 + v47;
+        v43 = v43 / v46;
+        return -v45 * v43 * (v43 - 2) + v44;
+    end;
+end;
+v10.EaseInOutQuad = function(v47, v48, v49, v50) --[[ Line: 121 ]] --[[ Name: EaseInOutQuad ]]
+    if v50 <= v47 then
+        return v48 + v49;
+    else
+        v47 = v47 / (v50 / 2);
+        if v47 < 1 then
+            return v49 / 2 * v47 * v47 + v48;
         else
-            v46 = v46 - 1;
-            return -v48 / 2 * (v46 * (v46 - 2) - 1) + v47;
+            v47 = v47 - 1;
+            return -v49 / 2 * (v47 * (v47 - 2) - 1) + v48;
         end;
     end;
 end;
-v9.SCurveUDim2 = function(v50, v51, v52, v53) --[[ Line: 128 ]] --[[ Name: SCurveUDim2 ]]
-    if v53 <= v50 then
-        return v51 + v52;
+v10.SCurveUDim2 = function(v51, v52, v53, v54) --[[ Line: 130 ]] --[[ Name: SCurveUDim2 ]]
+    if v54 <= v51 then
+        return v52 + v53;
     else
-        v50 = v50 / v53;
-        if v50 < 0 then
-            v50 = 0;
+        v51 = v51 / v54;
+        if v51 < 0 then
+            v51 = 0;
         end;
-        if v50 > 1 then
-            v50 = 1;
+        if v51 > 1 then
+            v51 = 1;
         end;
-        local v54 = 3 * v50 * v50 - 2 * v50 * v50 * v50;
-        return UDim2.new(v54 * v52.X.Scale, v54 * v52.X.Offset, v54 * v52.Y.Scale, v54 * v52.Y.Offset) + v51;
+        local v55 = 3 * v51 * v51 - 2 * v51 * v51 * v51;
+        return UDim2.new(v55 * v53.X.Scale, v55 * v53.X.Offset, v55 * v53.Y.Scale, v55 * v53.Y.Offset) + v52;
     end;
 end;
-v9.SCurveVector2 = function(v55, v56, v57, v58) --[[ Line: 141 ]] --[[ Name: SCurveVector2 ]]
-    if v58 <= v55 then
-        return v56 + v57;
+v10.SCurveVector2 = function(v56, v57, v58, v59) --[[ Line: 143 ]] --[[ Name: SCurveVector2 ]]
+    if v59 <= v56 then
+        return v57 + v58;
     else
-        v55 = v55 / v58;
-        if v55 < 0 then
-            v55 = 0;
+        v56 = v56 / v59;
+        if v56 < 0 then
+            v56 = 0;
         end;
-        if v55 > 1 then
-            v55 = 1;
+        if v56 > 1 then
+            v56 = 1;
         end;
-        local v59 = 3 * v55 * v55 - 2 * v55 * v55 * v55;
-        return Vector2.new(v59 * v57.X, v59 * v57.Y) + v56;
+        local v60 = 3 * v56 * v56 - 2 * v56 * v56 * v56;
+        return Vector2.new(v60 * v58.X, v60 * v58.Y) + v57;
     end;
 end;
-v9.PropertyTweener = function(v60, v61, v62, v63, v64, v65, v66, v67) --[[ Line: 152 ]] --[[ Name: PropertyTweener ]]
-    -- upvalues: v9 (copy), v30 (copy), l_RunService_0 (copy)
-    v65 = v65 or v9.Linear;
-    v66 = v66 or false;
-    local v68 = {
+v10.PropertyTweener = function(v61, v62, v63, v64, v65, v66, v67, v68) --[[ Line: 154 ]] --[[ Name: PropertyTweener ]]
+    -- upvalues: v10 (copy), v31 (copy), l_RunService_0 (copy)
+    v66 = v66 or v10.Linear;
+    v67 = v67 or false;
+    local v69 = {
         StartTime = tick()
     };
-    v68.EndTime = v68.StartTime + v64;
-    v68.Cancelled = false;
-    local v69 = false;
-    local v70 = 0;
-    local function _(v71) --[[ Line: 165 ]] --[[ Name: setValue ]]
-        -- upvalues: v60 (copy), v61 (copy)
-        if v60 then
-            v60[v61] = v71;
+    v69.EndTime = v69.StartTime + v65;
+    v69.Cancelled = false;
+    local v70 = false;
+    local v71 = 0;
+    local function _(v72) --[[ Line: 167 ]] --[[ Name: setValue ]]
+        -- upvalues: v61 (copy), v62 (copy)
+        if v61 then
+            v61[v62] = v72;
         end;
     end;
-    local function v76() --[[ Line: 171 ]] --[[ Name: finalize ]]
-        -- upvalues: v65 (ref), v62 (copy), v63 (copy), v60 (copy), v61 (copy), v69 (ref), v70 (ref), v30 (ref), v68 (copy), v67 (copy)
-        local v73 = v65(1, v62, v63 - v62, 1);
-        if v60 then
-            v60[v61] = v73;
+    local function v77() --[[ Line: 173 ]] --[[ Name: finalize ]]
+        -- upvalues: v66 (ref), v63 (copy), v64 (copy), v61 (copy), v62 (copy), v70 (ref), v71 (ref), v31 (ref), v69 (copy), v68 (copy)
+        local v74 = v66(1, v63, v64 - v63, 1);
+        if v61 then
+            v61[v62] = v74;
         end;
-        v69 = true;
-        v70 = 1;
+        v70 = true;
+        v71 = 1;
+        local l_v62_0 = v62;
         local l_v61_0 = v61;
-        local l_v60_0 = v60;
-        if (v30[l_v61_0] and v30[l_v61_0][l_v60_0]) == v68 then
-            v73 = v61;
-            l_v61_0 = v60;
-            if not v30[v73] then
-                v30[v73] = {};
+        if (v31[l_v62_0] and v31[l_v62_0][l_v61_0]) == v69 then
+            v74 = v62;
+            l_v62_0 = v61;
+            if not v31[v74] then
+                v31[v74] = {};
             end;
-            v30[v73][l_v61_0] = nil;
+            v31[v74][l_v62_0] = nil;
         end;
-        if v67 then
-            v67();
+        if v68 then
+            v68();
         end;
     end;
-    if v66 or not (v30[v61] and v30[v61][v60]) then
-        if v30[v61] and v30[v61][v60] then
-            (v30[v61] and v30[v61][v60]):Cancel();
+    if v67 or not (v31[v62] and v31[v62][v61]) then
+        if v31[v62] and v31[v62][v61] then
+            (v31[v62] and v31[v62][v61]):Cancel();
         end;
-        if not v30[v61] then
-            v30[v61] = {};
+        if not v31[v62] then
+            v31[v62] = {};
         end;
-        v30[v61][v60] = v68;
-        local v77 = v65(0, v62, v63 - v62, v64);
-        if v60 then
-            v60[v61] = v77;
+        v31[v62][v61] = v69;
+        local v78 = v66(0, v63, v64 - v63, v65);
+        if v61 then
+            v61[v62] = v78;
         end;
-        spawn(function() --[[ Line: 193 ]]
-            -- upvalues: v68 (copy), v60 (copy), v65 (ref), v62 (copy), v63 (copy), v64 (copy), v61 (copy), v70 (ref), v9 (ref), l_RunService_0 (ref), v76 (copy), v30 (ref)
-            local v78 = tick();
-            while v78 < v68.EndTime and v60 and not v68.Cancelled do
-                local v79 = v65(v78 - v68.StartTime, v62, v63 - v62, v64);
-                if v60 then
-                    v60[v61] = v79;
+        spawn(function() --[[ Line: 195 ]]
+            -- upvalues: v69 (copy), v61 (copy), v66 (ref), v63 (copy), v64 (copy), v65 (copy), v62 (copy), v71 (ref), v10 (ref), l_RunService_0 (ref), v77 (copy), v31 (ref)
+            local v79 = tick();
+            while v79 < v69.EndTime and v61 and not v69.Cancelled do
+                local v80 = v66(v79 - v69.StartTime, v63, v64 - v63, v65);
+                if v61 then
+                    v61[v62] = v80;
                 end;
-                v70 = v9.Clamp(0, 1, (v78 - v68.StartTime) / v64);
+                v71 = v10.Clamp(0, 1, (v79 - v69.StartTime) / v65);
                 l_RunService_0.RenderStepped:wait();
-                v78 = tick();
+                v79 = tick();
             end;
-            if v68.Cancelled == false and v60 then
-                v76();
+            if v69.Cancelled == false and v61 then
+                v77();
             end;
+            local l_v62_1 = v62;
             local l_v61_1 = v61;
-            local l_v60_1 = v60;
-            if (v30[l_v61_1] and v30[l_v61_1][l_v60_1]) == v68 then
-                local l_v61_2 = v61;
-                l_v61_1 = v60;
-                if not v30[l_v61_2] then
-                    v30[l_v61_2] = {};
+            if (v31[l_v62_1] and v31[l_v62_1][l_v61_1]) == v69 then
+                local l_v62_2 = v62;
+                l_v62_1 = v61;
+                if not v31[l_v62_2] then
+                    v31[l_v62_2] = {};
                 end;
-                v30[l_v61_2][l_v61_1] = nil;
+                v31[l_v62_2][l_v62_1] = nil;
             end;
         end);
     else
-        v69 = true;
+        v70 = true;
     end;
-    v68.GetFinal = function(_) --[[ Line: 213 ]] --[[ Name: GetFinal ]]
-        -- upvalues: v63 (copy)
-        return v63;
+    v69.GetFinal = function(_) --[[ Line: 215 ]] --[[ Name: GetFinal ]]
+        -- upvalues: v64 (copy)
+        return v64;
     end;
-    v68.GetPercentComplete = function(_) --[[ Line: 217 ]] --[[ Name: GetPercentComplete ]]
+    v69.GetPercentComplete = function(_) --[[ Line: 219 ]] --[[ Name: GetPercentComplete ]]
+        -- upvalues: v71 (ref)
+        return v71;
+    end;
+    v69.IsFinished = function(_) --[[ Line: 223 ]] --[[ Name: IsFinished ]]
         -- upvalues: v70 (ref)
         return v70;
     end;
-    v68.IsFinished = function(_) --[[ Line: 221 ]] --[[ Name: IsFinished ]]
-        -- upvalues: v69 (ref)
-        return v69;
-    end;
-    v68.Finish = function(v86) --[[ Line: 225 ]] --[[ Name: Finish ]]
-        -- upvalues: v69 (ref), v76 (copy)
-        if not v69 then
-            v86:Cancel();
-            v76();
+    v69.Finish = function(v87) --[[ Line: 227 ]] --[[ Name: Finish ]]
+        -- upvalues: v70 (ref), v77 (copy)
+        if not v70 then
+            v87:Cancel();
+            v77();
         end;
     end;
-    v68.Cancel = function(_) --[[ Line: 232 ]] --[[ Name: Cancel ]]
-        -- upvalues: v68 (copy), v69 (ref), v61 (copy), v60 (copy), v30 (ref)
-        v68.Cancelled = true;
-        v69 = true;
-        local l_v61_3 = v61;
-        local l_v60_2 = v60;
-        if (v30[l_v61_3] and v30[l_v61_3][l_v60_2]) == v68 then
-            local l_v61_4 = v61;
-            l_v61_3 = v60;
-            if not v30[l_v61_4] then
-                v30[l_v61_4] = {};
+    v69.Cancel = function(_) --[[ Line: 234 ]] --[[ Name: Cancel ]]
+        -- upvalues: v69 (copy), v70 (ref), v62 (copy), v61 (copy), v31 (ref)
+        v69.Cancelled = true;
+        v70 = true;
+        local l_v62_3 = v62;
+        local l_v61_2 = v61;
+        if (v31[l_v62_3] and v31[l_v62_3][l_v61_2]) == v69 then
+            local l_v62_4 = v62;
+            l_v62_3 = v61;
+            if not v31[l_v62_4] then
+                v31[l_v62_4] = {};
             end;
-            v30[l_v61_4][l_v61_3] = nil;
+            v31[l_v62_4][l_v62_3] = nil;
         end;
     end;
-    return v68;
+    return v69;
 end;
-v9.CancelTweens = function(v91) --[[ Line: 243 ]] --[[ Name: CancelTweens ]]
-    for v92, v93 in pairs(v91) do
-        v93:Finish();
-        v91[v92] = nil;
+v10.CancelTweens = function(v92) --[[ Line: 245 ]] --[[ Name: CancelTweens ]]
+    for v93, v94 in pairs(v92) do
+        v94:Finish();
+        v92[v93] = nil;
     end;
 end;
-v9.Signal = function() --[[ Line: 252 ]] --[[ Name: Signal ]]
-    local v94 = {};
+v10.Signal = function() --[[ Line: 254 ]] --[[ Name: Signal ]]
+    local v95 = {};
     local l_BindableEvent_0 = Instance.new("BindableEvent");
-    local v96 = nil;
     local v97 = nil;
-    v94.fire = function(_, ...) --[[ Line: 260 ]] --[[ Name: fire ]]
-        -- upvalues: v96 (ref), v97 (ref), l_BindableEvent_0 (copy)
-        v96 = {
+    local v98 = nil;
+    v95.fire = function(_, ...) --[[ Line: 262 ]] --[[ Name: fire ]]
+        -- upvalues: v97 (ref), v98 (ref), l_BindableEvent_0 (copy)
+        v97 = {
             ...
         };
-        v97 = select("#", ...);
+        v98 = select("#", ...);
         l_BindableEvent_0:Fire();
     end;
-    v94.connect = function(_, v100) --[[ Line: 266 ]] --[[ Name: connect ]]
-        -- upvalues: l_BindableEvent_0 (copy), v96 (ref), v97 (ref)
-        if not v100 then
+    v95.connect = function(_, v101) --[[ Line: 268 ]] --[[ Name: connect ]]
+        -- upvalues: l_BindableEvent_0 (copy), v97 (ref), v98 (ref)
+        if not v101 then
             error("connect(nil)", 2);
         end;
-        return l_BindableEvent_0.Event:connect(function() --[[ Line: 268 ]]
-            -- upvalues: v100 (copy), v96 (ref), v97 (ref)
-            v100(unpack(v96, 1, v97));
+        return l_BindableEvent_0.Event:connect(function() --[[ Line: 270 ]]
+            -- upvalues: v101 (copy), v97 (ref), v98 (ref)
+            v101(unpack(v97, 1, v98));
         end);
     end;
-    v94.wait = function(_) --[[ Line: 273 ]] --[[ Name: wait ]]
-        -- upvalues: l_BindableEvent_0 (copy), v96 (ref), v97 (ref)
+    v95.wait = function(_) --[[ Line: 275 ]] --[[ Name: wait ]]
+        -- upvalues: l_BindableEvent_0 (copy), v97 (ref), v98 (ref)
         l_BindableEvent_0.Event:wait();
-        assert(v96, "Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.");
-        return unpack(v96, 1, v97);
+        assert(v97, "Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.");
+        return unpack(v97, 1, v98);
     end;
-    return v94;
+    return v95;
 end;
-v9.DisconnectEvent = function(v102) --[[ Line: 282 ]] --[[ Name: DisconnectEvent ]]
-    if v102 then
-        v102:disconnect();
+v10.DisconnectEvent = function(v103) --[[ Line: 284 ]] --[[ Name: DisconnectEvent ]]
+    if v103 then
+        v103:disconnect();
     end;
     return nil;
 end;
-v9.DisconnectEvents = function(v103) --[[ Line: 289 ]] --[[ Name: DisconnectEvents ]]
-    if v103 and type(v103) == "table" then
-        for _, v105 in pairs(v103) do
-            v105:disconnect();
+v10.DisconnectEvents = function(v104) --[[ Line: 291 ]] --[[ Name: DisconnectEvents ]]
+    if v104 and type(v104) == "table" then
+        for _, v106 in pairs(v104) do
+            v106:disconnect();
         end;
     end;
 end;
-v9.Clamp = function(v106, v107, v108) --[[ Line: 299 ]] --[[ Name: Clamp ]]
-    return (math.max(v106, (math.min(v107, v108))));
+v10.Clamp = function(v107, v108, v109) --[[ Line: 301 ]] --[[ Name: Clamp ]]
+    return (math.max(v107, (math.min(v108, v109))));
 end;
-v9.ClampVector2 = function(v109, v110, v111) --[[ Line: 303 ]] --[[ Name: ClampVector2 ]]
-    -- upvalues: v9 (copy)
-    return Vector2.new(v9.Clamp(v109.x, v110.x, v111.x), v9.Clamp(v109.y, v110.y, v111.y));
+v10.ClampVector2 = function(v110, v111, v112) --[[ Line: 305 ]] --[[ Name: ClampVector2 ]]
+    -- upvalues: v10 (copy)
+    return Vector2.new(v10.Clamp(v110.x, v111.x, v112.x), v10.Clamp(v110.y, v111.y, v112.y));
 end;
-v9.TweenPositionOrSet = function(v112, ...) --[[ Line: 307 ]] --[[ Name: TweenPositionOrSet ]]
-    if v112:IsDescendantOf(game) then
-        v112:TweenPosition(...);
-        return;
+v10.TweenPositionOrSet = function(v113, ...) --[[ Line: 309 ]] --[[ Name: TweenPositionOrSet ]]
+    -- upvalues: l_game_EngineFeature_0 (copy)
+    if v113:IsDescendantOf(game) then
+        if l_game_EngineFeature_0 then
+            v113:TweenPositionInternal(...);
+            return;
+        else
+            v113:TweenPosition(...);
+            return;
+        end;
     else
-        v112.Position = select(1, ...);
+        v113.Position = select(1, ...);
         return;
     end;
 end;
-v9.ClampCanvasPosition = function(v113, v114) --[[ Line: 316 ]] --[[ Name: ClampCanvasPosition ]]
-    -- upvalues: v9 (copy)
-    local v115 = v113.Parent and v113.Parent.AbsoluteSize or Vector2.new(0, 0);
-    local v116 = Vector2.new(v113.CanvasSize.X.Scale * v115.X + v113.CanvasSize.X.Offset, v113.CanvasSize.Y.Scale * v115.Y + v113.CanvasSize.Y.Offset);
-    local v117 = v9.Clamp(0, v116.X - v113.AbsoluteWindowSize.X, v114.X);
-    local v118 = v9.Clamp(0, v116.Y - v113.AbsoluteWindowSize.Y, v114.Y);
-    return Vector2.new(v117, v118);
+v10.ClampCanvasPosition = function(v114, v115) --[[ Line: 322 ]] --[[ Name: ClampCanvasPosition ]]
+    -- upvalues: v10 (copy)
+    local v116 = v114.Parent and v114.Parent.AbsoluteSize or Vector2.new(0, 0);
+    local v117 = Vector2.new(v114.CanvasSize.X.Scale * v116.X + v114.CanvasSize.X.Offset, v114.CanvasSize.Y.Scale * v116.Y + v114.CanvasSize.Y.Offset);
+    local v118 = v10.Clamp(0, v117.X - v114.AbsoluteWindowSize.X, v115.X);
+    local v119 = v10.Clamp(0, v117.Y - v114.AbsoluteWindowSize.Y, v115.Y);
+    return Vector2.new(v118, v119);
 end;
-v9.Round = function(v119, v120) --[[ Line: 327 ]] --[[ Name: Round ]]
-    v120 = v120 or 1;
-    return math.floor((v119 + v120 / 2) / v120) * v120;
+v10.Round = function(v120, v121) --[[ Line: 333 ]] --[[ Name: Round ]]
+    v121 = v121 or 1;
+    return math.floor((v120 + v121 / 2) / v121) * v121;
 end;
-v9.ChompString = function(v121) --[[ Line: 335 ]] --[[ Name: ChompString ]]
-    return tostring(v121):gsub("^%s+", ""):gsub("%s+$", "");
+v10.ChompString = function(v122) --[[ Line: 341 ]] --[[ Name: ChompString ]]
+    return tostring(v122):gsub("^%s+", ""):gsub("%s+$", "");
 end;
-v9.SpaceNormalizeString = function(v122) --[[ Line: 340 ]] --[[ Name: SpaceNormalizeString ]]
-    return tostring(v122):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "");
+v10.SpaceNormalizeString = function(v123) --[[ Line: 346 ]] --[[ Name: SpaceNormalizeString ]]
+    return tostring(v123):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "");
 end;
-local function v125() --[[ Line: 344 ]] --[[ Name: getDelimiterByLocale ]]
+local function v126() --[[ Line: 350 ]] --[[ Name: getDelimiterByLocale ]]
     -- upvalues: l_LocalizationService_0 (copy)
-    local v123 = l_LocalizationService_0.RobloxLocaleId:lower();
-    local v124 = {
+    local v124 = l_LocalizationService_0.RobloxLocaleId:lower();
+    local v125 = {
         ["en-us"] = ",", 
         ["zh-hk"] = "", 
         ["zh-tw"] = "", 
@@ -369,260 +376,260 @@ local function v125() --[[ Line: 344 ]] --[[ Name: getDelimiterByLocale ]]
         ["pl-pl"] = " ", 
         ["sv-se"] = " "
     };
-    if v124[v123] then
-        return v124[v123];
+    if v125[v124] then
+        return v125[v124];
     else
-        return v124["en-us"];
+        return v125["en-us"];
     end;
 end;
-v9.FormatNumberString = function(v126) --[[ Line: 375 ]] --[[ Name: FormatNumberString ]]
-    -- upvalues: v125 (copy), v9 (copy)
-    local v127 = v125();
-    local v128 = v9.ChompString(v126);
-    local v129 = string.format("%%1%s%%2", v127);
+v10.FormatNumberString = function(v127) --[[ Line: 381 ]] --[[ Name: FormatNumberString ]]
+    -- upvalues: v126 (copy), v10 (copy)
+    local v128 = v126();
+    local v129 = v10.ChompString(v127);
+    local v130 = string.format("%%1%s%%2", v128);
     local _ = nil;
     repeat
-        local v131, v132 = string.gsub(v128, "^(-?%d+)(%d%d%d)", v129);
-        v128 = v131;
-    until v132 == 0;
-    return v128;
+        local v132, v133 = string.gsub(v129, "^(-?%d+)(%d%d%d)", v130);
+        v129 = v132;
+    until v133 == 0;
+    return v129;
 end;
-v9.PrettyPrint = function(v133) --[[ Line: 391 ]] --[[ Name: PrettyPrint ]]
-    -- upvalues: v9 (copy)
-    if type(v133) == "table" then
-        local v134 = "{";
-        for v135, v136 in pairs(v133) do
-            v134 = v134 == "{" and v134 or v134 .. ", ";
-            if type(v135) == "string" then
-                v134 = v134 .. v135 .. " = ";
-            elseif type(v135) ~= "number" then
-                v134 = v134 .. "[" .. v135 .. "] = ";
+v10.PrettyPrint = function(v134) --[[ Line: 397 ]] --[[ Name: PrettyPrint ]]
+    -- upvalues: v10 (copy)
+    if type(v134) == "table" then
+        local v135 = "{";
+        for v136, v137 in pairs(v134) do
+            v135 = v135 == "{" and v135 or v135 .. ", ";
+            if type(v136) == "string" then
+                v135 = v135 .. v136 .. " = ";
+            elseif type(v136) ~= "number" then
+                v135 = v135 .. "[" .. v136 .. "] = ";
             end;
-            v134 = v134 .. v9.PrettyPrint(v136);
+            v135 = v135 .. v10.PrettyPrint(v137);
         end;
-        return v134 .. "}";
-    elseif type(v133) == "string" then
-        return "'" .. v133 .. "'";
+        return v135 .. "}";
+    elseif type(v134) == "string" then
+        return "'" .. v134 .. "'";
     else
-        return (tostring(v133));
+        return (tostring(v134));
     end;
 end;
-local function _(v137, v138, v139) --[[ Line: 415 ]] --[[ Name: SCurveTranform ]]
-    -- upvalues: v9 (copy)
-    v138 = v138 or 0.35;
-    v139 = v139 or 0.8;
-    v137 = v9.Clamp(-1, 1, v137);
-    if v137 >= 0 then
-        return v138 * v137 / (v138 - v137 + 1);
+local function _(v138, v139, v140) --[[ Line: 421 ]] --[[ Name: SCurveTranform ]]
+    -- upvalues: v10 (copy)
+    v139 = v139 or 0.35;
+    v140 = v140 or 0.8;
+    v138 = v10.Clamp(-1, 1, v138);
+    if v138 >= 0 then
+        return v139 * v138 / (v139 - v138 + 1);
     else
-        return -(v139 * -v137 / (v139 + v137 + 1));
+        return -(v140 * -v138 / (v140 + v138 + 1));
     end;
 end;
-local function _(v141, v142) --[[ Line: 425 ]] --[[ Name: toSCurveSpace ]]
-    v142 = v142 or 0.1;
-    return (1 + v142) * (math.abs(v141) * 2 - 1) - v142;
+local function _(v142, v143) --[[ Line: 431 ]] --[[ Name: toSCurveSpace ]]
+    v143 = v143 or 0.1;
+    return (1 + v143) * (math.abs(v142) * 2 - 1) - v143;
 end;
-local function _(v144) --[[ Line: 430 ]] --[[ Name: fromSCurveSpace ]]
-    return v144 / 2 + 0.5;
+local function _(v145) --[[ Line: 436 ]] --[[ Name: fromSCurveSpace ]]
+    return v145 / 2 + 0.5;
 end;
-v9.GamepadLinearToCurve = function(v146, v147, _, _) --[[ Line: 434 ]] --[[ Name: GamepadLinearToCurve ]]
-    -- upvalues: v9 (copy)
-    local function v156(v150) --[[ Line: 435 ]] --[[ Name: onAxis ]]
-        -- upvalues: v147 (copy), v9 (ref)
-        local v151 = v150 < 0 and -1 or 1;
-        local v152 = math.abs(v150);
-        local v153 = v147 or 0.1;
-        local v154 = (1 + v153) * (math.abs(v152) * 2 - 1) - v153;
-        v152 = nil;
+v10.GamepadLinearToCurve = function(v147, v148, _, _) --[[ Line: 440 ]] --[[ Name: GamepadLinearToCurve ]]
+    -- upvalues: v10 (copy)
+    local function v157(v151) --[[ Line: 441 ]] --[[ Name: onAxis ]]
+        -- upvalues: v148 (copy), v10 (ref)
+        local v152 = v151 < 0 and -1 or 1;
+        local v153 = math.abs(v151);
+        local v154 = v148 or 0.1;
+        local v155 = (1 + v154) * (math.abs(v153) * 2 - 1) - v154;
         v153 = nil;
-        v152 = v152 or 0.35;
-        v153 = v153 or 0.8;
-        v154 = v9.Clamp(-1, 1, v154);
-        local v155 = (if v154 >= 0 then v152 * v154 / (v152 - v154 + 1) else -(v153 * -v154 / (v153 + v154 + 1))) / 2 + 0.5;
-        return v9.Clamp(-1, 1, v155 * v151);
+        v154 = nil;
+        v153 = v153 or 0.35;
+        v154 = v154 or 0.8;
+        v155 = v10.Clamp(-1, 1, v155);
+        local v156 = (if v155 >= 0 then v153 * v155 / (v153 - v155 + 1) else -(v154 * -v155 / (v154 + v155 + 1))) / 2 + 0.5;
+        return v10.Clamp(-1, 1, v156 * v152);
     end;
     local l_new_0 = Vector2.new;
-    local l_x_0 = v146.x;
-    local v159 = l_x_0 < 0 and -1 or 1;
-    local v160 = math.abs(l_x_0);
-    local v161 = v147 or 0.1;
-    local v162 = (1 + v161) * (math.abs(v160) * 2 - 1) - v161;
-    v160 = nil;
+    local l_x_0 = v147.x;
+    local v160 = l_x_0 < 0 and -1 or 1;
+    local v161 = math.abs(l_x_0);
+    local v162 = v148 or 0.1;
+    local v163 = (1 + v162) * (math.abs(v161) * 2 - 1) - v162;
     v161 = nil;
-    v160 = v160 or 0.35;
-    v161 = v161 or 0.8;
-    v162 = v9.Clamp(-1, 1, v162);
-    local v163 = (if v162 >= 0 then v160 * v162 / (v160 - v162 + 1) else -(v161 * -v162 / (v161 + v162 + 1))) / 2 + 0.5;
-    return l_new_0(v9.Clamp(-1, 1, v163 * v159), v156(v146.y));
+    v162 = nil;
+    v161 = v161 or 0.35;
+    v162 = v162 or 0.8;
+    v163 = v10.Clamp(-1, 1, v163);
+    local v164 = (if v163 >= 0 then v161 * v163 / (v161 - v163 + 1) else -(v162 * -v163 / (v162 + v163 + 1))) / 2 + 0.5;
+    return l_new_0(v10.Clamp(-1, 1, v164 * v160), v157(v147.y));
 end;
-v9.IsFastFlagEnabled = function(v164) --[[ Line: 444 ]] --[[ Name: IsFastFlagEnabled ]]
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 445 ]]
-        -- upvalues: v164 (copy)
-        return settings():GetFFlag(v164);
+v10.IsFastFlagEnabled = function(v165) --[[ Line: 450 ]] --[[ Name: IsFastFlagEnabled ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 451 ]]
+        -- upvalues: v165 (copy)
+        return settings():GetFFlag(v165);
     end);
     return l_status_0 and l_result_0;
 end;
-v9.GetFastVariable = function(v167) --[[ Line: 452 ]] --[[ Name: GetFastVariable ]]
-    local l_status_1, l_result_1 = pcall(function() --[[ Line: 453 ]]
-        -- upvalues: v167 (copy)
-        return settings():GetFVariable(v167);
+v10.GetFastVariable = function(v168) --[[ Line: 458 ]] --[[ Name: GetFastVariable ]]
+    local l_status_1, l_result_1 = pcall(function() --[[ Line: 459 ]]
+        -- upvalues: v168 (copy)
+        return settings():GetFVariable(v168);
     end);
     return l_status_1 and l_result_1;
 end;
-local function _() --[[ Line: 460 ]] --[[ Name: getLocalPlayer ]]
+local function _() --[[ Line: 466 ]] --[[ Name: getLocalPlayer ]]
     -- upvalues: l_Players_0 (copy)
     while l_Players_0.LocalPlayer == nil do
         wait();
     end;
     return l_Players_0.LocalPlayer;
 end;
-v9.IsFeatureNonZero = function(v171) --[[ Line: 467 ]] --[[ Name: IsFeatureNonZero ]]
-    -- upvalues: v9 (copy)
-    return (tonumber(v9.GetFastVariable(v171)) or 0) ~= 0;
+v10.IsFeatureNonZero = function(v172) --[[ Line: 473 ]] --[[ Name: IsFeatureNonZero ]]
+    -- upvalues: v10 (copy)
+    return (tonumber(v10.GetFastVariable(v172)) or 0) ~= 0;
 end;
-v9.IsFeatureRolledOut = function(v172) --[[ Line: 471 ]] --[[ Name: IsFeatureRolledOut ]]
-    -- upvalues: l_Players_0 (copy), v9 (copy)
+v10.IsFeatureRolledOut = function(v173) --[[ Line: 477 ]] --[[ Name: IsFeatureRolledOut ]]
+    -- upvalues: l_Players_0 (copy), v10 (copy)
     while l_Players_0.LocalPlayer == nil do
         wait();
     end;
-    return l_Players_0.LocalPlayer.UserId % 100 < (tonumber(v9.GetFastVariable(v172)) or 0);
+    return l_Players_0.LocalPlayer.UserId % 100 < (tonumber(v10.GetFastVariable(v173)) or 0);
 end;
-v9.ExponentialRepeat = function(v173, v174, v175) --[[ Line: 476 ]] --[[ Name: ExponentialRepeat ]]
-    v175 = v175 or 6;
-    local v176 = 1;
-    local l_v175_0 = v175;
+v10.ExponentialRepeat = function(v174, v175, v176) --[[ Line: 482 ]] --[[ Name: ExponentialRepeat ]]
+    v176 = v176 or 6;
+    local v177 = 1;
+    local l_v176_0 = v176;
     while true do
-        if v176 <= l_v175_0 and v173() then
-            if v174() then
+        if v177 <= l_v176_0 and v174() then
+            if v175() then
                 return;
             else
-                wait(v176 ^ 2);
-                v176 = v176 + 1;
+                wait(v177 ^ 2);
+                v177 = v177 + 1;
             end;
         else
             return;
         end;
     end;
 end;
-v9.SplitString = function(v178, v179) --[[ Line: 490 ]] --[[ Name: SplitString ]]
-    local v180 = {};
-    if v178 and v179 then
-        for v181 in string.gmatch(v178, "([^" .. v179 .. "]+)") do
-            table.insert(v180, v181);
+v10.SplitString = function(v179, v180) --[[ Line: 496 ]] --[[ Name: SplitString ]]
+    local v181 = {};
+    if v179 and v180 then
+        for v182 in string.gmatch(v179, "([^" .. v180 .. "]+)") do
+            table.insert(v181, v182);
         end;
     end;
-    return v180;
+    return v181;
 end;
-local function v182(v183, v184, v185) --[[ Line: 501 ]] --[[ Name: findAssetsHelper ]]
-    -- upvalues: v182 (copy)
-    if not v183 then
+local function v183(v184, v185, v186) --[[ Line: 507 ]] --[[ Name: findAssetsHelper ]]
+    -- upvalues: v183 (copy)
+    if not v184 then
         return;
     else
-        if v183:IsA("CharacterMesh") then
-            if v183.MeshId > 0 then
-                table.insert(v184, v185 .. tostring(v183.MeshId));
+        if v184:IsA("CharacterMesh") then
+            if v184.MeshId > 0 then
+                table.insert(v185, v186 .. tostring(v184.MeshId));
             end;
-            if v183.BaseTextureId > 0 then
-                table.insert(v184, v185 .. tostring(v183.BaseTextureId));
+            if v184.BaseTextureId > 0 then
+                table.insert(v185, v186 .. tostring(v184.BaseTextureId));
             end;
-            if v183.OverlayTextureId > 0 then
-                table.insert(v184, v185 .. tostring(v183.OverlayTextureId));
+            if v184.OverlayTextureId > 0 then
+                table.insert(v185, v186 .. tostring(v184.OverlayTextureId));
             end;
-        elseif v183:IsA("FileMesh") then
-            table.insert(v184, v183.MeshId);
-            table.insert(v184, v183.TextureId);
-        elseif v183:IsA("Decal") then
-            table.insert(v184, v183.Texture);
-        elseif v183:IsA("Pants") then
-            table.insert(v184, v183.PantsTemplate);
-        elseif v183:IsA("Shirt") then
-            table.insert(v184, v183.ShirtTemplate);
+        elseif v184:IsA("FileMesh") then
+            table.insert(v185, v184.MeshId);
+            table.insert(v185, v184.TextureId);
+        elseif v184:IsA("Decal") then
+            table.insert(v185, v184.Texture);
+        elseif v184:IsA("Pants") then
+            table.insert(v185, v184.PantsTemplate);
+        elseif v184:IsA("Shirt") then
+            table.insert(v185, v184.ShirtTemplate);
         end;
-        for _, v187 in pairs(v183:GetChildren()) do
-            v182(v187, v184, v185);
+        for _, v188 in pairs(v184:GetChildren()) do
+            v183(v188, v185, v186);
         end;
         return;
     end;
 end;
-v9.FindAssetsInModel = function(v188, v189) --[[ Line: 529 ]] --[[ Name: FindAssetsInModel ]]
-    -- upvalues: v182 (copy)
-    v189 = v189 or "https://assetgame.roblox.com/asset/?id=";
-    local v190 = {};
-    v182(v188, v190, v189);
-    return v190;
+v10.FindAssetsInModel = function(v189, v190) --[[ Line: 535 ]] --[[ Name: FindAssetsInModel ]]
+    -- upvalues: v183 (copy)
+    v190 = v190 or "https://assetgame.roblox.com/asset/?id=";
+    local v191 = {};
+    v183(v189, v191, v190);
+    return v191;
 end;
-v9.ConvertFontSizeEnumToInt = function(v191) --[[ Line: 536 ]] --[[ Name: ConvertFontSizeEnumToInt ]]
-    local l_Name_0 = v191.Name;
+v10.ConvertFontSizeEnumToInt = function(v192) --[[ Line: 542 ]] --[[ Name: ConvertFontSizeEnumToInt ]]
+    local l_Name_0 = v192.Name;
     return string.match(l_Name_0, "%d+") or 10;
 end;
-v9.Upper = function(v193) --[[ Line: 543 ]] --[[ Name: Upper ]]
-    -- upvalues: v6 (ref)
-    if v6 then
-        return v6:Upper(v193);
+v10.Upper = function(v194) --[[ Line: 549 ]] --[[ Name: Upper ]]
+    -- upvalues: v7 (ref)
+    if v7 then
+        return v7:Upper(v194);
     else
-        return string.upper(v193);
+        return string.upper(v194);
     end;
 end;
-v9.SetSelectedCoreObject = function(v194) --[[ Line: 551 ]] --[[ Name: SetSelectedCoreObject ]]
+v10.SetSelectedCoreObject = function(v195) --[[ Line: 557 ]] --[[ Name: SetSelectedCoreObject ]]
     -- upvalues: l_GuiService_0 (copy)
-    l_GuiService_0.SelectedCoreObject = v194;
+    l_GuiService_0.SelectedCoreObject = v195;
 end;
-v9.AddSelectionParent = function(v195, v196) --[[ Line: 555 ]] --[[ Name: AddSelectionParent ]]
+v10.AddSelectionParent = function(v196, v197) --[[ Line: 561 ]] --[[ Name: AddSelectionParent ]]
     -- upvalues: l_GuiService_0 (copy)
-    l_GuiService_0:AddSelectionParent(v195, v196);
+    l_GuiService_0:AddSelectionParent(v196, v197);
 end;
-v9.RemoveSelectionGroup = function(v197) --[[ Line: 559 ]] --[[ Name: RemoveSelectionGroup ]]
+v10.RemoveSelectionGroup = function(v198) --[[ Line: 565 ]] --[[ Name: RemoveSelectionGroup ]]
     -- upvalues: l_GuiService_0 (copy)
-    l_GuiService_0:RemoveSelectionGroup(v197);
+    l_GuiService_0:RemoveSelectionGroup(v198);
 end;
-v9.GetTextBounds = function(v198) --[[ Line: 563 ]] --[[ Name: GetTextBounds ]]
+v10.GetTextBounds = function(v199) --[[ Line: 569 ]] --[[ Name: GetTextBounds ]]
     -- upvalues: l_TextService_0 (copy)
-    local v199 = false;
-    local v200 = nil;
-    if v198 then
-        if v198.TextFits then
-            return true, v198.TextBounds;
-        elseif not v198.TextWrapped then
-            v200 = l_TextService_0:GetTextSize(v198.Text, v198.TextSize, v198.Font, Vector2.new(0, 0));
-            v199 = true;
+    local v200 = false;
+    local v201 = nil;
+    if v199 then
+        if v199.TextFits then
+            return true, v199.TextBounds;
+        elseif not v199.TextWrapped then
+            v201 = l_TextService_0:GetTextSize(v199.Text, v199.TextSize, v199.Font, Vector2.new(0, 0));
+            v200 = true;
         end;
     end;
-    return v199, v200;
+    return v200, v201;
 end;
-v9.ResizeButtonWithText = function(v201, v202, v203, v204) --[[ Line: 589 ]] --[[ Name: ResizeButtonWithText ]]
-    -- upvalues: v9 (copy)
-    local v205 = false;
-    local v206, v207 = v9.GetTextBounds(v202);
-    if v206 and v201.Size.X.Scale == 0 and v201.Size.Y.Scale == 0 then
-        local v208 = Vector2.new(v201.Size.X.Offset, v201.Size.Y.Offset);
-        local l_X_0 = v208.X;
-        local l_Y_0 = v208.Y;
-        if v203 and v208.X < v207.X + v203 * 2 then
-            l_X_0 = v207.X + v203 * 2;
-            v205 = true;
+v10.ResizeButtonWithText = function(v202, v203, v204, v205) --[[ Line: 595 ]] --[[ Name: ResizeButtonWithText ]]
+    -- upvalues: v10 (copy)
+    local v206 = false;
+    local v207, v208 = v10.GetTextBounds(v203);
+    if v207 and v202.Size.X.Scale == 0 and v202.Size.Y.Scale == 0 then
+        local v209 = Vector2.new(v202.Size.X.Offset, v202.Size.Y.Offset);
+        local l_X_0 = v209.X;
+        local l_Y_0 = v209.Y;
+        if v204 and v209.X < v208.X + v204 * 2 then
+            l_X_0 = v208.X + v204 * 2;
+            v206 = true;
         end;
-        if v204 and v208.Y < v207.Y + v204 * 2 then
-            l_Y_0 = v207.Y + v204 * 2;
-            v205 = true;
+        if v205 and v209.Y < v208.Y + v205 * 2 then
+            l_Y_0 = v208.Y + v205 * 2;
+            v206 = true;
         end;
-        if v205 then
-            v201.Size = UDim2.new(0, l_X_0, 0, l_Y_0);
+        if v206 then
+            v202.Size = UDim2.new(0, l_X_0, 0, l_Y_0);
         end;
     end;
-    return v205;
+    return v206;
 end;
-v9.ResizeButtonWithDynamicText = function(v211, v212, v213, v214, v215) --[[ Line: 616 ]] --[[ Name: ResizeButtonWithDynamicText ]]
-    -- upvalues: v9 (copy)
-    local v216 = false;
-    v216 = v9.ResizeButtonWithText(v211, v212, v214, v215) or v216;
-    local l_Text_0 = v212.Text;
-    if v213 and #v213 > 0 then
-        for v218 = 1, #v213 do
-            v212.Text = v213[v218];
-            v216 = v9.ResizeButtonWithText(v211, v212, v214, v215) or v216;
+v10.ResizeButtonWithDynamicText = function(v212, v213, v214, v215, v216) --[[ Line: 622 ]] --[[ Name: ResizeButtonWithDynamicText ]]
+    -- upvalues: v10 (copy)
+    local v217 = false;
+    v217 = v10.ResizeButtonWithText(v212, v213, v215, v216) or v217;
+    local l_Text_0 = v213.Text;
+    if v214 and #v214 > 0 then
+        for v219 = 1, #v214 do
+            v213.Text = v214[v219];
+            v217 = v10.ResizeButtonWithText(v212, v213, v215, v216) or v217;
         end;
     end;
-    v212.Text = l_Text_0;
-    return v216;
+    v213.Text = l_Text_0;
+    return v217;
 end;
-return v9;
+return v10;

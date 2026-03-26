@@ -13,7 +13,8 @@ local v11 = game:DefineFastString("FlyoutLearnPlaceURI", "roblox://experiences/s
 local l_FFlagCreateConnectionsHub_0 = v8.FFlagCreateConnectionsHub;
 local l_FFlagEnableBlackbird_0 = v8.FFlagEnableBlackbird;
 local l_FFlagEnableBlackbirdOnFlyoutMenu_0 = v8.FFlagEnableBlackbirdOnFlyoutMenu;
-local v15 = {
+local l_FFlagConnectionsToFriendsRename_0 = v8.FFlagConnectionsToFriendsRename;
+local v16 = {
     Favorites = "Favorites", 
     ContinuePlaying = "ContinuePlaying", 
     Inventory = "Inventory", 
@@ -34,154 +35,154 @@ local v15 = {
     ReportLogs = "ReportLogs", 
     Profile = "Profile"
 };
-local v16 = {
-    [v15.Premium] = "BuildersClub", 
-    [v15.Connections] = "Friends", 
-    [v15.Moments] = "RM", 
-    [v15.Communities] = "Groups", 
-    [v15.HelpAndSafety] = "SafetySupport", 
-    [v15.Events] = "TheHunt", 
-    [v15.QuickSignin] = "Login Code"
-};
 local v17 = {
-    [v15.Favorites] = "Feature.Catalog.Label.Favorites", 
-    [v15.ContinuePlaying] = "Feature.FlyoutSidePanel.Action.ContinuePlaying", 
-    [v15.Inventory] = "CommonUI.Features.Label.Inventory", 
-    [v15.Connections] = "CommonUI.Features.Label.Connections", 
-    [v15.Communities] = "CommonUI.Features.Label.Groups", 
-    [v15.Messages] = "CommonUI.Features.Label.Messages", 
-    [v15.Settings] = "CommonUI.Features.Label.Settings", 
-    [v15.HelpAndSafety] = "CommonUI.Features.Label.HelpAndSafety", 
-    [v15.Moments] = "CommonUI.Features.Label.RM", 
-    [v15.Charts] = "CommonUI.Features.Label.Charts", 
-    [v15.Learn] = "CommonUI.Features.Label.Learn", 
-    [v15.Premium] = "CommonUI.Features.Label.Premium", 
-    [v15.GiftCards] = "CommonUI.Features.Label.GiftCards", 
-    [v15.Redeem] = "CommonUI.Features.Label.Redeem", 
-    [v15.Events] = "CommonUI.Features.Label.TheHunt"
+    [v16.Premium] = "BuildersClub", 
+    [v16.Connections] = "Friends", 
+    [v16.Moments] = "RM", 
+    [v16.Communities] = "Groups", 
+    [v16.HelpAndSafety] = "SafetySupport", 
+    [v16.Events] = "TheHunt", 
+    [v16.QuickSignin] = "Login Code"
 };
-local v20 = {
-    [v15.Favorites] = {
-        itemType = v15.Favorites, 
-        textKey = v17[v15.Favorites], 
+local v18 = {
+    [v16.Favorites] = "Feature.Catalog.Label.Favorites", 
+    [v16.ContinuePlaying] = "Feature.FlyoutSidePanel.Action.ContinuePlaying", 
+    [v16.Inventory] = "CommonUI.Features.Label.Inventory", 
+    [v16.Connections] = l_FFlagConnectionsToFriendsRename_0 and "CommonUI.Features.Label.Friends" or "CommonUI.Features.Label.Connections", 
+    [v16.Communities] = "CommonUI.Features.Label.Groups", 
+    [v16.Messages] = "CommonUI.Features.Label.Messages", 
+    [v16.Settings] = "CommonUI.Features.Label.Settings", 
+    [v16.HelpAndSafety] = "CommonUI.Features.Label.HelpAndSafety", 
+    [v16.Moments] = "CommonUI.Features.Label.RM", 
+    [v16.Charts] = "CommonUI.Features.Label.Charts", 
+    [v16.Learn] = "CommonUI.Features.Label.Learn", 
+    [v16.Premium] = "CommonUI.Features.Label.Premium", 
+    [v16.GiftCards] = "CommonUI.Features.Label.GiftCards", 
+    [v16.Redeem] = "CommonUI.Features.Label.Redeem", 
+    [v16.Events] = "CommonUI.Features.Label.TheHunt"
+};
+local v21 = {
+    [v16.Favorites] = {
+        itemType = v16.Favorites, 
+        textKey = v18[v16.Favorites], 
         icon = v2.Icon.Bookmark, 
         context = {
             appUri = l_FAVORITES_URI_0
         }
     }, 
-    [v15.ContinuePlaying] = {
-        itemType = v15.ContinuePlaying, 
-        textKey = v17[v15.ContinuePlaying], 
+    [v16.ContinuePlaying] = {
+        itemType = v16.ContinuePlaying, 
+        textKey = v18[v16.ContinuePlaying], 
         icon = v2.Icon.ClockSpinReverse, 
         context = {
             appUri = l_CONTINUE_PLAYING_URI_0
         }
     }, 
-    [v15.Inventory] = {
-        itemType = v15.Inventory, 
-        textKey = v17[v15.Inventory], 
+    [v16.Inventory] = {
+        itemType = v16.Inventory, 
+        textKey = v18[v16.Inventory], 
         icon = v2.Icon.Backpack, 
         context = {
-            urlGenerator = function(v18) --[[ Line: 106 ]] --[[ Name: urlGenerator ]]
+            urlGenerator = function(v19) --[[ Line: 109 ]] --[[ Name: urlGenerator ]]
                 -- upvalues: l_UrlBuilder_0 (copy)
-                return v18 and l_UrlBuilder_0.user.inventory({
-                    userId = v18
+                return v19 and l_UrlBuilder_0.user.inventory({
+                    userId = v19
                 }) or nil;
             end
         }
     }, 
-    [v15.Connections] = {
-        itemType = v15.Connections, 
-        textKey = v17[v15.Connections], 
+    [v16.Connections] = {
+        itemType = v16.Connections, 
+        textKey = v18[v16.Connections], 
         icon = v2.Icon.TwoPeople, 
         context = {
             appPage = if l_FFlagCreateConnectionsHub_0 then l_AppPage_0.CoHubMyConnections else l_AppPage_0.ViewFriends
         }
     }, 
-    [v15.Communities] = {
-        itemType = v15.Communities, 
-        textKey = v17[v15.Communities], 
+    [v16.Communities] = {
+        itemType = v16.Communities, 
+        textKey = v18[v16.Communities], 
         icon = v2.Icon.ThreePeople, 
         context = {
             url = l_UrlBuilder_0.static.groups()
         }
     }, 
-    [v15.Messages] = {
-        itemType = v15.Messages, 
-        textKey = v17[v15.Messages], 
+    [v16.Messages] = {
+        itemType = v16.Messages, 
+        textKey = v18[v16.Messages], 
         icon = v2.Icon.Envelope, 
         context = {
             url = l_UrlBuilder_0.static.messages()
         }
     }, 
-    [v15.Settings] = {
-        itemType = v15.Settings, 
-        textKey = v17[v15.Settings], 
+    [v16.Settings] = {
+        itemType = v16.Settings, 
+        textKey = v18[v16.Settings], 
         icon = v2.Icon.Gear, 
         context = {
             appPage = l_AppPage_0.Settings
         }
     }, 
-    [v15.HelpAndSafety] = {
-        itemType = v15.HelpAndSafety, 
-        textKey = v17[v15.HelpAndSafety], 
+    [v16.HelpAndSafety] = {
+        itemType = v16.HelpAndSafety, 
+        textKey = v18[v16.HelpAndSafety], 
         icon = v2.Icon.ShieldLock, 
         context = {
             appPage = l_AppPage_0.SafetySupport
         }
     }, 
-    [v15.Moments] = {
-        itemType = v15.Moments, 
-        textKey = v17[v15.Moments], 
+    [v16.Moments] = {
+        itemType = v16.Moments, 
+        textKey = v18[v16.Moments], 
         icon = v2.Icon.Moments, 
         context = {
             appUri = v10
         }
     }, 
-    [v15.Charts] = {
-        itemType = v15.Charts, 
-        textKey = v17[v15.Charts], 
+    [v16.Charts] = {
+        itemType = v16.Charts, 
+        textKey = v18[v16.Charts], 
         icon = v2.Icon.ChartThreeVerticalBars, 
         context = {}
     }, 
-    [v15.Learn] = {
-        itemType = v15.Learn, 
-        textKey = v17[v15.Learn], 
+    [v16.Learn] = {
+        itemType = v16.Learn, 
+        textKey = v18[v16.Learn], 
         icon = v2.Icon.PersonGraduate, 
         context = {
             appUri = v11
         }
     }, 
-    [v15.Premium] = {
-        itemType = v15.Premium, 
-        textKey = v17[v15.Premium], 
+    [v16.Premium] = {
+        itemType = v16.Premium, 
+        textKey = v18[v16.Premium], 
         icon = v2.Icon.Premium, 
         context = {
             appPage = l_AppPage_0.BuildersClub
         }
     }, 
-    [v15.GiftCards] = {
-        itemType = v15.GiftCards, 
-        textKey = v17[v15.GiftCards], 
+    [v16.GiftCards] = {
+        itemType = v16.GiftCards, 
+        textKey = v18[v16.GiftCards], 
         icon = v2.Icon.GiftCard, 
         context = {
-            urlGenerator = function(v19) --[[ Line: 186 ]] --[[ Name: urlGenerator ]]
+            urlGenerator = function(v20) --[[ Line: 189 ]] --[[ Name: urlGenerator ]]
                 -- upvalues: l_UrlBuilder_0 (copy)
-                return l_UrlBuilder_0.static.giftCards(v19);
+                return l_UrlBuilder_0.static.giftCards(v20);
             end
         }
     }, 
-    [v15.Redeem] = {
-        itemType = v15.Redeem, 
-        textKey = v17[v15.Redeem], 
+    [v16.Redeem] = {
+        itemType = v16.Redeem, 
+        textKey = v18[v16.Redeem], 
         icon = v2.Icon.Wallet, 
         context = {
             url = l_UrlBuilder_0.static.redeem()
         }
     }, 
-    [v15.Events] = {
-        itemType = v15.Events, 
-        textKey = v17[v15.Events], 
+    [v16.Events] = {
+        itemType = v16.Events, 
+        textKey = v18[v16.Events], 
         icon = v2.Icon.CalendarStar, 
         context = {
             url = if l_GetFStringPlatformEventUrl_0() ~= "" then l_UrlBuilder_0.fromString(l_GetFStringPlatformEventUrl_0())() else l_UrlBuilder_0.static.help()
@@ -189,12 +190,12 @@ local v20 = {
     }
 };
 if l_FFlagEnableBlackbird_0 and l_FFlagEnableBlackbirdOnFlyoutMenu_0 then
-    v15.Blackbird = "Blackbird";
-    v16[v15.Blackbird] = "Blackbird";
-    v17[v15.Blackbird] = "CommonUI.Features.Label.X";
-    v20[v15.Blackbird] = {
-        itemType = v15.Blackbird, 
-        textKey = v17[v15.Blackbird], 
+    v16.Blackbird = "Blackbird";
+    v17[v16.Blackbird] = "Blackbird";
+    v18[v16.Blackbird] = "CommonUI.Features.Label.X";
+    v21[v16.Blackbird] = {
+        itemType = v16.Blackbird, 
+        textKey = v18[v16.Blackbird], 
         icon = v1.Enums.IconName.PaperAirplane, 
         context = {
             appPage = l_AppPage_0.Blackbird
@@ -202,8 +203,8 @@ if l_FFlagEnableBlackbird_0 and l_FFlagEnableBlackbirdOnFlyoutMenu_0 then
     };
 end;
 return {
-    ItemType = v15, 
-    ItemTextKey = v17, 
-    ItemInfo = v20, 
-    EventNameMappings = v16
+    ItemType = v16, 
+    ItemTextKey = v18, 
+    ItemInfo = v21, 
+    EventNameMappings = v17
 };

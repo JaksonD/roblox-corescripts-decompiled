@@ -127,22 +127,22 @@ local function v75(v40, v41, v42, v43, v44) --[[ Line: 119 ]] --[[ Name: buildOr
                         }, v43.appPage);
                     else
                         local l_status_1, l_result_1 = pcall(function() --[[ Line: 188 ]]
-                            -- upvalues: v10 (ref), v60 (copy), v43 (ref), v58 (copy), v3 (ref), v59 (copy), v4 (ref), v42 (ref), v41 (ref), l_buildConfigForComponent_0 (ref), v44 (ref)
+                            -- upvalues: v10 (ref), v60 (copy), v43 (ref), v58 (copy), v3 (ref), v4 (ref), v42 (ref), v41 (ref), v59 (copy), l_buildConfigForComponent_0 (ref), v44 (ref)
                             local v61 = v10.resolveTemplate(v60, v43);
                             local v62 = if v58 then v58.inputs else nil;
                             local v68 = v3.createComputed(function(v63) --[[ Line: 192 ]]
-                                -- upvalues: v59 (ref), v62 (copy), v4 (ref), v42 (ref), v41 (ref)
+                                -- upvalues: v62 (copy), v4 (ref), v42 (ref), v41 (ref), v59 (ref)
                                 local v64 = {};
+                                if v62 then
+                                    v4(v42, v62, v41, v63, v64);
+                                end;
                                 if v59 then
-                                    local v65 = if v59.input_data then v59.input_data else v59;
+                                    local v65 = if v59.input_data and v59.input_data.kind and v59.input_data.kind.value then v59.input_data.kind.value else nil;
                                     if typeof(v65) == "table" then
                                         for v66, v67 in v65 do
                                             v64[v66] = v67;
                                         end;
                                     end;
-                                end;
-                                if v62 then
-                                    v4(v42, v62, v41, v63, v64);
                                 end;
                                 return v64;
                             end);
@@ -184,7 +184,7 @@ local function v75(v40, v41, v42, v43, v44) --[[ Line: 119 ]] --[[ Name: buildOr
         end;
     end), l_PropResultCategory_0.PropSignal;
 end;
-local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 277 ]] --[[ Name: buildLazyNestedComponentListProp ]]
+local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 283 ]] --[[ Name: buildLazyNestedComponentListProp ]]
     -- upvalues: l_FFlagSduiOrderedTemplateDataSupport_0 (copy), v10 (copy), v39 (copy), l_FFlagSduiComponentFiltering_0 (copy), l_PropResultCategory_0 (copy), v3 (copy), v4 (copy), v13 (copy), v11 (copy), v12 (copy), l_buildConfigForComponent_0 (copy), v75 (copy), v76 (copy)
     if v77 == "array_map" then
         local v83 = nil;
@@ -205,7 +205,7 @@ local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 277 ]] --[[ Name: bu
             error((("No bindingPath specified for roblox_component %*"):format(v78.roblox_component)));
         end;
         local v86 = nil;
-        return v10.generateDynamicBindingPropValue(l_binding_path_0, v79, v81, v80, function(v87, v88) --[[ Line: 315 ]]
+        return v10.generateDynamicBindingPropValue(l_binding_path_0, v79, v81, v80, function(v87, v88) --[[ Line: 321 ]]
             -- upvalues: v86 (ref), v39 (ref), v83 (ref), v78 (copy), v80 (copy), v81 (copy), v82 (copy), v79 (copy), l_FFlagSduiComponentFiltering_0 (ref)
             v86 = v39(v83, v87, v78.inputs, v80, v81, v82, v86, v79, if l_FFlagSduiComponentFiltering_0 then v88 else nil);
             return v86;
@@ -219,9 +219,9 @@ local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 277 ]] --[[ Name: bu
             error((("Missing or invalid templateDataList.items %*"):format((typeof(v78)))));
         end;
         if l_FFlagSduiComponentFiltering_0 then
-            return v3.createComputed(function(v90) --[[ Line: 345 ]]
+            return v3.createComputed(function(v90) --[[ Line: 351 ]]
                 -- upvalues: l_items_0 (copy), l_FFlagSduiOrderedTemplateDataSupport_0 (ref), v10 (ref), v81 (copy), v3 (ref), v4 (ref), v80 (copy), v79 (copy), v13 (ref), v11 (ref), v12 (ref), l_buildConfigForComponent_0 (ref), v82 (copy)
-                local l_status_4, l_result_4 = pcall(function() --[[ Line: 346 ]]
+                local l_status_4, l_result_4 = pcall(function() --[[ Line: 352 ]]
                     -- upvalues: l_items_0 (ref), l_FFlagSduiOrderedTemplateDataSupport_0 (ref), v10 (ref), v81 (ref), v3 (ref), v4 (ref), v80 (ref), v79 (ref), v13 (ref), v11 (ref), v12 (ref), l_buildConfigForComponent_0 (ref), v82 (ref), v90 (copy)
                     local v91 = {};
                     for _, v93 in l_items_0 do
@@ -239,11 +239,11 @@ local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 277 ]] --[[ Name: bu
                             v94 = v95;
                         end;
                         local l_inputs_0 = v93.inputs;
-                        local v102 = v3.createComputed(function(v97) --[[ Line: 364 ]]
+                        local v102 = v3.createComputed(function(v97) --[[ Line: 370 ]]
                             -- upvalues: l_inputs_0 (copy), v4 (ref), v80 (ref), v79 (ref), v13 (ref), v11 (ref), v12 (ref), v81 (ref)
                             local v98 = {};
                             if l_inputs_0 then
-                                local l_status_3, l_result_3 = pcall(function() --[[ Line: 367 ]]
+                                local l_status_3, l_result_3 = pcall(function() --[[ Line: 373 ]]
                                     -- upvalues: v4 (ref), v80 (ref), l_inputs_0 (ref), v79 (ref), v97 (copy), v98 (copy)
                                     v4(v80, l_inputs_0, v79, v97, v98);
                                 end);
@@ -309,11 +309,11 @@ local function v76(v77, v78, v79, v80, v81, v82) --[[ Line: 277 ]] --[[ Name: bu
                     v112 = v113;
                 end;
                 local l_inputs_1 = v111.inputs;
-                local v120 = v3.createComputed(function(v115) --[[ Line: 438 ]]
+                local v120 = v3.createComputed(function(v115) --[[ Line: 444 ]]
                     -- upvalues: l_inputs_1 (copy), v4 (ref), v80 (copy), v79 (copy), v13 (ref), v11 (ref), v12 (ref), v81 (copy)
                     local v116 = {};
                     if l_inputs_1 then
-                        local l_status_5, l_result_5 = pcall(function() --[[ Line: 441 ]]
+                        local l_status_5, l_result_5 = pcall(function() --[[ Line: 447 ]]
                             -- upvalues: v4 (ref), v80 (ref), l_inputs_1 (ref), v79 (ref), v115 (copy), v116 (copy)
                             v4(v80, l_inputs_1, v79, v115, v116);
                         end);

@@ -79,11 +79,16 @@ local v77 = require(l_CorePackages_0.Workspace.Packages.ServerDrivenUi);
 local v78 = require(script.Parent.EdpSduiUtils);
 local v79 = require(script.Parent.Hooks.useEdpServerIxpVariables);
 local v80 = require(l_Modules_1.LuaApp.Components.ExperienceDetails.EdpSocialLinksImpressionsDetector);
+local v81 = require(l_CorePackages_0.Workspace.Packages.GameDetailTelemetry);
+local l_EDPTTIConstants_0 = v81.EDPTTIConstants;
+local l_FFlagEDPTTITrackingEnabled_0 = v81.FFlagEDPTTITrackingEnabled;
+local v84 = require(script.Parent.useEDPTTITracking);
+local l_useFirstMediaCarouselImageUri_0 = require(script.Parent.useFirstMediaCarouselImageUri).useFirstMediaCarouselImageUri;
 local l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableTenftUiDetailsMoreDropupMenu;
 local l_GetFFlagExpDetailsUseSelectionBumpers_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagExpDetailsUseSelectionBumpers;
-local v83 = require(script.Parent.Flags.FFlagExperienceDetailsTextUseTokens);
-local v84 = require(l_Modules_1.LuaApp.Flags.GetFFlagLuaAppEnableNotificationsEDPTooltip);
-local v85 = require(l_Modules_1.LuaApp.Flags.GetFIntNotificationsEDPTooltipTimeLimit);
+local v88 = require(script.Parent.Flags.FFlagExperienceDetailsTextUseTokens);
+local v89 = require(l_Modules_1.LuaApp.Flags.GetFFlagLuaAppEnableNotificationsEDPTooltip);
+local v90 = require(l_Modules_1.LuaApp.Flags.GetFIntNotificationsEDPTooltipTimeLimit);
 local l_GetFFlagConsoleApplyTokenizationEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagConsoleApplyTokenizationEdp;
 local l_FFlagLuaAppEnablePlaySquadButton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnablePlaySquadButton;
 local l_GetFFlagNotificationsForceEnableEDPDiscoverability_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagNotificationsForceEnableEDPDiscoverability;
@@ -98,9 +103,9 @@ local l_FFlagLuaAppEdpMediaGalleryFullScreen_0 = require(l_CorePackages_0.Worksp
 local l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryAutoAdvance;
 local l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryVideoPreview;
 local l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryVideoPreviewIxp;
-local v100 = require(l_Modules_1.LuaApp.Flags.FFlagEnableCreatorSubtitleNavigation);
-local v101 = require(l_Modules_1.LuaApp.Flags.FFlagCreatorSubtitleNavigationIXPEnabled);
-local v102 = require(l_Modules_1.LuaApp.Flags.FStringCreatorSubtitleNavigationExperimentLayer);
+local v105 = require(l_Modules_1.LuaApp.Flags.FFlagEnableCreatorSubtitleNavigation);
+local v106 = require(l_Modules_1.LuaApp.Flags.FFlagCreatorSubtitleNavigationIXPEnabled);
+local v107 = require(l_Modules_1.LuaApp.Flags.FStringCreatorSubtitleNavigationExperimentLayer);
 local l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpMediaGalleryRedesignTelemetry;
 local l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyPlayButtonNonMobileEdp;
 local l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEdpBackendV2HydrateLegacyIxp;
@@ -115,8 +120,8 @@ local l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 = require(l_CorePackages_0
 local l_FFlagLuaAppAddIgrsRatingToEdp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppAddIgrsRatingToEdp;
 local l_FFlagLuaAppIgrsRatingPropMemoization_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppIgrsRatingPropMemoization;
 local l_FFlagLuaAppEnableCustomSpawnSponsored_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnableCustomSpawnSponsored;
-local v117 = l_FFlagLuaAppGameStatsFallbackRendering_0 and "--" or nil;
-local v118 = {
+local v122 = l_FFlagLuaAppGameStatsFallbackRendering_0 and "--" or nil;
+local v123 = {
     MediaGalleryMediaFirst = 100, 
     EventsListRedesign = 200, 
     Description = 300, 
@@ -133,7 +138,7 @@ local v118 = {
     ExperienceSongsCarousel = 1400, 
     SduiFeedItemsDefault = 1500
 };
-local v119 = {
+local v124 = {
     MediaGallery = 100, 
     EventsListRedesign = 200, 
     Description = 300, 
@@ -149,8 +154,8 @@ local v119 = {
     Notice = 1300, 
     SduiFeedItemsDefault = 1500
 };
-local v120 = v6.PureComponent:extend("ExperienceDetailsPage");
-v120.validateProps = v9.strictInterface({
+local v125 = v6.PureComponent:extend("ExperienceDetailsPage");
+v125.validateProps = v9.strictInterface({
     universeId = v9.string, 
     referralSource = v9.optional(v9.string), 
     experienceJoinData = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 then v9.optional(v9.table) else nil, 
@@ -187,9 +192,9 @@ v120.validateProps = v9.strictInterface({
     openShareContextualMenu = v9.callback, 
     closeAlert = v9.callback, 
     openVerifiedBadgeModal = v9.optional(v9.callback), 
-    openCreatorPage = if v100 then nil else v9.callback, 
-    openCommunityProfilePage = if v100 then v9.optional(v9.callback) else nil, 
-    openUserProfilePage = if v100 then v9.optional(v9.callback) else nil, 
+    openCreatorPage = if v105 then nil else v9.callback, 
+    openCommunityProfilePage = if v105 then v9.optional(v9.callback) else nil, 
+    openUserProfilePage = if v105 then v9.optional(v9.callback) else nil, 
     openExperienceGuidelinesExplained = v9.callback, 
     toggleFollowExperience = v9.optional(v9.callback), 
     openRefundPolicyLearnMorePage = v9.callback, 
@@ -246,78 +251,78 @@ v120.validateProps = v9.strictInterface({
     foundationTokens = v9.optional(v9.table), 
     disableStickyActionBar = v9.optional(v9.boolean)
 });
-local function _(v121) --[[ Line: 338 ]] --[[ Name: createImageURL ]]
-    if v121 then
-        return "rbxassetid://" .. v121;
+local function _(v126) --[[ Line: 344 ]] --[[ Name: createImageURL ]]
+    if v126 then
+        return "rbxassetid://" .. v126;
     else
         return "";
     end;
 end;
-local v123 = {
+local v128 = {
     showEventsList = true, 
     showLogoTraySection = true, 
     showCornerGradientPropEnabled = false, 
     showCommunityLink = false
 };
-v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
-    -- upvalues: l_Localization_0 (copy), l_LocalizationService_0 (copy), l_abbreviateCount_0 (copy), l_UiMode_0 (copy), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_memoize_0 (copy), l_Text_0 (copy), l_FFlagLuaAppGameStatsFallbackRendering_0 (copy), v6 (copy), l_StyledTextLabel_0 (copy), v84 (copy), l_withStyle_0 (copy), v83 (copy), v101 (copy), l_IXPServiceWrapper_0 (copy), v102 (copy), l_AppPage_0 (copy), l_UrlBuilder_0 (copy), v62 (copy), v100 (copy), v29 (copy), v5 (copy), v73 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_GameStats_0 (copy), l_PlayerCount_0 (copy), v117 (copy), l_Images_0 (copy), v67 (copy), l_RetrievalStatus_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_withLocalization_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), v68 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), v61 (copy), v63 (copy), l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), v44 (copy), v69 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), v80 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (copy), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (copy), v72 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy), l_ExperienceRatings_0 (copy), v70 (copy), v64 (copy), v74 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), v75 (copy), l_ExperienceCommunityLink_0 (copy), l_checkAndFormatPossibleLink_0 (copy), l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (copy), v65 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (copy), v118 (copy), v119 (copy), l_ContentPosition_0 (copy), l_GetFFlagExpDetailsUseSelectionBumpers_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), l_ExperienceDetailsNoticeType_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v46 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), l_AppStorageService_0 (copy)
-    local v125 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
-    v124.applyTokenScaling = function(v126) --[[ Line: 355 ]]
-        -- upvalues: v124 (copy)
-        return v126 * v124.props.foundationTokens.Stroke.Standard;
+v125.init = function(v129) --[[ Line: 359 ]] --[[ Name: init ]]
+    -- upvalues: l_Localization_0 (copy), l_LocalizationService_0 (copy), l_abbreviateCount_0 (copy), l_UiMode_0 (copy), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_memoize_0 (copy), l_Text_0 (copy), l_FFlagLuaAppGameStatsFallbackRendering_0 (copy), v6 (copy), l_StyledTextLabel_0 (copy), v89 (copy), l_withStyle_0 (copy), v88 (copy), v106 (copy), l_IXPServiceWrapper_0 (copy), v107 (copy), l_AppPage_0 (copy), l_UrlBuilder_0 (copy), v62 (copy), v105 (copy), v29 (copy), v5 (copy), v73 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), l_GameStats_0 (copy), l_PlayerCount_0 (copy), v122 (copy), l_Images_0 (copy), v67 (copy), l_RetrievalStatus_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_withLocalization_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), v68 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), v61 (copy), v63 (copy), l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (copy), v44 (copy), v69 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (copy), v80 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (copy), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (copy), v72 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (copy), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (copy), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (copy), l_ExperienceRatings_0 (copy), v70 (copy), v64 (copy), v74 (copy), l_FFlagSongEdpCarouselIxp_0 (copy), v75 (copy), l_ExperienceCommunityLink_0 (copy), l_checkAndFormatPossibleLink_0 (copy), l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (copy), v65 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (copy), v123 (copy), v124 (copy), l_ContentPosition_0 (copy), l_GetFFlagExpDetailsUseSelectionBumpers_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), l_ExperienceDetailsNoticeType_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v46 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), l_AppStorageService_0 (copy)
+    local v130 = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId);
+    v129.applyTokenScaling = function(v131) --[[ Line: 361 ]]
+        -- upvalues: v129 (copy)
+        return v131 * v129.props.foundationTokens.Stroke.Standard;
     end;
-    v124.getAbbreviateCount = function(v127) --[[ Line: 360 ]]
-        -- upvalues: l_abbreviateCount_0 (ref), v125 (copy)
-        return l_abbreviateCount_0(v127, v125:GetLocale());
+    v129.getAbbreviateCount = function(v132) --[[ Line: 366 ]]
+        -- upvalues: l_abbreviateCount_0 (ref), v130 (copy)
+        return l_abbreviateCount_0(v132, v130:GetLocale());
     end;
-    v124.upperString = function(v128) --[[ Line: 363 ]]
-        -- upvalues: v125 (copy)
-        return string.upper(v125:Format(v128));
+    v129.upperString = function(v133) --[[ Line: 369 ]]
+        -- upvalues: v130 (copy)
+        return string.upper(v130:Format(v133));
     end;
-    v124.onPlayButtonActivated = function() --[[ Line: 367 ]]
-        -- upvalues: v124 (copy)
-        return v124.props.onPlayButtonActivated();
+    v129.onPlayButtonActivated = function() --[[ Line: 373 ]]
+        -- upvalues: v129 (copy)
+        return v129.props.onPlayButtonActivated();
     end;
-    v124.openMoreContextualMenu = function(v129) --[[ Line: 371 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
-        local l_universeId_0 = v124.props.universeId;
-        local v131 = nil;
-        local v132 = nil;
-        local v133 = v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
-        if l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0() and v133 then
-            v131 = Vector2.new(0, 1);
-            v132 = UDim2.fromOffset(v129.AbsolutePosition.X, v129.AbsolutePosition.Y - 12);
+    v129.openMoreContextualMenu = function(v134) --[[ Line: 377 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref), l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
+        local l_universeId_0 = v129.props.universeId;
+        local v136 = nil;
+        local v137 = nil;
+        local v138 = v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+        if l_GetFFlagEnableTenftUiDetailsMoreDropupMenu_0() and v138 then
+            v136 = Vector2.new(0, 1);
+            v137 = UDim2.fromOffset(v134.AbsolutePosition.X, v134.AbsolutePosition.Y - 12);
         else
-            v132 = UDim2.fromOffset(v129.AbsolutePosition.X + v129.AbsoluteSize.X - 300, v129.AbsolutePosition.Y + v129.AbsoluteSize.Y + 12);
+            v137 = UDim2.fromOffset(v134.AbsolutePosition.X + v134.AbsoluteSize.X - 300, v134.AbsolutePosition.Y + v134.AbsoluteSize.Y + 12);
         end;
-        return v124.props.openMoreContextualMenu(l_universeId_0, v132, v131, if l_FFlagHideCloseButtonEdp_0 then v124.props.hideCloseButton else nil);
+        return v129.props.openMoreContextualMenu(l_universeId_0, v137, v136, if l_FFlagHideCloseButtonEdp_0 then v129.props.hideCloseButton else nil);
     end;
-    v124.getTextHeight = l_memoize_0(function(v134, v135, v136, v137) --[[ Line: 398 ]]
+    v129.getTextHeight = l_memoize_0(function(v139, v140, v141, v142) --[[ Line: 404 ]]
         -- upvalues: l_Text_0 (ref)
-        return l_Text_0.GetTextHeight(v134, v135, v136, v137);
+        return l_Text_0.GetTextHeight(v139, v140, v141, v142);
     end);
-    v124.openShareContextualMenu = function(v138) --[[ Line: 402 ]]
-        -- upvalues: v124 (copy), l_FFlagHideCloseButtonEdp_0 (ref)
-        local l_universeId_1 = v124.props.universeId;
-        local v140 = UDim2.fromOffset(v138.AbsolutePosition.X + v138.AbsoluteSize.X - 300, v138.AbsolutePosition.Y + v138.AbsoluteSize.Y + 12);
-        return v124.props.openShareContextualMenu(l_universeId_1, v140, if l_FFlagHideCloseButtonEdp_0 then v124.props.hideCloseButton else nil);
+    v129.openShareContextualMenu = function(v143) --[[ Line: 408 ]]
+        -- upvalues: v129 (copy), l_FFlagHideCloseButtonEdp_0 (ref)
+        local l_universeId_1 = v129.props.universeId;
+        local v145 = UDim2.fromOffset(v143.AbsolutePosition.X + v143.AbsoluteSize.X - 300, v143.AbsolutePosition.Y + v143.AbsoluteSize.Y + 12);
+        return v129.props.openShareContextualMenu(l_universeId_1, v145, if l_FFlagHideCloseButtonEdp_0 then v129.props.hideCloseButton else nil);
     end;
-    v124.getPlaysAnsVisitsInfo = function(v141, v142) --[[ Line: 416 ]]
+    v129.getPlaysAnsVisitsInfo = function(v146, v147) --[[ Line: 422 ]]
         -- upvalues: l_FFlagLuaAppGameStatsFallbackRendering_0 (ref)
         return {
-            plays = v141 and v141.playing or v142 and v142.playerCount or if l_FFlagLuaAppGameStatsFallbackRendering_0 then nil else 0, 
-            visits = v141 and v141.visits or if l_FFlagLuaAppGameStatsFallbackRendering_0 then nil else 0, 
-            totalUpVotes = v142 and v142.totalUpVotes or 0, 
-            totalDownVotes = v142 and v142.totalDownVotes or 1
+            plays = v146 and v146.playing or v147 and v147.playerCount or if l_FFlagLuaAppGameStatsFallbackRendering_0 then nil else 0, 
+            visits = v146 and v146.visits or if l_FFlagLuaAppGameStatsFallbackRendering_0 then nil else 0, 
+            totalUpVotes = v147 and v147.totalUpVotes or 0, 
+            totalDownVotes = v147 and v147.totalDownVotes or 1
         };
     end;
-    v124.getStyledTextLabel = function(v143, v144, v145) --[[ Line: 427 ]]
+    v129.getStyledTextLabel = function(v148, v149, v150) --[[ Line: 433 ]]
         -- upvalues: v6 (ref), l_StyledTextLabel_0 (ref)
-        if v143 then
+        if v148 then
             return v6.createElement(l_StyledTextLabel_0, {
-                text = v143, 
-                fontStyle = v144, 
-                colorStyle = v145, 
+                text = v148, 
+                fontStyle = v149, 
+                colorStyle = v150, 
                 automaticSize = Enum.AutomaticSize.XY, 
                 layoutOrder = 1, 
                 richText = false, 
@@ -327,160 +332,160 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
             return nil;
         end;
     end;
-    v124.toggleFollowExperience = function() --[[ Line: 443 ]]
-        -- upvalues: v84 (ref), v124 (copy)
-        if v84() then
-            v124:setState({
+    v129.toggleFollowExperience = function() --[[ Line: 449 ]]
+        -- upvalues: v89 (ref), v129 (copy)
+        if v89() then
+            v129:setState({
                 isNotificationsTooltipActive = false
             });
         end;
-        if not v124.props.gameFollowings then
+        if not v129.props.gameFollowings then
             return;
         else
-            local l_universeId_2 = v124.props.universeId;
-            local l_isFollowed_0 = v124.props.gameFollowings.isFollowed;
-            if v124.props.toggleFollowExperience then
-                v124.props.toggleFollowExperience(l_universeId_2, not l_isFollowed_0);
+            local l_universeId_2 = v129.props.universeId;
+            local l_isFollowed_0 = v129.props.gameFollowings.isFollowed;
+            if v129.props.toggleFollowExperience then
+                v129.props.toggleFollowExperience(l_universeId_2, not l_isFollowed_0);
             end;
             return;
         end;
     end;
-    v124.renderSubtitleTextOverride = function(v148, v149, v150, _, v152, v153) --[[ Line: 462 ]]
-        -- upvalues: l_withStyle_0 (ref), v83 (ref), v101 (ref), l_IXPServiceWrapper_0 (ref), v102 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v125 (copy), v62 (ref), v6 (ref), v100 (ref), v124 (copy), v29 (ref)
-        local function _(v154) --[[ Line: 470 ]]
-            -- upvalues: l_withStyle_0 (ref), v83 (ref), v101 (ref), l_IXPServiceWrapper_0 (ref), v102 (ref), v153 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v150 (copy), v149 (copy), v125 (ref), v62 (ref), v6 (ref), v100 (ref), v124 (ref)
-            return l_withStyle_0(function(v155) --[[ Line: 471 ]]
-                -- upvalues: v83 (ref), v101 (ref), l_IXPServiceWrapper_0 (ref), v102 (ref), v154 (copy), v153 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v150 (ref), v149 (ref), v125 (ref), v62 (ref), v6 (ref), v100 (ref), v124 (ref)
-                local v156 = if v83 then v155.Tokens.Semantic.Typography.Subheader else v155.Font.Header2;
-                local v157 = if v83 then v156.FontSize else v156.RelativeSize * v155.Font.BaseSize;
-                local l_TextMuted_0 = v155.Theme.TextMuted;
-                if v101 then
-                    l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v102);
+    v129.renderSubtitleTextOverride = function(v153, v154, v155, _, v157, v158) --[[ Line: 468 ]]
+        -- upvalues: l_withStyle_0 (ref), v88 (ref), v106 (ref), l_IXPServiceWrapper_0 (ref), v107 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v130 (copy), v62 (ref), v6 (ref), v105 (ref), v129 (copy), v29 (ref)
+        local function _(v159) --[[ Line: 476 ]]
+            -- upvalues: l_withStyle_0 (ref), v88 (ref), v106 (ref), l_IXPServiceWrapper_0 (ref), v107 (ref), v158 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v155 (copy), v154 (copy), v130 (ref), v62 (ref), v6 (ref), v105 (ref), v129 (ref)
+            return l_withStyle_0(function(v160) --[[ Line: 477 ]]
+                -- upvalues: v88 (ref), v106 (ref), l_IXPServiceWrapper_0 (ref), v107 (ref), v159 (copy), v158 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v155 (ref), v154 (ref), v130 (ref), v62 (ref), v6 (ref), v105 (ref), v129 (ref)
+                local v161 = if v88 then v160.Tokens.Semantic.Typography.Subheader else v160.Font.Header2;
+                local v162 = if v88 then v161.FontSize else v161.RelativeSize * v160.Font.BaseSize;
+                local l_TextMuted_0 = v160.Theme.TextMuted;
+                if v106 then
+                    l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v107);
                 end;
-                if v154 and v153 then
-                    local v159 = {
+                if v159 and v158 then
+                    local v164 = {
                         name = l_AppPage_0.GenericWebPage, 
                         detail = l_UrlBuilder_0.game.info.creator({
-                            creatorType = v150, 
-                            creatorId = v149
+                            creatorType = v155, 
+                            creatorId = v154
                         }), 
                         extraProps = {
-                            title = v125:Format("Feature.GameDetails.Label.Developer"), 
+                            title = v130:Format("Feature.GameDetails.Label.Developer"), 
                             transitionAnimation = v62.SlideInFromRight
                         }
                     };
                     return v6.createElement("TextButton", {
-                        Text = v154, 
-                        Font = v156.Font, 
+                        Text = v159, 
+                        Font = v161.Font, 
                         TextColor3 = l_TextMuted_0.Color, 
                         LayoutOrder = 2, 
                         AutoButtonColor = false, 
                         LineHeight = 1, 
                         AutomaticSize = Enum.AutomaticSize.XY, 
-                        TextSize = v157, 
+                        TextSize = v162, 
                         BackgroundTransparency = 1, 
-                        [v6.Event.Activated] = function() --[[ Line: 509 ]]
-                            -- upvalues: v100 (ref), v150 (ref), v124 (ref), v149 (ref), v159 (copy)
-                            if v100 then
-                                if v150 == "User" then
-                                    v124.props.openUserProfilePage(v149, "ExperienceDetailsPage:SubTitle");
+                        [v6.Event.Activated] = function() --[[ Line: 515 ]]
+                            -- upvalues: v105 (ref), v155 (ref), v129 (ref), v154 (ref), v164 (copy)
+                            if v105 then
+                                if v155 == "User" then
+                                    v129.props.openUserProfilePage(v154, "ExperienceDetailsPage:SubTitle");
                                     return;
-                                elseif v150 == "Group" then
-                                    v124.props.openCommunityProfilePage(v149, "ExperienceDetailsPage:SubTitle");
+                                elseif v155 == "Group" then
+                                    v129.props.openCommunityProfilePage(v154, "ExperienceDetailsPage:SubTitle");
                                     return;
                                 end;
                             else
-                                v124.props.openCreatorPage(v159);
+                                v129.props.openCreatorPage(v164);
                             end;
                         end
                     });
                 else
-                    return v124.getStyledTextLabel(v154, v156, l_TextMuted_0);
+                    return v129.getStyledTextLabel(v159, v161, l_TextMuted_0);
                 end;
             end);
         end;
         return v6.createElement(v29.EmojiWrapper, {
-            emoji = if v152 then v29.emoji.verified else "", 
+            emoji = if v157 then v29.emoji.verified else "", 
             layoutOrder = 2, 
-            onActivated = if v152 and v153 then v124.props.openVerifiedBadgeModal else nil
+            onActivated = if v157 and v158 then v129.props.openVerifiedBadgeModal else nil
         }, {
-            userText = l_withStyle_0(function(v161) --[[ Line: 471 ]]
-                -- upvalues: v83 (ref), v101 (ref), l_IXPServiceWrapper_0 (ref), v102 (ref), v148 (copy), v153 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v150 (copy), v149 (copy), v125 (ref), v62 (ref), v6 (ref), v100 (ref), v124 (ref)
-                local v162 = if v83 then v161.Tokens.Semantic.Typography.Subheader else v161.Font.Header2;
-                local v163 = if v83 then v162.FontSize else v162.RelativeSize * v161.Font.BaseSize;
-                local l_TextMuted_1 = v161.Theme.TextMuted;
-                if v101 then
-                    l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v102);
+            userText = l_withStyle_0(function(v166) --[[ Line: 477 ]]
+                -- upvalues: v88 (ref), v106 (ref), l_IXPServiceWrapper_0 (ref), v107 (ref), v153 (copy), v158 (copy), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), v155 (copy), v154 (copy), v130 (ref), v62 (ref), v6 (ref), v105 (ref), v129 (ref)
+                local v167 = if v88 then v166.Tokens.Semantic.Typography.Subheader else v166.Font.Header2;
+                local v168 = if v88 then v167.FontSize else v167.RelativeSize * v166.Font.BaseSize;
+                local l_TextMuted_1 = v166.Theme.TextMuted;
+                if v106 then
+                    l_IXPServiceWrapper_0:LogFlagLinkedUserLayerExposure(v107);
                 end;
-                if v148 and v153 then
-                    local v165 = {
+                if v153 and v158 then
+                    local v170 = {
                         name = l_AppPage_0.GenericWebPage, 
                         detail = l_UrlBuilder_0.game.info.creator({
-                            creatorType = v150, 
-                            creatorId = v149
+                            creatorType = v155, 
+                            creatorId = v154
                         }), 
                         extraProps = {
-                            title = v125:Format("Feature.GameDetails.Label.Developer"), 
+                            title = v130:Format("Feature.GameDetails.Label.Developer"), 
                             transitionAnimation = v62.SlideInFromRight
                         }
                     };
                     return v6.createElement("TextButton", {
-                        Text = v148, 
-                        Font = v162.Font, 
+                        Text = v153, 
+                        Font = v167.Font, 
                         TextColor3 = l_TextMuted_1.Color, 
                         LayoutOrder = 2, 
                         AutoButtonColor = false, 
                         LineHeight = 1, 
                         AutomaticSize = Enum.AutomaticSize.XY, 
-                        TextSize = v163, 
+                        TextSize = v168, 
                         BackgroundTransparency = 1, 
-                        [v6.Event.Activated] = function() --[[ Line: 509 ]]
-                            -- upvalues: v100 (ref), v150 (ref), v124 (ref), v149 (ref), v165 (copy)
-                            if v100 then
-                                if v150 == "User" then
-                                    v124.props.openUserProfilePage(v149, "ExperienceDetailsPage:SubTitle");
+                        [v6.Event.Activated] = function() --[[ Line: 515 ]]
+                            -- upvalues: v105 (ref), v155 (ref), v129 (ref), v154 (ref), v170 (copy)
+                            if v105 then
+                                if v155 == "User" then
+                                    v129.props.openUserProfilePage(v154, "ExperienceDetailsPage:SubTitle");
                                     return;
-                                elseif v150 == "Group" then
-                                    v124.props.openCommunityProfilePage(v149, "ExperienceDetailsPage:SubTitle");
+                                elseif v155 == "Group" then
+                                    v129.props.openCommunityProfilePage(v154, "ExperienceDetailsPage:SubTitle");
                                     return;
                                 end;
                             else
-                                v124.props.openCreatorPage(v165);
+                                v129.props.openCreatorPage(v170);
                             end;
                         end
                     });
                 else
-                    return v124.getStyledTextLabel(v148, v162, l_TextMuted_1);
+                    return v129.getStyledTextLabel(v153, v167, l_TextMuted_1);
                 end;
             end)
         });
     end;
-    v124.renderTextOverride = function(v166, _, _, v169) --[[ Line: 536 ]]
-        -- upvalues: l_withStyle_0 (ref), v83 (ref), v124 (copy), v6 (ref), v29 (ref)
-        local function _(v170) --[[ Line: 537 ]]
-            -- upvalues: l_withStyle_0 (ref), v83 (ref), v124 (ref)
-            return l_withStyle_0(function(v171) --[[ Line: 538 ]]
-                -- upvalues: v83 (ref), v124 (ref), v170 (copy)
-                local v172 = if v83 then v171.Tokens.Semantic.Typography.Subheader else v171.Font.Header2;
-                local l_TextEmphasis_0 = v171.Theme.TextEmphasis;
-                return v124.getStyledTextLabel(v170, v172, l_TextEmphasis_0);
+    v129.renderTextOverride = function(v171, _, _, v174) --[[ Line: 542 ]]
+        -- upvalues: l_withStyle_0 (ref), v88 (ref), v129 (copy), v6 (ref), v29 (ref)
+        local function _(v175) --[[ Line: 543 ]]
+            -- upvalues: l_withStyle_0 (ref), v88 (ref), v129 (ref)
+            return l_withStyle_0(function(v176) --[[ Line: 544 ]]
+                -- upvalues: v88 (ref), v129 (ref), v175 (copy)
+                local v177 = if v88 then v176.Tokens.Semantic.Typography.Subheader else v176.Font.Header2;
+                local l_TextEmphasis_0 = v176.Theme.TextEmphasis;
+                return v129.getStyledTextLabel(v175, v177, l_TextEmphasis_0);
             end);
         end;
         return v6.createElement(v29.EmojiWrapper, {
-            emoji = if v169 then v29.emoji.verified else "", 
+            emoji = if v174 then v29.emoji.verified else "", 
             layoutOrder = 0, 
             size = UDim2.fromScale(0, 1)
         }, {
-            userText = l_withStyle_0(function(v175) --[[ Line: 538 ]]
-                -- upvalues: v83 (ref), v124 (ref), v166 (copy)
-                local v176 = if v83 then v175.Tokens.Semantic.Typography.Subheader else v175.Font.Header2;
-                local l_TextEmphasis_1 = v175.Theme.TextEmphasis;
-                return v124.getStyledTextLabel(v166, v176, l_TextEmphasis_1);
+            userText = l_withStyle_0(function(v180) --[[ Line: 544 ]]
+                -- upvalues: v88 (ref), v129 (ref), v171 (copy)
+                local v181 = if v88 then v180.Tokens.Semantic.Typography.Subheader else v180.Font.Header2;
+                local l_TextEmphasis_1 = v180.Theme.TextEmphasis;
+                return v129.getStyledTextLabel(v171, v181, l_TextEmphasis_1);
             end)
         });
     end;
-    v124.renderExperienceGuidelines = l_memoize_0(function(v178) --[[ Line: 556 ]]
-        -- upvalues: v5 (ref), v73 (ref), l_FFlagHideCloseButtonEdp_0 (ref), v124 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+    v129.renderExperienceGuidelines = l_memoize_0(function(v183) --[[ Line: 562 ]]
+        -- upvalues: v5 (ref), v73 (ref), l_FFlagHideCloseButtonEdp_0 (ref), v129 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
         return v5.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 0), 
             AutomaticSize = Enum.AutomaticSize.Y, 
@@ -494,14 +499,14 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
             ExperienceTagsContainer = v5.createElement(v73, {
                 areTagsInteractable = true, 
                 includeAgeRecommendations = true, 
-                universeId = v178, 
+                universeId = v183, 
                 LayoutOrder = 1, 
-                hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v124.props.hideCloseButton else nil, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil
+                hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v129.props.hideCloseButton else nil, 
+                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil
             })
         });
     end);
-    v124.renderInlinePlayerCountAndLikes = l_memoize_0(function(v179, v180, v181) --[[ Line: 580 ]]
+    v129.renderInlinePlayerCountAndLikes = l_memoize_0(function(v184, v185, v186) --[[ Line: 586 ]]
         -- upvalues: v6 (ref), l_GameStats_0 (ref)
         return v6.createElement("Frame", {
             Size = UDim2.new(0, 120, 0, 20), 
@@ -510,33 +515,33 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
         }, {
             GameStats = v6.createElement(l_GameStats_0, {
                 stats = {
-                    playerCount = v179, 
-                    totalUpVotes = v180, 
-                    totalDownVotes = v181
+                    playerCount = v184, 
+                    totalUpVotes = v185, 
+                    totalDownVotes = v186
                 }
             })
         });
     end);
-    v124.renderBriefDescription = function(v182, v183) --[[ Line: 596 ]]
-        -- upvalues: l_withStyle_0 (ref), v83 (ref), v124 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
-        return l_withStyle_0(function(v184) --[[ Line: 597 ]]
-            -- upvalues: v182 (copy), v83 (ref), v124 (ref), v183 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
-            local l_Font_0 = v184.Font;
-            local l_headerDescriptionLineHeight_0 = v182.headerDescriptionLineHeight;
-            local v187 = l_headerDescriptionLineHeight_0 * math.floor(l_Font_0.BaseSize * l_Font_0.Body.RelativeSize) * v182.headerDescriptionMaxRows;
-            local v188 = if v83 then v184.Tokens.Semantic.Typography.Body.FontSize else l_Font_0.BaseSize * l_Font_0.Body.RelativeSize;
-            local v189 = if v83 then v184.Tokens.Semantic.Typography.Body.Font else l_Font_0.Body.Font;
-            local v190 = v124.getTextHeight(v183, v189, v188, UDim2.new(1, 0, 0, v187));
+    v129.renderBriefDescription = function(v187, v188) --[[ Line: 602 ]]
+        -- upvalues: l_withStyle_0 (ref), v88 (ref), v129 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
+        return l_withStyle_0(function(v189) --[[ Line: 603 ]]
+            -- upvalues: v187 (copy), v88 (ref), v129 (ref), v188 (copy), v6 (ref), l_StyledTextLabel_0 (ref)
+            local l_Font_0 = v189.Font;
+            local l_headerDescriptionLineHeight_0 = v187.headerDescriptionLineHeight;
+            local v192 = l_headerDescriptionLineHeight_0 * math.floor(l_Font_0.BaseSize * l_Font_0.Body.RelativeSize) * v187.headerDescriptionMaxRows;
+            local v193 = if v88 then v189.Tokens.Semantic.Typography.Body.FontSize else l_Font_0.BaseSize * l_Font_0.Body.RelativeSize;
+            local v194 = if v88 then v189.Tokens.Semantic.Typography.Body.Font else l_Font_0.Body.Font;
+            local v195 = v129.getTextHeight(v188, v194, v193, UDim2.new(1, 0, 0, v192));
             return v6.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, (math.min(v190, v187))), 
+                Size = UDim2.new(1, 0, 0, (math.min(v195, v192))), 
                 BackgroundTransparency = 1, 
                 LayoutOrder = 4, 
                 ClipsDescendants = true
             }, {
                 GameDescriptionText = v6.createElement(l_StyledTextLabel_0, {
-                    text = v183, 
-                    fontStyle = if v83 then v184.Tokens.Semantic.Typography.Body else l_Font_0.Body, 
-                    colorStyle = v184.Theme.TextEmphasis, 
+                    text = v188, 
+                    fontStyle = if v88 then v189.Tokens.Semantic.Typography.Body else l_Font_0.Body, 
+                    colorStyle = v189.Theme.TextEmphasis, 
                     size = UDim2.fromScale(1, 1), 
                     richText = false, 
                     fluidSizing = false, 
@@ -545,15 +550,15 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
             });
         end);
     end;
-    v124.renderInfoContent = function(v191, v192, v193, v194, v195, v196, v197, v198, v199, v200) --[[ Line: 632 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref), v100 (ref), v6 (ref)
-        local v201 = v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
-        local v202 = v191 and v191.headerItemPadding or 0;
-        local v203 = v201 and v197 ~= nil and #v197 > 0;
-        local v204 = not v201;
-        return function() --[[ Line: 651 ]]
-            -- upvalues: v100 (ref), v124 (ref), v193 (copy), v194 (copy), v195 (copy), v192 (copy), v196 (copy), l_UiMode_0 (ref), v6 (ref), v202 (copy), v201 (copy), v198 (copy), v199 (copy), v200 (copy), v203 (copy), v191 (copy), v197 (copy), v204 (copy)
-            local v205 = if v100 then v124.renderSubtitleTextOverride(v193, v194, v195, v192, v196, v124.props.uiModeInfo.uiMode ~= l_UiMode_0.TenFoot) else v124.renderSubtitleTextOverride(v193, v194, v195, v192, v196);
+    v129.renderInfoContent = function(v196, v197, v198, v199, v200, v201, v202, v203, v204, v205) --[[ Line: 638 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref), v105 (ref), v6 (ref)
+        local v206 = v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+        local v207 = v196 and v196.headerItemPadding or 0;
+        local v208 = v206 and v202 ~= nil and #v202 > 0;
+        local v209 = not v206;
+        return function() --[[ Line: 657 ]]
+            -- upvalues: v105 (ref), v129 (ref), v198 (copy), v199 (copy), v200 (copy), v197 (copy), v201 (copy), l_UiMode_0 (ref), v6 (ref), v207 (copy), v206 (copy), v203 (copy), v204 (copy), v205 (copy), v208 (copy), v196 (copy), v202 (copy), v209 (copy)
+            local v210 = if v105 then v129.renderSubtitleTextOverride(v198, v199, v200, v197, v201, v129.props.uiModeInfo.uiMode ~= l_UiMode_0.TenFoot) else v129.renderSubtitleTextOverride(v198, v199, v200, v197, v201);
             return v6.createElement("Frame", {
                 Size = UDim2.fromScale(1, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
@@ -563,273 +568,273 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     FillDirection = Enum.FillDirection.Vertical, 
                     VerticalAlignment = Enum.VerticalAlignment.Top, 
-                    Padding = UDim.new(0, v202)
+                    Padding = UDim.new(0, v207)
                 }), 
-                SubtitleText = v205, 
-                Padding = if v202 then v6.createElement("UIPadding", {
-                    PaddingTop = UDim.new(0, v202)
+                SubtitleText = v210, 
+                Padding = if v207 then v6.createElement("UIPadding", {
+                    PaddingTop = UDim.new(0, v207)
                 }) else nil, 
-                PlayStats = if v201 then v124.renderInlinePlayerCountAndLikes(v198, v199, v200) else nil, 
-                Description = if v203 then v124.renderBriefDescription(v191, v197) else nil, 
-                ExperienceGuidelinesComponent = if v204 then v124.renderExperienceGuidelines(v192) else nil
+                PlayStats = if v206 then v129.renderInlinePlayerCountAndLikes(v203, v204, v205) else nil, 
+                Description = if v208 then v129.renderBriefDescription(v196, v202) else nil, 
+                ExperienceGuidelinesComponent = if v209 then v129.renderExperienceGuidelines(v197) else nil
             });
         end;
     end;
-    v124.renderPlaysAndVisits = l_memoize_0(function(v206, v207) --[[ Line: 690 ]]
-        -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v117 (ref), v124 (copy), l_Images_0 (ref)
-        return function() --[[ Line: 691 ]]
-            -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v206 (copy), v117 (ref), v124 (ref), l_Images_0 (ref), v207 (copy)
+    v129.renderPlaysAndVisits = l_memoize_0(function(v211, v212) --[[ Line: 696 ]]
+        -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v122 (ref), v129 (copy), l_Images_0 (ref)
+        return function() --[[ Line: 697 ]]
+            -- upvalues: v6 (ref), l_PlayerCount_0 (ref), l_FFlagLuaAppGameStatsFallbackRendering_0 (ref), v211 (copy), v122 (ref), v129 (ref), l_Images_0 (ref), v212 (copy)
             return v6.createElement(l_PlayerCount_0, {
                 layoutOrder = 1, 
                 countLeft = {
-                    countText = if l_FFlagLuaAppGameStatsFallbackRendering_0 and v206 == nil then v117 else v124.getAbbreviateCount(v206), 
-                    labelText = v124.upperString("Feature.GameDetails.Label.Playing"), 
+                    countText = if l_FFlagLuaAppGameStatsFallbackRendering_0 and v211 == nil then v122 else v129.getAbbreviateCount(v211), 
+                    labelText = v129.upperString("Feature.GameDetails.Label.Playing"), 
                     icon = l_Images_0["icons/status/games/people-playing_large"]
                 }, 
                 countRight = {
-                    countText = if l_FFlagLuaAppGameStatsFallbackRendering_0 and v207 == nil then v117 else v124.getAbbreviateCount(v207), 
-                    labelText = v124.upperString("Feature.GameDetails.Label.Visits"), 
+                    countText = if l_FFlagLuaAppGameStatsFallbackRendering_0 and v212 == nil then v122 else v129.getAbbreviateCount(v212), 
+                    labelText = v129.upperString("Feature.GameDetails.Label.Visits"), 
                     icon = l_Images_0["icons/status/games/sessions_large"]
                 }
             });
         end;
     end);
-    v124.onFocusChanged = function(v208) --[[ Line: 712 ]]
-        -- upvalues: v124 (copy)
-        if v124.props.setControllerBarNavigation then
-            local v209 = not v208;
-            v124.props.setControllerBarNavigation(v209);
+    v129.onFocusChanged = function(v213) --[[ Line: 718 ]]
+        -- upvalues: v129 (copy)
+        if v129.props.setControllerBarNavigation then
+            local v214 = not v213;
+            v129.props.setControllerBarNavigation(v214);
         end;
     end;
-    v124.renderDescription = l_memoize_0(function(v210, v211) --[[ Line: 719 ]]
-        -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v124 (copy)
-        return function() --[[ Line: 720 ]]
-            -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v210 (copy), v211 (copy), v124 (ref)
+    v129.renderDescription = l_memoize_0(function(v215, v216) --[[ Line: 725 ]]
+        -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v129 (copy)
+        return function() --[[ Line: 726 ]]
+            -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v215 (copy), v216 (copy), v129 (ref)
             return v6.createElement(v67, {
-                dataStatus = l_RetrievalStatus_0.fromRawValue(v210), 
-                descriptionText = v211, 
-                onFocusChanged = v124.onFocusChanged
+                dataStatus = l_RetrievalStatus_0.fromRawValue(v215), 
+                descriptionText = v216, 
+                onFocusChanged = v129.onFocusChanged
             });
         end;
     end);
     if l_FFlagLuaAppShowNoticeOnEdp_0 then
-        v124.renderNotice = l_memoize_0(function(v212) --[[ Line: 730 ]]
-            -- upvalues: l_withLocalization_0 (ref), v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v124 (copy)
-            return function() --[[ Line: 731 ]]
-                -- upvalues: l_withLocalization_0 (ref), v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v212 (copy), v124 (ref)
+        v129.renderNotice = l_memoize_0(function(v217) --[[ Line: 736 ]]
+            -- upvalues: l_withLocalization_0 (ref), v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v129 (copy)
+            return function() --[[ Line: 737 ]]
+                -- upvalues: l_withLocalization_0 (ref), v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v217 (copy), v129 (ref)
                 return l_withLocalization_0({
                     noticeHeader = "Feature.ExperienceDetails.Body.NotesTitle", 
                     noticeText = "Feature.ExperienceDetails.Notes.InExperiencePurchase"
-                })(function(v213) --[[ Line: 735 ]]
-                    -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v212 (ref), v124 (ref)
+                })(function(v218) --[[ Line: 741 ]]
+                    -- upvalues: v6 (ref), v67 (ref), l_RetrievalStatus_0 (ref), v217 (ref), v129 (ref)
                     return v6.createElement(v67, {
-                        dataStatus = l_RetrievalStatus_0.fromRawValue(v212), 
-                        headerText = v213.noticeHeader, 
-                        descriptionText = v213.noticeText, 
-                        onFocusChanged = v124.onFocusChanged
+                        dataStatus = l_RetrievalStatus_0.fromRawValue(v217), 
+                        headerText = v218.noticeHeader, 
+                        descriptionText = v218.noticeText, 
+                        onFocusChanged = v129.onFocusChanged
                     });
                 end);
             end;
         end);
     end;
-    v124.renderIgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 then l_memoize_0(function(v214, v215, v216, v217, v218) --[[ Line: 748 ]]
-        -- upvalues: v5 (ref), v68 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v61 (ref), v125 (copy), v124 (copy), v63 (ref)
-        return function() --[[ Line: 749 ]]
-            -- upvalues: v5 (ref), v68 (ref), v214 (copy), v215 (copy), v216 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v217 (copy), v61 (ref), v125 (ref), v124 (ref), v63 (ref), v218 (copy)
+    v129.renderIgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 then l_memoize_0(function(v219, v220, v221, v222, v223) --[[ Line: 754 ]]
+        -- upvalues: v5 (ref), v68 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v61 (ref), v130 (copy), v129 (copy), v63 (ref)
+        return function() --[[ Line: 755 ]]
+            -- upvalues: v5 (ref), v68 (ref), v219 (copy), v220 (copy), v221 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v222 (copy), v61 (ref), v130 (ref), v129 (ref), v63 (ref), v223 (copy)
             return v5.createElement(v68, {
-                igrsRating = v214, 
-                igrsRatingDisplayMessage = v215, 
-                onActivated = v216 and function() --[[ Line: 754 ]]
-                    -- upvalues: l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v217 (ref), v61 (ref), v125 (ref), v124 (ref)
+                igrsRating = v219, 
+                igrsRatingDisplayMessage = v220, 
+                onActivated = v221 and function() --[[ Line: 760 ]]
+                    -- upvalues: l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v222 (ref), v61 (ref), v130 (ref), v129 (ref)
                     if l_FFlagLuaAppIgrsRatingPropMemoization_0 then
-                        v217(v61.INDONESIAN_CONTENT_MATURITY_URL, v125:Format("Feature.GameDetails.Label.ContentMaturity"));
+                        v222(v61.INDONESIAN_CONTENT_MATURITY_URL, v130:Format("Feature.GameDetails.Label.ContentMaturity"));
                         return;
                     else
-                        v124.props.openWebview(v61.INDONESIAN_CONTENT_MATURITY_URL, v125:Format("Feature.GameDetails.Label.ContentMaturity"));
+                        v129.props.openWebview(v61.INDONESIAN_CONTENT_MATURITY_URL, v130:Format("Feature.GameDetails.Label.ContentMaturity"));
                         return;
                     end;
-                end or function() --[[ Line: 767 ]]
-                    -- upvalues: v63 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v218 (ref), v124 (ref), v61 (ref)
-                    v63(if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v218 else v124.props.linking, v61.INDONESIAN_CONTENT_MATURITY_URL);
+                end or function() --[[ Line: 773 ]]
+                    -- upvalues: v63 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v223 (ref), v129 (ref), v61 (ref)
+                    v63(if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v223 else v129.props.linking, v61.INDONESIAN_CONTENT_MATURITY_URL);
                 end
             });
         end;
     end) else nil;
-    v124.renderLogoTray = l_memoize_0(function(v219, v220) --[[ Line: 778 ]]
-        -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v124 (copy), v5 (ref), v44 (ref), v6 (ref), v69 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v80 (ref), l_AppPage_0 (ref)
-        return function() --[[ Line: 779 ]]
-            -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v124 (ref), v5 (ref), v44 (ref), v6 (ref), v69 (ref), v219 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v220 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v80 (ref), l_AppPage_0 (ref)
+    v129.renderLogoTray = l_memoize_0(function(v224, v225) --[[ Line: 784 ]]
+        -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v129 (copy), v5 (ref), v44 (ref), v6 (ref), v69 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v80 (ref), l_AppPage_0 (ref)
+        return function() --[[ Line: 785 ]]
+            -- upvalues: l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 (ref), v129 (ref), v5 (ref), v44 (ref), v6 (ref), v69 (ref), v224 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), v225 (copy), l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 (ref), v80 (ref), l_AppPage_0 (ref)
             if l_FFlagLuaAppAddSocialLinkImpressionsTelemetryToEdp_0 then
-                local v221 = ("EXPERIENCE_SOCIAL_LINKS_%*"):format(v124.props.universeId);
-                local v222 = v5.createRef();
-                local v223 = v44.Signal.new();
+                local v226 = ("EXPERIENCE_SOCIAL_LINKS_%*"):format(v129.props.universeId);
+                local v227 = v5.createRef();
+                local v228 = v44.Signal.new();
                 return v5.createElement(v5.Fragment, nil, {
                     ExperienceLogoTray = v6.createElement(v69, {
-                        socialLinks = v219, 
-                        linking = if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v220 else v124.props.linking, 
-                        openLeaveRobloxAlertUIBlox = v124.props.openLeaveRobloxAlertUIBlox, 
-                        closeAlert = v124.props.closeAlert, 
-                        impressionsTag = v221, 
-                        forwardRef = v222, 
-                        onAbsolutePositionChanged = function(_) --[[ Line: 791 ]]
-                            -- upvalues: v223 (copy)
-                            v223:fire();
+                        socialLinks = v224, 
+                        linking = if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v225 else v129.props.linking, 
+                        openLeaveRobloxAlertUIBlox = v129.props.openLeaveRobloxAlertUIBlox, 
+                        closeAlert = v129.props.closeAlert, 
+                        impressionsTag = v226, 
+                        forwardRef = v227, 
+                        onAbsolutePositionChanged = function(_) --[[ Line: 797 ]]
+                            -- upvalues: v228 (copy)
+                            v228:fire();
                         end, 
-                        universeId = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then v124.props.universeId else nil
+                        universeId = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then v129.props.universeId else nil
                     }), 
                     EdpSocialLinksImpressionsDetector = v6.createElement(v80, {
-                        parentRef = v222, 
-                        scrollViewPositionChangedSignal = v223, 
+                        parentRef = v227, 
+                        scrollViewPositionChangedSignal = v228, 
                         pageContext = l_AppPage_0.ExperienceDetail, 
-                        impressionsTag = v221, 
-                        socialLinks = v219, 
-                        universeId = v124.props.universeId
+                        impressionsTag = v226, 
+                        socialLinks = v224, 
+                        universeId = v129.props.universeId
                     })
                 });
             else
                 return v6.createElement(v69, {
-                    socialLinks = v219, 
-                    linking = if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v220 else v124.props.linking, 
-                    openLeaveRobloxAlertUIBlox = v124.props.openLeaveRobloxAlertUIBlox, 
-                    closeAlert = v124.props.closeAlert, 
-                    universeId = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then v124.props.universeId else nil
+                    socialLinks = v224, 
+                    linking = if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v225 else v129.props.linking, 
+                    openLeaveRobloxAlertUIBlox = v129.props.openLeaveRobloxAlertUIBlox, 
+                    closeAlert = v129.props.closeAlert, 
+                    universeId = if l_FFlagLuaAppAddSocialLinkClickTelemetryToEdp_0 then v129.props.universeId else nil
                 });
             end;
         end;
     end);
-    local function _(v225) --[[ Line: 827 ]] --[[ Name: handleControllerBarInMediaGalleryFullscreen ]]
-        -- upvalues: v124 (copy)
-        if v124.props.setControllerBarNavigation then
-            v124.props.setControllerBarNavigation(v225);
+    local function _(v230) --[[ Line: 833 ]] --[[ Name: handleControllerBarInMediaGalleryFullscreen ]]
+        -- upvalues: v129 (copy)
+        if v129.props.setControllerBarNavigation then
+            v129.props.setControllerBarNavigation(v230);
         end;
     end;
-    v124.onMediaGalleryPreviewActivated = function(v227, v228) --[[ Line: 833 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref)
-        local v229 = v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
-        if not v124.state.isFullscreen and v229 and v124.props.setControllerBarNavigation then
-            v124.props.setControllerBarNavigation(false);
+    v129.onMediaGalleryPreviewActivated = function(v232, v233) --[[ Line: 839 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref)
+        local v234 = v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+        if not v129.state.isFullscreen and v234 and v129.props.setControllerBarNavigation then
+            v129.props.setControllerBarNavigation(false);
         end;
-        v124:setState({
+        v129:setState({
             isFullscreen = true, 
-            mediaGalleryShowIndex = v227, 
-            currentIndex = if v229 then v227 else nil
+            mediaGalleryShowIndex = v232, 
+            currentIndex = if v234 then v232 else nil
         });
-        if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 and v124.props.onMediaGalleryEnterFullscreen then
-            v124.props.onMediaGalleryEnterFullscreen(v227, v228);
+        if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 and v129.props.onMediaGalleryEnterFullscreen then
+            v129.props.onMediaGalleryEnterFullscreen(v232, v233);
             return;
         else
-            if l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 and v124.props.onMediaGalleryPreviewActivated then
-                v124.props.onMediaGalleryPreviewActivated(v227);
+            if l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 and v129.props.onMediaGalleryPreviewActivated then
+                v129.props.onMediaGalleryPreviewActivated(v232);
             end;
             return;
         end;
     end;
-    v124.renderMediaGallery = l_memoize_0(function(v230, v231) --[[ Line: 852 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref), v6 (ref), v72 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
-        if v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            return function() --[[ Line: 855 ]]
-                -- upvalues: v6 (ref), v72 (ref), v124 (ref), v230 (copy), v231 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+    v129.renderMediaGallery = l_memoize_0(function(v235, v236) --[[ Line: 858 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref), v6 (ref), v72 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
+        if v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+            return function() --[[ Line: 861 ]]
+                -- upvalues: v6 (ref), v72 (ref), v129 (ref), v235 (copy), v236 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v72, {
-                    tokens = v124.props.tokens, 
-                    deviceType = v124.props.deviceType, 
-                    universeId = v230, 
-                    onPreviewActivated = v124.onMediaGalleryPreviewActivated, 
-                    isFullscreenState = v231, 
-                    exitFullscreen = v124.onClose, 
-                    onSelectionGained = v124.onSelectionGained, 
-                    mediaGalleryGainFocused = v124.mediaGalleryGainFocused, 
-                    uiMode = v124.props.uiModeInfo.uiMode, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil
+                    tokens = v129.props.tokens, 
+                    deviceType = v129.props.deviceType, 
+                    universeId = v235, 
+                    onPreviewActivated = v129.onMediaGalleryPreviewActivated, 
+                    isFullscreenState = v236, 
+                    exitFullscreen = v129.onClose, 
+                    onSelectionGained = v129.onSelectionGained, 
+                    mediaGalleryGainFocused = v129.mediaGalleryGainFocused, 
+                    uiMode = v129.props.uiModeInfo.uiMode, 
+                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil
                 });
             end;
         else
-            return function() --[[ Line: 872 ]]
-                -- upvalues: v6 (ref), v72 (ref), v124 (ref), v230 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), v231 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+            return function() --[[ Line: 878 ]]
+                -- upvalues: v6 (ref), v72 (ref), v129 (ref), v235 (copy), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreview_0 (ref), v236 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v72, {
-                    deviceType = v124.props.deviceType, 
-                    universeId = v230, 
-                    startIndex = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v124.state.mediaGalleryShowIndex else nil, 
-                    onPreviewActivated = v124.onMediaGalleryPreviewActivated, 
-                    onThumbnailActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v124.props.onMediaGalleryThumbnailActivated, 
-                    onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v124.props.onMediaGalleryMediaChanged else nil, 
-                    isOccluded = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and (l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 or l_FFlagLuaAppEdpMediaGalleryVideoPreview_0) then v231 else nil, 
-                    mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v124.props.mediaGalleryRedesignEnabledIxp else nil, 
-                    mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v124.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil
+                    deviceType = v129.props.deviceType, 
+                    universeId = v235, 
+                    startIndex = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v129.state.mediaGalleryShowIndex else nil, 
+                    onPreviewActivated = v129.onMediaGalleryPreviewActivated, 
+                    onThumbnailActivated = if not l_FFlagLuaAppDesktopMediaGalleryTelemetry_0 or l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then nil else v129.props.onMediaGalleryThumbnailActivated, 
+                    onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v129.props.onMediaGalleryMediaChanged else nil, 
+                    isOccluded = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and (l_FFlagLuaAppEdpMediaGalleryAutoAdvance_0 or l_FFlagLuaAppEdpMediaGalleryVideoPreview_0) then v236 else nil, 
+                    mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v129.props.mediaGalleryRedesignEnabledIxp else nil, 
+                    mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v129.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
+                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil
                 });
             end;
         end;
     end);
-    v124.renderExperienceRating = l_memoize_0(function(v232) --[[ Line: 903 ]]
-        -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v124 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
-        return function() --[[ Line: 904 ]]
-            -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v232 (copy), v124 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+    v129.renderExperienceRating = l_memoize_0(function(v237) --[[ Line: 909 ]]
+        -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v129 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+        return function() --[[ Line: 910 ]]
+            -- upvalues: v6 (ref), l_ExperienceRatings_0 (ref), v237 (copy), v129 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
             return v6.createElement(l_ExperienceRatings_0, {
-                universeId = v232, 
-                height = math.floor((v124.applyTokenScaling(72))), 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil, 
+                universeId = v237, 
+                height = math.floor((v129.applyTokenScaling(72))), 
+                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil, 
                 styleProps = {
-                    statWidgetIconSize = math.floor((v124.applyTokenScaling(48)))
+                    statWidgetIconSize = math.floor((v129.applyTokenScaling(48)))
                 }
             });
         end;
     end);
-    v124.renderExperienceInfoTable = l_memoize_0(function(v233) --[[ Line: 918 ]]
-        -- upvalues: v6 (ref), v124 (copy), v70 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
-        return function() --[[ Line: 919 ]]
-            -- upvalues: v6 (ref), v124 (ref), v70 (ref), v233 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
+    v129.renderExperienceInfoTable = l_memoize_0(function(v238) --[[ Line: 924 ]]
+        -- upvalues: v6 (ref), v129 (copy), v70 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
+        return function() --[[ Line: 925 ]]
+            -- upvalues: v6 (ref), v129 (ref), v70 (ref), v238 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FFlagHideCloseButtonEdp_0 (ref)
             return v6.createElement("Folder", {
-                [v6.Ref] = v124.props.statsAndInfoRef
+                [v6.Ref] = v129.props.statsAndInfoRef
             }, v6.createElement(v70, {
-                renderTextOverride = v124.renderTextOverride, 
-                universeId = v233, 
+                renderTextOverride = v129.renderTextOverride, 
+                universeId = v238, 
                 key = "ExperienceInfoTable", 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil, 
-                hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v124.props.hideCloseButton else nil
+                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil, 
+                hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v129.props.hideCloseButton else nil
             }));
         end;
     end);
-    v124.renderEventsList = l_memoize_0(function(v234, v235) --[[ Line: 938 ]]
+    v129.renderEventsList = l_memoize_0(function(v239, v240) --[[ Line: 944 ]]
         -- upvalues: v6 (ref), v64 (ref)
-        return function() --[[ Line: 939 ]]
-            -- upvalues: v6 (ref), v64 (ref), v234 (copy), v235 (copy)
+        return function() --[[ Line: 945 ]]
+            -- upvalues: v6 (ref), v64 (ref), v239 (copy), v240 (copy)
             return v6.createElement(v64, {
-                universeId = v234, 
+                universeId = v239, 
                 referralSource = "expDetailsPage", 
-                defaultThumbnail = if v235 then "rbxassetid://" .. v235 else nil
+                defaultThumbnail = if v240 then "rbxassetid://" .. v240 else nil
             });
         end;
     end);
-    v124.renderRecommendedExperiencesCarousel = l_memoize_0(function(v236) --[[ Line: 948 ]]
-        -- upvalues: v6 (ref), v74 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v124 (copy), l_AppPage_0 (ref)
-        return function() --[[ Line: 949 ]]
-            -- upvalues: v6 (ref), v74 (ref), v236 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v124 (ref), l_AppPage_0 (ref)
+    v129.renderRecommendedExperiencesCarousel = l_memoize_0(function(v241) --[[ Line: 954 ]]
+        -- upvalues: v6 (ref), v74 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v129 (copy), l_AppPage_0 (ref)
+        return function() --[[ Line: 955 ]]
+            -- upvalues: v6 (ref), v74 (ref), v241 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), v129 (ref), l_AppPage_0 (ref)
             return v6.createElement(v74, {
-                universeId = v236, 
-                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil, 
+                universeId = v241, 
+                shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil, 
                 pageContext = l_AppPage_0.ExperienceDetail
             });
         end;
     end);
     if l_FFlagSongEdpCarouselIxp_0 then
-        v124.renderExperienceSongsCarousel = l_memoize_0(function(v237, v238) --[[ Line: 961 ]]
+        v129.renderExperienceSongsCarousel = l_memoize_0(function(v242, v243) --[[ Line: 967 ]]
             -- upvalues: v5 (ref), v75 (ref)
-            return function() --[[ Line: 962 ]]
-                -- upvalues: v5 (ref), v75 (ref), v237 (copy), v238 (copy)
+            return function() --[[ Line: 968 ]]
+                -- upvalues: v5 (ref), v75 (ref), v242 (copy), v243 (copy)
                 return v5.createElement(v75, {
-                    universeId = v237, 
+                    universeId = v242, 
                     fractionalItemAmount = 0, 
-                    universeTitle = v238 or "", 
+                    universeTitle = v243 or "", 
                     collectionOrder = 2, 
                     clipsDescendants = true
                 });
             end;
         end);
     end;
-    v124.renderCommunityLink = l_memoize_0(function(v239, v240, v241) --[[ Line: 974 ]]
+    v129.renderCommunityLink = l_memoize_0(function(v244, v245, v246) --[[ Line: 980 ]]
         -- upvalues: v5 (ref), l_ExperienceCommunityLink_0 (ref)
-        return function() --[[ Line: 975 ]]
-            -- upvalues: v5 (ref), l_ExperienceCommunityLink_0 (ref), v239 (copy), v240 (copy), v241 (copy)
+        return function() --[[ Line: 981 ]]
+            -- upvalues: v5 (ref), l_ExperienceCommunityLink_0 (ref), v244 (copy), v245 (copy), v246 (copy)
             return v5.createElement("Frame", {
                 Size = UDim2.fromScale(1, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
@@ -839,39 +844,39 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
                     PaddingTop = UDim.new(0, 16)
                 }), 
                 ExperienceCommunityLink = v5.createElement(l_ExperienceCommunityLink_0, {
-                    communityInfo = v239, 
-                    experienceName = v240 or "", 
-                    universeId = v241
+                    communityInfo = v244, 
+                    experienceName = v245 or "", 
+                    universeId = v246
                 })
             });
         end;
     end);
-    v124.linkStartStyle = l_memoize_0(function(v242) --[[ Line: 993 ]]
-        local l_Color3_0 = v242.Tokens.Semantic.Color.Text.Link.Color3;
+    v129.linkStartStyle = l_memoize_0(function(v247) --[[ Line: 999 ]]
+        local l_Color3_0 = v247.Tokens.Semantic.Color.Text.Link.Color3;
         return (("<font color=\"%*\"><b>"):format((string.format("rgb(%d, %d, %d)", math.round(l_Color3_0.R * 255), math.round(l_Color3_0.G * 255), (math.round(l_Color3_0.B * 255))))));
     end);
-    v124.checkAndFormatPossibleLink = l_memoize_0(function(v244, v245) --[[ Line: 1005 ]]
-        -- upvalues: l_checkAndFormatPossibleLink_0 (ref), v124 (copy)
-        return l_checkAndFormatPossibleLink_0(v245, nil, nil, v124.linkStartStyle(v244), "</b></font>");
+    v129.checkAndFormatPossibleLink = l_memoize_0(function(v249, v250) --[[ Line: 1011 ]]
+        -- upvalues: l_checkAndFormatPossibleLink_0 (ref), v129 (copy)
+        return l_checkAndFormatPossibleLink_0(v250, nil, nil, v129.linkStartStyle(v249), "</b></font>");
     end);
-    v124.renderRefundPolicy = l_memoize_0(function(v246) --[[ Line: 1011 ]]
-        -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v65 (ref), v124 (copy), v5 (ref)
-        return function() --[[ Line: 1012 ]]
-            -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v65 (ref), v246 (copy), v124 (ref), v5 (ref)
+    v129.renderRefundPolicy = l_memoize_0(function(v251) --[[ Line: 1017 ]]
+        -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v65 (ref), v129 (copy), v5 (ref)
+        return function() --[[ Line: 1018 ]]
+            -- upvalues: l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 (ref), l_withStyle_0 (ref), v6 (ref), v65 (ref), v251 (copy), v129 (ref), v5 (ref)
             if l_FFlagLuaAppEnableConsolidatedGameRefundPolicy_0 then
-                return l_withStyle_0(function(v247) --[[ Line: 1014 ]]
-                    -- upvalues: v6 (ref), v65 (ref), v246 (ref)
+                return l_withStyle_0(function(v252) --[[ Line: 1020 ]]
+                    -- upvalues: v6 (ref), v65 (ref), v251 (ref)
                     return v6.createElement(v65, {
-                        refundPolicy = v246, 
-                        paddingTop = v247.Tokens.Global.Space_300
+                        refundPolicy = v251, 
+                        paddingTop = v252.Tokens.Global.Space_300
                     });
                 end);
             else
-                return l_withStyle_0(function(v248) --[[ Line: 1021 ]]
-                    -- upvalues: v124 (ref), v246 (ref), v5 (ref)
-                    local l_Body_0 = v248.Tokens.Semantic.Typography.Body;
-                    local l_Muted_0 = v248.Tokens.Semantic.Color.Text.Muted;
-                    local v251, v252 = v124.checkAndFormatPossibleLink(v248, v246.policyText);
+                return l_withStyle_0(function(v253) --[[ Line: 1027 ]]
+                    -- upvalues: v129 (ref), v251 (ref), v5 (ref)
+                    local l_Body_0 = v253.Tokens.Semantic.Typography.Body;
+                    local l_Muted_0 = v253.Tokens.Semantic.Color.Text.Muted;
+                    local v256, v257 = v129.checkAndFormatPossibleLink(v253, v251.policyText);
                     return v5.createElement("Frame", {
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
@@ -879,11 +884,11 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
                         AutomaticSize = Enum.AutomaticSize.Y
                     }, {
                         UIPadding = v5.createElement("UIPadding", {
-                            PaddingTop = UDim.new(0, v248.Tokens.Global.Space_300)
+                            PaddingTop = UDim.new(0, v253.Tokens.Global.Space_300)
                         }), 
                         RefundPolicy = v5.createElement("TextButton", {
                             BackgroundTransparency = 1, 
-                            Text = v252, 
+                            Text = v257, 
                             AutomaticSize = Enum.AutomaticSize.XY, 
                             Font = l_Body_0.Font, 
                             TextSize = l_Body_0.FontSize, 
@@ -891,10 +896,10 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
                             TextTransparency = l_Muted_0.Transparency, 
                             TextWrapped = true, 
                             TextXAlignment = Enum.TextXAlignment.Left, 
-                            RichText = v251, 
-                            [v5.Event.Activated] = function(_) --[[ Line: 1048 ]]
-                                -- upvalues: v124 (ref), v246 (ref)
-                                v124.props.openRefundPolicyLearnMorePage(v246.learnMoreUrl);
+                            RichText = v256, 
+                            [v5.Event.Activated] = function(_) --[[ Line: 1054 ]]
+                                -- upvalues: v129 (ref), v251 (ref)
+                                v129.props.openRefundPolicyLearnMorePage(v251.learnMoreUrl);
                             end
                         })
                     });
@@ -902,409 +907,409 @@ v120.init = function(v124) --[[ Line: 353 ]] --[[ Name: init ]]
             end;
         end;
     end);
-    v124.getBodyComponentListProps = l_memoize_0(function(v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274, v275) --[[ Line: 1058 ]]
-        -- upvalues: v124 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (ref), v118 (ref), v119 (ref), l_ContentPosition_0 (ref), l_GetFFlagExpDetailsUseSelectionBumpers_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_ExperienceDetailsNoticeType_0 (ref), l_FFlagSongEdpCarouselIxp_0 (ref)
-        local v276 = v264.showLogoTraySection and v260 and next(v260);
-        local v277 = v264.showCommunityLink and v262 and v263 == "banner" and v261;
-        local l_showEventsList_0 = v264.showEventsList;
-        local v279 = v124.props.webViewSupport and v268 ~= nil;
-        local v280 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.Description else 20;
-        local v281 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.MediaGallery else 40;
-        local v282 = if not v266 then v280 else v281;
-        local v283 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.EventsListRedesign else v282 - 10;
-        local v284 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.EventsListRedesign else 10;
+    v129.getBodyComponentListProps = l_memoize_0(function(v259, v260, v261, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274, v275, v276, v277, v278, v279, v280) --[[ Line: 1064 ]]
+        -- upvalues: v129 (copy), l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 (ref), v123 (ref), v124 (ref), l_ContentPosition_0 (ref), l_GetFFlagExpDetailsUseSelectionBumpers_0 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_ExperienceDetailsNoticeType_0 (ref), l_FFlagSongEdpCarouselIxp_0 (ref)
+        local v281 = v269.showLogoTraySection and v265 and next(v265);
+        local v282 = v269.showCommunityLink and v267 and v268 == "banner" and v266;
+        local l_showEventsList_0 = v269.showEventsList;
+        local v284 = v129.props.webViewSupport and v273 ~= nil;
+        local v285 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.Description else 20;
+        local v286 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.MediaGallery else 40;
+        local v287 = if not v271 then v285 else v286;
+        local v288 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.EventsListRedesign else v287 - 10;
+        local v289 = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.EventsListRedesign else 10;
         local l_Left_0 = l_ContentPosition_0.Left;
-        local v286 = {
+        local v291 = {
             MediaGallery = {
-                portraitLayoutOrder = if not v266 then if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.MediaGalleryMediaFirst else 5 else v280, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.MediaGallery else 10, 
+                portraitLayoutOrder = if not v271 then if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.MediaGalleryMediaFirst else 5 else v285, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.MediaGallery else 10, 
                 landscapePosition = l_ContentPosition_0.Right, 
-                showCornerGradient = not v264.showCornerGradientPropEnabled and nil, 
+                showCornerGradient = not v269.showCornerGradientPropEnabled and nil, 
                 useSelectionBumper = l_GetFFlagExpDetailsUseSelectionBumpers_0() and true or nil, 
-                renderComponent = v124.renderMediaGallery(v254, v265)
+                renderComponent = v129.renderMediaGallery(v259, v270)
             }, 
             Description = {
-                portraitLayoutOrder = v282, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.Description else 20, 
+                portraitLayoutOrder = v287, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.Description else 20, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderDescription(v255, v256)
+                renderComponent = v129.renderDescription(v260, v261)
             }, 
-            IgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 and v271 then {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.IgrsRatingLabel else 45, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.IgrsRatingLabel else 30, 
+            IgrsRatingLabel = if l_FFlagLuaAppAddIgrsRatingToEdp_0 and v276 then {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.IgrsRatingLabel else 45, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.IgrsRatingLabel else 30, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderIgrsRatingLabel(v271, v272, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v273 else v124.props.webViewSupport, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v274 else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v275 else nil)
+                renderComponent = v129.renderIgrsRatingLabel(v276, v277, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v278 else v129.props.webViewSupport, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v279 else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v280 else nil)
             } else nil, 
-            ExperienceRatings = if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v124.props.edpServerIxpVariables and v124.props.edpServerIxpVariables.hideGameRatings == true then nil else {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.ExperienceRatings else 50, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.ExperienceRatings else 40, 
+            ExperienceRatings = if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v129.props.edpServerIxpVariables and v129.props.edpServerIxpVariables.hideGameRatings == true then nil else {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.ExperienceRatings else 50, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.ExperienceRatings else 40, 
                 landscapePosition = l_ContentPosition_0.Left, 
                 useSelectionBumper = l_GetFFlagExpDetailsUseSelectionBumpers_0() and true or nil, 
-                renderComponent = v124.renderExperienceRating(v254)
+                renderComponent = v129.renderExperienceRating(v259)
             }, 
-            PlaysAndVisits = if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v124.props.edpServerIxpVariables and v124.props.edpServerIxpVariables.showVisitsInInfoList == true then nil else {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.PlaysAndVisits else 60, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.PlaysAndVisits else 50, 
+            PlaysAndVisits = if (not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v129.props.edpServerIxpVariables and v129.props.edpServerIxpVariables.showVisitsInInfoList == true then nil else {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.PlaysAndVisits else 60, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.PlaysAndVisits else 50, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderPlaysAndVisits(v258, v259)
+                renderComponent = v129.renderPlaysAndVisits(v263, v264)
             }, 
-            CommunityLink = if v277 then {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.CommunityLink else 70, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.CommunityLink else 60, 
+            CommunityLink = if v282 then {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.CommunityLink else 70, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.CommunityLink else 60, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderCommunityLink(v261, v257, v254)
+                renderComponent = v129.renderCommunityLink(v266, v262, v259)
             } else nil, 
             ExperienceInfoTable = {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.ExperienceInfoTable else 80, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.ExperienceInfoTable else 70, 
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.ExperienceInfoTable else 80, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.ExperienceInfoTable else 70, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderExperienceInfoTable(v254)
+                renderComponent = v129.renderExperienceInfoTable(v259)
             }, 
-            RefundPolicy = if v279 then {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.RefundPolicy else 85, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.RefundPolicy else 75, 
+            RefundPolicy = if v284 then {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.RefundPolicy else 85, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.RefundPolicy else 75, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderRefundPolicy(v268)
+                renderComponent = v129.renderRefundPolicy(v273)
             } else nil, 
-            LogoTraySection = v276 and {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.LogoTraySection else 90, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.LogoTraySection else 80, 
+            LogoTraySection = v281 and {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.LogoTraySection else 90, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.LogoTraySection else 80, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderLogoTray(v260, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v275 else nil)
+                renderComponent = v129.renderLogoTray(v265, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v280 else nil)
             } or nil, 
             EventsList = if l_showEventsList_0 then {
-                portraitLayoutOrder = v283, 
-                landscapeLayoutOrder = v284, 
+                portraitLayoutOrder = v288, 
+                landscapeLayoutOrder = v289, 
                 landscapePosition = l_Left_0, 
-                renderComponent = v124.renderEventsList(v254, v267)
+                renderComponent = v129.renderEventsList(v259, v272)
             } else nil, 
-            Notice = if l_FFlagLuaAppShowNoticeOnEdp_0 and v269 == l_ExperienceDetailsNoticeType_0.InExperiencePurchase then {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.Notice else 100, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.Notice else 100, 
+            Notice = if l_FFlagLuaAppShowNoticeOnEdp_0 and v274 == l_ExperienceDetailsNoticeType_0.InExperiencePurchase then {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.Notice else 100, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.Notice else 100, 
                 landscapePosition = l_ContentPosition_0.Left, 
-                renderComponent = v124.renderNotice(v255)
+                renderComponent = v129.renderNotice(v260)
             } else nil, 
             RecommendedExperiences = {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.RecommendedExperiences else 110, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.RecommendedExperiences else 30, 
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.RecommendedExperiences else 110, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.RecommendedExperiences else 30, 
                 landscapePosition = l_ContentPosition_0.Right, 
                 useSelectionBumper = l_GetFFlagExpDetailsUseSelectionBumpers_0() and true or nil, 
-                renderComponent = v124.renderRecommendedExperiencesCarousel(v254)
+                renderComponent = v129.renderRecommendedExperiencesCarousel(v259)
             }, 
-            ExperienceSongsCarousel = if l_FFlagSongEdpCarouselIxp_0 and v124.props.showSongCarousel then {
-                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v118.ExperienceSongsCarousel else 120, 
-                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v119.ExperienceSongsCarousel else 35, 
+            ExperienceSongsCarousel = if l_FFlagSongEdpCarouselIxp_0 and v129.props.showSongCarousel then {
+                portraitLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v123.ExperienceSongsCarousel else 120, 
+                landscapeLayoutOrder = if l_FFlagLuaAppExperienceDetailsLayoutOrderConfig_0 then v124.ExperienceSongsCarousel else 35, 
                 landscapePosition = l_ContentPosition_0.Right, 
-                renderComponent = v124.renderExperienceSongsCarousel(v254, v257)
+                renderComponent = v129.renderExperienceSongsCarousel(v259, v262)
             } else nil
         };
-        if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v124.props.shouldInterleaveSduiIxp) and v270 then
-            for v287, v288 in v270 do
-                v286[("SduiFeedItem_%*"):format(v287)] = {
-                    portraitLayoutOrder = v288.portraitLayoutOrder, 
-                    landscapeLayoutOrder = v288.landscapeLayoutOrder, 
+        if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v129.props.shouldInterleaveSduiIxp) and v275 then
+            for v292, v293 in v275 do
+                v291[("SduiFeedItem_%*"):format(v292)] = {
+                    portraitLayoutOrder = v293.portraitLayoutOrder, 
+                    landscapeLayoutOrder = v293.landscapeLayoutOrder, 
                     landscapePosition = l_ContentPosition_0.Left, 
-                    renderComponent = v288.renderComponent
+                    renderComponent = v293.renderComponent
                 };
             end;
         end;
-        return v286;
+        return v291;
     end);
-    v124.onClose = function() --[[ Line: 1312 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref)
-        if v124.state.isFullscreen then
-            v124:setState({
+    v129.onClose = function() --[[ Line: 1318 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref)
+        if v129.state.isFullscreen then
+            v129:setState({
                 isFullscreen = false
             });
-            if v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot and v124.props.setControllerBarNavigation then
-                v124.props.setControllerBarNavigation(true);
+            if v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot and v129.props.setControllerBarNavigation then
+                v129.props.setControllerBarNavigation(true);
                 return;
             end;
         else
-            v124.props.onClose();
+            v129.props.onClose();
         end;
     end;
-    v124.exitFullscreen = l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and function(v289, v290) --[[ Line: 1329 ]]
-        -- upvalues: v124 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref)
-        if not v124.state.isFullscreen then
+    v129.exitFullscreen = l_FFlagLuaAppEdpMediaGalleryFullScreen_0 and function(v294, v295) --[[ Line: 1335 ]]
+        -- upvalues: v129 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref)
+        if not v129.state.isFullscreen then
             return;
         else
-            if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 and v124.props.onMediaGalleryExitFullscreen then
-                v124.props.onMediaGalleryExitFullscreen(v289, v290);
+            if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 and v129.props.onMediaGalleryExitFullscreen then
+                v129.props.onMediaGalleryExitFullscreen(v294, v295);
             end;
-            v124:setState({
+            v129:setState({
                 isFullscreen = false, 
-                mediaGalleryShowIndex = v289
+                mediaGalleryShowIndex = v294
             });
             return;
         end;
     end or nil;
-    v124.focusEventHandlers = {
+    v129.focusEventHandlers = {
         [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-            handler = v46.onRelease(function(v291) --[[ Line: 1347 ]]
-                -- upvalues: v124 (copy)
-                v124.onClose();
-                v291:cancel();
+            handler = v46.onRelease(function(v296) --[[ Line: 1353 ]]
+                -- upvalues: v129 (copy)
+                v129.onClose();
+                v296:cancel();
             end)
         }
     };
-    v124.renderFullscreenContent = l_memoize_0(function(v292, v293, v294, v295, v296, v297) --[[ Line: 1355 ]]
-        -- upvalues: v124 (copy), l_UiMode_0 (ref), v6 (ref), v72 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
-        if v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-            return function() --[[ Line: 1358 ]]
-                -- upvalues: v6 (ref), v72 (ref), v124 (ref), v292 (copy), v293 (copy), v294 (copy), v295 (copy), v297 (copy), v296 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+    v129.renderFullscreenContent = l_memoize_0(function(v297, v298, v299, v300, v301, v302) --[[ Line: 1361 ]]
+        -- upvalues: v129 (copy), l_UiMode_0 (ref), v6 (ref), v72 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref)
+        if v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+            return function() --[[ Line: 1364 ]]
+                -- upvalues: v6 (ref), v72 (ref), v129 (ref), v297 (copy), v298 (copy), v299 (copy), v300 (copy), v302 (copy), v301 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(v72, {
-                    tokens = v124.props.tokens, 
-                    universeId = v292, 
+                    tokens = v129.props.tokens, 
+                    universeId = v297, 
                     isFullscreen = true, 
-                    fullscreenShowIndex = v293, 
-                    deviceType = v124.props.deviceType, 
-                    isFullscreenState = v294, 
-                    isCrossFade = v295, 
-                    setCrossFade = v124.setCrossFade, 
-                    nextIndex = v297, 
-                    currentIndex = v296, 
-                    setCurrentIndex = v124.setCurrentIndex, 
-                    uiMode = v124.props.uiModeInfo.uiMode, 
-                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil
+                    fullscreenShowIndex = v298, 
+                    deviceType = v129.props.deviceType, 
+                    isFullscreenState = v299, 
+                    isCrossFade = v300, 
+                    setCrossFade = v129.setCrossFade, 
+                    nextIndex = v302, 
+                    currentIndex = v301, 
+                    setCurrentIndex = v129.setCurrentIndex, 
+                    uiMode = v129.props.uiModeInfo.uiMode, 
+                    shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil
                 });
             end;
         else
-            return function() --[[ Line: 1378 ]]
-                -- upvalues: v6 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v124 (ref), v72 (ref), v292 (copy), v293 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
+            return function() --[[ Line: 1384 ]]
+                -- upvalues: v6 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v129 (ref), v72 (ref), v297 (copy), v298 (copy), l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 (ref), l_FFlagLuaAppEdpMediaGalleryFullScreen_0 (ref), l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 (ref), l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 (ref), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (ref)
                 return v6.createElement(l_FocusNavigableSurfaceWrapper_0, {
                     surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp, 
                     isIsolated = true, 
-                    customEventHandlers = v124.focusEventHandlers
+                    customEventHandlers = v129.focusEventHandlers
                 }, {
                     ExperienceMediaGallery = v6.createElement(v72, {
-                        universeId = v292, 
+                        universeId = v297, 
                         isFullscreen = true, 
-                        fullscreenShowIndex = v293, 
-                        onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v124.props.onMediaGalleryMediaChanged else nil, 
-                        startIndex = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v293 else nil, 
-                        exitFullscreen = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v124.exitFullscreen else nil, 
-                        mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v124.props.mediaGalleryRedesignEnabledIxp else nil, 
-                        mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v124.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
-                        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v124.props.shouldHydrateLegacyIxp else nil
+                        fullscreenShowIndex = v298, 
+                        onMediaGalleryMediaChanged = if l_FFlagLuaAppEdpMediaGalleryRedesignTelemetry_0 then v129.props.onMediaGalleryMediaChanged else nil, 
+                        startIndex = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v298 else nil, 
+                        exitFullscreen = if l_FFlagLuaAppEdpMediaGalleryFullScreen_0 then v129.exitFullscreen else nil, 
+                        mediaGalleryRedesignEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryRedesignIxp_0 then v129.props.mediaGalleryRedesignEnabledIxp else nil, 
+                        mediaGalleryVideoPreviewEnabledIxp = if l_FFlagLuaAppEdpMediaGalleryVideoPreviewIxp_0 then v129.props.mediaGalleryVideoPreviewEnabledIxp else nil, 
+                        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v129.props.shouldHydrateLegacyIxp else nil
                     })
                 });
             end;
         end;
     end);
-    v124.resolveTitleText = function(v298, v299) --[[ Line: 1409 ]]
-        return v298 and v298.name or v299 and v299.name or nil;
+    v129.resolveTitleText = function(v303, v304) --[[ Line: 1415 ]]
+        return v303 and v303.name or v304 and v304.name or nil;
     end;
-    v124.checkCommunityLinkExposureLogging = function() --[[ Line: 1414 ]]
-        -- upvalues: v124 (copy), l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
-        if v124.props.communityLink then
+    v129.checkCommunityLinkExposureLogging = function() --[[ Line: 1420 ]]
+        -- upvalues: v129 (copy), l_IXPService_0 (ref), l_AppUserLayers_0 (ref)
+        if v129.props.communityLink then
             l_IXPService_0:LogUserLayerExposure(l_AppUserLayers_0.EDPCommunityLinksLayer);
         end;
     end;
-    if v124.props.uiModeInfo and v124.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
-        v124.state = {
-            bannerImageId = v124.props.bannerImageId, 
+    if v129.props.uiModeInfo and v129.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot then
+        v129.state = {
+            bannerImageId = v129.props.bannerImageId, 
             isCrossFade = false, 
             currentIndex = 1, 
             nextIndex = 1
         };
-        v124.setCurrentIndex = function(v300) --[[ Line: 1429 ]]
-            -- upvalues: v124 (copy)
-            v124:setState({
-                currentIndex = v300
+        v129.setCurrentIndex = function(v305) --[[ Line: 1435 ]]
+            -- upvalues: v129 (copy)
+            v129:setState({
+                currentIndex = v305
             });
         end;
-        v124.setCrossFade = function(v301) --[[ Line: 1435 ]]
-            -- upvalues: v124 (copy)
-            v124:setState({
-                isCrossFade = v301
+        v129.setCrossFade = function(v306) --[[ Line: 1441 ]]
+            -- upvalues: v129 (copy)
+            v129:setState({
+                isCrossFade = v306
             });
         end;
-        v124.onSelectionGained = function(v302, v303) --[[ Line: 1441 ]]
-            -- upvalues: v124 (copy)
-            if v124.state.nextIndex ~= v302 and v124.state.isCrossFade == false then
-                v124.setCrossFade(true);
+        v129.onSelectionGained = function(v307, v308) --[[ Line: 1447 ]]
+            -- upvalues: v129 (copy)
+            if v129.state.nextIndex ~= v307 and v129.state.isCrossFade == false then
+                v129.setCrossFade(true);
             end;
-            v124:setState({
-                bannerImageId = v303, 
-                nextIndex = v302
+            v129:setState({
+                bannerImageId = v308, 
+                nextIndex = v307
             });
         end;
-        v124.mediaGalleryGainFocused = function(v304) --[[ Line: 1452 ]]
-            -- upvalues: v124 (copy)
-            if not v304 then
-                v124:setState({
-                    bannerImageId = v124.props.bannerImageId
+        v129.mediaGalleryGainFocused = function(v309) --[[ Line: 1458 ]]
+            -- upvalues: v129 (copy)
+            if not v309 then
+                v129:setState({
+                    bannerImageId = v129.props.bannerImageId
                 });
             end;
         end;
     end;
-    if v84() then
-        v124.isMounted = false;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 1464 ]]
+    if v89() then
+        v129.isMounted = false;
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 1470 ]]
             -- upvalues: l_AppStorageService_0 (ref)
             return l_AppStorageService_0:GetItem("ShowNotificationsOptInTooltip");
         end);
-        v124.showTooltip = if l_status_0 then l_result_0 == "true" else false;
-        v124:setState({
-            isNotificationsTooltipActive = v124.showTooltip
+        v129.showTooltip = if l_status_0 then l_result_0 == "true" else false;
+        v129:setState({
+            isNotificationsTooltipActive = v129.showTooltip
         });
     end;
 end;
-v120.didMount = function(v307) --[[ Line: 1473 ]] --[[ Name: didMount ]]
-    -- upvalues: v84 (copy), l_AppStorageService_0 (copy), v8 (copy), v85 (copy)
-    v307.checkCommunityLinkExposureLogging();
-    if v84() then
-        v307.isMounted = true;
-        if v307.showTooltip then
-            pcall(function() --[[ Line: 1479 ]]
+v125.didMount = function(v312) --[[ Line: 1479 ]] --[[ Name: didMount ]]
+    -- upvalues: v89 (copy), l_AppStorageService_0 (copy), v8 (copy), v90 (copy)
+    v312.checkCommunityLinkExposureLogging();
+    if v89() then
+        v312.isMounted = true;
+        if v312.showTooltip then
+            pcall(function() --[[ Line: 1485 ]]
                 -- upvalues: l_AppStorageService_0 (ref)
                 l_AppStorageService_0:SetItem("ShowNotificationsOptInTooltip", "false");
                 l_AppStorageService_0:Flush();
             end);
         end;
-        v8.delay(v85()):andThen(function() --[[ Line: 1485 ]]
-            -- upvalues: v307 (copy)
-            if v307.isMounted then
-                v307:setState({
+        v8.delay(v90()):andThen(function() --[[ Line: 1491 ]]
+            -- upvalues: v312 (copy)
+            if v312.isMounted then
+                v312:setState({
                     isNotificationsTooltipActive = false
                 });
             end;
         end);
     end;
 end;
-v120.didUpdate = function(v308, v309) --[[ Line: 1495 ]] --[[ Name: didUpdate ]]
-    if not v309.communityLink then
-        v308.checkCommunityLinkExposureLogging();
+v125.didUpdate = function(v313, v314) --[[ Line: 1501 ]] --[[ Name: didUpdate ]]
+    if not v314.communityLink then
+        v313.checkCommunityLinkExposureLogging();
     end;
 end;
-v120.render = function(v310) --[[ Line: 1501 ]] --[[ Name: render ]]
+v125.render = function(v315) --[[ Line: 1507 ]] --[[ Name: render ]]
     -- upvalues: v4 (copy), l_RetrievalStatus_1 (copy), v6 (copy), l_LoadingStateContainer_0 (copy), l_RetrievalStatus_0 (copy)
     if v4 then
-        if v310.props.gameDetailsPageDataStatus == l_RetrievalStatus_1.Failed and not v310.props.gameInfo then
-            return v310:renderOnFailed();
+        if v315.props.gameDetailsPageDataStatus == l_RetrievalStatus_1.Failed and not v315.props.gameInfo then
+            return v315:renderOnFailed();
         else
-            return v310:renderOnLoaded();
+            return v315:renderOnLoaded();
         end;
     else
         return v6.createElement(l_LoadingStateContainer_0, {
-            dataStatus = l_RetrievalStatus_0.fromRawValue(v310.props.gameDetailsPageDataStatus), 
-            renderOnFailed = function() --[[ Line: 1519 ]] --[[ Name: renderOnFailed ]]
-                -- upvalues: v310 (copy)
-                if v310.props.gameInfo then
-                    return v310:renderOnLoaded();
+            dataStatus = l_RetrievalStatus_0.fromRawValue(v315.props.gameDetailsPageDataStatus), 
+            renderOnFailed = function() --[[ Line: 1525 ]] --[[ Name: renderOnFailed ]]
+                -- upvalues: v315 (copy)
+                if v315.props.gameInfo then
+                    return v315:renderOnLoaded();
                 else
-                    return v310:renderOnFailed();
+                    return v315:renderOnFailed();
                 end;
             end, 
-            renderOnLoaded = function() --[[ Line: 1527 ]] --[[ Name: renderOnLoaded ]]
-                -- upvalues: v310 (copy)
-                return v310:renderOnLoaded();
+            renderOnLoaded = function() --[[ Line: 1533 ]] --[[ Name: renderOnLoaded ]]
+                -- upvalues: v315 (copy)
+                return v315:renderOnLoaded();
             end, 
-            renderOnLoading = function() --[[ Line: 1530 ]] --[[ Name: renderOnLoading ]]
-                -- upvalues: v310 (copy)
-                return v310:renderOnLoading();
+            renderOnLoading = function() --[[ Line: 1536 ]] --[[ Name: renderOnLoading ]]
+                -- upvalues: v315 (copy)
+                return v315:renderOnLoading();
             end
         });
     end;
 end;
-v120.renderOnLoading = function(_) --[[ Line: 1536 ]] --[[ Name: renderOnLoading ]]
+v125.renderOnLoading = function(_) --[[ Line: 1542 ]] --[[ Name: renderOnLoading ]]
     -- upvalues: v6 (copy), v71 (copy)
     return v6.createElement(v71);
 end;
-v120.renderOnFailed = function(v312) --[[ Line: 1540 ]] --[[ Name: renderOnFailed ]]
+v125.renderOnFailed = function(v317) --[[ Line: 1546 ]] --[[ Name: renderOnFailed ]]
     -- upvalues: l_withLocalization_0 (copy), l_EnumGameDetailErrorTypes_0 (copy), v6 (copy), l_EmptyState_0 (copy)
     return l_withLocalization_0({
         failedMessage = "Feature.EmptyStatePage.Message.NoInternet", 
         experienceUnavailableMessage = "Feature.GamePage.QuickLaunch.LaunchError.TemporarilyUnavailable"
-    })(function(v313) --[[ Line: 1544 ]]
-        -- upvalues: v312 (copy), l_EnumGameDetailErrorTypes_0 (ref), v6 (ref), l_EmptyState_0 (ref)
-        local v314 = nil;
-        v314 = v312.props.gameDetailError and v312.props.gameDetailError.errorType == l_EnumGameDetailErrorTypes_0.ExperienceUnavailable;
+    })(function(v318) --[[ Line: 1550 ]]
+        -- upvalues: v317 (copy), l_EnumGameDetailErrorTypes_0 (ref), v6 (ref), l_EmptyState_0 (ref)
+        local v319 = nil;
+        v319 = v317.props.gameDetailError and v317.props.gameDetailError.errorType == l_EnumGameDetailErrorTypes_0.ExperienceUnavailable;
         return v6.createElement(l_EmptyState_0, {
-            onActivated = if v314 then nil else v312.props.fetchGameDetailsPageData, 
-            text = if v314 then v313.experienceUnavailableMessage else v313.failedMessage
+            onActivated = if v319 then nil else v317.props.fetchGameDetailsPageData, 
+            text = if v319 then v318.experienceUnavailableMessage else v318.failedMessage
         });
     end);
 end;
-v120.willUnmount = function(v315) --[[ Line: 1555 ]] --[[ Name: willUnmount ]]
-    -- upvalues: v84 (copy)
-    if v84() then
-        v315.isMounted = false;
+v125.willUnmount = function(v320) --[[ Line: 1561 ]] --[[ Name: willUnmount ]]
+    -- upvalues: v89 (copy)
+    if v89() then
+        v320.isMounted = false;
     end;
 end;
-v120.renderOnLoaded = function(v316) --[[ Line: 1561 ]] --[[ Name: renderOnLoaded ]]
-    -- upvalues: l_UiMode_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_getPlayButtonProps_0 (copy), v84 (copy), l_DeviceType_0 (copy), l_GetFFlagNotificationsForceEnableEDPDiscoverability_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), v7 (copy), l_Images_0 (copy), v6 (copy), v5 (copy), v66 (copy), l_TooltipOrientation_0 (copy), l_withLocalization_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (copy), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_FFlagLuaAppEnablePlaySquadButton_0 (copy), l_PlayButton_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_ButtonSize_0 (copy), v123 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), l_DetailsPageSelector_0 (copy)
-    local l_deviceType_0 = v316.props.deviceType;
-    local l_universeId_3 = v316.props.universeId;
-    local l_gameInfo_0 = v316.props.gameInfo;
-    local l_thumbnail_0 = v316.props.thumbnail;
-    local l_tokens_0 = v316.props.tokens;
-    local v322 = v316.props.uiModeInfo and v316.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+v125.renderOnLoaded = function(v321) --[[ Line: 1567 ]] --[[ Name: renderOnLoaded ]]
+    -- upvalues: l_UiMode_0 (copy), l_FFlagLuaAppAddIgrsRatingToEdp_0 (copy), l_getPlayButtonProps_0 (copy), v89 (copy), l_DeviceType_0 (copy), l_GetFFlagNotificationsForceEnableEDPDiscoverability_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), v42 (copy), v7 (copy), l_Images_0 (copy), v6 (copy), v5 (copy), v66 (copy), l_TooltipOrientation_0 (copy), l_withLocalization_0 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (copy), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (copy), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (copy), l_FFlagLuaAppEnablePlaySquadButton_0 (copy), l_PlayButton_0 (copy), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (copy), l_ButtonSize_0 (copy), v128 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (copy), l_FFlagLuaAppIgrsRatingPropMemoization_0 (copy), l_DetailsPageSelector_0 (copy)
+    local l_deviceType_0 = v321.props.deviceType;
+    local l_universeId_3 = v321.props.universeId;
+    local l_gameInfo_0 = v321.props.gameInfo;
+    local l_thumbnail_0 = v321.props.thumbnail;
+    local l_tokens_0 = v321.props.tokens;
+    local v327 = v321.props.uiModeInfo and v321.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
     l_thumbnail_0 = l_thumbnail_0 and l_thumbnail_0.url;
-    local l_gameDetail_0 = v316.props.gameDetail;
-    local v324 = l_gameDetail_0 and l_gameDetail_0.description or nil;
-    local v325 = l_gameDetail_0 and l_gameDetail_0.name or nil;
-    local v326 = v316.resolveTitleText(l_gameDetail_0, l_gameInfo_0);
-    local v327 = l_gameDetail_0 and l_gameDetail_0.creator.name or nil;
-    local v328 = l_gameDetail_0 and l_gameDetail_0.creator.id or nil;
-    local v329 = l_gameDetail_0 and l_gameDetail_0.creator.type or nil;
-    local v330 = nil;
-    local v331 = nil;
-    local v332 = nil;
-    if v316.props.ageRecommendations then
-        local l_summary_0 = v316.props.ageRecommendations.summary;
-        v330 = if l_summary_0 and l_summary_0.ageRecommendation then if l_summary_0.ageRecommendation.displayNameWithHeaderShort then l_summary_0.ageRecommendation.displayNameWithHeaderShort else l_summary_0.ageRecommendation.displayName else nil;
+    local l_gameDetail_0 = v321.props.gameDetail;
+    local v329 = l_gameDetail_0 and l_gameDetail_0.description or nil;
+    local v330 = l_gameDetail_0 and l_gameDetail_0.name or nil;
+    local v331 = v321.resolveTitleText(l_gameDetail_0, l_gameInfo_0);
+    local v332 = l_gameDetail_0 and l_gameDetail_0.creator.name or nil;
+    local v333 = l_gameDetail_0 and l_gameDetail_0.creator.id or nil;
+    local v334 = l_gameDetail_0 and l_gameDetail_0.creator.type or nil;
+    local v335 = nil;
+    local v336 = nil;
+    local v337 = nil;
+    if v321.props.ageRecommendations then
+        local l_summary_0 = v321.props.ageRecommendations.summary;
+        v335 = if l_summary_0 and l_summary_0.ageRecommendation then if l_summary_0.ageRecommendation.displayNameWithHeaderShort then l_summary_0.ageRecommendation.displayNameWithHeaderShort else l_summary_0.ageRecommendation.displayName else nil;
         if l_FFlagLuaAppAddIgrsRatingToEdp_0 then
-            v331 = if l_summary_0 and l_summary_0.ageRecommendation and l_summary_0.ageRecommendation.igrsRating and l_summary_0.ageRecommendation.igrsRating ~= "" then l_summary_0.ageRecommendation.igrsRating else nil;
-            v332 = if l_summary_0 and l_summary_0.ageRecommendation and l_summary_0.ageRecommendation.igrsRatingDisplayMessage then l_summary_0.ageRecommendation.igrsRatingDisplayMessage else nil;
+            v336 = if l_summary_0 and l_summary_0.ageRecommendation and l_summary_0.ageRecommendation.igrsRating and l_summary_0.ageRecommendation.igrsRating ~= "" then l_summary_0.ageRecommendation.igrsRating else nil;
+            v337 = if l_summary_0 and l_summary_0.ageRecommendation and l_summary_0.ageRecommendation.igrsRatingDisplayMessage then l_summary_0.ageRecommendation.igrsRatingDisplayMessage else nil;
         end;
     end;
-    local v334 = v316.getPlaysAnsVisitsInfo(l_gameDetail_0, l_gameInfo_0);
-    local l_socialLinks_0 = v316.props.socialLinks;
-    local l_communityLink_0 = v316.props.communityLink;
-    local v337 = l_getPlayButtonProps_0(v316.props.playButtonState, v316.props.gameProductInfo);
-    local l_textKey_0 = v337.textKey;
-    local l_price_0 = v337.price;
-    local l_icon_0 = v337.icon;
-    local v341 = if v84() then v316.state.isNotificationsTooltipActive else false;
-    local l_isFullscreen_0 = v316.state.isFullscreen;
-    local l_isCrossFade_0 = v316.state.isCrossFade;
-    local l_currentIndex_0 = v316.state.currentIndex;
-    local l_nextIndex_0 = v316.state.nextIndex;
-    local l_mediaGalleryShowIndex_0 = v316.state.mediaGalleryShowIndex;
-    local v347 = nil;
-    local v348 = nil;
-    local v349 = nil;
+    local v339 = v321.getPlaysAnsVisitsInfo(l_gameDetail_0, l_gameInfo_0);
+    local l_socialLinks_0 = v321.props.socialLinks;
+    local l_communityLink_0 = v321.props.communityLink;
+    local v342 = l_getPlayButtonProps_0(v321.props.playButtonState, v321.props.gameProductInfo);
+    local l_textKey_0 = v342.textKey;
+    local l_price_0 = v342.price;
+    local l_icon_0 = v342.icon;
+    local v346 = if v89() then v321.state.isNotificationsTooltipActive else false;
+    local l_isFullscreen_0 = v321.state.isFullscreen;
+    local l_isCrossFade_0 = v321.state.isCrossFade;
+    local l_currentIndex_0 = v321.state.currentIndex;
+    local l_nextIndex_0 = v321.state.nextIndex;
+    local l_mediaGalleryShowIndex_0 = v321.state.mediaGalleryShowIndex;
+    local v352 = nil;
+    local v353 = nil;
+    local v354 = nil;
     if l_tokens_0 then
-        v347 = l_tokens_0.thumbnailSize;
-        v348 = l_tokens_0.sideMargin;
-        v349 = l_tokens_0.headerBarBackgroundHeight;
+        v352 = l_tokens_0.thumbnailSize;
+        v353 = l_tokens_0.sideMargin;
+        v354 = l_tokens_0.headerBarBackgroundHeight;
     end;
-    local v350 = nil;
+    local v355 = nil;
     if l_deviceType_0 == l_DeviceType_0.Tablet then
-        v350 = math.min(v316.props.viewHeight / 3, 500);
-        v347 = 200;
-    elseif not v322 then
-        v350 = 208;
+        v355 = math.min(v321.props.viewHeight / 3, 500);
+        v352 = 200;
+    elseif not v327 then
+        v355 = 208;
     end;
-    local v351 = not v322;
-    local v352 = v322 and v330;
-    local v353 = l_GetFFlagNotificationsForceEnableEDPDiscoverability_0() and true or v316.props.enableNotificationsDiscoverability;
-    local l_notificationsCanEnableExperience_0 = v316.props.notificationsCanEnableExperience;
-    if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v316.props.edpServerIxpVariables and v316.props.edpServerIxpVariables.hideNotifyButton == true then
-        v353 = false;
+    local v356 = not v327;
+    local v357 = v327 and v335;
+    local v358 = l_GetFFlagNotificationsForceEnableEDPDiscoverability_0() and true or v321.props.enableNotificationsDiscoverability;
+    local l_notificationsCanEnableExperience_0 = v321.props.notificationsCanEnableExperience;
+    if (l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui()) and v321.props.edpServerIxpVariables and v321.props.edpServerIxpVariables.hideNotifyButton == true then
+        v358 = false;
     end;
-    local v356 = v7.List.filter({
-        v351 and {
+    local v361 = v7.List.filter({
+        v356 and {
             props = {
                 anchorPoint = Vector2.new(0.5, 0.5), 
                 position = UDim2.fromScale(0.5, 0.5), 
                 icon = l_Images_0["icons/actions/friends/friendsplaying"], 
                 userInteractionEnabled = true, 
                 showBackground = true, 
-                onActivated = v316.openShareContextualMenu, 
-                size = v316.props.iconButtonSize, 
+                onActivated = v321.openShareContextualMenu, 
+                size = v321.props.iconButtonSize, 
                 backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil
             }
         } or nil, 
@@ -1315,88 +1320,88 @@ v120.renderOnLoaded = function(v316) --[[ Line: 1561 ]] --[[ Name: renderOnLoade
                 icon = l_Images_0["icons/common/more"], 
                 userInteractionEnabled = true, 
                 showBackground = true, 
-                onActivated = v316.openMoreContextualMenu, 
-                size = v316.props.iconButtonSize, 
+                onActivated = v321.openMoreContextualMenu, 
+                size = v321.props.iconButtonSize, 
                 backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil
             }
         }, 
-        v353 and l_notificationsCanEnableExperience_0 and {
+        v358 and l_notificationsCanEnableExperience_0 and {
             props = {
                 anchorPoint = Vector2.new(0.5, 0.5), 
                 position = UDim2.fromScale(0.5, 0.5), 
-                icon = if v316.props.gameFollowings and v316.props.gameFollowings.isFollowed then l_Images_0["icons/common/notificationOn"] else l_Images_0["icons/common/notificationOff"], 
+                icon = if v321.props.gameFollowings and v321.props.gameFollowings.isFollowed then l_Images_0["icons/common/notificationOn"] else l_Images_0["icons/common/notificationOff"], 
                 userInteractionEnabled = true, 
                 showBackground = true, 
-                onActivated = v316.toggleFollowExperience, 
-                size = v316.props.iconButtonSize, 
+                onActivated = v321.toggleFollowExperience, 
+                size = v321.props.iconButtonSize, 
                 backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil, 
-                [v6.Children] = if v84() then {
+                [v6.Children] = if v89() then {
                     Tooltip = v5.createElement(v66, {
-                        isActive = v341, 
+                        isActive = v346, 
                         preferredOrientation = l_TooltipOrientation_0.Bottom
                     })
                 } else nil
             }
         } or nil
-    }, function(v355) --[[ Line: 1706 ]]
-        return v355 ~= nil;
+    }, function(v360) --[[ Line: 1712 ]]
+        return v360 ~= nil;
     end);
-    local v357 = nil;
-    local v358 = nil;
-    if v322 then
-        v358 = v316.props.gameDetail and v316.props.gameDetail.licenseDescription or nil;
-        if v352 or v358 then
-            v357 = {};
+    local v362 = nil;
+    local v363 = nil;
+    if v327 then
+        v363 = v321.props.gameDetail and v321.props.gameDetail.licenseDescription or nil;
+        if v357 or v363 then
+            v362 = {};
         end;
-        if v352 then
-            table.insert(v357, {
+        if v357 then
+            table.insert(v362, {
                 props = {
                     anchorPoint = Vector2.new(0, 0.5), 
                     position = UDim2.fromScale(0, 0.5), 
-                    text = v330, 
+                    text = v335, 
                     horizontalPadding = l_tokens_0.actionBarTextButtonPadding.X, 
                     verticalPadding = l_tokens_0.actionBarTextButtonPadding.Y, 
                     userInteractionEnabled = true, 
                     showBackground = true, 
-                    size = v316.props.textButtonSize, 
-                    onActivated = function() --[[ Line: 1728 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v316 (copy), l_universeId_3 (copy)
-                        v316.props.openExperienceGuidelinesExplained(l_universeId_3, true);
+                    size = v321.props.textButtonSize, 
+                    onActivated = function() --[[ Line: 1734 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v321 (copy), l_universeId_3 (copy)
+                        v321.props.openExperienceGuidelinesExplained(l_universeId_3, true);
                     end, 
                     backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil
                 }
             });
         end;
-        if v358 then
-            table.insert(v357, {
+        if v363 then
+            table.insert(v362, {
                 props = {
                     anchorPoint = Vector2.new(0, 0.5), 
                     position = UDim2.fromScale(0, 0.5), 
-                    text = v358, 
+                    text = v363, 
                     horizontalPadding = l_tokens_0.actionBarTextButtonPadding.X, 
                     verticalPadding = l_tokens_0.actionBarTextButtonPadding.Y, 
                     userInteractionEnabled = false, 
                     showBackground = true, 
-                    size = v316.props.textButtonSize, 
+                    size = v321.props.textButtonSize, 
                     backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil
                 }
             });
         end;
     else
-        v357 = if v352 then {
+        v362 = if v357 then {
             {
                 props = {
                     anchorPoint = Vector2.new(0, 0.5), 
                     position = UDim2.fromScale(0, 0.5), 
-                    text = v330, 
+                    text = v335, 
                     horizontalPadding = l_tokens_0.actionBarTextButtonPadding.X, 
                     verticalPadding = l_tokens_0.actionBarTextButtonPadding.Y, 
                     userInteractionEnabled = true, 
                     showBackground = true, 
-                    size = v316.props.textButtonSize, 
-                    onActivated = function() --[[ Line: 1763 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v316 (copy), l_universeId_3 (copy)
-                        v316.props.openExperienceGuidelinesExplained(l_universeId_3, true);
+                    size = v321.props.textButtonSize, 
+                    onActivated = function() --[[ Line: 1769 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v321 (copy), l_universeId_3 (copy)
+                        v321.props.openExperienceGuidelinesExplained(l_universeId_3, true);
                     end, 
                     backgroundColor = l_tokens_0 and l_tokens_0.actionBarButtonBackgroundColor or nil
                 }
@@ -1405,89 +1410,89 @@ v120.renderOnLoaded = function(v316) --[[ Line: 1561 ]] --[[ Name: renderOnLoade
     end;
     return l_withLocalization_0({
         buttonText = l_textKey_0
-    })(function(v359) --[[ Line: 1775 ]]
-        -- upvalues: v337 (copy), l_price_0 (copy), v316 (copy), l_deviceType_0 (copy), l_thumbnail_0 (ref), v326 (copy), l_FFlagHideCloseButtonEdp_0 (ref), l_tokens_0 (copy), l_universeId_3 (copy), v327 (copy), v328 (copy), v329 (copy), v324 (copy), v334 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (ref), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (ref), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (ref), l_FFlagLuaAppEnablePlaySquadButton_0 (ref), l_icon_0 (copy), l_Images_0 (ref), v6 (ref), l_PlayButton_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), v322 (copy), l_ButtonSize_0 (ref), v356 (copy), v357 (ref), v325 (copy), l_socialLinks_0 (copy), l_communityLink_0 (copy), v123 (ref), l_isFullscreen_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v331 (ref), v332 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_mediaGalleryShowIndex_0 (copy), l_isCrossFade_0 (copy), l_currentIndex_0 (copy), l_nextIndex_0 (copy), v348 (ref), v350 (ref), v347 (ref), v349 (ref), l_DetailsPageSelector_0 (ref)
-        local l_buttonText_0 = v359.buttonText;
-        if v337.localizedFiatPrice then
-            l_buttonText_0 = v337.localizedFiatPrice;
+    })(function(v364) --[[ Line: 1781 ]]
+        -- upvalues: v342 (copy), l_price_0 (copy), v321 (copy), l_deviceType_0 (copy), l_thumbnail_0 (ref), v331 (copy), l_FFlagHideCloseButtonEdp_0 (ref), l_tokens_0 (copy), l_universeId_3 (copy), v332 (copy), v333 (copy), v334 (copy), v329 (copy), v339 (copy), l_FFlagLuaAppEdpFixDefaultBanner_0 (ref), l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 (ref), l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 (ref), l_FFlagLuaAppEnablePlaySquadButton_0 (ref), l_icon_0 (copy), l_Images_0 (ref), v6 (ref), l_PlayButton_0 (ref), l_FFlagLuaAppEnableCustomSpawnSponsored_0 (ref), v327 (copy), l_ButtonSize_0 (ref), v361 (copy), v362 (ref), v330 (copy), l_socialLinks_0 (copy), l_communityLink_0 (copy), v128 (ref), l_isFullscreen_0 (copy), l_FFlagLuaAppShowNoticeOnEdp_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (ref), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (ref), v42 (ref), l_FFlagLuaAppAddIgrsRatingToEdp_0 (ref), v336 (ref), v337 (ref), l_FFlagLuaAppIgrsRatingPropMemoization_0 (ref), l_mediaGalleryShowIndex_0 (copy), l_isCrossFade_0 (copy), l_currentIndex_0 (copy), l_nextIndex_0 (copy), v353 (ref), v355 (ref), v352 (ref), v354 (ref), l_DetailsPageSelector_0 (ref)
+        local l_buttonText_0 = v364.buttonText;
+        if v342.localizedFiatPrice then
+            l_buttonText_0 = v342.localizedFiatPrice;
         elseif l_price_0 then
-            l_buttonText_0 = v316.getAbbreviateCount(l_price_0);
+            l_buttonText_0 = v321.getAbbreviateCount(l_price_0);
         end;
-        local v361 = {
+        local v366 = {
             deviceType = l_deviceType_0, 
             thumbnailImageUrl = l_thumbnail_0, 
-            titleText = v326, 
-            hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v316.props.hideCloseButton else nil, 
-            actionBarLabelText = v316.props.playButtonContextualMessage, 
-            renderInfoContent = v316.renderInfoContent(l_tokens_0, l_universeId_3, v327, v328, v329, v316.props.creatorVerified or false, v324, v334.plays, v334.totalUpVotes, v334.totalDownVotes), 
-            onClose = v316.onClose
+            titleText = v331, 
+            hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v321.props.hideCloseButton else nil, 
+            actionBarLabelText = v321.props.playButtonContextualMessage, 
+            renderInfoContent = v321.renderInfoContent(l_tokens_0, l_universeId_3, v332, v333, v334, v321.props.creatorVerified or false, v329, v339.plays, v339.totalUpVotes, v339.totalDownVotes), 
+            onClose = v321.onClose
         };
-        local v362;
+        local v367;
         if l_FFlagLuaAppEdpFixDefaultBanner_0 then
-            v362 = v316.props.defaultBannerUrl;
-            if not v362 then
-                local v363 = v316.state.bannerImageId or v316.props.bannerImageId;
-                v362 = if v363 then "rbxassetid://" .. v363 else "";
+            v367 = v321.props.defaultBannerUrl;
+            if not v367 then
+                local v368 = v321.state.bannerImageId or v321.props.bannerImageId;
+                v367 = if v368 then "rbxassetid://" .. v368 else "";
             end;
         else
-            local v364 = v316.state.bannerImageId or v316.props.bannerImageId;
-            v362 = if v364 then "rbxassetid://" .. v364 else "";
+            local v369 = v321.state.bannerImageId or v321.props.bannerImageId;
+            v367 = if v369 then "rbxassetid://" .. v369 else "";
         end;
-        v361.bannerImageUrl = v362;
-        v361.actionBarProps = {
-            iconSize = v316.props.tokens.iconSize, 
-            buttonHeight = v316.props.actionBarHeight, 
+        v366.bannerImageUrl = v367;
+        v366.actionBarProps = {
+            iconSize = v321.props.tokens.iconSize, 
+            buttonHeight = v321.props.actionBarHeight, 
             buttonPadding = l_tokens_0.headerItemPadding, 
-            button = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v316.props.hasUnifiedPlayButtonIxp) then nil else {
-                props = if l_FFlagLuaAppEnablePlaySquadButton_0 and v337.showSquadButton then {
+            button = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v321.props.hasUnifiedPlayButtonIxp) then nil else {
+                props = if l_FFlagLuaAppEnablePlaySquadButton_0 and v342.showSquadButton then {
                     button = {
-                        onActivated = v316.onPlayButtonActivated, 
+                        onActivated = v321.onPlayButtonActivated, 
                         icon = if l_icon_0 then l_Images_0[l_icon_0] else nil, 
                         text = l_buttonText_0, 
-                        isDisabled = v337.isDisabled
+                        isDisabled = v342.isDisabled
                     }, 
                     overflow = {
-                        isDisabled = v337.isSquadButtonDisabled, 
-                        onActivated = v316.props.onPlaySquadButtonActivated
+                        isDisabled = v342.isSquadButtonDisabled, 
+                        onActivated = v321.props.onPlaySquadButtonActivated
                     }, 
-                    size = v316.props.playButtonSize
+                    size = v321.props.playButtonSize
                 } else {
-                    onActivated = v316.onPlayButtonActivated, 
+                    onActivated = v321.onPlayButtonActivated, 
                     icon = if l_icon_0 then l_Images_0[l_icon_0] else nil, 
                     text = l_buttonText_0, 
-                    isDisabled = v337.isDisabled, 
-                    isLoading = v337.isLoading, 
-                    buttonType = v337.buttonType, 
-                    size = v316.props.playButtonSize, 
-                    buttonRef = v316.props.playButtonRef
+                    isDisabled = v342.isDisabled, 
+                    isLoading = v342.isLoading, 
+                    buttonType = v342.buttonType, 
+                    size = v321.props.playButtonSize, 
+                    buttonRef = v321.props.playButtonRef
                 }
             }, 
-            buttonOverride = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v316.props.hasUnifiedPlayButtonIxp) then v6.createElement(l_PlayButton_0, {
+            buttonOverride = if l_FFlagLuaAppUnifyPlayButtonNonMobileEdp_0 and (not l_FFlagLuaAppUnifyPlayButtonAllSurfacesIxp_0 or v321.props.hasUnifiedPlayButtonIxp) then v6.createElement(l_PlayButton_0, {
                 universeId = l_universeId_3, 
-                referralSource = v316.props.referralSource, 
+                referralSource = v321.props.referralSource, 
                 launchSource = "ExperienceDetailsPage", 
                 fillBehavior = "Fill", 
-                experienceJoinData = v316.props.experienceJoinData, 
-                placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v316.props.placeIdOverride else nil, 
-                buttonSize = if v322 then l_ButtonSize_0.Medium else l_ButtonSize_0.Large, 
-                squadButtonHeight = UDim.new(0, v316.props.actionBarHeight), 
+                experienceJoinData = v321.props.experienceJoinData, 
+                placeId = if l_FFlagLuaAppEnableCustomSpawnSponsored_0 then v321.props.placeIdOverride else nil, 
+                buttonSize = if v327 then l_ButtonSize_0.Medium else l_ButtonSize_0.Large, 
+                squadButtonHeight = UDim.new(0, v321.props.actionBarHeight), 
                 testId = "--experience-details--play-button"
             }) else nil, 
-            icons = v356, 
-            textButtons = v357
+            icons = v361, 
+            textButtons = v362
         };
-        v361.actionBarWidth = if l_FFlagLuaAppEnablePlaySquadButton_0 and v337.showSquadButton then v316.applyTokenScaling(420) else v316.applyTokenScaling(380);
-        v361.actionBarHeight = v316.props.actionBarHeight;
-        v361.componentList = v316.getBodyComponentListProps(l_universeId_3, v316.props.gameDetailsPageDataStatus, v324, v325, v334.plays, v334.visits, l_socialLinks_0, l_communityLink_0, v316.props.communityLinksEnabled, v316.props.communityLinkVariant, v316.props.detailsPageConfiguration or v123, l_isFullscreen_0, v322, v316.props.bannerImageId, if v316.props.gameDetail then v316.props.gameDetail.refundPolicy else nil, if l_FFlagLuaAppShowNoticeOnEdp_0 then v316.props.experienceDetailsNoticeType else nil, if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui() then v316.props.sduiFeedItemConfigs else nil, if l_FFlagLuaAppAddIgrsRatingToEdp_0 then v331 else nil, if l_FFlagLuaAppAddIgrsRatingToEdp_0 then v332 else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v316.props.webViewSupport else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v316.props.openWebview else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v316.props.linking else nil);
-        v361.isFullscreen = l_isFullscreen_0;
-        v361.renderFullscreenContent = v316.renderFullscreenContent(l_universeId_3, l_mediaGalleryShowIndex_0, l_isFullscreen_0, l_isCrossFade_0, l_currentIndex_0, l_nextIndex_0);
-        v361.sideMargin = v348;
-        v361.startingOffsetPosition = v350;
-        v361.thumbnailHeight = v347;
-        v361.headerBarBackgroundHeight = v349;
-        v361.dualPanelBreakpoint = 1e999;
-        v361.maxContentWidth = 850;
-        v361.tokens = if l_tokens_0 then {
+        v366.actionBarWidth = if l_FFlagLuaAppEnablePlaySquadButton_0 and v342.showSquadButton then v321.applyTokenScaling(420) else v321.applyTokenScaling(380);
+        v366.actionBarHeight = v321.props.actionBarHeight;
+        v366.componentList = v321.getBodyComponentListProps(l_universeId_3, v321.props.gameDetailsPageDataStatus, v329, v330, v339.plays, v339.visits, l_socialLinks_0, l_communityLink_0, v321.props.communityLinksEnabled, v321.props.communityLinkVariant, v321.props.detailsPageConfiguration or v128, l_isFullscreen_0, v327, v321.props.bannerImageId, if v321.props.gameDetail then v321.props.gameDetail.refundPolicy else nil, if l_FFlagLuaAppShowNoticeOnEdp_0 then v321.props.experienceDetailsNoticeType else nil, if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v42.getShouldInterleaveSdui() then v321.props.sduiFeedItemConfigs else nil, if l_FFlagLuaAppAddIgrsRatingToEdp_0 then v336 else nil, if l_FFlagLuaAppAddIgrsRatingToEdp_0 then v337 else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v321.props.webViewSupport else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v321.props.openWebview else nil, if l_FFlagLuaAppIgrsRatingPropMemoization_0 then v321.props.linking else nil);
+        v366.isFullscreen = l_isFullscreen_0;
+        v366.renderFullscreenContent = v321.renderFullscreenContent(l_universeId_3, l_mediaGalleryShowIndex_0, l_isFullscreen_0, l_isCrossFade_0, l_currentIndex_0, l_nextIndex_0);
+        v366.sideMargin = v353;
+        v366.startingOffsetPosition = v355;
+        v366.thumbnailHeight = v352;
+        v366.headerBarBackgroundHeight = v354;
+        v366.dualPanelBreakpoint = 1e999;
+        v366.maxContentWidth = 850;
+        v366.tokens = if l_tokens_0 then {
             thumbnailMargin = l_tokens_0.thumbnailMargin, 
             thumbnailShadowHeight = l_tokens_0.thumbnailShadowHeight, 
             headerGradientHeight = l_tokens_0.headerGradientHeight, 
@@ -1496,128 +1501,132 @@ v120.renderOnLoaded = function(v316) --[[ Line: 1561 ]] --[[ Name: renderOnLoade
             itemPadding = l_tokens_0.itemPadding, 
             safeAreaSize = l_tokens_0.safeAreaSize, 
             trailingWhitespace = l_tokens_0.trailingWhitespace, 
-            actionBarHeight = v316.props.actionBarHeight
+            actionBarHeight = v321.props.actionBarHeight
         } else nil;
-        v361.disableStickyActionBar = v316.props.disableStickyActionBar;
-        v361.containerRef = v316.props.containerRef;
+        v366.disableStickyActionBar = v321.props.disableStickyActionBar;
+        v366.containerRef = v321.props.containerRef;
         return v6.createElement(l_DetailsPageSelector_0, {
             deviceType = l_deviceType_0, 
-            detailsPageProps = v361
+            detailsPageProps = v366
         });
     end);
 end;
-return function(v365) --[[ Line: 1937 ]] --[[ Name: ExperienceDetailsPageFn ]]
-    -- upvalues: l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v42 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), v77 (copy), v78 (copy), v118 (copy), v119 (copy), v76 (copy), v79 (copy), l_useUiModeInfo_0 (copy), v27 (copy), v5 (copy), l_UiMode_0 (copy), l_useTokens_0 (copy), l_FFlagLuaAppFixEdpInitialFocus_0 (copy), v11 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_useCloseWithBackButton_0 (copy), v6 (copy), v120 (copy), v7 (copy)
-    local v366 = nil;
+return function(v370) --[[ Line: 1943 ]] --[[ Name: ExperienceDetailsPageFn ]]
+    -- upvalues: l_FFlagEDPTTITrackingEnabled_0 (copy), l_useFirstMediaCarouselImageUri_0 (copy), v84 (copy), l_EDPTTIConstants_0 (copy), l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 (copy), v42 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 (copy), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 (copy), v77 (copy), v78 (copy), v123 (copy), v124 (copy), v76 (copy), v79 (copy), l_useUiModeInfo_0 (copy), v27 (copy), v5 (copy), l_UiMode_0 (copy), l_useTokens_0 (copy), l_FFlagLuaAppFixEdpInitialFocus_0 (copy), v11 (copy), l_FFlagHideCloseButtonEdp_0 (copy), l_useCloseWithBackButton_0 (copy), v6 (copy), v125 (copy), v7 (copy)
+    if l_FFlagEDPTTITrackingEnabled_0 then
+        local v371 = l_useFirstMediaCarouselImageUri_0(v370.universeId);
+        v84(l_EDPTTIConstants_0.EDP_IMPLEMENTATION.LEGACY_FULL_PAGE, v370.universeId, v371);
+    end;
+    local v372 = nil;
     if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then
-        v366 = v42.getShouldHydrateLegacy();
+        v372 = v42.getShouldHydrateLegacy();
     end;
-    local v367 = nil;
+    local v373 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-        v367 = v42.getShouldInterleaveSdui();
+        v373 = v42.getShouldInterleaveSdui();
     end;
-    local v368 = nil;
-    local v369 = nil;
+    local v374 = nil;
+    local v375 = nil;
     if l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then
-        local v370 = v77.useSduiContextFromSignalAndProcessConfigs(v78.getUnprocessedEdpStoreKey((tostring(v365.universeId))), v78.getEdpStoreKey((tostring(v365.universeId))), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v367);
-        v368 = v77.useSduiEdpFeedItemConfigs({
-            sduiContext = v370, 
-            storeKey = v78.getEdpStoreKey((tostring(v365.universeId))), 
-            portraitLayoutConfig = v118, 
-            landscapeLayoutConfig = v119, 
-            defaultLayoutOrder = v118.SduiFeedItemsDefault, 
+        local v376 = v77.useSduiContextFromSignalAndProcessConfigs(v78.getUnprocessedEdpStoreKey((tostring(v370.universeId))), v78.getEdpStoreKey((tostring(v370.universeId))), l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v373);
+        v374 = v77.useSduiEdpFeedItemConfigs({
+            sduiContext = v376, 
+            storeKey = v78.getEdpStoreKey((tostring(v370.universeId))), 
+            portraitLayoutConfig = v123, 
+            landscapeLayoutConfig = v124, 
+            defaultLayoutOrder = v123.SduiFeedItemsDefault, 
             logLayoutConflictFn = v76.logSduiLayoutOrderConflict, 
-            shouldInterleaveSdui = l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v367
+            shouldInterleaveSdui = l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v373
         });
-        v369 = v79();
+        v375 = v79();
     end;
-    local v371 = l_useUiModeInfo_0();
-    local v372 = v27.useFocusGuiObject();
-    local v373, v374 = v5.useState(nil);
-    local v375 = if v365.tokens then v365.tokens.iconSize else 0;
-    local v376 = if v371.uiMode == l_UiMode_0.TenFoot then UDim2.fromOffset(v375, v375) else nil;
-    local v377 = UDim2.fromOffset(0, v375);
-    local v378 = v365.tokens and v365.tokens.actionBarHeight or v375;
-    local v379 = UDim2.new(1, 0, 0, v378);
-    local v380 = l_useTokens_0();
-    local v381 = nil;
-    local v382 = nil;
+    local v377 = l_useUiModeInfo_0();
+    local v378 = v27.useFocusGuiObject();
+    local v379, v380 = v5.useState(nil);
+    local v381 = if v370.tokens then v370.tokens.iconSize else 0;
+    local v382 = if v377.uiMode == l_UiMode_0.TenFoot then UDim2.fromOffset(v381, v381) else nil;
+    local v383 = UDim2.fromOffset(0, v381);
+    local v384 = v370.tokens and v370.tokens.actionBarHeight or v381;
+    local v385 = UDim2.new(1, 0, 0, v384);
+    local v386 = l_useTokens_0();
+    local v387 = nil;
+    local v388 = nil;
     if l_FFlagLuaAppFixEdpInitialFocus_0 then
-        v382 = v5.useRef(nil);
-        v382.current = v11.usePreferredInput() == v11.Input.Directional;
+        v388 = v5.useRef(nil);
+        v388.current = v11.usePreferredInput() == v11.Input.Directional;
     end;
-    local v383 = if l_FFlagLuaAppFixEdpInitialFocus_0 then v382.current else v11.usePreferredInput() == v11.Input.Directional;
+    local v389 = if l_FFlagLuaAppFixEdpInitialFocus_0 then v388.current else v11.usePreferredInput() == v11.Input.Directional;
     if l_FFlagHideCloseButtonEdp_0 then
-        v381 = v383;
+        v387 = v389;
     end;
-    local v384 = nil;
+    local v390 = nil;
     if l_FFlagLuaAppFixEdpInitialFocus_0 then
-        v374 = l_useCloseWithBackButton_0(v374, v365.onClose);
-        local v385 = nil;
-        local v386, v387 = v5.useState(nil);
-        v385 = v386;
-        v384 = v387;
-        v386 = v5.useRef(nil);
+        v380 = l_useCloseWithBackButton_0(v380, v370.onClose);
+        local v391 = nil;
+        local v392, v393 = v5.useState(nil);
+        v391 = v392;
+        v390 = v393;
+        v392 = v5.useRef(nil);
         do
-            local l_v385_0 = v385;
-            v5.useEffect(function() --[[ Line: 2010 ]]
-                -- upvalues: l_v385_0 (ref), v386 (copy), v382 (ref), v372 (copy)
-                if l_v385_0 == nil then
-                    v386.current = false;
+            local l_v391_0 = v391;
+            v5.useEffect(function() --[[ Line: 2021 ]]
+                -- upvalues: l_v391_0 (ref), v392 (copy), v388 (ref), v378 (copy)
+                if l_v391_0 == nil then
+                    v392.current = false;
                     return;
                 else
-                    if l_v385_0 and v382.current and not v386.current then
-                        v372(l_v385_0);
-                        v386.current = true;
+                    if l_v391_0 and v388.current and not v392.current then
+                        v378(l_v391_0);
+                        v392.current = true;
                     end;
                     return;
                 end;
             end, {
-                l_v385_0, 
-                v372
+                l_v391_0, 
+                v378
             });
-            v5.useEffect(function() --[[ Line: 2022 ]]
-                -- upvalues: v373 (copy)
-                local v389 = -1;
-                local v390 = nil;
-                if v373 then
-                    v390 = v373.SelectionChanged:Connect(function(_, v392, v393) --[[ Line: 2026 ]]
-                        -- upvalues: v373 (ref), v389 (ref)
-                        if v393 == nil or v392 == nil or not v393:IsDescendantOf(v373) or not v392:IsDescendantOf(v373) then
+            v5.useEffect(function() --[[ Line: 2033 ]]
+                -- upvalues: v379 (copy)
+                local v395 = -1;
+                local v396 = nil;
+                if v379 then
+                    v396 = v379.SelectionChanged:Connect(function(_, v398, v399) --[[ Line: 2037 ]]
+                        -- upvalues: v379 (ref), v395 (ref)
+                        if v399 == nil or v398 == nil or not v399:IsDescendantOf(v379) or not v398:IsDescendantOf(v379) then
                             return;
                         else
-                            v393.SelectionOrder = v389;
-                            v389 = v389 - 1;
+                            v399.SelectionOrder = v395;
+                            v395 = v395 - 1;
                             return;
                         end;
                     end);
                 end;
-                return function() --[[ Line: 2040 ]]
-                    -- upvalues: v390 (ref)
-                    if v390 then
-                        v390:Disconnect();
+                return function() --[[ Line: 2051 ]]
+                    -- upvalues: v396 (ref)
+                    if v396 then
+                        v396:Disconnect();
                     end;
                 end;
             end, {
-                v373
+                v379
             });
         end;
     end;
-    return v6.createElement(v120, v7.Dictionary.join({
-        foundationTokens = v380, 
-        uiModeInfo = v371, 
-        focusGuiObject = v372, 
-        iconButtonSize = v376, 
-        textButtonSize = v377, 
-        playButtonSize = v379, 
-        actionBarHeight = v378, 
-        playButtonRef = if l_FFlagLuaAppFixEdpInitialFocus_0 then v384 else nil, 
-        containerRef = v374, 
-        sduiFeedItemConfigs = if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v367 then v368 else nil, 
-        disableStickyActionBar = v383, 
-        hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v381 else nil, 
-        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v366 else nil, 
-        shouldInterleaveSduiIxp = if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v367 else nil, 
-        edpServerIxpVariables = if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v367 then v369 else nil
-    }, v365));
+    return v6.createElement(v125, v7.Dictionary.join({
+        foundationTokens = v386, 
+        uiModeInfo = v377, 
+        focusGuiObject = v378, 
+        iconButtonSize = v382, 
+        textButtonSize = v383, 
+        playButtonSize = v385, 
+        actionBarHeight = v384, 
+        playButtonRef = if l_FFlagLuaAppFixEdpInitialFocus_0 then v390 else nil, 
+        containerRef = v380, 
+        sduiFeedItemConfigs = if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v373 then v374 else nil, 
+        disableStickyActionBar = v389, 
+        hideCloseButton = if l_FFlagHideCloseButtonEdp_0 then v387 else nil, 
+        shouldHydrateLegacyIxp = if l_FFlagLuaAppEdpBackendV2HydrateLegacyIxp_0 then v372 else nil, 
+        shouldInterleaveSduiIxp = if l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 then v373 else nil, 
+        edpServerIxpVariables = if not not l_FFlagLuaAppEdpBackendV2SduiInterleaveDefault_0 or l_FFlagLuaAppEdpBackendV2SduiInterleaveIxp_0 and v373 then v375 else nil
+    }, v370));
 end;

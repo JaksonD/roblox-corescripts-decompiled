@@ -49,21 +49,21 @@ local function v23(v20) --[[ Line: 48 ]] --[[ Name: renderAmpWizard ]]
     v15:render(v3.createElement(l_InExperienceProviderContainer_0, {}, v3.createElement(v19, v20)));
 end;
 return {
-    OpenAmpWizardContainerInExp = function(v24, v25, v26, v27, v28) --[[ Line: 63 ]] --[[ Name: OpenAmpWizardContainerInExp ]]
+    OpenAmpWizardContainerInExp = function(v24, v25, v26, v27, v28, v29) --[[ Line: 63 ]] --[[ Name: OpenAmpWizardContainerInExp ]]
         -- upvalues: v11 (copy), l_HttpService_0 (copy), l_GetFFlagInExperienceContainerScreenSizeReducer_0 (copy), l_GetFFlagMoveAmpUpsellOffNavigateDown_0 (copy), v15 (ref), v23 (copy)
         if v11() then
-            task.delay(0.5, function() --[[ Line: 71 ]]
+            task.delay(0.5, function() --[[ Line: 72 ]]
                 -- upvalues: v25 (copy), l_HttpService_0 (ref)
                 if v25 then
                     local l_game_FastString_0 = game:GetFastString("DummyAMPWizardAccessResponse");
                     local l_game_FastString_1 = game:GetFastString("DummyAMPWizardActionsTakenJSON");
-                    local v31 = {};
-                    if pcall(function() --[[ Line: 77 ]]
+                    local v32 = {};
+                    if pcall(function() --[[ Line: 78 ]]
                         -- upvalues: l_HttpService_0 (ref), l_game_FastString_1 (copy)
                         l_HttpService_0:JSONDecode(l_game_FastString_1);
                     end) then
-                        v31 = l_HttpService_0:JSONDecode(l_game_FastString_1);
-                        v25(l_game_FastString_0, v31);
+                        v32 = l_HttpService_0:JSONDecode(l_game_FastString_1);
+                        v25(l_game_FastString_0, v32);
                     else
                         print("Failed to decode DummyWizardActionsTakenJSON, not calling completionCallback");
                         return;
@@ -72,22 +72,23 @@ return {
             end);
             return;
         elseif l_GetFFlagInExperienceContainerScreenSizeReducer_0() and l_GetFFlagMoveAmpUpsellOffNavigateDown_0() then
-            local v34 = {
-                nameSpace = v28, 
+            local v35 = {
+                nameSpace = v29, 
                 featureName = v24, 
-                completionCallback = function(v32, v33) --[[ Line: 93 ]] --[[ Name: completionCallback ]]
+                completionCallback = function(v33, v34) --[[ Line: 94 ]] --[[ Name: completionCallback ]]
                     -- upvalues: v15 (ref), v25 (copy)
                     if v15 then
                         v15:render(nil);
                     end;
                     if v25 then
-                        v25(v32, v33);
+                        v25(v33, v34);
                     end;
                 end, 
                 recourseData = v26, 
-                entryPointEventCtx = v27
+                entryPointEventCtx = v27, 
+                extraParameters = v28
             };
-            v23(v34);
+            v23(v35);
             return;
         else
             print("InExpAmpWizardController: OpenAmpWizardContainerInExp called without necessary flags");

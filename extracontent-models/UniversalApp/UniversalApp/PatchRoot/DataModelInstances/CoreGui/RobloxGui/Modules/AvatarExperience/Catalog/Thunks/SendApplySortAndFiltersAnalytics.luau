@@ -5,7 +5,7 @@ local v3 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
 local v4 = require(l_Modules_0.AvatarExperience.Common.Enum.SortType);
 local v5 = require(l_Modules_0.AvatarExperience.Common.Enum.SalesTypeFilter);
 local v6 = require(l_Modules_0.AvatarExperience.Common.Enum.UnavailableItemFilter);
-local v7 = require(l_Modules_0.AvatarExperience.Common.Actions.AddAnalyticsMetadata);
+local l_AddAnalyticsMetadata_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Actions.AddAnalyticsMetadata;
 local l_UnifiedEventLogEnums_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventLogEnums;
 local v9 = game:DefineFastFlag("AXUpdateAnalyticsFiltersEnums", false);
 local v10 = game:DefineFastFlag("AXDeprecateAnalyticsFiltersEnums", false);
@@ -21,17 +21,17 @@ local v11 = {
     MostFavoritedPastWeek = l_UnifiedEventLogEnums_0.Sort.MOST_FAVORITED_PAST_WEEK, 
     MostFavoritedPastDay = l_UnifiedEventLogEnums_0.Sort.MOST_FAVORITED_PAST_DAY
 };
-local function _(v12, v13) --[[ Line: 35 ]] --[[ Name: getEnumValue ]]
+local function _(v12, v13) --[[ Line: 36 ]] --[[ Name: getEnumValue ]]
     -- upvalues: v11 (copy)
     if not v13 then
         v13 = "";
     end;
     return v11[v12 .. v13];
 end;
-return function(v15) --[[ Line: 43 ]]
-    -- upvalues: v2 (copy), v3 (copy), v4 (copy), v5 (copy), v6 (copy), v7 (copy), v10 (copy), v11 (copy), v9 (copy), l_UnifiedEventLogEnums_0 (copy)
-    return function(v16) --[[ Line: 44 ]]
-        -- upvalues: v2 (ref), v3 (ref), v4 (ref), v5 (ref), v6 (ref), v7 (ref), v10 (ref), v11 (ref), v9 (ref), l_UnifiedEventLogEnums_0 (ref), v15 (copy)
+return function(v15) --[[ Line: 44 ]]
+    -- upvalues: v2 (copy), v3 (copy), v4 (copy), v5 (copy), v6 (copy), l_AddAnalyticsMetadata_0 (copy), v10 (copy), v11 (copy), v9 (copy), l_UnifiedEventLogEnums_0 (copy)
+    return function(v16) --[[ Line: 45 ]]
+        -- upvalues: v2 (ref), v3 (ref), v4 (ref), v5 (ref), v6 (ref), l_AddAnalyticsMetadata_0 (ref), v10 (ref), v11 (ref), v9 (ref), l_UnifiedEventLogEnums_0 (ref), v15 (copy)
         local v17 = v16:getState();
         local v18 = v2.selectMinPrice(v17);
         if v18 == v3.MinPriceFilter then
@@ -53,12 +53,12 @@ return function(v15) --[[ Line: 43 ]]
         end;
         local v24 = v2.selectUnavailableItemFilter(v17) == v6.Show or nil;
         if v20 then
-            v16:dispatch(v7({
+            v16:dispatch(l_AddAnalyticsMetadata_0({
                 sortEnumValue = if v10 then nil else v11[v20 .. (v21 or "")], 
                 sort = if v9 then v11[v20 .. (v21 or "")] else nil
             }));
         end;
-        v16:dispatch(v7({
+        v16:dispatch(l_AddAnalyticsMetadata_0({
             filterSalesTypeEnumValue = if v10 then nil else if v22 == v5.Collectibles then l_UnifiedEventLogEnums_0.FiltersSalesType.SALES_TYPE_LIMITED else l_UnifiedEventLogEnums_0.FiltersSalesType.SALES_TYPE_ALL, 
             filterCreatorsTypeEnumValue = if v10 then nil else if v23 then l_UnifiedEventLogEnums_0.FiltersCreators.CREATORS_BY_USERNAME else l_UnifiedEventLogEnums_0.FiltersCreators.CREATORS_ALL, 
             filterPriceEnumValue = if v10 then nil else if v18 or v19 then l_UnifiedEventLogEnums_0.FiltersPrice.PRICE_RANGE else l_UnifiedEventLogEnums_0.FiltersPrice.PRICE_ANY, 

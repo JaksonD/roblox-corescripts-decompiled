@@ -17,7 +17,8 @@ local v15 = require(l_script_FirstAncestor_0.Linker.useLinkerOnActivated);
 local v16 = require(l_script_FirstAncestor_0.Enums.LinkType);
 local v17 = require(l_script_FirstAncestor_0.Enums.LinkBehavior);
 local v18 = require(l_script_FirstAncestor_0.Linker.getLinkType);
-local function v20(v19) --[[ Line: 49 ]] --[[ Name: createDefaultRootNode ]]
+local l_FFlagInlineRichTextVerticalPaddingFix_0 = require(l_Parent_0.SharedFlags).FFlagInlineRichTextVerticalPaddingFix;
+local function v21(v20) --[[ Line: 51 ]] --[[ Name: createDefaultRootNode ]]
     -- upvalues: v8 (copy)
     return {
         name = "ROOT", 
@@ -31,7 +32,7 @@ local function v20(v19) --[[ Line: 49 ]] --[[ Name: createDefaultRootNode ]]
                 children = {
                     {
                         name = "PLAINTEXT", 
-                        text = v19, 
+                        text = v20, 
                         type = v8.Plaintext, 
                         children = {}, 
                         attributes = {}, 
@@ -46,98 +47,98 @@ local function v20(v19) --[[ Line: 49 ]] --[[ Name: createDefaultRootNode ]]
         index = 0
     };
 end;
-local v21 = {
+local v22 = {
     TEXT_SPAN = v11, 
     LINK = v12, 
     ICON = v13, 
     BREAK = v14
 };
-local v22 = {
+local v23 = {
     [v16.Http] = v17.Webview, 
     [v16.LinkingProtocolRegistered] = v17.LinkingProtocol, 
     [v16.Default] = v17.ErrorToast
 };
-local v25 = {
-    evaluateLinkBehavior = function(_, v24) --[[ Line: 90 ]] --[[ Name: evaluateLinkBehavior ]]
-        -- upvalues: v22 (copy), v17 (copy)
-        return v22[v24] or v17.ErrorToast;
+local v26 = {
+    evaluateLinkBehavior = function(_, v25) --[[ Line: 92 ]] --[[ Name: evaluateLinkBehavior ]]
+        -- upvalues: v23 (copy), v17 (copy)
+        return v23[v25] or v17.ErrorToast;
     end, 
     errorToastText = nil
 };
-return function(v26) --[[ Line: 96 ]] --[[ Name: InlineRichTextRenderer ]]
-    -- upvalues: v5 (copy), v9 (copy), v2 (copy), v20 (copy), v4 (copy), v3 (copy), v25 (copy), v15 (copy), v18 (copy), v21 (copy), v10 (copy), l_InlineLayout_0 (copy)
-    local l_ast_0 = v26.ast;
-    local l_text_0 = v26.text;
-    local v31 = v5.useMemo(function() --[[ Line: 99 ]]
-        -- upvalues: l_ast_0 (copy), v9 (ref), l_text_0 (copy), v26 (copy), v2 (ref), v20 (ref)
+return function(v27) --[[ Line: 98 ]] --[[ Name: InlineRichTextRenderer ]]
+    -- upvalues: v5 (copy), v9 (copy), v2 (copy), v21 (copy), v4 (copy), v3 (copy), v26 (copy), v15 (copy), v18 (copy), v22 (copy), v10 (copy), l_InlineLayout_0 (copy), l_FFlagInlineRichTextVerticalPaddingFix_0 (copy)
+    local l_ast_0 = v27.ast;
+    local l_text_0 = v27.text;
+    local v32 = v5.useMemo(function() --[[ Line: 101 ]]
+        -- upvalues: l_ast_0 (copy), v9 (ref), l_text_0 (copy), v27 (copy), v2 (ref), v21 (ref)
         if l_ast_0 then
             return l_ast_0;
         else
-            local v29, v30 = v9(l_text_0, v26.parserOptions);
-            if not v29 then
-                v2:warning((("Error parsing XML input into AST: %*"):format(v30)));
-                return (v20(l_text_0));
+            local v30, v31 = v9(l_text_0, v27.parserOptions);
+            if not v30 then
+                v2:warning((("Error parsing XML input into AST: %*"):format(v31)));
+                return (v21(l_text_0));
             else
-                return v30;
+                return v31;
             end;
         end;
     end, {
         l_text_0, 
         l_ast_0
     });
-    local v32 = v4.Hooks.useTokens();
-    local l_Default_0 = v32.Color.Content.Default;
-    local v34 = {
+    local v33 = v4.Hooks.useTokens();
+    local l_Default_0 = v33.Color.Content.Default;
+    local v35 = {
         Font = Enum.Font.BuilderSans, 
-        FontSize = v32.FontSize.FontSize_400, 
-        LineHeight = v32.LineHeight.LineHeight_140
+        FontSize = v33.FontSize.FontSize_400, 
+        LineHeight = v33.LineHeight.LineHeight_140
     };
-    local v35 = v3.Dictionary.union(v25, v26.linkerOptions or {});
-    local v36 = v15({
-        errorToastTextOverride = v35.errorToastText
+    local v36 = v3.Dictionary.union(v26, v27.linkerOptions or {});
+    local v37 = v15({
+        errorToastTextOverride = v36.errorToastText
     });
-    local v38 = v5.useCallback(function(v37) --[[ Line: 123 ]]
-        -- upvalues: v35 (copy), v18 (ref)
-        return v35.evaluateLinkBehavior(v37, v18(v37));
+    local v39 = v5.useCallback(function(v38) --[[ Line: 125 ]]
+        -- upvalues: v36 (copy), v18 (ref)
+        return v36.evaluateLinkBehavior(v38, v18(v38));
     end, {
-        v35.evaluateLinkBehavior
+        v36.evaluateLinkBehavior
     });
-    local v39 = v5.useMemo(function() --[[ Line: 128 ]]
-        -- upvalues: v3 (ref), v21 (ref), v26 (copy), v10 (ref), l_Default_0 (copy), v34 (copy), v32 (copy), v36 (copy), v38 (copy)
+    local v40 = v5.useMemo(function() --[[ Line: 130 ]]
+        -- upvalues: v3 (ref), v22 (ref), v27 (copy), v10 (ref), l_Default_0 (copy), v35 (copy), v33 (copy), v37 (copy), v39 (copy)
         return {
-            inlineCustomRenderers = v3.Dictionary.join(v21, v26.renderers or {}), 
+            inlineCustomRenderers = v3.Dictionary.join(v22, v27.renderers or {}), 
             processChildren = v10, 
-            nodeProps = v26.nodeProps or {}, 
+            nodeProps = v27.nodeProps or {}, 
             styles = {
-                textStyle = v3.Dictionary.union(l_Default_0, v26.textStyle or {}), 
-                fontStyle = v3.Dictionary.union(v34, v26.fontStyle or {})
+                textStyle = v3.Dictionary.union(l_Default_0, v27.textStyle or {}), 
+                fontStyle = v3.Dictionary.union(v35, v27.fontStyle or {})
             }, 
-            tokens = v32, 
+            tokens = v33, 
             linker = {
-                onActivated = v36, 
-                evaluateLinkBehavior = v38
+                onActivated = v37, 
+                evaluateLinkBehavior = v39
             }
         };
     end, {
-        v26.renderers, 
-        v26.nodeProps, 
-        v26.textStyle, 
-        v26.fontStyle, 
-        v36, 
-        v38
-    });
-    local v40 = v5.useMemo(function() --[[ Line: 153 ]]
-        -- upvalues: v10 (ref), v31 (copy), v39 (copy)
-        return v10(v31, v39);
-    end, {
-        v31 and v31.children, 
+        v27.renderers, 
+        v27.nodeProps, 
+        v27.textStyle, 
+        v27.fontStyle, 
+        v37, 
         v39
     });
-    return v5.createElement(v4.View, v26.wrapperProps, {
+    local v41 = v5.useMemo(function() --[[ Line: 155 ]]
+        -- upvalues: v10 (ref), v32 (copy), v40 (copy)
+        return v10(v32, v40);
+    end, {
+        v32 and v32.children, 
+        v40
+    });
+    return v5.createElement(v4.View, v27.wrapperProps, {
         RichTextRoot = v5.createElement(l_InlineLayout_0, {
-            Elements = v40, 
-            HorizontalAlignment = v26.HorizontalAlignment, 
-            VerticalPadding = UDim.new((v39.styles.fontStyle.LineHeight - 1) / 2, 0)
+            Elements = v41, 
+            HorizontalAlignment = v27.HorizontalAlignment, 
+            VerticalPadding = if l_FFlagInlineRichTextVerticalPaddingFix_0 then UDim.new(0, v40.styles.fontStyle.FontSize * (v40.styles.fontStyle.LineHeight - 1) / 2) else UDim.new((v40.styles.fontStyle.LineHeight - 1) / 2, 0)
         })
     });
 end;

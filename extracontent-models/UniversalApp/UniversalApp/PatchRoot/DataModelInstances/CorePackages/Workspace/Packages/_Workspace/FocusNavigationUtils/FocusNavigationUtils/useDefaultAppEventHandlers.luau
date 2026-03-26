@@ -20,7 +20,7 @@ local function _(v13) --[[ Line: 21 ]] --[[ Name: getScrollableAncestor ]]
         return v13:FindFirstAncestorWhichIsA("ScrollingFrame");
     end;
 end;
-local function v18(v15, v16) --[[ Line: 32 ]] --[[ Name: scrollTo ]]
+local function _(v15, v16) --[[ Line: 32 ]] --[[ Name: scrollTo ]]
     if v15 ~= nil then
         local v17 = v15.AbsoluteCanvasSize.Y - v15.AbsoluteWindowSize.Y;
         if v16 > 0 and v15.CanvasPosition.Y >= v17 - 350 then
@@ -35,7 +35,7 @@ local function v18(v15, v16) --[[ Line: 32 ]] --[[ Name: scrollTo ]]
     end;
 end;
 useDefaultAppEventHandlers = function() --[[ Line: 51 ]] --[[ Name: useDefaultAppEventHandlers ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useRegistryEntry_0 (copy), v10 (copy), l_useFocusRegistryEntry_0 (copy), v11 (copy), l_useSelector_0 (copy), v3 (copy), v2 (copy), v8 (copy), v4 (copy), l_canGoBack_0 (copy), v18 (copy)
+    -- upvalues: l_useNavigation_0 (copy), l_useRegistryEntry_0 (copy), v10 (copy), l_useFocusRegistryEntry_0 (copy), v11 (copy), l_useSelector_0 (copy), v3 (copy), v2 (copy), v8 (copy), v4 (copy), l_canGoBack_0 (copy)
     local v19 = l_useNavigation_0();
     local v20 = l_useRegistryEntry_0(v10.SearchBar);
     local v21 = l_useFocusRegistryEntry_0(v10.SearchBar);
@@ -49,7 +49,7 @@ useDefaultAppEventHandlers = function() --[[ Line: 51 ]] --[[ Name: useDefaultAp
     local v28 = if v27 == nil then nil else if v27:IsA("ScrollingFrame") then v27 else v27:FindFirstAncestorWhichIsA("ScrollingFrame");
     local v29 = v28 ~= nil;
     return (v2.useMemo(function() --[[ Line: 66 ]]
-        -- upvalues: v24 (copy), v8 (ref), v4 (ref), l_canGoBack_0 (ref), v19 (copy), v26 (copy), v22 (copy), v21 (copy), v20 (copy), v29 (copy), v18 (ref), v28 (copy)
+        -- upvalues: v24 (copy), v8 (ref), v4 (ref), l_canGoBack_0 (ref), v19 (copy), v26 (copy), v22 (copy), v21 (copy), v20 (copy), v29 (copy), v28 (copy)
         local v30 = {};
         if not v24 then
             v30[v8.NavigateBack] = {
@@ -84,14 +84,32 @@ useDefaultAppEventHandlers = function() --[[ Line: 51 ]] --[[ Name: useDefaultAp
         if v29 then
             v30[v8.ScrollDown] = {
                 handler = v4.onRelease(function(_) --[[ Line: 100 ]]
-                    -- upvalues: v18 (ref), v28 (ref)
-                    v18(v28, 300);
+                    -- upvalues: v28 (ref)
+                    local l_v28_0 = v28;
+                    if l_v28_0 ~= nil then
+                        local v36 = l_v28_0.AbsoluteCanvasSize.Y - l_v28_0.AbsoluteWindowSize.Y;
+                        if l_v28_0.CanvasPosition.Y >= v36 - 350 then
+                            l_v28_0.CanvasPosition = Vector2.new(0, v36);
+                            return;
+                        else
+                            l_v28_0.CanvasPosition = l_v28_0.CanvasPosition + Vector2.new(0, 300);
+                        end;
+                    end;
                 end)
             };
             v30[v8.ScrollUp] = {
                 handler = v4.onRelease(function(_) --[[ Line: 105 ]]
-                    -- upvalues: v18 (ref), v28 (ref)
-                    v18(v28, -300);
+                    -- upvalues: v28 (ref)
+                    local l_v28_1 = v28;
+                    if l_v28_1 ~= nil then
+                        local _ = l_v28_1.AbsoluteCanvasSize.Y - l_v28_1.AbsoluteWindowSize.Y;
+                        if l_v28_1.CanvasPosition.Y <= 350 then
+                            l_v28_1.CanvasPosition = Vector2.new(0, 0);
+                            return;
+                        else
+                            l_v28_1.CanvasPosition = l_v28_1.CanvasPosition + Vector2.new(0, -300);
+                        end;
+                    end;
                 end)
             };
         end;

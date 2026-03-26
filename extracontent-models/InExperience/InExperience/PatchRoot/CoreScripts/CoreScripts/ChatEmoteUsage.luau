@@ -160,7 +160,7 @@ local function _(v50, v51, v52) --[[ Line: 166 ]] --[[ Name: getLegacyEmoteUsed 
     };
 end;
 l_LocalPlayer_0.Chatted:Connect(function(v55, _) --[[ Line: 175 ]]
-    -- upvalues: v49 (copy), l_LocalPlayer_0 (copy), v33 (copy), v39 (copy), v9 (copy), v6 (copy), v12 (copy), v5 (copy)
+    -- upvalues: v49 (copy), l_LocalPlayer_0 (copy), v33 (copy), v39 (copy), v9 (copy), v6 (copy), v12 (copy), v5 (copy), l_RbxAnalyticsService_0 (copy), l_Stats_0 (copy)
     local v57 = false;
     local v58 = if string.sub(v55, 1, 3) == "/e " then string.sub(v55, 4):lower() else if string.sub(v55, 1, 7) == "/emote " then string.sub(v55, 8):lower() else nil;
     if v58 then
@@ -213,7 +213,16 @@ l_LocalPlayer_0.Chatted:Connect(function(v55, _) --[[ Line: 175 ]]
                     v12(v71, l_v59_0);
                 end);
             else
-                v12(v5.ErrorTypes.NoMatchingEmote);
+                local l_NoMatchingEmote_0 = v5.ErrorTypes.NoMatchingEmote;
+                l_RbxAnalyticsService_0:SendEventDeferred("client", "chat", "emoteTriggerFailed", {
+                    pid = tostring(game.PlaceId), 
+                    uid = tostring(l_LocalPlayer_0.UserId), 
+                    btid = l_Stats_0:GetBrowserTrackerId(), 
+                    assetID = nil, 
+                    slotNumber = nil, 
+                    errorType = l_NoMatchingEmote_0, 
+                    invokedByCoreGui = false
+                });
             end;
         end;
     end;

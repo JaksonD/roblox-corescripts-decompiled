@@ -13,47 +13,49 @@ local v11 = require(l_script_FirstAncestor_0.Http.RoduxPresence);
 local v12 = require(l_script_FirstAncestor_0.Users.userPresenceUtils);
 local v13 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatGroupOsaAnalytics);
 local v14 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatRemoveUserProfileTitles);
-return function(v15, v16) --[[ Line: 41 ]]
-    -- upvalues: v2 (copy), l_getOtherParticipant_0 (copy), v11 (copy), v12 (copy), v14 (copy), v5 (copy), l_getConversationDisplayTitle_0 (copy), v8 (copy), v10 (copy), v9 (copy), l_getConversationGameId_0 (copy), v13 (copy)
-    local v17 = v16.participants or {};
-    local v19 = v2.List.filter(v17, function(v18) --[[ Line: 43 ]]
-        -- upvalues: v15 (copy)
-        return v18 ~= v15.LocalUserId;
+local v15 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatConversationListRelativeTimestamps);
+local v16 = require(l_script_FirstAncestor_0.Utils.getConversationTimestamp);
+return function(v17, v18) --[[ Line: 45 ]]
+    -- upvalues: v2 (copy), l_getOtherParticipant_0 (copy), v11 (copy), v12 (copy), v15 (copy), v16 (copy), v14 (copy), v5 (copy), l_getConversationDisplayTitle_0 (copy), v8 (copy), v10 (copy), v9 (copy), l_getConversationGameId_0 (copy), v13 (copy)
+    local v19 = v18.participants or {};
+    local v21 = v2.List.filter(v19, function(v20) --[[ Line: 47 ]]
+        -- upvalues: v17 (copy)
+        return v20 ~= v17.LocalUserId;
     end);
-    local v20 = nil;
-    if v16.conversationType == "OneToOneConversation" then
-        local v21 = l_getOtherParticipant_0(v15, v16.participants);
-        local v22 = v11.Selectors.getUserPresenceByUserId(v15, v21);
-        v20 = v12.getUserDisplayPresence(v22);
+    local v22 = nil;
+    if v18.conversationType == "OneToOneConversation" then
+        local v23 = l_getOtherParticipant_0(v17, v18.participants);
+        local v24 = v11.Selectors.getUserPresenceByUserId(v17, v23);
+        v22 = v12.getUserDisplayPresence(v24);
     end;
-    local v23 = {};
-    local l_Users_0 = v15.Users;
-    for _, v26 in pairs(v17) do
-        v23[v26] = l_Users_0[v26];
+    local v25 = {};
+    local l_Users_0 = v17.Users;
+    for _, v28 in pairs(v19) do
+        v25[v28] = l_Users_0[v28];
     end;
-    local v27 = {
-        shortRelativeTime = v16.lastUpdated and v16.lastUpdated:GetShortRelativeTime(), 
-        longRelativeTime = v16.lastUpdated and v16.lastUpdated:GetLongRelativeTime(), 
-        unixTime = v16.lastUpdated and v16.lastUpdated:GetUnixTimestamp()
+    local v29 = {
+        shortRelativeTime = if v15 then v18.lastUpdated and v16(v18.lastUpdated) else v18.lastUpdated and v18.lastUpdated:GetShortRelativeTime(), 
+        longRelativeTime = v18.lastUpdated and v18.lastUpdated:GetLongRelativeTime(), 
+        unixTime = v18.lastUpdated and v18.lastUpdated:GetUnixTimestamp()
     };
     return v2.Dictionary.join({
-        id = v16.id, 
-        title = if v14 then v5(v16) else l_getConversationDisplayTitle_0(v16), 
-        participants = v8(v15, v17), 
-        otherParticipants = v19, 
-        isDefaultTitle = v16.isDefaultTitle, 
-        hasGroupUp = v16.hasGroupUp, 
-        lastMessageContent = v10(v16) or "", 
-        hasUnreadMessages = v16.hasUnreadMessages or false, 
-        thumbnails = v9(v19), 
-        presenceText = v20 and v20.text, 
-        presenceImage = v20 and v20.image, 
-        gameId = l_getConversationGameId_0(v16, v15.LocalUserId, v23), 
-        serverState = v16.serverState, 
-        moderationType = v16.moderationType, 
-        userPendingStatus = v16.userPendingStatus, 
-        conversationType = v16.conversationType, 
-        osaAcknowledgementStatus = if v13 then v16.osaAcknowledgementStatus else nil, 
-        userOptedIntoChatMessages = v16.userOptedIntoChatMessages
-    }, v27);
+        id = v18.id, 
+        title = if v14 then v5(v18) else l_getConversationDisplayTitle_0(v18), 
+        participants = v8(v17, v19), 
+        otherParticipants = v21, 
+        isDefaultTitle = v18.isDefaultTitle, 
+        hasGroupUp = v18.hasGroupUp, 
+        lastMessageContent = v10(v18) or "", 
+        hasUnreadMessages = v18.hasUnreadMessages or false, 
+        thumbnails = v9(v21), 
+        presenceText = v22 and v22.text, 
+        presenceImage = v22 and v22.image, 
+        gameId = l_getConversationGameId_0(v18, v17.LocalUserId, v25), 
+        serverState = v18.serverState, 
+        moderationType = v18.moderationType, 
+        userPendingStatus = v18.userPendingStatus, 
+        conversationType = v18.conversationType, 
+        osaAcknowledgementStatus = if v13 then v18.osaAcknowledgementStatus else nil, 
+        userOptedIntoChatMessages = v18.userOptedIntoChatMessages
+    }, v29);
 end;

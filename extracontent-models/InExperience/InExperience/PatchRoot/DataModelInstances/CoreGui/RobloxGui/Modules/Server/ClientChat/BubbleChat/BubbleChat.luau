@@ -29,13 +29,14 @@ v12, v13 = pcall(function() --[[ Line: 44 ]]
     return UserSettings():IsUserFeatureEnabled("UserPreventOldBubbleChatOverlap");
 end);
 l_result_1 = v12 and v13;
-v12 = function(v14) --[[ Line: 50 ]] --[[ Name: getMessageLength ]]
+v12 = game:GetEngineFeature("DeprecateOldGuiObjectProperties");
+v13 = function(v14) --[[ Line: 52 ]] --[[ Name: getMessageLength ]]
     return utf8.len(utf8.nfcnormalize(v14));
 end;
-v13 = Enum.Font.SourceSans;
+local l_SourceSans_0 = Enum.Font.SourceSans;
 local l_Size24_0 = Enum.FontSize.Size24;
-local v16 = 128 - utf8.len(utf8.nfcnormalize("...")) - 1;
-local v17 = {
+local v17 = 128 - utf8.len(utf8.nfcnormalize("...")) - 1;
+local v18 = {
     WHITE = "dub", 
     BLUE = "blu", 
     GREEN = "gre", 
@@ -45,226 +46,226 @@ local l_ScreenGui_0 = Instance.new("ScreenGui");
 l_ScreenGui_0.Name = "BubbleChat";
 l_ScreenGui_0.ResetOnSpawn = false;
 l_ScreenGui_0.Parent = l_PlayerGui_0;
-local function _(v19, v20, v21) --[[ Line: 93 ]] --[[ Name: lerpLength ]]
-    return v20 + (v21 - v20) * math.min(utf8.len(utf8.nfcnormalize(v19)) / 75, 1);
+local function _(v20, v21, v22) --[[ Line: 95 ]] --[[ Name: lerpLength ]]
+    return v21 + (v22 - v21) * math.min(utf8.len(utf8.nfcnormalize(v20)) / 75, 1);
 end;
-local function v34() --[[ Line: 97 ]] --[[ Name: createFifo ]]
-    local v23 = {
+local function v35() --[[ Line: 99 ]] --[[ Name: createFifo ]]
+    local v24 = {
         data = {}
     };
     local l_BindableEvent_0 = Instance.new("BindableEvent");
-    v23.Emptied = l_BindableEvent_0.Event;
-    v23.Size = function(_) --[[ Line: 104 ]] --[[ Name: Size ]]
-        -- upvalues: v23 (copy)
-        return #v23.data;
+    v24.Emptied = l_BindableEvent_0.Event;
+    v24.Size = function(_) --[[ Line: 106 ]] --[[ Name: Size ]]
+        -- upvalues: v24 (copy)
+        return #v24.data;
     end;
-    v23.Empty = function(_) --[[ Line: 108 ]] --[[ Name: Empty ]]
-        -- upvalues: v23 (copy)
-        return v23:Size() <= 0;
+    v24.Empty = function(_) --[[ Line: 110 ]] --[[ Name: Empty ]]
+        -- upvalues: v24 (copy)
+        return v24:Size() <= 0;
     end;
-    v23.PopFront = function(_) --[[ Line: 112 ]] --[[ Name: PopFront ]]
-        -- upvalues: v23 (copy), l_BindableEvent_0 (copy)
-        table.remove(v23.data, 1);
-        if v23:Empty() then
+    v24.PopFront = function(_) --[[ Line: 114 ]] --[[ Name: PopFront ]]
+        -- upvalues: v24 (copy), l_BindableEvent_0 (copy)
+        table.remove(v24.data, 1);
+        if v24:Empty() then
             l_BindableEvent_0:Fire();
         end;
     end;
-    v23.Front = function(_) --[[ Line: 117 ]] --[[ Name: Front ]]
-        -- upvalues: v23 (copy)
-        return v23.data[1];
+    v24.Front = function(_) --[[ Line: 119 ]] --[[ Name: Front ]]
+        -- upvalues: v24 (copy)
+        return v24.data[1];
     end;
-    v23.Get = function(_, v30) --[[ Line: 121 ]] --[[ Name: Get ]]
-        -- upvalues: v23 (copy)
-        return v23.data[v30];
+    v24.Get = function(_, v31) --[[ Line: 123 ]] --[[ Name: Get ]]
+        -- upvalues: v24 (copy)
+        return v24.data[v31];
     end;
-    v23.PushBack = function(_, v32) --[[ Line: 125 ]] --[[ Name: PushBack ]]
-        -- upvalues: v23 (copy)
-        table.insert(v23.data, v32);
+    v24.PushBack = function(_, v33) --[[ Line: 127 ]] --[[ Name: PushBack ]]
+        -- upvalues: v24 (copy)
+        table.insert(v24.data, v33);
     end;
-    v23.GetData = function(_) --[[ Line: 129 ]] --[[ Name: GetData ]]
-        -- upvalues: v23 (copy)
-        return v23.data;
+    v24.GetData = function(_) --[[ Line: 131 ]] --[[ Name: GetData ]]
+        -- upvalues: v24 (copy)
+        return v24.data;
     end;
-    return v23;
+    return v24;
 end;
-local function _() --[[ Line: 136 ]] --[[ Name: createCharacterChats ]]
-    -- upvalues: v34 (copy)
+local function _() --[[ Line: 138 ]] --[[ Name: createCharacterChats ]]
+    -- upvalues: v35 (copy)
     return {
-        Fifo = v34(), 
+        Fifo = v35(), 
         BillboardGui = nil
     };
 end;
-local function v49() --[[ Line: 145 ]] --[[ Name: createMap ]]
-    -- upvalues: v34 (copy)
-    local v36 = {
+local function v50() --[[ Line: 147 ]] --[[ Name: createMap ]]
+    -- upvalues: v35 (copy)
+    local v37 = {
         data = {}
     };
-    local v37 = 0;
-    v36.Size = function(_) --[[ Line: 150 ]] --[[ Name: Size ]]
-        -- upvalues: v37 (ref)
-        return v37;
+    local v38 = 0;
+    v37.Size = function(_) --[[ Line: 152 ]] --[[ Name: Size ]]
+        -- upvalues: v38 (ref)
+        return v38;
     end;
-    v36.Erase = function(_, v40) --[[ Line: 154 ]] --[[ Name: Erase ]]
-        -- upvalues: v36 (copy), v37 (ref)
-        if v36.data[v40] then
-            v37 = v37 - 1;
+    v37.Erase = function(_, v41) --[[ Line: 156 ]] --[[ Name: Erase ]]
+        -- upvalues: v37 (copy), v38 (ref)
+        if v37.data[v41] then
+            v38 = v38 - 1;
         end;
-        v36.data[v40] = nil;
+        v37.data[v41] = nil;
     end;
-    v36.Set = function(_, v42, v43) --[[ Line: 159 ]] --[[ Name: Set ]]
-        -- upvalues: v36 (copy), v37 (ref)
-        v36.data[v42] = v43;
-        if v43 then
-            v37 = v37 + 1;
+    v37.Set = function(_, v43, v44) --[[ Line: 161 ]] --[[ Name: Set ]]
+        -- upvalues: v37 (copy), v38 (ref)
+        v37.data[v43] = v44;
+        if v44 then
+            v38 = v38 + 1;
         end;
     end;
-    v36.Get = function(_, v45) --[[ Line: 164 ]] --[[ Name: Get ]]
-        -- upvalues: v36 (copy), v34 (ref)
-        if not v45 then
+    v37.Get = function(_, v46) --[[ Line: 166 ]] --[[ Name: Get ]]
+        -- upvalues: v37 (copy), v35 (ref)
+        if not v46 then
             return;
         else
-            if not v36.data[v45] then
-                v36.data[v45] = {
-                    Fifo = v34(), 
+            if not v37.data[v46] then
+                v37.data[v46] = {
+                    Fifo = v35(), 
                     BillboardGui = nil
                 };
-                local v46 = nil;
+                local v47 = nil;
                 do
-                    local l_v46_0 = v46;
-                    l_v46_0 = v36.data[v45].Fifo.Emptied:connect(function() --[[ Line: 169 ]]
-                        -- upvalues: l_v46_0 (ref), v36 (ref), v45 (copy)
-                        l_v46_0:disconnect();
-                        v36:Erase(v45);
+                    local l_v47_0 = v47;
+                    l_v47_0 = v37.data[v46].Fifo.Emptied:connect(function() --[[ Line: 171 ]]
+                        -- upvalues: l_v47_0 (ref), v37 (ref), v46 (copy)
+                        l_v47_0:disconnect();
+                        v37:Erase(v46);
                     end);
                 end;
             end;
-            return v36.data[v45];
+            return v37.data[v46];
         end;
     end;
-    v36.GetData = function(_) --[[ Line: 177 ]] --[[ Name: GetData ]]
-        -- upvalues: v36 (copy)
-        return v36.data;
+    v37.GetData = function(_) --[[ Line: 179 ]] --[[ Name: GetData ]]
+        -- upvalues: v37 (copy)
+        return v37.data;
     end;
-    return v36;
+    return v37;
 end;
-local function v57(v50, v51, v52) --[[ Line: 184 ]] --[[ Name: createChatLine ]]
-    local v56 = {
-        ComputeBubbleLifetime = function(_, v54, v55) --[[ Line: 187 ]] --[[ Name: ComputeBubbleLifetime ]]
-            if v55 then
-                return 8 + 7 * math.min(utf8.len(utf8.nfcnormalize(v54)) / 75, 1);
+local function v58(v51, v52, v53) --[[ Line: 186 ]] --[[ Name: createChatLine ]]
+    local v57 = {
+        ComputeBubbleLifetime = function(_, v55, v56) --[[ Line: 189 ]] --[[ Name: ComputeBubbleLifetime ]]
+            if v56 then
+                return 8 + 7 * math.min(utf8.len(utf8.nfcnormalize(v55)) / 75, 1);
             else
-                return 12 + 8 * math.min(utf8.len(utf8.nfcnormalize(v54)) / 75, 1);
+                return 12 + 8 * math.min(utf8.len(utf8.nfcnormalize(v55)) / 75, 1);
             end;
         end, 
         Origin = nil, 
         RenderBubble = nil, 
-        Message = v50
+        Message = v51
     };
-    v56.BubbleDieDelay = v56:ComputeBubbleLifetime(v50, v52);
-    v56.BubbleColor = v51;
-    v56.IsLocalPlayer = v52;
-    return v56;
+    v57.BubbleDieDelay = v57:ComputeBubbleLifetime(v51, v53);
+    v57.BubbleColor = v52;
+    v57.IsLocalPlayer = v53;
+    return v57;
 end;
-local function _(v58, v59, v60) --[[ Line: 205 ]] --[[ Name: createPlayerChatLine ]]
-    -- upvalues: v57 (copy), v17 (copy)
-    local v61 = v57(v59, v17.WHITE, v60);
-    if v58 then
-        v61.User = v58.Name;
-        v61.Origin = v58.Character;
+local function _(v59, v60, v61) --[[ Line: 207 ]] --[[ Name: createPlayerChatLine ]]
+    -- upvalues: v58 (copy), v18 (copy)
+    local v62 = v58(v60, v18.WHITE, v61);
+    if v59 then
+        v62.User = v59.Name;
+        v62.Origin = v59.Character;
     end;
-    return v61;
+    return v62;
 end;
-local function _(v63, v64, v65, v66) --[[ Line: 216 ]] --[[ Name: createGameChatLine ]]
-    -- upvalues: v57 (copy)
-    local v67 = v57(v64, v66, v65);
-    v67.Origin = v63;
-    return v67;
+local function _(v64, v65, v66, v67) --[[ Line: 218 ]] --[[ Name: createGameChatLine ]]
+    -- upvalues: v58 (copy)
+    local v68 = v58(v65, v67, v66);
+    v68.Origin = v64;
+    return v68;
 end;
-createChatBubbleMain = function(v69, v70) --[[ Line: 223 ]] --[[ Name: createChatBubbleMain ]]
+createChatBubbleMain = function(v70, v71) --[[ Line: 225 ]] --[[ Name: createChatBubbleMain ]]
     local l_ImageLabel_0 = Instance.new("ImageLabel");
     l_ImageLabel_0.Name = "ChatBubble";
     l_ImageLabel_0.ScaleType = Enum.ScaleType.Slice;
-    l_ImageLabel_0.SliceCenter = v70;
-    l_ImageLabel_0.Image = "rbxasset://textures/" .. tostring(v69) .. ".png";
+    l_ImageLabel_0.SliceCenter = v71;
+    l_ImageLabel_0.Image = "rbxasset://textures/" .. tostring(v70) .. ".png";
     l_ImageLabel_0.BackgroundTransparency = 1;
     l_ImageLabel_0.BorderSizePixel = 0;
     l_ImageLabel_0.Size = UDim2.new(1, 0, 1, 0);
     l_ImageLabel_0.Position = UDim2.new(0, 0, 0, 0);
     return l_ImageLabel_0;
 end;
-createChatBubbleTail = function(v72, v73) --[[ Line: 237 ]] --[[ Name: createChatBubbleTail ]]
+createChatBubbleTail = function(v73, v74) --[[ Line: 239 ]] --[[ Name: createChatBubbleTail ]]
     local l_ImageLabel_1 = Instance.new("ImageLabel");
     l_ImageLabel_1.Name = "ChatBubbleTail";
     l_ImageLabel_1.Image = "rbxasset://textures/ui/dialog_tail.png";
     l_ImageLabel_1.BackgroundTransparency = 1;
     l_ImageLabel_1.BorderSizePixel = 0;
-    l_ImageLabel_1.Position = v72;
-    l_ImageLabel_1.Size = v73;
+    l_ImageLabel_1.Position = v73;
+    l_ImageLabel_1.Size = v74;
     return l_ImageLabel_1;
 end;
-createChatBubbleWithTail = function(v75, v76, v77, v78) --[[ Line: 249 ]] --[[ Name: createChatBubbleWithTail ]]
-    local v79 = createChatBubbleMain(v75, v78);
-    createChatBubbleTail(v76, v77).Parent = v79;
-    return v79;
+createChatBubbleWithTail = function(v76, v77, v78, v79) --[[ Line: 251 ]] --[[ Name: createChatBubbleWithTail ]]
+    local v80 = createChatBubbleMain(v76, v79);
+    createChatBubbleTail(v77, v78).Parent = v80;
+    return v80;
 end;
-createScaledChatBubbleWithTail = function(v80, v81, v82, v83) --[[ Line: 258 ]] --[[ Name: createScaledChatBubbleWithTail ]]
-    local v84 = createChatBubbleMain(v80, v83);
+createScaledChatBubbleWithTail = function(v81, v82, v83, v84) --[[ Line: 260 ]] --[[ Name: createScaledChatBubbleWithTail ]]
+    local v85 = createChatBubbleMain(v81, v84);
     local l_Frame_0 = Instance.new("Frame");
     l_Frame_0.Name = "ChatBubbleTailFrame";
     l_Frame_0.BackgroundTransparency = 1;
     l_Frame_0.SizeConstraint = Enum.SizeConstraint.RelativeXX;
     l_Frame_0.Position = UDim2.new(0.5, 0, 1, 0);
-    l_Frame_0.Size = UDim2.new(v81, 0, v81, 0);
-    l_Frame_0.Parent = v84;
-    createChatBubbleTail(v82, UDim2.new(1, 0, 0.5, 0)).Parent = l_Frame_0;
-    return v84;
+    l_Frame_0.Size = UDim2.new(v82, 0, v82, 0);
+    l_Frame_0.Parent = v85;
+    createChatBubbleTail(v83, UDim2.new(1, 0, 0.5, 0)).Parent = l_Frame_0;
+    return v85;
 end;
-createChatImposter = function(v86, v87, v88) --[[ Line: 275 ]] --[[ Name: createChatImposter ]]
+createChatImposter = function(v87, v88, v89) --[[ Line: 277 ]] --[[ Name: createChatImposter ]]
     local l_ImageLabel_2 = Instance.new("ImageLabel");
     l_ImageLabel_2.Name = "DialogPlaceholder";
-    l_ImageLabel_2.Image = "rbxasset://textures/" .. tostring(v86) .. ".png";
+    l_ImageLabel_2.Image = "rbxasset://textures/" .. tostring(v87) .. ".png";
     l_ImageLabel_2.BackgroundTransparency = 1;
     l_ImageLabel_2.BorderSizePixel = 0;
     l_ImageLabel_2.Position = UDim2.new(0, 0, -1.25, 0);
     l_ImageLabel_2.Size = UDim2.new(1, 0, 1, 0);
     local l_ImageLabel_3 = Instance.new("ImageLabel");
     l_ImageLabel_3.Name = "DotDotDot";
-    l_ImageLabel_3.Image = "rbxasset://textures/" .. tostring(v87) .. ".png";
+    l_ImageLabel_3.Image = "rbxasset://textures/" .. tostring(v88) .. ".png";
     l_ImageLabel_3.BackgroundTransparency = 1;
     l_ImageLabel_3.BorderSizePixel = 0;
-    l_ImageLabel_3.Position = UDim2.new(0.001, 0, v88, 0);
+    l_ImageLabel_3.Position = UDim2.new(0.001, 0, v89, 0);
     l_ImageLabel_3.Size = UDim2.new(1, 0, 0.7, 0);
     l_ImageLabel_3.Parent = l_ImageLabel_2;
     return l_ImageLabel_2;
 end;
-local v91 = {
+local v92 = {
     ChatBubble = {}, 
     ChatBubbleWithTail = {}, 
     ScalingChatBubbleWithTail = {}, 
-    CharacterSortedMsg = v49()
+    CharacterSortedMsg = v50()
 };
-local function v97(v92, v93, _, v95, v96) --[[ Line: 304 ]] --[[ Name: initChatBubbleType ]]
-    -- upvalues: v91 (copy)
-    v91.ChatBubble[v92] = createChatBubbleMain(v93, v96);
-    v91.ChatBubbleWithTail[v92] = createChatBubbleWithTail(v93, UDim2.new(0.5, -14, 1, v95 and -1 or 0), UDim2.new(0, 30, 0, 14), v96);
-    v91.ScalingChatBubbleWithTail[v92] = createScaledChatBubbleWithTail(v93, 0.5, UDim2.new(-0.5, 0, 0, v95 and -1 or 0), v96);
+local function v98(v93, v94, _, v96, v97) --[[ Line: 306 ]] --[[ Name: initChatBubbleType ]]
+    -- upvalues: v92 (copy)
+    v92.ChatBubble[v93] = createChatBubbleMain(v94, v97);
+    v92.ChatBubbleWithTail[v93] = createChatBubbleWithTail(v94, UDim2.new(0.5, -14, 1, v96 and -1 or 0), UDim2.new(0, 30, 0, 14), v97);
+    v92.ScalingChatBubbleWithTail[v93] = createScaledChatBubbleWithTail(v94, 0.5, UDim2.new(-0.5, 0, 0, v96 and -1 or 0), v97);
 end;
-v97(v17.WHITE, "ui/dialog_white", "ui/chatBubble_white_notify_bkg", false, Rect.new(5, 5, 15, 15));
-v97(v17.BLUE, "ui/dialog_blue", "ui/chatBubble_blue_notify_bkg", true, Rect.new(7, 7, 33, 33));
-v97(v17.RED, "ui/dialog_red", "ui/chatBubble_red_notify_bkg", true, Rect.new(7, 7, 33, 33));
-v97(v17.GREEN, "ui/dialog_green", "ui/chatBubble_green_notify_bkg", true, Rect.new(7, 7, 33, 33));
-v91.SanitizeChatLine = function(_, v99) --[[ Line: 315 ]] --[[ Name: SanitizeChatLine ]]
-    -- upvalues: v16 (copy)
-    if utf8.len(utf8.nfcnormalize(v99)) > v16 then
-        return (string.sub(v99, 1, utf8.offset(v99, v16 + utf8.len(utf8.nfcnormalize("...")) + 1) - 1));
+v98(v18.WHITE, "ui/dialog_white", "ui/chatBubble_white_notify_bkg", false, Rect.new(5, 5, 15, 15));
+v98(v18.BLUE, "ui/dialog_blue", "ui/chatBubble_blue_notify_bkg", true, Rect.new(7, 7, 33, 33));
+v98(v18.RED, "ui/dialog_red", "ui/chatBubble_red_notify_bkg", true, Rect.new(7, 7, 33, 33));
+v98(v18.GREEN, "ui/dialog_green", "ui/chatBubble_green_notify_bkg", true, Rect.new(7, 7, 33, 33));
+v92.SanitizeChatLine = function(_, v100) --[[ Line: 317 ]] --[[ Name: SanitizeChatLine ]]
+    -- upvalues: v17 (copy)
+    if utf8.len(utf8.nfcnormalize(v100)) > v17 then
+        return (string.sub(v100, 1, utf8.offset(v100, v17 + utf8.len(utf8.nfcnormalize("...")) + 1) - 1));
     else
-        return v99;
+        return v100;
     end;
 end;
-local function v104(v100) --[[ Line: 324 ]] --[[ Name: createBillboardInstance ]]
-    -- upvalues: l_ScreenGui_0 (copy), v91 (copy), v17 (copy)
+local function v105(v101) --[[ Line: 326 ]] --[[ Name: createBillboardInstance ]]
+    -- upvalues: l_ScreenGui_0 (copy), v92 (copy), v18 (copy)
     local l_BillboardGui_0 = Instance.new("BillboardGui");
-    l_BillboardGui_0.Adornee = v100;
+    l_BillboardGui_0.Adornee = v101;
     l_BillboardGui_0.Size = UDim2.new(0, 400, 0, 250);
     l_BillboardGui_0.StudsOffset = Vector3.new(0, 1.5, 2, 0);
     l_BillboardGui_0.Parent = l_ScreenGui_0;
@@ -274,110 +275,110 @@ local function v104(v100) --[[ Line: 324 ]] --[[ Name: createBillboardInstance ]
     l_Frame_1.Position = UDim2.new(0, 0, -0.5, 0);
     l_Frame_1.BackgroundTransparency = 1;
     l_Frame_1.Parent = l_BillboardGui_0;
-    local v103 = nil;
-    v103 = l_Frame_1.ChildRemoved:connect(function() --[[ Line: 339 ]]
-        -- upvalues: l_Frame_1 (copy), v103 (ref), l_BillboardGui_0 (copy)
+    local v104 = nil;
+    v104 = l_Frame_1.ChildRemoved:connect(function() --[[ Line: 341 ]]
+        -- upvalues: l_Frame_1 (copy), v104 (ref), l_BillboardGui_0 (copy)
         if #l_Frame_1:GetChildren() <= 1 then
-            v103:disconnect();
+            v104:disconnect();
             l_BillboardGui_0:Destroy();
         end;
     end);
-    v91:CreateSmallTalkBubble(v17.WHITE).Parent = l_Frame_1;
+    v92:CreateSmallTalkBubble(v18.WHITE).Parent = l_Frame_1;
     return l_BillboardGui_0;
 end;
-v91.CreateBillboardGuiHelper = function(_, v106, v107) --[[ Line: 351 ]] --[[ Name: CreateBillboardGuiHelper ]]
-    -- upvalues: v91 (copy), v104 (copy)
-    if v106 and not v91.CharacterSortedMsg:Get(v106).BillboardGui then
-        if not v107 and v106:IsA("BasePart") then
-            local v108 = v104(v106);
-            v91.CharacterSortedMsg:Get(v106).BillboardGui = v108;
+v92.CreateBillboardGuiHelper = function(_, v107, v108) --[[ Line: 353 ]] --[[ Name: CreateBillboardGuiHelper ]]
+    -- upvalues: v92 (copy), v105 (copy)
+    if v107 and not v92.CharacterSortedMsg:Get(v107).BillboardGui then
+        if not v108 and v107:IsA("BasePart") then
+            local v109 = v105(v107);
+            v92.CharacterSortedMsg:Get(v107).BillboardGui = v109;
             return;
-        elseif v106:IsA("Model") then
-            local l_Head_0 = v106:FindFirstChild("Head");
+        elseif v107:IsA("Model") then
+            local l_Head_0 = v107:FindFirstChild("Head");
             if l_Head_0 and l_Head_0:IsA("BasePart") then
-                local v110 = v104(l_Head_0);
-                v91.CharacterSortedMsg:Get(v106).BillboardGui = v110;
+                local v111 = v105(l_Head_0);
+                v92.CharacterSortedMsg:Get(v107).BillboardGui = v111;
             end;
         end;
     end;
 end;
-local function _(v111) --[[ Line: 373 ]] --[[ Name: distanceToBubbleOrigin ]]
-    if not v111 then
+local function _(v112) --[[ Line: 375 ]] --[[ Name: distanceToBubbleOrigin ]]
+    if not v112 then
         return 100000;
     else
-        return (v111.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude;
+        return (v112.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude;
     end;
 end;
-local function _(v113) --[[ Line: 379 ]] --[[ Name: isPartOfLocalPlayer ]]
+local function _(v114) --[[ Line: 381 ]] --[[ Name: isPartOfLocalPlayer ]]
     -- upvalues: l_Players_0 (copy)
-    if v113 and l_Players_0.LocalPlayer.Character then
-        return v113:IsDescendantOf(l_Players_0.LocalPlayer.Character);
+    if v114 and l_Players_0.LocalPlayer.Character then
+        return v114:IsDescendantOf(l_Players_0.LocalPlayer.Character);
     else
         return;
     end;
 end;
-v91.SetBillboardLODNear = function(_, v116) --[[ Line: 385 ]] --[[ Name: SetBillboardLODNear ]]
+v92.SetBillboardLODNear = function(_, v117) --[[ Line: 387 ]] --[[ Name: SetBillboardLODNear ]]
     -- upvalues: l_Players_0 (copy)
-    local l_Adornee_0 = v116.Adornee;
-    local v118 = if l_Adornee_0 and l_Players_0.LocalPlayer.Character then l_Adornee_0:IsDescendantOf(l_Players_0.LocalPlayer.Character) else nil;
-    v116.Size = UDim2.new(0, 400, 0, 250);
-    v116.StudsOffset = Vector3.new(0, v118 and 1.5 or 2.5, v118 and 2 or 0.1);
-    v116.Enabled = true;
-    l_Adornee_0 = v116.BillboardFrame:GetChildren();
-    for v119 = 1, #l_Adornee_0 do
-        l_Adornee_0[v119].Visible = true;
+    local l_Adornee_0 = v117.Adornee;
+    local v119 = if l_Adornee_0 and l_Players_0.LocalPlayer.Character then l_Adornee_0:IsDescendantOf(l_Players_0.LocalPlayer.Character) else nil;
+    v117.Size = UDim2.new(0, 400, 0, 250);
+    v117.StudsOffset = Vector3.new(0, v119 and 1.5 or 2.5, v119 and 2 or 0.1);
+    v117.Enabled = true;
+    l_Adornee_0 = v117.BillboardFrame:GetChildren();
+    for v120 = 1, #l_Adornee_0 do
+        l_Adornee_0[v120].Visible = true;
     end;
-    v116.BillboardFrame.SmallTalkBubble.Visible = false;
+    v117.BillboardFrame.SmallTalkBubble.Visible = false;
 end;
-v91.SetBillboardLODDistant = function(_, v121) --[[ Line: 397 ]] --[[ Name: SetBillboardLODDistant ]]
+v92.SetBillboardLODDistant = function(_, v122) --[[ Line: 399 ]] --[[ Name: SetBillboardLODDistant ]]
     -- upvalues: l_Players_0 (copy)
-    local l_Adornee_1 = v121.Adornee;
-    local v123 = if l_Adornee_1 and l_Players_0.LocalPlayer.Character then l_Adornee_1:IsDescendantOf(l_Players_0.LocalPlayer.Character) else nil;
-    v121.Size = UDim2.new(4, 0, 3, 0);
-    v121.StudsOffset = Vector3.new(0, 3, v123 and 2 or 0.1);
-    v121.Enabled = true;
-    l_Adornee_1 = v121.BillboardFrame:GetChildren();
-    for v124 = 1, #l_Adornee_1 do
-        l_Adornee_1[v124].Visible = false;
+    local l_Adornee_1 = v122.Adornee;
+    local v124 = if l_Adornee_1 and l_Players_0.LocalPlayer.Character then l_Adornee_1:IsDescendantOf(l_Players_0.LocalPlayer.Character) else nil;
+    v122.Size = UDim2.new(4, 0, 3, 0);
+    v122.StudsOffset = Vector3.new(0, 3, v124 and 2 or 0.1);
+    v122.Enabled = true;
+    l_Adornee_1 = v122.BillboardFrame:GetChildren();
+    for v125 = 1, #l_Adornee_1 do
+        l_Adornee_1[v125].Visible = false;
     end;
-    v121.BillboardFrame.SmallTalkBubble.Visible = true;
+    v122.BillboardFrame.SmallTalkBubble.Visible = true;
 end;
-v91.SetBillboardLODVeryFar = function(_, v126) --[[ Line: 409 ]] --[[ Name: SetBillboardLODVeryFar ]]
-    v126.Enabled = false;
+v92.SetBillboardLODVeryFar = function(_, v127) --[[ Line: 411 ]] --[[ Name: SetBillboardLODVeryFar ]]
+    v127.Enabled = false;
 end;
-v91.SetBillboardGuiLOD = function(_, v128, v129) --[[ Line: 413 ]] --[[ Name: SetBillboardGuiLOD ]]
-    -- upvalues: v91 (copy)
-    if not v129 then
+v92.SetBillboardGuiLOD = function(_, v129, v130) --[[ Line: 415 ]] --[[ Name: SetBillboardGuiLOD ]]
+    -- upvalues: v92 (copy)
+    if not v130 then
         return;
     else
-        if v129:IsA("Model") then
-            v129 = v129:FindFirstChild("Head") or v129.PrimaryPart;
+        if v130:IsA("Model") then
+            v130 = v130:FindFirstChild("Head") or v130.PrimaryPart;
         end;
-        local l_v129_0 = v129;
-        local v131 = not l_v129_0 and 100000 or (l_v129_0.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude;
-        if v131 < 65 then
-            v91:SetBillboardLODNear(v128);
+        local l_v130_0 = v130;
+        local v132 = not l_v130_0 and 100000 or (l_v130_0.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude;
+        if v132 < 65 then
+            v92:SetBillboardLODNear(v129);
             return;
-        elseif v131 >= 65 and v131 < 100 then
-            v91:SetBillboardLODDistant(v128);
+        elseif v132 >= 65 and v132 < 100 then
+            v92:SetBillboardLODDistant(v129);
             return;
         else
-            v91:SetBillboardLODVeryFar(v128);
+            v92:SetBillboardLODVeryFar(v129);
             return;
         end;
     end;
 end;
-v91.CameraCFrameChanged = function(_) --[[ Line: 433 ]] --[[ Name: CameraCFrameChanged ]]
-    -- upvalues: v91 (copy)
-    for v133, v134 in pairs(v91.CharacterSortedMsg:GetData()) do
-        local l_BillboardGui_1 = v134.BillboardGui;
+v92.CameraCFrameChanged = function(_) --[[ Line: 435 ]] --[[ Name: CameraCFrameChanged ]]
+    -- upvalues: v92 (copy)
+    for v134, v135 in pairs(v92.CharacterSortedMsg:GetData()) do
+        local l_BillboardGui_1 = v135.BillboardGui;
         if l_BillboardGui_1 then
-            v91:SetBillboardGuiLOD(l_BillboardGui_1, v133);
+            v92:SetBillboardGuiLOD(l_BillboardGui_1, v134);
         end;
     end;
 end;
-v91.CreateBubbleText = function(_, v137, v138) --[[ Line: 440 ]] --[[ Name: CreateBubbleText ]]
-    -- upvalues: v9 (ref), v13 (copy), l_Size24_0 (copy)
+v92.CreateBubbleText = function(_, v138, v139) --[[ Line: 442 ]] --[[ Name: CreateBubbleText ]]
+    -- upvalues: v9 (ref), l_SourceSans_0 (copy), l_Size24_0 (copy)
     local l_TextLabel_0 = Instance.new("TextLabel");
     l_TextLabel_0.Name = "BubbleText";
     l_TextLabel_0.BackgroundTransparency = 1;
@@ -387,13 +388,13 @@ v91.CreateBubbleText = function(_, v137, v138) --[[ Line: 440 ]] --[[ Name: Crea
         l_TextLabel_0.Position = UDim2.new(0, 15, 0, 0);
         l_TextLabel_0.Size = UDim2.new(1, -30, 1, 0);
     end;
-    l_TextLabel_0.Font = v13;
+    l_TextLabel_0.Font = l_SourceSans_0;
     l_TextLabel_0.ClipsDescendants = true;
     l_TextLabel_0.TextWrapped = true;
     l_TextLabel_0.FontSize = l_Size24_0;
-    l_TextLabel_0.Text = v137;
+    l_TextLabel_0.Text = v138;
     l_TextLabel_0.Visible = false;
-    l_TextLabel_0.AutoLocalize = v138;
+    l_TextLabel_0.AutoLocalize = v139;
     if v9 then
         local l_UIPadding_0 = Instance.new("UIPadding");
         l_UIPadding_0.PaddingTop = UDim.new(0, 12);
@@ -404,34 +405,34 @@ v91.CreateBubbleText = function(_, v137, v138) --[[ Line: 440 ]] --[[ Name: Crea
     end;
     return l_TextLabel_0;
 end;
-v91.CreateSmallTalkBubble = function(_, v142) --[[ Line: 472 ]] --[[ Name: CreateSmallTalkBubble ]]
-    -- upvalues: v91 (copy)
-    local v143 = v91.ScalingChatBubbleWithTail[v142]:Clone();
-    v143.Name = "SmallTalkBubble";
-    v143.AnchorPoint = Vector2.new(0, 0.5);
-    v143.Position = UDim2.new(0, 0, 0.5, 0);
-    v143.Visible = false;
-    local l_v91_BubbleText_0 = v91:CreateBubbleText("...");
-    l_v91_BubbleText_0.TextScaled = true;
-    l_v91_BubbleText_0.TextWrapped = false;
-    l_v91_BubbleText_0.Visible = true;
-    l_v91_BubbleText_0.Parent = v143;
-    return v143;
+v92.CreateSmallTalkBubble = function(_, v143) --[[ Line: 474 ]] --[[ Name: CreateSmallTalkBubble ]]
+    -- upvalues: v92 (copy)
+    local v144 = v92.ScalingChatBubbleWithTail[v143]:Clone();
+    v144.Name = "SmallTalkBubble";
+    v144.AnchorPoint = Vector2.new(0, 0.5);
+    v144.Position = UDim2.new(0, 0, 0.5, 0);
+    v144.Visible = false;
+    local l_v92_BubbleText_0 = v92:CreateBubbleText("...");
+    l_v92_BubbleText_0.TextScaled = true;
+    l_v92_BubbleText_0.TextWrapped = false;
+    l_v92_BubbleText_0.Visible = true;
+    l_v92_BubbleText_0.Parent = v144;
+    return v144;
 end;
-v91.UpdateChatLinesForOrigin = function(_, v146, v147) --[[ Line: 487 ]] --[[ Name: UpdateChatLinesForOrigin ]]
-    -- upvalues: v91 (copy)
-    local l_Fifo_0 = v91.CharacterSortedMsg:Get(v146).Fifo;
-    local v149 = l_Fifo_0:Size();
+v92.UpdateChatLinesForOrigin = function(_, v147, v148) --[[ Line: 489 ]] --[[ Name: UpdateChatLinesForOrigin ]]
+    -- upvalues: v92 (copy), v12 (copy)
+    local l_Fifo_0 = v92.CharacterSortedMsg:Get(v147).Fifo;
+    local v150 = l_Fifo_0:Size();
     local l_l_Fifo_0_Data_0 = l_Fifo_0:GetData();
     if #l_l_Fifo_0_Data_0 <= 1 then
         return;
     else
-        for v151 = #l_l_Fifo_0_Data_0 - 1, 1, -1 do
-            local l_RenderBubble_0 = l_l_Fifo_0_Data_0[v151].RenderBubble;
+        for v152 = #l_l_Fifo_0_Data_0 - 1, 1, -1 do
+            local l_RenderBubble_0 = l_l_Fifo_0_Data_0[v152].RenderBubble;
             if not l_RenderBubble_0 then
                 return;
             else
-                if v149 - v151 + 1 > 1 then
+                if v150 - v152 + 1 > 1 then
                     local l_ChatBubbleTail_0 = l_RenderBubble_0:FindFirstChild("ChatBubbleTail");
                     if l_ChatBubbleTail_0 then
                         l_ChatBubbleTail_0:Destroy();
@@ -441,164 +442,169 @@ v91.UpdateChatLinesForOrigin = function(_, v146, v147) --[[ Line: 487 ]] --[[ Na
                         l_BubbleText_0.TextTransparency = 0.5;
                     end;
                 end;
-                l_RenderBubble_0:TweenPosition(UDim2.new(l_RenderBubble_0.Position.X.Scale, l_RenderBubble_0.Position.X.Offset, 1, v147 - l_RenderBubble_0.Size.Y.Offset - 14), Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true);
-                v147 = v147 - l_RenderBubble_0.Size.Y.Offset - 14;
+                local v156 = UDim2.new(l_RenderBubble_0.Position.X.Scale, l_RenderBubble_0.Position.X.Offset, 1, v148 - l_RenderBubble_0.Size.Y.Offset - 14);
+                if v12 then
+                    l_RenderBubble_0:TweenPositionInternal(v156, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true);
+                else
+                    l_RenderBubble_0:TweenPosition(v156, Enum.EasingDirection.Out, Enum.EasingStyle.Bounce, 0.1, true);
+                end;
+                v148 = v148 - l_RenderBubble_0.Size.Y.Offset - 14;
             end;
         end;
         return;
     end;
 end;
-v91.DestroyBubble = function(_, v156, v157) --[[ Line: 513 ]] --[[ Name: DestroyBubble ]]
-    if not v156 then
+v92.DestroyBubble = function(_, v158, v159) --[[ Line: 519 ]] --[[ Name: DestroyBubble ]]
+    if not v158 then
         return;
-    elseif v156:Empty() then
+    elseif v158:Empty() then
         return;
     else
-        local l_RenderBubble_1 = v156:Front().RenderBubble;
+        local l_RenderBubble_1 = v158:Front().RenderBubble;
         if not l_RenderBubble_1 then
-            v156:PopFront();
+            v158:PopFront();
             return;
         else
-            spawn(function() --[[ Line: 523 ]]
-                -- upvalues: v156 (copy), v157 (copy), l_RenderBubble_1 (ref)
-                while v156:Front().RenderBubble ~= v157 do
+            spawn(function() --[[ Line: 529 ]]
+                -- upvalues: v158 (copy), v159 (copy), l_RenderBubble_1 (ref)
+                while v158:Front().RenderBubble ~= v159 do
                     wait();
                 end;
-                l_RenderBubble_1 = v156:Front().RenderBubble;
-                local v159 = 0;
+                l_RenderBubble_1 = v158:Front().RenderBubble;
+                local v161 = 0;
                 local l_BubbleText_1 = l_RenderBubble_1:FindFirstChild("BubbleText");
                 local l_ChatBubbleTail_1 = l_RenderBubble_1:FindFirstChild("ChatBubbleTail");
                 while l_RenderBubble_1 and l_RenderBubble_1.ImageTransparency < 1 do
-                    v159 = wait();
+                    v161 = wait();
                     if l_RenderBubble_1 then
-                        local v162 = v159 * 1.5;
-                        l_RenderBubble_1.ImageTransparency = l_RenderBubble_1.ImageTransparency + v162;
+                        local v164 = v161 * 1.5;
+                        l_RenderBubble_1.ImageTransparency = l_RenderBubble_1.ImageTransparency + v164;
                         if l_BubbleText_1 then
-                            l_BubbleText_1.TextTransparency = l_BubbleText_1.TextTransparency + v162;
+                            l_BubbleText_1.TextTransparency = l_BubbleText_1.TextTransparency + v164;
                         end;
                         if l_ChatBubbleTail_1 then
-                            l_ChatBubbleTail_1.ImageTransparency = l_ChatBubbleTail_1.ImageTransparency + v162;
+                            l_ChatBubbleTail_1.ImageTransparency = l_ChatBubbleTail_1.ImageTransparency + v164;
                         end;
                     end;
                 end;
                 if l_RenderBubble_1 then
                     l_RenderBubble_1:Destroy();
-                    v156:PopFront();
+                    v158:PopFront();
                 end;
             end);
             return;
         end;
     end;
 end;
-v91.CreateChatLineRender = function(_, v164, v165, v166, v167, v168) --[[ Line: 551 ]] --[[ Name: CreateChatLineRender ]]
-    -- upvalues: v91 (copy), l_TextService_0 (copy), v13 (copy), v9 (ref)
-    if not v164 then
+v92.CreateChatLineRender = function(_, v166, v167, v168, v169, v170) --[[ Line: 557 ]] --[[ Name: CreateChatLineRender ]]
+    -- upvalues: v92 (copy), l_TextService_0 (copy), l_SourceSans_0 (copy), v9 (ref)
+    if not v166 then
         return;
     else
-        if not v91.CharacterSortedMsg:Get(v164).BillboardGui then
-            v91:CreateBillboardGuiHelper(v164, v166);
+        if not v92.CharacterSortedMsg:Get(v166).BillboardGui then
+            v92:CreateBillboardGuiHelper(v166, v168);
         end;
-        local l_BillboardGui_2 = v91.CharacterSortedMsg:Get(v164).BillboardGui;
+        local l_BillboardGui_2 = v92.CharacterSortedMsg:Get(v166).BillboardGui;
         if l_BillboardGui_2 then
-            local v170 = v91.ChatBubbleWithTail[v165.BubbleColor]:Clone();
-            v170.Visible = false;
-            local l_v91_BubbleText_1 = v91:CreateBubbleText(v165.Message, v168);
-            l_v91_BubbleText_1.Parent = v170;
-            v170.Parent = l_BillboardGui_2.BillboardFrame;
-            v165.RenderBubble = v170;
-            local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(l_v91_BubbleText_1.Text, 24, v13, Vector2.new(400, 250));
-            local v173 = l_l_TextService_0_TextSize_0.Y / 24;
+            local v172 = v92.ChatBubbleWithTail[v167.BubbleColor]:Clone();
+            v172.Visible = false;
+            local l_v92_BubbleText_1 = v92:CreateBubbleText(v167.Message, v170);
+            l_v92_BubbleText_1.Parent = v172;
+            v172.Parent = l_BillboardGui_2.BillboardFrame;
+            v167.RenderBubble = v172;
+            local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(l_v92_BubbleText_1.Text, 24, l_SourceSans_0, Vector2.new(400, 250));
+            local v175 = l_l_TextService_0_TextSize_0.Y / 24;
             if v9 then
-                local v174 = math.ceil(l_l_TextService_0_TextSize_0.X + 24);
-                local v175 = v173 * 34;
-                v170.Size = UDim2.fromOffset(0, 0);
-                v170.Position = UDim2.fromScale(0.5, 1);
-                v170:TweenSizeAndPosition(UDim2.fromOffset(v174, v175), UDim2.new(0.5, -v174 / 2, 1, -v175), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true, function() --[[ Line: 590 ]]
-                    -- upvalues: l_v91_BubbleText_1 (copy)
-                    l_v91_BubbleText_1.Visible = true;
+                local v176 = math.ceil(l_l_TextService_0_TextSize_0.X + 24);
+                local v177 = v175 * 34;
+                v172.Size = UDim2.fromOffset(0, 0);
+                v172.Position = UDim2.fromScale(0.5, 1);
+                v172:TweenSizeAndPosition(UDim2.fromOffset(v176, v177), UDim2.new(0.5, -v176 / 2, 1, -v177), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true, function() --[[ Line: 596 ]]
+                    -- upvalues: l_v92_BubbleText_1 (copy)
+                    l_v92_BubbleText_1.Visible = true;
                 end);
-                v91:SetBillboardGuiLOD(l_BillboardGui_2, v165.Origin);
-                v91:UpdateChatLinesForOrigin(v165.Origin, -v175);
+                v92:SetBillboardGuiLOD(l_BillboardGui_2, v167.Origin);
+                v92:UpdateChatLinesForOrigin(v167.Origin, -v177);
             else
-                local v176 = math.max((l_l_TextService_0_TextSize_0.X + 30) / 400, 0.1);
-                v170.Size = UDim2.new(0, 0, 0, 0);
-                v170.Position = UDim2.new(0.5, 0, 1, 0);
-                local v177 = v173 * 34;
-                v170:TweenSizeAndPosition(UDim2.new(v176, 0, 0, v177), UDim2.new((1 - v176) / 2, 0, 1, -v177), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true, function() --[[ Line: 610 ]]
-                    -- upvalues: l_v91_BubbleText_1 (copy)
-                    l_v91_BubbleText_1.Visible = true;
+                local v178 = math.max((l_l_TextService_0_TextSize_0.X + 30) / 400, 0.1);
+                v172.Size = UDim2.new(0, 0, 0, 0);
+                v172.Position = UDim2.new(0.5, 0, 1, 0);
+                local v179 = v175 * 34;
+                v172:TweenSizeAndPosition(UDim2.new(v178, 0, 0, v179), UDim2.new((1 - v178) / 2, 0, 1, -v179), Enum.EasingDirection.Out, Enum.EasingStyle.Elastic, 0.1, true, function() --[[ Line: 616 ]]
+                    -- upvalues: l_v92_BubbleText_1 (copy)
+                    l_v92_BubbleText_1.Visible = true;
                 end);
-                v91:SetBillboardGuiLOD(l_BillboardGui_2, v165.Origin);
-                v91:UpdateChatLinesForOrigin(v165.Origin, -v177);
+                v92:SetBillboardGuiLOD(l_BillboardGui_2, v167.Origin);
+                v92:UpdateChatLinesForOrigin(v167.Origin, -v179);
             end;
-            delay(v165.BubbleDieDelay, function() --[[ Line: 617 ]]
-                -- upvalues: v91 (ref), v167 (copy), v170 (copy)
-                v91:DestroyBubble(v167, v170);
+            delay(v167.BubbleDieDelay, function() --[[ Line: 623 ]]
+                -- upvalues: v92 (ref), v169 (copy), v172 (copy)
+                v92:DestroyBubble(v169, v172);
             end);
         end;
         return;
     end;
 end;
-v91.OnPlayerChatMessage = function(_, v179, v180, _) --[[ Line: 623 ]] --[[ Name: OnPlayerChatMessage ]]
-    -- upvalues: v91 (copy), l_Players_0 (copy), v57 (copy), v17 (copy)
-    if not v91:BubbleChatEnabled() then
+v92.OnPlayerChatMessage = function(_, v181, v182, _) --[[ Line: 629 ]] --[[ Name: OnPlayerChatMessage ]]
+    -- upvalues: v92 (copy), l_Players_0 (copy), v58 (copy), v18 (copy)
+    if not v92:BubbleChatEnabled() then
         return;
     else
         local l_LocalPlayer_1 = l_Players_0.LocalPlayer;
-        local v183 = false;
+        local v185 = false;
         if l_LocalPlayer_1 ~= nil then
-            v183 = v179 ~= l_LocalPlayer_1;
+            v185 = v181 ~= l_LocalPlayer_1;
         end;
-        local v184 = v91:SanitizeChatLine(v180);
-        local v185 = not v183;
-        local v186 = v57(v184, v17.WHITE, v185);
-        if v179 then
-            v186.User = v179.Name;
-            v186.Origin = v179.Character;
+        local v186 = v92:SanitizeChatLine(v182);
+        local v187 = not v185;
+        local v188 = v58(v186, v18.WHITE, v187);
+        if v181 then
+            v188.User = v181.Name;
+            v188.Origin = v181.Character;
         end;
-        local l_v186_0 = v186;
-        if v179 and l_v186_0.Origin then
-            v185 = v91.CharacterSortedMsg:Get(l_v186_0.Origin).Fifo;
-            v185:PushBack(l_v186_0);
-            v91:CreateChatLineRender(v179.Character, l_v186_0, true, v185, false);
+        local l_v188_0 = v188;
+        if v181 and l_v188_0.Origin then
+            v187 = v92.CharacterSortedMsg:Get(l_v188_0.Origin).Fifo;
+            v187:PushBack(l_v188_0);
+            v92:CreateChatLineRender(v181.Character, l_v188_0, true, v187, false);
         end;
         return;
     end;
 end;
-v91.OnGameChatMessage = function(_, v189, v190, v191) --[[ Line: 642 ]] --[[ Name: OnGameChatMessage ]]
-    -- upvalues: l_status_1 (ref), l_result_1 (ref), l_Chat_0 (copy), l_Players_0 (copy), v17 (copy), v91 (copy), v57 (copy), v8 (copy)
+v92.OnGameChatMessage = function(_, v191, v192, v193) --[[ Line: 648 ]] --[[ Name: OnGameChatMessage ]]
+    -- upvalues: l_status_1 (ref), l_result_1 (ref), l_Chat_0 (copy), l_Players_0 (copy), v18 (copy), v92 (copy), v58 (copy), v8 (copy)
     if l_status_1 or l_result_1 and l_Chat_0.BubbleChatEnabled then
         return;
     else
         local l_LocalPlayer_2 = l_Players_0.LocalPlayer;
-        local v193 = false;
+        local v195 = false;
         if l_LocalPlayer_2 ~= nil then
-            v193 = l_LocalPlayer_2.Character ~= v189;
+            v195 = l_LocalPlayer_2.Character ~= v191;
         end;
-        local l_WHITE_0 = v17.WHITE;
-        if v191 == Enum.ChatColor.Blue then
-            l_WHITE_0 = v17.BLUE;
-        elseif v191 == Enum.ChatColor.Green then
-            l_WHITE_0 = v17.GREEN;
-        elseif v191 == Enum.ChatColor.Red then
-            l_WHITE_0 = v17.RED;
+        local l_WHITE_0 = v18.WHITE;
+        if v193 == Enum.ChatColor.Blue then
+            l_WHITE_0 = v18.BLUE;
+        elseif v193 == Enum.ChatColor.Green then
+            l_WHITE_0 = v18.GREEN;
+        elseif v193 == Enum.ChatColor.Red then
+            l_WHITE_0 = v18.RED;
         end;
-        local v195 = v91:SanitizeChatLine(v190);
-        local v196 = not v193;
-        local v197 = v57(v195, l_WHITE_0, v196);
-        v197.Origin = v189;
-        local l_v197_0 = v197;
-        v91.CharacterSortedMsg:Get(l_v197_0.Origin).Fifo:PushBack(l_v197_0);
+        local v197 = v92:SanitizeChatLine(v192);
+        local v198 = not v195;
+        local v199 = v58(v197, l_WHITE_0, v198);
+        v199.Origin = v191;
+        local l_v199_0 = v199;
+        v92.CharacterSortedMsg:Get(l_v199_0.Origin).Fifo:PushBack(l_v199_0);
         if v8 then
-            v91:CreateChatLineRender(v189, l_v197_0, false, v91.CharacterSortedMsg:Get(l_v197_0.Origin).Fifo, true);
+            v92:CreateChatLineRender(v191, l_v199_0, false, v92.CharacterSortedMsg:Get(l_v199_0.Origin).Fifo, true);
             return;
         else
-            v91:CreateChatLineRender(v189, l_v197_0, false, v91.CharacterSortedMsg:Get(l_v197_0.Origin).Fifo, false);
+            v92:CreateChatLineRender(v191, l_v199_0, false, v92.CharacterSortedMsg:Get(l_v199_0.Origin).Fifo, false);
             return;
         end;
     end;
 end;
-v91.BubbleChatEnabled = function(_) --[[ Line: 668 ]] --[[ Name: BubbleChatEnabled ]]
+v92.BubbleChatEnabled = function(_) --[[ Line: 674 ]] --[[ Name: BubbleChatEnabled ]]
     -- upvalues: l_status_1 (ref), l_result_1 (ref), l_Chat_0 (copy), l_Players_0 (copy)
     if l_status_1 or l_result_1 and l_Chat_0.BubbleChatEnabled then
         return false;
@@ -616,7 +622,7 @@ v91.BubbleChatEnabled = function(_) --[[ Line: 668 ]] --[[ Name: BubbleChatEnabl
         return l_Players_0.BubbleChat;
     end;
 end;
-v91.ShowOwnFilteredMessage = function(_) --[[ Line: 685 ]] --[[ Name: ShowOwnFilteredMessage ]]
+v92.ShowOwnFilteredMessage = function(_) --[[ Line: 691 ]] --[[ Name: ShowOwnFilteredMessage ]]
     -- upvalues: l_Chat_0 (copy)
     local l_ClientChatModules_1 = l_Chat_0:FindFirstChild("ClientChatModules");
     if l_ClientChatModules_1 then
@@ -627,44 +633,44 @@ v91.ShowOwnFilteredMessage = function(_) --[[ Line: 685 ]] --[[ Name: ShowOwnFil
     end;
     return false;
 end;
-findPlayer = function(v205) --[[ Line: 697 ]] --[[ Name: findPlayer ]]
+findPlayer = function(v207) --[[ Line: 703 ]] --[[ Name: findPlayer ]]
     -- upvalues: l_Players_0 (copy)
-    for _, v207 in pairs(l_Players_0:GetPlayers()) do
-        if v207.Name == v205 then
-            return v207;
+    for _, v209 in pairs(l_Players_0:GetPlayers()) do
+        if v209.Name == v207 then
+            return v209;
         end;
     end;
 end;
-l_Chat_0.Chatted:connect(function(v208, v209, v210) --[[ Line: 705 ]]
-    -- upvalues: v91 (copy)
-    v91:OnGameChatMessage(v208, v209, v210);
+l_Chat_0.Chatted:connect(function(v210, v211, v212) --[[ Line: 711 ]]
+    -- upvalues: v92 (copy)
+    v92:OnGameChatMessage(v210, v211, v212);
 end);
-local v211 = nil;
+local v213 = nil;
 if game.Workspace.CurrentCamera then
-    v211 = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(_) --[[ Line: 709 ]]
-        -- upvalues: v91 (copy)
-        v91:CameraCFrameChanged();
+    v213 = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(_) --[[ Line: 715 ]]
+        -- upvalues: v92 (copy)
+        v92:CameraCFrameChanged();
     end);
 end;
-game.Workspace.Changed:Connect(function(v213) --[[ Line: 712 ]]
-    -- upvalues: v211 (ref), v91 (copy)
-    if v213 == "CurrentCamera" then
-        if v211 then
-            v211:disconnect();
+game.Workspace.Changed:Connect(function(v215) --[[ Line: 718 ]]
+    -- upvalues: v213 (ref), v92 (copy)
+    if v215 == "CurrentCamera" then
+        if v213 then
+            v213:disconnect();
         end;
         if game.Workspace.CurrentCamera then
-            v211 = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(_) --[[ Line: 716 ]]
-                -- upvalues: v91 (ref)
-                v91:CameraCFrameChanged();
+            v213 = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(_) --[[ Line: 722 ]]
+                -- upvalues: v92 (ref)
+                v92:CameraCFrameChanged();
             end);
         end;
     end;
 end);
-local v215 = nil;
-getAllowedMessageTypes = function() --[[ Line: 724 ]] --[[ Name: getAllowedMessageTypes ]]
-    -- upvalues: v215 (ref), l_Chat_0 (copy)
-    if v215 then
-        return v215;
+local v217 = nil;
+getAllowedMessageTypes = function() --[[ Line: 730 ]] --[[ Name: getAllowedMessageTypes ]]
+    -- upvalues: v217 (ref), l_Chat_0 (copy)
+    if v217 then
+        return v217;
     else
         local l_ClientChatModules_2 = l_Chat_0:FindFirstChild("ClientChatModules");
         if l_ClientChatModules_2 then
@@ -672,19 +678,19 @@ getAllowedMessageTypes = function() --[[ Line: 724 ]] --[[ Name: getAllowedMessa
             if l_ChatSettings_2 then
                 l_ChatSettings_2 = require(l_ChatSettings_2);
                 if l_ChatSettings_2.BubbleChatMessageTypes then
-                    v215 = l_ChatSettings_2.BubbleChatMessageTypes;
-                    return v215;
+                    v217 = l_ChatSettings_2.BubbleChatMessageTypes;
+                    return v217;
                 end;
             end;
             local l_ChatConstants_0 = l_ClientChatModules_2:FindFirstChild("ChatConstants");
             if l_ChatConstants_0 then
                 l_ChatConstants_0 = require(l_ChatConstants_0);
-                v215 = {
+                v217 = {
                     l_ChatConstants_0.MessageTypeDefault, 
                     l_ChatConstants_0.MessageTypeWhisper
                 };
             end;
-            return v215;
+            return v217;
         else
             return {
                 "Message", 
@@ -693,10 +699,10 @@ getAllowedMessageTypes = function() --[[ Line: 724 ]] --[[ Name: getAllowedMessa
         end;
     end;
 end;
-checkAllowedMessageType = function(v219) --[[ Line: 748 ]] --[[ Name: checkAllowedMessageType ]]
-    local v220 = getAllowedMessageTypes();
-    for v221 = 1, #v220 do
-        if v220[v221] == v219.MessageType then
+checkAllowedMessageType = function(v221) --[[ Line: 754 ]] --[[ Name: checkAllowedMessageType ]]
+    local v222 = getAllowedMessageTypes();
+    for v223 = 1, #v222 do
+        if v222[v223] == v221.MessageType then
             return true;
         end;
     end;
@@ -704,34 +710,34 @@ checkAllowedMessageType = function(v219) --[[ Line: 748 ]] --[[ Name: checkAllow
 end;
 local l_DefaultChatSystemChatEvents_0 = l_ReplicatedStorage_0:WaitForChild("DefaultChatSystemChatEvents");
 local l_OnMessageDoneFiltering_0 = l_DefaultChatSystemChatEvents_0:WaitForChild("OnMessageDoneFiltering");
-l_DefaultChatSystemChatEvents_0:WaitForChild("OnNewMessage").OnClientEvent:connect(function(v224, _) --[[ Line: 762 ]]
-    -- upvalues: l_LocalPlayer_0 (ref), v91 (copy)
-    if not checkAllowedMessageType(v224) then
+l_DefaultChatSystemChatEvents_0:WaitForChild("OnNewMessage").OnClientEvent:connect(function(v226, _) --[[ Line: 768 ]]
+    -- upvalues: l_LocalPlayer_0 (ref), v92 (copy)
+    if not checkAllowedMessageType(v226) then
         return;
     else
-        local v226 = findPlayer(v224.FromSpeaker);
-        if not v226 then
+        local v228 = findPlayer(v226.FromSpeaker);
+        if not v228 then
             return;
-        elseif (not v224.IsFiltered or v224.FromSpeaker == l_LocalPlayer_0.Name) and (v224.FromSpeaker ~= l_LocalPlayer_0.Name or v91:ShowOwnFilteredMessage()) then
+        elseif (not v226.IsFiltered or v226.FromSpeaker == l_LocalPlayer_0.Name) and (v226.FromSpeaker ~= l_LocalPlayer_0.Name or v92:ShowOwnFilteredMessage()) then
             return;
         else
-            v91:OnPlayerChatMessage(v226, v224.Message, nil);
+            v92:OnPlayerChatMessage(v228, v226.Message, nil);
             return;
         end;
     end;
 end);
-l_OnMessageDoneFiltering_0.OnClientEvent:connect(function(v227, _) --[[ Line: 781 ]]
-    -- upvalues: l_LocalPlayer_0 (ref), v91 (copy)
-    if not checkAllowedMessageType(v227) then
+l_OnMessageDoneFiltering_0.OnClientEvent:connect(function(v229, _) --[[ Line: 787 ]]
+    -- upvalues: l_LocalPlayer_0 (ref), v92 (copy)
+    if not checkAllowedMessageType(v229) then
         return;
     else
-        local v229 = findPlayer(v227.FromSpeaker);
-        if not v229 then
+        local v231 = findPlayer(v229.FromSpeaker);
+        if not v231 then
             return;
-        elseif v227.FromSpeaker == l_LocalPlayer_0.Name and not v91:ShowOwnFilteredMessage() then
+        elseif v229.FromSpeaker == l_LocalPlayer_0.Name and not v92:ShowOwnFilteredMessage() then
             return;
         else
-            v91:OnPlayerChatMessage(v229, v227.Message, nil);
+            v92:OnPlayerChatMessage(v231, v229.Message, nil);
             return;
         end;
     end;

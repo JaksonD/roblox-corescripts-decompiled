@@ -6,7 +6,7 @@ local l_PartialPageModal_0 = v3.App.Dialog.Modal.PartialPageModal;
 local l_StyledTextLabel_0 = v3.App.Text.StyledTextLabel;
 local l_ButtonType_0 = v3.App.Button.Enum.ButtonType;
 local l_useTokens_0 = require(l_Parent_0.Foundation).Hooks.useTokens;
-UpsellModal = function(v8) --[[ Line: 25 ]] --[[ Name: UpsellModal ]]
+UpsellModal = function(v8) --[[ Line: 26 ]] --[[ Name: UpsellModal ]]
     -- upvalues: l_useTokens_0 (copy), l_useScreenSize_0 (copy), v1 (copy), l_PartialPageModal_0 (copy), l_ButtonType_0 (copy), l_StyledTextLabel_0 (copy)
     local v9 = l_useTokens_0();
     local v10 = l_useScreenSize_0();

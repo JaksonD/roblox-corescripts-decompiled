@@ -14,30 +14,32 @@ return {
         -- upvalues: v4 (copy)
         local v6 = {
             Badges = v5 and v5.Badges or {
-                getBadgeInfoStore = function() --[[ Line: 36 ]] --[[ Name: getBadgeInfoStore ]]
+                getBadgeInfoStore = function() --[[ Line: 38 ]] --[[ Name: getBadgeInfoStore ]]
                     return {
-                        getBadgeInfo = function() --[[ Line: 38 ]] --[[ Name: getBadgeInfo ]]
+                        getBadgeInfo = function() --[[ Line: 40 ]] --[[ Name: getBadgeInfo ]]
                             return {
-                                data = function() --[[ Line: 40 ]] --[[ Name: data ]]
+                                data = function() --[[ Line: 42 ]] --[[ Name: data ]]
                                     return nil;
                                 end, 
-                                status = function() --[[ Line: 43 ]] --[[ Name: status ]]
+                                status = function() --[[ Line: 45 ]] --[[ Name: status ]]
                                     return "NotReady";
                                 end
                             };
                         end, 
-                        getBadgeInfos = function() --[[ Line: 48 ]] --[[ Name: getBadgeInfos ]]
+                        getBadgeInfos = function() --[[ Line: 50 ]] --[[ Name: getBadgeInfos ]]
                             return {};
                         end, 
-                        clear = function() --[[ Line: 51 ]] --[[ Name: clear ]]
+                        clear = function() --[[ Line: 53 ]] --[[ Name: clear ]]
 
                         end, 
-                        dispose = function() --[[ Line: 52 ]] --[[ Name: dispose ]]
+                        dispose = function() --[[ Line: 54 ]] --[[ Name: dispose ]]
 
                         end
                     };
                 end
             }, 
+            Game = v5 and v5.Game or nil, 
+            SocialLink = v5 and v5.SocialLink or nil, 
             DataHydrationTypes = v4
         };
         if v5 and v5.extraFields then
@@ -47,7 +49,7 @@ return {
         end;
         return v6;
     end, 
-    createSduiDataBinderTransformUtilsMock = function() --[[ Line: 73 ]] --[[ Name: createSduiDataBinderTransformUtilsMock ]]
+    createSduiDataBinderTransformUtilsMock = function() --[[ Line: 77 ]] --[[ Name: createSduiDataBinderTransformUtilsMock ]]
         -- upvalues: l_snakeToCamel_0 (copy), l_protobufTimestampToLocalTimeString_0 (copy)
         return {
             snakeToCamel = l_snakeToCamel_0, 

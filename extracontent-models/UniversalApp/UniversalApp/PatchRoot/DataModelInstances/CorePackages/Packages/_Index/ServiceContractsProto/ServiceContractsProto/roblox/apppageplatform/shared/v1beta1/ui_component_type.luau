@@ -3,7 +3,7 @@ local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
 return {
     UiComponentType = ({
         UiComponentType = {
-            fromNumber = function(v2) --[[ Line: 64 ]] --[[ Name: fromNumber ]]
+            fromNumber = function(v2) --[[ Line: 66 ]] --[[ Name: fromNumber ]]
                 if v2 == 0 then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v2 == 1 then
@@ -78,6 +78,10 @@ return {
                     return "UI_COMPONENT_TYPE_TABS";
                 elseif v2 == 227 then
                     return "UI_COMPONENT_TYPE_ACTION_BAR";
+                elseif v2 == 228 then
+                    return "UI_COMPONENT_TYPE_ICON";
+                elseif v2 == 229 then
+                    return "UI_COMPONENT_TYPE_CIRCLE_ICON";
                 elseif v2 == 300 then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v2 == 400 then
@@ -98,7 +102,7 @@ return {
                     return nil;
                 end;
             end, 
-            toNumber = function(v3) --[[ Line: 160 ]] --[[ Name: toNumber ]]
+            toNumber = function(v3) --[[ Line: 166 ]] --[[ Name: toNumber ]]
                 if v3 == "UI_COMPONENT_TYPE_INVALID" then
                     return 0;
                 elseif v3 == "UI_COMPONENT_TYPE_FEED" then
@@ -173,6 +177,10 @@ return {
                     return 226;
                 elseif v3 == "UI_COMPONENT_TYPE_ACTION_BAR" then
                     return 227;
+                elseif v3 == "UI_COMPONENT_TYPE_ICON" then
+                    return 228;
+                elseif v3 == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
+                    return 229;
                 elseif v3 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return 300;
                 elseif v3 == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -193,7 +201,7 @@ return {
                     return v3;
                 end;
             end, 
-            fromName = function(v4) --[[ Line: 256 ]] --[[ Name: fromName ]]
+            fromName = function(v4) --[[ Line: 266 ]] --[[ Name: fromName ]]
                 if v4 == "UI_COMPONENT_TYPE_INVALID" then
                     return "UI_COMPONENT_TYPE_INVALID";
                 elseif v4 == "UI_COMPONENT_TYPE_FEED" then
@@ -268,6 +276,10 @@ return {
                     return "UI_COMPONENT_TYPE_TABS";
                 elseif v4 == "UI_COMPONENT_TYPE_ACTION_BAR" then
                     return "UI_COMPONENT_TYPE_ACTION_BAR";
+                elseif v4 == "UI_COMPONENT_TYPE_ICON" then
+                    return "UI_COMPONENT_TYPE_ICON";
+                elseif v4 == "UI_COMPONENT_TYPE_CIRCLE_ICON" then
+                    return "UI_COMPONENT_TYPE_CIRCLE_ICON";
                 elseif v4 == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
                     return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS";
                 elseif v4 == "UI_COMPONENT_TYPE_FRAGMENT" then

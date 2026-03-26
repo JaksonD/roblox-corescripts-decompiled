@@ -138,7 +138,7 @@ local function v85(v74, v75, v76) --[[ Line: 159 ]] --[[ Name: ShowToasts ]]
     end;
 end;
 return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]]
-    -- upvalues: v27 (copy), v29 (copy), l_useDispatch_0 (copy), v28 (copy), v8 (copy), v16 (copy), l_useTriggerFeedback_0 (copy), v2 (copy), l_useAvatarSaveContext_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v23 (copy), v43 (copy), v26 (copy), v12 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v25 (copy), v24 (copy), v64 (copy), v73 (copy), l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 (copy), l_avatarLastEquippedStateStore_0 (copy), v15 (copy), v44 (copy), v18 (copy), l_PeekViewState_0 (copy), v40 (copy), v11 (copy), l_SaveAsMakeupLookThunk_0 (copy), v48 (copy), v9 (copy), l_parseEconomicRestrictionsFailureReason_0 (copy), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v20 (copy), v49 (copy), v14 (copy), v85 (copy), l_setTimeout_0 (copy), l_FIntAXLookOutfitCreationDelayMs_0 (copy), l_sendAXCounterV2_0 (copy), v19 (copy), l_isEconomicRestrictionResponse_0 (copy), v13 (copy)
+    -- upvalues: v27 (copy), v29 (copy), l_useDispatch_0 (copy), v28 (copy), v8 (copy), v16 (copy), l_useTriggerFeedback_0 (copy), v2 (copy), l_useAvatarSaveContext_0 (copy), l_useSelector_0 (copy), l_getUseSelectorDeepEquals_0 (copy), v23 (copy), v43 (copy), v26 (copy), v12 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v25 (copy), v24 (copy), v64 (copy), v73 (copy), v42 (copy), l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 (copy), l_avatarLastEquippedStateStore_0 (copy), v15 (copy), v44 (copy), v18 (copy), l_PeekViewState_0 (copy), v40 (copy), v11 (copy), l_SaveAsMakeupLookThunk_0 (copy), v48 (copy), v9 (copy), l_parseEconomicRestrictionsFailureReason_0 (copy), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v20 (copy), v49 (copy), v14 (copy), v85 (copy), l_setTimeout_0 (copy), l_FIntAXLookOutfitCreationDelayMs_0 (copy), l_sendAXCounterV2_0 (copy), v19 (copy), l_isEconomicRestrictionResponse_0 (copy), v13 (copy)
     local v87 = v27(v29);
     local v88 = l_useDispatch_0();
     local v89 = v27(v28);
@@ -231,8 +231,8 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
         };
         v88(v24(v122));
     end;
-    local function v134(v124) --[[ Line: 335 ]] --[[ Name: handleWearAfterPurchase ]]
-        -- upvalues: v95 (copy), v86 (copy), v64 (ref), v112 (copy), v12 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v73 (ref), v101 (copy), v99 (copy), l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 (ref), l_avatarLastEquippedStateStore_0 (ref), v88 (copy), v15 (ref), v44 (ref), v18 (ref), l_PeekViewState_0 (ref)
+    local function v138(v124) --[[ Line: 335 ]] --[[ Name: handleWearAfterPurchase ]]
+        -- upvalues: v95 (copy), v86 (copy), v64 (ref), v112 (copy), v12 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v73 (ref), v101 (copy), v42 (ref), v99 (copy), l_FFlagAXRevertEquippedAssetsAfterLayeringTryOnMakeup_0 (ref), l_avatarLastEquippedStateStore_0 (ref), v88 (copy), v15 (ref), v44 (ref), v18 (ref), l_PeekViewState_0 (ref)
         if not v95 then
             return;
         else
@@ -249,7 +249,17 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
                 end;
             else
                 for v132, v133 in v124.itemPurchaseStatus do
-                    v125 = v73(v125, v101, v132, v133);
+                    local l_v125_0 = v125;
+                    local l_v101_0 = v101;
+                    local v136 = true;
+                    if v133 ~= "Success" then
+                        v136 = v42 and v133 == "AlreadyOwned";
+                    end;
+                    local l_v132_0 = v132;
+                    if v136 and l_v101_0[l_v132_0] ~= nil then
+                        table.insert(l_v125_0, (v64(v132, l_v101_0[l_v132_0], true)));
+                    end;
+                    v125 = l_v125_0;
                 end;
             end;
             if v86.isTryOnFromOutsideAX and v99 and v99.autoSaveNextNewSaveData then
@@ -265,75 +275,75 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
             return;
         end;
     end;
-    local function v138() --[[ Line: 406 ]] --[[ Name: handleSaveAsCharacter ]]
+    local function v142() --[[ Line: 406 ]] --[[ Name: handleSaveAsCharacter ]]
         -- upvalues: v97 (copy), v112 (copy), v12 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v43 (ref), v113 (ref), v40 (ref), v11 (ref), v105 (copy), v107 (copy), v88 (copy), l_SaveAsMakeupLookThunk_0 (ref), v87 (copy), v101 (copy), v48 (ref), v123 (copy), v9 (ref), v90 (copy), v121 (copy), v109 (copy)
         if not v97 then
             return;
         else
-            local v135 = nil;
+            local v139 = nil;
             if v112 == v12.LookType.Avatar or l_FFlagAXCatalogMakeupSupport_0 and v112 == v12.LookType.Makeup then
-                v135 = if v43() and v113 then v113 else v40;
+                v139 = if v43() and v113 then v113 else v40;
             else
-                for v136 = 1, 1000 do
-                    v135 = "Outfit" .. v136;
-                    if not v11.isDuplicateOutfitName(v105, v107, v135) then
+                for v140 = 1, 1000 do
+                    v139 = "Outfit" .. v140;
+                    if not v11.isDuplicateOutfitName(v105, v107, v139) then
                         break;
                     end;
                 end;
             end;
-            local function v137() --[[ Line: 433 ]]
+            local function v141() --[[ Line: 433 ]]
                 return true;
             end;
             if l_FFlagAXCatalogMakeupSupport_0 and v112 == v12.LookType.Makeup then
-                v88(l_SaveAsMakeupLookThunk_0(v87, v135, v101, if v48 then nil else v123));
+                v88(l_SaveAsMakeupLookThunk_0(v87, v139, v101, if v48 then nil else v123));
                 return;
             else
-                v88(v9(v135, v90, v137, if v48 then nil else v121, v109));
+                v88(v9(v139, v90, v141, if v48 then nil else v121, v109));
                 return;
             end;
         end;
     end;
-    local function v142(v139) --[[ Line: 459 ]]
+    local function v146(v143) --[[ Line: 459 ]]
         -- upvalues: l_parseEconomicRestrictionsFailureReason_0 (ref), l_parseEconomicRestrictionsExpirationTimeInMinutes_0 (ref), l_default_0 (ref), l_UniversalEconomicRestrictionsCounter_0 (ref), l_EconomicRestrictionsSurface_0 (ref), v20 (ref), v86 (copy), v88 (copy), v49 (ref)
-        local v140 = l_parseEconomicRestrictionsFailureReason_0(v139);
-        local v141 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v139);
+        local v144 = l_parseEconomicRestrictionsFailureReason_0(v143);
+        local v145 = l_parseEconomicRestrictionsExpirationTimeInMinutes_0(v143);
         l_default_0:logRobloxTelemetryCounter(l_UniversalEconomicRestrictionsCounter_0, 1, {
             surface = l_EconomicRestrictionsSurface_0.AvatarExperienceLook, 
-            failureReason = v140
+            failureReason = v144
         });
         v20.closeOverlay(v86.navigation);
-        return v88(v49(v140, v141));
+        return v88(v49(v144, v145));
     end;
-    local function v147() --[[ Line: 470 ]]
-        -- upvalues: v93 (copy), v94 (copy), v92 (copy), v88 (copy), v14 (ref), v87 (copy), v86 (copy), v91 (copy), v85 (ref), v89 (copy), l_FFlagAXCatalogMakeupSupport_0 (ref), v112 (copy), v12 (ref), v138 (copy), v134 (copy), l_setTimeout_0 (ref), l_FIntAXLookOutfitCreationDelayMs_0 (ref), v20 (ref), l_sendAXCounterV2_0 (ref), v19 (ref), v142 (copy), l_isEconomicRestrictionResponse_0 (ref), v24 (ref), v25 (ref)
+    local function v151() --[[ Line: 470 ]]
+        -- upvalues: v93 (copy), v94 (copy), v92 (copy), v88 (copy), v14 (ref), v87 (copy), v86 (copy), v91 (copy), v85 (ref), v89 (copy), l_FFlagAXCatalogMakeupSupport_0 (ref), v112 (copy), v12 (ref), v142 (copy), v138 (copy), l_setTimeout_0 (ref), l_FIntAXLookOutfitCreationDelayMs_0 (ref), v20 (ref), l_sendAXCounterV2_0 (ref), v19 (ref), v146 (copy), l_isEconomicRestrictionResponse_0 (ref), v24 (ref), v25 (ref)
         if v93 then
             return;
         else
             v94(true);
             v92("MakePurchase", "Press");
-            v88(v14(v87, v86.lookId, v86.priceInRobux, v91)):andThen(function(v143) --[[ Line: 479 ]]
-                -- upvalues: v94 (ref), v85 (ref), v88 (ref), v89 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v112 (ref), v12 (ref), v138 (ref), v134 (ref), l_setTimeout_0 (ref), l_FIntAXLookOutfitCreationDelayMs_0 (ref), v86 (ref), v20 (ref)
+            v88(v14(v87, v86.lookId, v86.priceInRobux, v91)):andThen(function(v147) --[[ Line: 479 ]]
+                -- upvalues: v94 (ref), v85 (ref), v88 (ref), v89 (ref), l_FFlagAXCatalogMakeupSupport_0 (ref), v112 (ref), v12 (ref), v142 (ref), v138 (ref), l_setTimeout_0 (ref), l_FIntAXLookOutfitCreationDelayMs_0 (ref), v86 (ref), v20 (ref)
                 v94(false);
-                v85(v143, v88, v89);
+                v85(v147, v88, v89);
                 if l_FFlagAXCatalogMakeupSupport_0 and v112 == v12.LookType.Makeup then
-                    v138();
+                    v142();
                 end;
-                v134(v143);
+                v138(v147);
                 if v112 == v12.LookType.Avatar then
-                    l_setTimeout_0(v138, l_FIntAXLookOutfitCreationDelayMs_0);
+                    l_setTimeout_0(v142, l_FIntAXLookOutfitCreationDelayMs_0);
                 elseif v112 ~= v12.LookType.Makeup then
-                    v138();
+                    v142();
                 end;
                 local l_navigation_0 = v86.navigation;
                 v20.closeOverlay(l_navigation_0);
-            end, function(v145) --[[ Line: 498 ]]
-                -- upvalues: l_sendAXCounterV2_0 (ref), v12 (ref), v86 (ref), v19 (ref), v142 (ref), l_isEconomicRestrictionResponse_0 (ref), v94 (ref), v88 (ref), v24 (ref), v25 (ref), v20 (ref)
+            end, function(v149) --[[ Line: 498 ]]
+                -- upvalues: l_sendAXCounterV2_0 (ref), v12 (ref), v86 (ref), v19 (ref), v146 (ref), l_isEconomicRestrictionResponse_0 (ref), v94 (ref), v88 (ref), v24 (ref), v25 (ref), v20 (ref)
                 l_sendAXCounterV2_0(v12.Counter.Errors.PurchaseLooksProductError, {
                     lookId = v86.lookId
                 });
-                v19("PurchaseLooksProduct error", v145);
-                if v142 and l_isEconomicRestrictionResponse_0(v145) then
-                    v142(v145);
+                v19("PurchaseLooksProduct error", v149);
+                if v146 and l_isEconomicRestrictionResponse_0(v149) then
+                    v146(v149);
                     return;
                 else
                     v94(false);
@@ -350,7 +360,7 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
             return;
         end;
     end;
-    local function v148() --[[ Line: 519 ]]
+    local function v152() --[[ Line: 519 ]]
         -- upvalues: v93 (copy), v20 (ref), v86 (copy)
         if v93 then
             return;
@@ -359,18 +369,18 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
             return;
         end;
     end;
-    local v149 = v86.priceInRobux == 0;
-    local v150 = nil;
-    local v151 = nil;
-    local v152 = nil;
-    if v149 then
-        v150 = v116.getLookTitle;
-        v151 = v116.getLookQuestion;
-        v152 = v116.getButtonText;
+    local v153 = v86.priceInRobux == 0;
+    local v154 = nil;
+    local v155 = nil;
+    local v156 = nil;
+    if v153 then
+        v154 = v116.getLookTitle;
+        v155 = v116.getLookQuestion;
+        v156 = v116.getButtonText;
     else
-        v150 = v116.buyLookTitle;
-        v151 = v116.buyLookQuestion;
-        v152 = v116.buyButtonText;
+        v154 = v116.buyLookTitle;
+        v155 = v116.buyLookQuestion;
+        v156 = v116.buyButtonText;
     end;
     return v2.createElement(v13, {
         priceInRobux = v86.priceInRobux, 
@@ -383,11 +393,11 @@ return (v22((v21(function(v86) --[[ Line: 224 ]] --[[ Name: PurchaseLookPrompt ]
         saveIfWearAfterPurchase = v86.isTryOnFromOutsideAX, 
         lookType = v112, 
         analyticsInfo = v103, 
-        titleText = v150, 
-        bodyText = v151, 
-        confirmButtonText = v152, 
-        onConfirm = v147, 
-        onCancel = v148, 
+        titleText = v154, 
+        bodyText = v155, 
+        confirmButtonText = v156, 
+        onConfirm = v151, 
+        onCancel = v152, 
         isLoading = v93, 
         isPurchasingOutfit = true, 
         defaultChildRef = v86.defaultChildRef

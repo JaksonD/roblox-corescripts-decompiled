@@ -1,123 +1,128 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Packages.React);
-local l_Signal_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).Signal;
+local v2 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local l_Signal_0 = v2.Signal;
 local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
 local l_dependencyArray_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.dependencyArray;
 local l_TopicContentsReducer_0 = require(l_CorePackages_0.Workspace.Packages.TopicContentsRodux).TopicContentsReducer;
 local l_ScreenSizeImpressionsDetector_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).ScreenSizeImpressionsDetector;
 local l_ImpressionsVisualizer_0 = require(l_CorePackages_0.Workspace.Packages.Impressions).ImpressionsVisualizer;
-return function(v8) --[[ Line: 29 ]]
-    -- upvalues: v1 (copy), l_Signal_0 (copy), l_ImpressionsVisualizer_0 (copy), l_useSelector_0 (copy), l_TopicContentsReducer_0 (copy), l_dependencyArray_0 (copy), l_ScreenSizeImpressionsDetector_0 (copy)
-    local v9 = v1.useRef({});
-    local v10 = v1.useRef(l_Signal_0.new());
-    local v12 = v1.useCallback(function(v11) --[[ Line: 34 ]]
-        -- upvalues: v8 (copy)
-        return v8.gameSortId .. "_" .. v11;
+return function(v10) --[[ Line: 32 ]]
+    -- upvalues: v1 (copy), l_Signal_0 (copy), l_ImpressionsVisualizer_0 (copy), l_useSelector_0 (copy), l_TopicContentsReducer_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_ScreenSizeImpressionsDetector_0 (copy)
+    local v11 = v1.useRef({});
+    local v12 = v1.useRef(l_Signal_0.new());
+    local v14 = v1.useCallback(function(v13) --[[ Line: 37 ]]
+        -- upvalues: v10 (copy)
+        return v10.gameSortId .. "_" .. v13;
     end, {
-        v8.gameSortId
+        v10.gameSortId
     });
-    local v13 = nil;
-    v13 = v1.useRef(nil);
-    if v13.current == nil then
-        v13.current = l_ImpressionsVisualizer_0.new(v8.impressionsTag, v12);
+    local v15 = nil;
+    v15 = v1.useRef(nil);
+    if v15.current == nil then
+        v15.current = l_ImpressionsVisualizer_0.new(v10.impressionsTag, v14);
     end;
-    assert(v13.current);
-    local v16 = l_useSelector_0(function(v14) --[[ Line: 44 ]]
-        -- upvalues: l_TopicContentsReducer_0 (ref), v8 (copy)
-        local v15 = v14.Personalization[l_TopicContentsReducer_0.key][v8.gameSortId];
-        return v15 and v15.updatedTimestamp or nil;
+    assert(v15.current);
+    local v18 = l_useSelector_0(function(v16) --[[ Line: 47 ]]
+        -- upvalues: l_TopicContentsReducer_0 (ref), v10 (copy)
+        local v17 = v16.Personalization[l_TopicContentsReducer_0.key][v10.gameSortId];
+        return v17 and v17.updatedTimestamp or nil;
     end);
-    v1.useEffect(function() --[[ Line: 49 ]]
-        -- upvalues: v13 (ref), v12 (copy), v10 (copy)
-        v13.current:setCustomKeyMapper(v12);
-        v10.current:fire();
+    v1.useEffect(function() --[[ Line: 52 ]]
+        -- upvalues: v15 (ref), v14 (copy), v12 (copy)
+        v15.current:setCustomKeyMapper(v14);
+        v12.current:fire();
     end, {
-        v12
+        v14
     });
-    v1.useEffect(function() --[[ Line: 54 ]]
-        -- upvalues: v9 (copy), v8 (copy), v16 (copy), v13 (ref), v10 (copy)
-        local v17 = v9.current[v8.gameSortId] or {};
-        if v17.lastUpdatedTimestamp ~= nil and v16 ~= v17.lastUpdatedTimestamp then
-            local l_impressionsSeen_0 = v17.impressionsSeen;
+    v1.useEffect(function() --[[ Line: 58 ]]
+        -- upvalues: v11 (copy), v10 (copy), v18 (copy), v15 (ref), v12 (copy)
+        local v19 = v11.current[v10.gameSortId] or {};
+        if v19.lastUpdatedTimestamp ~= nil and v18 ~= v19.lastUpdatedTimestamp then
+            local l_impressionsSeen_0 = v19.impressionsSeen;
             if l_impressionsSeen_0 then
-                local v19 = {};
-                for v20, v21 in pairs(l_impressionsSeen_0) do
-                    if v21 then
-                        table.insert(v19, v20);
+                local v21 = {};
+                for v22, v23 in pairs(l_impressionsSeen_0) do
+                    if v23 then
+                        table.insert(v21, v22);
                     end;
                 end;
-                if #v19 > 0 then
-                    v13.current:onClearImpressions(v19);
+                if #v21 > 0 then
+                    v15.current:onClearImpressions(v21);
                 end;
             end;
-            v17.impressionsSeen = {};
+            v19.impressionsSeen = {};
         end;
-        v17.lastUpdatedTimestamp = v16;
-        v9.current[v8.gameSortId] = v17;
-        v10.current:fire();
-    end, l_dependencyArray_0(v8.gameSortId, v16));
-    v1.useEffect(function() --[[ Line: 82 ]]
-        -- upvalues: v10 (copy), v8 (copy)
-        v10.current:fire();
-        local v22 = nil;
-        if v8.scrollViewPositionChangedSignal then
-            v22 = v8.scrollViewPositionChangedSignal:connect(function() --[[ Line: 90 ]]
-                -- upvalues: v10 (ref)
-                v10.current:fire();
+        v19.lastUpdatedTimestamp = v18;
+        v11.current[v10.gameSortId] = v19;
+        v12.current:fire();
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v10.gameSortId, 
+        v18
+    } else l_dependencyArray_0(v10.gameSortId, v18));
+    v1.useEffect(function() --[[ Line: 90 ]]
+        -- upvalues: v12 (copy), v10 (copy)
+        v12.current:fire();
+        local v24 = nil;
+        if v10.scrollViewPositionChangedSignal then
+            v24 = v10.scrollViewPositionChangedSignal:connect(function() --[[ Line: 98 ]]
+                -- upvalues: v12 (ref)
+                v12.current:fire();
             end);
         end;
-        return function() --[[ Line: 95 ]]
-            -- upvalues: v22 (ref)
-            if v22 ~= nil then
-                v22:disconnect();
+        return function() --[[ Line: 103 ]]
+            -- upvalues: v24 (ref)
+            if v24 ~= nil then
+                v24:disconnect();
             end;
         end;
     end, {
-        v8.scrollViewPositionChangedSignal
+        v10.scrollViewPositionChangedSignal
     });
-    v1.useEffect(function() --[[ Line: 102 ]]
-        -- upvalues: v13 (ref)
-        return function() --[[ Line: 103 ]]
-            -- upvalues: v13 (ref)
-            v13.current:destroy();
+    v1.useEffect(function() --[[ Line: 110 ]]
+        -- upvalues: v15 (ref)
+        return function() --[[ Line: 111 ]]
+            -- upvalues: v15 (ref)
+            v15.current:destroy();
         end;
     end, {});
-    local v25 = v1.useCallback(function(v23) --[[ Line: 108 ]]
-        -- upvalues: v9 (copy), v8 (copy), v16 (copy)
-        if v9.current[v8.gameSortId] == nil then
-            v9.current[v8.gameSortId] = {
+    local v27 = v1.useCallback(function(v25) --[[ Line: 116 ]]
+        -- upvalues: v11 (copy), v10 (copy), v18 (copy)
+        if v11.current[v10.gameSortId] == nil then
+            v11.current[v10.gameSortId] = {
                 impressionsSeen = {}, 
-                lastUpdatedTimestamp = v16
+                lastUpdatedTimestamp = v18
             };
         end;
-        local v24 = v9.current[v8.gameSortId];
-        v24.impressionsSeen = v24.impressionsSeen or {};
-        if v24.impressionsSeen[v23] ~= nil then
+        local v26 = v11.current[v10.gameSortId];
+        v26.impressionsSeen = v26.impressionsSeen or {};
+        if v26.impressionsSeen[v25] ~= nil then
             return false;
         else
-            v24.impressionsSeen[v23] = true;
+            v26.impressionsSeen[v25] = true;
             return true;
         end;
     end, {
-        v8.gameSortId
+        v10.gameSortId
     });
-    local v27 = v1.useCallback(function(v26) --[[ Line: 126 ]]
-        -- upvalues: v8 (copy), v13 (ref)
-        if not v26 or #v26 == 0 then
+    local v29 = v1.useCallback(function(v28) --[[ Line: 134 ]]
+        -- upvalues: v10 (copy), v15 (ref)
+        if not v28 or #v28 == 0 then
             return;
         else
-            v8.sendGameImpressions(v26);
-            v13.current:onSendImpressions(v26);
+            v10.sendGameImpressions(v28);
+            v15.current:onSendImpressions(v28);
             return;
         end;
     end, {
-        v8.sendGameImpressions
+        v10.sendGameImpressions
     });
     return v1.createElement(l_ScreenSizeImpressionsDetector_0, {
-        onRequestImpressionsSignal = v10.current, 
-        parentRef = v8.parentRef, 
-        filterImpressionFunc = v25, 
-        onImpressionsDetected = v27, 
-        impressionsTag = v8.impressionsTag
+        onRequestImpressionsSignal = v12.current, 
+        parentRef = v10.parentRef, 
+        filterImpressionFunc = v27, 
+        onImpressionsDetected = v29, 
+        impressionsTag = v10.impressionsTag
     });
 end;

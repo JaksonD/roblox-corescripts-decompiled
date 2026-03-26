@@ -8,54 +8,55 @@ local v6 = require(l_script_FirstAncestor_0.Analytics.EventNames);
 local v7 = require(l_script_FirstAncestor_0.Analytics.useFireAnalyticsEvent);
 local v8 = require(script.Parent.FriendingOSAEducationImpressionCache);
 local v9 = require(script.Parent.useFriendingOSAEducationSubtitle);
-local v10 = game:DefineFastFlag("FriendingOSAUseHook", false);
-local function v11() --[[ Line: 23 ]] --[[ Name: isHiddenOnInit ]]
+local l_FFlagConnectionsToFriendsRenameP1_v1_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRenameP1_v1;
+local v11 = game:DefineFastFlag("FriendingOSAUseHook", false);
+local function v12() --[[ Line: 25 ]] --[[ Name: isHiddenOnInit ]]
     -- upvalues: v8 (copy)
     return v8.getValue() ~= 0;
 end;
-return function(v12) --[[ Line: 28 ]] --[[ Name: FriendingOSAEducationSubtitle ]]
-    -- upvalues: v10 (copy), v9 (copy), v2 (copy), l_Text_0 (copy), v11 (copy), v7 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), v6 (copy), v8 (copy)
-    local l_layoutOrder_0 = v12.layoutOrder;
-    if v10 then
-        local v14 = v9();
-        if v14 then
+return function(v13) --[[ Line: 30 ]] --[[ Name: FriendingOSAEducationSubtitle ]]
+    -- upvalues: v11 (copy), v9 (copy), v2 (copy), l_Text_0 (copy), v12 (copy), v7 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRenameP1_v1_0 (copy), v6 (copy), v8 (copy)
+    local l_layoutOrder_0 = v13.layoutOrder;
+    if v11 then
+        local v15 = v9();
+        if v15 then
             return (v2.createElement(l_Text_0, {
                 tag = "auto-y grow size-full-0 text-align-x-left text-wrap", 
-                Text = v14, 
+                Text = v15, 
                 LayoutOrder = l_layoutOrder_0
             }));
         else
             return nil;
         end;
     else
-        local v15 = v2.useState(v11);
-        local v16 = v7();
-        local v18 = l_useAppPolicy_0(function(v17) --[[ Line: 46 ]]
-            return v17.getRequiresOSAFriendingEducation();
+        local v16 = v2.useState(v12);
+        local v17 = v7();
+        local v19 = l_useAppPolicy_0(function(v18) --[[ Line: 48 ]]
+            return v18.getRequiresOSAFriendingEducation();
         end);
-        local v19 = l_useLocalization_0({
-            educationText = "Feature.Friends.Subtitle.ConnectionsEducation"
+        local v20 = l_useLocalization_0({
+            educationText = l_FFlagConnectionsToFriendsRenameP1_v1_0 and "Feature.Friends.Subtitle.FriendsEducation" or "Feature.Friends.Subtitle.ConnectionsEducation"
         });
-        local v20 = v18 and not v15;
-        local v21 = v2.useCallback(function() --[[ Line: 56 ]]
-            -- upvalues: v16 (copy), v6 (ref), v8 (ref)
-            v16(v6.FriendingOSAEducationSubtitleImpression);
+        local v21 = v19 and not v16;
+        local v22 = v2.useCallback(function() --[[ Line: 60 ]]
+            -- upvalues: v17 (copy), v6 (ref), v8 (ref)
+            v17(v6.FriendingOSAEducationSubtitleImpression);
             v8.incrementValue();
         end, {
-            v16
+            v17
         });
-        v2.useEffect(function() --[[ Line: 62 ]]
-            -- upvalues: v20 (copy), v21 (copy)
-            if v20 then
-                v21();
+        v2.useEffect(function() --[[ Line: 66 ]]
+            -- upvalues: v21 (copy), v22 (copy)
+            if v21 then
+                v22();
             end;
         end, {
-            v20
+            v21
         });
-        if v20 then
+        if v21 then
             return (v2.createElement(l_Text_0, {
                 tag = "auto-y grow size-full-0 text-align-x-left text-wrap", 
-                Text = v19.educationText, 
+                Text = v20.educationText, 
                 LayoutOrder = l_layoutOrder_0
             }));
         else
