@@ -4,5 +4,6 @@ return {
     SubscriptionPurchaseUIReady = "SubscriptionPurchaseUIReady", 
     SubscriptionPurchaseInProgress = "SubscriptionPurchaseInProgress", 
     SubscriptionStatusPolling = "SubscriptionStatusPolling", 
-    SubscriptionPurchaseCompleted = "SubscriptionPurchaseCompleted"
+    SubscriptionPurchaseCompleted = "SubscriptionPurchaseCompleted", 
+    Error = "Error"
 };

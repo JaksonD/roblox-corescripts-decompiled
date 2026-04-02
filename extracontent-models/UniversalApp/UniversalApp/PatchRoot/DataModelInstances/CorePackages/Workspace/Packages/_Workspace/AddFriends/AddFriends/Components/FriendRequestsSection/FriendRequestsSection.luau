@@ -38,109 +38,116 @@ local v36 = require(l_Parent_1.FriendingOSAEducationSubtitle.useFriendingOSAEduc
 local l_FFlagAddFriendsRenderTileRefactor_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsRenderTileRefactor;
 local l_FFlagAddFriendsUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsUserListEnabled;
 local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
-return function(v40) --[[ Line: 78 ]] --[[ Name: FriendRequestsSection ]]
-    -- upvalues: l_useDesignTokens_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), v27 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), v28 (copy), v2 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (copy), v21 (copy), l_dependencyArray_0 (copy), v10 (copy), l_useCollectionImpressionsSignal_0 (copy), l_useFireUserTileImpressionEvent_0 (copy), l_Namespaces_0 (copy), v24 (copy), v36 (copy), l_useTokens_0 (copy), v23 (copy), l_UserListLayoutAdaptor_0 (copy), l_LayoutMode_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_AppPage_0 (copy), v22 (copy), v25 (copy), l_CollectionGrid_0 (copy), v7 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
-    local l_renderAddFriendsTile_0 = v40.renderAddFriendsTile;
-    local l_friendRequests_0 = v40.friendRequests;
-    local l_handleLoadMoreRequests_0 = v40.handleLoadMoreRequests;
-    local l_initialRequestsRows_0 = v40.initialRequestsRows;
-    local l_requestsPageSize_0 = v40.requestsPageSize;
-    local v46 = l_useDesignTokens_0();
-    local v47 = l_useSelectionCursor_0(l_CursorKind_0.Invisible);
-    local v48 = l_useLocalization_0({
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v41) --[[ Line: 80 ]] --[[ Name: FriendRequestsSection ]]
+    -- upvalues: l_useDesignTokens_0 (copy), l_useSelectionCursor_0 (copy), l_CursorKind_0 (copy), l_useLocalization_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), v27 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), v28 (copy), v2 (copy), l_FFlagAddFriendsRenderTileRefactor_0 (copy), v21 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v10 (copy), l_useCollectionImpressionsSignal_0 (copy), l_useFireUserTileImpressionEvent_0 (copy), l_Namespaces_0 (copy), v24 (copy), v36 (copy), l_useTokens_0 (copy), v23 (copy), l_UserListLayoutAdaptor_0 (copy), l_LayoutMode_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_AppPage_0 (copy), v22 (copy), v25 (copy), l_CollectionGrid_0 (copy), v7 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
+    local l_renderAddFriendsTile_0 = v41.renderAddFriendsTile;
+    local l_friendRequests_0 = v41.friendRequests;
+    local l_handleLoadMoreRequests_0 = v41.handleLoadMoreRequests;
+    local l_initialRequestsRows_0 = v41.initialRequestsRows;
+    local l_requestsPageSize_0 = v41.requestsPageSize;
+    local v47 = l_useDesignTokens_0();
+    local v48 = l_useSelectionCursor_0(l_CursorKind_0.Invisible);
+    local v49 = l_useLocalization_0({
         friendRequestsText = l_FFlagConnectionsToFriendsRename_0 and "Feature.AddFriends.Label.FriendRequests" or "Feature.AddFriends.Label.ConnectionRequests", 
         showMoreButtonText = "Feature.Avatar.Action.ShowMore"
     });
-    local v50 = l_useSelector_0(function(v49) --[[ Line: 96 ]]
+    local v51 = l_useSelector_0(function(v50) --[[ Line: 98 ]]
         -- upvalues: l_AddFriendsSelector_0 (ref)
-        return l_AddFriendsSelector_0(v49, "Friends.requests.receivedCount");
+        return l_AddFriendsSelector_0(v50, "Friends.requests.receivedCount");
     end);
-    local v51, v52 = v27();
-    local v53 = l_FFlagAddFriendsUserListEnabled_0 and 1 or v51.numColumns;
-    local v54, v55, v56 = v28(l_initialRequestsRows_0, l_requestsPageSize_0, v53, l_handleLoadMoreRequests_0);
-    local v60 = v2.useCallback(function(v57, v58) --[[ Line: 106 ]]
-        -- upvalues: l_FFlagAddFriendsRenderTileRefactor_0 (ref), v2 (ref), v21 (ref), v52 (copy), v51 (copy), v56 (copy), l_renderAddFriendsTile_0 (copy)
+    local v52, v53 = v27();
+    local v54 = l_FFlagAddFriendsUserListEnabled_0 and 1 or v52.numColumns;
+    local v55, v56, v57 = v28(l_initialRequestsRows_0, l_requestsPageSize_0, v54, l_handleLoadMoreRequests_0);
+    local v61 = v2.useCallback(function(v58, v59) --[[ Line: 109 ]]
+        -- upvalues: l_FFlagAddFriendsRenderTileRefactor_0 (ref), v2 (ref), v21 (ref), v53 (copy), v52 (copy), v57 (copy), l_renderAddFriendsTile_0 (copy)
         if l_FFlagAddFriendsRenderTileRefactor_0 then
-            local v59 = tostring(v58) .. " ";
+            local v60 = tostring(v59) .. " ";
             return v2.createElement(v21, {
-                layoutOrder = v58, 
-                position = v58, 
-                user = v57, 
-                size = Vector2.new(v52.itemWidth, v51.getItemHeight(v52.itemWidth)), 
+                layoutOrder = v59, 
+                position = v59, 
+                user = v58, 
+                size = Vector2.new(v53.itemWidth, v52.getItemHeight(v53.itemWidth)), 
                 isFriendRequest = true, 
-                selected = v58 == v56, 
+                selected = v59 == v57, 
                 impressionsTag = "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS"
-            }), v59;
+            }), v60;
         else
-            return l_renderAddFriendsTile_0(v57, v52.itemWidth, v51.getItemHeight(v52.itemWidth), v58, v56, "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS"), tostring(v58) .. " ";
+            return l_renderAddFriendsTile_0(v58, v53.itemWidth, v52.getItemHeight(v53.itemWidth), v59, v57, "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS"), tostring(v59) .. " ";
         end;
-    end, l_dependencyArray_0(v52, v51, v56));
-    local v64 = if l_FFlagAddFriendsUserListEnabled_0 then v2.useCallback(function(v61, v62, v63) --[[ Line: 141 ]]
-        -- upvalues: v2 (ref), v21 (ref), v56 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v53, 
+        v52, 
+        v57
+    } else l_dependencyArray_0(v53, v52, v57));
+    local v65 = if l_FFlagAddFriendsUserListEnabled_0 then v2.useCallback(function(v62, v63, v64) --[[ Line: 148 ]]
+        -- upvalues: v2 (ref), v21 (ref), v57 (copy)
         return v2.createElement(v21, {
             isFriendRequest = true, 
-            user = v62, 
-            createRow = v61, 
-            position = v63, 
-            selected = v63 == v56, 
+            user = v63, 
+            createRow = v62, 
+            position = v64, 
+            selected = v64 == v57, 
             impressionsTag = "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS"
         });
     end, {
-        v56
+        v57
     }) else nil;
-    local v65 = v50 > 0;
-    local v66 = v65 and (" (%*)"):format(v50) or "";
-    local v67 = v55 * v53 < v50;
-    local v68 = v46.LuaApps.FriendsLanding.ShowMore.ButtonWidth or 640;
-    local v69 = v46.LuaApps.FriendsLanding.ShowMore.ButtonHeight or 50;
-    local v70 = v2.useRef(nil);
-    local v71 = v2.useRef(v10.Signal.new());
-    local v72 = l_useCollectionImpressionsSignal_0(v71.current);
-    local v73 = nil;
-    local v74 = l_useFireUserTileImpressionEvent_0(l_friendRequests_0, if l_FFlagAddFriendsUserListEnabled_0 then v53 else v52.itemsPerRow, l_Namespaces_0.FriendRequests);
-    local v75 = v2.useCallback(function() --[[ Line: 174 ]]
-        -- upvalues: v71 (copy)
-        v71.current:fire();
-    end, l_dependencyArray_0(v71));
-    local v76 = v24();
-    local v77 = if l_FFlagAddFriendsUserListEnabled_0 then v36() else nil;
-    local v78 = if l_FFlagAddFriendsUserListEnabled_0 then l_useTokens_0() else nil;
-    local v79 = if l_FFlagAddFriendsUserListEnabled_0 then v78.Typography.LabelLarge.FontSize + v78.Padding.Large else nil;
+    local v66 = v51 > 0;
+    local v67 = v66 and (" (%*)"):format(v51) or "";
+    local v68 = v56 * v54 < v51;
+    local v69 = v47.LuaApps.FriendsLanding.ShowMore.ButtonWidth or 640;
+    local v70 = v47.LuaApps.FriendsLanding.ShowMore.ButtonHeight or 50;
+    local v71 = v2.useRef(nil);
+    local v72 = v2.useRef(v10.Signal.new());
+    local v73 = l_useCollectionImpressionsSignal_0(v72.current);
+    local v74 = nil;
+    local v75 = l_useFireUserTileImpressionEvent_0(l_friendRequests_0, if l_FFlagAddFriendsUserListEnabled_0 then v54 else v53.itemsPerRow, l_Namespaces_0.FriendRequests);
+    local v76 = v2.useCallback(function() --[[ Line: 182 ]]
+        -- upvalues: v72 (copy)
+        v72.current:fire();
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v72
+    } else l_dependencyArray_0(v72));
+    local v77 = v24();
+    local v78 = if l_FFlagAddFriendsUserListEnabled_0 then v36() else nil;
+    local v79 = if l_FFlagAddFriendsUserListEnabled_0 then l_useTokens_0() else nil;
+    local v80 = if l_FFlagAddFriendsUserListEnabled_0 then v79.Typography.LabelLarge.FontSize + v79.Padding.Large else nil;
     return v2.createElement("Frame", {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.fromScale(1, 0), 
         BackgroundTransparency = 1, 
-        SelectionImageObject = v47, 
-        LayoutOrder = v40.LayoutOrder, 
-        ref = v70, 
-        [v2.Change.AbsolutePosition] = v75
+        SelectionImageObject = v48, 
+        LayoutOrder = v41.LayoutOrder, 
+        ref = v71, 
+        [v2.Change.AbsolutePosition] = v76
     }, if l_FFlagAddFriendsUserListEnabled_0 then {
         IgnoreAllMenu = v2.createElement(v23, {
-            open = v76.isMenuOpen, 
-            closeMenu = v76.closeMenu, 
-            openPositionY = UDim.new(0, v79)
+            open = v77.isMenuOpen, 
+            closeMenu = v77.closeMenu, 
+            openPositionY = UDim.new(0, v80)
         }), 
         UserListLayoutAdaptor = v2.createElement(l_UserListLayoutAdaptor_0, {
             layoutMode = l_LayoutMode_0.Vertical, 
             entities = l_friendRequests_0, 
             isScrollEnabled = false, 
-            initialRowCount = v55, 
-            hasMore = v67, 
-            onLoadMore = v54, 
-            renderRow = v64, 
+            initialRowCount = v56, 
+            hasMore = v68, 
+            onLoadMore = v55, 
+            renderRow = v65, 
             header = {
-                title = v48.friendRequestsText .. v66, 
-                subtitle = v77, 
-                trailingIcon = if v65 then v76.menuIcon else nil, 
-                onTrailingIconActivated = v76.onIconClick
+                title = v49.friendRequestsText .. v67, 
+                subtitle = v78, 
+                trailingIcon = if v66 then v77.menuIcon else nil, 
+                onTrailingIconActivated = v77.onIconClick
             }
         }), 
         ScreenSizeImpressionsDetector = v2.createElement(l_ScreenSizeImpressionsTracker_0, {
-            parentRef = v70, 
+            parentRef = v71, 
             pageContext = l_AppPage_0.AddFriendsPage, 
             impressionsTag = "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS", 
-            sendImpressions = v74, 
-            scrollViewPositionChangedSignal = v72
+            sendImpressions = v75, 
+            scrollViewPositionChangedSignal = v73
         })
     } else {
         Layout = v2.createElement("UIListLayout", {
@@ -149,28 +156,28 @@ return function(v40) --[[ Line: 78 ]] --[[ Name: FriendRequestsSection ]]
             SortOrder = Enum.SortOrder.LayoutOrder, 
             Padding = UDim.new(0, 0)
         }), 
-        HeaderFrame = v65 and v2.createElement(v22, {
+        HeaderFrame = v66 and v2.createElement(v22, {
             layoutOrder = 1, 
-            title = v48.friendRequestsText .. v66, 
-            icon = v76.menuIcon, 
-            iconVisible = v65, 
-            onIconActivated = v76.onIconClick
+            title = v49.friendRequestsText .. v67, 
+            icon = v77.menuIcon, 
+            iconVisible = v66, 
+            onIconActivated = v77.onIconClick
         }), 
         IgnoreAllMenu = v2.createElement(v23, {
-            open = v76.isMenuOpen, 
-            closeMenu = v76.closeMenu
+            open = v77.isMenuOpen, 
+            closeMenu = v77.closeMenu
         }), 
         FriendingOSAEducationSubtitle = v2.createElement(v25, {
             layoutOrder = 3
         }), 
-        FriendRequestsCollectionGrid = v2.createElement(l_CollectionGrid_0, v7.Dictionary.join(v51, {
+        FriendRequestsCollectionGrid = v2.createElement(l_CollectionGrid_0, v7.Dictionary.join(v52, {
             items = l_friendRequests_0, 
-            renderItem = v60, 
-            maxNumRows = v55, 
+            renderItem = v61, 
+            maxNumRows = v56, 
             LayoutOrder = 4, 
-            onViewableItemsChanged = v73
+            onViewableItemsChanged = v74
         })), 
-        ShowMoreButtonFrame = v67 and v2.createElement("Frame", {
+        ShowMoreButtonFrame = v68 and v2.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 0), 
             AutomaticSize = Enum.AutomaticSize.Y, 
             BackgroundTransparency = 1, 
@@ -182,21 +189,21 @@ return function(v40) --[[ Line: 78 ]] --[[ Name: FriendRequestsSection ]]
                 PaddingTop = UDim.new(0, 10)
             }), 
             UISizeConstraint = v2.createElement("UISizeConstraint", {
-                MaxSize = Vector2.new(v68, 1e999)
+                MaxSize = Vector2.new(v69, 1e999)
             }), 
             ShowMoreButton = v2.createElement(l_Button_0, {
                 buttonType = l_ButtonType_0.Secondary, 
-                size = UDim2.new(1, 0, 0, v69), 
-                onActivated = v54, 
-                text = v48.showMoreButtonText
+                size = UDim2.new(1, 0, 0, v70), 
+                onActivated = v55, 
+                text = v49.showMoreButtonText
             })
         }), 
         ScreenSizeImpressionsDetector = v2.createElement(l_ScreenSizeImpressionsTracker_0, {
-            parentRef = v70, 
+            parentRef = v71, 
             pageContext = l_AppPage_0.AddFriendsPage, 
             impressionsTag = "ADDFRIENDSPAGE_REQUESTS_TILE_IMPRESSIONS", 
-            sendImpressions = v74, 
-            scrollViewPositionChangedSignal = v72
+            sendImpressions = v75, 
+            scrollViewPositionChangedSignal = v73
         })
     });
 end;

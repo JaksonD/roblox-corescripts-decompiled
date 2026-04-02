@@ -38,314 +38,315 @@ local l_AXRecentlyViewedSearchItemsIXPTest_0 = v6.Experiments.AXRecentlyViewedSe
 local v37 = require(l_Modules_0.AvatarExperience.AvatarEditor.Actions.ReceivedAvatarData);
 local l_FFlagAXHydrateAssetFromBundleItems_0 = v7.FFlagAXHydrateAssetFromBundleItems;
 local l_FFlagAXMISEnableMultiShopping_0 = v7.FFlagAXMISEnableMultiShopping;
+local l_FFlagAXInventoryDurablesExpiredFilter_0 = v7.FFlagAXInventoryDurablesExpiredFilter;
 return v5.createReducer({}, {
-    [v14.name] = function(v40, v41) --[[ Line: 60 ]]
+    [v14.name] = function(v41, v42) --[[ Line: 61 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v41.assetId, "string", "assetId must be a string.");
-        v3.isType(v41.assetData, "table", "assetData must be a table.");
-        local v42 = tostring(v41.assetId);
-        local v43 = v40[v42];
-        local v44 = v10.fromGetCatalogItemData(v41.assetData, v43);
-        return v4.Dictionary.join(v40, {
-            [v42] = v44
+        v3.isType(v42.assetId, "string", "assetId must be a string.");
+        v3.isType(v42.assetData, "table", "assetData must be a table.");
+        local v43 = tostring(v42.assetId);
+        local v44 = v41[v43];
+        local v45 = v10.fromGetCatalogItemData(v42.assetData, v44);
+        return v4.Dictionary.join(v41, {
+            [v43] = v45
         });
     end, 
-    [v15.name] = function(v45, v46) --[[ Line: 73 ]]
+    [v15.name] = function(v46, v47) --[[ Line: 74 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v46.assets, "table", "assets data must be a table.");
-        local v47 = {};
-        for _, v49 in v46.assets do
-            local v50 = tostring(v49.id);
-            local v51 = v45[v50];
-            v47[v50] = v10.fromBundleItemData(v49, v51);
+        v3.isType(v47.assets, "table", "assets data must be a table.");
+        local v48 = {};
+        for _, v50 in v47.assets do
+            local v51 = tostring(v50.id);
+            local v52 = v46[v51];
+            v48[v51] = v10.fromBundleItemData(v50, v52);
         end;
-        return v4.Dictionary.join(v45, v47);
+        return v4.Dictionary.join(v46, v48);
     end, 
-    [v16.name] = function(v52, v53) --[[ Line: 87 ]]
+    [v16.name] = function(v53, v54) --[[ Line: 88 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v53.sortResults, "table", "sortResults must be a table.");
-        local v54 = {};
-        for _, v56 in v53.sortResults do
-            local v57 = tostring(v56.id);
-            local v58 = v52[v57];
-            v54[v57] = v10.fromSortResults(v56, v58);
+        v3.isType(v54.sortResults, "table", "sortResults must be a table.");
+        local v55 = {};
+        for _, v57 in v54.sortResults do
+            local v58 = tostring(v57.id);
+            local v59 = v53[v58];
+            v55[v58] = v10.fromSortResults(v57, v59);
         end;
-        return v4.Dictionary.join(v52, v54);
+        return v4.Dictionary.join(v53, v55);
     end, 
-    [v17.name] = l_FFlagAXHydrateAssetFromBundleItems_0 and function(v59, v60) --[[ Line: 106 ]]
+    [v17.name] = l_FFlagAXHydrateAssetFromBundleItems_0 and function(v60, v61) --[[ Line: 107 ]]
         -- upvalues: v25 (copy), v10 (copy), v4 (copy)
-        local v61 = {};
-        for _, v63 in v60.sortResults do
-            if v63.bundledItems then
-                for _, v65 in v63.bundledItems do
-                    if v65.type == v25.ItemType.Asset then
-                        local v66 = tostring(v65.id);
-                        local v67 = v59[v66];
-                        v61[v66] = v10.fromBundledItems(v65, v67);
+        local v62 = {};
+        for _, v64 in v61.sortResults do
+            if v64.bundledItems then
+                for _, v66 in v64.bundledItems do
+                    if v66.type == v25.ItemType.Asset then
+                        local v67 = tostring(v66.id);
+                        local v68 = v60[v67];
+                        v62[v67] = v10.fromBundledItems(v66, v68);
                     end;
                 end;
             end;
         end;
-        return v4.Dictionary.join(v59, v61);
+        return v4.Dictionary.join(v60, v62);
     end or nil, 
-    [v11.name] = function(v68, v69) --[[ Line: 125 ]]
+    [v11.name] = function(v69, v70) --[[ Line: 126 ]]
         -- upvalues: v3 (copy), v10 (copy), v25 (copy), v4 (copy)
-        v3.isType(v69.recommendedItems, "table", "recommendedItems must be a table.");
-        local v70 = tostring(v69.assetId);
-        local v71 = {};
+        v3.isType(v70.recommendedItems, "table", "recommendedItems must be a table.");
+        local v71 = tostring(v70.assetId);
         local v72 = {};
-        for _, v74 in v69.recommendedItems do
-            local v75 = tostring(v74.item.assetId);
-            local v76 = v68[v75];
-            local v77 = v10.fromGetRecommendedItemsData(v74, v69.assetTypeId, v76);
-            local l_assetTypeId_0 = v69.assetTypeId;
-            v71[v75] = v77;
-            table.insert(v72, {
-                id = v75, 
+        local v73 = {};
+        for _, v75 in v70.recommendedItems do
+            local v76 = tostring(v75.item.assetId);
+            local v77 = v69[v76];
+            local v78 = v10.fromGetRecommendedItemsData(v75, v70.assetTypeId, v77);
+            local l_assetTypeId_0 = v70.assetTypeId;
+            v72[v76] = v78;
+            table.insert(v73, {
+                id = v76, 
                 type = v25.ItemType.Asset, 
                 subType = l_assetTypeId_0
             });
         end;
-        local v79 = v68[v70];
-        v71[v70] = v10.fromRecommendedItemSummaries(v72, v79);
-        return v4.Dictionary.join(v68, v71);
+        local v80 = v69[v71];
+        v72[v71] = v10.fromRecommendedItemSummaries(v73, v80);
+        return v4.Dictionary.join(v69, v72);
     end, 
-    [v23.name] = function(v80, v81) --[[ Line: 164 ]]
+    [v23.name] = function(v81, v82) --[[ Line: 165 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v81.assetResaleData, "table", "assetResaleData must be a table.");
-        local v82 = tostring(v81.assetId);
-        local v83 = v80[v82];
-        local v84 = v10.fromResaleData(v81.assetResaleData, v83);
-        return v4.Dictionary.join(v80, {
-            [v82] = v84
+        v3.isType(v82.assetResaleData, "table", "assetResaleData must be a table.");
+        local v83 = tostring(v82.assetId);
+        local v84 = v81[v83];
+        local v85 = v10.fromResaleData(v82.assetResaleData, v84);
+        return v4.Dictionary.join(v81, {
+            [v83] = v85
         });
     end, 
-    [v12.name] = function(v85, v86) --[[ Line: 176 ]]
+    [v12.name] = function(v86, v87) --[[ Line: 177 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v86.assets, "table", "assets must be a table.");
-        local v87 = {};
-        for _, v89 in v86.assets do
-            local v90 = tostring(v89.assetId);
-            local v91 = v85[v90];
-            v87[v90] = v10.fromInventoryFetch(v89, v91);
+        v3.isType(v87.assets, "table", "assets must be a table.");
+        local v88 = {};
+        for _, v90 in v87.assets do
+            local v91 = tostring(v90.assetId);
+            local v92 = v86[v91];
+            v88[v91] = v10.fromInventoryFetch(v90, v92);
         end;
-        return v4.Dictionary.join(v85, v87);
+        return v4.Dictionary.join(v86, v88);
     end, 
-    [v13.name] = function(v92, v93) --[[ Line: 194 ]]
+    [v13.name] = function(v93, v94) --[[ Line: 195 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v93.assets, "table", "assets must be a table.");
-        local v94 = {};
-        for _, v96 in v93.assets do
-            local v97 = tostring(v96.id);
-            local v98 = v92[v97];
-            v94[v97] = v10.fromOutfitDetails(v96, v98, v93.outfitModerationStatus);
+        v3.isType(v94.assets, "table", "assets must be a table.");
+        local v95 = {};
+        for _, v97 in v94.assets do
+            local v98 = tostring(v97.id);
+            local v99 = v93[v98];
+            v95[v98] = v10.fromOutfitDetails(v97, v99, v94.outfitModerationStatus);
         end;
-        return v4.Dictionary.join(v92, v94);
+        return v4.Dictionary.join(v93, v95);
     end, 
-    [v21.name] = function(v99, v100) --[[ Line: 209 ]]
+    [v21.name] = function(v100, v101) --[[ Line: 210 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v100.assetId, "string", "assetId must be a sting.");
-        v3.isType(v100.userAssetIds, "table", "userAssetIds must be a table.");
-        local v101 = tostring(v100.assetId);
-        local v102 = v99[v101];
-        local v103 = v10.fromGetResellers(v100.userAssetIds, v102);
-        return v4.Dictionary.join(v99, {
-            [v101] = v103
+        v3.isType(v101.assetId, "string", "assetId must be a sting.");
+        v3.isType(v101.userAssetIds, "table", "userAssetIds must be a table.");
+        local v102 = tostring(v101.assetId);
+        local v103 = v100[v102];
+        local v104 = v10.fromGetResellers(v101.userAssetIds, v103);
+        return v4.Dictionary.join(v100, {
+            [v102] = v104
         });
     end, 
-    [v20.name] = function(v104, v105) --[[ Line: 221 ]]
+    [v20.name] = function(v105, v106) --[[ Line: 222 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v105.assetId, "string", "assetId must be a sting.");
-        v3.isType(v105.userAssetIds, "table", "userAssetIds must be a table.");
-        local v106 = tostring(v105.assetId);
-        local v107 = if v104[v106] then v104[v106] else v10.mock();
-        local l_resellerUserAssetIds_0 = v107.resellerUserAssetIds;
-        local v109 = nil;
-        v109 = if l_resellerUserAssetIds_0 then v4.List.join(l_resellerUserAssetIds_0, v105.userAssetIds) else v105.userAssetIds;
-        local v110 = v10.fromGetResellers(v109, v107);
-        return v4.Dictionary.join(v104, {
-            [v106] = v4.Dictionary.join(v107, v110)
+        v3.isType(v106.assetId, "string", "assetId must be a sting.");
+        v3.isType(v106.userAssetIds, "table", "userAssetIds must be a table.");
+        local v107 = tostring(v106.assetId);
+        local v108 = if v105[v107] then v105[v107] else v10.mock();
+        local l_resellerUserAssetIds_0 = v108.resellerUserAssetIds;
+        local v110 = nil;
+        v110 = if l_resellerUserAssetIds_0 then v4.List.join(l_resellerUserAssetIds_0, v106.userAssetIds) else v106.userAssetIds;
+        local v111 = v10.fromGetResellers(v110, v108);
+        return v4.Dictionary.join(v105, {
+            [v107] = v4.Dictionary.join(v108, v111)
         });
     end, 
-    [v22.name] = function(v111, v112) --[[ Line: 243 ]]
+    [v22.name] = function(v112, v113) --[[ Line: 244 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v112.assetId, "string", "assetId must be a sting.");
-        v3.isType(v112.priceInRobux, "number", "price must be a number.");
-        local l_assetId_0 = v112.assetId;
-        local l_priceInRobux_0 = v112.priceInRobux;
-        local v115 = v111[l_assetId_0];
-        local v116 = v10.fromLowestPrice(l_priceInRobux_0, v115);
-        return v4.Dictionary.join(v111, {
-            [l_assetId_0] = v116
+        v3.isType(v113.assetId, "string", "assetId must be a sting.");
+        v3.isType(v113.priceInRobux, "number", "price must be a number.");
+        local l_assetId_0 = v113.assetId;
+        local l_priceInRobux_0 = v113.priceInRobux;
+        local v116 = v112[l_assetId_0];
+        local v117 = v10.fromLowestPrice(l_priceInRobux_0, v116);
+        return v4.Dictionary.join(v112, {
+            [l_assetId_0] = v117
         });
     end, 
-    [v18.name] = function(v117, v118) --[[ Line: 257 ]]
+    [v18.name] = function(v118, v119) --[[ Line: 258 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v118.assets, "table", "assets must be a table.");
-        v3.isType(v118.assetTypeId, "string", "assetTypeId must be a string.");
-        local l_assetTypeId_1 = v118.assetTypeId;
-        local v120 = {};
-        for _, v122 in v118.assets do
-            local v123 = tostring(v122.id);
-            local v124 = v117[v123];
-            v120[v123] = v10.fromGetRecommendedItemsDataV2(v122, l_assetTypeId_1, v124);
+        v3.isType(v119.assets, "table", "assets must be a table.");
+        v3.isType(v119.assetTypeId, "string", "assetTypeId must be a string.");
+        local l_assetTypeId_1 = v119.assetTypeId;
+        local v121 = {};
+        for _, v123 in v119.assets do
+            local v124 = tostring(v123.id);
+            local v125 = v118[v124];
+            v121[v124] = v10.fromGetRecommendedItemsDataV2(v123, l_assetTypeId_1, v125);
         end;
-        return v4.Dictionary.join(v117, v120);
+        return v4.Dictionary.join(v118, v121);
     end, 
-    [v19.name] = function(v125, v126) --[[ Line: 278 ]]
+    [v19.name] = function(v126, v127) --[[ Line: 279 ]]
         -- upvalues: v3 (copy), v31 (copy), v10 (copy), v4 (copy)
-        v3.isType(v126.payload, "table", "payload must be a table.");
-        if not v126.payload[v31.ContentType.Asset] then
-            return v125;
+        v3.isType(v127.payload, "table", "payload must be a table.");
+        if not v127.payload[v31.ContentType.Asset] then
+            return v126;
         else
-            local v127 = {};
-            for _, v129 in v126.payload[v31.ContentType.Asset] do
-                local v130 = tostring(v129.id);
-                local v131 = v125[v130];
-                local v132 = v10.fromHydrateWidgetInfo(v129, v131);
-                v127[v130] = v4.Dictionary.join(v132, v132);
+            local v128 = {};
+            for _, v130 in v127.payload[v31.ContentType.Asset] do
+                local v131 = tostring(v130.id);
+                local v132 = v126[v131];
+                local v133 = v10.fromHydrateWidgetInfo(v130, v132);
+                v128[v131] = v4.Dictionary.join(v133, v133);
             end;
-            return v4.Dictionary.join(v125, v127);
+            return v4.Dictionary.join(v126, v128);
         end;
     end, 
-    [v26.name] = function(v133, v134) --[[ Line: 298 ]]
+    [v26.name] = function(v134, v135) --[[ Line: 299 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v134.assetId, "string", "assetId must be a string.");
-        v3.isType(v134.isOwned, "boolean", "isOwned must be a bool.");
-        local v135 = tostring(v134.assetId);
-        local v136 = v133[v135];
-        local v137 = v10.fromIsOwned(v134.isOwned, v136);
-        return v4.Dictionary.join(v133, {
-            [v135] = v137
+        v3.isType(v135.assetId, "string", "assetId must be a string.");
+        v3.isType(v135.isOwned, "boolean", "isOwned must be a bool.");
+        local v136 = tostring(v135.assetId);
+        local v137 = v134[v136];
+        local v138 = v10.fromIsOwned(v135.isOwned, v137);
+        return v4.Dictionary.join(v134, {
+            [v136] = v138
         });
     end, 
-    [v27.name] = function(v138, v139) --[[ Line: 308 ]]
+    [v27.name] = function(v139, v140) --[[ Line: 309 ]]
         -- upvalues: v10 (copy), v4 (copy)
-        local v140 = tostring(v139.assetTypeId);
-        local v141 = tostring(v139.assetId);
-        local v142 = v10.fromAssetGrant(v141, v140);
-        local v143 = v138[v141];
-        if v143 and v143.assetType then
-            return v138;
+        local v141 = tostring(v140.assetTypeId);
+        local v142 = tostring(v140.assetId);
+        local v143 = v10.fromAssetGrant(v142, v141);
+        local v144 = v139[v142];
+        if v144 and v144.assetType then
+            return v139;
         else
-            if v143 then
-                v142 = v4.Dictionary.join(v143, v142);
+            if v144 then
+                v143 = v4.Dictionary.join(v144, v143);
             end;
-            return v4.Dictionary.join(v138, {
-                [v141] = v142
+            return v4.Dictionary.join(v139, {
+                [v142] = v143
             });
         end;
     end, 
-    [v28.name] = function(v144, v145) --[[ Line: 328 ]]
+    [v28.name] = function(v145, v146) --[[ Line: 329 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v145.assetId, "string", "assetId must be a string.");
-        local v146 = tostring(v145.assetId);
-        local v147 = v144[v146];
-        local v148 = 1;
-        if v147 and v147.updateCounter then
-            v148 = v147.updateCounter + 1;
+        v3.isType(v146.assetId, "string", "assetId must be a string.");
+        local v147 = tostring(v146.assetId);
+        local v148 = v145[v147];
+        local v149 = 1;
+        if v148 and v148.updateCounter then
+            v149 = v148.updateCounter + 1;
         end;
-        local v149 = v10.fromModerationStatusUpdate(v145.moderationStatus, v148, v146, v145.assetName, v145.universeId, v147);
-        return v4.Dictionary.join(v144, {
-            [v146] = v149
+        local v150 = v10.fromModerationStatusUpdate(v146.moderationStatus, v149, v147, v146.assetName, v146.universeId, v148);
+        return v4.Dictionary.join(v145, {
+            [v147] = v150
         });
     end, 
-    [v37.name] = function(v150, v151) --[[ Line: 348 ]]
+    [v37.name] = function(v151, v152) --[[ Line: 349 ]]
         -- upvalues: v10 (copy), v4 (copy)
-        local l_assets_0 = v151.avatarData.assets;
+        local l_assets_0 = v152.avatarData.assets;
         if l_assets_0 == nil then
-            return v150;
+            return v151;
         else
-            local v153 = {};
-            for _, v155 in l_assets_0 do
-                local v156 = tostring(v155.id);
-                local v157 = v10.fromReceivedAvatarData(v155);
-                local v158 = v150[v156];
-                if not v158 then
-                    v153[v156] = v157;
+            local v154 = {};
+            for _, v156 in l_assets_0 do
+                local v157 = tostring(v156.id);
+                local v158 = v10.fromReceivedAvatarData(v156);
+                local v159 = v151[v157];
+                if not v159 then
+                    v154[v157] = v158;
                 else
-                    v153[v156] = v4.Dictionary.join(v157, v158);
+                    v154[v157] = v4.Dictionary.join(v158, v159);
                 end;
             end;
-            return v4.Dictionary.join(v150, v153);
+            return v4.Dictionary.join(v151, v154);
         end;
     end, 
-    [v24.name] = function(v159, v160) --[[ Line: 385 ]]
+    [v24.name] = function(v160, v161) --[[ Line: 386 ]]
         -- upvalues: v3 (copy), v10 (copy), v4 (copy)
-        v3.isType(v160.assetVersionData, "table", "assetVersionData must be a table.");
-        local v161 = tostring(v160.assetId);
-        local v162 = v159[v161];
-        local v163 = v10.fromVersionData(v160.assetVersionData, v162);
-        return v4.Dictionary.join(v159, {
-            [v161] = v163
+        v3.isType(v161.assetVersionData, "table", "assetVersionData must be a table.");
+        local v162 = tostring(v161.assetId);
+        local v163 = v160[v162];
+        local v164 = v10.fromVersionData(v161.assetVersionData, v163);
+        return v4.Dictionary.join(v160, {
+            [v162] = v164
         });
     end, 
-    [v29.name] = v32.isEnabled() and function(v164, v165) --[[ Line: 398 ]]
+    [v29.name] = v32.isEnabled() and function(v165, v166) --[[ Line: 399 ]]
         -- upvalues: v10 (copy)
-        local v166 = table.clone(v164);
-        for _, v168 in v165.outfits do
-            local l_assetsToUpdate_0 = v168.assetsToUpdate;
-            local l_outfitModerationStatus_0 = v168.outfitModerationStatus;
+        local v167 = table.clone(v165);
+        for _, v169 in v166.outfits do
+            local l_assetsToUpdate_0 = v169.assetsToUpdate;
+            local l_outfitModerationStatus_0 = v169.outfitModerationStatus;
             if l_assetsToUpdate_0 then
-                for _, v172 in l_assetsToUpdate_0 do
-                    local v173 = tostring(v172.id);
-                    v166[v173] = v10.fromOutfitDetails(v172, v164[v173], l_outfitModerationStatus_0);
+                for _, v173 in l_assetsToUpdate_0 do
+                    local v174 = tostring(v173.id);
+                    v167[v174] = v10.fromOutfitDetails(v173, v165[v174], l_outfitModerationStatus_0);
                 end;
             end;
         end;
-        return v166;
+        return v167;
     end or nil, 
-    [v35.name] = l_AXRecentlyViewedSearchItemsIXPTest_0.isEnabled() and function(v174, v175) --[[ Line: 418 ]]
+    [v35.name] = l_AXRecentlyViewedSearchItemsIXPTest_0.isEnabled() and function(v175, v176) --[[ Line: 419 ]]
         -- upvalues: v10 (copy)
-        local v176 = table.clone(v174);
-        local v177 = v175.assetData or {};
-        for _, v179 in v177 do
-            local v180 = tostring(v179.id);
-            local v181 = v174[v180];
-            v176[v180] = v10.fromSortResults(v179, v181);
+        local v177 = table.clone(v175);
+        local v178 = v176.assetData or {};
+        for _, v180 in v178 do
+            local v181 = tostring(v180.id);
+            local v182 = v175[v181];
+            v177[v181] = v10.fromSortResults(v180, v182);
         end;
-        return v176;
+        return v177;
     end or nil, 
-    [l_PurchaseItemsSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v182, v183) --[[ Line: 432 ]]
+    [l_PurchaseItemsSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v183, v184) --[[ Line: 433 ]]
         -- upvalues: v4 (copy)
-        v182 = v182 or {};
-        local v184 = {};
-        for _, v186 in v183.items do
-            if v186.itemType == Enum.AvatarItemType.Asset.Name then
-                local v187 = tostring(v186.itemId);
-                local v188 = v182[v187];
-                if v188 then
-                    v184[v187] = v4.Dictionary.join(v188, {
+        v183 = v183 or {};
+        local v185 = {};
+        for _, v187 in v184.items do
+            if v187.itemType == Enum.AvatarItemType.Asset.Name then
+                local v188 = tostring(v187.itemId);
+                local v189 = v183[v188];
+                if v189 then
+                    v185[v188] = v4.Dictionary.join(v189, {
                         isOwned = true
                     });
                 end;
             end;
         end;
-        return v4.Dictionary.join(v182, v184);
+        return v4.Dictionary.join(v183, v185);
     end or nil, 
-    [l_FetchAssetOrBundleInfoBatchedSuccess_0.name] = l_FFlagAXMISEnableMultiShopping_0 and function(v189, v190) --[[ Line: 454 ]]
+    [l_FetchAssetOrBundleInfoBatchedSuccess_0.name] = (not not l_FFlagAXMISEnableMultiShopping_0 or l_FFlagAXInventoryDurablesExpiredFilter_0) and function(v190, v191) --[[ Line: 456 ]]
         -- upvalues: v10 (copy), v4 (copy)
-        v189 = v189 or {};
-        local l_hydratedAssets_0 = v190.hydratedAssets;
-        local l_assetsInBundle_0 = v190.assetsInBundle;
+        v190 = v190 or {};
+        local l_hydratedAssets_0 = v191.hydratedAssets;
+        local l_assetsInBundle_0 = v191.assetsInBundle;
         if #l_hydratedAssets_0 > 0 then
-            local v193 = {};
-            for _, v195 in l_hydratedAssets_0 do
-                local v196 = tostring(v195.id);
-                local v197 = v189[v196];
-                v193[v196] = v10.fromGetCatalogItemData(v195, v197);
+            local v194 = {};
+            for _, v196 in l_hydratedAssets_0 do
+                local v197 = tostring(v196.id);
+                local v198 = v190[v197];
+                v194[v197] = v10.fromGetCatalogItemData(v196, v198);
             end;
-            v189 = v4.Dictionary.join(v189, v193);
+            v190 = v4.Dictionary.join(v190, v194);
         end;
         if #l_assetsInBundle_0 > 0 then
-            local v198 = {};
-            for _, v200 in l_assetsInBundle_0 do
-                local v201 = tostring(v200.id);
-                local v202 = v189[v201];
-                v198[v201] = v10.fromBundleItemData(v200, v202);
+            local v199 = {};
+            for _, v201 in l_assetsInBundle_0 do
+                local v202 = tostring(v201.id);
+                local v203 = v190[v202];
+                v199[v202] = v10.fromBundleItemData(v201, v203);
             end;
-            v189 = v4.Dictionary.join(v189, v198);
+            v190 = v4.Dictionary.join(v190, v199);
         end;
-        return v189;
+        return v190;
     end or nil
 });

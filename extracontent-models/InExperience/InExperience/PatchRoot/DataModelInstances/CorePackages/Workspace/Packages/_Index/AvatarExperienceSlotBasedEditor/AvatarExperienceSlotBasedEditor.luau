@@ -8,14 +8,15 @@ local v6 = require(script.Enums.NavigationParams);
 local _ = require(script.Hooks.useSlotItemCardBreakpoints);
 local v8 = require(script.Enums.InventoryItemType);
 local v9 = require(script.Enums.InventorySorts);
-local v10 = require(script.Enums.InventoryItemAvailability);
-local v11 = require(script.Enums.SlotType);
-local v12 = require(script.Stores.createCategoryInventoryStore);
-local v13 = require(script.Stores.createSortAndFiltersStore);
-local v14 = require(script.Stores.createAvatarEditorStores);
-local v15 = require(script.Stores.createSlotBasedEditorStore);
-local v16 = require(script.Context.SlotBasedEditorContext);
-local v17 = require(script.Context.AvatarEditorStores);
+local v10 = require(script.Enums.InventoryFilters);
+local v11 = require(script.Enums.InventoryItemAvailability);
+local v12 = require(script.Enums.SlotType);
+local v13 = require(script.Stores.createCategoryInventoryStore);
+local v14 = require(script.Stores.createSortAndFiltersStore);
+local v15 = require(script.Stores.createAvatarEditorStores);
+local v16 = require(script.Stores.createSlotBasedEditorStore);
+local v17 = require(script.Context.SlotBasedEditorContext);
+local v18 = require(script.Context.AvatarEditorStores);
 return {
     Components = {
         SlotItemCard = require(script.Components.SlotItemCard), 
@@ -31,16 +32,16 @@ return {
         useSlotCustomizeFtux = require(script.Hooks.useSlotCustomizeFtux)
     }, 
     Context = {
-        SlotBasedEditorContext = v16, 
+        SlotBasedEditorContext = v17, 
         useSlotBasedEditorContext = require(script.Context.useSlotBasedEditorContext), 
-        AvatarEditorStores = v17, 
+        AvatarEditorStores = v18, 
         useAvatarEditorStores = require(script.Context.useAvatarEditorStores)
     }, 
     Stores = {
-        createCategoryInventoryStore = v12, 
-        createSortAndFiltersStore = v13, 
-        createAvatarEditorStores = v14, 
-        createSlotBasedEditorStore = v15
+        createCategoryInventoryStore = v13, 
+        createSortAndFiltersStore = v14, 
+        createAvatarEditorStores = v15, 
+        createSlotBasedEditorStore = v16
     }, 
     Enums = {
         ScreenLayout = v4, 
@@ -51,8 +52,9 @@ return {
         NavigationParams = v6, 
         InventoryItemType = v8, 
         InventorySorts = v9, 
-        InventoryItemAvailability = v10, 
-        SlotType = v11
+        InventoryFilters = v10, 
+        InventoryItemAvailability = v11, 
+        SlotType = v12
     }, 
     Constants = require(script.Constants), 
     Utils = {

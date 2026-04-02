@@ -14,8 +14,10 @@ local v12 = require(l_script_FirstAncestor_0.Actions.CrossPlaySetValue);
 local v13 = require(l_script_FirstAncestor_0.Actions.CrossPlaySetPrivileges);
 local v14 = require(l_script_FirstAncestor_0.Actions.CrossPlayGetPrivilegesFailed);
 local v15 = require(l_script_FirstAncestor_0.Actions.CrossPlayResetPrivileges);
-local l_PrivilegeCheckResults_0 = require(l_script_FirstAncestor_0.Hooks.Constants).PrivilegeCheckResults;
-local v17 = {
+local v16 = require(l_script_FirstAncestor_0.Hooks.Constants);
+local v17 = game:DefineFastFlag("CrossPlayActuallyResetErrorStates", false);
+local l_PrivilegeCheckResults_0 = v16.PrivilegeCheckResults;
+local v19 = {
     Status = {}, 
     SystemPrivileges = {}, 
     LuaError = nil, 
@@ -23,111 +25,111 @@ local v17 = {
     SystemError = nil, 
     NetworkStatus = {}
 };
-local v43 = v3.createReducer(v17, {
-    [l_GetUserSettingsPlatform_0.Succeeded.name] = function(v18, v19) --[[ Line: 59 ]]
-        -- upvalues: v2 (copy)
-        local l_crossPlaySettingsKey_0 = v19.additionalData.crossPlaySettingsKey;
-        local v21 = v19.responseBody[l_crossPlaySettingsKey_0] or {};
-        return v2.Dictionary.join(v18, {
-            Status = v2.Dictionary.join(v18.Status, v21), 
-            LuaError = nil, 
-            HttpError = nil
+local v45 = v3.createReducer(v19, {
+    [l_GetUserSettingsPlatform_0.Succeeded.name] = function(v20, v21) --[[ Line: 60 ]]
+        -- upvalues: v2 (copy), v17 (copy)
+        local l_crossPlaySettingsKey_0 = v21.additionalData.crossPlaySettingsKey;
+        local v23 = v21.responseBody[l_crossPlaySettingsKey_0] or {};
+        return v2.Dictionary.join(v20, {
+            Status = v2.Dictionary.join(v20.Status, v23), 
+            LuaError = if v17 then v2.None else nil, 
+            HttpError = if v17 then v2.None else nil
         });
     end, 
-    [l_GetUserSettingsPlatform_0.Failed.name] = function(v22, v23) --[[ Line: 69 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v22, {
-            Status = {}, 
-            HttpError = v23.error, 
-            LuaError = nil
-        });
-    end, 
-    [l_UpdateUserSettingsPlatform_0.Succeeded.name] = function(v24, v25) --[[ Line: 76 ]]
-        -- upvalues: v2 (copy)
-        local l_crossPlayValue_0 = v25.additionalData.crossPlayValue;
+    [l_GetUserSettingsPlatform_0.Failed.name] = function(v24, v25) --[[ Line: 70 ]]
+        -- upvalues: v2 (copy), v17 (copy)
         return v2.Dictionary.join(v24, {
-            Status = v2.Dictionary.join(v24.Status, {
+            Status = {}, 
+            HttpError = v25.error, 
+            LuaError = if v17 then v2.None else nil
+        });
+    end, 
+    [l_UpdateUserSettingsPlatform_0.Succeeded.name] = function(v26, v27) --[[ Line: 77 ]]
+        -- upvalues: v2 (copy), v17 (copy)
+        local l_crossPlayValue_0 = v27.additionalData.crossPlayValue;
+        return v2.Dictionary.join(v26, {
+            Status = v2.Dictionary.join(v26.Status, {
                 isEnabled = l_crossPlayValue_0
             }), 
-            LuaError = nil, 
-            HttpError = nil
+            LuaError = if v17 then v2.None else nil, 
+            HttpError = if v17 then v2.None else nil
         });
     end, 
-    [l_UpdateUserSettingsPlatform_0.Failed.name] = function(v27, v28) --[[ Line: 87 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v27, {
-            HttpError = v28.error, 
-            LuaError = nil
-        });
-    end, 
-    [v13.name] = function(v29, v30) --[[ Line: 93 ]]
-        -- upvalues: l_CrossPlayCapabilities_0 (copy), l_PrivilegeCheckResults_0 (copy), v2 (copy)
-        local v31 = v30.privileges[l_CrossPlayCapabilities_0.CrossPlatform] or {};
-        local v32 = v31.Success and v31.CanJoinGame and v31.PrivilegeCheckResult == l_PrivilegeCheckResults_0.NO_ISSUE;
+    [l_UpdateUserSettingsPlatform_0.Failed.name] = function(v29, v30) --[[ Line: 88 ]]
+        -- upvalues: v2 (copy), v17 (copy)
         return v2.Dictionary.join(v29, {
-            Status = v2.Dictionary.join(v29.Status, {
-                isSystemPrivilegeEnabled = v32
-            }), 
-            SystemPrivileges = v2.Dictionary.join(v29.SystemPrivileges, v30.privileges), 
-            SystemError = nil
+            HttpError = v30.error, 
+            LuaError = if v17 then v2.None else nil
         });
     end, 
-    [v14.name] = function(v33, v34) --[[ Line: 108 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v33, {
-            Status = v2.Dictionary.join(v33.Status, {
-                isSystemPrivilegeEnabled = false
+    [v13.name] = function(v31, v32) --[[ Line: 94 ]]
+        -- upvalues: l_CrossPlayCapabilities_0 (copy), l_PrivilegeCheckResults_0 (copy), v2 (copy), v17 (copy)
+        local v33 = v32.privileges[l_CrossPlayCapabilities_0.CrossPlatform] or {};
+        local v34 = v33.Success and v33.CanJoinGame and v33.PrivilegeCheckResult == l_PrivilegeCheckResults_0.NO_ISSUE;
+        return v2.Dictionary.join(v31, {
+            Status = v2.Dictionary.join(v31.Status, {
+                isSystemPrivilegeEnabled = v34
             }), 
-            SystemPrivileges = {}, 
-            SystemError = v34.error
+            SystemPrivileges = v2.Dictionary.join(v31.SystemPrivileges, v32.privileges), 
+            SystemError = if v17 then v2.None else nil
         });
     end, 
-    [v15.name] = function(v35) --[[ Line: 117 ]]
+    [v14.name] = function(v35, v36) --[[ Line: 109 ]]
         -- upvalues: v2 (copy)
         return v2.Dictionary.join(v35, {
             Status = v2.Dictionary.join(v35.Status, {
                 isSystemPrivilegeEnabled = false
             }), 
             SystemPrivileges = {}, 
-            SystemError = nil
+            SystemError = v36.error
         });
     end, 
-    [v12.name] = function(v36, v37) --[[ Line: 126 ]]
+    [v15.name] = function(v37) --[[ Line: 118 ]]
+        -- upvalues: v2 (copy), v17 (copy)
+        return v2.Dictionary.join(v37, {
+            Status = v2.Dictionary.join(v37.Status, {
+                isSystemPrivilegeEnabled = false
+            }), 
+            SystemPrivileges = {}, 
+            SystemError = if v17 then v2.None else nil
+        });
+    end, 
+    [v12.name] = function(v38, v39) --[[ Line: 127 ]]
         -- upvalues: v2 (copy)
-        local l_crossPlayValue_1 = v37.crossPlayValue;
-        return v2.Dictionary.join(v36, {
-            Status = v2.Dictionary.join(v36.Status, {
+        local l_crossPlayValue_1 = v39.crossPlayValue;
+        return v2.Dictionary.join(v38, {
+            Status = v2.Dictionary.join(v38.Status, {
                 isEnabled = l_crossPlayValue_1, 
                 isSystemPrivilegeEnabled = l_crossPlayValue_1
             })
         });
     end, 
-    [v9.name] = function(v39, v40) --[[ Line: 136 ]]
-        -- upvalues: v2 (copy)
-        return v2.Dictionary.join(v39, {
-            Status = {}, 
-            LuaError = v40.error, 
-            HttpError = nil
-        });
-    end, 
-    [v11.name] = function(v41, v42) --[[ Line: 143 ]]
-        -- upvalues: v2 (copy)
+    [v9.name] = function(v41, v42) --[[ Line: 137 ]]
+        -- upvalues: v2 (copy), v17 (copy)
         return v2.Dictionary.join(v41, {
             Status = {}, 
             LuaError = v42.error, 
-            HttpError = nil
+            HttpError = if v17 then v2.None else nil
         });
     end, 
-    [v10.name] = function() --[[ Line: 150 ]]
-        -- upvalues: v17 (copy)
-        return v17;
+    [v11.name] = function(v43, v44) --[[ Line: 144 ]]
+        -- upvalues: v2 (copy), v17 (copy)
+        return v2.Dictionary.join(v43, {
+            Status = {}, 
+            LuaError = v44.error, 
+            HttpError = if v17 then v2.None else nil
+        });
+    end, 
+    [v10.name] = function() --[[ Line: 151 ]]
+        -- upvalues: v19 (copy)
+        return v19;
     end
 });
-local v44 = v3.combineReducers({
+local v46 = v3.combineReducers({
     NetworkStatus = l_roduxNetworking_0.installReducer()
 });
-return function(v45, v46) --[[ Line: 159 ]]
-    -- upvalues: v43 (copy), v2 (copy), v44 (copy)
-    local v47 = v43(v45, v46);
-    return v2.Dictionary.join(v47, v44(v47, v46));
+return function(v47, v48) --[[ Line: 160 ]]
+    -- upvalues: v45 (copy), v2 (copy), v46 (copy)
+    local v49 = v45(v47, v48);
+    return v2.Dictionary.join(v49, v46(v49, v48));
 end;

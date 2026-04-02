@@ -15,16 +15,17 @@ local v13 = require(l_script_FirstAncestor_0.FriendsLandingAnalytics.ButtonClick
 local l_compose_0 = l_SocialLibraries_0.RoduxTools.compose;
 local l_Sources_0 = require(l_Parent_0.SocialLuaAnalytics).Analytics.Enums.Sources;
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local function v18(v17) --[[ Line: 25 ]]
+local l_FFlagConnectionManagementChips_0 = require(l_Parent_0.SharedFlags).FFlagConnectionManagementChips;
+local function v19(v18) --[[ Line: 27 ]]
     -- upvalues: l_Roact_0 (copy), l_IconButton_0 (copy), l_Images_0 (copy)
     return l_Roact_0.createElement(l_IconButton_0, {
         size = UDim2.fromOffset(0, 0), 
         icon = l_Images_0["icons/common/search"], 
-        layoutOrder = v17.layoutOrder, 
-        onActivated = v17.goToSearchFriendsPage
+        layoutOrder = v18.layoutOrder, 
+        onActivated = v18.goToSearchFriendsPage
     });
 end;
-local v19 = {
+local v20 = {
     SHOW_ADDFRIENDS_ICON = {
         [v7.FriendsLanding] = true, 
         [v7.SearchFriends] = true
@@ -35,46 +36,46 @@ local v19 = {
         [v7.AddFriends] = true
     }
 };
-local v20 = l_Roact_0.PureComponent:extend("HeaderBarRightView");
-v20.defaultProps = {
+local v21 = l_Roact_0.PureComponent:extend("HeaderBarRightView");
+v21.defaultProps = {
     layoutOrder = 1, 
     onActivated = nil
 };
-v20.init = function(v21) --[[ Line: 53 ]] --[[ Name: init ]]
+v21.init = function(v22) --[[ Line: 55 ]] --[[ Name: init ]]
     -- upvalues: l_memoize_0 (copy), v13 (copy), v7 (copy), l_AppPage_0 (copy), l_Sources_0 (copy)
-    v21.goToFriendRequestsPage = l_memoize_0(function(_, v23) --[[ Line: 55 ]]
-        -- upvalues: v13 (ref), v21 (copy), v7 (ref), l_AppPage_0 (ref)
-        return function() --[[ Line: 56 ]]
-            -- upvalues: v23 (copy), v13 (ref), v21 (ref), v7 (ref), l_AppPage_0 (ref)
-            local v24 = v23 == 0 and v13.AddFriendsNoFriends or v13.AddFriends;
-            v21.props.analytics:buttonClick(v24);
-            v21.props.analytics:navigate(v7.AddFriends);
-            return v21.props.navigation.navigate(l_AppPage_0.AddFriendsPage);
+    v22.goToFriendRequestsPage = l_memoize_0(function(_, v24) --[[ Line: 57 ]]
+        -- upvalues: v13 (ref), v22 (copy), v7 (ref), l_AppPage_0 (ref)
+        return function() --[[ Line: 58 ]]
+            -- upvalues: v24 (copy), v13 (ref), v22 (ref), v7 (ref), l_AppPage_0 (ref)
+            local v25 = v24 == 0 and v13.AddFriendsNoFriends or v13.AddFriends;
+            v22.props.analytics:buttonClick(v25);
+            v22.props.analytics:navigate(v7.AddFriends);
+            return v22.props.navigation.navigate(l_AppPage_0.AddFriendsPage);
         end;
     end);
-    v21.goToSearchFriendsPage = l_memoize_0(function() --[[ Line: 66 ]]
-        -- upvalues: v21 (copy), l_AppPage_0 (ref), l_Sources_0 (ref)
-        return function() --[[ Line: 67 ]]
-            -- upvalues: v21 (ref), l_AppPage_0 (ref), l_Sources_0 (ref)
-            v21.props.navigation.navigate(l_AppPage_0.UserSearch, {
+    v22.goToSearchFriendsPage = l_memoize_0(function() --[[ Line: 68 ]]
+        -- upvalues: v22 (copy), l_AppPage_0 (ref), l_Sources_0 (ref)
+        return function() --[[ Line: 69 ]]
+            -- upvalues: v22 (ref), l_AppPage_0 (ref), l_Sources_0 (ref)
+            v22.props.navigation.navigate(l_AppPage_0.UserSearch, {
                 shouldShowUserSearchLandingPage = true, 
                 entryPoint = l_Sources_0.FriendsLanding
             });
         end;
     end);
 end;
-v20.render = function(v25) --[[ Line: 76 ]] --[[ Name: render ]]
-    -- upvalues: v19 (copy), v7 (copy), l_Roact_0 (copy), v18 (copy), v9 (copy)
-    local l_navigation_0 = v25.props.navigation;
-    local v27 = nil;
+v21.render = function(v26) --[[ Line: 78 ]] --[[ Name: render ]]
+    -- upvalues: v20 (copy), v7 (copy), l_Roact_0 (copy), v19 (copy), v9 (copy), l_FFlagConnectionManagementChips_0 (copy)
+    local l_navigation_0 = v26.props.navigation;
     local v28 = nil;
-    if v25.props.addFriendsPageSearchbarEnabled then
-        v19.SHOW_ADDFRIENDS_ICON[v7.SearchFriends] = false;
+    local v29 = nil;
+    if v26.props.addFriendsPageSearchbarEnabled then
+        v20.SHOW_ADDFRIENDS_ICON[v7.SearchFriends] = false;
     end;
     if l_navigation_0 and l_navigation_0.state then
         local l_routeName_0 = l_navigation_0.state.routeName;
-        v27 = v19.SHOW_SEARCHFRIENDS_ICON[l_routeName_0];
-        v28 = v19.SHOW_ADDFRIENDS_ICON[l_routeName_0];
+        v28 = v20.SHOW_SEARCHFRIENDS_ICON[l_routeName_0];
+        v29 = v20.SHOW_ADDFRIENDS_ICON[l_routeName_0];
     end;
     return l_Roact_0.createElement("Frame", {
         BackgroundTransparency = 1, 
@@ -86,8 +87,8 @@ v20.render = function(v25) --[[ Line: 76 ]] --[[ Name: render ]]
             HorizontalAlignment = Enum.HorizontalAlignment.Right, 
             SortOrder = Enum.SortOrder.LayoutOrder
         }), 
-        SearchFriendsIcon = v27 and v18({
-            goToSearchFriendsPage = v25.goToSearchFriendsPage(), 
+        SearchFriendsIcon = v28 and v19({
+            goToSearchFriendsPage = v26.goToSearchFriendsPage(), 
             layoutOrder = 1
         }), 
         Padding = l_Roact_0.createElement("Frame", {
@@ -95,24 +96,24 @@ v20.render = function(v25) --[[ Line: 76 ]] --[[ Name: render ]]
             BackgroundTransparency = 1, 
             LayoutOrder = 2
         }), 
-        AddFriendsIcon = v28 and l_Roact_0.createElement(v9, {
-            onActivated = v25.goToFriendRequestsPage(v25.props.navigateToLuaAppPages, v25.props.totalFriendCount), 
+        AddFriendsIcon = v29 and l_Roact_0.createElement(v9, {
+            onActivated = v26.goToFriendRequestsPage(v26.props.navigateToLuaAppPages, v26.props.totalFriendCount), 
             layoutOrder = 3, 
-            friendRequestCount = v25.props.friendRequestCount, 
-            showTooltip = v25.props.totalFriendCount == 0
+            friendRequestCount = v26.props.friendRequestCount, 
+            showTooltip = not l_FFlagConnectionManagementChips_0 and v26.props.totalFriendCount == 0
         })
     });
 end;
-return l_compose_0(v8.connect(function(v30) --[[ Line: 119 ]]
+return l_compose_0(v8.connect(function(v31) --[[ Line: 121 ]]
     return {
-        analytics = v30
+        analytics = v31
     };
-end), v6.connect(function(v31, _) --[[ Line: 124 ]]
+end), v6.connect(function(v32, _) --[[ Line: 126 ]]
     return {
-        navigateToLuaAppPages = v31.navigateToLuaAppPages, 
-        friendRequestCount = v31.friendRequestCount, 
-        totalFriendCount = v31.totalFriendCount, 
-        luaAddFriendsPageEnabled = v31.luaAddFriendsPageEnabled, 
-        addFriendsPageSearchbarEnabled = v31.addFriendsPageSearchbarEnabled
+        navigateToLuaAppPages = v32.navigateToLuaAppPages, 
+        friendRequestCount = v32.friendRequestCount, 
+        totalFriendCount = v32.totalFriendCount, 
+        luaAddFriendsPageEnabled = v32.luaAddFriendsPageEnabled, 
+        addFriendsPageSearchbarEnabled = v32.addFriendsPageSearchbarEnabled
     };
-end))(v20);
+end))(v21);

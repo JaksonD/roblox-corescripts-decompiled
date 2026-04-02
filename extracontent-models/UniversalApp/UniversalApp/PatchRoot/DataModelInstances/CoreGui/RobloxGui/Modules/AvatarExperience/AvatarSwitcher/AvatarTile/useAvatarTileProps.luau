@@ -76,7 +76,7 @@ local function v54(v53) --[[ Line: 128 ]] --[[ Name: selectIsR6 ]]
     return v53.AvatarExperience.AvatarEditor.Character.AvatarType == v18.AvatarType.R6;
 end;
 return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
-    -- upvalues: l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v15 (copy), l_useDispatch_0 (copy), l_FFlagAXEnableExpiredUserLookCheckout_0 (copy), v16 (copy), v23 (copy), v21 (copy), v22 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), v17 (copy), v5 (copy), v4 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), l_useSelector_0 (copy), v52 (copy), l_getUseSelectorDeepEquals_0 (copy), v2 (copy), v38 (copy), v27 (copy), v30 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), v44 (copy), l_AvatarScreen_0 (copy), v18 (copy), l_FFlagAXBlockMakeupEquipR6_0 (copy), v54 (copy), v25 (copy), v24 (copy), l_FFlagAXSlotAvatarThumbnailPromptFix_0 (copy), l_InventoryItemAvailability_0 (copy), v20 (copy), v26 (copy), v29 (copy), v28 (copy), v7 (copy), l_ImpressionEnums_0 (copy), v33 (copy), v32 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_UnifiedEventLogConstants_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), v39 (copy), v50 (copy)
+    -- upvalues: l_useAvatarRoute_0 (copy), l_useNavigation_0 (copy), v15 (copy), l_useDispatch_0 (copy), l_FFlagAXEnableExpiredUserLookCheckout_0 (copy), v16 (copy), v23 (copy), v21 (copy), v22 (copy), l_FFlagAXModeratedItemsFlow_0 (copy), v17 (copy), v5 (copy), v4 (copy), l_FFlagAXEnableModeratedItemsFlowForDurables_0 (copy), l_useSelector_0 (copy), v52 (copy), l_getUseSelectorDeepEquals_0 (copy), v2 (copy), v38 (copy), v27 (copy), v30 (copy), l_FFlagAXFixFocusGuiObjectFocusRef_0 (copy), v44 (copy), l_AvatarScreen_0 (copy), v18 (copy), l_FFlagAXBlockMakeupEquipR6_0 (copy), v54 (copy), v25 (copy), l_InventoryItemAvailability_0 (copy), v24 (copy), l_FFlagAXSlotAvatarThumbnailPromptFix_0 (copy), v20 (copy), v26 (copy), v29 (copy), v28 (copy), v7 (copy), l_ImpressionEnums_0 (copy), v33 (copy), v32 (copy), l_addUnifiedEventLogging_0 (copy), l_UnifiedEventLogEnums_0 (copy), l_UnifiedEventLogConstants_0 (copy), l_FFlagAXInventoryDurablesSupport_0 (copy), v39 (copy), v50 (copy)
     local v57 = l_useAvatarRoute_0();
     local v58 = l_useNavigation_0();
     local v59 = v15();
@@ -174,27 +174,34 @@ return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
         v67
     });
     local v86 = if l_FFlagAXBlockMakeupEquipR6_0 then l_useSelector_0(v54) else nil;
-    local v90 = v2.useCallback(function() --[[ Line: 220 ]]
-        -- upvalues: v38 (ref), v70 (copy), v60 (copy), v25 (ref), v62 (copy), v58 (copy), v55 (copy), v74 (copy), l_FFlagAXBlockMakeupEquipR6_0 (ref), v86 (copy), v18 (ref), l_AvatarScreen_0 (ref), v24 (ref), l_FFlagAXSlotAvatarThumbnailPromptFix_0 (ref), v77 (copy)
+    local v92 = v2.useCallback(function(_) --[[ Line: 220 ]]
+        -- upvalues: v38 (ref), v70 (copy), v60 (copy), v25 (ref), v62 (copy), v58 (copy), v55 (copy), v74 (copy), l_FFlagAXEnableExpiredUserLookCheckout_0 (ref), v85 (copy), l_InventoryItemAvailability_0 (ref), l_AvatarScreen_0 (ref), l_FFlagAXBlockMakeupEquipR6_0 (ref), v86 (copy), v18 (ref), v24 (ref), l_FFlagAXSlotAvatarThumbnailPromptFix_0 (ref), v77 (copy)
         if v38 and (not v70 or not v70.assets) then
             return;
         else
-            local function v88() --[[ Line: 228 ]] --[[ Name: equip ]]
+            local function v89() --[[ Line: 228 ]] --[[ Name: equip ]]
                 -- upvalues: v60 (ref), v25 (ref), v70 (ref), v62 (ref), v58 (ref), v55 (ref), v74 (ref)
-                local v87 = v60(v25({
+                local v88 = v60(v25({
                     outfitInfo = v70, 
                     analytics = v62, 
                     navigation = v58, 
                     isSelected = v55.isSelected
                 }));
-                v74(v55.isSelected, v87 or false);
+                v74(v55.isSelected, v88 or false);
+            end;
+            if l_FFlagAXEnableExpiredUserLookCheckout_0 then
+                local v90 = v85(l_InventoryItemAvailability_0.Expired);
+                v58.navigate(l_AvatarScreen_0.ExpiredUserLookActionBar, {
+                    expiredItemCount = if #v90 > 0 then #v90 else 0, 
+                    expiredItems = if #v90 > 0 then v90 else nil
+                });
             end;
             if l_FFlagAXBlockMakeupEquipR6_0 and v86 and v70.outfitType == v18.OutfitTypes.Makeup then
-                v60(v24(function() --[[ Line: 239 ]]
-                    -- upvalues: v58 (ref), l_AvatarScreen_0 (ref), v88 (copy)
+                v60(v24(function() --[[ Line: 247 ]]
+                    -- upvalues: v58 (ref), l_AvatarScreen_0 (ref), v89 (copy)
                     v58.navigate(l_AvatarScreen_0.R15UpgradePrompt, {
                         bodyTextKey = "Feature.Avatar.Label.LayeredClothingR15Warning", 
-                        onSwitchSelected = v88
+                        onSwitchSelected = v89
                     });
                 end));
                 return;
@@ -202,13 +209,13 @@ return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
                 v60(v24(v77));
                 return;
             else
-                local v89 = v60(v25({
+                local v91 = v60(v25({
                     outfitInfo = v70, 
                     analytics = v62, 
                     navigation = v58, 
                     isSelected = v55.isSelected
                 }));
-                v74(v55.isSelected, v89 or false);
+                v74(v55.isSelected, v91 or false);
                 return;
             end;
         end;
@@ -221,52 +228,58 @@ return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
         v74, 
         if not l_FFlagAXSlotAvatarThumbnailPromptFix_0 then v77 else nil, 
         if l_FFlagAXBlockMakeupEquipR6_0 then v86 else nil, 
-        v60
+        v60, 
+        v85, 
+        v64, 
+        v55.itemId
     });
-    local function _(v91) --[[ Line: 269 ]] --[[ Name: onActivatedWithUnavailableItems ]]
+    local function _(v93) --[[ Line: 280 ]] --[[ Name: onActivatedWithUnavailableItems ]]
         -- upvalues: v58 (copy), l_AvatarScreen_0 (ref), v85 (copy), l_InventoryItemAvailability_0 (ref)
         v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
             items = v85(l_InventoryItemAvailability_0.Unavailable), 
             messageType = "UnavailableItems", 
-            onConfirm = v91
-        });
-    end;
-    local function v95(v93) --[[ Line: 278 ]] --[[ Name: onActivatedWithRevokedItems ]]
-        -- upvalues: v20 (ref), v70 (copy), l_InventoryItemAvailability_0 (ref), v60 (copy), v26 (ref), v62 (copy), v55 (copy), v64 (copy), v58 (copy), l_AvatarScreen_0 (ref), v85 (copy)
-        local v94 = v20.filterOutfitAssetsWithStatus(v70, l_InventoryItemAvailability_0.Revoked);
-        v60(v26(v62, v55.itemId, v94, nil, v64));
-        v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
-            items = v85(l_InventoryItemAvailability_0.Revoked), 
-            messageType = "RevokedItems", 
             onConfirm = v93
         });
     end;
-    local function v101(v96) --[[ Line: 293 ]] --[[ Name: onActivatedWithPartiallyExpiredItems ]]
+    local function v97(v95) --[[ Line: 289 ]] --[[ Name: onActivatedWithRevokedItems ]]
+        -- upvalues: v20 (ref), v70 (copy), l_InventoryItemAvailability_0 (ref), v60 (copy), v26 (ref), v62 (copy), v55 (copy), v64 (copy), v58 (copy), l_AvatarScreen_0 (ref), v85 (copy)
+        local v96 = v20.filterOutfitAssetsWithStatus(v70, l_InventoryItemAvailability_0.Revoked);
+        v60(v26(v62, v55.itemId, v96, nil, v64));
+        v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
+            items = v85(l_InventoryItemAvailability_0.Revoked), 
+            messageType = "RevokedItems", 
+            onConfirm = v95
+        });
+    end;
+    local function v103(v98) --[[ Line: 304 ]] --[[ Name: onActivatedWithPartiallyExpiredItems ]]
         -- upvalues: l_FFlagAXEnableExpiredUserLookCheckout_0 (ref), v85 (copy), l_InventoryItemAvailability_0 (ref), v60 (copy), v29 (ref), v18 (ref), v28 (ref), v64 (copy), v61 (copy), v58 (copy), l_AvatarScreen_0 (ref), v20 (ref), v70 (copy), v26 (ref), v62 (copy), v55 (copy)
         if l_FFlagAXEnableExpiredUserLookCheckout_0 then
-            local v97 = v85(l_InventoryItemAvailability_0.Expired);
-            if #v97 > 0 then
-                for _, v99 in v97 do
-                    v60(v29(v18.ItemType.Asset, v99.itemSubType, v99.itemId, true, v99.order));
-                    v60(v28(v64, v61, v99.itemId, v18.ItemType.Asset));
+            local v99 = v85(l_InventoryItemAvailability_0.Expired);
+            if #v99 > 0 then
+                for _, v101 in v99 do
+                    v60(v29(v18.ItemType.Asset, v101.itemSubType, v101.itemId, true, v101.order));
+                    v60(v28(v64, v61, v101.itemId, v18.ItemType.Asset));
                 end;
-                v58.navigate(l_AvatarScreen_0.ExpiredUserLookCheckout);
+                v58.navigate(l_AvatarScreen_0.ExpiredUserLookActionBar, {
+                    expiredItemCount = #v99, 
+                    expiredItems = v99
+                });
                 return;
             end;
         else
-            local v100 = v20.filterOutfitAssetsWithStatus(v70, l_InventoryItemAvailability_0.Expired);
-            v60(v26(v62, v55.itemId, v100, true, v64));
+            local v102 = v20.filterOutfitAssetsWithStatus(v70, l_InventoryItemAvailability_0.Expired);
+            v60(v26(v62, v55.itemId, v102, true, v64));
             v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
                 items = nil, 
                 messageType = "PartiallyExpiredItems", 
-                onConfirm = v96
+                onConfirm = v98
             });
         end;
     end;
-    v2.useEffect(function() --[[ Line: 327 ]]
+    v2.useEffect(function() --[[ Line: 341 ]]
         -- upvalues: v56 (copy), v70 (copy), v38 (ref), v7 (ref), v55 (copy), l_ImpressionEnums_0 (ref), l_FFlagAXFixFocusGuiObjectFocusRef_0 (ref), v33 (ref), v32 (ref), l_addUnifiedEventLogging_0 (ref), l_UnifiedEventLogEnums_0 (ref), l_UnifiedEventLogConstants_0 (ref)
         if v56.current and v70 and (v38 or not v7.isEmpty(v70)) then
-            local v102 = {
+            local v104 = {
                 itemId = v55.itemId, 
                 itemType = "Bundle", 
                 surface = l_ImpressionEnums_0.MarketplaceSurfaceType.MARKETPLACE_USER_INVENTORY
@@ -276,8 +289,8 @@ return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
             else
                 v56.current:SetAttribute(v55.impressionsTag, v55.itemId);
             end;
-            local v103 = v33[v55.impressionsSchema];
-            v32.writeItemAttributes(v103, v56.current, v102);
+            local v105 = v33[v55.impressionsSchema];
+            v32.writeItemAttributes(v105, v56.current, v104);
             l_addUnifiedEventLogging_0(v56, {
                 action = l_UnifiedEventLogEnums_0.MarketplaceUnifiedAction.ITEM_SELECTED, 
                 itemType = l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.BUNDLE, 
@@ -293,72 +306,72 @@ return function(v55, v56) --[[ Line: 132 ]] --[[ Name: useAvatarTileProps ]]
         v70, 
         v55.gridInformation
     });
-    local l_v90_0 = v90;
+    local l_v92_0 = v92;
     if l_FFlagAXModeratedItemsFlow_0 then
-        local v105 = v70 and v70.availabilityStatus;
-        local v106 = true;
-        if v105 ~= l_InventoryItemAvailability_0.Unavailable then
-            v106 = v105 == l_InventoryItemAvailability_0.PartiallyAvailableWithUnavailableSubitems;
+        local v107 = v70 and v70.availabilityStatus;
+        local v108 = true;
+        if v107 ~= l_InventoryItemAvailability_0.Unavailable then
+            v108 = v107 == l_InventoryItemAvailability_0.PartiallyAvailableWithUnavailableSubitems;
         end;
-        local v107 = nil;
+        local v109 = nil;
         if l_FFlagAXInventoryDurablesSupport_0 then
-            v107 = v105 == l_InventoryItemAvailability_0.PartiallyAvailableWithExpiredSubitems;
+            v109 = v107 == l_InventoryItemAvailability_0.PartiallyAvailableWithExpiredSubitems;
         end;
-        if v106 then
-            local v108 = v85(l_InventoryItemAvailability_0.Unavailable);
-            local v109 = v85(l_InventoryItemAvailability_0.Revoked);
-            local v110 = v108 and #v108 > 0;
-            local v111 = v109 and #v109 > 0;
-            l_v90_0 = function() --[[ Line: 371 ]]
-                -- upvalues: v110 (copy), v111 (copy), v95 (copy), v90 (copy), v58 (copy), l_AvatarScreen_0 (ref), v85 (copy), l_InventoryItemAvailability_0 (ref)
-                if v110 and v111 then
-                    local function v112() --[[ Line: 376 ]]
-                        -- upvalues: v95 (ref), v90 (ref)
-                        v95(v90);
+        if v108 then
+            local v110 = v85(l_InventoryItemAvailability_0.Unavailable);
+            local v111 = v85(l_InventoryItemAvailability_0.Revoked);
+            local v112 = v110 and #v110 > 0;
+            local v113 = v111 and #v111 > 0;
+            l_v92_0 = function() --[[ Line: 385 ]]
+                -- upvalues: v112 (copy), v113 (copy), v97 (copy), v92 (copy), v58 (copy), l_AvatarScreen_0 (ref), v85 (copy), l_InventoryItemAvailability_0 (ref)
+                if v112 and v113 then
+                    local function v114() --[[ Line: 390 ]]
+                        -- upvalues: v97 (ref), v92 (ref)
+                        v97(v92);
                     end;
                     v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
                         items = v85(l_InventoryItemAvailability_0.Unavailable), 
                         messageType = "UnavailableItems", 
-                        onConfirm = v112
+                        onConfirm = v114
                     });
                     return;
-                elseif v110 then
-                    local l_v90_1 = v90;
+                elseif v112 then
+                    local l_v92_1 = v92;
                     v58.navigate(l_AvatarScreen_0.ItemsUnavailablePrompt, {
                         items = v85(l_InventoryItemAvailability_0.Unavailable), 
                         messageType = "UnavailableItems", 
-                        onConfirm = l_v90_1
+                        onConfirm = l_v92_1
                     });
                     return;
                 else
-                    if v111 then
-                        v95(v90);
+                    if v113 then
+                        v97(v92);
                     end;
                     return;
                 end;
             end;
-        elseif l_FFlagAXInventoryDurablesSupport_0 and v107 then
-            l_v90_0 = function() --[[ Line: 386 ]]
-                -- upvalues: v90 (copy), v101 (copy)
-                v90();
-                v101();
+        elseif l_FFlagAXInventoryDurablesSupport_0 and v109 then
+            l_v92_0 = function() --[[ Line: 400 ]]
+                -- upvalues: v92 (copy), v103 (copy)
+                v92();
+                v103();
             end;
         end;
     end;
     if l_FFlagAXEnableModeratedItemsFlowForDurables_0 and l_FFlagAXInventoryDurablesSupport_0 and not l_FFlagAXModeratedItemsFlow_0 then
-        local v114 = v70 and v70.availabilityStatus;
+        local v116 = v70 and v70.availabilityStatus;
         local _ = nil;
-        if v114 == l_InventoryItemAvailability_0.PartiallyAvailableWithExpiredSubitems then
-            l_v90_0 = function() --[[ Line: 405 ]]
-                -- upvalues: v90 (copy), v101 (copy)
-                v90();
-                v101();
+        if v116 == l_InventoryItemAvailability_0.PartiallyAvailableWithExpiredSubitems then
+            l_v92_0 = function() --[[ Line: 419 ]]
+                -- upvalues: v92 (copy), v103 (copy)
+                v92();
+                v103();
             end;
         end;
     end;
     return {
         item = v70, 
-        onActivated = l_v90_0, 
+        onActivated = l_v92_0, 
         isSelected = v55.isSelected, 
         itemId = v55.itemId, 
         index = v55.index, 

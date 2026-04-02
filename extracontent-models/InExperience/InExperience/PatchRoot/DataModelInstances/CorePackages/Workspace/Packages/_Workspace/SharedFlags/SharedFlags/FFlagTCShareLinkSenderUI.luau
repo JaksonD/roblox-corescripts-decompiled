@@ -1,1 +1,1 @@
-return require(script.Parent.FFlagMoveVariantMapsToHelperFiles) and game:DefineFastFlag("TCShareLinkSenderUI3", false);
+return game:DefineFastFlag("TCShareLinkSenderUI3", false);

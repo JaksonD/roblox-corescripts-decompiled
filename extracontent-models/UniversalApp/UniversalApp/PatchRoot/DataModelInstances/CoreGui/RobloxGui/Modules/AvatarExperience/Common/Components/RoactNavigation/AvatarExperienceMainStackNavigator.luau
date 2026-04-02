@@ -23,45 +23,46 @@ local v21 = require(l_Components_1.Search.CatalogSearchLandingPage);
 local v22 = require(l_Components_1.Resellers.ResellersPage);
 local v23 = require(l_Components_1.LookDetails.LookDetailsScreen);
 local v24 = require(l_Components_0.RoactNavigation.CheckoutScreen);
-local v25 = require(l_Modules_0.AvatarExperience.Catalog.Components.Search.LandingPage.SearchLandingFocusedWidgetPage);
+local v25 = require(l_Components_0.RoactNavigation.ExpiredUserLookActionBarScreen);
+local v26 = require(l_Modules_0.AvatarExperience.Catalog.Components.Search.LandingPage.SearchLandingFocusedWidgetPage);
 local l_Components_2 = l_Modules_0.AvatarExperience.ProfilePictureEditor.Components;
-local v27 = require(l_Components_2.ProfilePictureEditorCameraPage);
-local v28 = require(l_Components_2.ProfilePictureEditorFinalPage);
+local v28 = require(l_Components_2.ProfilePictureEditorCameraPage);
+local v29 = require(l_Components_2.ProfilePictureEditorFinalPage);
 local l_Components_3 = l_Modules_0.AvatarExperience.AvatarEditor.Components;
-local v30 = require(l_Components_3.AssetManagement.UpdateOutfitPage);
-local v31 = require(l_Components_3.AssetManagement.ManageOutfitPage);
-local v32 = require(l_Components_3.AssetManagement.ManageOutfitPage_DEPRECATED);
-local v33 = require(l_Components_3.LookComposer.LookComposerPage);
-local v34 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.SubcategoryFilters.SubcategoryFiltersDropdown);
-local v35 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Components.LayeredClothingSortPage);
-local v36 = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.Components.LayeredMakeupSortScreen);
-local v37 = if require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableInventorySortsAndFilters)() then require(l_Components_1.Filters.SortAndFiltersScreenV2) else require(l_Components_1.Filters.SortAndFiltersScreen);
-local v38 = require(l_Modules_0.AvatarExperience.AvatarSwitcher.AvatarSwitcherPageContainer);
-local v39 = require(l_Modules_0.AvatarExperience.EditEmotes.EditEmotesPageContainer);
-local v40 = require(l_Modules_0.AvatarExperience.Photobooth.PhotoboothPageContainer);
+local v31 = require(l_Components_3.AssetManagement.UpdateOutfitPage);
+local v32 = require(l_Components_3.AssetManagement.ManageOutfitPage);
+local v33 = require(l_Components_3.AssetManagement.ManageOutfitPage_DEPRECATED);
+local v34 = require(l_Components_3.LookComposer.LookComposerPage);
+local v35 = require(l_Modules_0.AvatarExperience.SlotBasedEditor.Components.SubcategoryFilters.SubcategoryFiltersDropdown);
+local v36 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.Components.LayeredClothingSortPage);
+local v37 = require(l_Modules_0.AvatarExperience.LayeredMakeupSort.Components.LayeredMakeupSortScreen);
+local v38 = if require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableInventorySortsAndFilters)() then require(l_Components_1.Filters.SortAndFiltersScreenV2) else require(l_Components_1.Filters.SortAndFiltersScreen);
+local v39 = require(l_Modules_0.AvatarExperience.AvatarSwitcher.AvatarSwitcherPageContainer);
+local v40 = require(l_Modules_0.AvatarExperience.EditEmotes.EditEmotesPageContainer);
+local v41 = require(l_Modules_0.AvatarExperience.Photobooth.PhotoboothPageContainer);
 local l_FFlagAXPhotoboothFunctionality_0 = v6.FFlagAXPhotoboothFunctionality;
-local v42 = require(l_CorePackages_0.Workspace.Packages.TenFootUiCommon);
-local l_ScreenKind_0 = v42.TenFootUiRNTypes.ScreenKind;
-local l_GlobalNavDisplayOption_0 = v42.TenFootUiRNTypes.GlobalNavDisplayOption;
+local v43 = require(l_CorePackages_0.Workspace.Packages.TenFootUiCommon);
+local l_ScreenKind_0 = v43.TenFootUiRNTypes.ScreenKind;
+local l_GlobalNavDisplayOption_0 = v43.TenFootUiRNTypes.GlobalNavDisplayOption;
 local l_AXRecentlyViewedSearchItemsIXPTest_0 = v7.Experiments.AXRecentlyViewedSearchItemsIXPTest;
-local v46 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
+local v47 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXEnableSlotBasedEditor);
 local l_FFlagAXEditorSubcategoryFilters_0 = v6.FFlagAXEditorSubcategoryFilters;
 local l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation;
 local l_FFlagAXMigrateAXToGlobalAutofocus_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateAXToGlobalAutofocus;
 local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXCustomizeMakeupSupport_0 = v6.FFlagAXCustomizeMakeupSupport;
 local l_FFlagAXEnableExpiredUserLookCheckout_0 = v6.FFlagAXEnableExpiredUserLookCheckout;
-local v56 = {
+local v57 = {
     {
         [l_AvatarScreen_0.LandingPageSwitchNavigator] = {
             screen = v9, 
-            navigationOptions = function(v53) --[[ Line: 91 ]] --[[ Name: navigationOptions ]]
+            navigationOptions = function(v54) --[[ Line: 92 ]] --[[ Name: navigationOptions ]]
                 -- upvalues: v3 (copy)
-                local l_navigation_0 = v53.navigation;
-                local v55 = v3.getActiveChildNavigationOptions(l_navigation_0);
+                local l_navigation_0 = v54.navigation;
+                local v56 = v3.getActiveChildNavigationOptions(l_navigation_0);
                 return {
-                    tabBarVisible = v55.tabBarVisible, 
-                    backButtonAction = v55.backButtonAction
+                    tabBarVisible = v56.tabBarVisible, 
+                    backButtonAction = v56.backButtonAction
                 };
             end
         }
@@ -87,19 +88,19 @@ local v56 = {
         [l_AvatarScreen_0.ResellersPage] = v22
     }, 
     {
-        [l_AvatarScreen_0.UpdateOutfitPage] = v30
+        [l_AvatarScreen_0.UpdateOutfitPage] = v31
     }, 
     {
-        [l_AvatarScreen_0.ManageOutfitPage] = if l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 then v31 else v32
+        [l_AvatarScreen_0.ManageOutfitPage] = if l_FFlagAXMigrateManageOutfitPageInputBindingsToFocusNavigation_0 then v32 else v33
     }, 
     {
-        [l_AvatarScreen_0.ProfilePictureEditorCamera] = v27
+        [l_AvatarScreen_0.ProfilePictureEditorCamera] = v28
     }, 
     {
-        [l_AvatarScreen_0.ProfilePictureEditorFinal] = v28
+        [l_AvatarScreen_0.ProfilePictureEditorFinal] = v29
     }, 
     {
-        [l_AvatarScreen_0.SortAndFilters] = v37
+        [l_AvatarScreen_0.SortAndFilters] = v38
     }, 
     {
         [l_AvatarScreen_0.ItemOwnershipPage] = v17
@@ -122,54 +123,57 @@ local v56 = {
         [l_AvatarScreen_0.CatalogSearchLanding] = v21
     }
 };
-table.insert(v56, {
-    [l_AvatarScreen_0.LayeredClothingSort] = v35
+table.insert(v57, {
+    [l_AvatarScreen_0.LayeredClothingSort] = v36
 });
 if l_FFlagAXCustomizeMakeupSupport_0 then
-    table.insert(v56, {
-        [l_AvatarScreen_0.LayeredMakeupSort] = v36
+    table.insert(v57, {
+        [l_AvatarScreen_0.LayeredMakeupSort] = v37
     });
 end;
 if l_FFlagAXEnableExpiredUserLookCheckout_0 then
-    table.insert(v56, {
+    table.insert(v57, {
+        [l_AvatarScreen_0.ExpiredUserLookActionBar] = v25
+    });
+    table.insert(v57, {
         [l_AvatarScreen_0.ExpiredUserLookCheckout] = v24
     });
 end;
-table.insert(v56, {
-    [l_AvatarScreen_0.LookComposerPage] = v33
+table.insert(v57, {
+    [l_AvatarScreen_0.LookComposerPage] = v34
 });
-table.insert(v56, {
+table.insert(v57, {
     [l_AvatarScreen_0.MySharedAvatars] = v12
 });
 if l_FFlagAXPhotoboothFunctionality_0 then
-    table.insert(v56, {
-        [l_AvatarScreen_0.Photobooth] = v40
+    table.insert(v57, {
+        [l_AvatarScreen_0.Photobooth] = v41
     });
 end;
 if l_AXRecentlyViewedSearchItemsIXPTest_0.isEnabled() then
-    table.insert(v56, {
-        [l_AvatarScreen_0.SearchLandingFocusedWidgetPage] = v25
+    table.insert(v57, {
+        [l_AvatarScreen_0.SearchLandingFocusedWidgetPage] = v26
     });
 end;
-if v46() then
-    table.insert(v56, {
-        [l_AvatarScreen_0.AvatarSwitcher] = v38
+if v47() then
+    table.insert(v57, {
+        [l_AvatarScreen_0.AvatarSwitcher] = v39
     });
-    table.insert(v56, {
-        [l_AvatarScreen_0.EditEmotes] = v39
+    table.insert(v57, {
+        [l_AvatarScreen_0.EditEmotes] = v40
     });
 end;
 if l_FFlagAXEditorSubcategoryFilters_0 then
-    table.insert(v56, {
-        [l_AvatarScreen_0.SubcategoryFiltersDropdown] = v34
+    table.insert(v57, {
+        [l_AvatarScreen_0.SubcategoryFiltersDropdown] = v35
     });
 end;
 if l_FFlagAXMISEnableMultiShopping_0 then
-    table.insert(v56, {
+    table.insert(v57, {
         [l_AvatarScreen_0.Checkout] = v24
     });
 end;
-return v13(v56, {
+return v13(v57, {
     defaultNavigationOptions = {
         overlayEnabled = true, 
         overlayTransparency = 1, 

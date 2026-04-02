@@ -10,7 +10,7 @@ local function v11(v7, v8, v9) --[[ Line: 23 ]] --[[ Name: createIncludeError ]]
     local l_assetTypeEnum_0 = v9.assetTypeEnum;
     v1.reportFailure(v1.ErrorType.validateMakeupDecal_UVZoneError, nil, v9);
     return false, {
-        string.format("Opague area of ColorMap for %s does not fall within allowed UV area of [%s] and [%s] for asset type %s", v7.Name, tostring(v8.MinBound), tostring(v8.MaxBound), l_assetTypeEnum_0.Name)
+        string.format("Opaque area of ColorMap for %s does not fall within allowed UV area of [%s] and [%s] for asset type %s", v7.Name, tostring(v8.MinBound), tostring(v8.MaxBound), l_assetTypeEnum_0.Name)
     };
 end;
 local function v16(v12, v13, v14) --[[ Line: 38 ]] --[[ Name: createExcludeError ]]
@@ -18,7 +18,7 @@ local function v16(v12, v13, v14) --[[ Line: 38 ]] --[[ Name: createExcludeError
     local l_assetTypeEnum_1 = v14.assetTypeEnum;
     v1.reportFailure(v1.ErrorType.validateMakeupDecal_UVZoneError, nil, v14);
     return false, {
-        string.format("Opague pixels in ColorMap for %s were found within a restricted UV area of [%s] and [%s] for asset type %s", v12.Name, tostring(v13.MinBound), tostring(v13.MaxBound), l_assetTypeEnum_1.Name)
+        string.format("Opaque pixels in ColorMap for %s were found within a restricted UV area of [%s] and [%s] for asset type %s", v12.Name, tostring(v13.MinBound), tostring(v13.MaxBound), l_assetTypeEnum_1.Name)
     };
 end;
 local function v28(v17, v18, v19, v20, v21, v22) --[[ Line: 53 ]] --[[ Name: validateTextureWithBounds ]]

@@ -31,7 +31,7 @@ local v27 = {
     numLines = 1, 
     testId = "--foundation-internal-text-input"
 };
-local v32 = v2.memo(v2.forwardRef(function(v28, v29) --[[ Line: 110 ]]
+local v32 = v2.memo(v2.forwardRef(function(v28, v29) --[[ Line: 112 ]]
     -- upvalues: v2 (copy), v9 (copy), v13 (copy), v4 (copy)
     local l_isBoundsChecker_0 = v28.isBoundsChecker;
     local v31 = v28.isMultiLine or l_isBoundsChecker_0;
@@ -69,7 +69,7 @@ local v32 = v2.memo(v2.forwardRef(function(v28, v29) --[[ Line: 110 ]]
         })
     } else nil, v28.children);
 end));
-return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: InternalTextInput ]]
+return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 163 ]] --[[ Name: InternalTextInput ]]
     -- upvalues: v21 (copy), v27 (copy), v19 (copy), v2 (copy), v9 (copy), v23 (copy), v18 (copy), v17 (copy), v16 (copy), v11 (copy), v25 (copy), v12 (copy), v14 (copy), v15 (copy), v7 (copy), v20 (copy), v8 (copy), v10 (copy), v24 (copy), v26 (copy), v5 (copy), v32 (copy)
     local v35 = v21(v33, v27);
     local v36 = v19();
@@ -83,10 +83,10 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     local v44 = v2.useRef(Vector2.zero);
     local v45, v46 = v2.useState(false);
     local v47, v48 = v2.useState(false);
-    if v9.FoundationInternalTextInputVariants then
+    if v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput then
         v35.variant = if v35.variant then v35.variant else v23.Standard;
     end;
-    local v49 = v18(v36, v35.size, if v9.FoundationInternalTextInputVariants then v35.variant else nil, if v9.FoundationInternalTextInputCornerRadius then v35.radius else nil, if v9.FoundationTextInputAlignStrokeBehavior then v47 else nil, if v9.FoundationTextInputAlignStrokeBehavior then v45 else nil, if v9.FoundationTextInputAlignStrokeBehavior then v35.hasError else nil);
+    local v49 = v18(v36, v35.size, if not not v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput then v35.variant else nil, if not not v9.FoundationInternalTextInputCornerRadius or v35.forceEnableFlagsForSearchInput then v35.radius else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v47 else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v45 else nil, if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v35.hasError else nil, v35.forceEnableFlagsForSearchInput);
     local v50 = v17(v49.textBox.tag);
     local v51 = v16();
     local v52, v53 = v2.useState(false);
@@ -99,19 +99,19 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     local l_fontStyle_0 = v49.textBox.fontStyle;
     local l_FontSize_0 = l_fontStyle_0.FontSize;
     local l_LineHeight_0 = l_fontStyle_0.LineHeight;
-    local v63 = v2.useCallback(function() --[[ Line: 209 ]]
+    local v63 = v2.useCallback(function() --[[ Line: 216 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             v39.current:CaptureFocus();
         end;
     end, {});
-    local v64 = v2.useCallback(function() --[[ Line: 215 ]]
+    local v64 = v2.useCallback(function() --[[ Line: 222 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             v39.current:ReleaseFocus();
         end;
     end, {});
-    local v65 = v2.useCallback(function() --[[ Line: 221 ]]
+    local v65 = v2.useCallback(function() --[[ Line: 228 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             return (v39.current:IsFocused());
@@ -119,7 +119,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             return nil;
         end;
     end, {});
-    local v66 = v2.useCallback(function() --[[ Line: 228 ]]
+    local v66 = v2.useCallback(function() --[[ Line: 235 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             return v39.current.SelectionStart;
@@ -127,7 +127,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             return nil;
         end;
     end, {});
-    local v67 = v2.useCallback(function() --[[ Line: 235 ]]
+    local v67 = v2.useCallback(function() --[[ Line: 242 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             return v39.current.CursorPosition;
@@ -135,19 +135,19 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             return nil;
         end;
     end, {});
-    local v69 = v2.useCallback(function(v68) --[[ Line: 242 ]]
+    local v69 = v2.useCallback(function(v68) --[[ Line: 249 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             v39.current.SelectionStart = v68;
         end;
     end, {});
-    local v71 = v2.useCallback(function(v70) --[[ Line: 248 ]]
+    local v71 = v2.useCallback(function(v70) --[[ Line: 255 ]]
         -- upvalues: v39 (copy)
         if v39.current then
             v39.current.CursorPosition = v70;
         end;
     end, {});
-    v2.useImperativeHandle(v34, function() --[[ Line: 256 ]]
+    v2.useImperativeHandle(v34, function() --[[ Line: 263 ]]
         -- upvalues: v65 (copy), v63 (copy), v64 (copy), v46 (copy), v66 (copy), v67 (copy), v71 (copy), v69 (copy)
         return {
             getIsFocused = v65, 
@@ -168,7 +168,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v71, 
         v69
     });
-    local v74 = v2.useCallback(function(v72) --[[ Line: 279 ]]
+    local v74 = v2.useCallback(function(v72) --[[ Line: 286 ]]
         -- upvalues: v42 (copy), v38 (copy), v40 (copy), v35 (copy)
         if v72 == nil or v72.Parent == nil or v42.current ~= "" then
             return;
@@ -185,7 +185,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v38, 
         v52
     });
-    local v75 = v2.useCallback(function() --[[ Line: 293 ]]
+    local v75 = v2.useCallback(function() --[[ Line: 300 ]]
         -- upvalues: v35 (copy), v38 (copy), v54 (copy), v39 (copy), v42 (copy), v53 (copy), v48 (copy)
         if v35.isDisabled then
             return;
@@ -208,7 +208,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v54, 
         v38
     });
-    local v79 = v2.useCallback(function(_, v77, v78) --[[ Line: 313 ]]
+    local v79 = v2.useCallback(function(_, v77, v78) --[[ Line: 320 ]]
         -- upvalues: v48 (copy), v38 (copy), v53 (copy), v35 (copy)
         v48(false);
         if v38 then
@@ -225,11 +225,11 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v38, 
         v35.onFocusLost
     });
-    local v81 = v2.useCallback(function(v80) --[[ Line: 331 ]]
+    local v81 = v2.useCallback(function(v80) --[[ Line: 338 ]]
         -- upvalues: v46 (copy), v25 (ref)
         v46(v80 == v25.Hover);
     end, {});
-    local v84 = v2.useCallback(function(v82, v83) --[[ Line: 335 ]]
+    local v84 = v2.useCallback(function(v82, v83) --[[ Line: 342 ]]
         -- upvalues: v43 (copy), v35 (copy)
         v43.current = v83;
         if v35.onDragStarted then
@@ -238,7 +238,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v35.onDragStarted
     });
-    local v87 = v2.useCallback(function(v85, v86) --[[ Line: 342 ]]
+    local v87 = v2.useCallback(function(v85, v86) --[[ Line: 349 ]]
         -- upvalues: v35 (copy)
         if v35.onDrag then
             v35.onDrag(v85, v86);
@@ -246,7 +246,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v35.onDrag
     });
-    local v90 = v2.useCallback(function(v88, v89) --[[ Line: 348 ]]
+    local v90 = v2.useCallback(function(v88, v89) --[[ Line: 355 ]]
         -- upvalues: v43 (copy), v63 (copy), v64 (copy), v48 (copy), v35 (copy)
         if v43.current == v89 then
             v63();
@@ -261,7 +261,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v35.onDragEnded
     });
-    local v91 = v2.useMemo(function() --[[ Line: 361 ]]
+    local v91 = v2.useMemo(function() --[[ Line: 368 ]]
         -- upvalues: v49 (copy), v36 (copy)
         return {
             radius = UDim.new(0, v49.innerContainer.radius), 
@@ -272,7 +272,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v36, 
         v49.innerContainer.radius
     });
-    local v92 = v2.useMemo(function() --[[ Line: 369 ]]
+    local v92 = v2.useMemo(function() --[[ Line: 376 ]]
         -- upvalues: v12 (ref), l_FontSize_0 (copy), v37 (copy), l_LineHeight_0 (copy)
         return v12(l_FontSize_0, v37, l_LineHeight_0);
     end, {
@@ -280,7 +280,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         v37, 
         l_LineHeight_0
     });
-    local v97, v98 = v2.useMemo(function() --[[ Line: 374 ]]
+    local v97, v98 = v2.useMemo(function() --[[ Line: 381 ]]
         -- upvalues: v49 (copy), v56 (copy), v12 (ref), l_FontSize_0 (copy), l_LineHeight_0 (copy), v92 (copy)
         local v93 = math.round((v49.outerContainer.minHeight - v56 - v12(l_FontSize_0, 1, l_LineHeight_0)) * 2) / 2;
         local v94 = UDim.new(0, (math.floor(v93 / 2)));
@@ -302,7 +302,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     });
     local v99 = v97.bottom.Offset + v97.top.Offset;
     local v100 = UDim2.new(1, 0, 0, v92 + v99);
-    local v101 = v2.useMemo(function() --[[ Line: 410 ]]
+    local v101 = v2.useMemo(function() --[[ Line: 417 ]]
         -- upvalues: v38 (copy)
         if v38 then
             return {
@@ -315,7 +315,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v38
     });
-    local v102 = v2.useMemo(function() --[[ Line: 419 ]]
+    local v102 = v2.useMemo(function() --[[ Line: 426 ]]
         -- upvalues: v38 (copy)
         if v38 then
             return {
@@ -330,7 +330,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v38
     });
-    local v111 = v2.useCallback(function(v103) --[[ Line: 430 ]]
+    local v111 = v2.useCallback(function(v103) --[[ Line: 437 ]]
         -- upvalues: v41 (copy), v40 (copy), v14 (ref), v97 (copy)
         local l_current_0 = v41.current;
         local l_current_1 = v40.current;
@@ -354,7 +354,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     end, {
         v97
     });
-    local v113 = v2.useCallback(function(v112) --[[ Line: 463 ]]
+    local v113 = v2.useCallback(function(v112) --[[ Line: 470 ]]
         -- upvalues: v41 (copy), v44 (copy)
         if v112 == nil then
             return;
@@ -365,7 +365,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             return;
         end;
     end, {});
-    local v115 = v2.useCallback(function(v114) --[[ Line: 473 ]]
+    local v115 = v2.useCallback(function(v114) --[[ Line: 480 ]]
         -- upvalues: v42 (copy)
         if v114 then
             v114.Text = v42.current;
@@ -373,11 +373,11 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             v114:CaptureFocus();
         end;
     end, {});
-    local v117 = v2.useCallback(function(v116) --[[ Line: 481 ]]
+    local v117 = v2.useCallback(function(v116) --[[ Line: 488 ]]
         -- upvalues: v44 (copy)
         v44.current = v116.CanvasPosition;
     end, {});
-    local v118 = v2.useMemo(function() --[[ Line: 485 ]]
+    local v118 = v2.useMemo(function() --[[ Line: 492 ]]
         -- upvalues: v35 (copy), v2 (ref), v84 (copy), v87 (copy), v90 (copy), v47 (copy)
         if not v35.onDragStarted and not v35.onDrag and not v35.onDragEnded then
             return nil;
@@ -406,19 +406,19 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
             Selectable = not v35.isDisabled
         }, 
         cursor = v91, 
-        stroke = if not v9.FoundationTextInputAlignStrokeBehavior or v49.outerView.strokeStyle and v49.outerView.strokeThickness then {
-            Color = if v9.FoundationTextInputAlignStrokeBehavior then v49.outerView.strokeStyle.Color3 else if v35.hasError then v36.Color.System.Alert.Color3 else v36.Color.Stroke.Emphasis.Color3, 
-            Transparency = if v9.FoundationTextInputAlignStrokeBehavior then if v35.isDisabled then v10(v49.outerView.strokeStyle.Transparency, v8.DISABLED_TRANSPARENCY) else v49.outerView.strokeStyle.Transparency else if v35.hasError then v36.Color.System.Alert.Transparency else v47 and 0 or v36.Color.Stroke.Emphasis.Transparency, 
-            Thickness = if v9.FoundationTextInputAlignStrokeBehavior then v49.outerView.strokeThickness else l_Standard_0, 
-            BorderStrokePosition = if v9.FoundationTextInputAlignStrokeBehavior and (v47 or v45) then Enum.BorderStrokePosition.Center else Enum.BorderStrokePosition.Inner
+        stroke = if not (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput) or v49.outerView.strokeStyle and v49.outerView.strokeThickness then {
+            Color = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v49.outerView.strokeStyle.Color3 else if v35.hasError then v36.Color.System.Alert.Color3 else v36.Color.Stroke.Emphasis.Color3, 
+            Transparency = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then if v35.isDisabled then v10(v49.outerView.strokeStyle.Transparency, v8.DISABLED_TRANSPARENCY) else v49.outerView.strokeStyle.Transparency else if v35.hasError then v36.Color.System.Alert.Transparency else v47 and 0 or v36.Color.Stroke.Emphasis.Transparency, 
+            Thickness = if not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput then v49.outerView.strokeThickness else l_Standard_0, 
+            BorderStrokePosition = if (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput) and (v47 or v45) then Enum.BorderStrokePosition.Center else Enum.BorderStrokePosition.Inner
         } else nil, 
         cornerRadius = if v9.FoundationTextInputSingleLineCircleRadius and v35.radius == v24.Circle then UDim.new(0, (math.ceil(v49.outerContainer.minHeight / 2))) else nil, 
         padding = {
-            left = v119:map(function(v121) --[[ Line: 545 ]]
+            left = v119:map(function(v121) --[[ Line: 557 ]]
                 -- upvalues: l_Standard_0 (copy)
                 return UDim.new(0, l_Standard_0) + v121;
             end), 
-            right = v120:map(function(v122) --[[ Line: 548 ]]
+            right = v120:map(function(v122) --[[ Line: 560 ]]
                 -- upvalues: l_Standard_0 (copy)
                 return UDim.new(0, l_Standard_0) + v122;
             end), 
@@ -428,7 +428,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
         onActivated = if not v35.isDisabled then v63 else nil, 
         onStateChanged = v81, 
         isDisabled = v35.isDisabled, 
-        backgroundStyle = if not v9.FoundationInternalTextInputVariants or v49.outerView.bgStyle then if v9.FoundationInternalTextInputDisabledTransparency then v11({
+        backgroundStyle = if not (not not v9.FoundationInternalTextInputVariants or v35.forceEnableFlagsForSearchInput) or v49.outerView.bgStyle then if v9.FoundationInternalTextInputDisabledTransparency then v11({
             Color3 = v49.outerView.bgStyle.Color3, 
             Transparency = v35.backgroundGradient and 0 or v49.outerView.bgStyle.Transparency
         }, v35.isDisabled) else {
@@ -443,7 +443,7 @@ return v2.memo(v2.forwardRef(function(v33, v34) --[[ Line: 161 ]] --[[ Name: Int
     }), {
         DragDetector = v118, 
         Background = v35.backgroundGradient, 
-        HoverStroke = if not (not not v9.FoundationTextInputAlignStrokeBehavior or v35.isDisabled) and (v45 or v47) then v2.createElement("UIStroke", {
+        HoverStroke = if not (not not v9.FoundationTextInputAlignStrokeBehavior or v35.forceEnableFlagsForSearchInput or v35.isDisabled) and (v45 or v47) then v2.createElement("UIStroke", {
             Color = v36.Color.Stroke.Emphasis.Color3, 
             Transparency = v36.Color.Stroke.Emphasis.Transparency, 
             Thickness = l_Thick_0, 

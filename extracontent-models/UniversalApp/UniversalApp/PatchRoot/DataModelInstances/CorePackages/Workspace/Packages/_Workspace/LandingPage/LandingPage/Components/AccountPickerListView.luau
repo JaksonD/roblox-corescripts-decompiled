@@ -21,85 +21,89 @@ local l_GetAccountsListWithSignedOutAccounts_0 = require(l_Parent_0.AccountSwitc
 local l_useRoactService_0 = require(l_Parent_0.RobloxAppHooks).useRoactService;
 local l_RoactNetworking_0 = require(l_Parent_0.RoactServiceTags).RoactNetworking;
 local v22 = game:DefineFastFlag("EnableAccountPickerListViewEvents", false);
-return function(v23) --[[ Line: 51 ]]
-    -- upvalues: v2 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), l_authPageload_0 (copy), l_EventStreamConstants_0 (copy), v22 (copy), l_GetAccountsListWithSignedOutAccounts_0 (copy), l_authButtonClick_0 (copy), v3 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_Constants_0 (copy), v14 (copy), l_FullscreenPageWithSafeArea_0 (copy), v12 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy), l_DisclaimerLinks_0 (copy)
-    local v24, v25 = v2.useState(false);
-    local v26, v27 = v2.useState(v23.accounts);
-    local v28 = l_useRoactService_0(l_RoactNetworking_0);
-    local v29 = l_useStyle_0();
-    local v30 = l_useLocalization_0({
+local v23 = game:DefineFastFlag("FixAccountPickerListViewScrollAndAlignment", false);
+return function(v24) --[[ Line: 53 ]]
+    -- upvalues: v2 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useStyle_0 (copy), l_useLocalization_0 (copy), l_authPageload_0 (copy), l_EventStreamConstants_0 (copy), v22 (copy), l_GetAccountsListWithSignedOutAccounts_0 (copy), l_authButtonClick_0 (copy), v3 (copy), l_getRbxthumbWithTypeSizeAndOptions_0 (copy), l_Constants_0 (copy), v14 (copy), l_FullscreenPageWithSafeArea_0 (copy), v12 (copy), v23 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy), l_DisclaimerLinks_0 (copy)
+    local v25, v26 = v2.useState(false);
+    local v27, v28 = v2.useState(v24.accounts);
+    local v29 = l_useRoactService_0(l_RoactNetworking_0);
+    local v30 = l_useStyle_0();
+    local v31 = l_useLocalization_0({
         allAccounts = "Authentication.AccountPicker.Label.AllAccounts", 
         manage = "Authentication.AccountPicker.Label.Manage", 
         signInAsAccount = "Authentication.AccountPicker.Button.SignIntoAnotherAccount", 
         createAccount = "Authentication.AccountPicker.Button.CreateAccount", 
         signedOut = "Authentication.AccountPicker.Label.SignedOut"
     });
-    v2.useEffect(function() --[[ Line: 65 ]]
+    v2.useEffect(function() --[[ Line: 67 ]]
         -- upvalues: l_authPageload_0 (ref), l_EventStreamConstants_0 (ref)
         l_authPageload_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView);
     end, {});
-    v2.useEffect(function() --[[ Line: 69 ]]
-        -- upvalues: v27 (copy), v23 (copy), v22 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref)
-        v27(v23.accounts);
+    v2.useEffect(function() --[[ Line: 71 ]]
+        -- upvalues: v28 (copy), v24 (copy), v22 (ref), l_authPageload_0 (ref), l_EventStreamConstants_0 (ref)
+        v28(v24.accounts);
         if v22 then
-            l_authPageload_0(l_EventStreamConstants_0.Context.AccountPickerListViewAccountsDisplayed, tostring(#v23.accounts), nil);
+            l_authPageload_0(l_EventStreamConstants_0.Context.AccountPickerListViewAccountsDisplayed, tostring(#v24.accounts), nil);
         end;
     end, {
-        v23.accounts
+        v24.accounts
     });
-    local v32 = v2.useCallback(function() --[[ Line: 80 ]]
-        -- upvalues: l_GetAccountsListWithSignedOutAccounts_0 (ref), v28 (copy), v23 (copy)
-        l_GetAccountsListWithSignedOutAccounts_0(v28, {
+    local v33 = v2.useCallback(function() --[[ Line: 82 ]]
+        -- upvalues: l_GetAccountsListWithSignedOutAccounts_0 (ref), v29 (copy), v24 (copy)
+        l_GetAccountsListWithSignedOutAccounts_0(v29, {
             isAuthenticated = false, 
             filterUnauthenticatedSessionsForAccountPicker = true
-        }):andThen(function(v31) --[[ Line: 84 ]]
-            -- upvalues: v23 (ref)
-            v23.setAccountPickerAccounts(v31);
+        }):andThen(function(v32) --[[ Line: 86 ]]
+            -- upvalues: v24 (ref)
+            v24.setAccountPickerAccounts(v32);
         end);
-    end, {});
-    local function _(v33) --[[ Line: 89 ]]
-        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v23 (copy)
-        l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerAccountSelected, v33.user_id, nil);
-        v23.onAvatarActivated(v33.user_id, v33.username, v33.has_valid_session);
+    end, {
+        v29, 
+        v24.setAccountPickerAccounts
+    });
+    local function _(v34) --[[ Line: 91 ]]
+        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v24 (copy)
+        l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerAccountSelected, v34.user_id, nil);
+        v24.onAvatarActivated(v34.user_id, v34.username, v34.has_valid_session);
     end;
-    local function v35() --[[ Line: 99 ]]
-        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v25 (copy)
+    local function v36() --[[ Line: 101 ]]
+        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v26 (copy)
         l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerManageAccountsOpened, nil, nil);
-        v25(true);
+        v26(true);
     end;
-    local function v36() --[[ Line: 109 ]]
-        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v23 (copy)
+    local function v37() --[[ Line: 111 ]]
+        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v24 (copy)
         l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerSignInAnotherAccount, nil, nil);
-        v23.navigateToLogin();
+        v24.navigateToLogin();
     end;
-    local function v37() --[[ Line: 119 ]]
-        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v23 (copy)
+    local function v38() --[[ Line: 121 ]]
+        -- upvalues: l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v24 (copy)
         l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerCreateAccount, nil, nil);
-        v23.navigateToSignup();
+        v24.navigateToSignup();
     end;
-    local v38 = {};
-    for v39, v40 in ipairs(v26) do
-        local v41 = v40.username or "";
-        local v42 = "@" .. v41;
-        v38["AccountCard_" .. tostring(v39)] = v2.createElement(v3.View, {
-            tag = "row padding-x-small size-full-0 items-center auto-y", 
-            LayoutOrder = v39
+    local v39 = {};
+    for v40, v41 in ipairs(v27) do
+        local v42 = v41.username or "";
+        local v43 = "@" .. v42;
+        v39["AccountCard_" .. tostring(v40)] = v2.createElement(v3.View, {
+            tag = "row items-center size-full-0 auto-y padding-x-small", 
+            LayoutOrder = v40
         }, {
             AccountCard = v2.createElement(v3.View, {
-                tag = "row size-full-0 auto-y gap-none padding-medium radius-medium align-y-center padding-right-small", 
+                tag = "row align-y-center gap-none size-full-0 auto-y padding-medium padding-right-small radius-medium", 
                 BackgroundTransparency = 1, 
-                onActivated = function() --[[ Line: 141 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v40 (copy), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v23 (copy)
-                    local l_v40_0 = v40;
-                    l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerAccountSelected, l_v40_0.user_id, nil);
-                    v23.onAvatarActivated(l_v40_0.user_id, l_v40_0.username, l_v40_0.has_valid_session);
+                onActivated = function() --[[ Line: 143 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v41 (copy), l_authButtonClick_0 (ref), l_EventStreamConstants_0 (ref), v24 (copy)
+                    local l_v41_0 = v41;
+                    l_authButtonClick_0(l_EventStreamConstants_0.Context.AccountPickerLandingScreenListView, l_EventStreamConstants_0.Button.AccountPickerAccountSelected, l_v41_0.user_id, nil);
+                    v24.onAvatarActivated(l_v41_0.user_id, l_v41_0.username, l_v41_0.has_valid_session);
                 end, 
                 stateLayer = {
                     affordance = v3.Enums.StateLayerAffordance.None
                 }
             }, {
                 Avatar = v2.createElement(v3.View, {
-                    tag = "col radius-full self-center", 
+                    tag = "radius-full col self-center", 
                     Size = UDim2.new(0, 56, 0, 56), 
                     LayoutOrder = 0
                 }, {
@@ -109,57 +113,57 @@ return function(v23) --[[ Line: 51 ]]
                     }, {
                         AvatarImage = v2.createElement(v3.Image, {
                             Size = UDim2.new(1, 0, 1, 0), 
-                            Image = l_getRbxthumbWithTypeSizeAndOptions_0(tostring(v40.user_id), l_Constants_0.RbxthumbTypes.AvatarHeadShot, 150), 
+                            Image = l_getRbxthumbWithTypeSizeAndOptions_0(tostring(v41.user_id), l_Constants_0.RbxthumbTypes.AvatarHeadShot, 150), 
                             tag = "radius-circle"
                         })
                     })
                 }), 
                 AccountInfo = v2.createElement(v3.View, {
-                    tag = "col fill auto-xy items-start padding-left-small", 
+                    tag = "col items-start fill auto-xy padding-left-small", 
                     LayoutOrder = 1
                 }, {
                     DisplayName = v2.createElement(v3.Text, {
-                        Text = v40.display_name or v41, 
-                        tag = "auto-xy text-title-large text-truncate-end text-align-x-left content-emphasis", 
+                        Text = v41.display_name or v42, 
+                        tag = "auto-xy text-title-large text-align-x-left text-truncate-end content-emphasis", 
                         LayoutOrder = 0
                     }), 
                     Username = v2.createElement(v3.Text, {
-                        Text = v42, 
-                        tag = "auto-xy text-body-small text-truncate-end text-align-x-left content-muted", 
+                        Text = v43, 
+                        tag = "auto-xy text-body-small text-align-x-left text-truncate-end content-muted", 
                         LayoutOrder = 1
                     })
                 }), 
-                SignedOutPill = if not v40.has_valid_session then v2.createElement(v3.View, {
+                SignedOutPill = if not v41.has_valid_session then v2.createElement(v3.View, {
                     tag = "col auto-xy padding-x-small padding-y-xsmall radius-small bg-surface-300", 
                     LayoutOrder = 2
                 }, {
                     PillText = v2.createElement(v3.Text, {
-                        Text = v30.signedOut, 
-                        tag = "auto-xy text-caption-large text-align-x-center text-title-medium"
+                        Text = v31.signedOut, 
+                        tag = "auto-xy text-title-medium text-caption-large text-align-x-center"
                     })
                 }) else nil
             })
         });
     end;
     return v2.createElement(v2.Fragment, nil, {
-        EditAccountPicker = if v24 then v2.createElement(v14, {
-            accounts = v23.accounts, 
-            onClose = function() --[[ Line: 202 ]] --[[ Name: onClose ]]
-                -- upvalues: v25 (copy), v32 (copy)
-                v25(false);
-                v32();
+        EditAccountPicker = if v25 then v2.createElement(v14, {
+            accounts = v24.accounts, 
+            onClose = function() --[[ Line: 204 ]] --[[ Name: onClose ]]
+                -- upvalues: v26 (copy), v33 (copy)
+                v26(false);
+                v33();
             end
         }) else nil, 
         MainContainer = v2.createElement(l_FullscreenPageWithSafeArea_0, {
             includeStatusBar = true, 
-            BackgroundColor3 = v29.Theme.BackgroundDefault.Color
+            BackgroundColor3 = v30.Theme.BackgroundDefault.Color
         }, {
             OuterContainer = v2.createElement(v3.View, {
-                tag = "col auto-xy size-full-0", 
+                tag = "col size-full-0 auto-xy", 
                 Size = UDim2.new(1, 0, 1, 0)
             }, {
                 LogoContainer = v2.createElement(v3.View, {
-                    tag = "col auto-y size-full-full items-center align-x-center justify-center padding-top-xlarge padding-bottom-xxlarge", 
+                    tag = "justify-center col align-x-center items-center size-full-full auto-y padding-bottom-xxlarge padding-top-xlarge", 
                     LayoutOrder = 0
                 }, {
                     Logo = v2.createElement(v3.Image, {
@@ -175,30 +179,47 @@ return function(v23) --[[ Line: 51 ]]
                     })
                 }), 
                 HeaderContainer = v2.createElement(v3.View, {
-                    tag = "row size-full-0 auto-y items-center padding-x-small padding-bottom-large padding-top-xxlarge", 
+                    tag = "row items-center size-full-0 auto-y padding-x-small padding-bottom-large padding-top-xxlarge", 
                     LayoutOrder = 1
                 }, {
                     Title = v2.createElement(v3.Text, {
                         LayoutOrder = 1, 
-                        Text = v30.allAccounts, 
-                        tag = "fill auto-xy align-x-left padding-left-medium text-align-x-left text-heading-small content-emphasis"
+                        Text = v31.allAccounts, 
+                        tag = "align-x-left fill auto-xy padding-left-medium text-heading-small text-align-x-left content-emphasis"
                     }), 
                     EditButton = v2.createElement(v3.View, {
                         LayoutOrder = 2, 
                         tag = "col size-0 auto-xy padding-x-small", 
-                        onActivated = v35
+                        onActivated = v36
                     }, {
                         EditIcon = v2.createElement(v3.Text, {
-                            Text = v30.manage, 
+                            Text = v31.manage, 
                             tag = "auto-xy text-title-medium text-align-x-right content-action-link"
                         })
                     })
                 }), 
                 ScrollViewContainer = v2.createElement(v3.View, {
-                    tag = "col fill size-full-0 padding-x-large", 
+                    tag = v23 and "col fill size-full-0 padding-x-xlarge" or "col fill size-full-0 padding-x-large", 
                     LayoutOrder = 2
                 }, {
-                    ScrollView = v2.createElement(v3.ScrollView, {
+                    AccountListWrapper = if v23 then v2.createElement(v3.View, {
+                        tag = "col fill size-full-0 radius-large bg-surface-100", 
+                        ClipsDescendants = true
+                    }, {
+                        ScrollView = v2.createElement(v3.ScrollView, {
+                            scroll = {
+                                AutomaticCanvasSize = Enum.AutomaticSize.XY, 
+                                CanvasSize = UDim2.fromOffset(0, 0), 
+                                ScrollingDirection = Enum.ScrollingDirection.Y, 
+                                scrollBarVisibility = v3.Enums.ScrollBarVisibility.None
+                            }, 
+                            Size = UDim2.new(1, 0, 1, 0)
+                        }, {
+                            AccountElements = v2.createElement(v3.View, {
+                                tag = "col gap-xxsmall auto-xy"
+                            }, v39)
+                        })
+                    }) else v2.createElement(v3.ScrollView, {
                         scroll = {
                             AutomaticCanvasSize = Enum.AutomaticSize.XY, 
                             CanvasSize = UDim2.fromOffset(0, 0), 
@@ -208,25 +229,25 @@ return function(v23) --[[ Line: 51 ]]
                         Size = UDim2.new(1, 0, 1, 0)
                     }, {
                         AccountElements = v2.createElement(v3.View, {
-                            tag = "col auto-xy gap-xxsmall bg-surface-100 radius-large"
-                        }, v38)
+                            tag = "col gap-xxsmall auto-xy radius-large bg-surface-100"
+                        }, v39)
                     })
                 }), 
                 ButtonContainer = v2.createElement(v3.View, {
-                    tag = "auto-y size-full-0 gap-small col align-x-center padding-x-xlarge padding-y-medium", 
+                    tag = "col align-x-center gap-small size-full-0 auto-y padding-x-xlarge padding-y-medium", 
                     LayoutOrder = 3
                 }, {
                     SignInButton = v2.createElement(v3.Button, {
-                        onActivated = v36, 
-                        text = v30.signInAsAccount, 
+                        onActivated = v37, 
+                        text = v31.signInAsAccount, 
                         variant = l_ButtonVariant_0.Standard, 
                         size = l_InputSize_0.Large, 
                         width = UDim.new(1, 0), 
                         LayoutOrder = 1
                     }), 
                     CreateAccountButton = v2.createElement(v3.Button, {
-                        onActivated = v37, 
-                        text = v30.createAccount, 
+                        onActivated = v38, 
+                        text = v31.createAccount, 
                         variant = l_ButtonVariant_0.Standard, 
                         size = l_InputSize_0.Large, 
                         width = UDim.new(1, 0), 
@@ -234,7 +255,7 @@ return function(v23) --[[ Line: 51 ]]
                     })
                 }), 
                 DisclaimerLinksView = v2.createElement(v3.View, {
-                    tag = "row auto-y size-full-0 align-x-center", 
+                    tag = "row align-x-center size-full-0 auto-y", 
                     LayoutOrder = 4
                 }, {
                     DisclaimerLinks = v2.createElement(l_DisclaimerLinks_0, {

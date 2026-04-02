@@ -10,49 +10,56 @@ local l_RecommendationContextType_0 = v7.RoduxFriends.Enums.RecommendationContex
 local l_useSelector_0 = require(l_Parent_0.RoactUtils).Hooks.RoactRodux.useSelector;
 local l_AddFriendsSelector_0 = v7.AddFriendsSelector;
 local l_FFlagAddFriendsPYMKPresenceAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsPYMKPresenceAnalytics;
-return function(v12, v13, v14) --[[ Line: 26 ]]
-    -- upvalues: v6 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), v1 (copy), l_RecommendationContextType_0 (copy), l_getRecommendationContextualInfoType_0 (copy), l_EntityTypes_0 (copy), v5 (copy), l_dependencyArray_0 (copy)
-    local v15 = v6();
-    local v17 = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then l_useSelector_0(function(v16) --[[ Line: 29 ]]
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v13, v14, v15) --[[ Line: 29 ]]
+    -- upvalues: v6 (copy), l_FFlagAddFriendsPYMKPresenceAnalytics_0 (copy), l_useSelector_0 (copy), l_AddFriendsSelector_0 (copy), v1 (copy), l_RecommendationContextType_0 (copy), l_getRecommendationContextualInfoType_0 (copy), l_EntityTypes_0 (copy), v5 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy)
+    local v16 = v6();
+    local v18 = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then l_useSelector_0(function(v17) --[[ Line: 32 ]]
         -- upvalues: l_AddFriendsSelector_0 (ref)
-        return l_AddFriendsSelector_0(v16, "Presence.byUserId") or {};
+        return l_AddFriendsSelector_0(v17, "Presence.byUserId") or {};
     end) else nil;
-    return v1.useCallback(function(v18) --[[ Line: 35 ]]
-        -- upvalues: l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v12 (copy), v17 (copy), l_RecommendationContextType_0 (ref), l_getRecommendationContextualInfoType_0 (ref), l_EntityTypes_0 (ref), v13 (copy), v15 (copy), v5 (ref), v14 (copy)
-        local v19 = "";
+    return v1.useCallback(function(v19) --[[ Line: 38 ]]
+        -- upvalues: l_FFlagAddFriendsPYMKPresenceAnalytics_0 (ref), v13 (copy), v18 (copy), l_RecommendationContextType_0 (ref), l_getRecommendationContextualInfoType_0 (ref), l_EntityTypes_0 (ref), v14 (copy), v16 (copy), v5 (ref), v15 (copy)
         local v20 = "";
         local v21 = "";
         local v22 = "";
         local v23 = "";
         local v24 = "";
-        local v25 = l_FFlagAddFriendsPYMKPresenceAnalytics_0 and "" or nil;
-        for _, v27 in ipairs(v18) do
-            local v28 = v12[v27];
-            if v28 then
-                local v29 = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then (v17 and v17[v28.id] or {}).userPresenceType else nil;
-                local v30 = v28.contextType and v28.contextType == l_RecommendationContextType_0.Contacts;
-                v19 = v19 .. (v28.id or v28.entityId or "") .. ",";
-                v20 = v20 .. v27 .. ",";
-                v21 = v21 .. (v28.rank or "") .. ",";
-                v22 = v22 .. (l_getRecommendationContextualInfoType_0(v28) or "") .. ",";
-                v23 = v23 .. (if v30 then l_EntityTypes_0.Contact else "") .. ",";
-                v24 = v24 .. math.floor((v27 - 1) / v13) + 1 .. ",";
+        local v25 = "";
+        local v26 = l_FFlagAddFriendsPYMKPresenceAnalytics_0 and "" or nil;
+        for _, v28 in ipairs(v19) do
+            local v29 = v13[v28];
+            if v29 then
+                local v30 = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then (v18 and v18[v29.id] or {}).userPresenceType else nil;
+                local v31 = v29.contextType and v29.contextType == l_RecommendationContextType_0.Contacts;
+                v20 = v20 .. (v29.id or v29.entityId or "") .. ",";
+                v21 = v21 .. v28 .. ",";
+                v22 = v22 .. (v29.rank or "") .. ",";
+                v23 = v23 .. (l_getRecommendationContextualInfoType_0(v29) or "") .. ",";
+                v24 = v24 .. (if v31 then l_EntityTypes_0.Contact else "") .. ",";
+                v25 = v25 .. math.floor((v28 - 1) / v14) + 1 .. ",";
                 if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then
-                    v25 = v25 .. (v29 and tostring(v29) or "") .. ",";
+                    v26 = v26 .. (v30 and tostring(v30) or "") .. ",";
                 else
-                    v25 = nil;
+                    v26 = nil;
                 end;
             end;
         end;
-        v15(v5.UserTileImpression, {
-            namespace = v14, 
-            targetUserId = v19, 
-            absolutePosition = v20, 
-            rank = v21, 
-            contextType = v22, 
-            entityType = v23, 
-            rowInSort = v24, 
-            presence = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v25 else nil
+        v16(v5.UserTileImpression, {
+            namespace = v15, 
+            targetUserId = v20, 
+            absolutePosition = v21, 
+            rank = v22, 
+            contextType = v23, 
+            entityType = v24, 
+            rowInSort = v25, 
+            presence = if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v26 else nil
         });
-    end, l_dependencyArray_0(v15, v12, v13, v14, if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v17 else nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v16, 
+        v13, 
+        v14, 
+        v15, 
+        if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v18 else nil
+    } else l_dependencyArray_0(v16, v13, v14, v15, if l_FFlagAddFriendsPYMKPresenceAnalytics_0 then v18 else nil));
 end;

@@ -21,124 +21,125 @@ local l_isMakeupAssetType_0 = v17.Utils.isMakeupAssetType;
 local l_isLayeredClothingAssetType_0 = v17.Utils.isLayeredClothingAssetType;
 local v21 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAvatarEditorServiceCreateOutfitSupportsGears);
 local l_FFlagAXEditorSubcategoryFilters_0 = v5.FFlagAXEditorSubcategoryFilters;
-local v23 = {};
-local v24 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip);
-local v25 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXFixCheckOnOutfitAssets);
-local v26 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXSimplifyOutfitEquipCheck);
+local l_FFlagAXFixOutfitEquipCheckEmptyArray_0 = v5.FFlagAXFixOutfitEquipCheckEmptyArray;
+local v24 = {};
+local v25 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagEnableNewCustomizeBundleEquip);
+local v26 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXFixCheckOnOutfitAssets);
+local v27 = require(l_Modules_0.AvatarExperience.Flags.FFlagAXSimplifyOutfitEquipCheck);
 local l_FFlagAXInventoryDurablesSupport_0 = v5.FFlagAXInventoryDurablesSupport;
 local l_FFlagAXMakeupEquipping_0 = v5.FFlagAXMakeupEquipping;
 local l_FFlagParseHeadShapeFromAPIResponse_0 = v5.FFlagParseHeadShapeFromAPIResponse;
 local l_FFlagAXCustomizeMakeupSupport_0 = v5.FFlagAXCustomizeMakeupSupport;
 local l_FFlagHeadRefinementFacialAnimationToggle_0 = v5.FFlagHeadRefinementFacialAnimationToggle;
-v23.ReverseKeyValuePairs = l_memoize_0(function(v32) --[[ Line: 52 ]]
-    local v33 = {};
-    for _, v35 in v32 do
-        if not v33[v35] then
-            v33[v35] = 0;
+v24.ReverseKeyValuePairs = l_memoize_0(function(v33) --[[ Line: 53 ]]
+    local v34 = {};
+    for _, v36 in v33 do
+        if not v34[v36] then
+            v34[v36] = 0;
         end;
     end;
-    return v33;
+    return v34;
 end);
-v23.Contains = function(v36, v37) --[[ Line: 70 ]]
-    -- upvalues: v23 (copy)
-    if v23.ReverseKeyValuePairs(v36)[v37] then
+v24.Contains = function(v37, v38) --[[ Line: 71 ]]
+    -- upvalues: v24 (copy)
+    if v24.ReverseKeyValuePairs(v37)[v38] then
         return true;
     else
         return false;
     end;
 end;
-v23.isFullyQualifiedOutfit = function(v38) --[[ Line: 87 ]] --[[ Name: isFullyQualifiedOutfit ]]
-    -- upvalues: v10 (copy), v25 (copy)
-    local v39 = {
+v24.isFullyQualifiedOutfit = function(v39) --[[ Line: 88 ]] --[[ Name: isFullyQualifiedOutfit ]]
+    -- upvalues: v10 (copy), v26 (copy)
+    local v40 = {
         Torso = v10.AssetTypeIdStrings.Torso, 
         RightArm = v10.AssetTypeIdStrings.RightArm, 
         LeftArm = v10.AssetTypeIdStrings.LeftArm, 
         LeftLeg = v10.AssetTypeIdStrings.LeftLeg, 
         RightLeg = v10.AssetTypeIdStrings.RightLeg
     };
-    if v25 and not v38 then
+    if v26 and not v39 then
         return false;
     else
-        for _, v41 in v39 do
-            if not v38[v41] then
+        for _, v42 in v40 do
+            if not v39[v42] then
                 return false;
             end;
         end;
-        for v42, _ in v38 do
-            if v10.AssetTypeIdToAccessoryTypeEnum[v42] ~= Enum.AccessoryType.Hair and (v10.AssetTypeIdToAccessoryTypeEnum[v42] or v42 == v10.AssetTypeIdStrings.Gear) then
+        for v43, _ in v39 do
+            if v10.AssetTypeIdToAccessoryTypeEnum[v43] ~= Enum.AccessoryType.Hair and (v10.AssetTypeIdToAccessoryTypeEnum[v43] or v43 == v10.AssetTypeIdStrings.Gear) then
                 return true;
             end;
         end;
         return false;
     end;
 end;
-v23.isWearingDynamicHeadOutfit = function(v44, v45) --[[ Line: 122 ]] --[[ Name: isWearingDynamicHeadOutfit ]]
-    -- upvalues: v23 (copy), v10 (copy)
-    local v46 = v23.getEquippedAssetIds(v44.assets);
-    if not v45 then
+v24.isWearingDynamicHeadOutfit = function(v45, v46) --[[ Line: 123 ]] --[[ Name: isWearingDynamicHeadOutfit ]]
+    -- upvalues: v24 (copy), v10 (copy)
+    local v47 = v24.getEquippedAssetIds(v45.assets);
+    if not v46 then
         return false;
     else
-        for v47, _ in v44.assets do
-            if not v45[v47] then
+        for v48, _ in v45.assets do
+            if not v46[v48] then
                 return false;
             else
-                local v49 = next(v45[v47]);
-                if next(v44.assets[v47]) then
-                    local v50 = false;
-                    for _, v52 in v46 do
-                        if v52 == v49 then
-                            v50 = true;
+                local v50 = next(v46[v48]);
+                if next(v45.assets[v48]) then
+                    local v51 = false;
+                    for _, v53 in v47 do
+                        if v53 == v50 then
+                            v51 = true;
                         end;
                     end;
-                    if not v50 then
+                    if not v51 then
                         return false;
                     end;
                 end;
             end;
         end;
-        if not v44.assets[v10.AssetTypeIdStrings.DynamicHead] then
+        if not v45.assets[v10.AssetTypeIdStrings.DynamicHead] then
             return false;
         else
             return true;
         end;
     end;
 end;
-v23.getAssetMetadata = function(v53, v54) --[[ Line: 163 ]] --[[ Name: getAssetMetadata ]]
+v24.getAssetMetadata = function(v54, v55) --[[ Line: 164 ]] --[[ Name: getAssetMetadata ]]
     -- upvalues: l_FFlagAXInventoryDurablesSupport_0 (copy)
-    for _, v56 in v54 do
-        for v57, v58 in v56 do
-            if v53 == v57 then
+    for _, v57 in v55 do
+        for v58, v59 in v57 do
+            if v54 == v58 then
                 if l_FFlagAXInventoryDurablesSupport_0 then
-                    local v59 = table.clone(v58);
-                    v59.availabilityStatus = nil;
-                    return v59;
+                    local v60 = table.clone(v59);
+                    v60.availabilityStatus = nil;
+                    return v60;
                 else
-                    return v58;
+                    return v59;
                 end;
             end;
         end;
     end;
     return nil;
 end;
-v23.isSameAssetMetadata = function(v60, v61) --[[ Line: 180 ]] --[[ Name: isSameAssetMetadata ]]
+v24.isSameAssetMetadata = function(v61, v62) --[[ Line: 181 ]] --[[ Name: isSameAssetMetadata ]]
     -- upvalues: v2 (copy), v11 (copy)
-    if v60 == nil and v61 == nil then
+    if v61 == nil and v62 == nil then
         return true;
-    elseif v60 == nil or v61 == nil then
+    elseif v61 == nil or v62 == nil then
         return false;
     else
-        local v62 = v2.Dictionary.keys(v60);
         local v63 = v2.Dictionary.keys(v61);
-        if #v62 ~= #v63 then
+        local v64 = v2.Dictionary.keys(v62);
+        if #v63 ~= #v64 then
             return false;
         else
-            for v64, v65 in v60 do
-                local v66 = v61[v64];
-                if typeof(v65) == "Vector3" and typeof(v66) == "Vector3" then
-                    if not (v11.fuzzyEq(v65.X, v66.X) and v11.fuzzyEq(v65.Y, v66.Y) and v11.fuzzyEq(v65.Z, v66.Z)) then
+            for v65, v66 in v61 do
+                local v67 = v62[v65];
+                if typeof(v66) == "Vector3" and typeof(v67) == "Vector3" then
+                    if not (v11.fuzzyEq(v66.X, v67.X) and v11.fuzzyEq(v66.Y, v67.Y) and v11.fuzzyEq(v66.Z, v67.Z)) then
                         return false;
                     end;
-                elseif v65 ~= v66 then
+                elseif v66 ~= v67 then
                     return false;
                 end;
             end;
@@ -146,161 +147,161 @@ v23.isSameAssetMetadata = function(v60, v61) --[[ Line: 180 ]] --[[ Name: isSame
         end;
     end;
 end;
-v23.removeEmoteAnimationAsset = function(v67) --[[ Line: 211 ]] --[[ Name: removeEmoteAnimationAsset ]]
+v24.removeEmoteAnimationAsset = function(v68) --[[ Line: 212 ]] --[[ Name: removeEmoteAnimationAsset ]]
     -- upvalues: v10 (copy), v2 (copy)
-    if not v67[v10.AssetTypeIdStrings.EmoteAnimation] then
-        return v67;
+    if not v68[v10.AssetTypeIdStrings.EmoteAnimation] then
+        return v68;
     else
-        return v2.Dictionary.join(v67, {
+        return v2.Dictionary.join(v68, {
             [v10.AssetTypeIdStrings.EmoteAnimation] = v2.None
         });
     end;
 end;
-v23.getEquippedAssetIds = function(v68) --[[ Line: 221 ]] --[[ Name: getEquippedAssetIds ]]
+v24.getEquippedAssetIds = function(v69) --[[ Line: 222 ]] --[[ Name: getEquippedAssetIds ]]
     -- upvalues: v10 (copy)
-    local v69 = {};
-    if not v68 then
-        return v69;
+    local v70 = {};
+    if not v69 then
+        return v70;
     else
-        for _, v71 in v10.AssetTypeIdStrings do
-            local v72 = v68[v71];
-            if v72 then
-                for v73, _ in v72 do
-                    table.insert(v69, v73);
+        for _, v72 in v10.AssetTypeIdStrings do
+            local v73 = v69[v72];
+            if v73 then
+                for v74, _ in v73 do
+                    table.insert(v70, v74);
                 end;
             end;
         end;
-        return v69;
+        return v70;
     end;
 end;
-v23.getEquippedAssetIdsForType = function(v75, v76) --[[ Line: 240 ]] --[[ Name: getEquippedAssetIdsForType ]]
-    local v77 = {};
-    if not v75 then
-        return v77;
+v24.getEquippedAssetIdsForType = function(v76, v77) --[[ Line: 241 ]] --[[ Name: getEquippedAssetIdsForType ]]
+    local v78 = {};
+    if not v76 then
+        return v78;
     else
-        local v78 = v75[v76];
-        if v78 then
-            for v79, _ in v78 do
-                table.insert(v77, v79);
+        local v79 = v76[v77];
+        if v79 then
+            for v80, _ in v79 do
+                table.insert(v78, v80);
             end;
         end;
-        return v77;
+        return v78;
     end;
 end;
-v23.getEquippedAssetIdsForCategory = function(v81, v82) --[[ Line: 257 ]] --[[ Name: getEquippedAssetIdsForCategory ]]
-    -- upvalues: v23 (copy)
-    local v83 = {};
-    if not v82.AssetTypeIdStrings then
-        return v83;
+v24.getEquippedAssetIdsForCategory = function(v82, v83) --[[ Line: 258 ]] --[[ Name: getEquippedAssetIdsForCategory ]]
+    -- upvalues: v24 (copy)
+    local v84 = {};
+    if not v83.AssetTypeIdStrings then
+        return v84;
     else
-        for _, v85 in v82.AssetTypeIdStrings do
-            for _, v87 in (v23.getEquippedAssetIdsForType(v81, v85)) do
-                v83[#v83 + 1] = v87;
+        for _, v86 in v83.AssetTypeIdStrings do
+            for _, v88 in (v24.getEquippedAssetIdsForType(v82, v86)) do
+                v84[#v84 + 1] = v88;
             end;
         end;
-        return v83;
+        return v84;
     end;
 end;
-v23.isAssetEquipped = function(v88, v89, v90) --[[ Line: 273 ]] --[[ Name: isAssetEquipped ]]
-    if v90 then
-        local v91 = v90[v89];
-        if v91 == nil or not next(v91) then
+v24.isAssetEquipped = function(v89, v90, v91) --[[ Line: 274 ]] --[[ Name: isAssetEquipped ]]
+    if v91 then
+        local v92 = v91[v90];
+        if v92 == nil or not next(v92) then
             return false;
-        elseif v91[v88] then
+        elseif v92[v89] then
             return true;
         end;
     end;
     return false;
 end;
-v23.isPresetOutfit = function(v92) --[[ Line: 288 ]] --[[ Name: isPresetOutfit ]]
-    return not v92.isEditable;
+v24.isPresetOutfit = function(v93) --[[ Line: 289 ]] --[[ Name: isPresetOutfit ]]
+    return not v93.isEditable;
 end;
-v23.isDuplicateOutfitName = function(v93, v94, v95) --[[ Line: 292 ]] --[[ Name: isDuplicateOutfitName ]]
+v24.isDuplicateOutfitName = function(v94, v95, v96) --[[ Line: 293 ]] --[[ Name: isDuplicateOutfitName ]]
     -- upvalues: v9 (copy)
-    local v96 = string.lower(utf8.nfdnormalize(v95));
-    local v97 = v93[v9.EditableCharacterKey] or {};
-    for _, v99 in v97 do
-        local v100 = tostring(v99);
-        if v94[v100] and string.lower(utf8.nfdnormalize(v94[v100].name)) == v96 then
+    local v97 = string.lower(utf8.nfdnormalize(v96));
+    local v98 = v94[v9.EditableCharacterKey] or {};
+    for _, v100 in v98 do
+        local v101 = tostring(v100);
+        if v95[v101] and string.lower(utf8.nfdnormalize(v95[v101].name)) == v97 then
             return true;
         end;
     end;
     return false;
 end;
-local _ = function(v101, v102) --[[ Line: 314 ]] --[[ Name: diffListTruncated ]]
+local _ = function(v102, v103) --[[ Line: 315 ]] --[[ Name: diffListTruncated ]]
     -- upvalues: v2 (copy)
-    local v103 = v2.List.toSet(v102);
-    return (v2.List.filter(v101, function(v104, _) --[[ Line: 316 ]]
-        -- upvalues: v103 (copy)
-        return not v103[v104];
+    local v104 = v2.List.toSet(v103);
+    return (v2.List.filter(v102, function(v105, _) --[[ Line: 317 ]]
+        -- upvalues: v104 (copy)
+        return not v104[v105];
     end));
 end;
-v23.diffList = function(v107, v108) --[[ Line: 323 ]] --[[ Name: diffList ]]
+v24.diffList = function(v108, v109) --[[ Line: 324 ]] --[[ Name: diffList ]]
     -- upvalues: v2 (copy)
-    local v109 = v2.List.toSet(v108);
-    local l_v109_0 = v109 --[[ copy: 3 -> 5 ]];
-    local v113 = v2.List.filter(v107, function(v111, _) --[[ Line: 316 ]]
-        -- upvalues: l_v109_0 (copy)
-        return not l_v109_0[v111];
+    local v110 = v2.List.toSet(v109);
+    local l_v110_0 = v110 --[[ copy: 3 -> 5 ]];
+    local v114 = v2.List.filter(v108, function(v112, _) --[[ Line: 317 ]]
+        -- upvalues: l_v110_0 (copy)
+        return not l_v110_0[v112];
     end);
-    local v114 = v2.List.toSet(v107);
-    v109 = v2.List.filter(v108, function(v115, _) --[[ Line: 316 ]]
-        -- upvalues: v114 (copy)
-        return not v114[v115];
+    local v115 = v2.List.toSet(v108);
+    v110 = v2.List.filter(v109, function(v116, _) --[[ Line: 317 ]]
+        -- upvalues: v115 (copy)
+        return not v115[v116];
     end);
-    return (v2.List.join(v113, v109));
+    return (v2.List.join(v114, v110));
 end;
-v23.getEquippedDiffs = function(v117, v118) --[[ Line: 330 ]] --[[ Name: getEquippedDiffs ]]
-    -- upvalues: v23 (copy)
-    local v119 = {};
-    for v120, _ in v118 do
-        local v122 = v23.getEquippedAssetIdsForType(v118, v120);
-        local v123 = v23.getEquippedAssetIdsForType(v117, v120);
-        if next(v123) then
-            local v124 = v23.diffList(v122, v123);
-            if next(v124) ~= nil then
-                v119[v120] = v124;
+v24.getEquippedDiffs = function(v118, v119) --[[ Line: 331 ]] --[[ Name: getEquippedDiffs ]]
+    -- upvalues: v24 (copy)
+    local v120 = {};
+    for v121, _ in v119 do
+        local v123 = v24.getEquippedAssetIdsForType(v119, v121);
+        local v124 = v24.getEquippedAssetIdsForType(v118, v121);
+        if next(v124) then
+            local v125 = v24.diffList(v123, v124);
+            if next(v125) ~= nil then
+                v120[v121] = v125;
             end;
-        elseif next(v122) then
-            v119[v120] = v122;
+        elseif next(v123) then
+            v120[v121] = v123;
         end;
     end;
-    for v125, _ in v117 do
-        local v127 = v23.getEquippedAssetIdsForType(v117, v125);
-        local v128 = v23.getEquippedAssetIdsForType(v118, v125);
-        if next(v128) then
-            local v129 = v23.diffList(v127, v128);
-            if next(v129) ~= nil then
-                v119[v125] = v129;
+    for v126, _ in v118 do
+        local v128 = v24.getEquippedAssetIdsForType(v118, v126);
+        local v129 = v24.getEquippedAssetIdsForType(v119, v126);
+        if next(v129) then
+            local v130 = v24.diffList(v128, v129);
+            if next(v130) ~= nil then
+                v120[v126] = v130;
             end;
-        elseif next(v127) then
-            v119[v125] = v127;
+        elseif next(v128) then
+            v120[v126] = v128;
         end;
     end;
-    return v119;
+    return v120;
 end;
-v23.isDynamicHeadEquipped = function(v130) --[[ Line: 362 ]] --[[ Name: isDynamicHeadEquipped ]]
-    -- upvalues: v2 (copy), v23 (copy), v10 (copy)
-    return not v2.isEmpty(v23.getEquippedAssetIdsForType(v130, v10.AssetTypeIdStrings.DynamicHead));
+v24.isDynamicHeadEquipped = function(v131) --[[ Line: 363 ]] --[[ Name: isDynamicHeadEquipped ]]
+    -- upvalues: v2 (copy), v24 (copy), v10 (copy)
+    return not v2.isEmpty(v24.getEquippedAssetIdsForType(v131, v10.AssetTypeIdStrings.DynamicHead));
 end;
-v23.isClassicHeadEquipped = function(v131) --[[ Line: 368 ]] --[[ Name: isClassicHeadEquipped ]]
-    -- upvalues: v2 (copy), v23 (copy), v10 (copy)
-    return not v2.isEmpty(v23.getEquippedAssetIdsForType(v131, v10.AssetTypeIdStrings.Head));
+v24.isClassicHeadEquipped = function(v132) --[[ Line: 369 ]] --[[ Name: isClassicHeadEquipped ]]
+    -- upvalues: v2 (copy), v24 (copy), v10 (copy)
+    return not v2.isEmpty(v24.getEquippedAssetIdsForType(v132, v10.AssetTypeIdStrings.Head));
 end;
-v23.hasWrapLayer = function(v132) --[[ Line: 374 ]]
-    if not v132 then
-        return false;
-    else
-        return v132:FindFirstChildWhichIsA("WrapLayer", true) ~= nil;
-    end;
-end;
-v23.hasLayeredAssetsEquipped = l_memoize_0(function(v133) --[[ Line: 381 ]]
+v24.hasWrapLayer = function(v133) --[[ Line: 375 ]]
     if not v133 then
         return false;
     else
-        for _, v135 in v133 do
-            for _, v137 in v135 do
-                if v137.isLayered then
+        return v133:FindFirstChildWhichIsA("WrapLayer", true) ~= nil;
+    end;
+end;
+v24.hasLayeredAssetsEquipped = l_memoize_0(function(v134) --[[ Line: 382 ]]
+    if not v134 then
+        return false;
+    else
+        for _, v136 in v134 do
+            for _, v138 in v136 do
+                if v138.isLayered then
                     return true;
                 end;
             end;
@@ -308,194 +309,194 @@ v23.hasLayeredAssetsEquipped = l_memoize_0(function(v133) --[[ Line: 381 ]]
         return false;
     end;
 end);
-v23.setHumanoidDescriptionColorsFromBodyColor3s = function(v138, v139) --[[ Line: 396 ]] --[[ Name: setHumanoidDescriptionColorsFromBodyColor3s ]]
+v24.setHumanoidDescriptionColorsFromBodyColor3s = function(v139, v140) --[[ Line: 397 ]] --[[ Name: setHumanoidDescriptionColorsFromBodyColor3s ]]
     -- upvalues: v10 (copy)
-    if v139 then
-        for v140, v141 in v139 do
-            v138[v10.BodyPartForSkinColoringIdToHumanoidDescription[v140]] = v141;
+    if v140 then
+        for v141, v142 in v140 do
+            v139[v10.BodyPartForSkinColoringIdToHumanoidDescription[v141]] = v142;
         end;
     end;
 end;
-v23.setHumanoidDescriptionColorsFromCharacter = function(v142, v143) --[[ Line: 409 ]] --[[ Name: setHumanoidDescriptionColorsFromCharacter ]]
-    -- upvalues: v23 (copy)
-    v23.setHumanoidDescriptionColorsFromBodyColor3s(v142, v143.AvatarEditor.Character.BodyColor3s);
+v24.setHumanoidDescriptionColorsFromCharacter = function(v143, v144) --[[ Line: 410 ]] --[[ Name: setHumanoidDescriptionColorsFromCharacter ]]
+    -- upvalues: v24 (copy)
+    v24.setHumanoidDescriptionColorsFromBodyColor3s(v143, v144.AvatarEditor.Character.BodyColor3s);
 end;
-v23.getGearAssetIdFromState = function(v144) --[[ Line: 419 ]] --[[ Name: getGearAssetIdFromState ]]
-    -- upvalues: v21 (copy), v23 (copy), v10 (copy)
+v24.getGearAssetIdFromState = function(v145) --[[ Line: 420 ]] --[[ Name: getGearAssetIdFromState ]]
+    -- upvalues: v21 (copy), v24 (copy), v10 (copy)
     if not v21() then
         return 0;
     else
-        local l_EquippedAssets_0 = v144.AvatarEditor.Character.EquippedAssets;
+        local l_EquippedAssets_0 = v145.AvatarEditor.Character.EquippedAssets;
         if l_EquippedAssets_0 == nil then
             return 0;
         else
-            local v146 = v23.getEquippedAssetIdsForType(l_EquippedAssets_0, v10.AssetTypeIdStrings.Gear);
-            local _, v148 = next(v146);
-            if v148 then
-                return (tonumber(v148));
+            local v147 = v24.getEquippedAssetIdsForType(l_EquippedAssets_0, v10.AssetTypeIdStrings.Gear);
+            local _, v149 = next(v147);
+            if v149 then
+                return (tonumber(v149));
             else
                 return 0;
             end;
         end;
     end;
 end;
-v23.getHumanoidDescriptionFromState = function(v149) --[[ Line: 438 ]] --[[ Name: getHumanoidDescriptionFromState ]]
-    -- upvalues: v10 (copy), v11 (copy), l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), v7 (copy), l_setMakeupDescriptions_0 (copy), v23 (copy)
+v24.getHumanoidDescriptionFromState = function(v150) --[[ Line: 439 ]] --[[ Name: getHumanoidDescriptionFromState ]]
+    -- upvalues: v10 (copy), v11 (copy), l_FFlagParseHeadShapeFromAPIResponse_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), v7 (copy), l_setMakeupDescriptions_0 (copy), v24 (copy)
     local l_HumanoidDescription_0 = Instance.new("HumanoidDescription");
-    local l_EquippedAssets_1 = v149.AvatarEditor.Character.EquippedAssets;
-    local l_AvatarScales_0 = v149.AvatarEditor.Character.AvatarScales;
-    local v153 = nil;
+    local l_EquippedAssets_1 = v150.AvatarEditor.Character.EquippedAssets;
+    local l_AvatarScales_0 = v150.AvatarEditor.Character.AvatarScales;
+    local v154 = nil;
     if l_EquippedAssets_1 then
-        local v154 = {};
-        for v155, v156 in l_EquippedAssets_1 do
-            local v157 = {};
-            local v158 = v10.AssetTypeIdToAccessoryTypeEnum[v155];
-            for v159, v160 in v156 do
-                if v158 then
-                    table.insert(v154, v11.createHumanoidDescriptionAccessoryInfo(v155, v159, v160));
+        local v155 = {};
+        for v156, v157 in l_EquippedAssets_1 do
+            local v158 = {};
+            local v159 = v10.AssetTypeIdToAccessoryTypeEnum[v156];
+            for v160, v161 in v157 do
+                if v159 then
+                    table.insert(v155, v11.createHumanoidDescriptionAccessoryInfo(v156, v160, v161));
                 else
-                    table.insert(v157, v159);
+                    table.insert(v158, v160);
                 end;
             end;
-            if v158 == nil and #v157 > 0 then
-                local v161 = v10.AssetTypeIdStringToHumanoidDescriptionProp[v155];
-                local v162 = table.concat(v157, ",");
-                if v161 then
-                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v10.BodyPartNameToEnum[v161] then
+            if v159 == nil and #v158 > 0 then
+                local v162 = v10.AssetTypeIdStringToHumanoidDescriptionProp[v156];
+                local v163 = table.concat(v158, ",");
+                if v162 then
+                    if l_FFlagParseHeadShapeFromAPIResponse_0 and v10.BodyPartNameToEnum[v162] then
                         local l_BodyPartDescription_0 = Instance.new("BodyPartDescription");
-                        l_BodyPartDescription_0.AssetId = v162;
+                        l_BodyPartDescription_0.AssetId = v163;
                         l_BodyPartDescription_0.Parent = l_HumanoidDescription_0;
-                        l_BodyPartDescription_0.BodyPart = v10.BodyPartNameToEnum[v161];
-                        if v155 == v10.AssetTypeIdStrings.DynamicHead then
-                            local v164 = nil;
-                            for _, v166 in v157 do
-                                local v167 = v156[v166];
-                                if l_FFlagHeadRefinementFacialAnimationToggle_0 and v167 and v167.staticFacialAnimation ~= nil then
-                                    v153 = v167.staticFacialAnimation;
+                        l_BodyPartDescription_0.BodyPart = v10.BodyPartNameToEnum[v162];
+                        if v156 == v10.AssetTypeIdStrings.DynamicHead then
+                            local v165 = nil;
+                            for _, v167 in v158 do
+                                local v168 = v157[v167];
+                                if l_FFlagHeadRefinementFacialAnimationToggle_0 and v168 and v168.staticFacialAnimation ~= nil then
+                                    v154 = v168.staticFacialAnimation;
                                 end;
-                                if v167 and v167.headShape then
-                                    v164 = if v167.headShape == "Default" then nil else v167.headShape;
+                                if v168 and v168.headShape then
+                                    v165 = if v168.headShape == "Default" then nil else v168.headShape;
                                     break;
                                 end;
                             end;
-                            if v164 then
-                                l_BodyPartDescription_0.HeadShape = v164;
+                            if v165 then
+                                l_BodyPartDescription_0.HeadShape = v165;
                             end;
                         end;
                     else
-                        l_HumanoidDescription_0[v161] = v162;
+                        l_HumanoidDescription_0[v162] = v163;
                     end;
-                elseif v155 ~= v10.AssetTypeIdStrings.Gear and (not l_FFlagAXMakeupEquipping_0 or not l_isMakeupAssetType_0(v155)) then
-                    v7(string.format("assetTypeId: %s not recognized as member of humanoidDescription", (tostring(v155))));
+                elseif v156 ~= v10.AssetTypeIdStrings.Gear and (not l_FFlagAXMakeupEquipping_0 or not l_isMakeupAssetType_0(v156)) then
+                    v7(string.format("assetTypeId: %s not recognized as member of humanoidDescription", (tostring(v156))));
                 end;
             end;
         end;
-        l_HumanoidDescription_0:SetAccessories(v154, true);
+        l_HumanoidDescription_0:SetAccessories(v155, true);
         if l_FFlagAXMakeupEquipping_0 then
             l_setMakeupDescriptions_0(l_HumanoidDescription_0, l_EquippedAssets_1);
         end;
-        if l_FFlagHeadRefinementFacialAnimationToggle_0 and v153 ~= nil then
-            l_HumanoidDescription_0[v10.StaticFacialAnimation] = v153;
+        if l_FFlagHeadRefinementFacialAnimationToggle_0 and v154 ~= nil then
+            l_HumanoidDescription_0[v10.StaticFacialAnimation] = v154;
         end;
     end;
     if l_AvatarScales_0 then
-        for v168, v169 in l_AvatarScales_0 do
-            l_HumanoidDescription_0[v10.HumanoidDescriptionScaleToName[v168]] = v169;
+        for v169, v170 in l_AvatarScales_0 do
+            l_HumanoidDescription_0[v10.HumanoidDescriptionScaleToName[v169]] = v170;
         end;
     end;
-    v23.setHumanoidDescriptionColorsFromCharacter(l_HumanoidDescription_0, v149);
-    local v170 = {};
+    v24.setHumanoidDescriptionColorsFromCharacter(l_HumanoidDescription_0, v150);
     local v171 = {};
-    for _, v173 in v149.AvatarEditor.EquippedEmotes.slotInfo do
-        v170[tostring(v173.assetId)] = {
-            (tonumber(v173.assetId))
+    local v172 = {};
+    for _, v174 in v150.AvatarEditor.EquippedEmotes.slotInfo do
+        v171[tostring(v174.assetId)] = {
+            (tonumber(v174.assetId))
         };
-        table.insert(v171, {
-            Slot = v173.position, 
-            Name = tostring(v173.assetId)
+        table.insert(v172, {
+            Slot = v174.position, 
+            Name = tostring(v174.assetId)
         });
     end;
-    l_HumanoidDescription_0:SetEmotes(v170);
-    l_HumanoidDescription_0:SetEquippedEmotes(v171);
+    l_HumanoidDescription_0:SetEmotes(v171);
+    l_HumanoidDescription_0:SetEquippedEmotes(v172);
     return l_HumanoidDescription_0;
 end;
-v23.getHumanoidDescriptionFromOutfitInfo = function(v174) --[[ Line: 547 ]] --[[ Name: getHumanoidDescriptionFromOutfitInfo ]]
-    -- upvalues: v10 (copy), v11 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), v7 (copy), l_setMakeupDescriptions_0 (copy), v23 (copy)
+v24.getHumanoidDescriptionFromOutfitInfo = function(v175) --[[ Line: 548 ]] --[[ Name: getHumanoidDescriptionFromOutfitInfo ]]
+    -- upvalues: v10 (copy), v11 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), v7 (copy), l_setMakeupDescriptions_0 (copy), v24 (copy)
     local l_HumanoidDescription_1 = Instance.new("HumanoidDescription");
-    local l_assets_0 = v174.assets;
-    local l_scales_0 = v174.scales;
+    local l_assets_0 = v175.assets;
+    local l_scales_0 = v175.scales;
     if l_assets_0 then
-        local v178 = {};
-        for v179, v180 in l_assets_0 do
-            local v181 = {};
-            local v182 = v10.AssetTypeIdToAccessoryTypeEnum[v179];
-            for v183, v184 in v180 do
-                if v182 then
-                    table.insert(v178, v11.createHumanoidDescriptionAccessoryInfo(v179, v183, v184));
+        local v179 = {};
+        for v180, v181 in l_assets_0 do
+            local v182 = {};
+            local v183 = v10.AssetTypeIdToAccessoryTypeEnum[v180];
+            for v184, v185 in v181 do
+                if v183 then
+                    table.insert(v179, v11.createHumanoidDescriptionAccessoryInfo(v180, v184, v185));
                 else
-                    table.insert(v181, v183);
+                    table.insert(v182, v184);
                 end;
             end;
-            if v182 == nil and #v181 > 0 then
-                local v185 = v10.AssetTypeIdStringToHumanoidDescriptionProp[v179];
-                local v186 = table.concat(v181, ",");
-                if v185 then
-                    l_HumanoidDescription_1[v185] = v186;
-                elseif v179 ~= v10.AssetTypeIdStrings.Gear and (not l_FFlagAXMakeupEquipping_0 or not l_isMakeupAssetType_0(v179)) then
-                    v7(string.format("assetTypeId: %s not recognized as member of humanoidDescription", (tostring(v179))));
+            if v183 == nil and #v182 > 0 then
+                local v186 = v10.AssetTypeIdStringToHumanoidDescriptionProp[v180];
+                local v187 = table.concat(v182, ",");
+                if v186 then
+                    l_HumanoidDescription_1[v186] = v187;
+                elseif v180 ~= v10.AssetTypeIdStrings.Gear and (not l_FFlagAXMakeupEquipping_0 or not l_isMakeupAssetType_0(v180)) then
+                    v7(string.format("assetTypeId: %s not recognized as member of humanoidDescription", (tostring(v180))));
                 end;
             end;
         end;
-        l_HumanoidDescription_1:SetAccessories(v178, true);
+        l_HumanoidDescription_1:SetAccessories(v179, true);
         if l_FFlagAXMakeupEquipping_0 then
             l_setMakeupDescriptions_0(l_HumanoidDescription_1, l_assets_0);
         end;
     end;
     if l_scales_0 then
-        for v187, v188 in l_scales_0 do
-            l_HumanoidDescription_1[v10.HumanoidDescriptionScaleToName[v187]] = v188;
+        for v188, v189 in l_scales_0 do
+            l_HumanoidDescription_1[v10.HumanoidDescriptionScaleToName[v188]] = v189;
         end;
     end;
-    v23.setHumanoidDescriptionColorsFromBodyColor3s(l_HumanoidDescription_1, v174.bodyColor3s);
+    v24.setHumanoidDescriptionColorsFromBodyColor3s(l_HumanoidDescription_1, v175.bodyColor3s);
     return l_HumanoidDescription_1;
 end;
-v23.shouldNotifyAssetTypes = function(v189, v190) --[[ Line: 609 ]] --[[ Name: shouldNotifyAssetTypes ]]
-    for _, v192 in v189 do
-        if v190[v192] == true then
+v24.shouldNotifyAssetTypes = function(v190, v191) --[[ Line: 610 ]] --[[ Name: shouldNotifyAssetTypes ]]
+    for _, v193 in v190 do
+        if v191[v193] == true then
             return true;
         end;
     end;
     return false;
 end;
-v23.shouldNotifyBundleTypes = function(v193, v194) --[[ Line: 622 ]] --[[ Name: shouldNotifyBundleTypes ]]
+v24.shouldNotifyBundleTypes = function(v194, v195) --[[ Line: 623 ]] --[[ Name: shouldNotifyBundleTypes ]]
     -- upvalues: v10 (copy)
-    for _, v196 in v193 do
-        if v194[v10.BundleTypeIdStringToOutfitType[v196]] == true then
+    for _, v197 in v194 do
+        if v195[v10.BundleTypeIdStringToOutfitType[v197]] == true then
             return true;
         end;
     end;
     return false;
 end;
-v23.shouldNotifyCategory = function(v197, v198) --[[ Line: 636 ]] --[[ Name: shouldNotifyCategory ]]
-    -- upvalues: v23 (copy)
-    local l_AssetTypeIdStrings_0 = v197.AssetTypeIdStrings;
-    local l_BundleTypeIdStrings_0 = v197.BundleTypeIdStrings;
-    local l_Subcategories_0 = v197.Subcategories;
-    local l_SubcategoryFilters_0 = v197.SubcategoryFilters;
-    if l_AssetTypeIdStrings_0 and v23.shouldNotifyAssetTypes(l_AssetTypeIdStrings_0, v198) then
+v24.shouldNotifyCategory = function(v198, v199) --[[ Line: 637 ]] --[[ Name: shouldNotifyCategory ]]
+    -- upvalues: v24 (copy)
+    local l_AssetTypeIdStrings_0 = v198.AssetTypeIdStrings;
+    local l_BundleTypeIdStrings_0 = v198.BundleTypeIdStrings;
+    local l_Subcategories_0 = v198.Subcategories;
+    local l_SubcategoryFilters_0 = v198.SubcategoryFilters;
+    if l_AssetTypeIdStrings_0 and v24.shouldNotifyAssetTypes(l_AssetTypeIdStrings_0, v199) then
         return true;
-    elseif l_BundleTypeIdStrings_0 and v23.shouldNotifyBundleTypes(l_BundleTypeIdStrings_0, v198) then
+    elseif l_BundleTypeIdStrings_0 and v24.shouldNotifyBundleTypes(l_BundleTypeIdStrings_0, v199) then
         return true;
     else
         if l_Subcategories_0 then
-            for _, v204 in l_Subcategories_0 do
-                if v23.shouldNotifyCategory(v204, v198) then
+            for _, v205 in l_Subcategories_0 do
+                if v24.shouldNotifyCategory(v205, v199) then
                     return true;
                 end;
             end;
         elseif l_SubcategoryFilters_0 then
-            for _, v206 in l_SubcategoryFilters_0 do
-                if v23.shouldNotifyCategory(v206, v198) then
+            for _, v207 in l_SubcategoryFilters_0 do
+                if v24.shouldNotifyCategory(v207, v199) then
                     return true;
                 end;
             end;
@@ -503,214 +504,214 @@ v23.shouldNotifyCategory = function(v197, v198) --[[ Line: 636 ]] --[[ Name: sho
         return false;
     end;
 end;
-v23.getNotificationItemTypesForCategory = function(v207, v208) --[[ Line: 668 ]] --[[ Name: getNotificationItemTypesForCategory ]]
-    -- upvalues: v10 (copy), v23 (copy), v2 (copy)
-    local v209 = {};
-    local l_AssetTypeIdStrings_1 = v207.AssetTypeIdStrings;
-    local l_BundleTypeIdStrings_1 = v207.BundleTypeIdStrings;
-    local l_Subcategories_1 = v207.Subcategories;
-    local l_SubcategoryFilters_1 = v207.SubcategoryFilters;
+v24.getNotificationItemTypesForCategory = function(v208, v209) --[[ Line: 669 ]] --[[ Name: getNotificationItemTypesForCategory ]]
+    -- upvalues: v10 (copy), v24 (copy), v2 (copy)
+    local v210 = {};
+    local l_AssetTypeIdStrings_1 = v208.AssetTypeIdStrings;
+    local l_BundleTypeIdStrings_1 = v208.BundleTypeIdStrings;
+    local l_Subcategories_1 = v208.Subcategories;
+    local l_SubcategoryFilters_1 = v208.SubcategoryFilters;
     if l_AssetTypeIdStrings_1 then
-        for _, v215 in l_AssetTypeIdStrings_1 do
-            if v208[v215] then
-                v209[v215] = true;
+        for _, v216 in l_AssetTypeIdStrings_1 do
+            if v209[v216] then
+                v210[v216] = true;
             end;
         end;
     end;
     if l_BundleTypeIdStrings_1 then
-        for _, v217 in l_BundleTypeIdStrings_1 do
-            local v218 = v10.BundleTypeIdStringToOutfitType[v217];
-            if v208[v218] then
-                v209[v218] = true;
+        for _, v218 in l_BundleTypeIdStrings_1 do
+            local v219 = v10.BundleTypeIdStringToOutfitType[v218];
+            if v209[v219] then
+                v210[v219] = true;
             end;
         end;
     end;
     if l_Subcategories_1 then
-        for _, v220 in l_Subcategories_1 do
-            for _, v222 in v23.getNotificationItemTypesForCategory(v220, v208) do
-                v209[v222] = true;
+        for _, v221 in l_Subcategories_1 do
+            for _, v223 in v24.getNotificationItemTypesForCategory(v221, v209) do
+                v210[v223] = true;
             end;
         end;
     end;
     if l_SubcategoryFilters_1 then
-        for _, v224 in l_SubcategoryFilters_1 do
-            for _, v226 in v23.getNotificationItemTypesForCategory(v224, v208) do
-                v209[v226] = true;
+        for _, v225 in l_SubcategoryFilters_1 do
+            for _, v227 in v24.getNotificationItemTypesForCategory(v225, v209) do
+                v210[v227] = true;
             end;
         end;
     end;
-    return v2.Dictionary.keys(v209);
+    return v2.Dictionary.keys(v210);
 end;
-v23.doAESCallAndAwaitResult = function(v227, v228, v229, ...) --[[ Line: 713 ]] --[[ Name: doAESCallAndAwaitResult ]]
-    local v230 = v228(v227, ...);
-    while not v230 do
-        v229:Wait();
-        v230 = v228(v227, ...);
+v24.doAESCallAndAwaitResult = function(v228, v229, v230, ...) --[[ Line: 714 ]] --[[ Name: doAESCallAndAwaitResult ]]
+    local v231 = v229(v228, ...);
+    while not v231 do
+        v230:Wait();
+        v231 = v229(v228, ...);
     end;
-    return v229:Wait();
+    return v230:Wait();
 end;
-v23.getColor3AtValueInRange = l_memoize_0(function(v231, v232) --[[ Line: 724 ]]
+v24.getColor3AtValueInRange = l_memoize_0(function(v232, v233) --[[ Line: 725 ]]
     -- upvalues: v12 (copy), v7 (copy)
-    local v233, v234 = v12.clampBetween0And1(v232);
-    if v234 then
-        v7(string.format("getColor3AtValueInRange: value %s should be between 0 and 1 inclusive", (tostring(v232))));
+    local v234, v235 = v12.clampBetween0And1(v233);
+    if v235 then
+        v7(string.format("getColor3AtValueInRange: value %s should be between 0 and 1 inclusive", (tostring(v233))));
     end;
-    v232 = v233;
-    if v232 == 0 then
-        return v231[1];
-    elseif v232 == 1 then
-        return v231[#v231];
+    v233 = v234;
+    if v233 == 0 then
+        return v232[1];
+    elseif v233 == 1 then
+        return v232[#v232];
     else
-        local v235 = v232 * (#v231 - 1);
-        local v236 = math.floor(v235 + 1);
-        local v237 = v235 + 1 - v236;
-        return v231[v236]:Lerp(v231[v236 + 1], v237);
+        local v236 = v233 * (#v232 - 1);
+        local v237 = math.floor(v236 + 1);
+        local v238 = v236 + 1 - v237;
+        return v232[v237]:Lerp(v232[v237 + 1], v238);
     end;
 end);
-local function v247(v238, v239, v240) --[[ Line: 755 ]]
-    local v241 = Vector3.new(v238.R, v238.G, v238.B);
+local function v248(v239, v240, v241) --[[ Line: 756 ]]
     local v242 = Vector3.new(v239.R, v239.G, v239.B);
     local v243 = Vector3.new(v240.R, v240.G, v240.B);
-    local v244 = v242 - v241;
-    local v245 = v243 - v241;
-    if v245:Dot(v244) <= 0 then
-        return v245.Magnitude, 0;
+    local v244 = Vector3.new(v241.R, v241.G, v241.B);
+    local v245 = v243 - v242;
+    local v246 = v244 - v242;
+    if v246:Dot(v245) <= 0 then
+        return v246.Magnitude, 0;
     else
-        local v246 = v243 - v242;
-        if v246:Dot(v244) >= 0 then
-            return v246.Magnitude, 1;
+        local v247 = v244 - v243;
+        if v247:Dot(v245) >= 0 then
+            return v247.Magnitude, 1;
         else
-            return v244:Cross(v245).Magnitude / v245.Magnitude, v244.Unit:Dot(v245) / v244.Magnitude;
+            return v245:Cross(v246).Magnitude / v246.Magnitude, v245.Unit:Dot(v246) / v245.Magnitude;
         end;
     end;
 end;
-local function v257(v248, v249) --[[ Line: 800 ]]
-    -- upvalues: v247 (copy)
-    local v250 = 10;
-    local v251 = 0;
-    for v252 = 1, #v248 - 1 do
-        local v253 = v248[v252];
-        local v254 = v248[v252 + 1];
-        local v255, v256 = v247(v253, v254, v249);
-        if v255 < v250 then
-            v250 = v255;
-            v251 = (v252 - 1 + v256) / (#v248 - 1);
+local function v258(v249, v250) --[[ Line: 801 ]]
+    -- upvalues: v248 (copy)
+    local v251 = 10;
+    local v252 = 0;
+    for v253 = 1, #v249 - 1 do
+        local v254 = v249[v253];
+        local v255 = v249[v253 + 1];
+        local v256, v257 = v248(v254, v255, v250);
+        if v256 < v251 then
+            v251 = v256;
+            v252 = (v253 - 1 + v257) / (#v249 - 1);
         end;
     end;
-    return v250, v251;
+    return v251, v252;
 end;
-v23.findRangeAndSliderValueForColor3 = function(v258, v259) --[[ Line: 826 ]]
-    -- upvalues: v257 (copy)
-    local v260 = 10;
-    local v261 = 0;
-    local v262 = nil;
-    for _, v264 in v259 do
-        local v265, v266 = v257(v264.range, v258);
-        if v265 < v260 then
-            v260 = v265;
+v24.findRangeAndSliderValueForColor3 = function(v259, v260) --[[ Line: 827 ]]
+    -- upvalues: v258 (copy)
+    local v261 = 10;
+    local v262 = 0;
+    local v263 = nil;
+    for _, v265 in v260 do
+        local v266, v267 = v258(v265.range, v259);
+        if v266 < v261 then
             v261 = v266;
-            v262 = v264.rangeId;
+            v262 = v267;
+            v263 = v265.rangeId;
         end;
     end;
-    return v262, v261;
+    return v263, v262;
 end;
-v23.getRangeStructForRangeId = l_memoize_0(function(v267, v268) --[[ Line: 846 ]]
-    for _, v270 in v268 do
-        if v270.rangeId == v267 then
-            return v270;
+v24.getRangeStructForRangeId = l_memoize_0(function(v268, v269) --[[ Line: 847 ]]
+    for _, v271 in v269 do
+        if v271.rangeId == v268 then
+            return v271;
         end;
     end;
     return nil;
 end);
-v23.getColor3AtValueForRangeId = l_memoize_0(function(v271, v272, v273) --[[ Line: 857 ]]
-    -- upvalues: v12 (copy), v7 (copy), v23 (copy)
-    local v274, v275 = v12.clampBetween0And1(v272);
-    if v275 then
-        v7(string.format("getColor3AtValueInRange: value %s should be between 0 and 1 inclusive", (tostring(v272))));
-    end;
-    v272 = v274;
-    local v276 = v23.getRangeStructForRangeId(v271, v273);
+v24.getColor3AtValueForRangeId = l_memoize_0(function(v272, v273, v274) --[[ Line: 858 ]]
+    -- upvalues: v12 (copy), v7 (copy), v24 (copy)
+    local v275, v276 = v12.clampBetween0And1(v273);
     if v276 then
-        return v23.getColor3AtValueInRange(v276.range, v272);
+        v7(string.format("getColor3AtValueInRange: value %s should be between 0 and 1 inclusive", (tostring(v273))));
+    end;
+    v273 = v275;
+    local v277 = v24.getRangeStructForRangeId(v272, v274);
+    if v277 then
+        return v24.getColor3AtValueInRange(v277.range, v273);
     else
         return nil;
     end;
 end);
-v23.getInfoForRangeIdAndBodyPartIndex = function(v277, v278, v279) --[[ Line: 881 ]]
+v24.getInfoForRangeIdAndBodyPartIndex = function(v278, v279, v280) --[[ Line: 882 ]]
     -- upvalues: v4 (copy), v9 (copy)
-    v4.isNotNil(v277, "rangeId");
-    v4.assert(v278 >= 1, "selectedBodyPartIndex too low");
-    v4.assert(v278 <= #v9.BodyPartButtonData, "selectedBodyPartIndex too high");
-    if v279 == nil or v279[v277] == nil then
+    v4.isNotNil(v278, "rangeId");
+    v4.assert(v279 >= 1, "selectedBodyPartIndex too low");
+    v4.assert(v279 <= #v9.BodyPartButtonData, "selectedBodyPartIndex too high");
+    if v280 == nil or v280[v278] == nil then
         return nil;
     else
-        local v280 = v279[v277];
-        local l_bodyPartForSkinColoringIds_0 = v9.BodyPartButtonData[v278].bodyPartForSkinColoringIds;
-        local v282 = nil;
-        for _, v284 in l_bodyPartForSkinColoringIds_0 do
-            if v280[v284] then
-                if v282 == nil then
-                    v282 = v280[v284];
-                elseif v282.color3 ~= v280[v284].color3 then
+        local v281 = v280[v278];
+        local l_bodyPartForSkinColoringIds_0 = v9.BodyPartButtonData[v279].bodyPartForSkinColoringIds;
+        local v283 = nil;
+        for _, v285 in l_bodyPartForSkinColoringIds_0 do
+            if v281[v285] then
+                if v283 == nil then
+                    v283 = v281[v285];
+                elseif v283.color3 ~= v281[v285].color3 then
                     return nil;
                 end;
             end;
         end;
-        return v282;
+        return v283;
     end;
 end;
-v23.getColor3ForRangeIdAndBodyPartIndex = l_memoize_0(function(v285, v286, v287, v288) --[[ Line: 929 ]]
-    -- upvalues: v4 (copy), v23 (copy)
-    v4.isNotNil(v288, "defaultBodyColorRanges");
-    local v289 = v23.getInfoForRangeIdAndBodyPartIndex(v285, v286, v287);
-    if v289 then
-        return v289.color3;
+v24.getColor3ForRangeIdAndBodyPartIndex = l_memoize_0(function(v286, v287, v288, v289) --[[ Line: 930 ]]
+    -- upvalues: v4 (copy), v24 (copy)
+    v4.isNotNil(v289, "defaultBodyColorRanges");
+    local v290 = v24.getInfoForRangeIdAndBodyPartIndex(v286, v287, v288);
+    if v290 then
+        return v290.color3;
     else
-        return v23.getColor3AtValueForRangeId(v285, 0.5, v288);
+        return v24.getColor3AtValueForRangeId(v286, 0.5, v289);
     end;
 end);
-v23.getSliderValueForRangeIdAndBodyPartIndex = l_memoize_0(function(v290, v291, v292) --[[ Line: 953 ]]
-    -- upvalues: v23 (copy)
-    local v293 = v23.getInfoForRangeIdAndBodyPartIndex(v290, v291, v292);
-    if v293 then
-        return v293.sliderValue;
+v24.getSliderValueForRangeIdAndBodyPartIndex = l_memoize_0(function(v291, v292, v293) --[[ Line: 954 ]]
+    -- upvalues: v24 (copy)
+    local v294 = v24.getInfoForRangeIdAndBodyPartIndex(v291, v292, v293);
+    if v294 then
+        return v294.sliderValue;
     else
         return 0.5;
     end;
 end);
-v23.getBodyColorsSliderFrameHeight = function(v294, v295, v296, v297) --[[ Line: 977 ]] --[[ Name: getBodyColorsSliderFrameHeight ]]
-    local v298 = v296 - math.max(v295, v297);
-    if v294 < v298 then
-        return v298;
+v24.getBodyColorsSliderFrameHeight = function(v295, v296, v297, v298) --[[ Line: 978 ]] --[[ Name: getBodyColorsSliderFrameHeight ]]
+    local v299 = v297 - math.max(v296, v298);
+    if v295 < v299 then
+        return v299;
     else
-        return v294;
+        return v295;
     end;
 end;
-v23.getSearchUuidAndAssetTypes = function(v299, v300, v301) --[[ Line: 993 ]]
+v24.getSearchUuidAndAssetTypes = function(v300, v301, v302) --[[ Line: 994 ]]
     -- upvalues: l_FFlagAXEditorSubcategoryFilters_0 (copy)
     local _ = nil;
     local _ = nil;
-    if v299.SubButtons then
-        v300 = v300 or 1;
-        local v304 = v299.SubButtons[v300];
-        return v304.SearchUuid, v304.AssetTypeIdStrings;
-    elseif l_FFlagAXEditorSubcategoryFilters_0 and v299.SubcategoryFilters then
+    if v300.SubButtons then
         v301 = v301 or 1;
-        local v305 = v299.SubcategoryFilters[v301] or v299.SubcategoryFilters[1];
+        local v305 = v300.SubButtons[v301];
         return v305.SearchUuid, v305.AssetTypeIdStrings;
+    elseif l_FFlagAXEditorSubcategoryFilters_0 and v300.SubcategoryFilters then
+        v302 = v302 or 1;
+        local v306 = v300.SubcategoryFilters[v302] or v300.SubcategoryFilters[1];
+        return v306.SearchUuid, v306.AssetTypeIdStrings;
     else
-        return v299.SearchUuid, v299.AssetTypeIdStrings;
+        return v300.SearchUuid, v300.AssetTypeIdStrings;
     end;
 end;
-v23.getCategoryIndicesFromAssetType = function(v306) --[[ Line: 1014 ]] --[[ Name: getCategoryIndicesFromAssetType ]]
+v24.getCategoryIndicesFromAssetType = function(v307) --[[ Line: 1015 ]] --[[ Name: getCategoryIndicesFromAssetType ]]
     -- upvalues: v14 (copy)
-    for v307, v308 in (v14()) do
-        if v308.Subcategories then
-            for v309, v310 in v308.Subcategories do
-                if v310.AssetTypeIdStrings then
-                    for _, v312 in v310.AssetTypeIdStrings do
-                        if v306 == v312 then
-                            return v307, v309;
+    for v308, v309 in (v14()) do
+        if v309.Subcategories then
+            for v310, v311 in v309.Subcategories do
+                if v311.AssetTypeIdStrings then
+                    for _, v313 in v311.AssetTypeIdStrings do
+                        if v307 == v313 then
+                            return v308, v310;
                         end;
                     end;
                 end;
@@ -719,63 +720,63 @@ v23.getCategoryIndicesFromAssetType = function(v306) --[[ Line: 1014 ]] --[[ Nam
     end;
     return nil, nil;
 end;
-v23.findAvatarEditorCategory = function(v313, v314) --[[ Line: 1037 ]] --[[ Name: findAvatarEditorCategory ]]
+v24.findAvatarEditorCategory = function(v314, v315) --[[ Line: 1038 ]] --[[ Name: findAvatarEditorCategory ]]
     -- upvalues: v14 (copy)
-    for v315, v316 in (v14()) do
-        if v316.SearchUuid == v313 then
-            for v317, v318 in v316.Subcategories do
-                if v318.SearchUuid == v314 then
-                    return v315, v317;
+    for v316, v317 in (v14()) do
+        if v317.SearchUuid == v314 then
+            for v318, v319 in v317.Subcategories do
+                if v319.SearchUuid == v315 then
+                    return v316, v318;
                 end;
             end;
         end;
     end;
     return nil, nil;
 end;
-v23.selectAssetTypeKey = function(v319) --[[ Line: 1051 ]]
-    -- upvalues: l_FFlagAXEditorSubcategoryFilters_0 (copy), v11 (copy), v23 (copy)
-    local l_category_0 = v319.AvatarExperience.AvatarEditor.Categories.category;
-    local l_subcategory_0 = v319.AvatarExperience.AvatarEditor.Categories.subcategory;
-    local l_subButton_0 = v319.AvatarExperience.AvatarEditor.Categories.subButton;
-    local v323 = if l_FFlagAXEditorSubcategoryFilters_0 then v319.AvatarExperience.AvatarEditor.Categories.subcategoryFilter else nil;
-    local v324 = v11.getAvatarEditorCategoryInfo(l_category_0, l_subcategory_0);
-    local v325, _ = v23.getSearchUuidAndAssetTypes(v324, l_subButton_0, if l_FFlagAXEditorSubcategoryFilters_0 then v323 else nil);
-    return v325 or v324.Name;
+v24.selectAssetTypeKey = function(v320) --[[ Line: 1052 ]]
+    -- upvalues: l_FFlagAXEditorSubcategoryFilters_0 (copy), v11 (copy), v24 (copy)
+    local l_category_0 = v320.AvatarExperience.AvatarEditor.Categories.category;
+    local l_subcategory_0 = v320.AvatarExperience.AvatarEditor.Categories.subcategory;
+    local l_subButton_0 = v320.AvatarExperience.AvatarEditor.Categories.subButton;
+    local v324 = if l_FFlagAXEditorSubcategoryFilters_0 then v320.AvatarExperience.AvatarEditor.Categories.subcategoryFilter else nil;
+    local v325 = v11.getAvatarEditorCategoryInfo(l_category_0, l_subcategory_0);
+    local v326, _ = v24.getSearchUuidAndAssetTypes(v325, l_subButton_0, if l_FFlagAXEditorSubcategoryFilters_0 then v324 else nil);
+    return v326 or v325.Name;
 end;
-v23.getColor3SharedByBodyParts = l_memoize_0(function(v327, v328) --[[ Line: 1075 ]]
-    local v329 = nil;
-    for _, v331 in v327 do
-        local v332 = v328[v331];
-        if v329 == nil then
-            v329 = v332;
-        elseif v332 and v329:ToHex() ~= v332:ToHex() then
+v24.getColor3SharedByBodyParts = l_memoize_0(function(v328, v329) --[[ Line: 1076 ]]
+    local v330 = nil;
+    for _, v332 in v328 do
+        local v333 = v329[v332];
+        if v330 == nil then
+            v330 = v333;
+        elseif v333 and v330:ToHex() ~= v333:ToHex() then
             return nil;
         end;
     end;
-    return v329;
+    return v330;
 end);
-v23.getRangeIdSharedByBodyParts = l_memoize_0(function(v333, v334) --[[ Line: 1102 ]]
-    local v335 = nil;
-    for _, v337 in v333 do
-        local v338 = v334[v337];
-        if v335 == nil then
-            v335 = v338;
-        elseif v335 ~= v338 then
+v24.getRangeIdSharedByBodyParts = l_memoize_0(function(v334, v335) --[[ Line: 1103 ]]
+    local v336 = nil;
+    for _, v338 in v334 do
+        local v339 = v335[v338];
+        if v336 == nil then
+            v336 = v339;
+        elseif v336 ~= v339 then
             return nil;
         end;
     end;
-    return v335;
+    return v336;
 end);
-v23.ExponentialRepeat = function(v339, v340, v341) --[[ Line: 1132 ]]
-    v341 = v341 or 6;
-    local v342 = 1;
+v24.ExponentialRepeat = function(v340, v341, v342) --[[ Line: 1133 ]]
+    v342 = v342 or 6;
+    local v343 = 1;
     while true do
-        if v342 <= v341 and v339() then
-            if v340() then
+        if v343 <= v342 and v340() then
+            if v341() then
                 return;
             else
-                task.wait(v342 ^ 2);
-                v342 = v342 + 1;
+                task.wait(v343 ^ 2);
+                v343 = v343 + 1;
             end;
         else
             return;
@@ -783,77 +784,77 @@ v23.ExponentialRepeat = function(v339, v340, v341) --[[ Line: 1132 ]]
     end;
 end;
 if l_FFlagAXCustomizeMakeupSupport_0 then
-    v23.isWearingOutfitNoState = function(v343, v344, v345, v346, v347, _, _) --[[ Line: 1171 ]] --[[ Name: isWearingOutfitNoState ]]
-        -- upvalues: v10 (copy), v23 (copy), v3 (copy), l_isMakeupAssetType_0 (copy), v2 (copy), l_isLayeredClothingAssetType_0 (copy)
-        if v343.outfitType == v10.OutfitTypes.DynamicHead then
-            return v23.isWearingDynamicHeadOutfit(v343, v346);
+    v24.isWearingOutfitNoState = function(v344, v345, v346, v347, v348, _, _) --[[ Line: 1172 ]] --[[ Name: isWearingOutfitNoState ]]
+        -- upvalues: v10 (copy), v24 (copy), v3 (copy), l_isMakeupAssetType_0 (copy), v2 (copy), l_isLayeredClothingAssetType_0 (copy), l_FFlagAXFixOutfitEquipCheckEmptyArray_0 (copy)
+        if v344.outfitType == v10.OutfitTypes.DynamicHead then
+            return v24.isWearingDynamicHeadOutfit(v344, v347);
         else
-            local v350 = v23.removeEmoteAnimationAsset(v343.assets);
-            local v351 = v343.outfitType == v10.OutfitTypes.Avatar and v343.isEditable or v23.isFullyQualifiedOutfit(v343.assets);
-            if v351 then
-                for v352, v353 in v347 do
-                    if v343.scales[v352] ~= v353 then
+            local v351 = v24.removeEmoteAnimationAsset(v344.assets);
+            local v352 = v344.outfitType == v10.OutfitTypes.Avatar and v344.isEditable or v24.isFullyQualifiedOutfit(v344.assets);
+            if v352 then
+                for v353, v354 in v348 do
+                    if v344.scales[v353] ~= v354 then
                         return false;
                     end;
                 end;
-                if v343.avatarType ~= v344 then
+                if v344.avatarType ~= v345 then
                     return false;
-                elseif not v23.isPresetOutfit(v343) then
-                    for v354, v355 in v345 do
-                        if not v343.bodyColor3s then
+                elseif not v24.isPresetOutfit(v344) then
+                    for v355, v356 in v346 do
+                        if not v344.bodyColor3s then
                             return false;
-                        elseif v343.bodyColor3s[v354]:ToHex() ~= v355:ToHex() then
+                        elseif v344.bodyColor3s[v355]:ToHex() ~= v356:ToHex() then
                             return false;
                         end;
                     end;
                 end;
             end;
-            local v356 = {};
             local v357 = {};
-            for v358, v359 in v350 do
-                if not v346[v358] then
+            local v358 = {};
+            for v359, v360 in v351 do
+                if not v347[v359] then
                     return false;
                 else
-                    for v360, v361 in v359 do
-                        if not v346[v358][v360] or not v23.isSameAssetMetadata(v3.omit(v361, {
+                    for v361, v362 in v360 do
+                        if not v347[v359][v361] or not v24.isSameAssetMetadata(v3.omit(v362, {
                             "order", 
                             "availabilityStatus"
-                        }), v3.omit(v346[v358][v360], {
+                        }), v3.omit(v347[v359][v361], {
                             "order", 
                             "availabilityStatus"
                         })) then
                             return false;
-                        elseif l_isMakeupAssetType_0(v358) then
-                            if v361.order ~= nil then
-                                table.insert(v357, v2.Dictionary.join(v361, {
-                                    assetId = v360, 
-                                    assetTypeId = v358
+                        elseif l_isMakeupAssetType_0(v359) then
+                            if v362.order ~= nil then
+                                table.insert(v358, v2.Dictionary.join(v362, {
+                                    assetId = v361, 
+                                    assetTypeId = v359
                                 }));
                             end;
-                        elseif l_isLayeredClothingAssetType_0(v358) and v361.order ~= nil then
-                            table.insert(v356, v2.Dictionary.join(v361, {
-                                assetId = v360, 
-                                assetTypeId = v358
+                        elseif l_isLayeredClothingAssetType_0(v359) and v362.order ~= nil then
+                            table.insert(v357, v2.Dictionary.join(v362, {
+                                assetId = v361, 
+                                assetTypeId = v359
                             }));
                         end;
                     end;
                 end;
             end;
-            local v362 = {
+            local v363 = {
                 [v10.AssetTypeIdStrings.EyebrowAccessory] = true, 
                 [v10.AssetTypeIdStrings.EyelashAccessory] = true, 
                 [v10.AssetTypeIdStrings.FaceMakeup] = true, 
                 [v10.AssetTypeIdStrings.EyeMakeup] = true, 
                 [v10.AssetTypeIdStrings.LipMakeup] = true
             };
-            if v351 or v343.outfitType == v10.OutfitTypes.Makeup then
-                for v363, v364 in v346 do
-                    if v343.outfitType ~= v10.OutfitTypes.Makeup or v362[v363] then
-                        if v350[v363] == nil then
+            if v352 or v344.outfitType == v10.OutfitTypes.Makeup then
+                for v364, v365 in v347 do
+                    if (not l_FFlagAXFixOutfitEquipCheckEmptyArray_0 or next(v365) ~= nil) and (v344.outfitType ~= v10.OutfitTypes.Makeup or v363[v364]) then
+                        if v351[v364] == nil then
                             return false;
                         else
-                            for v365, _ in v364 do
-                                if v350[v363][v365] == nil then
+                            for v366, _ in v365 do
+                                if v351[v364][v366] == nil then
                                     return false;
                                 end;
                             end;
@@ -861,57 +862,57 @@ if l_FFlagAXCustomizeMakeupSupport_0 then
                     end;
                 end;
             end;
-            local function v369(v367, v368) --[[ Line: 1291 ]] --[[ Name: sortByOrder ]]
-                return v367.order < v368.order;
+            local function v370(v368, v369) --[[ Line: 1296 ]] --[[ Name: sortByOrder ]]
+                return v368.order < v369.order;
             end;
-            table.sort(v356, v369);
-            table.sort(v357, v369);
-            local v370 = nil;
-            for _, v372 in v356 do
-                if v370 == nil then
-                    v370 = v346[v372.assetTypeId][v372.assetId].order;
-                elseif v346[v372.assetTypeId][v372.assetId].order < v370 then
+            table.sort(v357, v370);
+            table.sort(v358, v370);
+            local v371 = nil;
+            for _, v373 in v357 do
+                if v371 == nil then
+                    v371 = v347[v373.assetTypeId][v373.assetId].order;
+                elseif v347[v373.assetTypeId][v373.assetId].order < v371 then
                     return false;
                 else
-                    v370 = v346[v372.assetTypeId][v372.assetId].order;
+                    v371 = v347[v373.assetTypeId][v373.assetId].order;
                 end;
             end;
-            local v373 = nil;
-            for _, v375 in v357 do
-                if v373 == nil then
-                    v373 = v346[v375.assetTypeId][v375.assetId].order;
-                elseif v346[v375.assetTypeId][v375.assetId].order < v373 then
+            local v374 = nil;
+            for _, v376 in v358 do
+                if v374 == nil then
+                    v374 = v347[v376.assetTypeId][v376.assetId].order;
+                elseif v347[v376.assetTypeId][v376.assetId].order < v374 then
                     return false;
                 else
-                    v373 = v346[v375.assetTypeId][v375.assetId].order;
+                    v374 = v347[v376.assetTypeId][v376.assetId].order;
                 end;
             end;
             return true;
         end;
     end;
-elseif v26() then
-    v23.isWearingOutfitNoState = function(v376, _, _, v379, _, v381, v382) --[[ Line: 1338 ]] --[[ Name: isWearingOutfitNoState ]]
-        -- upvalues: v23 (copy), v10 (copy), v26 (copy), v24 (copy)
-        local v383 = v23.removeEmoteAnimationAsset(v376.assets);
-        if v376.outfitType == v10.OutfitTypes.DynamicHead then
-            return v23.isWearingDynamicHeadOutfit(v376, v379);
+elseif v27() then
+    v24.isWearingOutfitNoState = function(v377, _, _, v380, _, v382, v383) --[[ Line: 1343 ]] --[[ Name: isWearingOutfitNoState ]]
+        -- upvalues: v24 (copy), v10 (copy), v27 (copy), v25 (copy)
+        local v384 = v24.removeEmoteAnimationAsset(v377.assets);
+        if v377.outfitType == v10.OutfitTypes.DynamicHead then
+            return v24.isWearingDynamicHeadOutfit(v377, v380);
         else
-            local v384 = v23.getEquippedAssetIds(v383);
-            local v385 = v23.getEquippedAssetIds(v379);
-            if v26() or #v384 ~= #v385 then
-                for _, v387 in v384 do
-                    if not v23.Contains(v385, v387) then
+            local v385 = v24.getEquippedAssetIds(v384);
+            local v386 = v24.getEquippedAssetIds(v380);
+            if v27() or #v385 ~= #v386 then
+                for _, v388 in v385 do
+                    if not v24.Contains(v386, v388) then
                         return false;
                     end;
                 end;
-                if v382 then
-                    for _, v389 in v385 do
-                        if not v23.Contains(v384, v389) then
+                if v383 then
+                    for _, v390 in v386 do
+                        if not v24.Contains(v385, v390) then
                             return false;
                         end;
                     end;
                 end;
-                if v24() and v381 and v23.isFullyQualifiedOutfit(v383) then
+                if v25() and v382 and v24.isFullyQualifiedOutfit(v384) then
                     return true;
                 end;
             end;
@@ -919,18 +920,18 @@ elseif v26() then
         end;
     end;
 else
-    v23.isWearingOutfitNoState = function(v390, v391, v392, v393, v394, v395, _) --[[ Line: 1396 ]] --[[ Name: isWearingOutfitNoState ]]
-        -- upvalues: v23 (copy), v10 (copy), v24 (copy)
-        local v397 = v23.removeEmoteAnimationAsset(v390.assets);
-        if v390.outfitType == v10.OutfitTypes.DynamicHead then
-            return v23.isWearingDynamicHeadOutfit(v390, v393);
+    v24.isWearingOutfitNoState = function(v391, v392, v393, v394, v395, v396, _) --[[ Line: 1401 ]] --[[ Name: isWearingOutfitNoState ]]
+        -- upvalues: v24 (copy), v10 (copy), v25 (copy)
+        local v398 = v24.removeEmoteAnimationAsset(v391.assets);
+        if v391.outfitType == v10.OutfitTypes.DynamicHead then
+            return v24.isWearingDynamicHeadOutfit(v391, v394);
         else
-            local v398 = v23.getEquippedAssetIds(v397);
-            local v399 = v23.getEquippedAssetIds(v393);
-            if #v398 ~= #v399 then
-                if v24() and v395 and not v23.isFullyQualifiedOutfit(v397) then
-                    for _, v401 in v398 do
-                        if not table.find(v399, v401) then
+            local v399 = v24.getEquippedAssetIds(v398);
+            local v400 = v24.getEquippedAssetIds(v394);
+            if #v399 ~= #v400 then
+                if v25() and v396 and not v24.isFullyQualifiedOutfit(v398) then
+                    for _, v402 in v399 do
+                        if not table.find(v400, v402) then
                             return false;
                         end;
                     end;
@@ -939,36 +940,36 @@ else
                     return false;
                 end;
             else
-                for _, v403 in v398 do
-                    local v404 = false;
-                    for _, v406 in v399 do
-                        if v403 == v406 then
-                            local v407 = v23.getAssetMetadata(v403, v397);
-                            local v408 = v23.getAssetMetadata(v406, v393);
-                            if v23.isSameAssetMetadata(v407, v408) then
-                                v404 = true;
+                for _, v404 in v399 do
+                    local v405 = false;
+                    for _, v407 in v400 do
+                        if v404 == v407 then
+                            local v408 = v24.getAssetMetadata(v404, v398);
+                            local v409 = v24.getAssetMetadata(v407, v394);
+                            if v24.isSameAssetMetadata(v408, v409) then
+                                v405 = true;
                             end;
                         end;
                     end;
-                    if not v404 then
+                    if not v405 then
                         return false;
                     end;
                 end;
-                if not v23.isPresetOutfit(v390) then
-                    for v409, v410 in v392 do
-                        if not v390.bodyColor3s then
+                if not v24.isPresetOutfit(v391) then
+                    for v410, v411 in v393 do
+                        if not v391.bodyColor3s then
                             return false;
-                        elseif v390.bodyColor3s[v409]:ToHex() ~= v410:ToHex() then
+                        elseif v391.bodyColor3s[v410]:ToHex() ~= v411:ToHex() then
                             return false;
                         end;
                     end;
                 end;
-                for v411, v412 in v394 do
-                    if v390.scales[v411] ~= v412 then
+                for v412, v413 in v395 do
+                    if v391.scales[v412] ~= v413 then
                         return false;
                     end;
                 end;
-                if v390.avatarType ~= v391 then
+                if v391.avatarType ~= v392 then
                     return false;
                 else
                     return true;
@@ -977,51 +978,51 @@ else
         end;
     end;
 end;
-v23.isWearingOutfit = function(v413, v414) --[[ Line: 1475 ]] --[[ Name: isWearingOutfit ]]
-    -- upvalues: v23 (copy)
-    local l_AvatarType_0 = v413.AvatarExperience.AvatarEditor.Character.AvatarType;
-    local l_BodyColor3s_0 = v413.AvatarExperience.AvatarEditor.Character.BodyColor3s;
-    local l_EquippedAssets_2 = v413.AvatarExperience.AvatarEditor.Character.EquippedAssets;
-    local l_AvatarScales_1 = v413.AvatarExperience.AvatarEditor.Character.AvatarScales;
-    return v23.isWearingOutfitNoState(v414, l_AvatarType_0, l_BodyColor3s_0, l_EquippedAssets_2, l_AvatarScales_1);
+v24.isWearingOutfit = function(v414, v415) --[[ Line: 1480 ]] --[[ Name: isWearingOutfit ]]
+    -- upvalues: v24 (copy)
+    local l_AvatarType_0 = v414.AvatarExperience.AvatarEditor.Character.AvatarType;
+    local l_BodyColor3s_0 = v414.AvatarExperience.AvatarEditor.Character.BodyColor3s;
+    local l_EquippedAssets_2 = v414.AvatarExperience.AvatarEditor.Character.EquippedAssets;
+    local l_AvatarScales_1 = v414.AvatarExperience.AvatarEditor.Character.AvatarScales;
+    return v24.isWearingOutfitNoState(v415, l_AvatarType_0, l_BodyColor3s_0, l_EquippedAssets_2, l_AvatarScales_1);
 end;
-v23.filterOutfitAssetsWithStatus = function(v419, v420) --[[ Line: 1484 ]] --[[ Name: filterOutfitAssetsWithStatus ]]
+v24.filterOutfitAssetsWithStatus = function(v420, v421) --[[ Line: 1489 ]] --[[ Name: filterOutfitAssetsWithStatus ]]
     -- upvalues: v2 (copy)
-    local v421 = {};
-    if v419.assets then
-        for v422, v423 in v419.assets do
-            if v423 then
-                v421[v422] = {};
-                for v424, v425 in v423 do
-                    if typeof(v420) == "table" then
-                        if not table.find(v420, v425.availabilityStatus) then
-                            v421[v422][v424] = v425;
+    local v422 = {};
+    if v420.assets then
+        for v423, v424 in v420.assets do
+            if v424 then
+                v422[v423] = {};
+                for v425, v426 in v424 do
+                    if typeof(v421) == "table" then
+                        if not table.find(v421, v426.availabilityStatus) then
+                            v422[v423][v425] = v426;
                         end;
-                    elseif v425 and v425.availabilityStatus ~= v420 then
-                        v421[v422][v424] = v425;
+                    elseif v426 and v426.availabilityStatus ~= v421 then
+                        v422[v423][v425] = v426;
                     end;
                 end;
             end;
-            if next(v421[v422]) == nil then
-                v421[v422] = nil;
+            if next(v422[v423]) == nil then
+                v422[v423] = nil;
             end;
         end;
     end;
-    return v2.Dictionary.join(v419, {
-        assets = v421
+    return v2.Dictionary.join(v420, {
+        assets = v422
     });
 end;
-v23.hasMakeup = function(v426) --[[ Line: 1519 ]] --[[ Name: hasMakeup ]]
+v24.hasMakeup = function(v427) --[[ Line: 1524 ]] --[[ Name: hasMakeup ]]
     -- upvalues: l_isMakeupAssetType_0 (copy)
-    if not v426 then
+    if not v427 then
         return false;
     else
-        for v427, _ in v426 do
-            if l_isMakeupAssetType_0(v427) then
+        for v428, _ in v427 do
+            if l_isMakeupAssetType_0(v428) then
                 return true;
             end;
         end;
         return false;
     end;
 end;
-return v23;
+return v24;

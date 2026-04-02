@@ -12,7 +12,7 @@ local v10 = require(l_Modules_0.AvatarExperience.AvatarEditor.Constants);
 local v11 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local v12 = require(l_Modules_0.AvatarExperience.Common.Utils);
 local v13 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v14 = require(l_Modules_0.AvatarExperience.Common.Actions.PlayingSwimAnimation);
+local l_PlayingSwimAnimation_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Actions.PlayingSwimAnimation;
 local v15 = require(l_Modules_0.LuaApp.mutedError);
 local v16 = require(l_CorePackages_0.Packages.Promise);
 local _ = require(l_CorePackages_0.Workspace.Packages.AppCommonLib);
@@ -39,7 +39,7 @@ local v34 = {
 };
 local v35 = {};
 v35.__index = v35;
-v35.new = function(v36, v37, v38) --[[ Line: 314 ]] --[[ Name: new ]]
+v35.new = function(v36, v37, v38) --[[ Line: 315 ]] --[[ Name: new ]]
     -- upvalues: v35 (copy), v8 (copy), l_InsertService_0 (copy)
     local v39 = {};
     setmetatable(v39, v35);
@@ -71,10 +71,10 @@ v35.new = function(v36, v37, v38) --[[ Line: 314 ]] --[[ Name: new ]]
     v39.outfitTryOnSummaryTriggeringLookAround = {};
     return v39;
 end;
-v35.setToolManager = function(v42, v43) --[[ Line: 363 ]] --[[ Name: setToolManager ]]
+v35.setToolManager = function(v42, v43) --[[ Line: 364 ]] --[[ Name: setToolManager ]]
     v42.toolManager = v43;
 end;
-v35.start = function(v44) --[[ Line: 367 ]] --[[ Name: start ]]
+v35.start = function(v44) --[[ Line: 368 ]] --[[ Name: start ]]
     -- upvalues: v15 (copy), l_Logging_0 (copy)
     if v44.started then
         v15("calling AnimationManager:start when already started");
@@ -83,7 +83,7 @@ v35.start = function(v44) --[[ Line: 367 ]] --[[ Name: start ]]
         v44.started = true;
         v44.shouldMoveToNextValidMainBodyAnimation = false;
         v44:cleanupAllAnimationTracks();
-        v44.storeChangedConnection = v44.store.changed:connect(function(v45, v46) --[[ Line: 377 ]]
+        v44.storeChangedConnection = v44.store.changed:connect(function(v45, v46) --[[ Line: 378 ]]
             -- upvalues: v44 (copy)
             local l_avatarRoute_0 = v44.avatarRoute;
             v44:update(v45, v46, l_avatarRoute_0, l_avatarRoute_0);
@@ -96,7 +96,7 @@ v35.start = function(v44) --[[ Line: 367 ]] --[[ Name: start ]]
         end;
     end;
 end;
-v35.stop = function(v48) --[[ Line: 389 ]] --[[ Name: stop ]]
+v35.stop = function(v48) --[[ Line: 390 ]] --[[ Name: stop ]]
     -- upvalues: v15 (copy)
     if not v48.started then
         v15("calling AnimationManager:stop when not started");
@@ -114,22 +114,22 @@ v35.stop = function(v48) --[[ Line: 389 ]] --[[ Name: stop ]]
         return;
     end;
 end;
-v35.onDestroy = function(v49) --[[ Line: 411 ]] --[[ Name: onDestroy ]]
+v35.onDestroy = function(v49) --[[ Line: 412 ]] --[[ Name: onDestroy ]]
     if v49.loadAssetsPromise then
         v49.loadAssetsPromise:cancel();
     end;
     v49.destroyed = true;
 end;
-v35.updateAvatarRoute = function(v50, v51, v52) --[[ Line: 420 ]] --[[ Name: updateAvatarRoute ]]
+v35.updateAvatarRoute = function(v50, v51, v52) --[[ Line: 421 ]] --[[ Name: updateAvatarRoute ]]
     v50.avatarRoute = v51;
     local v53 = v50.store:getState();
     v50:update(v53, v53, v51, v52);
 end;
-v35.updateCategorySelection = function(v54) --[[ Line: 426 ]] --[[ Name: updateCategorySelection ]]
+v35.updateCategorySelection = function(v54) --[[ Line: 427 ]] --[[ Name: updateCategorySelection ]]
     local v55 = v54.store:getState();
     v54:update(v55, v55, v54.avatarRoute, v54.avatarRoute);
 end;
-v35.update = function(v56, v57, v58, v59, v60) --[[ Line: 432 ]] --[[ Name: update ]]
+v35.update = function(v56, v57, v58, v59, v60) --[[ Line: 433 ]] --[[ Name: update ]]
     -- upvalues: v20 (copy), v16 (copy), l_Logging_0 (copy)
     if not v57.AvatarExperience.AvatarScene.Character.CurrentCharacter then
         if v56.onUpdateFinished then
@@ -176,7 +176,7 @@ v35.update = function(v56, v57, v58, v59, v60) --[[ Line: 432 ]] --[[ Name: upda
             end;
             assert(v56.loadAssetsPromise == nil, "self.loadAssetsPromise should be nil");
             v56.loadAssetsPromise = v56:makeLoadAssetsPromise(v61, v63);
-            v56.loadAssetsPromise:andThen(function(v71) --[[ Line: 514 ]]
+            v56.loadAssetsPromise:andThen(function(v71) --[[ Line: 515 ]]
                 -- upvalues: v56 (copy), v20 (ref), v61 (copy), v63 (copy), v62 (copy), v16 (ref)
                 v56.loadAssetsPromise = nil;
                 v56.currentLoadedAssets = v71;
@@ -191,7 +191,7 @@ v35.update = function(v56, v57, v58, v59, v60) --[[ Line: 432 ]] --[[ Name: upda
                     end;
                     return v16.resolve();
                 end;
-            end):catch(function(v72) --[[ Line: 537 ]]
+            end):catch(function(v72) --[[ Line: 538 ]]
                 -- upvalues: v56 (copy), l_Logging_0 (ref), v62 (copy), v61 (copy), v63 (copy)
                 v56.loadAssetsPromise = nil;
                 l_Logging_0.warn("Error in loadAssetsPromise: " .. tostring(v72));
@@ -203,7 +203,7 @@ v35.update = function(v56, v57, v58, v59, v60) --[[ Line: 432 ]] --[[ Name: upda
         end;
     end;
 end;
-v35.createStateTransitions = function(v73, v74, v75, v76, v77) --[[ Line: 547 ]] --[[ Name: createStateTransitions ]]
+v35.createStateTransitions = function(v73, v74, v75, v76, v77) --[[ Line: 548 ]] --[[ Name: createStateTransitions ]]
     -- upvalues: v12 (copy), v8 (copy)
     local l_CurrentCharacter_0 = v74.AvatarExperience.AvatarScene.Character.CurrentCharacter;
     local l_CurrentCharacter_1 = v75.AvatarExperience.AvatarScene.Character.CurrentCharacter;
@@ -220,7 +220,7 @@ v35.createStateTransitions = function(v73, v74, v75, v76, v77) --[[ Line: 547 ]]
         didSomethingThatShouldTriggerLookAround = v85
     };
 end;
-v35.shouldResumeLookAroundAfterCharacterSwap = function(v86, v87, v88, v89, v90, v91) --[[ Line: 589 ]] --[[ Name: shouldResumeLookAroundAfterCharacterSwap ]]
+v35.shouldResumeLookAroundAfterCharacterSwap = function(v86, v87, v88, v89, v90, v91) --[[ Line: 590 ]] --[[ Name: shouldResumeLookAroundAfterCharacterSwap ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), v34 (copy), v8 (copy)
     if not (v88 ~= v89) then
         return false;
@@ -240,7 +240,7 @@ v35.shouldResumeLookAroundAfterCharacterSwap = function(v86, v87, v88, v89, v90,
         return false;
     end;
 end;
-v35.getDidSomethingThatShouldTriggerLookAround = function(v92, v93, v94, v95, v96, v97) --[[ Line: 654 ]] --[[ Name: getDidSomethingThatShouldTriggerLookAround ]]
+v35.getDidSomethingThatShouldTriggerLookAround = function(v92, v93, v94, v95, v96, v97) --[[ Line: 655 ]] --[[ Name: getDidSomethingThatShouldTriggerLookAround ]]
     -- upvalues: v8 (copy), v12 (copy), v34 (copy)
     local v98 = v8.getHumanoidFromCharacter(v93);
     if not v98 then
@@ -290,7 +290,7 @@ v35.getDidSomethingThatShouldTriggerLookAround = function(v92, v93, v94, v95, v9
         end;
     end;
 end;
-v35.createStateDigest = function(v111, v112, v113) --[[ Line: 758 ]] --[[ Name: createStateDigest ]]
+v35.createStateDigest = function(v111, v112, v113) --[[ Line: 759 ]] --[[ Name: createStateDigest ]]
     -- upvalues: v12 (copy), v8 (copy), v11 (copy), l_AvatarScreen_0 (copy), v32 (copy), v10 (copy), v21 (copy), v26 (copy), v13 (copy), v30 (copy), v22 (copy)
     local l_name_0 = v113.opaque.name;
     local v115 = v12.getCategoryInfoFromState(v112, v113);
@@ -342,7 +342,7 @@ v35.createStateDigest = function(v111, v112, v113) --[[ Line: 758 ]] --[[ Name: 
         cameraButtonEnabled = if v129 then v112.AvatarExperience.CameraButton.enabled else nil
     };
 end;
-v35.getAssetIdsToLoad = function(v130, v131, v132) --[[ Line: 843 ]] --[[ Name: getAssetIdsToLoad ]]
+v35.getAssetIdsToLoad = function(v130, v131, v132) --[[ Line: 844 ]] --[[ Name: getAssetIdsToLoad ]]
     -- upvalues: v7 (copy), v23 (copy), v18 (copy)
     if v131.isInPPE then
         return v7.getAssetIdsToLoad(v132, v131.shouldPlayMoodAnimations);
@@ -360,7 +360,7 @@ v35.getAssetIdsToLoad = function(v130, v131, v132) --[[ Line: 843 ]] --[[ Name: 
         return v133;
     end;
 end;
-v35.getMainBodyAssetId = function(v135, v136, v137) --[[ Line: 872 ]] --[[ Name: getMainBodyAssetId ]]
+v35.getMainBodyAssetId = function(v135, v136, v137) --[[ Line: 873 ]] --[[ Name: getMainBodyAssetId ]]
     -- upvalues: v10 (copy), v8 (copy)
     if v137.AvatarExperience.AvatarEditor.Character.AvatarType == v10.AvatarType.R6 then
         return nil;
@@ -399,7 +399,7 @@ v35.getMainBodyAssetId = function(v135, v136, v137) --[[ Line: 872 ]] --[[ Name:
         end;
     end;
 end;
-v35.getAvatarBackgroundAssetId = function(_, v146) --[[ Line: 934 ]] --[[ Name: getAvatarBackgroundAssetId ]]
+v35.getAvatarBackgroundAssetId = function(_, v146) --[[ Line: 935 ]] --[[ Name: getAvatarBackgroundAssetId ]]
     -- upvalues: v8 (copy)
     if not v146.AvatarExperience.Common.PlayEmoteInBackground.shouldPlayEmoteInBackground then
         return nil;
@@ -417,7 +417,7 @@ v35.getAvatarBackgroundAssetId = function(_, v146) --[[ Line: 934 ]] --[[ Name: 
         end;
     end;
 end;
-v35.getTryOnMainBodyAssetId = function(_, v151, v152) --[[ Line: 962 ]] --[[ Name: getTryOnMainBodyAssetId ]]
+v35.getTryOnMainBodyAssetId = function(_, v151, v152) --[[ Line: 963 ]] --[[ Name: getTryOnMainBodyAssetId ]]
     -- upvalues: v25 (copy), l_AssetTypeIdStrings_0 (copy), v24 (copy)
     local l_TryOn_0 = v152.AvatarExperience.AvatarScene.TryOn;
     local l_OutfitTryOn_1 = v152.AvatarExperience.AvatarScene.OutfitTryOn;
@@ -445,7 +445,7 @@ v35.getTryOnMainBodyAssetId = function(_, v151, v152) --[[ Line: 962 ]] --[[ Nam
         end;
     end;
 end;
-v35.getMultiTryOnTriedOnEmote = function(_, v159) --[[ Line: 1026 ]] --[[ Name: getMultiTryOnTriedOnEmote ]]
+v35.getMultiTryOnTriedOnEmote = function(_, v159) --[[ Line: 1027 ]] --[[ Name: getMultiTryOnTriedOnEmote ]]
     -- upvalues: l_AssetTypeIdStrings_0 (copy)
     for _, v161 in v159.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
         if v161.itemSubType == l_AssetTypeIdStrings_0.EmoteAnimation then
@@ -454,11 +454,11 @@ v35.getMultiTryOnTriedOnEmote = function(_, v159) --[[ Line: 1026 ]] --[[ Name: 
     end;
     return nil;
 end;
-v35.makeLoadAssetsPromise = function(v162, v163, v164) --[[ Line: 1037 ]] --[[ Name: makeLoadAssetsPromise ]]
+v35.makeLoadAssetsPromise = function(v162, v163, v164) --[[ Line: 1038 ]] --[[ Name: makeLoadAssetsPromise ]]
     -- upvalues: v16 (copy), v7 (copy), v8 (copy), v20 (copy), l_ContentProvider_0 (copy)
-    return v16.new(function(v165, _, v167) --[[ Line: 1041 ]]
+    return v16.new(function(v165, _, v167) --[[ Line: 1042 ]]
         -- upvalues: v7 (ref), v162 (copy), v163 (copy), v164 (copy), v8 (ref), v20 (ref), l_ContentProvider_0 (ref)
-        v167(function() --[[ Line: 1042 ]]
+        v167(function() --[[ Line: 1043 ]]
             -- upvalues: v7 (ref), v162 (ref)
             v7.maybeNoteLoadingFinished(v162.store);
         end);
@@ -488,7 +488,7 @@ v35.makeLoadAssetsPromise = function(v162, v163, v164) --[[ Line: 1037 ]] --[[ N
         end;
     end);
 end;
-v35.playLoadedAssets = function(v170, v171, v172, v173) --[[ Line: 1094 ]] --[[ Name: playLoadedAssets ]]
+v35.playLoadedAssets = function(v170, v171, v172, v173) --[[ Line: 1095 ]] --[[ Name: playLoadedAssets ]]
     -- upvalues: v8 (copy), v7 (copy), v13 (copy), v30 (copy)
     if v170.unresolvedStateTransitions.didUpdateCharacter then
         v170:cleanupAllAnimationTracks();
@@ -518,7 +518,7 @@ v35.playLoadedAssets = function(v170, v171, v172, v173) --[[ Line: 1094 ]] --[[ 
         return;
     end;
 end;
-v35.cleanupAllAnimationTracks = function(v176) --[[ Line: 1142 ]] --[[ Name: cleanupAllAnimationTracks ]]
+v35.cleanupAllAnimationTracks = function(v176) --[[ Line: 1143 ]] --[[ Name: cleanupAllAnimationTracks ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), v8 (copy)
     for _, v178 in pairs(l_AnimationTrackWithConnectionsTypes_0) do
         v8.cleanupAnimationTrackWithConnections(v176.animationTrackWithConnectionsByType[v178]);
@@ -529,7 +529,7 @@ v35.cleanupAllAnimationTracks = function(v176) --[[ Line: 1142 ]] --[[ Name: cle
     end;
     v176.stoppedButNotEndedATWCsByName = {};
 end;
-v35.stopAnimationsAndMaybeProceedWithPPEPosing = function(v181) --[[ Line: 1163 ]] --[[ Name: stopAnimationsAndMaybeProceedWithPPEPosing ]]
+v35.stopAnimationsAndMaybeProceedWithPPEPosing = function(v181) --[[ Line: 1164 ]] --[[ Name: stopAnimationsAndMaybeProceedWithPPEPosing ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy)
     assert(v181.currentStateDigest.isInPPE, "Must be in PPE");
     assert(v181.currentStateDigest.isInAX, "Must be in in AX");
@@ -538,9 +538,9 @@ v35.stopAnimationsAndMaybeProceedWithPPEPosing = function(v181) --[[ Line: 1163 
     end;
     v181:maybeProceedWithPPEPosing();
 end;
-v35.maybeProceedWithPPEPosing = function(v184) --[[ Line: 1182 ]] --[[ Name: maybeProceedWithPPEPosing ]]
+v35.maybeProceedWithPPEPosing = function(v184) --[[ Line: 1183 ]] --[[ Name: maybeProceedWithPPEPosing ]]
     -- upvalues: v8 (copy), v7 (copy)
-    local function v187() --[[ Line: 1183 ]] --[[ Name: maybeProceedWithPPEPosingInner ]]
+    local function v187() --[[ Line: 1184 ]] --[[ Name: maybeProceedWithPPEPosingInner ]]
         -- upvalues: v184 (copy), v8 (ref), v7 (ref)
         if not v184.currentStateDigest.isInPPE then
             return;
@@ -561,12 +561,12 @@ v35.maybeProceedWithPPEPosing = function(v184) --[[ Line: 1182 ]] --[[ Name: may
             return;
         end;
     end;
-    v8.waitForAnimationAndPosingToResolve(function() --[[ Line: 1222 ]]
+    v8.waitForAnimationAndPosingToResolve(function() --[[ Line: 1223 ]]
         -- upvalues: v187 (copy)
         v187();
     end);
 end;
-v35.animationTrackWithConnectionsIsPlaying = function(v188, v189) --[[ Line: 1227 ]] --[[ Name: animationTrackWithConnectionsIsPlaying ]]
+v35.animationTrackWithConnectionsIsPlaying = function(v188, v189) --[[ Line: 1228 ]] --[[ Name: animationTrackWithConnectionsIsPlaying ]]
     -- upvalues: v8 (copy)
     local v190 = v188.animationTrackWithConnectionsByType[v189];
     if v190 then
@@ -575,7 +575,7 @@ v35.animationTrackWithConnectionsIsPlaying = function(v188, v189) --[[ Line: 122
         return false;
     end;
 end;
-v35.animationsAreMovingAvatar = function(v191) --[[ Line: 1235 ]] --[[ Name: animationsAreMovingAvatar ]]
+v35.animationsAreMovingAvatar = function(v191) --[[ Line: 1236 ]] --[[ Name: animationsAreMovingAvatar ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy)
     for _, v193 in pairs(l_AnimationTrackWithConnectionsTypes_0) do
         if v191:animationTrackWithConnectionsIsPlaying(v193) then
@@ -588,7 +588,7 @@ v35.animationsAreMovingAvatar = function(v191) --[[ Line: 1235 ]] --[[ Name: ani
         return false;
     end;
 end;
-v35.updateToolAnimation = function(v194, v195) --[[ Line: 1261 ]] --[[ Name: updateToolAnimation ]]
+v35.updateToolAnimation = function(v194, v195) --[[ Line: 1262 ]] --[[ Name: updateToolAnimation ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), v8 (copy), v18 (copy)
     assert(not v195.isInPPE, "Should not be in PPE");
     if not v195.toolEquipped then
@@ -622,11 +622,11 @@ v35.updateToolAnimation = function(v194, v195) --[[ Line: 1261 ]] --[[ Name: upd
                 local v202 = {
                     assetId = v200
                 };
-                v202.stoppedConnection = v199.Stopped:Connect(function() --[[ Line: 1316 ]]
+                v202.stoppedConnection = v199.Stopped:Connect(function() --[[ Line: 1317 ]]
                     -- upvalues: v194 (copy), v199 (ref), v202 (copy)
                     v194:handleStoppedConnection(v199, v202);
                 end);
-                v202.endedConnection = v199.Ended:Connect(function() --[[ Line: 1319 ]]
+                v202.endedConnection = v199.Ended:Connect(function() --[[ Line: 1320 ]]
                     -- upvalues: v194 (copy), v199 (ref)
                     v194:handleEndedConnection(v199);
                 end);
@@ -640,7 +640,7 @@ v35.updateToolAnimation = function(v194, v195) --[[ Line: 1261 ]] --[[ Name: upd
         end;
     end;
 end;
-v35.updateMoodAnimation = function(v203, v204, v205, v206) --[[ Line: 1346 ]] --[[ Name: updateMoodAnimation ]]
+v35.updateMoodAnimation = function(v203, v204, v205, v206) --[[ Line: 1347 ]] --[[ Name: updateMoodAnimation ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), v8 (copy)
     assert(not v204.isInPPE, "Should not be in PPE");
     if v205.moodAssetId == nil or v206.moodAnimStringValues == nil then
@@ -675,11 +675,11 @@ v35.updateMoodAnimation = function(v203, v204, v205, v206) --[[ Line: 1346 ]] --
                 local v212 = {
                     assetId = v205.moodAssetId
                 };
-                v212.stoppedConnection = v208.Stopped:Connect(function() --[[ Line: 1406 ]]
+                v212.stoppedConnection = v208.Stopped:Connect(function() --[[ Line: 1407 ]]
                     -- upvalues: v203 (copy), v208 (ref), v212 (copy)
                     v203:handleStoppedConnection(v208, v212);
                 end);
-                v212.endedConnection = v208.Ended:Connect(function() --[[ Line: 1409 ]]
+                v212.endedConnection = v208.Ended:Connect(function() --[[ Line: 1410 ]]
                     -- upvalues: v203 (copy), v208 (ref)
                     v203:handleEndedConnection(v208);
                 end);
@@ -694,7 +694,7 @@ v35.updateMoodAnimation = function(v203, v204, v205, v206) --[[ Line: 1346 ]] --
         end;
     end;
 end;
-v35.updateCameraBasedMoodAnimation = function(v213, v214) --[[ Line: 1441 ]] --[[ Name: updateCameraBasedMoodAnimation ]]
+v35.updateCameraBasedMoodAnimation = function(v213, v214) --[[ Line: 1442 ]] --[[ Name: updateCameraBasedMoodAnimation ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), l_FaceAnimatorService_0 (copy), v8 (copy)
     assert(not v214.isInPPE, "Should not be in PPE");
     local v215 = v213.animationTrackWithConnectionsByType[l_AnimationTrackWithConnectionsTypes_0.CameraStream];
@@ -719,7 +719,7 @@ v35.updateCameraBasedMoodAnimation = function(v213, v214) --[[ Line: 1441 ]] --[
         assert(v218, "cameraBasedMoodAnimationTrack is not nil. If it is ever nil, it should be investigated if a dependent flag is missing");
         v216.animationTrack = v218;
         v216.animationTrack.Name = v213:getNextAnimationTrackName("CameraBasedMoodAnimation");
-        v216.stoppedConnection = v218.Stopped:Connect(function() --[[ Line: 1484 ]]
+        v216.stoppedConnection = v218.Stopped:Connect(function() --[[ Line: 1485 ]]
             -- upvalues: v213 (copy), v218 (copy), v216 (copy)
             v213:handleStoppedConnection(v218, v216);
             v213:handleEndedConnection(v218);
@@ -735,7 +735,7 @@ v35.updateCameraBasedMoodAnimation = function(v213, v214) --[[ Line: 1441 ]] --[
         return;
     end;
 end;
-v35.updateMainBodyAnimationAfterPlayingLookAround = function(v219, v220, v221, v222) --[[ Line: 1516 ]] --[[ Name: updateMainBodyAnimationAfterPlayingLookAround ]]
+v35.updateMainBodyAnimationAfterPlayingLookAround = function(v219, v220, v221, v222) --[[ Line: 1517 ]] --[[ Name: updateMainBodyAnimationAfterPlayingLookAround ]]
     -- upvalues: v8 (copy), l_AnimationTrackWithConnectionsTypes_0 (copy)
     assert(not v220.isInPPE, "Should not be in PPE");
     local l_mainBodyAnimStringValues_0 = v222.mainBodyAnimStringValues;
@@ -778,15 +778,15 @@ v35.updateMainBodyAnimationAfterPlayingLookAround = function(v219, v220, v221, v
             local v236 = {
                 assetId = l_mainBodyAssetId_0
             };
-            v236.stoppedConnection = v227.Stopped:Connect(function() --[[ Line: 1586 ]]
+            v236.stoppedConnection = v227.Stopped:Connect(function() --[[ Line: 1587 ]]
                 -- upvalues: v219 (copy), v227 (ref), v236 (copy)
                 v219:handleStoppedConnection(v227, v236);
             end);
-            v236.endedConnection = v227.Ended:Connect(function() --[[ Line: 1589 ]]
+            v236.endedConnection = v227.Ended:Connect(function() --[[ Line: 1590 ]]
                 -- upvalues: v219 (copy), v227 (ref)
                 v219:handleEndedConnection(v227);
             end);
-            v236.didLoopConnection = v227.DidLoop:Connect(function() --[[ Line: 1592 ]]
+            v236.didLoopConnection = v227.DidLoop:Connect(function() --[[ Line: 1593 ]]
                 -- upvalues: v219 (copy), v227 (ref), l_AnimationTrackWithConnectionsTypes_0 (ref), v220 (copy), v221 (copy), v222 (copy)
                 if v219.destroyed then
                     return;
@@ -807,7 +807,7 @@ v35.updateMainBodyAnimationAfterPlayingLookAround = function(v219, v220, v221, v
         end;
     end;
 end;
-v35.updateMainBodyAnimation = function(v237, v238, v239, v240) --[[ Line: 1618 ]] --[[ Name: updateMainBodyAnimation ]]
+v35.updateMainBodyAnimation = function(v237, v238, v239, v240) --[[ Line: 1619 ]] --[[ Name: updateMainBodyAnimation ]]
     -- upvalues: l_AnimationTrackWithConnectionsTypes_0 (copy), v8 (copy)
     assert(not v238.isInPPE, "Should not be in PPE");
     local l_mainBodyAnimStringValues_1 = v240.mainBodyAnimStringValues;
@@ -849,8 +849,8 @@ v35.updateMainBodyAnimation = function(v237, v238, v239, v240) --[[ Line: 1618 ]
         end;
     end;
 end;
-v35.playMainBodyAnimation = function(v252, v253, v254, v255, v256, v257, v258) --[[ Line: 1698 ]] --[[ Name: playMainBodyAnimation ]]
-    -- upvalues: v8 (copy), v14 (copy), l_AnimationTrackWithConnectionsTypes_0 (copy)
+v35.playMainBodyAnimation = function(v252, v253, v254, v255, v256, v257, v258) --[[ Line: 1699 ]] --[[ Name: playMainBodyAnimation ]]
+    -- upvalues: v8 (copy), l_PlayingSwimAnimation_0 (copy), l_AnimationTrackWithConnectionsTypes_0 (copy)
     local v259 = v257 or 0;
     local l_CurrentCharacter_10 = v252.store:getState().AvatarExperience.AvatarScene.Character.CurrentCharacter;
     local v261 = v8.animatorLoadAnimationTrack(l_CurrentCharacter_10, v253, v252.debugLoadAssetsFromFiles);
@@ -858,24 +858,24 @@ v35.playMainBodyAnimation = function(v252, v253, v254, v255, v256, v257, v258) -
         return;
     else
         assert(v261, "animationTrack is not nil.  Silences type checker");
-        local l_PlayingSwimAnimation_0 = v252.store:getState().AvatarExperience.AvatarScene.Character.PlayingSwimAnimation;
+        local l_PlayingSwimAnimation_1 = v252.store:getState().AvatarExperience.AvatarScene.Character.PlayingSwimAnimation;
         local v263 = v8.isSwimAnimation(v253);
-        if l_PlayingSwimAnimation_0 ~= v263 then
-            v252.store:dispatch(v14(v263));
+        if l_PlayingSwimAnimation_1 ~= v263 then
+            v252.store:dispatch(l_PlayingSwimAnimation_0(v263));
         end;
         v261.Looped = true;
         local v264 = {
             assetId = v255
         };
-        v264.stoppedConnection = v261.Stopped:Connect(function() --[[ Line: 1728 ]]
+        v264.stoppedConnection = v261.Stopped:Connect(function() --[[ Line: 1729 ]]
             -- upvalues: v252 (copy), v261 (copy), v264 (copy)
             v252:handleStoppedConnection(v261, v264);
         end);
-        v264.endedConnection = v261.Ended:Connect(function() --[[ Line: 1731 ]]
+        v264.endedConnection = v261.Ended:Connect(function() --[[ Line: 1732 ]]
             -- upvalues: v252 (copy), v261 (copy)
             v252:handleEndedConnection(v261);
         end);
-        v264.didLoopConnection = v261.DidLoop:Connect(function() --[[ Line: 1734 ]]
+        v264.didLoopConnection = v261.DidLoop:Connect(function() --[[ Line: 1735 ]]
             -- upvalues: v252 (copy), v261 (copy), l_AnimationTrackWithConnectionsTypes_0 (ref), v259 (ref), v254 (copy), v256 (copy), v8 (ref), v258 (copy), v253 (copy), v255 (copy)
             if v252.destroyed then
                 return;
@@ -925,7 +925,7 @@ v35.playMainBodyAnimation = function(v252, v253, v254, v255, v256, v257, v258) -
         return;
     end;
 end;
-v35.selectBestMainBodyAnimation = function(v271, v272, v273, v274) --[[ Line: 1822 ]] --[[ Name: selectBestMainBodyAnimation ]]
+v35.selectBestMainBodyAnimation = function(v271, v272, v273, v274) --[[ Line: 1823 ]] --[[ Name: selectBestMainBodyAnimation ]]
     local v275, v276 = v271:findNextPlayableWeightedAnimations(v272, v273, v274);
     local v277, v278 = next(v275);
     if not v277 then
@@ -942,7 +942,7 @@ v35.selectBestMainBodyAnimation = function(v271, v272, v273, v274) --[[ Line: 18
         return l_v277_0, v276;
     end;
 end;
-v35.findNextPlayableWeightedAnimations = function(_, v284, v285, v286) --[[ Line: 1844 ]] --[[ Name: findNextPlayableWeightedAnimations ]]
+v35.findNextPlayableWeightedAnimations = function(_, v284, v285, v286) --[[ Line: 1845 ]] --[[ Name: findNextPlayableWeightedAnimations ]]
     -- upvalues: v8 (copy)
     for _ = 1, #v284 do
         local v288 = if v284[v285] then v284[v285]:GetChildren() else nil;
@@ -957,7 +957,7 @@ v35.findNextPlayableWeightedAnimations = function(_, v284, v285, v286) --[[ Line
     end;
     return {}, v285;
 end;
-v35.getFallbackMainBodyAnimStringValuesAndMockAssetId = function(v292, v293) --[[ Line: 1885 ]] --[[ Name: getFallbackMainBodyAnimStringValuesAndMockAssetId ]]
+v35.getFallbackMainBodyAnimStringValuesAndMockAssetId = function(v292, v293) --[[ Line: 1886 ]] --[[ Name: getFallbackMainBodyAnimStringValuesAndMockAssetId ]]
     -- upvalues: l_AssetTypeIdStrings_0 (copy), v8 (copy)
     local l_CurrentCharacter_11 = v292.store:getState().AvatarExperience.AvatarScene.Character.CurrentCharacter;
     assert(l_CurrentCharacter_11, "currentCharacter is not nil");
@@ -983,7 +983,7 @@ v35.getFallbackMainBodyAnimStringValuesAndMockAssetId = function(v292, v293) --[
         return v297, v298;
     end;
 end;
-v35.getAnimStringValuesAssignedToCharacter = function(v299, v300, v301) --[[ Line: 1918 ]] --[[ Name: getAnimStringValuesAssignedToCharacter ]]
+v35.getAnimStringValuesAssignedToCharacter = function(v299, v300, v301) --[[ Line: 1919 ]] --[[ Name: getAnimStringValuesAssignedToCharacter ]]
     -- upvalues: l_AssetTypeIdStrings_0 (copy), v10 (copy), v8 (copy)
     local l_AvatarType_0 = v299.store:getState().AvatarExperience.AvatarEditor.Character.AvatarType;
     local v303 = {};
@@ -1027,7 +1027,7 @@ v35.getAnimStringValuesAssignedToCharacter = function(v299, v300, v301) --[[ Lin
         end;
     end;
 end;
-v35.stopAnimationTrackWithConnections = function(v307, v308, v309) --[[ Line: 1966 ]] --[[ Name: stopAnimationTrackWithConnections ]]
+v35.stopAnimationTrackWithConnections = function(v307, v308, v309) --[[ Line: 1967 ]] --[[ Name: stopAnimationTrackWithConnections ]]
     -- upvalues: v8 (copy)
     local v310 = v307.animationTrackWithConnectionsByType[v308];
     if v310 then
@@ -1045,7 +1045,7 @@ v35.stopAnimationTrackWithConnections = function(v307, v308, v309) --[[ Line: 19
         end;
     end;
 end;
-v35.handleStoppedConnection = function(v311, v312, v313) --[[ Line: 1996 ]] --[[ Name: handleStoppedConnection ]]
+v35.handleStoppedConnection = function(v311, v312, v313) --[[ Line: 1997 ]] --[[ Name: handleStoppedConnection ]]
     if v311.destroyed then
         return;
     else
@@ -1057,7 +1057,7 @@ v35.handleStoppedConnection = function(v311, v312, v313) --[[ Line: 1996 ]] --[[
         return;
     end;
 end;
-v35.handleEndedConnection = function(v314, v315) --[[ Line: 2015 ]] --[[ Name: handleEndedConnection ]]
+v35.handleEndedConnection = function(v314, v315) --[[ Line: 2016 ]] --[[ Name: handleEndedConnection ]]
     -- upvalues: v31 (copy), v15 (copy)
     assert(v315, "originalTrack should exist");
     if v314.destroyed then
@@ -1077,18 +1077,18 @@ v35.handleEndedConnection = function(v314, v315) --[[ Line: 2015 ]] --[[ Name: h
         return;
     end;
 end;
-v35.setOnUpdateFinished = function(v317, v318) --[[ Line: 2052 ]] --[[ Name: setOnUpdateFinished ]]
+v35.setOnUpdateFinished = function(v317, v318) --[[ Line: 2053 ]] --[[ Name: setOnUpdateFinished ]]
     v317.onUpdateFinished = v318;
 end;
-v35.setDebugLoadAssetsFromFiles = function(v319, v320, v321) --[[ Line: 2056 ]] --[[ Name: setDebugLoadAssetsFromFiles ]]
+v35.setDebugLoadAssetsFromFiles = function(v319, v320, v321) --[[ Line: 2057 ]] --[[ Name: setDebugLoadAssetsFromFiles ]]
     v319.debugLoadAssetsFromFiles = v320;
     v319.mapAssetIdToFileName = v321;
 end;
-v35.getNextAnimationTrackName = function(v322, v323) --[[ Line: 2064 ]] --[[ Name: getNextAnimationTrackName ]]
+v35.getNextAnimationTrackName = function(v322, v323) --[[ Line: 2065 ]] --[[ Name: getNextAnimationTrackName ]]
     v322.animationTrackNameIndex = v322.animationTrackNameIndex + 1;
     return "AnimationTrack_" .. v323 .. "_" .. tostring(v322.animationTrackNameIndex);
 end;
-v35.recordAnimationTrackProgress = function(v324, v325, v326) --[[ Line: 2069 ]] --[[ Name: recordAnimationTrackProgress ]]
+v35.recordAnimationTrackProgress = function(v324, v325, v326) --[[ Line: 2070 ]] --[[ Name: recordAnimationTrackProgress ]]
     if v324.animationTrackNameToHistory == nil then
         v324.animationTrackNameToHistory = {};
     end;
@@ -1099,7 +1099,7 @@ v35.recordAnimationTrackProgress = function(v324, v325, v326) --[[ Line: 2069 ]]
     end;
     table.insert(v327, v326);
 end;
-v35.getAnimationTrackRecordString = function(v328, v329) --[[ Line: 2081 ]] --[[ Name: getAnimationTrackRecordString ]]
+v35.getAnimationTrackRecordString = function(v328, v329) --[[ Line: 2082 ]] --[[ Name: getAnimationTrackRecordString ]]
     local v330 = "Name = " .. v329;
     local v331 = v328.animationTrackNameToHistory[v329];
     if v331 == nil then

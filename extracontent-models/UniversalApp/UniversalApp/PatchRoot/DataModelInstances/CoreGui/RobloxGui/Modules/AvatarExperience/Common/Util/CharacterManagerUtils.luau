@@ -14,12 +14,14 @@ local _ = require(l_Modules_0.AvatarExperience.Common.Types);
 local v13 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectDefaultTryOnBodyColorsToggled);
 local v14 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectDefaultTryOnBodyColors);
 local l_setMakeupDescriptions_0 = v7.Utils.setMakeupDescriptions;
-local v16 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.LayeredClothingSortUtils);
-local v17 = require(l_Modules_0.AvatarExperience.Common.Util.AvatarWidgetBlockyUtils);
-local v18 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagFixCharacterManagerValueConversionWarning);
-local v19 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXFixOrderFieldUnlayeredItems);
+local l_destroyMakeupDescriptions_0 = v7.Utils.destroyMakeupDescriptions;
+local v17 = require(l_Modules_0.AvatarExperience.LayeredClothingSort.LayeredClothingSortUtils);
+local v18 = require(l_Modules_0.AvatarExperience.Common.Util.AvatarWidgetBlockyUtils);
+local v19 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagFixCharacterManagerValueConversionWarning);
+local v20 = require(l_Modules_0.AvatarExperience.Flags.GetFFlagAXFixOrderFieldUnlayeredItems);
 local l_FFlagAXMISEnableMultiShopping_0 = v6.FFlagAXMISEnableMultiShopping;
 local l_FFlagAXCatalogMakeupSupport_0 = v6.FFlagAXCatalogMakeupSupport;
+local l_FFlagAXRemoveMakeupAvatarLookTryOn_0 = v6.FFlagAXRemoveMakeupAvatarLookTryOn;
 local l_FFlagAXMakeupEquipping_0 = v6.FFlagAXMakeupEquipping;
 local l_FFlagEnableHeadShapeForCharacterManager_0 = v6.FFlagEnableHeadShapeForCharacterManager;
 local l_isMakeupAssetType_0 = v7.Utils.isMakeupAssetType;
@@ -27,168 +29,169 @@ local l_FFlagDynamicHeadsMigration_0 = v6.FFlagDynamicHeadsMigration;
 local l_FFlagHeadRefinementFacialAnimationToggle_0 = v6.FFlagHeadRefinementFacialAnimationToggle;
 local l_FFlagFixHeadShapeColorSlider_0 = v6.FFlagFixHeadShapeColorSlider;
 local l_FFlagAXFixR6DefaultHeadShape_0 = v6.FFlagAXFixR6DefaultHeadShape;
-local v29 = require(l_Modules_0.AvatarExperience.AvatarRefinement.HeadRefinement.Selectors.selectLastTryOnClassicHeadShapeAssetId);
-local v30 = {};
-local function v39(v31, v32) --[[ Line: 71 ]] --[[ Name: getIsInLCSortIsRemovedTuple ]]
-    -- upvalues: l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v16 (copy)
-    local v33 = v31.AvatarExperience and v31.AvatarExperience.LayeredClothingSort;
-    local v34 = v33 and v33.CurrentSort;
+local v31 = require(l_Modules_0.AvatarExperience.AvatarRefinement.HeadRefinement.Selectors.selectLastTryOnClassicHeadShapeAssetId);
+local v32 = game:DefineFastFlag("AXNilCheckEquippedAssets", false);
+local v33 = {};
+local function v42(v34, v35) --[[ Line: 75 ]] --[[ Name: getIsInLCSortIsRemovedTuple ]]
+    -- upvalues: l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v17 (copy)
+    local v36 = v34.AvatarExperience and v34.AvatarExperience.LayeredClothingSort;
+    local v37 = v36 and v36.CurrentSort;
     if l_FFlagHeadRefinementFacialAnimationToggle_0 then
-        if not v34 then
+        if not v37 then
             return false, false;
         else
-            local v35 = v34.OrderedList or {};
-            local v36 = v34.RemovedList or {};
-            return v16.createAssetIdToOrderMapping(v35)[v32], v36[v32];
+            local v38 = v37.OrderedList or {};
+            local v39 = v37.RemovedList or {};
+            return v17.createAssetIdToOrderMapping(v38)[v35], v39[v35];
         end;
     else
-        local l_OrderedList_0 = v31.AvatarExperience.LayeredClothingSort.CurrentSort.OrderedList;
-        local l_RemovedList_0 = v31.AvatarExperience.LayeredClothingSort.CurrentSort.RemovedList;
-        return v16.createAssetIdToOrderMapping(l_OrderedList_0)[v32], l_RemovedList_0[v32];
+        local l_OrderedList_0 = v34.AvatarExperience.LayeredClothingSort.CurrentSort.OrderedList;
+        local l_RemovedList_0 = v34.AvatarExperience.LayeredClothingSort.CurrentSort.RemovedList;
+        return v17.createAssetIdToOrderMapping(l_OrderedList_0)[v35], l_RemovedList_0[v35];
     end;
 end;
-v30.tryApplyClassicHeadShapeTryOn = function(v40, v41) --[[ Line: 95 ]] --[[ Name: tryApplyClassicHeadShapeTryOn ]]
-    -- upvalues: v11 (copy), v29 (copy)
-    local v42 = v40.AvatarExperience.AvatarScene.OutfitTryOn.LookId ~= nil;
-    local v43 = v11.isTryingOnDynamicHead(v40.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems);
-    local v44 = v29(v40);
-    if v42 or v43 or not v44 then
+v33.tryApplyClassicHeadShapeTryOn = function(v43, v44) --[[ Line: 99 ]] --[[ Name: tryApplyClassicHeadShapeTryOn ]]
+    -- upvalues: v11 (copy), v31 (copy)
+    local v45 = v43.AvatarExperience.AvatarScene.OutfitTryOn.LookId ~= nil;
+    local v46 = v11.isTryingOnDynamicHead(v43.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems);
+    local v47 = v31(v43);
+    if v45 or v46 or not v47 then
         return;
     else
-        v41.Head = v44;
+        v44.Head = v47;
         return;
     end;
 end;
-local function v62(v45, v46, v47, v48) --[[ Line: 110 ]] --[[ Name: updateHumanoidDescriptionTryOnFromNormalizedAssets ]]
+local function v65(v48, v49, v50, v51) --[[ Line: 114 ]] --[[ Name: updateHumanoidDescriptionTryOnFromNormalizedAssets ]]
     -- upvalues: v9 (copy), v11 (copy)
-    if not v47 or #v47 == 0 then
-        return v46;
+    if not v50 or #v50 == 0 then
+        return v49;
     else
-        table.sort(v47, function(v49, v50) --[[ Line: 124 ]]
-            if v49.itemRecency and v50.itemRecency then
-                return v49.itemRecency < v50.itemRecency;
+        table.sort(v50, function(v52, v53) --[[ Line: 128 ]]
+            if v52.itemRecency and v53.itemRecency then
+                return v52.itemRecency < v53.itemRecency;
             else
                 return false;
             end;
         end);
-        for v51, v52 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
-            if v9.AssetTypeIdToCategory[v51] == v9.AssetCategories.Body then
-                local v53 = v48[v52];
-                if v53 ~= nil then
-                    for _, v55 in v53 do
-                        for v56, _ in v55 do
-                            v45[v52] = v56;
+        for v54, v55 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
+            if v9.AssetTypeIdToCategory[v54] == v9.AssetCategories.Body then
+                local v56 = v51[v55];
+                if v56 ~= nil then
+                    for _, v58 in v56 do
+                        for v59, _ in v58 do
+                            v48[v55] = v59;
                         end;
                     end;
                 end;
             end;
         end;
-        for _, v59 in v47 do
-            if not v59.isRemovedInLCSort and v59.assetTypeId ~= v9.AssetTypeIdStrings.Gear and v59.assetId then
-                local v60 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v59.assetTypeId];
-                if v9.AssetTypeIdToAccessoryTypeEnum[v59.assetTypeId] then
-                    local v61 = v11.createDefaultHumanoidDescriptionAccessoryInfo(v59.assetTypeId, v59.assetId);
-                    if v59.order ~= nil then
-                        v61.Order = v59.order;
+        for _, v62 in v50 do
+            if not v62.isRemovedInLCSort and v62.assetTypeId ~= v9.AssetTypeIdStrings.Gear and v62.assetId then
+                local v63 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v62.assetTypeId];
+                if v9.AssetTypeIdToAccessoryTypeEnum[v62.assetTypeId] then
+                    local v64 = v11.createDefaultHumanoidDescriptionAccessoryInfo(v62.assetTypeId, v62.assetId);
+                    if v62.order ~= nil then
+                        v64.Order = v62.order;
                     end;
-                    v61.Position = v59.position;
-                    v61.Rotation = v59.rotation;
-                    v61.Scale = v59.scale;
-                    if not v46[v59.assetTypeId] or not v59.lookId then
-                        v46[v59.assetTypeId] = {};
+                    v64.Position = v62.position;
+                    v64.Rotation = v62.rotation;
+                    v64.Scale = v62.scale;
+                    if not v49[v62.assetTypeId] or not v62.lookId then
+                        v49[v62.assetTypeId] = {};
                     end;
-                    table.insert(v46[v59.assetTypeId], v61);
-                elseif v60 then
-                    v45[v60] = v59.lookId and v59.bundleId == tostring(v9.BlockyBundleId) and 0 or v59.assetId;
+                    table.insert(v49[v62.assetTypeId], v64);
+                elseif v63 then
+                    v48[v63] = v62.lookId and v62.bundleId == tostring(v9.BlockyBundleId) and 0 or v62.assetId;
                 end;
             end;
         end;
-        return v46;
+        return v49;
     end;
 end;
-local function v73(v63, v64, v65, v66, v67) --[[ Line: 205 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitAsset ]]
-    -- upvalues: v9 (copy), v11 (copy), v19 (copy), v39 (copy)
-    if not v64.selectedInTryOnManager then
+local function v76(v66, v67, v68, v69, v70) --[[ Line: 209 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitAsset ]]
+    -- upvalues: v9 (copy), v11 (copy), v20 (copy), v42 (copy)
+    if not v67.selectedInTryOnManager then
         return;
     else
-        local l_itemSubType_0 = v64.itemSubType;
-        if v65 and l_itemSubType_0 ~= v9.AssetTypeIdStrings.Gear then
-            local v69 = v9.AssetTypeIdStringToHumanoidDescriptionProp[l_itemSubType_0];
+        local l_itemSubType_0 = v67.itemSubType;
+        if v68 and l_itemSubType_0 ~= v9.AssetTypeIdStrings.Gear then
+            local v72 = v9.AssetTypeIdStringToHumanoidDescriptionProp[l_itemSubType_0];
             if v9.AssetTypeIdToAccessoryTypeEnum[l_itemSubType_0] then
-                local v70 = v11.createDefaultHumanoidDescriptionAccessoryInfo(l_itemSubType_0, v65);
-                if v64.order ~= nil and (not v19() or v70.IsLayered) then
-                    v70.Order = v64.order;
+                local v73 = v11.createDefaultHumanoidDescriptionAccessoryInfo(l_itemSubType_0, v68);
+                if v67.order ~= nil and (not v20() or v73.IsLayered) then
+                    v73.Order = v67.order;
                 end;
-                v70.Position = v64.position;
-                v70.Rotation = v64.rotation;
-                v70.Scale = v64.scale;
-                local _, v72 = v39(v63, v65);
-                if not v72 then
-                    table.insert(v66, v70);
+                v73.Position = v67.position;
+                v73.Rotation = v67.rotation;
+                v73.Scale = v67.scale;
+                local _, v75 = v42(v66, v68);
+                if not v75 then
+                    table.insert(v69, v73);
                     return;
                 end;
-            elseif v69 then
-                v67[v69] = v65;
+            elseif v72 then
+                v70[v72] = v68;
             end;
         end;
         return;
     end;
 end;
-local function v90(v74, v75, v76, v77, v78) --[[ Line: 253 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitBundle ]]
-    -- upvalues: v9 (copy), v11 (copy), v19 (copy), v39 (copy), v2 (copy)
-    for v79, v80 in v75.assets do
-        local v81 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v79];
-        local v82 = v81 and v79 ~= v9.AssetTypeIdStrings.Gear;
-        if v9.AssetTypeIdToAccessoryTypeEnum[v79] then
-            for v83, v84 in v80 do
-                local v85 = v11.createHumanoidDescriptionAccessoryInfo(v79, v83, v84);
-                local l_bundleInfo_0 = v76.bundleInfo;
-                if l_bundleInfo_0 and l_bundleInfo_0[v83] and l_bundleInfo_0[v83].order ~= nil and (not v19() or v85.IsLayered) then
-                    v85.Order = l_bundleInfo_0[v83].order;
+local function v93(v77, v78, v79, v80, v81) --[[ Line: 257 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitBundle ]]
+    -- upvalues: v9 (copy), v11 (copy), v20 (copy), v42 (copy), v2 (copy)
+    for v82, v83 in v78.assets do
+        local v84 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v82];
+        local v85 = v84 and v82 ~= v9.AssetTypeIdStrings.Gear;
+        if v9.AssetTypeIdToAccessoryTypeEnum[v82] then
+            for v86, v87 in v83 do
+                local v88 = v11.createHumanoidDescriptionAccessoryInfo(v82, v86, v87);
+                local l_bundleInfo_0 = v79.bundleInfo;
+                if l_bundleInfo_0 and l_bundleInfo_0[v86] and l_bundleInfo_0[v86].order ~= nil and (not v20() or v88.IsLayered) then
+                    v88.Order = l_bundleInfo_0[v86].order;
                 end;
-                if l_bundleInfo_0 and l_bundleInfo_0[v83] then
-                    v85.Position = l_bundleInfo_0[v83].position;
-                    v85.Rotation = l_bundleInfo_0[v83].rotation;
-                    v85.Scale = l_bundleInfo_0[v83].scale;
+                if l_bundleInfo_0 and l_bundleInfo_0[v86] then
+                    v88.Position = l_bundleInfo_0[v86].position;
+                    v88.Rotation = l_bundleInfo_0[v86].rotation;
+                    v88.Scale = l_bundleInfo_0[v86].scale;
                 end;
-                local _, v88 = v39(v74, v83);
-                if not v88 then
-                    table.insert(v77, v85);
+                local _, v91 = v42(v77, v86);
+                if not v91 then
+                    table.insert(v80, v88);
                 end;
             end;
-        elseif v82 then
-            local v89 = v2.Dictionary.keys(v80);
-            v78[v81] = table.concat(v89, ",");
+        elseif v85 then
+            local v92 = v2.Dictionary.keys(v83);
+            v81[v84] = table.concat(v92, ",");
         end;
     end;
 end;
-local function v108(v91, v92, v93, v94) --[[ Line: 305 ]] --[[ Name: updateHumanoidDescriptionTryOnItemBundle ]]
-    -- upvalues: v17 (copy), v9 (copy), v11 (copy), v39 (copy)
-    local v95 = v17.buildEquippedAssetMapByHumanoidDescriptionProp(v91);
-    assert(v92.bundleInfo, "tryOnBundleItem.bundleInfo is non-nil. Silence type checker.");
-    for v96, v97 in v92.bundleInfo do
-        local v98 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v97.assetType];
-        local v99 = v98 and v97.assetType ~= v9.AssetTypeIdStrings.Gear;
-        if v9.AssetTypeIdToAccessoryTypeEnum[v97.assetType] then
-            if v92.selectedInTryOnManager then
-                local v100 = v11.createDefaultHumanoidDescriptionAccessoryInfo(v97.assetType, v96);
-                if v97.order ~= nil then
-                    v100.Order = v97.order;
+local function v111(v94, v95, v96, v97) --[[ Line: 309 ]] --[[ Name: updateHumanoidDescriptionTryOnItemBundle ]]
+    -- upvalues: v18 (copy), v9 (copy), v11 (copy), v42 (copy)
+    local v98 = v18.buildEquippedAssetMapByHumanoidDescriptionProp(v94);
+    assert(v95.bundleInfo, "tryOnBundleItem.bundleInfo is non-nil. Silence type checker.");
+    for v99, v100 in v95.bundleInfo do
+        local v101 = v9.AssetTypeIdStringToHumanoidDescriptionProp[v100.assetType];
+        local v102 = v101 and v100.assetType ~= v9.AssetTypeIdStrings.Gear;
+        if v9.AssetTypeIdToAccessoryTypeEnum[v100.assetType] then
+            if v95.selectedInTryOnManager then
+                local v103 = v11.createDefaultHumanoidDescriptionAccessoryInfo(v100.assetType, v99);
+                if v100.order ~= nil then
+                    v103.Order = v100.order;
                 end;
-                local _, v102 = v39(v91, v96);
-                if not v102 then
-                    table.insert(v93, v100);
+                local _, v105 = v42(v94, v99);
+                if not v105 then
+                    table.insert(v96, v103);
                 end;
             end;
-        elseif v99 then
-            v94[v98] = v92.itemId == tostring(v9.BlockyBundleId) and 0 or v96;
-            if not v92.selectedInTryOnManager then
-                local v103 = v95[v98];
-                v94[v98] = 0;
-                if v103 ~= nil then
-                    for _, v105 in v103 do
-                        for v106, _ in v105 do
-                            v94[v98] = v106;
+        elseif v102 then
+            v97[v101] = v95.itemId == tostring(v9.BlockyBundleId) and 0 or v99;
+            if not v95.selectedInTryOnManager then
+                local v106 = v98[v101];
+                v97[v101] = 0;
+                if v106 ~= nil then
+                    for _, v108 in v106 do
+                        for v109, _ in v108 do
+                            v97[v101] = v109;
                         end;
                     end;
                 end;
@@ -196,333 +199,343 @@ local function v108(v91, v92, v93, v94) --[[ Line: 305 ]] --[[ Name: updateHuman
         end;
     end;
 end;
-local function v125(v109, v110, v111, v112) --[[ Line: 387 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitBundleNoUserOutfit ]]
-    -- upvalues: v11 (copy), v19 (copy), v39 (copy)
-    local l_AssetInfos_0 = v109.AvatarExperience.Common.AssetInfos;
-    local v114 = false;
-    if v111.items == nil then
+local function v128(v112, v113, v114, v115) --[[ Line: 391 ]] --[[ Name: updateHumanoidDescriptionTryOnOutfitBundleNoUserOutfit ]]
+    -- upvalues: v11 (copy), v20 (copy), v42 (copy)
+    local l_AssetInfos_0 = v112.AvatarExperience.Common.AssetInfos;
+    local v117 = false;
+    if v114.items == nil then
         return;
     else
-        assert(v111.items, "bundleInfo.items is non-nil. Silence type checker.");
-        for _, v116 in v111.items do
-            local v117 = l_AssetInfos_0[v116.id];
-            if not v117 or not v117.assetType then
-                v114 = true;
+        assert(v114.items, "bundleInfo.items is non-nil. Silence type checker.");
+        for _, v119 in v114.items do
+            local v120 = l_AssetInfos_0[v119.id];
+            if not v120 or not v120.assetType then
+                v117 = true;
             end;
         end;
-        if not v114 then
-            for _, v119 in v111.items do
-                local l_assetType_0 = l_AssetInfos_0[v119.id].assetType;
-                local v121 = v11.createDefaultHumanoidDescriptionAccessoryInfo(l_assetType_0, v119.id);
-                local l_bundleInfo_1 = v110.bundleInfo;
-                if l_bundleInfo_1 and l_bundleInfo_1[v119.id] and l_bundleInfo_1[v119.id].order ~= nil and (not v19() or v121.IsLayered) then
-                    v121.Order = l_bundleInfo_1[v119.id].order;
+        if not v117 then
+            for _, v122 in v114.items do
+                local l_assetType_0 = l_AssetInfos_0[v122.id].assetType;
+                local v124 = v11.createDefaultHumanoidDescriptionAccessoryInfo(l_assetType_0, v122.id);
+                local l_bundleInfo_1 = v113.bundleInfo;
+                if l_bundleInfo_1 and l_bundleInfo_1[v122.id] and l_bundleInfo_1[v122.id].order ~= nil and (not v20() or v124.IsLayered) then
+                    v124.Order = l_bundleInfo_1[v122.id].order;
                 end;
-                local _, v124 = v39(v109, v119.id);
-                if not v124 then
-                    table.insert(v112, v121);
+                local _, v127 = v42(v112, v122.id);
+                if not v127 then
+                    table.insert(v115, v124);
                 end;
             end;
         end;
         return;
     end;
 end;
-local function _(v126) --[[ Line: 438 ]] --[[ Name: isHumanoidDescriptionPropertyEmpty ]]
-    local v127 = true;
-    if v126 ~= "" then
-        v127 = v126 == 0;
-    end;
-    return v127;
-end;
-v30.isDHBundle = function(v129) --[[ Line: 442 ]]
-    -- upvalues: v9 (copy)
-    local v130 = false;
-    if v129.itemType == v9.ItemType.Bundle then
-        v130 = true;
-        if v129.itemSubType ~= Enum.BundleType.DynamicHead.Name then
-            v130 = v129.itemSubType == v9.BundleTypeIdStrings.DynamicHead;
-        end;
+local function _(v129) --[[ Line: 442 ]] --[[ Name: isHumanoidDescriptionPropertyEmpty ]]
+    local v130 = true;
+    if v129 ~= "" then
+        v130 = v129 == 0;
     end;
     return v130;
 end;
-v30.isDHBundleTryOn = function(v131) --[[ Line: 454 ]]
-    -- upvalues: v30 (copy)
-    for _, v133 in v131.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
-        if v30.isDHBundle(v133) then
-            return true;
-        end;
-    end;
-    return false;
-end;
-v30.isClassicHeadOrClassicFaceTryOn = function(v134) --[[ Line: 464 ]]
+v33.isDHBundle = function(v132) --[[ Line: 446 ]]
     -- upvalues: v9 (copy)
+    local v133 = false;
+    if v132.itemType == v9.ItemType.Bundle then
+        v133 = true;
+        if v132.itemSubType ~= Enum.BundleType.DynamicHead.Name then
+            v133 = v132.itemSubType == v9.BundleTypeIdStrings.DynamicHead;
+        end;
+    end;
+    return v133;
+end;
+v33.isDHBundleTryOn = function(v134) --[[ Line: 458 ]]
+    -- upvalues: v33 (copy)
     for _, v136 in v134.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
-        if v136.itemSubType == v9.AssetTypeIdStrings.Head or v136.itemSubType == v9.AssetTypeIdStrings.Face then
+        if v33.isDHBundle(v136) then
             return true;
         end;
     end;
     return false;
 end;
-local function v158(v137, v138, v139) --[[ Line: 481 ]] --[[ Name: setAccessoriesFromTryOn ]]
-    -- upvalues: v9 (copy), l_FFlagAXMakeupEquipping_0 (copy), v30 (copy)
-    local l_v138_Accessories_0 = v138:GetAccessories(true);
-    local l_v139_Accessories_0 = v139:GetAccessories(true);
-    local l_RemovedList_1 = v137.AvatarExperience.LayeredClothingSort.CurrentSort.RemovedList;
-    local v143 = {};
-    local v144 = {};
-    for _, v146 in l_v139_Accessories_0 do
-        local v147 = v9.AccessoryTypeEnumToAssetTypeId[v146.AccessoryType];
-        local v148 = v9.AssetTypeToAssetCategory[v147];
-        v143[v146.AccessoryType] = true;
-        if v148 then
-            v144[v148] = true;
+v33.isClassicHeadOrClassicFaceTryOn = function(v137) --[[ Line: 468 ]]
+    -- upvalues: v9 (copy)
+    for _, v139 in v137.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
+        if v139.itemSubType == v9.AssetTypeIdStrings.Head or v139.itemSubType == v9.AssetTypeIdStrings.Face then
+            return true;
         end;
     end;
-    for _, v150 in l_RemovedList_1 do
-        local v151 = v9.AssetTypeIdToAccessoryTypeEnum[v150];
-        local v152 = v9.AssetTypeToAssetCategory[v150];
-        if l_FFlagAXMakeupEquipping_0 and v151 then
-            v143[v151] = true;
-        elseif not l_FFlagAXMakeupEquipping_0 then
-            v143[v151] = true;
-        end;
-        if v152 then
-            v144[v152] = true;
-        end;
-    end;
-    for _, v154 in l_v138_Accessories_0 do
-        local v155 = v9.AccessoryTypeEnumToAssetTypeId[v154.AccessoryType];
-        local v156 = not v143[v154.AccessoryType];
-        local v157 = v9.AssetTypeToAssetCategory[v155];
-        if v157 then
-            v156 = not v144[v157];
-        end;
-        if v30.isDHBundleTryOn(v137) and v9.DynamicHeadAssetTypes[v155] then
-            v156 = false;
-        end;
-        if v156 then
-            table.insert(l_v139_Accessories_0, v154);
-        end;
-    end;
-    v138:SetAccessories(l_v139_Accessories_0, true);
+    return false;
 end;
-local function v163(v159) --[[ Line: 554 ]] --[[ Name: getTryOnsBundleOutfitInfo ]]
+local function v161(v140, v141, v142) --[[ Line: 485 ]] --[[ Name: setAccessoriesFromTryOn ]]
+    -- upvalues: v9 (copy), l_FFlagAXMakeupEquipping_0 (copy), v33 (copy)
+    local l_v141_Accessories_0 = v141:GetAccessories(true);
+    local l_v142_Accessories_0 = v142:GetAccessories(true);
+    local l_RemovedList_1 = v140.AvatarExperience.LayeredClothingSort.CurrentSort.RemovedList;
+    local v146 = {};
+    local v147 = {};
+    for _, v149 in l_v142_Accessories_0 do
+        local v150 = v9.AccessoryTypeEnumToAssetTypeId[v149.AccessoryType];
+        local v151 = v9.AssetTypeToAssetCategory[v150];
+        v146[v149.AccessoryType] = true;
+        if v151 then
+            v147[v151] = true;
+        end;
+    end;
+    for _, v153 in l_RemovedList_1 do
+        local v154 = v9.AssetTypeIdToAccessoryTypeEnum[v153];
+        local v155 = v9.AssetTypeToAssetCategory[v153];
+        if l_FFlagAXMakeupEquipping_0 and v154 then
+            v146[v154] = true;
+        elseif not l_FFlagAXMakeupEquipping_0 then
+            v146[v154] = true;
+        end;
+        if v155 then
+            v147[v155] = true;
+        end;
+    end;
+    for _, v157 in l_v141_Accessories_0 do
+        local v158 = v9.AccessoryTypeEnumToAssetTypeId[v157.AccessoryType];
+        local v159 = not v146[v157.AccessoryType];
+        local v160 = v9.AssetTypeToAssetCategory[v158];
+        if v160 then
+            v159 = not v147[v160];
+        end;
+        if v33.isDHBundleTryOn(v140) and v9.DynamicHeadAssetTypes[v158] then
+            v159 = false;
+        end;
+        if v159 then
+            table.insert(l_v142_Accessories_0, v157);
+        end;
+    end;
+    v141:SetAccessories(l_v142_Accessories_0, true);
+end;
+local function v166(v162) --[[ Line: 558 ]] --[[ Name: getTryOnsBundleOutfitInfo ]]
     -- upvalues: v9 (copy), v11 (copy)
-    for _, v161 in v159.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
-        if v161.itemType == v9.ItemType.Bundle and v161.itemSubType == v9.BundleTypeIdStrings.BodyParts then
-            local v162 = v11.getOutfitInfoFromBundleId(v159, v161.itemId);
-            if v162 then
-                return v162;
+    for _, v164 in v162.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
+        if v164.itemType == v9.ItemType.Bundle and v164.itemSubType == v9.BundleTypeIdStrings.BodyParts then
+            local v165 = v11.getOutfitInfoFromBundleId(v162, v164.itemId);
+            if v165 then
+                return v165;
             end;
         end;
     end;
     return nil;
 end;
-local function v168(v164, v165) --[[ Line: 571 ]] --[[ Name: normalizeTryOnAsset ]]
-    -- upvalues: v39 (copy)
-    local _, v167 = v39(v165, v164.itemId);
+local function v171(v167, v168) --[[ Line: 575 ]] --[[ Name: normalizeTryOnAsset ]]
+    -- upvalues: v42 (copy)
+    local _, v170 = v42(v168, v167.itemId);
     return {
-        assetId = v164.itemId, 
-        assetTypeId = v164.itemSubType, 
-        itemRecency = v164.itemRecency, 
-        lookId = v164.lookId, 
-        order = v164.order, 
-        isRemovedInLCSort = v167, 
-        position = v164.position, 
-        rotation = v164.rotation, 
-        scale = v164.scale
+        assetId = v167.itemId, 
+        assetTypeId = v167.itemSubType, 
+        itemRecency = v167.itemRecency, 
+        lookId = v167.lookId, 
+        order = v167.order, 
+        isRemovedInLCSort = v170, 
+        position = v167.position, 
+        rotation = v167.rotation, 
+        scale = v167.scale
     };
 end;
-local function v188(v169, v170) --[[ Line: 589 ]] --[[ Name: getNormalizedAssetsFromTryOnBundle ]]
-    -- upvalues: v11 (copy), v39 (copy), l_FFlagEnableHeadShapeForCharacterManager_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy)
-    local v171 = v11.getOutfitInfoFromBundleId(v170, v169.itemId);
-    local v172 = {};
-    if v169.bundleInfo and v169.lookId ~= nil then
-        for v173, v174 in v169.bundleInfo do
-            local _, v176 = v39(v170, v173);
-            table.insert(v172, {
-                assetId = v173, 
-                assetTypeId = v174.assetType, 
-                itemRecency = v169.itemRecency, 
-                lookId = v169.lookId, 
-                order = v174.order, 
-                isRemovedInLCSort = v176, 
-                position = v174.position, 
-                rotation = v174.rotation, 
-                scale = v174.scale, 
-                bundleId = v169.itemId, 
-                headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v174.headShape else nil, 
-                staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v174.staticFacialAnimation else nil
+local function v191(v172, v173) --[[ Line: 593 ]] --[[ Name: getNormalizedAssetsFromTryOnBundle ]]
+    -- upvalues: v11 (copy), v42 (copy), l_FFlagEnableHeadShapeForCharacterManager_0 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), l_FFlagDynamicHeadsMigration_0 (copy)
+    local v174 = v11.getOutfitInfoFromBundleId(v173, v172.itemId);
+    local v175 = {};
+    if v172.bundleInfo and v172.lookId ~= nil then
+        for v176, v177 in v172.bundleInfo do
+            local _, v179 = v42(v173, v176);
+            table.insert(v175, {
+                assetId = v176, 
+                assetTypeId = v177.assetType, 
+                itemRecency = v172.itemRecency, 
+                lookId = v172.lookId, 
+                order = v177.order, 
+                isRemovedInLCSort = v179, 
+                position = v177.position, 
+                rotation = v177.rotation, 
+                scale = v177.scale, 
+                bundleId = v172.itemId, 
+                headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v177.headShape else nil, 
+                staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v177.staticFacialAnimation else nil
             });
         end;
-        return v172;
-    elseif v171 and v171.assets then
-        for v177, v178 in v171.assets do
-            for v179, v180 in v178 do
-                local _, v182 = v39(v170, v179);
-                local v183 = if v169.bundleInfo and v169.bundleInfo[v179] then v169.bundleInfo[v179] else {};
-                table.insert(v172, {
-                    assetId = v179, 
-                    assetTypeId = v177, 
-                    itemRecency = v169.itemRecency, 
-                    lookId = v169.lookId, 
-                    order = v183.order, 
-                    isRemovedInLCSort = v182, 
-                    position = v183.position, 
-                    rotation = v183.rotation, 
-                    scale = v183.scale, 
-                    bundleId = v169.itemId, 
-                    headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v180.headShape else nil, 
-                    staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v180.staticFacialAnimation else nil
+        return v175;
+    elseif v174 and v174.assets then
+        for v180, v181 in v174.assets do
+            for v182, v183 in v181 do
+                local _, v185 = v42(v173, v182);
+                local v186 = if v172.bundleInfo and v172.bundleInfo[v182] then v172.bundleInfo[v182] else {};
+                table.insert(v175, {
+                    assetId = v182, 
+                    assetTypeId = v180, 
+                    itemRecency = v172.itemRecency, 
+                    lookId = v172.lookId, 
+                    order = v186.order, 
+                    isRemovedInLCSort = v185, 
+                    position = v186.position, 
+                    rotation = v186.rotation, 
+                    scale = v186.scale, 
+                    bundleId = v172.itemId, 
+                    headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v183.headShape else nil, 
+                    staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v183.staticFacialAnimation else nil
                 });
             end;
         end;
-        return v172;
+        return v175;
     else
-        if l_FFlagDynamicHeadsMigration_0 and v169.bundleInfo then
-            for v184, v185 in v169.bundleInfo do
-                local _, v187 = v39(v170, v184);
-                table.insert(v172, {
-                    assetId = v184, 
-                    assetTypeId = v185.assetType, 
-                    itemRecency = v169.itemRecency, 
-                    lookId = v169.lookId, 
-                    order = v185.order, 
-                    isRemovedInLCSort = v187, 
-                    position = v185.position, 
-                    rotation = v185.rotation, 
-                    scale = v185.scale, 
-                    bundleId = v169.itemId, 
-                    headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v185.headShape else nil, 
-                    staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v185.staticFacialAnimation else nil
+        if l_FFlagDynamicHeadsMigration_0 and v172.bundleInfo then
+            for v187, v188 in v172.bundleInfo do
+                local _, v190 = v42(v173, v187);
+                table.insert(v175, {
+                    assetId = v187, 
+                    assetTypeId = v188.assetType, 
+                    itemRecency = v172.itemRecency, 
+                    lookId = v172.lookId, 
+                    order = v188.order, 
+                    isRemovedInLCSort = v190, 
+                    position = v188.position, 
+                    rotation = v188.rotation, 
+                    scale = v188.scale, 
+                    bundleId = v172.itemId, 
+                    headShape = if l_FFlagEnableHeadShapeForCharacterManager_0 then v188.headShape else nil, 
+                    staticFacialAnimation = if l_FFlagHeadRefinementFacialAnimationToggle_0 then v188.staticFacialAnimation else nil
                 });
             end;
         end;
-        return v172;
+        return v175;
     end;
 end;
-v30.setAvatarTryOnProperties = function(v189, v190) --[[ Line: 679 ]]
+v33.setAvatarTryOnProperties = function(v192, v193) --[[ Line: 683 ]]
     -- upvalues: v13 (copy), v14 (copy), v4 (copy), v9 (copy)
-    local l_BodyColor3s_0 = v190.AvatarExperience.AvatarScene.OutfitTryOn.BodyColor3s;
-    local l_Scale_0 = v190.AvatarExperience.AvatarScene.OutfitTryOn.Scale;
-    local v193 = v13(v190);
-    local v194 = v14(v190);
-    local v195 = if v193 then v194 else l_BodyColor3s_0;
-    if v195 then
-        v4.setHumanoidDescriptionColorsFromBodyColor3s(v189, v195);
+    local l_BodyColor3s_0 = v193.AvatarExperience.AvatarScene.OutfitTryOn.BodyColor3s;
+    local l_Scale_0 = v193.AvatarExperience.AvatarScene.OutfitTryOn.Scale;
+    local v196 = v13(v193);
+    local v197 = v14(v193);
+    local v198 = if v196 then v197 else l_BodyColor3s_0;
+    if v198 then
+        v4.setHumanoidDescriptionColorsFromBodyColor3s(v192, v198);
     end;
     if l_Scale_0 ~= nil then
-        for v196, v197 in l_Scale_0 do
-            v189[v9.HumanoidDescriptionScaleToName[v196]] = v197;
+        for v199, v200 in l_Scale_0 do
+            v192[v9.HumanoidDescriptionScaleToName[v199]] = v200;
         end;
     end;
 end;
-v30.resetHumanoidDescriptionProperties = function(v198) --[[ Line: 701 ]]
+v33.resetHumanoidDescriptionProperties = function(v201) --[[ Line: 705 ]]
     -- upvalues: v9 (copy)
-    for _, v200 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
-        local v201 = typeof(v198[v200]);
-        if v201 == "string" then
-            v198[v200] = "";
-        elseif v201 == "number" then
-            v198[v200] = 0;
+    for _, v203 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
+        local v204 = typeof(v201[v203]);
+        if v204 == "string" then
+            v201[v203] = "";
+        elseif v204 == "number" then
+            v201[v203] = 0;
         end;
     end;
 end;
 if l_FFlagEnableHeadShapeForCharacterManager_0 then
-    v30.getHeadShapeFromTryOn = function(v202) --[[ Line: 718 ]]
-        -- upvalues: v11 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v188 (copy), v9 (copy)
-        local l_TryOnItems_0 = v202.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-        local l_LookId_0 = v202.AvatarExperience.AvatarScene.OutfitTryOn.LookId;
-        local v205 = false;
-        for _, v207 in l_TryOnItems_0 do
-            local v208 = v11.getOutfitInfoFromBundleId(v202, v207.itemId);
-            local l_bundleInfo_2 = v207.bundleInfo;
-            local v210 = if l_FFlagAXMISEnableMultiShopping_0 then v188(v207, v202) else nil;
-            if v208 and l_LookId_0 == nil then
-                for v211, v212 in v208.assets do
-                    if v211 == v9.AssetTypeIdStrings.DynamicHead then
-                        v205 = true;
-                        for _, v214 in v212 do
-                            if v214.headShape then
-                                return v214.headShape, v205;
+    v33.getHeadShapeFromTryOn = function(v205) --[[ Line: 722 ]]
+        -- upvalues: v11 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v191 (copy), v9 (copy)
+        local l_TryOnItems_0 = v205.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+        local l_LookId_0 = v205.AvatarExperience.AvatarScene.OutfitTryOn.LookId;
+        local v208 = false;
+        for _, v210 in l_TryOnItems_0 do
+            local v211 = v11.getOutfitInfoFromBundleId(v205, v210.itemId);
+            local l_bundleInfo_2 = v210.bundleInfo;
+            local v213 = if l_FFlagAXMISEnableMultiShopping_0 then v191(v210, v205) else nil;
+            if v211 and l_LookId_0 == nil then
+                for v214, v215 in v211.assets do
+                    if v214 == v9.AssetTypeIdStrings.DynamicHead then
+                        v208 = true;
+                        for _, v217 in v215 do
+                            if v217.headShape then
+                                return v217.headShape, v208;
                             end;
                         end;
                     end;
                 end;
             end;
-            if l_FFlagAXMISEnableMultiShopping_0 and v210 then
-                for _, v216 in v210 do
-                    if v216.assetTypeId == v9.AssetTypeIdStrings.DynamicHead then
-                        v205 = true;
-                        if v216.headShape then
-                            return v216.headShape, v205;
+            if l_FFlagAXMISEnableMultiShopping_0 and v213 then
+                for _, v219 in v213 do
+                    if v219.assetTypeId == v9.AssetTypeIdStrings.DynamicHead then
+                        v208 = true;
+                        if v219.headShape then
+                            return v219.headShape, v208;
                         end;
                     end;
                 end;
             end;
             if l_bundleInfo_2 then
-                for _, v218 in l_bundleInfo_2 do
-                    if v218.assetType == v9.AssetTypeIdStrings.DynamicHead then
-                        v205 = true;
-                        if v218.headShape then
-                            return v218.headShape, v205;
+                for _, v221 in l_bundleInfo_2 do
+                    if v221.assetType == v9.AssetTypeIdStrings.DynamicHead then
+                        v208 = true;
+                        if v221.headShape then
+                            return v221.headShape, v208;
                         end;
                     end;
                 end;
             end;
         end;
-        return nil, v205;
+        return nil, v208;
     end;
-    v30.getHeadShapeFromEquippedAssets = function(v219) --[[ Line: 775 ]]
-        -- upvalues: v9 (copy)
-        for v220, v221 in v219.AvatarExperience.AvatarEditor.Character.EquippedAssets do
-            if v220 == v9.AssetTypeIdStrings.DynamicHead then
-                for _, v223 in v221 do
-                    return v223.headShape;
-                end;
-            end;
-        end;
-        return nil;
-    end;
-    if l_FFlagHeadRefinementFacialAnimationToggle_0 then
-        v30.getStaticFacialAnimationFromEquippedAssets = function(v224) --[[ Line: 791 ]]
-            -- upvalues: v9 (copy)
-            local v225 = v224.AvatarExperience.AvatarEditor.Character.EquippedAssets[v9.AssetTypeIdStrings.DynamicHead];
-            if v225 then
-                for _, v227 in v225 do
-                    return v227.staticFacialAnimation;
+    v33.getHeadShapeFromEquippedAssets = function(v222) --[[ Line: 779 ]]
+        -- upvalues: v32 (copy), v9 (copy)
+        local l_EquippedAssets_0 = v222.AvatarExperience.AvatarEditor.Character.EquippedAssets;
+        if v32 and not l_EquippedAssets_0 then
+            return nil;
+        else
+            for v224, v225 in l_EquippedAssets_0 do
+                if v224 == v9.AssetTypeIdStrings.DynamicHead then
+                    for _, v227 in v225 do
+                        return v227.headShape;
+                    end;
                 end;
             end;
             return nil;
         end;
-        v30.getStaticFacialAnimationFromTryOn = function(v228) --[[ Line: 807 ]]
-            -- upvalues: v11 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v188 (copy), v9 (copy)
-            for _, v230 in v228.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
-                local v231 = v11.getOutfitInfoFromBundleId(v228, v230.itemId);
-                local l_bundleInfo_3 = v230.bundleInfo;
-                local v233 = if l_FFlagAXMISEnableMultiShopping_0 then v188(v230, v228) else nil;
-                if v231 then
-                    for v234, v235 in v231.assets do
-                        if v234 == v9.AssetTypeIdStrings.DynamicHead then
-                            for _, v237 in v235 do
-                                if v237.staticFacialAnimation ~= nil then
-                                    return v237.staticFacialAnimation;
+    end;
+    if l_FFlagHeadRefinementFacialAnimationToggle_0 then
+        v33.getStaticFacialAnimationFromEquippedAssets = function(v228) --[[ Line: 800 ]]
+            -- upvalues: v32 (copy), v9 (copy)
+            local l_EquippedAssets_1 = v228.AvatarExperience.AvatarEditor.Character.EquippedAssets;
+            if v32 and not l_EquippedAssets_1 then
+                return nil;
+            else
+                local v230 = l_EquippedAssets_1[v9.AssetTypeIdStrings.DynamicHead];
+                if v230 then
+                    for _, v232 in v230 do
+                        return v232.staticFacialAnimation;
+                    end;
+                end;
+                return nil;
+            end;
+        end;
+        v33.getStaticFacialAnimationFromTryOn = function(v233) --[[ Line: 821 ]]
+            -- upvalues: v11 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v191 (copy), v9 (copy)
+            for _, v235 in v233.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
+                local v236 = v11.getOutfitInfoFromBundleId(v233, v235.itemId);
+                local l_bundleInfo_3 = v235.bundleInfo;
+                local v238 = if l_FFlagAXMISEnableMultiShopping_0 then v191(v235, v233) else nil;
+                if v236 then
+                    for v239, v240 in v236.assets do
+                        if v239 == v9.AssetTypeIdStrings.DynamicHead then
+                            for _, v242 in v240 do
+                                if v242.staticFacialAnimation ~= nil then
+                                    return v242.staticFacialAnimation;
                                 end;
                             end;
                         end;
                     end;
                 end;
-                if l_FFlagAXMISEnableMultiShopping_0 and v233 then
-                    for _, v239 in v233 do
-                        if v239.assetTypeId == v9.AssetTypeIdStrings.DynamicHead and v239.staticFacialAnimation ~= nil then
-                            return v239.staticFacialAnimation;
+                if l_FFlagAXMISEnableMultiShopping_0 and v238 then
+                    for _, v244 in v238 do
+                        if v244.assetTypeId == v9.AssetTypeIdStrings.DynamicHead and v244.staticFacialAnimation ~= nil then
+                            return v244.staticFacialAnimation;
                         end;
                     end;
                 end;
                 if l_bundleInfo_3 then
-                    for _, v241 in l_bundleInfo_3 do
-                        if v241.assetType == v9.AssetTypeIdStrings.DynamicHead and v241.staticFacialAnimation ~= nil then
-                            return v241.staticFacialAnimation;
+                    for _, v246 in l_bundleInfo_3 do
+                        if v246.assetType == v9.AssetTypeIdStrings.DynamicHead and v246.staticFacialAnimation ~= nil then
+                            return v246.staticFacialAnimation;
                         end;
                     end;
                 end;
@@ -531,198 +544,201 @@ if l_FFlagEnableHeadShapeForCharacterManager_0 then
         end;
     end;
     if l_FFlagFixHeadShapeColorSlider_0 then
-        v30.getHeadShapeFromAssetMetadata = function(v242) --[[ Line: 856 ]]
+        v33.getHeadShapeFromAssetMetadata = function(v247) --[[ Line: 870 ]]
             -- upvalues: l_FFlagAXFixR6DefaultHeadShape_0 (copy)
-            for _, v244 in v242 do
-                if v244.headShape and (not l_FFlagAXFixR6DefaultHeadShape_0 or v244.headShape ~= "Default") then
-                    return v244.headShape;
+            for _, v249 in v247 do
+                if v249.headShape and (not l_FFlagAXFixR6DefaultHeadShape_0 or v249.headShape ~= "Default") then
+                    return v249.headShape;
                 end;
             end;
             return nil;
         end;
-        v30.applyHeadShapeFromAssetMetadata = function(v245, v246) --[[ Line: 868 ]]
-            -- upvalues: v2 (copy), v30 (copy)
-            local v247 = v2.Dictionary.keys(v246);
-            for _, v249 in v245:GetChildren() do
-                if v249:IsA("BodyPartDescription") and v249.BodyPart == Enum.BodyPart.Head then
-                    local v250 = v30.getHeadShapeFromAssetMetadata(v246);
-                    if v250 then
-                        v249.HeadShape = v250;
+        v33.applyHeadShapeFromAssetMetadata = function(v250, v251) --[[ Line: 882 ]]
+            -- upvalues: v2 (copy), v33 (copy)
+            local v252 = v2.Dictionary.keys(v251);
+            for _, v254 in v250:GetChildren() do
+                if v254:IsA("BodyPartDescription") and v254.BodyPart == Enum.BodyPart.Head then
+                    local v255 = v33.getHeadShapeFromAssetMetadata(v251);
+                    if v255 then
+                        v254.HeadShape = v255;
                     end;
-                    v249.AssetId = tonumber(v247[1]) or 0;
+                    v254.AssetId = tonumber(v252[1]) or 0;
                 end;
             end;
         end;
     end;
-    v30.applyHeadShapeToHumanoidDescription = function(v251, v252) --[[ Line: 894 ]]
-        -- upvalues: v30 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v9 (copy)
-        local v253, v254 = v30.getHeadShapeFromTryOn(v252);
-        local v255 = v30.getHeadShapeFromEquippedAssets(v252);
-        local v256 = nil;
+    v33.applyHeadShapeToHumanoidDescription = function(v256, v257) --[[ Line: 908 ]]
+        -- upvalues: v33 (copy), l_FFlagHeadRefinementFacialAnimationToggle_0 (copy), v9 (copy)
+        local v258, v259 = v33.getHeadShapeFromTryOn(v257);
+        local v260 = v33.getHeadShapeFromEquippedAssets(v257);
+        local v261 = nil;
         if l_FFlagHeadRefinementFacialAnimationToggle_0 then
-            local v257 = nil;
-            if v254 then
-                v257 = v30.getStaticFacialAnimationFromTryOn(v252);
+            local v262 = nil;
+            if v259 then
+                v262 = v33.getStaticFacialAnimationFromTryOn(v257);
             end;
-            if v257 == nil then
-                v257 = v30.getStaticFacialAnimationFromEquippedAssets(v252);
+            if v262 == nil then
+                v262 = v33.getStaticFacialAnimationFromEquippedAssets(v257);
             end;
-            if v257 ~= nil then
-                v251[v9.StaticFacialAnimation] = v257;
+            if v262 ~= nil then
+                v256[v9.StaticFacialAnimation] = v262;
             end;
         end;
-        v256 = if v254 then v253 else v255;
-        if v256 == "Default" then
-            v256 = nil;
+        v261 = if v259 then v258 else v260;
+        if v261 == "Default" then
+            v261 = nil;
         end;
-        if v256 then
-            for _, v259 in v251:GetChildren() do
-                if v259:IsA("BodyPartDescription") and v259.BodyPart == Enum.BodyPart.Head and v256 then
-                    v259.HeadShape = v256;
+        if v261 then
+            for _, v264 in v256:GetChildren() do
+                if v264:IsA("BodyPartDescription") and v264.BodyPart == Enum.BodyPart.Head and v261 then
+                    v264.HeadShape = v261;
                 end;
             end;
         end;
     end;
 end;
-v30.updateHumanoidDescriptionUsingOutfitTryOn = function(v260, v261, v262) --[[ Line: 939 ]]
-    -- upvalues: v18 (copy), v30 (copy), v9 (copy), v11 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), l_setMakeupDescriptions_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v168 (copy), v188 (copy), v17 (copy), v62 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v73 (copy), v90 (copy), v108 (copy), v125 (copy)
-    if v18() then
-        v30.resetHumanoidDescriptionProperties(v261);
+v33.updateHumanoidDescriptionUsingOutfitTryOn = function(v265, v266, v267) --[[ Line: 953 ]]
+    -- upvalues: v19 (copy), v33 (copy), v9 (copy), v11 (copy), l_FFlagAXMakeupEquipping_0 (copy), l_isMakeupAssetType_0 (copy), l_setMakeupDescriptions_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v171 (copy), v191 (copy), v18 (copy), v65 (copy), l_FFlagAXCatalogMakeupSupport_0 (copy), v76 (copy), v93 (copy), v111 (copy), v128 (copy)
+    if v19() then
+        v33.resetHumanoidDescriptionProperties(v266);
     else
-        for _, v264 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
-            v261[v264] = "";
+        for _, v269 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
+            v266[v269] = "";
         end;
     end;
-    v261:SetAccessories({}, true);
-    local l_TryOnItems_1 = v260.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
-    local l_LookType_0 = v260.AvatarExperience.AvatarScene.OutfitTryOn.LookType;
-    local v267 = {};
-    local v268 = v11.sortOutfitTryOnItemsByRecency(l_TryOnItems_1, false);
+    v266:SetAccessories({}, true);
+    local l_TryOnItems_1 = v265.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems;
+    local l_LookType_0 = v265.AvatarExperience.AvatarScene.OutfitTryOn.LookType;
+    local v272 = {};
+    local v273 = v11.sortOutfitTryOnItemsByRecency(l_TryOnItems_1, false);
     if l_FFlagAXMakeupEquipping_0 then
-        local v269 = {};
-        for _, v271 in l_TryOnItems_1 do
-            if v271.selectedInTryOnManager and v271.itemType == v9.ItemType.Asset then
-                local l_itemSubType_1 = v271.itemSubType;
+        local v274 = {};
+        for _, v276 in l_TryOnItems_1 do
+            if v276.selectedInTryOnManager and v276.itemType == v9.ItemType.Asset then
+                local l_itemSubType_1 = v276.itemSubType;
                 if l_isMakeupAssetType_0(l_itemSubType_1) then
-                    if not v269[l_itemSubType_1] then
-                        v269[l_itemSubType_1] = {};
+                    if not v274[l_itemSubType_1] then
+                        v274[l_itemSubType_1] = {};
                     end;
-                    v269[l_itemSubType_1][v271.itemId] = v271;
+                    v274[l_itemSubType_1][v276.itemId] = v276;
                 end;
             end;
         end;
-        l_setMakeupDescriptions_0(v261, v269);
+        l_setMakeupDescriptions_0(v266, v274);
     end;
     if l_FFlagAXMISEnableMultiShopping_0 then
-        local v273 = {};
-        if v262 then
-            for _, v275 in v262 do
-                v273[v275.itemId] = true;
+        local v278 = {};
+        if v267 then
+            for _, v280 in v267 do
+                v278[v280.itemId] = true;
             end;
         end;
-        local v276 = {};
-        local v277 = {};
-        for _, v279 in v268 do
-            if v279.selectedInTryOnManager ~= false and (not v262 or v273[v279.itemId]) then
-                if v279.itemType == v9.ItemType.Asset then
-                    table.insert(v277, (v168(v279, v260)));
-                elseif v279.itemType == v9.ItemType.Bundle then
-                    for _, v281 in (v188(v279, v260)) do
-                        table.insert(v277, v281);
+        local v281 = {};
+        local v282 = {};
+        for _, v284 in v273 do
+            if v284.selectedInTryOnManager ~= false and (not v267 or v278[v284.itemId]) then
+                if v284.itemType == v9.ItemType.Asset then
+                    table.insert(v282, (v171(v284, v265)));
+                elseif v284.itemType == v9.ItemType.Bundle then
+                    for _, v286 in (v191(v284, v265)) do
+                        table.insert(v282, v286);
                     end;
                 end;
             end;
         end;
-        local v282 = v17.buildEquippedAssetMapByHumanoidDescriptionProp(v260);
-        v276 = v62(v261, v276, v277, v282);
-        v30.tryApplyClassicHeadShapeTryOn(v260, v261);
-        local v283 = {};
-        for _, v285 in v276 do
-            for _, v287 in v285 do
-                table.insert(v283, v287);
+        local v287 = v18.buildEquippedAssetMapByHumanoidDescriptionProp(v265);
+        v281 = v65(v266, v281, v282, v287);
+        v33.tryApplyClassicHeadShapeTryOn(v265, v266);
+        local v288 = {};
+        for _, v290 in v281 do
+            for _, v292 in v290 do
+                table.insert(v288, v292);
             end;
         end;
-        v261:SetAccessories(v283, true);
+        v266:SetAccessories(v288, true);
         return;
     else
-        for _, v289 in v268 do
-            if v289.selectedInTryOnManager or l_LookType_0 == v9.LookType.Avatar and (not l_FFlagAXCatalogMakeupSupport_0 or l_LookType_0 == v9.LookType.Makeup) then
-                if v289.itemType == v9.ItemType.Asset then
-                    v73(v260, v289, v289.itemId, v267, v261);
-                elseif v289.itemType == v9.ItemType.Bundle then
-                    local v290 = v11.getBundleInfoFromState(v260, v289.itemId);
-                    local v291 = v11.getOutfitInfoFromBundleId(v260, v289.itemId);
-                    if v291 then
-                        v90(v260, v291, v289, v267, v261);
-                    elseif v289.bundleInfo ~= nil and (l_LookType_0 == v9.LookType.Avatar or l_FFlagAXCatalogMakeupSupport_0 and l_LookType_0 == v9.LookType.Makeup) then
-                        v108(v260, v289, v267, v261);
-                    elseif v290 then
-                        v125(v260, v289, v290, v267);
+        for _, v294 in v273 do
+            if v294.selectedInTryOnManager or l_LookType_0 == v9.LookType.Avatar and (not l_FFlagAXCatalogMakeupSupport_0 or l_LookType_0 == v9.LookType.Makeup) then
+                if v294.itemType == v9.ItemType.Asset then
+                    v76(v265, v294, v294.itemId, v272, v266);
+                elseif v294.itemType == v9.ItemType.Bundle then
+                    local v295 = v11.getBundleInfoFromState(v265, v294.itemId);
+                    local v296 = v11.getOutfitInfoFromBundleId(v265, v294.itemId);
+                    if v296 then
+                        v93(v265, v296, v294, v272, v266);
+                    elseif v294.bundleInfo ~= nil and (l_LookType_0 == v9.LookType.Avatar or l_FFlagAXCatalogMakeupSupport_0 and l_LookType_0 == v9.LookType.Makeup) then
+                        v111(v265, v294, v272, v266);
+                    elseif v295 then
+                        v128(v265, v294, v295, v272);
                     end;
                 end;
             end;
         end;
-        v30.tryApplyClassicHeadShapeTryOn(v260, v261);
-        v261:SetAccessories(v267, true);
+        v33.tryApplyClassicHeadShapeTryOn(v265, v266);
+        v266:SetAccessories(v272, true);
         return;
     end;
 end;
-v30.getCombinedHumanoidDescriptionFromEquippedAndOutfitTryOn = function(v292, v293) --[[ Line: 1095 ]]
-    -- upvalues: v30 (copy), v4 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v9 (copy), v17 (copy), v158 (copy), v163 (copy), l_FFlagEnableHeadShapeForCharacterManager_0 (copy)
+v33.getCombinedHumanoidDescriptionFromEquippedAndOutfitTryOn = function(v297, v298) --[[ Line: 1109 ]]
+    -- upvalues: v33 (copy), v4 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), l_FFlagAXRemoveMakeupAvatarLookTryOn_0 (copy), l_destroyMakeupDescriptions_0 (copy), v9 (copy), v18 (copy), v161 (copy), v166 (copy), l_FFlagEnableHeadShapeForCharacterManager_0 (copy)
     local l_HumanoidDescription_0 = Instance.new("HumanoidDescription");
-    v30.updateHumanoidDescriptionUsingOutfitTryOn(v292, l_HumanoidDescription_0, v293);
-    local v295 = v4.getHumanoidDescriptionFromState(v292.AvatarExperience):Clone();
-    local l_LookId_1 = v292.AvatarExperience.AvatarScene.OutfitTryOn.LookId;
+    v33.updateHumanoidDescriptionUsingOutfitTryOn(v297, l_HumanoidDescription_0, v298);
+    local v300 = v4.getHumanoidDescriptionFromState(v297.AvatarExperience):Clone();
+    local l_LookId_1 = v297.AvatarExperience.AvatarScene.OutfitTryOn.LookId;
     if l_FFlagAXMISEnableMultiShopping_0 then
-        l_LookId_1 = v292.AvatarExperience.AvatarScene.OutfitTryOn.ShouldTryOnWithoutEquippedItems;
+        l_LookId_1 = v297.AvatarExperience.AvatarScene.OutfitTryOn.ShouldTryOnWithoutEquippedItems;
     end;
     if l_LookId_1 then
-        v295:SetAccessories({}, true);
-        v295.GraphicTShirt = 0;
-        v295.Shirt = 0;
-        v295.Pants = 0;
-    end;
-    for v297, v298 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
-        if v9.AssetTypeIdToCategory[v297] == v9.AssetCategories.Body and v17.shouldUnequipBodyBeforeTryOn(v292) then
-            v295[v298] = 0;
+        v300:SetAccessories({}, true);
+        v300.GraphicTShirt = 0;
+        v300.Shirt = 0;
+        v300.Pants = 0;
+        if l_FFlagAXRemoveMakeupAvatarLookTryOn_0 then
+            l_destroyMakeupDescriptions_0(v300);
         end;
-        if not v9.AssetTypeIdToAccessoryTypeEnum[v297] then
-            local v299 = l_HumanoidDescription_0[v298];
-            local v300 = true;
-            if v299 ~= "" then
-                v300 = v299 == 0;
+    end;
+    for v302, v303 in v9.AssetTypeIdStringToHumanoidDescriptionProp do
+        if v9.AssetTypeIdToCategory[v302] == v9.AssetCategories.Body and v18.shouldUnequipBodyBeforeTryOn(v297) then
+            v300[v303] = 0;
+        end;
+        if not v9.AssetTypeIdToAccessoryTypeEnum[v302] then
+            local v304 = l_HumanoidDescription_0[v303];
+            local v305 = true;
+            if v304 ~= "" then
+                v305 = v304 == 0;
             end;
-            if not v300 then
-                v295[v298] = l_HumanoidDescription_0[v298];
+            if not v305 then
+                v300[v303] = l_HumanoidDescription_0[v303];
             end;
         end;
     end;
-    v158(v292, v295, l_HumanoidDescription_0);
-    local v301 = v163(v292);
-    if v301 then
-        for v302, v303 in v301.scales do
-            v295[v9.HumanoidDescriptionScaleToName[v302]] = v303;
+    v161(v297, v300, l_HumanoidDescription_0);
+    local v306 = v166(v297);
+    if v306 then
+        for v307, v308 in v306.scales do
+            v300[v9.HumanoidDescriptionScaleToName[v307]] = v308;
         end;
-        v4.setHumanoidDescriptionColorsFromBodyColor3s(v295, v301.bodyColor3s);
+        v4.setHumanoidDescriptionColorsFromBodyColor3s(v300, v306.bodyColor3s);
     end;
-    v30.setAvatarTryOnProperties(v295, v292);
+    v33.setAvatarTryOnProperties(v300, v297);
     if l_FFlagEnableHeadShapeForCharacterManager_0 then
-        v30.applyHeadShapeToHumanoidDescription(v295, v292);
+        v33.applyHeadShapeToHumanoidDescription(v300, v297);
     end;
-    return v295;
+    return v300;
 end;
 if l_FFlagAXMISEnableMultiShopping_0 then
-    v30.getBundleOutfitInfoFromProvidedTryOns = function(v304, v305) --[[ Line: 1172 ]]
+    v33.getBundleOutfitInfoFromProvidedTryOns = function(v309, v310) --[[ Line: 1190 ]]
         -- upvalues: v9 (copy), v11 (copy)
-        for _, v307 in v305 do
-            if v307.itemType == v9.ItemType.Bundle and v307.itemSubType == v9.BundleTypeIdStrings.BodyParts then
-                local v308 = v11.getOutfitInfoFromBundleId(v304, v307.itemId);
-                if v308 then
-                    return v308;
+        for _, v312 in v310 do
+            if v312.itemType == v9.ItemType.Bundle and v312.itemSubType == v9.BundleTypeIdStrings.BodyParts then
+                local v313 = v11.getOutfitInfoFromBundleId(v309, v312.itemId);
+                if v313 then
+                    return v313;
                 end;
             end;
         end;
         return nil;
     end;
 end;
-return v30;
+return v33;

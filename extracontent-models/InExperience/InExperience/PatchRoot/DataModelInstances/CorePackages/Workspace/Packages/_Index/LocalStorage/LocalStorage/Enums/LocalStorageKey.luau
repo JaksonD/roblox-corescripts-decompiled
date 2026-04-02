@@ -29,6 +29,7 @@ return {
     AccountSwitcherMetadataMap = "AccountSwitcherMetadataMap", 
     SnoozedNotificationTypesLocalStorageKey = "SnoozedNotificationTypes", 
     PreviousAccountsList = "PreviousAccountsList", 
+    HasRobloxSubscription = "HasRobloxSubscription", 
     LaunchAtStartup = "LaunchAtStartup", 
     MinimizeToTray = "MinimizeToTray", 
     ExpChatFOMOUpsellImpressionsCount = "ExpChatFOMOUpsellImpressionsCount", 

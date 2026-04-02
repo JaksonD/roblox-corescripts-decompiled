@@ -1,1 +1,1 @@
-return game:DefineFastFlag("ProfilePlatformEnableTransferTooltip", false);
+return game:DefineFastFlag("ProfilePlatformEnableTransferTooltipV1", false);

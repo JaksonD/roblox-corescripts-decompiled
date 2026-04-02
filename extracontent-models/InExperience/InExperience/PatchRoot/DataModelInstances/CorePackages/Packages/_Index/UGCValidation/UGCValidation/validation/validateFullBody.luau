@@ -15,43 +15,45 @@ local v13 = require(l_Parent_0.util.createDynamicHeadMeshPartSchema);
 local v14 = require(l_Parent_0.util.createLimbsAndTorsoSchema);
 local v15 = require(l_Parent_0.util.resetPhysicsData);
 local v16 = require(l_Parent_0.util.ParseContentIds);
-local _ = function(v17, v18) --[[ Line: 28 ]] --[[ Name: getInstance ]]
-    for _, v20 in v17 do
-        if v20.Name == v18 then
-            return v20;
+local v17 = require(l_Parent_0.util.R15plusUtils);
+local v18 = require(l_Parent_0.flags.getFFlagDebugAllowHRDUploadOnBundleBackend);
+local _ = function(v19, v20) --[[ Line: 30 ]] --[[ Name: getInstance ]]
+    for _, v22 in v19 do
+        if v22.Name == v20 then
+            return v22;
         end;
     end;
     return nil;
 end;
-local function v33(v22, v23, v24) --[[ Line: 39 ]] --[[ Name: validateAllAssetsWithSchema ]]
+local function v35(v24, v25, v26) --[[ Line: 41 ]] --[[ Name: validateAllAssetsWithSchema ]]
     -- upvalues: v9 (copy), v7 (copy), v13 (copy), v14 (copy)
-    local v25 = false;
-    for _, v27 in v22 do
-        if Enum.AssetType.DynamicHead == v27.assetTypeEnum then
-            if not v9(v27.allSelectedInstances, v24) then
+    local v27 = false;
+    for _, v29 in v24 do
+        if Enum.AssetType.DynamicHead == v29.assetTypeEnum then
+            if not v9(v29.allSelectedInstances, v26) then
                 return false;
-            elseif not v7(v13(v24), v27.allSelectedInstances[1], v24).success then
+            elseif not v7(v13(v26), v29.allSelectedInstances[1], v26).success then
                 return false;
             end;
         else
-            for _, v29 in v23 do
-                local v30;
-                for _, v32 in v27.allSelectedInstances do
-                    if v32.Name == v29 then
-                        v30 = v32;
-                        v25 = true;
+            for _, v31 in v25 do
+                local v32;
+                for _, v34 in v29.allSelectedInstances do
+                    if v34.Name == v31 then
+                        v32 = v34;
+                        v27 = true;
                     end;
-                    if v25 then
+                    if v27 then
                         break;
                     end;
                 end;
-                if not v25 then
-                    v30 = nil;
+                if not v27 then
+                    v32 = nil;
                 end;
-                v25 = false;
-                if not v30 then
+                v27 = false;
+                if not v32 then
                     return false;
-                elseif not v7(v14(v27.assetTypeEnum, v29, v24), v30, v24).success then
+                elseif not v7(v14(v29.assetTypeEnum, v31, v26), v32, v26).success then
                     return false;
                 end;
             end;
@@ -59,67 +61,67 @@ local function v33(v22, v23, v24) --[[ Line: 39 ]] --[[ Name: validateAllAssetsW
     end;
     return true;
 end;
-local function v40(v34) --[[ Line: 78 ]] --[[ Name: validateCorrectAssetTypesExist ]]
+local function v42(v36) --[[ Line: 80 ]] --[[ Name: validateCorrectAssetTypesExist ]]
     -- upvalues: v3 (copy)
-    local v35 = {};
-    local v36 = #v3.getBodyPartAssets();
-    local v37 = 0;
-    for _, v39 in v34 do
-        if not v3.isBodyPart(v39.assetTypeEnum) then
+    local v37 = {};
+    local v38 = #v3.getBodyPartAssets();
+    local v39 = 0;
+    for _, v41 in v36 do
+        if not v3.isBodyPart(v41.assetTypeEnum) then
             return false;
-        elseif v35[v39.assetTypeEnum] then
+        elseif v37[v41.assetTypeEnum] then
             return false;
         else
-            v35[v39.assetTypeEnum] = true;
-            v37 = v37 + 1;
+            v37[v41.assetTypeEnum] = true;
+            v39 = v39 + 1;
         end;
     end;
-    return v37 == v36;
+    return v39 == v38;
 end;
-local function v52(v41, v42) --[[ Line: 96 ]] --[[ Name: createAllBodyPartsTable ]]
-    local v43 = false;
-    local v44 = {};
-    for _, v46 in v42 do
-        if Enum.AssetType.DynamicHead == v46.assetTypeEnum then
-            v44[v46.allSelectedInstances[1].Name] = v46.allSelectedInstances[1];
+local function v54(v43, v44) --[[ Line: 98 ]] --[[ Name: createAllBodyPartsTable ]]
+    local v45 = false;
+    local v46 = {};
+    for _, v48 in v44 do
+        if Enum.AssetType.DynamicHead == v48.assetTypeEnum then
+            v46[v48.allSelectedInstances[1].Name] = v48.allSelectedInstances[1];
         else
-            local v47;
-            for _, v49 in v46.allSelectedInstances do
-                if v49.Name == v41 then
-                    v47 = v49;
-                    v43 = true;
+            local v49;
+            for _, v51 in v48.allSelectedInstances do
+                if v51.Name == v43 then
+                    v49 = v51;
+                    v45 = true;
                 end;
-                if v43 then
+                if v45 then
                     break;
                 end;
             end;
-            if not v43 then
-                v47 = nil;
+            if not v45 then
+                v49 = nil;
             end;
-            v43 = false;
-            for _, v51 in v47:GetChildren() do
-                v44[v51.Name] = v51;
+            v45 = false;
+            for _, v53 in v49:GetChildren() do
+                v46[v53.Name] = v53;
             end;
         end;
     end;
-    return v44;
+    return v46;
 end;
-local function v61(v53, v54) --[[ Line: 111 ]] --[[ Name: validateMeshIds ]]
+local function v63(v55, v56) --[[ Line: 113 ]] --[[ Name: validateMeshIds ]]
     -- upvalues: v16 (copy), v1 (copy)
-    local v55 = {
+    local v57 = {
         MeshPart = {
             "MeshId"
         }
     };
-    local v56 = {
+    local v58 = {
         MeshPart = {
             MeshId = true
         }
     };
-    for _, v58 in v53 do
-        for _, v60 in v58.allSelectedInstances do
-            if not v16.parseWithErrorCheck({}, {}, v60, v55, v56, v54) then
-                v1.reportFailure(v1.ErrorType.validateFullBody_MeshIdsMissing, nil, v54);
+    for _, v60 in v55 do
+        for _, v62 in v60.allSelectedInstances do
+            if not v16.parseWithErrorCheck({}, {}, v62, v57, v58, v56) then
+                v1.reportFailure(v1.ErrorType.validateFullBody_MeshIdsMissing, nil, v56);
                 return false, {
                     "Unable to run full body validation due to previous errors detected while processing individual body parts"
                 };
@@ -128,82 +130,97 @@ local function v61(v53, v54) --[[ Line: 111 ]] --[[ Name: validateMeshIds ]]
     end;
     return true;
 end;
-local function v68(v62, v63, v64) --[[ Line: 148 ]] --[[ Name: validateInstanceHierarchy ]]
-    -- upvalues: v40 (copy), v1 (copy), v33 (copy), v61 (copy)
-    local v65 = if v64 then v64.isServer else nil;
-    if not v40(v62) then
-        v1.reportFailure(v1.ErrorType.validateFullBody_IncorrectAssetTypeSet, nil, v64);
-        if v65 then
+local function v70(v64, v65, v66) --[[ Line: 150 ]] --[[ Name: validateInstanceHierarchy ]]
+    -- upvalues: v42 (copy), v1 (copy), v35 (copy), v63 (copy)
+    local v67 = if v66 then v66.isServer else nil;
+    if not v42(v64) then
+        v1.reportFailure(v1.ErrorType.validateFullBody_IncorrectAssetTypeSet, nil, v66);
+        if v67 then
             error("Full body check did not receive the correct set of body part Asset Types (i.e. Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg). Make sure the body model is valid and try again.");
         end;
         return false, {
             "Full body check did not receive the correct set of body part Asset Types (i.e. Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg). Make sure the body model is valid and try again."
         };
-    elseif not v33(v62, v63, v64) then
-        v1.reportFailure(v1.ErrorType.validateFullBody_InstancesMissing, nil, v64);
+    elseif not v35(v64, v65, v66) then
+        v1.reportFailure(v1.ErrorType.validateFullBody_InstancesMissing, nil, v66);
         return false, {
             "Unable to run full body validation due to previous errors detected while processing individual body parts."
         };
     else
-        local v66, v67 = v61(v62, v64);
-        if not v66 then
-            return false, v67;
+        local v68, v69 = v63(v64, v66);
+        if not v68 then
+            return false, v69;
         else
             return true;
         end;
     end;
 end;
-local function v74(v69) --[[ Line: 182 ]] --[[ Name: resetAllPhysicsData ]]
+local function v76(v71) --[[ Line: 184 ]] --[[ Name: resetAllPhysicsData ]]
     -- upvalues: v15 (copy)
-    for _, v71 in v69.fullBodyData do
-        local v72, v73 = v15(v71.allSelectedInstances, v69);
-        if not v72 then
+    for _, v73 in v71.fullBodyData do
+        local v74, v75 = v15(v73.allSelectedInstances, v71);
+        if not v74 then
             return false, {
-                v73
+                v75
             };
         end;
     end;
     return true;
 end;
-return function(v75) --[[ Line: 195 ]] --[[ Name: validateFullBody ]]
-    -- upvalues: v2 (copy), v68 (copy), v74 (copy), v6 (copy), v52 (copy), v10 (copy), v1 (copy), v11 (copy), v8 (copy), v4 (copy), v12 (copy)
-    assert(v75.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody");
-    local l_fullBodyData_0 = v75.fullBodyData;
-    local l_requireAllFolders_0 = v75.requireAllFolders;
-    local v78 = {
+return function(v77) --[[ Line: 197 ]] --[[ Name: validateFullBody ]]
+    -- upvalues: v18 (copy), v17 (copy), v2 (copy), v70 (copy), v76 (copy), v6 (copy), v54 (copy), v10 (copy), v1 (copy), v11 (copy), v8 (copy), v4 (copy), v12 (copy)
+    assert(v77.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody");
+    local l_fullBodyData_0 = v77.fullBodyData;
+    local l_requireAllFolders_0 = v77.requireAllFolders;
+    if v18() then
+        v17.setIsBackendBundleUpload(v77.isBackendBundleUpload == true);
+    end;
+    local v80 = {
         v2.FOLDER_NAMES.R15ArtistIntent
     };
     if l_requireAllFolders_0 then
-        table.insert(v78, v2.FOLDER_NAMES.R15Fixed);
+        table.insert(v80, v2.FOLDER_NAMES.R15Fixed);
     end;
-    local v79, v80 = v68(l_fullBodyData_0, v78, v75);
-    if not v79 then
-        return false, v80;
+    local v81, v82 = v70(l_fullBodyData_0, v80, v77);
+    if not v81 then
+        if v18() then
+            v17.setIsBackendBundleUpload(false);
+        end;
+        return false, v82;
     else
-        local v81, v82 = v74(v75);
-        v79 = v81;
-        v80 = v82;
-        if not v79 then
-            return false, v80;
+        local v83, v84 = v76(v77);
+        v81 = v83;
+        v82 = v84;
+        if not v81 then
+            if v18() then
+                v17.setIsBackendBundleUpload(false);
+            end;
+            return false, v82;
         else
-            v81 = v6.new();
-            for _, v84 in v78 do
-                local v85 = v52(v84, l_fullBodyData_0);
-                assert(v85);
-                if not v10.validateAll(v85, v75) then
-                    v1.reportFailure(v1.ErrorType.validateFullBody_ZeroMeshSize, nil, v75);
+            v83 = v6.new();
+            for _, v86 in v80 do
+                local v87 = v54(v86, l_fullBodyData_0);
+                assert(v87);
+                if not v10.validateAll(v87, v77) then
+                    v1.reportFailure(v1.ErrorType.validateFullBody_ZeroMeshSize, nil, v77);
+                    if v18() then
+                        v17.setIsBackendBundleUpload(false);
+                    end;
                     return false, {
                         "Unable to run full body validation due to previous errors detected while processing individual body parts."
                     };
                 else
-                    v81:updateReasons(v11.validateFullBody(v85, v75));
-                    v81:updateReasons(v8(v85, nil, v75));
+                    v83:updateReasons(v11.validateFullBody(v87, v77));
+                    v83:updateReasons(v8(v87, nil, v77));
                     if v4() then
-                        v81:updateReasons(v12.validateFullBody(v85, v75));
+                        v83:updateReasons(v12.validateFullBody(v87, v77));
                     end;
                 end;
             end;
-            return v81:getFinalResults();
+            if v18() then
+                v17.setIsBackendBundleUpload(false);
+            end;
+            return v83:getFinalResults();
         end;
     end;
 end;

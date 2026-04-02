@@ -39,7 +39,7 @@ local function _(v18) --[[ Line: 35 ]] --[[ Name: getStartRegistrationUrl ]]
         return v19;
     end;
 end;
-local function v30(v21, v22, v23) --[[ Line: 49 ]] --[[ Name: startPasskeyRegistration ]]
+local function v30(v21, v22, v23) --[[ Line: 50 ]] --[[ Name: startPasskeyRegistration ]]
     -- upvalues: l_HttpService_0 (copy), l_Url_0 (copy), v10 (copy), v5 (copy), v9 (copy)
     local v24 = {
         postBody = l_HttpService_0:JSONEncode({
@@ -48,10 +48,10 @@ local function v30(v21, v22, v23) --[[ Line: 49 ]] --[[ Name: startPasskeyRegist
     };
     local l_v21_0 = v21;
     local v26 = string.format("%sv1/passkey/StartRegistration", l_Url_0.AUTH_URL);
-    return l_v21_0(if v10 and v22 then string.format("%s?flow=%s", v26, v22) else v26, "POST", v24, v23):andThen(function(v27) --[[ Line: 57 ]]
+    return l_v21_0(if v10 and v22 then string.format("%s?flow=%s", v26, v22) else v26, "POST", v24, v23):andThen(function(v27) --[[ Line: 58 ]]
         -- upvalues: v5 (ref)
         return v5.resolve(v27[1]);
-    end, function(v28) --[[ Line: 60 ]]
+    end, function(v28) --[[ Line: 61 ]]
         -- upvalues: l_HttpService_0 (ref), v5 (ref), v9 (ref)
         local v29 = if type(v28) == "table" then l_HttpService_0:JSONEncode(v28) else nil;
         return v5.reject({
@@ -61,9 +61,9 @@ local function v30(v21, v22, v23) --[[ Line: 49 ]] --[[ Name: startPasskeyRegist
         });
     end);
 end;
-return function(v31, v32, v33) --[[ Line: 72 ]] --[[ Name: attemptPasskeyRegistration ]]
+return function(v31, v32, v33) --[[ Line: 73 ]] --[[ Name: attemptPasskeyRegistration ]]
     -- upvalues: v30 (copy), l_HttpService_0 (copy), l_UserInputService_0 (copy), v4 (copy), l_default_0 (copy), v5 (copy), v9 (copy), l_Logger_0 (copy), v17 (copy)
-    return v30(v31, v32, v33):andThen(function(v34) --[[ Line: 73 ]]
+    return v30(v31, v32, v33):andThen(function(v34) --[[ Line: 74 ]]
         -- upvalues: l_HttpService_0 (ref), v33 (copy), l_UserInputService_0 (ref), v4 (ref), l_default_0 (ref), v5 (ref), v9 (ref), l_Logger_0 (ref), v17 (ref), v31 (copy)
         local v35 = l_HttpService_0:JSONDecode(v34.creationOptions);
         local l_sessionId_0 = v34.sessionId;
@@ -76,7 +76,7 @@ return function(v31, v32, v33) --[[ Line: 72 ]] --[[ Name: attemptPasskeyRegistr
             v35.publicKey.user.id = v4.FromUrlSafeBase64(v35.publicKey.user.id);
         end;
         local v38 = l_HttpService_0:JSONEncode(v35);
-        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.FIDO2, v38, v37 / 1000):andThen(function(v39) --[[ Line: 92 ]]
+        return l_default_0:registerCredentials(l_default_0.CredentialsTypes.FIDO2, v38, v37 / 1000):andThen(function(v39) --[[ Line: 93 ]]
             -- upvalues: l_HttpService_0 (ref), v5 (ref), v9 (ref), l_Logger_0 (ref), v4 (ref), l_sessionId_0 (copy), v17 (ref), v31 (ref)
             local v40 = l_HttpService_0:JSONDecode(v39);
             if v40 == nil or next(v40) == nil then
@@ -106,7 +106,7 @@ return function(v31, v32, v33) --[[ Line: 72 ]] --[[ Name: attemptPasskeyRegistr
                 local v43 = l_HttpService_0:JSONEncode(v42);
                 return v17(v31, v43);
             end;
-        end, function(v44) --[[ Line: 127 ]]
+        end, function(v44) --[[ Line: 128 ]]
             -- upvalues: v5 (ref), v9 (ref)
             return v5.reject({
                 body = v44, 
@@ -114,7 +114,7 @@ return function(v31, v32, v33) --[[ Line: 72 ]] --[[ Name: attemptPasskeyRegistr
                 source = v9.CREDENTIALS_PROTOCOL_REGISTER_CREDENTIALS_OTHER_ERR
             });
         end);
-    end, function(v45) --[[ Line: 134 ]]
+    end, function(v45) --[[ Line: 135 ]]
         -- upvalues: v5 (ref), v9 (ref)
         if type(v45) == "table" and v45.name then
             return v5.reject(v45);

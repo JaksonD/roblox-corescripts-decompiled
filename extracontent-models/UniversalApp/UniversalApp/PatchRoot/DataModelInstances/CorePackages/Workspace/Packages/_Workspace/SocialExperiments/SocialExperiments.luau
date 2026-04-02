@@ -4,6 +4,7 @@ return {
     ScheduledSquadsListExperimentation = require(script.ScheduledSquadsListExperimentation), 
     SquadCoordinationExperienceJoinExperimentation = require(script.SquadCoordinationExperienceJoinExperimentation), 
     SquadCoordinationUIChangesExperimentation = require(script.SquadCoordinationUIChangesExperimentation), 
+    SquadUnifyCoplayExperimentation = require(script.SquadUnifyCoplayExperimentation), 
     SquadQuickStartExperimentation = require(script.SquadQuickStartExperimentation), 
     SquadRegroupExperimentation = require(script.SquadRegroupExperimentation), 
     AppChatPerfExperimentation = require(script.AppChatPerfExperimentation), 

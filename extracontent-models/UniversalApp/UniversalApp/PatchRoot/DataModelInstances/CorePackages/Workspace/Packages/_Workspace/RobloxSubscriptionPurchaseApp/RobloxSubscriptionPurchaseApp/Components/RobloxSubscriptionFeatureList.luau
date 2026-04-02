@@ -122,6 +122,15 @@ return function(v27) --[[ Line: 82 ]] --[[ Name: RobloxSubscriptionFeatureList ]
             text = l_nextVirtualTransactionDiscountText_0
         }));
     end;
+    if v36 and typeof(v36.DiscountPercent) == "number" then
+        local l_Controller_0 = l_IconName_0.Controller;
+        local l_privateServerDiscountText_0 = v37.privateServerDiscountText;
+        table.insert(v38, v16({
+            layoutOrder = #v38 + 1, 
+            iconName = l_Controller_0, 
+            text = l_privateServerDiscountText_0
+        }));
+    end;
     if v31 and v31.IsRobuxTransferEnabled then
         local l_Robux_0 = l_IconName_0.Robux;
         local l_robuxTransfersText_0 = v37.robuxTransfersText;
@@ -129,15 +138,6 @@ return function(v27) --[[ Line: 82 ]] --[[ Name: RobloxSubscriptionFeatureList ]
             layoutOrder = #v38 + 1, 
             iconName = l_Robux_0, 
             text = l_robuxTransfersText_0
-        }));
-    end;
-    if v36 and typeof(v36.DiscountPercent) == "number" then
-        local l_BuildingStore_0 = l_IconName_0.BuildingStore;
-        local l_privateServerDiscountText_0 = v37.privateServerDiscountText;
-        table.insert(v38, v16({
-            layoutOrder = #v38 + 1, 
-            iconName = l_BuildingStore_0, 
-            text = l_privateServerDiscountText_0
         }));
     end;
     return v2.createElement(l_View_0, {

@@ -19,29 +19,30 @@ local l_useNotApprovedPageContext_0 = require(l_script_FirstAncestor_0.Contexts.
 local v18 = require(l_script_FirstAncestor_0.Utils.useOpenLink);
 local l_STATIC_PAGE_NAMES_0 = require(l_script_FirstAncestor_0.Components.pageItemConfigs.PageItemConfigUtils).STATIC_PAGE_NAMES;
 local v20 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapNewWebView);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 return {
-    getIsVisible = function(_, _, v23, v24) --[[ Line: 86 ]] --[[ Name: getIsVisible ]]
+    getIsVisible = function(_, _, v24, v25) --[[ Line: 93 ]] --[[ Name: getIsVisible ]]
         -- upvalues: l_STATIC_PAGE_NAMES_0 (copy)
-        local v25 = if v24 then v24.educational_pass_eligible else false;
-        local v26 = v23 or l_STATIC_PAGE_NAMES_0.Unknown;
-        local v27 = true;
-        if v26 ~= l_STATIC_PAGE_NAMES_0.SecondChanceIntro then
-            v27 = not v25;
+        local v26 = if v25 then v25.educational_pass_eligible else false;
+        local v27 = v24 or l_STATIC_PAGE_NAMES_0.Unknown;
+        local v28 = true;
+        if v27 ~= l_STATIC_PAGE_NAMES_0.SecondChanceIntro then
+            v28 = not v26;
         end;
-        return v27;
+        return v28;
     end, 
-    renderComponent = v4.memo(function(v28) --[[ Line: 41 ]] --[[ Name: ReportMistake ]]
-        -- upvalues: l_useNotApprovedPageContext_0 (copy), v20 (copy), v18 (copy), l_UrlBuilder_0 (copy), l_useCallback_0 (copy), v16 (copy), l_EVENT_TYPES_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_dependencyArray_0 (copy), v4 (copy), l_View_0 (copy), l_Text_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy)
+    renderComponent = v4.memo(function(v29) --[[ Line: 43 ]] --[[ Name: ReportMistake ]]
+        -- upvalues: l_useNotApprovedPageContext_0 (copy), v20 (copy), v18 (copy), l_UrlBuilder_0 (copy), l_useCallback_0 (copy), v16 (copy), l_EVENT_TYPES_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v4 (copy), l_View_0 (copy), l_Text_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy)
         local l_translations_0 = l_useNotApprovedPageContext_0().translations;
-        local l_dispatch_0 = v28.dispatch;
-        local v31 = if v20 then v18(l_UrlBuilder_0.static.appealsPortal.main(), l_translations_0.appealsPortalTitle) else nil;
-        local v32 = l_useCallback_0(function() --[[ Line: 49 ]]
-            -- upvalues: v16 (ref), l_EVENT_TYPES_0 (ref), v20 (ref), v31 (copy), l_dispatch_0 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), l_translations_0 (copy)
+        local l_dispatch_0 = v29.dispatch;
+        local v32 = if v20 then v18(l_UrlBuilder_0.static.appealsPortal.main(), l_translations_0.appealsPortalTitle) else nil;
+        local v33 = l_useCallback_0(function() --[[ Line: 52 ]]
+            -- upvalues: v16 (ref), l_EVENT_TYPES_0 (ref), v20 (ref), v32 (copy), l_dispatch_0 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_UrlBuilder_0 (ref), l_translations_0 (copy)
             v16({
                 eventType = l_EVENT_TYPES_0.AppealsPortalClicked
             });
-            if v20 and v31 then
-                v31();
+            if v20 and v32 then
+                v32();
                 return;
             else
                 l_dispatch_0(l_NavigateDown_0({
@@ -53,10 +54,13 @@ return {
                 }));
                 return;
             end;
-        end, l_dependencyArray_0(l_dispatch_0, v31));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            l_dispatch_0, 
+            v32
+        } else l_dependencyArray_0(l_dispatch_0, v32));
         return v4.createElement(l_View_0, {
             tag = "size-full-0 auto-y col gap-medium", 
-            LayoutOrder = v28.layoutOrder
+            LayoutOrder = v29.layoutOrder
         }, {
             Content = v4.createElement(l_Text_0, {
                 Text = l_translations_0.reportMistakeDescriptionV3, 
@@ -65,7 +69,7 @@ return {
             }), 
             ReportMistakeButton = v4.createElement(l_Button_0, {
                 text = l_translations_0.sendAppealButton, 
-                onActivated = v32, 
+                onActivated = v33, 
                 variant = l_ButtonVariant_0.Standard, 
                 size = l_InputSize_0.Small, 
                 width = UDim.new(1, 0), 

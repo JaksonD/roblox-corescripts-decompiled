@@ -263,8 +263,10 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
     end;
     if l_FFlagAXDurablesForMIS_0 then
         v94.getShouldShowSecondaryButton = function() --[[ Line: 351 ]]
-            -- upvalues: l_FFlagAXDurablesSupport_0 (ref), v94 (copy)
-            if l_FFlagAXDurablesSupport_0 and v94.props.itemData and v94.props.itemData.timedOptions and v94.props.numberOfTryOnItems > 1 then
+            -- upvalues: v94 (copy), l_FFlagAXDurablesSupport_0 (ref)
+            if v94.props.fromProfile then
+                return false;
+            elseif l_FFlagAXDurablesSupport_0 and v94.props.itemData and v94.props.itemData.timedOptions and v94.props.numberOfTryOnItems > 1 then
                 return true;
             elseif not v94.props.isCurrentItemInTryOns then
                 return true;
@@ -272,12 +274,12 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
                 return false;
             end;
         end;
-        v94.onTryOnSecondaryButtonActivated = function() --[[ Line: 366 ]]
+        v94.onTryOnSecondaryButtonActivated = function() --[[ Line: 369 ]]
             -- upvalues: v66 (ref), v94 (copy), v12 (ref), l_AvatarScreen_0 (ref)
             local v113 = v66.GetItemSubType(v94.props.itemType, v94.props.itemData);
             local v114 = nil;
             if v94.props.itemData.timedOptions then
-                v114 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v115) --[[ Line: 371 ]]
+                v114 = v12.List.findWhere(v94.props.itemData.timedOptions, function(v115) --[[ Line: 374 ]]
                     -- upvalues: v94 (ref)
                     return v115.days == v94.state.selectedTimedOptionDays;
                 end) or #v94.props.itemData.timedOptions;
@@ -290,7 +292,7 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
         end;
     end;
     if v78() then
-        v94.setItemDetailsScrollingEnabled = function(v116) --[[ Line: 400 ]]
+        v94.setItemDetailsScrollingEnabled = function(v116) --[[ Line: 403 ]]
             -- upvalues: v94 (copy)
             v94:setState({
                 scrollingEnabled = v116
@@ -298,7 +300,7 @@ v93.init = function(v94) --[[ Line: 232 ]] --[[ Name: init ]]
         end;
     end;
 end;
-v93.getBriefViewHeight = function(v117) --[[ Line: 408 ]] --[[ Name: getBriefViewHeight ]]
+v93.getBriefViewHeight = function(v117) --[[ Line: 411 ]] --[[ Name: getBriefViewHeight ]]
     -- upvalues: v20 (copy), v92 (copy), v68 (copy)
     local v118 = 0;
     if v117.props.lastInputGroup == v20.InputType.Gamepad and v92 then
@@ -306,7 +308,7 @@ v93.getBriefViewHeight = function(v117) --[[ Line: 408 ]] --[[ Name: getBriefVie
     end;
     return v68.ActionBar.ActionBarHeight + v68.ActionBar.ActionBarGradientHeight + v118 + 20;
 end;
-v93.renderTopBar = function(v119, v120) --[[ Line: 420 ]] --[[ Name: renderTopBar ]]
+v93.renderTopBar = function(v119, v120) --[[ Line: 423 ]] --[[ Name: renderTopBar ]]
     -- upvalues: l_PeekViewState_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), v5 (copy), l_IsVRAppBuild_0 (copy), v38 (copy), v37 (copy)
     local l_Theme_0 = v120.Theme;
     local l_fromProfile_0 = v119.props.fromProfile;
@@ -346,7 +348,7 @@ v93.renderTopBar = function(v119, v120) --[[ Line: 420 ]] --[[ Name: renderTopBa
         })
     });
 end;
-v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 481 ]] --[[ Name: renderActionBar ]]
+v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 484 ]] --[[ Name: renderActionBar ]]
     -- upvalues: l_FFlagAXDurablesSupportWithPostPurchaseFix_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v67 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_FFlagAXMISEnableMultiShopping_0 (copy), v90 (ref), l_Skeleton_0 (copy)
     local l_itemId_1 = v127.props.itemId;
     local l_itemType_1 = v127.props.itemType;
@@ -366,7 +368,7 @@ v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 481 ]
         [v5.Ref] = v127.actionBarContainerRef, 
         NextSelectionUp = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v127.contentFrameRef, 
         inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-            MoveToItemDetailsContainer = v6.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 512 ]]
+            MoveToItemDetailsContainer = v6.Input.onBegin(Enum.KeyCode.ButtonL2, function() --[[ Line: 515 ]]
                 -- upvalues: v127 (copy)
                 v127:getFocusController().moveFocusUp();
             end)
@@ -412,7 +414,7 @@ v93.renderActionBar = function(v127, _, v129, v130, v131, v132) --[[ Line: 481 ]
         })
     });
 end;
-v93.renderContent = function(v141) --[[ Line: 574 ]] --[[ Name: renderContent ]]
+v93.renderContent = function(v141) --[[ Line: 577 ]] --[[ Name: renderContent ]]
     -- upvalues: l_FFlagAXMigrateItemDetailsContainerInputBindingsToFocusNavigation_0 (copy), v35 (copy), v36 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v78 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy), l_FFlagAXDurablesSupport_0 (copy)
     local l_itemId_2 = v141.props.itemId;
     local l_itemType_2 = v141.props.itemType;
@@ -448,11 +450,11 @@ v93.renderContent = function(v141) --[[ Line: 574 ]] --[[ Name: renderContent ]]
         });
     end;
 end;
-v93.getIsTryOnPage = function(v151) --[[ Line: 618 ]] --[[ Name: getIsTryOnPage ]]
+v93.getIsTryOnPage = function(v151) --[[ Line: 621 ]] --[[ Name: getIsTryOnPage ]]
     -- upvalues: l_AvatarScreen_0 (copy)
     return v151.props.navigation.state.routeName == l_AvatarScreen_0.TryOnItem;
 end;
-v93.getItemDetailsComponent = function(v152, v153) --[[ Line: 622 ]] --[[ Name: getItemDetailsComponent ]]
+v93.getItemDetailsComponent = function(v152, v153) --[[ Line: 625 ]] --[[ Name: getItemDetailsComponent ]]
     -- upvalues: l_IsVRAppBuild_0 (copy), v57 (copy), v56 (copy), v55 (copy)
     if l_IsVRAppBuild_0() then
         return v57;
@@ -464,17 +466,17 @@ v93.getItemDetailsComponent = function(v152, v153) --[[ Line: 622 ]] --[[ Name: 
         return v55;
     end;
 end;
-v93.render = function(v154) --[[ Line: 636 ]] --[[ Name: render ]]
+v93.render = function(v154) --[[ Line: 639 ]] --[[ Name: render ]]
     -- upvalues: l_withSelectionCursorProvider_0 (copy), l_withStyle_0 (copy)
-    return l_withSelectionCursorProvider_0(function(v155) --[[ Line: 637 ]]
+    return l_withSelectionCursorProvider_0(function(v155) --[[ Line: 640 ]]
         -- upvalues: l_withStyle_0 (ref), v154 (copy)
-        return l_withStyle_0(function(v156) --[[ Line: 638 ]]
+        return l_withStyle_0(function(v156) --[[ Line: 641 ]]
             -- upvalues: v154 (ref), v155 (copy)
             return v154:renderWithProviders(v155, v156);
         end);
     end);
 end;
-v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 644 ]] --[[ Name: renderWithProviders ]]
+v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 647 ]] --[[ Name: renderWithProviders ]]
     -- upvalues: l_getSafeAreaSize_0 (copy), v32 (copy), l_PeekViewState_0 (copy), v5 (copy), l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), l_Focusable_0 (copy), v6 (copy), v40 (copy), l_AvatarScreen_0 (copy), v39 (copy), v77 (copy), v71 (copy), v75 (copy), v79 (copy), v31 (copy), v34 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), v78 (copy)
     local l_isSceneFullView_0 = v157.props.isSceneFullView;
     local l_itemId_3 = v157.props.itemId;
@@ -523,17 +525,17 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 644 ]] --[[ Name
             focusController = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v157:getFocusController(), 
             defaultChild = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v180 and v157.contentFrameRef or v157.actionBarContainerRef, 
             inputBindings = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else {
-                NavigateBack = v6.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 715 ]]
+                NavigateBack = v6.Input.onBegin(Enum.KeyCode.ButtonB, function() --[[ Line: 718 ]]
                     -- upvalues: v40 (ref), v157 (copy)
                     v40.closeFocusedScreen(v157.props.navigation);
                 end), 
-                OpenItemPrompt = v6.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 718 ]]
+                OpenItemPrompt = v6.Input.onBegin(Enum.KeyCode.ButtonX, function() --[[ Line: 721 ]]
                     -- upvalues: v157 (copy)
                     v157.props.openItemPrompt(v157.props.networking, v157.props.analytics, v157.props.overlayClosedCallback, v157.props.navigation, v157.props.avatarRoute);
                 end, {
                     key = "Feature.Catalog.Action.Buy"
                 }), 
-                OpenClosePeekView = if not not v170 or v157.props.showFullWithNoPeekView then nil else v6.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 730 ]]
+                OpenClosePeekView = if not not v170 or v157.props.showFullWithNoPeekView then nil else v6.Input.onBegin(Enum.KeyCode.ButtonY, function() --[[ Line: 733 ]]
                     -- upvalues: v157 (copy), l_PeekViewState_0 (ref)
                     if v157.props.itemDetailsExpanded then
                         v157.setPeekViewState(l_PeekViewState_0.Brief);
@@ -546,7 +548,7 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 644 ]] --[[ Name
                 end, {
                     key = v157.props.itemDetailsExpanded and "Feature.Catalog.Action.CloseDetails" or "Feature.Catalog.Action.OpenDetails"
                 }), 
-                OpenCatalogContextMenu = if not v157.props.showFullWithNoPeekView then v6.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 743 ]]
+                OpenCatalogContextMenu = if not v157.props.showFullWithNoPeekView then v6.Input.onBegin(Enum.KeyCode.ButtonL3, function() --[[ Line: 746 ]]
                     -- upvalues: v157 (copy), l_AvatarScreen_0 (ref), l_itemId_3 (copy), l_itemType_3 (copy), l_fromProfile_1 (copy), v166 (copy)
                     v157.props.navigation.navigate(l_AvatarScreen_0.CatalogContextMenu, {
                         itemId = l_itemId_3, 
@@ -610,12 +612,12 @@ v93.renderWithProviders = function(v157, v158, v159) --[[ Line: 644 ]] --[[ Name
     end;
 end;
 if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-    v93.getFocusController = function(v182) --[[ Line: 827 ]] --[[ Name: getFocusController ]]
+    v93.getFocusController = function(v182) --[[ Line: 830 ]] --[[ Name: getFocusController ]]
         return v182.props.focusController;
     end;
 end;
 if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
-    v93.didUpdate = function(v183, v184, _) --[[ Line: 832 ]] --[[ Name: didUpdate ]]
+    v93.didUpdate = function(v183, v184, _) --[[ Line: 835 ]] --[[ Name: didUpdate ]]
         -- upvalues: v20 (copy), v59 (copy), l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesForMIS_0 (copy)
         local l_key_1 = v183.props.avatarRoute.current.key;
         local l_key_2 = v184.avatarRoute.current.key;
@@ -647,7 +649,7 @@ if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
         end;
     end;
 else
-    v93.didUpdate = function(v192, v193, _) --[[ Line: 876 ]] --[[ Name: didUpdate ]]
+    v93.didUpdate = function(v192, v193, _) --[[ Line: 879 ]] --[[ Name: didUpdate ]]
         -- upvalues: l_FFlagAXDurablesSupportForRFYMigration_0 (copy), l_FFlagAXDurablesSupportWithPostPurchaseFix_0 (copy)
         if l_FFlagAXDurablesSupportForRFYMigration_0 and not v192.timedOptionDeeplinkUpdated and v192.props.itemData and v192.props.itemData.timedOptions then
             for v195, v196 in v192.props.itemData.timedOptions do
@@ -671,7 +673,7 @@ else
         end;
     end;
 end;
-v93.didMount = function(v200) --[[ Line: 913 ]] --[[ Name: didMount ]]
+v93.didMount = function(v200) --[[ Line: 916 ]] --[[ Name: didMount ]]
     -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v40 (copy), v20 (copy), v59 (copy), v76 (copy), l_PeekViewState_0 (copy)
     if not l_FFlagAXMigrateAXToGlobalAutofocus_0 then
         local v201 = v40.isFirstItemDetailsPage(v200.props.navigation);
@@ -688,7 +690,7 @@ v93.didMount = function(v200) --[[ Line: 913 ]] --[[ Name: didMount ]]
     end;
     v200.isMounted = true;
 end;
-v93.willUnmount = function(v202) --[[ Line: 940 ]] --[[ Name: willUnmount ]]
+v93.willUnmount = function(v202) --[[ Line: 943 ]] --[[ Name: willUnmount ]]
     -- upvalues: l_AvatarScreen_0 (copy), v40 (copy), l_PeekViewState_0 (copy)
     v202.isMounted = false;
     local v203 = v202.props.avatarRoute.current.name == l_AvatarScreen_0.ItemDetails;
@@ -701,7 +703,7 @@ v93.willUnmount = function(v202) --[[ Line: 940 ]] --[[ Name: willUnmount ]]
         end;
     end;
 end;
-local function v217(v206, v207) --[[ Line: 962 ]] --[[ Name: mapStateToProps ]]
+local function v217(v206, v207) --[[ Line: 965 ]] --[[ Name: mapStateToProps ]]
     -- upvalues: v52 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_getTryOnItemReducerKey_0 (copy), l_AvatarScreen_0 (copy), v33 (copy), l_FormFactor_0 (copy), v47 (copy), v4 (copy)
     local l_itemId_4 = v207.itemId;
     local l_itemType_4 = v207.itemType;
@@ -732,46 +734,46 @@ local function v217(v206, v207) --[[ Line: 962 ]] --[[ Name: mapStateToProps ]]
         isCurrentItemInTryOns = if l_FFlagAXDurablesForMIS_0 then v212 else nil
     };
 end;
-local function v249(v218) --[[ Line: 1005 ]] --[[ Name: mapDispatchToProps ]]
+local function v249(v218) --[[ Line: 1008 ]] --[[ Name: mapDispatchToProps ]]
     -- upvalues: v48 (copy), v49 (copy), v29 (copy), v53 (copy), v24 (copy), v60 (copy), v69 (copy), v54 (copy), v70 (copy), l_FFlagAXDurablesForMIS_0 (copy), l_SetSelectedTimedOption_0 (copy), v51 (copy), v50 (copy)
     return {
-        closeAllPeekViews = function(v219) --[[ Line: 1007 ]] --[[ Name: closeAllPeekViews ]]
+        closeAllPeekViews = function(v219) --[[ Line: 1010 ]] --[[ Name: closeAllPeekViews ]]
             -- upvalues: v218 (copy), v48 (ref)
             v218(v48(v219));
         end, 
-        closeFiltersAndItemDetails = function(v220) --[[ Line: 1011 ]] --[[ Name: closeFiltersAndItemDetails ]]
+        closeFiltersAndItemDetails = function(v220) --[[ Line: 1014 ]] --[[ Name: closeFiltersAndItemDetails ]]
             -- upvalues: v218 (copy), v49 (ref)
             v218(v49(v220));
         end, 
-        closeFocusedScreen = function(v221) --[[ Line: 1015 ]] --[[ Name: closeFocusedScreen ]]
+        closeFocusedScreen = function(v221) --[[ Line: 1018 ]] --[[ Name: closeFocusedScreen ]]
             -- upvalues: v218 (copy), v29 (ref)
             v218(v29(v221));
         end, 
-        setItemDetailsExpanded = function(v222) --[[ Line: 1019 ]] --[[ Name: setItemDetailsExpanded ]]
+        setItemDetailsExpanded = function(v222) --[[ Line: 1022 ]] --[[ Name: setItemDetailsExpanded ]]
             -- upvalues: v218 (copy), v53 (ref)
             v218(v53(v222));
         end, 
-        setCurrentToastMessage = function(v223) --[[ Line: 1023 ]] --[[ Name: setCurrentToastMessage ]]
+        setCurrentToastMessage = function(v223) --[[ Line: 1026 ]] --[[ Name: setCurrentToastMessage ]]
             -- upvalues: v218 (copy), v24 (ref)
             v218(v24(v223));
         end, 
-        openItemPrompt = function(v224, v225, v226, v227, v228) --[[ Line: 1027 ]] --[[ Name: openItemPrompt ]]
+        openItemPrompt = function(v224, v225, v226, v227, v228) --[[ Line: 1030 ]] --[[ Name: openItemPrompt ]]
             -- upvalues: v218 (copy), v60 (ref)
             v218(v60(v224, v225, v226, v227, v228));
         end, 
-        redeemQRCodeItemPrompt = function(v229, v230, v231, v232) --[[ Line: 1031 ]] --[[ Name: redeemQRCodeItemPrompt ]]
+        redeemQRCodeItemPrompt = function(v229, v230, v231, v232) --[[ Line: 1034 ]] --[[ Name: redeemQRCodeItemPrompt ]]
             -- upvalues: v218 (copy), v69 (ref)
             v218(v69(v229, v230, v231, v232));
         end, 
-        setItemDetailsPeekViewState = function(v233) --[[ Line: 1035 ]] --[[ Name: setItemDetailsPeekViewState ]]
+        setItemDetailsPeekViewState = function(v233) --[[ Line: 1038 ]] --[[ Name: setItemDetailsPeekViewState ]]
             -- upvalues: v218 (copy), v54 (ref)
             v218(v54(v233));
         end, 
-        setItemTryOnPeekViewState = function(v234) --[[ Line: 1039 ]] --[[ Name: setItemTryOnPeekViewState ]]
+        setItemTryOnPeekViewState = function(v234) --[[ Line: 1042 ]] --[[ Name: setItemTryOnPeekViewState ]]
             -- upvalues: v218 (copy), v70 (ref)
             v218(v70(v234));
         end, 
-        setSelectedTimedOption = l_FFlagAXDurablesForMIS_0 and function(v235, v236, v237) --[[ Line: 1044 ]]
+        setSelectedTimedOption = l_FFlagAXDurablesForMIS_0 and function(v235, v236, v237) --[[ Line: 1047 ]]
             -- upvalues: v218 (copy), l_SetSelectedTimedOption_0 (ref)
             v218(l_SetSelectedTimedOption_0({
                 itemId = v235, 
@@ -779,11 +781,11 @@ local function v249(v218) --[[ Line: 1005 ]] --[[ Name: mapDispatchToProps ]]
                 selectedTimedOptionIndex = v237
             }));
         end or nil, 
-        closeMatchingScreens = l_FFlagAXDurablesForMIS_0 and function(v238, v239) --[[ Line: 1054 ]]
+        closeMatchingScreens = l_FFlagAXDurablesForMIS_0 and function(v238, v239) --[[ Line: 1057 ]]
             -- upvalues: v218 (copy), v51 (ref)
             v218(v51(v238, v239));
         end or nil, 
-        toggleTryOnThunk = l_FFlagAXDurablesForMIS_0 and function(v240, v241, v242, v243, v244, v245, v246, v247, v248) --[[ Line: 1060 ]]
+        toggleTryOnThunk = l_FFlagAXDurablesForMIS_0 and function(v240, v241, v242, v243, v244, v245, v246, v247, v248) --[[ Line: 1063 ]]
             -- upvalues: v218 (copy), v50 (ref)
             v218(v50(v240, v241, v242, v243, v244, v245, v246, v247, nil, false, false, v248));
         end or nil
@@ -795,13 +797,13 @@ v93 = l_RoactServices_0.connect({
     analytics = v65
 })(v93);
 v93 = v45((v9.connect(v217, v249)(v93)));
-v93 = l_RoactAppPolicy_0.connect(function(v250, _) --[[ Line: 1103 ]]
+v93 = l_RoactAppPolicy_0.connect(function(v250, _) --[[ Line: 1106 ]]
     return {
         peekViewFullViewEnabled = v250.getItemDetailsFullView(), 
         showPremiumContent = v250.getShowCatalogPremiumContent()
     };
 end)(v93);
-return function(v252) --[[ Line: 1110 ]] --[[ Name: ItemDetailsPageContainer ]]
+return function(v252) --[[ Line: 1113 ]] --[[ Name: ItemDetailsPageContainer ]]
     -- upvalues: l_FFlagAXMigrateAXToGlobalAutofocus_0 (copy), v7 (copy), v6 (copy), l_FFlagAXDurablesForMIS_0 (copy), v16 (copy), v62 (copy), v61 (copy), v12 (copy), v5 (copy), v93 (ref)
     local v253 = if l_FFlagAXMigrateAXToGlobalAutofocus_0 then nil else v7.useRef(v6.createFocusController()).current;
     if not l_FFlagAXMigrateAXToGlobalAutofocus_0 and v252.focusController then

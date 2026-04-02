@@ -18,86 +18,87 @@ local l_SduiLoadTimer_0 = v13.SduiLoadTimer;
 local l_setIsBadgeDetailsSheetOpen_0 = v3.setIsBadgeDetailsSheetOpen;
 local l_FFlagSduiCoreBadgeDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiCoreBadgeDetailsSupport;
 local l_FFlagSduiFeedOptionalScrollingFrameFix_0 = require(l_Parent_0.SharedFlags).FFlagSduiFeedOptionalScrollingFrameFix;
-local v20 = game:DefineFastFlag("LuaAppBadgeDetailsLargeSideSheetSize2", false) and v5.Utility.Flags.FoundationSideSheetNewWidthCalculation;
-local function _(v21, v22) --[[ Line: 41 ]] --[[ Name: getFromPropsOrNavigationParams ]]
-    local v23 = v21.navigation and v21.navigation.getParam("extraProps");
-    return v21[v22] or v23 and v23[v22];
+local l_FFlagSduiPageEntryUseSharedHooks_0 = require(l_Parent_0.SharedFlags).FFlagSduiPageEntryUseSharedHooks;
+local v21 = game:DefineFastFlag("LuaAppBadgeDetailsLargeSideSheetSize2", false) and v5.Utility.Flags.FoundationSideSheetNewWidthCalculation;
+local function _(v22, v23) --[[ Line: 42 ]] --[[ Name: getFromPropsOrNavigationParams ]]
+    local v24 = v22.navigation and v22.navigation.getParam("extraProps");
+    return v22[v23] or v24 and v24[v23];
 end;
-local function _(v25, v26) --[[ Line: 52 ]]
-    return v25 .. "_" .. v26;
+local function _(v26, v27) --[[ Line: 54 ]]
+    return v26 .. "_" .. v27;
 end;
-return v7.memo(function(v28) --[[ Line: 56 ]] --[[ Name: BadgeDetailsPage ]]
-    -- upvalues: l_useTokens_0 (copy), v2 (copy), v7 (copy), l_SduiLoadTimer_0 (copy), l_useNavigation_0 (copy), l_useRouteName_0 (copy), l_useNavigationFocus_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v11 (copy), v1 (copy), l_setIsBadgeDetailsSheetOpen_0 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (copy), l_SduiFeatureEntryPoint_0 (copy), l_SduiPageEntryPoint_0 (copy), v5 (copy), v20 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy)
-    local v29 = l_useTokens_0();
-    local v30 = v28.navigation and v28.navigation.getParam("extraProps");
-    local v31 = v28.badgeId or v30 and v30.badgeId;
-    v30 = v2(v31);
-    local v34 = v7.useMemo(function() --[[ Line: 62 ]]
-        -- upvalues: v28 (copy), l_SduiLoadTimer_0 (ref)
-        local l_v28_0 = v28;
-        local v33 = l_v28_0.navigation and l_v28_0.navigation.getParam("extraProps");
-        return l_v28_0.pageTimer or v33 and v33.pageTimer or l_SduiLoadTimer_0.createLoadTimer("BadgeDetails");
+return v7.memo(function(v29) --[[ Line: 58 ]] --[[ Name: BadgeDetailsPage ]]
+    -- upvalues: l_useTokens_0 (copy), v2 (copy), v7 (copy), l_SduiLoadTimer_0 (copy), l_useNavigation_0 (copy), l_useRouteName_0 (copy), l_useNavigationFocus_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v11 (copy), v1 (copy), l_setIsBadgeDetailsSheetOpen_0 (copy), l_FFlagSduiFeedOptionalScrollingFrameFix_0 (copy), l_SduiFeatureEntryPoint_0 (copy), l_SduiPageEntryPoint_0 (copy), l_FFlagSduiPageEntryUseSharedHooks_0 (copy), v5 (copy), v21 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy)
+    local v30 = l_useTokens_0();
+    local v31 = v29.navigation and v29.navigation.getParam("extraProps");
+    local v32 = v29.badgeId or v31 and v31.badgeId;
+    v31 = v2(v32);
+    local v35 = v7.useMemo(function() --[[ Line: 64 ]]
+        -- upvalues: v29 (copy), l_SduiLoadTimer_0 (ref)
+        local l_v29_0 = v29;
+        local v34 = l_v29_0.navigation and l_v29_0.navigation.getParam("extraProps");
+        return l_v29_0.pageTimer or v34 and v34.pageTimer or l_SduiLoadTimer_0.createLoadTimer("BadgeDetails");
     end, {});
-    local v35 = l_useNavigation_0();
-    local v36 = l_useRouteName_0();
-    local v37 = l_useNavigationFocus_0();
-    local v38 = l_useBreakpointXOrSmaller_0(v11.Keys.Small);
-    local v39 = v7.useCallback(function() --[[ Line: 71 ]]
-        -- upvalues: v36 (copy), v37 (copy), v35 (copy)
-        if v36 == "BadgeDetails" and v37 then
-            v35.goBack();
+    local v36 = l_useNavigation_0();
+    local v37 = l_useRouteName_0();
+    local v38 = l_useNavigationFocus_0();
+    local v39 = l_useBreakpointXOrSmaller_0(v11.Keys.Small);
+    local v40 = v7.useCallback(function() --[[ Line: 73 ]]
+        -- upvalues: v37 (copy), v38 (copy), v36 (copy)
+        if v37 == "BadgeDetails" and v38 then
+            v36.goBack();
         end;
     end, {
-        v35, 
         v36, 
-        v37
+        v37, 
+        v38
     });
-    v7.useEffect(function() --[[ Line: 77 ]]
-        -- upvalues: v31 (copy), v1 (ref), v34 (copy)
-        if v31 then
-            v1(v31, v34);
+    v7.useEffect(function() --[[ Line: 79 ]]
+        -- upvalues: v32 (copy), v1 (ref), v35 (copy)
+        if v32 then
+            v1(v32, v35);
         end;
     end, {
-        v31, 
-        v34
+        v32, 
+        v35
     });
-    v7.useEffect(function() --[[ Line: 83 ]]
-        -- upvalues: v38 (copy), v37 (copy), l_setIsBadgeDetailsSheetOpen_0 (ref)
-        local v40 = not v38 and v37;
-        l_setIsBadgeDetailsSheetOpen_0(v40);
-        return function() --[[ Line: 87 ]]
+    v7.useEffect(function() --[[ Line: 85 ]]
+        -- upvalues: v39 (copy), v38 (copy), l_setIsBadgeDetailsSheetOpen_0 (ref)
+        local v41 = not v39 and v38;
+        l_setIsBadgeDetailsSheetOpen_0(v41);
+        return function() --[[ Line: 89 ]]
             -- upvalues: l_setIsBadgeDetailsSheetOpen_0 (ref)
             l_setIsBadgeDetailsSheetOpen_0(false);
         end;
     end, {
-        v38, 
-        v37
+        v39, 
+        v38
     });
-    local v41 = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 then v7.useRef(nil) else nil;
-    local v42 = v7.useCallback(function() --[[ Line: 98 ]]
-        -- upvalues: v7 (ref), l_SduiFeatureEntryPoint_0 (ref), v30 (copy), v34 (copy)
+    local v42 = if l_FFlagSduiFeedOptionalScrollingFrameFix_0 then v7.useRef(nil) else nil;
+    local v43 = v7.useCallback(function() --[[ Line: 100 ]]
+        -- upvalues: v7 (ref), l_SduiFeatureEntryPoint_0 (ref), v31 (copy), v35 (copy)
         return v7.createElement(l_SduiFeatureEntryPoint_0, {
             appPage = "BadgeDetails", 
-            configKey = v30, 
+            configKey = v31, 
             identifier = "badge_details_context_menu", 
             AutomaticSize = Enum.AutomaticSize.XY, 
-            pageTimer = v34, 
+            pageTimer = v35, 
             shouldDisplayError = false, 
             shouldDisplayLoading = false
         });
     end, {
-        v30, 
-        v34
+        v31, 
+        v35
     });
-    if v31 == nil then
+    if v32 == nil then
         return nil;
-    elseif v38 then
+    elseif v39 then
         return v7.createElement(l_SduiPageEntryPoint_0, {
             appPage = "BadgeDetails", 
-            configKey = v30, 
-            identifier = v30 .. "_" .. "badge_details_feed", 
-            pageTimer = v34, 
-            renderUtilities = v42, 
+            configKey = v31, 
+            identifier = l_FFlagSduiPageEntryUseSharedHooks_0 and "badge_details_feed" or v31 .. "_" .. "badge_details_feed", 
+            pageTimer = v35, 
+            renderUtilities = v43, 
             includeNavigationHeaderBar = true
         });
     else
@@ -105,9 +106,9 @@ return v7.memo(function(v28) --[[ Line: 56 ]] --[[ Name: BadgeDetailsPage ]]
             snapPoints = {
                 1
             }, 
-            isOpen = v37, 
-            displaySize = if v20 then v5.Enums.DialogSize.Large else nil, 
-            onClose = v39
+            isOpen = v38, 
+            displaySize = if v21 then v5.Enums.DialogSize.Large else nil, 
+            onClose = v40
         }, {
             Header = v7.createElement(v5.Sheet.Header, {
                 hasCloseAffordance = true
@@ -129,21 +130,21 @@ return v7.memo(function(v28) --[[ Line: 56 ]] --[[ Name: BadgeDetailsPage ]]
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0
                     }, {
-                        EntryPoint = v42()
+                        EntryPoint = v43()
                     })
                 })
             }), 
             Content = v7.createElement(v5.Sheet.Content, {
-                scrollingFrameRef = v41
+                scrollingFrameRef = v42
             }, v7.createElement(l_SduiPageEntryPoint_0, {
                 appPage = "BadgeDetails", 
-                configKey = v30, 
-                identifier = v30 .. "_" .. "badge_details_feed", 
-                pageTimer = v34, 
+                configKey = v31, 
+                identifier = l_FFlagSduiPageEntryUseSharedHooks_0 and "badge_details_feed" or v31 .. "_" .. "badge_details_feed", 
+                pageTimer = v35, 
                 includeNavigationHeaderBar = false, 
-                backgroundStyle = v29.Color.None, 
+                backgroundStyle = v30.Color.None, 
                 disableRootPadding = l_FFlagSduiCoreBadgeDetailsSupport_0 and true or nil, 
-                scrollingFrameRef = v41, 
+                scrollingFrameRef = v42, 
                 snackbarPortalLayoutOrder = 2147483647
             }))
         });

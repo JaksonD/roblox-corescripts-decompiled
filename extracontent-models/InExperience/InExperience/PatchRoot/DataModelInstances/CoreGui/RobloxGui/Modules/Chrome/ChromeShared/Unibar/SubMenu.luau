@@ -28,7 +28,7 @@ local v26 = require(l_script_FirstAncestor_0.Service.ViewportUtil);
 local v27 = require(l_script_FirstAncestor_0.Unibar.Constants);
 local v28 = if l_FFlagEnableConsoleExpControls_0 then require(l_script_FirstAncestor_0.Parent.Parent.TopBar.Components.MenuIconContext) else nil;
 local v29 = require(l_script_FirstAncestor_0.Unibar.SubMenuContext);
-local v30 = require(script.Parent.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local l_UserInputService_0 = game:GetService("UserInputService");
 local v32 = require(l_script_FirstAncestor_0.Hooks.useChromeMenuItems);
 local v33 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
@@ -52,7 +52,7 @@ local v44 = {
 local v45 = {};
 local v46 = nil;
 MenuRow = function(v47) --[[ Line: 82 ]] --[[ Name: MenuRow ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v30 (copy), v27 (copy), v11 (copy), v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v28 (copy), l_ControlState_0 (copy), v24 (copy), l_GuiService_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), v41 (copy), l_StyledTextLabel_0 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_Interactable_0 (copy), l_useCursor_0 (copy), l_RoundedSlot_0 (copy), v36 (copy)
+    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), v11 (copy), v29 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v28 (copy), l_ControlState_0 (copy), v24 (copy), l_GuiService_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), v41 (copy), l_StyledTextLabel_0 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_Interactable_0 (copy), l_useCursor_0 (copy), l_RoundedSlot_0 (copy), v36 (copy)
     local v48 = l_useStyle_0();
     local v49 = nil;
     local l_Theme_0 = v48.Theme;
@@ -68,7 +68,7 @@ MenuRow = function(v47) --[[ Line: 82 ]] --[[ Name: MenuRow ]]
     local v57 = nil;
     local v58 = nil;
     if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v49 = v30.use();
+        v49 = l_UnibarStyle_0.use();
         v52 = v49.ICON_SIZE;
         v53 = v49.SUB_MENU_ROW_HEIGHT;
         v54 = v49.SUBMENU_PADDING_LEFT;
@@ -184,7 +184,7 @@ isLeft = function(v72) --[[ Line: 219 ]] --[[ Name: isLeft ]]
     return v72 == Enum.HorizontalAlignment.Left;
 end;
 SubMenu = function(v73) --[[ Line: 223 ]] --[[ Name: SubMenu ]]
-    -- upvalues: l_useStyle_0 (copy), v11 (copy), v33 (copy), v26 (copy), v34 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v30 (copy), v27 (copy), l_GuiService_0 (copy), v24 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_UserInputService_0 (copy), v13 (copy), v7 (copy), l_IXPServiceWrapper_0 (copy), v8 (copy), l_UserGameSettings_0 (copy), v35 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_isSpatial_0 (copy), l_VerticalScrollView_0 (copy), l_ScrollBarType_0 (copy)
+    -- upvalues: l_useStyle_0 (copy), v11 (copy), v33 (copy), v26 (copy), v34 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v27 (copy), l_GuiService_0 (copy), v24 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_UserInputService_0 (copy), v13 (copy), v7 (copy), l_IXPServiceWrapper_0 (copy), v8 (copy), l_UserGameSettings_0 (copy), v35 (copy), l_isInExperienceUIVREnabled_0 (copy), l_InExperienceUIVRIXP_0 (copy), v40 (ref), l_isSpatial_0 (copy), l_VerticalScrollView_0 (copy), l_ScrollBarType_0 (copy)
     local v74 = l_useStyle_0();
     local v75 = nil;
     local l_Theme_1 = v74.Theme;
@@ -198,7 +198,7 @@ SubMenu = function(v73) --[[ Line: 223 ]] --[[ Name: SubMenu ]]
     local v84 = nil;
     local v85 = nil;
     if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v75 = v30.use();
+        v75 = l_UnibarStyle_0.use();
         v80 = v75.UNIBAR_LEFT_MARGIN;
         v81 = v75.ICON_CELL_WIDTH;
         v82 = v75.UNIBAR_END_PADDING;

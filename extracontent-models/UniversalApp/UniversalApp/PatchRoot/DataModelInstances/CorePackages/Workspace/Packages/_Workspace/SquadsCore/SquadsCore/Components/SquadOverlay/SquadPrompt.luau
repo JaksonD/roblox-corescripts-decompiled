@@ -21,217 +21,240 @@ local l_FocusRoot_0 = v16.FocusRoot;
 local l_FFlagEnableAppChatFocusableFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableAppChatFocusableFixes;
 local v21 = game:DefineFastFlag("EnableSquadPromptAnalytics", false);
 local l_FFlagEnableScheduledSquads_0 = require(l_Parent_0.SharedFlags).FFlagEnableScheduledSquads;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 local l_useScreenSize_0 = v7.useScreenSize;
 local l_ButtonType_0 = v8.App.Button.Enum.ButtonType;
 local l_InteractiveAlert_0 = v8.App.Dialog.Alert.InteractiveAlert;
-local v26 = {
+local v27 = {
     hideCancelButton = false, 
     bodyTextLocalizationProps = nil
 };
-local function _() --[[ Line: 43 ]] --[[ Name: getFFlagRenameFriendsToConnectionsPartyLobby ]]
+local function _() --[[ Line: 44 ]] --[[ Name: getFFlagRenameFriendsToConnectionsPartyLobby ]]
     -- upvalues: v13 (copy)
     return v13.getAppFeaturePolicies().getRenameFriendsToConnections();
 end;
-return function(v28) --[[ Line: 47 ]]
-    -- upvalues: v9 (copy), v26 (copy), v6 (copy), v2 (copy), l_useDispatch_0 (copy), v5 (copy), l_useScreenSize_0 (copy), v4 (copy), l_dependencyArray_0 (copy), v21 (copy), v3 (copy), v13 (copy), l_FFlagEnableScheduledSquads_0 (copy), l_useLocalization_0 (copy), l_ButtonType_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v15 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_InteractiveAlert_0 (copy)
-    local v29 = v9.Dictionary.join(v26, v28);
-    local v30 = v6.useContext(v2);
-    local v31 = l_useDispatch_0();
-    local v32 = v5() or "";
-    local v33 = if v29.screenSize then v29.screenSize else l_useScreenSize_0();
-    local v35 = v6.useCallback(function(v34) --[[ Line: 55 ]]
-        -- upvalues: v30 (copy), v4 (ref), v29 (copy), v32 (copy)
-        v30.fireSquadAnalytics(v4.SquadPromptResponded, {
-            promptType = v29.promptType, 
-            squadId = v32 or "", 
-            responseType = v34
+return function(v29) --[[ Line: 48 ]]
+    -- upvalues: v9 (copy), v27 (copy), v6 (copy), v2 (copy), l_useDispatch_0 (copy), v5 (copy), l_useScreenSize_0 (copy), v4 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v21 (copy), v3 (copy), v13 (copy), l_FFlagEnableScheduledSquads_0 (copy), l_useLocalization_0 (copy), l_ButtonType_0 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v15 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_InteractiveAlert_0 (copy)
+    local v30 = v9.Dictionary.join(v27, v29);
+    local v31 = v6.useContext(v2);
+    local v32 = l_useDispatch_0();
+    local v33 = v5() or "";
+    local v34 = if v30.screenSize then v30.screenSize else l_useScreenSize_0();
+    local v36 = v6.useCallback(function(v35) --[[ Line: 57 ]]
+        -- upvalues: v31 (copy), v4 (ref), v30 (copy), v33 (copy)
+        v31.fireSquadAnalytics(v4.SquadPromptResponded, {
+            promptType = v30.promptType, 
+            squadId = v33 or "", 
+            responseType = v35
         });
-    end, l_dependencyArray_0(v29.promptType, v32, v30.fireSquadAnalytics));
-    local v36 = v6.useCallback(function() --[[ Line: 63 ]]
-        -- upvalues: v21 (ref), v35 (copy), v31 (copy), v30 (copy), v29 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v30.promptType, 
+        v33, 
+        v31.fireSquadAnalytics
+    } else l_dependencyArray_0(v30.promptType, v33, v31.fireSquadAnalytics));
+    local v37 = v6.useCallback(function() --[[ Line: 70 ]]
+        -- upvalues: v21 (ref), v36 (copy), v32 (copy), v31 (copy), v30 (copy)
         if v21 then
-            v35("cancel");
+            v36("cancel");
         end;
-        v31(v30.closeSquadPrompt());
-        if v29.onCancel then
-            v29.onCancel();
+        v32(v31.closeSquadPrompt());
+        if v30.onCancel then
+            v30.onCancel();
         end;
-    end, l_dependencyArray_0(v31, v29.onCancel, v30.closeSquadPrompt, v35));
-    local v37 = v6.useCallback(function() --[[ Line: 75 ]]
-        -- upvalues: v21 (ref), v35 (copy), v31 (copy), v30 (copy), v29 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32, 
+        v30.onCancel, 
+        v31.closeSquadPrompt, 
+        v36
+    } else l_dependencyArray_0(v32, v30.onCancel, v31.closeSquadPrompt, v36));
+    local v38 = v6.useCallback(function() --[[ Line: 87 ]]
+        -- upvalues: v21 (ref), v36 (copy), v32 (copy), v31 (copy), v30 (copy)
         if v21 then
-            v35("confirm");
+            v36("confirm");
         end;
-        v31(v30.closeSquadPrompt());
-        if v29.onConfirm then
-            v29.onConfirm();
+        v32(v31.closeSquadPrompt());
+        if v30.onConfirm then
+            v30.onConfirm();
         end;
-    end, l_dependencyArray_0(v31, v29.onConfirm, v30.closeSquadPrompt, v35));
-    local v45 = v6.useCallback(function(v38) --[[ Line: 87 ]]
-        -- upvalues: v3 (ref), v13 (ref), l_FFlagEnableScheduledSquads_0 (ref), v29 (copy)
-        local v39 = nil;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32, 
+        v30.onConfirm, 
+        v31.closeSquadPrompt, 
+        v36
+    } else l_dependencyArray_0(v32, v30.onConfirm, v31.closeSquadPrompt, v36));
+    local v46 = v6.useCallback(function(v39) --[[ Line: 103 ]]
+        -- upvalues: v3 (ref), v13 (ref), l_FFlagEnableScheduledSquads_0 (ref), v30 (copy)
         local v40 = nil;
         local v41 = nil;
-        local v42 = "CommonUI.Controls.Action.Cancel";
-        if v38 == v3.AlreadyJoined then
-            v39 = "Feature.Squads.Label.Error";
-            v40 = "Feature.Squads.Description.AlreadyJoined";
-            v41 = "Feature.Squads.Action.Ok";
-        elseif v38 == v3.ConfirmInviteToSquad then
-            v39 = v13.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Squads.Label.InviteConnectionsConfirmation" or "Feature.Squads.Label.InviteFriendsConfirmation";
-            v40 = v13.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Squads.Description.InviteConnectionsToParty" or "Feature.Squads.Description.InviteFriendsToParty";
-            v41 = "Feature.Squads.Action.Yes";
-        elseif v38 == v3.AddFriends then
-            v39 = "Feature.Squads.Label.AddFriends";
-            v40 = "Feature.Squads.Description.AddFriends";
-            v41 = "Feature.Squads.Action.Ok";
-        elseif v38 == v3.FailedToJoin then
-            v39 = "Feature.Squads.Label.FailedToJoin";
-            v40 = "Feature.Squads.Description.FailedToJoin";
-            v41 = "Feature.Squads.Action.Join";
-        elseif v38 == v3.JoinAnotherSquad then
-            v39 = "Feature.Squads.Label.JoinAnotherParty";
-            v40 = "Feature.Squads.Description.JoinAnotherParty";
-            v41 = "Feature.Squads.Action.Switch";
-        elseif v38 == v3.SquadEnded then
-            v39 = "Feature.Squads.Label.PartyEnded";
-            v40 = "Feature.Squads.Description.PartyEnded";
-            v41 = "Feature.Squads.Action.Start";
-        elseif v38 == v3.SquadFull then
-            v39 = "Feature.Squads.Label.PartyFull";
-            v40 = "Feature.Squads.Description.PartyFull";
-            v41 = "Feature.Squads.Action.Join";
-        elseif v38 == v3.InvitedToExperience then
-            v39 = "Feature.Squads.Label.InvitedToExperience";
-            v40 = "Feature.Squads.Description.InvitedToExperience";
-            v41 = "Feature.Squads.Action.Retry";
-        elseif v38 == v3.RemoveFromChat then
-            v39 = "Feature.Squads.Label.RemoveFromChat";
-            v40 = "Feature.Squads.Description.RemoveFromChat";
-            v41 = "Feature.Squads.Action.Remove";
-        elseif v38 == v3.RemoveFromParty then
-            v39 = "Feature.Squads.Label.RemoveFromParty";
-            v40 = "Feature.Squads.Description.RemoveFromParty";
-            v41 = "Feature.Squads.Action.Ok";
-        elseif v38 == v3.JoinWithLowMemory then
-            v39 = "Feature.Squads.Label.LowMemory";
-            v40 = "Feature.Squads.Description.JoinWithLowMemory";
-            v41 = "Feature.Squads.Action.ContinueWithoutVoice";
-            v42 = "Feature.Squads.Action.ConnectToVoice";
-        elseif v38 == v3.ConnectVoiceWithLowMemory then
-            v39 = "Feature.Squads.Label.LowMemory";
-            v40 = "Feature.Squads.Description.ConnectVoiceWithLowMemory";
-            v41 = "Feature.Squads.Action.ContinueWithoutVoice";
-            v42 = "Feature.Squads.Action.ConnectToVoice";
-        elseif v38 == v3.DisconnectVoiceDueToLowMemory then
-            v39 = "Feature.Squads.Label.LowMemory";
-            v40 = "Feature.Squads.Description.DisconnectVoiceDueToLowMemory";
-            v41 = "Feature.Squads.Action.DisconnectFromVoice";
+        local v42 = nil;
+        local v43 = "CommonUI.Controls.Action.Cancel";
+        if v39 == v3.AlreadyJoined then
+            v40 = "Feature.Squads.Label.Error";
+            v41 = "Feature.Squads.Description.AlreadyJoined";
+            v42 = "Feature.Squads.Action.Ok";
+        elseif v39 == v3.ConfirmInviteToSquad then
+            v40 = v13.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Squads.Label.InviteConnectionsConfirmation" or "Feature.Squads.Label.InviteFriendsConfirmation";
+            v41 = v13.getAppFeaturePolicies().getRenameFriendsToConnections() and "Feature.Squads.Description.InviteConnectionsToParty" or "Feature.Squads.Description.InviteFriendsToParty";
+            v42 = "Feature.Squads.Action.Yes";
+        elseif v39 == v3.AddFriends then
+            v40 = "Feature.Squads.Label.AddFriends";
+            v41 = "Feature.Squads.Description.AddFriends";
+            v42 = "Feature.Squads.Action.Ok";
+        elseif v39 == v3.FailedToJoin then
+            v40 = "Feature.Squads.Label.FailedToJoin";
+            v41 = "Feature.Squads.Description.FailedToJoin";
+            v42 = "Feature.Squads.Action.Join";
+        elseif v39 == v3.JoinAnotherSquad then
+            v40 = "Feature.Squads.Label.JoinAnotherParty";
+            v41 = "Feature.Squads.Description.JoinAnotherParty";
+            v42 = "Feature.Squads.Action.Switch";
+        elseif v39 == v3.SquadEnded then
+            v40 = "Feature.Squads.Label.PartyEnded";
+            v41 = "Feature.Squads.Description.PartyEnded";
+            v42 = "Feature.Squads.Action.Start";
+        elseif v39 == v3.SquadFull then
+            v40 = "Feature.Squads.Label.PartyFull";
+            v41 = "Feature.Squads.Description.PartyFull";
+            v42 = "Feature.Squads.Action.Join";
+        elseif v39 == v3.InvitedToExperience then
+            v40 = "Feature.Squads.Label.InvitedToExperience";
+            v41 = "Feature.Squads.Description.InvitedToExperience";
+            v42 = "Feature.Squads.Action.Retry";
+        elseif v39 == v3.RemoveFromChat then
+            v40 = "Feature.Squads.Label.RemoveFromChat";
+            v41 = "Feature.Squads.Description.RemoveFromChat";
+            v42 = "Feature.Squads.Action.Remove";
+        elseif v39 == v3.RemoveFromParty then
+            v40 = "Feature.Squads.Label.RemoveFromParty";
+            v41 = "Feature.Squads.Description.RemoveFromParty";
+            v42 = "Feature.Squads.Action.Ok";
+        elseif v39 == v3.JoinWithLowMemory then
+            v40 = "Feature.Squads.Label.LowMemory";
+            v41 = "Feature.Squads.Description.JoinWithLowMemory";
+            v42 = "Feature.Squads.Action.ContinueWithoutVoice";
+            v43 = "Feature.Squads.Action.ConnectToVoice";
+        elseif v39 == v3.ConnectVoiceWithLowMemory then
+            v40 = "Feature.Squads.Label.LowMemory";
+            v41 = "Feature.Squads.Description.ConnectVoiceWithLowMemory";
+            v42 = "Feature.Squads.Action.ContinueWithoutVoice";
+            v43 = "Feature.Squads.Action.ConnectToVoice";
+        elseif v39 == v3.DisconnectVoiceDueToLowMemory then
+            v40 = "Feature.Squads.Label.LowMemory";
+            v41 = "Feature.Squads.Description.DisconnectVoiceDueToLowMemory";
+            v42 = "Feature.Squads.Action.DisconnectFromVoice";
+            v43 = "Feature.Chat.Action.Continue";
+        elseif v39 == v3.ParticipantChatDisabled then
+            v40 = "Feature.Squads.Label.Error";
+            v41 = "Feature.Chat.Toast.Error.InvalidUserSelected";
+            v42 = "Feature.Squads.Action.Ok";
+        elseif v39 == v3.EuVoiceConsentPrompt then
+            v40 = "Feature.Squads.Label.VoiceRecordedTitle";
+            v41 = "Feature.Squads.Description.VoiceRecordedDisclosure";
             v42 = "Feature.Chat.Action.Continue";
-        elseif v38 == v3.ParticipantChatDisabled then
-            v39 = "Feature.Squads.Label.Error";
-            v40 = "Feature.Chat.Toast.Error.InvalidUserSelected";
-            v41 = "Feature.Squads.Action.Ok";
-        elseif v38 == v3.EuVoiceConsentPrompt then
-            v39 = "Feature.Squads.Label.VoiceRecordedTitle";
-            v40 = "Feature.Squads.Description.VoiceRecordedDisclosure";
-            v41 = "Feature.Chat.Action.Continue";
-            v42 = "Feature.Squads.Action.JoinWithoutVoice";
-        elseif l_FFlagEnableScheduledSquads_0 and v38 == v3.ConfirmDeleteScheduledSquad then
-            v39 = "Feature.Squads.Label.DeleteScheduledParty";
-            v40 = "Feature.Squads.Description.DeleteScheduledSquad";
-            v41 = "CommonUI.Controls.Action.Yes";
-        elseif l_FFlagEnableScheduledSquads_0 and v38 == v3.ScheduledSquadConflict then
-            v39 = "Feature.Squads.Label.PartyOperationFailed";
-            v40 = "Feature.Squads.Description.ScheduledPartyAlreadyExists";
-            v41 = "Feature.Squads.Action.Ok";
+            v43 = "Feature.Squads.Action.JoinWithoutVoice";
+        elseif l_FFlagEnableScheduledSquads_0 and v39 == v3.ConfirmDeleteScheduledSquad then
+            v40 = "Feature.Squads.Label.DeleteScheduledParty";
+            v41 = "Feature.Squads.Description.DeleteScheduledSquad";
+            v42 = "CommonUI.Controls.Action.Yes";
+        elseif l_FFlagEnableScheduledSquads_0 and v39 == v3.ScheduledSquadConflict then
+            v40 = "Feature.Squads.Label.PartyOperationFailed";
+            v41 = "Feature.Squads.Description.ScheduledPartyAlreadyExists";
+            v42 = "Feature.Squads.Action.Ok";
         else
-            v39 = "Feature.Squads.Label.PartyOperationFailed";
-            v40 = "Feature.Squads.Description.PleaseTryAgain";
-            v41 = "Feature.Squads.Action.Ok";
+            v40 = "Feature.Squads.Label.PartyOperationFailed";
+            v41 = "Feature.Squads.Description.PleaseTryAgain";
+            v42 = "Feature.Squads.Action.Ok";
         end;
-        if v29.bodyTextLocalizationProps then
-            v40 = {
-                v40
+        if v30.bodyTextLocalizationProps then
+            v41 = {
+                v41
             };
-            for v43, v44 in pairs(v29.bodyTextLocalizationProps) do
-                v40[v43] = v44;
+            for v44, v45 in pairs(v30.bodyTextLocalizationProps) do
+                v41[v44] = v45;
             end;
         end;
         return {
-            title = v39, 
-            bodyText = v40, 
-            confirmText = v41, 
-            cancelButtonText = v42
+            title = v40, 
+            bodyText = v41, 
+            confirmText = v42, 
+            cancelButtonText = v43
         };
     end, {});
-    local v46 = v6.useMemo(function() --[[ Line: 184 ]]
-        -- upvalues: v45 (copy), v29 (copy)
-        return v45(v29.promptType);
-    end, l_dependencyArray_0(v29.promptType));
-    local v47 = l_useLocalization_0({
-        title = v46.title, 
-        bodyText = v46.bodyText, 
-        confirmText = v46.confirmText, 
-        cancelButtonText = v46.cancelButtonText
+    local v47 = v6.useMemo(function() --[[ Line: 200 ]]
+        -- upvalues: v46 (copy), v30 (copy)
+        return v46(v30.promptType);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v30.promptType
+    } else l_dependencyArray_0(v30.promptType));
+    local v48 = l_useLocalization_0({
+        title = v47.title, 
+        bodyText = v47.bodyText, 
+        confirmText = v47.confirmText, 
+        cancelButtonText = v47.cancelButtonText
     });
-    local v49 = v6.useCallback(function() --[[ Line: 196 ]]
-        -- upvalues: v29 (copy), v36 (copy), v47 (copy), l_ButtonType_0 (ref), v37 (copy)
-        local v48 = {};
-        if not v29.hideCancelButton then
-            table.insert(v48, {
+    local v50 = v6.useCallback(function() --[[ Line: 212 ]]
+        -- upvalues: v30 (copy), v37 (copy), v48 (copy), l_ButtonType_0 (ref), v38 (copy)
+        local v49 = {};
+        if not v30.hideCancelButton then
+            table.insert(v49, {
                 props = {
-                    onActivated = v36, 
-                    text = v47.cancelButtonText
+                    onActivated = v37, 
+                    text = v48.cancelButtonText
                 }
             });
         end;
-        table.insert(v48, {
+        table.insert(v49, {
             buttonType = l_ButtonType_0.PrimarySystem, 
             props = {
-                onActivated = v37, 
-                text = v47.confirmText
+                onActivated = v38, 
+                text = v48.confirmText
             }
         });
-        return v48;
-    end, l_dependencyArray_0(v47.cancelButtonText, v47.confirmText, v29.hideCancelButton, v37, v36));
-    local v51 = if l_FFlagEnableAppChatFocusableFixes_0 then v6.useMemo(function() --[[ Line: 221 ]]
-        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v15 (ref), v36 (copy)
+        return v49;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v48.cancelButtonText, 
+        v48.confirmText, 
+        v30.hideCancelButton, 
+        v38, 
+        v37
+    } else l_dependencyArray_0(v48.cancelButtonText, v48.confirmText, v30.hideCancelButton, v38, v37));
+    local v52 = if l_FFlagEnableAppChatFocusableFixes_0 then v6.useMemo(function() --[[ Line: 251 ]]
+        -- upvalues: l_FocusNavigationEventNameEnum_0 (ref), v15 (ref), v37 (copy)
         return {
             [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-                handler = v15.onRelease(function(v50) --[[ Line: 224 ]]
-                    -- upvalues: v36 (ref)
-                    v36();
-                    v50:cancel();
+                handler = v15.onRelease(function(v51) --[[ Line: 254 ]]
+                    -- upvalues: v37 (ref)
+                    v37();
+                    v51:cancel();
                 end)
             }
         };
     end, {
-        v36
+        v37
     }) else nil;
     if l_FFlagEnableAppChatFocusableFixes_0 then
         return (v6.createElement(l_FocusRoot_0, {
-            eventHandlers = v51, 
+            eventHandlers = v52, 
             isAutoFocusRoot = true, 
             isIsolated = true, 
             surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.PopUp
         }, {
             v6.createElement(l_InteractiveAlert_0, {
-                screenSize = v33, 
-                title = v47.title, 
-                bodyText = v47.bodyText, 
+                screenSize = v34, 
+                title = v48.title, 
+                bodyText = v48.bodyText, 
                 buttonStackInfo = {
-                    buttons = v49()
+                    buttons = v50()
                 }
             })
         }));
     else
         return (v6.createElement(l_InteractiveAlert_0, {
-            screenSize = v33, 
-            title = v47.title, 
-            bodyText = v47.bodyText, 
+            screenSize = v34, 
+            title = v48.title, 
+            bodyText = v48.bodyText, 
             buttonStackInfo = {
-                buttons = v49()
+                buttons = v50()
             }
         }));
     end;

@@ -5,12 +5,13 @@ local v3 = require(l_Parent_0.AbuseReporting);
 local _ = require(l_script_FirstAncestor_0.Common.ModelTypes);
 local v5 = require(l_script_FirstAncestor_0.dependencies);
 local v6 = require(l_script_FirstAncestor_0.Logger);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v5.SharedFlags.FFlagRemoveDependencyArrayAntipattern;
 local l_React_0 = v5.React;
 local l_DefaultTwoStepReportFlow_0 = v3.UXFlows.DefaultTwoStepReportFlow;
 local l_NetworkingSquads_0 = v5.NetworkingSquads;
 local l_dependencyArray_0 = v5.Hooks.dependencyArray;
 local l_useDispatch_0 = v5.Hooks.useDispatch;
-local v12 = {
+local v13 = {
     {
         localizationKey = "Feature.ReportAbuse.Label.CategoryInappropriate", 
         value = "Swearing"
@@ -36,41 +37,44 @@ local v12 = {
         value = "Personal Question"
     }
 };
-return function(v13) --[[ Line: 34 ]] --[[ Name: SquadVoiceAbuseReport ]]
-    -- upvalues: l_useDispatch_0 (copy), l_React_0 (copy), v6 (copy), l_HttpService_0 (copy), l_NetworkingSquads_0 (copy), l_dependencyArray_0 (copy), l_DefaultTwoStepReportFlow_0 (copy), v12 (copy)
-    local v14 = l_useDispatch_0();
-    local v19 = l_React_0.useCallback(function(v15, v16) --[[ Line: 36 ]]
-        -- upvalues: v6 (ref), l_HttpService_0 (ref), v13 (copy), v14 (copy), l_NetworkingSquads_0 (ref)
-        v6:info("Submitting abuse report. Reason: {}, Comment: {}, Data: {}", v15, v16, l_HttpService_0:JSONEncode(v13.reportData));
-        local v17, v18 = v14(l_NetworkingSquads_0.SendSquadVoiceAbuseReport.API({
-            submitterUserId = v13.reportData.submitterUserId, 
-            abuserUserId = v13.reportData.abuserUserId, 
-            reportBeginTimestampMs = v13.reportData.reportBeginTimestampMs, 
-            voiceChannelId = v13.reportData.voiceChannelId, 
-            voiceUserIds = v13.reportData.voiceUserIds, 
-            voiceUserCount = v13.reportData.voiceUserCount, 
-            abuseReason = v15, 
-            abuseComment = v16
+return function(v14) --[[ Line: 36 ]] --[[ Name: SquadVoiceAbuseReport ]]
+    -- upvalues: l_useDispatch_0 (copy), l_React_0 (copy), v6 (copy), l_HttpService_0 (copy), l_NetworkingSquads_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_DefaultTwoStepReportFlow_0 (copy), v13 (copy)
+    local v15 = l_useDispatch_0();
+    local v20 = l_React_0.useCallback(function(v16, v17) --[[ Line: 39 ]]
+        -- upvalues: v6 (ref), l_HttpService_0 (ref), v14 (copy), v15 (copy), l_NetworkingSquads_0 (ref)
+        v6:info("Submitting abuse report. Reason: {}, Comment: {}, Data: {}", v16, v17, l_HttpService_0:JSONEncode(v14.reportData));
+        local v18, v19 = v15(l_NetworkingSquads_0.SendSquadVoiceAbuseReport.API({
+            submitterUserId = v14.reportData.submitterUserId, 
+            abuserUserId = v14.reportData.abuserUserId, 
+            reportBeginTimestampMs = v14.reportData.reportBeginTimestampMs, 
+            voiceChannelId = v14.reportData.voiceChannelId, 
+            voiceUserIds = v14.reportData.voiceUserIds, 
+            voiceUserCount = v14.reportData.voiceUserCount, 
+            abuseReason = v16, 
+            abuseComment = v17
         })):await();
-        if v17 then
-            v6:info("Abuse report submitted successfully. Response: {}", l_HttpService_0:JSONEncode(v18));
-            return v17;
+        if v18 then
+            v6:info("Abuse report submitted successfully. Response: {}", l_HttpService_0:JSONEncode(v19));
+            return v18;
         else
-            v6:error("Failed to submit abuse report. Response: {}", l_HttpService_0:JSONEncode(v18));
-            return v17;
+            v6:error("Failed to submit abuse report. Response: {}", l_HttpService_0:JSONEncode(v19));
+            return v18;
         end;
-    end, l_dependencyArray_0(v13.reportData, v14));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v14.reportData, 
+        v15
+    } else l_dependencyArray_0(v14.reportData, v15));
     return l_React_0.createElement(l_DefaultTwoStepReportFlow_0, {
         analyticsContext = "Squad", 
         onSubmitProps = {
             hasNextSteps = false, 
-            onSubmit = v19
+            onSubmit = v20
         }, 
         onCloseProps = {
             hasPreviousSteps = false, 
-            onAbandon = v13.onAbandon
+            onAbandon = v14.onAbandon
         }, 
-        onComplete = v13.onComplete, 
-        reportCategories = v12
+        onComplete = v14.onComplete, 
+        reportCategories = v13
     });
 end;

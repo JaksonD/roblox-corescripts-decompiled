@@ -23,508 +23,510 @@ local v21 = require(l_script_0.validationSystem.ValidationManager);
 local v22 = require(l_script_0.flags.getFFlagUGCValidationEnableFolderStructure);
 local v23 = require(l_script_0.flags.getFFlagUGCValidationCombineEntrypointResults);
 local v24 = require(l_script_0.util.LegacyValidationAdapter);
-local v25 = {
+local v25 = require(l_script_0.util.SplitHumanoidRigDescriptionForUpload);
+local v26 = {
     ValidateAsset = v21.ValidateAsset, 
     ValidateFinalizedBundle = v21.ValidateFinalizedBundle, 
     combineResultsIntoLegacy = v24.combineResultsIntoLegacy, 
     isFolderStructureEnabled = v22, 
-    isEntrypointMergingEnabled = v23
+    isEntrypointMergingEnabled = v23, 
+    SplitHrdInUpload = v25.fixUploadInstance
 };
 if v1() then
-    v25.validateWithContext = function(v26) --[[ Line: 46 ]] --[[ Name: validateWithContext ]]
+    v26.validateWithContext = function(v27) --[[ Line: 48 ]] --[[ Name: validateWithContext ]]
         -- upvalues: v2 (copy), v10 (copy), v13 (copy), v11 (copy)
-        assert(v26.instances ~= nil, "instances required in validationContext for validateWithContext");
-        assert(v26.assetTypeEnum ~= nil, "assetTypeEnum required in validationContext for validateWithContext");
-        local l_instances_0 = v26.instances;
-        local l_isServer_0 = v26.isServer;
-        local l_assetTypeEnum_0 = v26.assetTypeEnum;
-        local l_allowEditableInstances_0 = v26.allowEditableInstances;
-        local v31 = tick();
+        assert(v27.instances ~= nil, "instances required in validationContext for validateWithContext");
+        assert(v27.assetTypeEnum ~= nil, "assetTypeEnum required in validationContext for validateWithContext");
+        local l_instances_0 = v27.instances;
+        local l_isServer_0 = v27.isServer;
+        local l_assetTypeEnum_0 = v27.assetTypeEnum;
+        local l_allowEditableInstances_0 = v27.allowEditableInstances;
+        local v32 = tick();
         v2.setMetadata({
             entrypoint = "validate", 
             assetType = l_assetTypeEnum_0.Name, 
             isServer = l_isServer_0
         });
-        local v32, v33 = v10.processAll(l_instances_0, l_allowEditableInstances_0);
-        if not v32 then
+        local v33, v34 = v10.processAll(l_instances_0, l_allowEditableInstances_0);
+        if not v33 then
             if l_isServer_0 then
-                error(v33[1]);
+                error(v34[1]);
             else
-                return v32, v33;
+                return v33, v34;
             end;
         end;
-        v26.editableMeshes = v33.editableMeshes;
-        v26.editableImages = v33.editableImages;
-        v26.lastTickSeconds = tick();
-        if v26.requireAllFolders == nil then
-            v26.requireAllFolders = true;
+        v27.editableMeshes = v34.editableMeshes;
+        v27.editableImages = v34.editableImages;
+        v27.lastTickSeconds = tick();
+        if v27.requireAllFolders == nil then
+            v27.requireAllFolders = true;
         end;
-        local v34, v35 = v13(v26);
-        v11(v26.editableMeshes, v26.editableImages);
-        if v34 then
-            v2.recordScriptTime(script.Name, v31, v26);
-            v2.reportScriptTimes(v26);
+        local v35, v36 = v13(v27);
+        v11(v27.editableMeshes, v27.editableImages);
+        if v35 then
+            v2.recordScriptTime(script.Name, v32, v27);
+            v2.reportScriptTimes(v27);
         end;
-        v2.reportCounter(v34, l_assetTypeEnum_0 == Enum.AssetType.DynamicHead and "Head" or "BodyPart", v26);
-        return v34, v35;
+        v2.reportCounter(v35, l_assetTypeEnum_0 == Enum.AssetType.DynamicHead and "Head" or "BodyPart", v27);
+        return v35, v36;
     end;
 end;
-v25.validate = function(v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47) --[[ Line: 106 ]] --[[ Name: validate ]]
+v26.validate = function(v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48) --[[ Line: 108 ]] --[[ Name: validate ]]
     -- upvalues: v2 (copy), v10 (copy), v13 (copy), v11 (copy)
-    local v48 = tick();
+    local v49 = tick();
     v2.setMetadata({
         entrypoint = "validate", 
-        assetType = v37.Name, 
-        isServer = v38
+        assetType = v38.Name, 
+        isServer = v39
     });
-    local v49, v50 = v10.processAll(v36, v43);
-    if not v49 then
-        if v38 then
-            error(v50[1]);
+    local v50, v51 = v10.processAll(v37, v44);
+    if not v50 then
+        if v39 then
+            error(v51[1]);
         else
-            return v49, v50;
+            return v50, v51;
         end;
     end;
-    local v51 = {
-        instances = v36, 
-        assetTypeEnum = v37, 
-        allowUnreviewedAssets = v39, 
-        restrictedUserIds = v40, 
-        isServer = v38, 
-        token = v41, 
-        universeId = v42, 
+    local v52 = {
+        instances = v37, 
+        assetTypeEnum = v38, 
+        allowUnreviewedAssets = v40, 
+        restrictedUserIds = v41, 
+        isServer = v39, 
+        token = v42, 
+        universeId = v43, 
         isAsync = false, 
-        allowEditableInstances = v43, 
-        bypassFlags = v44, 
-        validateMeshPartAccessories = v46 == nil or v46, 
+        allowEditableInstances = v44, 
+        bypassFlags = v45, 
+        validateMeshPartAccessories = v47 == nil or v47, 
         lastTickSeconds = tick(), 
-        shouldYield = v45, 
-        editableMeshes = v50.editableMeshes, 
-        editableImages = v50.editableImages, 
-        requireAllFolders = v47 == nil or v47
+        shouldYield = v46, 
+        editableMeshes = v51.editableMeshes, 
+        editableImages = v51.editableImages, 
+        requireAllFolders = v48 == nil or v48
     };
-    local v52, v53 = v13(v51);
-    v11(v51.editableMeshes, v51.editableImages);
-    if v52 then
-        v2.recordScriptTime(script.Name, v48, v51);
-        v2.reportScriptTimes(v51);
+    local v53, v54 = v13(v52);
+    v11(v52.editableMeshes, v52.editableImages);
+    if v53 then
+        v2.recordScriptTime(script.Name, v49, v52);
+        v2.reportScriptTimes(v52);
     end;
-    v2.reportCounter(v52, v37 == Enum.AssetType.DynamicHead and "Head" or "BodyPart", v51);
-    return v52, v53;
+    v2.reportCounter(v53, v38 == Enum.AssetType.DynamicHead and "Head" or "BodyPart", v52);
+    return v53, v54;
 end;
-v25.validateAsync = function(v54, v55, v56, v57, v58, v59) --[[ Line: 177 ]] --[[ Name: validateAsync ]]
+v26.validateAsync = function(v55, v56, v57, v58, v59, v60) --[[ Line: 179 ]] --[[ Name: validateAsync ]]
     -- upvalues: v2 (copy), v10 (copy), v13 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "validateAsync", 
-        assetType = v55.Name, 
-        isServer = v57
+        assetType = v56.Name, 
+        isServer = v58
     });
-    local v60, v61 = v10.processAll(v54);
-    if not v60 then
-        if v57 then
-            error(v61[1]);
+    local v61, v62 = v10.processAll(v55);
+    if not v61 then
+        if v58 then
+            error(v62[1]);
         else
-            v56(v60, v61);
+            v57(v61, v62);
         end;
     end;
-    local v62 = {
-        instances = v54, 
-        assetTypeEnum = v55, 
-        allowUnreviewedAssets = v58, 
-        restrictedUserIds = v59, 
-        isServer = v57, 
+    local v63 = {
+        instances = v55, 
+        assetTypeEnum = v56, 
+        allowUnreviewedAssets = v59, 
+        restrictedUserIds = v60, 
+        isServer = v58, 
         token = "", 
         isAsync = true, 
         validateMeshPartAccessories = false, 
-        editableMeshes = v61.editableMeshes, 
-        editableImages = v61.editableImages
+        editableMeshes = v62.editableMeshes, 
+        editableImages = v62.editableImages
     };
-    coroutine.wrap(function() --[[ Line: 213 ]]
-        -- upvalues: v56 (copy), v13 (ref), v62 (copy), v11 (ref)
-        v56(v13(v62));
-        v11(v62.editableMeshes, v62.editableImages);
+    coroutine.wrap(function() --[[ Line: 215 ]]
+        -- upvalues: v57 (copy), v13 (ref), v63 (copy), v11 (ref)
+        v57(v13(v63));
+        v11(v63.editableMeshes, v63.editableImages);
     end)();
 end;
-v25.validateMeshPartFormat = function(v63, v64, v65, v66, v67) --[[ Line: 223 ]] --[[ Name: validateMeshPartFormat ]]
+v26.validateMeshPartFormat = function(v64, v65, v66, v67, v68) --[[ Line: 225 ]] --[[ Name: validateMeshPartFormat ]]
     -- upvalues: v2 (copy), v10 (copy), v20 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "validateMeshPartFormat", 
-        assetType = v64.Name, 
-        isServer = v65
+        assetType = v65.Name, 
+        isServer = v66
     });
-    assert(Enum.AssetType.DynamicHead == v64);
-    local v68, v69 = v10.processAll(v63);
-    if not v68 then
-        if v65 then
-            error(v69[1]);
+    assert(Enum.AssetType.DynamicHead == v65);
+    local v69, v70 = v10.processAll(v64);
+    if not v69 then
+        if v66 then
+            error(v70[1]);
         else
-            return v68, v69;
+            return v69, v70;
         end;
     end;
-    local v70 = {
-        instances = v63, 
-        assetTypeEnum = v64, 
-        allowUnreviewedAssets = v66, 
-        restrictedUserIds = v67, 
-        isServer = v65, 
+    local v71 = {
+        instances = v64, 
+        assetTypeEnum = v65, 
+        allowUnreviewedAssets = v67, 
+        restrictedUserIds = v68, 
+        isServer = v66, 
         validateMeshPartAccessories = false, 
-        editableMeshes = v69.editableMeshes, 
-        editableImages = v69.editableImages
+        editableMeshes = v70.editableMeshes, 
+        editableImages = v70.editableImages
     };
-    local v71, v72 = v20(v70);
-    v11(v70.editableMeshes, v70.editableImages);
-    return v71, v72;
+    local v72, v73 = v20(v71);
+    v11(v71.editableMeshes, v71.editableImages);
+    return v72, v73;
 end;
-v25.validateAsyncMeshPartFormat = function(v73, v74, v75, v76, v77, v78) --[[ Line: 270 ]] --[[ Name: validateAsyncMeshPartFormat ]]
+v26.validateAsyncMeshPartFormat = function(v74, v75, v76, v77, v78, v79) --[[ Line: 272 ]] --[[ Name: validateAsyncMeshPartFormat ]]
     -- upvalues: v2 (copy), v10 (copy), v20 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "validateAsyncMeshPartFormat", 
-        assetType = v74.Name, 
-        isServer = v76
+        assetType = v75.Name, 
+        isServer = v77
     });
-    assert(Enum.AssetType.DynamicHead == v74);
-    local v79, v80 = v10.processAll(v73);
-    if not v79 then
-        if v76 then
-            error(v80[1]);
+    assert(Enum.AssetType.DynamicHead == v75);
+    local v80, v81 = v10.processAll(v74);
+    if not v80 then
+        if v77 then
+            error(v81[1]);
         else
-            v75(v79, v80);
+            v76(v80, v81);
         end;
     end;
-    local v81 = {
-        instances = v73, 
-        assetTypeEnum = v74, 
-        allowUnreviewedAssets = v77, 
-        restrictedUserIds = v78, 
-        isServer = v76, 
+    local v82 = {
+        instances = v74, 
+        assetTypeEnum = v75, 
+        allowUnreviewedAssets = v78, 
+        restrictedUserIds = v79, 
+        isServer = v77, 
         validateMeshPartAccessories = false, 
-        editableMeshes = v80.editableMeshes, 
-        editableImages = v80.editableImages
+        editableMeshes = v81.editableMeshes, 
+        editableImages = v81.editableImages
     };
-    coroutine.wrap(function() --[[ Line: 308 ]]
-        -- upvalues: v75 (copy), v20 (ref), v81 (copy), v11 (ref)
-        v75(v20(v81));
-        v11(v81.editableMeshes, v81.editableImages);
+    coroutine.wrap(function() --[[ Line: 310 ]]
+        -- upvalues: v76 (copy), v20 (ref), v82 (copy), v11 (ref)
+        v76(v20(v82));
+        v11(v82.editableMeshes, v82.editableImages);
     end)();
 end;
 if v1() then
-    v25.validateMeshPartAssetFormatWithContext = function(v82) --[[ Line: 318 ]] --[[ Name: validateMeshPartAssetFormatWithContext ]]
+    v26.validateMeshPartAssetFormatWithContext = function(v83) --[[ Line: 320 ]] --[[ Name: validateMeshPartAssetFormatWithContext ]]
         -- upvalues: v2 (copy), v10 (copy), v7 (copy), v14 (copy), v15 (copy), v11 (copy)
-        assert(v82.assetTypeEnum ~= nil, "assetTypeEnum required in validationContext for validateMeshPartAssetFormatWithContext");
-        assert(v82.instances ~= nil, "instances required in validationContext for validateMeshPartAssetFormatWithContext");
-        local l_instances_1 = v82.instances;
-        local l_assetTypeEnum_1 = v82.assetTypeEnum;
-        local l_isServer_1 = v82.isServer;
-        local l_specialMeshAccessory_0 = v82.specialMeshAccessory;
+        assert(v83.assetTypeEnum ~= nil, "assetTypeEnum required in validationContext for validateMeshPartAssetFormatWithContext");
+        assert(v83.instances ~= nil, "instances required in validationContext for validateMeshPartAssetFormatWithContext");
+        local l_instances_1 = v83.instances;
+        local l_assetTypeEnum_1 = v83.assetTypeEnum;
+        local l_isServer_1 = v83.isServer;
+        local l_specialMeshAccessory_0 = v83.specialMeshAccessory;
         v2.setMetadata({
             entrypoint = "validateMeshPartAssetFormat2", 
             assetType = l_assetTypeEnum_1.Name, 
             isServer = l_isServer_1
         });
-        local v87, v88 = v10.processAll(l_instances_1);
-        if not v87 then
+        local v88, v89 = v10.processAll(l_instances_1);
+        if not v88 then
             if l_isServer_1 then
-                error(v88[1]);
+                error(v89[1]);
             else
-                return v87, v88;
+                return v88, v89;
             end;
         end;
-        v82.editableMeshes = v88.editableMeshes;
-        v82.editableImages = v88.editableImages;
-        v82.validateMeshPartAccessories = false;
-        local v89 = nil;
+        v83.editableMeshes = v89.editableMeshes;
+        v83.editableImages = v89.editableImages;
+        v83.validateMeshPartAccessories = false;
         local v90 = nil;
+        local v91 = nil;
         if v7(l_instances_1[1]) then
-            local v91, v92 = v14(l_specialMeshAccessory_0, v82);
-            v89 = v91;
+            local v92, v93 = v14(l_specialMeshAccessory_0, v83);
             v90 = v92;
+            v91 = v93;
         else
-            local v93, v94 = v15(l_specialMeshAccessory_0, v82);
-            v89 = v93;
+            local v94, v95 = v15(l_specialMeshAccessory_0, v83);
             v90 = v94;
+            v91 = v95;
         end;
-        v11(v82.editableMeshes, v82.editableImages);
-        return v89, v90;
+        v11(v83.editableMeshes, v83.editableImages);
+        return v90, v91;
     end;
 end;
-v25.validateMeshPartAssetFormat2 = function(v95, v96, v97, v98, v99, _) --[[ Line: 372 ]] --[[ Name: validateMeshPartAssetFormat2 ]]
+v26.validateMeshPartAssetFormat2 = function(v96, v97, v98, v99, v100, _) --[[ Line: 374 ]] --[[ Name: validateMeshPartAssetFormat2 ]]
     -- upvalues: v2 (copy), v10 (copy), v7 (copy), v14 (copy), v15 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "validateMeshPartAssetFormat2", 
-        assetType = v97.Name, 
-        isServer = v98
+        assetType = v98.Name, 
+        isServer = v99
     });
-    local v101, v102 = v10.processAll(v95);
-    if not v101 then
-        if v98 then
-            error(v102[1]);
+    local v102, v103 = v10.processAll(v96);
+    if not v102 then
+        if v99 then
+            error(v103[1]);
         else
-            return v101, v102;
+            return v102, v103;
         end;
     end;
-    local v103 = {
-        instances = v95, 
-        assetTypeEnum = v97, 
-        allowUnreviewedAssets = v99, 
-        isServer = v98, 
+    local v104 = {
+        instances = v96, 
+        assetTypeEnum = v98, 
+        allowUnreviewedAssets = v100, 
+        isServer = v99, 
         validateMeshPartAccessories = false, 
-        editableMeshes = v102.editableMeshes, 
-        editableImages = v102.editableImages
+        editableMeshes = v103.editableMeshes, 
+        editableImages = v103.editableImages
     };
-    local v104 = nil;
     local v105 = nil;
-    if v7(v95[1]) then
-        local v106, v107 = v14(v96, v103);
-        v104 = v106;
+    local v106 = nil;
+    if v7(v96[1]) then
+        local v107, v108 = v14(v97, v104);
         v105 = v107;
+        v106 = v108;
     else
-        local v108, v109 = v15(v96, v103);
-        v104 = v108;
+        local v109, v110 = v15(v97, v104);
         v105 = v109;
+        v106 = v110;
     end;
-    v11(v103.editableMeshes, v103.editableImages);
-    return v104, v105;
+    v11(v104.editableMeshes, v104.editableImages);
+    return v105, v106;
 end;
-v25.validateBundleReadyForUpload = v18;
-v25.validateShoesBundleReadyForUpload = v19;
-v25.util = {
+v26.validateBundleReadyForUpload = v18;
+v26.validateShoesBundleReadyForUpload = v19;
+v26.util = {
     BundlesMetadata = v4, 
     createUGCBodyPartFolders = v6, 
     canUploadBundlesAsync = v5
 };
-v25.util.isLayeredClothingAllowed = v8.isLayeredClothingAllowed;
-v25.util.isRigidAccessoryAllowed = v8.isRigidAccessoryAllowed;
+v26.util.isLayeredClothingAllowed = v8.isLayeredClothingAllowed;
+v26.util.isRigidAccessoryAllowed = v8.isRigidAccessoryAllowed;
 if v1() then
-    v25.validateFullBodyWithContext = function(v110) --[[ Line: 476 ]] --[[ Name: validateFullBodyWithContext ]]
+    v26.validateFullBodyWithContext = function(v111) --[[ Line: 478 ]] --[[ Name: validateFullBodyWithContext ]]
         -- upvalues: v2 (copy), v10 (copy), v16 (copy), v11 (copy)
-        assert(v110.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBodyWithContext");
-        local l_isServer_2 = v110.isServer;
-        local l_fullBodyData_0 = v110.fullBodyData;
-        local l_allowEditableInstances_1 = v110.allowEditableInstances;
+        assert(v111.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBodyWithContext");
+        local l_isServer_2 = v111.isServer;
+        local l_fullBodyData_0 = v111.fullBodyData;
+        local l_allowEditableInstances_1 = v111.allowEditableInstances;
         v2.setMetadata({
             entrypoint = "validateFullBody", 
             assetType = "", 
             isServer = l_isServer_2
         });
-        local v114 = tick();
-        local v115 = {};
-        for _, v117 in l_fullBodyData_0 do
-            for _, v119 in v117.allSelectedInstances do
-                table.insert(v115, v119);
+        local v115 = tick();
+        local v116 = {};
+        for _, v118 in l_fullBodyData_0 do
+            for _, v120 in v118.allSelectedInstances do
+                table.insert(v116, v120);
             end;
         end;
-        local v120, v121 = v10.processAll(v115, l_allowEditableInstances_1);
-        if not v120 then
+        local v121, v122 = v10.processAll(v116, l_allowEditableInstances_1);
+        if not v121 then
             if l_isServer_2 then
-                error(v121[1]);
+                error(v122[1]);
             else
-                return v120, v121;
+                return v121, v122;
             end;
         end;
-        v110.editableMeshes = v121.editableMeshes;
-        v110.editableImages = v121.editableImages;
-        v110.lastTickSeconds = tick();
-        if v110.requireAllFolders == nil then
-            v110.requireAllFolders = true;
+        v111.editableMeshes = v122.editableMeshes;
+        v111.editableImages = v122.editableImages;
+        v111.lastTickSeconds = tick();
+        if v111.requireAllFolders == nil then
+            v111.requireAllFolders = true;
         end;
-        local v122, v123 = v16(v110);
-        v11(v110.editableMeshes, v110.editableImages);
-        if v122 then
-            v2.recordScriptTime(script.Name, v114, v110);
-            v2.reportScriptTimes(v110);
+        local v123, v124 = v16(v111);
+        v11(v111.editableMeshes, v111.editableImages);
+        if v123 then
+            v2.recordScriptTime(script.Name, v115, v111);
+            v2.reportScriptTimes(v111);
         end;
-        v2.reportCounter(v122, "FullBody", v110);
-        return v122, v123;
+        v2.reportCounter(v123, "FullBody", v111);
+        return v123, v124;
     end;
 end;
-v25.validateFullBody = function(v124, v125, v126, v127, v128, v129) --[[ Line: 539 ]] --[[ Name: validateFullBody ]]
+v26.validateFullBody = function(v125, v126, v127, v128, v129, v130) --[[ Line: 541 ]] --[[ Name: validateFullBody ]]
     -- upvalues: v2 (copy), v10 (copy), v16 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "validateFullBody", 
         assetType = "", 
-        isServer = v125
+        isServer = v126
     });
-    local v130 = tick();
-    local v131 = {};
-    for _, v133 in v124 do
-        for _, v135 in v133.allSelectedInstances do
-            table.insert(v131, v135);
+    local v131 = tick();
+    local v132 = {};
+    for _, v134 in v125 do
+        for _, v136 in v134.allSelectedInstances do
+            table.insert(v132, v136);
         end;
     end;
-    local v136, v137 = v10.processAll(v131, v126);
-    if not v136 then
-        if v125 then
-            error(v137[1]);
+    local v137, v138 = v10.processAll(v132, v127);
+    if not v137 then
+        if v126 then
+            error(v138[1]);
         else
-            return v136, v137;
+            return v137, v138;
         end;
     end;
-    local v138 = {
-        fullBodyData = v124, 
-        isServer = v125, 
-        allowEditableInstances = v126, 
-        bypassFlags = v127, 
+    local v139 = {
+        fullBodyData = v125, 
+        isServer = v126, 
+        allowEditableInstances = v127, 
+        bypassFlags = v128, 
         validateMeshPartAccessories = false, 
         lastTickSeconds = tick(), 
-        shouldYield = v128, 
-        editableMeshes = v137.editableMeshes, 
-        editableImages = v137.editableImages, 
-        requireAllFolders = v129 == nil or v129
+        shouldYield = v129, 
+        editableMeshes = v138.editableMeshes, 
+        editableImages = v138.editableImages, 
+        requireAllFolders = v130 == nil or v130
     };
-    local v139, v140 = v16(v138);
-    v11(v138.editableMeshes, v138.editableImages);
-    if v139 then
-        v2.recordScriptTime(script.Name, v130, v138);
-        v2.reportScriptTimes(v138);
+    local v140, v141 = v16(v139);
+    v11(v139.editableMeshes, v139.editableImages);
+    if v140 then
+        v2.recordScriptTime(script.Name, v131, v139);
+        v2.reportScriptTimes(v139);
     end;
-    v2.reportCounter(v139, "FullBody", v138);
-    return v139, v140;
+    v2.reportCounter(v140, "FullBody", v139);
+    return v140, v141;
 end;
-v25.validateShoesWithContext = function(v141) --[[ Line: 601 ]] --[[ Name: validateShoesWithContext ]]
+v26.validateShoesWithContext = function(v142) --[[ Line: 603 ]] --[[ Name: validateShoesWithContext ]]
     -- upvalues: v2 (copy), v10 (copy), v17 (copy), v11 (copy)
-    assert(v141.fullBodyData ~= nil, "fullBodyData required in validationContext for validateShoes");
-    local l_isServer_3 = v141.isServer;
-    local l_fullBodyData_1 = v141.fullBodyData;
-    local l_allowEditableInstances_2 = v141.allowEditableInstances;
+    assert(v142.fullBodyData ~= nil, "fullBodyData required in validationContext for validateShoes");
+    local l_isServer_3 = v142.isServer;
+    local l_fullBodyData_1 = v142.fullBodyData;
+    local l_allowEditableInstances_2 = v142.allowEditableInstances;
     v2.setMetadata({
         entrypoint = "validateShoes", 
         assetType = "", 
         isServer = l_isServer_3
     });
-    local v145 = tick();
-    local v146 = {};
-    for _, v148 in l_fullBodyData_1 do
-        for _, v150 in v148.allSelectedInstances do
-            table.insert(v146, v150);
+    local v146 = tick();
+    local v147 = {};
+    for _, v149 in l_fullBodyData_1 do
+        for _, v151 in v149.allSelectedInstances do
+            table.insert(v147, v151);
         end;
     end;
-    local v151, v152 = v10.processAll(v146, l_allowEditableInstances_2);
-    if not v151 then
+    local v152, v153 = v10.processAll(v147, l_allowEditableInstances_2);
+    if not v152 then
         if l_isServer_3 then
-            error(v152[1]);
+            error(v153[1]);
         else
-            return v151, v152;
+            return v152, v153;
         end;
     end;
-    v141.editableMeshes = v152.editableMeshes;
-    v141.editableImages = v152.editableImages;
-    v141.lastTickSeconds = tick();
-    local v153, v154 = v17(v141);
-    v11(v141.editableMeshes, v141.editableImages);
-    if v153 then
-        v2.recordScriptTime(script.Name, v145, v141);
-        v2.reportScriptTimes(v141);
+    v142.editableMeshes = v153.editableMeshes;
+    v142.editableImages = v153.editableImages;
+    v142.lastTickSeconds = tick();
+    local v154, v155 = v17(v142);
+    v11(v142.editableMeshes, v142.editableImages);
+    if v154 then
+        v2.recordScriptTime(script.Name, v146, v142);
+        v2.reportScriptTimes(v142);
     end;
-    v2.reportCounter(v153, "Shoes", v141);
-    return v153, v154;
+    v2.reportCounter(v154, "Shoes", v142);
+    return v154, v155;
 end;
-v25.preprocessDataAsync = function(v155, v156, v157, v158, v159) --[[ Line: 653 ]] --[[ Name: preprocessDataAsync ]]
+v26.preprocessDataAsync = function(v156, v157, v158, v159, v160) --[[ Line: 655 ]] --[[ Name: preprocessDataAsync ]]
     -- upvalues: v2 (copy), v10 (copy), v12 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "preprocessDataAsync", 
         assetType = "", 
-        isServer = v156
+        isServer = v157
     });
-    local v160 = tick();
-    local v161 = {};
-    for _, v163 in v155 do
-        table.insert(v161, v163);
+    local v161 = tick();
+    local v162 = {};
+    for _, v164 in v156 do
+        table.insert(v162, v164);
     end;
-    local v164, v165 = v10.processAll(v161, v157);
-    if not v164 then
-        if v156 then
-            error(v165[1]);
+    local v165, v166 = v10.processAll(v162, v158);
+    if not v165 then
+        if v157 then
+            error(v166[1]);
         else
             return {
                 ok = false, 
-                errors = v165
+                errors = v166
             };
         end;
     end;
-    local v166 = {
-        isServer = v156, 
-        allowEditableInstances = v157, 
-        bypassFlags = v158, 
+    local v167 = {
+        isServer = v157, 
+        allowEditableInstances = v158, 
+        bypassFlags = v159, 
         validateMeshPartAccessories = false, 
         lastTickSeconds = tick(), 
-        shouldYield = v159, 
-        editableMeshes = v165.editableMeshes, 
-        editableImages = v165.editableImages
+        shouldYield = v160, 
+        editableMeshes = v166.editableMeshes, 
+        editableImages = v166.editableImages
     };
-    local v167 = v12.preprocessDataAsync(v155, v166);
-    v11(v166.editableMeshes, v166.editableImages);
-    if v167.ok then
-        v2.recordScriptTime("preprocessDataAsync", v160, v166);
-        v2.reportScriptTimes(v166);
+    local v168 = v12.preprocessDataAsync(v156, v167);
+    v11(v167.editableMeshes, v167.editableImages);
+    if v168.ok then
+        v2.recordScriptTime("preprocessDataAsync", v161, v167);
+        v2.reportScriptTimes(v167);
     end;
-    return v167;
+    return v168;
 end;
-v25.isPreprocessDataCached = function(v168, v169, v170) --[[ Line: 712 ]] --[[ Name: isPreprocessDataCached ]]
+v26.isPreprocessDataCached = function(v169, v170, v171) --[[ Line: 714 ]] --[[ Name: isPreprocessDataCached ]]
     -- upvalues: v2 (copy), v12 (copy)
     v2.setMetadata({
         entrypoint = "isPreprocessDataCached", 
         assetType = "", 
-        isServer = v170
+        isServer = v171
     });
-    local v171 = tick();
-    local v172 = v12.isPreprocessDataCached(v168, v169);
-    local v173 = {
-        isServer = v170
+    local v172 = tick();
+    local v173 = v12.isPreprocessDataCached(v169, v170);
+    local v174 = {
+        isServer = v171
     };
-    v2.recordScriptTime("isPreprocessDataCached", v171, v173);
-    v2.reportScriptTimes(v173);
-    return v172;
+    v2.recordScriptTime("isPreprocessDataCached", v172, v174);
+    v2.reportScriptTimes(v174);
+    return v173;
 end;
-v25.calculateScaleToValidateBoundsAsync = function(v174, v175, v176, v177, v178, v179) --[[ Line: 737 ]] --[[ Name: calculateScaleToValidateBoundsAsync ]]
+v26.calculateScaleToValidateBoundsAsync = function(v175, v176, v177, v178, v179, v180) --[[ Line: 739 ]] --[[ Name: calculateScaleToValidateBoundsAsync ]]
     -- upvalues: v2 (copy), v10 (copy), v12 (copy), v11 (copy)
     v2.setMetadata({
         entrypoint = "calculateScaleToValidateBoundsAsync", 
         assetType = "", 
-        isServer = v175
+        isServer = v176
     });
-    local v180 = tick();
-    local v181 = nil;
-    if not v179 then
-        local v182 = {};
-        for _, v184 in v174 do
-            table.insert(v182, v184);
+    local v181 = tick();
+    local v182 = nil;
+    if not v180 then
+        local v183 = {};
+        for _, v185 in v175 do
+            table.insert(v183, v185);
         end;
-        local v185 = nil;
-        local v186, v187 = v10.processAll(v182, v176);
-        v185 = v186;
-        v181 = v187;
-        if not v185 then
-            if v175 then
-                error(v181[1]);
+        local v186 = nil;
+        local v187, v188 = v10.processAll(v183, v177);
+        v186 = v187;
+        v182 = v188;
+        if not v186 then
+            if v176 then
+                error(v182[1]);
             else
                 return {
                     ok = false, 
-                    errors = v181
+                    errors = v182
                 };
             end;
         end;
     end;
-    local v188 = {
-        isServer = v175, 
-        allowEditableInstances = v176, 
-        bypassFlags = v177, 
+    local v189 = {
+        isServer = v176, 
+        allowEditableInstances = v177, 
+        bypassFlags = v178, 
         validateMeshPartAccessories = false, 
         lastTickSeconds = tick(), 
-        shouldYield = v178
+        shouldYield = v179
     };
-    if not v179 then
-        v188.editableMeshes = v181.editableMeshes;
-        v188.editableImages = v181.editableImages;
+    if not v180 then
+        v189.editableMeshes = v182.editableMeshes;
+        v189.editableImages = v182.editableImages;
     end;
-    local v189 = v12.calculateScaleToValidateBoundsAsync(v174, v188, v179);
-    if not v179 then
-        v11(v188.editableMeshes, v188.editableImages);
+    local v190 = v12.calculateScaleToValidateBoundsAsync(v175, v189, v180);
+    if not v180 then
+        v11(v189.editableMeshes, v189.editableImages);
     end;
-    if v189.ok then
-        v2.recordScriptTime("calculateScaleToValidateBoundsAsync", v180, v188);
-        v2.reportScriptTimes(v188);
+    if v190.ok then
+        v2.recordScriptTime("calculateScaleToValidateBoundsAsync", v181, v189);
+        v2.reportScriptTimes(v189);
     end;
-    return v189;
+    return v190;
 end;
-v25.GUIDAttributeName = v3.GUIDAttributeName;
-return v25;
+v26.GUIDAttributeName = v3.GUIDAttributeName;
+return v26;

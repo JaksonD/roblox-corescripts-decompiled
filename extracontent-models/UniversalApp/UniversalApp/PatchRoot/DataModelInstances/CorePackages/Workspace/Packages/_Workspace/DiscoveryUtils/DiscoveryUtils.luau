@@ -14,5 +14,6 @@ return {
     DiscoveryEventErrorLogger = require(script.Telemetry.DiscoveryEventErrorLogger), 
     getTopSearchResultsFetchName = require(script.getTopSearchResultsFetchName), 
     extractAndStyleRichTextLinks = require(script.extractAndStyleRichTextLinks), 
+    getZendeskUrl = require(script.getZendeskUrl), 
     ["jest.config"] = script["jest.config"]
 };

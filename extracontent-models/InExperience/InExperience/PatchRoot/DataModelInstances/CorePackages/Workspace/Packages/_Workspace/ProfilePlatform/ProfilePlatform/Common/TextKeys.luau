@@ -102,7 +102,6 @@ return {
     AliasTooltipHeader = "Feature.Profile.Label.CustomName", 
     AliasTooltipBody = "Feature.Profile.Tooltip.CustomNameProfile", 
     DisplayNameTooltipBody = "Feature.Profile.Tooltip.DisplayName", 
-    CurrencyTransferTooltipTitle = "Feature.Profile.Tooltip.CurrencyTransfer.Title", 
     CurrencyTransferTooltipBody = "Feature.Profile.Tooltip.CurrencyTransfer.Body", 
     Favorites = "Common.GameSorts.Label.Favorites", 
     Inventory = "Feature.Profile.Header.Inventory", 

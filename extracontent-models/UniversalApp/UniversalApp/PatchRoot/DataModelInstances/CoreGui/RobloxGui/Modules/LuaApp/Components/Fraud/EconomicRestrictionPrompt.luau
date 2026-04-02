@@ -19,63 +19,73 @@ local l_formatEconomicRestrictionText_0 = v15.Utility.formatEconomicRestrictionT
 local l_EconomicRestrictionsCounter_0 = v15.Counters.EconomicRestrictionsCounter;
 local l_default_0 = require(l_CorePackages_0.Workspace.Packages.LoggingProtocol).default;
 local v20 = require(l_Modules_0.LuaApp.Components.AlertWindow);
-local function v25(v21) --[[ Line: 52 ]]
-    -- upvalues: l_useMemo_0 (copy), l_formatEconomicRestrictionText_0 (copy), l_dependencyArray_0 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), v13 (copy), v6 (copy), v20 (copy)
-    local v22 = l_useMemo_0(function() --[[ Line: 53 ]]
-        -- upvalues: l_formatEconomicRestrictionText_0 (ref), v21 (copy)
-        return l_formatEconomicRestrictionText_0(v21.locMap, {
-            violationType = v21.failureReason, 
-            timeoutMinutes = v21.expirationTimeInMinutes
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local function v26(v22) --[[ Line: 55 ]]
+    -- upvalues: l_useMemo_0 (copy), l_formatEconomicRestrictionText_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useDispatch_0 (copy), l_useCallback_0 (copy), v13 (copy), v6 (copy), v20 (copy)
+    local v23 = l_useMemo_0(function() --[[ Line: 57 ]]
+        -- upvalues: l_formatEconomicRestrictionText_0 (ref), v22 (copy)
+        return l_formatEconomicRestrictionText_0(v22.locMap, {
+            violationType = v22.failureReason, 
+            timeoutMinutes = v22.expirationTimeInMinutes
         }, true);
-    end, l_dependencyArray_0(v21.failureReason, v21.expirationTimeInMinutes));
-    local v23 = l_useDispatch_0();
-    local v24 = l_useCallback_0(function() --[[ Line: 61 ]]
-        -- upvalues: v23 (copy), v13 (ref)
-        v23(v13());
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v22.failureReason, 
+        v22.expirationTimeInMinutes
+    } else l_dependencyArray_0(v22.failureReason, v22.expirationTimeInMinutes));
+    local v24 = l_useDispatch_0();
+    local v25 = l_useCallback_0(function() --[[ Line: 69 ]]
+        -- upvalues: v24 (copy), v13 (ref)
+        v24(v13());
     end, {});
     return v6.createElement(v20, {
-        containerWidth = v21.containerWidth, 
-        titleText = v21.locMap.titleText, 
-        titleFont = v21.style.Font.Header1.Font, 
-        messageText = v22, 
-        messageFont = v21.style.Font.Body.Font, 
-        buttonFont = v21.style.Font.Header2.Font, 
-        confirmButtonText = v21.locMap.okButtonText, 
-        onConfirm = v24, 
+        containerWidth = v22.containerWidth, 
+        titleText = v22.locMap.titleText, 
+        titleFont = v22.style.Font.Header1.Font, 
+        messageText = v23, 
+        messageFont = v22.style.Font.Body.Font, 
+        buttonFont = v22.style.Font.Header2.Font, 
+        confirmButtonText = v22.locMap.okButtonText, 
+        onConfirm = v25, 
         hasCancelButton = false
     });
 end;
-return v6.memo(function(v26) --[[ Line: 79 ]]
-    -- upvalues: l_useMemo_0 (copy), l_addEconomicRestrictionKeysToLocalization_0 (copy), l_dependencyArray_0 (copy), l_useEffect_0 (copy), l_default_0 (copy), l_EconomicRestrictionsCounter_0 (copy), v6 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_withLocalization_0 (copy), l_withStyle_0 (copy), v25 (copy)
-    local v28 = l_useMemo_0(function() --[[ Line: 80 ]]
+return v6.memo(function(v27) --[[ Line: 87 ]]
+    -- upvalues: l_useMemo_0 (copy), l_addEconomicRestrictionKeysToLocalization_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useEffect_0 (copy), l_default_0 (copy), l_EconomicRestrictionsCounter_0 (copy), v6 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), l_withLocalization_0 (copy), l_withStyle_0 (copy), v26 (copy)
+    local v29 = l_useMemo_0(function() --[[ Line: 89 ]]
         -- upvalues: l_addEconomicRestrictionKeysToLocalization_0 (ref)
-        local v27 = {
+        local v28 = {
             titleText = "IAPExperience.PurchaseError.Text.EconomicRestrictionPromptTitle"
         };
-        l_addEconomicRestrictionKeysToLocalization_0(v27);
-        return v27;
-    end, l_dependencyArray_0(v26.failureReason, v26.expirationTimeInMinutes));
-    l_useEffect_0(function() --[[ Line: 88 ]]
-        -- upvalues: l_default_0 (ref), l_EconomicRestrictionsCounter_0 (ref), v26 (copy)
+        l_addEconomicRestrictionKeysToLocalization_0(v28);
+        return v28;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v27.failureReason, 
+        v27.expirationTimeInMinutes
+    } else l_dependencyArray_0(v27.failureReason, v27.expirationTimeInMinutes));
+    l_useEffect_0(function() --[[ Line: 102 ]]
+        -- upvalues: l_default_0 (ref), l_EconomicRestrictionsCounter_0 (ref), v27 (copy)
         l_default_0:logRobloxTelemetryCounter(l_EconomicRestrictionsCounter_0.EconomicRestrictionsPromptCounter, 1, {
-            failureReason = v26.failureReason
+            failureReason = v27.failureReason
         });
-    end, l_dependencyArray_0(v26.failureReason, v26.expirationTimeInMinutes));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v27.failureReason, 
+        v27.expirationTimeInMinutes
+    } else l_dependencyArray_0(v27.failureReason, v27.expirationTimeInMinutes));
     return v6.createElement(l_LocalizationProvider_0, {
         localization = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId)
     }, {
-        Alert = l_withLocalization_0(v28)(function(v29) --[[ Line: 97 ]]
-            -- upvalues: l_withStyle_0 (ref), v6 (ref), v25 (ref), v26 (copy)
-            return l_withStyle_0(function(v30) --[[ Line: 98 ]]
-                -- upvalues: v6 (ref), v25 (ref), v29 (copy), v26 (ref)
-                return v6.createElement(v25, {
-                    style = v30, 
-                    locMap = v29, 
-                    failureReason = v26.failureReason, 
-                    expirationTimeInMinutes = v26.expirationTimeInMinutes, 
-                    containerWidth = v26.containerWidth, 
-                    defaultChildRef = v26.defaultChildRef, 
-                    focusController = v26.focusController
+        Alert = l_withLocalization_0(v29)(function(v30) --[[ Line: 119 ]]
+            -- upvalues: l_withStyle_0 (ref), v6 (ref), v26 (ref), v27 (copy)
+            return l_withStyle_0(function(v31) --[[ Line: 120 ]]
+                -- upvalues: v6 (ref), v26 (ref), v30 (copy), v27 (ref)
+                return v6.createElement(v26, {
+                    style = v31, 
+                    locMap = v30, 
+                    failureReason = v27.failureReason, 
+                    expirationTimeInMinutes = v27.expirationTimeInMinutes, 
+                    containerWidth = v27.containerWidth, 
+                    defaultChildRef = v27.defaultChildRef, 
+                    focusController = v27.focusController
                 });
             end);
         end)

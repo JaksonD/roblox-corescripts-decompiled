@@ -108,6 +108,7 @@ local v13 = {
     AnalyticsContext = {
         Catalog = "Catalog", 
         AvatarEditorRecommendedItem = "AvatarEditorRecommendedItem", 
+        AvatarEditorExpiredItem = "AvatarEditorExpiredItem", 
         ItemDetailsRecommendedItem = "ItemDetailsRecommendedItem", 
         CatalogSearch = "CatalogSearch", 
         CatalogSort = "CatalogSort", 

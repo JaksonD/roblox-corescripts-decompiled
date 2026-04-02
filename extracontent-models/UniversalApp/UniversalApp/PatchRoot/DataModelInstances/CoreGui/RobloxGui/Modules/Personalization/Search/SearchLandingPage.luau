@@ -27,112 +27,108 @@ local l_Modules_1 = game:GetService("CoreGui").RobloxGui.Modules;
 local v26 = require(l_Modules_1.Personalization.OmniFeed.FeedViews.OmniFeedViewLoadMore);
 local v27 = require(l_Modules_1.Personalization.Sessions.setSearchLandingPageSessionInfo);
 local v28 = require(script.Parent.SearchLandingPageSkeleton);
-local l_FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage;
 local l_FFlagLuaAppLayoutParamsInContext_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppLayoutParamsInContext;
 local l_FFlagLuaAppResetSlpSessionId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaAppResetSlpSessionId;
 local l_SearchLandingPage_0 = l_AppPage_0.SearchLandingPage;
-SearchLandingPage = function(v33) --[[ Line: 62 ]] --[[ Name: SearchLandingPage ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useDesignTokens_0 (copy), l_FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage_0 (copy), l_useCurrentSquadId_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_FFlagLuaAppResetSlpSessionId_0 (copy), l_AppSessionService_0 (copy), l_SearchConstants_0 (copy), v9 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useSelector_0 (copy), l_SearchLandingPage_0 (copy), v27 (copy), l_ApiFetchSearchLandingPage_0 (copy), l_SearchLandingPageSession_0 (copy), l_SearchLandingPageSurface_0 (copy), l_useCollectionLayoutConfig_0 (copy), v12 (copy), l_FetchStatusReducer_0 (copy), l_FetchStatusNamespace_0 (copy), l_RetrievalStatus_0 (copy), v28 (copy), l_Focusable_0 (copy), v26 (copy), l_AppPage_0 (copy), v11 (copy)
-    local v34 = l_useDispatch_0();
-    local v35 = l_useDesignTokens_0();
-    local v36 = nil;
-    if l_FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage_0 then
-        v36 = l_useCurrentSquadId_0();
-    end;
-    local v37 = l_useRoactService_0(l_RoactNetworking_0);
-    local v38 = if l_FFlagLuaAppResetSlpSessionId_0 then l_useRoactService_0(l_AppSessionService_0) else nil;
-    local v39 = l_SearchConstants_0.getSearchTokens(v35);
-    local v40 = v33.scrollingFrameRef or v9.useRef(nil);
+SearchLandingPage = function(v32) --[[ Line: 59 ]] --[[ Name: SearchLandingPage ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useDesignTokens_0 (copy), l_useCurrentSquadId_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_FFlagLuaAppResetSlpSessionId_0 (copy), l_AppSessionService_0 (copy), l_SearchConstants_0 (copy), v9 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useSelector_0 (copy), l_SearchLandingPage_0 (copy), v27 (copy), l_ApiFetchSearchLandingPage_0 (copy), l_SearchLandingPageSession_0 (copy), l_SearchLandingPageSurface_0 (copy), l_useCollectionLayoutConfig_0 (copy), v12 (copy), l_FetchStatusReducer_0 (copy), l_FetchStatusNamespace_0 (copy), l_RetrievalStatus_0 (copy), v28 (copy), l_Focusable_0 (copy), v26 (copy), l_AppPage_0 (copy), v11 (copy)
+    local v33 = l_useDispatch_0();
+    local v34 = l_useDesignTokens_0();
+    local v35 = l_useCurrentSquadId_0();
+    local v36 = l_useRoactService_0(l_RoactNetworking_0);
+    local v37 = if l_FFlagLuaAppResetSlpSessionId_0 then l_useRoactService_0(l_AppSessionService_0) else nil;
+    local v38 = l_SearchConstants_0.getSearchTokens(v34);
+    local v39 = v32.scrollingFrameRef or v9.useRef(nil);
+    local v40 = nil;
     local v41 = nil;
-    local v42 = nil;
     if l_FFlagLuaAppLayoutParamsInContext_0 then
-        local v43 = nil;
-        local v44, v45 = v9.useState(nil);
-        v41 = v44;
-        v43 = v45;
+        local v42 = nil;
+        local v43, v44 = v9.useState(nil);
+        v40 = v43;
+        v42 = v44;
         do
-            local l_v43_0 = v43;
-            v42 = v9.useCallback(function(v47) --[[ Line: 79 ]]
-                -- upvalues: v40 (copy), l_v43_0 (ref)
-                v40.current = v47;
-                l_v43_0(v47);
+            local l_v42_0 = v42;
+            v41 = v9.useCallback(function(v46) --[[ Line: 73 ]]
+                -- upvalues: v39 (copy), l_v42_0 (ref)
+                v39.current = v46;
+                l_v42_0(v46);
             end, {});
         end;
     end;
-    local v49 = l_useSelector_0(function(v48) --[[ Line: 86 ]]
+    local v48 = l_useSelector_0(function(v47) --[[ Line: 80 ]]
         -- upvalues: l_SearchLandingPage_0 (ref)
-        return v48.Personalization.OrderedOmniItems[l_SearchLandingPage_0] or nil;
+        return v47.Personalization.OrderedOmniItems[l_SearchLandingPage_0] or nil;
     end);
-    local v50 = v49 and v49.allItems or {};
-    local v51 = v9.useCallback(function() --[[ Line: 93 ]]
-        -- upvalues: l_FFlagLuaAppResetSlpSessionId_0 (ref), v27 (ref), v38 (copy), l_FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage_0 (ref), v36 (ref), v34 (copy), l_ApiFetchSearchLandingPage_0 (ref), v37 (copy), l_SearchLandingPageSession_0 (ref), l_SearchLandingPageSurface_0 (ref)
+    local v49 = v48 and v48.allItems or {};
+    local v50 = v9.useCallback(function() --[[ Line: 87 ]]
+        -- upvalues: l_FFlagLuaAppResetSlpSessionId_0 (ref), v27 (ref), v37 (copy), v35 (copy), v33 (copy), l_ApiFetchSearchLandingPage_0 (ref), v36 (copy), l_SearchLandingPageSession_0 (ref), l_SearchLandingPageSurface_0 (ref)
         if l_FFlagLuaAppResetSlpSessionId_0 then
-            v27(v38, true);
+            v27(v37, true);
         end;
-        if l_FFlagLuaAppEnablePartySurfaceForFetchSearchLandingPage_0 and v36 ~= "" and v36 ~= nil then
-            return v34(l_ApiFetchSearchLandingPage_0(v37, l_SearchLandingPageSession_0:Get(), l_SearchLandingPageSurface_0.Party));
+        if v35 ~= "" and v35 ~= nil then
+            return v33(l_ApiFetchSearchLandingPage_0(v36, l_SearchLandingPageSession_0:Get(), l_SearchLandingPageSurface_0.Party));
         else
-            return v34(l_ApiFetchSearchLandingPage_0(v37, l_SearchLandingPageSession_0:Get()));
+            return v33(l_ApiFetchSearchLandingPage_0(v36, l_SearchLandingPageSession_0:Get()));
         end;
     end, {
-        v34, 
-        v37, 
-        l_SearchLandingPageSession_0, 
+        v33, 
         v36, 
-        if l_FFlagLuaAppResetSlpSessionId_0 then v38 else nil
+        l_SearchLandingPageSession_0, 
+        v35, 
+        if l_FFlagLuaAppResetSlpSessionId_0 then v37 else nil
     });
-    local l_onAbsoluteContentSizeChanged_0 = v33.onAbsoluteContentSizeChanged;
-    local v53 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v41) else nil;
-    local v54 = v12.useSduiContextFromRoduxAndProcessConfigs(l_SearchLandingPage_0, if l_FFlagLuaAppLayoutParamsInContext_0 then v53 else nil);
-    local v56 = l_useSelector_0(function(v55) --[[ Line: 130 ]]
+    local l_onAbsoluteContentSizeChanged_0 = v32.onAbsoluteContentSizeChanged;
+    local v52 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v40) else nil;
+    local v53 = v12.useSduiContextFromRoduxAndProcessConfigs(l_SearchLandingPage_0, if l_FFlagLuaAppLayoutParamsInContext_0 then v52 else nil);
+    local v55 = l_useSelector_0(function(v54) --[[ Line: 120 ]]
         -- upvalues: l_FetchStatusReducer_0 (ref), l_FetchStatusNamespace_0 (ref), l_SearchLandingPageSession_0 (ref), l_RetrievalStatus_0 (ref)
-        return v55.Personalization[l_FetchStatusReducer_0.key][l_FetchStatusNamespace_0.SearchLandingPage][l_SearchLandingPageSession_0:Get()] or l_RetrievalStatus_0.NotStarted;
+        return v54.Personalization[l_FetchStatusReducer_0.key][l_FetchStatusNamespace_0.SearchLandingPage][l_SearchLandingPageSession_0:Get()] or l_RetrievalStatus_0.NotStarted;
     end);
-    if v9.useMemo(function() --[[ Line: 135 ]]
-        -- upvalues: v50 (copy), l_RetrievalStatus_0 (ref), v56 (copy)
-        if next(v50) ~= nil then
+    if v9.useMemo(function() --[[ Line: 125 ]]
+        -- upvalues: v49 (copy), l_RetrievalStatus_0 (ref), v55 (copy)
+        if next(v49) ~= nil then
             return l_RetrievalStatus_0.Done;
         else
-            return v56;
+            return v55;
         end;
     end, {
-        v56, 
-        v50
+        v55, 
+        v49
     }) ~= l_RetrievalStatus_0.Done then
         return v9.createElement(v28, {
-            Size = v33.size, 
-            LayoutOrder = v33.layoutOrder, 
+            Size = v32.size, 
+            LayoutOrder = v32.layoutOrder, 
             onAbsoluteContentSizeChanged = l_onAbsoluteContentSizeChanged_0, 
-            topPadding = v39.searchLandingPage.topPadding, 
-            bottomPadding = v39.searchLandingPage.bottomPadding, 
-            isCompactView = v33.isCompactView, 
-            defaultContainerSize = v33.defaultContainerSize
+            topPadding = v38.searchLandingPage.topPadding, 
+            bottomPadding = v38.searchLandingPage.bottomPadding, 
+            isCompactView = v32.isCompactView, 
+            defaultContainerSize = v32.defaultContainerSize
         });
     else
         return v9.createElement(l_Focusable_0.Frame, {
-            LayoutOrder = v33.layoutOrder, 
-            Size = v33.size or UDim2.new(1, 0, 1, 0), 
+            LayoutOrder = v32.layoutOrder, 
+            Size = v32.size or UDim2.new(1, 0, 1, 0), 
             AnchorPoint = Vector2.new(0.5, 0), 
-            Position = v33.position or UDim2.new(0.5, 0, 0, 0), 
-            BackgroundColor3 = v39.backgroundContainer.backgroundColor3, 
-            BackgroundTransparency = v39.backgroundContainer.backgroundTransparency, 
+            Position = v32.position or UDim2.new(0.5, 0, 0, 0), 
+            BackgroundColor3 = v38.backgroundContainer.backgroundColor3, 
+            BackgroundTransparency = v38.backgroundContainer.backgroundTransparency, 
             BorderSizePixel = 0, 
             ClipsDescendants = true
         }, {
             SearchOmniAutocompleteFeedView = v9.createElement(v26, {
                 pageContext = l_AppPage_0.SearchLandingPage, 
-                refresh = v51, 
-                omniFeedItems = v50, 
+                refresh = v50, 
+                omniFeedItems = v49, 
                 impressionsTag = "SEARCHLANDINGPAGE_FEEDITEM_IMPRESSIONS", 
-                scrollingFrameRef = if l_FFlagLuaAppLayoutParamsInContext_0 then v42 else v40, 
+                scrollingFrameRef = if l_FFlagLuaAppLayoutParamsInContext_0 then v41 else v39, 
                 analyticsContext = v11.Constants.Context.ExperienceTile, 
                 createEndOfScrollElement = false, 
-                topPadding = v39.searchLandingPage.topPadding, 
-                bottomPadding = v39.searchLandingPage.bottomPadding, 
+                topPadding = v38.searchLandingPage.topPadding, 
+                bottomPadding = v38.searchLandingPage.bottomPadding, 
                 onAbsoluteContentSizeChanged = l_onAbsoluteContentSizeChanged_0, 
-                sduiContext = v54, 
+                sduiContext = v53, 
                 scrollBarThickness = 0, 
-                defaultContainerSize = v33.defaultContainerSize
+                defaultContainerSize = v32.defaultContainerSize
             })
         });
     end;

@@ -16,67 +16,70 @@ local l_Analytics_0 = require(l_Parent_0.Analytics).Analytics;
 local l_requestInternalWrapper_0 = require(l_Parent_0.Http).NetworkLayers.requestInternalWrapper;
 local l_RoactServices_0 = require(l_Parent_0.RoactServices).RoactServices;
 local l_ProviderContainer_0 = require(l_Parent_0.RoactUtils).Components.ProviderContainer;
-local v18 = require(l_Parent_0.RoactAppExperiment);
+local l_useSelectedTheme_0 = require(l_Parent_0.RoactUtils).Hooks.useSelectedTheme;
+local v19 = require(l_Parent_0.RoactAppExperiment);
 local l_RoactAppPolicy_0 = require(l_Parent_0.UniversalAppPolicy).RoactAppPolicy;
 local l_AppFeaturePolicies_0 = require(l_Parent_0.UniversalAppPolicy).AppFeaturePolicies;
 local l_Localization_0 = require(l_Parent_0.RobloxAppLocales).Localization;
 local l_LocalizationProvider_0 = require(l_Parent_0.Localization).LocalizationProvider;
-local v23 = require(l_Parent_0.UIBlox);
-local l_SelectionCursorProvider_0 = v23.App.SelectionImage.SelectionCursorProvider;
-local l_CursorProvider_0 = v23.App.SelectionCursor.CursorProvider;
-local v26 = require(l_Parent_0.Rodux);
+local v24 = require(l_Parent_0.UIBlox);
+local l_SelectionCursorProvider_0 = v24.App.SelectionImage.SelectionCursorProvider;
+local l_CursorProvider_0 = v24.App.SelectionCursor.CursorProvider;
+local v27 = require(l_Parent_0.Rodux);
 local l_CountryCodeList_0 = require(l_Parent_0.AuthCommon).Reducers.CountryCodeList;
-local v28 = require(l_Parent_0.Cryo);
+local v29 = require(l_Parent_0.Cryo);
 local l_GetFFlagInExperienceContainerScreenSizeReducer_0 = require(l_Parent_0.SharedFlags).GetFFlagInExperienceContainerScreenSizeReducer;
-local v30 = if l_GetFFlagInExperienceContainerScreenSizeReducer_0() then require(l_script_FirstAncestor_0.Actions.SetScreenSize) else nil;
+local v31 = if l_GetFFlagInExperienceContainerScreenSizeReducer_0() then require(l_script_FirstAncestor_0.Actions.SetScreenSize) else nil;
 local l_GetFFlagInExperienceContainerAppLinking_0 = require(l_Parent_0.SharedFlags).GetFFlagInExperienceContainerAppLinking;
-local v32 = {
+local l_GetFFlagInExperienceContainerRespectUserTheme_0 = require(l_Parent_0.SharedFlags).GetFFlagInExperienceContainerRespectUserTheme;
+local v34 = {
     reducer = {}
 };
-return function(v33) --[[ Line: 50 ]] --[[ Name: InExperienceProviderContainer ]]
-    -- upvalues: v28 (copy), v32 (copy), v5 (copy), v26 (copy), l_CountryCodeList_0 (copy), l_FetchingStatus_0 (copy), l_GetFFlagInExperienceContainerScreenSizeReducer_0 (copy), v30 (copy), l_StyleProviderWithDefaultTheme_0 (copy), v8 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v18 (copy), l_IXPService_0 (copy), l_RoactAppPolicy_0 (copy), l_AppFeaturePolicies_0 (copy), l_RoactServices_0 (copy), l_RoactAnalytics_0 (copy), l_Analytics_0 (copy), l_RoactNetworking_0 (copy), l_requestInternalWrapper_0 (copy), l_HttpService_0 (copy), l_AppLinking_0 (copy), l_GetFFlagInExperienceContainerAppLinking_0 (copy), l_LinkingProtocol_0 (copy), l_SelectionCursorProvider_0 (copy), l_CursorProvider_0 (copy), l_ProviderContainer_0 (copy), v7 (copy)
-    local v34 = v28.Dictionary.union(v32, v33);
-    local v35 = v5.Children.only(v34.children);
-    local v36 = {
-        v26.thunkMiddleware
+return function(v35) --[[ Line: 53 ]] --[[ Name: InExperienceProviderContainer ]]
+    -- upvalues: l_useSelectedTheme_0 (copy), v29 (copy), v34 (copy), v5 (copy), v27 (copy), l_CountryCodeList_0 (copy), l_FetchingStatus_0 (copy), l_GetFFlagInExperienceContainerScreenSizeReducer_0 (copy), v31 (copy), l_StyleProviderWithDefaultTheme_0 (copy), l_GetFFlagInExperienceContainerRespectUserTheme_0 (copy), v8 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v19 (copy), l_IXPService_0 (copy), l_RoactAppPolicy_0 (copy), l_AppFeaturePolicies_0 (copy), l_RoactServices_0 (copy), l_RoactAnalytics_0 (copy), l_Analytics_0 (copy), l_RoactNetworking_0 (copy), l_requestInternalWrapper_0 (copy), l_HttpService_0 (copy), l_AppLinking_0 (copy), l_GetFFlagInExperienceContainerAppLinking_0 (copy), l_LinkingProtocol_0 (copy), l_SelectionCursorProvider_0 (copy), l_CursorProvider_0 (copy), l_ProviderContainer_0 (copy), v7 (copy)
+    local v36 = l_useSelectedTheme_0();
+    local v37 = v29.Dictionary.union(v34, v35);
+    local v38 = v5.Children.only(v37.children);
+    local v39 = {
+        v27.thunkMiddleware
     };
-    local v41 = v26.Store.new(v26.combineReducers(v28.Dictionary.join({
+    local v44 = v27.Store.new(v27.combineReducers(v29.Dictionary.join({
         CountryCodeList = l_CountryCodeList_0, 
         FetchingStatus = l_FetchingStatus_0, 
-        ScreenSize = if l_GetFFlagInExperienceContainerScreenSizeReducer_0() then v26.createReducer(Vector2.new(400, 400), {
-            [v30.name] = function(_, v38) --[[ Line: 64 ]]
-                return v38.screenSize;
+        ScreenSize = if l_GetFFlagInExperienceContainerScreenSizeReducer_0() then v27.createReducer(Vector2.new(400, 400), {
+            [v31.name] = function(_, v41) --[[ Line: 68 ]]
+                return v41.screenSize;
             end
-        }) else function(_, _) --[[ Line: 68 ]]
+        }) else function(_, _) --[[ Line: 72 ]]
             return Vector2.new(400, 400);
         end
-    }, v34.reducer)), nil, v36);
-    local v42 = {};
-    table.insert(v42, {
+    }, v37.reducer)), nil, v39);
+    local v45 = {};
+    table.insert(v45, {
         class = l_StyleProviderWithDefaultTheme_0, 
         props = {
-            withDarkTheme = true
+            withDarkTheme = not l_GetFFlagInExperienceContainerRespectUserTheme_0() or v36 ~= "light"
         }
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = v8.StoreProvider, 
         props = {
-            store = v41
+            store = v44
         }
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = l_LocalizationProvider_0, 
         props = {
             localization = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId)
         }
     });
-    table.insert(v42, {
-        class = v18.Provider, 
+    table.insert(v45, {
+        class = v19.Provider, 
         props = {
             value = l_IXPService_0
         }
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = l_RoactAppPolicy_0.Provider, 
         props = {
             policy = {
@@ -84,7 +87,7 @@ return function(v33) --[[ Line: 50 ]] --[[ Name: InExperienceProviderContainer ]
             }
         }
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = l_RoactServices_0.ServiceProvider, 
         props = {
             services = {
@@ -94,16 +97,16 @@ return function(v33) --[[ Line: 50 ]] --[[ Name: InExperienceProviderContainer ]
             }
         }
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = l_SelectionCursorProvider_0
     });
-    table.insert(v42, {
+    table.insert(v45, {
         class = l_CursorProvider_0
     });
     return v5.createElement(l_ProviderContainer_0, {
-        providers = v42
+        providers = v45
     }, {
-        Child = v5.cloneElement(v35, {
+        Child = v5.cloneElement(v38, {
             showWebpage = v7
         })
     });

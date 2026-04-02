@@ -49,192 +49,205 @@ local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_CorePackages_0.
 local v48 = require(l_script_FirstAncestor_0.AvatarExperience.Catalog.Services.Analytics);
 local l_FFlagAXFixPurchaseSurfaceLogging_0 = v42.FFlagAXFixPurchaseSurfaceLogging;
 local v50 = require(l_script_FirstAncestor_0.AvatarExperience.Common.Utils);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v42.FFlagRemoveDependencyArrayAntipattern;
 local l_AvatarEditorCategories_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceSlotBasedEditor).Enums.AvatarEditorCategories;
-local function v80(v52) --[[ Line: 64 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useRoactService_0 (copy), v48 (copy), l_useNavigationProps_0 (copy), l_Enums_0 (copy), l_useSelector_0 (copy), l_getDeepValue_0 (copy), l_FFlagEnablePlatformProfileContextualMenuOption_0 (copy), v9 (copy), l_ProfileTypes_0 (copy), l_FFlagProfilePlatformEnableImpressions_0 (copy), v2 (copy), l_HttpService_0 (copy), v16 (copy), l_Contexts_0 (copy), l_peekViewDismissedEvent_0 (copy), l_DefaultAnalyticsService_0 (copy), l_NavigateBack_0 (copy), v32 (copy), v31 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_ImpressionEnums_0 (copy), l_FFlagProfilePlatformEnableStore_0 (copy), v40 (copy), v39 (copy), l_FFlagAddIEMProfilePage_0 (copy), l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (copy), l_AvatarScreen_0 (copy), v50 (copy), l_AvatarEditorCategories_0 (copy), v15 (copy), v17 (copy), v18 (copy), l_FFlagAddSocialLinksToCommunityProfile_0 (copy), v34 (copy), v35 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy), l_dependencyArray_0 (copy), l_ProfileWrapperContext_0 (copy), l_ProfilePlatformNavigator_0 (copy), v13 (copy), v14 (copy)
-    local v53 = l_useDispatch_0();
-    local v54 = l_useNavigation_0();
-    local v55 = l_useRoactService_0(v48);
-    local v58 = l_useNavigationProps_0(function(v56, v57) --[[ Line: 69 ]]
+local l_FFlagEnableMobileGameJoinCard_0 = v42.FFlagEnableMobileGameJoinCard;
+local function v82(v54) --[[ Line: 68 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useNavigation_0 (copy), l_useRoactService_0 (copy), v48 (copy), l_useNavigationProps_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_Enums_0 (copy), l_useSelector_0 (copy), l_getDeepValue_0 (copy), l_FFlagEnablePlatformProfileContextualMenuOption_0 (copy), v9 (copy), l_ProfileTypes_0 (copy), l_FFlagProfilePlatformEnableImpressions_0 (copy), v2 (copy), l_HttpService_0 (copy), v16 (copy), l_Contexts_0 (copy), l_peekViewDismissedEvent_0 (copy), l_DefaultAnalyticsService_0 (copy), l_NavigateBack_0 (copy), v32 (copy), v31 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_ImpressionEnums_0 (copy), l_FFlagProfilePlatformEnableStore_0 (copy), v40 (copy), v39 (copy), l_FFlagAddIEMProfilePage_0 (copy), l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (copy), l_AvatarScreen_0 (copy), v50 (copy), l_AvatarEditorCategories_0 (copy), v15 (copy), v17 (copy), v18 (copy), l_FFlagAddSocialLinksToCommunityProfile_0 (copy), v34 (copy), v35 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_ProfileWrapperContext_0 (copy), l_ProfilePlatformNavigator_0 (copy), v13 (copy), v14 (copy)
+    local v55 = l_useDispatch_0();
+    local v56 = l_useNavigation_0();
+    local v57 = l_useRoactService_0(v48);
+    local v60 = l_useNavigationProps_0(function(v58, v59) --[[ Line: 73 ]]
+        -- upvalues: l_FFlagEnableMobileGameJoinCard_0 (ref)
         return {
-            profileId = v56, 
-            profileType = v57.profileType, 
-            absolutePosition = v57.absolutePosition, 
-            source = v57.source, 
-            contextualInfoType = v57.contextualInfoType, 
-            contextualInfoDisplay = v57.contextualInfoDisplay, 
-            profileUserNickname = v57.profileUserNickname, 
-            sessionIdOverride = v57.sessionIdOverride, 
-            isRecommendation = v57.isRecommendation, 
-            recommendationContextType = v57.recommendationContextType, 
-            recommendationSessionId = v57.recommendationSessionId, 
-            recommendationRank = v57.recommendationRank, 
-            offNetworkFriendRequestToken = v57.offNetworkFriendRequestToken, 
-            shareLinkId = v57.shareLinkId, 
-            friendshipOriginSourceType = v57.friendshipOriginSourceType, 
-            initialPresence = v57.initialPresence
+            profileId = v58, 
+            profileType = v59.profileType, 
+            absolutePosition = v59.absolutePosition, 
+            source = v59.source, 
+            contextualInfoType = v59.contextualInfoType, 
+            contextualInfoDisplay = v59.contextualInfoDisplay, 
+            profileUserNickname = v59.profileUserNickname, 
+            sessionIdOverride = v59.sessionIdOverride, 
+            isRecommendation = v59.isRecommendation, 
+            recommendationContextType = v59.recommendationContextType, 
+            recommendationSessionId = v59.recommendationSessionId, 
+            recommendationRank = v59.recommendationRank, 
+            offNetworkFriendRequestToken = v59.offNetworkFriendRequestToken, 
+            shareLinkId = v59.shareLinkId, 
+            friendshipOriginSourceType = v59.friendshipOriginSourceType, 
+            initialPresence = v59.initialPresence, 
+            mountAsFullView = if l_FFlagEnableMobileGameJoinCard_0 then v59.mountAsFullView else nil
         };
     end);
-    local v59 = l_Enums_0.FriendshipOriginSourceType.UserProfile.rawValue();
-    if v58.source == "playerSearch" then
-        v59 = l_Enums_0.FriendshipOriginSourceType.PlayerSearch.rawValue();
-    elseif v58.isRecommendation then
-        v59 = l_Enums_0.FriendshipOriginSourceType.FriendRecommendations.rawValue();
-    elseif v58.friendshipOriginSourceType then
-        v59 = v58.friendshipOriginSourceType;
+    local v61 = l_Enums_0.FriendshipOriginSourceType.UserProfile.rawValue();
+    if v60.source == "playerSearch" then
+        v61 = l_Enums_0.FriendshipOriginSourceType.PlayerSearch.rawValue();
+    elseif v60.isRecommendation then
+        v61 = l_Enums_0.FriendshipOriginSourceType.FriendRecommendations.rawValue();
+    elseif v60.friendshipOriginSourceType then
+        v61 = v60.friendshipOriginSourceType;
     end;
-    local v62 = l_useSelector_0(function(v60) --[[ Line: 99 ]]
+    local v64 = l_useSelector_0(function(v62) --[[ Line: 104 ]]
         -- upvalues: l_getDeepValue_0 (ref)
-        local v61 = l_getDeepValue_0(v60, "Navigation.history") or {};
-        return ((v61[#v61] or {})[#v61] or {}).name;
+        local v63 = l_getDeepValue_0(v62, "Navigation.history") or {};
+        return ((v63[#v63] or {})[#v63] or {}).name;
     end);
-    local v63 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then v9.Hooks.useUserProfilesFetch({
+    local v65 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 then v9.Hooks.useUserProfilesFetch({
         userIds = {
-            v58.profileId
+            v60.profileId
         }, 
         query = v9.Queries.userProfilesPlatformProfileIdsByUserIds
     }) else nil;
-    local v64 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 and v63.data then v9.Selectors.getPlatformProfileIdFromId(v63.data, v58.profileId) else nil;
-    local v65 = tostring(v58.profileId);
-    local v66 = v58.profileType or l_ProfileTypes_0.User;
-    local v67 = if l_FFlagProfilePlatformEnableImpressions_0 then v2.useMemo(function() --[[ Line: 121 ]]
-        -- upvalues: v58 (copy), l_HttpService_0 (ref)
-        return v58.sessionIdOverride or l_HttpService_0:GenerateGUID(false);
+    local v66 = if l_FFlagEnablePlatformProfileContextualMenuOption_0 and v65.data then v9.Selectors.getPlatformProfileIdFromId(v65.data, v60.profileId) else nil;
+    local v67 = tostring(v60.profileId);
+    local v68 = v60.profileType or l_ProfileTypes_0.User;
+    local v69 = if l_FFlagProfilePlatformEnableImpressions_0 then v2.useMemo(function() --[[ Line: 126 ]]
+        -- upvalues: v60 (copy), l_HttpService_0 (ref)
+        return v60.sessionIdOverride or l_HttpService_0:GenerateGUID(false);
     end, {
-        v58.sessionIdOverride
+        v60.sessionIdOverride
     }) else nil;
-    local v79 = v2.useMemo(function() --[[ Line: 129 ]]
-        -- upvalues: v53 (copy), v16 (ref), l_Contexts_0 (ref), l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v62 (copy), l_NavigateBack_0 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref), l_FFlagProfilePlatformEnableStore_0 (ref), v40 (ref), v39 (ref), v54 (copy), l_FFlagAddIEMProfilePage_0 (ref), l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (ref), l_AvatarScreen_0 (ref), v50 (ref), l_AvatarEditorCategories_0 (ref), v15 (ref), v17 (ref), v18 (ref), l_FFlagAddSocialLinksToCommunityProfile_0 (ref), v34 (ref), v35 (ref), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (ref), v55 (copy), v58 (copy), v59 (ref), l_FFlagProfilePlatformEnableImpressions_0 (ref), v67 (copy), v65 (copy), v64 (copy), v66 (copy)
+    local v81 = v2.useMemo(function() --[[ Line: 134 ]]
+        -- upvalues: v55 (copy), v16 (ref), l_Contexts_0 (ref), l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v64 (copy), l_NavigateBack_0 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref), l_FFlagProfilePlatformEnableStore_0 (ref), v40 (ref), v39 (ref), v56 (copy), l_FFlagAddIEMProfilePage_0 (ref), l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (ref), l_AvatarScreen_0 (ref), v50 (ref), l_AvatarEditorCategories_0 (ref), v15 (ref), v17 (ref), v18 (ref), l_FFlagAddSocialLinksToCommunityProfile_0 (ref), v34 (ref), v35 (ref), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (ref), v57 (copy), v60 (copy), v61 (ref), l_FFlagProfilePlatformEnableImpressions_0 (ref), v69 (copy), v67 (copy), v66 (copy), v68 (copy), l_FFlagEnableMobileGameJoinCard_0 (ref)
         return {
             navigateTo = {
-                qRCodePage = function() --[[ Line: 132 ]] --[[ Name: qRCodePage ]]
-                    -- upvalues: v53 (ref), v16 (ref), l_Contexts_0 (ref)
-                    v53(v16({
+                qRCodePage = function() --[[ Line: 137 ]] --[[ Name: qRCodePage ]]
+                    -- upvalues: v55 (ref), v16 (ref), l_Contexts_0 (ref)
+                    v55(v16({
                         source = l_Contexts_0.ProfileCard
                     }));
                 end, 
-                previousView = function(v68) --[[ Line: 137 ]] --[[ Name: previousView ]]
-                    -- upvalues: l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v62 (ref), v53 (ref), l_NavigateBack_0 (ref)
-                    if v68 then
+                previousView = function(v70) --[[ Line: 142 ]] --[[ Name: previousView ]]
+                    -- upvalues: l_peekViewDismissedEvent_0 (ref), l_DefaultAnalyticsService_0 (ref), v64 (ref), v55 (ref), l_NavigateBack_0 (ref)
+                    if v70 then
                         l_peekViewDismissedEvent_0.logEvent(l_DefaultAnalyticsService_0.EventStream, "ProfilePeekView", {
                             dismissMethod = l_peekViewDismissedEvent_0.dismissMethodEnum.topBarTap, 
-                            page = v62
+                            page = v64
                         });
                     end;
-                    local v69 = not v68 or nil;
-                    v53(l_NavigateBack_0(v69));
+                    local v71 = not v70 or nil;
+                    v55(l_NavigateBack_0(v71));
                 end, 
-                itemDetails = function(v70) --[[ Line: 149 ]] --[[ Name: itemDetails ]]
-                    -- upvalues: v53 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
-                    v53(v32(v70, v31.ItemType.Asset, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
+                itemDetails = function(v72) --[[ Line: 154 ]] --[[ Name: itemDetails ]]
+                    -- upvalues: v55 (ref), v32 (ref), v31 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
+                    v55(v32(v72, v31.ItemType.Asset, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
                 end, 
-                itemOrBundleDetails = l_FFlagProfilePlatformEnableStore_0 and function(v71, v72) --[[ Line: 163 ]]
-                    -- upvalues: v53 (ref), v32 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
-                    v53(v32(v71, v72, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
+                itemOrBundleDetails = l_FFlagProfilePlatformEnableStore_0 and function(v73, v74) --[[ Line: 168 ]]
+                    -- upvalues: v55 (ref), v32 (ref), l_FFlagAXFixPurchaseSurfaceLogging_0 (ref), l_ImpressionEnums_0 (ref)
+                    v55(v32(v73, v74, nil, l_FFlagAXFixPurchaseSurfaceLogging_0 and true or nil, if l_FFlagAXFixPurchaseSurfaceLogging_0 then l_ImpressionEnums_0.MarketplaceSurfaceType.USER_PROFILE else nil));
                 end or nil, 
-                catalogSearch = l_FFlagProfilePlatformEnableStore_0 and function(v73) --[[ Line: 178 ]]
-                    -- upvalues: v53 (ref), v40 (ref), v39 (ref), v54 (ref)
-                    v53(v40(v73));
-                    v53(v39(v54, {}));
+                catalogSearch = l_FFlagProfilePlatformEnableStore_0 and function(v75) --[[ Line: 183 ]]
+                    -- upvalues: v55 (ref), v40 (ref), v39 (ref), v56 (ref)
+                    v55(v40(v75));
+                    v55(v39(v56, {}));
                 end or nil, 
-                inspectAvatar = l_FFlagAddIEMProfilePage_0 and function() --[[ Line: 183 ]]
+                inspectAvatar = l_FFlagAddIEMProfilePage_0 and function() --[[ Line: 188 ]]
 
                 end or nil, 
-                editAvatar = function() --[[ Line: 184 ]] --[[ Name: editAvatar ]]
-                    -- upvalues: l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (ref), v54 (ref), l_AvatarScreen_0 (ref)
+                editAvatar = function() --[[ Line: 189 ]] --[[ Name: editAvatar ]]
+                    -- upvalues: l_FFlagProfilePlatformEnableEditAppearanceMenu_0 (ref), v56 (ref), l_AvatarScreen_0 (ref)
                     if l_FFlagProfilePlatformEnableEditAppearanceMenu_0 then
-                        v54.navigate(l_AvatarScreen_0.Catalog);
+                        v56.navigate(l_AvatarScreen_0.Catalog);
                         return;
                     else
-                        v54.navigate(l_AvatarScreen_0.AvatarEditor);
+                        v56.navigate(l_AvatarScreen_0.AvatarEditor);
                         return;
                     end;
                 end, 
-                editEmotes = l_FFlagProfilePlatformEnableEditAppearanceMenu_0 and function() --[[ Line: 192 ]]
-                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v54 (ref), l_AvatarScreen_0 (ref)
-                    local v74 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Emotes);
-                    v54.navigate(l_AvatarScreen_0.AvatarEditor, {
-                        category = v74
+                editEmotes = l_FFlagProfilePlatformEnableEditAppearanceMenu_0 and function() --[[ Line: 197 ]]
+                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v56 (ref), l_AvatarScreen_0 (ref)
+                    local v76 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Emotes);
+                    v56.navigate(l_AvatarScreen_0.AvatarEditor, {
+                        category = v76
                     });
                 end or nil, 
-                switchAvatar = l_FFlagProfilePlatformEnableEditAppearanceMenu_0 and function() --[[ Line: 199 ]]
-                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v54 (ref), l_AvatarScreen_0 (ref)
-                    local v75 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Avatars);
-                    v54.navigate(l_AvatarScreen_0.AvatarEditor, {
-                        category = v75
+                switchAvatar = l_FFlagProfilePlatformEnableEditAppearanceMenu_0 and function() --[[ Line: 204 ]]
+                    -- upvalues: v50 (ref), l_AvatarEditorCategories_0 (ref), v56 (ref), l_AvatarScreen_0 (ref)
+                    local v77 = v50.resolveEditorCategory(l_AvatarEditorCategories_0.Avatars);
+                    v56.navigate(l_AvatarScreen_0.AvatarEditor, {
+                        category = v77
                     });
                 end or nil, 
-                editUsername = function(v76) --[[ Line: 205 ]] --[[ Name: editUsername ]]
-                    -- upvalues: v53 (ref), v15 (ref), v17 (ref), v18 (ref)
-                    v53(v15({
+                editUsername = function(v78) --[[ Line: 210 ]] --[[ Name: editUsername ]]
+                    -- upvalues: v55 (ref), v15 (ref), v17 (ref), v18 (ref)
+                    v55(v15({
                         name = v17.EditUsername, 
                         extraProps = {
                             BrowserWrapperComponent = v18, 
-                            showToast = v76.showToast, 
-                            onUsernameChanged = v76.onUsernameChanged
+                            showToast = v78.showToast, 
+                            onUsernameChanged = v78.onUsernameChanged
                         }
                     }));
                 end, 
-                openLeaveRobloxAlertUIBlox = l_FFlagAddSocialLinksToCommunityProfile_0 and function(v77) --[[ Line: 219 ]]
-                    -- upvalues: v53 (ref), v34 (ref)
-                    v53(v34(v77));
+                openLeaveRobloxAlertUIBlox = l_FFlagAddSocialLinksToCommunityProfile_0 and function(v79) --[[ Line: 224 ]]
+                    -- upvalues: v55 (ref), v34 (ref)
+                    v55(v34(v79));
                 end or nil, 
-                closeLeaveRobloxAlert = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 224 ]]
-                    -- upvalues: v53 (ref), v35 (ref)
-                    v53(v35());
+                closeLeaveRobloxAlert = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 229 ]]
+                    -- upvalues: v55 (ref), v35 (ref)
+                    v55(v35());
                 end or nil, 
-                navigateToTransfer = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function(v78) --[[ Line: 229 ]]
-                    -- upvalues: v53 (ref), v15 (ref), v17 (ref)
-                    v53(v15({
+                navigateToTransfer = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function(v80) --[[ Line: 234 ]]
+                    -- upvalues: v55 (ref), v15 (ref), v17 (ref)
+                    v55(v15({
                         name = v17.TransferRobuxFlow, 
                         extraProps = {
-                            direction = v78.direction, 
-                            recipientUserId = v78.recipientUserId, 
-                            transferId = v78.transferId, 
-                            transferOrigination = v78.transferOrigination
+                            direction = v80.direction, 
+                            recipientUserId = v80.recipientUserId, 
+                            transferId = v80.transferId, 
+                            transferOrigination = v80.transferOrigination
                         }
                     }));
                 end or nil
             }, 
             externalAnalytics = {
-                catalogAnalytics = v55
+                catalogAnalytics = v57
             }, 
             sourceInfo = {
-                homepageCarouselAbsolutePosition = v58.absolutePosition, 
-                source = v58.source, 
-                contextualInfoType = v58.contextualInfoType, 
-                contextualOverride = v58.contextualInfoDisplay, 
-                isRecommendation = v58.isRecommendation, 
-                recommendationContextType = v58.recommendationContextType, 
-                recommendationSessionId = v58.recommendationSessionId, 
-                recommendationRank = v58.recommendationRank, 
-                friendshipOriginSourceType = v59, 
-                shareLinkId = v58.shareLinkId
+                homepageCarouselAbsolutePosition = v60.absolutePosition, 
+                source = v60.source, 
+                contextualInfoType = v60.contextualInfoType, 
+                contextualOverride = v60.contextualInfoDisplay, 
+                isRecommendation = v60.isRecommendation, 
+                recommendationContextType = v60.recommendationContextType, 
+                recommendationSessionId = v60.recommendationSessionId, 
+                recommendationRank = v60.recommendationRank, 
+                friendshipOriginSourceType = v61, 
+                shareLinkId = v60.shareLinkId
             }, 
-            profileSessionId = if l_FFlagProfilePlatformEnableImpressions_0 then v67 else nil, 
-            profileId = v65, 
-            profilePlatformId = v64, 
-            profileType = v66, 
-            profileUserNickname = v58.profileUserNickname, 
-            sessionIdOverride = if l_FFlagProfilePlatformEnableImpressions_0 then nil else v58.sessionIdOverride, 
-            offNetworkFriendRequestToken = v58.offNetworkFriendRequestToken, 
-            initialPresence = v58.initialPresence
+            profileSessionId = if l_FFlagProfilePlatformEnableImpressions_0 then v69 else nil, 
+            profileId = v67, 
+            profilePlatformId = v66, 
+            profileType = v68, 
+            profileUserNickname = v60.profileUserNickname, 
+            sessionIdOverride = if l_FFlagProfilePlatformEnableImpressions_0 then nil else v60.sessionIdOverride, 
+            offNetworkFriendRequestToken = v60.offNetworkFriendRequestToken, 
+            initialPresence = v60.initialPresence, 
+            mountAsFullView = if l_FFlagEnableMobileGameJoinCard_0 then v60.mountAsFullView else nil
         };
-    end, l_dependencyArray_0(v65, v53, v62, v58.absolutePosition, v58.source, v55, v54));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v67, 
+        v55, 
+        v64, 
+        v60.absolutePosition, 
+        v60.source, 
+        v57, 
+        v56
+    } else l_dependencyArray_0(v67, v55, v64, v60.absolutePosition, v60.source, v57, v56));
     return v2.createElement(l_ProfileWrapperContext_0.Provider, {
-        value = v79
+        value = v81
     }, {
-        ProfilePlatformNavigator = v2.createElement(l_ProfilePlatformNavigator_0, v52), 
+        ProfilePlatformNavigator = v2.createElement(l_ProfilePlatformNavigator_0, v54), 
         androidBackButtonNavigationHandler = v2.createElement(v13, {
-            canGoBackInRN = not v14(v54.state), 
-            navigateBackInRN = v54.pop
+            canGoBackInRN = not v14(v56.state), 
+            navigateBackInRN = v56.pop
         })
     });
 end;
-local v81 = v2.PureComponent:extend("classWrapper");
-v81.render = function(v82) --[[ Line: 295 ]] --[[ Name: render ]]
-    -- upvalues: v2 (copy), v80 (copy)
-    return v2.createElement(v80, v82.props);
+local v83 = v2.PureComponent:extend("classWrapper");
+v83.render = function(v84) --[[ Line: 311 ]] --[[ Name: render ]]
+    -- upvalues: v2 (copy), v82 (copy)
+    return v2.createElement(v82, v84.props);
 end;
-v81.router = l_ProfilePlatformNavigator_0.router;
-return v81;
+v83.router = l_ProfilePlatformNavigator_0.router;
+return v83;

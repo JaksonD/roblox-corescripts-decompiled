@@ -51,40 +51,41 @@ local v49 = require(l_script_FirstAncestor_0.Flags.getFFlagExpChatConnectInitCom
 local v50 = game:DefineFastFlag("ExpChatTextChatCommandRemoved", false);
 local v51 = game:DefineFastFlag("ExpChatCheckForNilInputObj", false);
 local v52 = game:DefineFastFlag("ExpChatDoNotSetCursorPosition", false);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v40.FFlagRemoveDependencyArrayAntipattern;
 local l_ActionBindableEvent_0 = v9.ActionBindableEvent;
-local v54 = v23(false);
-local function v58(v55, v56) --[[ Line: 72 ]] --[[ Name: setTransparency ]]
-    return v56:map(function(v57) --[[ Line: 73 ]]
-        -- upvalues: v55 (copy)
-        return v55 + v57 * (1 - v55);
+local v55 = v23(false);
+local function v59(v56, v57) --[[ Line: 74 ]] --[[ Name: setTransparency ]]
+    return v57:map(function(v58) --[[ Line: 75 ]]
+        -- upvalues: v56 (copy)
+        return v56 + v58 * (1 - v56);
     end);
 end;
-local v59 = nil;
 local v60 = nil;
 local v61 = nil;
 local v62 = nil;
-local function v73(v63, v64, v65) --[[ Line: 83 ]] --[[ Name: onChatInputBarFocusLost ]]
+local v63 = nil;
+local function v74(v64, v65, v66) --[[ Line: 85 ]] --[[ Name: onChatInputBarFocusLost ]]
     -- upvalues: l_UserInputService_0 (copy), v51 (copy), l_GuiService_0 (copy)
-    local v66 = {
+    local v67 = {
         Enum.KeyCode.ButtonB
     };
-    local v67 = v64 or v66;
-    local v68 = nil;
-    v68 = l_UserInputService_0.InputBegan:Connect(function(v69) --[[ Line: 87 ]]
-        -- upvalues: v51 (ref), v67 (copy), l_GuiService_0 (ref), v65 (copy), v63 (copy), v68 (ref)
-        local v70 = if not v51 or v69 then v69.KeyCode else nil;
-        for _, v72 in v67 do
-            if v70 == v72 then
+    local v68 = v65 or v67;
+    local v69 = nil;
+    v69 = l_UserInputService_0.InputBegan:Connect(function(v70) --[[ Line: 89 ]]
+        -- upvalues: v51 (ref), v68 (copy), l_GuiService_0 (ref), v66 (copy), v64 (copy), v69 (ref)
+        local v71 = if not v51 or v70 then v70.KeyCode else nil;
+        for _, v73 in v68 do
+            if v71 == v73 then
                 l_GuiService_0:SetMenuIsOpen(false, "ExperienceChat");
-                v65();
-                if v63 then
-                    v63();
+                v66();
+                if v64 then
+                    v64();
                 else
                     l_GuiService_0.SelectedCoreObject = nil;
                 end;
-                if v68 then
-                    v68:Disconnect();
-                    v68 = nil;
+                if v69 then
+                    v69:Disconnect();
+                    v69 = nil;
                     return;
                 else
                     break;
@@ -92,38 +93,38 @@ local function v73(v63, v64, v65) --[[ Line: 83 ]] --[[ Name: onChatInputBarFocu
             end;
         end;
     end);
-    return v68;
+    return v69;
 end;
-local function v92(v74, v75, v76, v77, v78) --[[ Line: 111 ]] --[[ Name: useEffectChatInputBarFocus ]]
-    -- upvalues: l_FFlagConsoleChatUseChromeFocusUtils_0 (copy), v7 (copy), v45 (copy), v14 (copy), v54 (copy), v48 (copy), l_GuiService_0 (copy), l_UserInputService_0 (copy), v51 (copy), l_FocusUtils_0 (copy), l_FFlagChromeChatGamepadSupportFix_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v73 (copy), l_ActionBindableEvent_0 (copy)
+local function v93(v75, v76, v77, v78, v79) --[[ Line: 113 ]] --[[ Name: useEffectChatInputBarFocus ]]
+    -- upvalues: l_FFlagConsoleChatUseChromeFocusUtils_0 (copy), v7 (copy), v45 (copy), v14 (copy), v55 (copy), v48 (copy), l_GuiService_0 (copy), l_UserInputService_0 (copy), v51 (copy), l_FocusUtils_0 (copy), l_FFlagChromeChatGamepadSupportFix_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v74 (copy), l_ActionBindableEvent_0 (copy)
     if l_FFlagConsoleChatUseChromeFocusUtils_0 then
-        v7.useEffect(function() --[[ Line: 113 ]]
-            -- upvalues: v45 (ref), v14 (ref), v54 (ref), v75 (copy), v74 (copy), v48 (ref), v76 (copy), l_GuiService_0 (ref), v77 (copy), l_UserInputService_0 (ref), v51 (ref), l_FocusUtils_0 (ref), v78 (copy)
-            local v79 = {
+        v7.useEffect(function() --[[ Line: 115 ]]
+            -- upvalues: v45 (ref), v14 (ref), v55 (ref), v76 (copy), v75 (copy), v48 (ref), v77 (copy), l_GuiService_0 (ref), v78 (copy), l_UserInputService_0 (ref), v51 (ref), l_FocusUtils_0 (ref), v79 (copy)
+            local v80 = {
                 [Enum.KeyCode.DPadUp] = not v45 or nil
             };
-            local v80 = nil;
-            local v85 = v14.createEffect(function(v81) --[[ Line: 119 ]]
-                -- upvalues: v54 (ref), v75 (ref), v74 (ref), v48 (ref), v76 (ref), l_GuiService_0 (ref), v77 (ref), v80 (ref), l_UserInputService_0 (ref), v51 (ref), v79 (copy), l_FocusUtils_0 (ref), v78 (ref)
-                local v82 = v54.getChatInputBarFocused(v81);
-                local v83 = if v75.current then v75.current else v74.current;
+            local v81 = nil;
+            local v86 = v14.createEffect(function(v82) --[[ Line: 121 ]]
+                -- upvalues: v55 (ref), v76 (ref), v75 (ref), v48 (ref), v77 (ref), l_GuiService_0 (ref), v78 (ref), v81 (ref), l_UserInputService_0 (ref), v51 (ref), v80 (copy), l_FocusUtils_0 (ref), v79 (ref)
+                local v83 = v55.getChatInputBarFocused(v82);
+                local v84 = if v76.current then v76.current else v75.current;
                 if v48 then
-                    v83 = v83 or v76.current;
+                    v84 = v84 or v77.current;
                 end;
-                if not v83 then
+                if not v84 then
                     return;
                 else
-                    if v82 then
+                    if v83 then
                         l_GuiService_0:SetMenuIsOpen(true, "ExperienceChat");
-                        v77();
-                        l_GuiService_0.SelectedCoreObject = v83;
-                        if not v80 then
-                            v80 = l_UserInputService_0.InputBegan:Connect(function(v84) --[[ Line: 141 ]]
-                                -- upvalues: v51 (ref), v79 (ref), l_FocusUtils_0 (ref), v54 (ref)
-                                if (not v51 or v84) and v79[v84.KeyCode] then
-                                    l_FocusUtils_0.FocusOnChrome(function() --[[ Line: 144 ]]
-                                        -- upvalues: v54 (ref)
-                                        v54.unfocusChatInputBar();
+                        v78();
+                        l_GuiService_0.SelectedCoreObject = v84;
+                        if not v81 then
+                            v81 = l_UserInputService_0.InputBegan:Connect(function(v85) --[[ Line: 143 ]]
+                                -- upvalues: v51 (ref), v80 (ref), l_FocusUtils_0 (ref), v55 (ref)
+                                if (not v51 or v85) and v80[v85.KeyCode] then
+                                    l_FocusUtils_0.FocusOnChrome(function() --[[ Line: 146 ]]
+                                        -- upvalues: v55 (ref)
+                                        v55.unfocusChatInputBar();
                                     end, "chat");
                                 end;
                             end);
@@ -131,463 +132,469 @@ local function v92(v74, v75, v76, v77, v78) --[[ Line: 111 ]] --[[ Name: useEffe
                         end;
                     elseif l_GuiService_0.MenuIsOpen then
                         l_GuiService_0:SetMenuIsOpen(false, "ExperienceChat");
-                        v78();
-                        if v80 then
-                            v80:Disconnect();
-                            v80 = nil;
+                        v79();
+                        if v81 then
+                            v81:Disconnect();
+                            v81 = nil;
                         end;
                     end;
                     return;
                 end;
             end);
-            return function() --[[ Line: 160 ]]
-                -- upvalues: v85 (copy), v80 (ref)
-                v85();
-                if v80 then
-                    v80:Disconnect();
-                    v80 = nil;
+            return function() --[[ Line: 162 ]]
+                -- upvalues: v86 (copy), v81 (ref)
+                v86();
+                if v81 then
+                    v81:Disconnect();
+                    v81 = nil;
                 end;
             end;
         end, {});
         return;
     else
         if l_FFlagChromeChatGamepadSupportFix_0 then
-            v7.useEffect(function() --[[ Line: 170 ]]
-                -- upvalues: v75 (copy), v74 (copy), l_FFlagEnableConsoleExpControls_0 (ref), l_GuiService_0 (ref), v77 (copy), v73 (ref), v78 (copy), l_ActionBindableEvent_0 (ref)
-                local v86 = nil;
+            v7.useEffect(function() --[[ Line: 172 ]]
+                -- upvalues: v76 (copy), v75 (copy), l_FFlagEnableConsoleExpControls_0 (ref), l_GuiService_0 (ref), v78 (copy), v74 (ref), v79 (copy), l_ActionBindableEvent_0 (ref)
                 local v87 = nil;
-                local function v90(v88) --[[ Line: 174 ]]
-                    -- upvalues: v75 (ref), v74 (ref), l_FFlagEnableConsoleExpControls_0 (ref), l_GuiService_0 (ref), v77 (ref), v87 (ref), v86 (ref), v73 (ref), v78 (ref)
-                    local v89 = if v75.current then v75.current else v74.current;
-                    if l_FFlagEnableConsoleExpControls_0 and v88.type == "ChatTopBarFocusSelect" and v89 then
+                local v88 = nil;
+                local function v91(v89) --[[ Line: 176 ]]
+                    -- upvalues: v76 (ref), v75 (ref), l_FFlagEnableConsoleExpControls_0 (ref), l_GuiService_0 (ref), v78 (ref), v88 (ref), v87 (ref), v74 (ref), v79 (ref)
+                    local v90 = if v76.current then v76.current else v75.current;
+                    if l_FFlagEnableConsoleExpControls_0 and v89.type == "ChatTopBarFocusSelect" and v90 then
                         l_GuiService_0:SetMenuIsOpen(true, "ExperienceChat");
-                        v77();
-                        l_GuiService_0.SelectedCoreObject = v89;
-                        v87 = task.delay(0, function() --[[ Line: 186 ]]
-                            -- upvalues: v87 (ref), v86 (ref), v73 (ref), v88 (copy), v78 (ref)
-                            v87 = nil;
-                            if v86 then
-                                v86:Disconnect();
+                        v78();
+                        l_GuiService_0.SelectedCoreObject = v90;
+                        v88 = task.delay(0, function() --[[ Line: 188 ]]
+                            -- upvalues: v88 (ref), v87 (ref), v74 (ref), v89 (copy), v79 (ref)
+                            v88 = nil;
+                            if v87 then
+                                v87:Disconnect();
                             end;
-                            v86 = v73(v88.onSelectionLost, v88.keybinds, v78);
+                            v87 = v74(v89.onSelectionLost, v89.keybinds, v79);
                         end);
                     end;
                 end;
-                local v91 = l_ActionBindableEvent_0.Event:Connect(v90);
-                return function() --[[ Line: 200 ]]
-                    -- upvalues: v91 (copy), v87 (ref), v86 (ref)
-                    v91:disconnect();
-                    if v87 then
-                        task.cancel(v87);
-                        v87 = nil;
+                local v92 = l_ActionBindableEvent_0.Event:Connect(v91);
+                return function() --[[ Line: 202 ]]
+                    -- upvalues: v92 (copy), v88 (ref), v87 (ref)
+                    v92:disconnect();
+                    if v88 then
+                        task.cancel(v88);
+                        v88 = nil;
                     end;
-                    if v86 then
-                        v86:Disconnect();
-                        v86 = nil;
+                    if v87 then
+                        v87:Disconnect();
+                        v87 = nil;
                     end;
                 end;
             end, {
-                v74.current, 
-                v75.current
+                v75.current, 
+                v76.current
             });
         end;
         return;
     end;
 end;
-local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
-    -- upvalues: v7 (copy), v45 (copy), v8 (copy), v46 (copy), v6 (copy), v15 (copy), v54 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v11 (copy), l_TextChatService_0 (copy), v60 (ref), v31 (copy), v33 (copy), v50 (copy), v39 (copy), v59 (ref), v32 (copy), v49 (copy), v34 (copy), v24 (copy), v52 (copy), v51 (copy), l_dependencyArray_0 (copy), v22 (copy), l_Players_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagChromeChatGamepadSupportFix_0 (copy), l_GuiService_0 (copy), v73 (copy), l_ActionBindableEvent_0 (copy), v92 (copy), v36 (copy), v35 (copy), l_List_0 (copy), v61 (ref), l_RBXTeamCommand_0 (copy), v62 (ref), l_RBXWhisperCommand_0 (copy), v47 (copy), l_autoCastCommand_0 (copy), v13 (copy), l_useCursor_0 (copy), v21 (copy), v38 (copy), v58 (copy), v30 (copy), v48 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy)
-    local v94 = v7.useRef("");
-    local v95 = nil;
+local function v280(v94) --[[ Line: 218 ]] --[[ Name: ChatInputBar ]]
+    -- upvalues: v7 (copy), v45 (copy), v8 (copy), v46 (copy), v6 (copy), v15 (copy), v55 (copy), l_FFlagExpChatUseMessagesStore_0 (copy), v11 (copy), l_TextChatService_0 (copy), v61 (ref), v31 (copy), v33 (copy), v50 (copy), v39 (copy), v60 (ref), v32 (copy), v49 (copy), v34 (copy), v24 (copy), v52 (copy), v51 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v22 (copy), l_Players_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagChromeChatGamepadSupportFix_0 (copy), l_GuiService_0 (copy), v74 (copy), l_ActionBindableEvent_0 (copy), v93 (copy), v36 (copy), v35 (copy), l_List_0 (copy), v62 (ref), l_RBXTeamCommand_0 (copy), v63 (ref), l_RBXWhisperCommand_0 (copy), v47 (copy), l_autoCastCommand_0 (copy), v13 (copy), l_useCursor_0 (copy), v21 (copy), v38 (copy), v59 (copy), v30 (copy), v48 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy)
+    local v95 = v7.useRef("");
     local v96 = nil;
     local v97 = nil;
     local v98 = nil;
-    local v99, v100 = v7.useState("");
-    local v101, v102 = v7.useState(0);
-    v95 = v101;
+    local v99 = nil;
+    local v100, v101 = v7.useState("");
+    local v102, v103 = v7.useState(0);
     v96 = v102;
-    v101, v102 = v7.useState(0);
-    v97 = v101;
+    v97 = v103;
+    v102, v103 = v7.useState(0);
     v98 = v102;
-    v101, v102 = v7.useState(false);
-    local v103, _ = v7.useState(true);
-    local v105, v106 = v7.useBinding(0);
-    local v107 = v7.useRef(false);
-    local v108 = v7.useRef(nil);
+    v99 = v103;
+    v102, v103 = v7.useState(false);
+    local v104, _ = v7.useState(true);
+    local v106, v107 = v7.useBinding(0);
+    local v108 = v7.useRef(false);
     local v109 = v7.useRef(nil);
     local v110 = v7.useRef(nil);
     local v111 = v7.useRef(nil);
     local v112 = v7.useRef(nil);
     local v113 = v7.useRef(nil);
-    local v114 = v7.useRef(false);
-    local v115 = if v45 then v8.useFocusGuiObject() else nil;
-    local v116 = if not v45 or v46 then nil else v6.useLastInputMode();
-    local v117 = if v46 then v15.useSignalState(v54.getChatInputBarFocused) else nil;
-    local v118 = nil;
+    local v114 = v7.useRef(nil);
+    local v115 = v7.useRef(false);
+    local v116 = if v45 then v8.useFocusGuiObject() else nil;
+    local v117 = if not v45 or v46 then nil else v6.useLastInputMode();
+    local v118 = if v46 then v15.useSignalState(v55.getChatInputBarFocused) else nil;
     local v119 = nil;
+    local v120 = nil;
     if l_FFlagExpChatUseMessagesStore_0 then
-        v119 = v11(false);
-        v118 = v15.useSignalState(v119.getCanLocalUserChat);
+        v120 = v11(false);
+        v119 = v15.useSignalState(v120.getCanLocalUserChat);
     end;
-    local v120 = v7.useRef(false);
-    v7.useEffect(function() --[[ Line: 263 ]]
-        -- upvalues: v109 (copy), v93 (copy)
-        v109.current = v93.chatInputBarSettings.TextBox;
+    local v121 = v7.useRef(false);
+    v7.useEffect(function() --[[ Line: 265 ]]
+        -- upvalues: v110 (copy), v94 (copy)
+        v110.current = v94.chatInputBarSettings.TextBox;
     end, {
-        if v93.chatInputBarSettings.TextBox ~= nil then v93.chatInputBarSettings.TextBox else "nil"
+        if v94.chatInputBarSettings.TextBox ~= nil then v94.chatInputBarSettings.TextBox else "nil"
     });
-    v7.useEffect(function() --[[ Line: 268 ]]
-        -- upvalues: v93 (copy), l_TextChatService_0 (ref), v60 (ref), v31 (ref), v33 (ref), v50 (ref), v39 (ref), v59 (ref), v32 (ref), v49 (ref), v34 (ref)
-        if not v93.autocompleteEnabled then
+    v7.useEffect(function() --[[ Line: 270 ]]
+        -- upvalues: v94 (copy), l_TextChatService_0 (ref), v61 (ref), v31 (ref), v33 (ref), v50 (ref), v39 (ref), v60 (ref), v32 (ref), v49 (ref), v34 (ref)
+        if not v94.autocompleteEnabled then
             return;
         else
-            local v121 = {};
-            local v124 = l_TextChatService_0.DescendantAdded:Connect(function(v122) --[[ Line: 273 ]]
-                -- upvalues: v60 (ref), v31 (ref), v33 (ref), v121 (copy)
-                if v122:IsA("TextChatCommand") and string.sub(v122.PrimaryAlias, 1, 1) == "/" then
-                    v60 = v31.new(v33);
-                    local v123 = v122:GetPropertyChangedSignal("AutocompleteVisible"):Connect(function() --[[ Line: 279 ]]
-                        -- upvalues: v60 (ref), v31 (ref), v33 (ref)
-                        v60 = v31.new(v33);
+            local v122 = {};
+            local v125 = l_TextChatService_0.DescendantAdded:Connect(function(v123) --[[ Line: 275 ]]
+                -- upvalues: v61 (ref), v31 (ref), v33 (ref), v122 (copy)
+                if v123:IsA("TextChatCommand") and string.sub(v123.PrimaryAlias, 1, 1) == "/" then
+                    v61 = v31.new(v33);
+                    local v124 = v123:GetPropertyChangedSignal("AutocompleteVisible"):Connect(function() --[[ Line: 281 ]]
+                        -- upvalues: v61 (ref), v31 (ref), v33 (ref)
+                        v61 = v31.new(v33);
                     end);
-                    table.insert(v121, v123);
+                    table.insert(v122, v124);
                 end;
             end);
-            local v126 = if v50 then l_TextChatService_0.DescendantRemoving:Connect(function(v125) --[[ Line: 287 ]]
-                -- upvalues: v60 (ref), v31 (ref), v33 (ref)
-                if v125:IsA("TextChatCommand") and string.sub(v125.PrimaryAlias, 1, 1) == "/" then
-                    v60 = v31.new(v33);
+            local v127 = if v50 then l_TextChatService_0.DescendantRemoving:Connect(function(v126) --[[ Line: 289 ]]
+                -- upvalues: v61 (ref), v31 (ref), v33 (ref)
+                if v126:IsA("TextChatCommand") and string.sub(v126.PrimaryAlias, 1, 1) == "/" then
+                    v61 = v31.new(v33);
                 end;
             end) else nil;
             if v39() then
-                v60 = v31.new(v33);
-                v59 = v31.new(v32);
+                v61 = v31.new(v33);
+                v60 = v31.new(v32);
                 if v49() then
-                    local v127 = v34();
-                    if v127 then
-                        for _, v129 in v127 do
-                            table.insert(v121, (v129:GetPropertyChangedSignal("AutocompleteVisible"):Connect(function() --[[ Line: 303 ]]
-                                -- upvalues: v60 (ref), v31 (ref), v33 (ref)
-                                v60 = v31.new(v33);
+                    local v128 = v34();
+                    if v128 then
+                        for _, v130 in v128 do
+                            table.insert(v122, (v130:GetPropertyChangedSignal("AutocompleteVisible"):Connect(function() --[[ Line: 305 ]]
+                                -- upvalues: v61 (ref), v31 (ref), v33 (ref)
+                                v61 = v31.new(v33);
                             end)));
                         end;
                     end;
                 end;
             end;
-            return function() --[[ Line: 312 ]]
-                -- upvalues: v50 (ref), v126 (copy), v124 (copy), v121 (copy)
-                if v50 and v126 then
-                    v126:Disconnect();
+            return function() --[[ Line: 314 ]]
+                -- upvalues: v50 (ref), v127 (copy), v125 (copy), v122 (copy)
+                if v50 and v127 then
+                    v127:Disconnect();
                 end;
-                v124:Disconnect();
-                for _, v131 in ipairs(v121) do
-                    v131:Disconnect();
+                v125:Disconnect();
+                for _, v132 in ipairs(v122) do
+                    v132:Disconnect();
                 end;
-                table.clear(v121);
+                table.clear(v122);
             end;
         end;
     end, {});
-    local v133 = v7.useCallback(function() --[[ Line: 324 ]]
-        -- upvalues: v24 (ref), v99 (copy), l_FFlagExpChatUseMessagesStore_0 (ref), v107 (copy), v118 (ref), v93 (copy), v108 (copy), v109 (copy), v100 (copy), v114 (copy)
-        v24:trace("onSendActivated with input text: '{}'", v99);
+    local v134 = v7.useCallback(function() --[[ Line: 326 ]]
+        -- upvalues: v24 (ref), v100 (copy), l_FFlagExpChatUseMessagesStore_0 (ref), v108 (copy), v119 (ref), v94 (copy), v109 (copy), v110 (copy), v101 (copy), v115 (copy)
+        v24:trace("onSendActivated with input text: '{}'", v100);
         if l_FFlagExpChatUseMessagesStore_0 then
-            if not v107.current or not v118 then
-                v24:debug("onSendActivated could not send message. isMounted: {} canLocalUserChat: {}", tostring(v107.current), v118);
+            if not v108.current or not v119 then
+                v24:debug("onSendActivated could not send message. isMounted: {} canLocalUserChat: {}", tostring(v108.current), v119);
                 return;
             end;
-        elseif not v107.current or not v93.canLocalUserChat then
-            v24:debug("onSendActivated could not send message. isMounted: {} canLocalUserChat: {}", tostring(v107.current), v93.canLocalUserChat);
+        elseif not v108.current or not v94.canLocalUserChat then
+            v24:debug("onSendActivated could not send message. isMounted: {} canLocalUserChat: {}", tostring(v108.current), v94.canLocalUserChat);
             return;
         end;
-        if v108.current or v109.current then
-            local v132 = if v109.current then v109.current.Text else v108.current.Text;
-            if v93.onSendChat and string.find(v132, "%S") ~= nil then
-                v93.onSendChat(v132);
+        if v109.current or v110.current then
+            local v133 = if v110.current then v110.current.Text else v109.current.Text;
+            if v94.onSendChat and string.find(v133, "%S") ~= nil then
+                v94.onSendChat(v133);
             elseif l_FFlagExpChatUseMessagesStore_0 then
-                v24:debug("onSendActivated could not send message. text: '{}' canLocalUserChat: {}", v132, v118);
+                v24:debug("onSendActivated could not send message. text: '{}' canLocalUserChat: {}", v133, v119);
             else
-                v24:debug("onSendActivated could not send message. text: '{}' canLocalUserChat: {}", v132, v93.canLocalUserChat);
+                v24:debug("onSendActivated could not send message. text: '{}' canLocalUserChat: {}", v133, v94.canLocalUserChat);
+            end;
+            if v110.current then
+                v110.current.Text = "";
+                v110.current:ReleaseFocus();
             end;
             if v109.current then
                 v109.current.Text = "";
                 v109.current:ReleaseFocus();
             end;
-            if v108.current then
-                v108.current.Text = "";
-                v108.current:ReleaseFocus();
-            end;
-            v100("");
-            if v93.targetTextChannel and v93.targetTextChannelDisplayName ~= "" then
-                v114.current = true;
+            v101("");
+            if v94.targetTextChannel and v94.targetTextChannelDisplayName ~= "" then
+                v115.current = true;
                 return;
             end;
         else
             v24:debug("onSendActivated could not send message because textBoxRef.current was nil");
         end;
     end, {
-        v99, 
-        v109.current
+        v100, 
+        v110.current
     });
-    local v142 = v7.useCallback(function(v134) --[[ Line: 388 ]]
-        -- upvalues: v93 (copy), v109 (copy), v108 (copy), v95 (ref), v100 (copy), v107 (copy), v46 (ref), v117 (copy), v115 (copy), v116 (copy), v52 (ref), v24 (ref)
-        v93.autocompleteDropdownActivated(false);
-        v93.autocompleteDropdownResultsChanged({});
-        local v135 = if v109.current then v109.current else v108.current;
-        if v135 then
-            local l_Text_0 = v135.Text;
-            local v137 = string.sub(l_Text_0, 1, v95 - 1);
-            local v138 = string.sub(l_Text_0, v95, #l_Text_0);
-            local v139 = "";
-            if v93.autocompleteDropdownReducer.autocompleteType == "emojis" then
-                local l_Text_1 = v134.EmojiLabel.Text;
-                v139 = string.gsub(v137, ":[^:]*$", l_Text_1);
-            elseif v93.autocompleteDropdownReducer.autocompleteType == "commands" then
-                local l_Text_2 = v134.TextLabel.Text;
-                v139 = string.gsub(v137, "(/.*)", l_Text_2);
+    local v143 = v7.useCallback(function(v135) --[[ Line: 390 ]]
+        -- upvalues: v94 (copy), v110 (copy), v109 (copy), v96 (ref), v101 (copy), v108 (copy), v46 (ref), v118 (copy), v116 (copy), v117 (copy), v52 (ref), v24 (ref)
+        v94.autocompleteDropdownActivated(false);
+        v94.autocompleteDropdownResultsChanged({});
+        local v136 = if v110.current then v110.current else v109.current;
+        if v136 then
+            local l_Text_0 = v136.Text;
+            local v138 = string.sub(l_Text_0, 1, v96 - 1);
+            local v139 = string.sub(l_Text_0, v96, #l_Text_0);
+            local v140 = "";
+            if v94.autocompleteDropdownReducer.autocompleteType == "emojis" then
+                local l_Text_1 = v135.EmojiLabel.Text;
+                v140 = string.gsub(v138, ":[^:]*$", l_Text_1);
+            elseif v94.autocompleteDropdownReducer.autocompleteType == "commands" then
+                local l_Text_2 = v135.TextLabel.Text;
+                v140 = string.gsub(v138, "(/.*)", l_Text_2);
             end;
-            if v138 ~= "" then
-                v139 = v139 .. v138;
+            if v139 ~= "" then
+                v140 = v140 .. v139;
             end;
-            v135.Text = v139;
-            v100(v139);
-            if v107.current then
-                v135:CaptureFocus();
+            v136.Text = v140;
+            v101(v140);
+            if v108.current then
+                v136:CaptureFocus();
                 if v46 then
-                    if v117 then
-                        v115(v135);
+                    if v118 then
+                        v116(v136);
                     end;
-                elseif v116 == "Focus" then
-                    v115(v135);
+                elseif v117 == "Focus" then
+                    v116(v136);
                 end;
-                if v138 ~= "" and not v52 then
-                    v135.CursorPosition = #v139 - #v138 + 1;
+                if v139 ~= "" and not v52 then
+                    v136.CursorPosition = #v140 - #v139 + 1;
                 end;
             end;
-            v93.autocompleteDropdownDeactivated();
+            v94.autocompleteDropdownDeactivated();
             return;
         else
             v24:error("Could not find textBox");
             return;
         end;
     end, if v45 then {
-        if v46 then v117 else nil, 
-        v115, 
-        v103, 
-        v95, 
-        if v46 then nil else v116, 
-        v93.autocompleteDropdownActivated, 
-        v93.autocompleteDropdownDeactivated, 
-        v93.autocompleteDropdownReducer and v93.autocompleteDropdownReducer.autocompleteType, 
-        v93.autocompleteDropdownResultsChanged
+        if v46 then v118 else nil, 
+        v116, 
+        v104, 
+        v96, 
+        if v46 then nil else v117, 
+        v94.autocompleteDropdownActivated, 
+        v94.autocompleteDropdownDeactivated, 
+        v94.autocompleteDropdownReducer and v94.autocompleteDropdownReducer.autocompleteType, 
+        v94.autocompleteDropdownResultsChanged
     } else nil);
-    v7.useEffect(function() --[[ Line: 459 ]]
-        -- upvalues: v107 (copy), v109 (copy), v108 (copy), v24 (ref)
-        if v107.current then
-            local v143 = if v109.current then v109.current else v108.current;
-            if v143 then
-                v143:CaptureFocus();
+    v7.useEffect(function() --[[ Line: 461 ]]
+        -- upvalues: v108 (copy), v110 (copy), v109 (copy), v24 (ref)
+        if v108.current then
+            local v144 = if v110.current then v110.current else v109.current;
+            if v144 then
+                v144:CaptureFocus();
                 return;
             else
                 v24:error("Could not focus chat input bar because textBox not found");
             end;
         end;
     end, {
-        v93.shouldFocusChatInputBar, 
-        v109.current
+        v94.shouldFocusChatInputBar, 
+        v110.current
     });
-    v7.useEffect(function() --[[ Line: 470 ]]
-        -- upvalues: v24 (ref), v107 (copy)
+    v7.useEffect(function() --[[ Line: 472 ]]
+        -- upvalues: v24 (ref), v108 (copy)
         v24:trace("Mounted");
-        v107.current = true;
-        return function() --[[ Line: 474 ]]
-            -- upvalues: v24 (ref), v107 (ref)
+        v108.current = true;
+        return function() --[[ Line: 476 ]]
+            -- upvalues: v24 (ref), v108 (ref)
             v24:trace("Unmounting");
-            v107.current = false;
+            v108.current = false;
         end;
     end, {});
-    v7.useEffect(function() --[[ Line: 480 ]]
-        -- upvalues: v93 (copy), v109 (copy), v108 (copy), v96 (ref)
-        local v144 = nil;
-        if v93.autocompleteEnabled then
-            local v145 = if v109.current then v109.current else v108.current;
-            if v145 then
-                v144 = v145:GetPropertyChangedSignal("CursorPosition"):Connect(function() --[[ Line: 485 ]]
-                    -- upvalues: v145 (copy), v96 (ref)
-                    local l_CursorPosition_0 = v145.CursorPosition;
+    v7.useEffect(function() --[[ Line: 482 ]]
+        -- upvalues: v94 (copy), v110 (copy), v109 (copy), v97 (ref)
+        local v145 = nil;
+        if v94.autocompleteEnabled then
+            local v146 = if v110.current then v110.current else v109.current;
+            if v146 then
+                v145 = v146:GetPropertyChangedSignal("CursorPosition"):Connect(function() --[[ Line: 487 ]]
+                    -- upvalues: v146 (copy), v97 (ref)
+                    local l_CursorPosition_0 = v146.CursorPosition;
                     if l_CursorPosition_0 and l_CursorPosition_0 ~= -1 then
-                        v96(l_CursorPosition_0);
+                        v97(l_CursorPosition_0);
                     end;
                 end);
             end;
         end;
-        return function() --[[ Line: 494 ]]
-            -- upvalues: v144 (ref)
-            if v144 then
-                v144:Disconnect();
+        return function() --[[ Line: 496 ]]
+            -- upvalues: v145 (ref)
+            if v145 then
+                v145:Disconnect();
             end;
         end;
     end, {
-        v109.current
+        v110.current
     });
-    v7.useEffect(function() --[[ Line: 502 ]]
-        -- upvalues: v93 (copy), v113 (copy), v51 (ref)
-        if v93.autocompleteEnabled then
-            v113.current = v93.userInputService.InputBegan:connect(function(v147, _) --[[ Line: 504 ]]
-                -- upvalues: v93 (ref), v51 (ref)
-                local v149 = v93.autocompleteDropdownReducer.activated and (Enum.KeyCode.Up or Enum.KeyCode.Down);
-                local v150 = not v51 or v147;
-                if v149 then
-                    if v150 and v147.KeyCode == Enum.KeyCode.Up and v93.autocompleteDropdownReducer.selectedIndex > 1 then
-                        v93.autocompleteDropdownSelectionChanged(v93.autocompleteDropdownReducer.selectedIndex - 1);
+    v7.useEffect(function() --[[ Line: 504 ]]
+        -- upvalues: v94 (copy), v114 (copy), v51 (ref)
+        if v94.autocompleteEnabled then
+            v114.current = v94.userInputService.InputBegan:connect(function(v148, _) --[[ Line: 506 ]]
+                -- upvalues: v94 (ref), v51 (ref)
+                local v150 = v94.autocompleteDropdownReducer.activated and (Enum.KeyCode.Up or Enum.KeyCode.Down);
+                local v151 = not v51 or v148;
+                if v150 then
+                    if v151 and v148.KeyCode == Enum.KeyCode.Up and v94.autocompleteDropdownReducer.selectedIndex > 1 then
+                        v94.autocompleteDropdownSelectionChanged(v94.autocompleteDropdownReducer.selectedIndex - 1);
                     end;
-                    if v150 and v147.KeyCode == Enum.KeyCode.Down and v93.autocompleteDropdownReducer.selectedIndex < #v93.autocompleteDropdownReducer.results then
-                        v93.autocompleteDropdownSelectionChanged(v93.autocompleteDropdownReducer.selectedIndex + 1);
+                    if v151 and v148.KeyCode == Enum.KeyCode.Down and v94.autocompleteDropdownReducer.selectedIndex < #v94.autocompleteDropdownReducer.results then
+                        v94.autocompleteDropdownSelectionChanged(v94.autocompleteDropdownReducer.selectedIndex + 1);
                     end;
                 end;
             end);
-            return function() --[[ Line: 527 ]]
-                -- upvalues: v113 (ref)
-                local l_current_0 = v113.current;
+            return function() --[[ Line: 529 ]]
+                -- upvalues: v114 (ref)
+                local l_current_0 = v114.current;
                 if l_current_0 and l_current_0.Connected then
                     l_current_0:Disconnect();
                 end;
-                v113.current = nil;
+                v114.current = nil;
             end;
         else
-            return function() --[[ Line: 535 ]]
+            return function() --[[ Line: 537 ]]
 
             end;
         end;
     end, {
-        v93.userInputService, 
-        v93.autocompleteDropdownReducer
+        v94.userInputService, 
+        v94.autocompleteDropdownReducer
     });
-    v7.useEffect(function() --[[ Line: 540 ]]
-        -- upvalues: v112 (copy), v93 (copy), v51 (ref), v109 (copy), v108 (copy), v114 (copy), v24 (ref), v99 (copy)
-        v112.current = v93.userInputService.InputEnded:connect(function(v152, _) --[[ Line: 541 ]]
-            -- upvalues: v51 (ref), v109 (ref), v108 (ref), v114 (ref), v93 (ref), v24 (ref), v99 (ref)
-            local v154 = not v51 or v152;
-            if if v109.current then v109.current and v109.current:IsFocused() and v154 and v152.KeyCode == Enum.KeyCode.Backspace else v108.current and v108.current:IsFocused() and v154 and v152.KeyCode == Enum.KeyCode.Backspace then
-                if v114.current and not v93.isChannelBarVisible then
-                    v93.resetTargetChannel();
+    v7.useEffect(function() --[[ Line: 542 ]]
+        -- upvalues: v113 (copy), v94 (copy), v51 (ref), v110 (copy), v109 (copy), v115 (copy), v24 (ref), v100 (copy)
+        v113.current = v94.userInputService.InputEnded:connect(function(v153, _) --[[ Line: 543 ]]
+            -- upvalues: v51 (ref), v110 (ref), v109 (ref), v115 (ref), v94 (ref), v24 (ref), v100 (ref)
+            local v155 = not v51 or v153;
+            if if v110.current then v110.current and v110.current:IsFocused() and v155 and v153.KeyCode == Enum.KeyCode.Backspace else v109.current and v109.current:IsFocused() and v155 and v153.KeyCode == Enum.KeyCode.Backspace then
+                if v115.current and not v94.isChannelBarVisible then
+                    v94.resetTargetChannel();
                     v24:debug("ChatInputBar ChatInputBarResetTargetChannel()");
-                    v114.current = false;
+                    v115.current = false;
                     return;
-                elseif v99 == "" and v93.targetTextChannelDisplayName ~= "" then
-                    v114.current = true;
+                elseif v100 == "" and v94.targetTextChannelDisplayName ~= "" then
+                    v115.current = true;
                 end;
             end;
         end);
-        return function() --[[ Line: 569 ]]
-            -- upvalues: v112 (ref)
-            local l_current_1 = v112.current;
+        return function() --[[ Line: 571 ]]
+            -- upvalues: v113 (ref)
+            local l_current_1 = v113.current;
             if l_current_1 and l_current_1.Connected then
                 l_current_1:Disconnect();
             end;
-            v112.current = nil;
+            v113.current = nil;
         end;
-    end, l_dependencyArray_0(v93.userInputService, v109.current, v93.isChannelBarVisible, v93.targetTextChannelDisplayName, v93.resetTargetChannel));
-    v7.useEffect(function() --[[ Line: 587 ]]
-        -- upvalues: v93 (copy), v51 (ref), v22 (ref), v109 (copy), v108 (copy), v120 (copy)
-        local function v160(_, v157, v158) --[[ Line: 588 ]] --[[ Name: handleAction ]]
-            -- upvalues: v93 (ref), v51 (ref), v22 (ref), v109 (ref), v108 (ref), v120 (ref)
-            if v93.isChatHotkeyEnabled and (not v51 or v158) and (v158.KeyCode == v22.ChatInputBarDefaultFocusKeyCode or v158.KeyCode == v93.devDefinedFocusKeyCode) then
-                local v159 = if v109.current then v109.current else v108.current;
-                if v159 and v157 == Enum.UserInputState.Begin and v159 and not v159:IsFocused() then
-                    task.delay(0, function() --[[ Line: 610 ]]
-                        -- upvalues: v159 (copy)
-                        v159:CaptureFocus();
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v94.userInputService, 
+        v110.current, 
+        v94.isChannelBarVisible, 
+        v94.targetTextChannelDisplayName, 
+        v94.resetTargetChannel
+    } else l_dependencyArray_0(v94.userInputService, v110.current, v94.isChannelBarVisible, v94.targetTextChannelDisplayName, v94.resetTargetChannel));
+    v7.useEffect(function() --[[ Line: 597 ]]
+        -- upvalues: v94 (copy), v51 (ref), v22 (ref), v110 (copy), v109 (copy), v121 (copy)
+        local function v161(_, v158, v159) --[[ Line: 598 ]] --[[ Name: handleAction ]]
+            -- upvalues: v94 (ref), v51 (ref), v22 (ref), v110 (ref), v109 (ref), v121 (ref)
+            if v94.isChatHotkeyEnabled and (not v51 or v159) and (v159.KeyCode == v22.ChatInputBarDefaultFocusKeyCode or v159.KeyCode == v94.devDefinedFocusKeyCode) then
+                local v160 = if v110.current then v110.current else v109.current;
+                if v160 and v158 == Enum.UserInputState.Begin and v160 and not v160:IsFocused() then
+                    task.delay(0, function() --[[ Line: 620 ]]
+                        -- upvalues: v160 (copy)
+                        v160:CaptureFocus();
                     end);
-                    v93.focusChatHotKeyActivated();
-                    v120.current = true;
+                    v94.focusChatHotKeyActivated();
+                    v121.current = true;
                     return Enum.ContextActionResult.Sink;
                 end;
             end;
             return Enum.ContextActionResult.Pass;
         end;
-        v93.contextActionService:BindCoreAction("FocusChat", v160, false, Enum.UserInputType.Keyboard);
-        return function() --[[ Line: 634 ]]
-            -- upvalues: v93 (ref)
-            v93.contextActionService:UnbindCoreAction("FocusChat");
+        v94.contextActionService:BindCoreAction("FocusChat", v161, false, Enum.UserInputType.Keyboard);
+        return function() --[[ Line: 644 ]]
+            -- upvalues: v94 (ref)
+            v94.contextActionService:UnbindCoreAction("FocusChat");
         end;
     end, {
-        v93.isChatHotkeyEnabled, 
-        v93.devDefinedFocusKeyCode, 
-        v120.current, 
-        v109.current
+        v94.isChatHotkeyEnabled, 
+        v94.devDefinedFocusKeyCode, 
+        v121.current, 
+        v110.current
     });
-    local function _(v161) --[[ Line: 641 ]]
+    local function _(v162) --[[ Line: 651 ]]
         -- upvalues: l_TextChatService_0 (ref)
         local l_ChatInputBarConfiguration_0 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
         if l_ChatInputBarConfiguration_0 then
-            l_ChatInputBarConfiguration_0.IsFocusedWrite = v161;
+            l_ChatInputBarConfiguration_0.IsFocusedWrite = v162;
         end;
     end;
-    local v165 = v7.useCallback(function() --[[ Line: 648 ]]
-        -- upvalues: v102 (copy), v93 (copy), l_TextChatService_0 (ref)
-        v102(true);
-        v93.onFocus();
+    local v166 = v7.useCallback(function() --[[ Line: 658 ]]
+        -- upvalues: v103 (copy), v94 (copy), l_TextChatService_0 (ref)
+        v103(true);
+        v94.onFocus();
         local l_ChatInputBarConfiguration_1 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
         if l_ChatInputBarConfiguration_1 then
             l_ChatInputBarConfiguration_1.IsFocusedWrite = true;
         end;
     end, {
-        v93.onFocus
+        v94.onFocus
     });
-    local v183 = v7.useCallback(function(_, v167, v168) --[[ Line: 654 ]]
-        -- upvalues: v24 (ref), v111 (copy), v45 (ref), v93 (copy), v142 (copy), v133 (copy), v107 (copy), v51 (ref), v109 (copy), v108 (copy), v95 (ref), v52 (ref), v102 (copy), l_TextChatService_0 (ref), v120 (copy), l_Players_0 (ref)
-        v24:debug("Focus lost with enter: {}", (tostring(v167)));
-        local l_current_2 = v111.current;
-        if v167 or v45 and v168 and (v168.KeyCode == Enum.KeyCode.Return or v168.KeyCode == Enum.KeyCode.KeypadEnter) then
-            if v93.autocompleteEnabled and l_current_2 and v93.autocompleteDropdownReducer.activated and #v93.autocompleteDropdownReducer.results > 0 then
+    local v184 = v7.useCallback(function(_, v168, v169) --[[ Line: 664 ]]
+        -- upvalues: v24 (ref), v112 (copy), v45 (ref), v94 (copy), v143 (copy), v134 (copy), v108 (copy), v51 (ref), v110 (copy), v109 (copy), v96 (ref), v52 (ref), v103 (copy), l_TextChatService_0 (ref), v121 (copy), l_Players_0 (ref)
+        v24:debug("Focus lost with enter: {}", (tostring(v168)));
+        local l_current_2 = v112.current;
+        if v168 or v45 and v169 and (v169.KeyCode == Enum.KeyCode.Return or v169.KeyCode == Enum.KeyCode.KeypadEnter) then
+            if v94.autocompleteEnabled and l_current_2 and v94.autocompleteDropdownReducer.activated and #v94.autocompleteDropdownReducer.results > 0 then
                 local l_OffsetFrame_0 = l_current_2.ScrollBarFrame.ScrollViewFrame.ScrollView.OffsetFrame;
-                for _, v172 in ipairs(l_OffsetFrame_0:GetChildren()) do
-                    if v172.ClassName == "Frame" and v172.LayoutOrder == v93.autocompleteDropdownReducer.selectedIndex then
-                        v142(v172.TextLabelButton);
+                for _, v173 in ipairs(l_OffsetFrame_0:GetChildren()) do
+                    if v173.ClassName == "Frame" and v173.LayoutOrder == v94.autocompleteDropdownReducer.selectedIndex then
+                        v143(v173.TextLabelButton);
                         return;
                     end;
                 end;
             else
-                v133();
+                v134();
             end;
         end;
-        if v107.current then
-            if v93.autocompleteEnabled and l_current_2 and v93.autocompleteDropdownReducer.activated then
-                if not v51 or v168 then
-                    if v168.KeyCode == Enum.KeyCode.Escape then
-                        v93.autocompleteDropdownActivated(false);
-                        local v173 = if v109.current then v109.current else v108.current;
-                        if v173 then
-                            local l_v95_0 = v95;
-                            v173:CaptureFocus();
+        if v108.current then
+            if v94.autocompleteEnabled and l_current_2 and v94.autocompleteDropdownReducer.activated then
+                if not v51 or v169 then
+                    if v169.KeyCode == Enum.KeyCode.Escape then
+                        v94.autocompleteDropdownActivated(false);
+                        local v174 = if v110.current then v110.current else v109.current;
+                        if v174 then
+                            local l_v96_0 = v96;
+                            v174:CaptureFocus();
                             if not v52 then
-                                v173.CursorPosition = l_v95_0;
+                                v174.CursorPosition = l_v96_0;
                             end;
                             return;
                         else
                             v24:error("Could not focus chat input bar because textBox not found");
                         end;
                     else
-                        local l_X_0 = v168.Position.X;
-                        local l_Y_0 = v168.Position.Y;
+                        local l_X_0 = v169.Position.X;
+                        local l_Y_0 = v169.Position.Y;
                         local l_X_1 = l_current_2.AbsolutePosition.X;
-                        local v178 = l_X_1 + l_current_2.AbsoluteSize.X;
+                        local v179 = l_X_1 + l_current_2.AbsoluteSize.X;
                         local l_Y_1 = l_current_2.AbsolutePosition.Y;
-                        local v180 = l_Y_1 + l_current_2.AbsoluteSize.Y;
-                        if l_X_0 < l_X_1 or v178 < l_X_0 or l_Y_0 < l_Y_1 or v180 < l_Y_0 then
-                            v93.autocompleteDropdownActivated(false);
+                        local v181 = l_Y_1 + l_current_2.AbsoluteSize.Y;
+                        if l_X_0 < l_X_1 or v179 < l_X_0 or l_Y_0 < l_Y_1 or v181 < l_Y_0 then
+                            v94.autocompleteDropdownActivated(false);
                         end;
                     end;
                 end;
             else
-                v102(false);
+                v103(false);
             end;
         end;
-        v93.onUnfocus();
+        v94.onUnfocus();
         local l_ChatInputBarConfiguration_2 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
         if l_ChatInputBarConfiguration_2 then
             l_ChatInputBarConfiguration_2.IsFocusedWrite = false;
         end;
-        if v120.current then
+        if v121.current then
             l_ChatInputBarConfiguration_2 = l_Players_0.LocalPlayer;
             if l_ChatInputBarConfiguration_2 then
                 local l_TextBox_0 = Instance.new("TextBox");
@@ -597,112 +604,112 @@ local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
                 l_TextBox_0:ReleaseFocus();
                 l_TextBox_0:Destroy();
             end;
-            v120.current = false;
+            v121.current = false;
         end;
     end);
-    v7.useEffect(function() --[[ Line: 759 ]]
-        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v109 (copy), v108 (copy), l_FFlagChromeChatGamepadSupportFix_0 (ref), l_GuiService_0 (ref), v165 (copy), v73 (ref), v183 (copy), l_ActionBindableEvent_0 (ref)
-        local v184 = nil;
+    v7.useEffect(function() --[[ Line: 769 ]]
+        -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v110 (copy), v109 (copy), l_FFlagChromeChatGamepadSupportFix_0 (ref), l_GuiService_0 (ref), v166 (copy), v74 (ref), v184 (copy), l_ActionBindableEvent_0 (ref)
         local v185 = nil;
-        local function v188(v186) --[[ Line: 763 ]]
-            -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v109 (ref), v108 (ref), l_FFlagChromeChatGamepadSupportFix_0 (ref), l_GuiService_0 (ref), v165 (ref), v185 (ref), v184 (ref), v73 (ref), v183 (ref)
-            local v187 = nil;
+        local v186 = nil;
+        local function v189(v187) --[[ Line: 773 ]]
+            -- upvalues: l_FFlagEnableConsoleExpControls_0 (ref), v110 (ref), v109 (ref), l_FFlagChromeChatGamepadSupportFix_0 (ref), l_GuiService_0 (ref), v166 (ref), v186 (ref), v185 (ref), v74 (ref), v184 (ref)
+            local v188 = nil;
             if l_FFlagEnableConsoleExpControls_0 then
-                v187 = if v109.current then v109.current else v108.current;
+                v188 = if v110.current then v110.current else v109.current;
             end;
-            if v186.type == "ChatTopBarFocusActivated" then
+            if v187.type == "ChatTopBarFocusActivated" then
                 if not l_FFlagEnableConsoleExpControls_0 then
-                    v187 = if v109.current then v109.current else v108.current;
+                    v188 = if v110.current then v110.current else v109.current;
                 end;
-                if v187 then
-                    task.delay(0, function() --[[ Line: 774 ]]
-                        -- upvalues: v187 (ref)
-                        v187:CaptureFocus();
+                if v188 then
+                    task.delay(0, function() --[[ Line: 784 ]]
+                        -- upvalues: v188 (ref)
+                        v188:CaptureFocus();
                     end);
                 end;
-            elseif not l_FFlagChromeChatGamepadSupportFix_0 and l_FFlagEnableConsoleExpControls_0 and v186.type == "ChatTopBarFocusSelect" and v187 then
+            elseif not l_FFlagChromeChatGamepadSupportFix_0 and l_FFlagEnableConsoleExpControls_0 and v187.type == "ChatTopBarFocusSelect" and v188 then
                 l_GuiService_0:SetMenuIsOpen(true, "ExperienceChat");
-                v165();
-                l_GuiService_0.SelectedCoreObject = v187;
-                v185 = task.delay(0, function() --[[ Line: 789 ]]
-                    -- upvalues: v185 (ref), v184 (ref), v73 (ref), v186 (copy), v183 (ref)
-                    v185 = nil;
-                    if v184 then
-                        v184:Disconnect();
+                v166();
+                l_GuiService_0.SelectedCoreObject = v188;
+                v186 = task.delay(0, function() --[[ Line: 799 ]]
+                    -- upvalues: v186 (ref), v185 (ref), v74 (ref), v187 (copy), v184 (ref)
+                    v186 = nil;
+                    if v185 then
+                        v185:Disconnect();
                     end;
-                    v184 = v73(v186.onSelectionLost, v186.keybinds, v183);
+                    v185 = v74(v187.onSelectionLost, v187.keybinds, v184);
                 end);
             end;
         end;
-        local v189 = l_ActionBindableEvent_0.Event:Connect(v188);
-        return function() --[[ Line: 803 ]]
-            -- upvalues: v189 (copy), v185 (ref), v184 (ref)
-            v189:disconnect();
-            if v185 then
-                task.cancel(v185);
-                v185 = nil;
+        local v190 = l_ActionBindableEvent_0.Event:Connect(v189);
+        return function() --[[ Line: 813 ]]
+            -- upvalues: v190 (copy), v186 (ref), v185 (ref)
+            v190:disconnect();
+            if v186 then
+                task.cancel(v186);
+                v186 = nil;
             end;
-            if v184 then
-                v184:Disconnect();
-                v184 = nil;
+            if v185 then
+                v185:Disconnect();
+                v185 = nil;
             end;
         end;
     end, {
-        v108.current, 
-        v109.current
+        v109.current, 
+        v110.current
     });
-    v92(v108, v109, v110, v165, v183);
-    local function v209(v190, v191, v192) --[[ Line: 821 ]] --[[ Name: handleAutocomplete ]]
-        -- upvalues: v93 (copy), v60 (ref), v36 (ref), v59 (ref), v35 (ref), v97 (ref), l_List_0 (ref), v100 (copy), v52 (ref), v111 (copy), v142 (copy), v98 (ref)
-        if v192 == "/" and v190.CursorPosition == 2 or v93.autocompleteDropdownReducer.autocompleteType == "commands" and v192 ~= ":" then
-            v93.autocompleteDropdownTypeChanged("commands");
-            v93.autocompleteDropdownActivated(true);
-            if v192 ~= "" and v192 ~= " " then
-                local v193 = string.sub(v191, 1, v190.CursorPosition - 1):lower();
-                local v194 = v60:getResults(v193, v36);
-                v93.autocompleteDropdownResultsChanged(v194);
-                if v193 == v194[1] then
-                    v93.autocompleteDropdownActivated(false);
-                    v93.autocompleteDropdownResultsChanged({});
+    v93(v109, v110, v111, v166, v184);
+    local function v210(v191, v192, v193) --[[ Line: 831 ]] --[[ Name: handleAutocomplete ]]
+        -- upvalues: v94 (copy), v61 (ref), v36 (ref), v60 (ref), v35 (ref), v98 (ref), l_List_0 (ref), v101 (copy), v52 (ref), v112 (copy), v143 (copy), v99 (ref)
+        if v193 == "/" and v191.CursorPosition == 2 or v94.autocompleteDropdownReducer.autocompleteType == "commands" and v193 ~= ":" then
+            v94.autocompleteDropdownTypeChanged("commands");
+            v94.autocompleteDropdownActivated(true);
+            if v193 ~= "" and v193 ~= " " then
+                local v194 = string.sub(v192, 1, v191.CursorPosition - 1):lower();
+                local v195 = v61:getResults(v194, v36);
+                v94.autocompleteDropdownResultsChanged(v195);
+                if v194 == v195[1] then
+                    v94.autocompleteDropdownActivated(false);
+                    v94.autocompleteDropdownResultsChanged({});
                     return;
                 end;
             else
-                v93.autocompleteDropdownDeactivated();
+                v94.autocompleteDropdownDeactivated();
             end;
             return;
-        elseif (v93.autocompleteDropdownReducer.activated or #v93.autocompleteDropdownReducer.results > 0) and v93.autocompleteDropdownReducer.autocompleteType == "emojis" then
-            v93.autocompleteDropdownActivated(true);
-            local v195 = string.sub(v191, 1, v190.CursorPosition - 1);
-            local v196 = string.find(v195, ":[^:]*$");
-            if v192 ~= "" and v192 ~= ":" and v192 ~= " " and v196 then
-                local v197 = string.sub(v191, v196 + 1, v190.CursorPosition - 1):lower();
-                local v198 = {};
-                if v197 and string.len(v197) > 1 then
-                    v198 = v59:getResults(v197, v35);
+        elseif (v94.autocompleteDropdownReducer.activated or #v94.autocompleteDropdownReducer.results > 0) and v94.autocompleteDropdownReducer.autocompleteType == "emojis" then
+            v94.autocompleteDropdownActivated(true);
+            local v196 = string.sub(v192, 1, v191.CursorPosition - 1);
+            local v197 = string.find(v196, ":[^:]*$");
+            if v193 ~= "" and v193 ~= ":" and v193 ~= " " and v197 then
+                local v198 = string.sub(v192, v197 + 1, v191.CursorPosition - 1):lower();
+                local v199 = {};
+                if v198 and string.len(v198) > 1 then
+                    v199 = v60:getResults(v198, v35);
                 end;
-                v93.autocompleteDropdownResultsChanged(v198);
+                v94.autocompleteDropdownResultsChanged(v199);
                 return;
-            elseif v192 == ":" then
-                if v196 ~= v97 then
-                    local v199 = string.sub(v191, v97 + 1, v190.CursorPosition - 2):lower();
-                    if l_List_0.includes(v93.autocompleteDropdownReducer.results, v199) then
-                        local v200 = string.sub(v191, v190.CursorPosition, #v191);
-                        local v201 = string.sub(v191, 1, v190.CursorPosition - 2) .. v200;
-                        v190.Text = v201;
-                        v100(v201);
+            elseif v193 == ":" then
+                if v197 ~= v98 then
+                    local v200 = string.sub(v192, v98 + 1, v191.CursorPosition - 2):lower();
+                    if l_List_0.includes(v94.autocompleteDropdownReducer.results, v200) then
+                        local v201 = string.sub(v192, v191.CursorPosition, #v192);
+                        local v202 = string.sub(v192, 1, v191.CursorPosition - 2) .. v201;
+                        v191.Text = v202;
+                        v101(v202);
                         if not v52 then
-                            v190.CursorPosition = v190.CursorPosition - 1;
+                            v191.CursorPosition = v191.CursorPosition - 1;
                         end;
-                        local l_current_3 = v111.current;
+                        local l_current_3 = v112.current;
                         if l_current_3 then
                             local l_OffsetFrame_1 = l_current_3.ScrollBarFrame.ScrollViewFrame.ScrollView.OffsetFrame;
-                            for _, v205 in ipairs(l_OffsetFrame_1:GetChildren()) do
-                                if v205.ClassName == "Frame" then
-                                    local l_TextLabelButton_0 = v205:FindFirstChild("TextLabelButton");
+                            for _, v206 in ipairs(l_OffsetFrame_1:GetChildren()) do
+                                if v206.ClassName == "Frame" then
+                                    local l_TextLabelButton_0 = v206:FindFirstChild("TextLabelButton");
                                     if l_TextLabelButton_0 then
                                         local l_TextLabel_0 = l_TextLabelButton_0:FindFirstChild("TextLabel");
-                                        if l_TextLabel_0 and l_TextLabel_0.Text and l_TextLabel_0.Text == v199 then
-                                            v142(l_TextLabelButton_0);
+                                        if l_TextLabel_0 and l_TextLabel_0.Text and l_TextLabel_0.Text == v200 then
+                                            v143(l_TextLabelButton_0);
                                             return;
                                         end;
                                     end;
@@ -711,216 +718,216 @@ local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
                             return;
                         end;
                     else
-                        v93.autocompleteDropdownActivated(false);
-                        v93.autocompleteDropdownResultsChanged({});
+                        v94.autocompleteDropdownActivated(false);
+                        v94.autocompleteDropdownResultsChanged({});
                     end;
                     return;
                 else
-                    v93.autocompleteDropdownResultsChanged({});
+                    v94.autocompleteDropdownResultsChanged({});
                     return;
                 end;
-            elseif v192 == " " then
-                v93.autocompleteDropdownActivated(false);
-                v93.autocompleteDropdownResultsChanged({});
+            elseif v193 == " " then
+                v94.autocompleteDropdownActivated(false);
+                v94.autocompleteDropdownResultsChanged({});
                 return;
             else
-                v93.autocompleteDropdownDeactivated();
-                v98(0);
+                v94.autocompleteDropdownDeactivated();
+                v99(0);
                 return;
             end;
         else
-            local v208 = string.find(v191, ":[^:]*$");
-            if v192 == ":" then
-                v93.autocompleteDropdownTypeChanged("emojis");
-                v93.autocompleteDropdownActivated(true);
-                v93.autocompleteDropdownResultsChanged({});
-                v98(v208);
+            local v209 = string.find(v192, ":[^:]*$");
+            if v193 == ":" then
+                v94.autocompleteDropdownTypeChanged("emojis");
+                v94.autocompleteDropdownActivated(true);
+                v94.autocompleteDropdownResultsChanged({});
+                v99(v209);
             end;
             return;
         end;
     end;
     if v50 then
-        v7.useEffect(function() --[[ Line: 937 ]]
-            -- upvalues: l_TextChatService_0 (ref), v61 (ref), l_RBXTeamCommand_0 (ref), v62 (ref), l_RBXWhisperCommand_0 (ref)
+        v7.useEffect(function() --[[ Line: 947 ]]
+            -- upvalues: l_TextChatService_0 (ref), v62 (ref), l_RBXTeamCommand_0 (ref), v63 (ref), l_RBXWhisperCommand_0 (ref)
             if l_TextChatService_0.CreateDefaultCommands then
-                v61 = l_TextChatService_0:FindFirstChild(l_RBXTeamCommand_0.name, true);
-                v62 = l_TextChatService_0:FindFirstChild(l_RBXWhisperCommand_0.name, true);
+                v62 = l_TextChatService_0:FindFirstChild(l_RBXTeamCommand_0.name, true);
+                v63 = l_TextChatService_0:FindFirstChild(l_RBXWhisperCommand_0.name, true);
             end;
         end, {});
     end;
-    local v221 = v7.useCallback(function(v210) --[[ Line: 945 ]]
-        -- upvalues: v93 (copy), v100 (copy), v24 (ref), v99 (copy), v39 (ref), v209 (copy), v114 (copy), v47 (ref), v94 (copy), v50 (ref), l_autoCastCommand_0 (ref), l_RBXTeamCommand_0 (ref), l_RBXWhisperCommand_0 (ref), v61 (ref), v62 (ref), v13 (ref)
-        local l_Text_3 = v210.Text;
-        if v93.autocompleteEnabled then
-            local v212 = string.find(l_Text_3, "\r");
-            local v213 = v210.CursorPosition < #l_Text_3 + 1;
-            if v212 then
-                local v214 = string.gsub(l_Text_3, "\r", "");
-                v210.Text = v214;
-                v100(v214);
-                if v213 then
-                    v210.CursorPosition = v210.CursorPosition - 1;
+    local v222 = v7.useCallback(function(v211) --[[ Line: 955 ]]
+        -- upvalues: v94 (copy), v101 (copy), v24 (ref), v100 (copy), v39 (ref), v210 (copy), v115 (copy), v47 (ref), v95 (copy), v50 (ref), l_autoCastCommand_0 (ref), l_RBXTeamCommand_0 (ref), l_RBXWhisperCommand_0 (ref), v62 (ref), v63 (ref), v13 (ref)
+        local l_Text_3 = v211.Text;
+        if v94.autocompleteEnabled then
+            local v213 = string.find(l_Text_3, "\r");
+            local v214 = v211.CursorPosition < #l_Text_3 + 1;
+            if v213 then
+                local v215 = string.gsub(l_Text_3, "\r", "");
+                v211.Text = v215;
+                v101(v215);
+                if v214 then
+                    v211.CursorPosition = v211.CursorPosition - 1;
                 end;
                 return;
             end;
         end;
-        local v215 = string.sub(l_Text_3, v210.CursorPosition - 1, v210.CursorPosition - 1);
+        local v216 = string.sub(l_Text_3, v211.CursorPosition - 1, v211.CursorPosition - 1);
         v24:trace("Input: {}", l_Text_3);
-        local v216 = if utf8.len(l_Text_3) then utf8.len(utf8.nfcnormalize(l_Text_3)) else string.len(l_Text_3);
-        if v216 and v93.messageCharacterLimit < v216 then
-            v24:debug("Message is over the character limit of {}", (tostring(v93.messageCharacterLimit)));
-            v210.Text = v99;
+        local v217 = if utf8.len(l_Text_3) then utf8.len(utf8.nfcnormalize(l_Text_3)) else string.len(l_Text_3);
+        if v217 and v94.messageCharacterLimit < v217 then
+            v24:debug("Message is over the character limit of {}", (tostring(v94.messageCharacterLimit)));
+            v211.Text = v100;
             return;
         else
-            v100(l_Text_3);
-            if v39() and v93.autocompleteEnabled then
-                v209(v210, l_Text_3, v215);
+            v101(l_Text_3);
+            if v39() and v94.autocompleteEnabled then
+                v210(v211, l_Text_3, v216);
             end;
-            local l_v114_0 = v114;
-            local v218 = false;
+            local l_v115_0 = v115;
+            local v219 = false;
             if #l_Text_3 == 0 then
-                v218 = v114.current;
+                v219 = v115.current;
             end;
-            l_v114_0.current = v218;
+            l_v115_0.current = v219;
             if v47 then
-                if string.sub(l_Text_3, 1, 1) == "/" and v93.localPlayer and l_Text_3 ~= v94.current then
-                    v94.current = l_Text_3;
-                    l_v114_0 = v93.localPlayer.UserId;
-                    v218 = if v50 then {} else {
-                        l_autoCastCommand_0(l_RBXTeamCommand_0, l_v114_0, l_Text_3), 
-                        l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v114_0, l_Text_3)
+                if string.sub(l_Text_3, 1, 1) == "/" and v94.localPlayer and l_Text_3 ~= v95.current then
+                    v95.current = l_Text_3;
+                    l_v115_0 = v94.localPlayer.UserId;
+                    v219 = if v50 then {} else {
+                        l_autoCastCommand_0(l_RBXTeamCommand_0, l_v115_0, l_Text_3), 
+                        l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v115_0, l_Text_3)
                     };
                     if v50 then
-                        if v61 and v61.Enabled then
-                            table.insert(v218, l_autoCastCommand_0(l_RBXTeamCommand_0, l_v114_0, l_Text_3));
-                        end;
                         if v62 and v62.Enabled then
-                            table.insert(v218, l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v114_0, l_Text_3));
+                            table.insert(v219, l_autoCastCommand_0(l_RBXTeamCommand_0, l_v115_0, l_Text_3));
                         end;
-                        if #v218 == 0 then
-                            v218 = {
+                        if v63 and v63.Enabled then
+                            table.insert(v219, l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v115_0, l_Text_3));
+                        end;
+                        if #v219 == 0 then
+                            v219 = {
                                 v13.reject()
                             };
                         end;
                     end;
-                    v13.any(v218):andThen(function() --[[ Line: 1009 ]]
-                        -- upvalues: v210 (copy), v100 (ref), v114 (ref)
-                        v210.Text = "";
-                        v100("");
-                        v114.current = true;
-                    end):catch(function(v219) --[[ Line: 1015 ]]
+                    v13.any(v219):andThen(function() --[[ Line: 1019 ]]
+                        -- upvalues: v211 (copy), v101 (ref), v115 (ref)
+                        v211.Text = "";
+                        v101("");
+                        v115.current = true;
+                    end):catch(function(v220) --[[ Line: 1025 ]]
                         -- upvalues: v24 (ref)
-                        v24:trace("Could not send autoCastCommand. Error: {}", v219);
+                        v24:trace("Could not send autoCastCommand. Error: {}", v220);
                     end);
                     return;
                 elseif string.sub(l_Text_3, 1, 1) ~= "/" then
-                    v94.current = "";
+                    v95.current = "";
                     return;
                 end;
-            elseif v93.localPlayer then
-                l_v114_0 = v93.localPlayer.UserId;
-                v218 = if v50 then {} else {
-                    l_autoCastCommand_0(l_RBXTeamCommand_0, l_v114_0, l_Text_3), 
-                    l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v114_0, l_Text_3)
+            elseif v94.localPlayer then
+                l_v115_0 = v94.localPlayer.UserId;
+                v219 = if v50 then {} else {
+                    l_autoCastCommand_0(l_RBXTeamCommand_0, l_v115_0, l_Text_3), 
+                    l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v115_0, l_Text_3)
                 };
                 if v50 then
-                    if v61 and v61.Enabled then
-                        table.insert(v218, l_autoCastCommand_0(l_RBXTeamCommand_0, l_v114_0, l_Text_3));
-                    end;
                     if v62 and v62.Enabled then
-                        table.insert(v218, l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v114_0, l_Text_3));
+                        table.insert(v219, l_autoCastCommand_0(l_RBXTeamCommand_0, l_v115_0, l_Text_3));
                     end;
-                    if #v218 == 0 then
-                        v218 = {
+                    if v63 and v63.Enabled then
+                        table.insert(v219, l_autoCastCommand_0(l_RBXWhisperCommand_0, l_v115_0, l_Text_3));
+                    end;
+                    if #v219 == 0 then
+                        v219 = {
                             v13.reject()
                         };
                     end;
                 end;
-                v13.any(v218):andThen(function() --[[ Line: 1046 ]]
-                    -- upvalues: v210 (copy), v100 (ref), v114 (ref)
-                    v210.Text = "";
-                    v100("");
-                    v114.current = true;
-                end):catch(function(v220) --[[ Line: 1052 ]]
+                v13.any(v219):andThen(function() --[[ Line: 1056 ]]
+                    -- upvalues: v211 (copy), v101 (ref), v115 (ref)
+                    v211.Text = "";
+                    v101("");
+                    v115.current = true;
+                end):catch(function(v221) --[[ Line: 1062 ]]
                     -- upvalues: v24 (ref)
-                    v24:trace("Could not send autoCastCommand. Error: {}", v220);
+                    v24:trace("Could not send autoCastCommand. Error: {}", v221);
                 end);
             end;
             return;
         end;
     end);
-    local v223 = v7.useCallback(function() --[[ Line: 1059 ]]
-        -- upvalues: v109 (copy), v108 (copy)
-        local v222 = if v109.current then v109.current else v108.current;
-        if v222 then
-            v222:ReleaseFocus(true);
+    local v224 = v7.useCallback(function() --[[ Line: 1069 ]]
+        -- upvalues: v110 (copy), v109 (copy)
+        local v223 = if v110.current then v110.current else v109.current;
+        if v223 then
+            v223:ReleaseFocus(true);
         end;
     end, {
-        v108.current, 
-        v109.current
+        v109.current, 
+        v110.current
     });
-    local v225 = v7.useCallback(function(v224) --[[ Line: 1066 ]]
-        -- upvalues: v106 (copy)
-        v106(v224.Visible and v224.AbsoluteSize.X or 0);
+    local v226 = v7.useCallback(function(v225) --[[ Line: 1076 ]]
+        -- upvalues: v107 (copy)
+        v107(v225.Visible and v225.AbsoluteSize.X or 0);
     end);
-    local v226 = if v45 then l_useCursor_0() else nil;
-    local v228 = v7.useCallback(function(v227) --[[ Line: 1073 ]]
-        -- upvalues: v93 (copy)
-        v93.autocompleteDropdownSelectionChanged(v227.LayoutOrder);
+    local v227 = if v45 then l_useCursor_0() else nil;
+    local v229 = v7.useCallback(function(v228) --[[ Line: 1083 ]]
+        -- upvalues: v94 (copy)
+        v94.autocompleteDropdownSelectionChanged(v228.LayoutOrder);
     end);
-    local v229 = v99 == "";
-    local v230 = v229 and not v101;
-    local l_chatInputBarSettings_0 = v93.chatInputBarSettings;
-    local l_chatWindowSettings_0 = v93.chatWindowSettings;
+    local v230 = v100 == "";
+    local v231 = v230 and not v102;
+    local l_chatInputBarSettings_0 = v94.chatInputBarSettings;
+    local l_chatWindowSettings_0 = v94.chatWindowSettings;
     local l_BackgroundTransparency_0 = v21(l_chatInputBarSettings_0).BackgroundTransparency;
     local l_BackgroundTransparency_1 = v21(l_chatWindowSettings_0).BackgroundTransparency;
     local l_BackgroundColor3_0 = v21(l_chatWindowSettings_0).BackgroundColor3;
-    local l_isSpatialUIEnabled_0 = v93.isSpatialUIEnabled;
+    local l_isSpatialUIEnabled_0 = v94.isSpatialUIEnabled;
     local l_createElement_0 = v7.createElement;
-    local v238 = "Frame";
-    local v244 = {
+    local v239 = "Frame";
+    local v245 = {
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundColor3 = l_BackgroundColor3_0, 
-        BackgroundTransparency = v93.transparencyValue:map(function(v239) --[[ Line: 73 ]]
+        BackgroundTransparency = v94.transparencyValue:map(function(v240) --[[ Line: 75 ]]
             -- upvalues: l_BackgroundTransparency_1 (copy)
-            return l_BackgroundTransparency_1 + v239 * (1 - l_BackgroundTransparency_1);
+            return l_BackgroundTransparency_1 + v240 * (1 - l_BackgroundTransparency_1);
         end), 
         BorderSizePixel = 0, 
-        LayoutOrder = v93.LayoutOrder, 
-        Size = v93.size, 
-        Visible = v93.visible, 
+        LayoutOrder = v94.LayoutOrder, 
+        Size = v94.size, 
+        Visible = v94.visible, 
         ZIndex = 2, 
-        [v7.Event.MouseEnter] = v93.onHovered, 
-        [v7.Event.MouseLeave] = v93.onUnhovered, 
-        [v7.Change.AbsoluteSize] = v7.useCallback(function(v240) --[[ Line: 1099 ]]
-            -- upvalues: l_TextChatService_0 (ref), v93 (copy)
+        [v7.Event.MouseEnter] = v94.onHovered, 
+        [v7.Event.MouseLeave] = v94.onUnhovered, 
+        [v7.Change.AbsoluteSize] = v7.useCallback(function(v241) --[[ Line: 1109 ]]
+            -- upvalues: l_TextChatService_0 (ref), v94 (copy)
             local l_ChatInputBarConfiguration_3 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
-            if l_ChatInputBarConfiguration_3 and v93.onAbsoluteSizeChanged then
-                v93.onAbsoluteSizeChanged(v240, l_ChatInputBarConfiguration_3);
+            if l_ChatInputBarConfiguration_3 and v94.onAbsoluteSizeChanged then
+                v94.onAbsoluteSizeChanged(v241, l_ChatInputBarConfiguration_3);
             end;
         end), 
-        [v7.Change.AbsolutePosition] = v7.useCallback(function(v242) --[[ Line: 1105 ]]
-            -- upvalues: l_TextChatService_0 (ref), v93 (copy)
+        [v7.Change.AbsolutePosition] = v7.useCallback(function(v243) --[[ Line: 1115 ]]
+            -- upvalues: l_TextChatService_0 (ref), v94 (copy)
             local l_ChatInputBarConfiguration_4 = l_TextChatService_0:FindFirstChildOfClass("ChatInputBarConfiguration");
-            if l_ChatInputBarConfiguration_4 and v93.onAbsolutePositionChanged then
-                v93.onAbsolutePositionChanged(v242, l_ChatInputBarConfiguration_4);
+            if l_ChatInputBarConfiguration_4 and v94.onAbsolutePositionChanged then
+                v94.onAbsolutePositionChanged(v243, l_ChatInputBarConfiguration_4);
             end;
         end)
     };
-    local v245 = {
-        AutocompleteDropdown = v39() and v93.autocompleteEnabled and v7.createElement(v38, {
+    local v246 = {
+        AutocompleteDropdown = v39() and v94.autocompleteEnabled and v7.createElement(v38, {
             chatInputBarSettings = l_chatInputBarSettings_0, 
             chatWindowSettings = l_chatWindowSettings_0, 
-            setTransparency = v58, 
-            transparencyValue = v93.transparencyValue, 
-            activated = v93.autocompleteDropdownReducer.activated and v101, 
-            results = v93.autocompleteDropdownReducer.results, 
-            selectedIndex = v93.autocompleteDropdownReducer.selectedIndex, 
-            autocompleteType = v93.autocompleteDropdownReducer.autocompleteType, 
-            onAutocompleteDropdownHover = v228, 
-            onAutocompleteSelected = v142, 
-            autocompleteDropdownRef = v111, 
-            textBoxRef = if l_chatInputBarSettings_0.TextBox then v109 else v108
+            setTransparency = v59, 
+            transparencyValue = v94.transparencyValue, 
+            activated = v94.autocompleteDropdownReducer.activated and v102, 
+            results = v94.autocompleteDropdownReducer.results, 
+            selectedIndex = v94.autocompleteDropdownReducer.selectedIndex, 
+            autocompleteType = v94.autocompleteDropdownReducer.autocompleteType, 
+            onAutocompleteDropdownHover = v229, 
+            onAutocompleteSelected = v143, 
+            autocompleteDropdownRef = v112, 
+            textBoxRef = if l_chatInputBarSettings_0.TextBox then v110 else v109
         }) or nil, 
         UISizeConstraint = v7.createElement("UISizeConstraint", {
             MaxSize = Vector2.new(v22.ChatWindowMaxWidth, 1e999)
@@ -928,49 +935,49 @@ local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
         UIPadding = v7.createElement("UIPadding", {
             PaddingLeft = UDim.new(0, 8), 
             PaddingRight = UDim.new(0, 8), 
-            PaddingTop = v93.addTopPadding and UDim.new(0, 8) or UDim.new(0, 0), 
+            PaddingTop = v94.addTopPadding and UDim.new(0, 8) or UDim.new(0, 0), 
             PaddingBottom = UDim.new(0, 1)
         })
     };
     local l_createElement_1 = v7.createElement;
-    local v247 = "Frame";
-    local v249 = {
+    local v248 = "Frame";
+    local v250 = {
         AutomaticSize = Enum.AutomaticSize.XY, 
         BackgroundColor3 = l_chatInputBarSettings_0.BackgroundColor3, 
-        BackgroundTransparency = v93.transparencyValue:map(function(v248) --[[ Line: 73 ]]
+        BackgroundTransparency = v94.transparencyValue:map(function(v249) --[[ Line: 75 ]]
             -- upvalues: l_BackgroundTransparency_0 (copy)
-            return l_BackgroundTransparency_0 + v248 * (1 - l_BackgroundTransparency_0);
+            return l_BackgroundTransparency_0 + v249 * (1 - l_BackgroundTransparency_0);
         end), 
         Size = UDim2.new(1, 0, 0, 0)
     };
-    local v250 = {};
+    local v251 = {};
     local l_createElement_2 = v7.createElement;
-    local v252 = "UIStroke";
-    local v253 = {
+    local v253 = "UIStroke";
+    local v254 = {
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border, 
         Color = v22.ChatInputBarBorderColor3
     };
     local l_ChatInputBarBorderTransparency_0 = v22.ChatInputBarBorderTransparency;
     local l_l_ChatInputBarBorderTransparency_0_0 = l_ChatInputBarBorderTransparency_0 --[[ copy: 59 -> 72 ]];
-    v253.Transparency = v93.transparencyValue:map(function(v256) --[[ Line: 73 ]]
+    v254.Transparency = v94.transparencyValue:map(function(v257) --[[ Line: 75 ]]
         -- upvalues: l_l_ChatInputBarBorderTransparency_0_0 (copy)
-        return l_l_ChatInputBarBorderTransparency_0_0 + v256 * (1 - l_l_ChatInputBarBorderTransparency_0_0);
+        return l_l_ChatInputBarBorderTransparency_0_0 + v257 * (1 - l_l_ChatInputBarBorderTransparency_0_0);
     end);
-    v250.Border = l_createElement_2(v252, v253);
-    v250.Corner = v7.createElement("UICorner", {
+    v251.Border = l_createElement_2(v253, v254);
+    v251.Corner = v7.createElement("UICorner", {
         CornerRadius = UDim.new(0, 3)
     });
     l_createElement_2 = v7.createElement;
-    v252 = "Frame";
-    v253 = {
+    v253 = "Frame";
+    v254 = {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.fromScale(1, 0), 
         BackgroundTransparency = 1
     };
-    local v257 = {};
+    local v258 = {};
     l_ChatInputBarBorderTransparency_0 = v7.createElement;
-    local v258 = "Frame";
-    local v259 = {
+    local v259 = "Frame";
+    local v260 = {
         AutomaticSize = Enum.AutomaticSize.Y, 
         BackgroundTransparency = 1, 
         SelectionBehaviorDown = if not l_FFlagEnableConsoleExpControls_0 or v45 then nil else Enum.SelectionBehavior.Stop, 
@@ -978,136 +985,136 @@ local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
         SelectionBehaviorRight = if not l_FFlagEnableConsoleExpControls_0 or v45 then nil else Enum.SelectionBehavior.Stop, 
         SelectionBehaviorUp = if not l_FFlagEnableConsoleExpControls_0 or v45 then nil else Enum.SelectionBehavior.Stop, 
         SelectionGroup = l_FFlagEnableConsoleExpControls_0 and not v45 or nil, 
-        Size = UDim2.new(1, -v93.sendButtonContainerWidth, 0, 0)
+        Size = UDim2.new(1, -v94.sendButtonContainerWidth, 0, 0)
     };
-    local v260 = {};
+    local v261 = {};
     local l_createElement_3 = v7.createElement;
     local l_v30_0 = v30;
-    local v263 = {};
-    local l_transparencyValue_0 = v93.transparencyValue;
-    local v265 = 0;
-    local l_v265_0 = v265 --[[ copy: 71 -> 73 ]];
-    v263.transparency = l_transparencyValue_0:map(function(v267) --[[ Line: 73 ]]
-        -- upvalues: l_v265_0 (copy)
-        return l_v265_0 + v267 * (1 - l_v265_0);
+    local v264 = {};
+    local l_transparencyValue_0 = v94.transparencyValue;
+    local v266 = 0;
+    local l_v266_0 = v266 --[[ copy: 71 -> 73 ]];
+    v264.transparency = l_transparencyValue_0:map(function(v268) --[[ Line: 75 ]]
+        -- upvalues: l_v266_0 (copy)
+        return l_v266_0 + v268 * (1 - l_v266_0);
     end);
-    v263.onAbsoluteSizeChanged = v225;
-    v263.onChannelChipActivated = v93.resetTargetChannel;
-    v263.targetTextChannelDisplayName = v93.targetTextChannelDisplayName or "";
-    v263.isChannelBarVisible = v93.isChannelBarVisible;
-    v260.TargetChannelChip = l_createElement_3(l_v30_0, v263);
-    l_createElement_3 = if l_FFlagExpChatUseMessagesStore_0 then not v118 else not v93.canLocalUserChat;
+    v264.onAbsoluteSizeChanged = v226;
+    v264.onChannelChipActivated = v94.resetTargetChannel;
+    v264.targetTextChannelDisplayName = v94.targetTextChannelDisplayName or "";
+    v264.isChannelBarVisible = v94.isChannelBarVisible;
+    v261.TargetChannelChip = l_createElement_3(l_v30_0, v264);
+    l_createElement_3 = if l_FFlagExpChatUseMessagesStore_0 then not v119 else not v94.canLocalUserChat;
     if l_createElement_3 then
         l_createElement_3 = v7.createElement;
         l_v30_0 = "TextLabel";
-        v263 = {
+        v264 = {
             AnchorPoint = Vector2.new(1, 0), 
             AutomaticSize = Enum.AutomaticSize.Y, 
             BackgroundTransparency = 1, 
             Font = v22.ChatInputBarFont, 
-            Text = v93.disabledChatPlaceholderText, 
+            Text = v94.disabledChatPlaceholderText, 
             Position = UDim2.fromScale(1, 0), 
-            Size = v105:map(function(v268) --[[ Line: 1197 ]]
-                return UDim2.new(1, -(v268 + 8), 0, 0);
+            Size = v106:map(function(v269) --[[ Line: 1207 ]]
+                return UDim2.new(1, -(v269 + 8), 0, 0);
             end), 
-            TextColor3 = v230 and l_chatInputBarSettings_0.PlaceholderColor3 or l_chatInputBarSettings_0.TextColor3, 
+            TextColor3 = v231 and l_chatInputBarSettings_0.PlaceholderColor3 or l_chatInputBarSettings_0.TextColor3, 
             TextSize = if l_isSpatialUIEnabled_0 then l_chatInputBarSettings_0.SpatialPanelTextSize else l_chatInputBarSettings_0.TextSize
         };
-        l_transparencyValue_0 = v230 and 0.5 or 0;
+        l_transparencyValue_0 = v231 and 0.5 or 0;
         local l_l_transparencyValue_0_0 = l_transparencyValue_0 --[[ copy: 67 -> 75 ]];
-        v263.TextTransparency = v93.transparencyValue:map(function(v270) --[[ Line: 73 ]]
+        v264.TextTransparency = v94.transparencyValue:map(function(v271) --[[ Line: 75 ]]
             -- upvalues: l_l_transparencyValue_0_0 (copy)
-            return l_l_transparencyValue_0_0 + v270 * (1 - l_l_transparencyValue_0_0);
+            return l_l_transparencyValue_0_0 + v271 * (1 - l_l_transparencyValue_0_0);
         end);
-        v263.Selectable = v48 and true or nil;
-        v263.SelectionImageObject = if v48 then v226 else nil;
-        v263.TextWrapped = true;
-        v263.TextXAlignment = Enum.TextXAlignment.Left;
-        v263.TextYAlignment = Enum.TextYAlignment.Top;
-        v263.ref = if v48 then v110 else nil;
-        l_createElement_3 = l_createElement_3(l_v30_0, v263);
+        v264.Selectable = v48 and true or nil;
+        v264.SelectionImageObject = if v48 then v227 else nil;
+        v264.TextWrapped = true;
+        v264.TextXAlignment = Enum.TextXAlignment.Left;
+        v264.TextYAlignment = Enum.TextYAlignment.Top;
+        v264.ref = if v48 then v111 else nil;
+        l_createElement_3 = l_createElement_3(l_v30_0, v264);
     end;
-    v260.DisabledPlaceholderLabel = l_createElement_3;
-    l_createElement_3 = if l_FFlagExpChatUseMessagesStore_0 then v118 else v93.canLocalUserChat;
+    v261.DisabledPlaceholderLabel = l_createElement_3;
+    l_createElement_3 = if l_FFlagExpChatUseMessagesStore_0 then v119 else v94.canLocalUserChat;
     if l_createElement_3 then
         l_createElement_3 = v7.createElement;
         l_v30_0 = "Frame";
-        v263 = {
+        v264 = {
             AnchorPoint = Vector2.new(1, 0), 
             AutomaticSize = Enum.AutomaticSize.Y, 
             BackgroundTransparency = 1, 
             Position = UDim2.fromScale(1, 0), 
-            Size = v105:map(function(v271) --[[ Line: 1225 ]]
-                return UDim2.new(1, -(v271 + 8), 0, 0);
+            Size = v106:map(function(v272) --[[ Line: 1235 ]]
+                return UDim2.new(1, -(v272 + 8), 0, 0);
             end)
         };
-        local v272 = {};
-        l_transparencyValue_0 = if l_FFlagExpChatUseMessagesStore_0 then v118 else v93.canLocalUserChat;
+        local v273 = {};
+        l_transparencyValue_0 = if l_FFlagExpChatUseMessagesStore_0 then v119 else v94.canLocalUserChat;
         if l_transparencyValue_0 then
             l_transparencyValue_0 = v7.createElement;
-            local v273 = "TextBox";
-            local v274 = {
+            local v274 = "TextBox";
+            local v275 = {
                 AnchorPoint = Vector2.new(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY, 
                 BackgroundTransparency = 1, 
                 ClearTextOnFocus = false, 
                 FontFace = l_chatInputBarSettings_0.FontFace, 
-                PlaceholderText = v230 and v93.placeholderText or "", 
+                PlaceholderText = v231 and v94.placeholderText or "", 
                 Selectable = l_FFlagEnableConsoleExpControls_0 and true or nil, 
-                SelectionImageObject = v226, 
+                SelectionImageObject = v227, 
                 Size = UDim2.fromScale(1, 0), 
                 Text = "", 
                 PlaceholderColor3 = l_chatInputBarSettings_0.PlaceholderColor3, 
                 TextColor3 = l_chatInputBarSettings_0.TextColor3, 
                 TextSize = if l_isSpatialUIEnabled_0 then l_chatInputBarSettings_0.SpatialPanelTextSize else l_chatInputBarSettings_0.TextSize
             };
-            v265 = v230 and 0.5 or 0;
-            local l_v265_1 = v265 --[[ copy: 71 -> 74 ]];
-            v274.TextTransparency = v93.transparencyValue:map(function(v276) --[[ Line: 73 ]]
-                -- upvalues: l_v265_1 (copy)
-                return l_v265_1 + v276 * (1 - l_v265_1);
+            v266 = v231 and 0.5 or 0;
+            local l_v266_1 = v266 --[[ copy: 71 -> 74 ]];
+            v275.TextTransparency = v94.transparencyValue:map(function(v277) --[[ Line: 75 ]]
+                -- upvalues: l_v266_1 (copy)
+                return l_v266_1 + v277 * (1 - l_v266_1);
             end);
-            v265 = l_chatInputBarSettings_0.TextStrokeTransparency;
-            v274.TextStrokeTransparency = v93.transparencyValue:map(function(v277) --[[ Line: 73 ]]
-                -- upvalues: v265 (copy)
-                return v265 + v277 * (1 - v265);
+            v266 = l_chatInputBarSettings_0.TextStrokeTransparency;
+            v275.TextStrokeTransparency = v94.transparencyValue:map(function(v278) --[[ Line: 75 ]]
+                -- upvalues: v266 (copy)
+                return v266 + v278 * (1 - v266);
             end);
-            v274.TextStrokeColor3 = l_chatInputBarSettings_0.TextStrokeColor3;
-            v274.TextWrapped = true;
-            v274.TextXAlignment = Enum.TextXAlignment.Left;
-            v274.TextYAlignment = Enum.TextYAlignment.Top;
-            v274.ZIndex = 2;
-            v274[v7.Event.Focused] = v165;
-            v274[v7.Event.FocusLost] = v183;
-            v274[v7.Change.Text] = v221;
-            v274[v7.Event.ReturnPressedFromOnScreenKeyboard] = v223;
-            v274.ref = if l_chatInputBarSettings_0.TextBox then v109 else v108;
-            l_transparencyValue_0 = l_transparencyValue_0(v273, v274);
+            v275.TextStrokeColor3 = l_chatInputBarSettings_0.TextStrokeColor3;
+            v275.TextWrapped = true;
+            v275.TextXAlignment = Enum.TextXAlignment.Left;
+            v275.TextYAlignment = Enum.TextYAlignment.Top;
+            v275.ZIndex = 2;
+            v275[v7.Event.Focused] = v166;
+            v275[v7.Event.FocusLost] = v184;
+            v275[v7.Change.Text] = v222;
+            v275[v7.Event.ReturnPressedFromOnScreenKeyboard] = v224;
+            v275.ref = if l_chatInputBarSettings_0.TextBox then v110 else v109;
+            l_transparencyValue_0 = l_transparencyValue_0(v274, v275);
         end;
-        v272.TextBox = l_transparencyValue_0;
-        l_createElement_3 = l_createElement_3(l_v30_0, v263, v272);
+        v273.TextBox = l_transparencyValue_0;
+        l_createElement_3 = l_createElement_3(l_v30_0, v264, v273);
     end;
-    v260.TextBoxContainer = l_createElement_3;
-    v260.UIPadding = v7.createElement("UIPadding", {
+    v261.TextBoxContainer = l_createElement_3;
+    v261.UIPadding = v7.createElement("UIPadding", {
         PaddingBottom = UDim.new(0, 10), 
         PaddingLeft = UDim.new(0, 10), 
         PaddingRight = UDim.new(0, 10), 
         PaddingTop = UDim.new(0, 10)
     });
-    v257.TextContainer = l_ChatInputBarBorderTransparency_0(v258, v259, v260);
+    v258.TextContainer = l_ChatInputBarBorderTransparency_0(v259, v260, v261);
     l_ChatInputBarBorderTransparency_0 = v7.createElement;
-    v258 = "TextButton";
-    v259 = {
+    v259 = "TextButton";
+    v260 = {
         AnchorPoint = Vector2.new(1, 0), 
         BackgroundTransparency = 1, 
         LayoutOrder = 2, 
         Position = UDim2.fromScale(1, 0), 
         Selectable = not v45 and nil, 
-        Size = UDim2.new(0, v93.sendButtonContainerWidth, 1, 0), 
+        Size = UDim2.new(0, v94.sendButtonContainerWidth, 1, 0), 
         Text = "", 
-        [v7.Event.Activated] = v133
+        [v7.Event.Activated] = v134
     };
-    v260 = {
+    v261 = {
         Layout = v7.createElement("UIListLayout", {
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             VerticalAlignment = Enum.VerticalAlignment.Center
@@ -1115,52 +1122,52 @@ local function v279(v93) --[[ Line: 216 ]] --[[ Name: ChatInputBar ]]
     };
     l_createElement_3 = v7.createElement;
     l_v30_0 = l_ImageSetLabel_0;
-    v263 = {
+    v264 = {
         BackgroundTransparency = 1, 
-        ImageColor3 = v229 and l_chatInputBarSettings_0.PlaceholderColor3 or l_chatInputBarSettings_0.TextColor3
+        ImageColor3 = v230 and l_chatInputBarSettings_0.PlaceholderColor3 or l_chatInputBarSettings_0.TextColor3
     };
-    l_transparencyValue_0 = v229 and 0.5 or 0;
-    v263.ImageTransparency = v93.transparencyValue:map(function(v278) --[[ Line: 73 ]]
+    l_transparencyValue_0 = v230 and 0.5 or 0;
+    v264.ImageTransparency = v94.transparencyValue:map(function(v279) --[[ Line: 75 ]]
         -- upvalues: l_transparencyValue_0 (copy)
-        return l_transparencyValue_0 + v278 * (1 - l_transparencyValue_0);
+        return l_transparencyValue_0 + v279 * (1 - l_transparencyValue_0);
     end);
-    v263.Image = l_Images_0["icons/actions/send"];
-    v263.Size = UDim2.new(0, 30, 0, 30);
-    v263.ZIndex = 2;
-    v260.SendIcon = l_createElement_3(l_v30_0, v263);
-    v257.SendButton = l_ChatInputBarBorderTransparency_0(v258, v259, v260);
-    v250.Container = l_createElement_2(v252, v253, v257);
-    v245.Background = l_createElement_1(v247, v249, v250);
-    return l_createElement_0(v238, v244, v245);
+    v264.Image = l_Images_0["icons/actions/send"];
+    v264.Size = UDim2.new(0, 30, 0, 30);
+    v264.ZIndex = 2;
+    v261.SendIcon = l_createElement_3(l_v30_0, v264);
+    v258.SendButton = l_ChatInputBarBorderTransparency_0(v259, v260, v261);
+    v251.Container = l_createElement_2(v253, v254, v258);
+    v246.Background = l_createElement_1(v248, v250, v251);
+    return l_createElement_0(v239, v245, v246);
 end;
-local v286 = v28.connect(function(v280) --[[ Line: 1310 ]]
+local v287 = v28.connect(function(v281) --[[ Line: 1320 ]]
     -- upvalues: v29 (copy)
-    local v281 = nil;
-    if v280.targetTextChannel then
-        local v282 = {
+    local v282 = nil;
+    if v281.targetTextChannel then
+        local v283 = {
             RBXTeam = "CoreScripts.TextChat.TeamChat.PrefixText", 
             RBXWhisper = "CoreScripts.TextChat.WhisperChat.PrefixText.Outgoing"
         };
-        for v283, v284 in pairs(v282) do
-            if string.match(v280.targetTextChannel.Name, v283) then
-                if v283 == "RBXWhisper" then
-                    local v285 = v29(v280.targetTextChannel, v280.localPlayer);
-                    if v285 then
-                        v281 = {
-                            v284, 
+        for v284, v285 in pairs(v283) do
+            if string.match(v281.targetTextChannel.Name, v284) then
+                if v284 == "RBXWhisper" then
+                    local v286 = v29(v281.targetTextChannel, v281.localPlayer);
+                    if v286 then
+                        v282 = {
+                            v285, 
                             {
-                                RBX_NAME = v285
+                                RBX_NAME = v286
                             }
                         };
                     end;
                 else
-                    v281 = v284;
+                    v282 = v285;
                 end;
             end;
         end;
     end;
     return {
-        targetTextChannelDisplayName = v281
+        targetTextChannelDisplayName = v282
     };
-end)(v279);
-return v7.memo(v286);
+end)(v280);
+return v7.memo(v287);

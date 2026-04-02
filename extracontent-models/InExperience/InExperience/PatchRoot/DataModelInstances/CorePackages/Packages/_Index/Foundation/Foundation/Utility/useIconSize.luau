@@ -19,7 +19,9 @@ return function(v7, v8, v9) --[[ Line: 15 ]] --[[ Name: useIconSize ]]
         [v2.XSmall] = if v9 then v10.Size.Size_400 else v10.Size.Size_300, 
         [v2.Small] = if v9 then v10.Size.Size_500 else v10.Size.Size_400, 
         [v2.Medium] = if v9 then v10.Size.Size_600 else v10.Size.Size_500, 
-        [v2.Large] = if v9 then v10.Size.Size_700 else v10.Size.Size_600
+        [v2.Large] = if v9 then v10.Size.Size_700 else v10.Size.Size_600, 
+        [v2.XLarge] = if v9 then v10.Size.Size_800 else v10.Size.Size_700, 
+        [v2.XXLarge] = if v9 then v10.Size.Size_900 else v10.Size.Size_800
     } else {
         [v2.XSmall] = v10.Size.Size_200, 
         [v2.Small] = v10.Size.Size_400, 
@@ -52,7 +54,7 @@ return function(v7, v8, v9) --[[ Line: 15 ]] --[[ Name: useIconSize ]]
         error("Invalid icon size: " .. tostring(v7));
     end;
     if typeof(v13) == "table" then
-        return (v13:map(function(v14) --[[ Line: 49 ]]
+        return (v13:map(function(v14) --[[ Line: 51 ]]
             return UDim2.fromOffset(v14, v14);
         end));
     else

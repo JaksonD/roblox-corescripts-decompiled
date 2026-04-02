@@ -17,125 +17,128 @@ local l_FIntLuaAppDelayImpressionsMaxUpdates_0 = require(l_Parent_0.SharedFlags)
 local l_FFlagLuaAppLayoutParamsInContext_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppLayoutParamsInContext;
 local l_FFlagSduiCoreBadgeDetailsSupport_0 = require(l_Parent_0.SharedFlags).FFlagSduiCoreBadgeDetailsSupport;
 local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-return v3.memo(function(v19) --[[ Line: 50 ]] --[[ Name: SduiSeeAllGrid ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v2 (copy), l_useSelector_0 (copy), v9 (copy), v4 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useCollectionLayoutConfig_0 (copy), v13 (copy), v3 (copy), l_SduiErrors_0 (copy), l_SduiBuilder_0 (copy), l_SduiParsers_0 (copy), l_SduiComponentType_0 (copy), l_SduiComponent_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy)
-    local v20 = nil;
-    v20 = if l_FFlagSduiServerCompat_0 then v19.layoutOrder else v19.LayoutOrder;
-    local l_verticalScrollingFrameRef_0 = v19.verticalScrollingFrameRef;
-    local l_scrollViewPositionChangedSignal_0 = v19.scrollViewPositionChangedSignal;
-    v2.assert(v19.collectionId ~= nil, "collectionId id must exist");
-    v2.assert(v19.collectionIndex ~= nil, "collectionIndex id must exist");
-    local v29 = l_useSelector_0(function(v23) --[[ Line: 65 ]]
-        -- upvalues: v9 (ref), v19 (copy)
-        local v24 = {};
-        local v25 = v23.Personalization[v9.key][v19.appPage];
-        if v25 then
-            for _, v27 in v25.itemCollections do
-                local l_analyticsData_0 = v27.sduiConfig.analyticsData;
-                if tostring(v19.collectionId) == tostring(l_analyticsData_0.collectionId) then
-                    v24.feedItemData = v27;
+local l_FFlagSduiImpressionHandlerRegistry_0 = require(l_Parent_0.SharedFlags).FFlagSduiImpressionHandlerRegistry;
+return v3.memo(function(v20) --[[ Line: 51 ]] --[[ Name: SduiSeeAllGrid ]]
+    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v2 (copy), l_useSelector_0 (copy), v9 (copy), v4 (copy), l_FFlagLuaAppLayoutParamsInContext_0 (copy), l_useCollectionLayoutConfig_0 (copy), v13 (copy), v3 (copy), l_SduiErrors_0 (copy), l_SduiBuilder_0 (copy), l_SduiParsers_0 (copy), l_SduiComponentType_0 (copy), l_FFlagSduiImpressionHandlerRegistry_0 (copy), l_SduiComponent_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (copy), l_FFlagSduiCoreBadgeDetailsSupport_0 (copy)
+    local v21 = nil;
+    v21 = if l_FFlagSduiServerCompat_0 then v20.layoutOrder else v20.LayoutOrder;
+    local l_verticalScrollingFrameRef_0 = v20.verticalScrollingFrameRef;
+    local l_scrollViewPositionChangedSignal_0 = v20.scrollViewPositionChangedSignal;
+    v2.assert(v20.collectionId ~= nil, "collectionId id must exist");
+    v2.assert(v20.collectionIndex ~= nil, "collectionIndex id must exist");
+    local v30 = l_useSelector_0(function(v24) --[[ Line: 66 ]]
+        -- upvalues: v9 (ref), v20 (copy)
+        local v25 = {};
+        local v26 = v24.Personalization[v9.key][v20.appPage];
+        if v26 then
+            for _, v28 in v26.itemCollections do
+                local l_analyticsData_0 = v28.sduiConfig.analyticsData;
+                if tostring(v20.collectionId) == tostring(l_analyticsData_0.collectionId) then
+                    v25.feedItemData = v28;
                     break;
                 end;
             end;
-            v24.templates = v25.rootConfig and v25.rootConfig.templates or nil;
+            v25.templates = v26.rootConfig and v26.rootConfig.templates or nil;
         end;
-        return v24;
+        return v25;
     end, v4.shallowEqual);
-    local v30 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v19.contentFrame, 0) else nil;
-    local v31 = v13({
-        appPage = v19.appPage, 
-        templates = v29.templates, 
-        dataUpdatedTimestamp = v29.feedItemData and v29.feedItemData.dataUpdatedTimestamp, 
-        pageLayoutConfig = if l_FFlagLuaAppLayoutParamsInContext_0 then v30 else nil
+    local v31 = if l_FFlagLuaAppLayoutParamsInContext_0 then l_useCollectionLayoutConfig_0(v20.contentFrame, 0) else nil;
+    local v32 = v13({
+        appPage = v20.appPage, 
+        templates = v30.templates, 
+        dataUpdatedTimestamp = v30.feedItemData and v30.feedItemData.dataUpdatedTimestamp, 
+        pageLayoutConfig = if l_FFlagLuaAppLayoutParamsInContext_0 then v31 else nil
     });
-    local l_feedItemData_0 = v29.feedItemData;
-    local v39 = v3.useMemo(function() --[[ Line: 96 ]]
-        -- upvalues: l_feedItemData_0 (copy), v31 (copy), l_SduiErrors_0 (ref), v19 (copy), l_SduiBuilder_0 (ref), l_SduiParsers_0 (ref), l_SduiComponentType_0 (ref)
+    local l_feedItemData_0 = v30.feedItemData;
+    local v40 = v3.useMemo(function() --[[ Line: 97 ]]
+        -- upvalues: l_feedItemData_0 (copy), v32 (copy), l_SduiErrors_0 (ref), v20 (copy), l_SduiBuilder_0 (ref), l_SduiParsers_0 (ref), l_SduiComponentType_0 (ref), l_FFlagSduiImpressionHandlerRegistry_0 (ref)
         if not l_feedItemData_0 or not l_feedItemData_0.sduiConfig then
-            v31.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentConfig, {
+            v32.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentConfig, {
                 name = "SduiSeeAllGrid", 
-                message = ("Missing component config client-driven SDUI grid for see-all. CollectionId: %*"):format(v19.collectionId)
-            }, v31.appPage);
+                message = ("Missing component config client-driven SDUI grid for see-all. CollectionId: %*"):format(v20.collectionId)
+            }, v32.appPage);
             return nil;
         elseif not l_feedItemData_0.sduiConfig.props then
-            v31.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.InvalidComponentConfig, {
+            v32.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.InvalidComponentConfig, {
                 name = "SduiSeeAllGrid", 
-                message = ("Missing props for component config for client-driven SDUI grid for see-all. CollectionId: %*"):format(v19.collectionId)
-            }, v31.appPage);
+                message = ("Missing props for component config for client-driven SDUI grid for see-all. CollectionId: %*"):format(v20.collectionId)
+            }, v32.appPage);
             return nil;
         else
             local l_sduiConfig_0 = l_feedItemData_0.sduiConfig;
-            local v34 = nil;
+            local v35 = nil;
             if l_sduiConfig_0.props.items and #l_sduiConfig_0.props.items > 0 and l_sduiConfig_0.props.itemHeightFromWidth == nil then
-                local v35 = l_sduiConfig_0.props.items[1];
-                if l_sduiConfig_0.props.itemTemplateKey and v35.templateKey == nil then
-                    v35.templateKey = l_sduiConfig_0.props.itemTemplateKey;
+                local v36 = l_sduiConfig_0.props.items[1];
+                if l_sduiConfig_0.props.itemTemplateKey and v36.templateKey == nil then
+                    v36.templateKey = l_sduiConfig_0.props.itemTemplateKey;
                 end;
-                if not l_SduiBuilder_0.getComponentType(v35, v31) then
-                    v31.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentType, {
+                if not l_SduiBuilder_0.getComponentType(v36, v32) then
+                    v32.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentType, {
                         name = "SduiSeeAllGrid", 
-                        message = ("Missing componentType for first item. CollectionId: %*"):format(v19.collectionId)
-                    }, v31.appPage);
+                        message = ("Missing componentType for first item. CollectionId: %*"):format(v20.collectionId)
+                    }, v32.appPage);
                     return nil;
                 else
-                    local v36 = nil;
-                    if v35 then
-                        local v37 = v35.props and v35.props.imageAspectRatio and l_SduiParsers_0.safeParseNumber(v35.props.imageAspectRatio, v31, {});
-                        if v37 and v37 > 0 then
-                            v36 = 1 / v37;
+                    local v37 = nil;
+                    if v36 then
+                        local v38 = v36.props and v36.props.imageAspectRatio and l_SduiParsers_0.safeParseNumber(v36.props.imageAspectRatio, v32, {});
+                        if v38 and v38 > 0 then
+                            v37 = 1 / v38;
                         end;
                     end;
-                    if not v36 then
-                        v36 = (not (l_sduiConfig_0.props.collectionItemSize ~= "Medium") or l_sduiConfig_0.props.collectionItemSize == "Large") and 0.5625 or 1;
+                    if not v37 then
+                        v37 = (not (l_sduiConfig_0.props.collectionItemSize ~= "Medium") or l_sduiConfig_0.props.collectionItemSize == "Large") and 0.5625 or 1;
                     end;
-                    local v38 = nil;
-                    if v35 then
-                        v38 = (v35.props and v35.props.titleLines or 1) * 20 + 20 + 8;
+                    local v39 = nil;
+                    if v36 then
+                        v39 = (v36.props and v36.props.titleLines or 1) * 20 + 20 + 8;
                     end;
-                    v34 = UDim.new(v36, v38);
+                    v35 = UDim.new(v37, v39);
                 end;
             else
-                v34 = l_sduiConfig_0.props.itemHeightFromWidth;
+                v35 = l_sduiConfig_0.props.itemHeightFromWidth;
             end;
             return {
                 componentType = l_SduiComponentType_0.CollectionGrid, 
                 props = {
                     items = l_sduiConfig_0.props.items, 
+                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_sduiConfig_0.props.impressionEventName else nil, 
+                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_sduiConfig_0.props.skipItemImpressionsLog else nil, 
                     collectionItemSize = l_sduiConfig_0.props.collectionItemSize, 
                     itemTemplateKey = l_sduiConfig_0.props.itemTemplateKey, 
-                    itemHeightFromWidth = v34
+                    itemHeightFromWidth = v35
                 }, 
                 analyticsData = l_sduiConfig_0.analyticsData
             };
         end;
     end, {
         l_feedItemData_0 and l_feedItemData_0.sduiConfig, 
-        v31
+        v32
     });
-    return (v3.useMemo(function() --[[ Line: 184 ]]
-        -- upvalues: v39 (copy), v31 (copy), l_SduiErrors_0 (ref), v19 (copy), v3 (ref), l_SduiComponent_0 (ref), l_feedItemData_0 (copy), l_scrollViewPositionChangedSignal_0 (copy), l_verticalScrollingFrameRef_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (ref), l_FFlagSduiServerCompat_0 (ref), v20 (ref), l_FFlagLuaAppLayoutParamsInContext_0 (ref), l_FFlagSduiCoreBadgeDetailsSupport_0 (ref)
-        if v39 == nil then
-            v31.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentConfig, {
+    return (v3.useMemo(function() --[[ Line: 191 ]]
+        -- upvalues: v40 (copy), v32 (copy), l_SduiErrors_0 (ref), v20 (copy), v3 (ref), l_SduiComponent_0 (ref), l_feedItemData_0 (copy), l_scrollViewPositionChangedSignal_0 (copy), l_verticalScrollingFrameRef_0 (copy), l_FIntLuaAppDelayImpressionsMaxUpdates_0 (ref), l_FFlagSduiServerCompat_0 (ref), v21 (ref), l_FFlagLuaAppLayoutParamsInContext_0 (ref), l_FFlagSduiCoreBadgeDetailsSupport_0 (ref)
+        if v40 == nil then
+            v32.dependencies.logger.reportError(l_SduiErrors_0.SduiErrorType.NilComponentConfig, {
                 name = "SduiSeeAllGrid", 
-                message = ("Unable to generate component config for client-driven SDUI grid for see-all. CollectionId: %*"):format(v19.collectionId)
-            }, v31.appPage);
+                message = ("Unable to generate component config for client-driven SDUI grid for see-all. CollectionId: %*"):format(v20.collectionId)
+            }, v32.appPage);
             return nil;
         else
             return v3.createElement(l_SduiComponent_0, {
                 debugName = "SeeAllGrid", 
-                componentConfig = v39, 
-                sduiContext = v31, 
+                componentConfig = v40, 
+                sduiContext = v32, 
                 extraLocalProps = {
                     dataUpdatedTimestamp = l_feedItemData_0.dataUpdatedTimestamp, 
                     scrollViewPositionChangedSignal = l_scrollViewPositionChangedSignal_0, 
                     verticalScrollingFrameRef = l_verticalScrollingFrameRef_0, 
-                    index = v19.collectionIndex, 
-                    collectionPosition = v19.collectionIndex, 
+                    index = v20.collectionIndex, 
+                    collectionPosition = v20.collectionIndex, 
                     pageSideMargin = 0, 
                     startRow = 1, 
                     numUpdatesToDelayImpressions = l_FIntLuaAppDelayImpressionsMaxUpdates_0, 
-                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then v20 else nil, 
-                    layoutOrder = if l_FFlagSduiServerCompat_0 then v20 else nil, 
+                    LayoutOrder = if not l_FFlagSduiServerCompat_0 then v21 else nil, 
+                    layoutOrder = if l_FFlagSduiServerCompat_0 then v21 else nil, 
                     layoutOverrides = if l_FFlagLuaAppLayoutParamsInContext_0 then nil else {
                         sideMargin = 0, 
                         fractionalItemAmount = 0, 
@@ -143,30 +146,30 @@ return v3.memo(function(v19) --[[ Line: 50 ]] --[[ Name: SduiSeeAllGrid ]]
                     }, 
                     disableRelativeGap = not l_FFlagSduiCoreBadgeDetailsSupport_0 or nil, 
                     disableImpressionsDetector = true, 
-                    impressionsTag = v19.impressionsTag, 
-                    setLogImpressions = v19.setLogImpressions, 
-                    sendGameImpressions = v19.sendGameImpressions, 
-                    onCollectionViewabilityChanged = v19.onCollectionViewabilityChanged
+                    impressionsTag = v20.impressionsTag, 
+                    setLogImpressions = v20.setLogImpressions, 
+                    sendGameImpressions = v20.sendGameImpressions, 
+                    onCollectionViewabilityChanged = v20.onCollectionViewabilityChanged
                 }, 
                 localAnalyticsData = {
-                    collectionPosition = v19.collectionIndex, 
+                    collectionPosition = v20.collectionIndex, 
                     seeAllFlag = 1
                 }
             });
         end;
     end, {
-        v39, 
-        v20, 
+        v40, 
+        v21, 
         l_feedItemData_0 and l_feedItemData_0.dataUpdatedTimestamp or nil, 
         1, 
-        v19.collectionId, 
-        v19.collectionIndex, 
+        v20.collectionId, 
+        v20.collectionIndex, 
         l_scrollViewPositionChangedSignal_0, 
         l_verticalScrollingFrameRef_0, 
-        v31, 
-        v19.impressionsTag, 
-        v19.setLogImpressions, 
-        v19.sendGameImpressions, 
-        v19.onCollectionViewabilityChanged
+        v32, 
+        v20.impressionsTag, 
+        v20.setLogImpressions, 
+        v20.sendGameImpressions, 
+        v20.onCollectionViewabilityChanged
     }));
 end);

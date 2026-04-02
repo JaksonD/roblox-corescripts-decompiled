@@ -23,12 +23,18 @@ local l_FitFrame_0 = v1.FitFrame;
 local l_ImageSetLabel_0 = l_UIBlox_0.Core.ImageSet.ImageSetLabel;
 local l_Images_0 = l_UIBlox_0.App.ImageSet.Images;
 local l_StyledTextLabel_0 = l_UIBlox_0.App.Text.StyledTextLabel;
-local v25 = {
+local v25 = game:DefineFastFlag("FixLocalizationOfStudioTermsForVNGSKU", false);
+local v26 = nil;
+v26 = if v25 then {
+    TermsOfService = "CommonUI.UserAgreements.Popup.Agreement.TermsOfService", 
+    PrivacyPolicy = "CommonUI.UserAgreements.Popup.Agreement.PrivacyPolicy", 
+    StudioTermsForVNGSKU = "CommonUI.UserAgreements.Popup.Agreement.StudioTermsForVNGSKU"
+} else {
     TermsOfService = "CommonUI.UserAgreements.Popup.Agreement.TermsOfService", 
     PrivacyPolicy = "CommonUI.UserAgreements.Popup.Agreement.PrivacyPolicy"
 };
-local v26 = l_Roact_0.PureComponent:extend("UserAgreementsListItem");
-v26.validateProps = l_t_0.strictInterface({
+local v27 = l_Roact_0.PureComponent:extend("UserAgreementsListItem");
+v27.validateProps = l_t_0.strictInterface({
     LayoutOrder = l_t_0.integer, 
     Size = if not l_GetFFlagVngTOSRevisedEnabled_0() then l_t_0.UDim2 else nil, 
     agreement = l_t_0.strictInterface({
@@ -52,117 +58,117 @@ v26.validateProps = l_t_0.strictInterface({
     hideLink = l_t_0.optional(l_t_0.boolean), 
     checkBoxPresent = l_t_0.optional(l_t_0.boolean)
 });
-v26.defaultProps = {
+v27.defaultProps = {
     margin = l_FitFrame_0.Rect.square(0), 
     agreementTypeExists = false
 };
-openExternalBrowser = function(v27, v28) --[[ Line: 86 ]] --[[ Name: openExternalBrowser ]]
+openExternalBrowser = function(v28, v29) --[[ Line: 96 ]] --[[ Name: openExternalBrowser ]]
     -- upvalues: l_ArgCheck_0 (copy)
-    l_ArgCheck_0.isNotNil(v27, "linking");
-    l_ArgCheck_0.isType(v28, "string", "url");
-    v27:openURL(v28);
+    l_ArgCheck_0.isNotNil(v28, "linking");
+    l_ArgCheck_0.isType(v29, "string", "url");
+    v28:openURL(v29);
 end;
-v26.init = function(v29) --[[ Line: 93 ]] --[[ Name: init ]]
+v27.init = function(v30) --[[ Line: 103 ]] --[[ Name: init ]]
     -- upvalues: l_Roact_0 (copy), l_FFlagEnableModularizedUserAgreementsList_0 (copy)
-    local v30, v31 = l_Roact_0.createBinding(false);
-    v29.buttonPressed = v30;
-    v29.updateButtonPressed = v31;
-    v29.onButtonInputBegan = function(_, v33) --[[ Line: 96 ]]
-        -- upvalues: v29 (copy)
-        if v33.UserInputType == Enum.UserInputType.Touch or v33.UserInputType == Enum.UserInputType.MouseButton1 then
-            if v29.buttonPressed:getValue() then
+    local v31, v32 = l_Roact_0.createBinding(false);
+    v30.buttonPressed = v31;
+    v30.updateButtonPressed = v32;
+    v30.onButtonInputBegan = function(_, v34) --[[ Line: 106 ]]
+        -- upvalues: v30 (copy)
+        if v34.UserInputType == Enum.UserInputType.Touch or v34.UserInputType == Enum.UserInputType.MouseButton1 then
+            if v30.buttonPressed:getValue() then
                 return;
             else
-                v29.updateButtonPressed(true);
+                v30.updateButtonPressed(true);
             end;
         end;
     end;
-    v29.onButtonInputEnded = function() --[[ Line: 108 ]]
-        -- upvalues: v29 (copy)
-        if v29.buttonPressed:getValue() then
-            v29.updateButtonPressed(false);
+    v30.onButtonInputEnded = function() --[[ Line: 118 ]]
+        -- upvalues: v30 (copy)
+        if v30.buttonPressed:getValue() then
+            v30.updateButtonPressed(false);
         end;
     end;
-    v29.showLinkText = function() --[[ Line: 114 ]]
-        -- upvalues: l_FFlagEnableModularizedUserAgreementsList_0 (ref), v29 (copy)
+    v30.showLinkText = function() --[[ Line: 124 ]]
+        -- upvalues: l_FFlagEnableModularizedUserAgreementsList_0 (ref), v30 (copy)
         if l_FFlagEnableModularizedUserAgreementsList_0 then
-            return not v29.props.hideLink and not v29.props.agreementTypeExists;
+            return not v30.props.hideLink and not v30.props.agreementTypeExists;
         else
-            return not v29.props.agreementTypeExists;
+            return not v30.props.agreementTypeExists;
         end;
     end;
 end;
-v26.renderWithProviders = function(v34, v35, v36) --[[ Line: 123 ]] --[[ Name: renderWithProviders ]]
+v27.renderWithProviders = function(v35, v36, v37) --[[ Line: 133 ]] --[[ Name: renderWithProviders ]]
     -- upvalues: l_FFlagEnableModularizedUserAgreementsList_0 (copy), l_GetFFlagVngTOSRevisedEnabled_0 (copy), l_TextService_0 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v15 (copy), l_Roact_0 (copy), v19 (copy), l_AppPage_0 (copy), l_NotificationType_0 (copy), l_StyledTextLabel_0 (copy)
-    local l_LayoutOrder_0 = v34.props.LayoutOrder;
-    local l_Size_0 = v34.props.Size;
-    local v39 = v34.props.minHeight or 55;
-    local l_margin_0 = v34.props.margin;
-    local l_agreement_0 = v34.props.agreement;
-    local v42 = v34.props.checkBoxPresent or false;
-    local l_Font_0 = v36.Font;
-    local l_Theme_0 = v36.Theme;
-    local l_Tokens_0 = v36.Tokens;
-    local v46 = -(l_margin_0.left + l_margin_0.right + 14);
-    local v47 = if l_FFlagEnableModularizedUserAgreementsList_0 and v42 then l_Tokens_0.Global.FontSize_100 else l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize;
-    local v48 = 20 / v47;
-    local v49 = l_Font_0.BaseSize * l_Font_0.CaptionHeader.RelativeSize;
-    local v50 = 14 / v49;
+    local l_LayoutOrder_0 = v35.props.LayoutOrder;
+    local l_Size_0 = v35.props.Size;
+    local v40 = v35.props.minHeight or 55;
+    local l_margin_0 = v35.props.margin;
+    local l_agreement_0 = v35.props.agreement;
+    local v43 = v35.props.checkBoxPresent or false;
+    local l_Font_0 = v37.Font;
+    local l_Theme_0 = v37.Theme;
+    local l_Tokens_0 = v37.Tokens;
+    local v47 = -(l_margin_0.left + l_margin_0.right + 14);
+    local v48 = if l_FFlagEnableModularizedUserAgreementsList_0 and v43 then l_Tokens_0.Global.FontSize_100 else l_Font_0.BaseSize * l_Font_0.Header2.RelativeSize;
+    local v49 = 20 / v48;
+    local v50 = l_Font_0.BaseSize * l_Font_0.CaptionHeader.RelativeSize;
+    local v51 = 14 / v50;
     local l_displayUrl_0 = l_agreement_0.displayUrl;
-    local l_agreementTitle_0 = v35.agreementTitle;
-    local l_shortTitle_0 = v35.shortTitle;
-    local l_v39_0 = v39;
-    if l_GetFFlagVngTOSRevisedEnabled_0() and v34.state.titleTextWidth and v34.state.titleTextWidth > 100 then
-        l_v39_0 = math.max(v39, l_TextService_0:GetTextSize(l_agreementTitle_0, v47, l_Font_0.Body.Font, Vector2.new(v34.state.titleTextWidth, 1e999)).Y + 20 + l_margin_0.top + l_margin_0.bottom);
+    local l_agreementTitle_0 = v36.agreementTitle;
+    local l_shortTitle_0 = v36.shortTitle;
+    local l_v40_0 = v40;
+    if l_GetFFlagVngTOSRevisedEnabled_0() and v35.state.titleTextWidth and v35.state.titleTextWidth > 100 then
+        l_v40_0 = math.max(v40, l_TextService_0:GetTextSize(l_agreementTitle_0, v48, l_Font_0.Body.Font, Vector2.new(v35.state.titleTextWidth, 1e999)).Y + 20 + l_margin_0.top + l_margin_0.bottom);
     end;
-    local v55 = nil;
     local v56 = nil;
     local v57 = nil;
+    local v58 = nil;
     if l_FFlagEnableModularizedUserAgreementsList_0 then
-        v55 = l_ImageSetLabel_0;
-        v56 = 3;
-        v57 = l_Images_0["icons/navigation/pushRight"];
+        v56 = l_ImageSetLabel_0;
+        v57 = 3;
+        v58 = l_Images_0["icons/navigation/pushRight"];
     else
-        v55 = v15;
-        v56 = 1;
-        v57 = "LuaApp/icons/navigation/pushRight_small";
+        v56 = v15;
+        v57 = 1;
+        v58 = "LuaApp/icons/navigation/pushRight_small";
     end;
-    local function v61(v58, v59, v60) --[[ Line: 178 ]] --[[ Name: createImageElement ]]
+    local function v62(v59, v60, v61) --[[ Line: 188 ]] --[[ Name: createImageElement ]]
         -- upvalues: l_Roact_0 (ref), l_margin_0 (copy), l_FFlagEnableModularizedUserAgreementsList_0 (ref), l_Theme_0 (copy)
-        return l_Roact_0.createElement(v58, {
+        return l_Roact_0.createElement(v59, {
             AnchorPoint = Vector2.new(1, 0.5), 
-            Size = UDim2.new(0, 14 * v59, 0, 14 * v59), 
+            Size = UDim2.new(0, 14 * v60, 0, 14 * v60), 
             Position = UDim2.new(1, -l_margin_0.right, 0.5, 0), 
             BackgroundTransparency = 1, 
             BorderSizePixel = 0, 
-            Image = v60, 
+            Image = v61, 
             ImageColor3 = if l_FFlagEnableModularizedUserAgreementsList_0 then l_Theme_0.UIEmphasis.Color else l_Theme_0.SecondaryDefault.Color, 
             ImageTransparency = l_FFlagEnableModularizedUserAgreementsList_0 and 0 or l_Theme_0.SecondaryDefault.Transparency
         });
     end;
     return l_Roact_0.createElement("ImageButton", {
         LayoutOrder = l_LayoutOrder_0, 
-        Size = if l_GetFFlagVngTOSRevisedEnabled_0() then UDim2.new(1, 0, 0, l_v39_0) else l_Size_0, 
+        Size = if l_GetFFlagVngTOSRevisedEnabled_0() then UDim2.new(1, 0, 0, l_v40_0) else l_Size_0, 
         AutoButtonColor = false, 
-        BackgroundColor3 = v36.Theme.BackgroundOnPress.Color, 
-        BackgroundTransparency = v34.buttonPressed:map(function(v62) --[[ Line: 200 ]]
-            -- upvalues: v36 (copy)
-            return v62 and v36.Theme.BackgroundOnPress.Transparency or 1;
+        BackgroundColor3 = v37.Theme.BackgroundOnPress.Color, 
+        BackgroundTransparency = v35.buttonPressed:map(function(v63) --[[ Line: 210 ]]
+            -- upvalues: v37 (copy)
+            return v63 and v37.Theme.BackgroundOnPress.Transparency or 1;
         end), 
         BorderSizePixel = 0, 
-        [l_Roact_0.Event.InputBegan] = v34.onButtonInputBegan, 
-        [l_Roact_0.Event.InputEnded] = v34.onButtonInputEnded, 
-        [l_Roact_0.Event.Activated] = function() --[[ Line: 206 ]]
-            -- upvalues: v34 (copy), l_displayUrl_0 (copy), l_agreementTitle_0 (copy), v19 (ref), l_shortTitle_0 (copy), l_AppPage_0 (ref), l_NotificationType_0 (ref)
-            if v34.props.useExternalBrowserForDisclaimerLinks then
-                openExternalBrowser(v34.props.linking, l_displayUrl_0);
+        [l_Roact_0.Event.InputBegan] = v35.onButtonInputBegan, 
+        [l_Roact_0.Event.InputEnded] = v35.onButtonInputEnded, 
+        [l_Roact_0.Event.Activated] = function() --[[ Line: 216 ]]
+            -- upvalues: v35 (copy), l_displayUrl_0 (copy), l_agreementTitle_0 (copy), v19 (ref), l_shortTitle_0 (copy), l_AppPage_0 (ref), l_NotificationType_0 (ref)
+            if v35.props.useExternalBrowserForDisclaimerLinks then
+                openExternalBrowser(v35.props.linking, l_displayUrl_0);
                 return;
             else
                 local l_l_agreementTitle_0_0 = l_agreementTitle_0;
                 if v19 and string.len(l_agreementTitle_0) > 30 then
                     l_l_agreementTitle_0_0 = (not (l_shortTitle_0 ~= nil) or l_shortTitle_0 == "") and "Terms" or l_shortTitle_0;
                 end;
-                v34.props.navigateDown({
+                v35.props.navigateDown({
                     name = l_AppPage_0.GenericWebPage, 
                     detail = l_displayUrl_0, 
                     extraProps = {
@@ -178,10 +184,10 @@ v26.renderWithProviders = function(v34, v35, v36) --[[ Line: 123 ]] --[[ Name: r
             PaddingTop = UDim.new(0, l_margin_0.top), 
             PaddingBottom = UDim.new(0, l_margin_0.bottom), 
             PaddingLeft = UDim.new(0, l_margin_0.left), 
-            PaddingRight = if l_FFlagEnableModularizedUserAgreementsList_0 and v42 then UDim.new(0, l_margin_0.right * 2) else UDim.new(0, 0)
+            PaddingRight = if l_FFlagEnableModularizedUserAgreementsList_0 and v43 then UDim.new(0, l_margin_0.right * 2) else UDim.new(0, 0)
         }), 
         TextLayout = l_Roact_0.createElement("Frame", {
-            Size = UDim2.new(1, v46, 1, 0), 
+            Size = UDim2.new(1, v47, 1, 0), 
             BackgroundTransparency = 1, 
             BorderSizePixel = 0
         }, {
@@ -201,41 +207,41 @@ v26.renderWithProviders = function(v34, v35, v36) --[[ Line: 123 ]] --[[ Name: r
                 textYAlignment = Enum.TextYAlignment.Center, 
                 textTruncate = Enum.TextTruncate.None, 
                 automaticSize = Enum.AutomaticSize.Y, 
-                onAbsoluteSizeChange = function(v64) --[[ Line: 255 ]] --[[ Name: onAbsoluteSizeChange ]]
-                    -- upvalues: v34 (copy)
-                    local l_AbsoluteSize_0 = v64.AbsoluteSize;
-                    if v34.state.titleTextWidth ~= l_AbsoluteSize_0.X then
-                        v34:setState({
+                onAbsoluteSizeChange = function(v65) --[[ Line: 265 ]] --[[ Name: onAbsoluteSizeChange ]]
+                    -- upvalues: v35 (copy)
+                    local l_AbsoluteSize_0 = v65.AbsoluteSize;
+                    if v35.state.titleTextWidth ~= l_AbsoluteSize_0.X then
+                        v35:setState({
                             titleTextWidth = l_AbsoluteSize_0.X
                         });
                     end;
                 end
             }) else l_Roact_0.createElement("TextLabel", {
                 LayoutOrder = 1, 
-                Size = UDim2.new(l_FFlagEnableModularizedUserAgreementsList_0 and v42 and 0.9 or 1, 0, 0, l_FFlagEnableModularizedUserAgreementsList_0 and 40 or 20), 
+                Size = UDim2.new(l_FFlagEnableModularizedUserAgreementsList_0 and v43 and 0.9 or 1, 0, 0, l_FFlagEnableModularizedUserAgreementsList_0 and 40 or 20), 
                 Position = UDim2.new(0, 0, 0.5, 0), 
                 AnchorPoint = Vector2.new(0, 0.5), 
                 BackgroundTransparency = 1, 
                 BorderSizePixel = 0, 
                 Text = l_agreementTitle_0, 
                 Font = if l_FFlagEnableModularizedUserAgreementsList_0 then l_Font_0.Body.Font else l_Font_0.Header2.Font, 
-                TextSize = v47, 
-                LineHeight = v48, 
+                TextSize = v48, 
+                LineHeight = v49, 
                 TextColor3 = l_Theme_0.TextMuted.Color, 
                 TextTransparency = l_Theme_0.TextMuted.Transparency, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 TextWrapped = l_FFlagEnableModularizedUserAgreementsList_0 and true or false, 
                 TextYAlignment = Enum.TextYAlignment.Center
             }), 
-            LinkText = v34.showLinkText() and l_Roact_0.createElement("TextLabel", {
+            LinkText = v35.showLinkText() and l_Roact_0.createElement("TextLabel", {
                 LayoutOrder = 2, 
                 Size = UDim2.new(1, 0, 0, 14), 
                 BackgroundTransparency = 1, 
                 BorderSizePixel = 0, 
                 Text = l_displayUrl_0, 
                 Font = l_Font_0.Header2.Font, 
-                TextSize = v49, 
-                LineHeight = v50, 
+                TextSize = v50, 
+                LineHeight = v51, 
                 TextColor3 = l_Theme_0.TextEmphasis.Color, 
                 TextTransparency = 0.5, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
@@ -243,37 +249,37 @@ v26.renderWithProviders = function(v34, v35, v36) --[[ Line: 123 ]] --[[ Name: r
                 TextTruncate = Enum.TextTruncate.AtEnd
             }) or nil
         }), 
-        RightImage = v61(v55, v56, v57)
+        RightImage = v62(v56, v57, v58)
     });
 end;
-v26.render = function(v66) --[[ Line: 307 ]] --[[ Name: render ]]
-    -- upvalues: v25 (copy), l_withLocalization_0 (copy), l_withStyle_0 (copy)
-    local v67 = v25[v66.props.agreement.agreementType] or "CommonUI.UserAgreements.Popup.DefaultAgreementTitle";
+v27.render = function(v67) --[[ Line: 317 ]] --[[ Name: render ]]
+    -- upvalues: v26 (ref), l_withLocalization_0 (copy), l_withStyle_0 (copy)
+    local v68 = v26[v67.props.agreement.agreementType] or "CommonUI.UserAgreements.Popup.DefaultAgreementTitle";
     return l_withLocalization_0({
-        agreementTitle = v67, 
+        agreementTitle = v68, 
         shortTitle = "CommonUI.UserAgreements.Popup.TitleOnWebview"
-    })(function(v68) --[[ Line: 317 ]]
-        -- upvalues: l_withStyle_0 (ref), v66 (copy)
-        return l_withStyle_0(function(v69) --[[ Line: 318 ]]
-            -- upvalues: v66 (ref), v68 (copy)
-            return v66:renderWithProviders(v68, v69);
+    })(function(v69) --[[ Line: 327 ]]
+        -- upvalues: l_withStyle_0 (ref), v67 (copy)
+        return l_withStyle_0(function(v70) --[[ Line: 328 ]]
+            -- upvalues: v67 (ref), v69 (copy)
+            return v67:renderWithProviders(v69, v70);
         end);
     end);
 end;
-v26 = l_RoactAppPolicy_0.connect(function(v70) --[[ Line: 324 ]]
+v27 = l_RoactAppPolicy_0.connect(function(v71) --[[ Line: 334 ]]
     return {
-        useExternalBrowserForDisclaimerLinks = v70.shouldUseExternalBrowserForDisclaimerLinks()
+        useExternalBrowserForDisclaimerLinks = v71.shouldUseExternalBrowserForDisclaimerLinks()
     };
-end)(v26);
-v26 = l_RoactServices_0.connect({
+end)(v27);
+v27 = l_RoactServices_0.connect({
     linking = l_AppLinking_0
-})(v26);
-return (l_RoactRodux_0.connect(nil, function(v71) --[[ Line: 334 ]]
+})(v27);
+return (l_RoactRodux_0.connect(nil, function(v72) --[[ Line: 344 ]]
     -- upvalues: l_NavigateDown_0 (copy)
     return {
-        navigateDown = function(v72) --[[ Line: 336 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v71 (copy), l_NavigateDown_0 (ref)
-            v71(l_NavigateDown_0(v72));
+        navigateDown = function(v73) --[[ Line: 346 ]] --[[ Name: navigateDown ]]
+            -- upvalues: v72 (copy), l_NavigateDown_0 (ref)
+            v72(l_NavigateDown_0(v73));
         end
     };
-end)(v26));
+end)(v27));

@@ -1,146 +1,106 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("ProfilePlatform");
-local l_AppStorageService_0 = game:GetService("AppStorageService");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v3 = require(l_Parent_0.React);
-local l_useLocalization_0 = require(l_Parent_0.Localization).Hooks.useLocalization;
-local v5 = require(l_script_FirstAncestor_0.Common.TextKeys);
-local v6 = require(l_Parent_0.Navigation);
-local v7 = require(l_Parent_0.ReactFocusNavigation);
-local v8 = require(l_Parent_0.FocusNavigationUtils);
-local v9 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
-local v10 = require(l_script_FirstAncestor_0.Components.ProfileActionBar.useMapJsonToProfileActions);
-local v11 = require(l_script_FirstAncestor_0.Components.ProfileActionBar.ProfileActionBar);
-local l_useNavigation_0 = v6.useNavigation;
-local v13 = require(l_script_FirstAncestor_0.Common.Enums);
-local v14 = require(l_script_FirstAncestor_0.Common.Constants);
+local v2 = require(l_Parent_0.React);
+local v3 = require(l_Parent_0.Navigation);
+local v4 = require(l_Parent_0.ReactFocusNavigation);
+local v5 = require(l_Parent_0.FocusNavigationUtils);
+local v6 = require(l_script_FirstAncestor_0.Contexts.useProfileWrapperContext);
+local v7 = require(l_script_FirstAncestor_0.Components.ProfileActionBar.useMapJsonToProfileActions);
+local v8 = require(l_script_FirstAncestor_0.Hooks.useProfileJsonComponent);
+local v9 = require(l_script_FirstAncestor_0.Components.ProfileActionBar.ProfileActionBar);
+local v10 = require(l_script_FirstAncestor_0.Components.ProfileActionBar.ProfileActionBarWithTransferTooltip);
+local l_useNavigation_0 = v3.useNavigation;
+local v12 = require(l_script_FirstAncestor_0.Common.Enums);
+local v13 = require(l_script_FirstAncestor_0.Common.Constants);
+local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer;
 local v15 = require(l_script_FirstAncestor_0.Contexts.useProfileAnalyticsContext);
 local v16 = require(l_script_FirstAncestor_0.Analytics.EventNames);
 local l_useEffectOnMount_0 = require(l_Parent_0.RoactUtils).Hooks.useEffectOnMount;
 local v18 = require(l_Parent_0.SocialStopwatch);
 local v19 = require(l_script_FirstAncestor_0.Analytics.LoadingStagesExtension);
-local l_useFocusGuiObject_0 = v7.useFocusGuiObject;
-local l_useLastInputMode_0 = v8.useLastInputMode;
+local l_useFocusGuiObject_0 = v4.useFocusGuiObject;
+local l_useLastInputMode_0 = v5.useLastInputMode;
 local v22 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformEnableTransferTooltip);
-local v23 = require(l_script_FirstAncestor_0.Flags.GetFIntProfilePlatformCurrencyTransferTooltipMaxImpressions);
-return function(v24) --[[ Line: 39 ]] --[[ Name: ProfileActionBarContainer ]]
-    -- upvalues: v9 (copy), l_useNavigation_0 (copy), l_useFocusGuiObject_0 (copy), l_useLastInputMode_0 (copy), v15 (copy), v3 (copy), v16 (copy), v14 (copy), v13 (copy), v10 (copy), l_useLocalization_0 (copy), v5 (copy), v22 (copy), v23 (copy), l_AppStorageService_0 (copy), l_useEffectOnMount_0 (copy), v18 (copy), v19 (copy), v11 (copy)
-    local l_profileId_0 = v9().profileId;
-    local v26 = l_useNavigation_0();
-    local v27 = l_useFocusGuiObject_0();
-    local v28 = l_useLastInputMode_0();
-    local v29 = v15();
-    local v30, v31 = v3.useState(false);
-    local v32 = v3.useRef(nil);
-    local v33 = v3.useRef(nil);
-    local v34 = v3.useRef(nil);
-    local v36 = v3.useCallback(function() --[[ Line: 51 ]]
-        -- upvalues: v30 (copy), v34 (copy), v29 (copy), v16 (ref), v14 (ref), v31 (copy), v32 (copy), v26 (copy), v13 (ref)
-        if v30 then
-            if v34 and v34.current then
-                v34.current();
+return function(v23) --[[ Line: 36 ]] --[[ Name: ProfileActionBarContainer ]]
+    -- upvalues: v6 (copy), l_useNavigation_0 (copy), l_useFocusGuiObject_0 (copy), l_useLastInputMode_0 (copy), v15 (copy), v2 (copy), v16 (copy), v13 (copy), v12 (copy), v7 (copy), v22 (copy), v8 (copy), l_FFlagProfilePlatformEnableCurrencyTransfer_0 (copy), l_useEffectOnMount_0 (copy), v18 (copy), v19 (copy), v10 (copy), v9 (copy)
+    local l_profileId_0 = v6().profileId;
+    local v25 = l_useNavigation_0();
+    local v26 = l_useFocusGuiObject_0();
+    local v27 = l_useLastInputMode_0();
+    local v28 = v15();
+    local v29, v30 = v2.useState(false);
+    local v31 = v2.useRef(nil);
+    local v32 = v2.useRef(nil);
+    local v33 = v2.useRef(nil);
+    local v35 = v2.useCallback(function() --[[ Line: 48 ]]
+        -- upvalues: v29 (copy), v33 (copy), v28 (copy), v16 (ref), v13 (ref), v30 (copy), v31 (copy), v25 (copy), v12 (ref)
+        if v29 then
+            if v33 and v33.current then
+                v33.current();
             end;
             return;
         else
-            v29.fireAnalyticsEvent(v16.ContextualMenuButton);
-            local v35 = {
-                [v14.Navigation.ON_CLOSE] = function() --[[ Line: 62 ]]
+            v28.fireAnalyticsEvent(v16.ContextualMenuButton);
+            local v34 = {
+                [v13.Navigation.ON_CLOSE] = function() --[[ Line: 59 ]]
+                    -- upvalues: v30 (ref)
+                    v30(false);
+                end, 
+                [v13.Navigation.GET_ROOT_ELEMENT_REF] = function() --[[ Line: 62 ]]
                     -- upvalues: v31 (ref)
-                    v31(false);
+                    return v31.current;
                 end, 
-                [v14.Navigation.GET_ROOT_ELEMENT_REF] = function() --[[ Line: 65 ]]
-                    -- upvalues: v32 (ref)
-                    return v32.current;
-                end, 
-                [v14.Navigation.ON_DISMISS_REF] = v34
+                [v13.Navigation.ON_DISMISS_REF] = v33
             };
-            v26.navigate(v13.Screens.ContextualMenu, v35);
-            v31(true);
+            v25.navigate(v12.Screens.ContextualMenu, v34);
+            v30(true);
             return;
         end;
     end, {
-        v26, 
-        v30
+        v25, 
+        v29
     });
-    v3.useEffect(function() --[[ Line: 76 ]]
-        -- upvalues: v33 (copy), v28 (copy), v27 (copy)
-        if v33.current and v28 == "Focus" then
-            v27(v33.current);
+    v2.useEffect(function() --[[ Line: 73 ]]
+        -- upvalues: v32 (copy), v27 (copy), v26 (copy)
+        if v32.current and v27 == "Focus" then
+            v26(v32.current);
         end;
     end, {
-        v33.current, 
-        v28
+        v32.current, 
+        v27
     });
-    local v37, v38, v39 = v10(l_profileId_0);
-    local v40 = l_useLocalization_0({
-        plusMoreMenuTooltipTitle = v5.CurrencyTransferTooltipTitle, 
-        plusMoreMenuTooltipBody = v5.CurrencyTransferTooltipBody
-    });
-    local v41, v42 = v3.useState(false);
-    local v43 = v3.useRef(false);
-    local l_game_EngineFeature_0 = game:GetEngineFeature("CurrencyTransferProfileActionTooltipStorageKey");
-    v3.useEffect(function() --[[ Line: 93 ]]
-        -- upvalues: v22 (ref), v39 (copy), v43 (copy), l_game_EngineFeature_0 (copy), v23 (ref), l_AppStorageService_0 (ref), v42 (copy)
-        if not v22 or not v39 or v43.current then
-            return;
-        else
-            if l_game_EngineFeature_0 then
-                local v45 = v23();
-                local v46 = tonumber(l_AppStorageService_0:GetItem("CurrencyTransferProfileActionTooltipImpressionsCount")) or 0;
-                if v45 <= v46 then
-                    return;
-                else
-                    l_AppStorageService_0:SetItem("CurrencyTransferProfileActionTooltipImpressionsCount", (tostring(v46 + 1)));
-                    l_AppStorageService_0:Flush();
-                end;
-            end;
-            v43.current = true;
-            v42(true);
-            return;
-        end;
-    end, {
-        v39, 
-        l_game_EngineFeature_0
-    });
-    local v48 = v3.useCallback(function() --[[ Line: 118 ]]
-        -- upvalues: l_game_EngineFeature_0 (copy), v23 (ref), l_AppStorageService_0 (ref), v42 (copy)
-        if l_game_EngineFeature_0 then
-            local v47 = v23();
-            l_AppStorageService_0:SetItem("CurrencyTransferProfileActionTooltipImpressionsCount", (tostring(v47)));
-            l_AppStorageService_0:Flush();
-        end;
-        v42(false);
-    end, {
-        l_game_EngineFeature_0
-    });
-    local v49 = v3.useMemo(function() --[[ Line: 128 ]]
-        -- upvalues: v40 (copy), v48 (copy)
-        return {
-            plusMoreMenuTooltipTitle = v40.plusMoreMenuTooltipTitle, 
-            plusMoreMenuTooltipBody = v40.plusMoreMenuTooltipBody, 
-            onPlusMoreMenuTooltipClose = v48
-        };
-    end, {
-        v40.plusMoreMenuTooltipTitle, 
-        v40.plusMoreMenuTooltipBody, 
-        v48
-    });
-    l_useEffectOnMount_0(function() --[[ Line: 138 ]]
-        -- upvalues: v18 (ref), v29 (copy), v16 (ref), v19 (ref)
-        local v50 = v18.Stopwatch.get(v18.Events.ProfileOpened);
-        v29.fireAnalyticsEvent(v16.ProfileLoadingStage, {
-            statValue = if v50 then v50.timeElapsed else nil, 
+    local v36, v37 = v7(l_profileId_0);
+    local v38 = nil;
+    if v22 then
+        local v39 = v8(v12.Components.Actions) or {};
+        v38 = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and v39.contextual ~= nil and table.find(v39.contextual, v12.ProfileActions.CurrencyTransfer) ~= nil;
+    end;
+    l_useEffectOnMount_0(function() --[[ Line: 88 ]]
+        -- upvalues: v18 (ref), v28 (copy), v16 (ref), v19 (ref)
+        local v40 = v18.Stopwatch.get(v18.Events.ProfileOpened);
+        v28.fireAnalyticsEvent(v16.ProfileLoadingStage, {
+            statValue = if v40 then v40.timeElapsed else nil, 
             status = v19.CTALoaded, 
             isProfilePlatform = true
         });
     end);
-    return v3.createElement(v11, {
-        isContextualMenuOpen = v30, 
-        layoutOrder = v24.layoutOrder, 
-        openContextualMenu = if v38 then v36 else nil, 
-        profileActions = v37, 
-        primaryButtonRef = v33, 
-        moreButtonRef = v32, 
-        showPlusMoreMenuTooltip = v41, 
-        upsellTooltipProps = v49
-    });
+    if v22 and v38 then
+        return (v2.createElement(v10, {
+            isContextualMenuOpen = v29, 
+            layoutOrder = v23.layoutOrder, 
+            openContextualMenu = if v37 then v35 else nil, 
+            profileActions = v36, 
+            primaryButtonRef = v32, 
+            moreButtonRef = v31
+        }));
+    else
+        return (v2.createElement(v9, {
+            isContextualMenuOpen = v29, 
+            layoutOrder = v23.layoutOrder, 
+            openContextualMenu = if v37 then v35 else nil, 
+            profileActions = v36, 
+            primaryButtonRef = v32, 
+            moreButtonRef = v31
+        }));
+    end;
 end;

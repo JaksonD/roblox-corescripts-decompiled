@@ -20,5 +20,6 @@ return {
     AccountSwitcherExperimentVariantId = "AccountSwitcherExperimentVariantId", 
     ActivePartyId = "ActivePartyId", 
     LastSuccessfulSignInMethod = "LastSuccessfulSignInMethod", 
-    DiscoveryClientFallbackCache = "DiscoveryClientFallbackCache"
+    DiscoveryClientFallbackCache = "DiscoveryClientFallbackCache", 
+    HasRobloxSubscription = "HasRobloxSubscription"
 };

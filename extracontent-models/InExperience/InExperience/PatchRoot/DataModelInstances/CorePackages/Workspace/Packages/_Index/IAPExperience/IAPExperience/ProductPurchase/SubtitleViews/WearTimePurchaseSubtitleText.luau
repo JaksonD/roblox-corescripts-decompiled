@@ -27,7 +27,7 @@ return function(v8) --[[ Line: 18 ]] --[[ Name: WearTimePurchaseSubtitleText ]]
         }) else nil, 
         DurationText = v1.createElement(l_Text_0, {
             LayoutOrder = 2, 
-            Text = if l_timedOptionDays_0 then v10.timedOptionText else v10.infinite, 
+            Text = if l_timedOptionDays_0 and l_timedOptionDays_0 ~= 0 then v10.timedOptionText else v10.infinite, 
             tag = "auto-xy text-title-small content-default"
         })
     });

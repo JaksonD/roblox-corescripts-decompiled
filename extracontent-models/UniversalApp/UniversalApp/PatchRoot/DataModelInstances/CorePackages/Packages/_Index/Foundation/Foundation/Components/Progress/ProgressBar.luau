@@ -3,84 +3,83 @@ local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.React);
 local v3 = require(l_Parent_0.ReactIs);
 local v4 = require(script.Parent.constants);
-local v5 = require(l_script_FirstAncestor_0.Utility.Flags);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v7 = require(l_script_FirstAncestor_0.Components.View);
-local v8 = require(l_script_FirstAncestor_0.Providers.Preferences.usePreferences);
-local v9 = require(script.Parent.useProgressBinding);
-local v10 = require(script.Parent.useProgressVariants);
-local v11 = require(l_script_FirstAncestor_0.Utility.usePulseBinding);
-local v12 = require(l_script_FirstAncestor_0.Utility.useRotation);
-local v13 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
-local v14 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v15 = require(l_script_FirstAncestor_0.Utility.withDefaults);
+local v6 = require(l_script_FirstAncestor_0.Components.View);
+local v7 = require(l_script_FirstAncestor_0.Providers.Preferences.usePreferences);
+local v8 = require(script.Parent.useProgressBinding);
+local v9 = require(script.Parent.useProgressVariants);
+local v10 = require(l_script_FirstAncestor_0.Utility.usePulseBinding);
+local v11 = require(l_script_FirstAncestor_0.Utility.useRotation);
+local v12 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
+local v13 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
+local v14 = require(l_script_FirstAncestor_0.Utility.withDefaults);
 local _ = require(l_script_FirstAncestor_0.Enums.ProgressShape);
-local v17 = require(l_script_FirstAncestor_0.Enums.ProgressSize);
-local function v21(v18) --[[ Line: 28 ]] --[[ Name: getBarSequenceFromProgress ]]
-    local v19 = v18 or 0;
-    if v19 == 0 then
+local v16 = require(l_script_FirstAncestor_0.Enums.ProgressSize);
+local function v20(v17) --[[ Line: 27 ]] --[[ Name: getBarSequenceFromProgress ]]
+    local v18 = v17 or 0;
+    if v18 == 0 then
         return NumberSequence.new(1);
-    elseif v19 == 1 then
+    elseif v18 == 1 then
         return NumberSequence.new(0);
     else
-        local v20 = {
+        local v19 = {
             NumberSequenceKeypoint.new(0, 0), 
-            NumberSequenceKeypoint.new(v19, 0), 
-            NumberSequenceKeypoint.new(math.min(v19 + 0.001, 1), 1)
+            NumberSequenceKeypoint.new(v18, 0), 
+            NumberSequenceKeypoint.new(math.min(v18 + 0.001, 1), 1)
         };
-        if v19 < 0.999 then
-            table.insert(v20, NumberSequenceKeypoint.new(1, 1));
+        if v18 < 0.999 then
+            table.insert(v19, NumberSequenceKeypoint.new(1, 1));
         end;
-        return NumberSequence.new(v20);
+        return NumberSequence.new(v19);
     end;
 end;
-local v22 = {
-    size = v17.Medium, 
+local v21 = {
+    size = v16.Medium, 
     width = UDim.new(1, 0)
 };
-return function(v23) --[[ Line: 64 ]] --[[ Name: ProgressBar ]]
-    -- upvalues: v15 (copy), v22 (copy), v13 (copy), v8 (copy), v10 (copy), v9 (copy), v12 (copy), v11 (copy), v4 (copy), v3 (copy), v5 (copy), v21 (copy), v2 (copy), v7 (copy), v14 (copy)
-    local v24 = v15(v23, v22);
-    local v25 = v13();
-    local v26 = v8();
-    local v27 = v10(v25, v24.size);
-    local v28, v29 = v9(v24.value);
-    local v30 = v12(1);
-    local v31 = v11(1 / v4.INDETERMINATE_SHIMMER_SPEED);
-    local v32 = if not v3.isBinding(v28) and v5.FoundationProgressBindableValue then v21(v28) else v28:map(v21);
-    return v2.createElement(v7, v14(v24, {
-        Size = UDim2.new(v24.width, UDim.new(0, v27.bar.height)), 
+return function(v22) --[[ Line: 63 ]] --[[ Name: ProgressBar ]]
+    -- upvalues: v14 (copy), v21 (copy), v12 (copy), v7 (copy), v9 (copy), v8 (copy), v11 (copy), v10 (copy), v4 (copy), v3 (copy), v20 (copy), v2 (copy), v6 (copy), v13 (copy)
+    local v23 = v14(v22, v21);
+    local v24 = v12();
+    local v25 = v7();
+    local v26 = v9(v24, v23.size);
+    local v27, v28 = v8(v23.value);
+    local v29 = v11(1);
+    local v30 = v10(1 / v4.INDETERMINATE_SHIMMER_SPEED);
+    local v31 = if v3.isBinding(v27) then v27:map(v20) else v20(v27);
+    return v2.createElement(v6, v13(v23, {
+        Size = UDim2.new(v23.width, UDim.new(0, v26.bar.height)), 
         tag = "radius-small bg-shift-400", 
-        ref = v24.ref
+        ref = v23.ref
     }), {
-        Fill = v2.createElement(v7, {
-            backgroundStyle = v25.Color.Content.Emphasis, 
+        Fill = v2.createElement(v6, {
+            backgroundStyle = v24.Color.Content.Emphasis, 
             tag = "size-full radius-small", 
-            ref = v24.ref, 
-            testId = ("%*--fill"):format(v24.testId)
+            ref = v23.ref, 
+            testId = ("%*--fill"):format(v23.testId)
         }, {
             Gradient = v2.createElement("UIGradient", {
-                Color = ColorSequence.new(v25.Color.Content.Emphasis.Color3), 
-                Transparency = if v29 then v31:map(function(v33) --[[ Line: 96 ]]
-                    -- upvalues: v26 (copy), v25 (copy)
-                    if v26.reducedMotion then
-                        return NumberSequence.new(v33);
+                Color = ColorSequence.new(v24.Color.Content.Emphasis.Color3), 
+                Transparency = if v28 then v30:map(function(v32) --[[ Line: 94 ]]
+                    -- upvalues: v25 (copy), v24 (copy)
+                    if v25.reducedMotion then
+                        return NumberSequence.new(v32);
                     else
                         return NumberSequence.new({
                             NumberSequenceKeypoint.new(0, 1), 
                             NumberSequenceKeypoint.new(0.2, 1), 
-                            NumberSequenceKeypoint.new(0.5, v25.Color.Content.Emphasis.Transparency), 
+                            NumberSequenceKeypoint.new(0.5, v24.Color.Content.Emphasis.Transparency), 
                             NumberSequenceKeypoint.new(0.8, 1), 
                             NumberSequenceKeypoint.new(1, 1)
                         });
                     end;
-                end) else v32, 
-                Offset = if v29 then v30:map(function(v34) --[[ Line: 111 ]]
-                    -- upvalues: v26 (copy), v4 (ref)
-                    if v26.reducedMotion then
+                end) else v31, 
+                Offset = if v28 then v29:map(function(v33) --[[ Line: 109 ]]
+                    -- upvalues: v25 (copy), v4 (ref)
+                    if v25.reducedMotion then
                         return Vector2.new(0, 0);
                     else
-                        return Vector2.new(v34 * v4.INDETERMINATE_SHIMMER_SPEED % 360 / 360 * 2 - 1, 0);
+                        return Vector2.new(v33 * v4.INDETERMINATE_SHIMMER_SPEED % 360 / 360 * 2 - 1, 0);
                     end;
                 end) else nil
             })

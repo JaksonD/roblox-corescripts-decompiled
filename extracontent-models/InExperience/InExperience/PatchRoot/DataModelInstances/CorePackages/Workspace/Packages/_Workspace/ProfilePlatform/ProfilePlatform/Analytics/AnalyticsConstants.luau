@@ -20,7 +20,8 @@ return {
         JoinCommunity = "JoinCommunity", 
         ViewCommunity = "ViewCommunity", 
         ViewFullProfile = "ViewFullProfile", 
-        Follow = "Follow"
+        Follow = "Follow", 
+        CurrencyTransfer = "CurrencyTransfer"
     }, 
     ContextualMenuButtons = {
         Chat = "contextualMenu_chat", 
@@ -37,7 +38,8 @@ return {
         RemoveTrustedConnection = "contextualMenu_removeTrustedConnection", 
         AddTrustedConnection = "contextualMenu_addTrustedConnection", 
         AddIncomingTrustedConnection = "contextualMenu_addIncomingTrustedConnection", 
-        ViewPlatformProfile = "contextualMenu_viewPlatformProfile"
+        ViewPlatformProfile = "contextualMenu_viewPlatformProfile", 
+        CurrencyTransfer = "contextualMenu_currencyTransfer"
     }, 
     Btns = {
         Friends = "friends", 

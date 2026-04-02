@@ -609,6 +609,7 @@ return v2.createReducer(nil, {
                     v180 = v85(v180, {
                         assetId = v183.assetId, 
                         assetTypeId = v183.assetTypeId, 
+                        overrideOrder = v183.order, 
                         overrideAdjustments = l_assetId_2
                     }, {
                         ignoreAccessoryLimits = true
@@ -618,7 +619,7 @@ return v2.createReducer(nil, {
         end;
         return v180;
     end or nil, 
-    [v19.name] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else function(v187, _) --[[ Line: 909 ]]
+    [v19.name] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else function(v187, _) --[[ Line: 910 ]]
         -- upvalues: l_FFlagAXBlockMakeupEquipR6_0 (copy), l_ASSET_TYPE_ID_STRING_TO_MAKEUP_TYPE_0 (copy), v3 (copy)
         v187 = v187 or {};
         local v189 = {};
@@ -635,7 +636,7 @@ return v2.createReducer(nil, {
                 end;
             end;
         end;
-        table.sort(v189, function(v196, v197) --[[ Line: 936 ]]
+        table.sort(v189, function(v196, v197) --[[ Line: 937 ]]
             local v198 = false;
             if v196.metadata.order ~= nil then
                 v198 = true;
@@ -660,7 +661,7 @@ return v2.createReducer(nil, {
         end;
         return v187;
     end, 
-    [v26.name] = if not l_FFlagAXBlockMakeupEquipR6_0 then nil else function(v205, _) --[[ Line: 962 ]]
+    [v26.name] = if not l_FFlagAXBlockMakeupEquipR6_0 then nil else function(v205, _) --[[ Line: 963 ]]
         -- upvalues: l_isMakeupAssetType_0 (copy), v3 (copy)
         v205 = v205 or {};
         for v207, _ in v205 do

@@ -18,61 +18,71 @@ local l_useSelector_0 = v4.Hooks.useSelector;
 local l_dependencyArray_0 = v4.Hooks.dependencyArray;
 local l_GetFFlagEnableCrossExpVoice_0 = l_SharedFlags_0.GetFFlagEnableCrossExpVoice;
 local l_getFFlagEnableCrossExpVoiceAbuseReport_0 = l_SharedFlags_0.getFFlagEnableCrossExpVoiceAbuseReport;
-return function(v20, v21) --[[ Line: 25 ]] --[[ Name: useSquadUserDropdownMenuButtons ]]
-    -- upvalues: l_useLocalUserId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useBackgroundExperience_0 (copy), l_React_0 (copy), l_useIsLocalPlayerPartyVoiceEligible_0 (copy), l_useIsUserPartyVoiceEligible_0 (copy), l_useIsCurrentSquadPartyVoiceEligible_0 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_useSelector_0 (copy), l_PresenceType_0 (copy), l_Constants_0 (copy), l_getFFlagEnableCrossExpVoiceAbuseReport_0 (copy), l_dependencyArray_0 (copy)
-    local v22 = l_useLocalUserId_0();
-    local v23 = tostring(v22) == tostring(v20);
-    local v24 = nil;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = l_SharedFlags_0.FFlagRemoveDependencyArrayAntipattern;
+return function(v21, v22) --[[ Line: 26 ]] --[[ Name: useSquadUserDropdownMenuButtons ]]
+    -- upvalues: l_useLocalUserId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useBackgroundExperience_0 (copy), l_React_0 (copy), l_useIsLocalPlayerPartyVoiceEligible_0 (copy), l_useIsUserPartyVoiceEligible_0 (copy), l_useIsCurrentSquadPartyVoiceEligible_0 (copy), l_SquadExternalContractContext_0 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_useSelector_0 (copy), l_PresenceType_0 (copy), l_Constants_0 (copy), l_getFFlagEnableCrossExpVoiceAbuseReport_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy)
+    local v23 = l_useLocalUserId_0();
+    local v24 = tostring(v23) == tostring(v21);
     local v25 = nil;
-    local v26 = false;
+    local v26 = nil;
     local v27 = false;
+    local v28 = false;
     if l_GetFFlagEnableCrossExpVoice_0() then
-        local v28 = if v20 then tonumber(v20) else nil;
-        v24 = l_useBackgroundExperience_0();
-        v25 = l_React_0.useMemo(function() --[[ Line: 38 ]]
-            -- upvalues: v24 (ref)
-            if v24 then
-                return v24.voiceChannelId;
+        local v29 = if v21 then tonumber(v21) else nil;
+        v25 = l_useBackgroundExperience_0();
+        v26 = l_React_0.useMemo(function() --[[ Line: 39 ]]
+            -- upvalues: v25 (ref)
+            if v25 then
+                return v25.voiceChannelId;
             else
                 return nil;
             end;
         end, {
-            v24
+            v25
         });
-        if v28 then
-            local v29 = l_useIsLocalPlayerPartyVoiceEligible_0();
-            local v30 = l_useIsUserPartyVoiceEligible_0(v28);
-            local v31 = l_useIsCurrentSquadPartyVoiceEligible_0() == true;
-            v26 = v31 and v29 and not v30;
-            v27 = v29 and v31 and v30 and not v23;
+        if v29 then
+            local v30 = l_useIsLocalPlayerPartyVoiceEligible_0();
+            local v31 = l_useIsUserPartyVoiceEligible_0(v29);
+            local v32 = l_useIsCurrentSquadPartyVoiceEligible_0() == true;
+            v27 = v32 and v30 and not v31;
+            v28 = v30 and v32 and v31 and not v24;
         end;
     end;
-    local v32 = l_React_0.useContext(l_SquadExternalContractContext_0);
-    local v33 = l_useCurrentSquadParentChannelId_0();
-    local v34 = v32.useGetConversationFromId(v33 or "");
-    local v36 = l_React_0.useCallback(function(v35) --[[ Line: 61 ]]
-        -- upvalues: v20 (copy)
-        return v35.Squad.Presence.byUserId[tostring(v20)];
+    local v33 = l_React_0.useContext(l_SquadExternalContractContext_0);
+    local v34 = l_useCurrentSquadParentChannelId_0();
+    local v35 = v33.useGetConversationFromId(v34 or "");
+    local v37 = l_React_0.useCallback(function(v36) --[[ Line: 62 ]]
+        -- upvalues: v21 (copy)
+        return v36.Squad.Presence.byUserId[tostring(v21)];
     end, {
-        v20
+        v21
     });
-    local v37 = l_useSelector_0(v36);
-    return l_React_0.useMemo(function() --[[ Line: 68 ]]
-        -- upvalues: v26 (ref), v37 (copy), l_PresenceType_0 (ref), v34 (copy), l_Constants_0 (ref), v22 (copy), v21 (copy), l_getFFlagEnableCrossExpVoiceAbuseReport_0 (ref), v25 (ref), v23 (copy), v27 (ref)
-        local v38 = {
-            VoiceIneligibleButton = v26, 
-            JoinButton = v37 and v37.userPresenceType == l_PresenceType_0.InGame and v37.placeId and v37.gameId ~= game.JobId, 
-            RemoveUserButton = v34 and v34.type == l_Constants_0.CONVERSATION_CHANNEL_GROUP_TYPE and v34.initiator == v22, 
-            ViewProfileButton = not v21, 
-            ReportButton = l_getFFlagEnableCrossExpVoiceAbuseReport_0() and v25 and not v23, 
-            MuteVoiceButton = v27
+    local v38 = l_useSelector_0(v37);
+    return l_React_0.useMemo(function() --[[ Line: 69 ]]
+        -- upvalues: v27 (ref), v38 (copy), l_PresenceType_0 (ref), v35 (copy), l_Constants_0 (ref), v23 (copy), v22 (copy), l_getFFlagEnableCrossExpVoiceAbuseReport_0 (ref), v26 (ref), v24 (copy), v28 (ref)
+        local v39 = {
+            VoiceIneligibleButton = v27, 
+            JoinButton = v38 and v38.userPresenceType == l_PresenceType_0.InGame and v38.placeId and v38.gameId ~= game.JobId, 
+            RemoveUserButton = v35 and v35.type == l_Constants_0.CONVERSATION_CHANNEL_GROUP_TYPE and v35.initiator == v23, 
+            ViewProfileButton = not v22, 
+            ReportButton = l_getFFlagEnableCrossExpVoiceAbuseReport_0() and v26 and not v24, 
+            MuteVoiceButton = v28
         };
-        local v39 = {};
-        for v40, v41 in v38 do
-            if v41 then
-                table.insert(v39, v40);
+        local v40 = {};
+        for v41, v42 in v39 do
+            if v42 then
+                table.insert(v40, v41);
             end;
         end;
-        return v39;
-    end, l_dependencyArray_0(v26, v21, v25, v23, v37, v34, v22, v27));
+        return v40;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v27, 
+        v22, 
+        v26, 
+        v24, 
+        v38, 
+        v35, 
+        v23, 
+        v28
+    } else l_dependencyArray_0(v27, v22, v26, v24, v38, v35, v23, v28));
 end;

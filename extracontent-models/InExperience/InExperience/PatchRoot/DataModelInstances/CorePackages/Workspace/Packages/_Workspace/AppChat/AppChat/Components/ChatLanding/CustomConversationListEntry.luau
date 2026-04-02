@@ -10,7 +10,7 @@ local v8 = require(script.Parent.Utils.getBoldTextTheme);
 local l_Images_0 = v3.App.ImageSet.Images;
 local l_ImageSetLabel_0 = v3.Core.ImageSet.ImageSetLabel;
 local l_IconSize_0 = v3.App.Constant.IconSize;
-local v12 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableDomLocators);
+local v12 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
 local v13 = l_Images_0["icons/navigation/pushRight"];
 CustomConversationListEntry = function(v14) --[[ Line: 31 ]] --[[ Name: CustomConversationListEntry ]]
     -- upvalues: l_useStyle_0 (copy), v8 (copy), l_useTextSizeOffset_0 (copy), v6 (copy), l_IconSize_0 (copy), v7 (copy), v2 (copy), v12 (copy), l_ImageSetLabel_0 (copy), v13 (copy)

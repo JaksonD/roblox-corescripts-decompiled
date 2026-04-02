@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXAvatarTimeoutFlow4", false);
+return game:DefineFastFlag("AXAvatarTimeoutFlow5", false);

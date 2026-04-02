@@ -35,11 +35,12 @@ local v31 = l_createPersistenceMiddleware_0({
 });
 local l_setTimeout_0 = l_LuauPolyfill_0.setTimeout;
 local l_clearTimeout_0 = l_LuauPolyfill_0.clearTimeout;
-local v34 = game:DefineFastString("CrossExpVoicePlaceId", (tostring(v12.DEFAULT_EXPERIENCE_PLACE_ID)));
-local function v35() --[[ Line: 57 ]]
+local l_FFlagFixCrossExperienceVoiceExecutePrint_0 = l_SharedFlags_0.FFlagFixCrossExperienceVoiceExecutePrint;
+local v35 = game:DefineFastString("CrossExpVoicePlaceId", (tostring(v12.DEFAULT_EXPERIENCE_PLACE_ID)));
+local function v36() --[[ Line: 59 ]]
 
 end;
-local function _() --[[ Line: 129 ]]
+local function _() --[[ Line: 131 ]]
     -- upvalues: l_CrossExperience_0 (copy)
     if game.PlaceId == 0 then
         return l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP;
@@ -47,9 +48,9 @@ local function _() --[[ Line: 129 ]]
         return l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC;
     end;
 end;
-v17.new = function() --[[ Line: 135 ]] --[[ Name: new ]]
+v17.new = function() --[[ Line: 137 ]] --[[ Name: new ]]
     -- upvalues: l_CrossExperience_0 (copy), v13 (copy), v17 (copy)
-    local v37 = {
+    local v38 = {
         joinRequestPulseCheckId = nil, 
         connections = {}, 
         isInitialized = false, 
@@ -72,427 +73,447 @@ v17.new = function() --[[ Line: 135 ]] --[[ Name: new ]]
         voiceAnalytics = v13.default, 
         isActiveDM = true
     };
-    setmetatable(v37, v17);
-    return v37;
+    setmetatable(v38, v17);
+    return v38;
 end;
-v17.logPartyVoiceTimeout = function(v38) --[[ Line: 168 ]] --[[ Name: logPartyVoiceTimeout ]]
-    v38.voiceAnalytics:logPartyVoiceTimeout(v38.currentPartyId);
+v17.logPartyVoiceTimeout = function(v39) --[[ Line: 170 ]] --[[ Name: logPartyVoiceTimeout ]]
+    v39.voiceAnalytics:logPartyVoiceTimeout(v39.currentPartyId);
 end;
-v17.initialize = function(v39) --[[ Line: 172 ]] --[[ Name: initialize ]]
+v17.initialize = function(v40) --[[ Line: 174 ]] --[[ Name: initialize ]]
     -- upvalues: l_ExperienceService_0 (copy), l_CrossExperience_0 (copy), v14 (copy), v15 (copy), l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 (copy), l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0 (copy), l_Players_0 (copy), l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (copy), l_NotificationService_0 (copy)
-    v39.voiceAnalytics:initialize(v39.cevEventManager);
-    if v39.isInitialized == true then
+    v40.voiceAnalytics:initialize(v40.cevEventManager);
+    if v40.isInitialized == true then
         return;
     else
-        table.insert(v39.connections, l_ExperienceService_0:RegisterForExperienceJoin(function() --[[ Line: 181 ]]
-            -- upvalues: l_CrossExperience_0 (ref), v39 (copy)
+        table.insert(v40.connections, l_ExperienceService_0:RegisterForExperienceJoin(function() --[[ Line: 183 ]]
+            -- upvalues: l_CrossExperience_0 (ref), v40 (copy)
             if (if game.PlaceId == 0 then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC) == l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP then
-                v39.isActiveDM = false;
+                v40.isActiveDM = false;
             end;
         end));
-        table.insert(v39.connections, l_ExperienceService_0:RegisterForExperienceLeave(function() --[[ Line: 191 ]]
-            -- upvalues: l_CrossExperience_0 (ref), v39 (copy)
+        table.insert(v40.connections, l_ExperienceService_0:RegisterForExperienceLeave(function() --[[ Line: 193 ]]
+            -- upvalues: l_CrossExperience_0 (ref), v40 (copy)
             if (if game.PlaceId == 0 then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC) == l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP then
-                v39.isActiveDM = true;
+                v40.isActiveDM = true;
             end;
         end));
-        table.insert(v39.connections, l_ExperienceService_0.OnCrossExperienceStarted:Connect(function(_, _) --[[ Line: 201 ]]
-            -- upvalues: v39 (copy), v14 (ref), l_CrossExperience_0 (ref), v15 (ref), l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 (ref), l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0 (ref), l_Players_0 (ref), l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (ref)
-            v39.voiceAnalytics:logPartyVoiceOnCrossExperienceStartedSignalReceived(v39.hasExperienceStarted, v39.isActiveDM);
-            if v39.hasExperienceStarted then
+        table.insert(v40.connections, l_ExperienceService_0.OnCrossExperienceStarted:Connect(function(_, _) --[[ Line: 203 ]]
+            -- upvalues: v40 (copy), v14 (ref), l_CrossExperience_0 (ref), v15 (ref), l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 (ref), l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0 (ref), l_Players_0 (ref), l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (ref)
+            v40.voiceAnalytics:logPartyVoiceOnCrossExperienceStartedSignalReceived(v40.hasExperienceStarted, v40.isActiveDM);
+            if v40.hasExperienceStarted then
                 return;
-            elseif v39.observersInitialized then
+            elseif v40.observersInitialized then
                 v14:info("Observers already initialized, skipping duplicate setup");
                 return;
             else
-                v39.observersInitialized = true;
+                v40.observersInitialized = true;
                 v14:info("Initializing observers for the first time");
-                v39.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, function(v42) --[[ Line: 221 ]]
-                    -- upvalues: v39 (ref), v15 (ref), l_CrossExperience_0 (ref), l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 (ref), l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0 (ref)
-                    v39.voiceAnalytics:logPartyVoiceStateChangeHandlerRun(v39.isActiveDM, v42);
-                    if not v39.isActiveDM then
+                v40.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, function(v43) --[[ Line: 223 ]]
+                    -- upvalues: v40 (ref), v15 (ref), l_CrossExperience_0 (ref), l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 (ref), l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0 (ref)
+                    v40.voiceAnalytics:logPartyVoiceStateChangeHandlerRun(v40.isActiveDM, v43);
+                    if not v40.isActiveDM then
                         return;
                     else
-                        if v15.FFlagFireErrorRCCTimeoutSignal and v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_RCC_TIMEOUT then
-                            v39.voiceAnalytics:logPartyVoiceTimeout(v39.currentPartyId);
+                        if v15.FFlagFireErrorRCCTimeoutSignal and v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_RCC_TIMEOUT then
+                            v40.voiceAnalytics:logPartyVoiceTimeout(v40.currentPartyId);
                         elseif v15.FFlagPartyVoiceLogActiveDM then
-                            local v43 = if v39.isActiveDM then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC;
-                            if v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.VOICE_CONNECTED then
-                                v39.voiceAnalytics:logPartyVoiceConnectedState(v42, v39.currentPartyId, v43);
+                            local v44 = if v40.isActiveDM then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC;
+                            if v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.VOICE_CONNECTED then
+                                v40.voiceAnalytics:logPartyVoiceConnectedState(v43, v40.currentPartyId, v44);
                             end;
-                            v39.voiceAnalytics:logPartyVoiceStatusChanged(v42, v39.currentPartyId, v43);
+                            v40.voiceAnalytics:logPartyVoiceStatusChanged(v43, v40.currentPartyId, v44);
                         else
-                            if v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.VOICE_CONNECTED then
-                                v39.voiceAnalytics:logPartyVoiceConnectedState(v42, v39.currentPartyId, "");
+                            if v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.VOICE_CONNECTED then
+                                v40.voiceAnalytics:logPartyVoiceConnectedState(v43, v40.currentPartyId, "");
                             end;
-                            v39.voiceAnalytics:logPartyVoiceStatusChanged(v42, v39.currentPartyId, "");
+                            v40.voiceAnalytics:logPartyVoiceStatusChanged(v43, v40.currentPartyId, "");
                         end;
-                        if l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 ~= l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0.Disable and v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_BACKGROUND_DM_LOAD_LOCALPLAYER_TIMEOUT or v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_VOICE_DISCONNECTED or v15.FFlagFireErrorRCCTimeoutSignal and v42.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_RCC_TIMEOUT then
-                            v39:leave();
+                        if l_FStringTimeoutLoadingLocalPlayerInBackgroundDM_0 ~= l_LOCAL_PLAYER_LOADING_TIMEOUT_ENUM_0.Disable and v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_BACKGROUND_DM_LOAD_LOCALPLAYER_TIMEOUT or v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_VOICE_DISCONNECTED or v15.FFlagFireErrorRCCTimeoutSignal and v43.status == l_CrossExperience_0.Constants.VOICE_STATUS.ERROR_RCC_TIMEOUT then
+                            v40:leave();
                         end;
                         return;
                     end;
                 end);
-                v39.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_GAME_JOIN_FAILED, function(v44) --[[ Line: 272 ]]
-                    -- upvalues: v39 (ref), l_Players_0 (ref)
-                    v39.ExperienceJoinFailed:Fire();
-                    local v45 = if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.UserId else 0;
-                    local v46 = "PARTY_VOICE_GAME_JOIN_FAILED:-1";
-                    if v44 and v44.state then
-                        v46 = "PARTY_VOICE_GAME_JOIN_FAILED:" .. tostring(v44.state);
+                v40.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_GAME_JOIN_FAILED, function(v45) --[[ Line: 274 ]]
+                    -- upvalues: v40 (ref), l_Players_0 (ref)
+                    v40.ExperienceJoinFailed:Fire();
+                    local v46 = if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.UserId else 0;
+                    local v47 = "PARTY_VOICE_GAME_JOIN_FAILED:-1";
+                    if v45 and v45.state then
+                        v47 = "PARTY_VOICE_GAME_JOIN_FAILED:" .. tostring(v45.state);
                     end;
-                    v39.voiceAnalytics:logPartyVoiceJoinFailure(v39.currentPartyId, v46, v45);
+                    v40.voiceAnalytics:logPartyVoiceJoinFailure(v40.currentPartyId, v47, v46);
                 end);
                 if l_getFFlagEnableCrossExpVoiceMemoryCheck_0() then
-                    v39.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_MEMORY_LOW, function() --[[ Line: 283 ]]
-                        -- upvalues: v39 (ref)
-                        v39:ignoreMemoryWarning();
-                        if not v39.shouldIgnoreMemoryWarning then
-                            v39.MemoryLow:Fire();
-                            v39.shouldIgnoreMemoryWarning = true;
+                    v40.cevEventManager:addObserver(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_MEMORY_LOW, function() --[[ Line: 285 ]]
+                        -- upvalues: v40 (ref)
+                        v40:ignoreMemoryWarning();
+                        if not v40.shouldIgnoreMemoryWarning then
+                            v40.MemoryLow:Fire();
+                            v40.shouldIgnoreMemoryWarning = true;
                         end;
                     end);
                 end;
-                v39.ExperienceJoined:Fire();
-                v39.hasExperienceStarted = true;
+                v40.ExperienceJoined:Fire();
+                v40.hasExperienceStarted = true;
                 return;
             end;
         end));
-        table.insert(v39.connections, l_ExperienceService_0.OnCrossExperienceStopped:Connect(function(_, _) --[[ Line: 298 ]]
-            -- upvalues: v39 (copy)
-            v39:disconnect();
-            v39.ExperienceLeft:Fire();
-            v39:resetCEVMemStorage();
+        table.insert(v40.connections, l_ExperienceService_0.OnCrossExperienceStopped:Connect(function(_, _) --[[ Line: 300 ]]
+            -- upvalues: v40 (copy)
+            v40:disconnect();
+            v40.ExperienceLeft:Fire();
+            v40:resetCEVMemStorage();
         end));
-        table.insert(v39.connections, l_NotificationService_0.RobloxEventReceived:Connect(function(v49) --[[ Line: 310 ]]
-            -- upvalues: v39 (copy)
-            if v49.detailType == "SignOut" then
-                v39:onUserLogout();
+        table.insert(v40.connections, l_NotificationService_0.RobloxEventReceived:Connect(function(v50) --[[ Line: 312 ]]
+            -- upvalues: v40 (copy)
+            if v50.detailType == "SignOut" then
+                v40:onUserLogout();
             end;
         end));
-        v39.isInitialized = true;
+        v40.isInitialized = true;
         return;
     end;
 end;
-v17.onUserLogout = function(v50) --[[ Line: 319 ]] --[[ Name: onUserLogout ]]
-    if v50.hasExperienceStarted then
-        v50:leave();
+v17.onUserLogout = function(v51) --[[ Line: 321 ]] --[[ Name: onUserLogout ]]
+    if v51.hasExperienceStarted then
+        v51:leave();
     end;
-    if v50.isConnected then
-        v50:disconnect();
-        v50.ExperienceLeft:Fire();
-        v50:resetCEVMemStorage();
+    if v51.isConnected then
+        v51:disconnect();
+        v51.ExperienceLeft:Fire();
+        v51:resetCEVMemStorage();
     end;
 end;
-v17.getIsConnected = function(v51) --[[ Line: 330 ]] --[[ Name: getIsConnected ]]
-    return v51.isConnected;
+v17.getIsConnected = function(v52) --[[ Line: 332 ]] --[[ Name: getIsConnected ]]
+    return v52.isConnected;
 end;
-v17.setAsDisconnected = function(v52) --[[ Line: 334 ]] --[[ Name: setAsDisconnected ]]
+v17.setAsDisconnected = function(v53) --[[ Line: 336 ]] --[[ Name: setAsDisconnected ]]
     -- upvalues: l_FFlagDisconnectOnBackgroundDmPassiveState_0 (copy)
     if l_FFlagDisconnectOnBackgroundDmPassiveState_0 then
-        v52.isConnected = false;
-        v52.hasExperienceStarted = false;
-        if v52.ExperienceLeft then
-            v52.ExperienceLeft:Fire();
+        v53.isConnected = false;
+        v53.hasExperienceStarted = false;
+        if v53.ExperienceLeft then
+            v53.ExperienceLeft:Fire();
         end;
     end;
 end;
-v17.setAsConnected = function(v53) --[[ Line: 344 ]] --[[ Name: setAsConnected ]]
-    if not v53.isInitialized then
-        v53:initialize();
+v17.setAsConnected = function(v54) --[[ Line: 346 ]] --[[ Name: setAsConnected ]]
+    if not v54.isInitialized then
+        v54:initialize();
     end;
-    v53.isConnected = true;
-    v53.hasExperienceStarted = true;
-    v53.ExperienceJoined:Fire();
+    v54.isConnected = true;
+    v54.hasExperienceStarted = true;
+    v54.ExperienceJoined:Fire();
 end;
-v17.getIsBackgroundDMActive = function(_) --[[ Line: 353 ]] --[[ Name: getIsBackgroundDMActive ]]
+v17.getIsBackgroundDMActive = function(_) --[[ Line: 355 ]] --[[ Name: getIsBackgroundDMActive ]]
     -- upvalues: l_Promise_0 (copy), l_Communication_0 (copy), l_CrossExperience_0 (copy), l_BACKGROUND_DM_STATUS_0 (copy)
-    return l_Promise_0.new(function(v55, v56) --[[ Line: 354 ]]
+    return l_Promise_0.new(function(v56, v57) --[[ Line: 356 ]]
         -- upvalues: l_Communication_0 (ref), l_CrossExperience_0 (ref), l_BACKGROUND_DM_STATUS_0 (ref)
-        l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_GET_BACKGROUND_DM_STATE, {}, function(v57) --[[ Line: 358 ]]
-            -- upvalues: v55 (copy), l_BACKGROUND_DM_STATUS_0 (ref)
-            local l_v55_0 = v55;
-            local v59 = true;
-            if v57.status ~= l_BACKGROUND_DM_STATUS_0.ACTIVE then
-                v59 = v57.status == l_BACKGROUND_DM_STATUS_0.BACKGROUND;
+        l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_GET_BACKGROUND_DM_STATE, {}, function(v58) --[[ Line: 360 ]]
+            -- upvalues: v56 (copy), l_BACKGROUND_DM_STATUS_0 (ref)
+            local l_v56_0 = v56;
+            local v60 = true;
+            if v58.status ~= l_BACKGROUND_DM_STATUS_0.ACTIVE then
+                v60 = v58.status == l_BACKGROUND_DM_STATUS_0.BACKGROUND;
             end;
-            l_v55_0(v59);
-        end, function() --[[ Line: 361 ]]
-            -- upvalues: v56 (copy)
-            v56();
+            l_v56_0(v60);
+        end, function() --[[ Line: 363 ]]
+            -- upvalues: v57 (copy)
+            v57();
         end);
     end);
 end;
-v17.performJoinFeasibilityCheck = function(v60) --[[ Line: 369 ]] --[[ Name: performJoinFeasibilityCheck ]]
-    -- upvalues: l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (copy), l_CrossExperience_0 (copy), v14 (copy)
+v17.performJoinFeasibilityCheck = function(v61) --[[ Line: 371 ]] --[[ Name: performJoinFeasibilityCheck ]]
+    -- upvalues: l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (copy), l_CrossExperience_0 (copy), l_FFlagFixCrossExperienceVoiceExecutePrint_0 (copy), v14 (copy)
     if not l_getFFlagEnableCrossExpVoiceMemoryCheck_0() then
         return true;
     else
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 373 ]]
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 375 ]]
             return game:GetService("PerformanceControlService");
         end);
         if not l_status_0 or not l_result_0 then
-            v60.JoinFeasibilityCheckPerformed:Fire(false);
+            v61.JoinFeasibilityCheckPerformed:Fire(false);
             return false;
         else
-            local l_status_1, l_result_1 = pcall(function() --[[ Line: 382 ]]
+            local l_status_1, l_result_1 = pcall(function() --[[ Line: 384 ]]
                 -- upvalues: l_result_0 (copy), l_CrossExperience_0 (ref)
                 return l_result_0:IsCrossExperienceLaunchFeasible(l_CrossExperience_0.Constants.EXPERIENCE_TYPE_VOICE);
             end);
             if not l_status_1 then
-                v14:warn("performJoinFeasibilityCheck() - failed to check feasibility", l_result_1);
-                v60.JoinFeasibilityCheckPerformed:Fire(false);
+                if l_FFlagFixCrossExperienceVoiceExecutePrint_0 then
+                    v14:warning("performJoinFeasibilityCheck() - failed to check feasibility", l_result_1);
+                else
+                    v14:warn("performJoinFeasibilityCheck() - failed to check feasibility", l_result_1);
+                end;
+                v61.JoinFeasibilityCheckPerformed:Fire(false);
                 return false;
             else
-                v60.JoinFeasibilityCheckPerformed:Fire(l_result_1);
+                v61.JoinFeasibilityCheckPerformed:Fire(l_result_1);
                 return l_result_1;
             end;
         end;
     end;
 end;
-v17.ignoreMemoryWarning = function(_) --[[ Line: 398 ]] --[[ Name: ignoreMemoryWarning ]]
-    -- upvalues: l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (copy), l_Communication_0 (copy), l_CrossExperience_0 (copy), v35 (copy)
+v17.ignoreMemoryWarning = function(_) --[[ Line: 404 ]] --[[ Name: ignoreMemoryWarning ]]
+    -- upvalues: l_getFFlagEnableCrossExpVoiceMemoryCheck_0 (copy), l_Communication_0 (copy), l_CrossExperience_0 (copy), v36 (copy)
     if not l_getFFlagEnableCrossExpVoiceMemoryCheck_0() then
         return;
     else
-        l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_PARTY_VOICE_IGNORE_LOW_MEMORY, {}, v35, v35);
+        l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_PARTY_VOICE_IGNORE_LOW_MEMORY, {}, v36, v36);
         return;
     end;
 end;
-v17.join = function(v66, v67) --[[ Line: 411 ]] --[[ Name: join ]]
-    -- upvalues: v34 (copy), l_HttpService_0 (copy), l_MemStorageService_0 (copy), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (copy), l_Players_0 (copy), l_CrossExperience_0 (copy), l_FIntPartyVoiceJoinRequestPulseCheckTimeout_0 (copy), l_clearTimeout_0 (copy), l_setTimeout_0 (copy), l_getFFlagJoinCrossExpVoiceWithPartyId_0 (copy), v14 (copy), l_ExperienceService_0 (copy), l_game_EngineFeature_1 (copy)
-    if v67.shouldIgnoreMemoryWarning then
-        v66.shouldIgnoreMemoryWarning = true;
+v17.join = function(v67, v68) --[[ Line: 417 ]] --[[ Name: join ]]
+    -- upvalues: v35 (copy), l_FFlagFixCrossExperienceVoiceExecutePrint_0 (copy), v14 (copy), l_HttpService_0 (copy), l_MemStorageService_0 (copy), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (copy), l_Players_0 (copy), l_CrossExperience_0 (copy), l_FIntPartyVoiceJoinRequestPulseCheckTimeout_0 (copy), l_clearTimeout_0 (copy), l_setTimeout_0 (copy), l_getFFlagJoinCrossExpVoiceWithPartyId_0 (copy), l_ExperienceService_0 (copy), l_game_EngineFeature_1 (copy)
+    if v68.shouldIgnoreMemoryWarning then
+        v67.shouldIgnoreMemoryWarning = true;
     end;
-    if not v66.isInitialized then
-        v66:initialize();
+    if not v67.isInitialized then
+        v67:initialize();
     end;
-    local v68 = tonumber(v34);
-    if v66.isConnected and not v67.force then
-        print("CrossExperienceVoiceManager:join() - already connected, returning early.");
-        v66.JoinRequestSubmitted:Fire(true);
+    local v69 = tonumber(v35);
+    if v67.isConnected and not v68.force then
+        if l_FFlagFixCrossExperienceVoiceExecutePrint_0 then
+            v14:info("CrossExperienceVoiceManager:join() - already connected, returning early.");
+        else
+            print("CrossExperienceVoiceManager:join() - already connected, returning early.");
+        end;
+        v67.JoinRequestSubmitted:Fire(true);
         return;
     else
         if game:GetEngineFeature("CEVGetBackgroundState") then
-            local v69, v70 = v66:getIsBackgroundDMActive():await();
-            if v69 and v70 and not v67.force then
-                v66:setAsConnected();
-                v66.JoinRequestSubmitted:Fire(true);
+            local v70, v71 = v67:getIsBackgroundDMActive():await();
+            if v70 and v71 and not v68.force then
+                v67:setAsConnected();
+                v67.JoinRequestSubmitted:Fire(true);
                 return;
             end;
         end;
-        v66.currentCevJoinAttemptId = l_HttpService_0:GenerateGUID(false);
-        pcall(function() --[[ Line: 441 ]]
-            -- upvalues: l_MemStorageService_0 (ref), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (ref), v66 (copy)
-            l_MemStorageService_0:SetItem(l_CEV_JOIN_ATTEMPT_ID_KEY_0, v66.currentCevJoinAttemptId);
+        v67.currentCevJoinAttemptId = l_HttpService_0:GenerateGUID(false);
+        pcall(function() --[[ Line: 451 ]]
+            -- upvalues: l_MemStorageService_0 (ref), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (ref), v67 (copy)
+            l_MemStorageService_0:SetItem(l_CEV_JOIN_ATTEMPT_ID_KEY_0, v67.currentCevJoinAttemptId);
         end);
-        v66.voiceAnalytics:logPartyVoiceJoinAttempt({
-            isConnected = v66.isConnected, 
-            targetPlaceId = v68, 
-            partyId = v67.partyId, 
+        v67.voiceAnalytics:logPartyVoiceJoinAttempt({
+            isConnected = v67.isConnected, 
+            targetPlaceId = v69, 
+            partyId = v68.partyId, 
             userId = if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.UserId else 0, 
-            activeDm = if v66.isActiveDM then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC
+            activeDm = if v67.isActiveDM then l_CrossExperience_0.Constants.EXPERIENCE_TYPE_LUAAPP else l_CrossExperience_0.Constants.EXPERIENCE_TYPE_UGC
         });
-        v66.JoinRequested:Fire();
+        v67.JoinRequested:Fire();
         if l_FIntPartyVoiceJoinRequestPulseCheckTimeout_0 > 0 then
-            if v66.joinRequestPulseCheckId then
-                l_clearTimeout_0(v66.joinRequestPulseCheckId);
-                v66.joinRequestPulseCheckId = nil;
+            if v67.joinRequestPulseCheckId then
+                l_clearTimeout_0(v67.joinRequestPulseCheckId);
+                v67.joinRequestPulseCheckId = nil;
             end;
-            v66.joinRequestPulseCheckId = l_setTimeout_0(function() --[[ Line: 461 ]]
-                -- upvalues: v66 (copy)
-                v66.JoinRequestPulseCheck:Fire();
+            v67.joinRequestPulseCheckId = l_setTimeout_0(function() --[[ Line: 471 ]]
+                -- upvalues: v67 (copy)
+                v67.JoinRequestPulseCheck:Fire();
             end, l_FIntPartyVoiceJoinRequestPulseCheckTimeout_0);
         end;
-        v66.isConnected = true;
+        v67.isConnected = true;
         if l_getFFlagJoinCrossExpVoiceWithPartyId_0() then
-            if not v67 or not v67.partyId then
-                v14:warn("CrossExperienceVoiceManager:join() - params.partyId is required to join cross experience voice");
-                v66.isConnected = false;
-                v66.currentPartyId = nil;
-                v66.JoinRequestSubmitted:Fire(v66.isConnected);
+            if not v68 or not v68.partyId then
+                if l_FFlagFixCrossExperienceVoiceExecutePrint_0 then
+                    v14:warning("CrossExperienceVoiceManager:join() - params.partyId is required to join cross experience voice");
+                else
+                    v14:warn("CrossExperienceVoiceManager:join() - params.partyId is required to join cross experience voice");
+                end;
+                v67.isConnected = false;
+                v67.currentPartyId = nil;
+                v67.JoinRequestSubmitted:Fire(v67.isConnected);
                 return;
             else
-                v66.currentPartyId = v67.partyId;
-                local l_status_2, l_result_2 = pcall(function() --[[ Line: 480 ]]
-                    -- upvalues: v14 (ref), v67 (copy), l_ExperienceService_0 (ref), l_CrossExperience_0 (ref), v68 (copy), l_game_EngineFeature_1 (ref), v66 (copy)
-                    v14:info("CrossExperienceVoiceManager:join() - starting cross experience voice with partyId " .. v67.partyId);
+                v67.currentPartyId = v68.partyId;
+                local l_status_2, l_result_2 = pcall(function() --[[ Line: 496 ]]
+                    -- upvalues: v14 (ref), v68 (copy), l_ExperienceService_0 (ref), l_CrossExperience_0 (ref), v69 (copy), l_game_EngineFeature_1 (ref), v67 (copy)
+                    v14:info("CrossExperienceVoiceManager:join() - starting cross experience voice with partyId " .. v68.partyId);
                     l_ExperienceService_0:StartCrossExperience(l_CrossExperience_0.Constants.EXPERIENCE_TYPE_VOICE, {
-                        partyId = v67.partyId, 
-                        placeId = v68, 
-                        joinAttemptId = if l_game_EngineFeature_1 then v66.currentCevJoinAttemptId else nil
+                        partyId = v68.partyId, 
+                        placeId = v69, 
+                        joinAttemptId = if l_game_EngineFeature_1 then v67.currentCevJoinAttemptId else nil
                     });
                 end);
                 if not l_status_2 then
-                    v14:warn("Failed to join cross experience voice with partyId " .. v67.partyId, l_result_2);
-                    local v73 = if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.UserId else 0;
-                    v66.voiceAnalytics:logPartyVoiceJoinFailure(v67.partyId, l_result_2, v73);
-                    v66.currentPartyId = nil;
+                    if l_FFlagFixCrossExperienceVoiceExecutePrint_0 then
+                        v14:warning("Failed to join cross experience voice with partyId " .. v68.partyId, l_result_2);
+                    else
+                        v14:warn("Failed to join cross experience voice with partyId " .. v68.partyId, l_result_2);
+                    end;
+                    local v74 = if l_Players_0.LocalPlayer then l_Players_0.LocalPlayer.UserId else 0;
+                    v67.voiceAnalytics:logPartyVoiceJoinFailure(v68.partyId, l_result_2, v74);
+                    v67.currentPartyId = nil;
                 end;
             end;
         else
-            local l_status_3, l_result_3 = pcall(function() --[[ Line: 498 ]]
-                -- upvalues: v14 (ref), l_ExperienceService_0 (ref), l_CrossExperience_0 (ref), v68 (copy), l_game_EngineFeature_1 (ref), v66 (copy)
+            local l_status_3, l_result_3 = pcall(function() --[[ Line: 518 ]]
+                -- upvalues: v14 (ref), l_ExperienceService_0 (ref), l_CrossExperience_0 (ref), v69 (copy), l_game_EngineFeature_1 (ref), v67 (copy)
                 v14:info("CrossExperienceVoiceManager:join() - starting cross experience voice");
                 l_ExperienceService_0:StartCrossExperience(l_CrossExperience_0.Constants.EXPERIENCE_TYPE_VOICE, {
-                    placeId = v68, 
-                    joinAttemptId = if l_game_EngineFeature_1 then v66.currentCevJoinAttemptId else nil
+                    placeId = v69, 
+                    joinAttemptId = if l_game_EngineFeature_1 then v67.currentCevJoinAttemptId else nil
                 });
             end);
             if not l_status_3 then
-                v14:warn("Failed to join cross experience voice: ", l_result_3);
-                v66.isConnected = false;
-                v66.currentPartyId = nil;
+                if l_FFlagFixCrossExperienceVoiceExecutePrint_0 then
+                    v14:warning("Failed to join cross experience voice: ", l_result_3);
+                else
+                    v14:warn("Failed to join cross experience voice: ", l_result_3);
+                end;
+                v67.isConnected = false;
+                v67.currentPartyId = nil;
             end;
         end;
-        v66.JoinRequestSubmitted:Fire(v66.isConnected);
+        v67.JoinRequestSubmitted:Fire(v67.isConnected);
         return;
     end;
 end;
-v17.changeInputDevice = function(_, v77, v78) --[[ Line: 516 ]] --[[ Name: changeInputDevice ]]
-    -- upvalues: l_Communication_0 (copy), l_CrossExperience_0 (copy), v35 (copy)
+v17.changeInputDevice = function(_, v78, v79) --[[ Line: 540 ]] --[[ Name: changeInputDevice ]]
+    -- upvalues: l_Communication_0 (copy), l_CrossExperience_0 (copy), v36 (copy)
     l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_CHANGE_PARTY_VOICE_INPUT_DEVICE, {
-        deviceName = v77, 
-        deviceGuid = v78
-    }, v35, v35);
+        deviceName = v78, 
+        deviceGuid = v79
+    }, v36, v36);
 end;
-v17.changeOutputDevice = function(_, v80, v81) --[[ Line: 523 ]] --[[ Name: changeOutputDevice ]]
-    -- upvalues: l_Communication_0 (copy), l_CrossExperience_0 (copy), v35 (copy)
+v17.changeOutputDevice = function(_, v81, v82) --[[ Line: 547 ]] --[[ Name: changeOutputDevice ]]
+    -- upvalues: l_Communication_0 (copy), l_CrossExperience_0 (copy), v36 (copy)
     l_Communication_0.execute(l_CrossExperience_0.Constants.COMMUNICATIONS.EXECUTE_CHANGE_PARTY_VOICE_OUTPUT_DEVICE, {
-        deviceName = v80, 
-        deviceGuid = v81
-    }, v35, v35);
+        deviceName = v81, 
+        deviceGuid = v82
+    }, v36, v36);
 end;
-v17.muteVoiceParticipant = function(v82, v83) --[[ Line: 530 ]] --[[ Name: muteVoiceParticipant ]]
+v17.muteVoiceParticipant = function(v83, v84) --[[ Line: 554 ]] --[[ Name: muteVoiceParticipant ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v82.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, {
-        userId = v83, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v82.currentCevJoinAttemptId else nil
+    v83.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.MUTE_PARTY_VOICE_PARTICIPANT, {
+        userId = v84, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v83.currentCevJoinAttemptId else nil
     });
-    v82.voiceAnalytics:logPartyVoiceMuteParticipant(v82.currentPartyId, v83);
+    v83.voiceAnalytics:logPartyVoiceMuteParticipant(v83.currentPartyId, v84);
 end;
-v17.unmuteVoiceParticipant = function(v84, v85) --[[ Line: 539 ]] --[[ Name: unmuteVoiceParticipant ]]
+v17.unmuteVoiceParticipant = function(v85, v86) --[[ Line: 563 ]] --[[ Name: unmuteVoiceParticipant ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v84.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, {
-        userId = v85, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v84.currentCevJoinAttemptId else nil
+    v85.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.UNMUTE_PARTY_VOICE_PARTICIPANT, {
+        userId = v86, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v85.currentCevJoinAttemptId else nil
     });
-    v84.voiceAnalytics:logPartyVoiceUnmuteParticipant(v84.currentPartyId, v85);
+    v85.voiceAnalytics:logPartyVoiceUnmuteParticipant(v85.currentPartyId, v86);
 end;
-v17.enableVoiceChanger = function(v86, v87) --[[ Line: 548 ]] --[[ Name: enableVoiceChanger ]]
+v17.enableVoiceChanger = function(v87, v88) --[[ Line: 572 ]] --[[ Name: enableVoiceChanger ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v86.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER, {
-        userId = v87, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v86.currentCevJoinAttemptId else nil
-    });
-end;
-v17.disableVoiceChanger = function(v88, v89) --[[ Line: 557 ]] --[[ Name: disableVoiceChanger ]]
-    -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v88.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER, {
-        userId = v89, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v88.currentCevJoinAttemptId else nil
+    v87.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER, {
+        userId = v88, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v87.currentCevJoinAttemptId else nil
     });
 end;
-v17.setVoicePack = function(v90, v91) --[[ Line: 566 ]] --[[ Name: setVoicePack ]]
+v17.disableVoiceChanger = function(v89, v90) --[[ Line: 581 ]] --[[ Name: disableVoiceChanger ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v90.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.SET_PARTY_VOICE_PACK, {
-        voicePackName = v91, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v90.currentCevJoinAttemptId else nil
+    v89.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER, {
+        userId = v90, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v89.currentCevJoinAttemptId else nil
     });
 end;
-v17.enableHearMyself = function(v92, v93) --[[ Line: 575 ]] --[[ Name: enableHearMyself ]]
+v17.setVoicePack = function(v91, v92) --[[ Line: 590 ]] --[[ Name: setVoicePack ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v92.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER_FEEDBACK, {
-        userId = v93, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v92.currentCevJoinAttemptId else nil
+    v91.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.SET_PARTY_VOICE_PACK, {
+        voicePackName = v92, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v91.currentCevJoinAttemptId else nil
     });
 end;
-v17.disableHearMyself = function(v94, v95) --[[ Line: 582 ]] --[[ Name: disableHearMyself ]]
+v17.enableHearMyself = function(v93, v94) --[[ Line: 599 ]] --[[ Name: enableHearMyself ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v94.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER_FEEDBACK, {
-        userId = v95, 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v94.currentCevJoinAttemptId else nil
+    v93.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.ENABLE_PARTY_VOICE_CHANGER_FEEDBACK, {
+        userId = v94, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v93.currentCevJoinAttemptId else nil
     });
 end;
-v17.blockVoiceParticipant = function(v96, v97) --[[ Line: 589 ]] --[[ Name: blockVoiceParticipant ]]
+v17.disableHearMyself = function(v95, v96) --[[ Line: 606 ]] --[[ Name: disableHearMyself ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    if v96.isConnected then
-        v96.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_BLOCK_PARTICIPANT, {
-            userId = v97, 
-            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v96.currentCevJoinAttemptId else nil
+    v95.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DISABLE_PARTY_VOICE_CHANGER_FEEDBACK, {
+        userId = v96, 
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v95.currentCevJoinAttemptId else nil
+    });
+end;
+v17.blockVoiceParticipant = function(v97, v98) --[[ Line: 613 ]] --[[ Name: blockVoiceParticipant ]]
+    -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
+    if v97.isConnected then
+        v97.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_BLOCK_PARTICIPANT, {
+            userId = v98, 
+            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v97.currentCevJoinAttemptId else nil
         });
-        v96.voiceAnalytics:logPartyVoiceBlockParticipant(v96.currentPartyId, v97);
+        v97.voiceAnalytics:logPartyVoiceBlockParticipant(v97.currentPartyId, v98);
     end;
 end;
-v17.unblockVoiceParticipant = function(v98, v99) --[[ Line: 602 ]] --[[ Name: unblockVoiceParticipant ]]
+v17.unblockVoiceParticipant = function(v99, v100) --[[ Line: 626 ]] --[[ Name: unblockVoiceParticipant ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    if v98.isConnected then
-        v98.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_UNBLOCK_PARTICIPANT, {
-            userId = v99, 
-            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v98.currentCevJoinAttemptId else nil
+    if v99.isConnected then
+        v99.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_UNBLOCK_PARTICIPANT, {
+            userId = v100, 
+            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v99.currentCevJoinAttemptId else nil
         });
-        v98.voiceAnalytics:logPartyVoiceUnblockParticipant(v98.currentPartyId, v99);
+        v99.voiceAnalytics:logPartyVoiceUnblockParticipant(v99.currentPartyId, v100);
     end;
 end;
-v17.dumpDebugData = function(v100) --[[ Line: 615 ]] --[[ Name: dumpDebugData ]]
+v17.dumpDebugData = function(v101) --[[ Line: 639 ]] --[[ Name: dumpDebugData ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v100.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DEBUG_COMMAND, {
+    v101.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.DEBUG_COMMAND, {
         name = "dump_session", 
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v100.currentCevJoinAttemptId else nil
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v101.currentCevJoinAttemptId else nil
     });
 end;
-v17.leave = function(v101) --[[ Line: 622 ]] --[[ Name: leave ]]
+v17.leave = function(v102) --[[ Line: 646 ]] --[[ Name: leave ]]
     -- upvalues: l_ExperienceService_0 (copy), l_CrossExperience_0 (copy), l_clearTimeout_0 (copy)
     l_ExperienceService_0:StopCrossExperience(l_CrossExperience_0.Constants.EXPERIENCE_TYPE_VOICE, {});
-    if v101.joinRequestPulseCheckId then
-        l_clearTimeout_0(v101.joinRequestPulseCheckId);
-        v101.joinRequestPulseCheckId = nil;
+    if v102.joinRequestPulseCheckId then
+        l_clearTimeout_0(v102.joinRequestPulseCheckId);
+        v102.joinRequestPulseCheckId = nil;
     end;
-    v101.voiceAnalytics:reset();
+    v102.voiceAnalytics:reset();
 end;
-v17.rejoinVoice = function(v102) --[[ Line: 633 ]] --[[ Name: rejoinVoice ]]
+v17.rejoinVoice = function(v103) --[[ Line: 657 ]] --[[ Name: rejoinVoice ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
-    v102.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_RECONNECT_REQUESTED, {
-        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v102.currentCevJoinAttemptId else nil
+    v103.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_RECONNECT_REQUESTED, {
+        cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v103.currentCevJoinAttemptId else nil
     });
 end;
-v17.resetCEVMemStorage = function(v103) --[[ Line: 639 ]] --[[ Name: resetCEVMemStorage ]]
+v17.resetCEVMemStorage = function(v104) --[[ Line: 663 ]] --[[ Name: resetCEVMemStorage ]]
     -- upvalues: l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy), l_MemStorageService_0 (copy), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (copy)
     if l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then
-        v103.currentCevJoinAttemptId = nil;
-        pcall(function() --[[ Line: 642 ]]
+        v104.currentCevJoinAttemptId = nil;
+        pcall(function() --[[ Line: 666 ]]
             -- upvalues: l_MemStorageService_0 (ref), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (ref)
             l_MemStorageService_0:RemoveItem(l_CEV_JOIN_ATTEMPT_ID_KEY_0);
         end);
     end;
 end;
-v17.disconnect = function(v104) --[[ Line: 648 ]] --[[ Name: disconnect ]]
+v17.disconnect = function(v105) --[[ Line: 672 ]] --[[ Name: disconnect ]]
     -- upvalues: l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy), l_MemStorageService_0 (copy), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (copy), v14 (copy), l_clearTimeout_0 (copy), v31 (copy)
-    v104.isConnected = false;
-    v104.currentPartyId = nil;
+    v105.isConnected = false;
+    v105.currentPartyId = nil;
     if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then
-        v104.currentCevJoinAttemptId = nil;
-        pcall(function() --[[ Line: 653 ]]
+        v105.currentCevJoinAttemptId = nil;
+        pcall(function() --[[ Line: 677 ]]
             -- upvalues: l_MemStorageService_0 (ref), l_CEV_JOIN_ATTEMPT_ID_KEY_0 (ref)
             l_MemStorageService_0:RemoveItem(l_CEV_JOIN_ATTEMPT_ID_KEY_0);
         end);
     end;
-    v104.hasExperienceStarted = false;
-    v104.shouldIgnoreMemoryWarning = false;
+    v105.hasExperienceStarted = false;
+    v105.shouldIgnoreMemoryWarning = false;
     v14:info("Disconnecting, resetting observers");
-    v104.observersInitialized = false;
-    if v104.joinRequestPulseCheckId then
-        l_clearTimeout_0(v104.joinRequestPulseCheckId);
-        v104.joinRequestPulseCheckId = nil;
+    v105.observersInitialized = false;
+    if v105.joinRequestPulseCheckId then
+        l_clearTimeout_0(v105.joinRequestPulseCheckId);
+        v105.joinRequestPulseCheckId = nil;
     end;
     v31.clean();
 end;
-v17.getAudioFocusService = function(_) --[[ Line: 672 ]] --[[ Name: getAudioFocusService ]]
+v17.getAudioFocusService = function(_) --[[ Line: 696 ]] --[[ Name: getAudioFocusService ]]
     -- upvalues: l_game_EngineFeature_0 (copy)
     if not l_game_EngineFeature_0 then
         return nil;
     else
-        local l_status_4, l_result_4 = pcall(function() --[[ Line: 678 ]]
+        local l_status_4, l_result_4 = pcall(function() --[[ Line: 702 ]]
             return game:GetService("AudioFocusService");
         end);
         if not l_status_4 or not l_result_4 then
@@ -502,74 +523,74 @@ v17.getAudioFocusService = function(_) --[[ Line: 672 ]] --[[ Name: getAudioFocu
         end;
     end;
 end;
-v17.getCurrentAudioContext = function(v108) --[[ Line: 688 ]] --[[ Name: getCurrentAudioContext ]]
-    local v109 = v108:getAudioFocusService();
-    if v109 == nil then
+v17.getCurrentAudioContext = function(v109) --[[ Line: 712 ]] --[[ Name: getCurrentAudioContext ]]
+    local v110 = v109:getAudioFocusService();
+    if v110 == nil then
         return -1;
     else
-        return v109:GetFocusedContextId();
+        return v110:GetFocusedContextId();
     end;
 end;
-v17.toggleAudioFocus = function(v110) --[[ Line: 697 ]] --[[ Name: toggleAudioFocus ]]
+v17.toggleAudioFocus = function(v111) --[[ Line: 721 ]] --[[ Name: toggleAudioFocus ]]
     -- upvalues: l_AUDIO_FOCUS_MANAGEMENT_0 (copy)
-    local v111 = v110:getAudioFocusService();
-    if v111 == nil then
+    local v112 = v111:getAudioFocusService();
+    if v112 == nil then
         return;
     else
-        local l_v111_RegisteredContexts_0 = v111:GetRegisteredContexts();
-        local v113 = false;
+        local l_v112_RegisteredContexts_0 = v112:GetRegisteredContexts();
         local v114 = false;
-        for v115, _ in pairs(l_v111_RegisteredContexts_0) do
-            if v115 == l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID then
-                v113 = true;
-            end;
-            if v115 == l_AUDIO_FOCUS_MANAGEMENT_0.UGC.CONTEXT_ID then
+        local v115 = false;
+        for v116, _ in pairs(l_v112_RegisteredContexts_0) do
+            if v116 == l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID then
                 v114 = true;
             end;
+            if v116 == l_AUDIO_FOCUS_MANAGEMENT_0.UGC.CONTEXT_ID then
+                v115 = true;
+            end;
         end;
-        if not v113 or not v114 then
+        if not v114 or not v115 then
             return;
         else
-            v111:AcquireFocus(v111:GetFocusedContextId() == l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID and l_AUDIO_FOCUS_MANAGEMENT_0.UGC.CONTEXT_ID or l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID);
+            v112:AcquireFocus(v112:GetFocusedContextId() == l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID and l_AUDIO_FOCUS_MANAGEMENT_0.UGC.CONTEXT_ID or l_AUDIO_FOCUS_MANAGEMENT_0.CEV.CONTEXT_ID);
             return;
         end;
     end;
 end;
-v17.muteAll = function(v117, v118) --[[ Line: 726 ]] --[[ Name: muteAll ]]
+v17.muteAll = function(v118, v119) --[[ Line: 750 ]] --[[ Name: muteAll ]]
     -- upvalues: l_GetFFlagEnableCrossExperienceVoiceCaptureMute_0 (copy), l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
     if not l_GetFFlagEnableCrossExperienceVoiceCaptureMute_0() then
         return;
     else
-        if v117.isConnected then
-            v117.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_MUTE_ALL, {
-                context = v118, 
-                cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v117.currentCevJoinAttemptId else nil
+        if v118.isConnected then
+            v118.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_MUTE_ALL, {
+                context = v119, 
+                cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v118.currentCevJoinAttemptId else nil
             });
         end;
         return;
     end;
 end;
-v17.unmuteAll = function(v119, v120) --[[ Line: 740 ]] --[[ Name: unmuteAll ]]
+v17.unmuteAll = function(v120, v121) --[[ Line: 764 ]] --[[ Name: unmuteAll ]]
     -- upvalues: l_GetFFlagEnableCrossExperienceVoiceCaptureMute_0 (copy), l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
     if not l_GetFFlagEnableCrossExperienceVoiceCaptureMute_0() then
         return;
     else
-        if v119.isConnected then
-            v119.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_UNMUTE_ALL, {
-                context = v120, 
-                cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v119.currentCevJoinAttemptId else nil
+        if v120.isConnected then
+            v120.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.PARTY_VOICE_UNMUTE_ALL, {
+                context = v121, 
+                cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v120.currentCevJoinAttemptId else nil
             });
         end;
         return;
     end;
 end;
-v17.signalCevReadinessSync = function(v121) --[[ Line: 754 ]] --[[ Name: signalCevReadinessSync ]]
+v17.signalCevReadinessSync = function(v122) --[[ Line: 778 ]] --[[ Name: signalCevReadinessSync ]]
     -- upvalues: l_CrossExperience_0 (copy), l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 (copy)
     if not game:GetEngineFeature("CevReadinessSync") then
         return;
     else
-        v121.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.FOREGROUND_UI_READY, {
-            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v121.currentCevJoinAttemptId else nil
+        v122.cevEventManager:notify(l_CrossExperience_0.Constants.EVENTS.FOREGROUND_UI_READY, {
+            cevJoinAttemptId = if not l_FFlagRecordCevJoinAttemptIdInObserverSetup_0 then v122.currentCevJoinAttemptId else nil
         });
         return;
     end;

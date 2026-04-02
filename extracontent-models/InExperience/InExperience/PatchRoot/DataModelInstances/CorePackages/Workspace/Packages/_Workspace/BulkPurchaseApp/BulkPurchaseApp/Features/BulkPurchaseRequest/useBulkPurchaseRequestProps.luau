@@ -35,7 +35,10 @@ local v33 = require(l_script_FirstAncestor_0.Flags.FFlagFixVP8143);
 local v34 = game:DefineFastFlag("FixBuyRobuxForAndroid", false);
 local v35 = game:DefineFastFlag("BulkPurchaseHandleMissingFulfillmentGroupsKey", false);
 local _ = require(script.Parent.BulkPurchaseRequest);
-local v37 = {
+local _ = require(script.Parent.BulkPurchaseRequestItem);
+local _ = require(script.Parent.BulkPurchaseRequestOwnedItem);
+local _ = require(script.Parent.BulkPurchaseRequestUnpurchasableItem);
+local v40 = {
     INSUFFICIENT_ROBUX = Enum.MarketplaceItemPurchaseStatus.InsufficientRobux, 
     QUOTA_EXCEEDED = Enum.MarketplaceItemPurchaseStatus.QuotaExceeded, 
     NOT_FOR_SALE = Enum.MarketplaceItemPurchaseStatus.NotForSale, 
@@ -48,266 +51,266 @@ local v37 = {
     INSUFFICIENT_MEMBERSHIP = Enum.MarketplaceItemPurchaseStatus.InsufficientMembership, 
     PURCHASE_PLACE_INVALID = Enum.MarketplaceItemPurchaseStatus.PlaceInvalid
 };
-local function _(v38) --[[ Line: 81 ]] --[[ Name: lineItemToStatus ]]
-    -- upvalues: v37 (copy)
-    local v39 = v37[v38.errorReason];
-    if v38.status == "SUCCEEDED" then
+local function _(v41) --[[ Line: 84 ]] --[[ Name: lineItemToStatus ]]
+    -- upvalues: v40 (copy)
+    local v42 = v40[v41.errorReason];
+    if v41.status == "SUCCEEDED" then
         return Enum.MarketplaceItemPurchaseStatus.Success;
-    elseif v39 then
-        return v39;
+    elseif v42 then
+        return v42;
     else
         return Enum.MarketplaceItemPurchaseStatus.SystemError;
     end;
 end;
-local function v42(v41) --[[ Line: 92 ]] --[[ Name: getLineItemsFromPurchaseResponse ]]
+local function v45(v44) --[[ Line: 95 ]] --[[ Name: getLineItemsFromPurchaseResponse ]]
     -- upvalues: v35 (copy)
     if v35 then
-        if v41.fulfillmentGroups and v41.fulfillmentGroups[1] and v41.fulfillmentGroups[1].lineItems then
-            return v41.fulfillmentGroups[1].lineItems;
+        if v44.fulfillmentGroups and v44.fulfillmentGroups[1] and v44.fulfillmentGroups[1].lineItems then
+            return v44.fulfillmentGroups[1].lineItems;
         else
             return {};
         end;
-    elseif v41.fulfillmentGroups[1] then
-        return v41.fulfillmentGroups[1].lineItems;
+    elseif v44.fulfillmentGroups[1] then
+        return v44.fulfillmentGroups[1].lineItems;
     else
         return {};
     end;
 end;
-local function v47(v43) --[[ Line: 102 ]] --[[ Name: filterPurchasableItems ]]
+local function v50(v46) --[[ Line: 105 ]] --[[ Name: filterPurchasableItems ]]
     -- upvalues: v24 (copy)
-    local v44 = {};
-    for _, v46 in v43 do
-        if v46.purchasableState == v24.Purchasable then
-            table.insert(v44, v46);
+    local v47 = {};
+    for _, v49 in v46 do
+        if v49.purchasableState == v24.Purchasable then
+            table.insert(v47, v49);
         end;
     end;
-    return v44;
+    return v47;
 end;
-local function v58(v48, v49) --[[ Line: 119 ]] --[[ Name: getItemResultsFromResponse ]]
-    -- upvalues: v47 (copy), v42 (copy), v37 (copy)
-    local v50 = v47(v49);
-    local v51 = v42(v48);
-    local v52 = {};
-    for v53, v54 in v50 do
-        local v55 = v51[v53];
-        if v55 then
-            local l_id_0 = v54.id;
-            local v57 = v37[v55.errorReason];
-            v52[l_id_0] = if v55.status == "SUCCEEDED" then Enum.MarketplaceItemPurchaseStatus.Success else v57 or Enum.MarketplaceItemPurchaseStatus.SystemError;
+local function v61(v51, v52) --[[ Line: 122 ]] --[[ Name: getItemResultsFromResponse ]]
+    -- upvalues: v50 (copy), v45 (copy), v40 (copy)
+    local v53 = v50(v52);
+    local v54 = v45(v51);
+    local v55 = {};
+    for v56, v57 in v53 do
+        local v58 = v54[v56];
+        if v58 then
+            local l_id_0 = v57.id;
+            local v60 = v40[v58.errorReason];
+            v55[l_id_0] = if v58.status == "SUCCEEDED" then Enum.MarketplaceItemPurchaseStatus.Success else v60 or Enum.MarketplaceItemPurchaseStatus.SystemError;
         end;
     end;
-    return v52;
+    return v55;
 end;
-local _ = function(v59) --[[ Line: 136 ]] --[[ Name: getCommonItemStatus ]]
-    local v60 = nil;
-    for _, v62 in v59 do
-        if v60 ~= nil and v62 ~= v60 then
+local _ = function(v62) --[[ Line: 139 ]] --[[ Name: getCommonItemStatus ]]
+    local v63 = nil;
+    for _, v65 in v62 do
+        if v63 ~= nil and v65 ~= v63 then
             return nil;
-        elseif v60 == nil then
-            v60 = v62;
+        elseif v63 == nil then
+            v63 = v65;
         end;
     end;
-    return v60;
+    return v63;
 end;
-local function _(v64) --[[ Line: 149 ]] --[[ Name: createOwnedItem ]]
+local function _(v67) --[[ Line: 152 ]] --[[ Name: createOwnedItem ]]
     -- upvalues: v27 (copy)
     return {
-        id = v64.id, 
-        name = v64.name, 
-        image = v27(v64.id, v64.type), 
-        ownedCount = v64.ownedCount
+        id = v67.id, 
+        name = v67.name, 
+        image = v27(v67.id, v67.type), 
+        ownedCount = v67.ownedCount
     };
 end;
-local function _(v66) --[[ Line: 158 ]] --[[ Name: createPurchasableItem ]]
+local function _(v69) --[[ Line: 161 ]] --[[ Name: createPurchasableItem ]]
     -- upvalues: v27 (copy)
     return {
-        id = v66.id, 
-        cost = v66.priceRobux, 
-        name = v66.name, 
-        image = v27(v66.id, v66.type)
+        id = v69.id, 
+        cost = v69.priceRobux, 
+        name = v69.name, 
+        image = v27(v69.id, v69.type)
     };
 end;
-local function _(v68) --[[ Line: 167 ]] --[[ Name: createUnpurchasableItem ]]
+local function _(v71) --[[ Line: 170 ]] --[[ Name: createUnpurchasableItem ]]
     -- upvalues: v27 (copy), v26 (copy)
     return {
-        id = v68.id, 
-        name = v68.name, 
-        image = v27(v68.id, v68.type), 
-        status = v26[v68.purchasableState] or Enum.MarketplaceItemPurchaseStatus.SystemError
+        id = v71.id, 
+        name = v71.name, 
+        image = v27(v71.id, v71.type), 
+        status = v26[v71.purchasableState] or Enum.MarketplaceItemPurchaseStatus.SystemError
     };
 end;
-local function v73(v70, v71) --[[ Line: 177 ]] --[[ Name: handleEconomicRestrictionError ]]
+local function v76(v73, v74) --[[ Line: 180 ]] --[[ Name: handleEconomicRestrictionError ]]
     -- upvalues: l_parseErrorReasonToEconomicRestriction_0 (copy), l_default_0 (copy), l_UniversalEconomicRestrictionsCounter_0 (copy), l_EconomicRestrictionsSurface_0 (copy), v20 (copy), v23 (copy)
-    local v72 = l_parseErrorReasonToEconomicRestriction_0(v70);
+    local v75 = l_parseErrorReasonToEconomicRestriction_0(v73);
     l_default_0:logRobloxTelemetryCounter(l_UniversalEconomicRestrictionsCounter_0, 1, {
         surface = l_EconomicRestrictionsSurface_0.BulkPurchase, 
-        failureReason = if v72.violationType then tostring(v72.violationType) else "null"
+        failureReason = if v75.violationType then tostring(v75.violationType) else "null"
     });
-    v71(v20(v23.EconomicRestriction, {
-        failureReason = v72.violationType, 
-        expirationTimeInMinutes = v72.timeoutMinutes
+    v74(v20(v23.EconomicRestriction, {
+        failureReason = v75.violationType, 
+        expirationTimeInMinutes = v75.timeoutMinutes
     }));
 end;
-local function v80(v74) --[[ Line: 191 ]] --[[ Name: selectBulkPurchaseRequestState ]]
+local function v83(v77) --[[ Line: 194 ]] --[[ Name: selectBulkPurchaseRequestState ]]
     -- upvalues: v24 (copy), v27 (copy), v26 (copy)
-    local v75 = {};
-    local v76 = {};
-    local v77 = {};
-    if v74.itemData then
-        for _, v79 in v74.itemData do
-            if v79.purchasableState == v24.Purchasable then
-                table.insert(v75, {
-                    id = v79.id, 
-                    cost = v79.priceRobux, 
-                    name = v79.name, 
-                    image = v27(v79.id, v79.type)
+    local v78 = {};
+    local v79 = {};
+    local v80 = {};
+    if v77.itemData then
+        for _, v82 in v77.itemData do
+            if v82.purchasableState == v24.Purchasable then
+                table.insert(v78, {
+                    id = v82.id, 
+                    cost = v82.priceRobux, 
+                    name = v82.name, 
+                    image = v27(v82.id, v82.type)
                 });
-                if v79.ownedCount and v79.ownedCount > 0 then
-                    table.insert(v76, {
-                        id = v79.id, 
-                        name = v79.name, 
-                        image = v27(v79.id, v79.type), 
-                        ownedCount = v79.ownedCount
+                if v82.ownedCount and v82.ownedCount > 0 then
+                    table.insert(v79, {
+                        id = v82.id, 
+                        name = v82.name, 
+                        image = v27(v82.id, v82.type), 
+                        ownedCount = v82.ownedCount
                     });
                 end;
             else
-                table.insert(v77, {
-                    id = v79.id, 
-                    name = v79.name, 
-                    image = v27(v79.id, v79.type), 
-                    status = v26[v79.purchasableState] or Enum.MarketplaceItemPurchaseStatus.SystemError
+                table.insert(v80, {
+                    id = v82.id, 
+                    name = v82.name, 
+                    image = v27(v82.id, v82.type), 
+                    status = v26[v82.purchasableState] or Enum.MarketplaceItemPurchaseStatus.SystemError
                 });
             end;
         end;
     end;
     return {
-        totalCost = v74.totalCost or 0, 
-        items = v75, 
-        ownedItems = v76, 
-        unpurchasableItems = v77, 
-        balance = v74.balance or 0
+        totalCost = v77.totalCost or 0, 
+        items = v78, 
+        ownedItems = v79, 
+        unpurchasableItems = v80, 
+        balance = v77.balance or 0
     };
 end;
-local function v82(v81) --[[ Line: 217 ]] --[[ Name: selectOptions ]]
-    return v81.options;
+local function v85(v84) --[[ Line: 220 ]] --[[ Name: selectOptions ]]
+    return v84.options;
 end;
-return function() --[[ Line: 221 ]] --[[ Name: useBulkPurchaseRequestProps ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useSelector_0 (copy), v80 (copy), v16 (copy), v17 (copy), v82 (copy), v18 (copy), l_MarketplaceService_0 (copy), v19 (copy), l_isErrorReasonContainsEconomicRestrictions_0 (copy), v73 (copy), v58 (copy), v21 (copy), v22 (copy), v20 (copy), v25 (copy), v23 (copy), v30 (copy), v29 (copy), v34 (copy), l_HttpService_0 (copy), v31 (copy), l_BrowserService_0 (copy), v33 (copy), v8 (copy), l_RunService_0 (copy), v32 (copy)
-    local v83 = l_useDispatch_0();
-    local v84 = l_useSelector_0(v80);
-    local v85 = l_useSelector_0(v16);
-    local v86 = l_useSelector_0(v17);
-    local v87 = l_useSelector_0(v82);
-    local v88 = l_useSelector_0(v18);
-    local l_totalCost_0 = v84.totalCost;
-    local l_balance_0 = v84.balance;
-    local function v91() --[[ Line: 231 ]]
-        -- upvalues: l_MarketplaceService_0 (ref), v85 (copy), v83 (copy), v19 (ref)
-        l_MarketplaceService_0:signalPromptBulkPurchaseFinished(2, v85);
-        v83(v19());
+return function() --[[ Line: 224 ]] --[[ Name: useBulkPurchaseRequestProps ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useSelector_0 (copy), v83 (copy), v16 (copy), v17 (copy), v85 (copy), v18 (copy), l_MarketplaceService_0 (copy), v19 (copy), l_isErrorReasonContainsEconomicRestrictions_0 (copy), v76 (copy), v61 (copy), v21 (copy), v22 (copy), v20 (copy), v25 (copy), v23 (copy), v30 (copy), v29 (copy), v34 (copy), l_HttpService_0 (copy), v31 (copy), l_BrowserService_0 (copy), v33 (copy), v8 (copy), l_RunService_0 (copy), v32 (copy)
+    local v86 = l_useDispatch_0();
+    local v87 = l_useSelector_0(v83);
+    local v88 = l_useSelector_0(v16);
+    local v89 = l_useSelector_0(v17);
+    local v90 = l_useSelector_0(v85);
+    local v91 = l_useSelector_0(v18);
+    local l_totalCost_0 = v87.totalCost;
+    local l_balance_0 = v87.balance;
+    local function v94() --[[ Line: 234 ]]
+        -- upvalues: l_MarketplaceService_0 (ref), v88 (copy), v86 (copy), v19 (ref)
+        l_MarketplaceService_0:signalPromptBulkPurchaseFinished(2, v88);
+        v86(v19());
     end;
-    local function v100() --[[ Line: 238 ]]
-        -- upvalues: l_MarketplaceService_0 (ref), v86 (copy), v87 (copy), l_isErrorReasonContainsEconomicRestrictions_0 (ref), v73 (ref), v83 (copy), v58 (ref), v88 (copy), v21 (ref), v22 (ref), v20 (ref), v25 (ref), v23 (ref)
-        local v92 = false;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 239 ]]
-            -- upvalues: l_MarketplaceService_0 (ref), v86 (ref), v87 (ref)
-            return l_MarketplaceService_0:PerformBulkPurchase(v86, v87);
+    local function v103() --[[ Line: 241 ]]
+        -- upvalues: l_MarketplaceService_0 (ref), v89 (copy), v90 (copy), l_isErrorReasonContainsEconomicRestrictions_0 (ref), v76 (ref), v86 (copy), v61 (ref), v91 (copy), v21 (ref), v22 (ref), v20 (ref), v25 (ref), v23 (ref)
+        local v95 = false;
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 242 ]]
+            -- upvalues: l_MarketplaceService_0 (ref), v89 (ref), v90 (ref)
+            return l_MarketplaceService_0:PerformBulkPurchase(v89, v90);
         end);
         if l_status_0 and l_result_0 then
             if l_result_0.message and l_isErrorReasonContainsEconomicRestrictions_0(l_result_0.message) then
-                v73(l_result_0.message, v83);
+                v76(l_result_0.message, v86);
                 return;
             else
-                local v95 = v58(l_result_0, v88);
-                local v96 = nil;
-                local v97;
-                for _, v99 in v95 do
-                    if v96 ~= nil and v99 ~= v96 then
-                        v97 = nil;
-                        v92 = true;
-                    elseif v96 == nil then
-                        v96 = v99;
+                local v98 = v61(l_result_0, v91);
+                local v99 = nil;
+                local v100;
+                for _, v102 in v98 do
+                    if v99 ~= nil and v102 ~= v99 then
+                        v100 = nil;
+                        v95 = true;
+                    elseif v99 == nil then
+                        v99 = v102;
                     end;
-                    if v92 then
+                    if v95 then
                         break;
                     end;
                 end;
-                if not v92 then
-                    v97 = v96;
+                if not v95 then
+                    v100 = v99;
                 end;
-                v92 = false;
-                if not v97 then
-                    v83(v21(v22.PartialSuccess, v95));
+                v95 = false;
+                if not v100 then
+                    v86(v21(v22.PartialSuccess, v98));
                     return;
-                elseif v97 == Enum.MarketplaceItemPurchaseStatus.Success then
-                    v83(v21(v22.Success, v95));
+                elseif v100 == Enum.MarketplaceItemPurchaseStatus.Success then
+                    v86(v21(v22.Success, v98));
                     return;
                 else
-                    v83(v20(v25[v97]));
+                    v86(v20(v25[v100]));
                     return;
                 end;
             end;
         elseif string.find(l_result_0, "403") then
-            v83(v20(v23.TwoStepVerificationRequired));
+            v86(v20(v23.TwoStepVerificationRequired));
             return;
         else
-            v83(v20(v23.Generic));
+            v86(v20(v23.Generic));
             return;
         end;
     end;
-    local function v103() --[[ Line: 276 ]]
-        -- upvalues: v30 (ref), v29 (ref), v34 (ref), l_HttpService_0 (ref), v31 (ref), l_BrowserService_0 (ref), v83 (copy), v19 (ref), v20 (ref), v23 (ref)
-        local v101 = v30();
-        if v101 == v29.Desktop or v101 == v29.Mobile then
+    local function v106() --[[ Line: 279 ]]
+        -- upvalues: v30 (ref), v29 (ref), v34 (ref), l_HttpService_0 (ref), v31 (ref), l_BrowserService_0 (ref), v86 (copy), v19 (ref), v20 (ref), v23 (ref)
+        local v104 = v30();
+        if v104 == v29.Desktop or v104 == v29.Mobile then
             if v34 then
-                local v102 = l_HttpService_0:JSONEncode({
+                local v105 = l_HttpService_0:JSONEncode({
                     command = "open", 
                     url = v31()
                 });
-                l_BrowserService_0:SendCommand(v102);
+                l_BrowserService_0:SendCommand(v105);
             else
                 l_BrowserService_0:OpenBrowserWindow(v31());
             end;
-            v83(v19());
+            v86(v19());
             return;
         else
-            v83(v20(v23.InsufficientRobux));
+            v86(v20(v23.InsufficientRobux));
             return;
         end;
     end;
-    local v104 = nil;
-    local v105 = nil;
-    local v106 = nil;
+    local v107 = nil;
+    local v108 = nil;
+    local v109 = nil;
     if v33 then
-        v104 = v8.useRef(nil);
-        local v107, v108 = v8.useState(true);
-        v105 = v107;
-        v106 = v108;
-        v8.useEffect(function() --[[ Line: 307 ]]
-            -- upvalues: l_RunService_0 (ref), v104 (ref), v32 (ref), v106 (ref)
-            local v111 = l_RunService_0.Heartbeat:Connect(function() --[[ Line: 308 ]]
-                -- upvalues: v104 (ref), v32 (ref), v106 (ref)
-                if v104.current and typeof(v104.current) == "Instance" and v104.current:IsA("GuiObject") then
-                    local v109 = v32(v104.current);
+        v107 = v8.useRef(nil);
+        local v110, v111 = v8.useState(true);
+        v108 = v110;
+        v109 = v111;
+        v8.useEffect(function() --[[ Line: 310 ]]
+            -- upvalues: l_RunService_0 (ref), v107 (ref), v32 (ref), v109 (ref)
+            local v114 = l_RunService_0.Heartbeat:Connect(function() --[[ Line: 311 ]]
+                -- upvalues: v107 (ref), v32 (ref), v109 (ref)
+                if v107.current and typeof(v107.current) == "Instance" and v107.current:IsA("GuiObject") then
+                    local v112 = v32(v107.current);
                     local l_Core_0 = game.StarterGui:GetCore("DevConsoleVisible");
-                    v106(v109 or l_Core_0);
+                    v109(v112 or l_Core_0);
                 end;
             end);
-            return function() --[[ Line: 319 ]]
-                -- upvalues: v111 (copy)
-                v111:Disconnect();
+            return function() --[[ Line: 322 ]]
+                -- upvalues: v114 (copy)
+                v114:Disconnect();
             end;
         end, {});
     end;
     return {
-        currentBalance = v84.balance, 
-        items = v84.items, 
-        ownedItems = v84.ownedItems, 
-        unpurchasableItems = v84.unpurchasableItems, 
-        onClose = v91, 
-        onAccept = if l_balance_0 < l_totalCost_0 then v103 else v100, 
-        totalCost = v84.totalCost, 
-        isDisabled = v33 and v105 or #v84.items == 0, 
-        purchaseButtonRef = if v33 then v104 else nil
+        currentBalance = v87.balance, 
+        items = v87.items, 
+        ownedItems = v87.ownedItems, 
+        unpurchasableItems = v87.unpurchasableItems, 
+        onClose = v94, 
+        onAccept = if l_balance_0 < l_totalCost_0 then v106 else v103, 
+        totalCost = v87.totalCost, 
+        isDisabled = v33 and v108 or #v87.items == 0, 
+        purchaseButtonRef = if v33 then v107 else nil
     };
 end;

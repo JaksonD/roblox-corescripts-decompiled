@@ -216,7 +216,8 @@ local v33 = {
 };
 local v34 = {
     Avatar = "Avatar", 
-    Makeup = "Makeup"
+    Makeup = "Makeup", 
+    Outfit = "Outfit"
 };
 local v35 = if not not l_FFlagAXMakeupEquipping_0 or l_FFlagAXCustomizeMakeupSupport_0 then {
     [v9.EyeMakeup] = Enum.MakeupType.Eye, 

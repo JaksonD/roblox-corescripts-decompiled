@@ -2,108 +2,128 @@ local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local v2 = require(l_CorePackages_0.Packages.Promise);
 local v3 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceCatalog);
-local v4 = require(l_Modules_0.AvatarExperience.Catalog.Http.WebApi);
-local v5 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
-local v6 = require(l_Modules_0.AvatarExperience.Common.Constants);
+local v4 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags);
+local v5 = require(l_Modules_0.AvatarExperience.Catalog.Http.WebApi);
+local v6 = require(l_Modules_0.AvatarExperience.Catalog.CatalogConstants);
+local v7 = require(l_Modules_0.AvatarExperience.Common.Constants);
 local l_PerformFetch_0 = require(l_CorePackages_0.Workspace.Packages.Http).PerformFetch;
-local v8 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
-local v9 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleItemDataBatched);
-local v10 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibResellersInstances);
-local v11 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleResellableInstances);
-local v12 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleResaleData);
+local v9 = require(l_Modules_0.AvatarExperience.Catalog.CatalogUtils);
+local v10 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleItemDataBatched);
+local v11 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibResellersInstances);
+local v12 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleResellableInstances);
+local v13 = require(l_Modules_0.AvatarExperience.Catalog.Thunks.FetchCollectibleResaleData);
 local l_FetchAssetOrBundleInfoBatchedSuccess_0 = v3.State.Actions.FetchAssetOrBundleInfoBatchedSuccess;
 local _ = require(l_Modules_0.LuaApp.Types.RoduxTypes);
 local _ = require(l_Modules_0.AvatarExperience.Common.AvatarExperienceState);
-local function _(v16) --[[ Line: 26 ]] --[[ Name: keyMapper ]]
-    -- upvalues: v8 (copy)
-    return v8.GetBatchItemDetailsKey(v16);
+local l_FFlagAXInventoryDurablesExpiredFilter_0 = v4.FFlagAXInventoryDurablesExpiredFilter;
+local function _(v18) --[[ Line: 29 ]] --[[ Name: keyMapper ]]
+    -- upvalues: v9 (copy)
+    return v9.GetBatchItemDetailsKey(v18);
 end;
-local function _(v18, v19) --[[ Line: 30 ]] --[[ Name: checkIfReceivedFromBundleItemData ]]
-    local v20 = v18.AvatarExperience.Common.AssetInfos[v19];
-    if v20 and v20.receivedFromBundleItemData then
+local function _(v20, v21) --[[ Line: 33 ]] --[[ Name: checkIfReceivedFromBundleItemData ]]
+    local v22 = v20.AvatarExperience.Common.AssetInfos[v21];
+    if v22 and v22.receivedFromBundleItemData then
         return true;
     else
         return false;
     end;
 end;
-local function v28(v22, v23, v24, v25) --[[ Line: 38 ]]
-    -- upvalues: v11 (copy), v10 (copy), v5 (copy), v12 (copy), v2 (copy)
-    local v26 = {};
-    local l_LocalUserId_0 = v22:getState().LocalUserId;
-    table.insert(v26, v22:dispatch(v11(v23, v24, l_LocalUserId_0)));
-    if v25 then
-        table.insert(v26, v22:dispatch(v10(v23, v24, nil, v5.MaxResellersPerPage)));
-        table.insert(v26, v22:dispatch(v12(v23, v24)));
+local function v30(v24, v25, v26, v27) --[[ Line: 41 ]]
+    -- upvalues: v12 (copy), v11 (copy), v6 (copy), v13 (copy), v2 (copy)
+    local v28 = {};
+    local l_LocalUserId_0 = v24:getState().LocalUserId;
+    table.insert(v28, v24:dispatch(v12(v25, v26, l_LocalUserId_0)));
+    if v27 then
+        table.insert(v28, v24:dispatch(v11(v25, v26, nil, v6.MaxResellersPerPage)));
+        table.insert(v28, v24:dispatch(v13(v25, v26)));
     end;
-    return v2.all(v26);
+    return v2.all(v28);
 end;
-return function(v29, _, v31) --[[ Line: 65 ]]
-    -- upvalues: l_PerformFetch_0 (copy), v8 (copy), v4 (copy), v6 (copy), v28 (copy), l_FetchAssetOrBundleInfoBatchedSuccess_0 (copy), v9 (copy)
-    return function(v32, _) --[[ Line: 66 ]]
-        -- upvalues: v31 (copy), l_PerformFetch_0 (ref), v8 (ref), v4 (ref), v29 (copy), v6 (ref), v28 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v9 (ref)
-        local v34 = {};
-        local v35 = {};
-        local v36 = {};
-        for _, v38 in v31 do
-            table.insert(v34, v38.id);
-            local v39 = tonumber(v38.id);
-            if v39 then
-                table.insert(v35, {
-                    id = v39, 
-                    itemType = v38.itemType
+return function(v31, _, v33, v34) --[[ Line: 68 ]]
+    -- upvalues: l_PerformFetch_0 (copy), v9 (copy), v5 (copy), l_FFlagAXInventoryDurablesExpiredFilter_0 (copy), v7 (copy), v30 (copy), l_FetchAssetOrBundleInfoBatchedSuccess_0 (copy), v10 (copy)
+    return function(v35, _) --[[ Line: 69 ]]
+        -- upvalues: v33 (copy), l_PerformFetch_0 (ref), v9 (ref), v5 (ref), v31 (copy), l_FFlagAXInventoryDurablesExpiredFilter_0 (ref), v34 (copy), v7 (ref), v30 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v10 (ref)
+        local v37 = {};
+        local v38 = {};
+        local v39 = {};
+        for _, v41 in v33 do
+            table.insert(v37, v41.id);
+            local v42 = tonumber(v41.id);
+            if v42 then
+                table.insert(v38, {
+                    id = v42, 
+                    itemType = v41.itemType
                 });
-                v36[v39] = v38;
+                v39[v42] = v41;
             end;
         end;
-        return l_PerformFetch_0.Single(v8.GetBatchItemDetailsKey(v34), function(v40) --[[ Line: 84 ]]
-            -- upvalues: v4 (ref), v29 (ref), v35 (copy), v36 (copy), v6 (ref), v28 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v9 (ref)
-            local v41 = {};
-            return v4.FetchItemDetails(v29, v35):andThen(function(v42) --[[ Line: 86 ]]
-                -- upvalues: v40 (copy), v41 (ref), v36 (ref), v6 (ref), v28 (ref), v29 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v9 (ref)
-                local v43 = v40:getState();
-                v41 = if v42.responseBody and v42.responseBody.data then v42.responseBody.data else {};
-                local v44 = {};
-                local v45 = {};
-                local v46 = {};
-                for _, v48 in v41 do
-                    v48.owned = v36[v48.id].quantityOwned > 0;
-                    v48.isPurchasable = v36[v48.id].isPurchasable;
-                    local l_itemType_0 = v48.itemType;
-                    if l_itemType_0 == v6.ItemType.Bundle then
-                        table.insert(v44, v48);
-                        if v48.bundledItems then
-                            for _, v51 in v48.bundledItems do
-                                local v52 = tostring(v51.id);
-                                if v51.Type == v6.ItemType.Asset then
-                                    local v53 = v43.AvatarExperience.Common.AssetInfos[v52];
-                                    if not (v53 and v53.receivedFromBundleItemData and true or false) then
-                                        table.insert(v45, v51);
+        return l_PerformFetch_0.Single(v9.GetBatchItemDetailsKey(v37), function(v43) --[[ Line: 87 ]]
+            -- upvalues: v5 (ref), v31 (ref), v38 (copy), l_FFlagAXInventoryDurablesExpiredFilter_0 (ref), v39 (copy), v34 (ref), v7 (ref), v30 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v10 (ref)
+            local v44 = {};
+            return v5.FetchItemDetails(v31, v38):andThen(function(v45) --[[ Line: 89 ]]
+                -- upvalues: v43 (copy), v44 (ref), l_FFlagAXInventoryDurablesExpiredFilter_0 (ref), v39 (ref), v34 (ref), v7 (ref), v30 (ref), v31 (ref), l_FetchAssetOrBundleInfoBatchedSuccess_0 (ref), v10 (ref)
+                local v46 = v43:getState();
+                v44 = if v45.responseBody and v45.responseBody.data then v45.responseBody.data else {};
+                local v47 = {};
+                local v48 = {};
+                local v49 = {};
+                for _, v51 in v44 do
+                    if l_FFlagAXInventoryDurablesExpiredFilter_0 then
+                        local v52 = v39[v51.id];
+                        if v52 then
+                            local v53 = false;
+                            if v52.quantityOwned ~= nil then
+                                v53 = v52.quantityOwned > 0;
+                            end;
+                            v51.owned = v53;
+                            v51.isPurchasable = v52.isPurchasable;
+                        end;
+                    else
+                        v51.owned = v39[v51.id].quantityOwned > 0;
+                        v51.isPurchasable = v39[v51.id].isPurchasable;
+                    end;
+                    if l_FFlagAXInventoryDurablesExpiredFilter_0 and v34 then
+                        v51.skipReceivedCatalogData = true;
+                    end;
+                    if l_FFlagAXInventoryDurablesExpiredFilter_0 and v51.assetType and type(v51.assetType) == "number" then
+                        v51.assetType = v7.AssetTypeIdStringToName[tostring(v51.assetType)];
+                    end;
+                    local l_itemType_0 = v51.itemType;
+                    if l_itemType_0 == v7.ItemType.Bundle then
+                        table.insert(v47, v51);
+                        if v51.bundledItems then
+                            for _, v56 in v51.bundledItems do
+                                local v57 = tostring(v56.id);
+                                if v56.Type == v7.ItemType.Asset then
+                                    local v58 = v46.AvatarExperience.Common.AssetInfos[v57];
+                                    if not (v58 and v58.receivedFromBundleItemData and true or false) then
+                                        table.insert(v48, v56);
                                     end;
                                 end;
                             end;
                         end;
-                    elseif l_itemType_0 == v6.ItemType.Asset then
-                        table.insert(v46, v48);
+                    elseif l_itemType_0 == v7.ItemType.Asset then
+                        table.insert(v49, v51);
                     end;
-                    local l_collectibleItemId_0 = v48.collectibleItemId;
-                    local l_hasResellers_0 = v48.hasResellers;
+                    local l_collectibleItemId_0 = v51.collectibleItemId;
+                    local l_hasResellers_0 = v51.hasResellers;
                     if l_collectibleItemId_0 then
-                        v28(v40, v29, l_collectibleItemId_0, l_hasResellers_0);
+                        v30(v43, v31, l_collectibleItemId_0, l_hasResellers_0);
                     end;
                 end;
-                local v56 = {};
-                for _, v58 in v41 do
-                    if v58.collectibleItemId then
-                        table.insert(v56, v58.collectibleItemId);
+                local v61 = {};
+                for _, v63 in v44 do
+                    if v63.collectibleItemId then
+                        table.insert(v61, v63.collectibleItemId);
                     end;
                 end;
-                v40:dispatch(l_FetchAssetOrBundleInfoBatchedSuccess_0({
-                    hydratedBundles = v44, 
-                    assetsInBundle = v45, 
-                    hydratedAssets = v46
+                v43:dispatch(l_FetchAssetOrBundleInfoBatchedSuccess_0({
+                    hydratedBundles = v47, 
+                    assetsInBundle = v48, 
+                    hydratedAssets = v49
                 }));
-                v40:dispatch(v9(v29, v56));
+                v43:dispatch(v10(v31, v61));
             end);
-        end)(v32);
+        end)(v35);
     end;
 end;

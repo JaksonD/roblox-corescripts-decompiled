@@ -6,72 +6,83 @@ local _ = require(l_util_0.Types);
 local v5 = require(l_util_0.floatEquals);
 local v6 = require(l_util_0.getExpectedPartSize);
 local v7 = require(l_util_0.FailureReasonsAccumulator);
-local v15 = {
-    validateMeshMin = function(v8, v9) --[[ Line: 20 ]] --[[ Name: validateMeshMin ]]
+local v8 = require(l_Parent_0.util.R15plusUtils);
+local v16 = {
+    validateMeshMin = function(v9, v10) --[[ Line: 21 ]] --[[ Name: validateMeshMin ]]
         -- upvalues: v5 (copy)
-        local v10 = true;
-        local v11 = "";
-        for _, v13 in {
+        local v11 = true;
+        local v12 = "";
+        for _, v14 in {
             "X", 
             "Y", 
             "Z"
         } do
-            local v14 = v8[v13];
-            if v5(v14, 0, 1.0E-4) then
-                v11 = (if #v11 > 0 then v11 .. ". " else "") .. "Size on " .. v13 .. " axis is zero";
-                v10 = false;
+            local v15 = v9[v14];
+            if v5(v15, 0, 1.0E-4) then
+                v12 = (if #v12 > 0 then v12 .. ". " else "") .. "Size on " .. v14 .. " axis is zero";
+                v11 = false;
             end;
         end;
-        if not v10 then
+        if not v11 then
             return false, {
-                "Render mesh for " .. v9 .. ": " .. v11 .. ". Increase the size of the mesh"
+                "Render mesh for " .. v10 .. ": " .. v12 .. ". Increase the size of the mesh"
             };
         else
             return true;
         end;
     end
 };
-v15.validateInternal = function(v16, v17, v18) --[[ Line: 39 ]] --[[ Name: validateInternal ]]
-    -- upvalues: v7 (copy), v6 (copy), v15 (copy), v1 (copy)
-    local v19 = v7.new();
-    local v20 = v6(v16, v17, true);
-    local v21, v22 = v15.validateMeshMin(v20, v16.Name);
-    v19:updateReasons(v21, v22);
-    if not v21 and v18 then
-        v1.reportFailure(v1.ErrorType.validateBodyBlockingTests_ZeroMeshSize, nil, v17);
+v16.validateInternal = function(v17, v18, v19) --[[ Line: 40 ]] --[[ Name: validateInternal ]]
+    -- upvalues: v7 (copy), v6 (copy), v16 (copy), v1 (copy), v8 (copy)
+    local v20 = v7.new();
+    local v21 = v6(v17, v18, true);
+    local v22, v23 = v16.validateMeshMin(v21, v17.Name);
+    v20:updateReasons(v22, v23);
+    if not v22 and v19 then
+        v1.reportFailure(v1.ErrorType.validateBodyBlockingTests_ZeroMeshSize, nil, v18);
     end;
-    return v19:getFinalResults();
+    if v8.checkFlagEnabledForAllowHrd() then
+        local v24 = v8.getAvatarBoneSchema(v17.Name);
+        for v25, v26 in (v8.getNameWhitelistOfClassInSchema(v24, "Attachment")) do
+            if v26 and not v17:FindFirstChild(v25, true) then
+                v20:updateReasons(false, {
+                    (("Missing Required attachment %*"):format(v25))
+                });
+            end;
+        end;
+    end;
+    return v20:getFinalResults();
 end;
-v15.validateAll = function(v23, v24) --[[ Line: 57 ]] --[[ Name: validateAll ]]
-    -- upvalues: v15 (copy), v1 (copy)
-    local v25 = tick();
-    local v26 = true;
-    for _, v28 in v23 do
-        assert(v28:IsA("MeshPart"));
-        if not v15.validateInternal(v28, v24, false) then
-            v26 = false;
+v16.validateAll = function(v27, v28) --[[ Line: 68 ]] --[[ Name: validateAll ]]
+    -- upvalues: v16 (copy), v1 (copy)
+    local v29 = tick();
+    local v30 = true;
+    for _, v32 in v27 do
+        assert(v32:IsA("MeshPart"));
+        if not v16.validateInternal(v32, v28, false) then
+            v30 = false;
             break;
         end;
     end;
-    v1.recordScriptTime(script.Name, v25, v24);
-    return v26;
+    v1.recordScriptTime(script.Name, v29, v28);
+    return v30;
 end;
-v15.validate = function(v29, v30) --[[ Line: 77 ]] --[[ Name: validate ]]
-    -- upvalues: v7 (copy), v2 (copy), v15 (copy), v1 (copy)
-    local v31 = tick();
-    local l_assetTypeEnum_0 = v30.assetTypeEnum;
-    local v33 = v7.new();
-    local v34 = v2.ASSET_TYPE_INFO[l_assetTypeEnum_0];
+v16.validate = function(v33, v34) --[[ Line: 88 ]] --[[ Name: validate ]]
+    -- upvalues: v7 (copy), v2 (copy), v16 (copy), v1 (copy)
+    local v35 = tick();
+    local l_assetTypeEnum_0 = v34.assetTypeEnum;
+    local v37 = v7.new();
+    local v38 = v2.ASSET_TYPE_INFO[l_assetTypeEnum_0];
     if Enum.AssetType.DynamicHead == l_assetTypeEnum_0 then
-        v33:updateReasons(v15.validateInternal(v29, v30, true));
+        v37:updateReasons(v16.validateInternal(v33, v34, true));
     else
-        for v35 in pairs(v34.subParts) do
-            local l_v29_FirstChild_0 = v29:FindFirstChild(v35);
-            assert(l_v29_FirstChild_0);
-            v33:updateReasons(v15.validateInternal(l_v29_FirstChild_0, v30, true));
+        for v39 in pairs(v38.subParts) do
+            local l_v33_FirstChild_0 = v33:FindFirstChild(v39);
+            assert(l_v33_FirstChild_0);
+            v37:updateReasons(v16.validateInternal(l_v33_FirstChild_0, v34, true));
         end;
     end;
-    v1.recordScriptTime(script.Name, v31, v30);
-    return v33:getFinalResults();
+    v1.recordScriptTime(script.Name, v35, v34);
+    return v37:getFinalResults();
 end;
-return v15;
+return v16;

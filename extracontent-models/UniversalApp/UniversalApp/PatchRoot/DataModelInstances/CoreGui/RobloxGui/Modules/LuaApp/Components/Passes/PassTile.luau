@@ -13,224 +13,235 @@ local l_RoactServices_0 = require(l_CorePackages_0.Workspace.Packages.RoactServi
 local v12 = require(l_CorePackages_0.Packages.Promise);
 local l_ItemTile_0 = require(l_CorePackages_0.Packages.UIBlox).Tile.ItemTile;
 local v14 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForPurchasePass);
-local v15 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
-local l_Constants_0 = v15.Constants;
-local v17 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics);
-local l_UnifiedEventLogEnums_0 = v17.UnifiedEventLogEnums;
-local l_addUnifiedEventLogging_0 = v17.addUnifiedEventLogging;
+local v15 = require(l_Modules_0.LuaApp.Thunks.Economy.FetchExperienceStoreProducts);
+local v16 = require(l_CorePackages_0.Workspace.Packages.EdpStoreAnalytics);
+local l_Constants_0 = v16.Constants;
+local v18 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceAnalytics);
+local l_UnifiedEventLogEnums_0 = v18.UnifiedEventLogEnums;
+local l_addUnifiedEventLogging_0 = v18.addUnifiedEventLogging;
 local l_SessionService_0 = game:GetService("SessionService");
-local v21 = require(l_Modules_0.LuaApp.Flags.FFlagEnableEdpStoreUnifiedLogging);
-local v22 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
-local v23 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
-local l_getIsUserEligibleForUnifiedPurchaseFlow_0 = v23.getIsUserEligibleForUnifiedPurchaseFlow;
-local l_ProductPurchaseSurface_0 = v23.Enums.ProductPurchaseSurface;
-local l_getTTIEventName_0 = v23.getTTIEventName;
+local v22 = require(l_Modules_0.LuaApp.Flags.FFlagEnableEdpStoreUnifiedLogging);
+local v23 = require(l_Modules_0.LuaApp.Thunks.OpenCentralOverlayForUnifiedPurchasePrompt);
+local v24 = require(l_CorePackages_0.Workspace.Packages.PurchasePromptLite);
+local l_getIsUserEligibleForUnifiedPurchaseFlow_0 = v24.getIsUserEligibleForUnifiedPurchaseFlow;
+local l_ProductPurchaseSurface_0 = v24.Enums.ProductPurchaseSurface;
+local l_getTTIEventName_0 = v24.getTTIEventName;
 local l_TimeToInteractiveTracker_0 = require(l_CorePackages_0.Workspace.Packages.TimeToInteractiveTracker).TimeToInteractiveTracker;
-local v28 = require(l_Modules_0.LuaApp.Components.Passes.PassFooter);
-local v29 = require(l_Modules_0.LuaApp.Flags.FFlagEnableUnifiedPurchasePromptForEDPGamepass);
-local v30 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
-local v31 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
+local v29 = require(l_Modules_0.LuaApp.Components.Passes.PassFooter);
+local v30 = require(l_Modules_0.LuaApp.Flags.FFlagEnableUnifiedPurchasePromptForEDPGamepass);
+local v31 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreClickLogging);
+local v32 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableEdpStoreGridPositionLogging);
 local l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUnifiedPurchaseGamepassAddProductUniverseId;
-local v33 = v2.PureComponent:extend("PassTile");
+local v34 = v2.PureComponent:extend("PassTile");
 local l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAddUnifiedPurchaseFlowTTIToEDP;
 local l_FFlagUnifiedPurchasePassInProductInfoEDP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUnifiedPurchasePassInProductInfoEDP;
 local l_FFlagUnifiedPurchaseAddSkeleton_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagUnifiedPurchaseAddSkeleton;
-local v37 = game:DefineFastFlag("UnifiedPurchaseAddSkeletonLoadingForEDPGamepass", false) and l_FFlagUnifiedPurchaseAddSkeleton_0;
+local v38 = game:DefineFastFlag("UnifiedPurchaseAddSkeletonLoadingForEDPGamepass", false) and l_FFlagUnifiedPurchaseAddSkeleton_0;
 local l_FFlagIntegrateDiscountsWithEDP_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagIntegrateDiscountsWithEDP;
-v33.validateProps = v8.strictInterface({
+v34.validateProps = v8.strictInterface({
     universeId = v8.string, 
     pass = v8.table, 
     passThumbnail = v8.string, 
-    locationType = if v30() then v8.optional(v8.string) else nil, 
-    gridPositionRow = if v31() then v8.optional(v8.number) else nil, 
-    gridPositionColumn = if v31() then v8.optional(v8.number) else nil, 
-    networking = if v29 then v8.optional(v8.callback) else nil, 
+    locationType = if v31() then v8.optional(v8.string) else nil, 
+    gridPositionRow = if v32() then v8.optional(v8.number) else nil, 
+    gridPositionColumn = if v32() then v8.optional(v8.number) else nil, 
+    networking = if v30 then v8.optional(v8.callback) else nil, 
     userRobux = v8.optional(v8.number), 
     requestPurchasePass = v8.optional(v8.callback), 
     requestPurchasePassWithUnifiedPurchasePrompt = v8.optional(v8.callback), 
     navigateDown = v8.optional(v8.callback), 
     closeCentralOverlay = v8.optional(v8.callback), 
-    apiFetchGamePasses = v8.optional(v8.callback)
+    apiFetchGamePasses = v8.optional(v8.callback), 
+    fetchExperienceStoreProducts = v8.optional(v8.callback)
 });
-v33.init = function(v39) --[[ Line: 87 ]] --[[ Name: init ]]
-    -- upvalues: v21 (copy), v2 (copy), v12 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), v30 (copy), v15 (copy), l_Constants_0 (copy), v29 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (copy), v6 (copy), v7 (copy), v5 (copy)
-    if v21 then
-        v39.ref = v2.createRef();
+v34.init = function(v40) --[[ Line: 87 ]] --[[ Name: init ]]
+    -- upvalues: v22 (copy), v2 (copy), v12 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), v31 (copy), v16 (copy), l_Constants_0 (copy), v30 (copy), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (copy), v6 (copy), v7 (copy), v5 (copy)
+    if v22 then
+        v40.ref = v2.createRef();
     end;
-    v39.promptPurchase = function(v40, v41) --[[ Line: 91 ]]
-        -- upvalues: v39 (copy), v12 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v30 (ref), v15 (ref), l_Constants_0 (ref), v29 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref)
-        local function v42() --[[ Line: 92 ]] --[[ Name: onFlowComplete ]]
-            -- upvalues: v39 (ref)
-            v39.props.closeCentralOverlay();
+    v40.promptPurchase = function(v41, v42) --[[ Line: 91 ]]
+        -- upvalues: v40 (copy), v12 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v31 (ref), v16 (ref), l_Constants_0 (ref), v30 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref)
+        local function v43() --[[ Line: 92 ]] --[[ Name: onFlowComplete ]]
+            -- upvalues: v40 (ref)
+            v40.props.closeCentralOverlay();
         end;
-        local function v43() --[[ Line: 95 ]] --[[ Name: onPurchaseSuccess ]]
-            -- upvalues: v39 (ref), v41 (copy)
-            v39.props.apiFetchGamePasses(v39.props.networking, v41);
+        local function v44() --[[ Line: 95 ]] --[[ Name: onPurchaseSuccess ]]
+            -- upvalues: v40 (ref), v42 (copy)
+            v40.props.apiFetchGamePasses(v40.props.networking, v42);
         end;
-        local function v44() --[[ Line: 98 ]] --[[ Name: fetchProductInfo ]]
-            -- upvalues: v12 (ref), v40 (copy), v39 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref)
+        local function v45() --[[ Line: 98 ]] --[[ Name: onRobloxSubscriptionUpsellSuccess ]]
+            -- upvalues: v40 (ref), v42 (copy)
+            v40.props.fetchExperienceStoreProducts(v40.props.networking, v42);
+        end;
+        local function v46() --[[ Line: 101 ]] --[[ Name: fetchProductInfo ]]
+            -- upvalues: v12 (ref), v41 (copy), v40 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref)
             return v12.resolve({
-                TargetId = v40.id, 
+                TargetId = v41.id, 
                 IsForSale = true, 
-                Name = v40.displayName, 
-                Description = v40.displayDescription, 
-                PriceInRobux = v40.price, 
-                ImageUrl = v39.props.passThumbnail, 
-                ProductId = v40.productId, 
-                PriceDiscountDetails = if l_FFlagIntegrateDiscountsWithEDP_0 then v40.priceDiscountDetails else nil, 
-                BasePriceInRobux = if l_FFlagIntegrateDiscountsWithEDP_0 then v40.basePriceInRobux else nil
+                Name = v41.displayName, 
+                Description = v41.displayDescription, 
+                PriceInRobux = v41.price, 
+                ImageUrl = v40.props.passThumbnail, 
+                ProductId = v41.productId, 
+                PriceDiscountDetails = if l_FFlagIntegrateDiscountsWithEDP_0 then v41.priceDiscountDetails else nil, 
+                BasePriceInRobux = if l_FFlagIntegrateDiscountsWithEDP_0 then v41.userBasePriceInRobux else nil
             });
         end;
-        return function() --[[ Line: 111 ]]
-            -- upvalues: v30 (ref), v15 (ref), l_Constants_0 (ref), v39 (ref), v40 (copy), v29 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref), v41 (copy), v42 (copy), v43 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), v44 (copy)
-            if v30() then
-                v15.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.PurchaseAttemptClick, l_Constants_0.StoreEnums.ProductType.GamePasses, v39.props.locationType, tonumber(v39.props.universeId), tonumber(v40.id), (tostring(v40.id)));
+        return function() --[[ Line: 114 ]]
+            -- upvalues: v31 (ref), v16 (ref), l_Constants_0 (ref), v40 (ref), v41 (copy), v30 (ref), l_getIsUserEligibleForUnifiedPurchaseFlow_0 (ref), v42 (copy), v43 (copy), v44 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), v46 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v45 (copy)
+            if v31() then
+                v16.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.PurchaseAttemptClick, l_Constants_0.StoreEnums.ProductType.GamePasses, v40.props.locationType, tonumber(v40.props.universeId), tonumber(v41.id), (tostring(v41.id)));
             end;
-            if not v40.isOwned then
-                if v29 then
-                    l_getIsUserEligibleForUnifiedPurchaseFlow_0(v39.props.networking):andThen(function(v45) --[[ Line: 125 ]]
-                        -- upvalues: v39 (ref), v40 (ref), v41 (ref), v42 (ref), v43 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), v44 (ref)
-                        if v45 then
-                            v39.props.requestPurchasePassWithUnifiedPurchasePrompt(v40, v41, v42, v43, if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v44 else nil, if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v39.props.userRobux else nil);
+            if not v41.isOwned then
+                if v30 then
+                    l_getIsUserEligibleForUnifiedPurchaseFlow_0(v40.props.networking):andThen(function(v47) --[[ Line: 128 ]]
+                        -- upvalues: v40 (ref), v41 (ref), v42 (ref), v43 (ref), v44 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), v46 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), v45 (ref)
+                        if v47 then
+                            v40.props.requestPurchasePassWithUnifiedPurchasePrompt(v41, v42, v43, v44, if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v46 else nil, if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v40.props.userRobux else nil, if l_FFlagIntegrateDiscountsWithEDP_0 then v45 else nil);
                             return;
                         else
-                            v39.props.requestPurchasePass(v40, v41);
+                            v40.props.requestPurchasePass(v41, v42);
                             return;
                         end;
-                    end):catch(function() --[[ Line: 139 ]]
-                        -- upvalues: v39 (ref), v40 (ref), v41 (ref)
-                        v39.props.requestPurchasePass(v40, v41);
+                    end):catch(function() --[[ Line: 143 ]]
+                        -- upvalues: v40 (ref), v41 (ref), v42 (ref)
+                        v40.props.requestPurchasePass(v41, v42);
                     end);
                     return;
                 else
-                    v39.props.requestPurchasePass(v40, v41);
+                    v40.props.requestPurchasePass(v41, v42);
                 end;
             end;
         end;
     end;
-    v39.viewPassDetails = function(v46) --[[ Line: 149 ]]
-        -- upvalues: v39 (copy), v30 (ref), v15 (ref), l_Constants_0 (ref), v6 (ref), v7 (ref), v5 (ref)
-        return function() --[[ Line: 150 ]]
-            -- upvalues: v39 (ref), v30 (ref), v15 (ref), l_Constants_0 (ref), v46 (copy), v6 (ref), v7 (ref), v5 (ref)
-            if v39.isMounted then
-                if v30() then
-                    v15.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.ItemClick, l_Constants_0.StoreEnums.ProductType.GamePasses, v39.props.locationType, tonumber(v39.props.universeId), tonumber(v46.id), (tostring(v46.id)));
+    v40.viewPassDetails = function(v48) --[[ Line: 153 ]]
+        -- upvalues: v40 (copy), v31 (ref), v16 (ref), l_Constants_0 (ref), v6 (ref), v7 (ref), v5 (ref)
+        return function() --[[ Line: 154 ]]
+            -- upvalues: v40 (ref), v31 (ref), v16 (ref), l_Constants_0 (ref), v48 (copy), v6 (ref), v7 (ref), v5 (ref)
+            if v40.isMounted then
+                if v31() then
+                    v16.EdpStoreAnalyticsLogger.logEvent(l_Constants_0.StoreEnums.ActionType.ItemClick, l_Constants_0.StoreEnums.ProductType.GamePasses, v40.props.locationType, tonumber(v40.props.universeId), tonumber(v48.id), (tostring(v48.id)));
                 end;
-                v39.props.navigateDown({
+                v40.props.navigateDown({
                     name = v6.GenericWebPage, 
                     detail = v7.game.info.pass({
-                        passId = v46.id
+                        passId = v48.id
                     }), 
                     extraProps = {
-                        title = v46.displayName, 
+                        title = v48.displayName, 
                         transitionAnimation = v5.SlideInFromRight, 
-                        passOwned = v46.isOwned
+                        passOwned = v48.isOwned
                     }
                 });
             end;
         end;
     end;
 end;
-v33.render = function(v47) --[[ Line: 178 ]] --[[ Name: render ]]
-    -- upvalues: v2 (copy), l_ItemTile_0 (copy), v21 (copy), v28 (copy)
-    local l_pass_0 = v47.props.pass;
+v34.render = function(v49) --[[ Line: 182 ]] --[[ Name: render ]]
+    -- upvalues: v2 (copy), l_ItemTile_0 (copy), v22 (copy), v29 (copy)
+    local l_pass_0 = v49.props.pass;
     return v2.createElement(l_ItemTile_0, {
-        [v2.Ref] = if v21 then v47.ref else nil, 
+        [v2.Ref] = if v22 then v49.ref else nil, 
         name = l_pass_0.displayName, 
         titleTextLineCount = 1, 
-        thumbnail = v47.props.passThumbnail, 
-        onActivated = v47.viewPassDetails(l_pass_0), 
-        footer = v2.createElement(v28, {
+        thumbnail = v49.props.passThumbnail, 
+        onActivated = v49.viewPassDetails(l_pass_0), 
+        footer = v2.createElement(v29, {
             price = l_pass_0.price, 
             userOwnsPass = l_pass_0.isOwned, 
-            onActivated = v47.promptPurchase(l_pass_0, v47.props.universeId)
+            onActivated = v49.promptPurchase(l_pass_0, v49.props.universeId)
         })
     });
 end;
-v33.didMount = function(v49) --[[ Line: 195 ]] --[[ Name: didMount ]]
-    -- upvalues: v21 (copy), l_UnifiedEventLogEnums_0 (copy), v31 (copy), l_addUnifiedEventLogging_0 (copy), l_SessionService_0 (copy)
-    v49.isMounted = true;
-    if v21 then
-        task.delay(0, function() --[[ Line: 198 ]]
-            -- upvalues: v49 (copy), l_UnifiedEventLogEnums_0 (ref), v31 (ref), l_addUnifiedEventLogging_0 (ref), l_SessionService_0 (ref)
-            local v50 = {
-                universeId = tonumber(v49.props.universeId), 
-                itemId = v49.props.pass.id, 
+v34.didMount = function(v51) --[[ Line: 199 ]] --[[ Name: didMount ]]
+    -- upvalues: v22 (copy), l_UnifiedEventLogEnums_0 (copy), v32 (copy), l_addUnifiedEventLogging_0 (copy), l_SessionService_0 (copy)
+    v51.isMounted = true;
+    if v22 then
+        task.delay(0, function() --[[ Line: 202 ]]
+            -- upvalues: v51 (copy), l_UnifiedEventLogEnums_0 (ref), v32 (ref), l_addUnifiedEventLogging_0 (ref), l_SessionService_0 (ref)
+            local v52 = {
+                universeId = tonumber(v51.props.universeId), 
+                itemId = v51.props.pass.id, 
                 itemType = l_UnifiedEventLogEnums_0.MarketplaceUnifiedItemType.GAME_PASS
             };
-            if v31() then
-                v50.gridPositionRow = v49.props.gridPositionRow;
-                v50.gridPositionColumn = v49.props.gridPositionColumn;
+            if v32() then
+                v52.gridPositionRow = v51.props.gridPositionRow;
+                v52.gridPositionColumn = v51.props.gridPositionColumn;
             end;
-            l_addUnifiedEventLogging_0(v49.ref, v50, {
+            l_addUnifiedEventLogging_0(v51.ref, v52, {
                 sessionTagName = l_SessionService_0:GetSessionTag("level2a")
             });
         end);
     end;
 end;
-v33.willUnmount = function(v51) --[[ Line: 215 ]] --[[ Name: willUnmount ]]
-    v51.isMounted = false;
+v34.willUnmount = function(v53) --[[ Line: 219 ]] --[[ Name: willUnmount ]]
+    v53.isMounted = false;
 end;
-v33 = v3.connect(l_FFlagUnifiedPurchasePassInProductInfoEDP_0 and function(v52, _) --[[ Line: 220 ]]
+v34 = v3.connect(l_FFlagUnifiedPurchasePassInProductInfoEDP_0 and function(v54, _) --[[ Line: 224 ]]
     return {
-        userRobux = v52.UserRobux[v52.LocalUserId]
+        userRobux = v54.UserRobux[v54.LocalUserId]
     };
-end or nil, function(v54) --[[ Line: 225 ]]
-    -- upvalues: l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v14 (copy), v22 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (copy), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (copy), v37 (copy), l_CorePackages_0 (copy), v9 (copy), v4 (copy)
+end or nil, function(v56) --[[ Line: 229 ]]
+    -- upvalues: l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (copy), l_getTTIEventName_0 (copy), l_ProductPurchaseSurface_0 (copy), l_TimeToInteractiveTracker_0 (copy), v14 (copy), v23 (copy), l_FFlagIntegrateDiscountsWithEDP_0 (copy), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (copy), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (copy), v38 (copy), l_CorePackages_0 (copy), v9 (copy), v4 (copy), v15 (copy)
     return {
-        requestPurchasePass = function(v55, v56) --[[ Line: 227 ]] --[[ Name: requestPurchasePass ]]
-            -- upvalues: l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v54 (copy), v14 (ref)
+        requestPurchasePass = function(v57, v58) --[[ Line: 231 ]] --[[ Name: requestPurchasePass ]]
+            -- upvalues: l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (ref), l_getTTIEventName_0 (ref), l_ProductPurchaseSurface_0 (ref), l_TimeToInteractiveTracker_0 (ref), v56 (copy), v14 (ref)
             if l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 then
-                local v57 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.EDP);
-                l_TimeToInteractiveTracker_0.trackStart(v57);
-                l_TimeToInteractiveTracker_0.updateMetadata(v57, {
+                local v59 = l_getTTIEventName_0(l_ProductPurchaseSurface_0.EDP);
+                l_TimeToInteractiveTracker_0.trackStart(v59);
+                l_TimeToInteractiveTracker_0.updateMetadata(v59, {
                     page = l_ProductPurchaseSurface_0.EDP, 
                     category = "legacy_purchase_modal"
                 });
             end;
-            return v54(v14(v55, v56));
+            return v56(v14(v57, v58));
         end, 
-        requestPurchasePassWithUnifiedPurchasePrompt = function(v58, v59, v60, v61, v62, v63) --[[ Line: 238 ]] --[[ Name: requestPurchasePassWithUnifiedPurchasePrompt ]]
-            -- upvalues: v54 (copy), v22 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), l_ProductPurchaseSurface_0 (ref), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (ref), v37 (ref), l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (ref)
-            return v54(v22({
+        requestPurchasePassWithUnifiedPurchasePrompt = function(v60, v61, v62, v63, v64, v65, v66) --[[ Line: 242 ]] --[[ Name: requestPurchasePassWithUnifiedPurchasePrompt ]]
+            -- upvalues: v56 (copy), v23 (ref), l_FFlagIntegrateDiscountsWithEDP_0 (ref), l_FFlagUnifiedPurchasePassInProductInfoEDP_0 (ref), l_ProductPurchaseSurface_0 (ref), l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 (ref), v38 (ref), l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 (ref)
+            return v56(v23({
                 productPayload = {
-                    id = v58.id, 
+                    id = v60.id, 
                     kind = "Gamepass"
                 }, 
                 purchaseCallbacks = {
-                    onFlowComplete = v60, 
-                    onPurchaseSuccess = v61, 
-                    fetchProductInfo = if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v62 else nil
+                    onFlowComplete = v62, 
+                    onPurchaseSuccess = v63, 
+                    onRobloxSubscriptionUpsellSuccess = if l_FFlagIntegrateDiscountsWithEDP_0 then v66 else nil, 
+                    fetchProductInfo = if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then v64 else nil
                 }, 
                 purchaseAnalyticsMetadata = {
                     surface = l_ProductPurchaseSurface_0.EDP, 
-                    productUniverseId = if l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 then v59 else nil
+                    productUniverseId = if l_FFlagUnifiedPurchaseGamepassAddProductUniverseId_0 then v61 else nil
                 }, 
                 purchaseOptions = if l_FFlagUnifiedPurchasePassInProductInfoEDP_0 then {
-                    shouldSkipOwnershipCheck = not v58.isOwned, 
-                    providedRobuxBalance = v63, 
-                    enablePreloadedPurchaseUI = v37 and true or nil
+                    shouldSkipOwnershipCheck = not v60.isOwned, 
+                    providedRobuxBalance = v65, 
+                    enablePreloadedPurchaseUI = v38 and true or nil
                 } else nil
             }, l_FFlagAddUnifiedPurchaseFlowTTIToEDP_0 and true or nil));
         end, 
-        closeCentralOverlay = function() --[[ Line: 268 ]] --[[ Name: closeCentralOverlay ]]
-            -- upvalues: l_CorePackages_0 (ref), v54 (copy)
+        closeCentralOverlay = function() --[[ Line: 276 ]] --[[ Name: closeCentralOverlay ]]
+            -- upvalues: l_CorePackages_0 (ref), v56 (copy)
             local l_CloseCentralOverlay_0 = require(l_CorePackages_0.Workspace.Packages.CentralOverlay).Thunks.CloseCentralOverlay;
-            return v54(l_CloseCentralOverlay_0());
+            return v56(l_CloseCentralOverlay_0());
         end, 
-        apiFetchGamePasses = function(v65, v66) --[[ Line: 273 ]] --[[ Name: apiFetchGamePasses ]]
-            -- upvalues: v54 (copy), v9 (ref)
-            return v54(v9(v65, v66));
+        apiFetchGamePasses = function(v68, v69) --[[ Line: 281 ]] --[[ Name: apiFetchGamePasses ]]
+            -- upvalues: v56 (copy), v9 (ref)
+            return v56(v9(v68, v69));
         end, 
-        navigateDown = function(v67) --[[ Line: 276 ]] --[[ Name: navigateDown ]]
-            -- upvalues: v54 (copy), v4 (ref)
-            return v54(v4(v67));
-        end
+        navigateDown = function(v70) --[[ Line: 284 ]] --[[ Name: navigateDown ]]
+            -- upvalues: v56 (copy), v4 (ref)
+            return v56(v4(v70));
+        end, 
+        fetchExperienceStoreProducts = l_FFlagIntegrateDiscountsWithEDP_0 and function(v71, v72) --[[ Line: 288 ]]
+            -- upvalues: v56 (copy), v15 (ref)
+            return v56(v15(v71, v72));
+        end or nil
     };
-end)(v33);
-if v29 then
-    v33 = l_RoactServices_0.connect({
+end)(v34);
+if v30 then
+    v34 = l_RoactServices_0.connect({
         networking = v10
-    })(v33);
+    })(v34);
 end;
-return v33;
+return v34;

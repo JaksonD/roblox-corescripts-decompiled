@@ -17,163 +17,171 @@ local v15 = require(l_script_FirstAncestor_0.Flags.GetFFlagEnablePromptPurchaseR
 local l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 = require(l_Parent_0.SharedFlags).FFlagEnableUnifiedPurchaseFlowForDevSubs;
 local l_ProductTypeEnum_0 = require(l_script_FirstAncestor_0.types).ProductTypeEnum;
 local v18 = require(l_script_FirstAncestor_0.Flags.FFlagEnablePromptRobloxSubscriptionPurchaseBinding);
-local v19 = require(l_Parent_0.RobloxSubscriptionPurchaseApp);
-local l_SurfaceContext_0 = v19.SurfaceContext;
-local l_SurfaceName_0 = v19.SurfaceName;
-return (v12(nil, function(v22) --[[ Line: 134 ]]
-    -- upvalues: l_Players_0 (copy), v8 (copy), v5 (copy), v6 (copy), v7 (copy), v9 (copy), v10 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_ProductTypeEnum_0 (copy), v11 (copy), v18 (copy), v19 (copy), l_SurfaceName_0 (copy), l_SurfaceContext_0 (copy)
-    local function v27(v23, v24, v25, _) --[[ Line: 135 ]] --[[ Name: onPurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v8 (ref)
-        if v23 == l_Players_0.LocalPlayer then
-            v22(v8(v24, Enum.InfoType.Asset, v25, false, "", ""));
+local v19 = game:DefineFastFlag("RoutePremiumToBlackbirdUpsell", false);
+local v20 = require(l_Parent_0.RobloxSubscriptionPurchaseApp);
+local l_SurfaceContext_0 = v20.SurfaceContext;
+local l_SurfaceName_0 = v20.SurfaceName;
+return (v12(nil, function(v23) --[[ Line: 135 ]]
+    -- upvalues: l_Players_0 (copy), v8 (copy), v5 (copy), v6 (copy), v7 (copy), v9 (copy), v19 (copy), v20 (copy), l_SurfaceName_0 (copy), l_SurfaceContext_0 (copy), v10 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_ProductTypeEnum_0 (copy), v11 (copy), v18 (copy)
+    local function v28(v24, v25, v26, _) --[[ Line: 136 ]] --[[ Name: onPurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v8 (ref)
+        if v24 == l_Players_0.LocalPlayer then
+            v23(v8(v25, Enum.InfoType.Asset, v26, false, "", ""));
         end;
     end;
-    local function v34(v28, v29, v30, _, v32, v33) --[[ Line: 141 ]] --[[ Name: onPurchaseRequestV2 ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v8 (ref)
-        if v28 == l_Players_0.LocalPlayer then
-            v22(v8(v29, Enum.InfoType.Asset, v30, false, v32, v33));
+    local function v35(v29, v30, v31, _, v33, v34) --[[ Line: 142 ]] --[[ Name: onPurchaseRequestV2 ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v8 (ref)
+        if v29 == l_Players_0.LocalPlayer then
+            v23(v8(v30, Enum.InfoType.Asset, v31, false, v33, v34));
         end;
     end;
-    local function v37(v35, v36) --[[ Line: 163 ]] --[[ Name: onRobloxPurchaseRequest ]]
-        -- upvalues: v22 (copy), v8 (ref)
-        v22(v8(v35, Enum.InfoType.Asset, v36, true));
+    local function v38(v36, v37) --[[ Line: 164 ]] --[[ Name: onRobloxPurchaseRequest ]]
+        -- upvalues: v23 (copy), v8 (ref)
+        v23(v8(v36, Enum.InfoType.Asset, v37, true));
     end;
-    local function v42(v38, v39, v40, _) --[[ Line: 167 ]] --[[ Name: onProductPurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v8 (ref)
-        if v38 == l_Players_0.LocalPlayer then
-            v22(v8(v39, Enum.InfoType.Product, v40));
+    local function v43(v39, v40, v41, _) --[[ Line: 168 ]] --[[ Name: onProductPurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v8 (ref)
+        if v39 == l_Players_0.LocalPlayer then
+            v23(v8(v40, Enum.InfoType.Product, v41));
         end;
     end;
-    local function v45(v43, v44) --[[ Line: 173 ]] --[[ Name: onPurchaseGamePassRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v8 (ref)
-        if v43 == l_Players_0.LocalPlayer then
-            v22(v8(v44, Enum.InfoType.GamePass, false));
+    local function v46(v44, v45) --[[ Line: 174 ]] --[[ Name: onPurchaseGamePassRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v8 (ref)
+        if v44 == l_Players_0.LocalPlayer then
+            v23(v8(v45, Enum.InfoType.GamePass, false));
         end;
     end;
-    local function v54(v46, v47, v48, v49, v50, v51, v52, v53) --[[ Line: 179 ]] --[[ Name: onPromptCollectiblesPurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v8 (ref)
-        if v46 == l_Players_0.LocalPlayer then
-            v22(v8(v47, Enum.InfoType.Asset, false, true, v52, v53, v48, v49, v50, v51));
+    local function v55(v47, v48, v49, v50, v51, v52, v53, v54) --[[ Line: 180 ]] --[[ Name: onPromptCollectiblesPurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v8 (ref)
+        if v47 == l_Players_0.LocalPlayer then
+            v23(v8(v48, Enum.InfoType.Asset, false, true, v53, v54, v49, v50, v51, v52));
         end;
     end;
-    local function v57(v55) --[[ Line: 208 ]] --[[ Name: onServerPurchaseVerification ]]
-        -- upvalues: v22 (copy), v5 (ref), v6 (ref), l_Players_0 (ref), v7 (ref)
-        if not v55 then
-            v22(v5(v6.UnknownFailure));
+    local function v58(v56) --[[ Line: 209 ]] --[[ Name: onServerPurchaseVerification ]]
+        -- upvalues: v23 (copy), v5 (ref), v6 (ref), l_Players_0 (ref), v7 (ref)
+        if not v56 then
+            v23(v5(v6.UnknownFailure));
             return;
         else
-            local l_playerId_0 = v55.playerId;
+            local l_playerId_0 = v56.playerId;
             if l_playerId_0 ~= nil then
-                l_playerId_0 = tonumber(v55.playerId);
+                l_playerId_0 = tonumber(v56.playerId);
             end;
             if l_playerId_0 == l_Players_0.LocalPlayer.UserId then
-                v22(v7());
+                v23(v7());
             end;
             return;
         end;
     end;
-    local function v60(v58, v59) --[[ Line: 222 ]] --[[ Name: onBundlePurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v9 (ref)
-        if v58 == l_Players_0.LocalPlayer then
-            v22(v9(v59));
+    local function v61(v59, v60) --[[ Line: 223 ]] --[[ Name: onBundlePurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v9 (ref)
+        if v59 == l_Players_0.LocalPlayer then
+            v23(v9(v60));
         end;
     end;
-    local function v69(v61, v62, v63, v64, v65, v66, v67, v68) --[[ Line: 228 ]] --[[ Name: onCollectibleBundlePurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v9 (ref)
-        if v61 == l_Players_0.LocalPlayer then
-            v22(v9(v62, v67, v68, v63, v64, v65, v66));
+    local function v70(v62, v63, v64, v65, v66, v67, v68, v69) --[[ Line: 229 ]] --[[ Name: onCollectibleBundlePurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v23 (copy), v9 (ref)
+        if v62 == l_Players_0.LocalPlayer then
+            v23(v9(v63, v68, v69, v64, v65, v66, v67));
         end;
     end;
-    local function v71(v70) --[[ Line: 253 ]] --[[ Name: onPremiumPurchaseRequest ]]
-        -- upvalues: l_Players_0 (ref), v22 (copy), v10 (ref)
-        if v70 == l_Players_0.LocalPlayer then
-            v22(v10());
+    local function v72(v71) --[[ Line: 254 ]] --[[ Name: onPremiumPurchaseRequest ]]
+        -- upvalues: l_Players_0 (ref), v19 (ref), v20 (ref), l_SurfaceName_0 (ref), l_SurfaceContext_0 (ref), v23 (copy), v10 (ref)
+        if v71 == l_Players_0.LocalPlayer then
+            if v19 then
+                v20.initiateRobloxSubscriptionPurchase({}, nil, nil, l_SurfaceName_0.PromptSubscriptionPurchase, l_SurfaceContext_0.InGame, {
+                    skipWaitingForPurchaseResult = true
+                });
+                return;
+            else
+                v23(v10());
+            end;
         end;
     end;
-    local function v73(v72) --[[ Line: 259 ]] --[[ Name: onSubscriptionPurchaseRequest ]]
-        -- upvalues: l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v22 (copy), v8 (ref), l_ProductTypeEnum_0 (ref), v11 (ref)
+    local function v74(v73) --[[ Line: 274 ]] --[[ Name: onSubscriptionPurchaseRequest ]]
+        -- upvalues: l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v23 (copy), v8 (ref), l_ProductTypeEnum_0 (ref), v11 (ref)
         if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then
-            v22(v8(v72, l_ProductTypeEnum_0.DeveloperSubscription));
+            v23(v8(v73, l_ProductTypeEnum_0.DeveloperSubscription));
             return;
         else
-            v22(v11(v72));
+            v23(v11(v73));
             return;
         end;
     end;
-    local function v74() --[[ Line: 267 ]] --[[ Name: onRobloxSubscriptionPurchaseRequest ]]
-        -- upvalues: v18 (ref), v19 (ref), l_SurfaceName_0 (ref), l_SurfaceContext_0 (ref)
+    local function v75() --[[ Line: 282 ]] --[[ Name: onRobloxSubscriptionPurchaseRequest ]]
+        -- upvalues: v18 (ref), v20 (ref), l_SurfaceName_0 (ref), l_SurfaceContext_0 (ref)
         if v18 then
-            v19.initiateRobloxSubscriptionPurchase({}, nil, nil, l_SurfaceName_0.PromptSubscriptionPurchase, l_SurfaceContext_0.InGame, {
+            v20.initiateRobloxSubscriptionPurchase({}, nil, nil, l_SurfaceName_0.PromptSubscriptionPurchase, l_SurfaceContext_0.InGame, {
                 skipWaitingForPurchaseResult = true
             });
         end;
     end;
     return {
-        onPurchaseRequest = v27, 
-        onPurchaseRequestV2 = v34, 
-        onRobloxPurchaseRequest = v37, 
-        onProductPurchaseRequest = v42, 
-        onPurchaseGamePassRequest = v45, 
-        onServerPurchaseVerification = v57, 
-        onBundlePurchaseRequest = v60, 
-        onPremiumPurchaseRequest = v71, 
-        onPromptCollectiblesPurchaseRequest = v54, 
-        onSubscriptionPurchaseRequest = v73, 
-        onCollectibleBundlePurchaseRequest = v69, 
-        onRobloxSubscriptionPurchaseRequest = v74
+        onPurchaseRequest = v28, 
+        onPurchaseRequestV2 = v35, 
+        onRobloxPurchaseRequest = v38, 
+        onProductPurchaseRequest = v43, 
+        onPurchaseGamePassRequest = v46, 
+        onServerPurchaseVerification = v58, 
+        onBundlePurchaseRequest = v61, 
+        onPremiumPurchaseRequest = v72, 
+        onPromptCollectiblesPurchaseRequest = v55, 
+        onSubscriptionPurchaseRequest = v74, 
+        onCollectibleBundlePurchaseRequest = v70, 
+        onRobloxSubscriptionPurchaseRequest = v75
     };
-end)(function(v75) --[[ Line: 36 ]] --[[ Name: MarketplaceServiceEventConnector ]]
+end)(function(v76) --[[ Line: 37 ]] --[[ Name: MarketplaceServiceEventConnector ]]
     -- upvalues: l_MarketplaceService_0 (copy), v14 (copy), v15 (copy), l_Roact_0 (copy), v13 (copy), v18 (copy)
-    local l_onPurchaseRequest_0 = v75.onPurchaseRequest;
-    local l_onPurchaseRequestV2_0 = v75.onPurchaseRequestV2;
-    local l_onProductPurchaseRequest_0 = v75.onProductPurchaseRequest;
-    local l_onPurchaseGamePassRequest_0 = v75.onPurchaseGamePassRequest;
-    local l_onServerPurchaseVerification_0 = v75.onServerPurchaseVerification;
-    local l_onBundlePurchaseRequest_0 = v75.onBundlePurchaseRequest;
-    local l_onPremiumPurchaseRequest_0 = v75.onPremiumPurchaseRequest;
-    local l_onRobloxPurchaseRequest_0 = v75.onRobloxPurchaseRequest;
-    local l_onPromptCollectiblesPurchaseRequest_0 = v75.onPromptCollectiblesPurchaseRequest;
-    local l_onSubscriptionPurchaseRequest_0 = v75.onSubscriptionPurchaseRequest;
-    local l_onCollectibleBundlePurchaseRequest_0 = v75.onCollectibleBundlePurchaseRequest;
-    local l_onRobloxSubscriptionPurchaseRequest_0 = v75.onRobloxSubscriptionPurchaseRequest;
-    local function v88() --[[ Line: 50 ]] --[[ Name: checkNewEventExists ]]
+    local l_onPurchaseRequest_0 = v76.onPurchaseRequest;
+    local l_onPurchaseRequestV2_0 = v76.onPurchaseRequestV2;
+    local l_onProductPurchaseRequest_0 = v76.onProductPurchaseRequest;
+    local l_onPurchaseGamePassRequest_0 = v76.onPurchaseGamePassRequest;
+    local l_onServerPurchaseVerification_0 = v76.onServerPurchaseVerification;
+    local l_onBundlePurchaseRequest_0 = v76.onBundlePurchaseRequest;
+    local l_onPremiumPurchaseRequest_0 = v76.onPremiumPurchaseRequest;
+    local l_onRobloxPurchaseRequest_0 = v76.onRobloxPurchaseRequest;
+    local l_onPromptCollectiblesPurchaseRequest_0 = v76.onPromptCollectiblesPurchaseRequest;
+    local l_onSubscriptionPurchaseRequest_0 = v76.onSubscriptionPurchaseRequest;
+    local l_onCollectibleBundlePurchaseRequest_0 = v76.onCollectibleBundlePurchaseRequest;
+    local l_onRobloxSubscriptionPurchaseRequest_0 = v76.onRobloxSubscriptionPurchaseRequest;
+    local function v89() --[[ Line: 51 ]] --[[ Name: checkNewEventExists ]]
         -- upvalues: l_MarketplaceService_0 (ref)
         return l_MarketplaceService_0.PromptPurchaseRequestedV2;
     end;
-    local v89 = nil;
-    v89 = if not not v14() or v15() and pcall(v88) then l_Roact_0.createElement(v13, {
+    local v90 = nil;
+    v90 = if not not v14() or v15() and pcall(v89) then l_Roact_0.createElement(v13, {
         event = l_MarketplaceService_0.PromptPurchaseRequestedV2, 
         callback = l_onPurchaseRequestV2_0
     }) else l_Roact_0.createElement(v13, {
         event = l_MarketplaceService_0.PromptPurchaseRequested, 
         callback = l_onPurchaseRequest_0
     });
-    local function v90() --[[ Line: 70 ]] --[[ Name: checkPromptCollectiblesPurchaseRequestedEventExists ]]
+    local function v91() --[[ Line: 71 ]] --[[ Name: checkPromptCollectiblesPurchaseRequestedEventExists ]]
         -- upvalues: l_MarketplaceService_0 (ref)
         return l_MarketplaceService_0.PromptCollectiblesPurchaseRequested;
     end;
-    local v91 = nil;
-    if pcall(v90) then
-        v91 = l_Roact_0.createElement(v13, {
+    local v92 = nil;
+    if pcall(v91) then
+        v92 = l_Roact_0.createElement(v13, {
             event = l_MarketplaceService_0.PromptCollectiblesPurchaseRequested, 
             callback = l_onPromptCollectiblesPurchaseRequest_0
         });
     end;
-    local function v92() --[[ Line: 81 ]] --[[ Name: checkCollectibleBundlePurchaseEventExists ]]
+    local function v93() --[[ Line: 82 ]] --[[ Name: checkCollectibleBundlePurchaseEventExists ]]
         -- upvalues: l_MarketplaceService_0 (ref)
         return l_MarketplaceService_0.PromptCollectibleBundlePurchaseRequested;
     end;
-    local v93 = nil;
-    if pcall(v92) then
-        v93 = l_Roact_0.createElement(v13, {
+    local v94 = nil;
+    if pcall(v93) then
+        v94 = l_Roact_0.createElement(v13, {
             event = l_MarketplaceService_0.PromptCollectibleBundlePurchaseRequested, 
             callback = l_onCollectibleBundlePurchaseRequest_0
         });
     end;
     return l_Roact_0.createFragment({
-        v89, 
-        v91, 
-        v93, 
+        v90, 
+        v92, 
+        v94, 
         RobloxPurchase = l_Roact_0.createElement(v13, {
             event = l_MarketplaceService_0.PromptRobloxPurchaseRequested, 
             callback = l_onRobloxPurchaseRequest_0

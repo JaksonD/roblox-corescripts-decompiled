@@ -37,7 +37,7 @@ return (l_Rodux_0.createReducer({}, {
         return {
             name = v12() and (l_productInfo_0.DisplayName or l_productInfo_0.Name) or l_productInfo_0.Name, 
             description = l_productInfo_0.Description, 
-            basePrice = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then l_productInfo_0.BasePriceInRobux or l_productInfo_0.PriceInRobux or 0 else nil, 
+            basePrice = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then l_productInfo_0.UserBasePriceInRobux or l_productInfo_0.BasePriceInRobux or l_productInfo_0.PriceInRobux or 0 else nil, 
             price = l_productInfo_0.PriceInRobux or 0, 
             priceDiscountDetails = if v17 then v17(l_productInfo_0.PriceDiscountDetails) else nil, 
             premiumPrice = l_productInfo_0.PremiumPriceInRobux, 

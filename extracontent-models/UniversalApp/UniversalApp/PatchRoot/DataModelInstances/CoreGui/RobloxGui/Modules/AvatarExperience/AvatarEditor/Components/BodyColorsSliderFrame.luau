@@ -23,9 +23,10 @@ local v21 = require(l_Modules_0.AvatarExperience.Common.Context.useBodyDataCallb
 local v22 = require(l_Modules_0.AvatarExperience.Common.Selectors.selectDefaultTryOnBodyColorsToggled);
 local v23 = game:DefineFastFlag("ColorPickerVRFix2", false);
 local l_FFlagAXMigrateSystemSliderToFoundationSlider_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateSystemSliderToFoundationSlider;
-local v25 = Color3.new(0.75, 0.75, 0.75);
-local v26 = v7.PureComponent:extend("BodyColorsSliderFrame");
-v26.validateProps = v9.strictInterface({
+local l_FFlagAXMakeSlidersSmoothWithGamepad_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXMakeSlidersSmoothWithGamepad;
+local v26 = Color3.new(0.75, 0.75, 0.75);
+local v27 = v7.PureComponent:extend("BodyColorsSliderFrame");
+v27.validateProps = v9.strictInterface({
     sliderValue = v9.number, 
     rangeStruct = v9.optional(v9.table), 
     setBodyColor3 = v9.optional(v9.callback), 
@@ -40,66 +41,66 @@ v26.validateProps = v9.strictInterface({
     tokens = if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then v9.table else nil, 
     analytics = v9.table
 });
-v26.init = function(v27) --[[ Line: 62 ]] --[[ Name: init ]]
+v27.init = function(v28) --[[ Line: 64 ]] --[[ Name: init ]]
     -- upvalues: v17 (copy), v23 (copy), v7 (copy)
-    v27.state = {
-        sliderValue = v27.props.sliderValue
+    v28.state = {
+        sliderValue = v28.props.sliderValue
     };
-    v27.onSliderChanged = function(v28) --[[ Line: 67 ]]
-        -- upvalues: v17 (ref), v27 (copy)
-        local v29 = v17.getColor3AtValueForRangeId(v27.props.rangeIdForSelectedBodyParts, v28, v27.props.defaultBodyColorRanges);
-        v27:setState({
-            sliderValue = v28
+    v28.onSliderChanged = function(v29) --[[ Line: 69 ]]
+        -- upvalues: v17 (ref), v28 (copy)
+        local v30 = v17.getColor3AtValueForRangeId(v28.props.rangeIdForSelectedBodyParts, v29, v28.props.defaultBodyColorRanges);
+        v28:setState({
+            sliderValue = v29
         });
-        v27.props.setBodyColors(v29);
+        v28.props.setBodyColors(v30);
     end;
-    v27.onDragEnd = function() --[[ Line: 79 ]]
-        -- upvalues: v27 (copy), v17 (ref)
-        if v27.isMounted then
-            local l_sliderValue_0 = v27.state.sliderValue;
-            local v31 = v17.getColor3AtValueForRangeId(v27.props.rangeIdForSelectedBodyParts, l_sliderValue_0, v27.props.defaultBodyColorRanges);
-            v27.props.setBodyColors(nil);
-            v27.props.setBodyColor3(v31, v27.props.rangeIdForSelectedBodyParts, l_sliderValue_0, v27.props.analytics);
+    v28.onDragEnd = function() --[[ Line: 81 ]]
+        -- upvalues: v28 (copy), v17 (ref)
+        if v28.isMounted then
+            local l_sliderValue_0 = v28.state.sliderValue;
+            local v32 = v17.getColor3AtValueForRangeId(v28.props.rangeIdForSelectedBodyParts, l_sliderValue_0, v28.props.defaultBodyColorRanges);
+            v28.props.setBodyColors(nil);
+            v28.props.setBodyColor3(v32, v28.props.rangeIdForSelectedBodyParts, l_sliderValue_0, v28.props.analytics);
         end;
     end;
-    v27.containerRef = if v23 then nil else v7.createRef();
+    v28.containerRef = if v23 then nil else v7.createRef();
 end;
-v26.didMount = function(v32) --[[ Line: 98 ]] --[[ Name: didMount ]]
-    v32:setState({
-        sliderValue = v32.props.sliderValue
+v27.didMount = function(v33) --[[ Line: 100 ]] --[[ Name: didMount ]]
+    v33:setState({
+        sliderValue = v33.props.sliderValue
     });
-    v32.isMounted = true;
+    v33.isMounted = true;
 end;
-v26.didUpdate = function(v33, v34) --[[ Line: 105 ]] --[[ Name: didUpdate ]]
-    if v34.sliderValue ~= v33.props.sliderValue then
-        v33:setState({
-            sliderValue = v33.props.sliderValue
+v27.didUpdate = function(v34, v35) --[[ Line: 107 ]] --[[ Name: didUpdate ]]
+    if v35.sliderValue ~= v34.props.sliderValue then
+        v34:setState({
+            sliderValue = v34.props.sliderValue
         });
     end;
 end;
-v26.getCustomKnobColorLower = function(v35) --[[ Line: 113 ]] --[[ Name: getCustomKnobColorLower ]]
+v27.getCustomKnobColorLower = function(v36) --[[ Line: 115 ]] --[[ Name: getCustomKnobColorLower ]]
     -- upvalues: v17 (copy)
-    local l_sliderValue_1 = v35.state.sliderValue;
-    return (v17.getColor3AtValueForRangeId(v35.props.rangeIdForSelectedBodyParts, l_sliderValue_1, v35.props.defaultBodyColorRanges));
+    local l_sliderValue_1 = v36.state.sliderValue;
+    return (v17.getColor3AtValueForRangeId(v36.props.rangeIdForSelectedBodyParts, l_sliderValue_1, v36.props.defaultBodyColorRanges));
 end;
 if not l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
-    v26.renderTrack = function(v37) --[[ Line: 124 ]] --[[ Name: renderTrack ]]
-        -- upvalues: v7 (copy), v16 (copy), v25 (copy)
-        local l_rangeStruct_0 = v37.props.rangeStruct;
+    v27.renderTrack = function(v38) --[[ Line: 126 ]] --[[ Name: renderTrack ]]
+        -- upvalues: v7 (copy), v16 (copy), v26 (copy)
+        local l_rangeStruct_0 = v38.props.rangeStruct;
         if not l_rangeStruct_0 then
             return nil;
         else
-            local v39 = {};
-            for v40, v41 in l_rangeStruct_0.range do
-                local v42 = (v40 - 1) / (#l_rangeStruct_0.range - 1);
-                table.insert(v39, (ColorSequenceKeypoint.new(v42, v41)));
+            local v40 = {};
+            for v41, v42 in l_rangeStruct_0.range do
+                local v43 = (v41 - 1) / (#l_rangeStruct_0.range - 1);
+                table.insert(v40, (ColorSequenceKeypoint.new(v43, v42)));
             end;
-            local v43 = ColorSequence.new(v39);
+            local v44 = ColorSequence.new(v40);
             return v7.createElement("Frame", {
                 AnchorPoint = Vector2.new(0.5, 0.5), 
                 Size = UDim2.new(1, 0, 0, v16.BodyColorsSliderTrackHeight), 
                 Position = UDim2.fromScale(0.5, 0.5), 
-                BackgroundColor3 = v25
+                BackgroundColor3 = v26
             }, {
                 UICorner = v7.createElement("UICorner", {
                     CornerRadius = UDim.new(0.5, 0)
@@ -114,52 +115,52 @@ if not l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
                         CornerRadius = UDim.new(0.5, 0)
                     }), 
                     UIGradient = v7.createElement("UIGradient", {
-                        Color = v43
+                        Color = v44
                     })
                 })
             });
         end;
     end;
 end;
-v26.render = function(v44) --[[ Line: 170 ]] --[[ Name: render ]]
+v27.render = function(v45) --[[ Line: 172 ]] --[[ Name: render ]]
     -- upvalues: l_withStyle_0 (copy)
-    return l_withStyle_0(function(v45) --[[ Line: 171 ]]
-        -- upvalues: v44 (copy)
-        return v44:renderWithProviders(v45);
+    return l_withStyle_0(function(v46) --[[ Line: 173 ]]
+        -- upvalues: v45 (copy)
+        return v45:renderWithProviders(v46);
     end);
 end;
-v26.renderWithProviders = function(v46, v47) --[[ Line: 176 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_FFlagAXMigrateSystemSliderToFoundationSlider_0 (copy), v7 (copy), v16 (copy), v23 (copy), v10 (copy), v2 (copy), l_InputSize_0 (copy), l_SliderVariant_0 (copy), l_Visibility_0 (copy), l_SystemSlider_0 (copy), v25 (copy)
-    local l_Theme_0 = v47.Theme;
-    local l_sliderValue_2 = v46.state.sliderValue;
+v27.renderWithProviders = function(v47, v48) --[[ Line: 178 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: l_FFlagAXMigrateSystemSliderToFoundationSlider_0 (copy), v7 (copy), v16 (copy), v23 (copy), v10 (copy), v2 (copy), l_InputSize_0 (copy), l_SliderVariant_0 (copy), l_Visibility_0 (copy), l_FFlagAXMakeSlidersSmoothWithGamepad_0 (copy), l_SystemSlider_0 (copy), v26 (copy)
+    local l_Theme_0 = v48.Theme;
+    local l_sliderValue_2 = v47.state.sliderValue;
     if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
-        local l_tokens_0 = v46.props.tokens;
-        local l_rangeStruct_1 = v46.props.rangeStruct;
+        local l_tokens_0 = v47.props.tokens;
+        local l_rangeStruct_1 = v47.props.rangeStruct;
         if not l_rangeStruct_1 then
             return nil;
         else
-            local v52 = {};
-            for v53, v54 in l_rangeStruct_1.range do
-                local v55 = (v53 - 1) / (#l_rangeStruct_1.range - 1);
-                table.insert(v52, (ColorSequenceKeypoint.new(v55, v54)));
+            local v53 = {};
+            for v54, v55 in l_rangeStruct_1.range do
+                local v56 = (v54 - 1) / (#l_rangeStruct_1.range - 1);
+                table.insert(v53, (ColorSequenceKeypoint.new(v56, v55)));
             end;
-            local v56 = ColorSequence.new(v52);
-            local v57 = {
-                Color3 = v46:getCustomKnobColorLower(), 
+            local v57 = ColorSequence.new(v53);
+            local v58 = {
+                Color3 = v47:getCustomKnobColorLower(), 
                 Transparency = 0.5
             };
             return v7.createElement("Frame", {
-                Size = v46.props.gridAndSidebarFrameSizeBinding:map(function(v58) --[[ Line: 202 ]]
+                Size = v47.props.gridAndSidebarFrameSizeBinding:map(function(v59) --[[ Line: 204 ]]
                     -- upvalues: v16 (ref)
-                    return UDim2.new(1, -2 * v16.SkinColorSliderPadding, 0, -v58.Y.Offset);
+                    return UDim2.new(1, -2 * v16.SkinColorSliderPadding, 0, -v59.Y.Offset);
                 end), 
-                Position = v46.props.gridAndSidebarFrameSizeBinding:map(function(v59) --[[ Line: 205 ]]
+                Position = v47.props.gridAndSidebarFrameSizeBinding:map(function(v60) --[[ Line: 207 ]]
                     -- upvalues: v16 (ref)
-                    return UDim2.new(0, v16.SkinColorSliderPadding, 1, v59.Y.Offset);
+                    return UDim2.new(0, v16.SkinColorSliderPadding, 1, v60.Y.Offset);
                 end), 
                 BorderSizePixel = 0, 
                 BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
-                [v7.Ref] = if v23 then nil else v46.containerRef
+                [v7.Ref] = if v23 then nil else v47.containerRef
             }, {
                 Divider1 = v7.createElement("Frame", {
                     Size = UDim2.new(1, 0, 0, 1), 
@@ -170,10 +171,10 @@ v26.renderWithProviders = function(v46, v47) --[[ Line: 176 ]] --[[ Name: render
                     tag = "auto-y size-full-0 radius-circle stroke-standard stroke-emphasis", 
                     backgroundStyle = l_tokens_0.Color.Extended.White.White_100, 
                     Position = UDim2.new(0, 0, 0, v16.BodyColorsSliderFrameHeight / 2), 
-                    containerRef = if v23 then nil else v46.containerRef
+                    containerRef = if v23 then nil else v47.containerRef
                 }, {
                     Gradient = v10.createElement("UIGradient", {
-                        Color = v56
+                        Color = v57
                     }), 
                     ColorSlider = v10.createElement(v2.Slider, {
                         value = l_sliderValue_2, 
@@ -181,10 +182,10 @@ v26.renderWithProviders = function(v46, v47) --[[ Line: 176 ]] --[[ Name: render
                         size = l_InputSize_0.Medium, 
                         variant = l_SliderVariant_0.Utility, 
                         isContained = true, 
-                        isDisabled = v46.props.disabled, 
+                        isDisabled = v47.props.disabled, 
                         knob = v10.createElement(v2.Knob, {
                             size = l_InputSize_0.Medium, 
-                            style = v57, 
+                            style = v58, 
                             stroke = {
                                 Color = l_tokens_0.Color.System.Neutral.Color3, 
                                 Transparency = l_tokens_0.Color.System.Neutral.Transparency, 
@@ -193,28 +194,29 @@ v26.renderWithProviders = function(v46, v47) --[[ Line: 176 ]] --[[ Name: render
                             hasShadow = true
                         }), 
                         knobVisibility = l_Visibility_0.Always, 
-                        onValueChanged = v46.onSliderChanged, 
+                        onValueChanged = v47.onSliderChanged, 
                         width = UDim.new(1, 0), 
-                        onDragEnded = v46.onDragEnd, 
-                        ref = v46.props.sliderRef, 
-                        NextSelectionUp = v46.props.NextSelectionUp
+                        onDragEnded = v47.onDragEnd, 
+                        ref = v47.props.sliderRef, 
+                        NextSelectionUp = v47.props.NextSelectionUp, 
+                        step = l_FFlagAXMakeSlidersSmoothWithGamepad_0 and 0.01 or nil
                     })
                 })
             });
         end;
     else
         return v7.createElement("Frame", {
-            Size = v46.props.gridAndSidebarFrameSizeBinding:map(function(v60) --[[ Line: 257 ]]
+            Size = v47.props.gridAndSidebarFrameSizeBinding:map(function(v61) --[[ Line: 260 ]]
                 -- upvalues: v16 (ref)
-                return UDim2.new(1, -2 * v16.SkinColorSliderPadding, 0, -v60.Y.Offset);
+                return UDim2.new(1, -2 * v16.SkinColorSliderPadding, 0, -v61.Y.Offset);
             end), 
-            Position = v46.props.gridAndSidebarFrameSizeBinding:map(function(v61) --[[ Line: 260 ]]
+            Position = v47.props.gridAndSidebarFrameSizeBinding:map(function(v62) --[[ Line: 263 ]]
                 -- upvalues: v16 (ref)
-                return UDim2.new(0, v16.SkinColorSliderPadding, 1, v61.Y.Offset);
+                return UDim2.new(0, v16.SkinColorSliderPadding, 1, v62.Y.Offset);
             end), 
             BorderSizePixel = 0, 
             BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
-            [v7.Ref] = if v23 then nil else v46.containerRef
+            [v7.Ref] = if v23 then nil else v47.containerRef
         }, {
             Divider1 = v7.createElement("Frame", {
                 Size = UDim2.new(1, 0, 0, 1), 
@@ -226,63 +228,63 @@ v26.renderWithProviders = function(v46, v47) --[[ Line: 176 ]] --[[ Name: render
                 max = 1, 
                 stepInterval = 0.01, 
                 value = l_sliderValue_2, 
-                isDisabled = v46.props.disabled, 
-                onValueChanged = v46.onSliderChanged, 
-                onDragEnd = v46.onDragEnd, 
+                isDisabled = v47.props.disabled, 
+                onValueChanged = v47.onSliderChanged, 
+                onDragEnd = v47.onDragEnd, 
                 width = UDim.new(1, 0), 
                 position = UDim2.new(0.5, 0, 0, v16.BodyColorsSliderFrameHeight / 2), 
                 anchorPoint = Vector2.new(0.5, 0.5), 
-                customTrack = v46:renderTrack(), 
-                customKnobColorLower = v46:getCustomKnobColorLower(), 
+                customTrack = v47:renderTrack(), 
+                customKnobColorLower = v47:getCustomKnobColorLower(), 
                 customPressedKnobShadowTransparencyLower = 0.5, 
                 customKnobBorderSize = 1, 
-                customKnobBorderColor = v25, 
-                [v7.Ref] = v46.props.sliderRef, 
-                NextSelectionUp = v46.props.NextSelectionUp, 
-                containerRef = if v23 then nil else v46.containerRef
+                customKnobBorderColor = v26, 
+                [v7.Ref] = v47.props.sliderRef, 
+                NextSelectionUp = v47.props.NextSelectionUp, 
+                containerRef = if v23 then nil else v47.containerRef
             })
         });
     end;
 end;
-v26.willUnmount = function(v62) --[[ Line: 297 ]] --[[ Name: willUnmount ]]
-    v62.isMounted = false;
+v27.willUnmount = function(v63) --[[ Line: 300 ]] --[[ Name: willUnmount ]]
+    v63.isMounted = false;
 end;
-v26 = l_RoactServices_0.connect({
+v27 = l_RoactServices_0.connect({
     analytics = v18
-})(v26);
-v26 = v8.connect(function(v63, v64) --[[ Line: 305 ]]
+})(v27);
+v27 = v8.connect(function(v64, v65) --[[ Line: 308 ]]
     -- upvalues: v17 (copy), v22 (copy), v19 (copy)
-    local l_AvatarExperience_0 = v63.AvatarExperience;
-    local l_defaultBodyColorRanges_0 = v64.defaultBodyColorRanges;
-    local l_rangeIdForSelectedBodyParts_0 = v64.rangeIdForSelectedBodyParts;
+    local l_AvatarExperience_0 = v64.AvatarExperience;
+    local l_defaultBodyColorRanges_0 = v65.defaultBodyColorRanges;
+    local l_rangeIdForSelectedBodyParts_0 = v65.rangeIdForSelectedBodyParts;
     assert(l_rangeIdForSelectedBodyParts_0, "rangeIdForSelectedBodyParts ~= nil.");
-    local v68 = v17.getRangeStructForRangeId(l_rangeIdForSelectedBodyParts_0, l_defaultBodyColorRanges_0);
-    assert(v68, "rangeStruct ~= nil.");
-    local v69 = v22(v63);
-    local v70 = v69 and 0.5 or v19(l_AvatarExperience_0, l_rangeIdForSelectedBodyParts_0);
+    local v69 = v17.getRangeStructForRangeId(l_rangeIdForSelectedBodyParts_0, l_defaultBodyColorRanges_0);
+    assert(v69, "rangeStruct ~= nil.");
+    local v70 = v22(v64);
+    local v71 = v70 and 0.5 or v19(l_AvatarExperience_0, l_rangeIdForSelectedBodyParts_0);
     return {
-        rangeStruct = v68, 
-        sliderValue = v70, 
-        disabled = v69
+        rangeStruct = v69, 
+        sliderValue = v71, 
+        disabled = v70
     };
-end, function(v71) --[[ Line: 330 ]]
+end, function(v72) --[[ Line: 333 ]]
     -- upvalues: v20 (copy)
     return {
-        setBodyColor3 = function(v72, v73, v74, v75) --[[ Line: 332 ]] --[[ Name: setBodyColor3 ]]
-            -- upvalues: v71 (copy), v20 (ref)
-            v71(v20(v72, v73, v74, v75));
+        setBodyColor3 = function(v73, v74, v75, v76) --[[ Line: 335 ]] --[[ Name: setBodyColor3 ]]
+            -- upvalues: v72 (copy), v20 (ref)
+            v72(v20(v73, v74, v75, v76));
         end
     };
-end)(v26);
-return function(v76) --[[ Line: 340 ]]
-    -- upvalues: v21 (copy), v14 (copy), l_FFlagAXMigrateSystemSliderToFoundationSlider_0 (copy), l_useTokens_0 (copy), v10 (copy), v26 (ref)
-    local v77 = v21();
-    local v78 = v14.Dictionary.join(v77, v76);
+end)(v27);
+return function(v77) --[[ Line: 343 ]]
+    -- upvalues: v21 (copy), v14 (copy), l_FFlagAXMigrateSystemSliderToFoundationSlider_0 (copy), l_useTokens_0 (copy), v10 (copy), v27 (ref)
+    local v78 = v21();
+    local v79 = v14.Dictionary.join(v78, v77);
     if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
-        local v79 = l_useTokens_0();
-        v78 = v14.Dictionary.join({
-            tokens = v79
-        }, v78);
+        local v80 = l_useTokens_0();
+        v79 = v14.Dictionary.join({
+            tokens = v80
+        }, v79);
     end;
-    return v10.createElement(v26, v78);
+    return v10.createElement(v27, v79);
 end;

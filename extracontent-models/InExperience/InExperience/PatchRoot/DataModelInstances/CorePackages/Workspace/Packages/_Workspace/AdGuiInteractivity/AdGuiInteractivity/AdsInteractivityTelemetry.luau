@@ -53,27 +53,46 @@ local v6 = {
     description = "This event is fired when a user clicks one of the immersive branded ad buttons (disclosure, \"Why this ad?\", or \"Report this ad\").", 
     links = ""
 };
+local v7 = {
+    eventName = "ImmersiveBrandedAdLinkingFailedEvent", 
+    backends = {
+        v1.TelemetryBackends.Counter
+    }, 
+    lastUpdated = {
+        26, 
+        3, 
+        24
+    }, 
+    description = "This event is fired when a user tries to click one of the immersive branded ad menu/dialog links, but LinkingProtocol fails.", 
+    links = ""
+};
 return {
-    logAdMenuEvent = function(v7) --[[ Line: 62 ]] --[[ Name: logAdMenuEvent ]]
+    logAdMenuEvent = function(v8) --[[ Line: 72 ]] --[[ Name: logAdMenuEvent ]]
         -- upvalues: l_default_0 (copy), v3 (copy)
         l_default_0:logRobloxTelemetryCounter(v3, 1, {
-            state = v7
-        });
-    end, 
-    logWhyThisAdEvent = function() --[[ Line: 68 ]] --[[ Name: logWhyThisAdEvent ]]
-        -- upvalues: l_default_0 (copy), v4 (copy)
-        l_default_0:logRobloxTelemetryCounter(v4, 1);
-    end, 
-    logReportAdEvent = function(v8) --[[ Line: 78 ]] --[[ Name: logReportAdEvent ]]
-        -- upvalues: l_default_0 (copy), v5 (copy)
-        l_default_0:logRobloxTelemetryCounter(v5, 1, {
             state = v8
         });
     end, 
-    logImmersiveBrandedAdButtonClickCounter = function(v9) --[[ Line: 84 ]] --[[ Name: logImmersiveBrandedAdButtonClickCounter ]]
+    logWhyThisAdEvent = function() --[[ Line: 78 ]] --[[ Name: logWhyThisAdEvent ]]
+        -- upvalues: l_default_0 (copy), v4 (copy)
+        l_default_0:logRobloxTelemetryCounter(v4, 1);
+    end, 
+    logReportAdEvent = function(v9) --[[ Line: 88 ]] --[[ Name: logReportAdEvent ]]
+        -- upvalues: l_default_0 (copy), v5 (copy)
+        l_default_0:logRobloxTelemetryCounter(v5, 1, {
+            state = v9
+        });
+    end, 
+    logImmersiveBrandedAdButtonClickCounter = function(v10) --[[ Line: 94 ]] --[[ Name: logImmersiveBrandedAdButtonClickCounter ]]
         -- upvalues: l_default_0 (copy), v6 (copy)
         l_default_0:logRobloxTelemetryCounter(v6, 1, {
-            buttonName = v9
+            buttonName = v10
+        });
+    end, 
+    logImmersiveBrandedAdLinkingFailedCounter = function(v11) --[[ Line: 102 ]] --[[ Name: logImmersiveBrandedAdLinkingFailedCounter ]]
+        -- upvalues: l_default_0 (copy), v7 (copy)
+        l_default_0:logRobloxTelemetryCounter(v7, 1, {
+            linkName = v11
         });
     end
 };

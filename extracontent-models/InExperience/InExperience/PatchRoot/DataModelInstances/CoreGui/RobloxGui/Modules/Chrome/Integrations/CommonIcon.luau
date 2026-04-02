@@ -10,12 +10,12 @@ local _ = require(l_script_FirstAncestor_0.ChromeShared.Service.ChromeUtils);
 local v9 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.SubMenuContext);
 local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
 local v11 = require(l_script_FirstAncestor_0.ChromeShared.Hooks.useMappedSignal);
-local v12 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.UnibarStyle);
-CommonIconComponent = function(v13) --[[ Line: 23 ]] --[[ Name: CommonIconComponent ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v12 (copy), v7 (copy), v11 (copy), l_Images_0 (copy), l_useStyle_0 (copy), v2 (copy), v9 (copy), l_ImageSetLabel_0 (copy)
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
+CommonIconComponent = function(v13) --[[ Line: 22 ]] --[[ Name: CommonIconComponent ]]
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v7 (copy), v11 (copy), l_Images_0 (copy), l_useStyle_0 (copy), v2 (copy), v9 (copy), l_ImageSetLabel_0 (copy)
     local _ = nil;
     local v15 = nil;
-    v15 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v12.use().ICON_SIZE else v7.ICON_SIZE;
+    v15 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_SIZE else v7.ICON_SIZE;
     local v16 = v13.activeSignalValue and v11(v13.activeSignalValue) or false;
     local l_icon_0 = v13.icon;
     if v16 and v13.iconOn then
@@ -31,13 +31,13 @@ CommonIconComponent = function(v13) --[[ Line: 23 ]] --[[ Name: CommonIconCompon
         Image = l_icon_0, 
         Size = UDim2.new(0, v15, 0, v15), 
         ImageColor3 = v18.Theme.IconEmphasis.Color, 
-        ImageTransparency = if v19 then v19:map(function(v20) --[[ Line: 54 ]]
+        ImageTransparency = if v19 then v19:map(function(v20) --[[ Line: 53 ]]
             -- upvalues: v18 (copy)
             return v18.Theme.IconEmphasis.Transparency + (1 - v18.Theme.IconEmphasis.Transparency) * (1 - v20);
         end) else v18.Theme.IconEmphasis.Transparency
     });
 end;
-CommonIcon = function(v21, v22, v23) --[[ Line: 61 ]] --[[ Name: CommonIcon ]]
+CommonIcon = function(v21, v22, v23) --[[ Line: 60 ]] --[[ Name: CommonIcon ]]
     -- upvalues: v2 (copy)
     return v2.createElement(CommonIconComponent, {
         icon = v21, 

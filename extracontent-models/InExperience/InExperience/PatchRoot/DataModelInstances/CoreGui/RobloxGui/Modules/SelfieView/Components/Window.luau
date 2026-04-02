@@ -34,7 +34,7 @@ local v32 = require(l_CoreGui_0.RobloxGui.Modules.Common.Hooks.useScreenSize);
 local v33 = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Unibar.Constants);
 local l_Chrome_0 = script.Parent.Parent.Parent.Chrome;
 local v35 = if require(l_CorePackages_0.Workspace.Packages.Chrome).Enabled() then require(l_Chrome_0.Service) else nil;
-local v36 = require(l_Chrome_0.ChromeShared.Unibar.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_Chrome_0.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
 local l_FFlagTopBarSignalizeScreenSize_0 = require(l_CorePackages_0.Workspace.Packages.CoreGuiCommon).Flags.FFlagTopBarSignalizeScreenSize;
 local v39 = game:DefineFastFlag("ReactDevtoolsFixTopbar", true);
@@ -43,14 +43,14 @@ local v41 = l_Images_0["icons/actions/previewShrink"];
 local v42 = l_Images_0["icons/actions/previewExpand"];
 local v43 = require(script.Parent.FaceClone);
 return function(v44) --[[ Line: 78 ]] --[[ Name: Window ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v36 (copy), v33 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), v28 (copy), v30 (copy), v13 (copy), v32 (copy), l_FFlagTopBarSignalizeScreenSize_0 (copy), v25 (copy), l_useSelector_0 (copy), v5 (copy), v29 (copy), v26 (copy), v31 (copy), l_clearTimeout_0 (copy), l_setTimeout_0 (copy), v27 (copy), v40 (copy), v43 (copy), l_ControlState_0 (copy), l_Interactable_0 (copy), v23 (copy), v35 (copy), l_ImageSetLabel_0 (copy), v41 (copy), v42 (copy), l_StyledTextLabel_0 (copy), v39 (copy), l_withTooltip_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), v24 (copy)
+    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v33 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), v28 (copy), v30 (copy), v13 (copy), v32 (copy), l_FFlagTopBarSignalizeScreenSize_0 (copy), v25 (copy), l_useSelector_0 (copy), v5 (copy), v29 (copy), v26 (copy), v31 (copy), l_clearTimeout_0 (copy), l_setTimeout_0 (copy), v27 (copy), v40 (copy), v43 (copy), l_ControlState_0 (copy), l_Interactable_0 (copy), v23 (copy), v35 (copy), l_ImageSetLabel_0 (copy), v41 (copy), v42 (copy), l_StyledTextLabel_0 (copy), v39 (copy), l_withTooltip_0 (copy), l_CoreGui_0 (copy), l_TooltipOrientation_0 (copy), v24 (copy)
     local l_id_0 = v44.id;
     local v46 = l_useStyle_0();
     local _ = nil;
     local l_Theme_0 = v46.Theme;
     local l_Font_0 = v46.Font;
     local v50 = nil;
-    v50 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v36.use().CLOSE_BUTTON_FRAME else v33.CLOSE_BUTTON_FRAME;
+    v50 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().CLOSE_BUTTON_FRAME else v33.CLOSE_BUTTON_FRAME;
     local v52 = l_useAppPolicy_0(function(v51) --[[ Line: 93 ]]
         return v51.getShowUpdatedCameraPath();
     end);

@@ -9,13 +9,15 @@ local v7 = require(l_Parent_0.util.getUploadCategory);
 local v8 = require(l_Parent_0.util.RecreateSceneFromEditables);
 local v9 = require(l_Parent_0.validationSystem.ErrorSourceStrings);
 local v10 = require(l_Parent_0.flags.getEngineFeatureEngineAQSJsonParsingInLua);
+local v11 = require(l_Parent_0.util.R15plusUtils);
+local v12 = require(l_Parent_0.flags.getFFlagDebugAllowHRDUploadOnBundleBackend);
 local l_HttpService_0 = game:GetService("HttpService");
 local l_TelemetryService_0 = game:GetService("TelemetryService");
 local l_RunService_0 = game:GetService("RunService");
 local l_AssetQualityService_0 = game:GetService("AssetQualityService");
 game:DefineFastInt("FullValidationTelemetryThrottleHundrethsPercent", 10000);
 local l_RbxAnalyticsService_0 = game:GetService("RbxAnalyticsService");
-local v16 = {
+local v18 = {
     eventName = "UgcFullValidationFinished", 
     backends = {
         "EventIngest"
@@ -29,206 +31,209 @@ local v16 = {
     description = "Report result of ugc validation suite", 
     links = "https://create.roblox.com/docs/art/validation-errors"
 };
-local v17 = require(l_Parent_0.flags.getFFlagDebugUGCValidationPrintNewStructureResults);
-local v18 = require(l_Parent_0.flags.getEngineFeatureEngineAssetQualityEngineService);
-local v19 = require(l_Parent_0.flags.getFIntUGCValidationFetchQualityMaxRetry);
-local v20 = {};
-local v21 = {
+local v19 = require(l_Parent_0.flags.getFFlagDebugUGCValidationPrintNewStructureResults);
+local v20 = require(l_Parent_0.flags.getEngineFeatureEngineAssetQualityEngineService);
+local v21 = require(l_Parent_0.flags.getFIntUGCValidationFetchQualityMaxRetry);
+local v22 = {};
+local v23 = {
     Backend = true
 };
-local v22 = {
+local v24 = {
     InExpClient = true, 
     InExpServer = true
 };
-local function v45(v23, _) --[[ Line: 73 ]] --[[ Name: initRunVariables ]]
+local function v47(v25, _) --[[ Line: 75 ]] --[[ Name: initRunVariables ]]
     -- upvalues: v2 (copy), v3 (copy)
-    local v25 = {};
-    local v26 = {};
     local v27 = {};
-    for v28, v29 in v2.ValidationModule do
-        assert(v28 == v29);
-        local v30 = v3.getValidationModule(v29);
-        local l_categories_0 = v30.categories;
-        if table.find(l_categories_0, v23) and (v30.fflag() or v30.shadowFlag()) then
-            local v32 = v30.shadowFlag() and not v30.fflag();
-            for _, v34 in v30.requiredData do
-                v27[v34] = true;
+    local v28 = {};
+    local v29 = {};
+    for v30, v31 in v2.ValidationModule do
+        assert(v30 == v31);
+        local v32 = v3.getValidationModule(v31);
+        local l_categories_0 = v32.categories;
+        if table.find(l_categories_0, v25) and (v32.fflag() or v32.shadowFlag()) then
+            local v34 = v32.shadowFlag() and not v32.fflag();
+            for _, v36 in v32.requiredData do
+                v29[v36] = true;
             end;
-            for _, v36 in v30.conditionalData do
-                v27[v36] = true;
+            for _, v38 in v32.conditionalData do
+                v29[v38] = true;
             end;
-            local v37 = next(v30.expectedAqsData) ~= nil;
-            if v37 then
-                table.insert(v25, v29);
+            local v39 = next(v32.expectedAqsData) ~= nil;
+            if v39 then
+                table.insert(v27, v31);
             end;
-            local v38 = {};
-            for _, v40 in v30.prereqTests do
-                v38[v40] = true;
+            local v40 = {};
+            for _, v42 in v32.prereqTests do
+                v40[v42] = true;
             end;
-            v26[v29] = {
-                name = v29, 
-                prereqs = v38, 
+            v28[v31] = {
+                name = v31, 
+                prereqs = v40, 
                 postreqs = {}, 
-                isQuality = v37, 
-                isShadow = v32
+                isQuality = v39, 
+                isShadow = v34
             };
         end;
     end;
-    for v41, v42 in v26 do
-        for v43, _ in v42.prereqs do
-            if v26[v43] == nil then
-                error(string.format("%s is needed for %s to run, but is not an included test", v43, v41));
+    for v43, v44 in v28 do
+        for v45, _ in v44.prereqs do
+            if v28[v45] == nil then
+                error(string.format("%s is needed for %s to run, but is not an included test", v45, v43));
             end;
-            table.insert(v26[v43].postreqs, v41);
+            table.insert(v28[v45].postreqs, v43);
         end;
     end;
-    return v25, v26, v27;
+    return v27, v28, v29;
 end;
-local function v60(v46, v47) --[[ Line: 136 ]] --[[ Name: fetchQualityResults ]]
-    -- upvalues: v18 (copy), l_AssetQualityService_0 (copy), v8 (copy), v19 (copy), v10 (copy), l_HttpService_0 (copy), v6 (copy), v17 (copy)
-    if not v18() or not l_AssetQualityService_0 then
-        v46.aqsFetchMetrics.fetchStatus = "assetQualityFetchFailure";
-        v46.aqsFetchMetrics.fetchFailureReason = "Not enabled";
+local function v62(v48, v49) --[[ Line: 138 ]] --[[ Name: fetchQualityResults ]]
+    -- upvalues: v20 (copy), l_AssetQualityService_0 (copy), v8 (copy), v21 (copy), v10 (copy), l_HttpService_0 (copy), v19 (copy), v6 (copy)
+    if not v20() or not l_AssetQualityService_0 then
+        v48.aqsFetchMetrics.fetchStatus = "assetQualityFetchFailure";
+        v48.aqsFetchMetrics.fetchFailureReason = "Not enabled";
         return;
     else
-        local v48 = v8.createModelForGltfExport(v46);
-        local v49 = nil;
-        local v50 = nil;
+        local v50 = v8.createModelForGltfExport(v48);
         local v51 = nil;
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 145 ]]
-            -- upvalues: v51 (ref), l_AssetQualityService_0 (ref), v48 (copy)
-            v51 = l_AssetQualityService_0:GenerateAssetQualityGltfFromInstanceAsync(v48);
+        local v52 = nil;
+        local v53 = nil;
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 147 ]]
+            -- upvalues: v53 (ref), l_AssetQualityService_0 (ref), v50 (copy)
+            v53 = l_AssetQualityService_0:GenerateAssetQualityGltfFromInstanceAsync(v50);
         end);
-        v49 = l_status_0;
-        v50 = l_result_0;
-        if v49 then
-            for v54 = 1, 1 + v19() do
-                local l_status_1, l_result_1 = pcall(function() --[[ Line: 152 ]]
-                    -- upvalues: v46 (copy), v54 (copy), l_AssetQualityService_0 (ref), v51 (ref), v47 (copy), v10 (ref), l_HttpService_0 (ref)
-                    v46.aqsFetchMetrics.fetchAttemptCount = v54;
-                    local v55 = os.clock();
-                    local v56 = l_AssetQualityService_0:FetchAssetQualitySummaryFromGltfAsync(v51, v47);
-                    local v57 = 1000 * (os.clock() - v55);
-                    v46.aqsFetchMetrics.visualizationUrl = v56.visualizationUrl;
-                    v46.aqsFetchMetrics.fetchTimeMs = v57;
+        v51 = l_status_0;
+        v52 = l_result_0;
+        if v51 then
+            for v56 = 1, 1 + v21() do
+                local l_status_1, l_result_1 = pcall(function() --[[ Line: 154 ]]
+                    -- upvalues: v48 (copy), v56 (copy), l_AssetQualityService_0 (ref), v53 (ref), v49 (copy), v10 (ref), l_HttpService_0 (ref)
+                    v48.aqsFetchMetrics.fetchAttemptCount = v56;
+                    local v57 = os.clock();
+                    local v58 = l_AssetQualityService_0:FetchAssetQualitySummaryFromGltfAsync(v53, v49);
+                    local v59 = 1000 * (os.clock() - v57);
+                    v48.aqsFetchMetrics.visualizationUrl = v58.visualizationUrl;
+                    v48.aqsFetchMetrics.fetchTimeMs = v59;
                     if v10() then
-                        v46.aqsSummaryData = l_HttpService_0:JSONDecode(v56.rawJson);
+                        v48.aqsSummaryData = l_HttpService_0:JSONDecode(v58.rawJson);
                         return;
                     else
-                        v46.aqsFetchMetrics.returnVersion = v56.version;
-                        v46.aqsSummaryData = v56;
+                        v48.aqsFetchMetrics.returnVersion = v58.version;
+                        v48.aqsSummaryData = v58;
                         return;
                     end;
                 end);
-                v49 = l_status_1;
-                v50 = l_result_1;
-                if v49 then
+                v51 = l_status_1;
+                v52 = l_result_1;
+                if v51 then
                     break;
                 end;
             end;
         end;
-        if v49 then
-            v46.aqsFetchMetrics.fetchStatus = "assetQualityFetchSuccess";
+        if v51 then
+            if v19() then
+                print("AQS Fetch Sucess:", v48.aqsSummaryData);
+            end;
+            v48.aqsFetchMetrics.fetchStatus = "assetQualityFetchSuccess";
         else
-            v46.aqsFetchMetrics.fetchFailureReason = v50;
-            v46.aqsSummaryData = v6.DATA_FETCH_FAILURE;
-            v46.aqsFetchMetrics.fetchStatus = "assetQualityFetchFailure";
-            if v17() then
-                print("Logged AQS fetch failure:", v50);
+            v48.aqsFetchMetrics.fetchFailureReason = v52;
+            v48.aqsSummaryData = v6.DATA_FETCH_FAILURE;
+            v48.aqsFetchMetrics.fetchStatus = "assetQualityFetchFailure";
+            if v19() then
+                print("Logged AQS fetch failure:", v52);
             end;
         end;
-        v48:Destroy();
+        v50:Destroy();
         return;
     end;
 end;
-local function v66(v61, v62) --[[ Line: 187 ]] --[[ Name: getNextLayer ]]
-    local v63 = {};
-    for v64, v65 in v61 do
-        if next(v65.prereqs) == nil and (v62 or not v65.isQuality) then
-            table.insert(v63, v64);
+local function v68(v63, v64) --[[ Line: 192 ]] --[[ Name: getNextLayer ]]
+    local v65 = {};
+    for v66, v67 in v63 do
+        if next(v67.prereqs) == nil and (v64 or not v67.isQuality) then
+            table.insert(v65, v66);
         end;
     end;
-    return v63;
+    return v65;
 end;
-local function v72(v67, v68, v69) --[[ Line: 202 ]] --[[ Name: reportFullResult ]]
-    -- upvalues: l_RbxAnalyticsService_0 (copy), l_TelemetryService_0 (copy), v16 (copy), v17 (copy)
-    local v70 = v68.aqsFetchMetrics.fetchStatus ~= "assetQualityFetchNA";
-    local v71 = {
-        validationJobId = v68.jobId, 
-        bundleJobId = v68.consumerConfig.telemetryBundleId, 
-        rootInstanceId = v68.consumerConfig.telemetryRootId, 
+local function v74(v69, v70, v71) --[[ Line: 207 ]] --[[ Name: reportFullResult ]]
+    -- upvalues: l_RbxAnalyticsService_0 (copy), l_TelemetryService_0 (copy), v18 (copy), v19 (copy)
+    local v72 = v70.aqsFetchMetrics.fetchStatus ~= "assetQualityFetchNA";
+    local v73 = {
+        validationJobId = v70.jobId, 
+        bundleJobId = v70.consumerConfig.telemetryBundleId, 
+        rootInstanceId = v70.consumerConfig.telemetryRootId, 
         studioSid = l_RbxAnalyticsService_0:GetSessionId(), 
         clientId = l_RbxAnalyticsService_0:GetClientId(), 
         placeId = game.PlaceId, 
-        validationSource = v68.consumerConfig.source, 
-        assetType = v68.uploadEnum.assetType and v68.uploadEnum.assetType.Value or 0, 
-        bundleType = v68.uploadEnum.bundleType and v68.uploadEnum.bundleType.Value or 0, 
-        numFailures = v67.numFailures, 
-        passed = v67.pass, 
-        durationMs = v69, 
-        uploadCategory = v68.uploadCategory, 
-        aqFetchStatus = v68.aqsFetchMetrics.fetchStatus, 
-        aqFetchAttemptCount = v70 and v68.aqsFetchMetrics.fetchAttemptCount or 0, 
-        aqFetchTimeMs = v70 and v68.aqsFetchMetrics.fetchTimeMs or 0, 
-        aqFetchFailureReason = v70 and v68.aqsFetchMetrics.fetchFailureReason or ""
+        validationSource = v70.consumerConfig.source, 
+        assetType = v70.uploadEnum.assetType and v70.uploadEnum.assetType.Value or 0, 
+        bundleType = v70.uploadEnum.bundleType and v70.uploadEnum.bundleType.Value or 0, 
+        numFailures = v69.numFailures, 
+        passed = v69.pass, 
+        durationMs = v71, 
+        uploadCategory = v70.uploadCategory, 
+        aqFetchStatus = v70.aqsFetchMetrics.fetchStatus, 
+        aqFetchAttemptCount = v72 and v70.aqsFetchMetrics.fetchAttemptCount or 0, 
+        aqFetchTimeMs = v72 and v70.aqsFetchMetrics.fetchTimeMs or 0, 
+        aqFetchFailureReason = v72 and v70.aqsFetchMetrics.fetchFailureReason or ""
     };
-    l_TelemetryService_0:LogEvent(v16, {
-        customFields = v71
+    l_TelemetryService_0:LogEvent(v18, {
+        customFields = v73
     });
-    if v17() then
-        print(v67);
+    if v19() then
+        print(v69);
     end;
 end;
-local function v81(v73, v74, v75, v76, v77) --[[ Line: 231 ]] --[[ Name: updateResultData ]]
+local function v83(v75, v76, v77, v78, v79) --[[ Line: 236 ]] --[[ Name: updateResultData ]]
     -- upvalues: v2 (copy), v9 (copy)
-    local l_validationEnum_0 = v75.validationEnum;
-    if v77 or not v74[l_validationEnum_0].isShadow then
-        v73.states[l_validationEnum_0] = v75.status;
-        v73.internalData[l_validationEnum_0] = v75.internalData;
-        if #v75.errorTranslationContexts > 0 then
-            table.move(v75.errorTranslationContexts, 1, #v75.errorTranslationContexts, #v73.errorTranslationContexts + 1, v73.errorTranslationContexts);
+    local l_validationEnum_0 = v77.validationEnum;
+    if v79 or not v76[l_validationEnum_0].isShadow then
+        v75.states[l_validationEnum_0] = v77.status;
+        v75.internalData[l_validationEnum_0] = v77.internalData;
+        if #v77.errorTranslationContexts > 0 then
+            table.move(v77.errorTranslationContexts, 1, #v77.errorTranslationContexts, #v75.errorTranslationContexts + 1, v75.errorTranslationContexts);
         end;
-        if v75.status ~= v2.Status.PASS then
-            v73.pass = false;
-            v73.numFailures = v73.numFailures + 1;
-            if v75.status == v2.Status.ERROR and not v73.ranIntoInternalError then
-                v73.ranIntoInternalError = true;
-                table.insert(v73.errorTranslationContexts, {
+        if v77.status ~= v2.Status.PASS then
+            v75.pass = false;
+            v75.numFailures = v75.numFailures + 1;
+            if v77.status == v2.Status.ERROR and not v75.ranIntoInternalError then
+                v75.ranIntoInternalError = true;
+                table.insert(v75.errorTranslationContexts, {
                     key = v9.Keys.InternalError, 
                     params = {
-                        ValidationJobId = v76
+                        ValidationJobId = v78
                     }
                 });
             end;
         end;
     end;
-    for _, v80 in v74[l_validationEnum_0].postreqs do
-        v74[v80].prereqs[l_validationEnum_0] = nil;
+    for _, v82 in v76[l_validationEnum_0].postreqs do
+        v76[v82].prereqs[l_validationEnum_0] = nil;
     end;
-    v74[l_validationEnum_0] = nil;
+    v76[l_validationEnum_0] = nil;
 end;
-local function v84(v82) --[[ Line: 275 ]] --[[ Name: createConsumerConfigWithDefaults ]]
-    local v83 = table.clone(v82);
-    if v83.enforceR15FolderStructure == nil then
-        v83.enforceR15FolderStructure = true;
+local function v86(v84) --[[ Line: 280 ]] --[[ Name: createConsumerConfigWithDefaults ]]
+    local v85 = table.clone(v84);
+    if v85.enforceR15FolderStructure == nil then
+        v85.enforceR15FolderStructure = true;
     end;
-    if v83.enforceShadowValidations == nil then
-        v83.enforceShadowValidations = false;
+    if v85.enforceShadowValidations == nil then
+        v85.enforceShadowValidations = false;
     end;
-    v83.telemetryBundleId = v83.telemetryBundleId or "";
-    v83.telemetryRootId = v83.telemetryRootId or "";
-    v83.preloadedEditableMeshes = v83.preloadedEditableMeshes or {};
-    v83.preloadedEditableImages = v83.preloadedEditableImages or {};
-    return v83;
+    v85.telemetryBundleId = v85.telemetryBundleId or "";
+    v85.telemetryRootId = v85.telemetryRootId or "";
+    v85.preloadedEditableMeshes = v85.preloadedEditableMeshes or {};
+    v85.preloadedEditableImages = v85.preloadedEditableImages or {};
+    return v85;
 end;
-local function v102(v85) --[[ Line: 295 ]] --[[ Name: runValidationOnRootInstance ]]
-    -- upvalues: v7 (copy), v45 (copy), v5 (copy), v2 (copy), v81 (copy), v72 (copy), v6 (copy), v21 (copy), l_RunService_0 (copy), v60 (copy), v66 (copy), v22 (copy)
-    local v86 = os.clock();
-    local l_rootInstance_0 = v85.rootInstance;
-    local l_assetType_0 = v85.uploadEnum.assetType;
-    local l_bundleType_0 = v85.uploadEnum.bundleType;
-    local l_consumerConfig_0 = v85.consumerConfig;
-    local v91 = {
+local function v104(v87) --[[ Line: 300 ]] --[[ Name: runValidationOnRootInstance ]]
+    -- upvalues: v7 (copy), v47 (copy), v5 (copy), v2 (copy), v83 (copy), v74 (copy), v6 (copy), v23 (copy), l_RunService_0 (copy), v62 (copy), v68 (copy), v24 (copy)
+    local v88 = os.clock();
+    local l_rootInstance_0 = v87.rootInstance;
+    local l_assetType_0 = v87.uploadEnum.assetType;
+    local l_bundleType_0 = v87.uploadEnum.bundleType;
+    local l_consumerConfig_0 = v87.consumerConfig;
+    local v93 = {
         pass = true, 
         numFailures = 0, 
         states = {}, 
@@ -236,144 +241,151 @@ local function v102(v85) --[[ Line: 295 ]] --[[ Name: runValidationOnRootInstanc
         internalData = {}, 
         ranIntoInternalError = false
     };
-    local v92 = v7(l_rootInstance_0, l_assetType_0, l_bundleType_0);
-    local v93, v94, v95 = v45(v92, l_consumerConfig_0);
-    v85.uploadCategory = v92;
-    v85.aqsFetchMetrics = {
+    local v94 = v7(l_rootInstance_0, l_assetType_0, l_bundleType_0);
+    local v95, v96, v97 = v47(v94, l_consumerConfig_0);
+    v87.uploadCategory = v94;
+    v87.aqsFetchMetrics = {
         fetchStatus = "assetQualityFetchNA"
     };
-    local v96 = v5(v2.ValidationModule.ExpectedRootSchema, v85, v91.states);
-    v81(v91, v94, v96, v85.jobId, l_consumerConfig_0.enforceShadowValidations);
-    if v91.states[v2.ValidationModule.ExpectedRootSchema] ~= v2.Status.PASS then
-        v72(v91, v85, -1);
-        return v91;
+    local v98 = v5(v2.ValidationModule.ExpectedRootSchema, v87, v93.states);
+    v83(v93, v96, v98, v87.jobId, l_consumerConfig_0.enforceShadowValidations);
+    if v93.states[v2.ValidationModule.ExpectedRootSchema] ~= v2.Status.PASS then
+        v74(v93, v87, -1);
+        return v93;
     else
-        v6.storeDesiredData(v85, v95);
-        if #v93 > 0 then
-            v85.aqsFetchMetrics.fetchStatus = "assetQualityFetchInProgress";
-            if v21[l_consumerConfig_0.source] then
+        v6.storeDesiredData(v87, v97);
+        if #v95 > 0 then
+            v87.aqsFetchMetrics.fetchStatus = "assetQualityFetchInProgress";
+            if v23[l_consumerConfig_0.source] then
                 l_RunService_0:Run();
-                v60(v85, v93);
+                v62(v87, v95);
                 l_RunService_0:Pause();
             else
-                task.spawn(v60, v85, v93);
+                task.spawn(v62, v87, v95);
             end;
         end;
-        while next(v94) ~= nil do
-            local v97 = v85.aqsFetchMetrics.fetchStatus == "assetQualityFetchInProgress";
-            local v98 = v66(v94, not v97);
-            if #v98 == 0 and not v97 then
+        while next(v96) ~= nil do
+            local v99 = v87.aqsFetchMetrics.fetchStatus == "assetQualityFetchInProgress";
+            local v100 = v68(v96, not v99);
+            if #v100 == 0 and not v99 then
                 error("Impossible to complete all layers");
             end;
-            for _, v100 in v98 do
-                local v101 = v5(v100, v85, v91.states);
-                v81(v91, v94, v101, v85.jobId, l_consumerConfig_0.enforceShadowValidations);
-                if v22[l_consumerConfig_0.source] then
+            for _, v102 in v100 do
+                local v103 = v5(v102, v87, v93.states);
+                v83(v93, v96, v103, v87.jobId, l_consumerConfig_0.enforceShadowValidations);
+                if v24[l_consumerConfig_0.source] then
                     task.wait();
                 end;
             end;
-            if v97 and not v21[l_consumerConfig_0.source] then
+            if v99 and not v23[l_consumerConfig_0.source] then
                 task.wait();
             end;
         end;
-        v72(v91, v85, 1000 * (os.clock() - v86));
-        return v91;
+        v74(v93, v87, 1000 * (os.clock() - v88));
+        return v93;
     end;
 end;
-local _ = function(v103) --[[ Line: 379 ]] --[[ Name: getRootInstance ]]
+local _ = function(v105) --[[ Line: 384 ]] --[[ Name: getRootInstance ]]
     -- upvalues: v4 (copy)
-    if #v103 == 0 then
+    if #v105 == 0 then
         return nil;
     else
-        for _, v105 in v103 do
-            if v105.Name == v4.FOLDER_NAMES.R15ArtistIntent then
-                return v105;
+        for _, v107 in v105 do
+            if v107.Name == v4.FOLDER_NAMES.R15ArtistIntent then
+                return v107;
             end;
         end;
-        return v103[1];
+        return v105[1];
     end;
 end;
-v20.ValidateAsset = function(v107, v108, v109) --[[ Line: 396 ]] --[[ Name: ValidateAsset ]]
-    -- upvalues: v17 (copy), l_HttpService_0 (copy), v4 (copy), v84 (copy), v102 (copy)
-    local v110 = false;
-    if v17() then
-        print((("==== %* Validation begin ===="):format(v108.Name)));
+v22.ValidateAsset = function(v109, v110, v111) --[[ Line: 401 ]] --[[ Name: ValidateAsset ]]
+    -- upvalues: v19 (copy), l_HttpService_0 (copy), v4 (copy), v86 (copy), v104 (copy)
+    local v112 = false;
+    if v19() then
+        print((("==== %* Validation begin ===="):format(v110.Name)));
     end;
-    local v111 = {
+    local v113 = {
         jobId = l_HttpService_0:GenerateGUID(), 
-        entrypointInput = v107
+        entrypointInput = v109
     };
-    local v112;
-    if #v107 == 0 then
-        v112 = nil;
+    local v114;
+    if #v109 == 0 then
+        v114 = nil;
     else
-        for _, v114 in v107 do
-            if v114.Name == v4.FOLDER_NAMES.R15ArtistIntent then
-                v112 = v114;
-                v110 = true;
+        for _, v116 in v109 do
+            if v116.Name == v4.FOLDER_NAMES.R15ArtistIntent then
+                v114 = v116;
+                v112 = true;
             end;
-            if v110 then
+            if v112 then
                 break;
             end;
         end;
-        if not v110 then
-            v112 = v107[1];
+        if not v112 then
+            v114 = v109[1];
         end;
     end;
-    v110 = false;
-    v111.rootInstance = v112;
-    v111.uploadEnum = {
-        assetType = v108
+    v112 = false;
+    v113.rootInstance = v114;
+    v113.uploadEnum = {
+        assetType = v110
     };
-    v111.consumerConfig = v84(v109);
-    return (v102(v111));
+    v113.consumerConfig = v86(v111);
+    return (v104(v113));
 end;
-v20.ValidateFinalizedBundle = function(v115, v116, v117) --[[ Line: 418 ]] --[[ Name: ValidateFinalizedBundle ]]
-    -- upvalues: v17 (copy), v4 (copy), l_HttpService_0 (copy), v84 (copy), v102 (copy)
-    local v118 = false;
-    if v17() then
-        print((("==== %* Validation begin ===="):format(v116.Name)));
+v22.ValidateFinalizedBundle = function(v117, v118, v119) --[[ Line: 423 ]] --[[ Name: ValidateFinalizedBundle ]]
+    -- upvalues: v12 (copy), v11 (copy), v19 (copy), v4 (copy), l_HttpService_0 (copy), v86 (copy), v104 (copy)
+    local v120 = false;
+    if v12() then
+        v11.setIsBackendBundleUpload(v119.source == "Backend");
+    end;
+    if v19() then
+        print((("==== %* Validation begin ===="):format(v118.Name)));
     end;
     local l_Folder_0 = Instance.new("Folder");
-    for _, v121 in v115 do
-        local l_allSelectedInstances_0 = v121.allSelectedInstances;
-        local v123;
+    for _, v123 in v117 do
+        local l_allSelectedInstances_0 = v123.allSelectedInstances;
+        local v125;
         if #l_allSelectedInstances_0 == 0 then
-            v123 = nil;
+            v125 = nil;
         else
-            for _, v125 in l_allSelectedInstances_0 do
-                if v125.Name == v4.FOLDER_NAMES.R15ArtistIntent then
-                    v123 = v125;
-                    v118 = true;
+            for _, v127 in l_allSelectedInstances_0 do
+                if v127.Name == v4.FOLDER_NAMES.R15ArtistIntent then
+                    v125 = v127;
+                    v120 = true;
                 end;
-                if v118 then
+                if v120 then
                     break;
                 end;
             end;
-            if not v118 then
-                v123 = l_allSelectedInstances_0[1];
+            if not v120 then
+                v125 = l_allSelectedInstances_0[1];
             end;
         end;
-        v118 = false;
-        if v123 ~= nil then
-            if v123:IsA("Folder") or v123:IsA("Model") then
-                for _, v127 in v123:GetChildren() do
-                    v127:Clone().Parent = l_Folder_0;
+        v120 = false;
+        if v125 ~= nil then
+            if v125:IsA("Folder") or v125:IsA("Model") then
+                for _, v129 in v125:GetChildren() do
+                    v129:Clone().Parent = l_Folder_0;
                 end;
             else
-                v123:Clone().Parent = l_Folder_0;
+                v125:Clone().Parent = l_Folder_0;
             end;
         end;
     end;
-    local v128 = {
+    local v130 = {
         jobId = l_HttpService_0:GenerateGUID(), 
-        entrypointInput = v115, 
+        entrypointInput = v117, 
         rootInstance = l_Folder_0, 
         uploadEnum = {
-            bundleType = v116
+            bundleType = v118
         }, 
-        consumerConfig = v84(v117)
+        consumerConfig = v86(v119)
     };
-    return (v102(v128));
+    local v131 = v104(v130);
+    if v12() then
+        v11.setIsBackendBundleUpload(false);
+    end;
+    return v131;
 end;
-return v20;
+return v22;

@@ -30,10 +30,16 @@ v0.ValidationModule = {
     SingleInstanceSelected = "SingleInstanceSelected", 
     NoExtraTags = "NoExtraTags", 
     HeadIsDynamic = "HeadIsDynamic", 
+    MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead", 
     NoFACSOverrideData = "NoFACSOverrideData", 
     FacsHeadConsistency = "FacsHeadConsistency", 
-    BodySkinnedToSchema = "BodySkinnedToSchema", 
-    FacsNotDrivingSchema = "FacsNotDrivingSchema"
+    HrdBonesFollowSchema = "HrdBonesFollowSchema", 
+    HrdPropertiesSensible = "HrdPropertiesSensible", 
+    BoneCFramesInBounds = "BoneCFramesInBounds", 
+    JointRotationAttachmentsLimited = "JointRotationAttachmentsLimited", 
+    MoveableAttachmentsExist = "MoveableAttachmentsExist", 
+    FacsNotDrivingSchema = "FacsNotDrivingSchema", 
+    BodySkinnedToSchema = "BodySkinnedToSchema"
 };
 v11("ValidationModule");
 v0.SharedDataMember = {

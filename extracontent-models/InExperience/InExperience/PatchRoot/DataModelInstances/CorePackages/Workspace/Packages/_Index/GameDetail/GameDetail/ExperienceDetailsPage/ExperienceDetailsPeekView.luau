@@ -31,143 +31,144 @@ local l_SduiFeatureEntryPoint_0 = v28.SduiFeatureEntryPoint;
 local l_SduiPageEntryPoint_0 = v28.SduiPageEntryPoint;
 local l_SduiPageNavigationHeader_0 = v28.SduiPageNavigationHeader;
 local l_SduiLoadTimer_0 = v28.SduiLoadTimer;
-return v9.memo(function(v33) --[[ Line: 47 ]] --[[ Name: ExperienceDetailsPeekView ]]
-    -- upvalues: v1 (copy), v4 (copy), l_useTokens_0 (copy), l_useNavigation_0 (copy), l_useRoactService_0 (copy), l_AppEventIngestService_0 (copy), l_AppSessionService_0 (copy), l_useDispatch_0 (copy), l_useTopBarHeight_0 (copy), l_useScreenSize_0 (copy), l_useDeviceInsets_0 (copy), l_getSafeAreaSize_0 (copy), v9 (copy), v5 (copy), l_useSelector_0 (copy), l_PeekViewState_0 (copy), l_AppPage_0 (copy), l_SessionType_0 (copy), l_SduiLoadTimer_0 (copy), v3 (copy), l_gameDetailsPeekViewEvents_0 (copy), l_PeekViewWithTopBar_0 (copy), l_SduiPageNavigationHeader_0 (copy), l_SduiPageEntryPoint_0 (copy), v2 (copy), l_SduiFeatureEntryPoint_0 (copy)
-    local v34 = v1.getUniverseId(v33);
-    local v35 = v1.getAnalyticsSource(v33);
-    local v36 = v1.getTilePositionIndex(v33);
-    local v37 = v1.getFromPropsOrNavigationParams(v33, "onPeekViewClosed");
-    local v38 = v4(v34);
-    local v39 = l_useTokens_0();
-    local v40 = l_useNavigation_0();
-    local v41 = l_useRoactService_0(l_AppEventIngestService_0);
-    local v42 = l_useRoactService_0(l_AppSessionService_0);
-    local v43 = l_useDispatch_0();
-    local v44 = l_useTopBarHeight_0();
-    local v45 = l_useScreenSize_0();
-    local v46 = l_useDeviceInsets_0();
-    local v47 = math.min(l_getSafeAreaSize_0(v45, v46).X.Offset, 640);
-    local v48 = v9.useRef(nil);
-    local v49 = if v48.current then v48.current.AbsoluteSize.Y else v5.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT;
-    local v50 = UDim.new(0, v47 + v49);
-    local v52 = l_useSelector_0(function(v51) --[[ Line: 71 ]]
-        return v51.GameDetailsPeekView.viewState;
+local l_FFlagSduiPageEntryUseSharedHooks_0 = require(l_Parent_0.SharedFlags).FFlagSduiPageEntryUseSharedHooks;
+return v9.memo(function(v34) --[[ Line: 49 ]] --[[ Name: ExperienceDetailsPeekView ]]
+    -- upvalues: v1 (copy), v4 (copy), l_useTokens_0 (copy), l_useNavigation_0 (copy), l_useRoactService_0 (copy), l_AppEventIngestService_0 (copy), l_AppSessionService_0 (copy), l_useDispatch_0 (copy), l_useTopBarHeight_0 (copy), l_useScreenSize_0 (copy), l_useDeviceInsets_0 (copy), l_getSafeAreaSize_0 (copy), v9 (copy), v5 (copy), l_useSelector_0 (copy), l_PeekViewState_0 (copy), l_AppPage_0 (copy), l_SessionType_0 (copy), l_SduiLoadTimer_0 (copy), v3 (copy), l_gameDetailsPeekViewEvents_0 (copy), l_PeekViewWithTopBar_0 (copy), l_SduiPageNavigationHeader_0 (copy), l_SduiPageEntryPoint_0 (copy), l_FFlagSduiPageEntryUseSharedHooks_0 (copy), v2 (copy), l_SduiFeatureEntryPoint_0 (copy)
+    local v35 = v1.getUniverseId(v34);
+    local v36 = v1.getAnalyticsSource(v34);
+    local v37 = v1.getTilePositionIndex(v34);
+    local v38 = v1.getFromPropsOrNavigationParams(v34, "onPeekViewClosed");
+    local v39 = v4(v35);
+    local v40 = l_useTokens_0();
+    local v41 = l_useNavigation_0();
+    local v42 = l_useRoactService_0(l_AppEventIngestService_0);
+    local v43 = l_useRoactService_0(l_AppSessionService_0);
+    local v44 = l_useDispatch_0();
+    local v45 = l_useTopBarHeight_0();
+    local v46 = l_useScreenSize_0();
+    local v47 = l_useDeviceInsets_0();
+    local v48 = math.min(l_getSafeAreaSize_0(v46, v47).X.Offset, 640);
+    local v49 = v9.useRef(nil);
+    local v50 = if v49.current then v49.current.AbsoluteSize.Y else v5.Constants.GAME_DETAILS_ACTION_BAR_HEIGHT;
+    local v51 = UDim.new(0, v48 + v50);
+    local v53 = l_useSelector_0(function(v52) --[[ Line: 73 ]]
+        return v52.GameDetailsPeekView.viewState;
     end);
-    local v53 = v1.getFromPropsOrNavigationParams(v33, "mountAsFullView");
-    local v54 = if v53 ~= nil then v53 else v52 == l_PeekViewState_0.Full or v52 == l_PeekViewState_0.Extended;
-    local v55 = v52 == l_PeekViewState_0.Closed;
-    local v56 = v9.useCallback(function() --[[ Line: 80 ]]
-        -- upvalues: v37 (copy), v40 (copy), l_AppPage_0 (ref), v42 (copy), l_SessionType_0 (ref)
-        if v37 and typeof(v37) == "function" then
-            v37();
+    local v54 = v1.getFromPropsOrNavigationParams(v34, "mountAsFullView");
+    local v55 = if v54 ~= nil then v54 else v53 == l_PeekViewState_0.Full or v53 == l_PeekViewState_0.Extended;
+    local v56 = v53 == l_PeekViewState_0.Closed;
+    local v57 = v9.useCallback(function() --[[ Line: 82 ]]
+        -- upvalues: v38 (copy), v41 (copy), l_AppPage_0 (ref), v43 (copy), l_SessionType_0 (ref)
+        if v38 and typeof(v38) == "function" then
+            v38();
         end;
-        v40.clearAppScreens({
+        v41.clearAppScreens({
             l_AppPage_0.GameDetail
         });
-        if v42 then
-            v42:RemoveSession(l_SessionType_0.StructuralIdentifier.GameDetailSource);
+        if v43 then
+            v43:RemoveSession(l_SessionType_0.StructuralIdentifier.GameDetailSource);
         end;
     end, {
-        v40, 
-        v42, 
-        v37, 
-        v34, 
+        v41, 
+        v43, 
+        v38, 
         v35, 
-        v36
+        v36, 
+        v37
     });
-    local v58 = v9.useMemo(function() --[[ Line: 90 ]]
-        -- upvalues: v1 (ref), v33 (copy), l_SduiLoadTimer_0 (ref), l_AppPage_0 (ref)
-        local v57 = v1.getFromPropsOrNavigationParams(v33, "pageTimer");
-        if v57 then
-            return v57;
+    local v59 = v9.useMemo(function() --[[ Line: 92 ]]
+        -- upvalues: v1 (ref), v34 (copy), l_SduiLoadTimer_0 (ref), l_AppPage_0 (ref)
+        local v58 = v1.getFromPropsOrNavigationParams(v34, "pageTimer");
+        if v58 then
+            return v58;
         else
             return l_SduiLoadTimer_0.createLoadTimer(l_AppPage_0.ExperienceDetail);
         end;
     end, {});
-    v9.useEffect(function() --[[ Line: 98 ]]
-        -- upvalues: v34 (copy), v58 (copy), v3 (ref)
-        if v34 and v58 then
-            v3(v34, v58);
+    v9.useEffect(function() --[[ Line: 100 ]]
+        -- upvalues: v35 (copy), v59 (copy), v3 (ref)
+        if v35 and v59 then
+            v3(v35, v59);
         end;
     end, {
-        v34, 
-        v58
+        v35, 
+        v59
     });
-    local v62 = v9.useCallback(function(v59, v60) --[[ Line: 105 ]]
-        -- upvalues: v34 (copy), l_PeekViewState_0 (ref), v52 (copy), l_gameDetailsPeekViewEvents_0 (ref), v41 (copy), v35 (copy), v36 (copy), v43 (copy), v56 (copy)
-        local v61 = v34 or "";
-        if v34 and v59 == l_PeekViewState_0.Brief then
-            if v52 == l_PeekViewState_0.Brief then
-                l_gameDetailsPeekViewEvents_0(v41, "SwitchGame", v61, v35, v36);
-            elseif v60 == l_PeekViewState_0.Closed then
-                l_gameDetailsPeekViewEvents_0(v41, "OpenPeekView", v61, v35, v36);
+    local v63 = v9.useCallback(function(v60, v61) --[[ Line: 107 ]]
+        -- upvalues: v35 (copy), l_PeekViewState_0 (ref), v53 (copy), l_gameDetailsPeekViewEvents_0 (ref), v42 (copy), v36 (copy), v37 (copy), v44 (copy), v57 (copy)
+        local v62 = v35 or "";
+        if v35 and v60 == l_PeekViewState_0.Brief then
+            if v53 == l_PeekViewState_0.Brief then
+                l_gameDetailsPeekViewEvents_0(v42, "SwitchGame", v62, v36, v37);
+            elseif v61 == l_PeekViewState_0.Closed then
+                l_gameDetailsPeekViewEvents_0(v42, "OpenPeekView", v62, v36, v37);
             end;
         end;
-        v43({
+        v44({
             type = "SetGameDetailsPeekViewState", 
-            viewState = v59
+            viewState = v60
         });
-        if v34 and v59 == l_PeekViewState_0.Full and v60 == l_PeekViewState_0.Brief then
-            l_gameDetailsPeekViewEvents_0(v41, "GoToFullView", v61, v35, v36);
+        if v35 and v60 == l_PeekViewState_0.Full and v61 == l_PeekViewState_0.Brief then
+            l_gameDetailsPeekViewEvents_0(v42, "GoToFullView", v62, v36, v37);
         end;
-        if v59 == l_PeekViewState_0.Closed then
-            v56();
+        if v60 == l_PeekViewState_0.Closed then
+            v57();
         end;
     end, {
-        v43, 
-        v41, 
-        v34, 
+        v44, 
+        v42, 
         v35, 
         v36, 
-        v52, 
-        v56
+        v37, 
+        v53, 
+        v57
     });
-    v9.useEffect(function() --[[ Line: 125 ]]
-        -- upvalues: v43 (copy), l_PeekViewState_0 (ref)
-        return function() --[[ Line: 126 ]]
-            -- upvalues: v43 (ref), l_PeekViewState_0 (ref)
-            v43({
+    v9.useEffect(function() --[[ Line: 127 ]]
+        -- upvalues: v44 (copy), l_PeekViewState_0 (ref)
+        return function() --[[ Line: 128 ]]
+            -- upvalues: v44 (ref), l_PeekViewState_0 (ref)
+            v44({
                 type = "SetGameDetailsPeekViewState", 
                 viewState = l_PeekViewState_0.Closed
             });
         end;
     end, {
-        v43
+        v44
     });
-    if v34 == nil then
+    if v35 == nil then
         return nil;
     else
         return v9.createElement(l_PeekViewWithTopBar_0, {
-            topBarHeight = v44, 
-            bottomDockedContainerHeight = v49, 
-            fullViewContentHeight = UDim.new(1, -v44), 
-            briefViewContentHeight = v50, 
-            onViewStateChanged = v62, 
+            topBarHeight = v45, 
+            bottomDockedContainerHeight = v50, 
+            fullViewContentHeight = UDim.new(1, -v45), 
+            briefViewContentHeight = v51, 
+            onViewStateChanged = v63, 
             viewChangedEventMeta = {
-                universeId = v34, 
-                source = v35, 
-                index = v36
+                universeId = v35, 
+                source = v36, 
+                index = v37
             }, 
-            mountAsFullView = v54, 
-            mountAnimation = v55, 
+            mountAsFullView = v55, 
+            mountAnimation = v56, 
             topBarSlot = v9.createElement(l_SduiPageNavigationHeader_0, {
-                closeCallback = v56, 
-                pageSideMargin = v39.Padding.Large, 
+                closeCallback = v57, 
+                pageSideMargin = v40.Padding.Large, 
                 navButtonType = "close"
             }), 
             contentSlot = v9.createElement(l_SduiPageEntryPoint_0, {
                 appPage = l_AppPage_0.GameDetail, 
-                configKey = v38, 
-                identifier = v1.getResolvedIdentifier(v38, v2.EDP_FEED_IDENTIFIER_SUFFIX), 
-                pageTimer = v58, 
-                backgroundStyle = v39.Color.Surface.Surface_100, 
+                configKey = v39, 
+                identifier = if l_FFlagSduiPageEntryUseSharedHooks_0 then v2.EDP_FEED_IDENTIFIER else v1.getResolvedIdentifier(v39, v2.EDP_FEED_IDENTIFIER_SUFFIX), 
+                pageTimer = v59, 
+                backgroundStyle = v40.Color.Surface.Surface_100, 
                 includeNavigationHeaderBar = false
             }), 
             bottomBarSlot = v9.createElement(l_SduiFeatureEntryPoint_0, {
                 appPage = l_AppPage_0.GameDetail, 
-                configKey = v38, 
+                configKey = v39, 
                 identifier = v2.EDP_ACTION_BAR_IDENTIFIER, 
-                loadTimer = v58, 
+                loadTimer = v59, 
                 AutomaticSize = Enum.AutomaticSize.XY, 
                 shouldDisplayError = false, 
                 shouldDisplayLoading = false

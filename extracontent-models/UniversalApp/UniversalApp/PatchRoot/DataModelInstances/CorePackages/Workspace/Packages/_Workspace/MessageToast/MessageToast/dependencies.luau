@@ -12,6 +12,7 @@ return {
         dependencyArray = require(l_Parent_0.RoactUtils).Hooks.dependencyArray
     }, 
     UIBlox = require(l_Parent_0.UIBlox), 
+    SharedFlags = require(l_Parent_0.SharedFlags), 
     LocalizationProvider = require(l_Parent_0.Localization).LocalizationProvider, 
     RoactNavigation = require(l_Parent_0.RoactNavigation)
 };

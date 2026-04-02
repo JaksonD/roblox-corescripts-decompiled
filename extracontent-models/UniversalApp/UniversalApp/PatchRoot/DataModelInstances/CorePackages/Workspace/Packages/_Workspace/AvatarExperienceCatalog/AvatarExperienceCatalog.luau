@@ -17,9 +17,10 @@ local v15 = require(script.State.Actions.PurchaseItemsSuccess);
 local v16 = require(script.State.Actions.FetchAssetOrBundleInfoBatchedSuccess);
 local v17 = require(script.State.Actions.FetchCollectibleItemDataBatchedSuccess);
 local v18 = require(script.State.Actions.SetSelectedTimedOption);
-local v19 = require(script.Api.GetCatalogCategories.getCatalogCategories);
-local v20 = require(script.State.Thunks.SaveAsMakeupLookThunk);
-local v21 = require(script.Stores.GetAXMarketplaceWidgetStore);
+local v19 = require(script.State.Actions.SetLastToggledLookType);
+local v20 = require(script.Api.GetCatalogCategories.getCatalogCategories);
+local v21 = require(script.State.Thunks.SaveAsMakeupLookThunk);
+local v22 = require(script.Stores.GetAXMarketplaceWidgetStore);
 local _ = require(script.Stores);
 return {
     Api = {
@@ -28,7 +29,7 @@ return {
         getLooksFromWidgetListInfo = v2, 
         getCatalogV2SearchItemDetails = v3.getCatalogV2SearchItemDetails, 
         CatalogSearchAXPages = v4, 
-        getCatalogCategories = v19.getCatalogCategories
+        getCatalogCategories = v20.getCatalogCategories
     }, 
     Components = {
         Checkout = {
@@ -80,7 +81,8 @@ return {
             getShouldReplaceTryOn = require(script.Utils.TryOns.getShouldReplaceTryOn), 
             getEquippableAssetsFromTryOnItems = require(script.Utils.TryOns.getEquippableAssetsFromTryOnItems), 
             getDoesBundleHaveClothingOrAccessories = require(script.Utils.TryOns.getDoesBundleHaveClothingOrAccessories), 
-            removeMakeupAssetsFromTryOnsIfOverLimit = require(script.Utils.TryOns.removeMakeupAssetsFromTryOnsIfOverLimit)
+            removeMakeupAssetsFromTryOnsIfOverLimit = require(script.Utils.TryOns.removeMakeupAssetsFromTryOnsIfOverLimit), 
+            getTryOnItemsContainsOnlyMakeupTypes = require(script.Utils.TryOns.getTryOnItemsContainsOnlyMakeupTypes)
         }
     }, 
     Context = {
@@ -89,18 +91,19 @@ return {
     }, 
     Stores = {
         getCatalogStores = require(script.Stores), 
-        getAXMarketplaceWidgetStore = v21
+        getAXMarketplaceWidgetStore = v22
     }, 
     State = {
         Actions = {
             PurchaseItemsSuccess = v15, 
             FetchAssetOrBundleInfoBatchedSuccess = v16, 
             FetchCollectibleItemDataBatchedSuccess = v17, 
-            SetSelectedTimedOption = v18
+            SetSelectedTimedOption = v18, 
+            SetLastToggledLookType = v19
         }
     }, 
     Thunks = {
-        SaveAsMakeupLookThunk = v20
+        SaveAsMakeupLookThunk = v21
     }, 
     ["jest.config"] = script["jest.config"]
 };

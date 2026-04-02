@@ -1,428 +1,429 @@
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_Modules_0.LuaApp.FlagSettings);
-local v3 = require(l_Modules_0.LuaApp.AppPage);
-local v4 = require(l_Modules_0.LuaApp.Enum.SystemBarVisibility);
-local v5 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v6 = require(l_Modules_0.LuaApp.getExperienceDetailsPageNavBarVisible);
-local v7 = require(l_Modules_0.LuaApp.Flags.getFFlagContactImporterHideBottomBar);
-local l_GetFFlagEnableAbuseReport10ft_0 = v5.GetFFlagEnableAbuseReport10ft;
+local l_GuiService_0 = game:GetService("GuiService");
+local v3 = require(l_Modules_0.LuaApp.FlagSettings);
+local v4 = require(l_Modules_0.LuaApp.AppPage);
+local v5 = require(l_Modules_0.LuaApp.Enum.SystemBarVisibility);
+local v6 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local v7 = require(l_Modules_0.LuaApp.getExperienceDetailsPageNavBarVisible);
+local v8 = require(l_Modules_0.LuaApp.Flags.getFFlagContactImporterHideBottomBar);
+local l_GetFFlagEnableAbuseReport10ft_0 = v6.GetFFlagEnableAbuseReport10ft;
 local l_GetFFlagLuaAppChallengeDialogContainerPageEnabled_0 = require(l_CorePackages_0.Workspace.Packages.ChallengeDialog).GetFFlagLuaAppChallengeDialogContainerPageEnabled;
 local l_IsVRAppBuild_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).IsVRAppBuild;
-local v11 = game:DefineFastFlag("LuaAppIncorrectWebViewProperty", false);
-local v12 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableNativeWrapperAppPage);
-local v13 = require(l_Modules_0.LuaApp.Flags.GetFFlagFixNavBarStartupDuplicateAnim);
+local v12 = game:DefineFastFlag("LuaAppIncorrectWebViewProperty", false);
+local v13 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableNativeWrapperAppPage);
+local v14 = require(l_Modules_0.LuaApp.Flags.GetFFlagFixNavBarStartupDuplicateAnim);
 local l_SocialNetworksInEditProfileIXP_0 = require(l_CorePackages_0.Workspace.Packages.EditProfile).Flags.SocialNetworksInEditProfileIXP;
-local l_FFlagFriendRequestNicknames_0 = v5.FFlagFriendRequestNicknames;
-local v16 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableVoiceTrialUpsellCard);
+local l_FFlagFriendRequestNicknames_0 = v6.FFlagFriendRequestNicknames;
+local v17 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableVoiceTrialUpsellCard);
 local l_GetFFlagLuaAppEnableTopBanner_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableTopBanner;
-local l_FFlagShareTargetGameCleanup_0 = v5.FFlagShareTargetGameCleanup;
-local l_FFlagPasskeyUpsellEnabled_0 = v5.FFlagPasskeyUpsellEnabled;
-local l_FFlagTutorialUpsellEnabled_0 = v5.FFlagTutorialUpsellEnabled;
+local l_FFlagShareTargetGameCleanup_0 = v6.FFlagShareTargetGameCleanup;
+local l_FFlagPasskeyUpsellEnabled_0 = v6.FFlagPasskeyUpsellEnabled;
+local l_FFlagTutorialUpsellEnabled_0 = v6.FFlagTutorialUpsellEnabled;
 local l_FFlagEnableSocialProofUserList_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableSocialProofUserList;
 local l_FFlagProfilePlatformAddTC_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagProfilePlatformAddTC;
 local l_FFlagTCVerifiedParentalControl_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagTCVerifiedParentalControl;
-local l_FFlagAppIaScrollAway_0 = v5.FFlagAppIaScrollAway;
-local l_FFlagAddVideoToCommunityProfile_0 = v5.FFlagAddVideoToCommunityProfile;
-local l_FFlagLuaAppSortDeeplinkFix_0 = v5.FFlagLuaAppSortDeeplinkFix;
-local v27 = game:DefineFastFlag("WebViewHideLuaSideBar", false);
-local l_FFlagFixMoreSubMenuTitleFlash_0 = v5.FFlagFixMoreSubMenuTitleFlash;
-local l_FFlagEnableNapDedicatedPage_0 = v5.FFlagEnableNapDedicatedPage;
-local l_FFlagEnableSocialProofVerticalUserListSheet_0 = v5.FFlagEnableSocialProofVerticalUserListSheet;
+local l_FFlagAppIaScrollAway_0 = v6.FFlagAppIaScrollAway;
+local l_FFlagAddVideoToCommunityProfile_0 = v6.FFlagAddVideoToCommunityProfile;
+local l_FFlagLuaAppSortDeeplinkFix_0 = v6.FFlagLuaAppSortDeeplinkFix;
+local v28 = game:DefineFastFlag("WebViewHideLuaSideBar", false);
+local l_FFlagFixMoreSubMenuTitleFlash_0 = v6.FFlagFixMoreSubMenuTitleFlash;
+local l_FFlagEnableNapDedicatedPage_0 = v6.FFlagEnableNapDedicatedPage;
+local l_FFlagEnableSocialProofVerticalUserListSheet_0 = v6.FFlagEnableSocialProofVerticalUserListSheet;
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLeftNavOnConsole;
-local v32 = game:DefineFastFlag("TCEducationModalSideBarPolicy", false);
-local l_FFlagEnableBlackbird_0 = v5.FFlagEnableBlackbird;
-local l_FFlagLuaAppEnableStratusStreamingTestOnly_0 = v5.FFlagLuaAppEnableStratusStreamingTestOnly;
-local l_FFlagEnableMobileGameJoinCard_0 = v5.FFlagEnableMobileGameJoinCard;
-local v36 = {
-    [v3.None] = {
+local v33 = game:DefineFastFlag("TCEducationModalSideBarPolicy", false);
+local l_FFlagEnableBlackbird_0 = v6.FFlagEnableBlackbird;
+local l_FFlagLuaAppEnableStratusStreamingTestOnly_0 = v6.FFlagLuaAppEnableStratusStreamingTestOnly;
+local l_FFlagEnableMobileGameJoinCard_0 = v6.FFlagEnableMobileGameJoinCard;
+local v37 = {
+    [v4.None] = {
         nameLocalizationKey = "CommonUI.Features.Label.Nil", 
         disableAppTopBanner = true
     }, 
-    [v3.Startup] = {
-        tabBarHidden = v4.Hidden, 
+    [v4.Startup] = {
+        tabBarHidden = v5.Hidden, 
         nameLocalizationKey = "CommonUI.Features.Label.Startup", 
         disableAppTopBanner = true
     }, 
-    [v3.Landing] = {
-        tabBarHidden = v4.Hidden, 
+    [v4.Landing] = {
+        tabBarHidden = v5.Hidden, 
         nameLocalizationKey = "CommonUI.Features.Label.Startup", 
         appShellReporterFeature = Enum.AppShellFeature.Landing
     }, 
-    [v3.EngagementScreenContainer] = {
-        tabBarHidden = v4.Hidden
+    [v4.EngagementScreenContainer] = {
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.Login] = {
+    [v4.Login] = {
         nameLocalizationKey = "Authentication.Login.Heading.Login", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil
     }, 
-    [v3.LoginV2] = {
+    [v4.LoginV2] = {
         nameLocalizationKey = "Authentication.Login.Heading.Login", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil, 
         disableBackButton = true
     }, 
-    [v3.WechatQQAuth] = {
+    [v4.WechatQQAuth] = {
         nameLocalizationKey = "Authentication.Login.Heading.Login", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil, 
         disableBackButton = true
     }, 
-    [v3.AccountRecovery] = {
+    [v4.AccountRecovery] = {
         nameLocalizationKey = "Authentication.AccountRecovery.Heading.RobloxAccountRecovery", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil, 
         disableBackButton = true
     }, 
-    [v3.CrossDeviceLogin] = {
+    [v4.CrossDeviceLogin] = {
         nameLocalizationKey = "Authentication.CrossDevice.Heading.QuickLogin", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.Birthday] = {
+    [v4.Birthday] = {
         nameLocalizationKey = "Authentication.SignUp.Label.WhensYourBirthday", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.CharacterSelectionPage] = {
+    [v4.CharacterSelectionPage] = {
         nameLocalizationKey = "Authentication.SignUp.Heading.SelectStartingAvatar", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.UsernameSelectionPage] = {
+    [v4.UsernameSelectionPage] = {
         nameLocalizationKey = "Authentication.SignUp.Heading.UsernamePage", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.PasswordSelectionPage] = {
+    [v4.PasswordSelectionPage] = {
         nameLocalizationKey = "Authentication.SignUp.Heading.PasswordPage", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.SinglePageSignUp] = {
+    [v4.SinglePageSignUp] = {
         nameLocalizationKey = "Authentication.SignUp.Label.SignUp", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil
     }, 
-    [v3.MultiPageSignup] = {
+    [v4.MultiPageSignup] = {
         nameLocalizationKey = "Authentication.SignUp.Label.SignUp", 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         disableBackButton = true, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil
     }, 
-    [v3.LuobuSignUpPage] = {
+    [v4.LuobuSignUpPage] = {
         nameLocalizationKey = "Authentication.SignUp.Label.SignUp", 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.WeChatLoginWrapper] = {
+    [v4.WeChatLoginWrapper] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.Home] = {
+    [v4.Home] = {
         nameLocalizationKey = "CommonUI.Features.Label.Home", 
         appShellReporterFeature = Enum.AppShellFeature.HomePage, 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.Games] = {
-        nameLocalizationKey = v2.GetGamesTabName(), 
+    [v4.Games] = {
+        nameLocalizationKey = v3.GetGamesTabName(), 
         appShellReporterFeature = Enum.AppShellFeature.GamePage, 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.GameDetail] = {
+    [v4.GameDetail] = {
         nameLocalizationKey = "CommonUI.Features.Heading.GameDetails", 
-        tabBarHidden = v6, 
+        tabBarHidden = v7, 
         renderUnderlyingPage = true, 
         blurUnderlyingPage = true, 
         appShellReporterFeature = Enum.AppShellFeature.GamePage, 
         isPeekView = true
     }, 
-    [v3.AvatarExperienceRoot] = {
+    [v4.AvatarExperienceRoot] = {
         nameLocalizationKey = "CommonUI.Features.Label.Avatar", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         overridesAppRouterTabBarControl = true, 
         appShellReporterFeature = Enum.AppShellFeature.AvatarEditor, 
         disableBackButton = true, 
         disableAppTopBanner = l_GetFFlagLuaAppEnableTopBanner_0() and true or nil
     }, 
-    [v3.Chat] = {
+    [v4.Chat] = {
         nameLocalizationKey = "CommonUI.Features.Label.Chat", 
         overridesAppRouterTabBarControl = true, 
         appShellReporterFeature = Enum.AppShellFeature.Chat, 
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.ContentFeed] = {
+    [v4.ContentFeed] = {
         disableBackButton = false, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.ShareGameToChat] = if l_FFlagShareTargetGameCleanup_0 then nil else {
-        tabBarHidden = v4.PolicyDependent
+    [v4.ShareGameToChat] = if l_FFlagShareTargetGameCleanup_0 then nil else {
+        tabBarHidden = v5.PolicyDependent
     }, 
-    [v3.AvatarExperienceWrapper] = {
+    [v4.AvatarExperienceWrapper] = {
         overridesAppRouterTabBarControl = true, 
         appShellReporterFeature = Enum.AppShellFeature.AvatarEditor, 
         disableBackButton = true
     }, 
-    [v3.AvatarExperienceWrapperTransparent] = {
+    [v4.AvatarExperienceWrapperTransparent] = {
         overridesAppRouterTabBarControl = true, 
         renderUnderlyingPage = true, 
         appShellReporterFeature = Enum.AppShellFeature.AvatarEditor, 
         disableBackButton = true
     }, 
-    [v3.SearchPage] = {
-        tabBarHidden = v4.Visible, 
+    [v4.SearchPage] = {
+        tabBarHidden = v5.Visible, 
         overridesAppRouterTabBarControl = false, 
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.More] = {
+    [v4.More] = {
         nameLocalizationKey = "CommonUI.Features.Label.More", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         appShellReporterFeature = Enum.AppShellFeature.More, 
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.AccountInfo] = {
+    [v4.AccountInfo] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.About] = {
+    [v4.About] = {
         nameLocalizationKey = "CommonUI.Features.Label.About", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         alwaysShowBackButton = l_FFlagFixMoreSubMenuTitleFlash_0 and true or nil
     }, 
-    [v3.SafetySupport] = {
+    [v4.SafetySupport] = {
         nameLocalizationKey = "CommonUI.Features.Label.HelpAndSafety", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         alwaysShowBackButton = l_FFlagFixMoreSubMenuTitleFlash_0 and true or nil
     }, 
-    [v3.Settings] = {
+    [v4.Settings] = {
         nameLocalizationKey = "CommonUI.Features.Label.Settings", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         alwaysShowBackButton = l_FFlagFixMoreSubMenuTitleFlash_0 and true or nil
     }, 
-    [v3.Accessibility] = {
+    [v4.Accessibility] = {
         nameLocalizationKey = "Feature.Accessibility.Heading.DevicePreferences", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.Licensing] = {
+    [v4.Licensing] = {
         nameLocalizationKey = "CommonUI.Features.Label.Licensing", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.AppInformation] = {
+    [v4.AppInformation] = {
         nameLocalizationKey = "CommonUI.Features.Label.AppInformation", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.DevSubs] = {
+    [v4.DevSubs] = {
         nameLocalizationKey = "CommonUI.Features.Label.DevSubs", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.AddFriendsPage] = {
+    [v4.AddFriendsPage] = {
         nameLocalizationKey = "Feature.Friends.Feature.Friends.Heading.AddFriends", 
         nativeWrapper = false, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         bottomTabBarHidden = true, 
         sideTabBarHidden = false
     }, 
-    [v3.ConnectionsHub] = {
+    [v4.ConnectionsHub] = {
         nativeWrapper = false, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         bottomTabBarHidden = true, 
         sideTabBarHidden = false
     }, 
-    [v3.BuildersClub] = {
+    [v4.BuildersClub] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.InviteLinkExpiredModal] = {
+    [v4.InviteLinkExpiredModal] = {
         absorbInput = true, 
         renderUnderlyingPage = true
     }, 
-    [v3.ShareLinkInvalidModal] = {
+    [v4.ShareLinkInvalidModal] = {
         absorbInput = true, 
         renderUnderlyingPage = true
     }, 
-    [v3.VerifiedBadgeModal] = {
+    [v4.VerifiedBadgeModal] = {
         renderUnderlyingPage = true
     }, 
-    [v3.ShareVirtualEventModal] = {
+    [v4.ShareVirtualEventModal] = {
         renderUnderlyingPage = true
     }, 
-    [v3.EventNotificationsModal] = {
+    [v4.EventNotificationsModal] = {
         renderUnderlyingPage = true
     }, 
-    [v3.EventDetails] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.EventDetails] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         blurUnderlyingPage = true
     }, 
-    [v3.TencentHelp] = {
+    [v4.TencentHelp] = {
         nameLocalizationKey = "CommonUI.Features.Label.Help", 
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.TencentNoticeCenter] = {
+    [v4.TencentNoticeCenter] = {
         nameLocalizationKey = "CommonUI.Features.Label.TencentNotice", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.TencentNoticeContent] = {
+    [v4.TencentNoticeContent] = {
         nameLocalizationKey = "CommonUI.Features.Label.TencentNotice", 
-        tabBarHidden = v4.Visible
+        tabBarHidden = v5.Visible
     }, 
-    [v3.GenericWebPage] = {
+    [v4.GenericWebPage] = {
         webView = true, 
         nativeWrapper = true, 
         renderUnderlyingPage = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent
     }, 
-    [v3.SettingsSubPage] = {
+    [v4.SettingsSubPage] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.SecurityAlertInfo] = {
+    [v4.SecurityAlertInfo] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.YouTubePlayer] = {
+    [v4.YouTubePlayer] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.PurchaseRobux] = {
+    [v4.PurchaseRobux] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = not l_IsVRAppBuild_0() or false
     }, 
-    [v3.Payment] = {
+    [v4.Payment] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.RobuxUpsell] = {
+    [v4.RobuxUpsell] = {
         webView = false, 
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.SubscriptionPurchase] = {
+    [v4.SubscriptionPurchase] = {
         webView = false, 
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.Notifications] = {
+    [v4.Notifications] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.LogoutConfirmation] = {
+    [v4.LogoutConfirmation] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.AddFriends] = {
+    [v4.AddFriends] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.ViewUserProfile] = {
+    [v4.ViewUserProfile] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.ViewProfile] = {
+    [v4.ViewProfile] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.AccountSelectorPeekView] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.AccountSelectorPeekView] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         isPeekView = true
     }, 
-    [v3.AccountSwitchingAddAccountPeekView] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.AccountSwitchingAddAccountPeekView] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         isPeekView = true
     }, 
-    [v3.LoginNative] = {
+    [v4.LoginNative] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.CaptchaNative] = {
+    [v4.CaptchaNative] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.ViewFriends] = {
+    [v4.ViewFriends] = {
         webView = false, 
         nativeWrapper = false, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = false
     }, 
-    [v3.ShareSheet] = {
+    [v4.ShareSheet] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.SdkShare] = {
+    [v4.SdkShare] = {
         nativeWrapper = false, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true
     }, 
-    [v3.ReportAbuse] = {
+    [v4.ReportAbuse] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.ScanQrCode] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.ScanQrCode] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.GenericOpaqueWebPage] = {
+    [v4.GenericOpaqueWebPage] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = false
     }, 
-    [v3.ChallengeHybridOverlayPage] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.ChallengeHybridOverlayPage] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true
     }, 
-    [v3.ChallengeHybridWebView] = {
+    [v4.ChallengeHybridWebView] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.ProfilePlatform] = {
+    [v4.ProfilePlatform] = {
         nameLocalizationKey = "CommonUI.Features.Label.Profile", 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         isPeekView = true, 
         disableBackButton = true
     }, 
-    [v3.Groups] = {
+    [v4.Groups] = {
         nameLocalizationKey = "CommonUI.Features.Label.Groups", 
-        tabBarHidden = v4.PolicyDependent, 
+        tabBarHidden = v5.PolicyDependent, 
         disableBackButton = false
     }, 
-    [v3.SocialUnableToJoinExperience] = {
+    [v4.SocialUnableToJoinExperience] = {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = true, 
@@ -430,7 +431,7 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     }, 
-    [v3.SocialPurchaseExperience] = {
+    [v4.SocialPurchaseExperience] = {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = true, 
@@ -438,7 +439,7 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     }, 
-    [v3.SocialToast] = {
+    [v4.SocialToast] = {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = false, 
@@ -446,7 +447,7 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     }, 
-    [v3.EditSocialNetworks] = if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
+    [v4.EditSocialNetworks] = if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = true, 
@@ -454,7 +455,7 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     } else nil, 
-    [v3.EditSocialNetworksError] = if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
+    [v4.EditSocialNetworksError] = if l_SocialNetworksInEditProfileIXP_0.GetFFlagSocialNetworksInEditProfileIXPSetupEnabled() then {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = true, 
@@ -462,116 +463,116 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     } else nil, 
-    [v3.PhoneVerification] = {
-        webView = not v11 or nil, 
-        tabBarHidden = if not v27 or v11 then v4.PolicyDependent else v4.Hidden, 
+    [v4.PhoneVerification] = {
+        webView = not v12 or nil, 
+        tabBarHidden = if not v28 or v12 then v5.PolicyDependent else v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.EditUsername] = {
-        webView = not v11 or nil, 
-        tabBarHidden = if not v27 or v11 then v4.PolicyDependent else v4.Hidden, 
+    [v4.EditUsername] = {
+        webView = not v12 or nil, 
+        tabBarHidden = if not v28 or v12 then v5.PolicyDependent else v5.Hidden, 
         renderUnderlyingPage = true
     }, 
-    [v3.ExperienceGuidelinesExplained] = {
+    [v4.ExperienceGuidelinesExplained] = {
         nameLocalizationKey = "Feature.GameDetails.Label.ContentMaturity", 
         disableBackButton = false, 
         renderUnderlyingPage = true
     }, 
-    [v3.AgeVerificationRequired] = {
+    [v4.AgeVerificationRequired] = {
         disableBackButton = false, 
         renderUnderlyingPage = true
     }, 
-    [v3.AccountSettingsUpsell] = {
+    [v4.AccountSettingsUpsell] = {
         renderUnderlyingPage = true, 
-        tabBarHidden = v4.PolicyDependent
+        tabBarHidden = v5.PolicyDependent
     }, 
-    [v3.IDVUpsellContainer] = {
+    [v4.IDVUpsellContainer] = {
         renderUnderlyingPage = true
     }, 
-    [v3.VPCUpsellContainer] = {
+    [v4.VPCUpsellContainer] = {
         renderUnderlyingPage = true
     }, 
-    [v3.RobloxSubscriptionUpsell] = {
+    [v4.RobloxSubscriptionUpsell] = {
         renderUnderlyingPage = true
     }, 
-    [v3.AmpWizardContainer] = {
+    [v4.AmpWizardContainer] = {
         renderUnderlyingPage = true
     }, 
-    [v3.GamesList] = {
+    [v4.GamesList] = {
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     }, 
-    [v3.DeeplinkGamesList] = if l_FFlagLuaAppSortDeeplinkFix_0 then {
+    [v4.DeeplinkGamesList] = if l_FFlagLuaAppSortDeeplinkFix_0 then {
         enableScrollAway = l_FFlagAppIaScrollAway_0 and true or nil
     } else nil, 
-    [v3.ContactImporter] = {
-        tabBarHidden = if v7() then v4.Hidden else false, 
-        bottomTabBarHidden = v7() and true or false, 
-        sideTabBarHidden = v7() and true or false, 
+    [v4.ContactImporter] = {
+        tabBarHidden = if v8() then v5.Hidden else false, 
+        bottomTabBarHidden = v8() and true or false, 
+        sideTabBarHidden = v8() and true or false, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     }, 
-    [v3.ContactsList] = {
-        tabBarHidden = v4.Hidden, 
+    [v4.ContactsList] = {
+        tabBarHidden = v5.Hidden, 
         bottomTabBarHidden = true, 
         sideTabBarHidden = true, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     }, 
-    [v3.UAppBlock] = {
-        tabBarHidden = v4.Hidden, 
+    [v4.UAppBlock] = {
+        tabBarHidden = v5.Hidden, 
         nameLocalizationKey = "CommonUI.Features.Label.Startup"
     }, 
-    [v3.PassesPage] = {
+    [v4.PassesPage] = {
         nameLocalizationKey = "Feature.GameDetails.Label.Store", 
         appShellReporterFeature = Enum.AppShellFeature.GamePage
     }, 
-    [v3.SocialMessageToast] = {
+    [v4.SocialMessageToast] = {
         renderUnderlyingPage = true, 
         disableBackButton = true
     }, 
-    [v3.ProfileQRCodePage] = {
+    [v4.ProfileQRCodePage] = {
         absorbInput = true, 
         renderUnderlyingPage = true, 
-        tabBarHidden = v4.PolicyDependent
+        tabBarHidden = v5.PolicyDependent
     }, 
-    [v3.ParentVerification] = {
+    [v4.ParentVerification] = {
         webView = true, 
-        tabBarHidden = if v27 then v4.Hidden else nil
+        tabBarHidden = if v28 then v5.Hidden else nil
     }, 
-    [v3.EmailVerification] = {
+    [v4.EmailVerification] = {
         webView = true, 
-        tabBarHidden = if v27 then v4.Hidden else nil
+        tabBarHidden = if v28 then v5.Hidden else nil
     }, 
-    [v3.AddAuthMethodPage] = {
-        tabBarHidden = v4.Hidden
+    [v4.AddAuthMethodPage] = {
+        tabBarHidden = v5.Hidden
     }, 
-    [v3.PasskeyUpsellScreen] = if l_FFlagPasskeyUpsellEnabled_0 then {
+    [v4.PasskeyUpsellScreen] = if l_FFlagPasskeyUpsellEnabled_0 then {
         renderUnderlyingPage = true, 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     } else nil, 
-    [v3.TutorialUpsellScreen] = if l_FFlagTutorialUpsellEnabled_0 then {
+    [v4.TutorialUpsellScreen] = if l_FFlagTutorialUpsellEnabled_0 then {
         renderUnderlyingPage = true, 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     } else nil, 
-    [v3.SponsoredTooltipPeekView] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.SponsoredTooltipPeekView] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         isPeekView = true
     }, 
-    [v3.InfoPeekView] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.InfoPeekView] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         isPeekView = true
     }, 
-    [v3.ReportDialog] = {
+    [v4.ReportDialog] = {
         disableBackButton = false, 
         renderUnderlyingPage = true
     }, 
-    [v3.SetNicknameModal] = if l_FFlagFriendRequestNicknames_0 then {
+    [v4.SetNicknameModal] = if l_FFlagFriendRequestNicknames_0 then {
         overlayEnabled = true, 
         transparent = true, 
         absorbInput = true, 
@@ -579,110 +580,110 @@ local v36 = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         bottomTabBarHidden = true, 
-        tabBarHidden = v4.Hidden
+        tabBarHidden = v5.Hidden
     } else nil, 
-    [v3.VoiceTrialUpsell] = if v16() then {
+    [v4.VoiceTrialUpsell] = if v17() then {
         renderUnderlyingPage = true, 
         absorbInput = true
     } else nil, 
-    [v3.GameFilterMenuPeekView] = {
-        tabBarHidden = v4.PolicyDependent, 
+    [v4.GameFilterMenuPeekView] = {
+        tabBarHidden = v5.PolicyDependent, 
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         isPeekView = true
     }, 
-    [v3.VideoFullscreen] = if l_FFlagAddVideoToCommunityProfile_0 then {
-        tabBarHidden = v4.Hidden, 
+    [v4.VideoFullscreen] = if l_FFlagAddVideoToCommunityProfile_0 then {
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true, 
         disableBackButton = false
     } else nil
 };
 if l_GetFFlagLuaAppChallengeDialogContainerPageEnabled_0() then
-    v36[v3.ChallengeDialogModalContainer] = {
-        tabBarHidden = v4.Hidden, 
+    v37[v4.ChallengeDialogModalContainer] = {
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     };
 end;
 if l_GetFFlagEnableAbuseReport10ft_0() then
-    v36[v3.ReportScreen] = {
+    v37[v4.ReportScreen] = {
         nameLocalizationKey = "Feature.GameDetails.Label.ReportAbuse", 
-        tabBarHidden = v4.Visible, 
+        tabBarHidden = v5.Visible, 
         renderUnderlyingPage = false
     };
 end;
-if v12() then
-    v36[v3.ChallengeNativeWrapper] = {
+if v13() then
+    v37[v4.ChallengeNativeWrapper] = {
         nativeWrapper = true, 
-        tabBarHidden = v4.Hidden, 
+        tabBarHidden = v5.Hidden, 
         renderUnderlyingPage = true
     };
 end;
-if v13() then
-    v36[v3.PlatformAccountRouter] = {
-        tabBarHidden = v4.Hidden
+if v14() then
+    v37[v4.PlatformAccountRouter] = {
+        tabBarHidden = v5.Hidden
     };
 end;
-v36[v3.DiscoverabilityOverlay] = {
-    tabBarHidden = v4.Hidden, 
+v37[v4.DiscoverabilityOverlay] = {
+    tabBarHidden = v5.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v36[v3.FindFriendsModal] = {
-    tabBarHidden = v4.Hidden, 
+v37[v4.FindFriendsModal] = {
+    tabBarHidden = v5.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v36[v3.ContactsRevokedAccessDialog] = {
-    tabBarHidden = v4.Hidden, 
+v37[v4.ContactsRevokedAccessDialog] = {
+    tabBarHidden = v5.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v36[v3.SettingsPermissionInteractiveAlert] = {
-    tabBarHidden = v4.Hidden, 
+v37[v4.SettingsPermissionInteractiveAlert] = {
+    tabBarHidden = v5.Hidden, 
     bottomTabBarHidden = true, 
     sideTabBarHidden = true, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v36[v3.TrustedContactsEducationModal] = {
-    tabBarHidden = if v32 then nil else v4.Hidden, 
-    bottomTabBarHidden = not v32 or nil, 
-    sideTabBarHidden = not v32 or nil, 
+v37[v4.TrustedContactsEducationModal] = {
+    tabBarHidden = if v33 then nil else v5.Hidden, 
+    bottomTabBarHidden = not v33 or nil, 
+    sideTabBarHidden = not v33 or nil, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
 if l_FFlagProfilePlatformAddTC_0 then
-    v36[v3.TrustedContactsModal] = {
+    v37[v4.TrustedContactsModal] = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     };
 end;
 if l_FFlagTCVerifiedParentalControl_0 then
-    v36[v3.TrustedFriendsVPCPrologue] = {
+    v37[v4.TrustedFriendsVPCPrologue] = {
         renderUnderlyingPage = true, 
         disableBackButton = true, 
         overlayEnabled = true
     };
 end;
-v36[v3.FAEUpsell] = {
+v37[v4.FAEUpsell] = {
     renderUnderlyingPage = true, 
     disableBackButton = true, 
     overlayEnabled = true
 };
-v36[v3.FriendsRenameInfoModal] = {
-    tabBarHidden = v4.PolicyDependent, 
+v37[v4.FriendsRenameInfoModal] = {
+    tabBarHidden = v5.PolicyDependent, 
     isPeekView = true, 
     renderUnderlyingPage = true, 
     disableBackButton = true, 
@@ -690,66 +691,69 @@ v36[v3.FriendsRenameInfoModal] = {
     absorbInput = true
 };
 if l_FFlagEnableSocialProofUserList_0 then
-    v36[v3.FriendsOwnedUserList] = {
+    v37[v4.FriendsOwnedUserList] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
 if l_FFlagEnableSocialProofVerticalUserListSheet_0 then
-    v36[v3.SocialProofVerticalUserListSheet] = {
+    v37[v4.SocialProofVerticalUserListSheet] = {
         renderUnderlyingPage = true, 
         isPeekView = true, 
         overlayEnabled = true
     };
 end;
-v36[v3.MutualConnectionList] = {
+v37[v4.MutualConnectionList] = {
     renderUnderlyingPage = true, 
     isPeekView = true, 
     overlayEnabled = true
 };
-v36[v3.BlockingModal] = {
+v37[v4.BlockingModal] = {
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
-v36[v3.AboutDetailsSheet] = {
+v37[v4.AboutDetailsSheet] = {
     isPeekView = true, 
     renderUnderlyingPage = true, 
     overlayEnabled = true
 };
 if l_FFlagEnableNapDedicatedPage_0 then
-    v36[v3.NotApprovedPage] = {
-        tabBarHidden = v4.Hidden, 
+    v37[v4.NotApprovedPage] = {
+        tabBarHidden = v5.Hidden, 
         disableBackButton = true, 
         disableAppTopBanner = true
     };
 end;
 if l_FFlagEnableLeftNavOnConsole_0 then
-    v36[v3.AdjustScreen] = {
-        tabBarHidden = v4.Hidden
+    v37[v4.AdjustScreen] = {
+        tabBarHidden = v5.Hidden
+    };
+    v37[v4.ExperienceDetail] = {
+        tabBarHidden = if l_GuiService_0:IsTenFootInterface() then v5.Hidden else v5.PolicyDependent
     };
 end;
 if l_FFlagEnableBlackbird_0 then
-    v36[v3.Blackbird] = {
+    v37[v4.Blackbird] = {
         webView = true, 
         nativeWrapper = true, 
-        tabBarHidden = if v27 then v4.Hidden else v4.PolicyDependent, 
+        tabBarHidden = if v28 then v5.Hidden else v5.PolicyDependent, 
         renderUnderlyingPage = true
     };
 end;
 if l_FFlagLuaAppEnableStratusStreamingTestOnly_0 then
-    v36[v3.VideoServer] = {
-        tabBarHidden = v4.Hidden, 
+    v37[v4.VideoServer] = {
+        tabBarHidden = v5.Hidden, 
         nameLocalizationKey = "CommonUI.Features.Label.Nil", 
         disableAppTopBanner = true, 
         disableBackButton = true
     };
 end;
 if l_FFlagEnableMobileGameJoinCard_0 then
-    v36[v3.GameJoinCard] = {
+    v37[v4.GameJoinCard] = {
         isPeekView = true, 
         renderUnderlyingPage = true, 
         overlayEnabled = true
     };
 end;
-return v36;
+return v37;

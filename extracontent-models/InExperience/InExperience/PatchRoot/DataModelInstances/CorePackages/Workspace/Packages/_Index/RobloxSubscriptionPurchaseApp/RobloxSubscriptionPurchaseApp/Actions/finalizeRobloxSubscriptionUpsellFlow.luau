@@ -31,15 +31,14 @@ local function v13(v12) --[[ Line: 58 ]] --[[ Name: emitCompletionTelemetryEvent
     v5(v6.RobloxSubscriptionUpsellFlowCompletedCounter);
 end;
 return function(v14) --[[ Line: 82 ]] --[[ Name: finalizeRobloxSubscriptionUpsellFlow ]]
-    -- upvalues: v1 (copy), v2 (copy), v3 (copy), v13 (copy), v4 (copy)
+    -- upvalues: v1 (copy), v3 (copy), v2 (copy), v13 (copy), v4 (copy)
     local v15 = v1.get();
     local v16 = v15.getDidTryPurchasing();
     local v17 = v15.getIsNativePurchase();
-    local l_skipWaitingForPurchaseResult_0 = v15.getPurchaseFlowOptions().skipWaitingForPurchaseResult;
+    local v18 = v15.getPurchaseFlowOptions().skipWaitingForPurchaseResult or false;
+    local v19 = if not v16 then v3.UpsellDismissed else if v14 then v3.UpsellPurchaseSucceeded else if not v17 or v18 then v3.UpsellPurchaseAttempted else v3.UpsellPurchaseFailed;
     v15.setPromptState(v2.SubscriptionPurchaseCompleted);
-    local v19 = l_skipWaitingForPurchaseResult_0 or false;
-    local v20 = if not v16 then v3.UpsellDismissed else if v14 then v3.UpsellPurchaseSucceeded else if not v17 or v19 then v3.UpsellPurchaseAttempted else v3.UpsellPurchaseFailed;
-    v13(v20);
-    v15.triggerOnFlowComplete(v20);
+    v13(v19);
+    v15.triggerOnFlowComplete(v19);
     v4();
 end;

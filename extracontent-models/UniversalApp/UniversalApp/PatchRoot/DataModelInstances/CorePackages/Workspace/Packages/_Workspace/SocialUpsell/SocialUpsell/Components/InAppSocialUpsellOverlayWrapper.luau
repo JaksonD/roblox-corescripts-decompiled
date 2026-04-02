@@ -6,30 +6,27 @@ local v4 = require(l_script_FirstAncestor_0.Enum.SocialUpsellType);
 local v5 = require(l_script_FirstAncestor_0.Analytics.Enum.UpsellEntrySurfaceType);
 local v6 = require(l_script_FirstAncestor_0.Components.FAEUpsellOverlay);
 local l_FFlagEnableAEGIS2CommsFAEUpsell_0 = require(l_Parent_0.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell;
-local l_FFlagEnableSocialUpsellFocusFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableSocialUpsellFocusFixes;
-local v9 = {
+local v8 = {
     isInExperience = false, 
     upsellEntrySurface = v5.Unknown, 
     upsellType = v4.Unknown
 };
-return function(v10) --[[ Line: 28 ]]
-    -- upvalues: v3 (copy), v2 (copy), v9 (copy), l_FFlagEnableSocialUpsellFocusFixes_0 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v4 (copy), v6 (copy)
-    return (v3.useMemo(function() --[[ Line: 29 ]]
-        -- upvalues: v2 (ref), v9 (ref), v10 (copy), l_FFlagEnableSocialUpsellFocusFixes_0 (ref), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (ref), v4 (ref), v3 (ref), v6 (ref)
-        local v11 = nil;
-        local v12 = v2.Dictionary.union(v9, v10.data or {});
-        if l_FFlagEnableSocialUpsellFocusFixes_0 then
-            v12.containerRef = v10.containerRef;
-        end;
+return function(v9) --[[ Line: 27 ]]
+    -- upvalues: v3 (copy), v2 (copy), v8 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (copy), v4 (copy), v6 (copy)
+    return (v3.useMemo(function() --[[ Line: 28 ]]
+        -- upvalues: v2 (ref), v8 (ref), v9 (copy), l_FFlagEnableAEGIS2CommsFAEUpsell_0 (ref), v4 (ref), v3 (ref), v6 (ref)
+        local v10 = nil;
+        local v11 = v2.Dictionary.union(v8, v9.data or {});
+        v11.containerRef = v9.containerRef;
         if not l_FFlagEnableAEGIS2CommsFAEUpsell_0 then
-            v12.isInExperience = false;
+            v11.isInExperience = false;
         end;
-        if v10.upsellType == v4.FacialAgeEstimation then
-            v11 = v3.createElement(v6, v12);
+        if v9.upsellType == v4.FacialAgeEstimation then
+            v10 = v3.createElement(v6, v11);
         end;
-        return v11;
+        return v10;
     end, {
-        v10.upsellType, 
-        v10.data
+        v9.upsellType, 
+        v9.data
     }));
 end;

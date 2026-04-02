@@ -9,48 +9,52 @@ local v7 = require(l_script_FirstAncestor_0.Actions.Send.handleTransferError);
 local v8 = require(l_script_FirstAncestor_0.Actions.Send.handleTransferBlock);
 local v9 = require(l_script_FirstAncestor_0.Actions.Send.setTransferPromptState);
 local v10 = require(l_script_FirstAncestor_0.Enums.TransferRetryOrigin);
-return function(v11) --[[ Line: 17 ]] --[[ Name: initiateTransfer ]]
-    -- upvalues: v3 (copy), v2 (copy), v9 (copy), v6 (copy), v8 (copy), v10 (copy), v7 (copy)
-    local l_setPromptState_0 = v11.setPromptState;
-    local l_setTransferRequestId_0 = v11.setTransferRequestId;
-    local l_setRobuxBalanceAmount_0 = v11.setRobuxBalanceAmount;
-    local l_setBalanceReceivedFromApi_0 = v11.setBalanceReceivedFromApi;
-    local l_setUserRelationshipDetail_0 = v11.setUserRelationshipDetail;
-    local l_setRecipient_0 = v11.setRecipient;
-    local l_setSender_0 = v11.setSender;
-    local v19 = v11.getRecipientUserId(false);
+local v11 = require(l_script_FirstAncestor_0.Events.CurrencyTransferTelemetry);
+local v12 = require(l_script_FirstAncestor_0.Utils.logCurrencyTransferCounter);
+return function(v13) --[[ Line: 19 ]] --[[ Name: initiateTransfer ]]
+    -- upvalues: v3 (copy), v2 (copy), v9 (copy), v12 (copy), v11 (copy), v6 (copy), v8 (copy), v10 (copy), v7 (copy)
+    local l_setPromptState_0 = v13.setPromptState;
+    local l_setTransferRequestId_0 = v13.setTransferRequestId;
+    local l_setRobuxBalanceAmount_0 = v13.setRobuxBalanceAmount;
+    local l_setBalanceReceivedFromApi_0 = v13.setBalanceReceivedFromApi;
+    local l_setUserRelationshipDetail_0 = v13.setUserRelationshipDetail;
+    local l_setRecipient_0 = v13.setRecipient;
+    local l_setSender_0 = v13.setSender;
+    local v21 = v13.getRecipientUserId(false);
     l_setPromptState_0(v3.TransferRequested);
-    local v20 = {
-        recipientId = v19
+    local v22 = {
+        recipientId = v21
     };
-    local v21 = v11.getTransferOrigination();
-    if v21 then
-        v20.transferOrigination = v21;
+    local v23 = v13.getTransferOrigination();
+    if v23 then
+        v22.transferOrigination = v23;
     end;
-    v2(v20):andThen(function(v22) --[[ Line: 36 ]]
-        -- upvalues: v9 (ref), v11 (copy), v3 (ref), l_setTransferRequestId_0 (copy), l_setRobuxBalanceAmount_0 (copy), l_setBalanceReceivedFromApi_0 (copy), l_setUserRelationshipDetail_0 (copy), l_setRecipient_0 (copy), l_setSender_0 (copy)
-        v9(v11, v3.TransferStarted);
-        if v22 and v22.transferRequestId and v22.robuxTransfer then
-            l_setTransferRequestId_0(v22.transferRequestId);
-            l_setRobuxBalanceAmount_0(v22.senderRobuxBalance);
+    v2(v22):andThen(function(v24) --[[ Line: 38 ]]
+        -- upvalues: v9 (ref), v13 (copy), v3 (ref), l_setTransferRequestId_0 (copy), l_setRobuxBalanceAmount_0 (copy), l_setBalanceReceivedFromApi_0 (copy), l_setUserRelationshipDetail_0 (copy), l_setRecipient_0 (copy), l_setSender_0 (copy), v12 (ref), v11 (ref)
+        v9(v13, v3.TransferStarted);
+        if v24 and v24.transferRequestId and v24.robuxTransfer then
+            l_setTransferRequestId_0(v24.transferRequestId);
+            l_setRobuxBalanceAmount_0(v24.senderRobuxBalance);
             l_setBalanceReceivedFromApi_0(true);
-            l_setUserRelationshipDetail_0(v22.userRelationshipDetail);
-            l_setRecipient_0(v22.robuxTransfer.recipient);
-            l_setSender_0(v22.robuxTransfer.sender);
-            v9(v11, v3.TransferInput);
+            l_setUserRelationshipDetail_0(v24.userRelationshipDetail);
+            l_setRecipient_0(v24.robuxTransfer.recipient);
+            l_setSender_0(v24.robuxTransfer.sender);
+            v9(v13, v3.TransferInput);
+            v12(v13, v11.CurrencyTransferInitiateSucceededCounter);
         end;
-    end):catch(function(v23) --[[ Line: 49 ]]
-        -- upvalues: v6 (ref), v8 (ref), v11 (copy), v10 (ref), v7 (ref)
-        if typeof(v23) == "table" and v23.errorMessage then
-            if v23.failureReason == v6.AmpRecourseAvailable and v23.ampRecourseActions and v23.ampFeatureCheck then
-                v8(v11, v23.ampRecourseActions, v23.ampFeatureCheck, v10.InitiateTransfer);
+    end):catch(function(v25) --[[ Line: 55 ]]
+        -- upvalues: v12 (ref), v13 (copy), v11 (ref), v6 (ref), v8 (ref), v10 (ref), v7 (ref)
+        v12(v13, v11.CurrencyTransferInitiateFailedCounter);
+        if typeof(v25) == "table" and v25.errorMessage then
+            if v25.failureReason == v6.AmpRecourseAvailable and v25.ampRecourseActions and v25.ampFeatureCheck then
+                v8(v13, v25.ampRecourseActions, v25.ampFeatureCheck, v10.InitiateTransfer);
                 return;
             else
-                v7(v11, v23);
+                v7(v13, v25);
                 return;
             end;
         else
-            v7(v11, nil);
+            v7(v13, nil);
             return;
         end;
     end);

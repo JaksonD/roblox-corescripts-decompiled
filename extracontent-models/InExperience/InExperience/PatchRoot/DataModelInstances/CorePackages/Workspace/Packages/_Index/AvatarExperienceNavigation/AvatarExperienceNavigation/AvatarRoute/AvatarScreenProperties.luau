@@ -243,6 +243,11 @@ if l_FFlagAXMISEnableMultiShopping_0 then
     };
 end;
 if l_FFlagAXEnableExpiredUserLookCheckout_0 then
+    v14[v2.ExpiredUserLookActionBar] = {
+        isTransparent = true, 
+        VRPanelPlacement = "Right", 
+        VRPanelRoundedCorners = true
+    };
     v14[v2.ExpiredUserLookCheckout] = {
         isTransparent = true, 
         coversSceneWhenExpanded = true, 

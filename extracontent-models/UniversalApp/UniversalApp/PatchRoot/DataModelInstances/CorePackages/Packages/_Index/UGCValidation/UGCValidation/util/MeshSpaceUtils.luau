@@ -1,71 +1,72 @@
 local l_Parent_0 = script.Parent.Parent;
 local v1 = require(l_Parent_0.util.BoundsDataUtils);
-local v2 = {};
-local function _(v3, v4) --[[ Line: 16 ]] --[[ Name: toWorldSpace ]]
-    return v3 * (v4 / 2);
+local v2 = require(l_Parent_0.util.getAttachmentCFrameInPartSpace);
+local v3 = {};
+local function _(v4, v5) --[[ Line: 20 ]] --[[ Name: toWorldSpace ]]
+    return v4 * (v5 / 2);
 end;
-local function _(v6, v7) --[[ Line: 22 ]] --[[ Name: calculateLocalSpaceTransform ]]
-    local v8 = v6.Rotation:Inverse() * v7.Rotation;
-    local v9 = v6.Rotation:Inverse() * (v7.Position - v6.Position);
-    return CFrame.new(v9) * v8;
+local function _(v7, v8) --[[ Line: 26 ]] --[[ Name: calculateLocalSpaceTransform ]]
+    local v9 = v7.Rotation:Inverse() * v8.Rotation;
+    local v10 = v7.Rotation:Inverse() * (v8.Position - v7.Position);
+    return CFrame.new(v10) * v9;
 end;
-local function _(v11, v12, v13) --[[ Line: 30 ]] --[[ Name: calculateAcceptableBoundsWorldSpace ]]
-    local v14 = v11.min * (v12 / 2);
-    local v15 = v11.max * (v12 / 2);
-    local v16 = (v14 + v15) * 0.5;
-    local v17 = v15 - v14;
-    return v16 + v13, v17;
+local function _(v12, v13, v14) --[[ Line: 34 ]] --[[ Name: calculateAcceptableBoundsWorldSpace ]]
+    local v15 = v12.min * (v13 / 2);
+    local v16 = v12.max * (v13 / 2);
+    local v17 = (v15 + v16) * 0.5;
+    local v18 = v16 - v15;
+    return v17 + v14, v18;
 end;
-v2.clampAttachmentToBounds = function(v19, v20, v21, v22) --[[ Line: 43 ]] --[[ Name: clampAttachmentToBounds ]]
-    -- upvalues: v1 (copy)
-    v22 = v22 or 0.001;
-    local v23 = v20.cframe * v19.CFrame;
-    local v24 = v1.calculateBoundsCenters(v20.boundsData);
-    local v25 = v1.calculateBoundsDimensions(v20.boundsData);
-    assert(v24, "meshCenterPos is nil");
-    assert(v25, "meshDimensions is nil");
-    local v26 = v23.Position - v24;
-    local v27 = v21.min * (v25 / 2);
-    local v28 = v21.max * (v25 / 2);
-    local v29 = {};
-    for _, v31 in {
+v3.clampAttachmentToBounds = function(v20, v21, v22, v23) --[[ Line: 47 ]] --[[ Name: clampAttachmentToBounds ]]
+    -- upvalues: v2 (copy), v1 (copy)
+    v23 = v23 or 0.001;
+    local v24 = v21.cframe * v2(v20);
+    local v25 = v1.calculateBoundsCenters(v21.boundsData);
+    local v26 = v1.calculateBoundsDimensions(v21.boundsData);
+    assert(v25, "meshCenterPos is nil");
+    assert(v26, "meshDimensions is nil");
+    local v27 = v24.Position - v25;
+    local v28 = v22.min * (v26 / 2);
+    local v29 = v22.max * (v26 / 2);
+    local v30 = {};
+    for _, v32 in {
         "X", 
         "Y", 
         "Z"
     } do
-        v29[v31] = {};
-        local v32 = v29[v31];
-        local v33 = v29[v31];
-        local v34 = v27[v31] + v22;
-        local v35 = v28[v31] - v22;
-        v32.min = v34;
-        v33.max = v35;
-        if v29[v31].min > v29[v31].max then
-            v32 = (v27[v31] + v28[v31]) * 0.5;
-            v33 = v29[v31];
-            v34 = v29[v31];
-            v33.min = v32;
-            v34.max = v32;
+        v30[v32] = {};
+        local v33 = v30[v32];
+        local v34 = v30[v32];
+        local v35 = v28[v32] + v23;
+        local v36 = v29[v32] - v23;
+        v33.min = v35;
+        v34.max = v36;
+        if v30[v32].min > v30[v32].max then
+            v33 = (v28[v32] + v29[v32]) * 0.5;
+            v34 = v30[v32];
+            v35 = v30[v32];
+            v34.min = v33;
+            v35.max = v33;
         end;
     end;
-    local v36 = v24 + Vector3.new(math.clamp(v26.X, v29.X.min, v29.X.max), math.clamp(v26.Y, v29.Y.min, v29.Y.max), (math.clamp(v26.Z, v29.Z.min, v29.Z.max)));
-    local v37 = v23.Rotation + v36;
-    local l_cframe_0 = v20.cframe;
-    local v39 = l_cframe_0.Rotation:Inverse() * v37.Rotation;
-    local v40 = l_cframe_0.Rotation:Inverse() * (v37.Position - l_cframe_0.Position);
-    return CFrame.new(v40) * v39;
+    local v37 = v25 + Vector3.new(math.clamp(v27.X, v30.X.min, v30.X.max), math.clamp(v27.Y, v30.Y.min, v30.Y.max), (math.clamp(v27.Z, v30.Z.min, v30.Z.max)));
+    local v38 = v24.Rotation + v37;
+    local l_cframe_0 = v21.cframe;
+    local v40 = l_cframe_0.Rotation:Inverse() * v38.Rotation;
+    local v41 = l_cframe_0.Rotation:Inverse() * (v38.Position - l_cframe_0.Position);
+    return CFrame.new(v41) * v40;
 end;
-v2.calculateAcceptableBoundsLocalSpace = function(v41, v42, v43, v44) --[[ Line: 88 ]] --[[ Name: calculateAcceptableBoundsLocalSpace ]]
-    local v45 = v41.min * (v43 / 2);
-    local v46 = v41.max * (v43 / 2);
-    local v47 = (v45 + v46) * 0.5;
-    local v48 = v46 - v45;
-    local v49 = v47 + v44;
-    local l_v48_0 = v48;
-    v46 = v42.cframe;
-    v47 = CFrame.new(v49);
-    v48 = v46.Rotation:Inverse() * v47.Rotation;
-    local v51 = v46.Rotation:Inverse() * (v47.Position - v46.Position);
-    return CFrame.new(v51) * v48, l_v48_0;
+v3.calculateAcceptableBoundsLocalSpace = function(v42, v43, v44, v45) --[[ Line: 92 ]] --[[ Name: calculateAcceptableBoundsLocalSpace ]]
+    local v46 = v42.min * (v44 / 2);
+    local v47 = v42.max * (v44 / 2);
+    local v48 = (v46 + v47) * 0.5;
+    local v49 = v47 - v46;
+    local v50 = v48 + v45;
+    local l_v49_0 = v49;
+    v47 = v43.cframe;
+    v48 = CFrame.new(v50);
+    v49 = v47.Rotation:Inverse() * v48.Rotation;
+    local v52 = v47.Rotation:Inverse() * (v48.Position - v47.Position);
+    return CFrame.new(v52) * v49, l_v49_0;
 end;
-return v2;
+return v3;

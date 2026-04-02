@@ -10,11 +10,19 @@ local v2 = {
     ["Feature.RobloxSubscription.Label.BlackbirdUpsellBanner"] = "Tempus {discountPercentage}% leo eu aenean", 
     ["Feature.RobloxSubscription.Label.BlackbirdPriceTag"] = "{price}/{periodType}", 
     ["Feature.RobloxSubscription.Label.FreeTrialText"] = "sit amet dolor", 
-    ["Feature.RobloxSubscription.Label.BlackbirdPSDiscount"] = "Lorem ipsum dolor sit amet"
+    ["Feature.RobloxSubscription.Label.BlackbirdPSDiscount"] = "Lorem ipsum dolor sit amet", 
+    ["Feature.RobloxSubscription.Title.GenericError"] = "Something went wrong", 
+    ["Feature.RobloxSubscription.Body.GenericError"] = "We couldn't complete this right now. Please try again.", 
+    ["Feature.RobloxSubscription.Title.AlreadySubscribed"] = "Error", 
+    ["Feature.RobloxSubscription.Body.AlreadySubscribed"] = "You already have Blackbird benefits.", 
+    ["Feature.RobloxSubscription.Title.UnsupportedPlatform"] = "Blackbird unavailable here", 
+    ["Feature.RobloxSubscription.Body.UnsupportedPlatform"] = "This subscription isn't available to purchase on this device.", 
+    ["Feature.RobloxSubscription.Action.Ok"] = "OK", 
+    ["Feature.RobloxSubscription.Action.TryItForFree"] = "Try it for free"
 };
-return function(v3) --[[ Line: 27 ]] --[[ Name: usePlaceholderLocalization ]]
+return function(v3) --[[ Line: 35 ]] --[[ Name: usePlaceholderLocalization ]]
     -- upvalues: v1 (copy), v2 (copy)
-    return v1.useMemo(function() --[[ Line: 28 ]]
+    return v1.useMemo(function() --[[ Line: 36 ]]
         -- upvalues: v3 (copy), v2 (ref)
         local v4 = {};
         for v5, v6 in pairs(v3) do
@@ -23,7 +31,7 @@ return function(v3) --[[ Line: 27 ]] --[[ Name: usePlaceholderLocalization ]]
             if typeof(v6) == "table" then
                 for v9, v10 in pairs(v6) do
                     if typeof(v9) == "string" then
-                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 36 ]]
+                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 44 ]]
                             -- upvalues: v10 (copy)
                             return (tostring(v10));
                         end);

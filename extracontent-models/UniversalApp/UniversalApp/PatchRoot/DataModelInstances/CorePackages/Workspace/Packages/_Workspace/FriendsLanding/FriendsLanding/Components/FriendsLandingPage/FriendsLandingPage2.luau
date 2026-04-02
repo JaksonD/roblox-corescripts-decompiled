@@ -55,250 +55,262 @@ local l_FFlagFriendsPageAlwaysOpenPPV_0 = require(l_Parent_0.SharedFlags).FFlagF
 local l_FFlagFriendsPageUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagFriendsPageUserListEnabled;
 local l_FFlagExtendScrollingFramesBySafeInsets_0 = require(l_Parent_0.SharedFlags).FFlagExtendScrollingFramesBySafeInsets;
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_Parent_0.SharedFlags).FFlagEnableLeftNavOnConsole;
-local l_FStringCanAccessTrustedContactsAmpFeature_0 = require(l_Parent_0.SharedFlags).FStringCanAccessTrustedContactsAmpFeature;
-return function(v56) --[[ Line: 97 ]] --[[ Name: FriendsLandingPage ]]
-    -- upvalues: l_useLocalization_0 (copy), v3 (copy), v22 (copy), v23 (copy), l_useNavigation_0 (copy), l_useDesignTokens_0 (copy), l_useUiModeInfo_0 (copy), v48 (copy), l_useTokens_0 (copy), l_useFocusGuiObject_0 (copy), l_UiMode_0 (copy), v11 (copy), v14 (copy), v26 (copy), v13 (copy), l_FocusNavigationEventNameEnum_0 (copy), l_useTextSizeOffset_0 (copy), l_FFlagConnectionManagementChips_0 (copy), l_AmpApiProvider_0 (copy), l_FStringCanAccessTrustedContactsAmpFeature_0 (copy), l_AccessResponseEnum_0 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (copy), l_convertUserPresenceTypeToString_0 (copy), l_dependencyArray_0 (copy), v28 (copy), v29 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), v34 (copy), v47 (copy), v27 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_AppPage_0 (copy), l_GridMetrics_0 (copy), l_useAnimatedScrollToSelection_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), l_useSignalState_0 (copy), v32 (copy), v37 (copy), v4 (copy), l_HorizontalPageMargin_0 (copy), l_RefreshScrollingFrame_0 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v33 (copy), v35 (copy), v36 (copy), l_UserListLayoutAdaptor_0 (copy), l_LayoutMode_0 (copy), l_CollectionGrid_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
-    local v57 = l_useLocalization_0({
+local l_FStringIsUserInTcEligibleCountryAmpFeature_0 = require(l_Parent_0.SharedFlags).FStringIsUserInTcEligibleCountryAmpFeature;
+local l_FStringCanAccessTrustedContactsAmpNameSpace_0 = require(l_Parent_0.SharedFlags).FStringCanAccessTrustedContactsAmpNameSpace;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v58) --[[ Line: 100 ]] --[[ Name: FriendsLandingPage ]]
+    -- upvalues: l_useLocalization_0 (copy), v3 (copy), v22 (copy), v23 (copy), l_useNavigation_0 (copy), l_useDesignTokens_0 (copy), l_useUiModeInfo_0 (copy), v48 (copy), l_useTokens_0 (copy), l_useFocusGuiObject_0 (copy), l_UiMode_0 (copy), v11 (copy), v14 (copy), v26 (copy), v13 (copy), l_FocusNavigationEventNameEnum_0 (copy), l_useTextSizeOffset_0 (copy), l_FFlagConnectionManagementChips_0 (copy), l_AmpApiProvider_0 (copy), l_FStringIsUserInTcEligibleCountryAmpFeature_0 (copy), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (copy), l_AccessResponseEnum_0 (copy), l_FFlagFriendsPageAlwaysOpenPPV_0 (copy), l_convertUserPresenceTypeToString_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v28 (copy), v29 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), v34 (copy), v47 (copy), v27 (copy), l_FFlagCreateConnectionsHub_0 (copy), l_AppPage_0 (copy), l_GridMetrics_0 (copy), l_useAnimatedScrollToSelection_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), l_useSignalState_0 (copy), v32 (copy), v37 (copy), v4 (copy), l_HorizontalPageMargin_0 (copy), l_RefreshScrollingFrame_0 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy), v33 (copy), v35 (copy), v36 (copy), l_UserListLayoutAdaptor_0 (copy), l_LayoutMode_0 (copy), l_CollectionGrid_0 (copy), l_Button_0 (copy), l_ButtonType_0 (copy)
+    local v59 = l_useLocalization_0({
         pageError = "CommonUI.Messages.Response.PageError", 
         successText = "Feature.Friends.Action.FriendRemoved", 
         errorText = "Feature.Toast.NetworkingError.SomethingIsWrong", 
         friends = "CommonUI.Features.Label.Friends", 
         showMore = "Feature.Avatar.Action.ShowMore"
     });
-    local v58 = v3.useContext(v22.Context);
-    local v59 = v3.useContext(v23.Context);
-    local v60 = l_useNavigation_0();
-    local l_navigateToLuaAppPages_0 = v58.navigateToLuaAppPages;
-    local v62 = l_useDesignTokens_0();
-    local v63 = l_useUiModeInfo_0();
-    local v64 = if v48 then l_useTokens_0() else nil;
-    local v65 = l_useFocusGuiObject_0();
-    local v66 = v63.uiMode == l_UiMode_0.TenFoot;
-    local v67 = v11.useLastInputMode() == "Cursor";
-    local v69 = v14.onRelease(function(v68) --[[ Line: 120 ]]
+    local v60 = v3.useContext(v22.Context);
+    local v61 = v3.useContext(v23.Context);
+    local v62 = l_useNavigation_0();
+    local l_navigateToLuaAppPages_0 = v60.navigateToLuaAppPages;
+    local v64 = l_useDesignTokens_0();
+    local v65 = l_useUiModeInfo_0();
+    local v66 = if v48 then l_useTokens_0() else nil;
+    local v67 = l_useFocusGuiObject_0();
+    local v68 = v65.uiMode == l_UiMode_0.TenFoot;
+    local v69 = v11.useLastInputMode() == "Cursor";
+    local v71 = v14.onRelease(function(v70) --[[ Line: 123 ]]
         -- upvalues: l_navigateToLuaAppPages_0 (copy), v26 (ref)
-        v68:cancel();
+        v70:cancel();
         l_navigateToLuaAppPages_0[v26.SearchPage]();
     end);
-    local v70 = v13.useEventHandler(l_FocusNavigationEventNameEnum_0.Search, v69);
-    local v71 = if v66 then v62.Global.Space_800 else v62.Global.Space_1000;
-    local v72 = l_useTextSizeOffset_0();
-    v71 = v71 + v72 * 3;
-    local v73 = nil;
-    local v74 = nil;
+    local v72 = v13.useEventHandler(l_FocusNavigationEventNameEnum_0.Search, v71);
+    local v73 = if v68 then v64.Global.Space_800 else v64.Global.Space_1000;
+    local v74 = l_useTextSizeOffset_0();
+    v73 = v73 + v74 * 3;
+    local v75 = nil;
+    local v76 = nil;
     if l_FFlagConnectionManagementChips_0 then
-        local v75, v76 = v3.useState(false);
-        v73 = v75;
-        v74 = v76;
+        local v77, v78 = v3.useState(false);
+        v75 = v77;
+        v76 = v78;
     end;
-    v3.useEffect(function() --[[ Line: 141 ]]
-        -- upvalues: v59 (copy), l_FFlagConnectionManagementChips_0 (ref), l_AmpApiProvider_0 (ref), l_FStringCanAccessTrustedContactsAmpFeature_0 (ref), v74 (ref), l_AccessResponseEnum_0 (ref)
-        v59:pageMountingTimeReport();
-        if l_FFlagConnectionManagementChips_0 then
-            local v77 = l_AmpApiProvider_0.getFeatureAccess({
-                l_FStringCanAccessTrustedContactsAmpFeature_0
-            });
-            if v77.featureAccessList and v77.featureAccessList[1] then
-                v74(v77.featureAccessList[1].access == l_AccessResponseEnum_0.Granted);
-            end;
+    v3.useEffect(function() --[[ Line: 144 ]]
+        -- upvalues: v61 (copy), l_FFlagConnectionManagementChips_0 (ref), l_AmpApiProvider_0 (ref), l_FStringIsUserInTcEligibleCountryAmpFeature_0 (ref), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (ref), l_AccessResponseEnum_0 (ref), v76 (ref)
+        v61:pageMountingTimeReport();
+        if l_FFlagConnectionManagementChips_0 and l_AmpApiProvider_0.upsellFeatureAccess(l_FStringIsUserInTcEligibleCountryAmpFeature_0, {}, l_FStringCanAccessTrustedContactsAmpNameSpace_0).access == l_AccessResponseEnum_0.Granted then
+            v76(true);
         end;
     end, {});
-    local v79 = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v3.useCallback(function(v78) --[[ Line: 153 ]]
-        -- upvalues: v58 (copy), l_convertUserPresenceTypeToString_0 (ref)
-        return function() --[[ Line: 154 ]]
-            -- upvalues: v58 (ref), v78 (copy), l_convertUserPresenceTypeToString_0 (ref)
-            v58.openPlayerContextualMenu({
-                subjectUserId = v78.id, 
+    local v80 = if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v3.useCallback(function(v79) --[[ Line: 157 ]]
+        -- upvalues: v60 (copy), l_convertUserPresenceTypeToString_0 (ref)
+        return function() --[[ Line: 158 ]]
+            -- upvalues: v60 (ref), v79 (copy), l_convertUserPresenceTypeToString_0 (ref)
+            v60.openPlayerContextualMenu({
+                subjectUserId = v79.id, 
                 robloxFriendshipStatus = Enum.FriendStatus.Friend, 
                 subjectPresence = {
-                    locationString = v78.lastLocation, 
-                    locationPlaceId = v78.placeId, 
-                    locationRootPlaceId = v78.rootPlaceId, 
-                    locationUniverseId = v78.universeId, 
-                    status = l_convertUserPresenceTypeToString_0(v78.userPresenceType)
+                    locationString = v79.lastLocation, 
+                    locationPlaceId = v79.placeId, 
+                    locationRootPlaceId = v79.rootPlaceId, 
+                    locationUniverseId = v79.universeId, 
+                    status = l_convertUserPresenceTypeToString_0(v79.userPresenceType)
                 }, 
                 friendshipOriginSourceType = nil
             });
         end;
-    end, l_dependencyArray_0(v58.openPlayerContextualMenu));
-    local v85 = v3.useCallback(function(v80, v81, _, _, _) --[[ Line: 171 ]]
-        -- upvalues: v59 (copy), v26 (ref), v28 (ref), v58 (copy), v29 (ref)
-        return function() --[[ Line: 172 ]]
-            -- upvalues: v59 (ref), v26 (ref), v28 (ref), v80 (copy), v81 (copy), v58 (ref), v29 (ref)
-            v59:navigate(v26.ViewUserProfile);
-            v59:buttonClick(v28.PlayerTile, {
-                friendId = v80, 
-                position = v81 - 1, 
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v60.openPlayerContextualMenu
+    } else l_dependencyArray_0(v60.openPlayerContextualMenu));
+    local v86 = v3.useCallback(function(v81, v82, _, _, _) --[[ Line: 180 ]]
+        -- upvalues: v61 (copy), v26 (ref), v28 (ref), v60 (copy), v29 (ref)
+        return function() --[[ Line: 181 ]]
+            -- upvalues: v61 (ref), v26 (ref), v28 (ref), v81 (copy), v82 (copy), v60 (ref), v29 (ref)
+            v61:navigate(v26.ViewUserProfile);
+            v61:buttonClick(v28.PlayerTile, {
+                friendId = v81, 
+                position = v82 - 1, 
                 subpage = "peekView", 
                 page = "playerProfile"
             });
-            v58.openProfilePeekView(v80, {
+            v60.openProfilePeekView(v81, {
                 source = v29.FriendsLandingPageSourceName
             });
         end;
-    end, l_dependencyArray_0(v59, v58.openProfilePeekView));
-    local v88 = if l_FFlagFriendsPageUserListEnabled_0 then v3.useCallback(function(v86, v87) --[[ Line: 188 ]]
-        -- upvalues: v59 (copy), v26 (ref), v28 (ref), v58 (copy), v29 (ref)
-        v59:navigate(v26.ViewUserProfile);
-        v59:buttonClick(v28.PlayerTile, {
-            friendId = v86, 
-            position = v87 - 1, 
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v61, 
+        v60.openProfilePeekView
+    } else l_dependencyArray_0(v61, v60.openProfilePeekView));
+    local v89 = if l_FFlagFriendsPageUserListEnabled_0 then v3.useCallback(function(v87, v88) --[[ Line: 201 ]]
+        -- upvalues: v61 (copy), v26 (ref), v28 (ref), v60 (copy), v29 (ref)
+        v61:navigate(v26.ViewUserProfile);
+        v61:buttonClick(v28.PlayerTile, {
+            friendId = v87, 
+            position = v88 - 1, 
             subpage = "peekView", 
             page = "playerProfile"
         });
-        v58.openProfilePeekView(v86, {
+        v60.openProfilePeekView(v87, {
             source = v29.FriendsLandingPageSourceName
         });
-    end, l_dependencyArray_0(v59)) else nil;
-    local function v89() --[[ Line: 203 ]]
-        -- upvalues: v59 (copy)
-        v59:pageLoadingTimeReport();
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v61
+    } else l_dependencyArray_0(v61)) else nil;
+    local function v90() --[[ Line: 216 ]]
+        -- upvalues: v61 (copy)
+        v61:pageLoadingTimeReport();
     end;
-    local v90 = v3.useCallback(function() --[[ Line: 207 ]]
-        -- upvalues: v60 (copy), v26 (ref), v57 (copy)
-        return function() --[[ Line: 208 ]]
-            -- upvalues: v60 (ref), v26 (ref), v57 (ref)
-            v60.navigate(v26.GenericToast, {
+    local v91 = v3.useCallback(function() --[[ Line: 221 ]]
+        -- upvalues: v62 (copy), v26 (ref), v59 (copy)
+        return function() --[[ Line: 222 ]]
+            -- upvalues: v62 (ref), v26 (ref), v59 (ref)
+            v62.navigate(v26.GenericToast, {
                 toastProps = {
                     toastContent = {
-                        toastTitle = v57.errorText
+                        toastTitle = v59.errorText
                     }
                 }
             });
         end;
-    end, l_dependencyArray_0(v60, v57));
-    local v93 = v3.useCallback(function(v91, v92) --[[ Line: 218 ]]
-        -- upvalues: v3 (ref), v34 (ref), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v85 (copy), v66 (copy), v79 (copy), v90 (copy), v89 (copy), v56 (copy), v65 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v62, 
+        v59
+    } else l_dependencyArray_0(v62, v59));
+    local v94 = v3.useCallback(function(v92, v93) --[[ Line: 236 ]]
+        -- upvalues: v3 (ref), v34 (ref), l_FFlagFriendsPageAlwaysOpenPPV_0 (ref), v86 (copy), v68 (copy), v80 (copy), v91 (copy), v90 (copy), v58 (copy), v67 (copy)
         return v3.createElement("Frame", {
             Size = UDim2.new(1, 0, 1, 0), 
             BackgroundTransparency = 1, 
-            LayoutOrder = v92
+            LayoutOrder = v93
         }, {
             tile = v3.createElement(v34, {
-                user = v91, 
-                index = v92, 
-                openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v85 else if v66 then if v79 == nil then v90 else v79 else v85, 
-                isPlayerContextualMenuEnabled = v66, 
-                pageLoadingTimeReport = v89, 
-                selected = v92 == v56.selectedItemIndex, 
-                focusGuiObject = v65
+                user = v92, 
+                index = v93, 
+                openPlayerProfile = if l_FFlagFriendsPageAlwaysOpenPPV_0 then v86 else if v68 then if v80 == nil then v91 else v80 else v86, 
+                isPlayerContextualMenuEnabled = v68, 
+                pageLoadingTimeReport = v90, 
+                selected = v93 == v58.selectedItemIndex, 
+                focusGuiObject = v67
             })
         }), "FriendTile";
-    end, l_dependencyArray_0(v56.selectedItemIndex, v66, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v79, v85));
-    local v95 = v3.useCallback(function(v94) --[[ Line: 248 ]]
-        -- upvalues: v71 (ref)
-        return v94 + v71;
-    end, l_dependencyArray_0(v71, v72));
-    local v96 = v3.useCallback(function() --[[ Line: 252 ]]
-        -- upvalues: v59 (copy), v28 (ref), v60 (copy), v26 (ref), v47 (ref), v56 (copy)
-        v59:buttonClick(v28.FriendFilterPill);
-        v60.navigate(v26.FilterByModal, {
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v58.selectedItemIndex, 
+        v68, 
+        if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v80, 
+        v86
+    } else l_dependencyArray_0(v58.selectedItemIndex, v68, if l_FFlagFriendsPageAlwaysOpenPPV_0 then nil else v80, v86));
+    local v96 = v3.useCallback(function(v95) --[[ Line: 273 ]]
+        -- upvalues: v73 (ref)
+        return v95 + v73;
+    end, l_dependencyArray_0(v73, v74));
+    local v97 = v3.useCallback(function() --[[ Line: 277 ]]
+        -- upvalues: v61 (copy), v28 (ref), v62 (copy), v26 (ref), v47 (ref), v58 (copy)
+        v61:buttonClick(v28.FriendFilterPill);
+        v62.navigate(v26.FilterByModal, {
             onFewestInteractionsSelection = v47, 
-            friendCount = v56.totalFriendCount
+            friendCount = v58.totalFriendCount
         });
-    end, l_dependencyArray_0(v60, v59));
-    local v98 = if l_FFlagConnectionManagementChips_0 then v3.useCallback(function(v97) --[[ Line: 261 ]]
-        -- upvalues: v59 (copy), v28 (ref), v58 (copy)
-        v59:buttonClick(v28.FriendFilterPill);
-        v58.setFilterKeys(v97);
-    end, l_dependencyArray_0(v59, v58.setFilterKeys)) else nil;
-    local v99 = v3.useCallback(function() --[[ Line: 267 ]]
-        -- upvalues: v59 (copy), v58 (copy), v27 (ref), v57 (copy)
-        v59:pageLoaded();
-        v58.setFilterKeys(v27.All);
-        return v58.refreshPage({
-            errorMessage = v57.pageError, 
-            onResolve = function() --[[ Line: 273 ]] --[[ Name: onResolve ]]
-                -- upvalues: v59 (ref)
-                v59:pageLoadedWithArgs();
+    end, l_dependencyArray_0(v62, v61));
+    local v99 = if l_FFlagConnectionManagementChips_0 then v3.useCallback(function(v98) --[[ Line: 286 ]]
+        -- upvalues: v61 (copy), v28 (ref), v60 (copy)
+        v61:buttonClick(v28.FriendFilterPill);
+        v60.setFilterKeys(v98);
+    end, l_dependencyArray_0(v61, v60.setFilterKeys)) else nil;
+    local v100 = v3.useCallback(function() --[[ Line: 292 ]]
+        -- upvalues: v61 (copy), v60 (copy), v27 (ref), v59 (copy)
+        v61:pageLoaded();
+        v60.setFilterKeys(v27.All);
+        return v60.refreshPage({
+            errorMessage = v59.pageError, 
+            onResolve = function() --[[ Line: 298 ]] --[[ Name: onResolve ]]
+                -- upvalues: v61 (ref)
+                v61:pageLoadedWithArgs();
             end
         });
-    end, l_dependencyArray_0(v58.refreshPage, v57, v59, v58.setFilterKeys));
-    local v100 = v3.useCallback(function() --[[ Line: 279 ]]
-        -- upvalues: v59 (copy), v28 (ref), v26 (ref), l_FFlagCreateConnectionsHub_0 (ref), v60 (copy), l_AppPage_0 (ref)
-        v59:buttonClick(v28.AddFriendsNoFriendsEmptyView);
-        v59:navigate(v26.AddFriends);
+    end, l_dependencyArray_0(v60.refreshPage, v59, v61, v60.setFilterKeys));
+    local v101 = v3.useCallback(function() --[[ Line: 304 ]]
+        -- upvalues: v61 (copy), v28 (ref), v26 (ref), l_FFlagCreateConnectionsHub_0 (ref), v62 (copy), l_AppPage_0 (ref)
+        v61:buttonClick(v28.AddFriendsNoFriendsEmptyView);
+        v61:navigate(v26.AddFriends);
         if l_FFlagCreateConnectionsHub_0 then
-            v60.navigate(l_AppPage_0.CoHubAddConnections);
+            v62.navigate(l_AppPage_0.CoHubAddConnections);
             return;
         else
-            v60.navigate(l_AppPage_0.AddFriendsPage);
+            v62.navigate(l_AppPage_0.AddFriendsPage);
             return;
         end;
-    end, l_dependencyArray_0(v59, v60));
-    local v101 = v56.friends and #v56.friends or 0;
-    local v102 = v56.totalFriendCount or 0;
-    local v103 = v102 == 0;
-    local v104 = false;
-    if v101 == 0 then
-        v104 = v102 > 0;
+    end, l_dependencyArray_0(v61, v62));
+    local v102 = v58.friends and #v58.friends or 0;
+    local v103 = v58.totalFriendCount or 0;
+    local v104 = v103 == 0;
+    local v105 = false;
+    if v102 == 0 then
+        v105 = v103 > 0;
     end;
-    local v105 = v56.fetchMoreFriends and not v103 and not v104 and (not v58.filter or v58.filter == v27.All);
-    local v106 = v3.useCallback(function() --[[ Line: 298 ]]
-        -- upvalues: v56 (copy)
-        if v56.fetchMoreFriends then
-            v56.fetchMoreFriends();
+    local v106 = v58.fetchMoreFriends and not v104 and not v105 and (not v60.filter or v60.filter == v27.All);
+    local v107 = v3.useCallback(function() --[[ Line: 323 ]]
+        -- upvalues: v58 (copy)
+        if v58.fetchMoreFriends then
+            v58.fetchMoreFriends();
         end;
     end, {
-        v56.fetchMoreFriends
+        v58.fetchMoreFriends
     });
-    local v107 = v66 and 24 or 12;
-    local v108, v109 = v3.useState(100);
-    local v110 = nil;
+    local v108 = v68 and 24 or 12;
+    local v109, v110 = v3.useState(100);
     local v111 = nil;
-    if v66 then
-        v110 = v62.LuaApps.FriendsLanding.FriendsLandingPage.GridViewItemMetrics;
-        v111 = v62.LuaApps.FriendsLanding.FriendsLandingPage.GridHorizontalSpacing;
+    local v112 = nil;
+    if v68 then
+        v111 = v64.LuaApps.FriendsLanding.FriendsLandingPage.GridViewItemMetrics;
+        v112 = v64.LuaApps.FriendsLanding.FriendsLandingPage.GridHorizontalSpacing;
     else
-        v110 = {
+        v111 = {
             minimumItemsPerRow = 2, 
-            minimumItemWidth = if v48 then 176 * v64.Config.UI.Scale else 176
+            minimumItemWidth = if v48 then 176 * v66.Config.UI.Scale else 176
         };
-        v111 = 12;
+        v112 = 12;
     end;
-    local v112 = v3.useMemo(function() --[[ Line: 321 ]]
-        -- upvalues: l_GridMetrics_0 (ref), v110 (ref)
-        return l_GridMetrics_0.makeCustomMetricsGetter(v110);
+    local v113 = v3.useMemo(function() --[[ Line: 346 ]]
+        -- upvalues: l_GridMetrics_0 (ref), v111 (ref)
+        return l_GridMetrics_0.makeCustomMetricsGetter(v111);
     end, {
-        v110
+        v111
     });
-    local v113 = v3.useMemo(function() --[[ Line: 325 ]]
-        -- upvalues: v112 (copy), v108 (copy), v111 (ref)
-        return v112(v108, v111);
+    local v114 = v3.useMemo(function() --[[ Line: 350 ]]
+        -- upvalues: v113 (copy), v109 (copy), v112 (ref)
+        return v113(v109, v112);
     end, {
-        v112
+        v113
     });
-    local v115 = v3.useCallback(function(v114) --[[ Line: 329 ]]
-        -- upvalues: v109 (copy)
-        v109(v114.X);
+    local v116 = v3.useCallback(function(v115) --[[ Line: 354 ]]
+        -- upvalues: v110 (copy)
+        v110(v115.X);
     end, {});
-    local v116 = v3.useRef({});
-    local l_ScrollAnimationConfig_0 = v62.LuaApps.App.Page.ScrollAnimationConfig;
-    local v118, v119 = l_useAnimatedScrollToSelection_0(Enum.ScrollingDirection.Y, 0, v62.Global.Space_1000, l_ScrollAnimationConfig_0);
-    local v120 = nil;
-    v120 = if v66 then (v103 or v104 or v67) and 8 or 1000 else 8;
-    local v121 = if l_FFlagExtendScrollingFramesBySafeInsets_0 then l_useSignalState_0(v32.GetDisplayStore().getDeviceSafePadding) else nil;
-    v120 = v120 + if l_FFlagExtendScrollingFramesBySafeInsets_0 then v121.bottom else 0;
-    local v122 = l_FFlagCreateConnectionsHub_0 and v37(v60);
-    local v126 = if l_FFlagFriendsPageUserListEnabled_0 then v3.useCallback(function(v123, v124, v125) --[[ Line: 354 ]]
-        -- upvalues: v3 (ref), v34 (ref), v88 (copy), v89 (copy)
+    local v117 = v3.useRef({});
+    local l_ScrollAnimationConfig_0 = v64.LuaApps.App.Page.ScrollAnimationConfig;
+    local v119, v120 = l_useAnimatedScrollToSelection_0(Enum.ScrollingDirection.Y, 0, v64.Global.Space_1000, l_ScrollAnimationConfig_0);
+    local v121 = nil;
+    v121 = if v68 then (v104 or v105 or v69) and 8 or 1000 else 8;
+    local v122 = if l_FFlagExtendScrollingFramesBySafeInsets_0 then l_useSignalState_0(v32.GetDisplayStore().getDeviceSafePadding) else nil;
+    v121 = v121 + if l_FFlagExtendScrollingFramesBySafeInsets_0 then v122.bottom else 0;
+    local v123 = l_FFlagCreateConnectionsHub_0 and v37(v62);
+    local v127 = if l_FFlagFriendsPageUserListEnabled_0 then v3.useCallback(function(v124, v125, v126) --[[ Line: 379 ]]
+        -- upvalues: v3 (ref), v34 (ref), v89 (copy), v90 (copy)
         return v3.createElement(v34, {
-            user = v124, 
-            createRow = v123, 
-            index = v125, 
-            openPlayerProfileHandle = v88, 
-            pageLoadingTimeReport = v89, 
+            user = v125, 
+            createRow = v124, 
+            index = v126, 
+            openPlayerProfileHandle = v89, 
+            pageLoadingTimeReport = v90, 
             isPlayerContextualMenuEnabled = nil
         });
     end, {
-        v89, 
-        v88
+        v90, 
+        v89
     }) else nil;
     return v3.createElement("Frame", {
-        [v4.Ref] = v70, 
+        [v4.Ref] = v72, 
         Size = UDim2.new(1, 0, 1, 0), 
-        BackgroundColor3 = if v122 then nil else v62.LuaApps.App.Page.BackgroundColor, 
-        BackgroundTransparency = v122 and 1 or v62.LuaApps.App.Page.BackgroundTransparency
+        BackgroundColor3 = if v123 then nil else v64.LuaApps.App.Page.BackgroundColor, 
+        BackgroundTransparency = v123 and 1 or v64.LuaApps.App.Page.BackgroundTransparency
     }, {
         HorizontalPageMargin = v3.createElement(l_HorizontalPageMargin_0, {
             Size = UDim2.fromScale(1, 1), 
@@ -306,18 +318,18 @@ return function(v56) --[[ Line: 97 ]] --[[ Name: FriendsLandingPage ]]
         }, {
             scrollView = v3.createElement(l_RefreshScrollingFrame_0, {
                 scrollingElementProps = {
-                    Size = UDim2.new(1, 0, 1, -v29.TOP_BAR_HEIGHT + (l_FFlagExtendScrollingFramesBySafeInsets_0 and v121.bottom or 0)), 
+                    Size = UDim2.new(1, 0, 1, -v29.TOP_BAR_HEIGHT + (l_FFlagExtendScrollingFramesBySafeInsets_0 and v122.bottom or 0)), 
                     BackgroundTransparency = 1, 
                     ScrollingDirection = Enum.ScrollingDirection.Y, 
                     ScrollBarThickness = 0, 
                     CanvasSize = UDim2.new(1, 0, 0, 0), 
                     AutomaticCanvasSize = Enum.AutomaticSize.XY, 
-                    CanvasPosition = v118, 
-                    [v4.Event.SelectionChanged] = v119, 
+                    CanvasPosition = v119, 
+                    [v4.Event.SelectionChanged] = v120, 
                     Selectable = not l_FFlagEnableLeftNavOnConsole_0 and nil
                 }, 
-                [v4.Ref] = v116, 
-                refresh = v99, 
+                [v4.Ref] = v117, 
+                refresh = v100, 
                 usesBuilderIcon = true
             }, {
                 UISizeConstraint = if l_FFlagFriendsPageUserListEnabled_0 then v3.createElement("UISizeConstraint", {
@@ -332,48 +344,48 @@ return function(v56) --[[ Line: 97 ]] --[[ Name: FriendsLandingPage ]]
                     LayoutOrder = 0, 
                     BackgroundTransparency = 1
                 }) or nil, 
-                filterByButton = if v66 then nil else v3.createElement(v33, {
-                    analytics = v59, 
-                    filter = v58.filter, 
-                    friendCount = if v58.filter == v27.All then v102 else v101, 
-                    isDisabled = v102 == 0, 
+                filterByButton = if v68 then nil else v3.createElement(v33, {
+                    analytics = v61, 
+                    filter = v60.filter, 
+                    friendCount = if v60.filter == v27.All then v103 else v102, 
+                    isDisabled = v103 == 0, 
                     layoutOrder = 2, 
-                    onActivated = if l_FFlagConnectionManagementChips_0 then v98 else v96, 
+                    onActivated = if l_FFlagConnectionManagementChips_0 then v99 else v97, 
                     maxWidth = l_FFlagConnectionManagementChips_0 and 640 or nil, 
-                    canAccessTrustedContacts = if l_FFlagConnectionManagementChips_0 then v73 else nil
+                    canAccessTrustedContacts = if l_FFlagConnectionManagementChips_0 then v75 else nil
                 }), 
-                NoResultsView = if v104 then v3.createElement(v35, {
+                NoResultsView = if v105 then v3.createElement(v35, {
                     layoutOrder = 6
                 }) else nil, 
-                NoFriendsView = if v103 then v3.createElement(v36, {
+                NoFriendsView = if v104 then v3.createElement(v36, {
                     layoutOrder = 6, 
-                    pageLoadingTimeReport = v89, 
-                    openAddFriendsPage = v100
+                    pageLoadingTimeReport = v90, 
+                    openAddFriendsPage = v101
                 }) else nil, 
-                UserListLayoutAdaptor = if l_FFlagFriendsPageUserListEnabled_0 then if v104 or v103 then nil else v3.createElement(l_UserListLayoutAdaptor_0, {
+                UserListLayoutAdaptor = if l_FFlagFriendsPageUserListEnabled_0 then if v105 or v104 then nil else v3.createElement(l_UserListLayoutAdaptor_0, {
                     layoutOrder = 6, 
                     layoutMode = l_LayoutMode_0.Vertical, 
                     header = {
-                        title = v57.peopleYouMayKnow
+                        title = v59.peopleYouMayKnow
                     }, 
-                    entities = v56.friends, 
+                    entities = v58.friends, 
                     isScrollEnabled = false, 
-                    renderRow = v126, 
-                    hasMore = v105, 
-                    onLoadMore = v106
+                    renderRow = v127, 
+                    hasMore = v106, 
+                    onLoadMore = v107
                 }) else nil, 
-                FriendsGridView = if l_FFlagFriendsPageUserListEnabled_0 then nil else if v104 or v103 then nil else v3.createElement(l_CollectionGrid_0, {
+                FriendsGridView = if l_FFlagFriendsPageUserListEnabled_0 then nil else if v105 or v104 then nil else v3.createElement(l_CollectionGrid_0, {
                     LayoutOrder = 6, 
-                    items = v56.friends, 
-                    verticalScrollingFrameRef = v116, 
-                    renderItem = v93, 
-                    getItemHeight = v95, 
-                    numColumns = v113.itemsPerRow, 
-                    columnGap = v111, 
-                    verticalPadding = v107, 
-                    onContainerSizeChanged = v115
+                    items = v58.friends, 
+                    verticalScrollingFrameRef = v117, 
+                    renderItem = v94, 
+                    getItemHeight = v96, 
+                    numColumns = v114.itemsPerRow, 
+                    columnGap = v112, 
+                    verticalPadding = v108, 
+                    onContainerSizeChanged = v116
                 }), 
-                showMoreFrame = if l_FFlagFriendsPageUserListEnabled_0 then nil else if v105 then v3.createElement("Frame", {
+                showMoreFrame = if l_FFlagFriendsPageUserListEnabled_0 then nil else if v106 then v3.createElement("Frame", {
                     Size = UDim2.new(1, 0, 0, v29.CTA_BUTTON_HEIGHT), 
                     BackgroundTransparency = 1, 
                     LayoutOrder = 7
@@ -386,12 +398,12 @@ return function(v56) --[[ Line: 97 ]] --[[ Name: FriendsLandingPage ]]
                     showMoreButton = v3.createElement(l_Button_0, {
                         buttonType = l_ButtonType_0.Secondary, 
                         size = UDim2.new(1, 0, 1, 0), 
-                        onActivated = v106, 
-                        text = v57.showMore
+                        onActivated = v107, 
+                        text = v59.showMore
                     })
                 }) else nil, 
                 additionalPadding = v3.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, v120), 
+                    Size = UDim2.new(1, 0, 0, v121), 
                     BackgroundTransparency = 1, 
                     LayoutOrder = 8
                 })

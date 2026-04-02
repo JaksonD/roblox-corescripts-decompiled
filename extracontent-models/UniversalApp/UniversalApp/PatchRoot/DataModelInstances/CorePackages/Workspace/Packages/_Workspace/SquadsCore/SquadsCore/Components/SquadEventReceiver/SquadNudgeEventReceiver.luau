@@ -26,53 +26,54 @@ local l_NotificationGroups_0 = v12.NotificationGroups;
 local l_default_0 = v13.ToastNotificationProtocol.default;
 local l_UserProfileStore_0 = v18.Stores.UserProfileStore;
 local l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 = v20.FFlagAddSnoozeSupportForSquadNudgeToasts;
-return function(v28) --[[ Line: 42 ]]
-    -- upvalues: l_useDispatch_0 (copy), v11 (copy), v7 (copy), l_useLocalUserId_0 (copy), l_useLocalization_0 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_UserProfileStore_0 (copy), l_GuiService_0 (copy), l_dependencyArray_0 (copy), v15 (copy), v4 (copy), v5 (copy), l_default_0 (copy), v6 (copy), l_NotificationTypeEnum_0 (copy), v8 (copy), l_LifecycleEvents_0 (copy), l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (copy), l_ShowNotificationSnoozeMenuSignal_0 (copy), l_NotificationGroups_0 (copy), l_HttpService_0 (copy), v9 (copy)
-    local v29 = l_useDispatch_0();
-    local v30 = v11.useContext(v7);
-    local v31 = tonumber(l_useLocalUserId_0()) or 0;
-    local v32 = v30.useIsChatEnabled();
-    local v33 = v30.useIsLoadingChatSettings();
-    local v34 = l_useLocalization_0({
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v20.FFlagRemoveDependencyArrayAntipattern;
+return function(v29) --[[ Line: 44 ]]
+    -- upvalues: l_useDispatch_0 (copy), v11 (copy), v7 (copy), l_useLocalUserId_0 (copy), l_useLocalization_0 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_UserProfileStore_0 (copy), l_GuiService_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v15 (copy), v4 (copy), v5 (copy), l_default_0 (copy), v6 (copy), l_NotificationTypeEnum_0 (copy), v8 (copy), l_LifecycleEvents_0 (copy), l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (copy), l_ShowNotificationSnoozeMenuSignal_0 (copy), l_NotificationGroups_0 (copy), l_HttpService_0 (copy), v9 (copy)
+    local v30 = l_useDispatch_0();
+    local v31 = v11.useContext(v7);
+    local v32 = tonumber(l_useLocalUserId_0()) or 0;
+    local v33 = v31.useIsChatEnabled();
+    local v34 = v31.useIsLoadingChatSettings();
+    local v35 = l_useLocalization_0({
         YouJoinedFriendParty = "Feature.Squads.Label.YouJoinedFriendParty", 
         FriendJoinedYourParty = "Feature.Squads.Label.FriendJoinedYourParty", 
         snoozeTitle = "Feature.Chat.Label.SnoozePartyNotifications", 
         snoozeDescription = "Feature.Chat.Description.SnoozeDescription"
     });
-    local v35 = v11.useRef({});
-    local v42 = v11.useCallback(function(v36, v37) --[[ Line: 59 ]]
-        -- upvalues: v31 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (ref), l_UserProfileStore_0 (ref), l_GuiService_0 (ref), v34 (copy)
-        if v36 == 0 or v37 == 0 then
+    local v36 = v11.useRef({});
+    local v43 = v11.useCallback(function(v37, v38) --[[ Line: 62 ]]
+        -- upvalues: v32 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (ref), l_UserProfileStore_0 (ref), l_GuiService_0 (ref), v35 (copy)
+        if v37 == 0 or v38 == 0 then
             return;
         else
-            local v38 = nil;
-            if v36 == v31 then
-                v38 = v37;
-            elseif v37 == v31 then
-                v38 = v36;
+            local v39 = nil;
+            if v37 == v32 then
+                v39 = v38;
+            elseif v38 == v32 then
+                v39 = v37;
             end;
-            if v38 then
-                local v39 = l_getStandardSizeAvatarHeadShotRbxthumb_0((tostring(v38)));
+            if v39 then
+                local v40 = l_getStandardSizeAvatarHeadShotRbxthumb_0((tostring(v39)));
                 l_UserProfileStore_0.get().fetchNamesByUserIds({
-                    (tostring(v38))
-                }, function(v40) --[[ Line: 73 ]]
-                    -- upvalues: v36 (copy), v31 (ref), l_GuiService_0 (ref), v34 (ref), v39 (copy)
-                    if #v40.data > 0 and v40.data[1] and v40.data[1].names then
-                        local v41 = v40.data[1].names.getCombinedName(false);
-                        if v36 == v31 then
+                    (tostring(v39))
+                }, function(v41) --[[ Line: 76 ]]
+                    -- upvalues: v37 (copy), v32 (ref), l_GuiService_0 (ref), v35 (ref), v40 (copy)
+                    if #v41.data > 0 and v41.data[1] and v41.data[1].names then
+                        local v42 = v41.data[1].names.getCombinedName(false);
+                        if v37 == v32 then
                             l_GuiService_0:SendNotification({
-                                Title = v34.FriendJoinedYourParty:gsub("{(.-)}", {
-                                    combinedName = v41
+                                Title = v35.FriendJoinedYourParty:gsub("{(.-)}", {
+                                    combinedName = v42
                                 }), 
-                                Icon = v39
+                                Icon = v40
                             });
                             return;
                         else
                             l_GuiService_0:SendNotification({
-                                Title = v34.YouJoinedFriendParty:gsub("{(.-)}", {
-                                    combinedName = v41
+                                Title = v35.YouJoinedFriendParty:gsub("{(.-)}", {
+                                    combinedName = v42
                                 }), 
-                                Icon = v39
+                                Icon = v40
                             });
                         end;
                     end;
@@ -80,158 +81,175 @@ return function(v28) --[[ Line: 42 ]]
             end;
             return;
         end;
-    end, l_dependencyArray_0(v31, v34.FriendJoinedYourParty, v34.YouJoinedFriendParty));
-    v15.useRealtimeNamespace(v4.PARTY_NUDGE_RTN_NAMESPACE, function(v43) --[[ Line: 93 ]]
-        -- upvalues: v4 (ref), v31 (copy), v28 (copy), v42 (copy)
-        if v43.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v43.status == v4.PARTY_INVITE_ACCEPTED_STATUS and v43.inviterId == v31 and v28.currentSquadId ~= "" and v43.groupUpId == v28.currentSquadId then
-            v42(v43.inviterId, v43.inviteeId);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32, 
+        v35.FriendJoinedYourParty, 
+        v35.YouJoinedFriendParty
+    } else l_dependencyArray_0(v32, v35.FriendJoinedYourParty, v35.YouJoinedFriendParty));
+    v15.useRealtimeNamespace(v4.PARTY_NUDGE_RTN_NAMESPACE, function(v44) --[[ Line: 102 ]]
+        -- upvalues: v4 (ref), v32 (copy), v29 (copy), v43 (copy)
+        if v44.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v44.status == v4.PARTY_INVITE_ACCEPTED_STATUS and v44.inviterId == v32 and v29.currentSquadId ~= "" and v44.groupUpId == v29.currentSquadId then
+            v43(v44.inviterId, v44.inviteeId);
         end;
-    end, l_dependencyArray_0(v31, v28.currentSquadId, v42));
-    local v46 = v11.useCallback(function(v44, v45) --[[ Line: 106 ]]
-        -- upvalues: v30 (copy), v5 (ref), v35 (copy)
-        v30.fireSquadAnalytics(v5.SquadToastActions, {
-            toastAction = v45, 
-            toastType = if v35.current[v44] then v35.current[v44].toastType else nil, 
-            nudgeId = if v35.current[v44] then v35.current[v44].nudgeId else nil, 
-            nudgeType = if v35.current[v44] then v35.current[v44].nudgeType else nil, 
-            partyAttemptId = if v35.current[v44] then v35.current[v44].partyAttemptId else nil, 
-            squadLocation = v30.squadLocation
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32, 
+        v29.currentSquadId, 
+        v43
+    } else l_dependencyArray_0(v32, v29.currentSquadId, v43));
+    local v47 = v11.useCallback(function(v45, v46) --[[ Line: 120 ]]
+        -- upvalues: v31 (copy), v5 (ref), v36 (copy)
+        v31.fireSquadAnalytics(v5.SquadToastActions, {
+            toastAction = v46, 
+            toastType = if v36.current[v45] then v36.current[v45].toastType else nil, 
+            nudgeId = if v36.current[v45] then v36.current[v45].nudgeId else nil, 
+            nudgeType = if v36.current[v45] then v36.current[v45].nudgeType else nil, 
+            partyAttemptId = if v36.current[v45] then v36.current[v45].partyAttemptId else nil, 
+            squadLocation = v31.squadLocation
         });
-    end, l_dependencyArray_0(v30.fireSquadAnalytics, v30.squadLocation));
-    v11.useEffect(function() --[[ Line: 126 ]]
-        -- upvalues: l_default_0 (ref), v35 (copy), v46 (copy), v6 (ref), v4 (ref), l_NotificationTypeEnum_0 (ref), v29 (copy), v8 (ref), v30 (copy), v32 (copy)
-        local v52 = l_default_0:listenToDismissNotification(function(v47) --[[ Line: 128 ]]
-            -- upvalues: v35 (ref), v46 (ref), v6 (ref), v4 (ref), l_NotificationTypeEnum_0 (ref), v29 (ref), v8 (ref), v30 (ref), v32 (ref)
-            if v47.notificationId and v35.current[v47.notificationId] then
-                v46(v47.notificationId, v6.PartyNudgeGeneralDismiss);
-                if v35.current[v47.notificationId].shouldActWhenDismiss then
-                    local v48 = v35.current[v47.notificationId];
-                    local l_nudgeType_0 = v48.nudgeType;
-                    local l_toastType_0 = v48.toastType;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v31.fireSquadAnalytics, 
+        v31.squadLocation
+    } else l_dependencyArray_0(v31.fireSquadAnalytics, v31.squadLocation));
+    v11.useEffect(function() --[[ Line: 144 ]]
+        -- upvalues: l_default_0 (ref), v36 (copy), v47 (copy), v6 (ref), v4 (ref), l_NotificationTypeEnum_0 (ref), v30 (copy), v8 (ref), v31 (copy), v33 (copy)
+        local v53 = l_default_0:listenToDismissNotification(function(v48) --[[ Line: 146 ]]
+            -- upvalues: v36 (ref), v47 (ref), v6 (ref), v4 (ref), l_NotificationTypeEnum_0 (ref), v30 (ref), v8 (ref), v31 (ref), v33 (ref)
+            if v48.notificationId and v36.current[v48.notificationId] then
+                v47(v48.notificationId, v6.PartyNudgeGeneralDismiss);
+                if v36.current[v48.notificationId].shouldActWhenDismiss then
+                    local v49 = v36.current[v48.notificationId];
+                    local l_nudgeType_0 = v49.nudgeType;
+                    local l_toastType_0 = v49.toastType;
                     if l_nudgeType_0 == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE then
-                        local v51 = nil;
+                        local v52 = nil;
                         if l_toastType_0 == l_NotificationTypeEnum_0.SquadNudgeInvite then
-                            v51 = v4.REJECT_PARTY_INVITE_ACTION;
+                            v52 = v4.REJECT_PARTY_INVITE_ACTION;
                         elseif l_toastType_0 == l_NotificationTypeEnum_0.SquadStartPartyPrompt then
-                            v51 = v4.REJECT_START_PARTY_REQUEST_ACTION;
+                            v52 = v4.REJECT_START_PARTY_REQUEST_ACTION;
                         end;
-                        if v51 then
-                            v29(v8(v51, v48.nudgeId, false, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v32));
+                        if v52 then
+                            v30(v8(v52, v49.nudgeId, false, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v33));
                         end;
                     end;
                 end;
             end;
-            v35.current[v47.notificationId] = nil;
+            v36.current[v48.notificationId] = nil;
         end);
-        return function() --[[ Line: 166 ]]
-            -- upvalues: v52 (copy)
-            if v52 then
-                v52:Disconnect();
+        return function() --[[ Line: 184 ]]
+            -- upvalues: v53 (copy)
+            if v53 then
+                v53:Disconnect();
             end;
         end;
-    end, l_dependencyArray_0(v46, v32, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation));
-    v11.useEffect(function() --[[ Line: 182 ]]
-        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v34 (copy), l_NotificationGroups_0 (ref), v4 (ref), v35 (copy), v33 (copy), v32 (copy), l_default_0 (ref), l_HttpService_0 (ref), v46 (copy), v6 (ref), v29 (copy), v9 (ref), v30 (copy), v8 (ref), v28 (copy), v42 (copy)
-        local v62 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadStartPartyPrompt, function(v53) --[[ Line: 186 ]]
-            -- upvalues: l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v34 (ref), l_NotificationGroups_0 (ref), v4 (ref), v35 (ref), v33 (ref), v32 (ref), l_default_0 (ref), l_HttpService_0 (ref), v46 (ref), v6 (ref), v29 (ref), v9 (ref), v30 (ref), v8 (ref), v28 (ref)
-            if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 and v53 and v53.userActionType == "click" and v53.notificationData and v53.visualItem and v53.visualItem.visualItemName == "SnoozeSingleMetaAction" then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v47, 
+        v33, 
+        v31.setSquadPrompt, 
+        v31.fireSquadAnalytics, 
+        v31.squadLocation
+    } else l_dependencyArray_0(v47, v33, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation));
+    v11.useEffect(function() --[[ Line: 208 ]]
+        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v35 (copy), l_NotificationGroups_0 (ref), v4 (ref), v36 (copy), v34 (copy), v33 (copy), l_default_0 (ref), l_HttpService_0 (ref), v47 (copy), v6 (ref), v30 (copy), v9 (ref), v31 (copy), v8 (ref), v29 (copy), v43 (copy)
+        local v63 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadStartPartyPrompt, function(v54) --[[ Line: 212 ]]
+            -- upvalues: l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v35 (ref), l_NotificationGroups_0 (ref), v4 (ref), v36 (ref), v34 (ref), v33 (ref), l_default_0 (ref), l_HttpService_0 (ref), v47 (ref), v6 (ref), v30 (ref), v9 (ref), v31 (ref), v8 (ref), v29 (ref)
+            if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 and v54 and v54.userActionType == "click" and v54.notificationData and v54.visualItem and v54.visualItem.visualItemName == "SnoozeSingleMetaAction" then
                 l_ShowNotificationSnoozeMenuSignal_0:fire({
                     context = "Toast", 
-                    description = v34.snoozeDescription, 
+                    description = v35.snoozeDescription, 
                     notificationType = l_NotificationGroups_0.SquadStartPartyPromptGroup, 
-                    title = v34.snoozeTitle
+                    title = v35.snoozeTitle
                 });
             end;
-            if v53 and v53.userActionType == "click" and v53.notificationData and v53.visualItem and v53.visualItem.actionEventParams and v53.visualItem.visualItemName and (not l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 or v53.visualItem.visualItemName == v4.START_PARTY_FROM_PROMPT_BUTTON_TYPE or v53.visualItem.visualItemName == v4.DISMISS_START_PARTY_PROMPT_BUTTON_TYPE) then
-                local l_id_0 = v53.notificationData.id;
-                if v35.current[l_id_0] then
-                    v35.current[l_id_0].shouldActWhenDismiss = false;
+            if v54 and v54.userActionType == "click" and v54.notificationData and v54.visualItem and v54.visualItem.actionEventParams and v54.visualItem.visualItemName and (not l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 or v54.visualItem.visualItemName == v4.START_PARTY_FROM_PROMPT_BUTTON_TYPE or v54.visualItem.visualItemName == v4.DISMISS_START_PARTY_PROMPT_BUTTON_TYPE) then
+                local l_id_0 = v54.notificationData.id;
+                if v36.current[l_id_0] then
+                    v36.current[l_id_0].shouldActWhenDismiss = false;
                 end;
-                if not v33 and not v32 then
+                if not v34 and not v33 then
                     l_default_0:dismissNotification(l_id_0);
                     return;
                 else
-                    local v55 = l_HttpService_0:JSONDecode(v53.visualItem.actionEventParams);
-                    if v55.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and game.JobId ~= "" and v55.gameInstanceId == game.JobId then
-                        if v53.visualItem.visualItemName == v4.START_PARTY_FROM_PROMPT_BUTTON_TYPE then
+                    local v56 = l_HttpService_0:JSONDecode(v54.visualItem.actionEventParams);
+                    if v56.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and game.JobId ~= "" and v56.gameInstanceId == game.JobId then
+                        if v54.visualItem.visualItemName == v4.START_PARTY_FROM_PROMPT_BUTTON_TYPE then
                             l_default_0:dismissNotification(l_id_0);
-                            v46(l_id_0, v6.PartyNudgeAccept);
-                            v29(v9({
+                            v47(l_id_0, v6.PartyNudgeAccept);
+                            v30(v9({
                                 conversationType = "one_to_one", 
                                 userIds = {
-                                    (tostring(v55.inviteeUserId))
+                                    (tostring(v56.inviteeUserId))
                                 }, 
                                 source = v4.START_PARTY_FROM_PROMPT_BUTTON_TYPE, 
-                                squadContext = v30, 
-                                onSuccessCallback = function(v56) --[[ Line: 239 ]] --[[ Name: onSuccessCallback ]]
-                                    -- upvalues: v29 (ref), v8 (ref), v4 (ref), v55 (copy), v28 (ref), v30 (ref), v32 (ref), v35 (ref), l_id_0 (copy)
-                                    local l_v29_0 = v29;
+                                squadContext = v31, 
+                                onSuccessCallback = function(v57) --[[ Line: 265 ]] --[[ Name: onSuccessCallback ]]
+                                    -- upvalues: v30 (ref), v8 (ref), v4 (ref), v56 (copy), v29 (ref), v31 (ref), v33 (ref), v36 (ref), l_id_0 (copy)
+                                    local l_v30_0 = v30;
                                     local l_v8_0 = v8;
                                     local l_ACCEPT_START_PARTY_REQUEST_ACTION_0 = v4.ACCEPT_START_PARTY_REQUEST_ACTION;
-                                    local l_nudgeId_0 = v55.nudgeId;
-                                    local v61 = false;
-                                    if v28.currentParentChannelId ~= "" then
-                                        v61 = v28.currentParentChannelId ~= v56;
+                                    local l_nudgeId_0 = v56.nudgeId;
+                                    local v62 = false;
+                                    if v29.currentParentChannelId ~= "" then
+                                        v62 = v29.currentParentChannelId ~= v57;
                                     end;
-                                    l_v29_0(l_v8_0(l_ACCEPT_START_PARTY_REQUEST_ACTION_0, l_nudgeId_0, v61, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v32, if v35.current[l_id_0] then v35.current[l_id_0].partyAttemptId else nil, v56));
+                                    l_v30_0(l_v8_0(l_ACCEPT_START_PARTY_REQUEST_ACTION_0, l_nudgeId_0, v62, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v33, if v36.current[l_id_0] then v36.current[l_id_0].partyAttemptId else nil, v57));
                                 end, 
-                                onErrorCallback = function() --[[ Line: 257 ]] --[[ Name: onErrorCallback ]]
-                                    -- upvalues: v29 (ref), v8 (ref), v4 (ref), v55 (copy), v30 (ref), v32 (ref)
-                                    v29(v8(v4.REJECT_START_PARTY_REQUEST_ACTION, v55.nudgeId, false, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v32));
+                                onErrorCallback = function() --[[ Line: 283 ]] --[[ Name: onErrorCallback ]]
+                                    -- upvalues: v30 (ref), v8 (ref), v4 (ref), v56 (copy), v31 (ref), v33 (ref)
+                                    v30(v8(v4.REJECT_START_PARTY_REQUEST_ACTION, v56.nudgeId, false, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v33));
                                 end
                             }));
                             return;
-                        elseif v53.visualItem.visualItemName == v4.DISMISS_START_PARTY_PROMPT_BUTTON_TYPE then
-                            v46(l_id_0, v6.PartyNudgeButtonDismiss);
-                            v29(v8(v4.REJECT_START_PARTY_REQUEST_ACTION, v55.nudgeId, false, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v32));
+                        elseif v54.visualItem.visualItemName == v4.DISMISS_START_PARTY_PROMPT_BUTTON_TYPE then
+                            v47(l_id_0, v6.PartyNudgeButtonDismiss);
+                            v30(v8(v4.REJECT_START_PARTY_REQUEST_ACTION, v56.nudgeId, false, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v33));
                         end;
                     end;
                 end;
             end;
         end);
-        local v70 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadNudgeInvite, function(v63) --[[ Line: 299 ]]
-            -- upvalues: l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v34 (ref), l_NotificationGroups_0 (ref), v4 (ref), v35 (ref), v33 (ref), v32 (ref), l_default_0 (ref), l_HttpService_0 (ref), v46 (ref), v6 (ref), v28 (ref), v29 (ref), v8 (ref), v30 (ref), v42 (ref)
-            if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 and v63 and v63.userActionType == "click" and v63.notificationData and v63.visualItem and v63.visualItem.visualItemName == "SnoozeSingleMetaAction" then
+        local v71 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.UserAction, l_NotificationTypeEnum_0.SquadNudgeInvite, function(v64) --[[ Line: 325 ]]
+            -- upvalues: l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 (ref), l_ShowNotificationSnoozeMenuSignal_0 (ref), v35 (ref), l_NotificationGroups_0 (ref), v4 (ref), v36 (ref), v34 (ref), v33 (ref), l_default_0 (ref), l_HttpService_0 (ref), v47 (ref), v6 (ref), v29 (ref), v30 (ref), v8 (ref), v31 (ref), v43 (ref)
+            if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 and v64 and v64.userActionType == "click" and v64.notificationData and v64.visualItem and v64.visualItem.visualItemName == "SnoozeSingleMetaAction" then
                 l_ShowNotificationSnoozeMenuSignal_0:fire({
                     context = "Toast", 
-                    description = v34.snoozeDescription, 
+                    description = v35.snoozeDescription, 
                     notificationType = l_NotificationGroups_0.SquadNudgeInviteGroup, 
-                    title = v34.snoozeTitle
+                    title = v35.snoozeTitle
                 });
             end;
-            if v63 and v63.userActionType == "click" and v63.notificationData and v63.visualItem and v63.visualItem.actionEventParams and v63.visualItem.visualItemName and (not l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 or v63.visualItem.visualItemName == v4.JOIN_SQUAD_FROM_NUDGE_BUTTON_TYPE or v63.visualItem.visualItemName == v4.DISMISS_SQUAD_NUDGE_BUTTON_TYPE) then
-                local l_id_1 = v63.notificationData.id;
-                if v35.current[l_id_1] then
-                    v35.current[l_id_1].shouldActWhenDismiss = false;
+            if v64 and v64.userActionType == "click" and v64.notificationData and v64.visualItem and v64.visualItem.actionEventParams and v64.visualItem.visualItemName and (not l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 or v64.visualItem.visualItemName == v4.JOIN_SQUAD_FROM_NUDGE_BUTTON_TYPE or v64.visualItem.visualItemName == v4.DISMISS_SQUAD_NUDGE_BUTTON_TYPE) then
+                local l_id_1 = v64.notificationData.id;
+                if v36.current[l_id_1] then
+                    v36.current[l_id_1].shouldActWhenDismiss = false;
                 end;
-                if not v33 and not v32 then
+                if not v34 and not v33 then
                     l_default_0:dismissNotification(l_id_1);
                     return;
                 else
-                    local v65 = l_HttpService_0:JSONDecode(v63.visualItem.actionEventParams);
-                    if v65.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE then
-                        local v66 = nil;
-                        local v67 = false;
-                        if v63.visualItem.visualItemName == v4.JOIN_SQUAD_FROM_NUDGE_BUTTON_TYPE then
-                            v66 = v4.ACCEPT_PARTY_INVITE_ACTION;
+                    local v66 = l_HttpService_0:JSONDecode(v64.visualItem.actionEventParams);
+                    if v66.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE then
+                        local v67 = nil;
+                        local v68 = false;
+                        if v64.visualItem.visualItemName == v4.JOIN_SQUAD_FROM_NUDGE_BUTTON_TYPE then
+                            v67 = v4.ACCEPT_PARTY_INVITE_ACTION;
                             l_default_0:dismissNotification(l_id_1);
-                            v46(l_id_1, v6.PartyNudgeAccept);
-                            local v68 = false;
-                            if v28.currentSquadId ~= "" then
-                                v68 = v65.squadId ~= v28.currentSquadId;
+                            v47(l_id_1, v6.PartyNudgeAccept);
+                            local v69 = false;
+                            if v29.currentSquadId ~= "" then
+                                v69 = v66.squadId ~= v29.currentSquadId;
                             end;
-                            v67 = v68;
-                        elseif v63.visualItem.visualItemName == v4.DISMISS_SQUAD_NUDGE_BUTTON_TYPE then
-                            v66 = v4.REJECT_PARTY_INVITE_ACTION;
-                            v46(l_id_1, v6.PartyNudgeButtonDismiss);
+                            v68 = v69;
+                        elseif v64.visualItem.visualItemName == v4.DISMISS_SQUAD_NUDGE_BUTTON_TYPE then
+                            v67 = v4.REJECT_PARTY_INVITE_ACTION;
+                            v47(l_id_1, v6.PartyNudgeButtonDismiss);
                         end;
                         do
-                            local l_v66_0 = v66;
-                            if l_v66_0 then
-                                v29(v8(l_v66_0, v65.nudgeId, v67, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v32, if v35.current[l_id_1] then v35.current[l_id_1].partyAttemptId else nil)):andThen(function() --[[ Line: 370 ]]
-                                    -- upvalues: l_v66_0 (ref), v4 (ref), v42 (ref), v65 (copy)
-                                    if l_v66_0 == v4.ACCEPT_PARTY_INVITE_ACTION then
-                                        v42(tonumber(v65.inviterUserId) or 0, tonumber(v65.inviteeUserId) or 0);
+                            local l_v67_0 = v67;
+                            if l_v67_0 then
+                                v30(v8(l_v67_0, v66.nudgeId, v68, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v33, if v36.current[l_id_1] then v36.current[l_id_1].partyAttemptId else nil)):andThen(function() --[[ Line: 396 ]]
+                                    -- upvalues: l_v67_0 (ref), v4 (ref), v43 (ref), v66 (copy)
+                                    if l_v67_0 == v4.ACCEPT_PARTY_INVITE_ACTION then
+                                        v43(tonumber(v66.inviterUserId) or 0, tonumber(v66.inviteeUserId) or 0);
                                     end;
                                 end);
                             end;
@@ -240,101 +258,119 @@ return function(v28) --[[ Line: 42 ]]
                 end;
             end;
         end);
-        return function() --[[ Line: 384 ]]
-            -- upvalues: v62 (copy), v70 (copy)
-            if v62 then
-                v62();
+        return function() --[[ Line: 410 ]]
+            -- upvalues: v63 (copy), v71 (copy)
+            if v63 then
+                v63();
             end;
-            if v70 then
-                v70();
+            if v71 then
+                v71();
             end;
         end;
-    end, l_dependencyArray_0(v46, v32, v30, v33, v30.setSquadPrompt, v30.fireSquadAnalytics, v30.squadLocation, v28.currentSquadId, v28.currentParentChannelId, v42, if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v34.snoozeTitle else nil, if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v34.snoozeDescription else nil));
-    v11.useEffect(function() --[[ Line: 410 ]]
-        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), v33 (copy), v32 (copy), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v28 (copy), v35 (copy), v46 (copy), v6 (ref)
-        local v78 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadStartPartyPrompt, function(v71) --[[ Line: 414 ]]
-            -- upvalues: v33 (ref), v32 (ref), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v28 (ref), v35 (ref), v46 (ref), v6 (ref)
-            local l_actionEventParams_0 = v71.state.visualItems.button[1].actionEventParams;
-            local l_id_2 = v71.id;
-            if not v33 and not v32 then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v47, 
+        v33, 
+        v31, 
+        v34, 
+        v31.setSquadPrompt, 
+        v31.fireSquadAnalytics, 
+        v31.squadLocation, 
+        v29.currentSquadId, 
+        v29.currentParentChannelId, 
+        v43, 
+        if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v35.snoozeTitle else nil, 
+        if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v35.snoozeDescription else nil
+    } else l_dependencyArray_0(v47, v33, v31, v34, v31.setSquadPrompt, v31.fireSquadAnalytics, v31.squadLocation, v29.currentSquadId, v29.currentParentChannelId, v43, if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v35.snoozeTitle else nil, if l_FFlagAddSnoozeSupportForSquadNudgeToasts_0 then v35.snoozeDescription else nil));
+    v11.useEffect(function() --[[ Line: 452 ]]
+        -- upvalues: l_LifecycleEvents_0 (ref), l_NotificationTypeEnum_0 (ref), v34 (copy), v33 (copy), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v29 (copy), v36 (copy), v47 (copy), v6 (ref)
+        local v79 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadStartPartyPrompt, function(v72) --[[ Line: 456 ]]
+            -- upvalues: v34 (ref), v33 (ref), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v29 (ref), v36 (ref), v47 (ref), v6 (ref)
+            local l_actionEventParams_0 = v72.state.visualItems.button[1].actionEventParams;
+            local l_id_2 = v72.id;
+            if not v34 and not v33 then
                 l_default_0:dismissNotification(l_id_2);
                 return;
             else
-                local v74 = false;
-                local v75 = true;
+                local v75 = false;
                 local v76 = true;
-                local v77 = l_HttpService_0:JSONDecode(l_actionEventParams_0);
-                if v77.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE then
-                    if v28.currentSquadId ~= "" then
-                        v74 = true;
-                    elseif game.JobId == "" or v77.gameInstanceId ~= game.JobId then
-                        v74 = true;
-                        v75 = false;
+                local v77 = true;
+                local v78 = l_HttpService_0:JSONDecode(l_actionEventParams_0);
+                if v78.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE then
+                    if v29.currentSquadId ~= "" then
+                        v75 = true;
+                    elseif game.JobId == "" or v78.gameInstanceId ~= game.JobId then
+                        v75 = true;
                         v76 = false;
+                        v77 = false;
                     end;
                 end;
-                if v75 then
-                    v35.current[l_id_2] = {
-                        toastType = v71.notificationType, 
+                if v76 then
+                    v36.current[l_id_2] = {
+                        toastType = v72.notificationType, 
                         partyAttemptId = l_HttpService_0:GenerateGUID(false), 
-                        shouldActWhenDismiss = v76, 
-                        nudgeId = v77.nudgeId, 
-                        nudgeType = v77.nudgeType
+                        shouldActWhenDismiss = v77, 
+                        nudgeId = v78.nudgeId, 
+                        nudgeType = v78.nudgeType
                     };
-                    v46(l_id_2, v6.PartyNudgeDisplay);
+                    v47(l_id_2, v6.PartyNudgeDisplay);
                 end;
-                if v74 then
+                if v75 then
                     l_default_0:dismissNotification(l_id_2);
                 end;
                 return;
             end;
         end);
-        local v83 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadNudgeInvite, function(v79) --[[ Line: 463 ]]
-            -- upvalues: v33 (ref), v32 (ref), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v28 (ref), v35 (ref), v46 (ref), v6 (ref)
-            local l_actionEventParams_1 = v79.state.visualItems.button[1].actionEventParams;
-            local l_id_3 = v79.id;
-            if not v33 and not v32 then
+        local v84 = l_LifecycleEvents_0:RegisterCallback(l_LifecycleEvents_0.ToastEvents.Display, l_NotificationTypeEnum_0.SquadNudgeInvite, function(v80) --[[ Line: 505 ]]
+            -- upvalues: v34 (ref), v33 (ref), l_default_0 (ref), l_HttpService_0 (ref), v4 (ref), v29 (ref), v36 (ref), v47 (ref), v6 (ref)
+            local l_actionEventParams_1 = v80.state.visualItems.button[1].actionEventParams;
+            local l_id_3 = v80.id;
+            if not v34 and not v33 then
                 l_default_0:dismissNotification(l_id_3);
                 return;
             else
-                local v82 = l_HttpService_0:JSONDecode(l_actionEventParams_1);
-                if v82.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v28.currentSquadId ~= "" and v28.currentSquadId == v82.squadId then
+                local v83 = l_HttpService_0:JSONDecode(l_actionEventParams_1);
+                if v83.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v29.currentSquadId ~= "" and v29.currentSquadId == v83.squadId then
                     l_default_0:dismissNotification(l_id_3);
                     return;
                 else
-                    v35.current[l_id_3] = {
-                        toastType = v79.notificationType, 
+                    v36.current[l_id_3] = {
+                        toastType = v80.notificationType, 
                         partyAttemptId = l_HttpService_0:GenerateGUID(false), 
                         shouldActWhenDismiss = true, 
-                        nudgeId = v82.nudgeId, 
-                        nudgeType = v82.nudgeType
+                        nudgeId = v83.nudgeId, 
+                        nudgeType = v83.nudgeType
                     };
-                    v46(l_id_3, v6.PartyNudgeDisplay);
+                    v47(l_id_3, v6.PartyNudgeDisplay);
                     return;
                 end;
             end;
         end);
-        return function() --[[ Line: 491 ]]
-            -- upvalues: v78 (copy), v83 (copy)
-            if v78 then
-                v78();
+        return function() --[[ Line: 533 ]]
+            -- upvalues: v79 (copy), v84 (copy)
+            if v79 then
+                v79();
             end;
-            if v83 then
-                v83();
+            if v84 then
+                v84();
             end;
         end;
-    end, l_dependencyArray_0(v32, v46, v33, v28.currentSquadId));
-    v11.useEffect(function() --[[ Line: 502 ]]
-        -- upvalues: v28 (copy), v35 (copy), v4 (ref), l_NotificationTypeEnum_0 (ref), l_default_0 (ref)
-        if v28.currentSquadId ~= "" then
-            for v84, v85 in v35.current do
-                if v85 and v85.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v85.toastType == l_NotificationTypeEnum_0.SquadStartPartyPrompt then
-                    l_default_0:dismissNotification(v84);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v33, 
+        v47, 
+        v34, 
+        v29.currentSquadId
+    } else l_dependencyArray_0(v33, v47, v34, v29.currentSquadId));
+    v11.useEffect(function() --[[ Line: 548 ]]
+        -- upvalues: v29 (copy), v36 (copy), v4 (ref), l_NotificationTypeEnum_0 (ref), l_default_0 (ref)
+        if v29.currentSquadId ~= "" then
+            for v85, v86 in v36.current do
+                if v86 and v86.nudgeType == v4.ONE_TO_ONE_NUDGE_IN_EXPERIENCE_TYPE and v86.toastType == l_NotificationTypeEnum_0.SquadStartPartyPrompt then
+                    l_default_0:dismissNotification(v85);
                 end;
             end;
         end;
     end, {
-        v28.currentSquadId
+        v29.currentSquadId
     });
     return nil;
 end;

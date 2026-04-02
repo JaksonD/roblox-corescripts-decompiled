@@ -14,43 +14,43 @@ return v2.createContext({
     profilePlatformId = l_FFlagEnablePlatformProfileContextualMenuOption_0 and "TEST_PLATFORM_ID" or nil, 
     profileType = v3.ProfileTypes.User, 
     navigateTo = {
-        qRCodePage = function() --[[ Line: 88 ]] --[[ Name: qRCodePage ]]
+        qRCodePage = function() --[[ Line: 89 ]] --[[ Name: qRCodePage ]]
 
         end, 
-        previousView = function() --[[ Line: 89 ]] --[[ Name: previousView ]]
+        previousView = function() --[[ Line: 90 ]] --[[ Name: previousView ]]
 
         end, 
-        itemDetails = function() --[[ Line: 90 ]] --[[ Name: itemDetails ]]
+        itemDetails = function() --[[ Line: 91 ]] --[[ Name: itemDetails ]]
 
         end, 
-        itemOrBundleDetails = l_FFlagProfilePlatformEnableStore_0 and function() --[[ Line: 91 ]]
+        itemOrBundleDetails = l_FFlagProfilePlatformEnableStore_0 and function() --[[ Line: 92 ]]
 
         end or nil, 
-        catalogSearch = l_FFlagProfilePlatformEnableStore_0 and function() --[[ Line: 92 ]]
+        catalogSearch = l_FFlagProfilePlatformEnableStore_0 and function() --[[ Line: 93 ]]
 
         end or nil, 
-        inspectAvatar = l_FFlagAddIEMProfilePage_0 and function() --[[ Line: 93 ]]
+        inspectAvatar = l_FFlagAddIEMProfilePage_0 and function() --[[ Line: 94 ]]
 
         end or nil, 
-        editEmotes = v9 and function() --[[ Line: 94 ]]
+        editEmotes = v9 and function() --[[ Line: 95 ]]
 
         end or nil, 
-        switchAvatar = v9 and function() --[[ Line: 95 ]]
+        switchAvatar = v9 and function() --[[ Line: 96 ]]
 
         end or nil, 
-        editAvatar = function() --[[ Line: 96 ]] --[[ Name: editAvatar ]]
+        editAvatar = function() --[[ Line: 97 ]] --[[ Name: editAvatar ]]
 
         end, 
-        editUsername = function() --[[ Line: 97 ]] --[[ Name: editUsername ]]
+        editUsername = function() --[[ Line: 98 ]] --[[ Name: editUsername ]]
 
         end, 
-        openLeaveRobloxAlertUIBlox = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 98 ]]
+        openLeaveRobloxAlertUIBlox = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 99 ]]
 
         end or nil, 
-        closeLeaveRobloxAlert = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 99 ]]
+        closeLeaveRobloxAlert = l_FFlagAddSocialLinksToCommunityProfile_0 and function() --[[ Line: 100 ]]
 
         end or nil, 
-        navigateToTransfer = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function() --[[ Line: 100 ]]
+        navigateToTransfer = l_FFlagProfilePlatformEnableCurrencyTransfer_0 and function() --[[ Line: 101 ]]
 
         end or nil
     }, 

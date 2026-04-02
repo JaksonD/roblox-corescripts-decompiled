@@ -2,26 +2,32 @@ local l_Parent_0 = script:FindFirstAncestor("AddFriends").Parent;
 local v1 = require(l_Parent_0.React);
 local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray;
 local l_FFlagAddFriendsUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagAddFriendsUserListEnabled;
-return function(v4, v5, v6, v7) --[[ Line: 10 ]]
-    -- upvalues: v1 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), l_dependencyArray_0 (copy)
-    local v8, v9 = v1.useState(v4 or 0);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v5, v6, v7, v8) --[[ Line: 12 ]]
+    -- upvalues: v1 (copy), l_FFlagAddFriendsUserListEnabled_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy)
+    local v9, v10 = v1.useState(v5 or 0);
     if l_FFlagAddFriendsUserListEnabled_0 then
-        v1.useEffect(function() --[[ Line: 18 ]]
-            -- upvalues: v9 (copy), v4 (copy)
-            v9(v4 or 0);
+        v1.useEffect(function() --[[ Line: 20 ]]
+            -- upvalues: v10 (copy), v5 (copy)
+            v10(v5 or 0);
         end, {
-            v4
+            v5
         });
     end;
-    local v10, v11 = v1.useState(1);
-    return v1.useCallback(function() --[[ Line: 25 ]]
-        -- upvalues: v7 (copy), v11 (copy), v8 (copy), v6 (copy), v5 (copy), v9 (copy)
-        v7();
-        v11(v8 * v6 + 1);
-        local v12 = math.ceil(v5 / v6) - 2;
-        if v12 <= 0 then
-            v12 = math.floor(v5 / v6);
+    local v11, v12 = v1.useState(1);
+    return v1.useCallback(function() --[[ Line: 28 ]]
+        -- upvalues: v8 (copy), v12 (copy), v9 (copy), v7 (copy), v6 (copy), v10 (copy)
+        v8();
+        v12(v9 * v7 + 1);
+        local v13 = math.ceil(v6 / v7) - 2;
+        if v13 <= 0 then
+            v13 = math.floor(v6 / v7);
         end;
-        v9(v8 + v12);
-    end, l_dependencyArray_0(v8, v5, v7, v6)), v8, v10;
+        v10(v9 + v13);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v9, 
+        v6, 
+        v8, 
+        v7
+    } else l_dependencyArray_0(v9, v6, v8, v7)), v9, v11;
 end;

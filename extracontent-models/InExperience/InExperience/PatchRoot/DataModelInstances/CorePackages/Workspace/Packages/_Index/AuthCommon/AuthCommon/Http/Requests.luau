@@ -2,6 +2,7 @@ return {
     GetAuthMetaData = require(script.GetAuthMetaData), 
     GetCountryCodes = require(script.GetCountryCodes), 
     GetGameMedia = require(script.GetGameMedia), 
+    GetLoggedInUsersMetadataRequest = require(script.GetLoggedInUsersMetadataRequest), 
     GetUserAppLaunchInfo = require(script.GetUserAppLaunchInfo), 
     GetUserByIdRequest = require(script.GetUserByIdRequest), 
     LoginRequests = require(script.LoginRequests), 

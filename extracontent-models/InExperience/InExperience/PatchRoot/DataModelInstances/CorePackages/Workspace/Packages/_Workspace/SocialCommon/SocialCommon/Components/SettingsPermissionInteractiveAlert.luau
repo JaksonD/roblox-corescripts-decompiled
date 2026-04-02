@@ -27,9 +27,11 @@ local l_FFlagEnableRetryForLinkingProtocolFetch_0 = require(l_Parent_0.SharedFla
 local l_FIntLinkingProtocolFetchRetries_0 = require(l_Parent_0.SharedFlags).FIntLinkingProtocolFetchRetries;
 local l_FIntLinkingProtocolFetchTimeoutMS_0 = require(l_Parent_0.SharedFlags).FIntLinkingProtocolFetchTimeoutMS;
 local l_FFlagQRInSearchScanner_0 = require(l_Parent_0.SharedFlags).FFlagQRInSearchScanner;
-local v29 = require(l_Parent_0.SharedFlags).FFlagRegisterQRCodeKeyInEngine and "ProfileQrCodeCameraSettingsModalSeen" or "ScreenshotEventTracking";
+local l_FFlagRegisterQRCodeKeyInEngine_0 = require(l_Parent_0.SharedFlags).FFlagRegisterQRCodeKeyInEngine;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v31 = l_FFlagRegisterQRCodeKeyInEngine_0 and "ProfileQrCodeCameraSettingsModalSeen" or "ScreenshotEventTracking";
 local l_l_MessageBusService_0_MessageId_0 = l_MessageBusService_0:GetMessageId("Realtime", "appResume");
-local v31 = {
+local v33 = {
     SettingsPermissionInteractiveAlertButtonClick = {
         context = "settingsPermissionInteractiveAlert", 
         eventType = l_EventTypes_0.ButtonClick, 
@@ -47,92 +49,96 @@ local v31 = {
         }
     }
 };
-local v32 = {
+local v34 = {
     [l_SettingsRoute_0.Camera] = l_PermissionsProtocol_0.Permissions.CAMERA_ACCESS, 
     [l_SettingsRoute_0.Contacts] = l_PermissionsProtocol_0.Permissions.CONTACTS_ACCESS
 };
-return function(v33) --[[ Line: 86 ]] --[[ Name: SettingsPermissionInteractiveAlert ]]
-    -- upvalues: l_useScreenSize_0 (copy), l_useDispatch_0 (copy), l_useStyle_0 (copy), v3 (copy), l_dependencyArray_0 (copy), l_AnalyticsFactory_0 (copy), v31 (copy), l_DefaultAnalyticsService_0 (copy), l_FFlagQRInSearchScanner_0 (copy), l_FFlagEnableRetryForLinkingProtocolFetch_0 (copy), l_FIntLinkingProtocolFetchRetries_0 (copy), l_default_0 (copy), l_FIntLinkingProtocolFetchTimeoutMS_0 (copy), l_AppStorageService_0 (copy), v29 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_PermissionsProtocol_0 (copy), v32 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), l_SettingsRoute_0 (copy), l_Images_0 (copy), l_ButtonType_0 (copy), l_StyledTextLabel_0 (copy), l_Text_0 (copy), l_InteractiveAlert_0 (copy)
-    local v34 = l_useScreenSize_0();
-    local v35 = l_useDispatch_0();
-    local v36 = l_useStyle_0();
-    local v37 = v33.settingsRoute or v33.navigation and v33.navigation.getParam("settingsRoute");
-    local v38 = v33.source or v33.navigation and v33.navigation.getParam("source");
-    local v39 = v3.useCallback(function() --[[ Line: 95 ]]
-        -- upvalues: v33 (copy), v35 (copy)
-        if v33.closeCentralOverlayThunk then
-            return (v35(v33.closeCentralOverlayThunk()));
+return function(v35) --[[ Line: 88 ]] --[[ Name: SettingsPermissionInteractiveAlert ]]
+    -- upvalues: l_useScreenSize_0 (copy), l_useDispatch_0 (copy), l_useStyle_0 (copy), v3 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_AnalyticsFactory_0 (copy), v33 (copy), l_DefaultAnalyticsService_0 (copy), l_FFlagQRInSearchScanner_0 (copy), l_FFlagEnableRetryForLinkingProtocolFetch_0 (copy), l_FIntLinkingProtocolFetchRetries_0 (copy), l_default_0 (copy), l_FIntLinkingProtocolFetchTimeoutMS_0 (copy), l_AppStorageService_0 (copy), v31 (copy), l_MessageBusService_0 (copy), l_l_MessageBusService_0_MessageId_0 (copy), l_PermissionsProtocol_0 (copy), v34 (copy), l_useAppPolicy_0 (copy), l_useLocalization_0 (copy), l_SettingsRoute_0 (copy), l_Images_0 (copy), l_ButtonType_0 (copy), l_StyledTextLabel_0 (copy), l_Text_0 (copy), l_InteractiveAlert_0 (copy)
+    local v36 = l_useScreenSize_0();
+    local v37 = l_useDispatch_0();
+    local v38 = l_useStyle_0();
+    local v39 = v35.settingsRoute or v35.navigation and v35.navigation.getParam("settingsRoute");
+    local v40 = v35.source or v35.navigation and v35.navigation.getParam("source");
+    local v41 = v3.useCallback(function() --[[ Line: 98 ]]
+        -- upvalues: v35 (copy), v37 (copy)
+        if v35.closeCentralOverlayThunk then
+            return (v37(v35.closeCentralOverlayThunk()));
         else
-            return v33.navigation and v33.navigation.pop();
+            return v35.navigation and v35.navigation.pop();
         end;
-    end, l_dependencyArray_0(v35, v33.closeCentralOverlayThunk, v33.navigation));
-    local v40 = v3.useMemo(function() --[[ Line: 102 ]]
-        -- upvalues: l_AnalyticsFactory_0 (ref), v31 (ref), l_DefaultAnalyticsService_0 (ref), l_FFlagQRInSearchScanner_0 (ref), v38 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v37, 
+        v35.closeCentralOverlayThunk, 
+        v35.navigation
+    } else l_dependencyArray_0(v37, v35.closeCentralOverlayThunk, v35.navigation));
+    local v42 = v3.useMemo(function() --[[ Line: 109 ]]
+        -- upvalues: l_AnalyticsFactory_0 (ref), v33 (ref), l_DefaultAnalyticsService_0 (ref), l_FFlagQRInSearchScanner_0 (ref), v40 (copy)
         return l_AnalyticsFactory_0.setUpAnalyticsFactory({
             eventLists = {
-                EventStream = v31
+                EventStream = v33
             }, 
             analyticsImpl = {
                 EventStream = l_DefaultAnalyticsService_0.EventStream
             }, 
             staticInfoForAllEvents = if l_FFlagQRInSearchScanner_0 then {
-                source = v38
+                source = v40
             } else nil
         })();
     end);
-    local v41 = false;
-    local v42 = nil;
-    local v43 = nil;
-    if v43 == nil then
+    local v43 = false;
+    local v44 = nil;
+    local v45 = nil;
+    if v45 == nil then
         if l_FFlagEnableRetryForLinkingProtocolFetch_0 then
             for _ = 0, l_FIntLinkingProtocolFetchRetries_0 do
-                local v47 = task.spawn(function() --[[ Line: 132 ]]
-                    -- upvalues: v41 (ref), v42 (ref), l_default_0 (ref), v37 (copy)
-                    local v45, v46 = l_default_0:supportsSwitchToSettingsApp(v37):await();
-                    v41 = v45;
-                    v42 = v46;
+                local v49 = task.spawn(function() --[[ Line: 139 ]]
+                    -- upvalues: v43 (ref), v44 (ref), l_default_0 (ref), v39 (copy)
+                    local v47, v48 = l_default_0:supportsSwitchToSettingsApp(v39):await();
+                    v43 = v47;
+                    v44 = v48;
                 end);
                 task.wait(l_FIntLinkingProtocolFetchTimeoutMS_0 / 1000);
-                task.cancel(v47);
-                if v42 ~= nil then
+                task.cancel(v49);
+                if v44 ~= nil then
                     break;
                 end;
             end;
         else
-            local v48, v49 = l_default_0:supportsSwitchToSettingsApp(v37):await();
-            v41 = v48;
-            v42 = v49;
+            local v50, v51 = l_default_0:supportsSwitchToSettingsApp(v39):await();
+            v43 = v50;
+            v44 = v51;
         end;
-        v43 = v41 and v42;
+        v45 = v43 and v44;
     end;
-    v3.useEffect(function() --[[ Line: 149 ]]
-        -- upvalues: v40 (copy), v37 (copy), v43 (ref), l_AppStorageService_0 (ref), v29 (ref), l_MessageBusService_0 (ref), l_l_MessageBusService_0_MessageId_0 (ref), l_PermissionsProtocol_0 (ref), v32 (ref), v39 (copy)
-        v40.fireAnalyticsEvent("SettingsPermissionInteractiveAlertImpression", {
-            settingsRoute = v37, 
-            settingsAppAvailable = v43
+    v3.useEffect(function() --[[ Line: 156 ]]
+        -- upvalues: v42 (copy), v39 (copy), v45 (ref), l_AppStorageService_0 (ref), v31 (ref), l_MessageBusService_0 (ref), l_l_MessageBusService_0_MessageId_0 (ref), l_PermissionsProtocol_0 (ref), v34 (ref), v41 (copy)
+        v42.fireAnalyticsEvent("SettingsPermissionInteractiveAlertImpression", {
+            settingsRoute = v39, 
+            settingsAppAvailable = v45
         });
-        l_AppStorageService_0:SetItem(v29, "true");
+        l_AppStorageService_0:SetItem(v31, "true");
         l_AppStorageService_0:Flush();
-        local v51 = l_MessageBusService_0:Subscribe(l_l_MessageBusService_0_MessageId_0, function() --[[ Line: 158 ]]
-            -- upvalues: l_PermissionsProtocol_0 (ref), v32 (ref), v37 (ref), v39 (ref)
+        local v53 = l_MessageBusService_0:Subscribe(l_l_MessageBusService_0_MessageId_0, function() --[[ Line: 165 ]]
+            -- upvalues: l_PermissionsProtocol_0 (ref), v34 (ref), v39 (ref), v41 (ref)
             l_PermissionsProtocol_0.default:hasPermissions({
-                v32[v37]
-            }):andThen(function(v50) --[[ Line: 163 ]]
-                -- upvalues: l_PermissionsProtocol_0 (ref), v39 (ref)
-                if v50 and v50.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
-                    v39();
+                v34[v39]
+            }):andThen(function(v52) --[[ Line: 170 ]]
+                -- upvalues: l_PermissionsProtocol_0 (ref), v41 (ref)
+                if v52 and v52.status == l_PermissionsProtocol_0.Status.AUTHORIZED then
+                    v41();
                 end;
             end);
         end, false, true);
-        return function() --[[ Line: 170 ]]
-            -- upvalues: v51 (copy)
-            v51:Disconnect();
+        return function() --[[ Line: 177 ]]
+            -- upvalues: v53 (copy)
+            v53:Disconnect();
         end;
     end, {});
-    local v53 = l_useAppPolicy_0(function(v52) --[[ Line: 175 ]]
-        return v52.getShouldShowSettingsPermissionsAdditionalInstructions();
+    local v55 = l_useAppPolicy_0(function(v54) --[[ Line: 182 ]]
+        return v54.getShouldShowSettingsPermissionsAdditionalInstructions();
     end);
-    local v54 = l_useLocalization_0({
+    local v56 = l_useLocalization_0({
         notNow = "Feature.SettingsHub.Action.NotNow", 
         ok = "Feature.SettingsHub.Action.Ok", 
         openSettings = "Feature.SettingsHub.Action.OpenSettings", 
@@ -145,89 +151,89 @@ return function(v33) --[[ Line: 86 ]] --[[ Name: SettingsPermissionInteractiveAl
         additionalInstructionsCameraDeeplinkSupported = "Feature.SettingsHub.Description.QRCodeCameraPermissionAndroid", 
         additionalInstructionsCameraDeeplinkNotSupported = "Feature.SettingsHub.Description.QRCodeCameraPermissionAndroidDeeplinkNotSupported"
     });
-    local v55 = {
+    local v57 = {
         [l_SettingsRoute_0.Camera] = l_Images_0["icons/controls/cameraOff"], 
         [l_SettingsRoute_0.Contacts] = l_Images_0["icons/menu/contacts_large"]
     };
-    local v56 = {
-        [l_SettingsRoute_0.Camera] = v54.titleCamera, 
-        [l_SettingsRoute_0.Contacts] = v54.titleContacts
+    local v58 = {
+        [l_SettingsRoute_0.Camera] = v56.titleCamera, 
+        [l_SettingsRoute_0.Contacts] = v56.titleContacts
     };
-    local v57 = {
-        [l_SettingsRoute_0.Camera] = v54.bodyTextCamera, 
-        [l_SettingsRoute_0.Contacts] = v54.bodyTextContacts
+    local v59 = {
+        [l_SettingsRoute_0.Camera] = v56.bodyTextCamera, 
+        [l_SettingsRoute_0.Contacts] = v56.bodyTextContacts
     };
-    local v58 = "<b>" .. ({
+    local v60 = "<b>" .. ({
         [l_SettingsRoute_0.Contacts] = {
-            deepLinkSupported = v54.additionalInstructionsContactsDeeplinkSupported, 
-            deepLinkNotSupported = v54.additionalInstructionsContactsDeeplinkNotSupported
+            deepLinkSupported = v56.additionalInstructionsContactsDeeplinkSupported, 
+            deepLinkNotSupported = v56.additionalInstructionsContactsDeeplinkNotSupported
         }, 
         [l_SettingsRoute_0.Camera] = {
-            deepLinkSupported = v54.additionalInstructionsCameraDeeplinkSupported, 
-            deepLinkNotSupported = v54.additionalInstructionsCameraDeeplinkNotSupported
+            deepLinkSupported = v56.additionalInstructionsCameraDeeplinkSupported, 
+            deepLinkNotSupported = v56.additionalInstructionsCameraDeeplinkNotSupported
         }
-    })[v37][v43 and "deepLinkSupported" or "deepLinkNotSupported"] .. "</b>";
-    local v59 = v3.useCallback(function() --[[ Line: 225 ]]
-        -- upvalues: v40 (copy), v37 (copy), v39 (copy)
-        v40.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
-            settingsRoute = v37, 
+    })[v39][v45 and "deepLinkSupported" or "deepLinkNotSupported"] .. "</b>";
+    local v61 = v3.useCallback(function() --[[ Line: 232 ]]
+        -- upvalues: v42 (copy), v39 (copy), v41 (copy)
+        v42.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
+            settingsRoute = v39, 
             btn = "notNow"
         });
-        return v39();
+        return v41();
     end, {
-        v33.navigation
-    });
-    local v60 = {
-        buttonType = l_ButtonType_0.Secondary, 
-        props = {
-            onActivated = v59, 
-            text = v54.notNow
-        }
-    };
-    local v61 = v3.useCallback(function() --[[ Line: 240 ]]
-        -- upvalues: v40 (copy), v37 (copy), v39 (copy)
-        v40.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
-            settingsRoute = v37, 
-            btn = "ok"
-        });
-        return v39();
-    end, {
-        v33.navigation
+        v35.navigation
     });
     local v62 = {
-        buttonType = l_ButtonType_0.PrimarySystem, 
+        buttonType = l_ButtonType_0.Secondary, 
         props = {
             onActivated = v61, 
-            text = v54.ok
+            text = v56.notNow
         }
     };
-    local v63 = v3.useCallback(function() --[[ Line: 255 ]]
-        -- upvalues: v40 (copy), v37 (copy), l_default_0 (ref)
-        v40.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
-            settingsRoute = v37, 
-            btn = "openSettings"
+    local v63 = v3.useCallback(function() --[[ Line: 247 ]]
+        -- upvalues: v42 (copy), v39 (copy), v41 (copy)
+        v42.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
+            settingsRoute = v39, 
+            btn = "ok"
         });
-        return l_default_0:switchToSettingsApp(v37);
+        return v41();
     end, {
-        v33.navigation
+        v35.navigation
     });
     local v64 = {
         buttonType = l_ButtonType_0.PrimarySystem, 
         props = {
             onActivated = v63, 
-            text = v54.openSettings
+            text = v56.ok
         }
     };
-    local v65 = {
-        buttons = if v43 then {
-            v60, 
-            v64
+    local v65 = v3.useCallback(function() --[[ Line: 262 ]]
+        -- upvalues: v42 (copy), v39 (copy), l_default_0 (ref)
+        v42.fireAnalyticsEvent("SettingsPermissionInteractiveAlertButtonClick", {
+            settingsRoute = v39, 
+            btn = "openSettings"
+        });
+        return l_default_0:switchToSettingsApp(v39);
+    end, {
+        v35.navigation
+    });
+    local v66 = {
+        buttonType = l_ButtonType_0.PrimarySystem, 
+        props = {
+            onActivated = v65, 
+            text = v56.openSettings
+        }
+    };
+    local v67 = {
+        buttons = if v45 then {
+            v62, 
+            v66
         } else {
-            v62
+            v64
         }
     };
-    local v66 = v3.useCallback(function() --[[ Line: 275 ]]
-        -- upvalues: v3 (ref), l_StyledTextLabel_0 (ref), v36 (copy), v57 (copy), v37 (copy), v53 (copy), l_Text_0 (ref), v58 (copy)
+    local v68 = v3.useCallback(function() --[[ Line: 282 ]]
+        -- upvalues: v3 (ref), l_StyledTextLabel_0 (ref), v38 (copy), v59 (copy), v39 (copy), v55 (copy), l_Text_0 (ref), v60 (copy)
         return v3.createElement("Frame", {
             AutomaticSize = Enum.AutomaticSize.Y, 
             Size = UDim2.new(1, 0, 0, 0), 
@@ -241,15 +247,15 @@ return function(v33) --[[ Line: 86 ]] --[[ Name: SettingsPermissionInteractiveAl
             }), 
             DeepLinkInstructions = v3.createElement(l_StyledTextLabel_0, {
                 automaticSize = Enum.AutomaticSize.Y, 
-                fontStyle = v36.Font.Body, 
-                colorStyle = v36.Theme.TextDefault, 
+                fontStyle = v38.Font.Body, 
+                colorStyle = v38.Theme.TextDefault, 
                 size = UDim2.fromScale(1, 0), 
-                text = v57[v37], 
+                text = v59[v39], 
                 lineHeight = 1, 
                 fluidSizing = false, 
                 layoutOrder = 1
             }), 
-            additionalInstructionsFrame = if v53 then v3.createElement("Frame", {
+            additionalInstructionsFrame = if v55 then v3.createElement("Frame", {
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 Size = UDim2.new(1, 0, 0, 0), 
                 BackgroundTransparency = 1, 
@@ -257,29 +263,29 @@ return function(v33) --[[ Line: 86 ]] --[[ Name: SettingsPermissionInteractiveAl
                 LayoutOrder = 2
             }, {
                 UIPadding = v3.createElement("UIPadding", {
-                    PaddingTop = UDim.new(0, l_Text_0.GetTextHeight("", v36.Font.Body.Font, v36.Font.BaseSize * v36.Font.Body.RelativeSize)), 
+                    PaddingTop = UDim.new(0, l_Text_0.GetTextHeight("", v38.Font.Body.Font, v38.Font.BaseSize * v38.Font.Body.RelativeSize)), 
                     PaddingLeft = UDim.new(0, 5)
                 }), 
                 AdditionalInstructions = v3.createElement(l_StyledTextLabel_0, {
                     automaticSize = Enum.AutomaticSize.Y, 
-                    fontStyle = v36.Font.Body, 
-                    colorStyle = v36.Theme.TextDefault, 
+                    fontStyle = v38.Font.Body, 
+                    colorStyle = v38.Theme.TextDefault, 
                     size = UDim2.fromScale(1, 0), 
-                    text = v58, 
+                    text = v60, 
                     fluidSizing = false, 
                     lineHeight = 1
                 })
             }) else nil
         });
     end, {
-        v33.navigation
+        v35.navigation
     });
     return v3.createElement(l_InteractiveAlert_0, {
         richText = true, 
-        screenSize = v34, 
-        title = v56[v37], 
-        titleIcon = v55[v37], 
-        middleContent = v66, 
-        buttonStackInfo = v65
+        screenSize = v36, 
+        title = v58[v39], 
+        titleIcon = v57[v39], 
+        middleContent = v68, 
+        buttonStackInfo = v67
     });
 end;

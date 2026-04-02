@@ -1,152 +1,161 @@
 local l_CorePackages_0 = game:GetService("CorePackages");
 local v1 = require(l_CorePackages_0.Packages.Roact);
-local v2 = require(l_CorePackages_0.Packages.Cryo);
-local v3 = require(l_CorePackages_0.Packages.UIBlox);
-local v4 = require(l_CorePackages_0.Packages.t);
-local v5 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v6 = require(l_CorePackages_0.Packages.RoactRodux);
-local l_withStyle_0 = v3.Style.withStyle;
+local v2 = require(l_CorePackages_0.Packages.React);
+local v3 = require(l_CorePackages_0.Packages.Cryo);
+local v4 = require(l_CorePackages_0.Packages.UIBlox);
+local v5 = require(l_CorePackages_0.Packages.t);
+local v6 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local v7 = require(l_CorePackages_0.Packages.RoactRodux);
+local l_withStyle_0 = v4.Style.withStyle;
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
-local v9 = require(l_Modules_0.LuaApp.Constants);
-local v10 = require(l_CorePackages_0.Workspace.Packages.VrCompatibility);
-local l_VRReadyWrapper_0 = v10.VRReadyWrapper;
-local l_VRConstants_0 = v10.VRConstants;
-local l_VRPanelWidthIXP_0 = v10.VRPanelWidthIXP;
-local v14 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
-local v15 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils);
-local l_FocusNavigableSurfaceWrapper_0 = v15.FocusNavigableSurfaceWrapper;
-local l_FocusNavigableSurfaceIdentifierEnum_0 = v15.FocusNavigableSurfaceIdentifierEnum;
+local v10 = require(l_Modules_0.LuaApp.Constants);
+local v11 = require(l_CorePackages_0.Workspace.Packages.VrCompatibility);
+local l_VRReadyWrapper_0 = v11.VRReadyWrapper;
+local l_VRConstants_0 = v11.VRConstants;
+local l_VRPanelWidthIXP_0 = v11.VRPanelWidthIXP;
+local v15 = require(l_CorePackages_0.Workspace.Packages.IxpUtils);
+local v16 = require(l_CorePackages_0.Workspace.Packages.FocusNavigationUtils);
+local l_FocusNavigableSurfaceWrapper_0 = v16.FocusNavigableSurfaceWrapper;
+local l_FocusNavigableSurfaceIdentifierEnum_0 = v16.FocusNavigableSurfaceIdentifierEnum;
 local l_IntervalPerformanceTracker_0 = require(l_CorePackages_0.Workspace.Packages.IntervalPerformanceTracker).IntervalPerformanceTracker;
 local l_GetFFlagEnableNavigationPerformanceIntervals_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagEnableNavigationPerformanceIntervals;
-local v20 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
-local l_useNavBarPlacement_0 = v20.useNavBarPlacement;
-local l_useNavBarSize_0 = v20.useNavBarSize;
-local v23 = require(l_Modules_0.LuaApp.Util.SystemBarLabelTextSizeBinding);
-local v24 = require(l_Modules_0.LuaApp.buildCreatorWebNavUrl);
+local v21 = require(l_CorePackages_0.Workspace.Packages.AppNavBar);
+local l_useNavBarPlacement_0 = v21.useNavBarPlacement;
+local l_useNavBarSize_0 = v21.useNavBarSize;
+local v24 = require(l_Modules_0.LuaApp.Util.SystemBarLabelTextSizeBinding);
+local v25 = require(l_Modules_0.LuaApp.buildCreatorWebNavUrl);
 local l_memoize_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).memoize;
 local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive).useIsSpatial;
-local v27 = require(l_Modules_0.LuaApp.AppPage);
-local v28 = require(l_Modules_0.LuaApp.AppPageProperties);
+local v28 = require(l_Modules_0.LuaApp.AppPage);
+local v29 = require(l_Modules_0.LuaApp.AppPageProperties);
 local l_useSelector_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector;
-local l_GetFFlagVRPanelWidthIXPEnabled_0 = v5.GetFFlagVRPanelWidthIXPEnabled;
-local l_GetFFlagLuaAppEnableTopBanner_0 = v5.GetFFlagLuaAppEnableTopBanner;
-local v32 = game:DefineFastFlag("AXAppSystemBarEnableTelemtryForFPS", false);
-local v33 = game:DefineFastFlag("AXAppSystemBarEnableTelemtryForFPSForAll", false);
+local l_BumperHint_0 = require(l_CorePackages_0.Workspace.Packages.BumperNavigation).BumperHint;
+local l_GetFFlagVRPanelWidthIXPEnabled_0 = v6.GetFFlagVRPanelWidthIXPEnabled;
+local l_GetFFlagLuaAppEnableTopBanner_0 = v6.GetFFlagLuaAppEnableTopBanner;
+local v34 = game:DefineFastFlag("AXAppSystemBarEnableTelemtryForFPS", false);
+local v35 = game:DefineFastFlag("AXAppSystemBarEnableTelemtryForFPSForAll", false);
 local l_game_EngineFeature_0 = game:GetEngineFeature("WebViewRedesignEnabled");
-local v35 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppFixStudioNotchSupport);
-local v36 = v5.FFlagLuaAppUseDeviceSafeInsetsForAppContainer and v35();
-local l_FFlagLuaAppForceVrAppPanelWidthRollout_0 = v5.FFlagLuaAppForceVrAppPanelWidthRollout;
-local v38 = v1.PureComponent:extend("AppSystemBar");
-local function _(v39) --[[ Line: 62 ]] --[[ Name: isTopPageWebView ]]
-    -- upvalues: v28 (copy)
-    local v40 = v39.Navigation.history[#v39.Navigation.history];
-    local v41 = v28[v40[#v40].name];
-    return v41 and v41.webView == true;
+local v37 = require(l_Modules_0.LuaApp.Flags.GetFFlagLuaAppFixStudioNotchSupport);
+local v38 = v6.FFlagLuaAppUseDeviceSafeInsetsForAppContainer and v37();
+local l_FFlagLuaAppForceVrAppPanelWidthRollout_0 = v6.FFlagLuaAppForceVrAppPanelWidthRollout;
+local l_FFlagAddGamepadBumperNavigation_0 = v6.FFlagAddGamepadBumperNavigation;
+local v41 = v1.PureComponent:extend("AppSystemBar");
+local function _(v42) --[[ Line: 65 ]] --[[ Name: isTopPageWebView ]]
+    -- upvalues: v29 (copy)
+    local v43 = v42.Navigation.history[#v42.Navigation.history];
+    local v44 = v29[v43[#v43].name];
+    return v44 and v44.webView == true;
 end;
-v38.validateProps = v4.strictInterface({
-    isVisible = v4.boolean, 
-    displayOrder = v4.optional(v4.number), 
-    layoutInfo = v4.optional(v4.table), 
-    selectedIndex = v4.optional(v4.number), 
-    items = v4.array(v4.any), 
-    onActivated = v4.callback, 
-    vrPanelWidthMultiplier = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    vrPanelCurvature = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    xOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    yOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    zOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    heightModifier = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v4.optional(v4.number), 
-    globalGuiInset = v4.optional(v4.table), 
-    isSpatial = v4.boolean, 
-    navBarPlacement = v4.valueOf(v20.Placement), 
-    navBarSize = v4.number, 
-    showTooltip = if l_game_EngineFeature_0 then v4.optional(v4.boolean) else nil, 
-    statusBarHeight = v4.number
+v41.validateProps = v5.strictInterface({
+    isVisible = v5.boolean, 
+    displayOrder = v5.optional(v5.number), 
+    layoutInfo = v5.optional(v5.table), 
+    selectedIndex = v5.optional(v5.number), 
+    items = v5.array(v5.any), 
+    onActivated = v5.callback, 
+    vrPanelWidthMultiplier = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    vrPanelCurvature = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    xOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    yOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    zOffset = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    heightModifier = if l_FFlagLuaAppForceVrAppPanelWidthRollout_0 then nil else v5.optional(v5.number), 
+    globalGuiInset = v5.optional(v5.table), 
+    isSpatial = v5.boolean, 
+    navBarPlacement = v5.valueOf(v21.Placement), 
+    navBarSize = v5.number, 
+    showTooltip = if l_game_EngineFeature_0 then v5.optional(v5.boolean) else nil, 
+    statusBarHeight = v5.number, 
+    customEventMap = if l_FFlagAddGamepadBumperNavigation_0 then v5.optional(v5.table) else nil, 
+    customEventHandlers = if l_FFlagAddGamepadBumperNavigation_0 then v5.optional(v5.table) else nil, 
+    leadingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v5.optional(v5.table) else nil, 
+    trailingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v5.optional(v5.table) else nil
 });
-v38.defaultProps = {
+v41.defaultProps = {
     displayOrder = 0, 
     selectedIndex = 1
 };
 if l_GetFFlagEnableNavigationPerformanceIntervals_0() then
-    v38.init = function(v43) --[[ Line: 96 ]] --[[ Name: init ]]
-        v43.alreadyTrackedPerformanceIntervals = {};
+    v41.init = function(v46) --[[ Line: 103 ]] --[[ Name: init ]]
+        v46.alreadyTrackedPerformanceIntervals = {};
     end;
-    v38.getPerformanceTrackerIntervalName = function(v44, v45) --[[ Line: 100 ]] --[[ Name: getPerformanceTrackerIntervalName ]]
-        if v44.alreadyTrackedPerformanceIntervals[v45] ~= nil then
-            return "go_to_" .. tostring(v45) .. "_" .. "warm";
+    v41.getPerformanceTrackerIntervalName = function(v47, v48) --[[ Line: 107 ]] --[[ Name: getPerformanceTrackerIntervalName ]]
+        if v47.alreadyTrackedPerformanceIntervals[v48] ~= nil then
+            return "go_to_" .. tostring(v48) .. "_" .. "warm";
         else
-            v44.alreadyTrackedPerformanceIntervals[v45] = true;
-            return "go_to_" .. tostring(v45) .. "_" .. "cold";
+            v47.alreadyTrackedPerformanceIntervals[v48] = true;
+            return "go_to_" .. tostring(v48) .. "_" .. "cold";
         end;
     end;
 end;
-v38.getAppNavBarProps = function(v46) --[[ Line: 110 ]] --[[ Name: getAppNavBarProps ]]
-    -- upvalues: v20 (copy), v9 (copy), v36 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_memoize_0 (copy), v2 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), v32 (copy), v27 (copy), l_IntervalPerformanceTracker_0 (copy), v33 (copy), v23 (copy), v24 (copy)
-    local l_isSpatial_0 = v46.props.isSpatial;
-    local l_navBarPlacement_0 = v46.props.navBarPlacement;
-    local v49 = nil;
-    local v50 = nil;
-    local l_navBarSize_0 = v46.props.navBarSize;
+v41.getAppNavBarProps = function(v49) --[[ Line: 117 ]] --[[ Name: getAppNavBarProps ]]
+    -- upvalues: v21 (copy), v10 (copy), v38 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy), l_memoize_0 (copy), v3 (copy), l_GetFFlagEnableNavigationPerformanceIntervals_0 (copy), v34 (copy), v28 (copy), l_IntervalPerformanceTracker_0 (copy), v35 (copy), v24 (copy), v25 (copy), l_FFlagAddGamepadBumperNavigation_0 (copy)
+    local l_isSpatial_0 = v49.props.isSpatial;
+    local l_navBarPlacement_0 = v49.props.navBarPlacement;
+    local v52 = nil;
+    local v53 = nil;
+    local l_navBarSize_0 = v49.props.navBarSize;
     if l_isSpatial_0 then
-        v49 = UDim2.fromOffset(0, 0);
-        v50 = UDim2.new(0, l_navBarSize_0, 1, 0);
-    elseif l_navBarPlacement_0 == v20.Placement.Bottom then
-        v49 = UDim2.new(0, 0, 1, -v9.BOTTOM_BAR_SIZE);
-        v50 = UDim2.new(1, 0, 0, v9.BOTTOM_BAR_SIZE);
-    elseif l_navBarPlacement_0 == v20.Placement.Left then
-        if v36 then
-            v49 = UDim2.new(0, 0, 0, (if l_GetFFlagLuaAppEnableTopBanner_0() then -v46.props.globalGuiInset.top else 0) + v46.props.statusBarHeight);
-            v50 = UDim2.new(0, l_navBarSize_0, 1, if l_GetFFlagLuaAppEnableTopBanner_0() then v46.props.globalGuiInset.top else 0);
+        v52 = UDim2.fromOffset(0, 0);
+        v53 = UDim2.new(0, l_navBarSize_0, 1, 0);
+    elseif l_navBarPlacement_0 == v21.Placement.Bottom then
+        v52 = UDim2.new(0, 0, 1, -v10.BOTTOM_BAR_SIZE);
+        v53 = UDim2.new(1, 0, 0, v10.BOTTOM_BAR_SIZE);
+    elseif l_navBarPlacement_0 == v21.Placement.Left then
+        if v38 then
+            v52 = UDim2.new(0, 0, 0, (if l_GetFFlagLuaAppEnableTopBanner_0() then -v49.props.globalGuiInset.top else 0) + v49.props.statusBarHeight);
+            v53 = UDim2.new(0, l_navBarSize_0, 1, if l_GetFFlagLuaAppEnableTopBanner_0() then v49.props.globalGuiInset.top else 0);
         else
-            v49 = UDim2.new(0, -l_navBarSize_0, 0, (if l_GetFFlagLuaAppEnableTopBanner_0() then -v46.props.globalGuiInset.top else 0) + v46.props.statusBarHeight);
-            v50 = UDim2.new(0, l_navBarSize_0, 1, (if l_GetFFlagLuaAppEnableTopBanner_0() then v46.props.globalGuiInset.top else 0) - v46.props.statusBarHeight);
+            v52 = UDim2.new(0, -l_navBarSize_0, 0, (if l_GetFFlagLuaAppEnableTopBanner_0() then -v49.props.globalGuiInset.top else 0) + v49.props.statusBarHeight);
+            v53 = UDim2.new(0, l_navBarSize_0, 1, (if l_GetFFlagLuaAppEnableTopBanner_0() then v49.props.globalGuiInset.top else 0) - v49.props.statusBarHeight);
         end;
     else
         error((("unexpected navBarPlacement value: %*"):format(l_navBarPlacement_0)));
     end;
-    v46.getAppNavBarItems = v46.getAppNavBarItems or l_memoize_0(function(v52) --[[ Line: 157 ]]
-        -- upvalues: v2 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v32 (ref), v27 (ref), l_IntervalPerformanceTracker_0 (ref), v46 (copy), v33 (ref)
-        return v2.List.map(v52, function(v53) --[[ Line: 159 ]]
-            -- upvalues: v2 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v32 (ref), v27 (ref), l_IntervalPerformanceTracker_0 (ref), v46 (ref), v33 (ref)
-            return v2.Dictionary.join(v53, {
-                badgeValue = if v53.badgeCount ~= nil and v53.badgeCount ~= 0 then v53.badgeCount else nil, 
-                onActivated = function() --[[ Line: 162 ]] --[[ Name: onActivated ]]
-                    -- upvalues: l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v53 (copy), v32 (ref), v27 (ref), l_IntervalPerformanceTracker_0 (ref), v46 (ref), v33 (ref)
-                    if l_GetFFlagEnableNavigationPerformanceIntervals_0() and v53.page ~= nil then
-                        local v54 = v32 and v53.page == v27.AvatarExperienceRoot or nil;
-                        l_IntervalPerformanceTracker_0:startTracking(v46:getPerformanceTrackerIntervalName(v53.page), 2, nil, v33 or v54, v33 or v54);
+    v49.getAppNavBarItems = v49.getAppNavBarItems or l_memoize_0(function(v55) --[[ Line: 164 ]]
+        -- upvalues: v3 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v34 (ref), v28 (ref), l_IntervalPerformanceTracker_0 (ref), v49 (copy), v35 (ref)
+        return v3.List.map(v55, function(v56) --[[ Line: 166 ]]
+            -- upvalues: v3 (ref), l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v34 (ref), v28 (ref), l_IntervalPerformanceTracker_0 (ref), v49 (ref), v35 (ref)
+            return v3.Dictionary.join(v56, {
+                badgeValue = if v56.badgeCount ~= nil and v56.badgeCount ~= 0 then v56.badgeCount else nil, 
+                onActivated = function() --[[ Line: 169 ]] --[[ Name: onActivated ]]
+                    -- upvalues: l_GetFFlagEnableNavigationPerformanceIntervals_0 (ref), v56 (copy), v34 (ref), v28 (ref), l_IntervalPerformanceTracker_0 (ref), v49 (ref), v35 (ref)
+                    if l_GetFFlagEnableNavigationPerformanceIntervals_0() and v56.page ~= nil then
+                        local v57 = v34 and v56.page == v28.AvatarExperienceRoot or nil;
+                        l_IntervalPerformanceTracker_0:startTracking(v49:getPerformanceTrackerIntervalName(v56.page), 2, nil, v35 or v57, v35 or v57);
                     end;
-                    return v46.props.onActivated(v53.page, v53.actionType);
+                    return v49.props.onActivated(v56.page, v56.actionType);
                 end
             });
         end);
     end);
     return {
-        items = v46.getAppNavBarItems(v46.props.items), 
+        items = v49.getAppNavBarItems(v49.props.items), 
         placement = l_navBarPlacement_0, 
-        position = v49, 
-        size = v50, 
-        systemBarLabelTextSizeBinding = v23, 
-        buildCreatorWebNavUrl = v24, 
-        selectedIndex = v46.props.selectedIndex, 
-        isVisible = v46.props.isVisible, 
+        position = v52, 
+        size = v53, 
+        systemBarLabelTextSizeBinding = v24, 
+        buildCreatorWebNavUrl = v25, 
+        selectedIndex = v49.props.selectedIndex, 
+        isVisible = v49.props.isVisible, 
         clipsDescendants = not l_isSpatial_0 and nil, 
-        showTooltip = v46.props.showTooltip
+        showTooltip = v49.props.showTooltip, 
+        leadingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v49.props.leadingComponent else nil, 
+        trailingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v49.props.trailingComponent else nil
     };
 end;
-v38.render = function(v55) --[[ Line: 199 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), l_FFlagLuaAppForceVrAppPanelWidthRollout_0 (copy), l_GetFFlagVRPanelWidthIXPEnabled_0 (copy), l_VRConstants_0 (copy), v1 (copy), l_VRReadyWrapper_0 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), v20 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy)
-    local l_layoutInfo_0 = v55.props.layoutInfo;
-    local l_navBarSize_1 = v55.props.navBarSize;
-    local v58 = l_layoutInfo_0 and l_layoutInfo_0.Background or {};
-    return l_withStyle_0(function(v59) --[[ Line: 203 ]]
-        -- upvalues: l_FFlagLuaAppForceVrAppPanelWidthRollout_0 (ref), v55 (copy), l_GetFFlagVRPanelWidthIXPEnabled_0 (ref), l_VRConstants_0 (ref), v1 (ref), l_VRReadyWrapper_0 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), v20 (ref), v58 (copy), l_navBarSize_1 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (ref)
-        local v60 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v55.props.xOffset then v55.props.xOffset else 0;
-        local v61 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v55.props.yOffset then v55.props.yOffset else 0;
-        local v62 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v55.props.zOffset then v55.props.zOffset else 0;
-        local v63 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and l_GetFFlagVRPanelWidthIXPEnabled_0() and v55.props.vrPanelWidthMultiplier then Vector3.new(l_VRConstants_0.AppSystemBarPosition.X * v55.props.vrPanelWidthMultiplier + v60, l_VRConstants_0.AppSystemBarPosition.Y + v61, l_VRConstants_0.AppSystemBarPosition.Z + v62) else l_VRConstants_0.AppSystemBarPosition;
-        local v64 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v55.props.heightModifier then Vector2.new(l_VRConstants_0.AppSystemBarResolution.X, l_VRConstants_0.AppSystemBarResolution.Y * v55.props.heightModifier) else l_VRConstants_0.AppSystemBarResolution;
-        local v65 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v55.props.heightModifier then Vector2.new(l_VRConstants_0.AppSystemBarSize.X, l_VRConstants_0.AppSystemBarSize.Y * v55.props.heightModifier) else l_VRConstants_0.AppSystemBarSize;
+v41.render = function(v58) --[[ Line: 208 ]] --[[ Name: render ]]
+    -- upvalues: l_withStyle_0 (copy), l_FFlagLuaAppForceVrAppPanelWidthRollout_0 (copy), l_GetFFlagVRPanelWidthIXPEnabled_0 (copy), l_VRConstants_0 (copy), v1 (copy), l_VRReadyWrapper_0 (copy), l_FocusNavigableSurfaceWrapper_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_FFlagAddGamepadBumperNavigation_0 (copy), v21 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (copy)
+    local l_layoutInfo_0 = v58.props.layoutInfo;
+    local l_navBarSize_1 = v58.props.navBarSize;
+    local v61 = l_layoutInfo_0 and l_layoutInfo_0.Background or {};
+    return l_withStyle_0(function(v62) --[[ Line: 212 ]]
+        -- upvalues: l_FFlagLuaAppForceVrAppPanelWidthRollout_0 (ref), v58 (copy), l_GetFFlagVRPanelWidthIXPEnabled_0 (ref), l_VRConstants_0 (ref), v1 (ref), l_VRReadyWrapper_0 (ref), l_FocusNavigableSurfaceWrapper_0 (ref), l_FocusNavigableSurfaceIdentifierEnum_0 (ref), l_FFlagAddGamepadBumperNavigation_0 (ref), v21 (ref), v61 (copy), l_navBarSize_1 (copy), l_GetFFlagLuaAppEnableTopBanner_0 (ref)
+        local v63 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v58.props.xOffset then v58.props.xOffset else 0;
+        local v64 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v58.props.yOffset then v58.props.yOffset else 0;
+        local v65 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v58.props.zOffset then v58.props.zOffset else 0;
+        local v66 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and l_GetFFlagVRPanelWidthIXPEnabled_0() and v58.props.vrPanelWidthMultiplier then Vector3.new(l_VRConstants_0.AppSystemBarPosition.X * v58.props.vrPanelWidthMultiplier + v63, l_VRConstants_0.AppSystemBarPosition.Y + v64, l_VRConstants_0.AppSystemBarPosition.Z + v65) else l_VRConstants_0.AppSystemBarPosition;
+        local v67 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v58.props.heightModifier then Vector2.new(l_VRConstants_0.AppSystemBarResolution.X, l_VRConstants_0.AppSystemBarResolution.Y * v58.props.heightModifier) else l_VRConstants_0.AppSystemBarResolution;
+        local v68 = if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and v58.props.heightModifier then Vector2.new(l_VRConstants_0.AppSystemBarSize.X, l_VRConstants_0.AppSystemBarSize.Y * v58.props.heightModifier) else l_VRConstants_0.AppSystemBarSize;
         return v1.createElement(l_VRReadyWrapper_0, {
             component = "Frame", 
             props = {
@@ -155,79 +164,95 @@ v38.render = function(v55) --[[ Line: 199 ]] --[[ Name: render ]]
                 ZIndex = 2
             }, 
             vrProps = {
-                partSize = v65, 
-                offset = if not not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 or l_GetFFlagVRPanelWidthIXPEnabled_0() and v55.props.vrPanelCurvature == 0 then CFrame.new(v63) * CFrame.fromEulerAnglesXYZ(0, -3.141592653589793, 0) else CFrame.lookAt(v63, l_VRConstants_0.DefaultCameraPosition, (Vector3.new(0, 1, 0, 0))), 
-                virtualScreenSize = v64, 
+                partSize = v68, 
+                offset = if not not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 or l_GetFFlagVRPanelWidthIXPEnabled_0() and v58.props.vrPanelCurvature == 0 then CFrame.new(v66) * CFrame.fromEulerAnglesXYZ(0, -3.141592653589793, 0) else CFrame.lookAt(v66, l_VRConstants_0.DefaultCameraPosition, (Vector3.new(0, 1, 0, 0))), 
+                virtualScreenSize = v67, 
                 panelName = "AppSystemBar", 
-                roundedCornersFrameColor = v59.Theme.NavigationBar.Color, 
-                hidden = not v55.props.isVisible
+                roundedCornersFrameColor = v62.Theme.NavigationBar.Color, 
+                hidden = not v58.props.isVisible
             }
         }, v1.createElement(l_FocusNavigableSurfaceWrapper_0, {
-            surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.NavBar
+            surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.NavBar, 
+            customEventMap = if l_FFlagAddGamepadBumperNavigation_0 then v58.props.customEventMap else nil, 
+            customEventHandlers = if l_FFlagAddGamepadBumperNavigation_0 then v58.props.customEventHandlers else nil
         }, {
-            Background = if v55.props.navBarPlacement == v20.Placement.Bottom then v1.createElement("Frame", {
-                AnchorPoint = v58.AnchorPoint, 
-                Position = v58.Position, 
-                Size = v58.Size, 
+            Background = if v58.props.navBarPlacement == v21.Placement.Bottom then v1.createElement("Frame", {
+                AnchorPoint = v61.AnchorPoint, 
+                Position = v61.Position, 
+                Size = v61.Size, 
                 BorderSizePixel = 0, 
-                BackgroundTransparency = v59.Theme.NavigationBar.Transparency, 
-                BackgroundColor3 = v59.Theme.NavigationBar.Color, 
+                BackgroundTransparency = v62.Theme.NavigationBar.Transparency, 
+                BackgroundColor3 = v62.Theme.NavigationBar.Color, 
                 Active = true, 
                 ZIndex = 0
             }) else nil, 
-            StatusBarBackground = if v55.props.navBarPlacement == v20.Placement.Left then v1.createElement("Frame", {
-                Position = UDim2.fromOffset(-l_navBarSize_1, if l_GetFFlagLuaAppEnableTopBanner_0() then -v55.props.globalGuiInset.top else 0), 
-                Size = UDim2.fromOffset(l_navBarSize_1, v55.props.statusBarHeight), 
-                BackgroundTransparency = v59.Theme.NavigationBar.Transparency, 
-                BackgroundColor3 = v59.Theme.NavigationBar.Color, 
+            StatusBarBackground = if v58.props.navBarPlacement == v21.Placement.Left then v1.createElement("Frame", {
+                Position = UDim2.fromOffset(-l_navBarSize_1, if l_GetFFlagLuaAppEnableTopBanner_0() then -v58.props.globalGuiInset.top else 0), 
+                Size = UDim2.fromOffset(l_navBarSize_1, v58.props.statusBarHeight), 
+                BackgroundTransparency = v62.Theme.NavigationBar.Transparency, 
+                BackgroundColor3 = v62.Theme.NavigationBar.Color, 
                 BorderSizePixel = 0
             }) else nil, 
-            RealSystemBar = v1.createElement(v20.AppNavBar, v55:getAppNavBarProps())
+            RealSystemBar = v1.createElement(v21.AppNavBar, v58:getAppNavBarProps())
         }));
     end);
 end;
 if l_game_EngineFeature_0 then
-    v38 = v6.connect(function(v66, _) --[[ Line: 295 ]]
-        -- upvalues: v28 (copy)
-        local v68 = {};
-        local v69 = v66.Navigation.history[#v66.Navigation.history];
-        local v70 = v28[v69[#v69].name];
-        v68.showTooltip = not (v70 and v70.webView == true);
-        return v68;
-    end)(v38);
+    v41 = v7.connect(function(v69, _) --[[ Line: 306 ]]
+        -- upvalues: v29 (copy)
+        local v71 = {};
+        local v72 = v69.Navigation.history[#v69.Navigation.history];
+        local v73 = v29[v72[#v72].name];
+        v71.showTooltip = not (v73 and v73.webView == true);
+        return v71;
+    end)(v41);
 end;
 if not l_FFlagLuaAppForceVrAppPanelWidthRollout_0 and l_GetFFlagVRPanelWidthIXPEnabled_0() then
-    v38 = v14.connectTestVariables({
+    v41 = v15.connectTestVariables({
         vrPanelWidthMultiplier = l_VRPanelWidthIXP_0.VrAppPanelWidthMultiplier, 
         vrPanelCurvature = l_VRPanelWidthIXP_0.VrAppPanelCurvature, 
         xOffset = l_VRPanelWidthIXP_0.VrSystemBarXOffSet, 
         yOffset = l_VRPanelWidthIXP_0.VrSystemBarYOffSet, 
         zOffset = l_VRPanelWidthIXP_0.VrSystemBarZOffSet, 
         heightModifier = l_VRPanelWidthIXP_0.SystemBarHeightMultiplier
-    })(v38);
+    })(v41);
 end;
 if l_GetFFlagLuaAppEnableTopBanner_0() then
-    v38 = v6.connect(function(v71, _) --[[ Line: 314 ]]
+    v41 = v7.connect(function(v74, _) --[[ Line: 325 ]]
         return {
-            globalGuiInset = v71.GlobalGuiInset
+            globalGuiInset = v74.GlobalGuiInset
         };
-    end, function(_) --[[ Line: 318 ]]
+    end, function(_) --[[ Line: 329 ]]
         return {};
-    end)(v38);
+    end)(v41);
 end;
-return function(v74) --[[ Line: 323 ]]
-    -- upvalues: l_useIsSpatial_0 (copy), l_useNavBarPlacement_0 (copy), l_useNavBarSize_0 (copy), l_useSelector_0 (copy), v2 (copy), v1 (copy), v38 (ref)
-    local v75 = l_useIsSpatial_0();
-    local v76 = l_useNavBarPlacement_0();
-    local v77 = l_useNavBarSize_0();
-    local v79 = l_useSelector_0(function(v78) --[[ Line: 327 ]]
-        return v78.TopBar.statusBarHeight;
+return function(v77) --[[ Line: 334 ]]
+    -- upvalues: l_useIsSpatial_0 (copy), l_useNavBarPlacement_0 (copy), l_useNavBarSize_0 (copy), l_useSelector_0 (copy), l_FFlagAddGamepadBumperNavigation_0 (copy), v2 (copy), l_BumperHint_0 (copy), v3 (copy), v1 (copy), v41 (ref)
+    local v78 = l_useIsSpatial_0();
+    local v79 = l_useNavBarPlacement_0();
+    local v80 = l_useNavBarSize_0();
+    local v82 = l_useSelector_0(function(v81) --[[ Line: 338 ]]
+        return v81.TopBar.statusBarHeight;
     end);
-    local v80 = v2.Dictionary.join(v74, {
-        isSpatial = v75, 
-        navBarPlacement = v76, 
-        navBarSize = v77, 
-        statusBarHeight = v79
+    local v83 = nil;
+    local v84 = nil;
+    if l_FFlagAddGamepadBumperNavigation_0 then
+        v83 = v2.createElement(l_BumperHint_0, {
+            isLeftBumper = true, 
+            squareSize = v80
+        });
+        v84 = v2.createElement(l_BumperHint_0, {
+            isRightBumper = true, 
+            squareSize = v80
+        });
+    end;
+    local v85 = v3.Dictionary.join(v77, {
+        isSpatial = v78, 
+        navBarPlacement = v79, 
+        navBarSize = v80, 
+        statusBarHeight = v82, 
+        leadingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v83 else nil, 
+        trailingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v84 else nil
     });
-    return v1.createElement(v38, v80);
+    return v1.createElement(v41, v85);
 end;

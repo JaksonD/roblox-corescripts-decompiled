@@ -18,7 +18,7 @@ local v16 = require(l_script_FirstAncestor_0.Models.Conversation);
 local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableMessageAuthorPresence);
 local v18 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatAvatarPresenceIxpEnabled);
 local v19 = require(l_script_FirstAncestor_0.Flags.FStringAppChatAvatarPresenceIxpLayer);
-return function(v20) --[[ Line: 35 ]] --[[ Name: CardContainer ]]
+return function(v20) --[[ Line: 36 ]] --[[ Name: CardContainer ]]
     -- upvalues: l_useLocalUserId_0 (copy), l_useTokens_0 (copy), v7 (copy), l_useChatPlacementContext_0 (copy), v14 (copy), v15 (copy), v16 (copy), v4 (copy), v18 (copy), l_IXPService_0 (copy), v19 (copy), v3 (copy), l_UserTile_0 (copy), l_LayoutMode_0 (copy), v17 (copy), l_UserPresence_0 (copy), l_Cards_0 (copy)
     local v21 = l_useLocalUserId_0();
     local v22 = tostring(v21) == v20.senderTargetId;
@@ -28,13 +28,13 @@ return function(v20) --[[ Line: 35 ]] --[[ Name: CardContainer ]]
     local v26 = v14(v20.senderTargetId or "");
     local v27 = v15(v20.conversationId or "");
     local v28 = v27 and v27.conversationType == v16.Type.MULTI_USER_CONVERSATION;
-    v4.useEffect(function() --[[ Line: 46 ]]
+    v4.useEffect(function() --[[ Line: 47 ]]
         -- upvalues: v18 (ref), l_IXPService_0 (ref), v19 (ref)
         if v18 then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(v19);
         end;
     end, {});
-    local v29 = v4.useMemo(function() --[[ Line: 52 ]]
+    local v29 = v4.useMemo(function() --[[ Line: 53 ]]
         -- upvalues: v23 (copy)
         return Vector2.new(v23.Size.Size_700, v23.Size.Size_700);
     end, {
@@ -46,6 +46,7 @@ return function(v20) --[[ Line: 35 ]] --[[ Name: CardContainer ]]
     return v4.createElement(v3.View, {
         AutomaticSize = Enum.AutomaticSize.Y, 
         Size = UDim2.fromScale(1, 0), 
+        testId = v20.testId, 
         layout = {
             FillDirection = Enum.FillDirection.Horizontal, 
             HorizontalAlignment = v31, 

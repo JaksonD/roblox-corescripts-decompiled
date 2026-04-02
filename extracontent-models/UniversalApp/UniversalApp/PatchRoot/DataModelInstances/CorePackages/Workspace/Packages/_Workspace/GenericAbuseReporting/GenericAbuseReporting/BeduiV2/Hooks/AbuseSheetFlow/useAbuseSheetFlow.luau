@@ -21,331 +21,332 @@ local l_selectContext_0 = v12.selectContext;
 local l_selectFormData_0 = v12.selectFormData;
 local l_sendAnalyticsEvent_0 = v9.sendAnalyticsEvent;
 local l_TelemetryEventType_0 = v9.TelemetryEventType;
+local l_FFlagAbuseReportMenuV2_0 = require(l_Parent_0.SharedFlags).FFlagAbuseReportMenuV2;
 local l_FFlagFixAnalyticsForDynamicReportV2_0 = require(l_Parent_0.SharedFlags).FFlagFixAnalyticsForDynamicReportV2;
-local function v33(v24, v25, v26) --[[ Line: 46 ]] --[[ Name: useAbuseSheetAnalytics ]]
+local function v34(v25, v26, v27) --[[ Line: 47 ]] --[[ Name: useAbuseSheetAnalytics ]]
     -- upvalues: v3 (copy), v2 (copy), l_sendAnalyticsEvent_0 (copy)
-    return (v3.useCallback(function(v27) --[[ Line: 47 ]]
-        -- upvalues: v24 (copy), v2 (ref), v25 (copy), v26 (copy), l_sendAnalyticsEvent_0 (ref)
+    return (v3.useCallback(function(v28) --[[ Line: 48 ]]
+        -- upvalues: v25 (copy), v2 (ref), v26 (copy), v27 (copy), l_sendAnalyticsEvent_0 (ref)
         local l_UnixTimestampMillis_0 = DateTime.now().UnixTimestampMillis;
-        local v29 = if v24.openTime then l_UnixTimestampMillis_0 - v24.openTime else 0;
-        local v31 = v2.map(v24.stack, function(v30) --[[ Line: 50 ]]
-            return v30.nodeId;
+        local v30 = if v25.openTime then l_UnixTimestampMillis_0 - v25.openTime else 0;
+        local v32 = v2.map(v25.stack, function(v31) --[[ Line: 51 ]]
+            return v31.nodeId;
         end);
-        local v32 = {
-            run_id = v24.runId, 
-            user_id = v24.userId, 
-            abuse_vector = v25, 
-            target_id = v26, 
-            total_duration = v29, 
-            path = v31
+        local v33 = {
+            run_id = v25.runId, 
+            user_id = v25.userId, 
+            abuse_vector = v26, 
+            target_id = v27, 
+            total_duration = v30, 
+            path = v32
         };
-        l_sendAnalyticsEvent_0(v32, v27);
+        l_sendAnalyticsEvent_0(v33, v28);
     end, {
-        v24.stack, 
-        v24.openTime, 
-        v24.runId, 
-        v25, 
-        v26
+        v25.stack, 
+        v25.openTime, 
+        v25.runId, 
+        v26, 
+        v27
     }));
 end;
-return function(v34, v35) --[[ Line: 82 ]] --[[ Name: useAbuseSheetFlow ]]
-    -- upvalues: v3 (copy), l_reducer_0 (copy), l_getInitialState_0 (copy), l_getNewRunId_0 (copy), v16 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), v33 (copy), l_selectContext_0 (copy), l_selectFormData_0 (copy), l_resolveArConfig_0 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (copy), l_TelemetryEventType_0 (copy), v2 (copy), v14 (copy), v10 (copy)
+return function(v35, v36) --[[ Line: 83 ]] --[[ Name: useAbuseSheetFlow ]]
+    -- upvalues: v3 (copy), l_reducer_0 (copy), l_getInitialState_0 (copy), l_getNewRunId_0 (copy), v16 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), v34 (copy), l_selectContext_0 (copy), l_selectFormData_0 (copy), l_resolveArConfig_0 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (copy), l_TelemetryEventType_0 (copy), v2 (copy), v14 (copy), v10 (copy), l_FFlagAbuseReportMenuV2_0 (copy)
     local l_UnixTimestampMillis_1 = DateTime.now().UnixTimestampMillis;
-    local v37, v38 = v3.useReducer(l_reducer_0, l_getInitialState_0(l_getNewRunId_0(), l_UnixTimestampMillis_1));
-    local v39 = v16();
-    local v40 = l_useRoactService_0(l_RoactNetworking_0);
-    local v41 = v33(v37, v35.abuseVector, v35.targetId);
-    local v42 = v3.useMemo(function() --[[ Line: 99 ]]
-        -- upvalues: l_selectContext_0 (ref), v37 (copy)
-        return l_selectContext_0(v37);
+    local v38, v39 = v3.useReducer(l_reducer_0, l_getInitialState_0(l_getNewRunId_0(), l_UnixTimestampMillis_1));
+    local v40 = v16();
+    local v41 = l_useRoactService_0(l_RoactNetworking_0);
+    local v42 = v34(v38, v36.abuseVector, v36.targetId);
+    local v43 = v3.useMemo(function() --[[ Line: 100 ]]
+        -- upvalues: l_selectContext_0 (ref), v38 (copy)
+        return l_selectContext_0(v38);
     end, {
-        v37
+        v38
     });
-    local v43 = v3.useMemo(function() --[[ Line: 103 ]]
-        -- upvalues: l_selectFormData_0 (ref), v37 (copy)
-        return l_selectFormData_0(v37);
+    local v44 = v3.useMemo(function() --[[ Line: 104 ]]
+        -- upvalues: l_selectFormData_0 (ref), v38 (copy)
+        return l_selectFormData_0(v38);
     end, {
-        v37
+        v38
     });
-    local v44 = v3.useMemo(function() --[[ Line: 107 ]]
-        -- upvalues: v34 (copy), l_resolveArConfig_0 (ref), v42 (copy), v43 (copy)
-        if not v34 then
+    local v45 = v3.useMemo(function() --[[ Line: 108 ]]
+        -- upvalues: v35 (copy), l_resolveArConfig_0 (ref), v43 (copy), v44 (copy)
+        if not v35 then
             return nil;
         else
-            return l_resolveArConfig_0(v34, {
-                attribute = v34.attributes, 
-                resources = v34.resources or {}, 
-                context = v42, 
-                formData = v43
+            return l_resolveArConfig_0(v35, {
+                attribute = v35.attributes, 
+                resources = v35.resources or {}, 
+                context = v43, 
+                formData = v44
             });
         end;
     end, {
-        v34, 
-        v42, 
-        v43
+        v35, 
+        v43, 
+        v44
     });
-    local v45 = v3.useRef(true);
-    local v46 = v3.useRef(false);
-    v3.useEffect(function() --[[ Line: 122 ]]
-        -- upvalues: v35 (copy), v45 (copy), l_getNewRunId_0 (ref), v38 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v46 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
-        if v35.open and not v45.current then
-            local v47 = l_getNewRunId_0();
+    local v46 = v3.useRef(true);
+    local v47 = v3.useRef(false);
+    v3.useEffect(function() --[[ Line: 123 ]]
+        -- upvalues: v36 (copy), v46 (copy), l_getNewRunId_0 (ref), v39 (copy), l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v47 (copy), v42 (copy), l_TelemetryEventType_0 (ref)
+        if v36.open and not v46.current then
+            local v48 = l_getNewRunId_0();
             local l_UnixTimestampMillis_2 = DateTime.now().UnixTimestampMillis;
-            v38({
+            v39({
                 type = "reset", 
                 payload = {
-                    runId = v47, 
+                    runId = v48, 
                     initialEnterTime = l_UnixTimestampMillis_2
                 }
             });
             if l_FFlagFixAnalyticsForDynamicReportV2_0 then
-                v46.current = false;
+                v47.current = false;
             end;
         end;
-        v45.current = false;
-        if v35.open then
-            v41({
+        v46.current = false;
+        if v36.open then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.OpenDialog
             });
         end;
     end, {
-        v35.open
+        v36.open
     });
-    local v49 = v2.last(v37.stack);
-    local v50 = v44 and v44.nodes and v49 and v44.nodes[v49.nodeId];
+    local v50 = v2.last(v38.stack);
+    local v51 = v45 and v45.nodes and v50 and v45.nodes[v50.nodeId];
     if not l_FFlagFixAnalyticsForDynamicReportV2_0 then
-        if not v49 then
-            v41({
+        if not v50 then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "No current page found in abuse sheet flow."
                 }
             });
-        elseif not v49.nodeId then
-            v41({
+        elseif not v50.nodeId then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "Current page has no nodeId in abuse sheet flow."
                 }
             });
         end;
-        if not v44 or not v44.nodes then
-            v41({
+        if not v45 or not v45.nodes then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "Abuse sheet flow config or nodes is nil."
                 }
             });
         end;
-        if not v50 then
-            v41({
+        if not v51 then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
-                    error_message = ("No config found for current nodeId: %*"):format(v49 and v49.nodeId)
+                    error_message = ("No config found for current nodeId: %*"):format(v50 and v50.nodeId)
                 }
             });
         end;
     end;
-    v3.useEffect(function() --[[ Line: 171 ]]
-        -- upvalues: l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v35 (copy), v46 (copy), v34 (copy), v49 (copy), v41 (copy), l_TelemetryEventType_0 (ref), v44 (copy), v50 (copy)
-        if not l_FFlagFixAnalyticsForDynamicReportV2_0 or not v35.open or v46.current then
+    v3.useEffect(function() --[[ Line: 172 ]]
+        -- upvalues: l_FFlagFixAnalyticsForDynamicReportV2_0 (ref), v36 (copy), v47 (copy), v35 (copy), v50 (copy), v42 (copy), l_TelemetryEventType_0 (ref), v45 (copy), v51 (copy)
+        if not l_FFlagFixAnalyticsForDynamicReportV2_0 or not v36.open or v47.current then
             return;
-        elseif not v34 then
+        elseif not v35 then
             return;
-        elseif not v49 then
-            v41({
+        elseif not v50 then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "No current page found in abuse sheet flow."
                 }
             });
-            v46.current = true;
+            v47.current = true;
             return;
-        elseif not v49.nodeId then
-            v41({
+        elseif not v50.nodeId then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "Current page has no nodeId in abuse sheet flow."
                 }
             });
-            v46.current = true;
+            v47.current = true;
             return;
-        elseif not v44 or not v44.nodes then
-            v41({
+        elseif not v45 or not v45.nodes then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Error, 
                 error_detail = {
                     error_message = "Abuse sheet flow config or nodes is nil."
                 }
             });
-            v46.current = true;
+            v47.current = true;
             return;
         else
-            if not v50 then
-                v41({
+            if not v51 then
+                v42({
                     sub_event_type = l_TelemetryEventType_0.Error, 
                     error_detail = {
-                        error_message = ("No config found for current nodeId: %*"):format(v49.nodeId)
+                        error_message = ("No config found for current nodeId: %*"):format(v50.nodeId)
                     }
                 });
-                v46.current = true;
+                v47.current = true;
             end;
             return;
         end;
     end, {
-        v35.open, 
-        v34, 
-        v44, 
-        v49, 
+        v36.open, 
+        v35, 
+        v45, 
         v50, 
-        v41
+        v51, 
+        v42
     });
-    local function v51() --[[ Line: 208 ]] --[[ Name: handleClose ]]
-        -- upvalues: v35 (copy), v37 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
-        v35.onClose();
-        if v37.submissionState ~= "completed" and v37.openTime ~= nil then
-            v41({
+    local function v52() --[[ Line: 209 ]] --[[ Name: handleClose ]]
+        -- upvalues: v36 (copy), v38 (copy), v42 (copy), l_TelemetryEventType_0 (ref)
+        v36.onClose();
+        if v38.submissionState ~= "completed" and v38.openTime ~= nil then
+            v42({
                 sub_event_type = l_TelemetryEventType_0.EarlyClose
             });
             return;
         else
-            v41({
+            v42({
                 sub_event_type = l_TelemetryEventType_0.Close
             });
             return;
         end;
     end;
-    v3.useEffect(function() --[[ Line: 226 ]]
-        -- upvalues: v44 (copy), v50 (copy), v37 (copy), v2 (ref), v35 (copy), v38 (copy), v39 (copy), v51 (copy), v14 (ref), v40 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
-        if not v44 or not v50 then
+    v3.useEffect(function() --[[ Line: 227 ]]
+        -- upvalues: v45 (copy), v51 (copy), v38 (copy), v2 (ref), v36 (copy), v39 (copy), v40 (copy), v52 (copy), v14 (ref), v41 (copy), v42 (copy), l_TelemetryEventType_0 (ref)
+        if not v45 or not v51 then
             return;
-        elseif v37.navigationState ~= "gotoNext" then
+        elseif v38.navigationState ~= "gotoNext" then
             return;
         else
-            local v52 = v2.last(v37.stack);
-            if not v52 or not v52.nodeId then
+            local v53 = v2.last(v38.stack);
+            if not v53 or not v53.nodeId then
                 warn("Navigation triggered but current page or nodeId is invalid");
                 return;
-            elseif not v44.nodes[v52.nodeId] then
-                warn((("Navigation triggered but no config found for nodeId: %*"):format(v52.nodeId)));
+            elseif not v45.nodes[v53.nodeId] then
+                warn((("Navigation triggered but no config found for nodeId: %*"):format(v53.nodeId)));
                 return;
             else
-                local function v55(v53) --[[ Line: 248 ]] --[[ Name: handleNextSimple ]]
-                    -- upvalues: v35 (ref), v38 (ref), v39 (ref), v51 (ref)
-                    if not v53 then
+                local function v56(v54) --[[ Line: 249 ]] --[[ Name: handleNextSimple ]]
+                    -- upvalues: v36 (ref), v39 (ref), v40 (ref), v52 (ref)
+                    if not v54 then
                         warn("handleNextSimple called with nil next value");
-                        v35.onClose();
+                        v36.onClose();
                         return;
                     else
                         local l_UnixTimestampMillis_3 = DateTime.now().UnixTimestampMillis;
-                        if type(v53) == "string" then
-                            v38({
+                        if type(v54) == "string" then
+                            v39({
                                 type = "gotoNode", 
                                 payload = {
-                                    nodeId = v53, 
+                                    nodeId = v54, 
                                     enterTime = l_UnixTimestampMillis_3
                                 }
                             });
                             return;
-                        elseif type(v53) == "table" and v53.type == "goto" then
-                            v38({
+                        elseif type(v54) == "table" and v54.type == "goto" then
+                            v39({
                                 type = "gotoNode", 
                                 payload = {
-                                    nodeId = v53.nodeId, 
+                                    nodeId = v54.nodeId, 
                                     enterTime = l_UnixTimestampMillis_3
                                 }
                             });
                             return;
-                        elseif type(v53) == "table" and v53.type == "link" then
-                            v39("", v53.href);
-                            v51();
+                        elseif type(v54) == "table" and v54.type == "link" then
+                            v40("", v54.href);
+                            v52();
                             return;
-                        elseif type(v53) == "table" and v53.type == "close" then
-                            v51();
+                        elseif type(v54) == "table" and v54.type == "close" then
+                            v52();
                             return;
                         else
-                            warn((("Unknown next type: %*, value: %*"):format(typeof(v53), v53)));
-                            v51();
+                            warn((("Unknown next type: %*, value: %*"):format(typeof(v54), v54)));
+                            v52();
                             return;
                         end;
                     end;
                 end;
-                local function _() --[[ Line: 284 ]] --[[ Name: onSubmitForm ]]
-                    -- upvalues: v44 (ref), v14 (ref), v40 (ref)
-                    local l_submission_0 = v44.submission;
-                    return v14(v40, l_submission_0.endpoint, l_submission_0.data);
+                local function _() --[[ Line: 285 ]] --[[ Name: onSubmitForm ]]
+                    -- upvalues: v45 (ref), v14 (ref), v41 (ref)
+                    local l_submission_0 = v45.submission;
+                    return v14(v41, l_submission_0.endpoint, l_submission_0.data);
                 end;
-                local l_next_0 = v50.next;
+                local l_next_0 = v51.next;
                 if not l_next_0 then
                     warn("currentNode.next is nil, closing");
-                    v35.onClose();
+                    v36.onClose();
                     return;
                 elseif type(l_next_0) == "table" and l_next_0.type == "submitForm" then
                     local l_UnixTimestampMillis_4 = DateTime.now().UnixTimestampMillis;
-                    v41({
+                    v42({
                         sub_event_type = l_TelemetryEventType_0.Submit
                     });
-                    v38({
+                    v39({
                         type = "startedSubmission"
                     });
-                    local l_submission_1 = v44.submission;
-                    v14(v40, l_submission_1.endpoint, l_submission_1.data):andThen(function(v61) --[[ Line: 299 ]]
-                        -- upvalues: v38 (ref), v41 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), v55 (copy), l_next_0 (copy)
-                        v38({
+                    local l_submission_1 = v45.submission;
+                    v14(v41, l_submission_1.endpoint, l_submission_1.data):andThen(function(v62) --[[ Line: 300 ]]
+                        -- upvalues: v39 (ref), v42 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), v56 (copy), l_next_0 (copy)
+                        v39({
                             type = "completedSubmission"
                         });
-                        v41({
+                        v42({
                             sub_event_type = l_TelemetryEventType_0.SubmitSuccess, 
                             submit_detail = {
-                                report_id = v61.responseBody and v61.responseBody.reportId, 
+                                report_id = v62.responseBody and v62.responseBody.reportId, 
                                 submit_api_duration = DateTime.now().UnixTimestampMillis - l_UnixTimestampMillis_4
                             }
                         });
-                        v55(l_next_0.onSuccess);
-                    end):catch(function() --[[ Line: 310 ]]
-                        -- upvalues: v38 (ref), v41 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), l_next_0 (copy), v55 (copy)
-                        v38({
+                        v56(l_next_0.onSuccess);
+                    end):catch(function() --[[ Line: 311 ]]
+                        -- upvalues: v39 (ref), v42 (ref), l_TelemetryEventType_0 (ref), l_UnixTimestampMillis_4 (copy), l_next_0 (copy), v56 (copy)
+                        v39({
                             type = "submissionFailed"
                         });
-                        v41({
+                        v42({
                             sub_event_type = l_TelemetryEventType_0.SubmitFail, 
                             submit_detail = {
                                 submit_api_duration = DateTime.now().UnixTimestampMillis - l_UnixTimestampMillis_4
                             }
                         });
                         if l_next_0.onFailure then
-                            v55(l_next_0.onFailure);
+                            v56(l_next_0.onFailure);
                         end;
                     end);
                     return;
                 else
-                    v55(l_next_0);
+                    v56(l_next_0);
                     return;
                 end;
             end;
         end;
     end, {
-        v37.navigationState
+        v38.navigationState
     });
-    local v62 = false;
-    if #v37.stack > 1 then
-        v62 = not (v37.submissionState == "completed");
+    local v63 = false;
+    if #v38.stack > 1 then
+        v63 = not (v38.submissionState == "completed");
     end;
-    local function v64() --[[ Line: 326 ]] --[[ Name: goBack ]]
-        -- upvalues: v44 (copy), v50 (copy), v49 (copy), v62 (copy), v38 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
-        if not v44 or not v50 or not v49 then
+    local function v65() --[[ Line: 327 ]] --[[ Name: goBack ]]
+        -- upvalues: v45 (copy), v51 (copy), v50 (copy), v63 (copy), v39 (copy), v42 (copy), l_TelemetryEventType_0 (ref)
+        if not v45 or not v51 or not v50 then
             return;
         else
             local l_UnixTimestampMillis_5 = DateTime.now().UnixTimestampMillis;
-            if v62 then
-                v38({
+            if v63 then
+                v39({
                     type = "goBack"
                 });
-                v41({
+                v42({
                     sub_event_type = l_TelemetryEventType_0.NodeDone, 
                     node_done_detail = {
-                        node_id = v49.nodeId, 
-                        node_type = v50.type, 
-                        node_duration = l_UnixTimestampMillis_5 - v49.enterTime, 
+                        node_id = v50.nodeId, 
+                        node_type = v51.type, 
+                        node_duration = l_UnixTimestampMillis_5 - v50.enterTime, 
                         node_exit_reason = "back"
                     }
                 });
@@ -353,58 +354,59 @@ return function(v34, v35) --[[ Line: 82 ]] --[[ Name: useAbuseSheetFlow ]]
             return;
         end;
     end;
-    local v65 = v50 and v50.next ~= nil;
-    local function v68(v66) --[[ Line: 346 ]] --[[ Name: onNext ]]
-        -- upvalues: v44 (copy), v50 (copy), v49 (copy), v38 (copy), v41 (copy), l_TelemetryEventType_0 (ref)
-        if not v44 or not v50 or not v49 then
+    local v66 = v51 and v51.next ~= nil;
+    local function v69(v67) --[[ Line: 347 ]] --[[ Name: onNext ]]
+        -- upvalues: v45 (copy), v51 (copy), v50 (copy), v39 (copy), v42 (copy), l_TelemetryEventType_0 (ref)
+        if not v45 or not v51 or not v50 then
             return;
         else
             local l_UnixTimestampMillis_6 = DateTime.now().UnixTimestampMillis;
-            v38({
+            v39({
                 type = "updateDataAndNavigateNext", 
                 payload = {
-                    data = if v66 and v66.data then v66.data else {}, 
-                    context = if v66 and v66.context then v66.context else {}
+                    data = if v67 and v67.data then v67.data else {}, 
+                    context = if v67 and v67.context then v67.context else {}
                 }
             });
-            v41({
+            v42({
                 sub_event_type = l_TelemetryEventType_0.NodeDone, 
                 node_done_detail = {
-                    node_id = v49.nodeId, 
-                    node_type = v50.type, 
-                    node_duration = l_UnixTimestampMillis_6 - v49.enterTime, 
+                    node_id = v50.nodeId, 
+                    node_type = v51.type, 
+                    node_duration = l_UnixTimestampMillis_6 - v50.enterTime, 
                     node_exit_reason = "next"
                 }
             });
             return;
         end;
     end;
-    local v69 = v3.useMemo(function() --[[ Line: 369 ]]
-        -- upvalues: v41 (copy)
+    local v70 = v3.useMemo(function() --[[ Line: 370 ]]
+        -- upvalues: v42 (copy)
         return {
-            sendEvent = v41
+            sendEvent = v42
         };
     end, {
-        v41
+        v42
     });
-    if not v44 or not v50 or not v49 then
+    if not v45 or not v51 or not v50 then
         return nil;
     else
         return {
-            config = v44, 
-            canGoBack = v62, 
-            goBack = v64, 
-            isSubmitting = v37.submissionState == "submitting", 
-            display = v44.display, 
-            onClose = v51, 
+            config = v45, 
+            canGoBack = v63, 
+            goBack = v65, 
+            isSubmitting = v38.submissionState == "submitting", 
+            display = v45.display, 
+            onClose = v52, 
             currentPageElement = v3.createElement(v10, {
-                key = v49.nodeId, 
-                node = v50, 
-                onNext = if v65 then v68 else nil, 
-                data = v43, 
-                isSubmitting = v37.submissionState == "submitting"
+                key = v50.nodeId, 
+                node = v51, 
+                onNext = if v66 then v69 else nil, 
+                goBack = if l_FFlagAbuseReportMenuV2_0 then v65 else nil, 
+                data = v44, 
+                isSubmitting = v38.submissionState == "submitting"
             }), 
-            analytics = v69
+            analytics = v70
         };
     end;
 end;

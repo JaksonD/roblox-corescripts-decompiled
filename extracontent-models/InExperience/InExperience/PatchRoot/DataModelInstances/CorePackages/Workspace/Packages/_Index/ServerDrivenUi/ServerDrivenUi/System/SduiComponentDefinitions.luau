@@ -44,12 +44,13 @@ local l_FFlagSduiExperienceDetailsSocialProof_0 = require(l_Parent_0.SharedFlags
 local l_FFlagSduiChipAccessoryProps_0 = require(l_Parent_0.SharedFlags).FFlagSduiChipAccessoryProps;
 local l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 = require(l_Parent_0.SharedFlags).FFlagAddItemHeightModeToSduiCollectionCarousel;
 local l_FFlagSduiOverflowMenuComponent_0 = require(l_Parent_0.SharedFlags).FFlagSduiOverflowMenuComponent;
-local v46 = {};
+local l_FFlagSduiImpressionHandlerRegistry_0 = require(l_Parent_0.SharedFlags).FFlagSduiImpressionHandlerRegistry;
 local v47 = {};
-v47.__index = v47;
-v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), l_parseVector2Prop__0 (copy), l_getEngineEnumParser_0 (copy), l_parseColor3Prop__0 (copy), l_parseNumberProp__0 (copy), l_parseIntegerProp__0 (copy), l_parseUDim2Prop__0 (copy), v2 (copy), l_parseBooleanProp__0 (copy), l_parseStringProp__0 (copy), l_SduiComponentType_0 (copy), l_Parent_0 (copy), l_FFlagSduiAttributionRowV2_0 (copy), l_parseCallbackProp__0 (copy), l_parseUiComponentProp__0 (copy), l_parseTypographyTokenProp__0 (copy), l_parseColorTokenProp__0 (copy), l_getLuaTableEnumParser_0 (copy), v4 (copy), l_parseImageStringProp__0 (copy), v5 (copy), l_parseIconProp__0 (copy), l_parseUDimProp__0 (copy), l_script_FirstAncestor_0 (copy), l_CollectionItemSize_0 (copy), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (copy), v7 (copy), l_getArrayMetatableParser_0 (copy), l_parseLazyUiComponentProp__0 (copy), l_parseFocusNavActionsProp__0 (copy), v3 (copy), l_parseGradientProp__0 (copy), l_FFlagSduiPropMapping_0 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (copy), l_parseImageSetOrImageProp__0 (copy), l_FFlagSduiTileDisableLegacyHover_0 (copy), l_FFlagSduiEnableHeroUnitBottomRow_0 (copy), l_FFlagSduiEnableChips_0 (copy), l_FFlagSduiChipAccessoryProps_0 (copy), l_FFlagSduiEnableAssociatedItemsRow_0 (copy), l_FFlagLuaAppSduiExperienceDetailsComponents_0 (copy), l_FFlagSduiExperienceDetailsSocialProof_0 (copy), l_FFlagSduiExperienceDetailsSupport_0 (copy), l_FFlagSduiOverflowMenuComponent_0 (copy), v47 (copy)
-    local v48 = if l_FFlagSduiServerCompat_0 then {
+local v48 = {};
+v48.__index = v48;
+v48.new = function() --[[ Line: 76 ]] --[[ Name: new ]]
+    -- upvalues: l_FFlagSduiServerCompat_0 (copy), l_parseVector2Prop__0 (copy), l_getEngineEnumParser_0 (copy), l_parseColor3Prop__0 (copy), l_parseNumberProp__0 (copy), l_parseIntegerProp__0 (copy), l_parseUDim2Prop__0 (copy), v2 (copy), l_parseBooleanProp__0 (copy), l_parseStringProp__0 (copy), l_SduiComponentType_0 (copy), l_Parent_0 (copy), l_FFlagSduiAttributionRowV2_0 (copy), l_parseCallbackProp__0 (copy), l_parseUiComponentProp__0 (copy), l_parseTypographyTokenProp__0 (copy), l_parseColorTokenProp__0 (copy), l_getLuaTableEnumParser_0 (copy), v4 (copy), l_parseImageStringProp__0 (copy), v5 (copy), l_parseIconProp__0 (copy), l_parseUDimProp__0 (copy), l_script_FirstAncestor_0 (copy), l_CollectionItemSize_0 (copy), l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 (copy), v7 (copy), l_getArrayMetatableParser_0 (copy), l_parseLazyUiComponentProp__0 (copy), l_FFlagSduiImpressionHandlerRegistry_0 (copy), l_parseFocusNavActionsProp__0 (copy), v3 (copy), l_parseGradientProp__0 (copy), l_FFlagSduiPropMapping_0 (copy), l_FFlagLuaAppSduiBadgeDetailsComponents_0 (copy), l_parseImageSetOrImageProp__0 (copy), l_FFlagSduiTileDisableLegacyHover_0 (copy), l_FFlagSduiEnableHeroUnitBottomRow_0 (copy), l_FFlagSduiEnableChips_0 (copy), l_FFlagSduiChipAccessoryProps_0 (copy), l_FFlagSduiEnableAssociatedItemsRow_0 (copy), l_FFlagLuaAppSduiExperienceDetailsComponents_0 (copy), l_FFlagSduiExperienceDetailsSocialProof_0 (copy), l_FFlagSduiExperienceDetailsSupport_0 (copy), l_FFlagSduiOverflowMenuComponent_0 (copy), v48 (copy)
+    local v49 = if l_FFlagSduiServerCompat_0 then {
         anchorPoint = l_parseVector2Prop__0, 
         automaticSize = l_getEngineEnumParser_0(Enum.AutomaticSize), 
         backgroundColor3 = l_parseColor3Prop__0, 
@@ -68,22 +69,22 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         Size = l_parseUDim2Prop__0, 
         ZIndex = l_parseNumberProp__0
     };
-    local v49 = if l_FFlagSduiServerCompat_0 then v2.Dictionary.union({
+    local v50 = if l_FFlagSduiServerCompat_0 then v2.Dictionary.union({
         richText = l_parseBooleanProp__0, 
         text = l_parseStringProp__0, 
         textTruncate = l_getEngineEnumParser_0(Enum.TextTruncate), 
         textWrapped = l_parseBooleanProp__0, 
         textXAlignment = l_getEngineEnumParser_0(Enum.TextXAlignment), 
         textYAlignment = l_getEngineEnumParser_0(Enum.TextYAlignment)
-    }, v48) else v2.Dictionary.union({
+    }, v49) else v2.Dictionary.union({
         RichText = l_parseBooleanProp__0, 
         Text = l_parseStringProp__0, 
         TextTruncate = l_getEngineEnumParser_0(Enum.TextTruncate), 
         TextWrapped = l_parseBooleanProp__0, 
         TextXAlignment = l_getEngineEnumParser_0(Enum.TextXAlignment), 
         TextYAlignment = l_getEngineEnumParser_0(Enum.TextYAlignment)
-    }, v48);
-    local v50 = {
+    }, v49);
+    local v51 = {
         columnGap = l_parseNumberProp__0, 
         sideMargin = l_parseNumberProp__0, 
         numColumns = l_parseNumberProp__0, 
@@ -91,7 +92,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         loadMoreThreshold = l_parseNumberProp__0, 
         verticalGap = l_parseNumberProp__0
     };
-    local v51 = {
+    local v52 = {
         _registeredComponents = {
             [l_SduiComponentType_0.AttributionRow] = {
                 component = require(l_Parent_0.SduiSharedContent).SduiAttributionRow, 
@@ -169,7 +170,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                     itemHeightFromWidth = l_parseUDimProp__0, 
                     headerComponent = l_parseUiComponentProp__0, 
                     itemHeightMode = if l_FFlagAddItemHeightModeToSduiCollectionCarousel_0 then l_getLuaTableEnumParser_0(v7, "string") else nil, 
-                    layoutOverrides = v50, 
+                    layoutOverrides = v51, 
                     scrollingEnabledOverride = l_parseBooleanProp__0, 
                     maxItemsToShow = l_parseNumberProp__0, 
                     shouldUseFrameBoundsForImpressions = l_parseBooleanProp__0, 
@@ -181,6 +182,8 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                     disableSelectionOrder = l_parseBooleanProp__0, 
                     numItemsToRenderOffScreen = l_parseNumberProp__0, 
                     items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
+                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
+                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
                     AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
                     Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
                     Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
@@ -200,13 +203,15 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                     headerComponent = l_parseUiComponentProp__0, 
                     itemHeightFromWidth = l_parseUDimProp__0, 
                     itemTemplateKey = l_parseStringProp__0, 
-                    layoutOverrides = v50, 
+                    layoutOverrides = v51, 
                     maxNumRows = l_parseNumberProp__0, 
                     shouldUseFrameBoundsForImpressions = l_parseBooleanProp__0, 
                     disableSelectionOrder = l_parseBooleanProp__0, 
                     items = l_getArrayMetatableParser_0(l_parseLazyUiComponentProp__0), 
                     thresholdRowsFromBottom = l_parseNumberProp__0, 
                     onReachedThresholdFromEnd = l_parseCallbackProp__0, 
+                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
+                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
                     AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
                     Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
                     Size = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil
@@ -368,6 +373,8 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                     position = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
                     size = if l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
                     item = l_parseLazyUiComponentProp__0, 
+                    impressionEventName = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseStringProp__0 else nil, 
+                    skipItemImpressionsLog = if l_FFlagSduiImpressionHandlerRegistry_0 then l_parseBooleanProp__0 else nil, 
                     AnchorPoint = if not l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
                     AutomaticSize = if not l_FFlagSduiServerCompat_0 then l_getEngineEnumParser_0(Enum.AutomaticSize) else nil, 
                     Position = if not l_FFlagSduiServerCompat_0 then l_parseUDim2Prop__0 else nil, 
@@ -534,8 +541,8 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                     icon = l_parseIconProp__0, 
                     iconWidth = l_parseNumberProp__0, 
                     iconColor = l_parseColor3Prop__0, 
-                    textOverrides = v49, 
-                    iconOverrides = v48, 
+                    textOverrides = v50, 
+                    iconOverrides = v49, 
                     textFlexMode = l_getEngineEnumParser_0(Enum.UIFlexMode), 
                     backgroundStyle = l_parseColorTokenProp__0, 
                     cornerRadius = l_parseUDimProp__0, 
@@ -679,17 +686,17 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
             }
         }
     };
-    v51._registeredComponents[l_SduiComponentType_0.CountdownTextIconRow] = {
+    v52._registeredComponents[l_SduiComponentType_0.CountdownTextIconRow] = {
         component = require(l_script_FirstAncestor_0.Content.SduiCountdownTextIconRow), 
-        propParsers = v2.Dictionary.join(v51._registeredComponents[l_SduiComponentType_0.TextIconRow], {
+        propParsers = v2.Dictionary.join(v52._registeredComponents[l_SduiComponentType_0.TextIconRow], {
             endTimestamp = l_parseNumberProp__0, 
             formatStringHoursMinutes = l_parseStringProp__0, 
             defaultString = l_parseStringProp__0
         })
     };
-    v51._registeredComponents[l_SduiComponentType_0.GameTile] = {
+    v52._registeredComponents[l_SduiComponentType_0.GameTile] = {
         component = require(l_script_FirstAncestor_0.Content.SduiGameTile), 
-        propParsers = v2.Dictionary.join(v51._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
+        propParsers = v2.Dictionary.join(v52._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
             universeId = l_parseStringProp__0, 
             placeId = l_parseStringProp__0, 
             disableHoldToPlay = l_parseBooleanProp__0, 
@@ -702,7 +709,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         }
     };
     if l_FFlagSduiEnableHeroUnitBottomRow_0 then
-        v51._registeredComponents[l_SduiComponentType_0.HeroUnitBottomRow] = {
+        v52._registeredComponents[l_SduiComponentType_0.HeroUnitBottomRow] = {
             component = require(l_script_FirstAncestor_0.Content.SduiHeroUnitBottomRow), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -718,7 +725,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         };
     end;
     if l_FFlagSduiEnableChips_0 then
-        v51._registeredComponents[l_SduiComponentType_0.Chip] = {
+        v52._registeredComponents[l_SduiComponentType_0.Chip] = {
             component = require(l_Parent_0.SduiSharedContent).SduiChip, 
             propParsers = {
                 anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
@@ -745,7 +752,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 trailing = v5.optional(v5.table)
             } else nil
         };
-        v51._registeredComponents[l_SduiComponentType_0.DualActionChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.DualActionChip] = {
             component = require(l_Parent_0.SduiSharedContent).SduiDualActionChip, 
             propParsers = {
                 anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
@@ -765,7 +772,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         };
     end;
     if l_FFlagSduiEnableAssociatedItemsRow_0 then
-        v51._registeredComponents[l_SduiComponentType_0.AssociatedItemsRow] = {
+        v52._registeredComponents[l_SduiComponentType_0.AssociatedItemsRow] = {
             component = require(l_script_FirstAncestor_0.Content.SduiAssociatedItemsRow), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -775,7 +782,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         };
     end;
     if l_FFlagLuaAppSduiExperienceDetailsComponents_0 then
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceAssociatedItemsRow] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceAssociatedItemsRow] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceAssociatedItemsRow), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -787,7 +794,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsVoteChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsVoteChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsVoteChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -798,7 +805,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsFavoriteChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsFavoriteChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsFavoriteChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -809,7 +816,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsNotifyChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsNotifyChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsNotifyChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -820,7 +827,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsActiveChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsActiveChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsActiveChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -831,7 +838,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsShareChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsShareChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsShareChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -842,7 +849,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsReportChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsReportChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsReportChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -855,7 +862,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         };
     end;
     if l_FFlagSduiExperienceDetailsSocialProof_0 then
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedChip] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedChip] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedChip), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -866,7 +873,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 universeId = v5.string
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedTextRow] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExperienceDetailsConnectionsPlayedTextRow] = {
             component = require(l_script_FirstAncestor_0.Content.ExperienceDetails.ExperienceDetailsConnectionsPlayedTextRow), 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -880,7 +887,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
             }
         };
     end;
-    v51._registeredComponents[l_SduiComponentType_0.VerticalFeed] = {
+    v52._registeredComponents[l_SduiComponentType_0.VerticalFeed] = {
         component = require(l_Parent_0.SduiSharedContent).SduiVerticalFeed, 
         propParsers = {
             layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -892,15 +899,15 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
             LayoutOrder = if not l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil
         }
     };
-    v51._registeredComponents[l_SduiComponentType_0.BadgeTile] = {
+    v52._registeredComponents[l_SduiComponentType_0.BadgeTile] = {
         component = require(l_script_FirstAncestor_0.Content.SduiBadgeTile), 
-        propParsers = v2.Dictionary.join(v51._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
+        propParsers = v2.Dictionary.join(v52._registeredComponents[l_SduiComponentType_0.Tile].propParsers, {
             imageCornerRadius = l_parseNumberProp__0, 
             imagePadding = l_parseNumberProp__0
         })
     };
     if l_FFlagLuaAppSduiBadgeDetailsComponents_0 then
-        v51._registeredComponents[l_SduiComponentType_0.InfoTable] = {
+        v52._registeredComponents[l_SduiComponentType_0.InfoTable] = {
             component = require(l_Parent_0.SduiSharedContent).SduiInfoTable, 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -913,7 +920,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 items = v5.array(v5.table)
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.InfoTableCell] = {
+        v52._registeredComponents[l_SduiComponentType_0.InfoTableCell] = {
             component = require(l_Parent_0.AppBlox).InfoTableCell, 
             propParsers = {
                 labelComponent = l_parseUiComponentProp__0, 
@@ -928,7 +935,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
                 isLastInSingleColumn = v5.optional(v5.boolean)
             }
         };
-        v51._registeredComponents[l_SduiComponentType_0.ExpandableText] = {
+        v52._registeredComponents[l_SduiComponentType_0.ExpandableText] = {
             component = require(l_Parent_0.SduiSharedContent).SduiExpandableText, 
             propParsers = {
                 layoutOrder = if l_FFlagSduiServerCompat_0 then l_parseIntegerProp__0 else nil, 
@@ -947,7 +954,7 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
         };
     end;
     if l_FFlagSduiOverflowMenuComponent_0 then
-        v51._registeredComponents[l_SduiComponentType_0.OverflowMenu] = {
+        v52._registeredComponents[l_SduiComponentType_0.OverflowMenu] = {
             component = require(l_Parent_0.SduiSharedContent).SduiOverflowMenu, 
             propParsers = {
                 anchorPoint = if l_FFlagSduiServerCompat_0 then l_parseVector2Prop__0 else nil, 
@@ -972,45 +979,45 @@ v47.new = function() --[[ Line: 75 ]] --[[ Name: new ]]
             }
         };
     end;
-    setmetatable(v51, v47);
-    return v51;
+    setmetatable(v52, v48);
+    return v52;
 end;
-v47.getComponentDefinition = function(v52, v53) --[[ Line: 1085 ]] --[[ Name: getComponentDefinition ]]
-    return v52._registeredComponents[v53];
+v48.getComponentDefinition = function(v53, v54) --[[ Line: 1092 ]] --[[ Name: getComponentDefinition ]]
+    return v53._registeredComponents[v54];
 end;
-v47.doesComponentManageChildren = function(v54, v55) --[[ Line: 1092 ]] --[[ Name: doesComponentManageChildren ]]
-    local v56 = v54:getComponentDefinition(v55);
-    return v56 and v56.doesManageChildren or false;
+v48.doesComponentManageChildren = function(v55, v56) --[[ Line: 1099 ]] --[[ Name: doesComponentManageChildren ]]
+    local v57 = v55:getComponentDefinition(v56);
+    return v57 and v57.doesManageChildren or false;
 end;
-v47.getComponent = function(v57, v58) --[[ Line: 1100 ]] --[[ Name: getComponent ]]
-    local v59 = v57:getComponentDefinition(v58);
-    return v59 and v59.component;
+v48.getComponent = function(v58, v59) --[[ Line: 1107 ]] --[[ Name: getComponent ]]
+    local v60 = v58:getComponentDefinition(v59);
+    return v60 and v60.component;
 end;
-v47.getPropParsers = function(v60, v61) --[[ Line: 1105 ]] --[[ Name: getPropParsers ]]
-    -- upvalues: v46 (copy)
-    local v62 = v60:getComponentDefinition(v61);
-    return v62 and v62.propParsers or v46;
+v48.getPropParsers = function(v61, v62) --[[ Line: 1112 ]] --[[ Name: getPropParsers ]]
+    -- upvalues: v47 (copy)
+    local v63 = v61:getComponentDefinition(v62);
+    return v63 and v63.propParsers or v47;
 end;
-v47.getPropInterface = function(v63, v64) --[[ Line: 1113 ]] --[[ Name: getPropInterface ]]
-    local v65 = v63:getComponentDefinition(v64);
-    return v65 and v65.propInterface or nil;
+v48.getPropInterface = function(v64, v65) --[[ Line: 1120 ]] --[[ Name: getPropInterface ]]
+    local v66 = v64:getComponentDefinition(v65);
+    return v66 and v66.propInterface or nil;
 end;
-local v66 = {
+local v67 = {
     [l_parseUiComponentProp__0] = true, 
     [l_parseCallbackProp__0] = true, 
     [l_parseFocusNavActionsProp__0] = true
 };
-v47.doesParserRequireRenderContext = function(_, v68) --[[ Line: 1124 ]] --[[ Name: doesParserRequireRenderContext ]]
-    -- upvalues: v66 (copy)
-    if v68 and v66[v68] then
+v48.doesParserRequireRenderContext = function(_, v69) --[[ Line: 1131 ]] --[[ Name: doesParserRequireRenderContext ]]
+    -- upvalues: v67 (copy)
+    if v69 and v67[v69] then
         return true;
-    elseif typeof(v68) == "table" then
+    elseif typeof(v69) == "table" then
         return true;
     else
         return false;
     end;
 end;
-v47.registerComponent = function(v69, v70, v71) --[[ Line: 1139 ]] --[[ Name: registerComponent ]]
-    v69._registeredComponents[v70] = v71;
+v48.registerComponent = function(v70, v71, v72) --[[ Line: 1146 ]] --[[ Name: registerComponent ]]
+    v70._registeredComponents[v71] = v72;
 end;
-return v47;
+return v48;

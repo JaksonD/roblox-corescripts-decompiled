@@ -18,97 +18,98 @@ local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
 local l_DetailsPageLayout_0 = require(l_Parent_0.AppBlox).DetailsPageLayout;
 local l_FFlagLuaAppSduiEventDetailsLogExposure_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSduiEventDetailsLogExposure;
 local l_FStringLuaAppSduiEventDetailsIxpLayer_0 = require(l_Parent_0.SharedFlags).FStringLuaAppSduiEventDetailsIxpLayer;
-local function _(v20, v21) --[[ Line: 37 ]] --[[ Name: getFromPropsOrNavigationParams ]]
-    local v22 = v20.navigation and v20.navigation.getParam("extraProps");
-    return v20[v21] or v22 and v22[v21];
+local l_FFlagSduiPageEntryUseSharedHooks_0 = require(l_Parent_0.SharedFlags).FFlagSduiPageEntryUseSharedHooks;
+local function _(v21, v22) --[[ Line: 38 ]] --[[ Name: getFromPropsOrNavigationParams ]]
+    local v23 = v21.navigation and v21.navigation.getParam("extraProps");
+    return v21[v22] or v23 and v23[v22];
 end;
-local function _(v24, v25) --[[ Line: 44 ]]
-    return v24 .. "_" .. v25;
+local function _(v25, v26) --[[ Line: 46 ]]
+    return v25 .. "_" .. v26;
 end;
-return v7.memo(function(v27) --[[ Line: 48 ]] --[[ Name: SduiEventDetailsPage ]]
-    -- upvalues: l_useTokens_0 (copy), v3 (copy), v7 (copy), l_SduiLoadTimer_0 (copy), l_AppPage_0 (copy), l_useNavigation_0 (copy), l_useRouteName_0 (copy), l_useNavigationFocus_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v11 (copy), v2 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (copy), l_IXPService_0 (copy), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (copy), l_DetailsPageLayout_0 (copy), l_SduiPageEntryPoint_0 (copy), v5 (copy)
-    local v28 = l_useTokens_0();
-    local v29 = v27.navigation and v27.navigation.getParam("extraProps");
-    local v30 = v27.eventId or v29 and v29.eventId or v27.navigation and v27.navigation.getParam("detail");
-    v29 = v3(v30);
-    local v33 = v7.useMemo(function() --[[ Line: 56 ]]
-        -- upvalues: v27 (copy), l_SduiLoadTimer_0 (ref), l_AppPage_0 (ref)
-        local l_v27_0 = v27;
-        local v32 = l_v27_0.navigation and l_v27_0.navigation.getParam("extraProps");
-        return l_v27_0.pageTimer or v32 and v32.pageTimer or l_SduiLoadTimer_0.createLoadTimer(l_AppPage_0.EventDetails);
+return v7.memo(function(v28) --[[ Line: 50 ]] --[[ Name: SduiEventDetailsPage ]]
+    -- upvalues: l_useTokens_0 (copy), v3 (copy), v7 (copy), l_SduiLoadTimer_0 (copy), l_AppPage_0 (copy), l_useNavigation_0 (copy), l_useRouteName_0 (copy), l_useNavigationFocus_0 (copy), l_useBreakpointXOrSmaller_0 (copy), v11 (copy), v2 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (copy), l_IXPService_0 (copy), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (copy), l_DetailsPageLayout_0 (copy), l_SduiPageEntryPoint_0 (copy), l_FFlagSduiPageEntryUseSharedHooks_0 (copy), v5 (copy)
+    local v29 = l_useTokens_0();
+    local v30 = v28.navigation and v28.navigation.getParam("extraProps");
+    local v31 = v28.eventId or v30 and v30.eventId or v28.navigation and v28.navigation.getParam("detail");
+    v30 = v3(v31);
+    local v34 = v7.useMemo(function() --[[ Line: 58 ]]
+        -- upvalues: v28 (copy), l_SduiLoadTimer_0 (ref), l_AppPage_0 (ref)
+        local l_v28_0 = v28;
+        local v33 = l_v28_0.navigation and l_v28_0.navigation.getParam("extraProps");
+        return l_v28_0.pageTimer or v33 and v33.pageTimer or l_SduiLoadTimer_0.createLoadTimer(l_AppPage_0.EventDetails);
     end, {});
-    local v34 = l_useNavigation_0();
-    local v35 = l_useRouteName_0();
-    local v36 = l_useNavigationFocus_0();
-    local v37 = l_useBreakpointXOrSmaller_0(v11.Keys.Small);
-    local v38 = v7.useCallback(function() --[[ Line: 65 ]]
-        -- upvalues: v35 (copy), l_AppPage_0 (ref), v36 (copy), v34 (copy)
-        if v35 == l_AppPage_0.EventDetails and v36 then
-            v34.goBack();
+    local v35 = l_useNavigation_0();
+    local v36 = l_useRouteName_0();
+    local v37 = l_useNavigationFocus_0();
+    local v38 = l_useBreakpointXOrSmaller_0(v11.Keys.Small);
+    local v39 = v7.useCallback(function() --[[ Line: 67 ]]
+        -- upvalues: v36 (copy), l_AppPage_0 (ref), v37 (copy), v35 (copy)
+        if v36 == l_AppPage_0.EventDetails and v37 then
+            v35.goBack();
         end;
     end, {
-        v34, 
         v35, 
-        v36
+        v36, 
+        v37
     });
-    v7.useEffect(function() --[[ Line: 71 ]]
-        -- upvalues: v30 (copy), v2 (ref), v33 (copy)
-        if v30 then
-            v2(v30, v33);
+    v7.useEffect(function() --[[ Line: 73 ]]
+        -- upvalues: v31 (copy), v2 (ref), v34 (copy)
+        if v31 then
+            v2(v31, v34);
         end;
     end, {
-        v30, 
-        v33
+        v31, 
+        v34
     });
-    v7.useEffect(function() --[[ Line: 77 ]]
-        -- upvalues: v30 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (ref), l_IXPService_0 (ref), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (ref)
-        if v30 and l_FFlagLuaAppSduiEventDetailsLogExposure_0 then
+    v7.useEffect(function() --[[ Line: 79 ]]
+        -- upvalues: v31 (copy), l_FFlagLuaAppSduiEventDetailsLogExposure_0 (ref), l_IXPService_0 (ref), l_FStringLuaAppSduiEventDetailsIxpLayer_0 (ref)
+        if v31 and l_FFlagLuaAppSduiEventDetailsLogExposure_0 then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(l_FStringLuaAppSduiEventDetailsIxpLayer_0);
         end;
     end, {
-        v30
+        v31
     });
-    local v39 = v7.useRef(nil);
-    if v30 == nil then
+    local v40 = v7.useRef(nil);
+    if v31 == nil then
         return nil;
-    elseif v37 then
+    elseif v38 then
         return v7.createElement(l_DetailsPageLayout_0.Root, {
-            onClose = v38
+            onClose = v39
         }, {
             Header = v7.createElement(l_DetailsPageLayout_0.Header), 
             Content = v7.createElement(l_DetailsPageLayout_0.Content, {
-                scrollingFrameRef = v39
+                scrollingFrameRef = v40
             }, v7.createElement(l_SduiPageEntryPoint_0, {
                 appPage = l_AppPage_0.EventDetails, 
-                configKey = v29, 
-                identifier = v29 .. "_" .. "event_details_feed", 
-                pageTimer = v33, 
+                configKey = v30, 
+                identifier = l_FFlagSduiPageEntryUseSharedHooks_0 and "event_details_feed" or v30 .. "_" .. "event_details_feed", 
+                pageTimer = v34, 
                 includeNavigationHeaderBar = false, 
-                backgroundStyle = v28.Color.None, 
+                backgroundStyle = v29.Color.None, 
                 disableRootPadding = true, 
-                scrollingFrameRef = v39
+                scrollingFrameRef = v40
             }))
         });
     else
         return v7.createElement(v5.Sheet.Root, {
-            isOpen = v36, 
+            isOpen = v37, 
             displaySize = v5.Enums.DialogSize.Large, 
-            onClose = v38
+            onClose = v39
         }, {
             Header = v7.createElement(v5.Sheet.Header, {
                 hasCloseAffordance = true
             }), 
             Content = v7.createElement(v5.Sheet.Content, {
-                scrollingFrameRef = v39
+                scrollingFrameRef = v40
             }, v7.createElement(l_SduiPageEntryPoint_0, {
                 appPage = l_AppPage_0.EventDetails, 
-                configKey = v29, 
-                identifier = v29 .. "_" .. "event_details_feed", 
-                pageTimer = v33, 
+                configKey = v30, 
+                identifier = l_FFlagSduiPageEntryUseSharedHooks_0 and "event_details_feed" or v30 .. "_" .. "event_details_feed", 
+                pageTimer = v34, 
                 includeNavigationHeaderBar = false, 
-                backgroundStyle = v28.Color.None, 
+                backgroundStyle = v29.Color.None, 
                 disableRootPadding = true, 
-                scrollingFrameRef = v39
+                scrollingFrameRef = v40
             }))
         });
     end;

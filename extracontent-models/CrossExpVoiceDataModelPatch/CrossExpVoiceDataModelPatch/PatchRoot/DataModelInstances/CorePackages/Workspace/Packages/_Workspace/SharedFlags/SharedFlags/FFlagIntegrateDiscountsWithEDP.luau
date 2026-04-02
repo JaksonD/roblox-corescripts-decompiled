@@ -1,1 +1,1 @@
-return game:DefineFastFlag("IntegrateDiscountsWithEDP", false);
+return game:DefineFastFlag("IntegrateDiscountsWithEDP2", false);

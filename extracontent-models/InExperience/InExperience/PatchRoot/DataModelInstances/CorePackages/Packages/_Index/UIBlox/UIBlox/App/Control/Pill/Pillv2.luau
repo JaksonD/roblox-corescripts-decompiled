@@ -4,21 +4,23 @@ local l_Parent_2 = l_Parent_1.Parent;
 local l_Core_0 = l_Parent_1.Core;
 local v4 = require(l_Parent_2.Cryo);
 local v5 = require(l_Parent_2.React);
-local v6 = require(l_Parent_0.ImageSet.Images);
-local v7 = require(l_Parent_0.ImageSet.Enum.IconSize);
-local v8 = require(l_Parent_0.ImageSet.getIconSize);
-local v9 = require(l_Parent_0.SelectionImage.useSelectionCursor);
-local v10 = require(l_Parent_0.SelectionImage.CursorKind);
-local v11 = require(l_Core_0.Style.useStyle);
-local v12 = require(l_Core_0.Control.Enum.ControlState);
-local v13 = require(l_Core_0.Control.Interactable);
-local v14 = require(l_Core_0.Control.useControlState);
-local v15 = require(l_Core_0.Button.getContentStyle);
-local v16 = require(l_Core_0.Text.GenericTextLabel.GenericTextLabel);
-local v17 = require(l_Parent_1.Core.ImageSet.ImageSetComponent);
-local v18 = require(l_Parent_1.App.Loading.ShimmerPanel);
-local v19 = require(l_Parent_1.Core.Text.GetTextSize);
-local v20 = {
+local v6 = require(l_Parent_2.Foundation);
+local v7 = require(l_Parent_0.ImageSet.Images);
+local v8 = require(l_Parent_0.ImageSet.Enum.IconSize);
+local v9 = require(l_Parent_0.ImageSet.getIconSize);
+local v10 = require(l_Parent_0.SelectionImage.useSelectionCursor);
+local v11 = require(l_Parent_0.SelectionImage.CursorKind);
+local v12 = require(l_Core_0.Style.useStyle);
+local v13 = require(l_Core_0.Control.Enum.ControlState);
+local v14 = require(l_Core_0.Control.Interactable);
+local v15 = require(l_Core_0.Control.useControlState);
+local v16 = require(l_Core_0.Button.getContentStyle);
+local v17 = require(l_Core_0.Text.GenericTextLabel.GenericTextLabel);
+local v18 = require(l_Parent_1.Core.ImageSet.ImageSetComponent);
+local l_Skeleton_0 = v6.Skeleton;
+local l_Radius_0 = v6.Enums.Radius;
+local v21 = require(l_Parent_1.Core.Text.GetTextSize);
+local v22 = {
     hasBorder = false, 
     isDisabled = false, 
     isLoading = false, 
@@ -26,95 +28,95 @@ local v20 = {
     layoutOrder = 1, 
     text = ""
 };
-local v21 = {
-    [v12.Default] = "SystemPrimaryContent", 
-    [v12.Hover] = "SystemPrimaryContent"
-};
-local v22 = {
-    [v12.Default] = "TextDefault", 
-    [v12.Hover] = "TextEmphasis"
-};
 local v23 = {
-    [v12.Default] = "SystemPrimaryContent", 
-    [v12.Hover] = "SystemPrimaryContent"
+    [v13.Default] = "SystemPrimaryContent", 
+    [v13.Hover] = "SystemPrimaryContent"
 };
 local v24 = {
-    [v12.Default] = "BackgroundUIDefault", 
-    [v12.Hover] = "BackgroundUIDefault"
+    [v13.Default] = "TextDefault", 
+    [v13.Hover] = "TextEmphasis"
 };
 local v25 = {
-    [v12.Default] = "SystemPrimaryDefault", 
-    [v12.Hover] = "SystemPrimaryOnHover"
+    [v13.Default] = "SystemPrimaryContent", 
+    [v13.Hover] = "SystemPrimaryContent"
 };
 local v26 = {
-    [v12.Default] = "BackgroundOnHover", 
-    [v12.Hover] = "BackgroundOnHover"
+    [v13.Default] = "BackgroundUIDefault", 
+    [v13.Hover] = "BackgroundUIDefault"
 };
-local function v65(v27) --[[ Line: 111 ]] --[[ Name: Pillv2 ]]
-    -- upvalues: v4 (copy), v20 (copy), v14 (copy), v5 (copy), v11 (copy), v9 (copy), v10 (copy), v23 (copy), v22 (copy), v25 (copy), v24 (copy), v15 (copy), v21 (copy), v26 (copy), v8 (copy), v7 (copy), v19 (copy), v18 (copy), v12 (copy), v13 (copy), v16 (copy), v17 (copy), v6 (copy)
-    local v28 = v4.Dictionary.join(v20, v27);
-    local l_text_0 = v28.text;
-    local v30, v31 = v14();
-    local v34 = v5.useCallback(function(v32, v33) --[[ Line: 116 ]]
-        -- upvalues: v28 (copy), v31 (copy)
-        if v28.onStateChanged then
-            v28.onStateChanged(v32, v33);
+local v27 = {
+    [v13.Default] = "SystemPrimaryDefault", 
+    [v13.Hover] = "SystemPrimaryOnHover"
+};
+local v28 = {
+    [v13.Default] = "BackgroundOnHover", 
+    [v13.Hover] = "BackgroundOnHover"
+};
+local function v67(v29) --[[ Line: 113 ]] --[[ Name: Pillv2 ]]
+    -- upvalues: v4 (copy), v22 (copy), v15 (copy), v5 (copy), v12 (copy), v10 (copy), v11 (copy), v25 (copy), v24 (copy), v27 (copy), v26 (copy), v16 (copy), v23 (copy), v28 (copy), v9 (copy), v8 (copy), v21 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), v13 (copy), v14 (copy), v17 (copy), v18 (copy), v7 (copy)
+    local v30 = v4.Dictionary.join(v22, v29);
+    local l_text_0 = v30.text;
+    local v32, v33 = v15();
+    local v36 = v5.useCallback(function(v34, v35) --[[ Line: 118 ]]
+        -- upvalues: v30 (copy), v33 (copy)
+        if v30.onStateChanged then
+            v30.onStateChanged(v34, v35);
         end;
-        v31(v32, v33);
+        v33(v34, v35);
     end, {
-        v28.onStateChanged
+        v30.onStateChanged
     });
-    local v35 = v11();
-    local l_Font_0 = v35.Font;
-    local v37 = v9(v10.SmallPill);
-    local v38 = if v28.isSelected then v23 else v22;
-    local v39 = if v28.isSelected then v25 else v24;
-    local v40 = v15(v21, v30, v35);
-    local v41 = v15(v38, v30, v35);
-    local v42 = v15(v39, v30, v35);
-    local v43 = v15(v26, v30, v35);
-    local v44 = v8(v7.Small);
+    local v37 = v12();
+    local l_Font_0 = v37.Font;
+    local v39 = v10(v11.SmallPill);
+    local v40 = if v30.isSelected then v25 else v24;
+    local v41 = if v30.isSelected then v27 else v26;
+    local v42 = v16(v23, v32, v37);
+    local v43 = v16(v40, v32, v37);
+    local v44 = v16(v41, v32, v37);
+    local v45 = v16(v28, v32, v37);
+    local v46 = v9(v8.Small);
     local l_BaseSize_0 = l_Font_0.BaseSize;
-    local v46 = l_Font_0.CaptionHeader.RelativeSize * l_BaseSize_0;
-    local l_X_0 = v19(l_text_0, v46, l_Font_0.CaptionHeader.Font, Vector2.new(10000, 10000)).X;
-    local v48 = l_X_0 + 24;
-    local v49 = 216;
-    if v28.isSelected then
-        local v50 = 4 + v44;
-        v48 = v48 + v50;
-        v49 = v49 - v50;
+    local v48 = l_Font_0.CaptionHeader.RelativeSize * l_BaseSize_0;
+    local l_X_0 = v21(l_text_0, v48, l_Font_0.CaptionHeader.Font, Vector2.new(10000, 10000)).X;
+    local v50 = l_X_0 + 24;
+    local v51 = 216;
+    if v30.isSelected then
+        local v52 = 4 + v46;
+        v50 = v50 + v52;
+        v51 = v51 - v52;
     end;
-    if v28.isLoading then
-        return v5.createElement(v18, {
-            LayoutOrder = v28.layoutOrder, 
-            Size = UDim2.new(0, v48, 0, 28), 
-            cornerRadius = UDim.new(1, 0)
+    if v30.isLoading then
+        return v5.createElement(l_Skeleton_0, {
+            LayoutOrder = v30.layoutOrder, 
+            Size = UDim2.fromOffset(v50, 28), 
+            radius = l_Radius_0.Circle
         });
     else
-        local v51 = not v28.isSelected and v30 == v12.Hover;
+        local v53 = not v30.isSelected and v32 == v13.Hover;
         local l_createElement_0 = v5.createElement;
-        local l_v13_0 = v13;
-        local v54 = {
-            Size = UDim2.new(0, v48, 0, 28), 
-            BackgroundColor3 = v42.Color, 
-            BackgroundTransparency = v42.Transparency, 
-            ImageColor3 = v42.Color, 
-            ImageTransparency = v42.Transparency, 
+        local l_v14_0 = v14;
+        local v56 = {
+            Size = UDim2.new(0, v50, 0, 28), 
+            BackgroundColor3 = v44.Color, 
+            BackgroundTransparency = v44.Transparency, 
+            ImageColor3 = v44.Color, 
+            ImageTransparency = v44.Transparency, 
             AutoButtonColor = false, 
             BorderSizePixel = 0, 
-            LayoutOrder = v28.layoutOrder, 
+            LayoutOrder = v30.layoutOrder, 
             ScaleType = Enum.ScaleType.Slice, 
-            isDisabled = v28.isDisabled, 
-            SelectionImageObject = v37, 
-            [v5.Event.Activated] = if not v28.isLoading then v28.onActivated else nil, 
-            onStateChanged = v34, 
-            ref = v28.controlRef, 
-            NextSelectionLeft = v28.NextSelectionLeft, 
-            NextSelectionRight = v28.NextSelectionRight, 
-            NextSelectionUp = v28.NextSelectionUp, 
-            NextSelectionDown = v28.NextSelectionDown
+            isDisabled = v30.isDisabled, 
+            SelectionImageObject = v39, 
+            [v5.Event.Activated] = if not v30.isLoading then v30.onActivated else nil, 
+            onStateChanged = v36, 
+            ref = v30.controlRef, 
+            NextSelectionLeft = v30.NextSelectionLeft, 
+            NextSelectionRight = v30.NextSelectionRight, 
+            NextSelectionUp = v30.NextSelectionUp, 
+            NextSelectionDown = v30.NextSelectionDown
         };
-        local v55 = {
+        local v57 = {
             UICorner = v5.createElement("UICorner", {
                 CornerRadius = UDim.new(1, 0)
             }), 
@@ -124,33 +126,33 @@ local function v65(v27) --[[ Line: 111 ]] --[[ Name: Pillv2 ]]
             })
         };
         local l_createElement_1 = v5.createElement;
-        local v57 = "Frame";
-        local v58 = {
+        local v59 = "Frame";
+        local v60 = {
             Size = UDim2.fromScale(1, 1), 
             BorderSizePixel = 0, 
-            BackgroundColor3 = v43.Color, 
-            BackgroundTransparency = if v51 then v43.Transparency else 1
+            BackgroundColor3 = v45.Color, 
+            BackgroundTransparency = if v53 then v45.Transparency else 1
         };
-        local v59 = {
+        local v61 = {
             UICorner = v5.createElement("UICorner", {
                 CornerRadius = UDim.new(1, 0)
             }), 
-            UIStroke = if v28.hasBorder then v5.createElement("UIStroke", {
-                Color = v35.Theme.Divider.Color, 
-                Transparency = v35.Theme.Divider.Transparency, 
+            UIStroke = if v30.hasBorder then v5.createElement("UIStroke", {
+                Color = v37.Theme.Divider.Color, 
+                Transparency = v37.Theme.Divider.Transparency, 
                 Thickness = 1
             }) else nil
         };
         local l_createElement_2 = v5.createElement;
-        local v61 = "Frame";
-        local v62 = {
+        local v63 = "Frame";
+        local v64 = {
             AnchorPoint = Vector2.new(0.5, 0.5), 
             Position = UDim2.fromScale(0.5, 0.5), 
-            Size = UDim2.new(0, l_X_0 + 4 + v44, 1, 0), 
+            Size = UDim2.new(0, l_X_0 + 4 + v46, 1, 0), 
             ClipsDescendants = true, 
             BackgroundTransparency = 1
         };
-        local v63 = {
+        local v65 = {
             UIListLayout = v5.createElement("UIListLayout", {
                 Padding = UDim.new(0, 4), 
                 FillDirection = Enum.FillDirection.Horizontal, 
@@ -159,49 +161,49 @@ local function v65(v27) --[[ Line: 111 ]] --[[ Name: Pillv2 ]]
                 HorizontalAlignment = Enum.HorizontalAlignment.Center
             })
         };
-        local v64 = false;
+        local v66 = false;
         if string.len(l_text_0) > 0 then
-            v64 = v5.createElement("Frame", {
-                Size = UDim2.fromOffset(l_X_0, v46), 
+            v66 = v5.createElement("Frame", {
+                Size = UDim2.fromOffset(l_X_0, v48), 
                 LayoutOrder = 1, 
                 BackgroundTransparency = 1
             }, {
-                PillText = v5.createElement(v16, {
+                PillText = v5.createElement(v17, {
                     Text = l_text_0, 
                     BackgroundTransparency = 1, 
                     fontStyle = l_Font_0.CaptionHeader, 
-                    colorStyle = v41, 
+                    colorStyle = v43, 
                     TextTruncate = Enum.TextTruncate.AtEnd, 
-                    Size = UDim2.fromOffset(v49, v46), 
+                    Size = UDim2.fromOffset(v51, v48), 
                     TextXAlignment = Enum.TextXAlignment.Left, 
                     TextYAlignment = Enum.TextYAlignment.Center
                 }); 
                 v5.createElement("UISizeConstraint", {
-                    MaxSize = Vector2.new(v49, 28)
+                    MaxSize = Vector2.new(v51, 28)
                 })
             });
         end;
-        v63.TextArea = v64;
-        v63.CloseIcon = v28.isSelected and v5.createElement(v17.Label, {
+        v65.TextArea = v66;
+        v65.CloseIcon = v30.isSelected and v5.createElement(v18.Label, {
             LayoutOrder = 2, 
             AnchorPoint = Vector2.new(0.5, 0.5), 
-            Size = UDim2.fromOffset(v44, v44), 
+            Size = UDim2.fromOffset(v46, v46), 
             BackgroundTransparency = 1, 
-            Image = v6["icons/navigation/close_small"], 
-            ImageColor3 = v40.Color, 
-            ImageTransparency = v40.Transparency
+            Image = v7["icons/navigation/close_small"], 
+            ImageColor3 = v42.Color, 
+            ImageTransparency = v42.Transparency
         });
-        v63.UISizeConstraint = v5.createElement("UISizeConstraint", {
+        v65.UISizeConstraint = v5.createElement("UISizeConstraint", {
             MaxSize = Vector2.new(216, 28)
         });
-        v59.Content = l_createElement_2(v61, v62, v63);
-        v55.BackgroundLayer2 = l_createElement_1(v57, v58, v59);
-        return l_createElement_0(l_v13_0, v54, v55);
+        v61.Content = l_createElement_2(v63, v64, v65);
+        v57.BackgroundLayer2 = l_createElement_1(v59, v60, v61);
+        return l_createElement_0(l_v14_0, v56, v57);
     end;
 end;
-return v5.forwardRef(function(v66, v67) --[[ Line: 254 ]]
-    -- upvalues: v5 (copy), v65 (copy), v4 (copy)
-    return v5.createElement(v65, v4.Dictionary.join(v66, {
-        controlRef = v67
+return v5.forwardRef(function(v68, v69) --[[ Line: 256 ]]
+    -- upvalues: v5 (copy), v67 (copy), v4 (copy)
+    return v5.createElement(v67, v4.Dictionary.join(v68, {
+        controlRef = v69
     }));
 end);

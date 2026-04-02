@@ -11,73 +11,76 @@ local l_FocusRoot_0 = v8.FocusRoot;
 local l_FocusNavigableSurfaceIdentifierEnum_0 = v8.FocusNavigableSurfaceIdentifierEnum;
 local v11 = require(l_Parent_0.Navigation);
 local v12 = require(l_Parent_0.Cryo);
-local v13 = require(l_script_FirstAncestor_0.Actions.PromptNativeUpsellSuggestions);
-local v14 = require(l_script_FirstAncestor_0.Enums.PurchaseFlow);
+local v13 = require(l_script_FirstAncestor_0.Selectors.selectPrice);
+local v14 = require(l_script_FirstAncestor_0.Actions.PromptNativeUpsellSuggestions);
+local v15 = require(l_script_FirstAncestor_0.Enums.PurchaseFlow);
 local _ = require(l_script_FirstAncestor_0.Models.RobuxUpsell);
-local v16 = require(l_script_FirstAncestor_0.Thunks.completeRequest);
-local v17 = require(l_script_FirstAncestor_0.Thunks.purchaseItem);
-local v18 = require(l_script_FirstAncestor_0.Thunks.launchRobuxUpsell);
-local v19 = require(l_script_FirstAncestor_0.Thunks.openRobuxStore);
-local v20 = require(l_script_FirstAncestor_0.Thunks.openSecuritySettings);
-local v21 = require(l_script_FirstAncestor_0.Thunks.openTermsOfUse);
+local v17 = require(l_script_FirstAncestor_0.Thunks.completeRequest);
+local v18 = require(l_script_FirstAncestor_0.Thunks.purchaseItem);
+local v19 = require(l_script_FirstAncestor_0.Thunks.launchRobuxUpsell);
+local v20 = require(l_script_FirstAncestor_0.Thunks.openRobuxStore);
+local v21 = require(l_script_FirstAncestor_0.Thunks.openSecuritySettings);
+local v22 = require(l_script_FirstAncestor_0.Thunks.openTermsOfUse);
 local _ = require(l_script_FirstAncestor_0.Thunks.initiatePurchasePrecheck);
-local v23 = require(l_script_FirstAncestor_0.Thunks.initiateUserPurchaseSettingsPrecheck);
-local v24 = require(l_script_FirstAncestor_0.Thunks.sendEvent);
-local v25 = require(l_script_FirstAncestor_0.Utils.isMockingPurchases);
-local v26 = require(l_script_FirstAncestor_0.Utils.getPlayerPrice);
-local v27 = require(l_script_FirstAncestor_0.Utils.isLinksAllowed);
-local v28 = require(l_script_FirstAncestor_0.Utils.SelectedRobuxPackage);
+local v24 = require(l_script_FirstAncestor_0.Thunks.initiateUserPurchaseSettingsPrecheck);
+local v25 = require(l_script_FirstAncestor_0.Thunks.sendEvent);
+local v26 = require(l_script_FirstAncestor_0.Utils.isMockingPurchases);
+local v27 = require(l_script_FirstAncestor_0.Utils.getPlayerPrice);
+local v28 = require(l_script_FirstAncestor_0.Utils.isLinksAllowed);
+local v29 = require(l_script_FirstAncestor_0.Utils.SelectedRobuxPackage);
 local l_FFlagEnableUnifiedProductPurchaseFlow_0 = require(l_Parent_0.SharedFlags).FFlagEnableUnifiedProductPurchaseFlow;
-local v30 = require(l_script_FirstAncestor_0.connectToStore);
-local v31 = require(l_script_FirstAncestor_0.Components.Connection.ExternalEventConnection);
-local v32 = require(l_script_FirstAncestor_0.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal);
+local v31 = require(l_script_FirstAncestor_0.connectToStore);
+local v32 = require(l_script_FirstAncestor_0.Components.Connection.ExternalEventConnection);
+local v33 = require(l_script_FirstAncestor_0.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal);
 local l_UpsellSuggestionsAPIMaxPackages_0 = require(l_Parent_0.SharedFlags).UpsellSuggestionsAPIMaxPackages;
-local v34 = require(script.Parent.RobuxUpsellOverlay);
+local v35 = require(script.Parent.RobuxUpsellOverlay);
 local l_AppPage_0 = require(l_Parent_0.RobloxAppEnums).AppPage;
-local v36 = l_Roact_0.Component:extend(script.Name);
-v36.init = function(v37) --[[ Line: 53 ]] --[[ Name: init ]]
+local l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 = require(l_Parent_0.SharedFlags).FFlagEnableDiscountInfoInUnifiedPurchaseModal;
+local v38 = l_Roact_0.Component:extend(script.Name);
+v38.init = function(v39) --[[ Line: 56 ]] --[[ Name: init ]]
     -- upvalues: l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), l_AppPage_0 (copy)
-    v37.state = {
+    v39.state = {
         screenSize = Vector2.new(0, 0)
     };
-    v37.changeScreenSize = function(v38) --[[ Line: 58 ]]
-        -- upvalues: v37 (copy)
-        if v37.state.screenSize ~= v38.AbsoluteSize then
-            v37:setState({
-                screenSize = v38.AbsoluteSize
+    v39.changeScreenSize = function(v40) --[[ Line: 61 ]]
+        -- upvalues: v39 (copy)
+        if v39.state.screenSize ~= v40.AbsoluteSize then
+            v39:setState({
+                screenSize = v40.AbsoluteSize
             });
         end;
     end;
     if l_FFlagEnableUnifiedProductPurchaseFlow_0 then
-        v37.navigateToBuyRobux = function() --[[ Line: 67 ]]
-            -- upvalues: v37 (copy), l_AppPage_0 (ref)
-            v37.props.navigation.navigate(l_AppPage_0.PurchaseRobux);
+        v39.navigateToBuyRobux = function() --[[ Line: 70 ]]
+            -- upvalues: v39 (copy), l_AppPage_0 (ref)
+            v39.props.navigation.navigate(l_AppPage_0.PurchaseRobux);
         end;
-        v37.navigateToTermsOfUse = function() --[[ Line: 71 ]]
-            -- upvalues: v37 (copy)
-            v37.props.openTermsOfUse(v37.props.navigation);
+        v39.navigateToTermsOfUse = function() --[[ Line: 74 ]]
+            -- upvalues: v39 (copy)
+            v39.props.openTermsOfUse(v39.props.navigation);
         end;
     end;
 end;
-v36.createElement = function(v39) --[[ Line: 77 ]] --[[ Name: createElement ]]
-    -- upvalues: v14 (copy), v27 (copy), l_Roact_0 (copy), v34 (copy), l_UpsellSuggestionsAPIMaxPackages_0 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), v26 (copy), v31 (copy), l_GuiService_0 (copy)
-    local l_props_0 = v39.props;
-    local l_state_0 = v39.state;
-    if l_props_0.purchaseFlow ~= v14.RobuxUpsellV2 and l_props_0.purchaseFlow ~= v14.LargeRobuxUpsell then
+v38.createElement = function(v41) --[[ Line: 80 ]] --[[ Name: createElement ]]
+    -- upvalues: v15 (copy), v28 (copy), l_Roact_0 (copy), v35 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), l_UpsellSuggestionsAPIMaxPackages_0 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), v27 (copy), v32 (copy), l_GuiService_0 (copy)
+    local l_props_0 = v41.props;
+    local l_state_0 = v41.state;
+    if l_props_0.purchaseFlow ~= v15.RobuxUpsellV2 and l_props_0.purchaseFlow ~= v15.LargeRobuxUpsell then
         return nil;
     else
-        local v42 = v27();
+        local v44 = v28();
         local l_imageUrl_0 = l_props_0.productInfo.imageUrl;
         if string.find(l_props_0.productInfo.imageUrl, "assetid=0") then
             l_imageUrl_0 = nil;
         end;
         return l_Roact_0.createElement("Frame", {
             Size = UDim2.new(1, 0, 1, 0), 
-            [l_Roact_0.Change.AbsoluteSize] = v39.changeScreenSize, 
+            [l_Roact_0.Change.AbsoluteSize] = v41.changeScreenSize, 
             BackgroundTransparency = 1
         }, {
-            Prompt = l_Roact_0.createElement(v34, {
+            Prompt = l_Roact_0.createElement(v35, {
                 screenSize = l_state_0.screenSize, 
+                virtualItemPrice = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then l_props_0.virtualItemPrice else nil, 
                 requestType = l_props_0.requestType, 
                 promptState = l_props_0.promptState, 
                 purchaseFlow = l_props_0.purchaseFlow, 
@@ -87,18 +90,18 @@ v36.createElement = function(v39) --[[ Line: 77 ]] --[[ Name: createElement ]]
                 upsellSuggestions = l_props_0.robuxSuggestions, 
                 selectedUpsellIndex = l_props_0.robuxPackageSelection, 
                 virtualItemBadgeType = l_props_0.virtualItemBadgeType, 
-                onUpsellSuggestionsSelected = function(v44) --[[ Line: 112 ]] --[[ Name: onUpsellSuggestionsSelected ]]
+                onUpsellSuggestionsSelected = function(v46) --[[ Line: 116 ]] --[[ Name: onUpsellSuggestionsSelected ]]
                     -- upvalues: l_props_0 (copy)
-                    l_props_0.onUpsellSuggestionsSelected(l_props_0.robuxSuggestions, v44, l_props_0.virtualItemBadgeType);
+                    l_props_0.onUpsellSuggestionsSelected(l_props_0.robuxSuggestions, v46, l_props_0.virtualItemBadgeType);
                 end, 
-                useUnifiedProductPurchaseModal = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v39.props.isUserEligibleForUnifiedPurchaseFlow else nil, 
-                purchaseAnalyticsMetadata = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v39.props.purchaseAnalyticsMetadata else nil, 
+                useUnifiedProductPurchaseModal = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v41.props.isUserEligibleForUnifiedPurchaseFlow else nil, 
+                purchaseAnalyticsMetadata = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v41.props.purchaseAnalyticsMetadata else nil, 
                 robuxProviderId = l_props_0.robuxProductId, 
                 robuxProductId = l_props_0.productId, 
                 itemIcon = l_imageUrl_0, 
                 itemProductId = l_props_0.productInfo.productId, 
                 itemName = l_props_0.productInfo.name, 
-                itemRobuxCost = v26(l_props_0.productInfo, l_props_0.accountInfo.membershipType == 4, l_props_0.expectedPrice), 
+                itemRobuxCost = v27(l_props_0.productInfo, l_props_0.accountInfo.membershipType == 4, l_props_0.expectedPrice), 
                 iapRobuxAmount = l_props_0.robuxPurchaseAmount or 0, 
                 iapCostStr = l_props_0.price, 
                 beforeRobuxBalance = l_props_0.accountInfo.balance, 
@@ -106,9 +109,9 @@ v36.createElement = function(v39) --[[ Line: 77 ]] --[[ Name: createElement ]]
                 isGamepadEnabled = l_props_0.isGamepadEnabled, 
                 purchaseItem = l_props_0.purchaseItem, 
                 promptRobuxPurchase = l_props_0.promptRobuxPurchase, 
-                openRobuxStore = if l_FFlagEnableUnifiedProductPurchaseFlow_0 and v39.props.isUserEligibleForUnifiedPurchaseFlow then v39.navigateToBuyRobux else l_props_0.openRobuxStore, 
-                openTermsOfUse = v42 and (if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v39.navigateToTermsOfUse else l_props_0.openTermsOfUse) or nil, 
-                openSecuritySettings = v42 and l_props_0.openSecuritySettings or nil, 
+                openRobuxStore = if l_FFlagEnableUnifiedProductPurchaseFlow_0 and v41.props.isUserEligibleForUnifiedPurchaseFlow then v41.navigateToBuyRobux else l_props_0.openRobuxStore, 
+                openTermsOfUse = v44 and (if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v41.navigateToTermsOfUse else l_props_0.openTermsOfUse) or nil, 
+                openSecuritySettings = v44 and l_props_0.openSecuritySettings or nil, 
                 dispatchFetchPurchaseWarning = l_props_0.dispatchFetchPurchaseWarning, 
                 endPurchase = l_props_0.completeRequest, 
                 onAnalyticEvent = l_props_0.onAnalyticEvent, 
@@ -119,9 +122,9 @@ v36.createElement = function(v39) --[[ Line: 77 ]] --[[ Name: createElement ]]
                 Modal = true, 
                 Size = UDim2.new(0, 0, 0, 0)
             }), 
-            OnCoreGuiMenuOpened = l_Roact_0.createElement(v31, {
+            OnCoreGuiMenuOpened = l_Roact_0.createElement(v32, {
                 event = l_GuiService_0.MenuOpened, 
-                callback = function() --[[ Line: 167 ]] --[[ Name: callback ]]
+                callback = function() --[[ Line: 171 ]] --[[ Name: callback ]]
                     -- upvalues: l_props_0 (copy)
                     l_props_0.completeRequest();
                 end
@@ -129,101 +132,102 @@ v36.createElement = function(v39) --[[ Line: 77 ]] --[[ Name: createElement ]]
         });
     end;
 end;
-v36.render = function(v45) --[[ Line: 174 ]] --[[ Name: render ]]
-    -- upvalues: v32 (copy), l_Roact_0 (copy), l_CoreScriptsRootProvider_0 (copy), v4 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy)
-    if v32() then
+v38.render = function(v47) --[[ Line: 178 ]] --[[ Name: render ]]
+    -- upvalues: v33 (copy), l_Roact_0 (copy), l_CoreScriptsRootProvider_0 (copy), v4 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy)
+    if v33() then
         return l_Roact_0.createElement(l_CoreScriptsRootProvider_0, {}, {
             FocusNavigationCoreScriptsWrapper = v4.createElement(l_FocusRoot_0, {
                 surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.CentralOverlay, 
                 isIsolated = true, 
                 isAutoFocusRoot = true
             }, {
-                RobuxUpsellContainer = v45:createElement()
+                RobuxUpsellContainer = v47:createElement()
             })
         });
     else
-        return v45:createElement();
+        return v47:createElement();
     end;
 end;
 if l_FFlagEnableUnifiedProductPurchaseFlow_0 then
-    local l_v36_0 = v36;
-    v36 = function(v47) --[[ Line: 192 ]]
-        -- upvalues: v11 (copy), l_Roact_0 (copy), l_v36_0 (copy), v12 (copy)
-        local v48 = v11.useNavigation();
-        return l_Roact_0.createElement(l_v36_0, v12.Dictionary.join(v47, {
-            navigation = v48
+    local l_v38_0 = v38;
+    v38 = function(v49) --[[ Line: 196 ]]
+        -- upvalues: v11 (copy), l_Roact_0 (copy), l_v38_0 (copy), v12 (copy)
+        local v50 = v11.useNavigation();
+        return l_Roact_0.createElement(l_v38_0, v12.Dictionary.join(v49, {
+            navigation = v50
         }));
     end;
 end;
-return (v30(function(v49) --[[ Line: 205 ]]
-    -- upvalues: v25 (copy), v28 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy)
-    local v50 = v25(v49.promptRequest.requestType);
+return (v31(function(v51) --[[ Line: 209 ]]
+    -- upvalues: v26 (copy), v29 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), v13 (copy)
+    local v52 = v26(v51.promptRequest.requestType);
     return {
-        purchaseFlow = v49.purchaseFlow, 
-        requestType = v49.promptRequest.requestType, 
-        expectedPrice = v49.promptRequest.expectedPrice, 
-        promptState = v49.promptState, 
-        purchaseError = v49.purchaseError, 
-        economicRestrictionError = v49.economicRestrictionError, 
-        productInfo = v49.productInfo, 
-        accountInfo = v49.accountInfo, 
-        robuxSuggestions = v49.robuxUpsellSuggestions.products, 
-        robuxPackageSelection = v49.robuxUpsellSuggestions.selection, 
-        virtualItemBadgeType = v49.robuxUpsellSuggestions.virtualItemBadgeType, 
-        robuxProductId = v28.getRobuxProductId(v49), 
-        productId = v28.getProductId(v49), 
-        robuxPurchaseAmount = v28.getRobuxPurchaseAmount(v49), 
-        robuxAmountBeforeBonus = v28.getRobuxAmountBeforeBonus(v49), 
-        price = v28.getPrice(v49), 
-        isTestPurchase = v50, 
-        isGamepadEnabled = v49.gamepadEnabled, 
-        humanoidModel = v49.promptRequest.humanoidModel, 
-        isUserEligibleForUnifiedPurchaseFlow = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v49.isUserEligibleForUnifiedPurchaseFlow else nil, 
-        purchaseAnalyticsMetadata = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v49.purchaseAnalyticsMetadata else nil
+        purchaseFlow = v51.purchaseFlow, 
+        requestType = v51.promptRequest.requestType, 
+        expectedPrice = v51.promptRequest.expectedPrice, 
+        promptState = v51.promptState, 
+        purchaseError = v51.purchaseError, 
+        economicRestrictionError = v51.economicRestrictionError, 
+        productInfo = v51.productInfo, 
+        accountInfo = v51.accountInfo, 
+        robuxSuggestions = v51.robuxUpsellSuggestions.products, 
+        robuxPackageSelection = v51.robuxUpsellSuggestions.selection, 
+        virtualItemBadgeType = v51.robuxUpsellSuggestions.virtualItemBadgeType, 
+        robuxProductId = v29.getRobuxProductId(v51), 
+        productId = v29.getProductId(v51), 
+        robuxPurchaseAmount = v29.getRobuxPurchaseAmount(v51), 
+        robuxAmountBeforeBonus = v29.getRobuxAmountBeforeBonus(v51), 
+        price = v29.getPrice(v51), 
+        isTestPurchase = v52, 
+        isGamepadEnabled = v51.gamepadEnabled, 
+        humanoidModel = v51.promptRequest.humanoidModel, 
+        isUserEligibleForUnifiedPurchaseFlow = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v51.isUserEligibleForUnifiedPurchaseFlow else nil, 
+        purchaseAnalyticsMetadata = if l_FFlagEnableUnifiedProductPurchaseFlow_0 then v51.purchaseAnalyticsMetadata else nil, 
+        virtualItemPrice = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then v13(v51) else nil
     };
-end, function(v51) --[[ Line: 243 ]]
-    -- upvalues: v17 (copy), v18 (copy), v19 (copy), v20 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), v21 (copy), v23 (copy), l_GuiService_0 (copy), v16 (copy), v13 (copy), v24 (copy)
+end, function(v53) --[[ Line: 248 ]]
+    -- upvalues: v18 (copy), v19 (copy), v20 (copy), v21 (copy), l_FFlagEnableUnifiedProductPurchaseFlow_0 (copy), v22 (copy), v24 (copy), l_GuiService_0 (copy), v17 (copy), v14 (copy), v25 (copy)
     return {
-        purchaseItem = function() --[[ Line: 245 ]] --[[ Name: purchaseItem ]]
-            -- upvalues: v51 (copy), v17 (ref)
-            return v51(v17());
+        purchaseItem = function() --[[ Line: 250 ]] --[[ Name: purchaseItem ]]
+            -- upvalues: v53 (copy), v18 (ref)
+            return v53(v18());
         end, 
-        promptRobuxPurchase = function() --[[ Line: 248 ]] --[[ Name: promptRobuxPurchase ]]
-            -- upvalues: v51 (copy), v18 (ref)
-            return v51(v18());
+        promptRobuxPurchase = function() --[[ Line: 253 ]] --[[ Name: promptRobuxPurchase ]]
+            -- upvalues: v53 (copy), v19 (ref)
+            return v53(v19());
         end, 
-        openRobuxStore = function() --[[ Line: 251 ]] --[[ Name: openRobuxStore ]]
-            -- upvalues: v51 (copy), v19 (ref)
-            return v51(v19());
+        openRobuxStore = function() --[[ Line: 256 ]] --[[ Name: openRobuxStore ]]
+            -- upvalues: v53 (copy), v20 (ref)
+            return v53(v20());
         end, 
-        openSecuritySettings = function() --[[ Line: 254 ]] --[[ Name: openSecuritySettings ]]
-            -- upvalues: v51 (copy), v20 (ref)
-            return v51(v20());
+        openSecuritySettings = function() --[[ Line: 259 ]] --[[ Name: openSecuritySettings ]]
+            -- upvalues: v53 (copy), v21 (ref)
+            return v53(v21());
         end, 
-        openTermsOfUse = function(v52) --[[ Line: 257 ]] --[[ Name: openTermsOfUse ]]
-            -- upvalues: l_FFlagEnableUnifiedProductPurchaseFlow_0 (ref), v51 (copy), v21 (ref)
+        openTermsOfUse = function(v54) --[[ Line: 262 ]] --[[ Name: openTermsOfUse ]]
+            -- upvalues: l_FFlagEnableUnifiedProductPurchaseFlow_0 (ref), v53 (copy), v22 (ref)
             if l_FFlagEnableUnifiedProductPurchaseFlow_0 then
-                return v51(v21(v52));
+                return v53(v22(v54));
             else
-                return v51(v21());
+                return v53(v22());
             end;
         end, 
-        dispatchFetchPurchaseWarning = function() --[[ Line: 263 ]] --[[ Name: dispatchFetchPurchaseWarning ]]
-            -- upvalues: v51 (copy), v23 (ref)
-            return v51(v23());
+        dispatchFetchPurchaseWarning = function() --[[ Line: 268 ]] --[[ Name: dispatchFetchPurchaseWarning ]]
+            -- upvalues: v53 (copy), v24 (ref)
+            return v53(v24());
         end, 
-        completeRequest = function() --[[ Line: 266 ]] --[[ Name: completeRequest ]]
-            -- upvalues: l_GuiService_0 (ref), v51 (copy), v16 (ref)
+        completeRequest = function() --[[ Line: 271 ]] --[[ Name: completeRequest ]]
+            -- upvalues: l_GuiService_0 (ref), v53 (copy), v17 (ref)
             l_GuiService_0.SelectedCoreObject = nil;
-            return v51(v16());
+            return v53(v17());
         end, 
-        onUpsellSuggestionsSelected = function(v53, v54, v55) --[[ Line: 270 ]] --[[ Name: onUpsellSuggestionsSelected ]]
-            -- upvalues: v51 (copy), v13 (ref)
-            return v51(v13(v53, v54, v55));
+        onUpsellSuggestionsSelected = function(v55, v56, v57) --[[ Line: 275 ]] --[[ Name: onUpsellSuggestionsSelected ]]
+            -- upvalues: v53 (copy), v14 (ref)
+            return v53(v14(v55, v56, v57));
         end, 
-        onAnalyticEvent = function(v56, v57) --[[ Line: 277 ]] --[[ Name: onAnalyticEvent ]]
-            -- upvalues: v51 (copy), v24 (ref)
-            return v51(v24(v56, v57));
+        onAnalyticEvent = function(v58, v59) --[[ Line: 282 ]] --[[ Name: onAnalyticEvent ]]
+            -- upvalues: v53 (copy), v25 (ref)
+            return v53(v25(v58, v59));
         end
     };
-end)(v36));
+end)(v38));

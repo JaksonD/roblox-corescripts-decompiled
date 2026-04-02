@@ -5,6 +5,7 @@ local v3 = require(l_script_0.Enums.SurfaceContext);
 local v4 = require(l_script_0.Components.BlackbirdUpsellBanner);
 local v5 = require(l_script_0.Network.getRobloxSubscriptionProducts);
 local _ = require(l_script_0.types);
+local v7 = require(l_script_0.Store.RobloxSubscriptionSignals);
 return {
     initiateRobloxSubscriptionPurchase = require(script.Flows.initiateRobloxSubscriptionPurchase), 
     SurfaceContext = v3, 
@@ -15,6 +16,10 @@ return {
     }, 
     Network = {
         getRobloxSubscriptionProducts = v5
+    }, 
+    RobloxSubscriptionSignals = v7, 
+    Utils = {
+        getSubscriptionPurchaseCloseCallback = require(l_script_0.Utils.getSubscriptionPurchaseCloseCallback)
     }, 
     ["jest.config"] = script["jest.config"]
 };

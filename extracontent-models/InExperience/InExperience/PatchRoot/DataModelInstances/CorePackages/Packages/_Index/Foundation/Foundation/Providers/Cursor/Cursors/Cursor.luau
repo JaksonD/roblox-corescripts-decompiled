@@ -1,177 +1,176 @@
 local l_script_FirstAncestor_0 = script:FindFirstAncestor("Foundation");
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
-local v2 = require(l_script_FirstAncestor_0.Utility.Flags);
-local v3 = require(l_Parent_0.FoundationImages);
-local v4 = require(l_Parent_0.React);
-local l_Images_0 = v3.Images;
-local v6 = require(script.Parent.Parent.CursorComponent);
-local v7 = require(l_script_FirstAncestor_0.Enums.CursorType);
-local v8 = require(l_script_FirstAncestor_0.Enums.ColorMode);
-local v9 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
+local v2 = require(l_Parent_0.FoundationImages);
+local v3 = require(l_Parent_0.React);
+local l_Images_0 = v2.Images;
+local v5 = require(script.Parent.Parent.CursorComponent);
+local v6 = require(l_script_FirstAncestor_0.Enums.CursorType);
+local _ = require(l_script_FirstAncestor_0.Enums.ColorMode);
+local v8 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
 local l_Components_0 = script.Parent.Parent.Parent.Parent.Components;
-local v11 = require(l_Components_0.Image.ImageSet.getScaledSlice);
-local v12 = {
-    [v7.BulletUp] = {
+local v10 = require(l_Components_0.Image.ImageSet.getScaledSlice);
+local v11 = {
+    [v6.BulletUp] = {
         Tag = "SlicedImage", 
         Image = "component_assets/bulletUp_17_stroke_3", 
         SliceCenter = Rect.new(8, 8, 9, 9), 
         InsetAdjustment = Vector2.new(2, 2)
     }, 
-    [v7.BulletDown] = {
+    [v6.BulletDown] = {
         Tag = "SlicedImage", 
         Image = "component_assets/bulletDown_17_stroke_3", 
         SliceCenter = Rect.new(8, 8, 9, 9), 
         InsetAdjustment = Vector2.new(2, 2)
     }, 
-    [v7.InputFields] = {
+    [v6.InputFields] = {
         Tag = "SlicedImage", 
         Image = "component_assets/circle_22_stroke_3", 
         SliceCenter = Rect.new(11, 11, 12, 12), 
         InsetAdjustment = Vector2.new(7, 0)
     }, 
-    [v7.SelectionCell] = {
+    [v6.SelectionCell] = {
         Tag = "SlicedImage", 
         Image = "component_assets/square_7_stroke_3", 
         SliceCenter = Rect.new(3.5, 3.5, 3.5, 3.5), 
         InsetAdjustment = Vector2.new(2, 2), 
         Padding = 50
     }, 
-    [v7.SelectedKnob] = {
+    [v6.SelectedKnob] = {
         Tag = "FixedSizeImage", 
         Image = "component_assets/circle_42_stroke_3", 
         Size = 42
     }, 
-    [v7.UnselectedKnob] = {
+    [v6.UnselectedKnob] = {
         Tag = "FixedSizeImage", 
         Image = "component_assets/circle_52_stroke_3", 
         Size = 52
     }, 
-    [v7.InputButton] = {
+    [v6.InputButton] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 11), 
         Offset = 11, 
         BorderWidth = 3
     }, 
-    [v7.RoundedRect] = {
+    [v6.RoundedRect] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 8), 
         Offset = 9, 
         BorderWidth = 3
     }, 
-    [v7.RoundedRectNoInset] = {
+    [v6.RoundedRectNoInset] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 8), 
         Offset = 0, 
         BorderWidth = 3
     }, 
-    [v7.RoundedSlot] = {
+    [v6.RoundedSlot] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 7), 
         Offset = 0, 
         BorderWidth = 3
     }, 
-    [v7.SkinToneCircle] = {
+    [v6.SkinToneCircle] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0.5, 0), 
         Offset = 0, 
         BorderWidth = 3
     }, 
-    [v7.SmallPill] = {
+    [v6.SmallPill] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 15), 
         Offset = 0, 
         BorderWidth = 3
     }, 
-    [v7.LargePill] = {
+    [v6.LargePill] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 26), 
         Offset = 0, 
         BorderWidth = 3
     }, 
-    [v7.Square] = {
+    [v6.Square] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 0), 
         Offset = 2, 
         BorderWidth = 3
     }, 
-    [v7.Toggle] = {
+    [v6.Toggle] = {
         Tag = "RoundedImage", 
         CornerRadius = UDim.new(0, 13), 
         Offset = 0, 
         BorderWidth = 3
     }
 };
-return (v4.forwardRef(function(v13, v14) --[[ Line: 141 ]]
-    -- upvalues: v9 (copy), v2 (copy), v8 (copy), v7 (copy), v4 (copy), v12 (copy), l_Images_0 (copy), v11 (copy), v6 (copy)
-    local v15 = v9();
-    local v16 = if v2.FoundationSupportPresentationContextInSelectionCursor then v13.colorMode else v8.Color;
-    if v13.cursorType == v7.NavHighlight then
-        return v4.createElement("Frame", {
+return (v3.forwardRef(function(v12, v13) --[[ Line: 140 ]]
+    -- upvalues: v8 (copy), v6 (copy), v3 (copy), v11 (copy), l_Images_0 (copy), v10 (copy), v5 (copy)
+    local v14 = v8();
+    local l_colorMode_0 = v12.colorMode;
+    if v12.cursorType == v6.NavHighlight then
+        return v3.createElement("Frame", {
             AnchorPoint = Vector2.new(0, 1), 
             Position = UDim2.new(0, 0, 1, -3), 
             Size = UDim2.new(1, 0, 0, 3), 
             BorderSizePixel = 1, 
-            BackgroundColor3 = v15[v16].Selection.Start.Color3, 
+            BackgroundColor3 = v14[l_colorMode_0].Selection.Start.Color3, 
             BackgroundTransparency = 0, 
-            BorderColor3 = v15[v16].Selection.Start.Color3, 
-            ref = v14
+            BorderColor3 = v14[l_colorMode_0].Selection.Start.Color3, 
+            ref = v13
         });
-    elseif v13.cursorType == v7.Invisible then
-        return v4.createElement("Frame", {
+    elseif v12.cursorType == v6.Invisible then
+        return v3.createElement("Frame", {
             BackgroundTransparency = 1, 
             Size = UDim2.fromScale(1, 1), 
-            ref = v14
+            ref = v13
         });
     else
-        local v17 = v12[v13.cursorType];
-        if v17.Tag == "FixedSizeImage" then
-            local v18 = UDim2.fromOffset(v17.Size, v17.Size);
-            local v19 = UDim2.new(0.5, -v18.X.Offset / 2, 0.5, -v18.Y.Offset / 2);
-            return v4.createElement("ImageLabel", {
-                Image = l_Images_0[v17.Image].Image, 
+        local v16 = v11[v12.cursorType];
+        if v16.Tag == "FixedSizeImage" then
+            local v17 = UDim2.fromOffset(v16.Size, v16.Size);
+            local v18 = UDim2.new(0.5, -v17.X.Offset / 2, 0.5, -v17.Y.Offset / 2);
+            return v3.createElement("ImageLabel", {
+                Image = l_Images_0[v16.Image].Image, 
                 BackgroundTransparency = 1, 
-                ImageRectOffset = l_Images_0[v17.Image].ImageRectOffset, 
-                ImageRectSize = l_Images_0[v17.Image].ImageRectSize, 
-                Size = v18, 
-                Position = v19, 
-                ImageColor3 = v15[v16].Selection.Start.Color3, 
-                ImageTransparency = v15[v16].Selection.Start.Transparency, 
-                ref = v14
+                ImageRectOffset = l_Images_0[v16.Image].ImageRectOffset, 
+                ImageRectSize = l_Images_0[v16.Image].ImageRectSize, 
+                Size = v17, 
+                Position = v18, 
+                ImageColor3 = v14[l_colorMode_0].Selection.Start.Color3, 
+                ImageTransparency = v14[l_colorMode_0].Selection.Start.Transparency, 
+                ref = v13
             });
-        elseif v17.Tag == "SlicedImage" then
-            local l_InsetAdjustment_0 = v17.InsetAdjustment;
-            local v21 = UDim2.new(1, l_InsetAdjustment_0.X * 2, 1, l_InsetAdjustment_0.Y * 2);
-            local v22 = v11(v17.SliceCenter);
-            local v23 = if v17.Padding then v4.createElement("UIPadding", {
-                PaddingTop = UDim.new(0, v17.Padding), 
-                PaddingBottom = UDim.new(0, v17.Padding), 
-                PaddingLeft = UDim.new(0, v17.Padding), 
-                PaddingRight = UDim.new(0, v17.Padding)
+        elseif v16.Tag == "SlicedImage" then
+            local l_InsetAdjustment_0 = v16.InsetAdjustment;
+            local v20 = UDim2.new(1, l_InsetAdjustment_0.X * 2, 1, l_InsetAdjustment_0.Y * 2);
+            local v21 = v10(v16.SliceCenter);
+            local v22 = if v16.Padding then v3.createElement("UIPadding", {
+                PaddingTop = UDim.new(0, v16.Padding), 
+                PaddingBottom = UDim.new(0, v16.Padding), 
+                PaddingLeft = UDim.new(0, v16.Padding), 
+                PaddingRight = UDim.new(0, v16.Padding)
             }) else nil;
-            return v4.createElement("ImageLabel", {
-                Image = l_Images_0[v17.Image].Image, 
+            return v3.createElement("ImageLabel", {
+                Image = l_Images_0[v16.Image].Image, 
                 BackgroundTransparency = 1, 
-                ImageRectOffset = l_Images_0[v17.Image].ImageRectOffset, 
-                ImageRectSize = l_Images_0[v17.Image].ImageRectSize, 
-                SliceCenter = v22.center, 
-                SliceScale = v22.scale, 
+                ImageRectOffset = l_Images_0[v16.Image].ImageRectOffset, 
+                ImageRectSize = l_Images_0[v16.Image].ImageRectSize, 
+                SliceCenter = v21.center, 
+                SliceScale = v21.scale, 
                 ScaleType = Enum.ScaleType.Slice, 
-                Size = v21, 
+                Size = v20, 
                 Position = UDim2.fromOffset(-l_InsetAdjustment_0.X, -l_InsetAdjustment_0.Y), 
-                ImageColor3 = v15[v16].Selection.Start.Color3, 
-                ImageTransparency = v15[v16].Selection.Start.Transparency, 
-                ref = v14
+                ImageColor3 = v14[l_colorMode_0].Selection.Start.Color3, 
+                ImageTransparency = v14[l_colorMode_0].Selection.Start.Transparency, 
+                ref = v13
             }, {
-                Padding = v23
+                Padding = v22
             });
-        elseif v17.Tag == "RoundedImage" then
-            return v4.createElement(v6, {
-                isVisible = v13.isVisible, 
-                cornerRadius = v17.CornerRadius, 
-                offset = v17.Offset - v17.BorderWidth, 
-                borderWidth = v17.BorderWidth, 
-                colorMode = v13.colorMode, 
-                ref = v14
+        elseif v16.Tag == "RoundedImage" then
+            return v3.createElement(v5, {
+                isVisible = v12.isVisible, 
+                cornerRadius = v16.CornerRadius, 
+                offset = v16.Offset - v16.BorderWidth, 
+                borderWidth = v16.BorderWidth, 
+                colorMode = v12.colorMode, 
+                ref = v13
             });
         else
             return nil;

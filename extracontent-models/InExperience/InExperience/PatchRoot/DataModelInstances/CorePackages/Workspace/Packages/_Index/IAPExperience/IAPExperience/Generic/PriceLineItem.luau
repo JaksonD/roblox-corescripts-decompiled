@@ -6,7 +6,7 @@ local l_Text_0 = v2.Text;
 local l_combineReactTags_0 = require(l_Parent_0.RoactUtils).combineReactTags;
 return function(v6) --[[ Line: 24 ]] --[[ Name: PriceLineItem ]]
     -- upvalues: v1 (copy), l_combineReactTags_0 (copy), l_View_0 (copy), l_Text_0 (copy)
-    local v7 = v6.textStyle or "text-body-small";
+    local v7 = v6.textStyle or "text-body-small content-emphasis";
     local v8 = v1.useMemo(function() --[[ Line: 26 ]]
         -- upvalues: l_combineReactTags_0 (ref), v7 (copy)
         return l_combineReactTags_0("auto-y", v7, "content-emphasis", "text-align-x-left");

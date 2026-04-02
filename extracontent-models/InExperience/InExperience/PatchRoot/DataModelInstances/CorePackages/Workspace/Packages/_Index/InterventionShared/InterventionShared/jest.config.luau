@@ -6,6 +6,5 @@ return {
         v1.setupFiles.LogHandler, 
         v1.setupFiles.UIBloxInitializer, 
         v1.setupFiles.createPromiseRejectionHandler()
-    }, 
-    mockDataModel = true
+    }
 };

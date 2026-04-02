@@ -1,17 +1,19 @@
 local _ = require(script.Parent.Types);
 local v1 = require(script.Parent.Enums.AvatarEditorSubcategories);
-local v2 = require(script.Parent.Enums.SlotType);
-local v3 = {};
-local v4 = require(script.Parent.Enums.Categories);
+local v2 = require(script.Parent.Enums.InventoryFilters);
+local v3 = require(script.Parent.Enums.SlotType);
+local v4 = {};
+local v5 = require(script.Parent.Enums.Categories);
 local l_Parent_0 = script:FindFirstAncestor("AvatarExperienceSlotBasedEditor").Parent;
-local v6 = require(l_Parent_0.AvatarExperienceFlags);
-local l_FFlagRemoveClassicHeadsAndFaces_0 = v6.FFlagRemoveClassicHeadsAndFaces;
-local l_FFlagAXCustomizeMakeupSupport_0 = v6.FFlagAXCustomizeMakeupSupport;
-local l_FFlagAXMigrateBuilderIcons_0 = v6.FFlagAXMigrateBuilderIcons;
-local l_FFlagAXSlotsDesktopRedesign_0 = v6.FFlagAXSlotsDesktopRedesign;
+local v7 = require(l_Parent_0.AvatarExperienceFlags);
+local l_FFlagRemoveClassicHeadsAndFaces_0 = v7.FFlagRemoveClassicHeadsAndFaces;
+local l_FFlagAXCustomizeMakeupSupport_0 = v7.FFlagAXCustomizeMakeupSupport;
+local l_FFlagAXMigrateBuilderIcons_0 = v7.FFlagAXMigrateBuilderIcons;
+local l_FFlagAXSlotsDesktopRedesign_0 = v7.FFlagAXSlotsDesktopRedesign;
+local l_FFlagAXInventoryDurablesExpiredFilter_0 = v7.FFlagAXInventoryDurablesExpiredFilter;
 local l_IconName_0 = require(l_Parent_0.Foundation).Enums.IconName;
 local l_IconVariant_0 = require(l_Parent_0.Foundation).Enums.IconVariant;
-local v13 = {
+local v15 = {
     FullBody = if l_FFlagAXMigrateBuilderIcons_0 then {
         name = l_IconName_0.PersonStanding, 
         variant = l_IconVariant_0.Filled
@@ -181,7 +183,7 @@ local v13 = {
         variant = l_IconVariant_0.Regular
     } else l_IconName_0.Eyebrows
 };
-local v14 = {
+local v16 = {
     Enum.AssetType.LeftLeg, 
     Enum.AssetType.RightLeg, 
     Enum.AssetType.LeftArm, 
@@ -190,21 +192,21 @@ local v14 = {
     Enum.AssetType.Head, 
     Enum.AssetType.DynamicHead
 };
-local v15 = {
-    [v4.All] = {
+local v17 = {
+    [v5.All] = {
         name = "All", 
         nameTranslationKey = l_FFlagAXSlotsDesktopRedesign_0 and "Feature.Avatar.Heading.All" or "Feature.Catalog.Label.Avatars", 
         index = 0, 
         slots = {}, 
         hide = true
     }, 
-    [v4.Avatars] = {
+    [v5.Avatars] = {
         name = "Avatars", 
         nameTranslationKey = "Feature.Catalog.Label.Avatars", 
         index = 1, 
         slots = {}
     }, 
-    [v4.Body] = {
+    [v5.Body] = {
         name = "Body", 
         nameTranslationKey = "Feature.Catalog.Label.Body", 
         index = 2, 
@@ -217,7 +219,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Hair", 
-                icon = v13.Hair, 
+                icon = v15.Hair, 
                 editorSubcategory = v1.Hair, 
                 assetTypes = {
                     Enum.AvatarAssetType.HairAccessory
@@ -225,7 +227,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Head", 
-                icon = v13.ClassicHead, 
+                icon = v15.ClassicHead, 
                 editorSubcategory = v1.Heads, 
                 assetTypes = {
                     Enum.AvatarAssetType.DynamicHead, 
@@ -235,7 +237,7 @@ local v15 = {
             {
                 name = "Classic Face", 
                 nameTranslationKey = "Feature.Avatar.Label.Face", 
-                icon = v13.Faces, 
+                icon = v15.Faces, 
                 editorSubcategory = v1.ClassicFaces, 
                 assetTypes = {
                     Enum.AvatarAssetType.Face
@@ -245,7 +247,7 @@ local v15 = {
                 name = "Build", 
                 nameTranslationKey = "Feature.Avatar.Label.Build", 
                 assetTypes = {}, 
-                icon = v13.Build, 
+                icon = v15.Build, 
                 editorSubcategory = v1.Build
             }, 
             {
@@ -263,7 +265,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Hair", 
-                icon = v13.Hair, 
+                icon = v15.Hair, 
                 editorSubcategory = v1.Hair, 
                 assetTypes = {
                     Enum.AvatarAssetType.HairAccessory
@@ -271,7 +273,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Head", 
-                icon = v13.ClassicHead, 
+                icon = v15.ClassicHead, 
                 editorSubcategory = v1.Heads, 
                 assetTypes = {
                     Enum.AvatarAssetType.DynamicHead
@@ -281,7 +283,7 @@ local v15 = {
                 name = "Build", 
                 nameTranslationKey = "Feature.Avatar.Label.Build", 
                 assetTypes = {}, 
-                icon = v13.Build, 
+                icon = v15.Build, 
                 editorSubcategory = v1.Build
             }, 
             {
@@ -292,7 +294,7 @@ local v15 = {
             }
         }
     }, 
-    [v4.Makeup] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else {
+    [v5.Makeup] = if not l_FFlagAXCustomizeMakeupSupport_0 then nil else {
         name = "Makeup", 
         nameTranslationKey = "Feature.Avatar.Label.Makeup", 
         index = 3, 
@@ -300,7 +302,7 @@ local v15 = {
         slots = {
             {
                 nameTranslationKey = "Feature.Avatar.Label.Eyelashes", 
-                icon = v13.Eyelashes, 
+                icon = v15.Eyelashes, 
                 editorSubcategory = v1.MakeupLooks, 
                 eligibleSubcategories = {
                     v1.MakeupLooks, 
@@ -312,7 +314,7 @@ local v15 = {
                 hide = true
             }, 
             {
-                slotType = v2.LayeredSlot, 
+                slotType = v3.LayeredSlot, 
                 layerLimit = 6, 
                 name = "Makeup", 
                 nameTranslationKey = "Feature.Avatar.Label.MakeupLayer", 
@@ -331,7 +333,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Eyelashes", 
-                icon = v13.Eyelashes, 
+                icon = v15.Eyelashes, 
                 editorSubcategory = v1.Eyelashes, 
                 assetTypes = {
                     Enum.AvatarAssetType.EyelashAccessory
@@ -340,7 +342,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Eyebrows", 
-                icon = v13.Eyebrows, 
+                icon = v15.Eyebrows, 
                 editorSubcategory = v1.Eyebrows, 
                 assetTypes = {
                     Enum.AvatarAssetType.EyebrowAccessory
@@ -349,14 +351,14 @@ local v15 = {
             }
         }
     }, 
-    [v4.Clothing] = {
+    [v5.Clothing] = {
         name = "Clothing", 
         nameTranslationKey = "Feature.Catalog.Label.Clothing", 
         index = l_FFlagAXCustomizeMakeupSupport_0 and 4 or 3, 
         slots = {
             {
                 nameTranslationKey = "Feature.Avatar.Label.Top", 
-                icon = v13.Shirts, 
+                icon = v15.Shirts, 
                 editorSubcategory = v1.Tops, 
                 assetTypes = {
                     Enum.AvatarAssetType.ShirtAccessory, 
@@ -366,7 +368,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Outerwear", 
-                icon = v13.Jackets, 
+                icon = v15.Jackets, 
                 editorSubcategory = v1.Outerwear, 
                 assetTypes = {
                     Enum.AvatarAssetType.JacketAccessory
@@ -374,7 +376,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Bottom", 
-                icon = v13.Pants, 
+                icon = v15.Pants, 
                 editorSubcategory = v1.Bottoms, 
                 assetTypes = {
                     Enum.AvatarAssetType.PantsAccessory, 
@@ -384,7 +386,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Shoes", 
-                icon = v13.Shoes, 
+                icon = v15.Shoes, 
                 editorSubcategory = v1.Shoes, 
                 assetTypes = {
                     Enum.AvatarAssetType.RightShoeAccessory
@@ -392,7 +394,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.ShirtClassic", 
-                icon = v13.ClassicShirts, 
+                icon = v15.ClassicShirts, 
                 editorSubcategory = v1.ClassicShirts, 
                 assetTypes = {
                     Enum.AvatarAssetType.Shirt
@@ -400,7 +402,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.PantsClassic", 
-                icon = v13.ClassicPants, 
+                icon = v15.ClassicPants, 
                 editorSubcategory = v1.ClassicPants, 
                 assetTypes = {
                     Enum.AvatarAssetType.Pants
@@ -408,7 +410,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.TShirtClassic", 
-                icon = v13.ClassicTShirts, 
+                icon = v15.ClassicTShirts, 
                 editorSubcategory = v1.ClassicTShirts, 
                 assetTypes = {
                     Enum.AvatarAssetType.TShirt
@@ -416,7 +418,7 @@ local v15 = {
             }
         }
     }, 
-    [v4.Accessories] = {
+    [v5.Accessories] = {
         name = "Accessories", 
         nameTranslationKey = "Feature.Catalog.LabelAccessories", 
         index = l_FFlagAXCustomizeMakeupSupport_0 and 5 or 4, 
@@ -424,7 +426,7 @@ local v15 = {
             {
                 name = "Head", 
                 nameTranslationKey = "Feature.Avatar.Label.Head", 
-                icon = v13.Head, 
+                icon = v15.Head, 
                 editorSubcategory = v1.Hats, 
                 assetTypes = {
                     Enum.AvatarAssetType.Hat
@@ -432,7 +434,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Face", 
-                icon = v13.Face, 
+                icon = v15.Face, 
                 editorSubcategory = v1.Face, 
                 assetTypes = {
                     Enum.AvatarAssetType.FaceAccessory
@@ -440,7 +442,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Neck", 
-                icon = v13.Neck, 
+                icon = v15.Neck, 
                 editorSubcategory = v1.Neck, 
                 assetTypes = {
                     Enum.AvatarAssetType.NeckAccessory
@@ -448,7 +450,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Back", 
-                icon = v13.Back, 
+                icon = v15.Back, 
                 editorSubcategory = v1.Back, 
                 assetTypes = {
                     Enum.AvatarAssetType.BackAccessory
@@ -456,7 +458,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Waist", 
-                icon = v13.Waist, 
+                icon = v15.Waist, 
                 editorSubcategory = v1.Waist, 
                 assetTypes = {
                     Enum.AvatarAssetType.WaistAccessory
@@ -464,7 +466,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Shoulder", 
-                icon = v13.Shoulder, 
+                icon = v15.Shoulder, 
                 editorSubcategory = v1.Shoulder, 
                 assetTypes = {
                     Enum.AvatarAssetType.ShoulderAccessory
@@ -472,7 +474,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Front", 
-                icon = v13.Front, 
+                icon = v15.Front, 
                 editorSubcategory = v1.Front, 
                 assetTypes = {
                     Enum.AvatarAssetType.FrontAccessory
@@ -480,7 +482,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Gear", 
-                icon = v13.Gear, 
+                icon = v15.Gear, 
                 editorSubcategory = v1.Gear, 
                 assetTypes = {
                     Enum.AvatarAssetType.Gear
@@ -488,14 +490,14 @@ local v15 = {
             }
         }
     }, 
-    [v4.Animations] = {
+    [v5.Animations] = {
         name = "Animations", 
         nameTranslationKey = "Feature.Avatar.Heading.Animations", 
         index = l_FFlagAXCustomizeMakeupSupport_0 and 6 or 5, 
         slots = {
             {
                 nameTranslationKey = "Feature.Avatar.Label.AnimationFullSet", 
-                icon = v13.Animation, 
+                icon = v15.Animation, 
                 editorSubcategory = v1.AnimationFullSets, 
                 assetTypes = {
                     Enum.AvatarAssetType.IdleAnimation
@@ -503,7 +505,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Idle", 
-                icon = v13.Idle, 
+                icon = v15.Idle, 
                 editorSubcategory = v1.IdleAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.IdleAnimation
@@ -511,7 +513,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Walk", 
-                icon = v13.Walk, 
+                icon = v15.Walk, 
                 editorSubcategory = v1.WalkAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.WalkAnimation
@@ -519,7 +521,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Run", 
-                icon = v13.Animation, 
+                icon = v15.Animation, 
                 editorSubcategory = v1.RunAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.RunAnimation
@@ -527,7 +529,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Jump", 
-                icon = v13.Jump, 
+                icon = v15.Jump, 
                 editorSubcategory = v1.JumpAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.JumpAnimation
@@ -535,7 +537,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Fall", 
-                icon = v13.Fall, 
+                icon = v15.Fall, 
                 editorSubcategory = v1.FallAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.FallAnimation
@@ -543,7 +545,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Climb", 
-                icon = v13.Climb, 
+                icon = v15.Climb, 
                 editorSubcategory = v1.ClimbAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.ClimbAnimation
@@ -551,7 +553,7 @@ local v15 = {
             }, 
             {
                 nameTranslationKey = "Feature.Avatar.Label.Swim", 
-                icon = v13.Swim, 
+                icon = v15.Swim, 
                 editorSubcategory = v1.SwimAnimations, 
                 assetTypes = {
                     Enum.AvatarAssetType.SwimAnimation
@@ -559,15 +561,19 @@ local v15 = {
             }
         }
     }, 
-    [v4.Emotes] = {
+    [v5.Emotes] = {
         name = "Emotes", 
         nameTranslationKey = "Feature.Catalog.Label.Emotes", 
         index = l_FFlagAXCustomizeMakeupSupport_0 and 7 or 6, 
         slots = {}
     }
 };
-v3.Categories = v4;
-v3.SlotEditorCategories = v15;
-v3.Icons = v13;
-v3.BodyAssetTypes = v14;
-return v3;
+local v18 = if l_FFlagAXInventoryDurablesExpiredFilter_0 then {
+    [v2.Expired] = 2
+} else nil;
+v4.Categories = v5;
+v4.SlotEditorCategories = v17;
+v4.Icons = v15;
+v4.BodyAssetTypes = v16;
+v4.InventoryFilterToAvailabilityStatus = v18;
+return v4;

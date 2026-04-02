@@ -36,6 +36,7 @@ return {
     REJECT_START_PARTY_REQUEST_ACTION = "RejectStartPartyRequest", 
     ACCEPT_PARTY_INVITE_ACTION = "AcceptPartyInvite", 
     REJECT_PARTY_INVITE_ACTION = "RejectPartyInvite", 
+    SQUAD_TOP_BANNER_TEST_ID = "squadTopBanner", 
     DISMISS_INVITER_SQUAD_NUDGE_BUTTON_TYPE = "DismissInviterSquadNudge", 
     DISMISS_SQUAD_NUDGE_BUTTON_TYPE = "DismissSquadNudge", 
     DISMISS_START_PARTY_PROMPT_BUTTON_TYPE = "DismissStartPartyPrompt", 

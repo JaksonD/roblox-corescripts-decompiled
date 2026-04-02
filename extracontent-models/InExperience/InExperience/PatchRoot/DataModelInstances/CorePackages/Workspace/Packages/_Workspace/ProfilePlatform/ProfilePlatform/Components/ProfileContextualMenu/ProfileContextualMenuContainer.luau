@@ -20,90 +20,95 @@ local v18 = require(l_script_FirstAncestor_0.Common.Enums);
 local l_FFlagProfilePlatformAddTC_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformAddTC;
 local l_FFlagProfileContextualMenuDisableFix_0 = require(l_Parent_0.SharedFlags).FFlagProfileContextualMenuDisableFix;
 local l_FFlagProfileFixMenuNavigation_0 = require(l_Parent_0.SharedFlags).FFlagProfileFixMenuNavigation;
-return function(_) --[[ Line: 26 ]] --[[ Name: ProfileContextualMenuContainer ]]
-    -- upvalues: l_useScreenSize_0 (copy), l_useNavigation_0 (copy), v17 (copy), v10 (copy), v18 (copy), v9 (copy), v2 (copy), l_FFlagProfileFixMenuNavigation_0 (copy), l_useAppFocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v5 (copy), l_FFlagProfileContextualMenuDisableFix_0 (copy), l_FFlagProfilePlatformAddTC_0 (copy), l_dependencyArray_0 (copy), v7 (copy), l_FocusNavigableSurfaceWrapper_0 (copy)
-    local v23 = l_useScreenSize_0();
-    local v24 = l_useNavigation_0();
-    local v25 = v24.getParam(v17.Navigation.ON_CLOSE);
-    local v26 = v24.getParam(v17.Navigation.GET_ROOT_ELEMENT_REF);
-    local v27 = v24.getParam(v17.Navigation.ON_DISMISS_REF);
-    local v28 = v26();
-    local v29 = if v28 then v28.AbsolutePosition else Vector2.new(0, 0);
-    local v30 = v10(v18.Components.Actions) or {};
-    local v31 = v9(v18.ButtonSurface.ContextualMenu);
-    local l_contextual_0 = v30.contextual;
-    local v33, v34 = v2.useState(true);
-    local v35 = v2.useCallback(function() --[[ Line: 44 ]]
-        -- upvalues: v34 (copy), v24 (copy), v25 (copy)
-        v34(false);
-        v24.pop();
-        v25();
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(_) --[[ Line: 28 ]] --[[ Name: ProfileContextualMenuContainer ]]
+    -- upvalues: l_useScreenSize_0 (copy), l_useNavigation_0 (copy), v17 (copy), v10 (copy), v18 (copy), v9 (copy), v2 (copy), l_FFlagProfileFixMenuNavigation_0 (copy), l_useAppFocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_FocusNavigationEventNameEnum_0 (copy), v5 (copy), l_FFlagProfileContextualMenuDisableFix_0 (copy), l_FFlagProfilePlatformAddTC_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v7 (copy), l_FocusNavigableSurfaceWrapper_0 (copy)
+    local v24 = l_useScreenSize_0();
+    local v25 = l_useNavigation_0();
+    local v26 = v25.getParam(v17.Navigation.ON_CLOSE);
+    local v27 = v25.getParam(v17.Navigation.GET_ROOT_ELEMENT_REF);
+    local v28 = v25.getParam(v17.Navigation.ON_DISMISS_REF);
+    local v29 = v27();
+    local v30 = if v29 then v29.AbsolutePosition else Vector2.new(0, 0);
+    local v31 = v10(v18.Components.Actions) or {};
+    local v32 = v9(v18.ButtonSurface.ContextualMenu);
+    local l_contextual_0 = v31.contextual;
+    local v34, v35 = v2.useState(true);
+    local v36 = v2.useCallback(function() --[[ Line: 46 ]]
+        -- upvalues: v35 (copy), v25 (copy), v26 (copy)
+        v35(false);
+        v25.pop();
+        v26();
     end, {
-        v24, 
-        v25
+        v25, 
+        v26
     });
-    local v36 = if l_FFlagProfileFixMenuNavigation_0 then l_useAppFocusRoot_0({
+    local v37 = if l_FFlagProfileFixMenuNavigation_0 then l_useAppFocusRoot_0({
         surfaceIdentifier = l_FocusNavigableSurfaceIdentifierEnum_0.ContextualMenu, 
         customEventHandlers = {
             [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-                handler = v5.onRelease(function() --[[ Line: 56 ]]
-                    -- upvalues: v35 (copy)
-                    v35();
+                handler = v5.onRelease(function() --[[ Line: 58 ]]
+                    -- upvalues: v36 (copy)
+                    v36();
                 end)
             }
         }, 
         isAutoFocusRoot = true, 
-        isFocusable = v33
+        isFocusable = v34
     }) else nil;
-    v2.useEffect(function() --[[ Line: 66 ]]
-        -- upvalues: v27 (copy), v35 (copy)
-        if not v27 then
+    v2.useEffect(function() --[[ Line: 68 ]]
+        -- upvalues: v28 (copy), v36 (copy)
+        if not v28 then
             return;
         else
-            v27.current = v35;
-            return function() --[[ Line: 71 ]]
-                -- upvalues: v27 (ref)
-                v27.current = nil;
+            v28.current = v36;
+            return function() --[[ Line: 73 ]]
+                -- upvalues: v28 (ref)
+                v28.current = nil;
             end;
         end;
     end, {
-        v35
+        v36
     });
-    local v41 = v2.useMemo(function() --[[ Line: 76 ]]
-        -- upvalues: l_contextual_0 (copy), v31 (copy), l_FFlagProfileContextualMenuDisableFix_0 (ref), l_FFlagProfilePlatformAddTC_0 (ref), v35 (copy)
+    local v42 = v2.useMemo(function() --[[ Line: 79 ]]
+        -- upvalues: l_contextual_0 (copy), v32 (copy), l_FFlagProfileContextualMenuDisableFix_0 (ref), l_FFlagProfilePlatformAddTC_0 (ref), v36 (copy)
         if not l_contextual_0 then
             return {};
         else
-            local v37 = {};
-            for _, v39 in l_contextual_0 do
-                local v40 = v31[v39];
-                if v40 then
-                    table.insert(v37, {
-                        text = v40.text, 
-                        disabled = if l_FFlagProfileContextualMenuDisableFix_0 then nil else if l_FFlagProfilePlatformAddTC_0 then v40.isDisabled else nil, 
-                        isDisabled = if l_FFlagProfileContextualMenuDisableFix_0 then v40.isDisabled else nil, 
-                        onActivated = function() --[[ Line: 92 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v35 (ref), v40 (copy)
-                            v35();
-                            v40.onActivated();
+            local v38 = {};
+            for _, v40 in l_contextual_0 do
+                local v41 = v32[v40];
+                if v41 then
+                    table.insert(v38, {
+                        text = v41.text, 
+                        disabled = if l_FFlagProfileContextualMenuDisableFix_0 then nil else if l_FFlagProfilePlatformAddTC_0 then v41.isDisabled else nil, 
+                        isDisabled = if l_FFlagProfileContextualMenuDisableFix_0 then v41.isDisabled else nil, 
+                        onActivated = function() --[[ Line: 95 ]] --[[ Name: onActivated ]]
+                            -- upvalues: v36 (ref), v41 (copy)
+                            v36();
+                            v41.onActivated();
                         end
                     });
                 end;
             end;
-            return v37;
+            return v38;
         end;
-    end, l_dependencyArray_0(l_contextual_0, v35, v31));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_contextual_0, 
+        v36, 
+        v32
+    } else l_dependencyArray_0(l_contextual_0, v36, v32));
     if l_FFlagProfileFixMenuNavigation_0 then
         return v2.createElement(v7, {
-            buttonProps = v41, 
-            screenSize = v23, 
-            onDismiss = v35, 
-            rootElementPosition = v29, 
+            buttonProps = v42, 
+            screenSize = v24, 
+            onDismiss = v36, 
+            rootElementPosition = v30, 
             rootElementRef = {
-                current = v28
+                current = v29
             }, 
-            isOpen = v33, 
-            menuRef = v36
+            isOpen = v34, 
+            menuRef = v37
         });
     else
         return (v2.createElement(l_FocusNavigableSurfaceWrapper_0, {
@@ -111,23 +116,23 @@ return function(_) --[[ Line: 26 ]] --[[ Name: ProfileContextualMenuContainer ]]
             isIsolated = true, 
             customEventHandlers = {
                 [l_FocusNavigationEventNameEnum_0.NavigateBack] = {
-                    handler = v5.onRelease(function(v42) --[[ Line: 118 ]]
-                        -- upvalues: v35 (copy)
-                        v35();
-                        v42:cancel();
+                    handler = v5.onRelease(function(v43) --[[ Line: 125 ]]
+                        -- upvalues: v36 (copy)
+                        v36();
+                        v43:cancel();
                     end)
                 }
             }
         }, {
             v2.createElement(v7, {
-                buttonProps = v41, 
-                screenSize = v23, 
-                onDismiss = v35, 
-                rootElementPosition = v29, 
+                buttonProps = v42, 
+                screenSize = v24, 
+                onDismiss = v36, 
+                rootElementPosition = v30, 
                 rootElementRef = {
-                    current = v28
+                    current = v29
                 }, 
-                isOpen = v33
+                isOpen = v34
             })
         }));
     end;

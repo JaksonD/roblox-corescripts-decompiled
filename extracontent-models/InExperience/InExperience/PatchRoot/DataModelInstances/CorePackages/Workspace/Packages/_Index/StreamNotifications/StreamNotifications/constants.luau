@@ -54,6 +54,8 @@ return {
     Dropdown = {
         Width = 360, 
         MaxHeight = 638, 
+        MinHeight = 200, 
+        VerticalMargin = 100, 
         CornerRadius = 16, 
         HorizontalPadding = 20, 
         PaddingTop = 8, 
@@ -61,6 +63,7 @@ return {
         HeaderMinHeight = 40, 
         CardGap = 16, 
         HeaderBodyGap = 8, 
+        ScrollBarThickness = 4, 
         BellIconOpen = l_Images_0["icons/common/notificationOn"], 
         BellIconClosed = l_Images_0["icons/common/notificationOff"]
     }

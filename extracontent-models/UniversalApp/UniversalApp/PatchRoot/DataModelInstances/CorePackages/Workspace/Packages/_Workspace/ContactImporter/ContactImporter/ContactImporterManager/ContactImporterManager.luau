@@ -40,13 +40,15 @@ local v38 = game:DefineFastFlag("EarlierFetchTimeForFriendsCarousel_v1", false);
 local v39 = game:DefineFastFlag("FixNewFriendRequestCountOnAppResume", false);
 local v40 = game:DefineFastFlag("PrefetchProfileNamesOnStartup_v2", false);
 local l_FIntFriendsCarouselInitialFetchSize_0 = require(l_Parent_1.SharedFlags).FIntFriendsCarouselInitialFetchSize;
-local v42 = require(l_Parent_1.SharedFlags).FFlagRegisterQRCodeKeyInEngine and "ProfileQrCodeCameraSettingsModalSeen" or "ScreenshotEventTracking";
-local v43 = l_rolloutByApplicationId_0(function() --[[ Line: 59 ]]
+local l_FFlagRegisterQRCodeKeyInEngine_0 = require(l_Parent_1.SharedFlags).FFlagRegisterQRCodeKeyInEngine;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_1.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v44 = l_FFlagRegisterQRCodeKeyInEngine_0 and "ProfileQrCodeCameraSettingsModalSeen" or "ScreenshotEventTracking";
+local v45 = l_rolloutByApplicationId_0(function() --[[ Line: 62 ]]
     return game:DefineFastInt("CallFriendCountAtStartupRollout", 0);
 end);
-local v44 = if v39 then l_MessageBusService_0:GetMessageId("Realtime", "appResume") else nil;
-local v45 = if v40 then v31.Stores.UserProfileStore.get() else nil;
-local v46 = {
+local v46 = if v39 then l_MessageBusService_0:GetMessageId("Realtime", "appResume") else nil;
+local v47 = if v40 then v31.Stores.UserProfileStore.get() else nil;
+local v48 = {
     ProfileQRCodeCameraSettingsModalSeen = {
         context = l_Contexts_0.ProfileQRCode, 
         eventType = l_EventTypes_0.SettingsModalSeenSinceLastAppStart, 
@@ -55,134 +57,137 @@ local v46 = {
         }
     }
 };
-return l_UniversalAppPolicy_0.connect(function(v47) --[[ Line: 237 ]]
+return l_UniversalAppPolicy_0.connect(function(v49) --[[ Line: 245 ]]
     -- upvalues: l_GetFFlagContactsToastEnabled_0 (copy), l_ContactsToastIXP_0 (copy)
     return {
-        isContactImporterPolicyEnabled = v47.getContactImporterEnabled(), 
-        isContactsToastPolicyEnabled = if not not l_GetFFlagContactsToastEnabled_0() or l_ContactsToastIXP_0.FFlagContactsToastExperimentEnabled then v47.getContactsToastEnabled() else false
+        isContactImporterPolicyEnabled = v49.getContactImporterEnabled(), 
+        isContactsToastPolicyEnabled = if not not l_GetFFlagContactsToastEnabled_0() or l_ContactsToastIXP_0.FFlagContactsToastExperimentEnabled then v49.getContactsToastEnabled() else false
     };
-end)(function(v48) --[[ Line: 100 ]] --[[ Name: Container ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), l_getAppFeaturePolicies_0 (copy), l_useFetchContactImporterInfoOnce_0 (copy), v38 (copy), v37 (copy), v14 (copy), l_useQuery_0 (copy), l_queries_0 (copy), l_userIdExists_0 (copy), v9 (copy), l_FIntFriendsCarouselInitialFetchSize_0 (copy), v40 (copy), v6 (copy), v45 (copy), l_useAutoSyncContacts_0 (copy), v43 (copy), l_NetworkingFriends_0 (copy), v39 (copy), l_MessageBusService_0 (copy), v44 (copy), l_AnalyticsFactory_0 (copy), v46 (copy), l_DefaultAnalyticsService_0 (copy), l_AppStorageService_0 (copy), v42 (copy), l_PermissionsProtocol_0 (copy), l_dependencyArray_0 (copy), l_GetFFlagContactsToastEnabled_0 (copy), l_ContactsToastIXP_0 (copy), v7 (copy), l_CoreGui_0 (copy), l_ContactsToast_0 (copy), v8 (copy), l_getContactImporterParams_0 (copy)
-    local v49 = l_useDispatch_0();
-    local v50 = l_useLocalUserId_0();
-    local v51 = v48.isContactImporterPolicyEnabled or l_getAppFeaturePolicies_0().getContactImporterEnabled();
+end)(function(v50) --[[ Line: 103 ]] --[[ Name: Container ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), l_getAppFeaturePolicies_0 (copy), l_useFetchContactImporterInfoOnce_0 (copy), v38 (copy), v37 (copy), v14 (copy), l_useQuery_0 (copy), l_queries_0 (copy), l_userIdExists_0 (copy), v9 (copy), l_FIntFriendsCarouselInitialFetchSize_0 (copy), v40 (copy), v6 (copy), v47 (copy), l_useAutoSyncContacts_0 (copy), v45 (copy), l_NetworkingFriends_0 (copy), v39 (copy), l_MessageBusService_0 (copy), v46 (copy), l_AnalyticsFactory_0 (copy), v48 (copy), l_DefaultAnalyticsService_0 (copy), l_AppStorageService_0 (copy), v44 (copy), l_PermissionsProtocol_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_GetFFlagContactsToastEnabled_0 (copy), l_ContactsToastIXP_0 (copy), v7 (copy), l_CoreGui_0 (copy), l_ContactsToast_0 (copy), v8 (copy), l_getContactImporterParams_0 (copy)
+    local v51 = l_useDispatch_0();
+    local v52 = l_useLocalUserId_0();
+    local v53 = v50.isContactImporterPolicyEnabled or l_getAppFeaturePolicies_0().getContactImporterEnabled();
     l_useFetchContactImporterInfoOnce_0({
-        policyIsEnabled = v51
+        policyIsEnabled = v53
     });
-    local v52 = nil;
+    local v54 = nil;
     if v38 then
-        local v53, v54 = v37.usePaginatedFriendsCarouselExperiment();
-        local v55 = {
-            userId = v50, 
-            sort = v53 and v54 or v14.Enums.Sort.FriendshipScore
+        local v55, v56 = v37.usePaginatedFriendsCarouselExperiment();
+        local v57 = {
+            userId = v52, 
+            sort = v55 and v56 or v14.Enums.Sort.FriendshipScore
         };
-        v52 = l_useQuery_0(l_queries_0.allFriendsByUserId, {
+        v54 = l_useQuery_0(l_queries_0.allFriendsByUserId, {
             errorPolicy = "all", 
-            skip = not v53 or not l_userIdExists_0(v50), 
+            skip = not v55 or not l_userIdExists_0(v52), 
             notifyOnNetworkStatusChange = true, 
-            variables = v9.Dictionary.join(v55, {
+            variables = v9.Dictionary.join(v57, {
                 pageLimit = l_FIntFriendsCarouselInitialFetchSize_0, 
                 pageCursor = ""
             })
         });
         l_useQuery_0(l_queries_0.onlineFriendsByUserId, {
-            skip = not v53 or not l_userIdExists_0(v50), 
+            skip = not v55 or not l_userIdExists_0(v52), 
             notifyOnNetworkStatusChange = true, 
-            variables = v55
+            variables = v57
         });
     end;
     if v40 then
-        local v56 = v52 and v52.data and v52.data.allFriendsByUserId and v52.data.allFriendsByUserId.friends;
-        local l_v56_0 = v56 --[[ copy: 5 -> 8 ]];
-        v6.useEffect(function() --[[ Line: 146 ]]
-            -- upvalues: l_userIdExists_0 (ref), v50 (copy), l_v56_0 (copy), v45 (ref)
-            if l_userIdExists_0(v50) then
-                local v58 = {
-                    (tostring(v50))
+        local v58 = v54 and v54.data and v54.data.allFriendsByUserId and v54.data.allFriendsByUserId.friends;
+        local l_v58_0 = v58 --[[ copy: 5 -> 8 ]];
+        v6.useEffect(function() --[[ Line: 149 ]]
+            -- upvalues: l_userIdExists_0 (ref), v52 (copy), l_v58_0 (copy), v47 (ref)
+            if l_userIdExists_0(v52) then
+                local v60 = {
+                    (tostring(v52))
                 };
-                if l_v56_0 then
-                    for _, v60 in l_v56_0 do
-                        if v60 and v60.id then
-                            table.insert(v58, (tostring(v60.id)));
+                if l_v58_0 then
+                    for _, v62 in l_v58_0 do
+                        if v62 and v62.id then
+                            table.insert(v60, (tostring(v62.id)));
                         end;
                     end;
                 end;
-                v45.fetchNamesByUserIds(v58);
+                v47.fetchNamesByUserIds(v60);
             end;
         end, {
-            v50, 
-            v56
+            v52, 
+            v58
         });
     end;
     l_useAutoSyncContacts_0();
-    if v43() then
-        v6.useEffect(function() --[[ Line: 167 ]]
-            -- upvalues: l_userIdExists_0 (ref), v50 (copy), v49 (copy), l_NetworkingFriends_0 (ref)
-            if l_userIdExists_0(v50) then
-                v49(l_NetworkingFriends_0.GetFriendsCountFromUserId.API(v50));
+    if v45() then
+        v6.useEffect(function() --[[ Line: 170 ]]
+            -- upvalues: l_userIdExists_0 (ref), v52 (copy), v51 (copy), l_NetworkingFriends_0 (ref)
+            if l_userIdExists_0(v52) then
+                v51(l_NetworkingFriends_0.GetFriendsCountFromUserId.API(v52));
             end;
         end, {
-            v50
+            v52
         });
     end;
-    v6.useEffect(function() --[[ Line: 174 ]]
-        -- upvalues: l_userIdExists_0 (ref), v50 (copy), v49 (copy), l_NetworkingFriends_0 (ref), v39 (ref), l_MessageBusService_0 (ref), v44 (ref)
-        if l_userIdExists_0(v50) then
-            v49(l_NetworkingFriends_0.GetNewFriendRequestsCount.API({
-                currentUserId = v50
+    v6.useEffect(function() --[[ Line: 177 ]]
+        -- upvalues: l_userIdExists_0 (ref), v52 (copy), v51 (copy), l_NetworkingFriends_0 (ref), v39 (ref), l_MessageBusService_0 (ref), v46 (ref)
+        if l_userIdExists_0(v52) then
+            v51(l_NetworkingFriends_0.GetNewFriendRequestsCount.API({
+                currentUserId = v52
             }));
             if v39 then
-                local v61 = l_MessageBusService_0:Subscribe(v44, function() --[[ Line: 180 ]]
-                    -- upvalues: v49 (ref), l_NetworkingFriends_0 (ref), v50 (ref)
-                    v49(l_NetworkingFriends_0.GetNewFriendRequestsCount.API({
-                        currentUserId = v50
+                local v63 = l_MessageBusService_0:Subscribe(v46, function() --[[ Line: 183 ]]
+                    -- upvalues: v51 (ref), l_NetworkingFriends_0 (ref), v52 (ref)
+                    v51(l_NetworkingFriends_0.GetNewFriendRequestsCount.API({
+                        currentUserId = v52
                     }));
                 end, false, true);
-                return function() --[[ Line: 185 ]]
-                    -- upvalues: v61 (copy)
-                    v61:Disconnect();
+                return function() --[[ Line: 188 ]]
+                    -- upvalues: v63 (copy)
+                    v63:Disconnect();
                 end;
             end;
         end;
-        return function() --[[ Line: 190 ]]
+        return function() --[[ Line: 193 ]]
 
         end;
     end, {
-        v50
+        v52
     });
-    local v62 = v6.useMemo(function() --[[ Line: 193 ]]
-        -- upvalues: l_AnalyticsFactory_0 (ref), v46 (ref), l_DefaultAnalyticsService_0 (ref)
+    local v64 = v6.useMemo(function() --[[ Line: 196 ]]
+        -- upvalues: l_AnalyticsFactory_0 (ref), v48 (ref), l_DefaultAnalyticsService_0 (ref)
         return l_AnalyticsFactory_0.setUpAnalyticsFactory({
             eventLists = {
-                EventStream = v46
+                EventStream = v48
             }, 
             analyticsImpl = {
                 EventStream = l_DefaultAnalyticsService_0.EventStream
             }
         })();
     end, {});
-    v6.useEffect(function() --[[ Line: 203 ]]
-        -- upvalues: l_AppStorageService_0 (ref), v42 (ref), l_PermissionsProtocol_0 (ref), v62 (copy)
-        if l_AppStorageService_0:GetItem(v42) == "true" then
+    v6.useEffect(function() --[[ Line: 207 ]]
+        -- upvalues: l_AppStorageService_0 (ref), v44 (ref), l_PermissionsProtocol_0 (ref), v64 (copy)
+        if l_AppStorageService_0:GetItem(v44) == "true" then
             l_PermissionsProtocol_0.default:checkOrRequestPermissions({
                 l_PermissionsProtocol_0.Permissions.CAMERA_ACCESS
-            }):andThen(function(v63) --[[ Line: 211 ]]
-                -- upvalues: v62 (ref)
-                v62.fireAnalyticsEvent("ProfileQRCodeCameraSettingsModalSeen", {
-                    cameraPermissionResponseStatus = v63
+            }):andThen(function(v65) --[[ Line: 215 ]]
+                -- upvalues: v64 (ref)
+                v64.fireAnalyticsEvent("ProfileQRCodeCameraSettingsModalSeen", {
+                    cameraPermissionResponseStatus = v65
                 });
             end);
-            l_AppStorageService_0:SetItem(v42, "false");
+            l_AppStorageService_0:SetItem(v44, "false");
             l_AppStorageService_0:Flush();
         end;
-    end, l_dependencyArray_0(v50, v62));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v52, 
+        v64
+    } else l_dependencyArray_0(v52, v64));
     if l_GetFFlagContactsToastEnabled_0() or l_ContactsToastIXP_0.FFlagContactsToastExperimentEnabled and l_ContactsToastIXP_0.useContactsToastVariant() then
         return (v6.createElement(v7.Portal, {
             target = l_CoreGui_0
         }, {
-            v6.createElement(l_ContactsToast_0, v8.join(v48, {
+            v6.createElement(l_ContactsToast_0, v8.join(v50, {
                 getContactImporterParams = l_getContactImporterParams_0, 
-                isContactsToastPolicyEnabled = v48.isContactsToastPolicyEnabled
+                isContactsToastPolicyEnabled = v50.isContactsToastPolicyEnabled
             }))
         }));
     else

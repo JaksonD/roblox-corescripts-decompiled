@@ -1,4 +1,5 @@
 return {
+    ActionBar = "ActionBar", 
     AssociatedItemsRow = "AssociatedItemsRow", 
     AttributionRow = "AttributionRow", 
     BadgeTile = "BadgeTile", 
@@ -6,6 +7,7 @@ return {
     Card = "Card", 
     CircleIcon = "CircleIcon", 
     Chip = "Chip", 
+    Coachmark = "Coachmark", 
     CollectionCarousel = "CollectionCarousel", 
     CollectionGrid = "CollectionGrid", 
     ContentRatingLabel = "ContentRatingLabel", 
@@ -37,6 +39,7 @@ return {
     InfoTableCell = "InfoTableCell", 
     OverflowMenu = "OverflowMenu", 
     PlayButton = "PlayButton", 
+    PlayButtonContextualMessage = "PlayButtonContextualMessage", 
     SectionHeader = "SectionHeader", 
     SeeAllTile = "SeeAllTile", 
     SingleItemCollection = "SingleItemCollection", 

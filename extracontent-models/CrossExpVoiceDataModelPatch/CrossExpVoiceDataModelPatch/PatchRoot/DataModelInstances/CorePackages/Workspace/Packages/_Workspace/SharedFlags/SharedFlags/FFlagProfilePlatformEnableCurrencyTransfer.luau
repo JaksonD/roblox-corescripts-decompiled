@@ -1,2 +1,2 @@
 local v0 = require(script.Parent.GetFFlagEnableCurrencyTransferFlow);
-return game:DefineFastFlag("ProfilePlatformEnableCurrencyTransfer", false) and v0();
+return game:DefineFastFlag("ProfilePlatformEnableCurrencyTransferV1", false) and v0();

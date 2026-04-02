@@ -24,189 +24,198 @@ local l_AvatarGroupType_0 = l_Foundation_0.Enums.AvatarGroupType;
 local l_InputSize_0 = l_Foundation_0.Enums.InputSize;
 local v24 = require(l_script_FirstAncestor_0.Enums.NoResponseInviteAgainOrAddOthersEnum);
 local v25 = require(l_script_FirstAncestor_0.Enums.SquadInvitePageNavSourceEnum);
-return function(v26) --[[ Line: 42 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useTokens_0 (copy), v2 (copy), l_useLocalUserId_0 (copy), l_useLocalization_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useCurrentSquadId_0 (copy), l_React_0 (copy), l_NetworkingSquads_0 (copy), l_useSelector_0 (copy), l_SquadExternalContractContext_0 (copy), l_Foundation_0 (copy), l_dependencyArray_0 (copy), l_AvatarGroup_0 (copy), l_InputSize_0 (copy), l_AvatarGroupType_0 (copy), l_useEffectOnce_0 (copy), l_EventNames_0 (copy), v24 (copy), l_reinviteToSquad_0 (copy), v25 (copy), l_NetworkStatus_0 (copy)
-    local v27 = l_useDispatch_0();
-    local v28 = l_useTokens_0();
-    local v29 = v2.useBreakpointXOrSmaller(v2.Keys.XSmall);
-    local v30 = v2.useBreakpointYOrSmaller(v2.Keys.XSmall);
-    local v31 = l_useLocalUserId_0();
-    local v32 = l_useLocalization_0({
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v4.SharedFlags.FFlagRemoveDependencyArrayAntipattern;
+return function(v27) --[[ Line: 45 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useTokens_0 (copy), v2 (copy), l_useLocalUserId_0 (copy), l_useLocalization_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useCurrentSquadId_0 (copy), l_React_0 (copy), l_NetworkingSquads_0 (copy), l_useSelector_0 (copy), l_SquadExternalContractContext_0 (copy), l_Foundation_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_AvatarGroup_0 (copy), l_InputSize_0 (copy), l_AvatarGroupType_0 (copy), l_useEffectOnce_0 (copy), l_EventNames_0 (copy), v24 (copy), l_reinviteToSquad_0 (copy), v25 (copy), l_NetworkStatus_0 (copy)
+    local v28 = l_useDispatch_0();
+    local v29 = l_useTokens_0();
+    local v30 = v2.useBreakpointXOrSmaller(v2.Keys.XSmall);
+    local v31 = v2.useBreakpointYOrSmaller(v2.Keys.XSmall);
+    local v32 = l_useLocalUserId_0();
+    local v33 = l_useLocalization_0({
         addOthers = "Feature.Squads.Action.AddOthers", 
         upsellText = "Feature.Squads.Description.upsellInviteText", 
         inviteText = "Feature.Squads.Action.Invite", 
         inviteAgain = "Feature.Squads.Action.InviteAgain"
     });
-    local v33 = l_useCurrentSquadSelector_0();
-    local v34 = if v33 and v33.parentChannelId then v33.parentChannelId else nil;
-    local v35 = l_useCurrentSquadId_0();
-    local v37 = l_React_0.useCallback(function(v36) --[[ Line: 62 ]]
-        -- upvalues: l_NetworkingSquads_0 (ref), v35 (copy)
-        return l_NetworkingSquads_0.ReinviteToSquad.getStatus(v36, {
-            squadId = v35
+    local v34 = l_useCurrentSquadSelector_0();
+    local v35 = if v34 and v34.parentChannelId then v34.parentChannelId else nil;
+    local v36 = l_useCurrentSquadId_0();
+    local v38 = l_React_0.useCallback(function(v37) --[[ Line: 65 ]]
+        -- upvalues: l_NetworkingSquads_0 (ref), v36 (copy)
+        return l_NetworkingSquads_0.ReinviteToSquad.getStatus(v37, {
+            squadId = v36
         });
     end, {
-        v35
+        v36
     });
-    local v38 = l_useSelector_0(v37);
-    local v39 = l_React_0.useContext(l_SquadExternalContractContext_0);
-    local v40 = v39.useGetConversationFromId(v34 or "");
-    local v41 = l_React_0.useMemo(function() --[[ Line: 70 ]]
-        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v28 (copy), v32 (copy)
+    local v39 = l_useSelector_0(v38);
+    local v40 = l_React_0.useContext(l_SquadExternalContractContext_0);
+    local v41 = v40.useGetConversationFromId(v35 or "");
+    local v42 = l_React_0.useMemo(function() --[[ Line: 74 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v29 (copy), v33 (copy)
         return l_React_0.createElement(l_Foundation_0.Text, {
             AutomaticSize = Enum.AutomaticSize.Y, 
             Size = UDim2.fromScale(1, 0), 
-            fontStyle = v28.Typography.BodyLarge, 
+            fontStyle = v29.Typography.BodyLarge, 
             LayoutOrder = 1, 
-            Text = v32.upsellText, 
-            textStyle = v28.Color.Content.Default, 
+            Text = v33.upsellText, 
+            textStyle = v29.Color.Content.Default, 
             TextXAlignment = Enum.TextXAlignment.Center, 
             TextWrapped = true
         });
-    end, l_dependencyArray_0(v28, v32.upsellText));
-    local v45 = l_React_0.useMemo(function() --[[ Line: 83 ]]
-        -- upvalues: v40 (copy), v31 (copy), v30 (copy), v29 (copy), l_React_0 (ref), l_AvatarGroup_0 (ref), l_InputSize_0 (ref), l_AvatarGroupType_0 (ref), v28 (copy)
-        local v42 = {};
-        if v40 and v40.participants then
-            for _, v44 in ipairs(v40.participants) do
-                if v44 ~= v31 then
-                    table.insert(v42, v44);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v29, 
+        v33.upsellText
+    } else l_dependencyArray_0(v29, v33.upsellText));
+    local v46 = l_React_0.useMemo(function() --[[ Line: 92 ]]
+        -- upvalues: v41 (copy), v32 (copy), v31 (copy), v30 (copy), l_React_0 (ref), l_AvatarGroup_0 (ref), l_InputSize_0 (ref), l_AvatarGroupType_0 (ref), v29 (copy)
+        local v43 = {};
+        if v41 and v41.participants then
+            for _, v45 in ipairs(v41.participants) do
+                if v45 ~= v32 then
+                    table.insert(v43, v45);
                 end;
             end;
         end;
-        if v30 or v29 then
+        if v31 or v30 then
             return nil;
         else
             return (l_React_0.createElement(l_AvatarGroup_0, {
-                avatars = v42, 
+                avatars = v43, 
                 size = l_InputSize_0.Medium, 
                 type = l_AvatarGroupType_0.Stacked, 
                 max = 4, 
                 imageBackgroundStyle = {
-                    Color3 = v28.Color.OverMedia.OverMedia_300.Color3, 
-                    Transparency = v28.Color.OverMedia.OverMedia_300.Transparency
+                    Color3 = v29.Color.OverMedia.OverMedia_300.Color3, 
+                    Transparency = v29.Color.OverMedia.OverMedia_300.Transparency
                 }, 
                 imageBorderStyle = {
-                    Color = v28.Color.Surface.Surface_0.Color3, 
-                    Transparency = v28.Color.Surface.Surface_0.Transparency
+                    Color = v29.Color.Surface.Surface_0.Color3, 
+                    Transparency = v29.Color.Surface.Surface_0.Transparency
                 }, 
                 layoutOrder = 0
             }));
         end;
-    end, l_dependencyArray_0(v40 and v40.participants, v31, v30, v29));
-    l_useEffectOnce_0(function() --[[ Line: 112 ]]
-        -- upvalues: v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy)
-        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v41 and v41.participants, 
+        v32, 
+        v31, 
+        v30
+    } else l_dependencyArray_0(v41 and v41.participants, v32, v31, v30));
+    l_useEffectOnce_0(function() --[[ Line: 125 ]]
+        -- upvalues: v40 (copy), l_EventNames_0 (ref), v24 (ref), v35 (copy)
+        v40.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
             actionType = v24.Impression, 
             button = v24.InviteAgain, 
-            conversationId = v34
+            conversationId = v35
         });
-        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+        v40.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
             actionType = v24.Impression, 
             button = v24.AddOthers, 
-            conversationId = v34
+            conversationId = v35
         });
-    end, v34);
-    local v46 = l_React_0.useCallback(function() --[[ Line: 125 ]]
-        -- upvalues: v27 (copy), l_reinviteToSquad_0 (ref), v35 (copy), v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy)
-        v27(l_reinviteToSquad_0(v35, v39.setSquadPrompt));
-        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+    end, v35);
+    local v47 = l_React_0.useCallback(function() --[[ Line: 138 ]]
+        -- upvalues: v28 (copy), l_reinviteToSquad_0 (ref), v36 (copy), v40 (copy), l_EventNames_0 (ref), v24 (ref), v35 (copy)
+        v28(l_reinviteToSquad_0(v36, v40.setSquadPrompt));
+        v40.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
             actionType = v24.Click, 
             button = v24.InviteAgain, 
-            conversationId = v34
+            conversationId = v35
         });
     end, {
-        v39.fireSquadAnalytics, 
-        v34
+        v40.fireSquadAnalytics, 
+        v35
     });
-    local v47 = l_React_0.useCallback(function() --[[ Line: 136 ]]
-        -- upvalues: v39 (copy), l_EventNames_0 (ref), v24 (ref), v34 (copy), v25 (ref), v26 (copy)
-        v39.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
+    local v48 = l_React_0.useCallback(function() --[[ Line: 149 ]]
+        -- upvalues: v40 (copy), l_EventNames_0 (ref), v24 (ref), v35 (copy), v25 (ref), v27 (copy)
+        v40.fireSquadAnalytics(l_EventNames_0.NoResponseInviteAgainOrAddOthers, {
             actionType = v24.Click, 
             button = v24.AddOthers, 
-            conversationId = v34
+            conversationId = v35
         });
-        v39.fireSquadAnalytics(l_EventNames_0.SquadInvitePageNavSource, {
+        v40.fireSquadAnalytics(l_EventNames_0.SquadInvitePageNavSource, {
             inviteNavSource = v25.SquadLobbyUpsellCardClicked, 
-            parentChannelId = v34
+            parentChannelId = v35
         });
-        v26.navigateToSquadInviteFriends();
+        v27.navigateToSquadInviteFriends();
     end, {
-        v34, 
-        v39.fireSquadAnalytics, 
-        v26.navigateToSquadInviteFriends
+        v35, 
+        v40.fireSquadAnalytics, 
+        v27.navigateToSquadInviteFriends
     });
-    local v48 = l_React_0.useMemo(function() --[[ Line: 155 ]]
-        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v38 (copy), l_NetworkStatus_0 (ref), v46 (copy), v32 (copy)
+    local v49 = l_React_0.useMemo(function() --[[ Line: 168 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v39 (copy), l_NetworkStatus_0 (ref), v47 (copy), v33 (copy)
         return l_React_0.createElement(l_Foundation_0.Button, {
             fillBehavior = l_Foundation_0.Enums.FillBehavior.Fill, 
-            isDisabled = v38 == l_NetworkStatus_0.Fetching, 
+            isDisabled = v39 == l_NetworkStatus_0.Fetching, 
             LayoutOrder = 1, 
-            onActivated = v46, 
-            text = v32.inviteAgain, 
+            onActivated = v47, 
+            text = v33.inviteAgain, 
             size = l_Foundation_0.Enums.InputSize.Medium, 
             variant = l_Foundation_0.Enums.ButtonVariant.Standard
         });
     end, {
-        v46, 
-        v32.inviteAgain, 
-        v38
+        v47, 
+        v33.inviteAgain, 
+        v39
     });
-    local v49 = l_React_0.useMemo(function() --[[ Line: 171 ]]
-        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v47 (copy), v32 (copy)
+    local v50 = l_React_0.useMemo(function() --[[ Line: 184 ]]
+        -- upvalues: l_React_0 (ref), l_Foundation_0 (ref), v48 (copy), v33 (copy)
         return l_React_0.createElement(l_Foundation_0.Button, {
             fillBehavior = l_Foundation_0.Enums.FillBehavior.Fill, 
             LayoutOrder = 2, 
-            onActivated = v47, 
-            text = v32.addOthers, 
+            onActivated = v48, 
+            text = v33.addOthers, 
             size = l_Foundation_0.Enums.ButtonSize.Medium, 
             variant = l_Foundation_0.Enums.ButtonVariant.Standard
         });
     end, {
-        v47, 
-        v32.addOthers
+        v48, 
+        v33.addOthers
     });
     return l_React_0.createElement("Frame", {
-        Size = v26.size, 
+        Size = v27.size, 
         BackgroundTransparency = 1, 
-        LayoutOrder = v26.layoutOrder
+        LayoutOrder = v27.layoutOrder
     }, {
         l_React_0.createElement(l_Foundation_0.View, {
             AnchorPoint = Vector2.new(0.5, 0.5), 
             Position = UDim2.fromScale(0.5, 0.5), 
-            Size = UDim2.new(1, -2 * v28.Stroke.Standard, 1, -2 * v28.Stroke.Standard), 
-            cornerRadius = UDim.new(0, v28.Radius.Medium), 
-            padding = v28.Padding.XXLarge, 
+            Size = UDim2.new(1, -2 * v29.Stroke.Standard, 1, -2 * v29.Stroke.Standard), 
+            cornerRadius = UDim.new(0, v29.Radius.Medium), 
+            padding = v29.Padding.XXLarge, 
             layout = {
                 FillDirection = Enum.FillDirection.Vertical, 
                 HorizontalAlignment = Enum.HorizontalAlignment.Center, 
-                Padding = UDim.new(0, if not not v30 or v29 then v28.Padding.Medium else v28.Padding.XXLarge), 
+                Padding = UDim.new(0, if not not v31 or v30 then v29.Padding.Medium else v29.Padding.XXLarge), 
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 VerticalAlignment = Enum.VerticalAlignment.Center
             }, 
             stroke = {
-                Color = v28.Color.Stroke.Default.Color3, 
-                Transparency = v28.Color.Stroke.Default.Transparency, 
-                Thickness = v28.Stroke.Standard
+                Color = v29.Color.Stroke.Default.Color3, 
+                Transparency = v29.Color.Stroke.Default.Transparency, 
+                Thickness = v29.Stroke.Standard
             }
         }, {
             UpsellInformation = l_React_0.createElement(l_Foundation_0.View, {
                 LayoutOrder = 1, 
                 tag = "size-full-0 gap-medium align-x-center auto-y col"
             }, {
-                UpsellFacepile = v45, 
-                UpsellLabel = v41
+                UpsellFacepile = v46, 
+                UpsellLabel = v42
             }), 
             Buttons = l_React_0.createElement(l_Foundation_0.View, {
                 LayoutOrder = 2, 
                 tag = {
                     ["size-full-0 gap-small align-x-center flex-fill align-y-center auto-y"] = true, 
-                    col = v29, 
-                    row = not v29
+                    col = v30, 
+                    row = not v30
                 }
             }, {
-                InviteAgainButton = v48, 
-                AddOthersButton = v49
+                InviteAgainButton = v49, 
+                AddOthersButton = v50
             })
         })
     });

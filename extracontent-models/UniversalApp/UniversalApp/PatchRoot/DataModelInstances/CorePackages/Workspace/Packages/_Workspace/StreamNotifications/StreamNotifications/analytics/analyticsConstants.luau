@@ -5,6 +5,7 @@ return {
         openCTAShown = "nsOpenCTAShown", 
         notificationRetrieved = "nsNotificationRetrieved", 
         notificationViewed = "nsNotificationViewed", 
+        notificationImpression = "nsNotificationImpression", 
         bundleOpened = "nsNotificationBundleOpened", 
         bundleClosed = "nsNotificationBundleClosed", 
         openMetaActions = "nsOpenMetaActions", 
@@ -18,6 +19,7 @@ return {
     }, 
     Context = {
         seen = "seen", 
+        impression = "impression", 
         click = "click", 
         fetched = "fetched"
     }

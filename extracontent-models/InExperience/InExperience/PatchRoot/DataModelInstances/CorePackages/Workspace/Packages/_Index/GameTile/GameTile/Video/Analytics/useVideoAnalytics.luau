@@ -5,147 +5,176 @@ local v3 = require(l_Parent_0.React);
 local l_mutedError_0 = require(l_Parent_0.Loggers).mutedError;
 local _ = require(l_script_FirstAncestor_0.GameTileTypes);
 local v6 = require(l_script_FirstAncestor_0.getGameTileLayoutData);
-local v7 = require(l_script_FirstAncestor_0.Parent.DiscoveryAnalytics);
-local l_discoveryVideoEndEvent_0 = v7.Events.discoveryVideoEndEvent;
-local l_discoveryVideoLoadEvent_0 = v7.Events.discoveryVideoLoadEvent;
-local l_discoveryVideoLoopEvent_0 = v7.Events.discoveryVideoLoopEvent;
-local l_discoveryVideoPlayEvent_0 = v7.Events.discoveryVideoPlayEvent;
-local function _(v12, v13) --[[ Line: 24 ]] --[[ Name: getGameSortId ]]
-    if v12 ~= nil then
-        if v13 then
-            return v12.topicId;
+local l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 = require(l_Parent_0.SharedFlags).FFlagLuaAppSupportPrimaryMediaContentMetadata;
+local v8 = require(l_script_FirstAncestor_0.Parent.DiscoveryAnalytics);
+local l_discoveryVideoEndEvent_0 = v8.Events.discoveryVideoEndEvent;
+local l_discoveryVideoLoadEvent_0 = v8.Events.discoveryVideoLoadEvent;
+local l_discoveryVideoLoopEvent_0 = v8.Events.discoveryVideoLoopEvent;
+local l_discoveryVideoPlayEvent_0 = v8.Events.discoveryVideoPlayEvent;
+local function _(v13, v14) --[[ Line: 27 ]] --[[ Name: getGameSortId ]]
+    if v13 ~= nil then
+        if v14 then
+            return v13.topicId;
         else
-            return v12.gameSetTypeId;
+            return v13.gameSetTypeId;
         end;
     else
         return nil;
     end;
 end;
-local function _(v15, v16) --[[ Line: 36 ]] --[[ Name: getVideoAssetId ]]
-    -- upvalues: v6 (copy)
-    local v17 = v6(v15, v16);
-    return v17 and v17.primaryMediaAsset and v17.primaryMediaAsset.wideVideoAssetId;
+local function _(v16, v17) --[[ Line: 39 ]] --[[ Name: getVideoAssetId ]]
+    -- upvalues: l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (copy), v6 (copy)
+    if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 and v16 and v16.primaryWideVideoAssetId then
+        return v16.primaryWideVideoAssetId;
+    else
+        local v18 = v6(v16, v17);
+        return v18 and v18.primaryMediaAsset and v18.primaryMediaAsset.wideVideoAssetId;
+    end;
 end;
-return function(v19, v20, v21, v22, v23) --[[ Line: 45 ]] --[[ Name: useVideoAnalytics ]]
-    -- upvalues: v3 (copy), l_mutedError_0 (copy), v6 (copy), l_discoveryVideoPlayEvent_0 (copy), l_discoveryVideoLoadEvent_0 (copy), l_discoveryVideoLoopEvent_0 (copy), l_discoveryVideoEndEvent_0 (copy)
-    local v24 = if v19 ~= nil then if v20 then v19.topicId else v19.gameSetTypeId else nil;
-    local v30 = v3.useCallback(function(v25, v26) --[[ Line: 54 ]]
-        -- upvalues: v23 (copy), l_mutedError_0 (ref), v24 (copy), v6 (ref), l_discoveryVideoPlayEvent_0 (ref), v21 (copy), v22 (copy)
-        if v25 ~= nil and v23 ~= nil then
-            local v27 = v23[v25];
-            if not v27 then
+return function(v20, v21, v22, v23, v24) --[[ Line: 52 ]] --[[ Name: useVideoAnalytics ]]
+    -- upvalues: v3 (copy), l_mutedError_0 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (copy), v6 (copy), l_discoveryVideoPlayEvent_0 (copy), l_discoveryVideoLoadEvent_0 (copy), l_discoveryVideoLoopEvent_0 (copy), l_discoveryVideoEndEvent_0 (copy)
+    local v25 = if v20 ~= nil then if v21 then v20.topicId else v20.gameSetTypeId else nil;
+    local v32 = v3.useCallback(function(v26, v27) --[[ Line: 61 ]]
+        -- upvalues: v24 (copy), l_mutedError_0 (ref), v25 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (ref), v6 (ref), l_discoveryVideoPlayEvent_0 (ref), v22 (copy), v23 (copy)
+        if v26 ~= nil and v24 ~= nil then
+            local v28 = v24[v26];
+            if not v28 then
                 l_mutedError_0("reportVideoPlay requires a valid entry");
             end;
-            local v28 = v6(v27, v24);
-            local v29 = v28 and v28.primaryMediaAsset and v28.primaryMediaAsset.wideVideoAssetId;
-            if not v29 then
+            local l_v25_0 = v25;
+            local v30;
+            if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 and v28 and v28.primaryWideVideoAssetId then
+                v30 = v28.primaryWideVideoAssetId;
+            else
+                local v31 = v6(v28, l_v25_0);
+                v30 = v31 and v31.primaryMediaAsset and v31.primaryMediaAsset.wideVideoAssetId;
+            end;
+            if not v30 then
                 l_mutedError_0("reportVideoPlay requires a valid videoAssetId");
             end;
-            l_discoveryVideoPlayEvent_0(v21, {
-                videoAssetId = v29, 
-                videoPlaybackSessionId = v26 or "INVALID_SESSION_ID", 
-                universeId = v27.universeId, 
-                rootPlaceId = v27.placeId, 
-                gameSetTypeId = v24, 
-                sortPos = v22
+            l_discoveryVideoPlayEvent_0(v22, {
+                videoAssetId = v30, 
+                videoPlaybackSessionId = v27 or "INVALID_SESSION_ID", 
+                universeId = v28.universeId, 
+                rootPlaceId = v28.placeId, 
+                gameSetTypeId = v25, 
+                sortPos = v23
             });
         end;
     end, {
-        v21, 
-        v23, 
+        v22, 
         v24, 
-        v22
+        v25, 
+        v23
     });
-    local v38 = v3.useCallback(function(v31, v32, v33, v34) --[[ Line: 78 ]]
-        -- upvalues: v23 (copy), l_mutedError_0 (ref), v24 (copy), v6 (ref), l_discoveryVideoLoadEvent_0 (ref), v21 (copy), v22 (copy)
-        if v31 ~= nil and v23 ~= nil then
-            local v35 = v23[v31];
-            if not v35 then
+    local v41 = v3.useCallback(function(v33, v34, v35, v36) --[[ Line: 85 ]]
+        -- upvalues: v24 (copy), l_mutedError_0 (ref), v25 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (ref), v6 (ref), l_discoveryVideoLoadEvent_0 (ref), v22 (copy), v23 (copy)
+        if v33 ~= nil and v24 ~= nil then
+            local v37 = v24[v33];
+            if not v37 then
                 l_mutedError_0("reportVideoLoad requires a valid entry");
             end;
-            local v36 = v6(v35, v24);
-            local v37 = v36 and v36.primaryMediaAsset and v36.primaryMediaAsset.wideVideoAssetId;
-            if not v37 then
+            local l_v25_1 = v25;
+            local v39;
+            if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 and v37 and v37.primaryWideVideoAssetId then
+                v39 = v37.primaryWideVideoAssetId;
+            else
+                local v40 = v6(v37, l_v25_1);
+                v39 = v40 and v40.primaryMediaAsset and v40.primaryMediaAsset.wideVideoAssetId;
+            end;
+            if not v39 then
                 l_mutedError_0("reportVideoLoad requires a valid videoAssetId");
             end;
-            l_discoveryVideoLoadEvent_0(v21, {
-                videoAssetId = v37, 
-                videoPlaybackSessionId = v32 or "INVALID_SESSION_ID", 
-                totalDuration = v33, 
-                loadTime = v34, 
-                universeId = v35.universeId, 
-                rootPlaceId = v35.placeId, 
-                gameSetTypeId = v24, 
-                sortPos = v22
+            l_discoveryVideoLoadEvent_0(v22, {
+                videoAssetId = v39, 
+                videoPlaybackSessionId = v34 or "INVALID_SESSION_ID", 
+                totalDuration = v35, 
+                loadTime = v36, 
+                universeId = v37.universeId, 
+                rootPlaceId = v37.placeId, 
+                gameSetTypeId = v25, 
+                sortPos = v23
             });
         end;
     end, {
-        v21, 
-        v23, 
+        v22, 
         v24, 
-        v22
+        v25, 
+        v23
     });
-    local v44 = v3.useCallback(function(v39, v40) --[[ Line: 105 ]]
-        -- upvalues: v23 (copy), l_mutedError_0 (ref), v24 (copy), v6 (ref), l_discoveryVideoLoopEvent_0 (ref), v21 (copy), v22 (copy)
-        if v39 ~= nil and v23 ~= nil then
-            local v41 = v23[v39];
-            if not v41 then
+    local v48 = v3.useCallback(function(v42, v43) --[[ Line: 112 ]]
+        -- upvalues: v24 (copy), l_mutedError_0 (ref), v25 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (ref), v6 (ref), l_discoveryVideoLoopEvent_0 (ref), v22 (copy), v23 (copy)
+        if v42 ~= nil and v24 ~= nil then
+            local v44 = v24[v42];
+            if not v44 then
                 l_mutedError_0("reportVideoLoop requires a valid entry");
             end;
-            local v42 = v6(v41, v24);
-            local v43 = v42 and v42.primaryMediaAsset and v42.primaryMediaAsset.wideVideoAssetId;
-            if not v43 then
+            local l_v25_2 = v25;
+            local v46;
+            if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 and v44 and v44.primaryWideVideoAssetId then
+                v46 = v44.primaryWideVideoAssetId;
+            else
+                local v47 = v6(v44, l_v25_2);
+                v46 = v47 and v47.primaryMediaAsset and v47.primaryMediaAsset.wideVideoAssetId;
+            end;
+            if not v46 then
                 l_mutedError_0("reportVideoLoop requires a valid videoAssetId");
             end;
-            l_discoveryVideoLoopEvent_0(v21, {
-                videoAssetId = v43, 
-                videoPlaybackSessionId = v40 or "INVALID_SESSION_ID", 
-                universeId = v41.universeId, 
-                rootPlaceId = v41.placeId, 
-                gameSetTypeId = v24, 
-                sortPos = v22
+            l_discoveryVideoLoopEvent_0(v22, {
+                videoAssetId = v46, 
+                videoPlaybackSessionId = v43 or "INVALID_SESSION_ID", 
+                universeId = v44.universeId, 
+                rootPlaceId = v44.placeId, 
+                gameSetTypeId = v25, 
+                sortPos = v23
             });
         end;
     end, {
-        v21, 
-        v23, 
+        v22, 
         v24, 
-        v22
+        v25, 
+        v23
     });
-    local v53 = v3.useCallback(function(v45, v46, v47, v48, v49) --[[ Line: 129 ]]
-        -- upvalues: v23 (copy), l_mutedError_0 (ref), v24 (copy), v6 (ref), l_discoveryVideoEndEvent_0 (ref), v21 (copy), v22 (copy)
-        if v45 ~= nil and v23 ~= nil then
-            local v50 = v23[v45];
-            if not v50 then
+    local v58 = v3.useCallback(function(v49, v50, v51, v52, v53) --[[ Line: 136 ]]
+        -- upvalues: v24 (copy), l_mutedError_0 (ref), v25 (copy), l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 (ref), v6 (ref), l_discoveryVideoEndEvent_0 (ref), v22 (copy), v23 (copy)
+        if v49 ~= nil and v24 ~= nil then
+            local v54 = v24[v49];
+            if not v54 then
                 l_mutedError_0("reportVideoEnd requires a valid entry");
             end;
-            local v51 = v6(v50, v24);
-            local v52 = v51 and v51.primaryMediaAsset and v51.primaryMediaAsset.wideVideoAssetId;
-            if not v52 then
+            local l_v25_3 = v25;
+            local v56;
+            if l_FFlagLuaAppSupportPrimaryMediaContentMetadata_0 and v54 and v54.primaryWideVideoAssetId then
+                v56 = v54.primaryWideVideoAssetId;
+            else
+                local v57 = v6(v54, l_v25_3);
+                v56 = v57 and v57.primaryMediaAsset and v57.primaryMediaAsset.wideVideoAssetId;
+            end;
+            if not v56 then
                 l_mutedError_0("reportVideoEnd requires a valid videoAssetId");
             end;
-            l_discoveryVideoEndEvent_0(v21, {
-                videoAssetId = v52, 
-                videoPlaybackSessionId = v47 or "INVALID_SESSION_ID", 
-                endReason = v46, 
-                playbackTime = v48, 
-                universeId = v50.universeId, 
-                rootPlaceId = v50.placeId, 
-                gameSetTypeId = v24, 
-                sortPos = v22, 
-                targetUniverseId = v49
+            l_discoveryVideoEndEvent_0(v22, {
+                videoAssetId = v56, 
+                videoPlaybackSessionId = v51 or "INVALID_SESSION_ID", 
+                endReason = v50, 
+                playbackTime = v52, 
+                universeId = v54.universeId, 
+                rootPlaceId = v54.placeId, 
+                gameSetTypeId = v25, 
+                sortPos = v23, 
+                targetUniverseId = v53
             });
         end;
     end, {
-        v21, 
-        v23, 
+        v22, 
         v24, 
-        v22
+        v25, 
+        v23
     });
     return {
-        reportVideoPlay = v30, 
-        reportVideoLoad = v38, 
-        reportVideoLoop = v44, 
-        reportVideoEnd = v53
+        reportVideoPlay = v32, 
+        reportVideoLoad = v41, 
+        reportVideoLoop = v48, 
+        reportVideoEnd = v58
     };
 end;

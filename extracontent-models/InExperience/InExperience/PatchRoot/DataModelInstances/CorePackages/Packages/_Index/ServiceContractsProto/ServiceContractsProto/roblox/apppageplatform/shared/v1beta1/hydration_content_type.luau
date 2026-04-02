@@ -3,7 +3,7 @@ local _ = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry);
 return {
     HydrationContentType = ({
         HydrationContentType = {
-            fromNumber = function(v2) --[[ Line: 35 ]] --[[ Name: fromNumber ]]
+            fromNumber = function(v2) --[[ Line: 36 ]] --[[ Name: fromNumber ]]
                 if v2 == 0 then
                     return "HYDRATION_CONTENT_TYPE_INVALID";
                 elseif v2 == 1 then
@@ -36,11 +36,13 @@ return {
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY";
                 elseif v2 == 15 then
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
+                elseif v2 == 16 then
+                    return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
                 else
                     return nil;
                 end;
             end, 
-            toNumber = function(v3) --[[ Line: 73 ]] --[[ Name: toNumber ]]
+            toNumber = function(v3) --[[ Line: 76 ]] --[[ Name: toNumber ]]
                 if v3 == "HYDRATION_CONTENT_TYPE_INVALID" then
                     return 0;
                 elseif v3 == "HYDRATION_CONTENT_TYPE_BADGE" then
@@ -73,11 +75,13 @@ return {
                     return 14;
                 elseif v3 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
                     return 15;
+                elseif v3 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+                    return 16;
                 else
                     return v3;
                 end;
             end, 
-            fromName = function(v4) --[[ Line: 111 ]] --[[ Name: fromName ]]
+            fromName = function(v4) --[[ Line: 116 ]] --[[ Name: fromName ]]
                 if v4 == "HYDRATION_CONTENT_TYPE_INVALID" then
                     return "HYDRATION_CONTENT_TYPE_INVALID";
                 elseif v4 == "HYDRATION_CONTENT_TYPE_BADGE" then
@@ -110,6 +114,8 @@ return {
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_CATEGORY";
                 elseif v4 == "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT" then
                     return "HYDRATION_CONTENT_TYPE_MARKETPLACE_CATALOG_SORT";
+                elseif v4 == "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION" then
+                    return "HYDRATION_CONTENT_TYPE_AGE_RECOMMENDATION";
                 else
                     return nil;
                 end;

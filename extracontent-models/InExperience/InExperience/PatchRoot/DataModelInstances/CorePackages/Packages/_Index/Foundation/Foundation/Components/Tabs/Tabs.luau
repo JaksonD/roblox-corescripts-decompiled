@@ -40,11 +40,20 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 44 ]] --[[ Name: Tabs
         return v25.id == v24;
     end);
     local v27 = v3.useRef(nil);
-    local v28 = v12(v24, v16 or v27, v18.size, v18.fillBehavior);
-    local l_highlightPosition_0 = v28.highlightPosition;
-    local l_highlightWidth_0 = v28.highlightWidth;
-    local l_activeItemHeight_0 = v28.activeItemHeight;
-    local l_itemRefs_0 = v28.itemRefs;
+    local v31 = v3.useMemo(function() --[[ Line: 66 ]]
+        -- upvalues: v18 (copy), v3 (ref)
+        local v28 = {};
+        for _, v30 in v18.tabs do
+            v28[v30.id] = v30.ref or v3.createRef();
+        end;
+        return v28;
+    end, {
+        v18.tabs
+    });
+    local v32 = v12(v24, v16 or v27, v31, v18.size, v18.fillBehavior);
+    local l_highlightPosition_0 = v32.highlightPosition;
+    local l_highlightWidth_0 = v32.highlightWidth;
+    local l_activeItemHeight_0 = v32.activeItemHeight;
     return v3.createElement(v8, {
         tag = "size-full-0 auto-y clip"
     }, {
@@ -69,21 +78,21 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 44 ]] --[[ Name: Tabs
                             ["size-full-0"] = v23
                         }, 
                         testId = ("%*--list"):format(v18.testId)
-                    }, v2.map(v18.tabs, function(v33, v34) --[[ Line: 103 ]]
-                        -- upvalues: v3 (ref), v6 (ref), v24 (copy), v22 (copy), v18 (copy), l_itemRefs_0 (copy)
+                    }, v2.map(v18.tabs, function(v36, v37) --[[ Line: 111 ]]
+                        -- upvalues: v3 (ref), v6 (ref), v24 (copy), v22 (copy), v18 (copy), v31 (copy)
                         return v3.createElement(v6, {
-                            id = v33.id, 
-                            text = v33.text, 
-                            key = tostring(v33.id), 
-                            icon = v33.icon, 
-                            isActive = v33.id == v24, 
+                            id = v36.id, 
+                            text = v36.text, 
+                            key = tostring(v36.id), 
+                            icon = v36.icon, 
+                            isActive = v36.id == v24, 
                             onActivated = v22, 
-                            LayoutOrder = v34, 
+                            LayoutOrder = v37, 
                             fillBehavior = v18.fillBehavior, 
                             size = v18.size, 
-                            isDisabled = v33.isDisabled, 
-                            testId = ("%*--item-%*"):format(v18.testId, v33.id), 
-                            ref = l_itemRefs_0[v33.id]
+                            isDisabled = v36.isDisabled, 
+                            testId = ("%*--item-%*"):format(v18.testId, v36.id), 
+                            ref = v31[v36.id]
                         });
                     end))
                 }), 
@@ -105,18 +114,18 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 44 ]] --[[ Name: Tabs
         AnimatedBorder = v3.createElement(v8, {
             LayoutOrder = 0, 
             ZIndex = v18.ZIndex + 1, 
-            Size = l_highlightWidth_0:map(function(v35) --[[ Line: 143 ]]
+            Size = l_highlightWidth_0:map(function(v38) --[[ Line: 151 ]]
                 -- upvalues: v17 (copy)
-                return UDim2.fromOffset(v35, v17.Stroke.Thick);
+                return UDim2.fromOffset(v38, v17.Stroke.Thick);
             end), 
             Position = v3.joinBindings({
                 l_highlightPosition_0, 
                 l_activeItemHeight_0
-            }):map(function(v36) --[[ Line: 146 ]]
+            }):map(function(v39) --[[ Line: 154 ]]
                 -- upvalues: v17 (copy)
-                local v37 = v36[1];
-                local v38 = v36[2];
-                return UDim2.fromOffset(v37, v38 - v17.Stroke.Thick);
+                local v40 = v39[1];
+                local v41 = v39[2];
+                return UDim2.fromOffset(v40, v41 - v17.Stroke.Thick);
             end), 
             backgroundStyle = v17.Color.System.Contrast, 
             testId = ("%*--animated-border"):format(v18.testId)

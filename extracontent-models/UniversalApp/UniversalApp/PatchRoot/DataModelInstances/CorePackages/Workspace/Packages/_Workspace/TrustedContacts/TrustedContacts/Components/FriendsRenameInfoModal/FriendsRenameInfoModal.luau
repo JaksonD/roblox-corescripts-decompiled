@@ -26,43 +26,46 @@ local v24 = require(script.Parent.Parent.Parent.Analytics);
 local l_useTCAnalytics_0 = v24.useTCAnalytics;
 local l_EventNames_0 = v24.EventNames;
 local v27 = game:DefineFastFlag("FriendsRenameModalUnboldText", false);
-return function() --[[ Line: 45 ]] --[[ Name: FriendsRenameInfoModal ]]
-    -- upvalues: l_usePreferredInput_0 (copy), l_useDispatch_0 (copy), l_useScreenSize_0 (copy), l_useNavigation_0 (copy), l_useTCAnalytics_0 (copy), v1 (copy), l_EventNames_0 (copy), v16 (copy), l_useLocalization_0 (copy), l_PeekViewState_0 (copy), l_dependencyArray_0 (copy), l_useAppPolicy_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Text_0 (copy), l_View_0 (copy), v27 (copy), l_InputLabel_0 (copy), l_InputLabelSize_0 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy), l_PeekView_0 (copy)
-    local v28 = l_usePreferredInput_0();
-    local v29 = l_useDispatch_0();
-    local v30 = l_useScreenSize_0();
-    local v31 = l_useNavigation_0();
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function() --[[ Line: 47 ]] --[[ Name: FriendsRenameInfoModal ]]
+    -- upvalues: l_usePreferredInput_0 (copy), l_useDispatch_0 (copy), l_useScreenSize_0 (copy), l_useNavigation_0 (copy), l_useTCAnalytics_0 (copy), v1 (copy), l_EventNames_0 (copy), v16 (copy), l_useLocalization_0 (copy), l_PeekViewState_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useAppPolicy_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Text_0 (copy), l_View_0 (copy), v27 (copy), l_InputLabel_0 (copy), l_InputLabelSize_0 (copy), l_InteractiveAlert_0 (copy), l_ButtonType_0 (copy), l_PeekView_0 (copy)
+    local v29 = l_usePreferredInput_0();
+    local v30 = l_useDispatch_0();
+    local v31 = l_useScreenSize_0();
+    local v32 = l_useNavigation_0();
     local l_fireAnalyticsEvent_0 = l_useTCAnalytics_0().fireAnalyticsEvent;
-    v1.useEffect(function() --[[ Line: 53 ]]
+    v1.useEffect(function() --[[ Line: 55 ]]
         -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.FriendsRenameInfoModalSeen);
     end, {});
-    local v33 = v28 ~= v16.Input.Touch;
-    local v34 = l_useLocalization_0({
+    local v34 = v29 ~= v16.Input.Touch;
+    local v35 = l_useLocalization_0({
         gotIt = "Feature.Avatar.Action.GotIt", 
         learnMore = "Feature.Chat.Action.LearnMore", 
         introducingConnections = "Feature.Friends.Label.IntroducingConnections", 
         renameInfoText = "Feature.Friends.Label.RenameInfoText"
     });
-    local v35 = v1.useCallback(function() --[[ Line: 67 ]]
-        -- upvalues: v31 (copy)
-        v31.pop();
+    local v36 = v1.useCallback(function() --[[ Line: 69 ]]
+        -- upvalues: v32 (copy)
+        v32.pop();
     end, {
-        v31
+        v32
     });
-    local v38 = v1.useCallback(function(v36, _) --[[ Line: 71 ]]
-        -- upvalues: l_PeekViewState_0 (ref), v31 (copy)
-        if v36 == l_PeekViewState_0.Closed or v36 == l_PeekViewState_0.Hidden then
-            v31.goBack();
+    local v39 = v1.useCallback(function(v37, _) --[[ Line: 73 ]]
+        -- upvalues: l_PeekViewState_0 (ref), v32 (copy)
+        if v37 == l_PeekViewState_0.Closed or v37 == l_PeekViewState_0.Hidden then
+            v32.goBack();
         end;
-    end, l_dependencyArray_0(v31));
-    local v40 = l_useAppPolicy_0(function(v39) --[[ Line: 77 ]]
-        return v39.getWebViewSupport();
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32
+    } else l_dependencyArray_0(v32));
+    local v41 = l_useAppPolicy_0(function(v40) --[[ Line: 79 ]]
+        return v40.getWebViewSupport();
     end);
-    local v41 = v1.useCallback(function() --[[ Line: 81 ]]
-        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v29 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+    local v42 = v1.useCallback(function() --[[ Line: 83 ]]
+        -- upvalues: l_fireAnalyticsEvent_0 (copy), l_EventNames_0 (ref), v30 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
         l_fireAnalyticsEvent_0(l_EventNames_0.FriendsRenameLearnMoreClicked);
-        v29(l_NavigateDown_0({
+        v30(l_NavigateDown_0({
             name = l_AppPage_0.GenericWebPage, 
             detail = "https://en.help.roblox.com/hc/en-us/articles/37725513985812", 
             extraProps = {
@@ -70,10 +73,10 @@ return function() --[[ Line: 45 ]] --[[ Name: FriendsRenameInfoModal ]]
             }
         }, nil));
     end, {
-        v29
+        v30
     });
-    local l_introducingConnections_0 = v34.introducingConnections;
-    local v43 = v1.useMemo(function() --[[ Line: 93 ]]
+    local l_introducingConnections_0 = v35.introducingConnections;
+    local v44 = v1.useMemo(function() --[[ Line: 95 ]]
         -- upvalues: v1 (ref), l_Text_0 (ref), l_introducingConnections_0 (copy)
         return v1.createElement(l_Text_0, {
             LayoutOrder = 1, 
@@ -83,12 +86,12 @@ return function() --[[ Line: 45 ]] --[[ Name: FriendsRenameInfoModal ]]
     end, {
         l_introducingConnections_0
     });
-    local v44 = v1.useCallback(function() --[[ Line: 101 ]]
-        -- upvalues: v1 (ref), l_View_0 (ref), v33 (copy), v27 (ref), l_Text_0 (ref), l_InputLabel_0 (ref), l_InputLabelSize_0 (ref), v34 (copy), v40 (copy), v41 (copy)
+    local v45 = v1.useCallback(function() --[[ Line: 104 ]]
+        -- upvalues: v1 (ref), l_View_0 (ref), v34 (copy), v27 (ref), l_Text_0 (ref), l_InputLabel_0 (ref), l_InputLabelSize_0 (ref), v35 (copy), v41 (copy), v42 (copy)
         return v1.createElement(l_View_0, {
             tag = "col size-full-0 auto-y gap-small padding-0", 
-            ["align-x-left"] = not v33, 
-            ["align-x-center"] = v33, 
+            ["align-x-left"] = not v34, 
+            ["align-x-center"] = v34, 
             LayoutOrder = 2
         }, {
             BodyText = v1.createElement(if v27 then l_Text_0 else l_InputLabel_0, {
@@ -96,31 +99,35 @@ return function() --[[ Line: 45 ]] --[[ Name: FriendsRenameInfoModal ]]
                 tag = v27 and "auto-y size-full-0 text-wrap grow text-align-x-left" or "auto-y size-full-0 text-wrap grow", 
                 RichText = true, 
                 size = if v27 then nil else l_InputLabelSize_0.Large, 
-                Text = v34.renameInfoText
+                Text = v35.renameInfoText
             }), 
-            LearnMoreWebLink = v40 and v1.createElement(if v27 then l_Text_0 else l_InputLabel_0, {
+            LearnMoreWebLink = v41 and v1.createElement(if v27 then l_Text_0 else l_InputLabel_0, {
                 LayoutOrder = 2, 
                 tag = v27 and "auto-y size-full-0 text-align-x-left" or "auto-y size-full-0", 
                 RichText = true, 
-                Text = ("<u>%*</u>"):format(v34.learnMore), 
+                Text = ("<u>%*</u>"):format(v35.learnMore), 
                 size = if v27 then nil else l_InputLabelSize_0.Large, 
-                onActivated = v41
+                onActivated = v42
             })
         });
-    end, l_dependencyArray_0(v41, v34, v33));
-    if v33 then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v42, 
+        v35, 
+        v34
+    } else l_dependencyArray_0(v42, v35, v34));
+    if v34 then
         return (v1.createElement(l_InteractiveAlert_0, {
             richText = true, 
-            screenSize = v30, 
+            screenSize = v31, 
             title = l_introducingConnections_0, 
-            middleContent = v44, 
+            middleContent = v45, 
             buttonStackInfo = {
                 buttons = {
                     {
                         buttonType = l_ButtonType_0.Secondary, 
                         props = {
-                            onActivated = v35, 
-                            text = v34.gotIt
+                            onActivated = v36, 
+                            text = v35.gotIt
                         }
                     }
                 }
@@ -134,13 +141,13 @@ return function() --[[ Line: 45 ]] --[[ Name: FriendsRenameInfoModal ]]
             returnToFullView = true, 
             showDraggerInClosedState = false, 
             thumbstickScrollEnabled = true, 
-            viewStateChanged = v38
+            viewStateChanged = v39
         }, {
             Contents = v1.createElement(l_View_0, {
                 tag = "col size-full-0 auto-y gap-small padding-xxlarge align-x-left"
             }, {
-                Title = v43, 
-                TextContent = v44()
+                Title = v44, 
+                TextContent = v45()
             })
         }));
     end;

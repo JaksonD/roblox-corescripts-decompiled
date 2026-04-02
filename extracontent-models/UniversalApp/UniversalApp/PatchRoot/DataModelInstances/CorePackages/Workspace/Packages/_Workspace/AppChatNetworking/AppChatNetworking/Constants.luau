@@ -44,7 +44,6 @@ return {
         AddTrustedConnectionU18 = "conversation_add_trusted_connection_non18_plus", 
         TrustedConnectionRequestU18 = "conversation_trusted_connection_request_non18_plus", 
         TrustedConnectionCreated = "conversation_trusted_connection_created", 
-        NudgeToChatUpsell = "conversation_nudge_to_chat_upsell", 
         None = "none"
     }, 
     ConversationTopModal = {
@@ -54,6 +53,7 @@ return {
     }, 
     ConversationBottomModal = {
         ConversationBottomAgeVerificationRequiredModal = "conversation_bottom_age_verification_required_modal", 
+        NudgeToChatUpsell = "conversation_nudge_to_chat_upsell", 
         None = "none"
     }
 };

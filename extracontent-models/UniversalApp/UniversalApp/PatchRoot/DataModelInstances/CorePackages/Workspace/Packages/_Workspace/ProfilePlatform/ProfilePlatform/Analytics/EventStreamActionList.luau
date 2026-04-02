@@ -10,34 +10,35 @@ local v8 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUseProfile
 local l_FFlagEnablePlatformProfileContextualMenuOption_0 = require(l_Parent_0.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption;
 local v10 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUseCatalogItemOpenedNewFields);
 local l_FFlagTCShareLinkSenderUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkSenderUI;
-local function v13(v12) --[[ Line: 20 ]]
-    return v12;
+local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer;
+local function v14(v13) --[[ Line: 22 ]]
+    return v13;
 end;
 return {
     [v7.ProfilePageLoadedWithData] = {
         context = l_Contexts_0.PlayerProfile, 
         eventType = l_EventTypes_0.PageLoad, 
         formatRulesForAdditionalInfo = {
-            friendStatus = v13, 
-            playerPresence = v13, 
-            absolutePosition = v13, 
-            isHomePageCarousel = v13, 
-            isRecommendation = v13, 
-            recommendationContextType = v13, 
-            recommendationRank = v13, 
-            recommendationSessionId = v13, 
-            source = v13, 
-            profileType = v13, 
-            shareLinkId = v13, 
-            primaryAction = v13
+            friendStatus = v14, 
+            playerPresence = v14, 
+            absolutePosition = v14, 
+            isHomePageCarousel = v14, 
+            isRecommendation = v14, 
+            recommendationContextType = v14, 
+            recommendationRank = v14, 
+            recommendationSessionId = v14, 
+            source = v14, 
+            profileType = v14, 
+            shareLinkId = v14, 
+            primaryAction = v14
         }
     }, 
     [v7.ProfilePresenceLoaded] = {
         context = l_Contexts_0.PlayerProfile, 
         eventType = l_EventTypes_0.PresenceLoaded, 
         formatRulesForAdditionalInfo = {
-            presenceType = v13, 
-            universeId = v13
+            presenceType = v14, 
+            universeId = v14
         }
     }, 
     [v7.ContextualMenuButtonChat] = {
@@ -48,7 +49,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonIgnoreFriendRequest] = {
@@ -59,7 +60,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonReport] = {
@@ -70,7 +71,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonUnfriend] = {
@@ -81,7 +82,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonBlock] = {
@@ -92,7 +93,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonSetAlias] = {
@@ -103,7 +104,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonCopyLink] = {
@@ -114,7 +115,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonLeaveCommunity] = {
@@ -125,7 +126,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonUnfollow] = {
@@ -136,7 +137,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonRemoveTrustedConnection] = {
@@ -147,7 +148,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonAddTrustedConnection] = {
@@ -158,8 +159,8 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13, 
-            modalVariantOverride = if l_FFlagTCShareLinkSenderUI_0 then v13 else nil
+            buttonSurface = v14, 
+            modalVariantOverride = if l_FFlagTCShareLinkSenderUI_0 then v14 else nil
         }
     }, 
     [v7.ContextualMenuButtonAddIncomingTrustedConnection] = {
@@ -170,7 +171,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonMakePrimaryCommunity] = {
@@ -181,7 +182,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButtonRemovePrimaryCommunity] = {
@@ -192,9 +193,20 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
+    [v7.ContextualMenuButtonCurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
+        context = l_Contexts_0.PlayerProfile, 
+        eventType = l_EventTypes_0.ButtonClick, 
+        additionalInfo = {
+            btn = v3.ContextualMenuButtons.CurrencyTransfer, 
+            optionType = "CTAType"
+        }, 
+        formatRulesForAdditionalInfo = {
+            buttonSurface = v14
+        }
+    } else nil, 
     [v7.CTAButtonOpenEditProfilePage] = {
         context = l_Contexts_0.PlayerProfile, 
         eventType = l_EventTypes_0.ButtonClick, 
@@ -202,7 +214,7 @@ return {
             btn = v3.CTAButtons.OpenEditProfilePage
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonChat] = {
@@ -212,7 +224,7 @@ return {
             btn = v3.CTAButtons.Chat
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonUnfriend] = {
@@ -222,7 +234,7 @@ return {
             btn = v3.CTAButtons.Unfriend
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonUnblock] = {
@@ -232,7 +244,7 @@ return {
             btn = v3.CTAButtons.Unblock
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonAddFriend] = {
@@ -242,16 +254,16 @@ return {
             btn = v3.CTAButtons.AddFriend
         }, 
         formatRulesForAdditionalInfo = {
-            absolutePosition = v13, 
-            isHomePageCarousel = v13, 
-            isRecommendation = v13, 
-            recommendationContextType = v13, 
-            recommendationRank = v13, 
-            recommendationSessionId = v13, 
-            source = v13, 
-            contextualInfoType = v13, 
-            shareLinkId = v13, 
-            profileType = v13
+            absolutePosition = v14, 
+            isHomePageCarousel = v14, 
+            isRecommendation = v14, 
+            recommendationContextType = v14, 
+            recommendationRank = v14, 
+            recommendationSessionId = v14, 
+            source = v14, 
+            contextualInfoType = v14, 
+            shareLinkId = v14, 
+            profileType = v14
         }
     }, 
     [v7.CTAButtonAddFriendFromContacts] = {
@@ -261,7 +273,7 @@ return {
             btn = v3.CTAButtons.AddFriendFromContacts
         }, 
         formatRulesForAdditionalInfo = {
-            shareLinkId = v13
+            shareLinkId = v14
         }
     }, 
     [v7.CTAButtonAcceptFriendRequest] = {
@@ -271,17 +283,17 @@ return {
             btn = v3.CTAButtons.AcceptFriendRequest
         }, 
         formatRulesForAdditionalInfo = {
-            absolutePosition = v13, 
-            contextualInfoType = v13, 
-            isHomePageCarousel = v13, 
-            isRecommendation = v13, 
-            recommendationContextType = v13, 
-            recommendationRank = v13, 
-            recommendationSessionId = v13, 
-            source = v13, 
-            buttonSurface = v13, 
-            shareLinkId = v13, 
-            profileType = v13
+            absolutePosition = v14, 
+            contextualInfoType = v14, 
+            isHomePageCarousel = v14, 
+            isRecommendation = v14, 
+            recommendationContextType = v14, 
+            recommendationRank = v14, 
+            recommendationSessionId = v14, 
+            source = v14, 
+            buttonSurface = v14, 
+            shareLinkId = v14, 
+            profileType = v14
         }
     }, 
     [v7.CTAButtonEditAvatar] = {
@@ -291,7 +303,7 @@ return {
             btn = v3.CTAButtons.EditAvatar
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonEditLook] = {
@@ -301,7 +313,7 @@ return {
             btn = v3.CTAButtons.EditLook
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonShareProfile] = {
@@ -311,7 +323,7 @@ return {
             btn = v3.CTAButtons.ShareProfile
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonShareProfileQRCode] = {
@@ -321,7 +333,7 @@ return {
             btn = v3.CTAButtons.ShareProfileQRCode
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonJoinCommunity] = {
@@ -332,7 +344,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonFollow] = {
@@ -343,7 +355,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonViewCommunity] = {
@@ -354,7 +366,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.CTAButtonViewFullProfile] = {
@@ -365,9 +377,20 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
+    [v7.CTAButtonCurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
+        context = l_Contexts_0.PlayerProfile, 
+        eventType = l_EventTypes_0.ButtonClick, 
+        additionalInfo = {
+            btn = v3.CTAButtons.CurrencyTransfer, 
+            optionType = "CTAType"
+        }, 
+        formatRulesForAdditionalInfo = {
+            buttonSurface = v14
+        }
+    } else nil, 
     [v7.CTAButtonCancelJoinCommunityRequest] = {
         context = if v8 then l_Contexts_0.CommunityProfile else l_Contexts_0.PlayerProfile, 
         eventType = l_EventTypes_0.ButtonClick, 
@@ -376,7 +399,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     }, 
     [v7.FriendsButton] = {
@@ -414,15 +437,15 @@ return {
             btn = v3.Btns.ViewPlayerProfile
         }, 
         formatRulesForAdditionalInfo = {
-            absolutePosition = v13, 
-            friendStatus = v13, 
-            isHomePageCarousel = v13, 
-            isRecommendation = v13, 
-            recommendationContextType = v13, 
-            recommendationRank = v13, 
-            recommendationSessionId = v13, 
-            source = v13, 
-            buttonSurface = v13
+            absolutePosition = v14, 
+            friendStatus = v14, 
+            isHomePageCarousel = v14, 
+            isRecommendation = v14, 
+            recommendationContextType = v14, 
+            recommendationRank = v14, 
+            recommendationSessionId = v14, 
+            source = v14, 
+            buttonSurface = v14
         }
     }, 
     [v7.ContextualMenuButton] = {
@@ -446,7 +469,7 @@ return {
             btn = v3.Btns.EditDisplayName
         }, 
         formatRulesForAdditionalInfo = {
-            canSetDisplayName = v13
+            canSetDisplayName = v14
         }
     }, 
     [v7.SetAliasButton] = {
@@ -474,8 +497,8 @@ return {
             btn = v3.Btns.FavoriteExperience
         }, 
         formatRulesForAdditionalInfo = {
-            experienceId = v13, 
-            positionInComponent = v13
+            experienceId = v14, 
+            positionInComponent = v14
         }
     }, 
     [v7.FavoriteExperienceSeeAll] = {
@@ -492,8 +515,8 @@ return {
             btn = v3.Btns.Experience
         }, 
         formatRulesForAdditionalInfo = {
-            experienceId = v13, 
-            positionInComponent = v13
+            experienceId = v14, 
+            positionInComponent = v14
         }
     }, 
     [v7.EventOpened] = {
@@ -503,7 +526,7 @@ return {
             btn = v3.Btns.Event
         }, 
         formatRulesForAdditionalInfo = {
-            virtualEventId = v13
+            virtualEventId = v14
         }
     }, 
     [v7.EventRSVP] = {
@@ -513,8 +536,8 @@ return {
             btn = v3.Btns.EventRSVP
         }, 
         formatRulesForAdditionalInfo = {
-            virtualEventId = v13, 
-            status = v13
+            virtualEventId = v14, 
+            status = v14
         }
     }, 
     [v7.EventJoined] = {
@@ -524,7 +547,7 @@ return {
             btn = v3.Btns.EventJoin
         }, 
         formatRulesForAdditionalInfo = {
-            virtualEventId = v13
+            virtualEventId = v14
         }
     }, 
     [v7.CatalogItemOpened] = {
@@ -534,13 +557,13 @@ return {
             btn = v3.Btns.ViewCatalogItem
         }, 
         formatRulesForAdditionalInfo = if v10 then {
-            btnContext = v13, 
-            btnUnitId = v13, 
-            btnSortPosition = v13
+            btnContext = v14, 
+            btnUnitId = v14, 
+            btnSortPosition = v14
         } else {
-            itemId = v13, 
-            positionInComponent = v13, 
-            component = v13
+            itemId = v14, 
+            positionInComponent = v14, 
+            component = v14
         }
     }, 
     [v7.UsernameCopied] = {
@@ -558,7 +581,7 @@ return {
             optionType = "CTAType"
         }, 
         formatRulesForAdditionalInfo = {
-            buttonSurface = v13
+            buttonSurface = v14
         }
     } else nil
 };

@@ -18,173 +18,181 @@ local l_SduiBuilder_0 = v11.SduiBuilder;
 local l_SduiParsers_0 = v11.SduiParsers;
 local l_getSduiComponentWrapper_0 = v11.getSduiComponentWrapper;
 local l_FFlagSduiServerCompat_0 = require(l_Parent_0.SharedFlags).FFlagSduiServerCompat;
-local v20 = {};
-return v4.memo(function(v21) --[[ Line: 77 ]] --[[ Name: SduiSingleItemCollection ]]
-    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v4 (copy), v3 (copy), v20 (copy), l_findAnalyticsField_0 (copy), l_SduiBuilder_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), v12 (copy), l_ImpressionsTagUtility_0 (copy), l_SduiParsers_0 (copy), l_SendGameImpressions_0 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_getSduiComponentWrapper_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_WaitForPropWrapper_0 (copy)
-    local v22 = nil;
+local l_FFlagSduiImpressionHandlerRegistry_0 = require(l_Parent_0.SharedFlags).FFlagSduiImpressionHandlerRegistry;
+local v21 = {};
+return v4.memo(function(v22) --[[ Line: 82 ]] --[[ Name: SduiSingleItemCollection ]]
+    -- upvalues: l_FFlagSduiServerCompat_0 (copy), v4 (copy), v3 (copy), v21 (copy), l_findAnalyticsField_0 (copy), l_SduiBuilder_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (copy), v12 (copy), l_ImpressionsTagUtility_0 (copy), l_FFlagSduiImpressionHandlerRegistry_0 (copy), l_reportUnifiedLoggingImpressions_0 (copy), l_SduiParsers_0 (copy), l_SendGameImpressions_0 (copy), l_getSduiComponentWrapper_0 (copy), l_ScreenSizeImpressionsTracker_0 (copy), l_WaitForPropWrapper_0 (copy)
     local v23 = nil;
     local v24 = nil;
     local v25 = nil;
     local v26 = nil;
+    local v27 = nil;
     if l_FFlagSduiServerCompat_0 then
-        v22 = v21.layoutOrder;
-        v23 = v21.anchorPoint;
-        v24 = v21.automaticSize;
-        v25 = v21.size;
-        v26 = v21.position;
+        v23 = v22.layoutOrder;
+        v24 = v22.anchorPoint;
+        v25 = v22.automaticSize;
+        v26 = v22.size;
+        v27 = v22.position;
     else
-        v22 = v21.LayoutOrder;
-        v23 = v21.AnchorPoint;
-        v24 = v21.AutomaticSize;
-        v25 = v21.Size;
-        v26 = v21.Position;
+        v23 = v22.LayoutOrder;
+        v24 = v22.AnchorPoint;
+        v25 = v22.AutomaticSize;
+        v26 = v22.Size;
+        v27 = v22.Position;
     end;
-    local l_sduiContext_0 = v21.sduiContext;
-    local l_children_0 = v21.children;
-    local v29 = v4.useRef(nil);
-    local v30 = v4.useRef({});
-    local v31 = v4.useCallback(function() --[[ Line: 107 ]]
-        -- upvalues: v29 (copy)
-        return v29.current;
+    local l_sduiContext_0 = v22.sduiContext;
+    local l_children_0 = v22.children;
+    local v30 = v4.useRef(nil);
+    local v31 = v4.useRef({});
+    local v32 = v4.useCallback(function() --[[ Line: 112 ]]
+        -- upvalues: v30 (copy)
+        return v30.current;
     end, {
-        v29
+        v30
     });
-    local v32 = v4.useMemo(function() --[[ Line: 113 ]]
-        -- upvalues: v21 (copy), v31 (copy), v3 (ref), v20 (ref)
-        if v21.componentConfig.__isClientBinding then
-            v21.analyticsContext.getCollectionData = v31;
+    local v33 = v4.useMemo(function() --[[ Line: 118 ]]
+        -- upvalues: v22 (copy), v32 (copy), v3 (ref), v21 (ref)
+        if v22.componentConfig.__isClientBinding then
+            v22.analyticsContext.getCollectionData = v32;
         end;
-        return v3.Dictionary.join(v21.analyticsContext or v20, {
-            getCollectionData = v31
+        return v3.Dictionary.join(v22.analyticsContext or v21, {
+            getCollectionData = v32
         });
     end, {
-        v31, 
-        v21.analyticsContext, 
-        v21.componentConfig.__isClientBinding
+        v32, 
+        v22.analyticsContext, 
+        v22.componentConfig.__isClientBinding
     });
-    v29.current = v4.useMemo(function() --[[ Line: 133 ]]
-        -- upvalues: l_findAnalyticsField_0 (ref), v21 (copy), v20 (ref), l_SduiBuilder_0 (ref), l_sduiContext_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref)
-        local v33 = l_findAnalyticsField_0("componentType", v21.analyticsContext.analyticsData or v20) or l_SduiBuilder_0.getComponentType(v21.componentConfig, l_sduiContext_0);
-        return l_SduiCollectionAnalyticsBuilder_0.buildAndValidateCollectionAnalyticsData(l_sduiContext_0, v21.analyticsContext.ancestorAnalyticsData, v21.analyticsContext.analyticsData, v33, 1, 1, nil, ("SingleItemCollection_%*"):format(v21.index), v21.startRow);
+    v30.current = v4.useMemo(function() --[[ Line: 138 ]]
+        -- upvalues: l_findAnalyticsField_0 (ref), v22 (copy), v21 (ref), l_SduiBuilder_0 (ref), l_sduiContext_0 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref)
+        local v34 = l_findAnalyticsField_0("componentType", v22.analyticsContext.analyticsData or v21) or l_SduiBuilder_0.getComponentType(v22.componentConfig, l_sduiContext_0);
+        return l_SduiCollectionAnalyticsBuilder_0.buildAndValidateCollectionAnalyticsData(l_sduiContext_0, v22.analyticsContext.ancestorAnalyticsData, v22.analyticsContext.analyticsData, v34, 1, 1, nil, ("SingleItemCollection_%*"):format(v22.index), v22.startRow);
     end, {
         l_sduiContext_0, 
-        v21.analyticsContext, 
-        v21.componentConfig, 
-        v21.index, 
-        v21.startRow
+        v22.analyticsContext, 
+        v22.componentConfig, 
+        v22.index, 
+        v22.startRow
     });
-    local v34 = v12(v21.index, v29.current, l_sduiContext_0, v21.debugName);
-    local v35 = v4.useRef(nil);
-    v4.useEffect(function() --[[ Line: 165 ]]
-        -- upvalues: l_ImpressionsTagUtility_0 (ref), v35 (copy), v34 (copy)
-        l_ImpressionsTagUtility_0.AddTag(v35, v34, 1);
-        return function() --[[ Line: 168 ]]
-            -- upvalues: l_ImpressionsTagUtility_0 (ref), v35 (ref), v34 (ref)
-            l_ImpressionsTagUtility_0.RemoveTag(v35, v34, 1);
+    local v35 = v12(v22.index, v30.current, l_sduiContext_0, v22.debugName);
+    local v36 = v4.useRef(nil);
+    v4.useEffect(function() --[[ Line: 170 ]]
+        -- upvalues: l_ImpressionsTagUtility_0 (ref), v36 (copy), v35 (copy)
+        l_ImpressionsTagUtility_0.AddTag(v36, v35, 1);
+        return function() --[[ Line: 173 ]]
+            -- upvalues: l_ImpressionsTagUtility_0 (ref), v36 (ref), v35 (ref)
+            l_ImpressionsTagUtility_0.RemoveTag(v36, v35, 1);
         end;
     end, {
-        v35, 
-        v34
+        v36, 
+        v35
     });
-    local v41 = v4.useCallback(function(v36) --[[ Line: 175 ]]
-        -- upvalues: v21 (copy), v29 (copy), v30 (copy), v20 (ref), v3 (ref), l_SduiParsers_0 (ref), l_sduiContext_0 (copy), v32 (copy), l_SendGameImpressions_0 (ref), l_reportUnifiedLoggingImpressions_0 (ref)
-        if v21.item == nil then
+    local v42 = v4.useCallback(function(v37) --[[ Line: 180 ]]
+        -- upvalues: v22 (copy), l_FFlagSduiImpressionHandlerRegistry_0 (ref), v30 (copy), l_reportUnifiedLoggingImpressions_0 (ref), l_sduiContext_0 (copy), v31 (copy), v21 (ref), v3 (ref), l_SduiParsers_0 (ref), v33 (copy), l_SendGameImpressions_0 (ref)
+        if v22.item == nil then
             return;
         else
-            assert(v21.item, "props.item must exist");
-            if v29.current and (v29.current.contentType == "HeroUnit" or v29.current.contentType == "Game") and v21.item.analyticsData and v21.item.analyticsData.universeId ~= nil then
-                local v37 = {};
-                local v38 = v30.current or v20;
-                for _, v40 in v38 do
-                    table.insert(v37, (v3.Dictionary.join(v40, {
-                        isSponsored = l_SduiParsers_0.safeParseBoolean(v40.adFlag, l_sduiContext_0, v32)
-                    })));
+            assert(v22.item, "props.item must exist");
+            if l_FFlagSduiImpressionHandlerRegistry_0 and (v22.impressionEventName or not v30.current or v30.current.contentType ~= "Game") then
+                l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v37, v31.current, v30.current, v22.startRow, v22.impressionEventName, v22.skipItemImpressionsLog);
+                return;
+            else
+                if v30.current and (v30.current.contentType == "HeroUnit" or v30.current.contentType == "Game") and v22.item.analyticsData and v22.item.analyticsData.universeId ~= nil then
+                    local v38 = {};
+                    local v39 = v31.current or v21;
+                    for _, v41 in v39 do
+                        table.insert(v38, (v3.Dictionary.join(v41, {
+                            isSponsored = l_SduiParsers_0.safeParseBoolean(v41.adFlag, l_sduiContext_0, v33)
+                        })));
+                    end;
+                    l_SendGameImpressions_0.sendFromTopicContents(l_sduiContext_0.dependencies.eventIngest, l_sduiContext_0.dependencies.appAnalytics, v37, v38, l_sduiContext_0.appPage, tostring(v30.current.collectionId), v22.index, v22.startRow, nil, nil, 1, false, "HeroUnit", nil);
                 end;
-                l_SendGameImpressions_0.sendFromTopicContents(l_sduiContext_0.dependencies.eventIngest, l_sduiContext_0.dependencies.appAnalytics, v36, v37, l_sduiContext_0.appPage, tostring(v29.current.collectionId), v21.index, v21.startRow, nil, nil, 1, false, "HeroUnit", nil);
+                l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v37, v31.current, v30.current);
+                return;
             end;
-            l_reportUnifiedLoggingImpressions_0(l_sduiContext_0, v36, v30.current, v29.current);
-            return;
         end;
     end, {
-        v21.item, 
-        v21.index, 
-        v21.startRow, 
+        v22.item, 
+        v22.index, 
+        v22.startRow, 
         l_sduiContext_0, 
-        v29, 
         v30, 
-        v32
+        v31, 
+        v33, 
+        if l_FFlagSduiImpressionHandlerRegistry_0 then v22.impressionEventName else nil, 
+        if l_FFlagSduiImpressionHandlerRegistry_0 then v22.skipItemImpressionsLog else nil
     });
-    local v49 = v4.useMemo(function() --[[ Line: 245 ]]
-        -- upvalues: v21 (copy), v4 (ref), v32 (copy), l_findAnalyticsField_0 (ref), v20 (ref), l_SduiBuilder_0 (ref), l_sduiContext_0 (copy), v30 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), l_FFlagSduiServerCompat_0 (ref)
-        local v42 = {};
-        if v21.children then
-            for v43, v44 in v21.children do
-                v42[v43] = v4.cloneElement(v44, {
-                    parentAnalyticsContext = v32
+    local v50 = v4.useMemo(function() --[[ Line: 270 ]]
+        -- upvalues: v22 (copy), v4 (ref), v33 (copy), l_findAnalyticsField_0 (ref), v21 (ref), l_SduiBuilder_0 (ref), l_sduiContext_0 (copy), v31 (copy), l_SduiCollectionAnalyticsBuilder_0 (ref), l_getSduiComponentWrapper_0 (ref), l_FFlagSduiServerCompat_0 (ref)
+        local v43 = {};
+        if v22.children then
+            for v44, v45 in v22.children do
+                v43[v44] = v4.cloneElement(v45, {
+                    parentAnalyticsContext = v33
                 });
             end;
         end;
-        assert(v42, "result must exist");
-        if v21.item then
-            local v45 = l_findAnalyticsField_0("componentType", v21.item.analyticsData or v20) or l_SduiBuilder_0.getComponentType(v21.componentConfig, l_sduiContext_0);
-            local v46 = ("SingleItemCollection_%*"):format(v45);
-            local v47 = {
+        assert(v43, "result must exist");
+        if v22.item then
+            local v46 = l_findAnalyticsField_0("componentType", v22.item.analyticsData or v21) or l_SduiBuilder_0.getComponentType(v22.componentConfig, l_sduiContext_0);
+            local v47 = ("SingleItemCollection_%*"):format(v46);
+            local v48 = {
                 itemPosition = 1, 
-                itemComponentType = v45
+                itemComponentType = v46
             };
-            v30.current[1] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v21.item.analyticsData, nil, v47, v45);
-            local v48 = l_getSduiComponentWrapper_0(v21.item);
-            v42[v46] = v4.createElement(v48, {
-                componentConfig = v21.item, 
+            v31.current[1] = l_SduiCollectionAnalyticsBuilder_0.buildAndValidateItemAnalyticsData(l_sduiContext_0, v22.item.analyticsData, nil, v48, v46);
+            local v49 = l_getSduiComponentWrapper_0(v22.item);
+            v43[v47] = v4.createElement(v49, {
+                componentConfig = v22.item, 
                 sduiContext = l_sduiContext_0, 
-                parentAnalyticsContext = if v21.item.__isClientBinding then nil else v32, 
+                parentAnalyticsContext = if v22.item.__isClientBinding then nil else v33, 
                 extraLocalProps = {
-                    scrollViewPositionChangedSignal = v21.scrollViewPositionChangedSignal, 
-                    verticalScrollingFrameRef = v21.verticalScrollingFrameRef, 
+                    scrollViewPositionChangedSignal = v22.scrollViewPositionChangedSignal, 
+                    verticalScrollingFrameRef = v22.verticalScrollingFrameRef, 
                     index = 1, 
-                    pageSideMargin = v21.pageSideMargin, 
-                    SelectionOrder = if not not l_FFlagSduiServerCompat_0 or v21.disableSelectionOrder then nil else v21.selectionOrderBase, 
-                    selectionOrder = if not l_FFlagSduiServerCompat_0 or v21.disableSelectionOrder then nil else v21.selectionOrderBase
+                    pageSideMargin = v22.pageSideMargin, 
+                    SelectionOrder = if not not l_FFlagSduiServerCompat_0 or v22.disableSelectionOrder then nil else v22.selectionOrderBase, 
+                    selectionOrder = if not l_FFlagSduiServerCompat_0 or v22.disableSelectionOrder then nil else v22.selectionOrderBase
                 }, 
-                debugName = v46, 
-                localAnalyticsData = v47
+                debugName = v47, 
+                localAnalyticsData = v48
             });
         end;
-        return v42;
+        return v43;
     end, {
-        v21.item, 
-        v21.scrollViewPositionChangedSignal, 
-        v21.verticalScrollingFrameRef, 
-        v29, 
+        v22.item, 
+        v22.scrollViewPositionChangedSignal, 
+        v22.verticalScrollingFrameRef, 
+        v30, 
         l_children_0, 
         l_sduiContext_0, 
-        v21.pageSideMargin, 
-        v21.disableSelectionOrder, 
-        v21.selectionOrderBase
+        v22.pageSideMargin, 
+        v22.disableSelectionOrder, 
+        v22.selectionOrderBase
     });
-    local v50 = v4.createElement(l_ScreenSizeImpressionsTracker_0, {
-        parentRef = v21.verticalScrollingFrameRef, 
+    local v51 = v4.createElement(l_ScreenSizeImpressionsTracker_0, {
+        parentRef = v22.verticalScrollingFrameRef, 
         pageContext = l_sduiContext_0.appPage, 
-        impressionsTag = v34, 
-        scrollViewPositionChangedSignal = v21.scrollViewPositionChangedSignal, 
-        sendImpressions = v41, 
-        dataUpdatedTimestamp = v21.sduiContext.dataUpdatedTimestamp
+        impressionsTag = v35, 
+        scrollViewPositionChangedSignal = v22.scrollViewPositionChangedSignal, 
+        sendImpressions = v42, 
+        dataUpdatedTimestamp = v22.sduiContext.dataUpdatedTimestamp
     });
     return v4.createElement(v4.Fragment, nil, {
         Content = v4.createElement("Frame", {
-            ref = v35, 
-            Position = v26, 
-            Size = v25 or UDim2.new(1, 0, 0, 0), 
-            AutomaticSize = v24 or Enum.AutomaticSize.Y, 
-            LayoutOrder = v22, 
-            AnchorPoint = v23, 
+            ref = v36, 
+            Position = v27, 
+            Size = v26 or UDim2.new(1, 0, 0, 0), 
+            AutomaticSize = v25 or Enum.AutomaticSize.Y, 
+            LayoutOrder = v23, 
+            AnchorPoint = v24, 
             BackgroundTransparency = 1, 
             [v4.Tag] = "data-testid=--sdui-single-item-collection"
-        }, v49), 
+        }, v50), 
         ImpressionDetector = v4.createElement(l_WaitForPropWrapper_0, {
-            waitForProp = v21.startRow, 
-            maxUpdatesToDelay = v21.numUpdatesToDelayImpressions, 
-            wrappedComponent = v50
+            waitForProp = v22.startRow, 
+            maxUpdatesToDelay = v22.numUpdatesToDelayImpressions, 
+            wrappedComponent = v51
         })
     });
 end);

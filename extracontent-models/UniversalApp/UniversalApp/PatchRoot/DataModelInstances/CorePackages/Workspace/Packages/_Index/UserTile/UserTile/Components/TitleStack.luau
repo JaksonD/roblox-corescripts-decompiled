@@ -23,108 +23,109 @@ local l_FFlagAppChatUserTileCustomTitleTruncation_0 = require(l_Parent_0.SharedF
 local l_FFlagUserTileTextTCIndicator_0 = require(l_Parent_0.SharedFlags).FFlagUserTileTextTCIndicator;
 local l_FFlagEnableBlackbirdCheckDev_0 = require(l_Parent_0.SharedFlags).FFlagEnableBlackbirdCheckDev;
 local l_FFlagUserTileShowBadges_0 = require(l_Parent_0.SharedFlags).FFlagUserTileShowBadges;
-local v25 = {
+local l_FFlagEnableMobileGameJoinCard_0 = require(l_Parent_0.SharedFlags).FFlagEnableMobileGameJoinCard;
+local v26 = {
     layoutOrder = 2
 };
-return function(v26) --[[ Line: 59 ]] --[[ Name: TitleStack ]]
-    -- upvalues: l_llama_0 (copy), v25 (copy), l_useTokens_0 (copy), l_FFlagAppChatUserTileCustomTitleTruncation_0 (copy), v8 (copy), v2 (copy), l_Image_0 (copy), v20 (copy), v18 (copy), v7 (copy), v19 (copy), l_FFlagUserTileTextTCIndicator_0 (copy), l_useLocalization_0 (copy), v9 (copy), l_View_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), l_FFlagProfilePlatformNewProfileHeader_0 (copy), l_Text_0 (copy), l_FFlagUserTileShowBadges_0 (copy), v3 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_StateLayerAffordance_0 (copy)
-    v26 = l_llama_0.Dictionary.join(v25, v26 or {});
-    local v27 = l_useTokens_0();
-    local v28 = l_FFlagAppChatUserTileCustomTitleTruncation_0 and "" or v26.layoutMode == v8.compact and "text-align-x-center" or "text-align-x-left";
-    local v29 = v26.layoutMode == v8.compact and "align-x-center" or "align-x-left";
-    local v30 = l_FFlagAppChatUserTileCustomTitleTruncation_0 and "" or v26.layoutMode == v8.compact and "auto-xy " or "auto-y size-full-0 ";
-    local v31 = if v26.titleIcon then v2.createElement(l_Image_0, {
-        Image = v26.titleIcon, 
+return function(v27) --[[ Line: 60 ]] --[[ Name: TitleStack ]]
+    -- upvalues: l_llama_0 (copy), v26 (copy), l_useTokens_0 (copy), l_FFlagAppChatUserTileCustomTitleTruncation_0 (copy), v8 (copy), v2 (copy), l_Image_0 (copy), v20 (copy), v18 (copy), v7 (copy), v19 (copy), l_FFlagUserTileTextTCIndicator_0 (copy), l_useLocalization_0 (copy), v9 (copy), l_View_0 (copy), l_Skeleton_0 (copy), l_Radius_0 (copy), l_FFlagProfilePlatformNewProfileHeader_0 (copy), l_Text_0 (copy), l_FFlagUserTileShowBadges_0 (copy), v3 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), l_FFlagEnableMobileGameJoinCard_0 (copy), l_StateLayerAffordance_0 (copy)
+    v27 = l_llama_0.Dictionary.join(v26, v27 or {});
+    local v28 = l_useTokens_0();
+    local v29 = l_FFlagAppChatUserTileCustomTitleTruncation_0 and "" or v27.layoutMode == v8.compact and "text-align-x-center" or "text-align-x-left";
+    local v30 = v27.layoutMode == v8.compact and "align-x-center" or "align-x-left";
+    local v31 = l_FFlagAppChatUserTileCustomTitleTruncation_0 and "" or v27.layoutMode == v8.compact and "auto-xy " or "auto-y size-full-0 ";
+    local v32 = if v27.titleIcon then v2.createElement(l_Image_0, {
+        Image = v27.titleIcon, 
         tag = "size-300-300 radius-circle", 
         LayoutOrder = 1
     }) else nil;
-    local v32 = if not v26.contextualInfo or v26.subtitle then v26.layoutMode == v8.compact or v26.subtitle ~= nil else false;
-    local v33 = (v26.titleStyle or v27.Typography.TitleMedium).FontSize - if v20 then v27.Padding.XSmall * 2 else 0;
-    local v34 = (v26.subtitleStyle or v27.Typography.BodyMedium).FontSize - if v20 then v27.Padding.XSmall * 2 else 0;
-    local v35 = (v26.contextualInfoStyle or v27.Typography.BodySmall).FontSize - if v20 then v27.Padding.XSmall * 2 else 0;
-    local v36 = if v18 then v26.layoutMode == v8.compact else nil;
-    local v37 = nil;
+    local v33 = if not v27.contextualInfo or v27.subtitle then v27.layoutMode == v8.compact or v27.subtitle ~= nil else false;
+    local v34 = (v27.titleStyle or v28.Typography.TitleMedium).FontSize - if v20 then v28.Padding.XSmall * 2 else 0;
+    local v35 = (v27.subtitleStyle or v28.Typography.BodyMedium).FontSize - if v20 then v28.Padding.XSmall * 2 else 0;
+    local v36 = (v27.contextualInfoStyle or v28.Typography.BodySmall).FontSize - if v20 then v28.Padding.XSmall * 2 else 0;
+    local v37 = if v18 then v27.layoutMode == v8.compact else nil;
     local v38 = nil;
     local v39 = nil;
+    local v40 = nil;
     if v18 then
-        if v36 then
-            v37 = v7.TITLE_SHIMMER_WIDTH_SCALE_COMPACT;
-            v38 = v7.SUBTITLE_SHIMMER_WIDTH_SCALE_COMPACT;
-            v39 = v7.CONTEXTUAL_INFO_SHIMMER_WIDTH_SCALE_COMPACT;
+        if v37 then
+            v38 = v7.TITLE_SHIMMER_WIDTH_SCALE_COMPACT;
+            v39 = v7.SUBTITLE_SHIMMER_WIDTH_SCALE_COMPACT;
+            v40 = v7.CONTEXTUAL_INFO_SHIMMER_WIDTH_SCALE_COMPACT;
         else
-            v37 = v7.TITLE_SHIMMER_WIDTH_SCALE_WIDE;
-            v38 = v7.SUBTITLE_SHIMMER_WIDTH_SCALE_WIDE;
-            v39 = v7.CONTEXTUAL_INFO_SHIMMER_WIDTH_SCALE_WIDE;
+            v38 = v7.TITLE_SHIMMER_WIDTH_SCALE_WIDE;
+            v39 = v7.SUBTITLE_SHIMMER_WIDTH_SCALE_WIDE;
+            v40 = v7.CONTEXTUAL_INFO_SHIMMER_WIDTH_SCALE_WIDE;
         end;
     end;
-    local v40 = v18 and v26.layoutMode == v8.compact and "align-x-center" or "align-x-left";
-    local v41 = if v19 then v26.layoutMode == v8.compact and "size-full-0" or "grow" else "size-full-0";
-    local v42 = v26.customTextTruncation or Enum.TextTruncate.AtEnd;
-    local v43 = nil;
+    local v41 = v18 and v27.layoutMode == v8.compact and "align-x-center" or "align-x-left";
+    local v42 = if v19 then v27.layoutMode == v8.compact and "size-full-0" or "grow" else "size-full-0";
+    local v43 = v27.customTextTruncation or Enum.TextTruncate.AtEnd;
+    local v44 = nil;
     if l_FFlagUserTileTextTCIndicator_0 then
-        v43 = l_useLocalization_0({
+        v44 = l_useLocalization_0({
             trustedLabel = v9.trustedLabel
         });
     end;
     return v2.createElement(l_View_0, {
         tag = {
-            [("%* auto-y col"):format(v41)] = true, 
+            [("%* auto-y col"):format(v42)] = true, 
             ["gap-xsmall"] = not v20
         }, 
-        LayoutOrder = v26.layoutOrder
+        LayoutOrder = v27.layoutOrder
     }, {
-        Title = if v18 and v26.isTitleLoading then v2.createElement(l_View_0, {
+        Title = if v18 and v27.isTitleLoading then v2.createElement(l_View_0, {
             tag = {
-                [("size-full-0 auto-y %*"):format(v40)] = true, 
+                [("size-full-0 auto-y %*"):format(v41)] = true, 
                 ["padding-xsmall"] = v20
             }, 
             LayoutOrder = 1
         }, {
             TitleSkeleton = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(v37, 0, 0, v33), 
+                Size = UDim2.new(v38, 0, 0, v34), 
                 radius = l_Radius_0.Small
             })
         }) else v2.createElement(l_View_0, {
-            tag = ("size-full-0 row auto-y gap-xxsmall align-y-center %*"):format(v29), 
+            tag = ("size-full-0 row auto-y gap-xxsmall align-y-center %*"):format(v30), 
             LayoutOrder = 1
         }, {
-            TitleIcon = v31, 
-            TitleText = if l_FFlagProfilePlatformNewProfileHeader_0 then v26.title and v2.createElement(l_View_0, {
+            TitleIcon = v32, 
+            TitleText = if l_FFlagProfilePlatformNewProfileHeader_0 then v27.title and v2.createElement(l_View_0, {
                 tag = {
                     ["row align-y-center gap-xsmall"] = true, 
-                    [("text-truncate-end content-emphasis %*"):format(v30 .. v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                    [("text-truncate-end content-emphasis %*"):format(v31 .. v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
                     ["content-emphasis"] = l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                    ["auto-xy text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                    ["auto-y size-full-0 text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                    ["auto-xy text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                    ["auto-y size-full-0 text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
                 }, 
                 LayoutOrder = 2
             }, {
                 Title = v2.createElement(l_Text_0, {
                     tag = {
                         ["shrink content-default auto-xy"] = true, 
-                        ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide, 
-                        ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact
+                        ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide, 
+                        ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact
                     }, 
-                    fontStyle = v26.titleStyle or v27.Typography.TitleMedium, 
-                    Text = v26.title, 
+                    fontStyle = v27.titleStyle or v28.Typography.TitleMedium, 
+                    Text = v27.title, 
                     LayoutOrder = 1, 
                     RichText = true, 
-                    TextTruncate = v42
+                    TextTruncate = v43
                 }), 
                 BadgesRow = if l_FFlagUserTileShowBadges_0 then v2.createElement(l_View_0, {
                     tag = "row align-y-center auto-xy content-default gap-xxsmall", 
-                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide, 
-                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
+                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide, 
+                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
                     LayoutOrder = 2
                 }, {
-                    VerifiedBadge = v26.isVerified and v2.createElement(l_View_0, {
+                    VerifiedBadge = v27.isVerified and v2.createElement(l_View_0, {
                         tag = "auto-xy content-default", 
                         LayoutOrder = 2
                     }, {
                         VerifiedBackplateIcon = v2.createElement(v3.Icon, {
                             name = v3.Enums.IconName.VerifiedBackplate, 
                             size = v3.Enums.IconSize.Large, 
-                            style = v27.Color.System.Emphasis, 
+                            style = v28.Color.System.Emphasis, 
                             AnchorPoint = Vector2.new(0, 0), 
                             Position = UDim2.fromScale(0, 0), 
                             ZIndex = 1
@@ -141,134 +142,134 @@ return function(v26) --[[ Line: 59 ]] --[[ Name: TitleStack ]]
                             ZIndex = 2
                         })
                     }), 
-                    SubscriptionBadge = if l_FFlagEnableBlackbirdCheckDev_0 and v26.isRobloxSubscriber then v2.createElement(v3.Icon, {
+                    SubscriptionBadge = if l_FFlagEnableBlackbirdCheckDev_0 and v27.isRobloxSubscriber then v2.createElement(v3.Icon, {
                         name = v3.Enums.IconName.PaperAirplane, 
                         size = v3.Enums.IconSize.Small, 
-                        style = v27.Color.Content.Emphasis, 
+                        style = v28.Color.Content.Emphasis, 
                         LayoutOrder = 3
                     }) else nil, 
-                    PremiumBadge = if l_FFlagEnableBlackbirdCheckDev_0 then not v26.isRobloxSubscriber and v26.isPremium and v2.createElement(v3.Icon, {
+                    PremiumBadge = if l_FFlagEnableBlackbirdCheckDev_0 then not v27.isRobloxSubscriber and v27.isPremium and v2.createElement(v3.Icon, {
                         name = v3.Enums.IconName.Premium, 
                         size = v3.Enums.IconSize.Large, 
                         LayoutOrder = 4
-                    }) else v26.isPremium and v2.createElement(v3.Icon, {
+                    }) else v27.isPremium and v2.createElement(v3.Icon, {
                         name = v3.Enums.IconName.Premium, 
                         size = v3.Enums.IconSize.Large, 
                         LayoutOrder = 4
                     }), 
-                    AdminBadge = v26.isRobloxAdmin and v2.createElement(v3.Icon, {
+                    AdminBadge = v27.isRobloxAdmin and v2.createElement(v3.Icon, {
                         name = v3.Enums.IconName.Tilt, 
                         size = v3.Enums.IconSize.Large, 
                         LayoutOrder = 5
                     })
                 }) else nil
-            }) else v26.title and v2.createElement(l_Text_0, {
+            }) else v27.title and v2.createElement(l_Text_0, {
                 tag = {
-                    [("text-truncate-end content-emphasis %*"):format(v30 .. v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                    [("text-truncate-end content-emphasis %*"):format(v31 .. v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
                     ["content-emphasis"] = l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                    ["auto-xy text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                    ["auto-y size-full-0 text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                    ["auto-xy text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                    ["auto-y size-full-0 text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
                 }, 
-                fontStyle = v26.titleStyle or v27.Typography.TitleMedium, 
-                Text = v26.title, 
+                fontStyle = v27.titleStyle or v28.Typography.TitleMedium, 
+                Text = v27.title, 
                 LayoutOrder = 2, 
                 RichText = true, 
-                TextTruncate = v42
+                TextTruncate = v43
             }) or nil
         }), 
-        Subtitle = if v18 and v26.isSubtitleLoading then v2.createElement(l_View_0, {
+        Subtitle = if v18 and v27.isSubtitleLoading then v2.createElement(l_View_0, {
             tag = {
-                [("size-full-0 auto-y %*"):format(v40)] = true, 
+                [("size-full-0 auto-y %*"):format(v41)] = true, 
                 ["padding-xsmall"] = v20
             }, 
             LayoutOrder = 2
         }, {
             SubtitleSkeleton = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(v38, 0, 0, v34), 
+                Size = UDim2.new(v39, 0, 0, v35), 
                 radius = l_Radius_0.Small
             })
-        }) else if not l_FFlagUserTileTextTCIndicator_0 and v32 then v2.createElement(l_Text_0, {
+        }) else if not l_FFlagUserTileTextTCIndicator_0 and v33 then v2.createElement(l_Text_0, {
             tag = {
-                [("auto-y size-full-0 text-truncate-end content-default %*"):format(v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                [("auto-y size-full-0 text-truncate-end content-default %*"):format(v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
                 ["auto-y size-full-0 content-default"] = l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
             }, 
-            fontStyle = v26.subtitleStyle or v27.Typography.BodyMedium, 
-            Text = v26.subtitle or "", 
+            fontStyle = v27.subtitleStyle or v28.Typography.BodyMedium, 
+            Text = v27.subtitle or "", 
             LayoutOrder = 2, 
             RichText = true, 
-            TextTruncate = v42, 
-            onActivated = l_FFlagProfilePlatformNewProfileHeader_0 and v26.onSubtitleClicked and function() --[[ Line: 286 ]]
-                -- upvalues: v26 (ref)
-                v26.onSubtitleClicked();
+            TextTruncate = v43, 
+            onActivated = (not not l_FFlagProfilePlatformNewProfileHeader_0 or l_FFlagEnableMobileGameJoinCard_0) and v27.onSubtitleClicked and function() --[[ Line: 288 ]]
+                -- upvalues: v27 (ref)
+                v27.onSubtitleClicked();
             end or nil, 
-            stateLayer = if l_FFlagProfilePlatformNewProfileHeader_0 and v26.onSubtitleClicked then {
+            stateLayer = if (not not l_FFlagProfilePlatformNewProfileHeader_0 or l_FFlagEnableMobileGameJoinCard_0) and v27.onSubtitleClicked then {
                 affordance = l_StateLayerAffordance_0.None
             } else nil
-        }) else if l_FFlagUserTileTextTCIndicator_0 and v32 then v2.createElement(l_View_0, {
+        }) else if l_FFlagUserTileTextTCIndicator_0 and v33 then v2.createElement(l_View_0, {
             tag = {
                 ["row auto-y size-full-0 align-y-center"] = true, 
-                ["align-x-center"] = v26.layoutMode == v8.compact, 
-                ["align-x-left"] = v26.layoutMode == v8.wide
+                ["align-x-center"] = v27.layoutMode == v8.compact, 
+                ["align-x-left"] = v27.layoutMode == v8.wide
             }, 
             LayoutOrder = 2, 
-            onActivated = l_FFlagProfilePlatformNewProfileHeader_0 and v26.onSubtitleClicked and function() --[[ Line: 305 ]]
-                -- upvalues: v26 (ref)
-                v26.onSubtitleClicked();
+            onActivated = (not not l_FFlagProfilePlatformNewProfileHeader_0 or l_FFlagEnableMobileGameJoinCard_0) and v27.onSubtitleClicked and function() --[[ Line: 309 ]]
+                -- upvalues: v27 (ref)
+                v27.onSubtitleClicked();
             end or nil, 
-            stateLayer = if l_FFlagProfilePlatformNewProfileHeader_0 and v26.onSubtitleClicked then {
+            stateLayer = if (not not l_FFlagProfilePlatformNewProfileHeader_0 or l_FFlagEnableMobileGameJoinCard_0) and v27.onSubtitleClicked then {
                 affordance = l_StateLayerAffordance_0.None
             } else nil
         }, {
             SubtitleText = v2.createElement(l_Text_0, {
                 tag = {
                     ["auto-xy shrink content-default"] = true, 
-                    [("%*"):format(v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                    [("%*"):format(v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
                 }, 
-                fontStyle = v26.subtitleStyle or v27.Typography.BodyMedium, 
-                Text = v26.subtitle or "", 
+                fontStyle = v27.subtitleStyle or v28.Typography.BodyMedium, 
+                Text = v27.subtitle or "", 
                 LayoutOrder = 1, 
                 RichText = true, 
-                TextTruncate = v42
+                TextTruncate = v43
             }), 
-            TCTextLabel = if v26.trustedConnectionIndicatorEnabled and v26.isTrustedConnection then v2.createElement(l_Text_0, {
+            TCTextLabel = if v27.trustedConnectionIndicatorEnabled and v27.isTrustedConnection then v2.createElement(l_Text_0, {
                 tag = {
                     ["auto-xy content-default"] = true, 
-                    [("%*"):format(v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                    [("%*"):format(v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                    ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                    ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
                 }, 
-                fontStyle = v26.subtitleStyle or v27.Typography.BodyMedium, 
-                Text = " \226\128\162 " .. v43.trustedLabel, 
+                fontStyle = v27.subtitleStyle or v28.Typography.BodyMedium, 
+                Text = " \226\128\162 " .. v44.trustedLabel, 
                 LayoutOrder = 2, 
                 RichText = true, 
-                TextTruncate = v42
+                TextTruncate = v43
             }) else nil
         }) else nil, 
-        ContextualInfo = if v18 and v26.isContextualInfoLoading then v2.createElement(l_View_0, {
+        ContextualInfo = if v18 and v27.isContextualInfoLoading then v2.createElement(l_View_0, {
             tag = {
-                [("size-full-0 auto-y %*"):format(v40)] = true, 
+                [("size-full-0 auto-y %*"):format(v41)] = true, 
                 ["padding-xsmall"] = v20
             }, 
             LayoutOrder = 3
         }, {
             ContextualInfoSkeleton = v2.createElement(l_Skeleton_0, {
-                Size = UDim2.new(v39, 0, 0, v35), 
+                Size = UDim2.new(v40, 0, 0, v36), 
                 radius = l_Radius_0.Small
             })
-        }) else v26.contextualInfo and v2.createElement(l_Text_0, {
+        }) else v27.contextualInfo and v2.createElement(l_Text_0, {
             tag = {
-                [("auto-y size-full-0 text-truncate-end content-secondary %*"):format(v28)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
+                [("auto-y size-full-0 text-truncate-end content-secondary %*"):format(v29)] = not l_FFlagAppChatUserTileCustomTitleTruncation_0, 
                 ["auto-y size-full-0 content-secondary"] = l_FFlagAppChatUserTileCustomTitleTruncation_0, 
-                ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.compact, 
-                ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v26.layoutMode == v8.wide
+                ["text-align-x-center"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.compact, 
+                ["text-align-x-left"] = l_FFlagAppChatUserTileCustomTitleTruncation_0 and v27.layoutMode == v8.wide
             }, 
-            fontStyle = v26.contextualInfoStyle or v27.Typography.BodySmall, 
-            TextTruncate = v42, 
-            Text = v26.contextualInfo, 
+            fontStyle = v27.contextualInfoStyle or v28.Typography.BodySmall, 
+            TextTruncate = v43, 
+            Text = v27.contextualInfo, 
             LayoutOrder = 3, 
             RichText = true
         }) or nil

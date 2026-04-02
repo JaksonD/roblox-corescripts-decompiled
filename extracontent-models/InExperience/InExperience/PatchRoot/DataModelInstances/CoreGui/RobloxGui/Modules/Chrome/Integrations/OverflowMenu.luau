@@ -6,7 +6,7 @@ local v4 = require(l_script_FirstAncestor_0.ChromeShared.Service.ChromeUtils);
 local v5 = require(l_script_FirstAncestor_0.Integrations.ChromeIntegrationUtils);
 local v6 = require(l_script_FirstAncestor_0.Integrations.RespawnUtils);
 local l_MappedSignal_0 = v4.MappedSignal;
-local v8 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local v9 = require(l_script_FirstAncestor_0.Integrations.CommonIcon);
 local v10 = require(l_script_FirstAncestor_0.Integrations.CommonFtuxTooltip);
 local v11 = require(l_script_FirstAncestor_0.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip);
@@ -32,24 +32,23 @@ local l_GetFFlagEnableAppChatInExperience_0 = require(l_CorePackages_0.Workspace
 local v31 = require(l_script_FirstAncestor_0.Flags.GetShouldShowPlatformChatBasedOnPolicy);
 local v32 = game:DefineFastFlag("FixIntegrationActivated1", false);
 local v33 = game:DefineFastFlag("FixInventoryFilledIcon", false);
-local v34 = require(l_script_FirstAncestor_0.Flags.FFlagEnableUnibarTooltipQueue)();
 local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_script_FirstAncestor_0.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
 local l_GetFFlagAppChatRebrandStringUpdates_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).GetFFlagAppChatRebrandStringUpdates;
-local v37 = game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false);
-local v38 = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false);
-local v39 = game:DefineFastInt("UnibarConnectTooltipPriority", 2000);
-local v40 = l_GetFFlagEnableAppChatInExperience_0() and l_FFlagEnableUnibarFtuxTooltips_0 and v37 and v31();
+local v36 = game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false);
+local v37 = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false);
+local v38 = game:DefineFastInt("UnibarConnectTooltipPriority", 2000);
+local v39 = l_GetFFlagEnableAppChatInExperience_0() and l_FFlagEnableUnibarFtuxTooltips_0 and v36 and v31();
 local l_isInExperienceUIVREnabled_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled;
 local l_InExperienceUIVRIXP_0 = require(l_CorePackages_0.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP;
 local l_SELFIE_VIEW_ID_0 = v23.SELFIE_VIEW_ID;
-local v44 = l_MappedSignal_0.new(v14:GetSetVisibleChangedEvent().Event, function() --[[ Line: 68 ]]
+local v43 = l_MappedSignal_0.new(v14:GetSetVisibleChangedEvent().Event, function() --[[ Line: 67 ]]
     -- upvalues: v14 (copy)
     return v14:GetSetVisible();
 end);
-local v47 = v3:register({
+local v46 = v3:register({
     id = "leaderboard", 
     label = "CoreScripts.TopBar.Leaderboard", 
-    activated = function(_) --[[ Line: 75 ]] --[[ Name: activated ]]
+    activated = function(_) --[[ Line: 74 ]] --[[ Name: activated ]]
         -- upvalues: l_isInExperienceUIVREnabled_0 (copy), l_VRService_0 (copy), l_RobloxGui_0 (copy), v14 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy)
         if not l_isInExperienceUIVREnabled_0 and l_VRService_0.VREnabled then
             require(l_RobloxGui_0.Modules.InGameMenu).openPlayersPage();
@@ -61,33 +60,33 @@ local v47 = v3:register({
             v14:SetVisibility(not v14:GetSetVisible());
             return;
         else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 86 ]]
+            v5.dismissRobloxMenuAndRun(function() --[[ Line: 85 ]]
                 -- upvalues: v14 (ref)
                 v14:SetVisibility(not v14:GetSetVisible());
             end);
             return;
         end;
     end, 
-    isActivated = function() --[[ Line: 93 ]] --[[ Name: isActivated ]]
-        -- upvalues: v44 (copy)
-        return v44:get();
+    isActivated = function() --[[ Line: 92 ]] --[[ Name: isActivated ]]
+        -- upvalues: v43 (copy)
+        return v43:get();
     end, 
     components = {
-        Icon = function(_) --[[ Line: 97 ]] --[[ Name: Icon ]]
-            -- upvalues: v9 (copy), v44 (copy)
-            return v9("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", v44);
+        Icon = function(_) --[[ Line: 96 ]] --[[ Name: Icon ]]
+            -- upvalues: v9 (copy), v43 (copy)
+            return v9("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", v43);
         end
     }
 });
-v4.setCoreGuiAvailability(v47, Enum.CoreGuiType.PlayerList);
-local v48 = l_MappedSignal_0.new(v15.EmotesMenuToggled.Event, function() --[[ Line: 104 ]]
+v4.setCoreGuiAvailability(v46, Enum.CoreGuiType.PlayerList);
+local v47 = l_MappedSignal_0.new(v15.EmotesMenuToggled.Event, function() --[[ Line: 103 ]]
     -- upvalues: v15 (copy)
     return v15:isOpen();
 end);
-local v51 = v3:register({
+local v50 = v3:register({
     id = "emotes", 
     label = "CoreScripts.TopBar.Emotes", 
-    activated = function(_) --[[ Line: 110 ]] --[[ Name: activated ]]
+    activated = function(_) --[[ Line: 109 ]] --[[ Name: activated ]]
         -- upvalues: v15 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy)
         if v15:isOpen() then
             v15:close();
@@ -96,54 +95,54 @@ local v51 = v3:register({
             v15:open();
             return;
         else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 117 ]]
+            v5.dismissRobloxMenuAndRun(function() --[[ Line: 116 ]]
                 -- upvalues: v15 (ref)
                 v15:open();
             end);
             return;
         end;
     end, 
-    isActivated = function() --[[ Line: 123 ]] --[[ Name: isActivated ]]
-        -- upvalues: v48 (copy)
-        return v48:get();
+    isActivated = function() --[[ Line: 122 ]] --[[ Name: isActivated ]]
+        -- upvalues: v47 (copy)
+        return v47:get();
     end, 
     components = {
-        Icon = function(_) --[[ Line: 127 ]] --[[ Name: Icon ]]
-            -- upvalues: v9 (copy), v48 (copy)
-            return v9("icons/controls/emoteOff", "icons/controls/emoteOn", v48);
+        Icon = function(_) --[[ Line: 126 ]] --[[ Name: Icon ]]
+            -- upvalues: v9 (copy), v47 (copy)
+            return v9("icons/controls/emoteOff", "icons/controls/emoteOn", v47);
         end
     }
 });
-local v52 = false;
+local v51 = false;
 local l_MenuIsVisible_0 = v15.MenuIsVisible;
-updateEmoteAvailability = function() --[[ Line: 136 ]] --[[ Name: updateEmoteAvailability ]]
-    -- upvalues: v52 (ref), l_MenuIsVisible_0 (ref), v51 (copy)
-    if v52 and l_MenuIsVisible_0 then
-        v51.availability:available();
+updateEmoteAvailability = function() --[[ Line: 135 ]] --[[ Name: updateEmoteAvailability ]]
+    -- upvalues: v51 (ref), l_MenuIsVisible_0 (ref), v50 (copy)
+    if v51 and l_MenuIsVisible_0 then
+        v50.availability:available();
         return;
     else
-        v51.availability:unavailable();
+        v50.availability:unavailable();
         return;
     end;
 end;
-v4.setCoreGuiAvailability(v51, Enum.CoreGuiType.EmotesMenu, function(v54) --[[ Line: 144 ]]
-    -- upvalues: v52 (ref)
-    v52 = v54;
+v4.setCoreGuiAvailability(v50, Enum.CoreGuiType.EmotesMenu, function(v53) --[[ Line: 143 ]]
+    -- upvalues: v51 (ref)
+    v51 = v53;
     updateEmoteAvailability();
 end);
-v15.MenuVisibilityChanged.Event:Connect(function() --[[ Line: 149 ]]
+v15.MenuVisibilityChanged.Event:Connect(function() --[[ Line: 148 ]]
     -- upvalues: l_MenuIsVisible_0 (ref), v15 (copy)
     l_MenuIsVisible_0 = v15.MenuIsVisible;
     updateEmoteAvailability();
 end);
-local v55 = l_MappedSignal_0.new(v16.StateChanged.Event, function() --[[ Line: 154 ]]
+local v54 = l_MappedSignal_0.new(v16.StateChanged.Event, function() --[[ Line: 153 ]]
     -- upvalues: v16 (copy)
     return v16.IsOpen;
 end);
-local v58 = v3:register({
+local v57 = v3:register({
     id = "backpack", 
     label = "CoreScripts.TopBar.Inventory", 
-    activated = function(_) --[[ Line: 160 ]] --[[ Name: activated ]]
+    activated = function(_) --[[ Line: 159 ]] --[[ Name: activated ]]
         -- upvalues: v16 (copy), l_isInExperienceUIVREnabled_0 (copy), l_isSpatial_0 (copy), l_InExperienceUIVRIXP_0 (copy), v5 (copy)
         if v16.IsOpen then
             v16:OpenClose();
@@ -152,90 +151,90 @@ local v58 = v3:register({
             v16:OpenClose();
             return;
         else
-            v5.dismissRobloxMenuAndRun(function() --[[ Line: 167 ]]
+            v5.dismissRobloxMenuAndRun(function() --[[ Line: 166 ]]
                 -- upvalues: v16 (ref)
                 v16:OpenClose();
             end);
             return;
         end;
     end, 
-    isActivated = function() --[[ Line: 173 ]] --[[ Name: isActivated ]]
-        -- upvalues: v55 (copy)
-        return v55:get();
+    isActivated = function() --[[ Line: 172 ]] --[[ Name: isActivated ]]
+        -- upvalues: v54 (copy)
+        return v54:get();
     end, 
     components = {
-        Icon = function(_) --[[ Line: 177 ]] --[[ Name: Icon ]]
-            -- upvalues: v9 (copy), v33 (copy), v55 (copy)
-            return v9("icons/menu/inventoryOff", v33 and "icons/menu/inventoryOn" or "icons/menu/inventory", v55);
+        Icon = function(_) --[[ Line: 176 ]] --[[ Name: Icon ]]
+            -- upvalues: v9 (copy), v33 (copy), v54 (copy)
+            return v9("icons/menu/inventoryOff", v33 and "icons/menu/inventoryOn" or "icons/menu/inventory", v54);
         end
     }
 });
-v4.setCoreGuiAvailability(v58, Enum.CoreGuiType.Backpack);
-local v61 = v3:register({
+v4.setCoreGuiAvailability(v57, Enum.CoreGuiType.Backpack);
+local v60 = v3:register({
     id = "respawn", 
     label = "CoreScripts.InGameMenu.QuickActions.Respawn", 
-    activated = function(_) --[[ Line: 191 ]] --[[ Name: activated ]]
+    activated = function(_) --[[ Line: 190 ]] --[[ Name: activated ]]
         -- upvalues: v6 (copy)
         v6.respawnPage();
     end, 
-    isActivated = function() --[[ Line: 194 ]] --[[ Name: isActivated ]]
+    isActivated = function() --[[ Line: 193 ]] --[[ Name: isActivated ]]
         -- upvalues: v6 (copy)
         return v6.respawnPageOpenSignal:get();
     end, 
     components = {
-        Icon = function(_) --[[ Line: 198 ]] --[[ Name: Icon ]]
+        Icon = function(_) --[[ Line: 197 ]] --[[ Name: Icon ]]
             -- upvalues: v9 (copy)
             return v9("icons/actions/respawn");
         end
     }
 });
-updateRespawn = function(v62) --[[ Line: 204 ]] --[[ Name: updateRespawn ]]
-    -- upvalues: v61 (copy)
-    if v62 then
-        v61.availability:available();
+updateRespawn = function(v61) --[[ Line: 203 ]] --[[ Name: updateRespawn ]]
+    -- upvalues: v60 (copy)
+    if v61 then
+        v60.availability:available();
         return;
     else
-        v61.availability:unavailable();
+        v60.availability:unavailable();
         return;
     end;
 end;
-task.defer(function() --[[ Line: 212 ]]
+task.defer(function() --[[ Line: 211 ]]
     -- upvalues: l_RobloxGui_0 (copy)
-    local v63 = require(l_RobloxGui_0.Modules.Settings.SettingsHub);
-    v63.RespawnBehaviourChangedEvent.Event:connect(updateRespawn);
-    updateRespawn(v63:GetRespawnBehaviour());
+    local v62 = require(l_RobloxGui_0.Modules.Settings.SettingsHub);
+    v62.RespawnBehaviourChangedEvent.Event:connect(updateRespawn);
+    updateRespawn(v62:GetRespawnBehaviour());
 end);
-local v64 = v3:currentSubMenu();
-local v65 = l_MappedSignal_0.new(v64:signal(), function() --[[ Line: 219 ]]
-    -- upvalues: v64 (copy)
-    return v64:get() == "nine_dot";
+local v63 = v3:currentSubMenu();
+local v64 = l_MappedSignal_0.new(v63:signal(), function() --[[ Line: 218 ]]
+    -- upvalues: v63 (copy)
+    return v63:get() == "nine_dot";
 end);
 if v3:orderAlignment():get() == Enum.HorizontalAlignment.Right then
-    v65:connect(function(v66) --[[ Line: 224 ]]
+    v64:connect(function(v65) --[[ Line: 223 ]]
         -- upvalues: v14 (copy)
-        v14:SetMinimized(v66);
+        v14:SetMinimized(v65);
     end);
 end;
-HamburgerButton = function(v67) --[[ Line: 229 ]] --[[ Name: HamburgerButton ]]
-    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v8 (copy), v23 (copy), v65 (copy), v17 (copy), v40 (copy), v10 (copy), v34 (copy), v39 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v26 (copy), v28 (copy), v29 (copy), v2 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v25 (copy), v3 (copy), l_SELFIE_VIEW_ID_0 (copy), v38 (copy), v11 (copy)
-    local l_toggleTransition_0 = v67.toggleTransition;
-    local v69 = l_useStyle_0();
+HamburgerButton = function(v66) --[[ Line: 228 ]] --[[ Name: HamburgerButton ]]
+    -- upvalues: l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v23 (copy), v64 (copy), v17 (copy), v39 (copy), v10 (copy), v38 (copy), l_GetFFlagAppChatRebrandStringUpdates_0 (copy), l_GetFFlagIsSquadEnabled_0 (copy), v26 (copy), v28 (copy), v29 (copy), v2 (copy), l_ImageSetLabel_0 (copy), l_Images_0 (copy), v25 (copy), v3 (copy), l_SELFIE_VIEW_ID_0 (copy), v37 (copy), v11 (copy)
+    local l_toggleTransition_0 = v66.toggleTransition;
+    local v68 = l_useStyle_0();
+    local v69 = nil;
     local v70 = nil;
     local v71 = nil;
-    local v72 = nil;
     if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-        v70 = v8.use();
-        v71 = v70.ICON_SIZE;
-        v72 = v70.MEDIUM_ICON_SIZE;
+        v69 = l_UnibarStyle_0.use();
+        v70 = v69.ICON_SIZE;
+        v71 = v69.MEDIUM_ICON_SIZE;
     else
-        v71 = v23.ICON_SIZE;
-        v72 = v23.MEDIUM_ICON_SIZE;
+        v70 = v23.ICON_SIZE;
+        v71 = v23.MEDIUM_ICON_SIZE;
     end;
-    local v73 = v65 and v17(v65) or false;
-    local v74 = if v40 then v10({
-        id = v34 and "CONNECT_TOOLTIP" or nil, 
-        priority = if v34 then v39 else nil, 
-        isIconVisible = v67.visible, 
+    local v72 = v64 and v17(v64) or false;
+    local v73 = if v39 then v10({
+        id = "CONNECT_TOOLTIP", 
+        priority = v38, 
+        isIconVisible = v66.visible, 
         headerKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "CoreScripts.FTUX.Heading.CheckOutRobloxParty" or "CoreScripts.FTUX.Heading.CheckOutRobloxConnect", 
         bodyKey = l_GetFFlagAppChatRebrandStringUpdates_0() and l_GetFFlagIsSquadEnabled_0() and "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime" or "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime", 
         localStorageKey = v26(), 
@@ -243,12 +242,12 @@ HamburgerButton = function(v67) --[[ Line: 229 ]] --[[ Name: HamburgerButton ]]
         dismissDelay = v29()
     }) else nil;
     return v2.createElement("Frame", {
-        Size = UDim2.new(0, v71, 0, v71), 
+        Size = UDim2.new(0, v70, 0, v70), 
         BorderSizePixel = 0, 
-        BackgroundColor3 = v69.Theme.BackgroundOnHover.Color, 
-        BackgroundTransparency = l_toggleTransition_0:map(function(v75) --[[ Line: 270 ]]
-            -- upvalues: v69 (copy)
-            return 1 - (1 - v69.Theme.BackgroundOnHover.Transparency) * v75;
+        BackgroundColor3 = v68.Theme.BackgroundOnHover.Color, 
+        BackgroundTransparency = l_toggleTransition_0:map(function(v74) --[[ Line: 269 ]]
+            -- upvalues: v68 (copy)
+            return 1 - (1 - v68.Theme.BackgroundOnHover.Transparency) * v74;
         end)
     }, {
         v2.createElement("UICorner", {
@@ -261,15 +260,15 @@ HamburgerButton = function(v67) --[[ Line: 229 ]] --[[ Name: HamburgerButton ]]
             Position = UDim2.new(0.5, 0, 0.5, 0), 
             BackgroundTransparency = 1, 
             Image = l_Images_0["icons/common/hamburgermenu"], 
-            Size = l_toggleTransition_0:map(function(v76) --[[ Line: 284 ]]
-                -- upvalues: v71 (ref)
-                v76 = 1 - v76;
-                return UDim2.new(0, v71 * v76, 0, v71 * v76);
+            Size = l_toggleTransition_0:map(function(v75) --[[ Line: 283 ]]
+                -- upvalues: v70 (ref)
+                v75 = 1 - v75;
+                return UDim2.new(0, v70 * v75, 0, v70 * v75);
             end), 
-            ImageColor3 = v69.Theme.IconEmphasis.Color, 
-            ImageTransparency = l_toggleTransition_0:map(function(v77) --[[ Line: 290 ]]
-                -- upvalues: v69 (copy)
-                return v77 * v69.Theme.IconEmphasis.Transparency;
+            ImageColor3 = v68.Theme.IconEmphasis.Color, 
+            ImageTransparency = l_toggleTransition_0:map(function(v76) --[[ Line: 289 ]]
+                -- upvalues: v68 (copy)
+                return v76 * v68.Theme.IconEmphasis.Transparency;
             end)
         }), 
         v2.createElement(l_ImageSetLabel_0, {
@@ -278,24 +277,24 @@ HamburgerButton = function(v67) --[[ Line: 229 ]] --[[ Name: HamburgerButton ]]
             Position = UDim2.new(0.5, 0, 0.5, 0), 
             BackgroundTransparency = 1, 
             Image = l_Images_0["icons/navigation/close"], 
-            Size = l_toggleTransition_0:map(function(v78) --[[ Line: 300 ]]
-                -- upvalues: v72 (ref)
-                return UDim2.new(0, v72 * v78, 0, v72 * v78);
+            Size = l_toggleTransition_0:map(function(v77) --[[ Line: 299 ]]
+                -- upvalues: v71 (ref)
+                return UDim2.new(0, v71 * v77, 0, v71 * v77);
             end), 
-            ImageColor3 = v69.Theme.IconEmphasis.Color, 
-            ImageTransparency = l_toggleTransition_0:map(function(v79) --[[ Line: 305 ]]
-                -- upvalues: v69 (copy)
-                return (1 - v79) * v69.Theme.IconEmphasis.Transparency;
+            ImageColor3 = v68.Theme.IconEmphasis.Color, 
+            ImageTransparency = l_toggleTransition_0:map(function(v78) --[[ Line: 304 ]]
+                -- upvalues: v68 (copy)
+                return (1 - v78) * v68.Theme.IconEmphasis.Transparency;
             end)
         }), 
-        if not v25.useCameraOn() or v3:isWindowOpen(l_SELFIE_VIEW_ID_0) or v73 then nil else v2.createElement(v25.CameraStatusDot, {
+        if not v25.useCameraOn() or v3:isWindowOpen(l_SELFIE_VIEW_ID_0) or v72 then nil else v2.createElement(v25.CameraStatusDot, {
             Name = "CameraStatusDot", 
             Position = UDim2.new(1, -4, 1, -7), 
             ZIndex = 2
         }), 
-        v74, 
-        if v38 then v2.createElement(v11, {
-            visible = v67.visible
+        v73, 
+        if v37 then v2.createElement(v11, {
+            visible = v66.visible
         }) else nil
     });
 end;
@@ -303,14 +302,14 @@ return v3:register({
     initialAvailability = v3.AvailabilitySignal.Pinned, 
     id = "nine_dot", 
     label = "CoreScripts.TopBar.MoreMenu", 
-    isActivated = v32 and function() --[[ Line: 332 ]]
-        -- upvalues: v65 (copy)
-        return v65:get();
+    isActivated = v32 and function() --[[ Line: 331 ]]
+        -- upvalues: v64 (copy)
+        return v64:get();
     end or nil, 
     components = {
-        Icon = function(v80) --[[ Line: 337 ]] --[[ Name: Icon ]]
+        Icon = function(v79) --[[ Line: 336 ]] --[[ Name: Icon ]]
             -- upvalues: v2 (copy)
-            return v2.createElement(HamburgerButton, v80);
+            return v2.createElement(HamburgerButton, v79);
         end
     }
 });

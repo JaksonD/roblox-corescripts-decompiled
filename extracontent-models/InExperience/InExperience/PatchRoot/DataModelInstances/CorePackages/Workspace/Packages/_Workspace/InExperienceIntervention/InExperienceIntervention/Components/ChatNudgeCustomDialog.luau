@@ -28,48 +28,52 @@ local l_FocusRoot_0 = v25.FocusRoot;
 local l_FocusNavigableSurfaceIdentifierEnum_0 = v25.FocusNavigableSurfaceIdentifierEnum;
 local v28 = v24.FocusNavigationService.new(v24.EngineInterface.CoreGui);
 local l_FFlagFixScrollFrameHeightCalculation_0 = require(l_Parent_0.InterventionShared).Flags.FFlagFixScrollFrameHeightCalculation;
-ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCustomDialog ]]
-    -- upvalues: v4 (copy), v17 (copy), l_useLocalization_0 (copy), v3 (copy), l_useStyle_0 (copy), l_useLayerCollector_0 (copy), l_useTokens_0 (copy), l_FFlagFixScrollFrameHeightCalculation_0 (copy), l_useProperty_0 (copy), l_dependencyArray_0 (copy), l_LocalPlayer_0 (copy), l_View_0 (copy), l_Text_0 (copy), l_PartialPageModal_0 (copy), l_ScrollView_0 (copy), l_ScrollBarVisibility_0 (copy), v24 (copy), v28 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), v5 (copy)
-    local v31 = v4.useRef(DateTime.now().UnixTimestampMillis);
-    local v32 = v4.useRef(nil);
-    local v33, v34 = v4.useState(0);
-    v4.useEffect(function() --[[ Line: 49 ]]
-        -- upvalues: v17 (ref), v31 (copy), v30 (copy)
-        v17.sendAnalyticsEvent(v17.Constants.EventTypes.ModalAppeared, v17.Constants.InterventionTypes.Nudge, v31.current, v30.eventId, v30.violatingChatLine, nil);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+ChatNudgeCustomDialog = function(v31) --[[ Line: 47 ]] --[[ Name: ChatNudgeCustomDialog ]]
+    -- upvalues: v4 (copy), v17 (copy), l_useLocalization_0 (copy), v3 (copy), l_useStyle_0 (copy), l_useLayerCollector_0 (copy), l_useTokens_0 (copy), l_FFlagFixScrollFrameHeightCalculation_0 (copy), l_useProperty_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_LocalPlayer_0 (copy), l_View_0 (copy), l_Text_0 (copy), l_PartialPageModal_0 (copy), l_ScrollView_0 (copy), l_ScrollBarVisibility_0 (copy), v24 (copy), v28 (copy), l_FocusRoot_0 (copy), l_FocusNavigableSurfaceIdentifierEnum_0 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), v5 (copy)
+    local v32 = v4.useRef(DateTime.now().UnixTimestampMillis);
+    local v33 = v4.useRef(nil);
+    local v34, v35 = v4.useState(0);
+    v4.useEffect(function() --[[ Line: 51 ]]
+        -- upvalues: v17 (ref), v32 (copy), v31 (copy)
+        v17.sendAnalyticsEvent(v17.Constants.EventTypes.ModalAppeared, v17.Constants.InterventionTypes.Nudge, v32.current, v31.eventId, v31.violatingChatLine, nil);
     end, {
-        v31
+        v32
     });
-    local v35 = l_useLocalization_0(v3.localizationKeys);
-    local v36 = l_useStyle_0();
-    local v37 = l_useLayerCollector_0();
-    local v38 = l_useTokens_0();
-    local v39 = if l_FFlagFixScrollFrameHeightCalculation_0 then l_useProperty_0(v32, "AbsoluteSize") else nil;
-    v4.useEffect(function() --[[ Line: 71 ]]
-        -- upvalues: l_FFlagFixScrollFrameHeightCalculation_0 (ref), v39 (copy), v37 (copy), v3 (ref), v34 (copy), v32 (copy)
+    local v36 = l_useLocalization_0(v3.localizationKeys);
+    local v37 = l_useStyle_0();
+    local v38 = l_useLayerCollector_0();
+    local v39 = l_useTokens_0();
+    local v40 = if l_FFlagFixScrollFrameHeightCalculation_0 then l_useProperty_0(v33, "AbsoluteSize") else nil;
+    v4.useEffect(function() --[[ Line: 73 ]]
+        -- upvalues: l_FFlagFixScrollFrameHeightCalculation_0 (ref), v40 (copy), v38 (copy), v3 (ref), v35 (copy), v33 (copy)
         if l_FFlagFixScrollFrameHeightCalculation_0 then
-            local v40 = if v39 then v39.Y else 0;
-            local v41 = math.min(v37.absoluteSize.Y - v3.UNIBAR_HEIGHT - v3.DIALOG_HEADER_HEIGHT, v40);
-            v34(v41);
+            local v41 = if v40 then v40.Y else 0;
+            local v42 = math.min(v38.absoluteSize.Y - v3.UNIBAR_HEIGHT - v3.DIALOG_HEADER_HEIGHT, v41);
+            v35(v42);
             return;
         else
-            local v42 = if v32.current then v32.current.AbsoluteSize.Y else 0;
-            local v43 = math.min(v37.absoluteSize.Y - v3.UNIBAR_HEIGHT - v3.DIALOG_HEADER_HEIGHT, v42);
-            v34(v43);
+            local v43 = if v33.current then v33.current.AbsoluteSize.Y else 0;
+            local v44 = math.min(v38.absoluteSize.Y - v3.UNIBAR_HEIGHT - v3.DIALOG_HEADER_HEIGHT, v43);
+            v35(v44);
             return;
         end;
-    end, if l_FFlagFixScrollFrameHeightCalculation_0 then l_dependencyArray_0(v37.absoluteSize.Y, v39) else {
-        v37.absoluteSize.Y, 
-        v32.current
+    end, if l_FFlagFixScrollFrameHeightCalculation_0 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v38.absoluteSize.Y, 
+        v40
+    } else l_dependencyArray_0(v38.absoluteSize.Y, v40) else {
+        v38.absoluteSize.Y, 
+        v33.current
     });
-    local v44 = if l_LocalPlayer_0 then ("%*: %*"):format(l_LocalPlayer_0.DisplayName, v30.violatingChatLine) else v30.violatingChatLine;
-    local v45 = v4.useCallback(function() --[[ Line: 103 ]]
-        -- upvalues: v17 (ref), v31 (copy), v30 (copy)
-        v17.sendAnalyticsEvent(v17.Constants.EventTypes.CtaClicked, v17.Constants.InterventionTypes.Nudge, v31.current, v30.eventId, v30.violatingChatLine, nil);
-        v30.onDismiss();
+    local v45 = if l_LocalPlayer_0 then ("%*: %*"):format(l_LocalPlayer_0.DisplayName, v31.violatingChatLine) else v31.violatingChatLine;
+    local v46 = v4.useCallback(function() --[[ Line: 107 ]]
+        -- upvalues: v17 (ref), v32 (copy), v31 (copy)
+        v17.sendAnalyticsEvent(v17.Constants.EventTypes.CtaClicked, v17.Constants.InterventionTypes.Nudge, v32.current, v31.eventId, v31.violatingChatLine, nil);
+        v31.onDismiss();
     end, {
-        v31
+        v32
     });
-    local v46 = if v30.violatingChatLine then v4.createElement(l_View_0, {
+    local v47 = if v31.violatingChatLine then v4.createElement(l_View_0, {
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         LayoutOrder = 1
@@ -86,8 +90,8 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
             AutomaticSize = Enum.AutomaticSize.Y
         }, {
             ChatIncludesText = v4.createElement(l_Text_0, {
-                Text = v35.ChatIncludesText, 
-                fontStyle = v38.Typography.BodySmall, 
+                Text = v36.ChatIncludesText, 
+                fontStyle = v39.Typography.BodySmall, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 AnchorPoint = Vector2.new(0, 0), 
                 AutomaticSize = Enum.AutomaticSize.XY
@@ -97,14 +101,14 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
             Size = UDim2.new(1, 0, 0, v3.VIOLATION_HEIGHT), 
             LayoutOrder = 2, 
             BackgroundTransparency = 0, 
-            BackgroundColor3 = v36.Theme.BackgroundUIDefault.Color, 
+            BackgroundColor3 = v37.Theme.BackgroundUIDefault.Color, 
             tag = "col gap-small align-x-center align-y-center padding-x-large radius-medium stroke-default"
         }, {
             ViolationText = v4.createElement(l_Text_0, {
                 LayoutOrder = 2, 
-                Text = v44, 
-                textStyle = v36.Theme.TextMuted, 
-                fontStyle = v36.Font.Body, 
+                Text = v45, 
+                textStyle = v37.Theme.TextMuted, 
+                fontStyle = v37.Font.Body, 
                 Size = UDim2.new(1, 0, 0, 0), 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 TextYAlignment = Enum.TextYAlignment.Center, 
@@ -115,11 +119,11 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
         })
     }) else nil;
     return v4.createElement(l_PartialPageModal_0, {
-        title = v35.ChatBreaksRulesText, 
-        screenSize = v37.absoluteSize
+        title = v36.ChatBreaksRulesText, 
+        screenSize = v38.absoluteSize
     }, {
         ScrollView = v4.createElement(l_ScrollView_0, {
-            Size = UDim2.new(1, 0, 0, v33), 
+            Size = UDim2.new(1, 0, 0, v34), 
             scroll = {
                 AutomaticCanvasSize = Enum.AutomaticSize.Y, 
                 CanvasSize = UDim2.new(1, 0, 1, 0), 
@@ -140,17 +144,17 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
                     }
                 }, {
                     InnerContent = v4.createElement(l_View_0, {
-                        ref = v32, 
+                        ref = v33, 
                         Size = UDim2.new(1, -v3.SCROLL_BAR_WIDTH, 0, 0), 
                         AutomaticSize = Enum.AutomaticSize.Y, 
                         tag = "col gap-large align-x-center align-y-center padding-x-small padding-top-large"
                     }, {
-                        MiddleContent = v46, 
+                        MiddleContent = v47, 
                         WarningText = v4.createElement(l_Text_0, {
                             LayoutOrder = 3, 
-                            Text = v35.TextChatMayBeSuspendedText, 
-                            textStyle = v36.Theme.TextEmphasis, 
-                            fontStyle = v36.Font.Body, 
+                            Text = v36.TextChatMayBeSuspendedText, 
+                            textStyle = v37.Theme.TextEmphasis, 
+                            fontStyle = v37.Font.Body, 
                             Size = UDim2.new(1, 0, 0, 0), 
                             TextXAlignment = Enum.TextXAlignment.Center, 
                             TextYAlignment = Enum.TextYAlignment.Center, 
@@ -163,9 +167,9 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
                             LayoutOrder = 4
                         }, {
                             UnderstandButton = v4.createElement(l_Button_0, {
-                                text = v35.IUnderstandText, 
+                                text = v36.IUnderstandText, 
                                 variant = l_ButtonVariant_0.Standard, 
-                                onActivated = v45, 
+                                onActivated = v46, 
                                 fillBehavior = l_FillBehavior_0.Fill, 
                                 FillDirection = Enum.FillDirection.Horizontal
                             })
@@ -176,11 +180,11 @@ ChatNudgeCustomDialog = function(v30) --[[ Line: 45 ]] --[[ Name: ChatNudgeCusto
                             LayoutOrder = 5
                         }, {
                             FeedbackFooter = v4.createElement(v5, {
-                                onDismiss = v30.onDismiss, 
-                                renderTimestamp = v31.current, 
+                                onDismiss = v31.onDismiss, 
+                                renderTimestamp = v32.current, 
                                 interventionType = v17.Constants.InterventionTypes.Nudge, 
-                                eventId = v30.eventId, 
-                                violatingChatLine = v30.violatingChatLine, 
+                                eventId = v31.eventId, 
+                                violatingChatLine = v31.violatingChatLine, 
                                 duration = nil
                             })
                         })

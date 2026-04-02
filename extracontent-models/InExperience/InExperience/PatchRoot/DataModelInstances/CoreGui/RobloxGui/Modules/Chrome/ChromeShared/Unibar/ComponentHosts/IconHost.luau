@@ -23,7 +23,7 @@ local v21 = require(l_script_FirstAncestor_0.Unibar.Constants);
 local v22 = require(l_script_FirstAncestor_0.Service);
 local v23 = require(l_script_FirstAncestor_0.Analytics.ChromeAnalytics);
 local _ = require(l_script_FirstAncestor_0.Service.Types);
-local v25 = require(l_script_FirstAncestor_0.Unibar.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local v26 = require(l_script_FirstAncestor_0.Hooks.useObservableValue);
 local v27 = require(l_script_FirstAncestor_0.Hooks.useNotificationCount);
 local v28 = require(l_script_FirstAncestor_0.Hooks.useMappedObservableValue);
@@ -85,7 +85,7 @@ logTooltipState = function(v54, v55) --[[ Line: 105 ]] --[[ Name: logTooltipStat
     end;
 end;
 NotificationBadge = function(v56) --[[ Line: 124 ]] --[[ Name: NotificationBadge ]]
-    -- upvalues: v49 (copy), v4 (copy), v27 (copy), v28 (copy), v22 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_useTokens_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v25 (copy), v21 (copy), v12 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy)
+    -- upvalues: v49 (copy), v4 (copy), v27 (copy), v28 (copy), v22 (copy), l_GetFFlagSimpleChatUnreadMessageCount_0 (copy), l_useTokens_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v12 (copy), l_StatusIndicator_0 (copy), l_Flags_0 (copy), l_StatusIndicatorVariant_0 (copy)
     if not v56.integration then
         return nil;
     else
@@ -144,7 +144,7 @@ NotificationBadge = function(v56) --[[ Line: 124 ]] --[[ Name: NotificationBadge
         local v73 = nil;
         local v74 = nil;
         if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then
-            v71 = v25.use();
+            v71 = l_UnibarStyle_0.use();
             v72 = v71.ICON_SIZE;
             v73 = v71.ICON_BADGE_OFFSET_X;
             v74 = v71.ICON_BADGE_OFFSET_Y;
@@ -210,10 +210,10 @@ NotificationIndicator = function(v78) --[[ Line: 243 ]] --[[ Name: NotificationI
     }));
 end;
 HighlightCircle = function(v80) --[[ Line: 262 ]] --[[ Name: HighlightCircle ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v25 (copy), v21 (copy), v4 (copy)
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy)
     local _ = nil;
     local v82 = nil;
-    v82 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v25.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
+    v82 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
     return v4.createElement("Frame", {
         Name = v80.name or "Highlighter", 
         Size = v82, 
@@ -230,10 +230,10 @@ HighlightCircle = function(v80) --[[ Line: 262 ]] --[[ Name: HighlightCircle ]]
     });
 end;
 TooltipButton = function(v83) --[[ Line: 292 ]] --[[ Name: TooltipButton ]]
-    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v25 (copy), v21 (copy), v4 (copy), v30 (copy), l_isInExperienceUIVREnabled_0 (copy), v34 (ref), v26 (copy), v22 (copy), v42 (ref), l_ControlState_0 (copy), l_FFlagEnableUnibarFtuxTooltips_0 (copy), v23 (copy), l_UserInputService_0 (copy), v32 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v46 (copy), l_Interactable_0 (copy), l_FFlagUnibarMenuOpenHamburger_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), l_useCursor_0 (copy), v12 (copy), v35 (ref), v36 (ref), v39 (ref), v38 (ref), v37 (ref), l_withTooltip_0 (copy), l_CoreGui_0 (copy)
+    -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v4 (copy), v30 (copy), l_isInExperienceUIVREnabled_0 (copy), v34 (ref), v26 (copy), v22 (copy), v42 (ref), l_ControlState_0 (copy), l_FFlagEnableUnibarFtuxTooltips_0 (copy), v23 (copy), l_UserInputService_0 (copy), v32 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v46 (copy), l_Interactable_0 (copy), l_FFlagUnibarMenuOpenHamburger_0 (copy), l_FFlagUnibarMenuOpenSubmenu_0 (copy), l_useCursor_0 (copy), v12 (copy), v35 (ref), v36 (ref), v39 (ref), v38 (ref), v37 (ref), l_withTooltip_0 (copy), l_CoreGui_0 (copy)
     local _ = nil;
     local v85 = nil;
-    v85 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v25.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
+    v85 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_HIGHLIGHT_SIZE else v21.ICON_HIGHLIGHT_SIZE;
     local v86 = v4.useRef(nil);
     local l_secondaryAction_0 = v83.integration.integration.secondaryAction;
     local v88 = v83.integration.integration.draggable or false;
@@ -542,7 +542,7 @@ TooltipButton = function(v83) --[[ Line: 292 ]] --[[ Name: TooltipButton ]]
     end;
 end;
 IconHost = function(v146) --[[ Line: 639 ]] --[[ Name: IconHost ]]
-    -- upvalues: v4 (copy), l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v25 (copy), v21 (copy), v29 (copy), v22 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
+    -- upvalues: v4 (copy), l_useStyle_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v21 (copy), v29 (copy), v22 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
     if not v146.integration or not v146.integration.component then
         warn("IconHost has no component to render");
     end;
@@ -552,7 +552,7 @@ IconHost = function(v146) --[[ Line: 639 ]] --[[ Name: IconHost ]]
     local _ = nil;
     local l_BackgroundOnHover_0 = v151.Theme.BackgroundOnHover;
     local v154 = nil;
-    v154 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v25.use().ICON_CELL_WIDTH else v21.ICON_CELL_WIDTH;
+    v154 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_CELL_WIDTH else v21.ICON_CELL_WIDTH;
     local v156 = v29(v22:currentSubMenu(), function(v155) --[[ Line: 662 ]]
         -- upvalues: v146 (copy)
         return v155 == v146.integration.id;

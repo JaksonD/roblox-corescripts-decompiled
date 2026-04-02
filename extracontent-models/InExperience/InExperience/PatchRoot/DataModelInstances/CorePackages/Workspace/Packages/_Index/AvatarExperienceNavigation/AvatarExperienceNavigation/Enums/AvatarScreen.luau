@@ -23,6 +23,7 @@ return {
     TryOnManager = "TryOnManager", 
     LookDetails = "LookDetails", 
     ExpiredUserLookCheckout = "ExpiredUserLookCheckout", 
+    ExpiredUserLookActionBar = "ExpiredUserLookActionBar", 
     AvatarRefinement = "AvatarRefinement", 
     SortAndFilters = "SortAndFilters", 
     EditEmotes = "EditEmotes", 

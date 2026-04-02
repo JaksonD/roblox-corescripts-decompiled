@@ -14,7 +14,7 @@ local l_HeaderBar_0 = v5.App.Bar.HeaderBar;
 local v13 = require(l_Parent_0.AppHeaderBar);
 local v14 = require(l_Parent_0.Foundation);
 local v15 = require(l_Parent_0.React);
-local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableDomLocators);
+local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatDomLocatorFoundationMigration);
 local l_FlyoutSidePanelIXP_0 = require(l_Parent_0.SharedExperimentDefinition).FlyoutSidePanelIXP;
 local v18 = nil;
 if l_FlyoutSidePanelIXP_0.isFlyoutSidePanelEnabled() then

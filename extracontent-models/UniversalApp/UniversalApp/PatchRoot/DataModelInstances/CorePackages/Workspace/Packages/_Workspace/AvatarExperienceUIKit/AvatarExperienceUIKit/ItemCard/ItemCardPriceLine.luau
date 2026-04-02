@@ -12,7 +12,7 @@ local v10 = require(l_script_FirstAncestor_0.ItemCard.Utils.getLocalizedPrice);
 local l_FFlagAXUpdateItemCardPriceLineText_0 = v4.FFlagAXUpdateItemCardPriceLineText;
 local l_FFlagAXDurablesFooter_0 = v4.FFlagAXDurablesFooter;
 local v13 = game:DefineFastFlag("AXAddStyleToItemCardPriceLine", false);
-local function v16(v14) --[[ Line: 67 ]] --[[ Name: renderIconTextPair ]]
+local function v16(v14) --[[ Line: 72 ]] --[[ Name: renderIconTextPair ]]
     -- upvalues: v2 (copy), l_Icon_0 (copy), v13 (copy), l_IconSize_0 (copy), l_Text_0 (copy), l_FFlagAXUpdateItemCardPriceLineText_0 (copy)
     local v15 = {};
     if v14.iconName then
@@ -36,7 +36,7 @@ local function v16(v14) --[[ Line: 67 ]] --[[ Name: renderIconTextPair ]]
     });
     return v15;
 end;
-local function v28(v17, v18, v19, v20, v21, v22, v23) --[[ Line: 100 ]] --[[ Name: renderContentChildren ]]
+local function v28(v17, v18, v19, v20, v21, v22, v23) --[[ Line: 105 ]] --[[ Name: renderContentChildren ]]
     -- upvalues: v10 (copy), v16 (copy)
     local v24 = nil;
     local v25 = nil;
@@ -71,7 +71,7 @@ local function v28(v17, v18, v19, v20, v21, v22, v23) --[[ Line: 100 ]] --[[ Nam
         designTokens = v23
     }));
 end;
-return function(v29) --[[ Line: 145 ]] --[[ Name: ItemCardPriceLine ]]
+return function(v29) --[[ Line: 150 ]] --[[ Name: ItemCardPriceLine ]]
     -- upvalues: l_useTokens_0 (copy), l_useDesignTokens_0 (copy), v13 (copy), l_FFlagAXDurablesFooter_0 (copy), v2 (copy), v28 (copy), l_Icon_0 (copy), l_IconSize_0 (copy), l_Text_0 (copy), l_FFlagAXUpdateItemCardPriceLineText_0 (copy), v10 (copy)
     local v30 = l_useTokens_0();
     local v31 = l_useDesignTokens_0();

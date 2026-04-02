@@ -4,11 +4,12 @@ local v2 = require(l_Parent_0.AvatarExperienceFlags);
 local l_FFlagDynamicHeadsMigration_0 = v2.FFlagDynamicHeadsMigration;
 local v4 = game:DefineFastFlag("AXReplaceDefaultHeadAssetId", false);
 local l_FFlagAXAddFacesToHeadList_0 = v2.FFlagAXAddFacesToHeadList;
+local l_FFlagAXFixTryOnHeadShapeThumbnail_0 = v2.FFlagAXFixTryOnHeadShapeThumbnail;
 local _ = require(l_Parent_0.AvatarExperienceSlotBasedEditor);
 if l_FFlagDynamicHeadsMigration_0 then
 
 end;
-local v7 = {
+local v8 = {
     [v0.Default] = {
         name = v0.Default, 
         assetId = v4 and 2432102561 or 7430070993, 
@@ -66,31 +67,37 @@ local v7 = {
     }
 };
 if l_FFlagDynamicHeadsMigration_0 then
-    v7.fromInventory = function(v8, v9) --[[ Line: 126 ]] --[[ Name: fromInventory ]]
-        -- upvalues: v7 (copy), v0 (copy), l_FFlagAXAddFacesToHeadList_0 (copy)
-        local v10 = {};
-        if v7[v0.Default] then
-            v10[v0.Default] = v7[v0.Default];
-            if l_FFlagAXAddFacesToHeadList_0 and v9 then
-                v10[v0.Default].image = ("rbxthumb://type=Asset&id=%*&w=150&h=150"):format(v9);
+    v8.fromInventory = function(v9, v10, v11) --[[ Line: 127 ]] --[[ Name: fromInventory ]]
+        -- upvalues: v8 (copy), v0 (copy), l_FFlagAXAddFacesToHeadList_0 (copy), l_FFlagAXFixTryOnHeadShapeThumbnail_0 (copy)
+        local v12 = {};
+        if v8[v0.Default] then
+            v12[v0.Default] = v8[v0.Default];
+            if l_FFlagAXAddFacesToHeadList_0 and v10 then
+                v12[v0.Default].image = ("rbxthumb://type=Asset&id=%*&w=150&h=150"):format(v10);
+            end;
+            if l_FFlagAXFixTryOnHeadShapeThumbnail_0 and v11 then
+                v12[v0.Default].image = ("rbxthumb://type=Asset&id=%*&w=150&h=150"):format(v11);
             end;
         end;
-        if v8 and v8.avatarInventoryItems then
-            for _, v12 in v8.avatarInventoryItems do
-                if v12.headShape then
-                    local v13 = "rbxasset://headshapes/" .. v12.headShape .. ".png";
-                    if l_FFlagAXAddFacesToHeadList_0 and v9 then
-                        v13 = ("rbxthumb://type=Asset&id=%*&headshape=%*&w=150&h=150"):format(v9, v12.headShape);
+        if v9 and v9.avatarInventoryItems then
+            for _, v14 in v9.avatarInventoryItems do
+                if v14.headShape then
+                    local v15 = "rbxasset://headshapes/" .. v14.headShape .. ".png";
+                    if l_FFlagAXAddFacesToHeadList_0 and v10 then
+                        v15 = ("rbxthumb://type=Asset&id=%*&headshape=%*&w=150&h=150"):format(v10, v14.headShape);
                     end;
-                    v10[v12.headShape] = {
-                        name = v12.headShape, 
-                        assetId = v12.itemId, 
-                        image = v13
+                    if l_FFlagAXFixTryOnHeadShapeThumbnail_0 and v11 then
+                        v15 = ("rbxthumb://type=Asset&id=%*&headshape=%*&w=150&h=150"):format(v11, v14.headShape);
+                    end;
+                    v12[v14.headShape] = {
+                        name = v14.headShape, 
+                        assetId = v14.itemId, 
+                        image = v15
                     };
                 end;
             end;
         end;
-        return v10;
+        return v12;
     end;
 end;
-return v7;
+return v8;

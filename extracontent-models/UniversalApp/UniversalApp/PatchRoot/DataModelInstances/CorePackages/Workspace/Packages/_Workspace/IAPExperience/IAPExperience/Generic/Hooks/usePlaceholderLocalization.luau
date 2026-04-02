@@ -7,11 +7,12 @@ local v2 = {
     ["IAPExperience.PurchasePrompt.Label.GenericDiscountNoPercent"] = "...", 
     ["IAPExperience.PurchasePrompt.Label.BlackbirdSummary"] = "Lorem {robuxIcon} {savingsAmount} ipsum dolor", 
     ["IAPExperience.PurchasePrompt.Label.Subtotal"] = "Subtotal", 
+    ["IAPExperience.PurchasePrompt.Label.SubtotalWithItemCount"] = "Subtotal ({itemCount} items)", 
     ["IAPExperience.PurchasePrompt.Label.Total"] = "Total"
 };
-return function(v3) --[[ Line: 23 ]] --[[ Name: usePlaceholderLocalization ]]
+return function(v3) --[[ Line: 24 ]] --[[ Name: usePlaceholderLocalization ]]
     -- upvalues: v1 (copy), v2 (copy)
-    return v1.useMemo(function() --[[ Line: 24 ]]
+    return v1.useMemo(function() --[[ Line: 25 ]]
         -- upvalues: v3 (copy), v2 (ref)
         local v4 = {};
         for v5, v6 in pairs(v3) do
@@ -20,7 +21,7 @@ return function(v3) --[[ Line: 23 ]] --[[ Name: usePlaceholderLocalization ]]
             if typeof(v6) == "table" then
                 for v9, v10 in pairs(v6) do
                     if typeof(v9) == "string" then
-                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 32 ]]
+                        v8 = string.gsub(v8, "{" .. v9 .. "}", function() --[[ Line: 33 ]]
                             -- upvalues: v10 (copy)
                             return (tostring(v10));
                         end);

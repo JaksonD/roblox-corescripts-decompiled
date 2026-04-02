@@ -66,5 +66,7 @@ return {
     end, 
     GetAdGuiInteractivityPixelsPerStud = function() --[[ Line: 68 ]] --[[ Name: GetAdGuiInteractivityPixelsPerStud ]]
         return game:GetFastInt("AdGuiInteractivityPixelsPerStud");
-    end
+    end, 
+    FFlagUseWebviewsForImmersiveBrandedAdLinks = game:DefineFastFlag("UseWebviewsForImmersiveBrandedAdLinks", false), 
+    FFlagSendImmersiveBrandedAdLinkingFailureTelemetry = game:DefineFastFlag("SendImmersiveBrandedAdLinkingFailureTelemetry", false)
 };

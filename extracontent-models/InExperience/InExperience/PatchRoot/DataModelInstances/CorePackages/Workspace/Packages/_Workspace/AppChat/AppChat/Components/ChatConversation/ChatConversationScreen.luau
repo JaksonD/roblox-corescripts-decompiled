@@ -16,52 +16,55 @@ local l_SquadComponentAccessWrapper_0 = v11.SquadComponentAccessWrapper;
 local l_GetFFlagIsSquadEnabled_0 = require(l_Parent_0.SharedFlags).GetFFlagIsSquadEnabled;
 local v16 = require(l_script_FirstAncestor_0.Stores.GetTopBarStore);
 local v17 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatTopBarSignalsStore);
-local v18 = v4.PureComponent:extend("ChatConversationScreen");
-v18.defaultProps = {
+local v18 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
+local v19 = require(l_script_FirstAncestor_0.Utils.DomLocators);
+local v20 = v4.PureComponent:extend("ChatConversationScreen");
+v20.defaultProps = {
     navigation = nil
 };
-v18.navigationOptions = function(v19) --[[ Line: 30 ]]
-    -- upvalues: l_GetFFlagIsSquadEnabled_0 (copy), v2 (copy), v4 (copy), l_withChatPlacementContext_0 (copy), l_SquadComponentAccessWrapper_0 (copy), l_SquadJoinButton_0 (copy), l_SquadButtonSourceEnum_0 (copy)
-    local l_navigation_0 = v19.navigation;
-    local v21 = if l_navigation_0.getScreenProps("wideMode", false) then l_navigation_0.getScreenProps("appChatInnerPadding", 12) else l_navigation_0.getScreenProps("appChatOuterPadding", 12);
-    local v22 = nil;
+v20.navigationOptions = function(v21) --[[ Line: 32 ]]
+    -- upvalues: l_GetFFlagIsSquadEnabled_0 (copy), v2 (copy), v4 (copy), l_withChatPlacementContext_0 (copy), l_SquadComponentAccessWrapper_0 (copy), l_SquadJoinButton_0 (copy), l_SquadButtonSourceEnum_0 (copy), v18 (copy), v19 (copy)
+    local l_navigation_0 = v21.navigation;
+    local v23 = if l_navigation_0.getScreenProps("wideMode", false) then l_navigation_0.getScreenProps("appChatInnerPadding", 12) else l_navigation_0.getScreenProps("appChatOuterPadding", 12);
+    local v24 = nil;
     if l_GetFFlagIsSquadEnabled_0() then
-        local v23 = l_navigation_0.getParam("conversationId", nil);
-        if v23 then
-            v23 = tostring(v23);
+        local v25 = l_navigation_0.getParam("conversationId", nil);
+        if v25 then
+            v25 = tostring(v25);
         else
-            v23 = nil;
+            v25 = nil;
         end;
         do
-            local l_v23_0 = v23;
-            local function v25() --[[ Line: 41 ]]
-                -- upvalues: l_navigation_0 (copy), v2 (ref), l_v23_0 (ref)
+            local l_v25_0 = v25;
+            local function v27() --[[ Line: 43 ]]
+                -- upvalues: l_navigation_0 (copy), v2 (ref), l_v25_0 (ref)
                 l_navigation_0.navigate(v2.SquadLobby, {
-                    conversationId = l_v23_0
+                    conversationId = l_v25_0
                 });
             end;
-            if l_v23_0 then
-                v22 = v4.createElement("Frame", {
+            if l_v25_0 then
+                v24 = v4.createElement("Frame", {
                     AutomaticSize = Enum.AutomaticSize.XY, 
                     BackgroundTransparency = 1
                 }, {
                     UIListLayout = v4.createElement("UIListLayout", {
                         HorizontalAlignment = Enum.HorizontalAlignment.Right
                     }), 
-                    GroupUpButton = l_withChatPlacementContext_0(function(v26) --[[ Line: 55 ]]
-                        -- upvalues: v4 (ref), l_SquadComponentAccessWrapper_0 (ref), l_v23_0 (ref), l_SquadJoinButton_0 (ref), v25 (copy), l_SquadButtonSourceEnum_0 (ref)
+                    GroupUpButton = l_withChatPlacementContext_0(function(v28) --[[ Line: 57 ]]
+                        -- upvalues: v4 (ref), l_SquadComponentAccessWrapper_0 (ref), l_v25_0 (ref), l_SquadJoinButton_0 (ref), v27 (copy), l_SquadButtonSourceEnum_0 (ref), v18 (ref), v19 (ref)
                         return v4.createElement(l_SquadComponentAccessWrapper_0, {
-                            parentChannelId = l_v23_0
+                            parentChannelId = l_v25_0
                         }, v4.createElement(l_SquadJoinButton_0, {
-                            conversationId = l_v23_0, 
+                            conversationId = l_v25_0, 
                             isFullWidth = false, 
                             isInCard = false, 
                             layoutOrder = 0, 
-                            onActivated = v25, 
+                            onActivated = v27, 
                             shouldAnimate = true, 
                             shouldShowSignifier = true, 
                             squadButtonSource = l_SquadButtonSourceEnum_0.ChatConversationScreen, 
-                            squadLocation = v26.chatPlacement
+                            squadLocation = v28.chatPlacement, 
+                            testId = if v18 then v19.chatConversationTopBarButton("squadJoin") else nil
                         }));
                     end)
                 });
@@ -69,167 +72,167 @@ v18.navigationOptions = function(v19) --[[ Line: 30 ]]
         end;
     end;
     return {
-        renderRight = function() --[[ Line: 79 ]] --[[ Name: renderRight ]]
-            -- upvalues: v4 (ref), v22 (ref)
+        renderRight = function() --[[ Line: 84 ]] --[[ Name: renderRight ]]
+            -- upvalues: v4 (ref), v24 (ref)
             return v4.createFragment({
-                groupUp = v22
+                groupUp = v24
             });
         end, 
-        leftPaddingOverride = v21, 
+        leftPaddingOverride = v23, 
         rightPaddingOverride = l_navigation_0.getScreenProps("appChatOuterPadding", 12)
     };
 end;
-v18.init = function(v27) --[[ Line: 89 ]] --[[ Name: init ]]
+v20.init = function(v29) --[[ Line: 94 ]] --[[ Name: init ]]
     -- upvalues: v4 (copy), v9 (copy), v2 (copy), v17 (copy), v16 (copy), v3 (copy), v6 (copy), v7 (copy)
-    v27.toastProps = nil;
-    v27.inputBoxRef = v4.createRef();
-    local l_navigation_1 = v27.props.navigation;
-    local v29 = l_navigation_1.getParam and l_navigation_1.getParam("conversationId", nil);
-    v27.navigateToConversationOverlay = function() --[[ Line: 96 ]]
-        -- upvalues: v9 (ref), v29 (copy), v27 (copy), l_navigation_1 (copy), v2 (ref)
-        v9:info("Navigate To ConversationOverlay: {} from {screen}", v29);
-        local v30 = v27.props.navigation.getParam and v27.props.navigation.getParam("conversationId", nil);
+    v29.toastProps = nil;
+    v29.inputBoxRef = v4.createRef();
+    local l_navigation_1 = v29.props.navigation;
+    local v31 = l_navigation_1.getParam and l_navigation_1.getParam("conversationId", nil);
+    v29.navigateToConversationOverlay = function() --[[ Line: 101 ]]
+        -- upvalues: v9 (ref), v31 (copy), v29 (copy), l_navigation_1 (copy), v2 (ref)
+        v9:info("Navigate To ConversationOverlay: {} from {screen}", v31);
+        local v32 = v29.props.navigation.getParam and v29.props.navigation.getParam("conversationId", nil);
         l_navigation_1.navigate(v2.ConversationOverlay, {
-            conversationId = v30, 
+            conversationId = v32, 
             isOverlay = true
         });
     end;
-    v27.navigateToChatDetails = function() --[[ Line: 106 ]]
-        -- upvalues: v27 (copy), v9 (ref), l_navigation_1 (copy), v2 (ref)
-        local v31 = v27.props.navigation.getParam and v27.props.navigation.getParam("conversationId", nil);
-        v9:info("Navigate To ChatDetails: {} from {screen}", v31);
+    v29.navigateToChatDetails = function() --[[ Line: 111 ]]
+        -- upvalues: v29 (copy), v9 (ref), l_navigation_1 (copy), v2 (ref)
+        local v33 = v29.props.navigation.getParam and v29.props.navigation.getParam("conversationId", nil);
+        v9:info("Navigate To ChatDetails: {} from {screen}", v33);
         l_navigation_1.navigate(v2.ChatDetails, {
-            conversationId = v31
+            conversationId = v33
         });
     end;
     if v17 then
         v16(false).setScreenTopBar(v2.ChatConversation, {
-            navigateToChatDetails = v27.navigateToChatDetails, 
-            conversationId = v29
+            navigateToChatDetails = v29.navigateToChatDetails, 
+            conversationId = v31
         });
     else
-        local v32 = v27.props.navigation.getScreenProps("setScreenTopBar", nil);
-        v3.isNotNil(v32, "setScreenTopBar in screenProps");
-        v32(v2.ChatConversation, {
-            navigateToChatDetails = v27.navigateToChatDetails, 
-            conversationId = v29
+        local v34 = v29.props.navigation.getScreenProps("setScreenTopBar", nil);
+        v3.isNotNil(v34, "setScreenTopBar in screenProps");
+        v34(v2.ChatConversation, {
+            navigateToChatDetails = v29.navigateToChatDetails, 
+            conversationId = v31
         });
     end;
-    v27.queueNavigationToToast = function(v33) --[[ Line: 130 ]]
-        -- upvalues: v27 (copy)
-        if v27.props.navigation.isFocused() then
-            v27.navigateToToast(v33);
-            v27.toastProps = nil;
+    v29.queueNavigationToToast = function(v35) --[[ Line: 135 ]]
+        -- upvalues: v29 (copy)
+        if v29.props.navigation.isFocused() then
+            v29.navigateToToast(v35);
+            v29.toastProps = nil;
             return;
         else
-            v27.toastProps = v33;
+            v29.toastProps = v35;
             return;
         end;
     end;
-    v27.onDidFocus = function() --[[ Line: 140 ]]
-        -- upvalues: v27 (copy)
-        v27.setInputBarCloseCallback(v27.releaseFocus);
-        if v27.toastProps then
-            v27.navigateToToast(v27.toastProps);
-            v27.toastProps = nil;
+    v29.onDidFocus = function() --[[ Line: 145 ]]
+        -- upvalues: v29 (copy)
+        v29.setInputBarCloseCallback(v29.releaseFocus);
+        if v29.toastProps then
+            v29.navigateToToast(v29.toastProps);
+            v29.toastProps = nil;
         end;
     end;
-    v27.releaseFocus = function() --[[ Line: 149 ]]
-        -- upvalues: v27 (copy)
-        if v27.inputBoxRef and v27.inputBoxRef:getValue() then
-            v27.inputBoxRef:getValue():ReleaseFocus();
+    v29.releaseFocus = function() --[[ Line: 154 ]]
+        -- upvalues: v29 (copy)
+        if v29.inputBoxRef and v29.inputBoxRef:getValue() then
+            v29.inputBoxRef:getValue():ReleaseFocus();
         end;
     end;
-    v27.onWillBlur = function() --[[ Line: 155 ]]
-        -- upvalues: v27 (copy)
-        v27.releaseFocus();
-        v27.setInputBarCloseCallback();
+    v29.onWillBlur = function() --[[ Line: 160 ]]
+        -- upvalues: v29 (copy)
+        v29.releaseFocus();
+        v29.setInputBarCloseCallback();
     end;
-    v27.navigateToToast = function(v34) --[[ Line: 161 ]]
-        -- upvalues: v9 (ref), v27 (copy), v2 (ref), v6 (ref)
+    v29.navigateToToast = function(v36) --[[ Line: 166 ]]
+        -- upvalues: v9 (ref), v29 (copy), v2 (ref), v6 (ref)
         v9:info("Navigate To Toast from {screen}");
-        v27.props.navigation.navigate(v2.RoactChatToast, v6.Dictionary.union(v34, {
+        v29.props.navigation.navigate(v2.RoactChatToast, v6.Dictionary.union(v36, {
             isOverlay = true
         }));
     end;
-    v27.openViewProfile = function(v35) --[[ Line: 170 ]]
-        -- upvalues: v27 (copy), v2 (ref), v9 (ref)
-        local v36 = v27.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v2.ViewUserProfile];
-        if v36 then
+    v29.openViewProfile = function(v37) --[[ Line: 175 ]]
+        -- upvalues: v29 (copy), v2 (ref), v9 (ref)
+        local v38 = v29.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v2.ViewUserProfile];
+        if v38 then
             v9:info("Navigate To UserProfile from {screen}");
-            v36(v35, {});
+            v38(v37, {});
             return;
         else
             v9:warning("UserProfile page was not set in navigateToLuaAppPages screenProps");
             return;
         end;
     end;
-    v27.openGameDetailsPage = function(v37, v38) --[[ Line: 182 ]]
-        -- upvalues: v27 (copy), v2 (ref), v9 (ref)
-        local v39 = v27.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v2.GameDetail];
-        if v39 then
-            v9:info("Navigate To GameDetail from " .. tostring(v38));
-            v39(v37, v38);
+    v29.openGameDetailsPage = function(v39, v40) --[[ Line: 187 ]]
+        -- upvalues: v29 (copy), v2 (ref), v9 (ref)
+        local v41 = v29.props.navigation.getScreenProps("navigateToLuaAppPages", {})[v2.GameDetail];
+        if v41 then
+            v9:info("Navigate To GameDetail from " .. tostring(v40));
+            v41(v39, v40);
             return;
         else
             v9:warning("GameDetail page was not set in navigateToLuaAppPages screenProps");
             return;
         end;
     end;
-    v27.navigateToChatConversation = function(v40) --[[ Line: 195 ]]
-        -- upvalues: v9 (ref), v27 (copy), v2 (ref)
-        v9:info("Navigate To Conversation: {} from {screen}", v40);
-        v27.props.navigation.navigate(v2.ChatConversation, {
-            conversationId = v40
+    v29.navigateToChatConversation = function(v42) --[[ Line: 200 ]]
+        -- upvalues: v9 (ref), v29 (copy), v2 (ref)
+        v9:info("Navigate To Conversation: {} from {screen}", v42);
+        v29.props.navigation.navigate(v2.ChatConversation, {
+            conversationId = v42
         });
     end;
-    v27.navigateToScreen = function(v41, v42, v43) --[[ Line: 200 ]]
-        -- upvalues: v9 (ref), v27 (copy), v6 (ref)
-        v9:info("Navigate To Screen: {} from {screen}", v41);
-        local l_navigation_2 = v27.props.navigation;
-        local v45 = l_navigation_2 and l_navigation_2.getParam and l_navigation_2.getParam("conversationId", nil);
-        if v42 then
-            v27.props.navigation.navigate(v41, v6.Dictionary.union({
-                conversationId = v45, 
-                isOverlay = v43
-            }, v42));
+    v29.navigateToScreen = function(v43, v44, v45) --[[ Line: 205 ]]
+        -- upvalues: v9 (ref), v29 (copy), v6 (ref)
+        v9:info("Navigate To Screen: {} from {screen}", v43);
+        local l_navigation_2 = v29.props.navigation;
+        local v47 = l_navigation_2 and l_navigation_2.getParam and l_navigation_2.getParam("conversationId", nil);
+        if v44 then
+            v29.props.navigation.navigate(v43, v6.Dictionary.union({
+                conversationId = v47, 
+                isOverlay = v45
+            }, v44));
             return;
         else
-            v27.props.navigation.navigate(v41, {
-                conversationId = v45
+            v29.props.navigation.navigate(v43, {
+                conversationId = v47
             });
             return;
         end;
     end;
-    v27.navigateBack = function() --[[ Line: 220 ]]
-        -- upvalues: v27 (copy)
-        if v27.props.navigation.isFocused() then
-            v27.props.navigation.goBack();
+    v29.navigateBack = function() --[[ Line: 225 ]]
+        -- upvalues: v29 (copy)
+        if v29.props.navigation.isFocused() then
+            v29.props.navigation.goBack();
         end;
     end;
-    v27.navigateToChatLanding = function() --[[ Line: 226 ]]
-        -- upvalues: v9 (ref), v27 (copy), v2 (ref)
+    v29.navigateToChatLanding = function() --[[ Line: 231 ]]
+        -- upvalues: v9 (ref), v29 (copy), v2 (ref)
         v9:info("Navigate To ChatLanding from {screen}");
-        if v27.props.navigation.getScreenProps("wideMode", false) then
-            v27.props.navigation.navigate(v2.EmptyConversation);
+        if v29.props.navigation.getScreenProps("wideMode", false) then
+            v29.props.navigation.navigate(v2.EmptyConversation);
             return;
         else
-            v27.props.navigation.navigate(v2.ChatLanding);
+            v29.props.navigation.navigate(v2.ChatLanding);
             return;
         end;
     end;
-    v27.navigateToSquadLobby = function(v46) --[[ Line: 236 ]]
-        -- upvalues: v9 (ref), v27 (copy), v2 (ref)
+    v29.navigateToSquadLobby = function(v48) --[[ Line: 241 ]]
+        -- upvalues: v9 (ref), v29 (copy), v2 (ref)
         v9:info("Navigate To SquadLobby from {screen}");
-        v27.props.navigation.navigate(v2.SquadLobby, {
-            conversationId = v46
+        v29.props.navigation.navigate(v2.SquadLobby, {
+            conversationId = v48
         });
     end;
-    v27.updateConversationTitle = function(v47) --[[ Line: 241 ]]
-        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v27 (copy), v3 (ref)
-        local v48 = {
-            headerText = if v47 then {
-                raw = v47, 
+    v29.updateConversationTitle = function(v49) --[[ Line: 246 ]]
+        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v29 (copy), v3 (ref)
+        local v50 = {
+            headerText = if v49 then {
+                raw = v49, 
                 shouldLocalize = false
             } else {
                 raw = "CommonUI.Features.Label.Chat", 
@@ -237,109 +240,109 @@ v18.init = function(v27) --[[ Line: 89 ]] --[[ Name: init ]]
             }
         };
         if v17 then
-            v16(false).setScreenTopBar(v2.ChatConversation, v48);
+            v16(false).setScreenTopBar(v2.ChatConversation, v50);
             return;
         else
-            local v49 = v27.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v3.isNotNil(v49, "setScreenTopBar in screenProps");
-            v49(v2.ChatConversation, v48);
+            local v51 = v29.props.navigation.getScreenProps("setScreenTopBar", nil);
+            v3.isNotNil(v51, "setScreenTopBar in screenProps");
+            v51(v2.ChatConversation, v50);
             return;
         end;
     end;
-    v27.setInputBarCloseCallback = function(v50) --[[ Line: 262 ]]
-        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v27 (copy), v3 (ref)
+    v29.setInputBarCloseCallback = function(v52) --[[ Line: 267 ]]
+        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v29 (copy), v3 (ref)
         if v17 then
             v16(false).setScreenTopBar(v2.ChatLanding, {
-                closeInputBar = v50
+                closeInputBar = v52
             });
             return;
         else
-            local v51 = v27.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v3.isNotNil(v51, "setScreenTopBar in screenProps");
-            v51(v2.ChatLanding, {
-                closeInputBar = v50
-            });
-            return;
-        end;
-    end;
-    v27.getReadingMessagesIsEnabled = function() --[[ Line: 272 ]]
-        -- upvalues: v7 (ref), v27 (copy)
-        return v7(v27.props.navigation);
-    end;
-    v27.updatePrivateConversationTopBar = function(v52) --[[ Line: 276 ]]
-        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v27 (copy), v3 (ref)
-        if v17 then
-            v16(false).setScreenTopBar(v2.ChatConversation, {
-                isPrivateConversation = v52
-            });
-            return;
-        else
-            local v53 = v27.props.navigation.getScreenProps("setScreenTopBar", nil);
+            local v53 = v29.props.navigation.getScreenProps("setScreenTopBar", nil);
             v3.isNotNil(v53, "setScreenTopBar in screenProps");
-            v53(v2.ChatConversation, {
-                isPrivateConversation = v52
+            v53(v2.ChatLanding, {
+                closeInputBar = v52
             });
             return;
         end;
     end;
-end;
-v18.didUpdate = function(v54, v55) --[[ Line: 288 ]] --[[ Name: didUpdate ]]
-    -- upvalues: v17 (copy), v16 (copy), v2 (copy), v3 (copy)
-    local v56 = v55.navigation and v55.navigation.getParam and v55.navigation.getParam("conversationId", nil);
-    local v57 = v54.props.navigation and v54.props.navigation.getParam and v54.props.navigation.getParam("conversationId", nil);
-    if v56 ~= v57 then
+    v29.getReadingMessagesIsEnabled = function() --[[ Line: 277 ]]
+        -- upvalues: v7 (ref), v29 (copy)
+        return v7(v29.props.navigation);
+    end;
+    v29.updatePrivateConversationTopBar = function(v54) --[[ Line: 281 ]]
+        -- upvalues: v17 (ref), v16 (ref), v2 (ref), v29 (copy), v3 (ref)
         if v17 then
             v16(false).setScreenTopBar(v2.ChatConversation, {
-                conversationId = v57
+                isPrivateConversation = v54
             });
             return;
         else
-            local v58 = v54.props.navigation.getScreenProps("setScreenTopBar", nil);
-            v3.isNotNil(v58, "setScreenTopBar in screenProps");
-            v58(v2.ChatConversation, {
-                conversationId = v57
+            local v55 = v29.props.navigation.getScreenProps("setScreenTopBar", nil);
+            v3.isNotNil(v55, "setScreenTopBar in screenProps");
+            v55(v2.ChatConversation, {
+                isPrivateConversation = v54
+            });
+            return;
+        end;
+    end;
+end;
+v20.didUpdate = function(v56, v57) --[[ Line: 293 ]] --[[ Name: didUpdate ]]
+    -- upvalues: v17 (copy), v16 (copy), v2 (copy), v3 (copy)
+    local v58 = v57.navigation and v57.navigation.getParam and v57.navigation.getParam("conversationId", nil);
+    local v59 = v56.props.navigation and v56.props.navigation.getParam and v56.props.navigation.getParam("conversationId", nil);
+    if v58 ~= v59 then
+        if v17 then
+            v16(false).setScreenTopBar(v2.ChatConversation, {
+                conversationId = v59
+            });
+            return;
+        else
+            local v60 = v56.props.navigation.getScreenProps("setScreenTopBar", nil);
+            v3.isNotNil(v60, "setScreenTopBar in screenProps");
+            v60(v2.ChatConversation, {
+                conversationId = v59
             });
         end;
     end;
 end;
-v18.render = function(v59) --[[ Line: 310 ]] --[[ Name: render ]]
+v20.render = function(v61) --[[ Line: 315 ]] --[[ Name: render ]]
     -- upvalues: v3 (copy), v4 (copy), v5 (copy), v8 (copy)
-    local v60 = v3.isNotNil(v59.props.navigation, "navigation in ChatConversationScreen");
-    local v61 = v4.createElement(v5.NavigationEvents, {
-        onDidFocus = v59.onDidFocus, 
-        onWillBlur = v59.onWillBlur
+    local v62 = v3.isNotNil(v61.props.navigation, "navigation in ChatConversationScreen");
+    local v63 = v4.createElement(v5.NavigationEvents, {
+        onDidFocus = v61.onDidFocus, 
+        onWillBlur = v61.onWillBlur
     });
-    local v62 = v60.getParam("conversationId", nil);
-    local v63 = v62 and tostring(v62) or nil;
+    local v64 = v62.getParam("conversationId", nil);
+    local v65 = v64 and tostring(v64) or nil;
     return v4.createElement("Frame", {
         Size = UDim2.new(1, 0, 1, 0), 
         BackgroundTransparency = 1
     }, {
         container = v4.createElement(v8, {
-            topBarHeight = v60.getScreenProps("topBarHeight", 0), 
-            wideMode = v60.getScreenProps("wideMode", false), 
-            openGameDetailsPage = v59.openGameDetailsPage, 
-            getReadingMessagesIsEnabled = v59.getReadingMessagesIsEnabled, 
-            conversationId = v63, 
-            inputBoxRef = v59.inputBoxRef, 
-            updateConversationTitle = v59.updateConversationTitle, 
-            updatePrivateConversationTopBar = v59.updatePrivateConversationTopBar, 
-            releaseInputBarFocus = v59.releaseFocus, 
-            navigateBack = v59.navigateBack, 
-            navigateToToast = v59.queueNavigationToToast, 
-            openViewProfile = v59.openViewProfile, 
-            navigateToChatConversation = v59.navigateToChatConversation, 
-            navigateToChatLanding = v59.navigateToChatLanding, 
-            navigateToScreen = v59.navigateToScreen, 
-            navigateToSquadLobby = v59.navigateToSquadLobby, 
-            navigateToConversationOverlay = v59.navigateToConversationOverlay, 
-            navigation = v59.props.navigation
+            topBarHeight = v62.getScreenProps("topBarHeight", 0), 
+            wideMode = v62.getScreenProps("wideMode", false), 
+            openGameDetailsPage = v61.openGameDetailsPage, 
+            getReadingMessagesIsEnabled = v61.getReadingMessagesIsEnabled, 
+            conversationId = v65, 
+            inputBoxRef = v61.inputBoxRef, 
+            updateConversationTitle = v61.updateConversationTitle, 
+            updatePrivateConversationTopBar = v61.updatePrivateConversationTopBar, 
+            releaseInputBarFocus = v61.releaseFocus, 
+            navigateBack = v61.navigateBack, 
+            navigateToToast = v61.queueNavigationToToast, 
+            openViewProfile = v61.openViewProfile, 
+            navigateToChatConversation = v61.navigateToChatConversation, 
+            navigateToChatLanding = v61.navigateToChatLanding, 
+            navigateToScreen = v61.navigateToScreen, 
+            navigateToSquadLobby = v61.navigateToSquadLobby, 
+            navigateToConversationOverlay = v61.navigateToConversationOverlay, 
+            navigation = v61.props.navigation
         }), 
-        eventsAdapter = v61
+        eventsAdapter = v63
     });
 end;
-v18.didMount = function(_) --[[ Line: 350 ]] --[[ Name: didMount ]]
+v20.didMount = function(_) --[[ Line: 355 ]] --[[ Name: didMount ]]
     -- upvalues: v9 (copy)
     v9:info("{screen} mounted");
 end;
-return v18;
+return v20;

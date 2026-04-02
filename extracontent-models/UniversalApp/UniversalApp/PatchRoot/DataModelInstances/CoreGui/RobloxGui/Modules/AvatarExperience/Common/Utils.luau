@@ -66,246 +66,248 @@ local l_FFlagAXMutedErrorLoggingForCategorySelection_0 = v20.FFlagAXMutedErrorLo
 local l_FFlagAXTimedOptionsSalesTypeFilter_0 = v20.FFlagAXTimedOptionsSalesTypeFilter;
 local l_FFlagAXRemoveTimedOptionsSalesTypeEnumCheck_0 = v20.FFlagAXRemoveTimedOptionsSalesTypeEnumCheck;
 local l_FFlagAXCatalogSearchParamTypes_0 = v20.FFlagAXCatalogSearchParamTypes;
-local v68 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
-local v69 = {};
-local v70 = {};
-local v71 = string.split(v55, ",") or {};
-v69 = v10.List.map(v71, function(v72) --[[ Line: 123 ]]
-    return v72:match("^%s*(.*)%s*$");
-end);
-local v73 = string.split(v56, ",") or {};
-v70 = v10.List.map(v73, function(v74) --[[ Line: 130 ]]
+local l_FFlagAXEditorSubcategoryFilters_0 = v20.FFlagAXEditorSubcategoryFilters;
+local l_FFlagAvatarJointUpgradeInUA_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAvatarJointUpgradeInUA;
+local v70 = require(l_Modules_0.AvatarExperience.Catalog.Stores.GetCatalogCategoriesStore);
+local v71 = {};
+local v72 = {};
+local v73 = string.split(v55, ",") or {};
+v71 = v10.List.map(v73, function(v74) --[[ Line: 126 ]]
     return v74:match("^%s*(.*)%s*$");
 end);
-local v75 = {
+local v75 = string.split(v56, ",") or {};
+v72 = v10.List.map(v75, function(v76) --[[ Line: 133 ]]
+    return v76:match("^%s*(.*)%s*$");
+end);
+local v77 = {
     PageType = v22.PageType.Other, 
     RecommendationsType = v23.RecommendationsType.None
 };
-local v76 = {
+local v78 = {
     PageType = v22.PageType.Other, 
     RecommendationsType = v23.RecommendationsType.None, 
     CanAnimateCameraBasedMood = true
 };
-local v77 = {};
-local v78 = {};
 local v79 = {};
-local v86 = l_memoize_0(function(v80, v81, v82) --[[ Line: 176 ]]
+local v80 = {};
+local v81 = {};
+local v88 = l_memoize_0(function(v82, v83, v84) --[[ Line: 179 ]]
     -- upvalues: v10 (copy), v22 (copy)
-    local v83 = v80[v81];
-    if v83.Subcategories and v82 then
-        local v84 = v83.Subcategories[v82];
-        if v84 then
-            local v85 = v10.Dictionary.join(v83, v84);
-            v85.AssetTypeIdStrings = v84.AssetTypeIdStrings;
-            v85.BundleTypes = v84.BundleTypes;
-            v85.CategoryFilter = v84.CategoryFilter;
-            v85.Subcategories = v84.Subcategories;
-            return v85;
+    local v85 = v82[v83];
+    if v85.Subcategories and v84 then
+        local v86 = v85.Subcategories[v84];
+        if v86 then
+            local v87 = v10.Dictionary.join(v85, v86);
+            v87.AssetTypeIdStrings = v86.AssetTypeIdStrings;
+            v87.BundleTypes = v86.BundleTypes;
+            v87.CategoryFilter = v86.CategoryFilter;
+            v87.Subcategories = v86.Subcategories;
+            return v87;
         end;
     end;
-    if v83.PageType == v22.PageType.Emotes then
-        return v10.Dictionary.join(v83, {
-            EmoteSlot = v82
+    if v85.PageType == v22.PageType.Emotes then
+        return v10.Dictionary.join(v85, {
+            EmoteSlot = v84
         });
     else
-        return v83;
+        return v85;
     end;
 end);
-local v94 = l_memoize_0(function(v87, v88, v89) --[[ Line: 219 ]]
+local v96 = l_memoize_0(function(v89, v90, v91) --[[ Line: 222 ]]
     -- upvalues: v45 (copy), l_FFlagAXMutedErrorLoggingForCategorySelection_0 (copy), v7 (copy), v10 (copy), v22 (copy)
-    local v90 = v45.extractCategoryById(v88, v87);
-    if l_FFlagAXMutedErrorLoggingForCategorySelection_0 and v90 == nil then
-        v7("[buildCategoryInfoById] Category not found for categoryId: " .. tostring(v88) .. " and subcategoryId: " .. tostring(v89));
+    local v92 = v45.extractCategoryById(v90, v89);
+    if l_FFlagAXMutedErrorLoggingForCategorySelection_0 and v92 == nil then
+        v7("[buildCategoryInfoById] Category not found for categoryId: " .. tostring(v90) .. " and subcategoryId: " .. tostring(v91));
     end;
-    if v90.Subcategories and v89 then
-        local l_Subcategories_0 = v90.Subcategories;
-        local v92 = v45.extractSubcategoryById(v89, l_Subcategories_0);
-        if v92 then
-            local v93 = v10.Dictionary.join(v90, v92);
-            v93.AssetTypeIdStrings = v92.AssetTypeIdStrings;
-            v93.BundleTypes = v92.BundleTypes;
-            v93.CategoryFilter = v92.CategoryFilter;
-            v93.Subcategories = v92.Subcategories;
-            v93.SubcategoriesMap = v92.SubcategoriesMap;
-            return v93;
+    if v92.Subcategories and v91 then
+        local l_Subcategories_0 = v92.Subcategories;
+        local v94 = v45.extractSubcategoryById(v91, l_Subcategories_0);
+        if v94 then
+            local v95 = v10.Dictionary.join(v92, v94);
+            v95.AssetTypeIdStrings = v94.AssetTypeIdStrings;
+            v95.BundleTypes = v94.BundleTypes;
+            v95.CategoryFilter = v94.CategoryFilter;
+            v95.Subcategories = v94.Subcategories;
+            v95.SubcategoriesMap = v94.SubcategoriesMap;
+            return v95;
         end;
     end;
-    if v90.PageType == v22.PageType.Emotes then
-        return v10.Dictionary.join(v90, {
-            EmoteSlot = v89
+    if v92.PageType == v22.PageType.Emotes then
+        return v10.Dictionary.join(v92, {
+            EmoteSlot = v91
         });
     else
-        return v90;
+        return v92;
     end;
 end);
-local function _(v95, v96, v97) --[[ Line: 270 ]] --[[ Name: categoryKey ]]
-    return string.format("%s.%s.%s", tostring(v95), tostring(v96), (tostring(v97)));
+local function _(v97, v98, v99) --[[ Line: 273 ]] --[[ Name: categoryKey ]]
+    return string.format("%s.%s.%s", tostring(v97), tostring(v98), (tostring(v99)));
 end;
-local function _(v99, v100, v101) --[[ Line: 274 ]] --[[ Name: categoryKeyV2 ]]
-    return string.format("%s.%s.%s", tostring(v99), tostring(v100), (tostring(v101)));
+local function _(v101, v102, v103) --[[ Line: 277 ]] --[[ Name: categoryKeyV2 ]]
+    return string.format("%s.%s.%s", tostring(v101), tostring(v102), (tostring(v103)));
 end;
-v77.getCategoryInfo = l_memoize_0(function(v103, v104, v105) --[[ Line: 283 ]]
-    -- upvalues: v78 (copy), v86 (copy)
-    local v106 = string.format("%s.%s.%s", tostring(v103), tostring(v104), (tostring(v105)));
-    local v107 = v78[v106];
-    if v107 == nil then
-        v107 = v86(v103, v104, v105);
-        v78[v106] = v107;
+v79.getCategoryInfo = l_memoize_0(function(v105, v106, v107) --[[ Line: 286 ]]
+    -- upvalues: v80 (copy), v88 (copy)
+    local v108 = string.format("%s.%s.%s", tostring(v105), tostring(v106), (tostring(v107)));
+    local v109 = v80[v108];
+    if v109 == nil then
+        v109 = v88(v105, v106, v107);
+        v80[v108] = v109;
     end;
-    return v107;
+    return v109;
 end);
-v77.getCategoryInfoById = l_memoize_0(function(v108, v109, v110) --[[ Line: 295 ]]
-    -- upvalues: v79 (copy), v94 (copy)
-    local v111 = string.format("%s.%s.%s", tostring(v108), tostring(v109), (tostring(v110)));
-    local v112 = v79[v111];
-    if v112 == nil then
-        v112 = v94(v108, v109, v110);
-        v79[v111] = v112;
+v79.getCategoryInfoById = l_memoize_0(function(v110, v111, v112) --[[ Line: 298 ]]
+    -- upvalues: v81 (copy), v96 (copy)
+    local v113 = string.format("%s.%s.%s", tostring(v110), tostring(v111), (tostring(v112)));
+    local v114 = v81[v113];
+    if v114 == nil then
+        v114 = v96(v110, v111, v112);
+        v81[v113] = v114;
     end;
-    return v112;
+    return v114;
 end);
-v77.getCatalogCategoryInfo = l_memoize_0(function(v113, v114) --[[ Line: 307 ]]
-    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v27 (copy), v26 (copy), v77 (copy)
-    local v115 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
-    return v77.getCategoryInfo(v115, v113, v114);
+v79.getCatalogCategoryInfo = l_memoize_0(function(v115, v116) --[[ Line: 310 ]]
+    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v27 (copy), v26 (copy), v79 (copy)
+    local v117 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
+    return v79.getCategoryInfo(v117, v115, v116);
 end);
-v77.getCatalogCategoryInfoById = l_memoize_0(function(v116, v117) --[[ Line: 316 ]]
-    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v27 (copy), v26 (copy), v77 (copy)
-    local v118 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
-    return v77.getCategoryInfoById(v118, v116, v117);
+v79.getCatalogCategoryInfoById = l_memoize_0(function(v118, v119) --[[ Line: 319 ]]
+    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v27 (copy), v26 (copy), v79 (copy)
+    local v120 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
+    return v79.getCategoryInfoById(v120, v118, v119);
 end);
-v77.getAvatarEditorCategoryInfo = l_memoize_0(function(v119, v120) --[[ Line: 325 ]]
-    -- upvalues: v21 (copy), v77 (copy)
-    local v121 = v21();
-    return v77.getCategoryInfo(v121, v119, v120);
+v79.getAvatarEditorCategoryInfo = l_memoize_0(function(v121, v122) --[[ Line: 328 ]]
+    -- upvalues: v21 (copy), v79 (copy)
+    local v123 = v21();
+    return v79.getCategoryInfo(v123, v121, v122);
 end);
-local function _(v122) --[[ Line: 331 ]] --[[ Name: getCatalogCardFooterHeight ]]
-    if v122 < 100 then
+local function _(v124) --[[ Line: 334 ]] --[[ Name: getCatalogCardFooterHeight ]]
+    if v124 < 100 then
         return 30;
-    elseif v122 < 148 then
+    elseif v124 < 148 then
         return 36;
     else
         return 42;
     end;
 end;
-local v133 = l_memoize_0(function(v124, _, v126) --[[ Line: 341 ]]
+local v135 = l_memoize_0(function(v126, _, v128) --[[ Line: 344 ]]
     -- upvalues: v22 (copy)
-    local v127 = if v126 then v22.CreatorNameItemTileTitleMaxLines else v22.ItemTileTitleMaxLines;
-    local v128 = if v126 then v22.CreatorNameItemTilePadding else v22.ItemTilePadding;
-    return function(v129) --[[ Line: 349 ]]
-        -- upvalues: v127 (copy), v124 (copy), v128 (copy), v126 (copy)
-        local v130 = v127 * v124;
-        local v131 = v128 * 2;
-        local v132 = v129 < 100 and 30 or v129 < 148 and 36 or 42;
-        if v126 then
-            v132 = v132 * 2;
+    local v129 = if v128 then v22.CreatorNameItemTileTitleMaxLines else v22.ItemTileTitleMaxLines;
+    local v130 = if v128 then v22.CreatorNameItemTilePadding else v22.ItemTilePadding;
+    return function(v131) --[[ Line: 352 ]]
+        -- upvalues: v129 (copy), v126 (copy), v130 (copy), v128 (copy)
+        local v132 = v129 * v126;
+        local v133 = v130 * 2;
+        local v134 = v131 < 100 and 30 or v131 < 148 and 36 or 42;
+        if v128 then
+            v134 = v134 * 2;
         end;
-        return v129 + v130 + v131 + v132;
+        return v131 + v132 + v133 + v134;
     end;
 end);
-local v144 = l_memoize_0(function(v134, _, v136) --[[ Line: 364 ]]
+local v146 = l_memoize_0(function(v136, _, v138) --[[ Line: 367 ]]
     -- upvalues: v22 (copy)
-    local v137 = if v136 then v22.CreatorNameItemTileTitleMaxLines else v22.ItemTileTitleMaxLines;
-    local v138 = if v136 then v22.CreatorNameItemTilePadding else v22.ItemTilePadding;
-    return function(v139) --[[ Line: 372 ]]
-        -- upvalues: v22 (ref), v137 (copy), v134 (copy), v138 (copy), v136 (copy)
-        local v140 = v139 / v22.ItemTileTallAspectRatio;
-        local v141 = v137 * v134;
-        local v142 = v138 * 2;
-        local v143 = v139 < 100 and 30 or v139 < 148 and 36 or 42;
-        if v136 then
-            v143 = v143 * 2;
+    local v139 = if v138 then v22.CreatorNameItemTileTitleMaxLines else v22.ItemTileTitleMaxLines;
+    local v140 = if v138 then v22.CreatorNameItemTilePadding else v22.ItemTilePadding;
+    return function(v141) --[[ Line: 375 ]]
+        -- upvalues: v22 (ref), v139 (copy), v136 (copy), v140 (copy), v138 (copy)
+        local v142 = v141 / v22.ItemTileTallAspectRatio;
+        local v143 = v139 * v136;
+        local v144 = v140 * 2;
+        local v145 = v141 < 100 and 30 or v141 < 148 and 36 or 42;
+        if v138 then
+            v145 = v145 * 2;
         end;
-        return v140 + v141 + v142 + v143;
+        return v142 + v143 + v144 + v145;
     end;
 end);
-v77.isLooksWidget = function(v145) --[[ Line: 388 ]] --[[ Name: isLooksWidget ]]
-    -- upvalues: v69 (ref)
-    return table.find(v69, v145) ~= nil;
+v79.isLooksWidget = function(v147) --[[ Line: 391 ]] --[[ Name: isLooksWidget ]]
+    -- upvalues: v71 (ref)
+    return table.find(v71, v147) ~= nil;
 end;
-v77.isAvatarLooksWidget = function(v146) --[[ Line: 397 ]] --[[ Name: isAvatarLooksWidget ]]
-    -- upvalues: v77 (copy), v70 (ref)
-    return v77.isLooksWidget(v146) and table.find(v70, v146) ~= nil;
+v79.isAvatarLooksWidget = function(v148) --[[ Line: 400 ]] --[[ Name: isAvatarLooksWidget ]]
+    -- upvalues: v79 (copy), v72 (ref)
+    return v79.isLooksWidget(v148) and table.find(v72, v148) ~= nil;
 end;
-local v155 = l_memoize_0(function(v147, _, v149, v150, v151) --[[ Line: 404 ]]
+local v157 = l_memoize_0(function(v149, _, v151, v152, v153) --[[ Line: 407 ]]
     -- upvalues: v22 (copy)
-    return function(v152) --[[ Line: 411 ]]
-        -- upvalues: v22 (ref), v149 (copy), v150 (copy), v151 (copy), v147 (copy)
-        local v153 = v152 / v22.LookTileAspectRatio;
-        local v154 = v149 or v150;
-        if not v151 then
-            v153 = v153 + 30;
-        elseif v154 then
-            v153 = v153 + 30;
+    return function(v154) --[[ Line: 414 ]]
+        -- upvalues: v22 (ref), v151 (copy), v152 (copy), v153 (copy), v149 (copy)
+        local v155 = v154 / v22.LookTileAspectRatio;
+        local v156 = v151 or v152;
+        if not v153 then
+            v155 = v155 + 30;
+        elseif v156 then
+            v155 = v155 + 30;
         end;
-        if v154 then
-            v153 = v153 + 4;
+        if v156 then
+            v155 = v155 + 4;
         end;
-        if v149 then
-            v153 = v153 + v147;
+        if v151 then
+            v155 = v155 + v149;
         end;
-        if v150 then
-            if v149 then
-                v153 = v153 + 4;
+        if v152 then
+            if v151 then
+                v155 = v155 + 4;
             end;
-            v153 = v153 + v147;
+            v155 = v155 + v149;
         end;
-        return v153;
+        return v155;
     end;
 end);
-local v160 = l_memoize_0(function(v156) --[[ Line: 452 ]]
+local v162 = l_memoize_0(function(v158) --[[ Line: 455 ]]
     -- upvalues: v22 (copy)
-    return function(v157) --[[ Line: 453 ]]
-        -- upvalues: v22 (ref), v156 (copy)
-        local v158 = v22.ItemTileTitleMaxLines * v156;
+    return function(v159) --[[ Line: 456 ]]
+        -- upvalues: v22 (ref), v158 (copy)
+        local v160 = v22.ItemTileTitleMaxLines * v158;
         local l_ItemTilePadding_0 = v22.ItemTilePadding;
-        return v157 + v158 + l_ItemTilePadding_0;
+        return v159 + v160 + l_ItemTilePadding_0;
     end;
 end);
-local function v162(v161) --[[ Line: 461 ]] --[[ Name: squareItemHeightGetter ]]
-    return v161;
+local function v164(v163) --[[ Line: 464 ]] --[[ Name: squareItemHeightGetter ]]
+    return v163;
 end;
-local v167 = l_memoize_0(function(v163) --[[ Line: 465 ]]
-    -- upvalues: v162 (copy), l_FFlagAXSlotsInventoryLoadableGridView_0 (copy), v22 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (copy)
-    if v163 == nil then
-        return v162;
+local v169 = l_memoize_0(function(v165) --[[ Line: 468 ]]
+    -- upvalues: v164 (copy), l_FFlagAXSlotsInventoryLoadableGridView_0 (copy), v22 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (copy)
+    if v165 == nil then
+        return v164;
     else
-        return function(v164) --[[ Line: 469 ]]
-            -- upvalues: l_FFlagAXSlotsInventoryLoadableGridView_0 (ref), v22 (ref), v163 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (ref)
-            local v165 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v22.EditorItemTileTitleMaxLines * v163 else v22.ItemTileTitleMaxLines * v163;
-            local v166 = if l_FFlagAXRootSlotBasedEditorFlag_0 then v22.ItemTilePadding else v22.ItemTilePadding * 2;
-            return v164 + v165 + v166;
+        return function(v166) --[[ Line: 472 ]]
+            -- upvalues: l_FFlagAXSlotsInventoryLoadableGridView_0 (ref), v22 (ref), v165 (copy), l_FFlagAXRootSlotBasedEditorFlag_0 (ref)
+            local v167 = if l_FFlagAXSlotsInventoryLoadableGridView_0 then v22.EditorItemTileTitleMaxLines * v165 else v22.ItemTileTitleMaxLines * v165;
+            local v168 = if l_FFlagAXRootSlotBasedEditorFlag_0 then v22.ItemTilePadding else v22.ItemTilePadding * 2;
+            return v166 + v167 + v168;
         end;
     end;
 end);
-local function _(v168) --[[ Line: 483 ]] --[[ Name: splitKeywords ]]
-    if v168 then
-        return string.split(v168, " ");
+local function _(v170) --[[ Line: 486 ]] --[[ Name: splitKeywords ]]
+    if v170 then
+        return string.split(v170, " ");
     else
         return {};
     end;
 end;
-v77.mergeKeywordsAndTopics = function(v170, v171) --[[ Line: 503 ]] --[[ Name: mergeKeywordsAndTopics ]]
-    local v172 = if v170 then string.split(v170, " ") else {};
-    local v173 = if v171 then string.split(v171, " ") else {};
-    for _, v175 in v173 do
-        if #v175 > 0 and not table.find(v172, v175) then
-            table.insert(v172, v175);
+v79.mergeKeywordsAndTopics = function(v172, v173) --[[ Line: 506 ]] --[[ Name: mergeKeywordsAndTopics ]]
+    local v174 = if v172 then string.split(v172, " ") else {};
+    local v175 = if v173 then string.split(v173, " ") else {};
+    for _, v177 in v175 do
+        if #v177 > 0 and not table.find(v174, v177) then
+            table.insert(v174, v177);
         end;
     end;
-    return table.concat(v172, " ");
+    return table.concat(v174, " ");
 end;
-v77.GetCategoryIdsFromNavKey = l_memoize_0(function(v176, v177) --[[ Line: 522 ]]
+v79.GetCategoryIdsFromNavKey = l_memoize_0(function(v178, v179) --[[ Line: 525 ]]
     -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v27 (copy), v26 (copy)
-    local v178 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
-    for _, v180 in v178 do
-        if v180.NavigationKey then
-            local l_Id_0 = v180.Id;
-            if v180.NavigationKey == v176 then
-                if v180.Subcategories and v177 then
-                    for _, v183 in v180.Subcategories do
-                        if v183.NavigationKey == v177 then
-                            return l_Id_0, v183.Id;
+    local v180 = if l_FFlagAXCatalogCategoriesStore_0 then v27() else v26();
+    for _, v182 in v180 do
+        if v182.NavigationKey then
+            local l_Id_0 = v182.Id;
+            if v182.NavigationKey == v178 then
+                if v182.Subcategories and v179 then
+                    for _, v185 in v182.Subcategories do
+                        if v185.NavigationKey == v179 then
+                            return l_Id_0, v185.Id;
                         end;
                     end;
                 end;
@@ -315,226 +317,247 @@ v77.GetCategoryIdsFromNavKey = l_memoize_0(function(v176, v177) --[[ Line: 522 ]
     end;
     return nil, nil;
 end);
-v77.GridItemHeightGetter = function(v184, ...) --[[ Line: 544 ]] --[[ Name: GridItemHeightGetter ]]
-    -- upvalues: v22 (copy), v167 (copy), v162 (copy), v160 (copy), v155 (copy), v133 (copy), v144 (copy)
-    if v184 == v22.ItemTileType.AvatarEditorTile then
-        return v167(...);
-    elseif v184 == v22.ItemTileType.BodyColorButton then
-        return v162;
-    elseif v184 == v22.ItemTileType.BundleItemTile then
-        return v160(...);
-    elseif v184 == v22.ItemTileType.BundleItemTileNoText then
-        return v162;
-    elseif v184 == v22.ItemTileType.LookItemTile then
-        return v155(...);
-    elseif v184 == v22.ItemTileType.CatalogItemTile then
-        return v133(...);
-    elseif v184 == v22.ItemTileType.TallCatalogItemTile then
-        return v144(...);
+v79.GetAvatarEditorCategoryIdsFromNavKey = l_memoize_0(function(v186) --[[ Line: 548 ]]
+    -- upvalues: v21 (copy), l_FFlagAXEditorSubcategoryFilters_0 (copy)
+    for v187, v188 in (v21()) do
+        if v188.NavigationKey == v186 then
+            return v187, nil, nil;
+        elseif v188.Subcategories then
+            for v189, v190 in v188.Subcategories do
+                if v190.NavigationKey == v186 then
+                    return v187, v189, nil;
+                elseif l_FFlagAXEditorSubcategoryFilters_0 and v190.SubcategoryFilters then
+                    for v191, v192 in v190.SubcategoryFilters do
+                        if v192.NavigationKey == v186 then
+                            return v187, v189, v191;
+                        end;
+                    end;
+                end;
+            end;
+        end;
+    end;
+    return nil, nil, nil;
+end);
+v79.GridItemHeightGetter = function(v193, ...) --[[ Line: 573 ]] --[[ Name: GridItemHeightGetter ]]
+    -- upvalues: v22 (copy), v169 (copy), v164 (copy), v162 (copy), v157 (copy), v135 (copy), v146 (copy)
+    if v193 == v22.ItemTileType.AvatarEditorTile then
+        return v169(...);
+    elseif v193 == v22.ItemTileType.BodyColorButton then
+        return v164;
+    elseif v193 == v22.ItemTileType.BundleItemTile then
+        return v162(...);
+    elseif v193 == v22.ItemTileType.BundleItemTileNoText then
+        return v164;
+    elseif v193 == v22.ItemTileType.LookItemTile then
+        return v157(...);
+    elseif v193 == v22.ItemTileType.CatalogItemTile then
+        return v135(...);
+    elseif v193 == v22.ItemTileType.TallCatalogItemTile then
+        return v146(...);
     else
-        warn("Unknown itemType " .. tostring(v184) .. " in AvatarExperienceUtils.GridItemHeightGetter");
-        return v162;
+        warn("Unknown itemType " .. tostring(v193) .. " in AvatarExperienceUtils.GridItemHeightGetter");
+        return v164;
     end;
 end;
-v77.GridItemHeightGetterWithOptions = function(v185) --[[ Line: 576 ]] --[[ Name: GridItemHeightGetterWithOptions ]]
-    -- upvalues: v22 (copy), v167 (copy), v162 (copy), v160 (copy), v155 (copy), v133 (copy), v144 (copy)
-    local l_itemTileType_0 = v185.itemTileType;
+v79.GridItemHeightGetterWithOptions = function(v194) --[[ Line: 605 ]] --[[ Name: GridItemHeightGetterWithOptions ]]
+    -- upvalues: v22 (copy), v169 (copy), v164 (copy), v162 (copy), v157 (copy), v135 (copy), v146 (copy)
+    local l_itemTileType_0 = v194.itemTileType;
     if l_itemTileType_0 == v22.ItemTileType.AvatarEditorTile then
-        return v167(v185.fontHeight);
+        return v169(v194.fontHeight);
     elseif l_itemTileType_0 == v22.ItemTileType.BodyColorButton then
-        return v162;
-    elseif l_itemTileType_0 == v22.ItemTileType.BundleItemTile and v185.fontHeight then
-        return v160(v185.fontHeight);
+        return v164;
+    elseif l_itemTileType_0 == v22.ItemTileType.BundleItemTile and v194.fontHeight then
+        return v162(v194.fontHeight);
     elseif l_itemTileType_0 == v22.ItemTileType.BundleItemTileNoText then
-        return v162;
-    elseif l_itemTileType_0 == v22.ItemTileType.LookItemTile and v185.fontHeight then
-        return v155(v185.fontHeight, v185.hideItemName, v185.itemCreatorNamesEnabled, v185.itemPriceEnabled, v185.isWidgetFocused);
+        return v164;
+    elseif l_itemTileType_0 == v22.ItemTileType.LookItemTile and v194.fontHeight then
+        return v157(v194.fontHeight, v194.hideItemName, v194.itemCreatorNamesEnabled, v194.itemPriceEnabled, v194.isWidgetFocused);
     elseif l_itemTileType_0 == v22.ItemTileType.CatalogItemTile then
-        return v133(v185.fontHeight, nil, v185.itemCreatorNamesEnabled);
+        return v135(v194.fontHeight, nil, v194.itemCreatorNamesEnabled);
     elseif l_itemTileType_0 == v22.ItemTileType.TallCatalogItemTile then
-        return v144(v185.fontHeight, nil, v185.itemCreatorNamesEnabled);
+        return v146(v194.fontHeight, nil, v194.itemCreatorNamesEnabled);
     else
         warn("Unknown itemType " .. tostring(l_itemTileType_0) .. " in AvatarExperienceUtils.GridItemHeightGetterWithOptions");
-        return v162;
+        return v164;
     end;
 end;
-v77.isAvatarBackground = function(v187) --[[ Line: 605 ]] --[[ Name: isAvatarBackground ]]
+v79.isAvatarBackground = function(v196) --[[ Line: 634 ]] --[[ Name: isAvatarBackground ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    return v187 == l_AvatarScreen_0.AvatarBackground;
+    return v196 == l_AvatarScreen_0.AvatarBackground;
 end;
-v77.isAvatarExperienceRoute = function(v188) --[[ Line: 609 ]] --[[ Name: isAvatarExperienceRoute ]]
+v79.isAvatarExperienceRoute = function(v197) --[[ Line: 638 ]] --[[ Name: isAvatarExperienceRoute ]]
     -- upvalues: l_AvatarScreen_0 (copy), l_SwitchTab_0 (copy)
-    local l_history_0 = v188.Navigation.history;
-    for _, v191 in l_history_0[#l_history_0] do
-        if v191.name == l_AvatarScreen_0.AvatarExperienceRoot or v191.name == l_SwitchTab_0.AvatarExperienceTab then
+    local l_history_0 = v197.Navigation.history;
+    for _, v200 in l_history_0[#l_history_0] do
+        if v200.name == l_AvatarScreen_0.AvatarExperienceRoot or v200.name == l_SwitchTab_0.AvatarExperienceTab then
             return true;
         end;
     end;
     return false;
 end;
-v77.isRouteInAvatarEditor = function(v192) --[[ Line: 623 ]] --[[ Name: isRouteInAvatarEditor ]]
+v79.isRouteInAvatarEditor = function(v201) --[[ Line: 652 ]] --[[ Name: isRouteInAvatarEditor ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    return v192.opaque.name == l_AvatarScreen_0.AvatarEditor;
+    return v201.opaque.name == l_AvatarScreen_0.AvatarEditor;
 end;
-v77.didLeaveAvatarEditor = function(v193, v194) --[[ Line: 632 ]] --[[ Name: didLeaveAvatarEditor ]]
-    -- upvalues: v77 (copy)
-    if v77.isRouteInAvatarEditor(v194) and not v77.isRouteInAvatarEditor(v193) then
+v79.didLeaveAvatarEditor = function(v202, v203) --[[ Line: 661 ]] --[[ Name: didLeaveAvatarEditor ]]
+    -- upvalues: v79 (copy)
+    if v79.isRouteInAvatarEditor(v203) and not v79.isRouteInAvatarEditor(v202) then
         return true;
     else
         return false;
     end;
 end;
-v77.getIsSceneFullViewFromState = function(v195, v196) --[[ Line: 641 ]] --[[ Name: getIsSceneFullViewFromState ]]
+v79.getIsSceneFullViewFromState = function(v204, v205) --[[ Line: 670 ]] --[[ Name: getIsSceneFullViewFromState ]]
     -- upvalues: v34 (copy)
-    local l_name_0 = v196.opaque.name;
-    return v195.AvatarExperience.Common.FullView[l_name_0] == v34.SceneFullView;
+    local l_name_0 = v205.opaque.name;
+    return v204.AvatarExperience.Common.FullView[l_name_0] == v34.SceneFullView;
 end;
-v77.getCatalogCategoryInfoFromState = function(v198) --[[ Line: 646 ]] --[[ Name: getCatalogCategoryInfoFromState ]]
-    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v7 (copy), v77 (copy)
+v79.getCatalogCategoryInfoFromState = function(v207) --[[ Line: 675 ]] --[[ Name: getCatalogCategoryInfoFromState ]]
+    -- upvalues: l_FFlagAXCatalogCategoriesStore_0 (copy), v7 (copy), v79 (copy)
     if l_FFlagAXCatalogCategoriesStore_0 then
         v7("getCatalogCategoryInfoFromState is not supported with FFlagAXCatalogCategoriesStore");
     end;
-    local l_categoryId_0 = v198.AvatarExperience.Catalog.Categories.categoryId;
-    local l_subcategoryId_0 = v198.AvatarExperience.Catalog.Categories.subcategoryId;
-    return v77.getCatalogCategoryInfoById(l_categoryId_0, l_subcategoryId_0);
+    local l_categoryId_0 = v207.AvatarExperience.Catalog.Categories.categoryId;
+    local l_subcategoryId_0 = v207.AvatarExperience.Catalog.Categories.subcategoryId;
+    return v79.getCatalogCategoryInfoById(l_categoryId_0, l_subcategoryId_0);
 end;
-v77.getAvatarEditorCategoryInfoFromState = function(v201) --[[ Line: 656 ]] --[[ Name: getAvatarEditorCategoryInfoFromState ]]
-    -- upvalues: v77 (copy)
-    local l_category_0 = v201.AvatarExperience.AvatarEditor.Categories.category;
-    local l_subcategory_0 = v201.AvatarExperience.AvatarEditor.Categories.subcategory;
-    return v77.getAvatarEditorCategoryInfo(l_category_0, l_subcategory_0);
+v79.getAvatarEditorCategoryInfoFromState = function(v210) --[[ Line: 685 ]] --[[ Name: getAvatarEditorCategoryInfoFromState ]]
+    -- upvalues: v79 (copy)
+    local l_category_0 = v210.AvatarExperience.AvatarEditor.Categories.category;
+    local l_subcategory_0 = v210.AvatarExperience.AvatarEditor.Categories.subcategory;
+    return v79.getAvatarEditorCategoryInfo(l_category_0, l_subcategory_0);
 end;
-v77.getAvatarEditorSubcategoryFilterFromState = function(v204) --[[ Line: 664 ]] --[[ Name: getAvatarEditorSubcategoryFilterFromState ]]
-    -- upvalues: v77 (copy)
-    local v205 = v77.getAvatarEditorCategoryInfoFromState(v204);
-    if v205.SubcategoryFilters then
-        local l_subcategoryFilter_0 = v204.AvatarExperience.AvatarEditor.Categories.subcategoryFilter;
-        return v205.SubcategoryFilters[l_subcategoryFilter_0];
+v79.getAvatarEditorSubcategoryFilterFromState = function(v213) --[[ Line: 693 ]] --[[ Name: getAvatarEditorSubcategoryFilterFromState ]]
+    -- upvalues: v79 (copy)
+    local v214 = v79.getAvatarEditorCategoryInfoFromState(v213);
+    if v214.SubcategoryFilters then
+        local l_subcategoryFilter_0 = v213.AvatarExperience.AvatarEditor.Categories.subcategoryFilter;
+        return v214.SubcategoryFilters[l_subcategoryFilter_0];
     else
         return nil;
     end;
 end;
-v77.getSelectedAccessoryDescription = function(v207, v208) --[[ Line: 675 ]] --[[ Name: getSelectedAccessoryDescription ]]
-    local v209 = tonumber(v208) or 0;
-    for _, v211 in v207:GetChildren() do
-        if v211:IsA("AccessoryDescription") and v211.AssetId == v209 then
-            return v211;
+v79.getSelectedAccessoryDescription = function(v216, v217) --[[ Line: 704 ]] --[[ Name: getSelectedAccessoryDescription ]]
+    local v218 = tonumber(v217) or 0;
+    for _, v220 in v216:GetChildren() do
+        if v220:IsA("AccessoryDescription") and v220.AssetId == v218 then
+            return v220;
         end;
     end;
     return nil;
 end;
-v77.getAccessoryAdjustmentCategoryInfo = function(v212) --[[ Line: 690 ]] --[[ Name: getAccessoryAdjustmentCategoryInfo ]]
-    -- upvalues: v77 (copy), v42 (copy)
-    local v213 = v212.AvatarExperience.AccessoryAdjustment.SelectedAccessory or "";
-    local l_CurrentCharacter_0 = v212.AvatarExperience.AvatarScene.Character.CurrentCharacter;
+v79.getAccessoryAdjustmentCategoryInfo = function(v221) --[[ Line: 719 ]] --[[ Name: getAccessoryAdjustmentCategoryInfo ]]
+    -- upvalues: v79 (copy), v42 (copy)
+    local v222 = v221.AvatarExperience.AccessoryAdjustment.SelectedAccessory or "";
+    local l_CurrentCharacter_0 = v221.AvatarExperience.AvatarScene.Character.CurrentCharacter;
     assert(l_CurrentCharacter_0, "assert currentCharacter exists");
     local l_Humanoid_0 = l_CurrentCharacter_0:FindFirstChild("Humanoid");
     assert(l_Humanoid_0, "assert humanoid exists");
     local l_HumanoidDescription_0 = l_Humanoid_0:FindFirstChild("HumanoidDescription");
     assert(l_HumanoidDescription_0, "assert currentCharacter exists");
-    local v217 = v77.getSelectedAccessoryDescription(l_HumanoidDescription_0, v213);
-    if not v217 then
+    local v226 = v79.getSelectedAccessoryDescription(l_HumanoidDescription_0, v222);
+    if not v226 then
         return;
     else
-        assert(v217, "assert accessoryDescription exists");
-        return v42.CameraCategories[v217.AccessoryType];
+        assert(v226, "assert accessoryDescription exists");
+        return v42.CameraCategories[v226.AccessoryType];
     end;
 end;
-v77.getCategoryInfoFromState = function(v218, v219) --[[ Line: 717 ]] --[[ Name: getCategoryInfoFromState ]]
-    -- upvalues: l_AvatarScreen_0 (copy), v77 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v68 (copy), v60 (copy), v50 (copy), v33 (copy), v22 (copy), v75 (copy), v41 (copy), v43 (copy), v76 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy)
-    local l_name_1 = v219.opaque.name;
+v79.getCategoryInfoFromState = function(v227, v228) --[[ Line: 746 ]] --[[ Name: getCategoryInfoFromState ]]
+    -- upvalues: l_AvatarScreen_0 (copy), v79 (copy), l_FFlagAXCatalogCategoriesStore_0 (copy), v70 (copy), v60 (copy), v50 (copy), v33 (copy), v22 (copy), v77 (copy), v41 (copy), v43 (copy), v78 (copy), l_FFlagAXCustomizeMakeupSupport_0 (copy)
+    local l_name_1 = v228.opaque.name;
     if l_name_1 == l_AvatarScreen_0.AvatarEditor then
-        return v77.getAvatarEditorCategoryInfoFromState(v218);
+        return v79.getAvatarEditorCategoryInfoFromState(v227);
     elseif l_name_1 == l_AvatarScreen_0.Catalog then
         if l_FFlagAXCatalogCategoriesStore_0 then
-            return (v68.getCatalogSelectionStore().selectedCategoryInfo(false));
+            return (v70.getCatalogSelectionStore().selectedCategoryInfo(false));
         else
-            return v77.getCatalogCategoryInfoFromState(v218);
+            return v79.getCatalogCategoryInfoFromState(v227);
         end;
     elseif l_name_1 == l_AvatarScreen_0.ProfilePictureEditorEmotes then
         if v60() then
             return (v50());
         else
-            local v221 = v33().AssetTypeToCategorySubcategory[v22.AssetTypeIdStrings.EmoteAnimation];
-            local l_category_1 = v221.category;
-            local l_subcategory_1 = v221.subcategory;
-            return v77.getAvatarEditorCategoryInfo(l_category_1, l_subcategory_1);
+            local v230 = v33().AssetTypeToCategorySubcategory[v22.AssetTypeIdStrings.EmoteAnimation];
+            local l_category_1 = v230.category;
+            local l_subcategory_1 = v230.subcategory;
+            return v79.getAvatarEditorCategoryInfo(l_category_1, l_subcategory_1);
         end;
     elseif l_name_1 == l_AvatarScreen_0.AdjustAccessoryView then
-        local v224 = v77.getAccessoryAdjustmentCategoryInfo(v218);
-        if v224 then
-            return v224;
+        local v233 = v79.getAccessoryAdjustmentCategoryInfo(v227);
+        if v233 then
+            return v233;
         else
-            return v75;
+            return v77;
         end;
     elseif v41.readTestVariable(v43.EnabledForUser) and l_name_1 == l_AvatarScreen_0.CatalogSearch then
-        return v76;
+        return v78;
     elseif l_name_1 == l_AvatarScreen_0.HeadRefinement then
         return v22.HeadRefinementCameraCategory;
     elseif l_FFlagAXCustomizeMakeupSupport_0 and l_name_1 == l_AvatarScreen_0.LayeredMakeupSort then
         return v22.LayeredMakeupCameraCategory;
     else
-        return v75;
+        return v77;
     end;
 end;
-local v225 = {
+local v234 = {
     "Torso", 
     "RightArm", 
     "LeftArm", 
     "LeftLeg", 
     "RightLeg"
 };
-v77.routeIsProfilePictureEditor = function(v226) --[[ Line: 776 ]] --[[ Name: routeIsProfilePictureEditor ]]
+v79.routeIsProfilePictureEditor = function(v235) --[[ Line: 805 ]] --[[ Name: routeIsProfilePictureEditor ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    local v227 = true;
-    if v226.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorEmotes then
-        v227 = true;
-        if v226.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorCamera then
-            v227 = v226.opaque.name == l_AvatarScreen_0.ProfilePictureEditorFinal;
+    local v236 = true;
+    if v235.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorEmotes then
+        v236 = true;
+        if v235.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorCamera then
+            v236 = v235.opaque.name == l_AvatarScreen_0.ProfilePictureEditorFinal;
         end;
     end;
-    return v227;
+    return v236;
 end;
-v77.routeIsPPEStaticImagePage = function(v228) --[[ Line: 786 ]] --[[ Name: routeIsPPEStaticImagePage ]]
+v79.routeIsPPEStaticImagePage = function(v237) --[[ Line: 815 ]] --[[ Name: routeIsPPEStaticImagePage ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    local v229 = true;
-    if v228.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorCamera then
-        v229 = v228.opaque.name == l_AvatarScreen_0.ProfilePictureEditorFinal;
+    local v238 = true;
+    if v237.opaque.name ~= l_AvatarScreen_0.ProfilePictureEditorCamera then
+        v238 = v237.opaque.name == l_AvatarScreen_0.ProfilePictureEditorFinal;
     end;
-    return v229;
+    return v238;
 end;
-v77.isFullyQualifiedCostume = function(v230) --[[ Line: 791 ]] --[[ Name: isFullyQualifiedCostume ]]
-    -- upvalues: v225 (copy)
-    for _, v232 in v225 do
-        if v230[v232] == "" or v230[v232] == 0 then
+v79.isFullyQualifiedCostume = function(v239) --[[ Line: 820 ]] --[[ Name: isFullyQualifiedCostume ]]
+    -- upvalues: v234 (copy)
+    for _, v241 in v234 do
+        if v239[v241] == "" or v239[v241] == 0 then
             return false;
         end;
     end;
     return true;
 end;
-v77.shouldShowGradientForScrollingFrame = function(v233) --[[ Line: 800 ]] --[[ Name: shouldShowGradientForScrollingFrame ]]
-    local l_AbsoluteSize_0 = v233.AbsoluteSize;
-    local l_CanvasSize_0 = v233.CanvasSize;
-    local l_CanvasPosition_0 = v233.CanvasPosition;
+v79.shouldShowGradientForScrollingFrame = function(v242) --[[ Line: 829 ]] --[[ Name: shouldShowGradientForScrollingFrame ]]
+    local l_AbsoluteSize_0 = v242.AbsoluteSize;
+    local l_CanvasSize_0 = v242.CanvasSize;
+    local l_CanvasPosition_0 = v242.CanvasPosition;
     return l_AbsoluteSize_0.X < l_CanvasSize_0.X.Offset, l_CanvasPosition_0.X > 20, l_CanvasPosition_0.X + l_AbsoluteSize_0.X < l_CanvasSize_0.X.Offset - 20;
 end;
-v77.Round = function(v237, v238) --[[ Line: 813 ]] --[[ Name: Round ]]
-    local v239 = v238 or 1;
-    return math.floor((v237 + v239 / 2) / v239) * v239;
+v79.Round = function(v246, v247) --[[ Line: 842 ]] --[[ Name: Round ]]
+    local v248 = v247 or 1;
+    return math.floor((v246 + v248 / 2) / v248) * v248;
 end;
-v77.isFetchingDoneOrFailed = function(v240, v241) --[[ Line: 818 ]] --[[ Name: isFetchingDoneOrFailed ]]
+v79.isFetchingDoneOrFailed = function(v249, v250) --[[ Line: 847 ]] --[[ Name: isFetchingDoneOrFailed ]]
     -- upvalues: l_RetrievalStatus_0 (copy)
-    local v242 = true;
-    if v240 ~= l_RetrievalStatus_0.Done then
-        v242 = v240 == l_RetrievalStatus_0.Failed;
+    local v251 = true;
+    if v249 ~= l_RetrievalStatus_0.Done then
+        v251 = v249 == l_RetrievalStatus_0.Failed;
     end;
-    local v243 = true;
-    if v241 ~= l_RetrievalStatus_0.Done then
-        v243 = v241 == l_RetrievalStatus_0.Failed;
+    local v252 = true;
+    if v250 ~= l_RetrievalStatus_0.Done then
+        v252 = v250 == l_RetrievalStatus_0.Failed;
     end;
-    return not v242 and v243;
+    return not v251 and v252;
 end;
-v77.getDeviceType = function() --[[ Line: 826 ]] --[[ Name: getDeviceType ]]
+v79.getDeviceType = function() --[[ Line: 855 ]] --[[ Name: getDeviceType ]]
     -- upvalues: l_UserInputService_0 (copy), v22 (copy)
     local l_l_UserInputService_0_Platform_0 = l_UserInputService_0:GetPlatform();
     if l_l_UserInputService_0_Platform_0 == Enum.Platform.Android then
@@ -545,173 +568,173 @@ v77.getDeviceType = function() --[[ Line: 826 ]] --[[ Name: getDeviceType ]]
         return v22.DeviceType.Other;
     end;
 end;
-v77.getUserOutfitIdFromBundle = function(v245) --[[ Line: 838 ]] --[[ Name: getUserOutfitIdFromBundle ]]
+v79.getUserOutfitIdFromBundle = function(v254) --[[ Line: 867 ]] --[[ Name: getUserOutfitIdFromBundle ]]
     -- upvalues: v22 (copy)
-    for _, v247 in v245.items do
-        if v247.type == v22.ItemType.Outfit then
-            return v247.id;
+    for _, v256 in v254.items do
+        if v256.type == v22.ItemType.Outfit then
+            return v256.id;
         end;
     end;
     return nil;
 end;
-v77.getUserOutfitIdsFromBundle = function(v248) --[[ Line: 849 ]] --[[ Name: getUserOutfitIdsFromBundle ]]
+v79.getUserOutfitIdsFromBundle = function(v257) --[[ Line: 878 ]] --[[ Name: getUserOutfitIdsFromBundle ]]
     -- upvalues: v22 (copy)
-    local v249 = {};
-    if v248.items then
-        for _, v251 in v248.items do
-            if v251.type == v22.ItemType.Outfit then
-                table.insert(v249, v251.id);
+    local v258 = {};
+    if v257.items then
+        for _, v260 in v257.items do
+            if v260.type == v22.ItemType.Outfit then
+                table.insert(v258, v260.id);
             end;
         end;
     end;
-    return v249;
+    return v258;
 end;
-v77.getBundleInfo = l_memoize_0(function(v252, v253) --[[ Line: 864 ]]
-    if v253 == nil then
+v79.getBundleInfo = l_memoize_0(function(v261, v262) --[[ Line: 893 ]]
+    if v262 == nil then
         return nil;
     else
-        local v254 = v252[v253];
-        if not v254 then
+        local v263 = v261[v262];
+        if not v263 then
             return nil;
-        elseif v254.receivedCatalogData then
-            return v254;
+        elseif v263.receivedCatalogData then
+            return v263;
         else
             return nil;
         end;
     end;
 end);
-v77.getBundleInfoFromState = function(v255, v256) --[[ Line: 880 ]] --[[ Name: getBundleInfoFromState ]]
-    -- upvalues: v77 (copy)
-    local l_BundleInfos_0 = v255.AvatarExperience.Common.BundleInfos;
-    return v77.getBundleInfo(l_BundleInfos_0, v256);
+v79.getBundleInfoFromState = function(v264, v265) --[[ Line: 909 ]] --[[ Name: getBundleInfoFromState ]]
+    -- upvalues: v79 (copy)
+    local l_BundleInfos_0 = v264.AvatarExperience.Common.BundleInfos;
+    return v79.getBundleInfo(l_BundleInfos_0, v265);
 end;
-v77.getOutfitInfoFromBundleIdNoState = function(v258, v259) --[[ Line: 888 ]] --[[ Name: getOutfitInfoFromBundleIdNoState ]]
-    -- upvalues: v77 (copy), v12 (copy), v10 (copy)
-    if not v258 then
+v79.getOutfitInfoFromBundleIdNoState = function(v267, v268) --[[ Line: 917 ]] --[[ Name: getOutfitInfoFromBundleIdNoState ]]
+    -- upvalues: v79 (copy), v12 (copy), v10 (copy)
+    if not v267 then
         return nil;
     else
-        assert(v258, "contentId is not nil: silences type checker");
-        local v260 = v77.getUserOutfitIdsFromBundle(v258);
-        if #v260 < 1 then
+        assert(v267, "contentId is not nil: silences type checker");
+        local v269 = v79.getUserOutfitIdsFromBundle(v267);
+        if #v269 < 1 then
             return nil;
         else
-            local v261 = nil;
-            for _, v263 in v260 do
-                local v264 = v259[v263];
-                if not v264 then
+            local v270 = nil;
+            for _, v272 in v269 do
+                local v273 = v268[v272];
+                if not v273 then
                     return nil;
-                elseif not v261 then
-                    v261 = v12.deepCopy(v264);
+                elseif not v270 then
+                    v270 = v12.deepCopy(v273);
                 else
-                    v261.assets = v10.Dictionary.join(v261.assets, v264.assets);
+                    v270.assets = v10.Dictionary.join(v270.assets, v273.assets);
                 end;
             end;
-            return v261;
+            return v270;
         end;
     end;
 end;
-v77.getOutfitInfoFromBundleId = function(v265, v266) --[[ Line: 923 ]] --[[ Name: getOutfitInfoFromBundleId ]]
-    -- upvalues: v77 (copy)
-    local v267 = v77.getBundleInfoFromState(v265, v266);
-    local l_OutfitInfos_0 = v265.AvatarExperience.AvatarEditor.OutfitInfos;
-    return v77.getOutfitInfoFromBundleIdNoState(v267, l_OutfitInfos_0);
+v79.getOutfitInfoFromBundleId = function(v274, v275) --[[ Line: 952 ]] --[[ Name: getOutfitInfoFromBundleId ]]
+    -- upvalues: v79 (copy)
+    local v276 = v79.getBundleInfoFromState(v274, v275);
+    local l_OutfitInfos_0 = v274.AvatarExperience.AvatarEditor.OutfitInfos;
+    return v79.getOutfitInfoFromBundleIdNoState(v276, l_OutfitInfos_0);
 end;
-v77.getAllCategoriesStr = function(v269) --[[ Line: 930 ]] --[[ Name: getAllCategoriesStr ]]
-    local v270 = "";
-    local v271 = 1;
+v79.getAllCategoriesStr = function(v278) --[[ Line: 959 ]] --[[ Name: getAllCategoriesStr ]]
+    local v279 = "";
+    local v280 = 1;
     while true do
-        local v272 = "level" .. v271;
-        if v269[v272] then
-            if v271 ~= 1 then
-                v270 = v270 .. "|";
+        local v281 = "level" .. v280;
+        if v278[v281] then
+            if v280 ~= 1 then
+                v279 = v279 .. "|";
             end;
-            v270 = v270 .. v269[v272];
-            v271 = v271 + 1;
+            v279 = v279 .. v278[v281];
+            v280 = v280 + 1;
         else
             break;
         end;
     end;
-    return v270;
+    return v279;
 end;
-v77.isAnimationAssetType = function(v273) --[[ Line: 952 ]] --[[ Name: isAnimationAssetType ]]
+v79.isAnimationAssetType = function(v282) --[[ Line: 981 ]] --[[ Name: isAnimationAssetType ]]
     -- upvalues: v22 (copy)
-    local v274 = true;
-    if v273 ~= v22.AssetTypeIdStrings.ClimbAnimation then
-        v274 = true;
-        if v273 ~= v22.AssetTypeIdStrings.FallAnimation then
-            v274 = true;
-            if v273 ~= v22.AssetTypeIdStrings.IdleAnimation then
-                v274 = true;
-                if v273 ~= v22.AssetTypeIdStrings.JumpAnimation then
-                    v274 = true;
-                    if v273 ~= v22.AssetTypeIdStrings.RunAnimation then
-                        v274 = true;
-                        if v273 ~= v22.AssetTypeIdStrings.SwimAnimation then
-                            v274 = v273 == v22.AssetTypeIdStrings.WalkAnimation;
+    local v283 = true;
+    if v282 ~= v22.AssetTypeIdStrings.ClimbAnimation then
+        v283 = true;
+        if v282 ~= v22.AssetTypeIdStrings.FallAnimation then
+            v283 = true;
+            if v282 ~= v22.AssetTypeIdStrings.IdleAnimation then
+                v283 = true;
+                if v282 ~= v22.AssetTypeIdStrings.JumpAnimation then
+                    v283 = true;
+                    if v282 ~= v22.AssetTypeIdStrings.RunAnimation then
+                        v283 = true;
+                        if v282 ~= v22.AssetTypeIdStrings.SwimAnimation then
+                            v283 = v282 == v22.AssetTypeIdStrings.WalkAnimation;
                         end;
                     end;
                 end;
             end;
         end;
     end;
-    return v274;
+    return v283;
 end;
-v77.getNumElementsWithKeyField = function(v275) --[[ Line: 962 ]] --[[ Name: getNumElementsWithKeyField ]]
-    local v276 = 0;
-    if v275 then
-        for _, v278 in v275 do
-            if typeof(v278) == "table" and v278.key then
-                v276 = v276 + 1;
+v79.getNumElementsWithKeyField = function(v284) --[[ Line: 991 ]] --[[ Name: getNumElementsWithKeyField ]]
+    local v285 = 0;
+    if v284 then
+        for _, v287 in v284 do
+            if typeof(v287) == "table" and v287.key then
+                v285 = v285 + 1;
             end;
         end;
     end;
-    return v276;
+    return v285;
 end;
-v77.lerp = function(v279, v280, v281) --[[ Line: 974 ]] --[[ Name: lerp ]]
-    return (v280 - v279) * v281 + v279;
+v79.lerp = function(v288, v289, v290) --[[ Line: 1003 ]] --[[ Name: lerp ]]
+    return (v289 - v288) * v290 + v288;
 end;
-v77.getTopBarHeightAvatarScene = function(v282) --[[ Line: 978 ]] --[[ Name: getTopBarHeightAvatarScene ]]
+v79.getTopBarHeightAvatarScene = function(v291) --[[ Line: 1007 ]] --[[ Name: getTopBarHeightAvatarScene ]]
     -- upvalues: l_DeviceOrientationMode_0 (copy), v29 (copy)
-    if not v282.TopBar then
+    if not v291.TopBar then
         return 0;
-    elseif v282.DeviceOrientation == l_DeviceOrientationMode_0.Landscape then
-        return v282.TopBar.statusBarHeight + v29.NAV_BAR_SIZE;
+    elseif v291.DeviceOrientation == l_DeviceOrientationMode_0.Landscape then
+        return v291.TopBar.statusBarHeight + v29.NAV_BAR_SIZE;
     else
-        return v282.TopBar.topBarHeight;
+        return v291.TopBar.topBarHeight;
     end;
 end;
-v77.tableToCamelCaseKeys = function(v283) --[[ Line: 992 ]] --[[ Name: tableToCamelCaseKeys ]]
-    -- upvalues: v77 (copy)
-    local v284 = {};
-    for v285, v286 in v283 do
-        local l_v285_0 = v285;
-        if typeof(v285) == "string" then
-            l_v285_0 = string.lower((string.sub(v285, 1, 1))) .. string.sub(v285, 2);
+v79.tableToCamelCaseKeys = function(v292) --[[ Line: 1021 ]] --[[ Name: tableToCamelCaseKeys ]]
+    -- upvalues: v79 (copy)
+    local v293 = {};
+    for v294, v295 in v292 do
+        local l_v294_0 = v294;
+        if typeof(v294) == "string" then
+            l_v294_0 = string.lower((string.sub(v294, 1, 1))) .. string.sub(v294, 2);
         end;
-        local l_v286_0 = v286;
-        if typeof(v286) == "table" then
-            l_v286_0 = v77.tableToCamelCaseKeys(v286);
+        local l_v295_0 = v295;
+        if typeof(v295) == "table" then
+            l_v295_0 = v79.tableToCamelCaseKeys(v295);
         end;
-        v284[l_v285_0] = l_v286_0;
+        v293[l_v294_0] = l_v295_0;
     end;
-    return v284;
+    return v293;
 end;
-v77.AssetTypeIdStringToEnumValue = function(v289) --[[ Line: 1013 ]] --[[ Name: AssetTypeIdStringToEnumValue ]]
+v79.AssetTypeIdStringToEnumValue = function(v298) --[[ Line: 1042 ]] --[[ Name: AssetTypeIdStringToEnumValue ]]
     -- upvalues: v22 (copy)
-    local v290 = v22.AssetTypeIdStringToName[v289];
-    return Enum.AvatarAssetType[v290];
+    local v299 = v22.AssetTypeIdStringToName[v298];
+    return Enum.AvatarAssetType[v299];
 end;
-v77.bundleIdToEnum = function(v291) --[[ Line: 1018 ]] --[[ Name: bundleIdToEnum ]]
+v79.bundleIdToEnum = function(v300) --[[ Line: 1047 ]] --[[ Name: bundleIdToEnum ]]
     -- upvalues: v22 (copy)
-    local v292 = v22.BundleTypeIdStringToName[v291];
-    return Enum.BundleType[v292];
+    local v301 = v22.BundleTypeIdStringToName[v300];
+    return Enum.BundleType[v301];
 end;
-v77.getSearchKey = function(v293, v294) --[[ Line: 1023 ]] --[[ Name: getSearchKey ]]
+v79.getSearchKey = function(v302, v303) --[[ Line: 1052 ]] --[[ Name: getSearchKey ]]
     -- upvalues: v44 (copy), v22 (copy)
-    local v295 = v44.selectSortAndFiltersKey(v293);
-    return v22.SearchCatalogKey .. v294 .. "." .. v295;
+    local v304 = v44.selectSortAndFiltersKey(v302);
+    return v22.SearchCatalogKey .. v303 .. "." .. v304;
 end;
-local function v297(v296) --[[ Line: 1028 ]]
+local function v306(v305) --[[ Line: 1057 ]]
     -- upvalues: v13 (copy)
     assert(v13.strictInterface({
         searchUuid = v13.union(v13.number, v13.string), 
@@ -723,9 +746,9 @@ local function v297(v296) --[[ Line: 1028 ]]
         catalogSort = v13.optional(v13.string), 
         categoryFilter = v13.optional(v13.enum(Enum.CatalogCategoryFilter)), 
         topics = v13.optional(v13.array(v13.string))
-    })(v296));
+    })(v305));
 end;
-local function v299(v298) --[[ Line: 1043 ]]
+local function v308(v307) --[[ Line: 1072 ]]
     -- upvalues: v13 (copy), l_FFlagAXDurablesSupport_0 (copy)
     assert(v13.strictInterface({
         CatalogSort = v13.optional(v13.string), 
@@ -739,281 +762,295 @@ local function v299(v298) --[[ Line: 1043 ]]
         CreatorFilter = v13.optional(v13.string), 
         UnavailableItemFilter = v13.optional(v13.string), 
         WearTimeFilter = if l_FFlagAXDurablesSupport_0 then v13.optional(v13.string) else nil
-    })(v298));
+    })(v307));
 end;
-local function v305(v300, v301, v302) --[[ Line: 1069 ]]
-    -- upvalues: v10 (copy), v77 (copy)
-    if v301 ~= nil and #v301 > 0 then
-        v300.AssetTypes = v10.List.map(v301, function(v303) --[[ Line: 1071 ]]
-            -- upvalues: v77 (ref)
-            return v77.AssetTypeIdStringToEnumValue(v303);
+local function v314(v309, v310, v311) --[[ Line: 1098 ]]
+    -- upvalues: v10 (copy), v79 (copy)
+    if v310 ~= nil and #v310 > 0 then
+        v309.AssetTypes = v10.List.map(v310, function(v312) --[[ Line: 1100 ]]
+            -- upvalues: v79 (ref)
+            return v79.AssetTypeIdStringToEnumValue(v312);
         end);
     end;
-    if v302 ~= nil and #v302 > 0 then
-        v300.BundleTypes = v10.List.map(v302, function(v304) --[[ Line: 1078 ]]
-            -- upvalues: v77 (ref)
-            return v77.bundleIdToEnum(v304);
+    if v311 ~= nil and #v311 > 0 then
+        v309.BundleTypes = v10.List.map(v311, function(v313) --[[ Line: 1107 ]]
+            -- upvalues: v79 (ref)
+            return v79.bundleIdToEnum(v313);
         end);
     end;
 end;
-local function v308(v306) --[[ Line: 1085 ]] --[[ Name: hasSortOrFilters ]]
+local function v317(v315) --[[ Line: 1114 ]] --[[ Name: hasSortOrFilters ]]
     -- upvalues: v28 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXTimedOptionsSalesTypeFilter_0 (copy)
-    local v307 = true;
-    if v306.SortType == Enum.CatalogSortType.Relevance then
-        v307 = true;
-        if v306.CreatorName == "" then
-            v307 = true;
-            if v306.SalesTypeFilter == Enum.SalesTypeFilter.All then
-                v307 = true;
-                if v306.SearchKeyword == "" then
-                    v307 = true;
-                    if v306.MinPrice <= v28.MinPriceFilter then
-                        v307 = true;
-                        if v306.MaxPrice >= v28.MaxPriceFilter then
-                            v307 = v306.IncludeOffSale or game:GetEngineFeature("AvatarEditorServiceTimedOptionsSupport") and l_FFlagAXDurablesSupport_0 and not l_FFlagAXTimedOptionsSalesTypeFilter_0 and v306.TimedOptionFilter ~= Enum.CatalogTimedOptionFilter.All;
+    local v316 = true;
+    if v315.SortType == Enum.CatalogSortType.Relevance then
+        v316 = true;
+        if v315.CreatorName == "" then
+            v316 = true;
+            if v315.SalesTypeFilter == Enum.SalesTypeFilter.All then
+                v316 = true;
+                if v315.SearchKeyword == "" then
+                    v316 = true;
+                    if v315.MinPrice <= v28.MinPriceFilter then
+                        v316 = true;
+                        if v315.MaxPrice >= v28.MaxPriceFilter then
+                            v316 = v315.IncludeOffSale or game:GetEngineFeature("AvatarEditorServiceTimedOptionsSupport") and l_FFlagAXDurablesSupport_0 and not l_FFlagAXTimedOptionsSalesTypeFilter_0 and v315.TimedOptionFilter ~= Enum.CatalogTimedOptionFilter.All;
                         end;
                     end;
                 end;
             end;
         end;
     end;
-    return v307;
+    return v316;
 end;
 if l_FFlagAXHttpCatalogV2SearchItemDetails_0 then
-    v77.getSearchParamsAsQueryParams = function(v309, v310) --[[ Line: 1103 ]] --[[ Name: getSearchParamsAsQueryParams ]]
-        -- upvalues: v308 (copy), v28 (copy)
-        local v311 = {
-            keyword = v309.SearchKeyword or "", 
-            limit = v309.Limit
+    v79.getSearchParamsAsQueryParams = function(v318, v319) --[[ Line: 1132 ]] --[[ Name: getSearchParamsAsQueryParams ]]
+        -- upvalues: v317 (copy), v28 (copy)
+        local v320 = {
+            keyword = v318.SearchKeyword or "", 
+            limit = v318.Limit
         };
-        if v309.CategoryFilter ~= Enum.CatalogCategoryFilter.None and not v308(v309) then
-            v311.categoryFilter = tostring(v309.CategoryFilter.Name);
+        if v318.CategoryFilter ~= Enum.CatalogCategoryFilter.None and not v317(v318) then
+            v320.categoryFilter = tostring(v318.CategoryFilter.Name);
         end;
-        v311.sortType = v28.SortTypeAPIMap[tostring(v309.SortType.Name)];
-        if v309.CreatorName and v309.CreatorName ~= "" then
-            v311.creatorName = v309.CreatorName;
+        v320.sortType = v28.SortTypeAPIMap[tostring(v318.SortType.Name)];
+        if v318.CreatorName and v318.CreatorName ~= "" then
+            v320.creatorName = v318.CreatorName;
         end;
-        if v310 and v310.TaxonomyUuid then
-            v311.taxonomy = tostring(v310.TaxonomyUuid);
+        if v319 and v319.TaxonomyUuid then
+            v320.taxonomy = tostring(v319.TaxonomyUuid);
         else
-            if v309.BundleTypes and #v309.BundleTypes > 0 then
-                local v312 = {};
-                for _, v314 in v309.BundleTypes do
-                    table.insert(v312, v314.Value);
+            if v318.BundleTypes and #v318.BundleTypes > 0 then
+                local v321 = {};
+                for _, v323 in v318.BundleTypes do
+                    table.insert(v321, v323.Value);
                 end;
-                v311.bundleTypeIds = v312;
+                v320.bundleTypeIds = v321;
             end;
-            if v309.AssetTypes and #v309.AssetTypes > 0 then
-                local v315 = {};
-                for _, v317 in v309.AssetTypes do
-                    table.insert(v315, v317.Value);
+            if v318.AssetTypes and #v318.AssetTypes > 0 then
+                local v324 = {};
+                for _, v326 in v318.AssetTypes do
+                    table.insert(v324, v326.Value);
                 end;
-                v311.assetTypeIds = v315;
+                v320.assetTypeIds = v324;
             end;
         end;
-        v311.includeNotForSale = v309.IncludeOffSale;
-        v311.creatorType = "All";
-        if v309.MinPrice and v309.MinPrice > v28.MinPriceFilter then
-            v311.minPrice = v309.MinPrice;
+        v320.includeNotForSale = v318.IncludeOffSale;
+        v320.creatorType = "All";
+        if v318.MinPrice and v318.MinPrice > v28.MinPriceFilter then
+            v320.minPrice = v318.MinPrice;
         end;
-        if v309.MaxPrice and v309.MaxPrice < v28.MaxPriceFilter then
-            v311.maxPrice = v309.MaxPrice;
+        if v318.MaxPrice and v318.MaxPrice < v28.MaxPriceFilter then
+            v320.maxPrice = v318.MaxPrice;
         end;
-        if v309.SalesTypeFilter and v309.SalesTypeFilter ~= Enum.SalesTypeFilter.All then
-            v311.salesTypeFilter = tostring(v309.SalesTypeFilter.Name);
+        if v318.SalesTypeFilter and v318.SalesTypeFilter ~= Enum.SalesTypeFilter.All then
+            v320.salesTypeFilter = tostring(v318.SalesTypeFilter.Name);
         end;
-        if v309.SortAggregation and (v309.SortType == Enum.CatalogSortType.MostFavorited or v309.SortType == Enum.CatalogSortType.Bestselling) then
-            v311.sortAggregation = tostring(v309.SortAggregation.Name);
+        if v318.SortAggregation and (v318.SortType == Enum.CatalogSortType.MostFavorited or v318.SortType == Enum.CatalogSortType.Bestselling) then
+            v320.sortAggregation = tostring(v318.SortAggregation.Name);
         end;
-        return v311;
+        return v320;
     end;
 end;
-v77.getSearchParams = function(v318, v319, v320) --[[ Line: 1188 ]] --[[ Name: getSearchParams ]]
-    -- upvalues: v297 (copy), v299 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXTimedOptionsSalesTypeFilter_0 (copy), l_FFlagAXCatalogSearchParamTypes_0 (copy), v305 (copy), v28 (copy), v59 (copy), v38 (copy), v36 (copy), l_FFlagAXRemoveTimedOptionsSalesTypeEnumCheck_0 (copy), v7 (copy), v37 (copy), v35 (copy), v308 (copy)
-    v297(v318);
-    v299(v319);
-    local v321 = CatalogSearchParams.new();
-    local v322 = nil;
-    if v318.searchKeyword then
-        v322 = v318.searchKeyword;
+v79.getSearchParams = function(v327, v328, v329) --[[ Line: 1217 ]] --[[ Name: getSearchParams ]]
+    -- upvalues: v306 (copy), v308 (copy), l_FFlagAXDurablesSupport_0 (copy), l_FFlagAXTimedOptionsSalesTypeFilter_0 (copy), l_FFlagAXCatalogSearchParamTypes_0 (copy), v314 (copy), v28 (copy), v59 (copy), v38 (copy), v36 (copy), l_FFlagAXRemoveTimedOptionsSalesTypeEnumCheck_0 (copy), v7 (copy), v37 (copy), v35 (copy), v317 (copy)
+    v306(v327);
+    v308(v328);
+    local v330 = CatalogSearchParams.new();
+    local v331 = nil;
+    if v327.searchKeyword then
+        v331 = v327.searchKeyword;
     end;
-    v321.AssetTypes = {};
-    v321.BundleTypes = {};
-    v321.IncludeOffSale = false;
+    v330.AssetTypes = {};
+    v330.BundleTypes = {};
+    v330.IncludeOffSale = false;
     if game:GetEngineFeature("AvatarEditorServiceTimedOptionsSupport") and l_FFlagAXDurablesSupport_0 and not l_FFlagAXTimedOptionsSalesTypeFilter_0 then
-        v321.TimedOptionFilter = Enum.CatalogTimedOptionFilter.All;
+        v330.TimedOptionFilter = Enum.CatalogTimedOptionFilter.All;
     end;
-    local v323 = false;
-    local v324 = if l_FFlagAXCatalogSearchParamTypes_0 then v319.SelectedTopics else v318.topics or v319.SelectedTopics;
-    if v324 and #v324 > 0 then
-        v323 = true;
-        local v325 = table.concat(v324, " ");
-        if v322 == nil then
-            v322 = v325;
+    local v332 = false;
+    local v333 = if l_FFlagAXCatalogSearchParamTypes_0 then v328.SelectedTopics else v327.topics or v328.SelectedTopics;
+    if v333 and #v333 > 0 then
+        v332 = true;
+        local v334 = table.concat(v333, " ");
+        if v331 == nil then
+            v331 = v334;
         else
-            if #v322 > 0 then
-                v322 = v322 .. " ";
+            if #v331 > 0 then
+                v331 = v331 .. " ";
             end;
-            v322 = v322 .. v325;
+            v331 = v331 .. v334;
         end;
     end;
-    if v322 then
-        v321.SearchKeyword = v322;
+    if v331 then
+        v330.SearchKeyword = v331;
     end;
-    local v326 = 120;
-    if not v322 and v320 then
-        v326 = 30;
+    local v335 = 120;
+    if not v331 and v329 then
+        v335 = 30;
     end;
-    v321.Limit = v326;
-    if v318.categoryInfo == nil then
-        local v327 = {};
-        local v328 = {};
-        v321.CategoryFilter = if l_FFlagAXCatalogSearchParamTypes_0 then Enum.CatalogCategoryFilter.None else v318.categoryFilter or Enum.CatalogCategoryFilter.None;
-        v305(v321, v327, v328);
+    v330.Limit = v335;
+    if v327.categoryInfo == nil then
+        local v336 = {};
+        local v337 = {};
+        v330.CategoryFilter = if l_FFlagAXCatalogSearchParamTypes_0 then Enum.CatalogCategoryFilter.None else v327.categoryFilter or Enum.CatalogCategoryFilter.None;
+        v314(v330, v336, v337);
     else
-        local l_CategoryFilter_0 = v318.categoryInfo.CategoryFilter;
-        local v330 = v28.CategoryFilters[l_CategoryFilter_0];
-        if v330 == nil or v323 then
-            v321.CategoryFilter = Enum.CatalogCategoryFilter.None;
+        local l_CategoryFilter_0 = v327.categoryInfo.CategoryFilter;
+        local v339 = v28.CategoryFilters[l_CategoryFilter_0];
+        if v339 == nil or v332 then
+            v330.CategoryFilter = Enum.CatalogCategoryFilter.None;
         else
-            v321.CategoryFilter = v330;
+            v330.CategoryFilter = v339;
         end;
-        local l_AssetTypeIdStrings_0 = v318.categoryInfo.AssetTypeIdStrings;
-        local l_BundleTypes_0 = v318.categoryInfo.BundleTypes;
-        v305(v321, l_AssetTypeIdStrings_0, l_BundleTypes_0);
+        local l_AssetTypeIdStrings_0 = v327.categoryInfo.AssetTypeIdStrings;
+        local l_BundleTypes_0 = v327.categoryInfo.BundleTypes;
+        v314(v330, l_AssetTypeIdStrings_0, l_BundleTypes_0);
     end;
-    local v333 = if l_FFlagAXCatalogSearchParamTypes_0 then v319.PriceRange.minPrice else v318.minPrice or v319.PriceRange.minPrice;
-    local v334 = if l_FFlagAXCatalogSearchParamTypes_0 then v319.PriceRange.maxPrice else v318.maxPrice or v319.PriceRange.maxPrice;
-    if v59 and v333 and v334 and v334 < v333 then
-        local l_v334_0 = v334;
-        v334 = v333;
-        v333 = l_v334_0;
+    local v342 = if l_FFlagAXCatalogSearchParamTypes_0 then v328.PriceRange.minPrice else v327.minPrice or v328.PriceRange.minPrice;
+    local v343 = if l_FFlagAXCatalogSearchParamTypes_0 then v328.PriceRange.maxPrice else v327.maxPrice or v328.PriceRange.maxPrice;
+    if v59 and v342 and v343 and v343 < v342 then
+        local l_v343_0 = v343;
+        v343 = v342;
+        v342 = l_v343_0;
     end;
-    if v28.MinPriceFilter < v333 then
-        v321.MinPrice = v333;
+    if v28.MinPriceFilter < v342 then
+        v330.MinPrice = v342;
     end;
-    if v334 < v28.MaxPriceFilter then
-        v321.MaxPrice = v334;
+    if v343 < v28.MaxPriceFilter then
+        v330.MaxPrice = v343;
     end;
-    local v336 = if l_FFlagAXCatalogSearchParamTypes_0 then v319.CatalogSort else v318.catalogSort or v319.CatalogSort;
-    v321.SortType = Enum.CatalogSortType[v336];
-    if v319.UnavailableItemFilter ~= v38.Hide then
-        v321.IncludeOffSale = true;
+    local v345 = if l_FFlagAXCatalogSearchParamTypes_0 then v328.CatalogSort else v327.catalogSort or v328.CatalogSort;
+    v330.SortType = Enum.CatalogSortType[v345];
+    if v328.UnavailableItemFilter ~= v38.Hide then
+        v330.IncludeOffSale = true;
     end;
-    local l_SalesTypeFilter_0 = v319.SalesTypeFilter;
+    local l_SalesTypeFilter_0 = v328.SalesTypeFilter;
     if l_SalesTypeFilter_0 ~= v36.All then
         if l_FFlagAXTimedOptionsSalesTypeFilter_0 then
             if not l_FFlagAXRemoveTimedOptionsSalesTypeEnumCheck_0 then
-                local v339 = pcall(function() --[[ Line: 1301 ]]
+                local v348 = pcall(function() --[[ Line: 1330 ]]
                     local _ = Enum.SalesTypeFilter.TimedOptions;
                 end);
-                if l_SalesTypeFilter_0 == v36.TimedOptions and not v339 then
+                if l_SalesTypeFilter_0 == v36.TimedOptions and not v348 then
                     v7("Referenced TimeOptions sales type but enum value is not present");
                 else
-                    v321.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
+                    v330.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
                 end;
             else
-                v321.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
+                v330.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
             end;
         else
-            v321.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
+            v330.SalesTypeFilter = Enum.SalesTypeFilter[l_SalesTypeFilter_0];
         end;
     end;
-    local l_CreatorFilter_0 = v319.CreatorFilter;
+    local l_CreatorFilter_0 = v328.CreatorFilter;
     if l_CreatorFilter_0 ~= nil and l_CreatorFilter_0 ~= "" then
-        v321.CreatorName = l_CreatorFilter_0;
+        v330.CreatorName = l_CreatorFilter_0;
     end;
     if not l_FFlagAXTimedOptionsSalesTypeFilter_0 and game:GetEngineFeature("AvatarEditorServiceTimedOptionsSupport") and l_FFlagAXDurablesSupport_0 then
-        local l_WearTimeFilter_0 = v319.WearTimeFilter;
+        local l_WearTimeFilter_0 = v328.WearTimeFilter;
         if l_WearTimeFilter_0 == v37.All then
-            v321.TimedOptionFilter = Enum.CatalogTimedOptionFilter.All;
+            v330.TimedOptionFilter = Enum.CatalogTimedOptionFilter.All;
         elseif l_WearTimeFilter_0 == v37.TimedOptionsOnly then
-            v321.TimedOptionFilter = Enum.CatalogTimedOptionFilter.TimedOptionOnly;
+            v330.TimedOptionFilter = Enum.CatalogTimedOptionFilter.TimedOptionOnly;
         end;
     end;
-    if v336 == v35.MostFavorited or v336 == v35.Bestselling then
-        v321.SortAggregation = Enum.CatalogSortAggregation[v319.CatalogSortAggregation];
+    if v345 == v35.MostFavorited or v345 == v35.Bestselling then
+        v330.SortAggregation = Enum.CatalogSortAggregation[v328.CatalogSortAggregation];
     end;
-    if v308(v321) then
-        v321.CategoryFilter = Enum.CatalogCategoryFilter.None;
+    if v317(v330) then
+        v330.CategoryFilter = Enum.CatalogCategoryFilter.None;
     end;
-    return v321;
+    return v330;
 end;
-v77.getWebAssetModelFromEquippedAssets = function(v342) --[[ Line: 1364 ]] --[[ Name: getWebAssetModelFromEquippedAssets ]]
+v79.getWebAssetModelFromEquippedAssets = function(v351) --[[ Line: 1393 ]] --[[ Name: getWebAssetModelFromEquippedAssets ]]
     -- upvalues: v22 (copy)
-    local v343 = {};
-    for v344, v345 in v342 do
-        local v346 = v22.LayeredAssetTypes[v344] ~= nil;
-        for v347, v348 in v345 do
-            table.insert(v343, {
-                id = v347, 
-                meta = v346 and v348 or nil
+    local v352 = {};
+    for v353, v354 in v351 do
+        local v355 = v22.LayeredAssetTypes[v353] ~= nil;
+        for v356, v357 in v354 do
+            table.insert(v352, {
+                id = v356, 
+                meta = v355 and v357 or nil
             });
         end;
     end;
-    return v343;
+    return v352;
 end;
-v77.createHumanoidDescriptionAccessoryInfo = function(v349, v350, v351) --[[ Line: 1386 ]] --[[ Name: createHumanoidDescriptionAccessoryInfo ]]
+v79.createHumanoidDescriptionAccessoryInfo = function(v358, v359, v360) --[[ Line: 1415 ]] --[[ Name: createHumanoidDescriptionAccessoryInfo ]]
     -- upvalues: v22 (copy)
-    local v352 = tonumber(v350);
-    assert(v352 ~= nil, "assetIdAsNumber is not nil. Silence type checker.");
+    local v361 = tonumber(v359);
+    assert(v361 ~= nil, "assetIdAsNumber is not nil. Silence type checker.");
     return {
-        AssetId = v352, 
-        Order = v351.order, 
-        AccessoryType = v351.type or v22.AssetTypeIdToAccessoryTypeEnum[v349], 
-        IsLayered = v351.isLayered, 
-        Position = v351.position, 
-        Rotation = v351.rotation, 
-        Scale = v351.scale
+        AssetId = v361, 
+        Order = v360.order, 
+        AccessoryType = v360.type or v22.AssetTypeIdToAccessoryTypeEnum[v358], 
+        IsLayered = v360.isLayered, 
+        Position = v360.position, 
+        Rotation = v360.rotation, 
+        Scale = v360.scale
     };
 end;
-v77.createDefaultHumanoidDescriptionAccessoryInfo = function(v353, v354) --[[ Line: 1408 ]] --[[ Name: createDefaultHumanoidDescriptionAccessoryInfo ]]
+v79.createDefaultHumanoidDescriptionAccessoryInfo = function(v362, v363) --[[ Line: 1437 ]] --[[ Name: createDefaultHumanoidDescriptionAccessoryInfo ]]
     -- upvalues: v7 (copy), v22 (copy)
-    local v355 = tonumber(v354);
-    if v355 == nil then
+    local v364 = tonumber(v363);
+    if v364 == nil then
         v7("Called AvatarExperienceUtils.createDefaultHumanoidDescriptionAccessoryInfo with assetId that does not convert to string.");
-        v355 = 0;
+        v364 = 0;
     end;
-    assert(v355, "assetIdAsNumber is non-nil: Silence type checker");
+    assert(v364, "assetIdAsNumber is non-nil: Silence type checker");
     return {
-        AssetId = v355, 
-        Order = v22.LayeredClothingOrder[v353], 
-        AccessoryType = v22.AssetTypeIdToAccessoryTypeEnum[v353], 
-        IsLayered = v22.LayeredAssetTypes[v353] ~= nil
+        AssetId = v364, 
+        Order = v22.LayeredClothingOrder[v362], 
+        AccessoryType = v22.AssetTypeIdToAccessoryTypeEnum[v362], 
+        IsLayered = v22.LayeredAssetTypes[v362] ~= nil
     };
 end;
-v77.getNewFullViewEnum = function(v356) --[[ Line: 1433 ]] --[[ Name: getNewFullViewEnum ]]
+v79.getNewFullViewEnum = function(v365) --[[ Line: 1462 ]] --[[ Name: getNewFullViewEnum ]]
     -- upvalues: v34 (copy)
-    if v356 == v34.None then
+    if v365 == v34.None then
         return v34.UIFullView;
     else
         return v34.None;
     end;
 end;
-v77.getPartCFrame = function(v357, v358) --[[ Line: 1441 ]] --[[ Name: getPartCFrame ]]
+v79.getPartCFrame = function(v366, v367) --[[ Line: 1470 ]] --[[ Name: getPartCFrame ]]
     -- upvalues: v22 (copy)
-    if v357 and v357:FindFirstChild(v358) then
-        return v357[v358].CFrame;
+    if v366 and v366:FindFirstChild(v367) then
+        return v366[v367].CFrame;
     else
         return CFrame.new(v22.DefaultRigPosition);
     end;
 end;
-v77.getAttachmentCFrame = function(v359, v360, v361) --[[ Line: 1449 ]] --[[ Name: getAttachmentCFrame ]]
-    if v359 and v359:FindFirstChild(v360) then
-        local v362 = v359[v360];
-        local l_v362_FirstChild_0 = v362:FindFirstChild(v361);
-        if l_v362_FirstChild_0 then
-            return v362.CFrame * l_v362_FirstChild_0.CFrame;
+v79.getAttachmentCFrame = function(v368, v369, v370) --[[ Line: 1478 ]] --[[ Name: getAttachmentCFrame ]]
+    -- upvalues: l_FFlagAvatarJointUpgradeInUA_0 (copy)
+    if v368 and v368:FindFirstChild(v369) then
+        local v371 = v368[v369];
+        local v372 = if l_FFlagAvatarJointUpgradeInUA_0 then v371:FindFirstChild(v370, true) else v371:FindFirstChild(v370);
+        if v372 then
+            if l_FFlagAvatarJointUpgradeInUA_0 then
+                return v372.WorldCFrame;
+            else
+                return v371.CFrame * v372.CFrame;
+            end;
         end;
     end;
     return nil;
 end;
-v77.isLCCategory = function(v364) --[[ Line: 1465 ]] --[[ Name: isLCCategory ]]
+v79.getRecursiveAttachmentCFrame = function(v373) --[[ Line: 1494 ]] --[[ Name: getRecursiveAttachmentCFrame ]]
+    local l_CFrame_0 = v373.CFrame;
+    local l_Parent_0 = v373.Parent;
+    while l_Parent_0 and l_Parent_0:IsA("Bone") do
+        l_CFrame_0 = l_Parent_0.CFrame * l_CFrame_0;
+        l_Parent_0 = l_Parent_0.Parent;
+    end;
+    return l_CFrame_0;
+end;
+v79.isLCCategory = function(v376) --[[ Line: 1509 ]] --[[ Name: isLCCategory ]]
     -- upvalues: v22 (copy)
-    if v364 and v364.AssetTypeIdStrings then
-        for _, v366 in v364.AssetTypeIdStrings do
-            if v22.LayeredAssetTypes[v366] ~= nil then
-                if v22.LayeredAssetTypes[v366] == Enum.AccessoryType.Hair then
+    if v376 and v376.AssetTypeIdStrings then
+        for _, v378 in v376.AssetTypeIdStrings do
+            if v22.LayeredAssetTypes[v378] ~= nil then
+                if v22.LayeredAssetTypes[v378] == Enum.AccessoryType.Hair then
                     return false;
                 else
                     return true;
@@ -1023,100 +1060,100 @@ v77.isLCCategory = function(v364) --[[ Line: 1465 ]] --[[ Name: isLCCategory ]]
     end;
     return false;
 end;
-v77.isShoeBundle = function(v367) --[[ Line: 1491 ]] --[[ Name: isShoeBundle ]]
+v79.isShoeBundle = function(v379) --[[ Line: 1535 ]] --[[ Name: isShoeBundle ]]
     -- upvalues: v22 (copy)
-    local v368 = true;
-    if v367.bundleType ~= v22.BundleTypeIdStrings.Shoes then
-        v368 = v367.bundleType == Enum.BundleType.Shoes.Name;
+    local v380 = true;
+    if v379.bundleType ~= v22.BundleTypeIdStrings.Shoes then
+        v380 = v379.bundleType == Enum.BundleType.Shoes.Name;
     end;
-    return v368;
+    return v380;
 end;
-v77.isBundleOrLCAsset = function(v369, v370) --[[ Line: 1503 ]] --[[ Name: isBundleOrLCAsset ]]
+v79.isBundleOrLCAsset = function(v381, v382) --[[ Line: 1547 ]] --[[ Name: isBundleOrLCAsset ]]
     -- upvalues: v22 (copy)
-    local v371 = v369 == v22.ItemType.Bundle;
-    return v369 == v22.ItemType.Asset and v22.LayeredAssetTypes[v370] ~= nil or v371;
+    local v383 = v381 == v22.ItemType.Bundle;
+    return v381 == v22.ItemType.Asset and v22.LayeredAssetTypes[v382] ~= nil or v383;
 end;
-v77.isBoundingBoxVectorSane = function(v372) --[[ Line: 1515 ]] --[[ Name: isBoundingBoxVectorSane ]]
-    local v373 = false;
-    if v372.X <= 50000 then
-        v373 = false;
-        if v372.X >= -50000 then
-            v373 = false;
-            if v372.Y <= 50000 then
-                v373 = false;
-                if v372.Y >= -50000 then
-                    v373 = false;
-                    if v372.Z <= 50000 then
-                        v373 = v372.Z >= -50000;
+v79.isBoundingBoxVectorSane = function(v384) --[[ Line: 1559 ]] --[[ Name: isBoundingBoxVectorSane ]]
+    local v385 = false;
+    if v384.X <= 50000 then
+        v385 = false;
+        if v384.X >= -50000 then
+            v385 = false;
+            if v384.Y <= 50000 then
+                v385 = false;
+                if v384.Y >= -50000 then
+                    v385 = false;
+                    if v384.Z <= 50000 then
+                        v385 = v384.Z >= -50000;
                     end;
                 end;
             end;
         end;
     end;
-    return v373;
+    return v385;
 end;
-v77.isBoundingBoxCFrameSane = function(v374) --[[ Line: 1529 ]] --[[ Name: isBoundingBoxCFrameSane ]]
-    -- upvalues: v77 (copy)
-    return v77.isBoundingBoxVectorSane(v374.Position) and v77.isBoundingBoxVectorSane(v374.LookVector);
+v79.isBoundingBoxCFrameSane = function(v386) --[[ Line: 1573 ]] --[[ Name: isBoundingBoxCFrameSane ]]
+    -- upvalues: v79 (copy)
+    return v79.isBoundingBoxVectorSane(v386.Position) and v79.isBoundingBoxVectorSane(v386.LookVector);
 end;
-v77.getAssetIdsWithGeometryFromHumanoidDescription = function(v375) --[[ Line: 1539 ]] --[[ Name: getAssetIdsWithGeometryFromHumanoidDescription ]]
-    if v375 == nil then
+v79.getAssetIdsWithGeometryFromHumanoidDescription = function(v387) --[[ Line: 1583 ]] --[[ Name: getAssetIdsWithGeometryFromHumanoidDescription ]]
+    if v387 == nil then
         return {};
     else
-        local v376 = {};
-        for _, v378 in (v375:GetAccessories(true)) do
-            if v378.AssetId then
-                table.insert(v376, v378.AssetId);
+        local v388 = {};
+        for _, v390 in (v387:GetAccessories(true)) do
+            if v390.AssetId then
+                table.insert(v388, v390.AssetId);
             end;
         end;
-        if v375.Torso then
-            table.insert(v376, v375.Torso);
+        if v387.Torso then
+            table.insert(v388, v387.Torso);
         end;
-        if v375.RightLeg then
-            table.insert(v376, v375.RightLeg);
+        if v387.RightLeg then
+            table.insert(v388, v387.RightLeg);
         end;
-        if v375.RightArm then
-            table.insert(v376, v375.RightArm);
+        if v387.RightArm then
+            table.insert(v388, v387.RightArm);
         end;
-        if v375.LeftLeg then
-            table.insert(v376, v375.LeftLeg);
+        if v387.LeftLeg then
+            table.insert(v388, v387.LeftLeg);
         end;
-        if v375.LeftArm then
-            table.insert(v376, v375.LeftArm);
+        if v387.LeftArm then
+            table.insert(v388, v387.LeftArm);
         end;
-        if v375.Head then
-            table.insert(v376, v375.Head);
+        if v387.Head then
+            table.insert(v388, v387.Head);
         end;
-        return v376;
+        return v388;
     end;
 end;
-v77.calculateNewAssetIdsWithGeometry = function(v379, v380) --[[ Line: 1577 ]] --[[ Name: calculateNewAssetIdsWithGeometry ]]
-    -- upvalues: v77 (copy), v10 (copy)
-    if not v379 or not v380 then
+v79.calculateNewAssetIdsWithGeometry = function(v391, v392) --[[ Line: 1621 ]] --[[ Name: calculateNewAssetIdsWithGeometry ]]
+    -- upvalues: v79 (copy), v10 (copy)
+    if not v391 or not v392 then
         return {};
     else
-        local v381 = v77.getAssetIdsWithGeometryFromHumanoidDescription(v379);
-        local v382 = v77.getAssetIdsWithGeometryFromHumanoidDescription(v380);
-        local v383 = v10.List.toSet(v381);
-        return (v10.List.filter(v382, function(v384) --[[ Line: 1588 ]]
-            -- upvalues: v383 (copy)
-            return v383[v384] == nil;
+        local v393 = v79.getAssetIdsWithGeometryFromHumanoidDescription(v391);
+        local v394 = v79.getAssetIdsWithGeometryFromHumanoidDescription(v392);
+        local v395 = v10.List.toSet(v393);
+        return (v10.List.filter(v394, function(v396) --[[ Line: 1632 ]]
+            -- upvalues: v395 (copy)
+            return v395[v396] == nil;
         end));
     end;
 end;
-v77.getItemIconTypeFromOutfit = function(v385) --[[ Line: 1594 ]] --[[ Name: getItemIconTypeFromOutfit ]]
+v79.getItemIconTypeFromOutfit = function(v397) --[[ Line: 1638 ]] --[[ Name: getItemIconTypeFromOutfit ]]
     -- upvalues: v22 (copy), l_ItemTileEnums_0 (copy)
-    local v386 = v385.outfitType == v22.OutfitTypes.DynamicHead;
-    local l_containsDynamicHead_0 = v385.containsDynamicHead;
-    if v386 or l_containsDynamicHead_0 then
+    local v398 = v397.outfitType == v22.OutfitTypes.DynamicHead;
+    local l_containsDynamicHead_0 = v397.containsDynamicHead;
+    if v398 or l_containsDynamicHead_0 then
         return l_ItemTileEnums_0.ItemIconType.DynamicHead;
     else
         return nil;
     end;
 end;
-v77.getItemStatusStyleFromOutfit = function(v388) --[[ Line: 1605 ]] --[[ Name: getItemStatusStyleFromOutfit ]]
+v79.getItemStatusStyleFromOutfit = function(v400) --[[ Line: 1649 ]] --[[ Name: getItemStatusStyleFromOutfit ]]
     -- upvalues: l_ItemTileEnums_0 (copy)
-    local l_moderationStatus_0 = v388.moderationStatus;
+    local l_moderationStatus_0 = v400.moderationStatus;
     if l_moderationStatus_0 == Enum.ModerationStatus.ReviewedRejected then
         return l_ItemTileEnums_0.StatusStyle.AlertIcon;
     elseif l_moderationStatus_0 == Enum.ModerationStatus.NotReviewed then
@@ -1125,27 +1162,27 @@ v77.getItemStatusStyleFromOutfit = function(v388) --[[ Line: 1605 ]] --[[ Name: 
         return nil;
     end;
 end;
-v77.isModerationPendingOrRejected = function(v390) --[[ Line: 1616 ]] --[[ Name: isModerationPendingOrRejected ]]
-    local v391 = true;
-    if v390 ~= Enum.ModerationStatus.NotReviewed then
-        v391 = v390 == Enum.ModerationStatus.ReviewedRejected;
+v79.isModerationPendingOrRejected = function(v402) --[[ Line: 1660 ]] --[[ Name: isModerationPendingOrRejected ]]
+    local v403 = true;
+    if v402 ~= Enum.ModerationStatus.NotReviewed then
+        v403 = v402 == Enum.ModerationStatus.ReviewedRejected;
     end;
-    return v391;
+    return v403;
 end;
-v77.getMessageTypeFromModerationStatus = function(v392) --[[ Line: 1621 ]] --[[ Name: getMessageTypeFromModerationStatus ]]
-    if not v392 then
+v79.getMessageTypeFromModerationStatus = function(v404) --[[ Line: 1665 ]] --[[ Name: getMessageTypeFromModerationStatus ]]
+    if not v404 then
         return nil;
-    elseif v392 == Enum.ModerationStatus.NotReviewed then
+    elseif v404 == Enum.ModerationStatus.NotReviewed then
         return "UnavailableItems";
-    elseif v392 == Enum.ModerationStatus.ReviewedRejected then
+    elseif v404 == Enum.ModerationStatus.ReviewedRejected then
         return "ItemDidNotMeetRobloxCommunityStandards";
     else
         return nil;
     end;
 end;
-v77.getModerationStatusFromAvailabilityStatus = function(v393) --[[ Line: 1636 ]] --[[ Name: getModerationStatusFromAvailabilityStatus ]]
+v79.getModerationStatusFromAvailabilityStatus = function(v405) --[[ Line: 1680 ]] --[[ Name: getModerationStatusFromAvailabilityStatus ]]
     -- upvalues: l_InventoryItemAvailability_0 (copy)
-    if not v393 then
+    if not v405 then
         return nil;
     else
         return ({
@@ -1157,33 +1194,33 @@ v77.getModerationStatusFromAvailabilityStatus = function(v393) --[[ Line: 1636 ]
             [l_InventoryItemAvailability_0.PartiallyAvailableWithExpiredSubitems] = Enum.ModerationStatus.NotApplicable, 
             [l_InventoryItemAvailability_0.Expired] = Enum.ModerationStatus.NotApplicable, 
             [l_InventoryItemAvailability_0.PendingReview] = Enum.ModerationStatus.NotReviewed
-        })[v393];
+        })[v405];
     end;
 end;
-v77.assetTypeIdIsAnimationOrEmote = function(v394) --[[ Line: 1655 ]] --[[ Name: assetTypeIdIsAnimationOrEmote ]]
+v79.assetTypeIdIsAnimationOrEmote = function(v406) --[[ Line: 1699 ]] --[[ Name: assetTypeIdIsAnimationOrEmote ]]
     -- upvalues: v22 (copy)
-    if not v394 then
+    if not v406 then
         return false;
     else
-        return v22.AssetTypeIdToCategory[v394] == v22.AssetCategories.Animation;
+        return v22.AssetTypeIdToCategory[v406] == v22.AssetCategories.Animation;
     end;
 end;
-local v397 = l_memoize_0(function(v395) --[[ Line: 1665 ]]
+local v409 = l_memoize_0(function(v407) --[[ Line: 1709 ]]
     -- upvalues: v22 (copy)
-    local v396 = v395 and v395[v22.AssetTypeIdStrings.MoodAnimation];
-    return v396 and next(v396);
+    local v408 = v407 and v407[v22.AssetTypeIdStrings.MoodAnimation];
+    return v408 and next(v408);
 end);
-v77.getEquippedMoodAssetId = function(v398) --[[ Line: 1672 ]] --[[ Name: getEquippedMoodAssetId ]]
-    -- upvalues: v397 (copy)
-    local l_EquippedAssets_0 = v398.AvatarExperience.AvatarEditor.Character.EquippedAssets;
-    return v397(l_EquippedAssets_0);
+v79.getEquippedMoodAssetId = function(v410) --[[ Line: 1716 ]] --[[ Name: getEquippedMoodAssetId ]]
+    -- upvalues: v409 (copy)
+    local l_EquippedAssets_0 = v410.AvatarExperience.AvatarEditor.Character.EquippedAssets;
+    return v409(l_EquippedAssets_0);
 end;
-v77.getAssetIdForPPEPose = function(v400) --[[ Line: 1677 ]] --[[ Name: getAssetIdForPPEPose ]]
-    -- upvalues: v22 (copy), v77 (copy)
-    local l_AvatarExperience_0 = v400.AvatarExperience;
-    for _, v403 in v400.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
-        if v403.itemType == v22.ItemType.Asset and v77.assetTypeIdIsAnimationOrEmote(v403.itemSubType) then
-            return v403.itemId;
+v79.getAssetIdForPPEPose = function(v412) --[[ Line: 1721 ]] --[[ Name: getAssetIdForPPEPose ]]
+    -- upvalues: v22 (copy), v79 (copy)
+    local l_AvatarExperience_0 = v412.AvatarExperience;
+    for _, v415 in v412.AvatarExperience.AvatarScene.OutfitTryOn.TryOnItems do
+        if v415.itemType == v22.ItemType.Asset and v79.assetTypeIdIsAnimationOrEmote(v415.itemSubType) then
+            return v415.itemId;
         end;
     end;
     if l_AvatarExperience_0.ProfilePictureEditor.ProfilePictureParams.emoteAssetId then
@@ -1192,86 +1229,86 @@ v77.getAssetIdForPPEPose = function(v400) --[[ Line: 1677 ]] --[[ Name: getAsset
         return nil;
     end;
 end;
-local v405 = l_memoize_0(function(v404) --[[ Line: 1698 ]]
+local v417 = l_memoize_0(function(v416) --[[ Line: 1742 ]]
     -- upvalues: v22 (copy)
-    return v404 and v404[v22.AssetTypeIdStrings.Gear] and next(v404[v22.AssetTypeIdStrings.Gear]);
+    return v416 and v416[v22.AssetTypeIdStrings.Gear] and next(v416[v22.AssetTypeIdStrings.Gear]);
 end);
-v77.getEquippedToolId = function(v406) --[[ Line: 1705 ]] --[[ Name: getEquippedToolId ]]
-    -- upvalues: v405 (copy)
-    local l_EquippedAssets_1 = v406.AvatarExperience.AvatarEditor.Character.EquippedAssets;
-    return v405(l_EquippedAssets_1);
+v79.getEquippedToolId = function(v418) --[[ Line: 1749 ]] --[[ Name: getEquippedToolId ]]
+    -- upvalues: v417 (copy)
+    local l_EquippedAssets_1 = v418.AvatarExperience.AvatarEditor.Character.EquippedAssets;
+    return v417(l_EquippedAssets_1);
 end;
-v77.getNextPageCursorKey = function(v408, v409, v410) --[[ Line: 1714 ]] --[[ Name: getNextPageCursorKey ]]
-    if v409 then
-        return v408 .. (v410 or "");
+v79.getNextPageCursorKey = function(v420, v421, v422) --[[ Line: 1758 ]] --[[ Name: getNextPageCursorKey ]]
+    if v421 then
+        return v420 .. (v422 or "");
     else
-        return v408;
+        return v420;
     end;
 end;
-v77.getPerformFetchKey = function(v411, v412, v413) --[[ Line: 1730 ]] --[[ Name: getPerformFetchKey ]]
+v79.getPerformFetchKey = function(v423, v424, v425) --[[ Line: 1774 ]] --[[ Name: getPerformFetchKey ]]
     -- upvalues: v22 (copy)
-    if v412 then
-        return v22.OutfitsKey .. v411 .. (v413 or "");
+    if v424 then
+        return v22.OutfitsKey .. v423 .. (v425 or "");
     else
-        return v22.UserInventoryKey .. v411;
+        return v22.UserInventoryKey .. v423;
     end;
 end;
-v77.getCurrentScreenIgnoreItemDetails = function(v414) --[[ Line: 1746 ]] --[[ Name: getCurrentScreenIgnoreItemDetails ]]
+v79.getCurrentScreenIgnoreItemDetails = function(v426) --[[ Line: 1790 ]] --[[ Name: getCurrentScreenIgnoreItemDetails ]]
     -- upvalues: l_AvatarScreen_0 (copy)
-    local l_name_2 = v414.current.name;
-    local v416 = true;
+    local l_name_2 = v426.current.name;
+    local v428 = true;
     if l_name_2 ~= l_AvatarScreen_0.ItemDetails then
-        v416 = true;
+        v428 = true;
         if l_name_2 ~= l_AvatarScreen_0.LookDetails then
-            v416 = l_name_2 == l_AvatarScreen_0.OutfitDetails;
+            v428 = l_name_2 == l_AvatarScreen_0.OutfitDetails;
         end;
     end;
-    if v416 then
-        l_name_2 = v414.opaque.name;
+    if v428 then
+        l_name_2 = v426.opaque.name;
     end;
     return l_name_2;
 end;
-v77.getLargestPossibleOneLineTextSize = function(v417, v418, v419, v420) --[[ Line: 1765 ]] --[[ Name: getLargestPossibleOneLineTextSize ]]
+v79.getLargestPossibleOneLineTextSize = function(v429, v430, v431, v432) --[[ Line: 1809 ]] --[[ Name: getLargestPossibleOneLineTextSize ]]
     -- upvalues: l_TextService_0 (copy)
-    v420 = v420 - 1;
-    local v421 = Vector2.new(v420, 100000);
+    v432 = v432 - 1;
+    local v433 = Vector2.new(v432, 100000);
     while true do
-        if v418 > 1 then
-            local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v417, v418, v419.Font, v421);
-            if l_l_TextService_0_TextSize_0.Y <= v418 + 1 then
-                return Vector2.new(math.ceil(l_l_TextService_0_TextSize_0.X), (math.ceil(l_l_TextService_0_TextSize_0.Y))), v418;
+        if v430 > 1 then
+            local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v429, v430, v431.Font, v433);
+            if l_l_TextService_0_TextSize_0.Y <= v430 + 1 then
+                return Vector2.new(math.ceil(l_l_TextService_0_TextSize_0.X), (math.ceil(l_l_TextService_0_TextSize_0.Y))), v430;
             else
-                v418 = v418 - 1;
+                v430 = v430 - 1;
             end;
         else
             return nil, nil;
         end;
     end;
 end;
-v77.selectSceneSize = function(v423) --[[ Line: 1801 ]] --[[ Name: selectSceneSize ]]
+v79.selectSceneSize = function(v435) --[[ Line: 1845 ]] --[[ Name: selectSceneSize ]]
     -- upvalues: l_DeviceOrientationMode_0 (copy), l_getSafeAreaSize_0 (copy), v22 (copy)
-    local l_GlobalGuiInset_0 = v423.GlobalGuiInset;
-    local v425 = v423.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
-    local l_ScreenSize_0 = v423.ScreenSize;
+    local l_GlobalGuiInset_0 = v435.GlobalGuiInset;
+    local v437 = v435.DeviceOrientation == l_DeviceOrientationMode_0.Portrait;
+    local l_ScreenSize_0 = v435.ScreenSize;
     local l_Offset_0 = l_getSafeAreaSize_0(l_ScreenSize_0, l_GlobalGuiInset_0).Y.Offset;
     local l_bottom_0 = l_GlobalGuiInset_0.bottom;
-    local v429 = l_ScreenSize_0.Y - l_bottom_0;
-    local v430 = l_Offset_0 * v22.PortraitSceneHeight;
-    local v431 = v425 and v430 or v429;
-    local v432 = l_ScreenSize_0.X * v22.LandscapeSceneWidth;
-    return v431, v425 and l_ScreenSize_0.X or v432;
+    local v441 = l_ScreenSize_0.Y - l_bottom_0;
+    local v442 = l_Offset_0 * v22.PortraitSceneHeight;
+    local v443 = v437 and v442 or v441;
+    local v444 = l_ScreenSize_0.X * v22.LandscapeSceneWidth;
+    return v443, v437 and l_ScreenSize_0.X or v444;
 end;
-v77.getColor3Difference = l_memoize_0(function(v433, v434) --[[ Line: 1821 ]]
-    return (math.sqrt((v433.R - v434.R) * (v433.R - v434.R) + (v433.G - v434.G) * (v433.G - v434.G) + (v433.B - v434.B) * (v433.B - v434.B)));
+v79.getColor3Difference = l_memoize_0(function(v445, v446) --[[ Line: 1865 ]]
+    return (math.sqrt((v445.R - v446.R) * (v445.R - v446.R) + (v445.G - v446.G) * (v445.G - v446.G) + (v445.B - v446.B) * (v445.B - v446.B)));
 end);
-v77.bodyColorToBodyColor3 = l_memoize_0(function(v435) --[[ Line: 1825 ]]
-    if v435 then
-        return BrickColor.new(v435).Color;
+v79.bodyColorToBodyColor3 = l_memoize_0(function(v447) --[[ Line: 1869 ]]
+    if v447 then
+        return BrickColor.new(v447).Color;
     else
         return nil;
     end;
 end);
-v77.bodyPartForSkinColoringIdToBodyColorId = {
+v79.bodyPartForSkinColoringIdToBodyColorId = {
     headColor3 = "headColorId", 
     torsoColor3 = "torsoColorId", 
     rightArmColor3 = "rightArmColorId", 
@@ -1279,211 +1316,211 @@ v77.bodyPartForSkinColoringIdToBodyColorId = {
     leftArmColor3 = "leftArmColorId", 
     leftLegColor3 = "leftLegColorId"
 };
-v77.bodyColorIdToBodyPartForSkinColoringId = {};
-for v436, v437 in pairs(v77.bodyPartForSkinColoringIdToBodyColorId) do
-    v77.bodyColorIdToBodyPartForSkinColoringId[v437] = v436;
+v79.bodyColorIdToBodyPartForSkinColoringId = {};
+for v448, v449 in pairs(v79.bodyPartForSkinColoringIdToBodyColorId) do
+    v79.bodyColorIdToBodyPartForSkinColoringId[v449] = v448;
 end;
-v77.convertBodyColor3sToHexes = l_memoize_0(function(v438) --[[ Line: 1858 ]]
-    local v439 = {};
-    for v440, v441 in pairs(v438) do
-        v439[v440] = v441:ToHex();
+v79.convertBodyColor3sToHexes = l_memoize_0(function(v450) --[[ Line: 1902 ]]
+    local v451 = {};
+    for v452, v453 in pairs(v450) do
+        v451[v452] = v453:ToHex();
     end;
-    return v439;
+    return v451;
 end);
-v77.convertBodyColor3HexesToColor3s = l_memoize_0(function(v442) --[[ Line: 1876 ]]
-    local v443 = {};
-    for v444, v445 in pairs(v442) do
-        v443[v444] = Color3.fromHex(v445);
+v79.convertBodyColor3HexesToColor3s = l_memoize_0(function(v454) --[[ Line: 1920 ]]
+    local v455 = {};
+    for v456, v457 in pairs(v454) do
+        v455[v456] = Color3.fromHex(v457);
     end;
-    return v443;
+    return v455;
 end);
-v77.isAvatarSceneButtonsVisible = function(v446, v447, v448, v449, v450) --[[ Line: 1885 ]] --[[ Name: isAvatarSceneButtonsVisible ]]
+v79.isAvatarSceneButtonsVisible = function(v458, v459, v460, v461, v462) --[[ Line: 1929 ]] --[[ Name: isAvatarSceneButtonsVisible ]]
     -- upvalues: l_AvatarScreenProperties_0 (copy)
-    local v451 = (l_AvatarScreenProperties_0[v446.opaque.name] or {}).refinementButtonVisible and not v448 and not v449;
-    if v450 then
-        return v451 and v450.state.key == v446.opaque.key;
+    local v463 = (l_AvatarScreenProperties_0[v458.opaque.name] or {}).refinementButtonVisible and not v460 and not v461;
+    if v462 then
+        return v463 and v462.state.key == v458.opaque.key;
     else
-        return v451 and v447;
+        return v463 and v459;
     end;
 end;
-v77.isUserCameraEligible = function() --[[ Line: 1908 ]] --[[ Name: isUserCameraEligible ]]
+v79.isUserCameraEligible = function() --[[ Line: 1952 ]] --[[ Name: isUserCameraEligible ]]
     -- upvalues: v10 (copy), l_Players_0 (copy), v54 (copy)
     local l_CameraDevices_0 = game:GetService("VideoCaptureService"):GetCameraDevices();
-    local v453 = v10.isEmpty(l_CameraDevices_0);
+    local v465 = v10.isEmpty(l_CameraDevices_0);
     assert(l_Players_0 ~= nil, "Players should always be defined");
-    return not (v453 or v54);
+    return not (v465 or v54);
 end;
-v77.getUserId = function(v454) --[[ Line: 1917 ]] --[[ Name: getUserId ]]
-    if v454.LocalUserId then
-        return v454.LocalUserId;
-    elseif v454.RobloxUser and v454.RobloxUser.rbxuid then
-        return (tostring(v454.RobloxUser.rbxuid));
+v79.getUserId = function(v466) --[[ Line: 1961 ]] --[[ Name: getUserId ]]
+    if v466.LocalUserId then
+        return v466.LocalUserId;
+    elseif v466.RobloxUser and v466.RobloxUser.rbxuid then
+        return (tostring(v466.RobloxUser.rbxuid));
     else
         return nil;
     end;
 end;
-v77.isItemSelectable = function(v455) --[[ Line: 1929 ]] --[[ Name: isItemSelectable ]]
-    if v455 == nil then
+v79.isItemSelectable = function(v467) --[[ Line: 1973 ]] --[[ Name: isItemSelectable ]]
+    if v467 == nil then
         return false;
     else
-        local l_noPriceStatus_0 = v455.noPriceStatus;
+        local l_noPriceStatus_0 = v467.noPriceStatus;
         if l_noPriceStatus_0 == nil or l_noPriceStatus_0 == "Free" then
             return true;
         elseif l_noPriceStatus_0 == "Unavailable" then
             return false;
-        elseif v455.quantityOwned > 0 then
+        elseif v467.quantityOwned > 0 then
             return true;
         else
             return false;
         end;
     end;
 end;
-v77.isTryingOnClassicFace = function(v457) --[[ Line: 1947 ]] --[[ Name: isTryingOnClassicFace ]]
+v79.isTryingOnClassicFace = function(v469) --[[ Line: 1991 ]] --[[ Name: isTryingOnClassicFace ]]
     -- upvalues: v11 (copy), v22 (copy)
-    return v11.some(v457, function(v458) --[[ Line: 1948 ]]
+    return v11.some(v469, function(v470) --[[ Line: 1992 ]]
         -- upvalues: v22 (ref)
-        local v459 = false;
-        if v458.itemType == "Asset" then
-            v459 = v458.itemSubType == v22.AssetTypeIdStrings.Face;
+        local v471 = false;
+        if v470.itemType == "Asset" then
+            v471 = v470.itemSubType == v22.AssetTypeIdStrings.Face;
         end;
-        return v459;
+        return v471;
     end);
 end;
-v77.isTryingOnDynamicHead = function(v460) --[[ Line: 1953 ]] --[[ Name: isTryingOnDynamicHead ]]
+v79.isTryingOnDynamicHead = function(v472) --[[ Line: 1997 ]] --[[ Name: isTryingOnDynamicHead ]]
     -- upvalues: v11 (copy), v22 (copy)
-    return v11.some(v460, function(v461) --[[ Line: 1954 ]]
+    return v11.some(v472, function(v473) --[[ Line: 1998 ]]
         -- upvalues: v22 (ref)
-        local v462 = false;
-        if v461.itemType == "Bundle" then
-            v462 = v461.itemSubType == v22.BundleTypeIdStrings.DynamicHead;
+        local v474 = false;
+        if v473.itemType == "Bundle" then
+            v474 = v473.itemSubType == v22.BundleTypeIdStrings.DynamicHead;
         end;
-        return v462;
+        return v474;
     end);
 end;
-v77.getRecommendedAssetTypeIdStringFromCategoryInfo = l_memoize_0(function(v463) --[[ Line: 1964 ]]
-    if v463.RecommendedAssetTypeIdString then
-        return v463.RecommendedAssetTypeIdString;
-    elseif v463.AssetTypeIdStrings and #v463.AssetTypeIdStrings == 1 then
-        return v463.AssetTypeIdStrings[1];
+v79.getRecommendedAssetTypeIdStringFromCategoryInfo = l_memoize_0(function(v475) --[[ Line: 2008 ]]
+    if v475.RecommendedAssetTypeIdString then
+        return v475.RecommendedAssetTypeIdString;
+    elseif v475.AssetTypeIdStrings and #v475.AssetTypeIdStrings == 1 then
+        return v475.AssetTypeIdStrings[1];
     else
         return nil;
     end;
 end);
-v77.getRecommendedKey = l_memoize_0(function(v464) --[[ Line: 1978 ]]
-    -- upvalues: v23 (copy), v77 (copy), v7 (copy), v22 (copy), v61 (copy)
-    if v464.RecommendationsType == v23.RecommendationsType.Asset then
-        local v465 = v77.getRecommendedAssetTypeIdStringFromCategoryInfo(v464);
-        if not v465 then
+v79.getRecommendedKey = l_memoize_0(function(v476) --[[ Line: 2022 ]]
+    -- upvalues: v23 (copy), v79 (copy), v7 (copy), v22 (copy), v61 (copy)
+    if v476.RecommendationsType == v23.RecommendationsType.Asset then
+        local v477 = v79.getRecommendedAssetTypeIdStringFromCategoryInfo(v476);
+        if not v477 then
             v7("called getRecommendedKey with a category with no assetTypeIdString");
             return v22.AssetTypeIdStrings.Hat;
         else
-            return v465;
+            return v477;
         end;
-    elseif v464.RecommendationsType == v23.RecommendationsType.BodyParts then
+    elseif v476.RecommendationsType == v23.RecommendationsType.BodyParts then
         return v23.RecommendationsType.BodyParts;
-    elseif v464.RecommendationsType == v23.RecommendationsType.AvatarAnimations then
+    elseif v476.RecommendationsType == v23.RecommendationsType.AvatarAnimations then
         return v23.RecommendationsType.AvatarAnimations;
-    elseif v464.RecommendationsType == v23.RecommendationsType.Shoes then
+    elseif v476.RecommendationsType == v23.RecommendationsType.Shoes then
         return v23.RecommendationsType.Shoes;
-    elseif v464.RecommendationsType == v23.RecommendationsType.DynamicHeads then
+    elseif v476.RecommendationsType == v23.RecommendationsType.DynamicHeads then
         return v23.RecommendationsType.DynamicHeads;
-    elseif v61() and v464.RecommendationsType == v23.RecommendationsType.All then
+    elseif v61() and v476.RecommendationsType == v23.RecommendationsType.All then
         return v23.RecommendationsType.All;
     else
         return v23.RecommendationsType.None;
     end;
 end);
-v77.getCategoryInfoByName = l_memoize_0(function(v466, v467, v468) --[[ Line: 2011 ]]
-    -- upvalues: v77 (copy)
-    local v469 = nil;
-    local v470 = nil;
-    for v471, v472 in v466 do
-        if v472.Name == v467 then
-            v469 = v471;
-            if v468 and v472.Subcategories then
-                for v473, v474 in v472.Subcategories do
-                    if v474.Name == v468 then
-                        v470 = v473;
+v79.getCategoryInfoByName = l_memoize_0(function(v478, v479, v480) --[[ Line: 2055 ]]
+    -- upvalues: v79 (copy)
+    local v481 = nil;
+    local v482 = nil;
+    for v483, v484 in v478 do
+        if v484.Name == v479 then
+            v481 = v483;
+            if v480 and v484.Subcategories then
+                for v485, v486 in v484.Subcategories do
+                    if v486.Name == v480 then
+                        v482 = v485;
                         break;
                     end;
                 end;
-                assert(v470 ~= nil, "Could not find subcategory with name " .. v468);
+                assert(v482 ~= nil, "Could not find subcategory with name " .. v480);
                 break;
             else
                 break;
             end;
         end;
     end;
-    assert(v469 ~= nil, "Could not find category with name  " .. v467);
-    return (v77.getCategoryInfo(v466, v469, v470));
+    assert(v481 ~= nil, "Could not find category with name  " .. v479);
+    return (v79.getCategoryInfo(v478, v481, v482));
 end);
-v77.getAssetIdFromContent = l_memoize_0(function(v475) --[[ Line: 2037 ]]
-    if v475 == nil then
+v79.getAssetIdFromContent = l_memoize_0(function(v487) --[[ Line: 2081 ]]
+    if v487 == nil then
         return nil;
     else
-        assert(v475, "contentId is not nil: silences type checker");
-        local v476 = string.match(v475, ".*?id=([0-9]+)");
-        if v476 then
-            return v476;
+        assert(v487, "contentId is not nil: silences type checker");
+        local v488 = string.match(v487, ".*?id=([0-9]+)");
+        if v488 then
+            return v488;
         else
-            return string.match(v475, "rbxassetid://([0-9]+)");
+            return string.match(v487, "rbxassetid://([0-9]+)");
         end;
     end;
 end);
-v77.sortOutfitTryOnItemsByRecency = l_memoize_0(function(v477, v478) --[[ Line: 2052 ]]
-    local v479 = {};
-    for _, v481 in v477 do
-        table.insert(v479, v481);
+v79.sortOutfitTryOnItemsByRecency = l_memoize_0(function(v489, v490) --[[ Line: 2096 ]]
+    local v491 = {};
+    for _, v493 in v489 do
+        table.insert(v491, v493);
     end;
-    table.sort(v479, function(v482, v483) --[[ Line: 2059 ]]
-        -- upvalues: v478 (copy)
-        if v482.itemRecency and v483.itemRecency then
-            if v478 then
-                return v482.itemRecency > v483.itemRecency;
+    table.sort(v491, function(v494, v495) --[[ Line: 2103 ]]
+        -- upvalues: v490 (copy)
+        if v494.itemRecency and v495.itemRecency then
+            if v490 then
+                return v494.itemRecency > v495.itemRecency;
             else
-                return v482.itemRecency < v483.itemRecency;
+                return v494.itemRecency < v495.itemRecency;
             end;
         else
             return false;
         end;
     end);
-    return v479;
+    return v491;
 end);
-v77.fuzzyEq = function(v484, v485, v486) --[[ Line: 2074 ]]
-    return (v486 or 0.001) > math.abs(v484 - v485);
+v79.fuzzyEq = function(v496, v497, v498) --[[ Line: 2118 ]]
+    return (v498 or 0.001) > math.abs(v496 - v497);
 end;
-v77.getCreatorNameTileFooterEnabled = function(v487) --[[ Line: 2079 ]]
-    return v487 and v487.customizedDataMap and v487.customizedDataMap.creatorNameTileFooterEnabled == "true";
+v79.getCreatorNameTileFooterEnabled = function(v499) --[[ Line: 2123 ]]
+    return v499 and v499.customizedDataMap and v499.customizedDataMap.creatorNameTileFooterEnabled == "true";
 end;
-v77.translateString = function(v488, v489) --[[ Line: 2093 ]] --[[ Name: translateString ]]
+v79.translateString = function(v500, v501) --[[ Line: 2137 ]] --[[ Name: translateString ]]
     -- upvalues: l_LocalizationService_0 (copy), l_Localization_0 (copy), v7 (copy)
     local l_RobloxLocaleId_0 = l_LocalizationService_0.RobloxLocaleId;
-    local v491 = l_Localization_0.new(l_RobloxLocaleId_0);
-    v491:SetLocale(l_RobloxLocaleId_0);
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 2098 ]]
-        -- upvalues: v491 (copy), v488 (copy), v489 (copy)
-        return v491:Format(v488, v489);
+    local v503 = l_Localization_0.new(l_RobloxLocaleId_0);
+    v503:SetLocale(l_RobloxLocaleId_0);
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 2142 ]]
+        -- upvalues: v503 (copy), v500 (copy), v501 (copy)
+        return v503:Format(v500, v501);
     end);
     if l_status_0 then
         return l_result_0;
     else
-        v7("Failed to translate string with key: " .. v488);
+        v7("Failed to translate string with key: " .. v500);
         return "";
     end;
 end;
-v77.resolveEditorCategory = function(v494) --[[ Line: 2116 ]] --[[ Name: resolveEditorCategory ]]
+v79.resolveEditorCategory = function(v506) --[[ Line: 2160 ]] --[[ Name: resolveEditorCategory ]]
     -- upvalues: v21 (copy)
-    for _, v496 in (v21()) do
-        if v496.Id == v494 then
-            return v496.Category, nil;
-        elseif v496.Subcategories then
-            for _, v498 in v496.Subcategories do
-                if v498.Id == v494 then
-                    return v496.Category, v498.Subcategory;
+    for _, v508 in (v21()) do
+        if v508.Id == v506 then
+            return v508.Category, nil;
+        elseif v508.Subcategories then
+            for _, v510 in v508.Subcategories do
+                if v510.Id == v506 then
+                    return v508.Category, v510.Subcategory;
                 end;
             end;
         end;
     end;
     return nil, nil;
 end;
-return v77;
+return v79;

@@ -1,1 +1,1 @@
-return game:DefineFastFlag("GuacStickyShortcutBarEnabled_dev", false);
+return game:DefineFastFlag("GuacStickyShortcutBarEnabled", false);

@@ -6,6 +6,7 @@ local l_FFlagProfilePlatformEnableStore_0 = require(l_Parent_0.SharedFlags).FFla
 local l_FFlagEnablePlatformProfileContextualMenuOption_0 = require(l_Parent_0.SharedFlags).FFlagEnablePlatformProfileContextualMenuOption;
 local v6 = require(l_script_FirstAncestor_0.Flags.FFlagProfilePlatformUseCatalogItemOpenedNewFields);
 local l_FFlagTCShareLinkSenderUI_0 = require(l_Parent_0.SharedFlags).FFlagTCShareLinkSenderUI;
+local l_FFlagProfilePlatformEnableCurrencyTransfer_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableCurrencyTransfer;
 return {
     defaults = {
         throttlingThousandths = game:DefineFastInt("ProfilePlatformAnalyticsThrottlingThousandths", 1000), 
@@ -22,23 +23,23 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    status = function(v8) --[[ Line: 28 ]] --[[ Name: status ]]
-                        return v8;
+                    status = function(v9) --[[ Line: 30 ]] --[[ Name: status ]]
+                        return v9;
                     end
                 }
             }, 
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryStat, 
-                overrideName = function(v9) --[[ Line: 35 ]] --[[ Name: overrideName ]]
+                overrideName = function(v10) --[[ Line: 37 ]] --[[ Name: overrideName ]]
                     -- upvalues: v3 (copy)
-                    return v3.ProfileLoadingStage .. "Time" .. v9.status;
+                    return v3.ProfileLoadingStage .. "Time" .. v10.status;
                 end, 
                 dynamicCustomFields = {
-                    status = function(v10) --[[ Line: 39 ]] --[[ Name: status ]]
-                        return v10;
+                    status = function(v11) --[[ Line: 41 ]] --[[ Name: status ]]
+                        return v11;
                     end, 
-                    isProfilePlatform = function(v11) --[[ Line: 42 ]] --[[ Name: isProfilePlatform ]]
-                        return v11 or false;
+                    isProfilePlatform = function(v12) --[[ Line: 44 ]] --[[ Name: isProfilePlatform ]]
+                        return v12 or false;
                     end
                 }
             }
@@ -55,9 +56,9 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    reloadCount = function(v12) --[[ Line: 56 ]] --[[ Name: reloadCount ]]
-                        if v12 <= 10 then
-                            return (("ReloadCount$%*"):format(v12));
+                    reloadCount = function(v13) --[[ Line: 58 ]] --[[ Name: reloadCount ]]
+                        if v13 <= 10 then
+                            return (("ReloadCount$%*"):format(v13));
                         else
                             return "ReloadCount5+";
                         end;
@@ -77,11 +78,11 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryStat, 
                 dynamicCustomFields = {
-                    status = function(v13) --[[ Line: 76 ]] --[[ Name: status ]]
-                        return v13;
-                    end, 
-                    isInExperience = function(v14) --[[ Line: 79 ]] --[[ Name: isInExperience ]]
+                    status = function(v14) --[[ Line: 78 ]] --[[ Name: status ]]
                         return v14;
+                    end, 
+                    isInExperience = function(v15) --[[ Line: 81 ]] --[[ Name: isInExperience ]]
+                        return v15;
                     end
                 }
             }
@@ -98,8 +99,8 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    friendStatus = function(v15) --[[ Line: 93 ]] --[[ Name: friendStatus ]]
-                        return v15;
+                    friendStatus = function(v16) --[[ Line: 95 ]] --[[ Name: friendStatus ]]
+                        return v16;
                     end
                 }
             }
@@ -116,8 +117,8 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    presenceType = function(v16) --[[ Line: 107 ]] --[[ Name: presenceType ]]
-                        return v16;
+                    presenceType = function(v17) --[[ Line: 109 ]] --[[ Name: presenceType ]]
+                        return v17;
                     end
                 }
             }
@@ -277,8 +278,8 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = if l_FFlagTCShareLinkSenderUI_0 then {
-                    modalVariantOverride = function(v17) --[[ Line: 221 ]] --[[ Name: modalVariantOverride ]]
-                        return v17;
+                    modalVariantOverride = function(v18) --[[ Line: 223 ]] --[[ Name: modalVariantOverride ]]
+                        return v18;
                     end
                 } else nil
             }
@@ -633,12 +634,12 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryStat, 
                 dynamicCustomFields = if l_FFlagProfilePlatformEnableStore_0 then if v6 then {
-                    btnContext = function(v18) --[[ Line: 472 ]] --[[ Name: btnContext ]]
-                        return v18;
+                    btnContext = function(v19) --[[ Line: 474 ]] --[[ Name: btnContext ]]
+                        return v19;
                     end
                 } else {
-                    source = function(v19) --[[ Line: 477 ]] --[[ Name: source ]]
-                        return v19;
+                    source = function(v20) --[[ Line: 479 ]] --[[ Name: source ]]
+                        return v20;
                     end
                 } else nil
             }
@@ -655,8 +656,8 @@ return {
             {
                 type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter, 
                 dynamicCustomFields = {
-                    component = function(v20) --[[ Line: 492 ]] --[[ Name: component ]]
-                        return v20;
+                    component = function(v21) --[[ Line: 494 ]] --[[ Name: component ]]
+                        return v21;
                     end
                 }
             }
@@ -681,6 +682,32 @@ return {
             25, 
             9, 
             11
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
+            }
+        }
+    } else nil, 
+    [v3.ContextualMenuButtonCurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
+        description = "Currency transfer button clicked from contextual menu", 
+        lastUpdated = {
+            26, 
+            3, 
+            24
+        }, 
+        backendsList = {
+            {
+                type = l_SupportedTelemetryBackends_0.RobloxTelemetryCounter
+            }
+        }
+    } else nil, 
+    [v3.CTAButtonCurrencyTransfer] = if l_FFlagProfilePlatformEnableCurrencyTransfer_0 then {
+        description = "Currency transfer CTA button clicked", 
+        lastUpdated = {
+            26, 
+            3, 
+            24
         }, 
         backendsList = {
             {

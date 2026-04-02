@@ -55,11 +55,11 @@ local l_useVoiceStatus_0 = v8.Hooks.useVoiceStatus;
 local l_CrossExperienceVoiceManager_0 = v8.CrossExperienceVoiceManager;
 local l_GetFFlagEnableCrossExpVoice_0 = l_SharedFlags_0.GetFFlagEnableCrossExpVoice;
 local v56 = game:DefineFastFlag("EnableCrossExpVoiceDebug", false);
-local v57 = game:DefineFastFlag("HidePartyVoiceLobbyMicWhenDisconnected", false);
 local l_game_EngineFeature_0 = game:GetEngineFeature("AudioFocusManagement");
-local v59 = game:DefineFastString("SquadExperiencePickerTooltipSeenStorageValue", "True");
+local v58 = game:DefineFastString("SquadExperiencePickerTooltipSeenStorageValue", "True");
 local l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 = l_SharedFlags_0.FFlagPartyDevAPIToRespectThirdPartySettingsEnabled;
-local v61 = game:DefineFastFlag("EnableSquadPageChatBadgeFix", false);
+local v60 = game:DefineFastFlag("EnableSquadPageChatBadgeFix", false);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = l_SharedFlags_0.FFlagRemoveDependencyArrayAntipattern;
 local v62 = l_SquadCoordinationExperienceJoinExperimentation_0.getIsSearchIconOnExpPickerEnabled() and "size-800-800" or "size-600-600";
 local v63 = {
     ["icons/menu/platformChatOff"] = "speech-bubble-align-center", 
@@ -71,28 +71,28 @@ local v63 = {
     ["icons/status/player/developer"] = "hammer-code"
 };
 local v64 = l_SquadCoordinationExperienceJoinExperimentation_0.getIsSearchIconOnExpPickerEnabled() and "icons/common/search" or "icons/common/play";
-local function _(v65) --[[ Line: 152 ]] --[[ Name: getTooltipWasShownFromAppStorage ]]
-    -- upvalues: l_AppStorageService_0 (copy), v59 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 153 ]]
+local function _(v65) --[[ Line: 153 ]] --[[ Name: getTooltipWasShownFromAppStorage ]]
+    -- upvalues: l_AppStorageService_0 (copy), v58 (copy)
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 154 ]]
         -- upvalues: l_AppStorageService_0 (ref), v65 (copy)
         return l_AppStorageService_0:GetItem(v65);
     end);
     if not l_status_0 or l_result_0 == nil then
         return false;
     else
-        return l_result_0 == v59;
+        return l_result_0 == v58;
     end;
 end;
-local function _(v69) --[[ Line: 164 ]] --[[ Name: setTooltipWasShownFromAppStorage ]]
-    -- upvalues: l_AppStorageService_0 (copy), v59 (copy)
-    pcall(function() --[[ Line: 165 ]]
-        -- upvalues: l_AppStorageService_0 (ref), v69 (copy), v59 (ref)
-        l_AppStorageService_0:SetItem(v69, v59);
+local function _(v69) --[[ Line: 165 ]] --[[ Name: setTooltipWasShownFromAppStorage ]]
+    -- upvalues: l_AppStorageService_0 (copy), v58 (copy)
+    pcall(function() --[[ Line: 166 ]]
+        -- upvalues: l_AppStorageService_0 (ref), v69 (copy), v58 (ref)
+        l_AppStorageService_0:SetItem(v69, v58);
         l_AppStorageService_0:Flush();
     end);
 end;
-local function v100(v71) --[[ Line: 171 ]]
-    -- upvalues: v11 (copy), l_ControlState_0 (copy), l_useTokens_0 (copy), l_useLastInputMethod_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), l_AppStorageService_0 (copy), v59 (copy), l_dependencyArray_0 (copy), l_InputUtilities_0 (copy), l_CoreGui_0 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), v10 (copy), l_withTooltip_0 (copy), l_withHoverTooltip_0 (copy)
+local function v100(v71) --[[ Line: 172 ]]
+    -- upvalues: v11 (copy), l_ControlState_0 (copy), l_useTokens_0 (copy), l_useLastInputMethod_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), l_AppStorageService_0 (copy), v58 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_InputUtilities_0 (copy), l_CoreGui_0 (copy), l_ExternalEventConnection_0 (copy), l_UserInputService_0 (copy), v10 (copy), l_withTooltip_0 (copy), l_withHoverTooltip_0 (copy)
     local v72, v73 = v11.useBinding(l_ControlState_0.Initialize);
     local v74 = l_useTokens_0();
     local v75 = l_useLastInputMethod_0();
@@ -100,21 +100,21 @@ local function v100(v71) --[[ Line: 171 ]]
         headerText = v71.tooltipText
     };
     local v77, v78 = v11.useState(false);
-    v11.useEffect(function() --[[ Line: 184 ]]
-        -- upvalues: l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v71 (copy), l_AppStorageService_0 (ref), v59 (ref), v78 (copy)
+    v11.useEffect(function() --[[ Line: 185 ]]
+        -- upvalues: l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v71 (copy), l_AppStorageService_0 (ref), v58 (ref), v78 (copy)
         local v79 = false;
         if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then
             if v71.enableFirstTimeTooltip and v71.showFtuxCustomConditionsMet and (v71.currentHoveredButton == "" or v71.currentHoveredButton == v71.triggerPointName) then
                 local l_ftuxAppStorageKey_0 = v71.ftuxAppStorageKey;
-                local l_status_1, l_result_1 = pcall(function() --[[ Line: 153 ]]
+                local l_status_1, l_result_1 = pcall(function() --[[ Line: 154 ]]
                     -- upvalues: l_AppStorageService_0 (ref), l_ftuxAppStorageKey_0 (copy)
                     return l_AppStorageService_0:GetItem(l_ftuxAppStorageKey_0);
                 end);
-                if not if l_status_1 then l_result_1 ~= nil and l_result_1 == v59 else false then
+                if not if l_status_1 then l_result_1 ~= nil and l_result_1 == v58 else false then
                     local l_ftuxAppStorageKey_1 = v71.ftuxAppStorageKey;
-                    pcall(function() --[[ Line: 165 ]]
-                        -- upvalues: l_AppStorageService_0 (ref), l_ftuxAppStorageKey_1 (copy), v59 (ref)
-                        l_AppStorageService_0:SetItem(l_ftuxAppStorageKey_1, v59);
+                    pcall(function() --[[ Line: 166 ]]
+                        -- upvalues: l_AppStorageService_0 (ref), l_ftuxAppStorageKey_1 (copy), v58 (ref)
+                        l_AppStorageService_0:SetItem(l_ftuxAppStorageKey_1, v58);
                         l_AppStorageService_0:Flush();
                     end);
                     if v71.currentHoveredButton == "" then
@@ -132,8 +132,14 @@ local function v100(v71) --[[ Line: 171 ]]
             end;
         end;
         v79 = false;
-    end, l_dependencyArray_0(v71.currentHoveredButton, v71.enableFirstTimeTooltip, v71.ftuxAppStorageKey, v71.showFtuxCustomConditionsMet, v71.triggerPointName));
-    local v85 = v11.useCallback(function(v84) --[[ Line: 217 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v71.currentHoveredButton, 
+        v71.enableFirstTimeTooltip, 
+        v71.ftuxAppStorageKey, 
+        v71.showFtuxCustomConditionsMet, 
+        v71.triggerPointName
+    } else l_dependencyArray_0(v71.currentHoveredButton, v71.enableFirstTimeTooltip, v71.ftuxAppStorageKey, v71.showFtuxCustomConditionsMet, v71.triggerPointName));
+    local v85 = v11.useCallback(function(v84) --[[ Line: 226 ]]
         -- upvalues: l_InputUtilities_0 (ref), v75 (copy), v78 (copy)
         if l_InputUtilities_0.isActivationInput(v84) or v75 == "Gamepad" then
             v78(false);
@@ -148,9 +154,9 @@ local function v100(v71) --[[ Line: 171 ]]
         active = if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v77 else nil, 
         triggerPointName = v71.triggerPointName
     };
-    local function v94(v87, v88, v89) --[[ Line: 233 ]]
-        -- upvalues: v11 (ref), l_ControlState_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v71 (copy), v72 (copy), v73 (copy), l_dependencyArray_0 (ref), v77 (copy), l_ExternalEventConnection_0 (ref), l_UserInputService_0 (ref), v85 (copy), v10 (ref), v74 (copy)
-        local v92 = v11.useCallback(function(v90) --[[ Line: 234 ]]
+    local function v94(v87, v88, v89) --[[ Line: 242 ]]
+        -- upvalues: v11 (ref), l_ControlState_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v71 (copy), v72 (copy), v73 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (ref), l_dependencyArray_0 (ref), v77 (copy), l_ExternalEventConnection_0 (ref), l_UserInputService_0 (ref), v85 (copy), v10 (ref), v74 (copy)
+        local v92 = v11.useCallback(function(v90) --[[ Line: 244 ]]
             -- upvalues: l_ControlState_0 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v71 (ref), v89 (copy), v72 (ref), v73 (ref)
             local v91 = l_ControlState_0.fromRawValue(v90);
             if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then
@@ -164,13 +170,21 @@ local function v100(v71) --[[ Line: 171 ]]
                 v89(v72:getValue(), v91);
             end;
             v73(v91);
-        end, l_dependencyArray_0(v72, v71.onHoverCalled, v71.triggerPointName, v73));
-        local v93 = v11.useCallback(function() --[[ Line: 251 ]]
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v72, 
+            v71.onHoverCalled, 
+            v71.triggerPointName, 
+            v73
+        } else l_dependencyArray_0(v72, v71.onHoverCalled, v71.triggerPointName, v73));
+        local v93 = v11.useCallback(function() --[[ Line: 266 ]]
             -- upvalues: v71 (ref), v77 (ref)
             if v71.onActivated then
                 v71.onActivated(v77);
             end;
-        end, l_dependencyArray_0(v77, v71.onActivated));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v77, 
+            v71.onActivated
+        } else l_dependencyArray_0(v77, v71.onActivated));
         return v11.createElement("Frame", {
             AutomaticSize = v71.automaticSize, 
             LayoutOrder = v71.layoutOrder, 
@@ -193,11 +207,11 @@ local function v100(v71) --[[ Line: 171 ]]
             }, v71.children)
         });
     end;
-    local function v96(v95) --[[ Line: 285 ]]
+    local function v96(v95) --[[ Line: 304 ]]
         -- upvalues: v94 (copy)
         return v94(v95, v95, nil);
     end;
-    local function v99(v97, v98) --[[ Line: 289 ]]
+    local function v99(v97, v98) --[[ Line: 308 ]]
         -- upvalues: v94 (copy)
         return v94(v97, v97, v98);
     end;
@@ -207,13 +221,13 @@ local function v100(v71) --[[ Line: 171 ]]
         return (l_withHoverTooltip_0(v76, v86, v99));
     end;
 end;
-local function _(v101) --[[ Line: 299 ]] --[[ Name: tagToSize ]]
+local function _(v101) --[[ Line: 318 ]] --[[ Name: tagToSize ]]
     return {
         ["size-600-600"] = v101.Size.Size_600, 
         ["size-800-800"] = v101.Size.Size_800
     };
 end;
-local function v109(v103, v104, v105, v106) --[[ Line: 306 ]] --[[ Name: renderStandardImage ]]
+local function v109(v103, v104, v105, v106) --[[ Line: 325 ]] --[[ Name: renderStandardImage ]]
     -- upvalues: v63 (copy), v11 (copy), v10 (copy)
     local v107 = v63[v104];
     if v107 then
@@ -239,7 +253,7 @@ local function v109(v103, v104, v105, v106) --[[ Line: 306 ]] --[[ Name: renderS
         });
     end;
 end;
-local function v116(v110, v111, v112, v113, v114) --[[ Line: 329 ]] --[[ Name: getLoadingIndicatorIcon ]]
+local function v116(v110, v111, v112, v113, v114) --[[ Line: 348 ]] --[[ Name: getLoadingIndicatorIcon ]]
     -- upvalues: v16 (copy)
     local v115 = v110.Config.ColorMode.IsLight == "true" and "MicDark" or "MicLight";
     if not v112 or not v111 or v111.isMuted then
@@ -250,7 +264,7 @@ local function v116(v110, v111, v112, v113, v114) --[[ Line: 329 ]] --[[ Name: g
         return v16.Utils.GetIcon("Unmuted0", v115);
     end;
 end;
-local function v122(v117, v118, v119, v120, v121) --[[ Line: 347 ]] --[[ Name: renderToggleAudioFocusButton ]]
+local function v122(v117, v118, v119, v120, v121) --[[ Line: 366 ]] --[[ Name: renderToggleAudioFocusButton ]]
     -- upvalues: v11 (copy), v100 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), v10 (copy)
     return v11.createElement(v100, {
         automaticSize = Enum.AutomaticSize.X, 
@@ -284,8 +298,8 @@ local function v122(v117, v118, v119, v120, v121) --[[ Line: 347 ]] --[[ Name: r
         })
     });
 end;
-return function(v123) --[[ Line: 397 ]]
-    -- upvalues: l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), l_useTokens_0 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useVoiceStatus_0 (copy), v11 (copy), l_useAppPolicy_0 (copy), l_HttpService_0 (copy), l_SquadLobbySessionProvider_0 (copy), l_SquadExternalContractContext_0 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (copy), l_EventNames_0 (copy), v21 (copy), v22 (copy), l_dependencyArray_0 (copy), l_SessionType_0 (copy), l_leaveSquad_0 (copy), l_SquadState_0 (copy), v100 (copy), l_Badge_0 (copy), v61 (copy), l_BadgeVariant_0 (copy), v109 (copy), v64 (copy), v62 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useLocalUserId_0 (copy), l_useBackgroundExperience_0 (copy), l_useParticipant_0 (copy), l_useIsVoiceConnected_0 (copy), l_useIsVoiceDisconnected_0 (copy), l_useIsVoiceFocused_0 (copy), l_useParticipants_0 (copy), l_useIsActiveParticipant_0 (copy), l_game_EngineFeature_0 (copy), l_CrossExperienceVoiceManager_0 (copy), l_RunService_0 (copy), v122 (copy), v56 (copy), v116 (copy), v57 (copy), v10 (copy), v19 (copy)
+return function(v123) --[[ Line: 416 ]]
+    -- upvalues: l_useDispatch_0 (copy), l_useLocalization_0 (copy), l_SquadCoordinationExperienceJoinExperimentation_0 (copy), l_useTokens_0 (copy), l_useCurrentSquadParentChannelId_0 (copy), l_useCurrentSquadSelector_0 (copy), l_useVoiceStatus_0 (copy), v11 (copy), l_useAppPolicy_0 (copy), l_HttpService_0 (copy), l_SquadLobbySessionProvider_0 (copy), l_SquadExternalContractContext_0 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (copy), l_EventNames_0 (copy), v21 (copy), v22 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_SessionType_0 (copy), l_leaveSquad_0 (copy), l_SquadState_0 (copy), v100 (copy), l_Badge_0 (copy), v60 (copy), l_BadgeVariant_0 (copy), v109 (copy), v64 (copy), v62 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useLocalUserId_0 (copy), l_useBackgroundExperience_0 (copy), l_useParticipant_0 (copy), l_useIsVoiceConnected_0 (copy), l_useIsVoiceDisconnected_0 (copy), l_useIsVoiceFocused_0 (copy), l_useParticipants_0 (copy), l_useIsActiveParticipant_0 (copy), l_game_EngineFeature_0 (copy), l_CrossExperienceVoiceManager_0 (copy), l_RunService_0 (copy), v122 (copy), v56 (copy), v116 (copy), v10 (copy), v19 (copy)
     local v124 = l_useDispatch_0();
     local v125 = l_useLocalization_0({
         audioText = "Feature.Squads.Label.Audio", 
@@ -300,23 +314,23 @@ return function(v123) --[[ Line: 397 ]]
     local v128 = l_useCurrentSquadSelector_0();
     local v129 = l_useVoiceStatus_0();
     local v130, v131 = v11.useState("");
-    local v133 = v11.useCallback(function(v132) --[[ Line: 418 ]]
+    local v133 = v11.useCallback(function(v132) --[[ Line: 437 ]]
         -- upvalues: v131 (copy)
         v131(v132);
     end, {});
     local v134 = if v128 and v128.members then #v128.members else 0;
-    local v136 = v11.useCallback(function(v135) --[[ Line: 425 ]]
+    local v136 = v11.useCallback(function(v135) --[[ Line: 444 ]]
         return v135.getCanUsePlatformChat();
     end, {});
     local v137 = l_useAppPolicy_0(v136);
-    local v138 = v11.useMemo(function() --[[ Line: 430 ]]
+    local v138 = v11.useMemo(function() --[[ Line: 449 ]]
         -- upvalues: l_HttpService_0 (ref)
         return l_HttpService_0:GenerateGUID();
     end, {});
     local v139 = if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v11.useContext(l_SquadLobbySessionProvider_0.Context) else nil;
     local v140 = v11.useContext(l_SquadExternalContractContext_0);
     local v141 = not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v140.useIsChatEnabled();
-    local v143 = v11.useCallback(function(v142) --[[ Line: 443 ]]
+    local v143 = v11.useCallback(function(v142) --[[ Line: 462 ]]
         -- upvalues: v140 (copy), l_EventNames_0 (ref), v127 (copy), v21 (ref), v22 (ref), v129 (copy), v123 (copy)
         v140.fireSquadAnalytics(l_EventNames_0.PartySheetAction, {
             parentChannelId = v127, 
@@ -325,8 +339,13 @@ return function(v123) --[[ Line: 397 ]]
             voiceStatus = if v22 then v129 else nil
         });
         v123.navigateAwayFromSquad();
-    end, l_dependencyArray_0(v123.navigateAwayFromSquad, v127, v140.fireSquadAnalytics, if v22 then v129 else nil));
-    local v145 = v11.useCallback(function(v144) --[[ Line: 461 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v123.navigateAwayFromSquad, 
+        v127, 
+        v140.fireSquadAnalytics, 
+        if v22 then v129 else nil
+    } else l_dependencyArray_0(v123.navigateAwayFromSquad, v127, v140.fireSquadAnalytics, if v22 then v129 else nil));
+    local v145 = v11.useCallback(function(v144) --[[ Line: 487 ]]
         -- upvalues: l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v139 (copy), l_SessionType_0 (ref), l_HttpService_0 (ref), v140 (copy), l_EventNames_0 (ref), v127 (copy), v21 (ref), v22 (ref), v129 (copy), v124 (copy), v123 (copy)
         if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then
             v139.updateMetadata(l_SessionType_0.Metadata.SquadLobbyPage.ExperiencePickerUuid, l_HttpService_0:GenerateGUID(false));
@@ -353,7 +372,7 @@ return function(v123) --[[ Line: 397 ]]
         if l_SquadCoordinationExperienceJoinExperimentation_0.getIsSquadLobbySessionEnabled() then v139.updateMetadata else nil, 
         if v22 then v129 else nil
     });
-    local v147 = v11.useCallback(function(v146) --[[ Line: 495 ]]
+    local v147 = v11.useCallback(function(v146) --[[ Line: 521 ]]
         -- upvalues: v140 (copy), l_EventNames_0 (ref), v127 (copy), v21 (ref), v22 (ref), v129 (copy), v124 (copy), l_leaveSquad_0 (ref), v123 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (ref), v141 (copy)
         v140.fireSquadAnalytics(l_EventNames_0.PartySheetAction, {
             parentChannelId = v127, 
@@ -361,14 +380,23 @@ return function(v123) --[[ Line: 397 ]]
             isFtuxTooltipShown = v146, 
             voiceStatus = if v22 then v129 else nil
         });
-        v124(l_leaveSquad_0(nil, v140.setSquadPrompt, function() --[[ Line: 507 ]]
+        v124(l_leaveSquad_0(nil, v140.setSquadPrompt, function() --[[ Line: 533 ]]
             -- upvalues: v123 (ref)
             v123.navigateAwayFromSquad();
         end, v140.squadLocation, not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v141));
-    end, l_dependencyArray_0(v124, v123.navigateAwayFromSquad, v127, v140.fireSquadAnalytics, v140.setSquadPrompt, v140.squadLocation, if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v141 else nil, if v22 then v129 else nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v124, 
+        v123.navigateAwayFromSquad, 
+        v127, 
+        v140.fireSquadAnalytics, 
+        v140.setSquadPrompt, 
+        v140.squadLocation, 
+        if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v141 else nil, 
+        if v22 then v129 else nil
+    } else l_dependencyArray_0(v124, v123.navigateAwayFromSquad, v127, v140.fireSquadAnalytics, v140.setSquadPrompt, v140.squadLocation, if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v141 else nil, if v22 then v129 else nil));
     local v148 = v123.squadState ~= l_SquadState_0.Active;
-    local v149 = v11.useMemo(function() --[[ Line: 530 ]]
-        -- upvalues: v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v148 (copy), v143 (copy), v133 (copy), v125 (copy), v123 (copy), l_Badge_0 (ref), v126 (copy), v61 (ref), l_BadgeVariant_0 (ref), v109 (ref)
+    local v149 = v11.useMemo(function() --[[ Line: 567 ]]
+        -- upvalues: v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v148 (copy), v143 (copy), v133 (copy), v125 (copy), v123 (copy), l_Badge_0 (ref), v126 (copy), v60 (ref), l_BadgeVariant_0 (ref), v109 (ref)
         return v11.createElement(v100, {
             currentHoveredButton = if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
             enableFirstTimeTooltip = not l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() and nil, 
@@ -384,13 +412,21 @@ return function(v123) --[[ Line: 397 ]]
             UnreadMessagesBadge = if v123.hasUnreadMessages then v11.createElement(l_Badge_0, {
                 AnchorPoint = Vector2.new(0.5, 0.5), 
                 Position = UDim2.new(1, -v126.Size.Size_250, 0, v126.Size.Size_250), 
-                badgeVariant = if v61 then nil else l_BadgeVariant_0.Alert, 
-                variant = if v61 then l_BadgeVariant_0.Alert else nil
+                badgeVariant = if v60 then nil else l_BadgeVariant_0.Alert, 
+                variant = if v60 then l_BadgeVariant_0.Alert else nil
             }) else nil; 
             v109(v148, "icons/menu/platformChatOff", "size-800-800", v126)
         });
-    end, l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.viewChatText, v143, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v123.hasUnreadMessages));
-    local v150 = v11.useMemo(function() --[[ Line: 580 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
+        v126, 
+        v148, 
+        v125.viewChatText, 
+        v143, 
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, 
+        v123.hasUnreadMessages
+    } else l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.viewChatText, v143, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v123.hasUnreadMessages));
+    local v150 = v11.useMemo(function() --[[ Line: 631 ]]
         -- upvalues: v123 (copy), v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v148 (copy), v145 (copy), v133 (copy), v134 (copy), v125 (copy), v109 (ref), v64 (ref), v62 (ref), v126 (copy)
         if v123.isInExperience then
             return nil;
@@ -408,8 +444,17 @@ return function(v123) --[[ Line: 397 ]]
                 triggerPointName = "PickExperienceButton"
             }, v109(v148, v64, v62, v126)));
         end;
-    end, l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.findExperiencesText, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v134 else nil, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v123.isInExperience, v123.navigateToHomePage));
-    local v152 = v11.useMemo(function() --[[ Line: 625 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
+        v126, 
+        v148, 
+        v125.findExperiencesText, 
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v134 else nil, 
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, 
+        v123.isInExperience, 
+        v123.navigateToHomePage
+    } else l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.findExperiencesText, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v134 else nil, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v123.isInExperience, v123.navigateToHomePage));
+    local v152 = v11.useMemo(function() --[[ Line: 693 ]]
         -- upvalues: v148 (copy), v126 (copy), v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v147 (copy), v133 (copy), v125 (copy), v109 (ref)
         local v151 = if v148 then v126.Color.ActionStandard.Background else v126.Color.System.Alert;
         return v11.createElement(v100, {
@@ -425,7 +470,14 @@ return function(v123) --[[ Line: 397 ]]
             tooltipText = v125.leavePartyText, 
             triggerPointName = "EndCallButton"
         }, v109(v148, "icons/navigation/close", "size-600-600", v126));
-    end, l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.leavePartyText, v147, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
+        v126, 
+        v148, 
+        v125.leavePartyText, 
+        v147, 
+        if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil
+    } else l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v125.leavePartyText, v147, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil));
     local v153 = nil;
     local v154 = nil;
     local v155 = nil;
@@ -441,7 +493,7 @@ return function(v123) --[[ Line: 397 ]]
         local v164 = l_useIsActiveParticipant_0(v156);
         local v165, v166 = v11.useState(0);
         local l_l_game_EngineFeature_0_0 = l_game_EngineFeature_0;
-        local v169 = v11.useCallback(function(_) --[[ Line: 683 ]]
+        local v169 = v11.useCallback(function(_) --[[ Line: 765 ]]
             -- upvalues: l_HttpService_0 (ref), v158 (copy), v159 (copy), v163 (copy), l_CrossExperienceVoiceManager_0 (ref)
             print("----------- CEV FOREGROUND -----------");
             print("Experience info", l_HttpService_0:JSONEncode(v158));
@@ -449,8 +501,11 @@ return function(v123) --[[ Line: 397 ]]
             print("Squads Store Participants", l_HttpService_0:JSONEncode(v163 or {}));
             print("--------------------------------------");
             l_CrossExperienceVoiceManager_0.default:dumpDebugData();
-        end, l_dependencyArray_0(v163, v159));
-        local v171 = v11.useCallback(function(_) --[[ Line: 692 ]]
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v163, 
+            v159
+        } else l_dependencyArray_0(v163, v159));
+        local v171 = v11.useCallback(function(_) --[[ Line: 778 ]]
             -- upvalues: v159 (copy), l_CrossExperienceVoiceManager_0 (ref)
             if v159 then
                 if v159.isMuted then
@@ -463,9 +518,9 @@ return function(v123) --[[ Line: 397 ]]
         end, {
             v159
         });
-        v11.useEffect(function() --[[ Line: 702 ]]
+        v11.useEffect(function() --[[ Line: 788 ]]
             -- upvalues: l_RunService_0 (ref), v138 (copy), v157 (copy), v166 (copy)
-            l_RunService_0:BindToRenderStep(v138, 1, function() --[[ Line: 703 ]]
+            l_RunService_0:BindToRenderStep(v138, 1, function() --[[ Line: 789 ]]
                 -- upvalues: v157 (ref), v166 (ref)
                 if v157.current > 3 then
                     v166(math.random());
@@ -476,21 +531,30 @@ return function(v123) --[[ Line: 397 ]]
                     return;
                 end;
             end);
-            return function() --[[ Line: 712 ]]
+            return function() --[[ Line: 798 ]]
                 -- upvalues: l_RunService_0 (ref), v138 (ref)
                 l_RunService_0:UnbindFromRenderStep(v138);
             end;
         end, {});
-        v153 = v11.useMemo(function() --[[ Line: 718 ]]
+        v153 = v11.useMemo(function() --[[ Line: 804 ]]
             -- upvalues: v148 (copy), l_l_game_EngineFeature_0_0 (copy), v160 (copy), v122 (ref), v126 (copy), v125 (copy), v123 (copy), v130 (copy), v133 (copy)
             if not v148 and l_l_game_EngineFeature_0_0 and v160 then
                 return v122(v126, v125.audioText, v123.toggleVoiceChatMenu, v130, v133);
             else
                 return nil;
             end;
-        end, l_dependencyArray_0(v126, l_l_game_EngineFeature_0_0, v130, v148, v160, v125.audioText, v133, v123.toggleVoiceChatMenu));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v126, 
+            l_l_game_EngineFeature_0_0, 
+            v130, 
+            v148, 
+            v160, 
+            v125.audioText, 
+            v133, 
+            v123.toggleVoiceChatMenu
+        } else l_dependencyArray_0(v126, l_l_game_EngineFeature_0_0, v130, v148, v160, v125.audioText, v133, v123.toggleVoiceChatMenu));
         if v56 then
-            v154 = v11.useMemo(function() --[[ Line: 744 ]]
+            v154 = v11.useMemo(function() --[[ Line: 841 ]]
                 -- upvalues: v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v148 (copy), v169 (copy), v133 (copy), v109 (ref), v126 (copy)
                 return v11.createElement(v100, {
                     currentHoveredButton = if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
@@ -504,15 +568,28 @@ return function(v123) --[[ Line: 397 ]]
                     tooltipText = "Debug voice", 
                     triggerPointName = "DebugVoiceButton"
                 }, v109(v148, "icons/status/player/developer", "size-600-600", v126));
-            end, l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v169, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil));
+            end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+                if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
+                v126, 
+                v148, 
+                v169, 
+                if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil
+            } else l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v148, v169, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil));
         end;
-        local v172 = v11.useMemo(function() --[[ Line: 782 ]]
+        local v172 = v11.useMemo(function() --[[ Line: 892 ]]
             -- upvalues: v116 (ref), v126 (copy), v159 (copy), v160 (copy), v148 (copy), v164 (copy), v165 (copy)
             return v116(v126, v159, v160, not v148 and v164, v165);
-        end, l_dependencyArray_0(v164, v148, v160, v165, v159, v126));
-        v155 = v11.useMemo(function() --[[ Line: 793 ]]
-            -- upvalues: v57 (ref), v161 (copy), v148 (copy), l_game_EngineFeature_0 (ref), v162 (copy), v160 (copy), v159 (copy), v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v171 (copy), v133 (copy), v125 (copy), v109 (ref), v172 (copy), v126 (copy)
-            if v57 and v161 then
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v164, 
+            v148, 
+            v160, 
+            v165, 
+            v159, 
+            v126
+        } else l_dependencyArray_0(v164, v148, v160, v165, v159, v126));
+        v155 = v11.useMemo(function() --[[ Line: 914 ]]
+            -- upvalues: v161 (copy), v148 (copy), l_game_EngineFeature_0 (ref), v162 (copy), v160 (copy), v159 (copy), v11 (ref), v100 (ref), l_SquadCoordinationExperienceJoinExperimentation_0 (ref), v130 (copy), v171 (copy), v133 (copy), v125 (copy), v109 (ref), v172 (copy), v126 (copy)
+            if v161 then
                 return nil;
             elseif v148 or not l_game_EngineFeature_0 or v162 then
                 local v173 = not v160 or v159 == nil or v148;
@@ -532,7 +609,20 @@ return function(v123) --[[ Line: 397 ]]
             else
                 return nil;
             end;
-        end, l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v172, v148, v162, v160, v125.muteMicText, v125.unmuteMicText, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v171, v159, v161));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, 
+            v126, 
+            v172, 
+            v148, 
+            v162, 
+            v160, 
+            v125.muteMicText, 
+            v125.unmuteMicText, 
+            if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, 
+            v171, 
+            v159, 
+            v161
+        } else l_dependencyArray_0(if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v130 else nil, v126, v172, v148, v162, v160, v125.muteMicText, v125.unmuteMicText, if l_SquadCoordinationExperienceJoinExperimentation_0.getShouldShowFTUXOnExpPickerEnabled() then v133 else nil, v171, v159, v161));
     end;
     return v11.createElement(v10.View, {
         AutomaticSize = Enum.AutomaticSize.X, 

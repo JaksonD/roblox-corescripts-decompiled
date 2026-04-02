@@ -6,7 +6,9 @@ local v4 = require(l_Parent_0.util.canBeNormalized);
 local v5 = require(l_Parent_0.util.getPartNamesInHierarchyOrder);
 local v6 = require(l_Parent_0.util.AssetTraversalUtils);
 local v7 = require(l_Parent_0.util.getMeshScales);
-local v8 = {
+local v8 = require(l_Parent_0.util.R15plusUtils);
+local v9 = require(l_Parent_0.util.getAttachmentCFrameInPartSpace);
+local v10 = {
     root = "LowerTorso", 
     children = {
         UpperTorso = {
@@ -20,301 +22,302 @@ local v8 = {
         RightUpperLeg = v6.assetHierarchy[Enum.AssetType.RightLeg]
     }
 };
-local v9 = {
+local v11 = {
     root = "HumanoidRootPart", 
     children = {
-        LowerTorso = v8
+        LowerTorso = v10
     }
 };
-local v10 = {};
-local function v16(v11, v12) --[[ Line: 55 ]] --[[ Name: calculateCFrame ]]
+local v12 = {};
+local function v18(v13, v14) --[[ Line: 60 ]] --[[ Name: calculateCFrame ]]
     -- upvalues: v4 (copy)
-    local v13 = v11 - v12;
-    if not v4(v13) then
+    local v15 = v13 - v14;
+    if not v4(v15) then
         return;
     else
-        v13 = v13.Unit;
-        local l_Unit_0 = v13:Cross((Vector3.new(0, 0, 1, 0))).Unit;
+        v15 = v15.Unit;
+        local l_Unit_0 = v15:Cross((Vector3.new(0, 0, 1, 0))).Unit;
         if not v4(l_Unit_0) then
-            l_Unit_0 = v13:Cross(if v13.Z < 0 then Vector3.new(0, 1, 0, 0) else Vector3.new(-0, -1, -0, -0)).Unit;
+            l_Unit_0 = v15:Cross(if v15.Z < 0 then Vector3.new(0, 1, 0, 0) else Vector3.new(-0, -1, -0, -0)).Unit;
         end;
-        local l_Unit_1 = l_Unit_0:Cross(v13).Unit;
-        return CFrame.fromMatrix(v11, l_Unit_0, v13, l_Unit_1);
+        local l_Unit_1 = l_Unit_0:Cross(v15).Unit;
+        return CFrame.fromMatrix(v13, l_Unit_0, v15, l_Unit_1);
     end;
 end;
-local function v28(v17, v18, v19, v20, v21) --[[ Line: 74 ]] --[[ Name: calculatePartTransformInHierarchy ]]
-    -- upvalues: v2 (copy)
-    local v22 = if v21 and v21[v17.Name] then v21[v17.Name] else CFrame.new();
-    local l_v19_0 = v19;
-    if v18 then
-        local v24 = v20(v18);
-        assert(v24);
-        local v25 = v2.getRigAttachmentToParent(nil, v17.Name);
-        local l_v24_FirstChild_0 = v24:FindFirstChild(v25);
-        assert(l_v24_FirstChild_0);
-        local l_v17_FirstChild_0 = v17:FindFirstChild(v25);
-        assert(l_v17_FirstChild_0);
-        return l_v19_0 * l_v24_FirstChild_0.CFrame * v22 * l_v17_FirstChild_0.CFrame:Inverse();
+local function v30(v19, v20, v21, v22, v23) --[[ Line: 79 ]] --[[ Name: calculatePartTransformInHierarchy ]]
+    -- upvalues: v2 (copy), v8 (copy), v9 (copy)
+    local v24 = if v23 and v23[v19.Name] then v23[v19.Name] else CFrame.new();
+    local l_v21_0 = v21;
+    if v20 then
+        local v26 = v22(v20);
+        assert(v26);
+        local v27 = v2.getRigAttachmentToParent(nil, v19.Name);
+        local l_v26_FirstChild_0 = v26:FindFirstChild(v27, v8.checkFlagEnabledForAllowHrd());
+        assert(l_v26_FirstChild_0);
+        local l_v19_FirstChild_0 = v19:FindFirstChild(v27, v8.checkFlagEnabledForAllowHrd());
+        assert(l_v19_FirstChild_0);
+        return l_v21_0 * v9(l_v26_FirstChild_0) * v24 * v9(l_v19_FirstChild_0):Inverse();
     else
-        return v22;
+        return v24;
     end;
 end;
-local function v42(v29, v30, v31) --[[ Line: 105 ]] --[[ Name: calculateHierarchyTransforms ]]
-    -- upvalues: v28 (copy)
-    local v32 = {};
-    local function v33(v34, v35, v36, v37) --[[ Line: 112 ]] --[[ Name: calculateAllTransformsInternal ]]
-        -- upvalues: v30 (copy), v28 (ref), v31 (copy), v32 (copy), v33 (copy)
-        local v38 = v30(v34);
-        assert(v38);
-        local v39 = v28(v38, v35, v37, v30, v31);
-        v32[v38.Name] = v39;
-        if not v36.children then
+local function v44(v31, v32, v33) --[[ Line: 112 ]] --[[ Name: calculateHierarchyTransforms ]]
+    -- upvalues: v30 (copy)
+    local v34 = {};
+    local function v35(v36, v37, v38, v39) --[[ Line: 119 ]] --[[ Name: calculateAllTransformsInternal ]]
+        -- upvalues: v32 (copy), v30 (ref), v33 (copy), v34 (copy), v35 (copy)
+        local v40 = v32(v36);
+        assert(v40);
+        local v41 = v30(v40, v37, v39, v32, v33);
+        v34[v40.Name] = v41;
+        if not v38.children then
             return;
         else
-            for v40, v41 in v36.children do
-                v33(v40, v34, v41, v39);
+            for v42, v43 in v38.children do
+                v35(v42, v36, v43, v41);
             end;
             return;
         end;
     end;
-    v33(v29.root, nil, v29, CFrame.new());
-    return v32;
+    v35(v31.root, nil, v31, CFrame.new());
+    return v34;
 end;
-local function _(v43, v44) --[[ Line: 133 ]] --[[ Name: calculateLocalSpaceTransform ]]
-    local v45 = v43.Rotation:Inverse() * v44.Rotation;
-    local v46 = v43.Rotation:Inverse() * (v44.Position - v43.Position);
-    return CFrame.new(v46) * v45;
+local function _(v45, v46) --[[ Line: 140 ]] --[[ Name: calculateLocalSpaceTransform ]]
+    local v47 = v45.Rotation:Inverse() * v46.Rotation;
+    local v48 = v45.Rotation:Inverse() * (v46.Position - v45.Position);
+    return CFrame.new(v48) * v47;
 end;
-local function v53(v48, v49) --[[ Line: 140 ]] --[[ Name: calculateAssetCFrameFromPartsCFrames ]]
-    -- upvalues: v5 (copy), v16 (copy)
-    local v50 = v5(v48);
-    local l_Position_0 = v49[v50[1]].Position;
-    local l_Position_1 = v49[v50[3]].Position;
-    return v16(l_Position_0, l_Position_1);
+local function v55(v50, v51) --[[ Line: 147 ]] --[[ Name: calculateAssetCFrameFromPartsCFrames ]]
+    -- upvalues: v5 (copy), v18 (copy)
+    local v52 = v5(v50);
+    local l_Position_0 = v51[v52[1]].Position;
+    local l_Position_1 = v51[v52[3]].Position;
+    return v18(l_Position_0, l_Position_1);
 end;
-local function _(v54) --[[ Line: 151 ]] --[[ Name: assertTypesToOrient ]]
-    local v55 = true;
-    if v54 ~= Enum.AssetType.LeftArm then
-        v55 = true;
-        if v54 ~= Enum.AssetType.RightArm then
-            v55 = true;
-            if v54 ~= Enum.AssetType.LeftLeg then
-                v55 = v54 == Enum.AssetType.RightLeg;
+local function _(v56) --[[ Line: 158 ]] --[[ Name: assertTypesToOrient ]]
+    local v57 = true;
+    if v56 ~= Enum.AssetType.LeftArm then
+        v57 = true;
+        if v56 ~= Enum.AssetType.RightArm then
+            v57 = true;
+            if v56 ~= Enum.AssetType.LeftLeg then
+                v57 = v56 == Enum.AssetType.RightLeg;
             end;
         end;
     end;
-    assert(v55);
+    assert(v57);
 end;
-local function _(v57, v58, v59) --[[ Line: 160 ]] --[[ Name: getAttachmentCFrame ]]
-    local l_v57_FirstChild_0 = v57:FindFirstChild(v58);
-    assert(l_v57_FirstChild_0);
-    return v59 * l_v57_FirstChild_0.CFrame;
+local function _(v59, v60, v61) --[[ Line: 167 ]] --[[ Name: getAttachmentCFrame ]]
+    -- upvalues: v8 (copy), v9 (copy)
+    local l_v59_FirstChild_0 = v59:FindFirstChild(v60, v8.checkFlagEnabledForAllowHrd());
+    assert(l_v59_FirstChild_0);
+    return v61 * v9(l_v59_FirstChild_0);
 end;
-v10.calculatePartCFrameFromRigAttachments = function(v62, v63, v64) --[[ Line: 166 ]] --[[ Name: calculatePartCFrameFromRigAttachments ]]
-    -- upvalues: v2 (copy), v6 (copy), v16 (copy)
-    local v65 = true;
-    if v62 ~= Enum.AssetType.LeftArm then
-        v65 = true;
-        if v62 ~= Enum.AssetType.RightArm then
-            v65 = true;
-            if v62 ~= Enum.AssetType.LeftLeg then
-                v65 = v62 == Enum.AssetType.RightLeg;
+v12.calculatePartCFrameFromRigAttachments = function(v64, v65, v66) --[[ Line: 174 ]] --[[ Name: calculatePartCFrameFromRigAttachments ]]
+    -- upvalues: v2 (copy), v8 (copy), v9 (copy), v6 (copy), v18 (copy)
+    local v67 = true;
+    if v64 ~= Enum.AssetType.LeftArm then
+        v67 = true;
+        if v64 ~= Enum.AssetType.RightArm then
+            v67 = true;
+            if v64 ~= Enum.AssetType.LeftLeg then
+                v67 = v64 == Enum.AssetType.RightLeg;
             end;
         end;
     end;
-    assert(v65);
-    local v66 = v2.getRigAttachmentToParent(v62, v63.Name);
-    if v66 == "" then
+    assert(v67);
+    local v68 = v2.getRigAttachmentToParent(v64, v65.Name);
+    if v68 == "" then
         return;
     else
-        local l_v63_FirstChild_0 = v63:FindFirstChild(v66);
-        assert(l_v63_FirstChild_0);
-        v65 = v64 * l_v63_FirstChild_0.CFrame;
-        l_v63_FirstChild_0 = v6.getAssetRigChild(v62, v63.Name);
-        if not l_v63_FirstChild_0 then
+        local l_v65_FirstChild_0 = v65:FindFirstChild(v68, v8.checkFlagEnabledForAllowHrd());
+        assert(l_v65_FirstChild_0);
+        v67 = v66 * v9(l_v65_FirstChild_0);
+        l_v65_FirstChild_0 = v6.getAssetRigChild(v64, v65.Name);
+        if not l_v65_FirstChild_0 then
             return;
         else
-            local l_v63_FirstChild_1 = v63:FindFirstChild((v2.getRigAttachmentToParent(v62, l_v63_FirstChild_0)));
-            assert(l_v63_FirstChild_1);
-            local v69 = v64 * l_v63_FirstChild_1.CFrame;
-            return v16(v65.Position, v69.Position);
+            local l_v65_FirstChild_1 = v65:FindFirstChild(v2.getRigAttachmentToParent(v64, l_v65_FirstChild_0), v8.checkFlagEnabledForAllowHrd());
+            assert(l_v65_FirstChild_1);
+            local v71 = v66 * v9(l_v65_FirstChild_1);
+            return v18(v67.Position, v71.Position);
         end;
     end;
 end;
-v10.calculateStraightenedLimb = function(v70, v71, v72) --[[ Line: 190 ]] --[[ Name: calculateStraightenedLimb ]]
-    -- upvalues: v1 (copy), v5 (copy), v6 (copy), v10 (copy), v2 (copy)
-    local v73 = true;
-    if v70 ~= Enum.AssetType.LeftArm then
-        v73 = true;
-        if v70 ~= Enum.AssetType.RightArm then
-            v73 = true;
-            if v70 ~= Enum.AssetType.LeftLeg then
-                v73 = v70 == Enum.AssetType.RightLeg;
+v12.calculateStraightenedLimb = function(v72, v73, v74) --[[ Line: 198 ]] --[[ Name: calculateStraightenedLimb ]]
+    -- upvalues: v1 (copy), v5 (copy), v6 (copy), v12 (copy), v2 (copy), v8 (copy), v9 (copy)
+    local v75 = true;
+    if v72 ~= Enum.AssetType.LeftArm then
+        v75 = true;
+        if v72 ~= Enum.AssetType.RightArm then
+            v75 = true;
+            if v72 ~= Enum.AssetType.LeftLeg then
+                v75 = v72 == Enum.AssetType.RightLeg;
             end;
         end;
     end;
-    assert(v73);
-    local v74 = v1.Dictionary.join(v71);
-    v73 = nil;
-    local v75 = CFrame.new();
-    for _, v77 in v5(v70) do
-        local v78 = v72(v77);
-        local l_v75_0 = v75;
-        local v80 = v6.getAssetRigChild(v70, v77);
-        local v81 = v80 == nil;
-        if not v81 then
-            l_v75_0 = v10.calculatePartCFrameFromRigAttachments(v70, v78, v71[v77]) or l_v75_0;
+    assert(v75);
+    local v76 = v1.Dictionary.join(v73);
+    v75 = nil;
+    local v77 = CFrame.new();
+    for _, v79 in v5(v72) do
+        local v80 = v74(v79);
+        local l_v77_0 = v77;
+        local v82 = v6.getAssetRigChild(v72, v79);
+        local v83 = v82 == nil;
+        if not v83 then
+            l_v77_0 = v12.calculatePartCFrameFromRigAttachments(v72, v80, v73[v79]) or l_v77_0;
         end;
-        local l_l_v75_0_0 = l_v75_0;
-        local v83 = v71[v77];
-        local v84 = l_l_v75_0_0.Rotation:Inverse() * v83.Rotation;
-        local v85 = l_l_v75_0_0.Rotation:Inverse() * (v83.Position - l_l_v75_0_0.Position);
-        v74[v77] = CFrame.new(v85) * v84;
-        if v73 then
-            l_l_v75_0_0 = v2.getRigAttachmentToParent(v70, v77);
-            v83 = v74[v77];
-            v84 = v78:FindFirstChild(l_l_v75_0_0);
-            assert(v84);
-            l_l_v75_0_0 = v73 - (v83 * v84.CFrame).Position;
-            v74[v77] = CFrame.new(v74[v77].Position + l_l_v75_0_0) * v74[v77].Rotation;
+        local l_l_v77_0_0 = l_v77_0;
+        local v85 = v73[v79];
+        local v86 = l_l_v77_0_0.Rotation:Inverse() * v85.Rotation;
+        local v87 = l_l_v77_0_0.Rotation:Inverse() * (v85.Position - l_l_v77_0_0.Position);
+        v76[v79] = CFrame.new(v87) * v86;
+        if v75 then
+            l_l_v77_0_0 = v2.getRigAttachmentToParent(v72, v79);
+            v85 = v76[v79];
+            v86 = v80:FindFirstChild(l_l_v77_0_0, v8.checkFlagEnabledForAllowHrd());
+            assert(v86);
+            l_l_v77_0_0 = v75 - (v85 * v9(v86)).Position;
+            v76[v79] = CFrame.new(v76[v79].Position + l_l_v77_0_0) * v76[v79].Rotation;
         end;
-        if not v81 then
-            v75 = l_v75_0;
-            l_l_v75_0_0 = v2.getRigAttachmentToParent(v70, v80);
-            v83 = v74[v77];
-            v84 = v78:FindFirstChild(l_l_v75_0_0);
-            assert(v84);
-            v73 = (v83 * v84.CFrame).Position;
+        if not v83 then
+            v77 = l_v77_0;
+            l_l_v77_0_0 = v2.getRigAttachmentToParent(v72, v82);
+            v85 = v76[v79];
+            v86 = v80:FindFirstChild(l_l_v77_0_0, v8.checkFlagEnabledForAllowHrd());
+            assert(v86);
+            v75 = (v85 * v9(v86)).Position;
         end;
     end;
-    return v74;
+    return v76;
 end;
-v10.calculateAssetCFrame = function(v86, v87) --[[ Line: 243 ]] --[[ Name: calculateAssetCFrame ]]
-    -- upvalues: v10 (copy), v53 (copy)
-    local v88 = v10.calculateAllTransformsForAsset(v86, v87);
-    if Enum.AssetType.DynamicHead == v86 then
-        return v88.Head;
-    elseif Enum.AssetType.Torso == v86 then
-        return v88.LowerTorso;
+v12.calculateAssetCFrame = function(v88, v89) --[[ Line: 251 ]] --[[ Name: calculateAssetCFrame ]]
+    -- upvalues: v12 (copy), v55 (copy)
+    local v90 = v12.calculateAllTransformsForAsset(v88, v89);
+    if Enum.AssetType.DynamicHead == v88 then
+        return v90.Head;
+    elseif Enum.AssetType.Torso == v88 then
+        return v90.LowerTorso;
     else
-        return v53(v86, v88);
+        return v55(v88, v90);
     end;
 end;
-v10.calculateAllTransformsForAsset = function(v89, v90) --[[ Line: 254 ]] --[[ Name: calculateAllTransformsForAsset ]]
-    -- upvalues: v42 (copy), v6 (copy)
-    if Enum.AssetType.DynamicHead == v89 then
+v12.calculateAllTransformsForAsset = function(v91, v92) --[[ Line: 262 ]] --[[ Name: calculateAllTransformsForAsset ]]
+    -- upvalues: v44 (copy), v6 (copy)
+    if Enum.AssetType.DynamicHead == v91 then
         return {
             Head = CFrame.new()
         };
     else
-        return (v42(v6.assetHierarchy[v89], function(v91) --[[ Line: 259 ]] --[[ Name: findMeshHandle ]]
-            -- upvalues: v90 (copy)
-            return (v90:FindFirstChild(v91));
+        return (v44(v6.assetHierarchy[v91], function(v93) --[[ Line: 267 ]] --[[ Name: findMeshHandle ]]
+            -- upvalues: v92 (copy)
+            return (v92:FindFirstChild(v93));
         end));
     end;
 end;
-v10.calculateAllTransformsForFullBody = function(v92, v93) --[[ Line: 266 ]] --[[ Name: calculateAllTransformsForFullBody ]]
-    -- upvalues: v9 (copy), v8 (copy), v42 (copy)
-    return (v42(if v93 then v9 else v8, function(v94) --[[ Line: 270 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: v92 (copy)
-        return v92[v94];
-    end, v93));
+v12.calculateAllTransformsForFullBody = function(v94, v95) --[[ Line: 274 ]] --[[ Name: calculateAllTransformsForFullBody ]]
+    -- upvalues: v11 (copy), v10 (copy), v44 (copy)
+    return (v44(if v95 then v11 else v10, function(v96) --[[ Line: 278 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: v94 (copy)
+        return v94[v96];
+    end, v95));
 end;
-v10.calculatePartsLocalToAsset = function(v95, v96) --[[ Line: 278 ]] --[[ Name: calculatePartsLocalToAsset ]]
-    -- upvalues: v5 (copy), v16 (copy)
-    local v97 = true;
-    if v95 ~= Enum.AssetType.LeftArm then
-        v97 = true;
-        if v95 ~= Enum.AssetType.RightArm then
-            v97 = true;
-            if v95 ~= Enum.AssetType.LeftLeg then
-                v97 = v95 == Enum.AssetType.RightLeg;
+v12.calculatePartsLocalToAsset = function(v97, v98) --[[ Line: 286 ]] --[[ Name: calculatePartsLocalToAsset ]]
+    -- upvalues: v5 (copy), v18 (copy)
+    local v99 = true;
+    if v97 ~= Enum.AssetType.LeftArm then
+        v99 = true;
+        if v97 ~= Enum.AssetType.RightArm then
+            v99 = true;
+            if v97 ~= Enum.AssetType.LeftLeg then
+                v99 = v97 == Enum.AssetType.RightLeg;
             end;
         end;
     end;
-    assert(v97);
-    v97 = v5(v95);
-    local l_Position_2 = v96[v97[1]].Position;
-    local l_Position_3 = v96[v97[3]].Position;
-    local v100 = v16(l_Position_2, l_Position_3);
-    v97 = {};
-    for _, v102 in v5(v95) do
-        local v103;
-        if v100 then
-            local v104 = v96[v102];
-            local v105 = v100.Rotation:Inverse() * v104.Rotation;
-            local v106 = v100.Rotation:Inverse() * (v104.Position - v100.Position);
-            v103 = CFrame.new(v106) * v105;
+    assert(v99);
+    v99 = v5(v97);
+    local l_Position_2 = v98[v99[1]].Position;
+    local l_Position_3 = v98[v99[3]].Position;
+    local v102 = v18(l_Position_2, l_Position_3);
+    v99 = {};
+    for _, v104 in v5(v97) do
+        local v105;
+        if v102 then
+            local v106 = v98[v104];
+            local v107 = v102.Rotation:Inverse() * v106.Rotation;
+            local v108 = v102.Rotation:Inverse() * (v106.Position - v102.Position);
+            v105 = CFrame.new(v108) * v107;
         else
-            v103 = v96[v102];
+            v105 = v98[v104];
         end;
-        v97[v102] = v103;
+        v99[v104] = v105;
     end;
-    return v97;
+    return v99;
 end;
-v10.getBodyPartsToParents = function() --[[ Line: 300 ]] --[[ Name: getBodyPartsToParents ]]
-    -- upvalues: v8 (copy)
-    local v107 = {};
-    local function v108(v109, v110, v111) --[[ Line: 303 ]] --[[ Name: calculateAllTransformsInternal ]]
-        -- upvalues: v107 (copy), v108 (copy)
-        v107[v109] = v110 or "HumanoidRootPart";
-        if not v111.children then
+v12.getBodyPartsToParents = function() --[[ Line: 308 ]] --[[ Name: getBodyPartsToParents ]]
+    -- upvalues: v10 (copy)
+    local v109 = {};
+    local function v110(v111, v112, v113) --[[ Line: 311 ]] --[[ Name: calculateAllTransformsInternal ]]
+        -- upvalues: v109 (copy), v110 (copy)
+        v109[v111] = v112 or "HumanoidRootPart";
+        if not v113.children then
             return;
         else
-            for v112, v113 in v111.children do
-                v108(v112, v109, v113);
+            for v114, v115 in v113.children do
+                v110(v114, v111, v115);
             end;
             return;
         end;
     end;
-    local l_root_0 = v8.root;
-    local l_v8_0 = v8;
-    v107[l_root_0] = "HumanoidRootPart";
-    if not l_v8_0.children then
-        return v107;
+    local l_root_0 = v10.root;
+    local l_v10_0 = v10;
+    v109[l_root_0] = "HumanoidRootPart";
+    if not l_v10_0.children then
+        return v109;
     else
-        for v116, v117 in l_v8_0.children do
-            v108(v116, l_root_0, v117);
+        for v118, v119 in l_v10_0.children do
+            v110(v118, l_root_0, v119);
         end;
-        return v107;
+        return v109;
     end;
 end;
-v10.getAssetMeshesValidationSpaceTransforms = function(v118, v119) --[[ Line: 319 ]] --[[ Name: getAssetMeshesValidationSpaceTransforms ]]
-    -- upvalues: v10 (copy), v7 (copy)
-    local l_assetTypeEnum_0 = v119.assetTypeEnum;
+v12.getAssetMeshesValidationSpaceTransforms = function(v120, v121) --[[ Line: 327 ]] --[[ Name: getAssetMeshesValidationSpaceTransforms ]]
+    -- upvalues: v12 (copy), v7 (copy)
+    local l_assetTypeEnum_0 = v121.assetTypeEnum;
     assert(l_assetTypeEnum_0);
-    local v121 = {};
+    local v123 = {};
     if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
-        table.insert(v121, v118.Name);
+        table.insert(v123, v120.Name);
     else
-        for _, v123 in v118:GetChildren() do
-            if v123:IsA("MeshPart") then
-                table.insert(v121, v123.Name);
+        for _, v125 in v120:GetChildren() do
+            if v125:IsA("MeshPart") then
+                table.insert(v123, v125.Name);
             end;
         end;
     end;
-    local v124 = v10.calculateAllTransformsForAsset(l_assetTypeEnum_0, v118);
-    local function v126(v125) --[[ Line: 340 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: l_assetTypeEnum_0 (copy), v118 (copy)
+    local v126 = v12.calculateAllTransformsForAsset(l_assetTypeEnum_0, v120);
+    local function v128(v127) --[[ Line: 348 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: l_assetTypeEnum_0 (copy), v120 (copy)
         if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
-            return v118;
+            return v120;
         else
-            return (v118:FindFirstChild(v125));
+            return (v120:FindFirstChild(v127));
         end;
     end;
     if l_assetTypeEnum_0 ~= Enum.AssetType.DynamicHead and l_assetTypeEnum_0 ~= Enum.AssetType.Torso then
-        for v127, v128 in (v10.calculateStraightenedLimb(l_assetTypeEnum_0, v124, v126)) do
-            v124[v127] = v128;
+        for v129, v130 in (v12.calculateStraightenedLimb(l_assetTypeEnum_0, v126, v128)) do
+            v126[v129] = v130;
         end;
     end;
-    local v129 = v7(v121, v126, v119);
-    local v130 = {};
-    for _, v132 in v121 do
-        v130[v132] = {
-            CFrame = v124[v132], 
-            scale = v129[v132]
+    local v131 = v7(v123, v128, v121);
+    local v132 = {};
+    for _, v134 in v123 do
+        v132[v134] = {
+            CFrame = v126[v134], 
+            scale = v131[v134]
         };
     end;
-    return v130;
+    return v132;
 end;
-return v10;
+return v12;

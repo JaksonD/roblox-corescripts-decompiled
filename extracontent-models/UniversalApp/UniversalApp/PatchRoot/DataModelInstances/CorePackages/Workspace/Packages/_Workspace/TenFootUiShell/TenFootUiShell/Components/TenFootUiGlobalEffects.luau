@@ -19,111 +19,114 @@ local l_useNavigation_0 = v16.useNavigation;
 local l_getRouteIsActive_0 = v16.getRouteIsActive;
 local l_AppEventIngestService_0 = require(l_Parent_0.RoactServiceTags).AppEventIngestService;
 local l_FFlagEnableLeftNavOnConsole_0 = require(l_Parent_0.SharedFlags).FFlagEnableLeftNavOnConsole;
-local function v25() --[[ Line: 24 ]] --[[ Name: useAppGamepadDisconnectListener ]]
+local l_FFlagDontUseCrossPlayGlobalEffect_0 = require(l_Parent_0.SharedFlags).FFlagDontUseCrossPlayGlobalEffect;
+local function v26() --[[ Line: 25 ]] --[[ Name: useAppGamepadDisconnectListener ]]
     -- upvalues: l_useDispatch_0 (copy), v2 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_useRoactService_0 (copy), l_AppEventIngestService_0 (copy), l_useGamepadDisconnectOverlayEffect_0 (copy)
-    local v21 = l_useDispatch_0();
-    local v22 = v2.useCallback(function() --[[ Line: 27 ]]
-        -- upvalues: v21 (copy), l_SetCentralOverlay_0 (ref)
-        v21(l_SetCentralOverlay_0());
+    local v22 = l_useDispatch_0();
+    local v23 = v2.useCallback(function() --[[ Line: 28 ]]
+        -- upvalues: v22 (copy), l_SetCentralOverlay_0 (ref)
+        v22(l_SetCentralOverlay_0());
     end, {
-        v21
+        v22
     });
-    local v23 = v2.useCallback(function() --[[ Line: 31 ]]
-        -- upvalues: v21 (copy), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref)
-        v21(l_SetCentralOverlay_0(l_CentralOverlayType_0.GamepadDisconnected));
+    local v24 = v2.useCallback(function() --[[ Line: 32 ]]
+        -- upvalues: v22 (copy), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref)
+        v22(l_SetCentralOverlay_0(l_CentralOverlayType_0.GamepadDisconnected));
     end, {
-        v21
+        v22
     });
-    local v24 = l_useRoactService_0(l_AppEventIngestService_0);
-    l_useGamepadDisconnectOverlayEffect_0(v23, v22, v24, "InApp");
+    local v25 = l_useRoactService_0(l_AppEventIngestService_0);
+    l_useGamepadDisconnectOverlayEffect_0(v24, v23, v25, "InApp");
 end;
-local function _(v26) --[[ Line: 39 ]] --[[ Name: getAvatarRouteIsActive ]]
+local function _(v27) --[[ Line: 40 ]] --[[ Name: getAvatarRouteIsActive ]]
     -- upvalues: l_getRouteIsActive_0 (copy), l_AppPage_0 (copy)
-    return l_getRouteIsActive_0(v26, l_AppPage_0.AvatarExperienceRoot);
+    return l_getRouteIsActive_0(v27, l_AppPage_0.AvatarExperienceRoot);
 end;
-local function v32(v28, v29) --[[ Line: 43 ]] --[[ Name: setSceneTransparency ]]
-    if v28 then
-        for _, v31 in ipairs(v28:GetChildren()) do
-            if v31:IsA("BasePart") then
-                v31.Transparency = v29;
+local function v33(v29, v30) --[[ Line: 44 ]] --[[ Name: setSceneTransparency ]]
+    if v29 then
+        for _, v32 in ipairs(v29:GetChildren()) do
+            if v32:IsA("BasePart") then
+                v32.Transparency = v30;
             end;
         end;
     end;
 end;
-local function _(v33, v34) --[[ Line: 57 ]] --[[ Name: applyAvatarCameraFix ]]
+local function _(v34, v35) --[[ Line: 58 ]] --[[ Name: applyAvatarCameraFix ]]
     -- upvalues: l_getRouteIsActive_0 (copy), l_AppPage_0 (copy), v3 (copy)
-    local v35 = l_getRouteIsActive_0(v33, l_AppPage_0.AvatarExperienceRoot);
     local v36 = l_getRouteIsActive_0(v34, l_AppPage_0.AvatarExperienceRoot);
-    if v35 and not v36 and workspace.CurrentCamera then
+    local v37 = l_getRouteIsActive_0(v35, l_AppPage_0.AvatarExperienceRoot);
+    if v36 and not v37 and workspace.CurrentCamera then
         workspace.CurrentCamera.CFrame = CFrame.new(v3.CAMERA_POSITION);
     end;
 end;
-local function v42(v38) --[[ Line: 65 ]] --[[ Name: applySceneSwitch ]]
-    -- upvalues: v4 (copy), l_getRouteIsActive_0 (copy), l_AppPage_0 (copy), v32 (copy)
-    local v39 = v4.getBackgroundInstance();
-    if v39 then
-        local v40 = l_getRouteIsActive_0(v38, l_AppPage_0.AvatarExperienceRoot);
-        local v41 = v40 and 1 or 0;
-        if v40 then
-            task.spawn(function() --[[ Line: 75 ]]
-                -- upvalues: v32 (ref), v39 (copy), v41 (copy)
+local function v43(v39) --[[ Line: 66 ]] --[[ Name: applySceneSwitch ]]
+    -- upvalues: v4 (copy), l_getRouteIsActive_0 (copy), l_AppPage_0 (copy), v33 (copy)
+    local v40 = v4.getBackgroundInstance();
+    if v40 then
+        local v41 = l_getRouteIsActive_0(v39, l_AppPage_0.AvatarExperienceRoot);
+        local v42 = v41 and 1 or 0;
+        if v41 then
+            task.spawn(function() --[[ Line: 76 ]]
+                -- upvalues: v33 (ref), v40 (copy), v42 (copy)
                 if workspace:WaitForChild("AvatarSceneNew") then
-                    v32(v39, v41);
+                    v33(v40, v42);
                 end;
             end);
             return;
         else
-            v32(v39, v41);
+            v33(v40, v42);
         end;
     end;
 end;
-local function v49() --[[ Line: 87 ]] --[[ Name: useAvatarSceneEffects ]]
-    -- upvalues: l_useNavigation_0 (copy), l_usePrevious_0 (copy), v2 (copy), l_getRouteIsActive_0 (copy), l_AppPage_0 (copy), v3 (copy), v42 (copy)
+local function v50() --[[ Line: 88 ]] --[[ Name: useAvatarSceneEffects ]]
+    -- upvalues: l_useNavigation_0 (copy), l_usePrevious_0 (copy), v2 (copy), l_getRouteIsActive_0 (copy), l_AppPage_0 (copy), v3 (copy), v43 (copy)
     local l_state_0 = l_useNavigation_0().state;
-    local v44 = l_usePrevious_0(l_state_0) or l_state_0;
-    v2.useEffect(function() --[[ Line: 92 ]]
-        -- upvalues: v44 (copy), l_state_0 (copy), l_getRouteIsActive_0 (ref), l_AppPage_0 (ref), v3 (ref), v42 (ref)
-        local l_v44_0 = v44;
+    local v45 = l_usePrevious_0(l_state_0) or l_state_0;
+    v2.useEffect(function() --[[ Line: 93 ]]
+        -- upvalues: v45 (copy), l_state_0 (copy), l_getRouteIsActive_0 (ref), l_AppPage_0 (ref), v3 (ref), v43 (ref)
+        local l_v45_0 = v45;
         local l_l_state_0_0 = l_state_0;
-        local v47 = l_getRouteIsActive_0(l_v44_0, l_AppPage_0.AvatarExperienceRoot);
-        local v48 = l_getRouteIsActive_0(l_l_state_0_0, l_AppPage_0.AvatarExperienceRoot);
-        if v47 and not v48 and workspace.CurrentCamera then
+        local v48 = l_getRouteIsActive_0(l_v45_0, l_AppPage_0.AvatarExperienceRoot);
+        local v49 = l_getRouteIsActive_0(l_l_state_0_0, l_AppPage_0.AvatarExperienceRoot);
+        if v48 and not v49 and workspace.CurrentCamera then
             workspace.CurrentCamera.CFrame = CFrame.new(v3.CAMERA_POSITION);
         end;
-        v42(l_state_0);
+        v43(l_state_0);
     end, {
         l_state_0
     });
 end;
-local function _() --[[ Line: 98 ]] --[[ Name: useTenFootUiScene ]]
+local function _() --[[ Line: 99 ]] --[[ Name: useTenFootUiScene ]]
     -- upvalues: v2 (copy), v4 (copy)
-    v2.useLayoutEffect(function() --[[ Line: 99 ]]
+    v2.useLayoutEffect(function() --[[ Line: 100 ]]
         -- upvalues: v4 (ref)
         v4.initialize();
-        return function() --[[ Line: 101 ]]
+        return function() --[[ Line: 102 ]]
             -- upvalues: v4 (ref)
             v4.deinitialize();
         end;
     end, {});
 end;
-return function(v51) --[[ Line: 107 ]] --[[ Name: GlobalEffects ]]
-    -- upvalues: l_FFlagEnableLeftNavOnConsole_0 (copy), v49 (copy), v14 (copy), v13 (copy), l_useInitializeCrossPlaySettings_0 (copy), v25 (copy), v2 (copy), v4 (copy)
+return function(v52) --[[ Line: 108 ]] --[[ Name: GlobalEffects ]]
+    -- upvalues: l_FFlagEnableLeftNavOnConsole_0 (copy), v50 (copy), v14 (copy), v13 (copy), l_FFlagDontUseCrossPlayGlobalEffect_0 (copy), l_useInitializeCrossPlaySettings_0 (copy), v26 (copy), v2 (copy), v4 (copy)
     if not l_FFlagEnableLeftNavOnConsole_0 then
-        v49();
+        v50();
     end;
     v14();
     v13();
-    l_useInitializeCrossPlaySettings_0();
-    v25();
+    if not l_FFlagDontUseCrossPlayGlobalEffect_0 then
+        l_useInitializeCrossPlaySettings_0();
+    end;
+    v26();
     if not l_FFlagEnableLeftNavOnConsole_0 then
-        v2.useLayoutEffect(function() --[[ Line: 99 ]]
+        v2.useLayoutEffect(function() --[[ Line: 100 ]]
             -- upvalues: v4 (ref)
             v4.initialize();
-            return function() --[[ Line: 101 ]]
+            return function() --[[ Line: 102 ]]
                 -- upvalues: v4 (ref)
                 v4.deinitialize();
             end;
         end, {});
     end;
-    return v2.createElement(v2.Fragment, nil, v51.children);
+    return v2.createElement(v2.Fragment, nil, v52.children);
 end;

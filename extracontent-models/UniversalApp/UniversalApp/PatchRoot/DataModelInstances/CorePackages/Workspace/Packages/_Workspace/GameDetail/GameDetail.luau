@@ -6,5 +6,6 @@ return {
     ExperienceDetailsPageUtils = require(script.ExperienceDetailsPage.ExperienceDetailsPageUtils), 
     fetchExperienceDetailsPage = require(script.ExperienceDetailsPage.fetchExperienceDetailsPage), 
     getExperienceDetailsPageKey = require(script.ExperienceDetailsPage.getExperienceDetailsPageKey), 
+    useExperienceBannerImage = require(script.ExperienceDetailsPage.useExperienceBannerImage), 
     ["jest.config"] = script["jest.config"]
 };

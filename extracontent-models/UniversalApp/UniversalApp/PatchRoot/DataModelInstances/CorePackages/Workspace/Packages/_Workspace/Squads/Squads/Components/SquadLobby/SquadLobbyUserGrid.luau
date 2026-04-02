@@ -16,118 +16,137 @@ local v14 = require(l_script_FirstAncestor_0.Enums.SquadUserPartyStatus);
 local v15 = require(script.Parent.SquadLobbyUserCard);
 local v16 = require(script.Parent.SquadLobbyUpsellCard);
 local v17 = game:DefineFastFlag("EmptySquadIdReinviteCheckEnabled", false);
-local l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 = require(l_Parent_0.SharedFlags).FFlagEnableSquadRegroupExperimentationSmallScreenFix;
-return function(v19) --[[ Line: 47 ]]
-    -- upvalues: l_useTokens_0 (copy), l_useLocalUserId_0 (copy), l_useSquadState_0 (copy), v3 (copy), l_SquadState_0 (copy), v17 (copy), l_Cryo_0 (copy), v14 (copy), l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), v15 (copy), v16 (copy), l_Roact_0 (copy)
-    local v20 = l_useTokens_0();
-    local v21 = tonumber(l_useLocalUserId_0()) or 0;
-    local v22 = l_useSquadState_0();
-    local l_Medium_0 = v20.Gap.Medium;
-    local l_XLarge_0 = v20.Padding.XLarge;
-    local v35, v36, v37 = v3.useMemo(function() --[[ Line: 54 ]]
-        -- upvalues: v19 (copy), l_XLarge_0 (copy), v22 (copy), l_SquadState_0 (ref), v17 (ref), l_Cryo_0 (ref), v14 (ref), l_Medium_0 (copy), l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 (ref)
-        if v19.containerSize.Y == 0 or v19.containerSize.X == 0 then
+local v18 = require(l_Parent_0.SharedFlags);
+local l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 = v18.FFlagEnableSquadRegroupExperimentationSmallScreenFix;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v18.FFlagRemoveDependencyArrayAntipattern;
+return function(v21) --[[ Line: 49 ]]
+    -- upvalues: l_useTokens_0 (copy), l_useLocalUserId_0 (copy), l_useSquadState_0 (copy), v3 (copy), l_SquadState_0 (copy), v17 (copy), l_Cryo_0 (copy), v14 (copy), l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_useSelector_0 (copy), v15 (copy), v16 (copy), l_Roact_0 (copy)
+    local v22 = l_useTokens_0();
+    local v23 = tonumber(l_useLocalUserId_0()) or 0;
+    local v24 = l_useSquadState_0();
+    local l_Medium_0 = v22.Gap.Medium;
+    local l_XLarge_0 = v22.Padding.XLarge;
+    local v37, v38, v39 = v3.useMemo(function() --[[ Line: 57 ]]
+        -- upvalues: v21 (copy), l_XLarge_0 (copy), v24 (copy), l_SquadState_0 (ref), v17 (ref), l_Cryo_0 (ref), v14 (ref), l_Medium_0 (copy), l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 (ref)
+        if v21.containerSize.Y == 0 or v21.containerSize.X == 0 then
             return Vector2.new(0, 0), 0, 0;
         else
-            local v25 = v19.containerSize.X - l_XLarge_0 * 2;
-            local v26 = v25 / v19.containerSize.Y;
-            local v28 = (not (not (v22 == l_SquadState_0.Initializing) or v17) or v17 and v22 ~= l_SquadState_0.Active) and 1 or math.max(#l_Cryo_0.List.filter(v19.users, function(v27) --[[ Line: 67 ]]
+            local v27 = v21.containerSize.X - l_XLarge_0 * 2;
+            local v28 = v27 / v21.containerSize.Y;
+            local v30 = (not (not (v24 == l_SquadState_0.Initializing) or v17) or v17 and v24 ~= l_SquadState_0.Active) and 1 or math.max(#l_Cryo_0.List.filter(v21.users, function(v29) --[[ Line: 70 ]]
                 -- upvalues: v14 (ref)
-                return v27.partyStatus ~= v14.Inactive;
+                return v29.partyStatus ~= v14.Inactive;
             end), 2);
-            local v29 = v28 <= 3 and v26 > 1.75 and v28 * 120 + (v28 - 1) * l_Medium_0 <= v25;
-            local v30 = nil;
-            local v31 = nil;
-            if v29 then
-                v30 = 1;
-                v31 = v28;
-            elseif v28 <= 3 then
-                v30 = v28;
-                v31 = 1;
+            local v31 = v30 <= 3 and v28 > 1.75 and v30 * 120 + (v30 - 1) * l_Medium_0 <= v27;
+            local v32 = nil;
+            local v33 = nil;
+            if v31 then
+                v32 = 1;
+                v33 = v30;
+            elseif v30 <= 3 then
+                v32 = v30;
+                v33 = 1;
             else
-                v30 = math.ceil(v28 / 2);
-                v31 = 2;
+                v32 = math.ceil(v30 / 2);
+                v33 = 2;
             end;
-            local v32 = math.min(v30, (math.clamp(math.floor((v19.containerSize.Y + l_Medium_0) / (120 + l_Medium_0)), 1, 3)));
-            local v33 = (v25 + l_Medium_0) / v31 - l_Medium_0;
-            local v34 = if l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 then math.max(120, v19.containerSize.Y + l_Medium_0) / v32 - l_Medium_0 else (v19.containerSize.Y + l_Medium_0) / v32 - l_Medium_0;
-            return Vector2.new(v33, v34), v30, v31;
+            local v34 = math.min(v32, (math.clamp(math.floor((v21.containerSize.Y + l_Medium_0) / (120 + l_Medium_0)), 1, 3)));
+            local v35 = (v27 + l_Medium_0) / v33 - l_Medium_0;
+            local v36 = if l_FFlagEnableSquadRegroupExperimentationSmallScreenFix_0 then math.max(120, v21.containerSize.Y + l_Medium_0) / v34 - l_Medium_0 else (v21.containerSize.Y + l_Medium_0) / v34 - l_Medium_0;
+            return Vector2.new(v35, v36), v32, v33;
         end;
-    end, l_dependencyArray_0(l_Medium_0, v19.containerSize, v19.users, l_XLarge_0));
-    local v39 = v3.useCallback(function(v38) --[[ Line: 104 ]]
-        return v38.Squad.UserBlocking.isBlockedByMe;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_Medium_0, 
+        v21.containerSize, 
+        v21.users, 
+        l_XLarge_0
+    } else l_dependencyArray_0(l_Medium_0, v21.containerSize, v21.users, l_XLarge_0));
+    local v41 = v3.useCallback(function(v40) --[[ Line: 111 ]]
+        return v40.Squad.UserBlocking.isBlockedByMe;
     end, {});
-    local v40 = l_useSelector_0(v39);
-    local v53 = v3.useMemo(function() --[[ Line: 111 ]]
-        -- upvalues: v35 (copy), v3 (ref), v15 (ref), v40 (copy), v19 (copy), v14 (ref), v21 (copy), v22 (copy), l_SquadState_0 (ref), v16 (ref), v36 (copy), v37 (copy), l_Medium_0 (copy)
-        if v35.X == 0 or v35.Y == 0 then
+    local v42 = l_useSelector_0(v41);
+    local v55 = v3.useMemo(function() --[[ Line: 118 ]]
+        -- upvalues: v37 (copy), v3 (ref), v15 (ref), v42 (copy), v21 (copy), v14 (ref), v23 (copy), v24 (copy), l_SquadState_0 (ref), v16 (ref), v38 (copy), v39 (copy), l_Medium_0 (copy)
+        if v37.X == 0 or v37.Y == 0 then
             return {};
         else
-            local v41 = {};
-            local function v45(v42, v43, v44) --[[ Line: 117 ]]
-                -- upvalues: v3 (ref), v15 (ref), v35 (ref), v40 (ref), v19 (ref)
+            local v43 = {};
+            local function v47(v44, v45, v46) --[[ Line: 124 ]]
+                -- upvalues: v3 (ref), v15 (ref), v37 (ref), v42 (ref), v21 (ref)
                 return v3.createElement(v15, {
-                    size = UDim2.fromOffset(v35.X, v35.Y), 
-                    isBlocked = v40[tostring(v43.userId)], 
-                    isConnecting = v44, 
-                    layoutOrder = v42, 
-                    onActivated = v19.onUserCardActivated, 
-                    user = v43, 
-                    isInExperience = v19.isInExperience
+                    size = UDim2.fromOffset(v37.X, v37.Y), 
+                    isBlocked = v42[tostring(v45.userId)], 
+                    isConnecting = v46, 
+                    layoutOrder = v44, 
+                    onActivated = v21.onUserCardActivated, 
+                    user = v45, 
+                    isInExperience = v21.isInExperience
                 });
             end;
-            for v46, v47 in ipairs(v19.users) do
-                if v47.partyStatus ~= v14.Inactive then
-                    if v47.userId == v21 then
-                        table.insert(v41, v45(0, v47, v47.partyStatus == v14.Connecting));
+            for v48, v49 in ipairs(v21.users) do
+                if v49.partyStatus ~= v14.Inactive then
+                    if v49.userId == v23 then
+                        table.insert(v43, v47(0, v49, v49.partyStatus == v14.Connecting));
                     else
-                        table.insert(v41, v45(v46, v47, v47.partyStatus == v14.Connecting));
+                        table.insert(v43, v47(v48, v49, v49.partyStatus == v14.Connecting));
                     end;
                 end;
             end;
-            if #v41 == 1 and v22 ~= l_SquadState_0.Initializing then
-                table.insert(v41, (v3.createElement(v16, {
-                    size = UDim2.fromOffset(v35.X, v35.Y), 
-                    layoutOrder = #v41 + 1, 
-                    navigateToHomePage = v19.navigateToHomePage, 
-                    navigateToSquadInviteFriends = v19.navigateToSquadInviteFriends
+            if #v43 == 1 and v24 ~= l_SquadState_0.Initializing then
+                table.insert(v43, (v3.createElement(v16, {
+                    size = UDim2.fromOffset(v37.X, v37.Y), 
+                    layoutOrder = #v43 + 1, 
+                    navigateToHomePage = v21.navigateToHomePage, 
+                    navigateToSquadInviteFriends = v21.navigateToSquadInviteFriends
                 })));
             end;
-            local v48 = {};
-            for v49 = 1, v36 do
-                local v50 = {};
-                for v51 = 1, v37 do
-                    local v52 = (v49 - 1) * v37 + v51;
-                    if v41[v52] then
-                        v50["Card" .. v52] = v41[v52];
+            local v50 = {};
+            for v51 = 1, v38 do
+                local v52 = {};
+                for v53 = 1, v39 do
+                    local v54 = (v51 - 1) * v39 + v53;
+                    if v43[v54] then
+                        v52["Card" .. v54] = v43[v54];
                     end;
                 end;
-                v50.UIListLayout = v3.createElement("UIListLayout", {
+                v52.UIListLayout = v3.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
                     HorizontalAlignment = Enum.HorizontalAlignment.Center, 
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     Padding = UDim.new(0, l_Medium_0)
                 });
-                v48["Row" .. v49] = v3.createElement("Frame", {
-                    Size = UDim2.new(1, 0, 0, v35.Y), 
+                v50["Row" .. v51] = v3.createElement("Frame", {
+                    Size = UDim2.new(1, 0, 0, v37.Y), 
                     BackgroundTransparency = 1, 
-                    LayoutOrder = v49
-                }, v50);
+                    LayoutOrder = v51
+                }, v52);
             end;
-            return v48;
+            return v50;
         end;
-    end, l_dependencyArray_0(v35, l_Medium_0, v40, v21, v37, v36, v19.navigateToHomePage, v19.navigateToSquadInviteFriends, v19.onUserCardActivated, v19.users, v22));
-    v53.UIListLayout = v3.createElement("UIListLayout", {
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v37, 
+        l_Medium_0, 
+        v42, 
+        v23, 
+        v39, 
+        v38, 
+        v21.navigateToHomePage, 
+        v21.navigateToSquadInviteFriends, 
+        v21.onUserCardActivated, 
+        v21.users, 
+        v24
+    } else l_dependencyArray_0(v37, l_Medium_0, v42, v23, v39, v38, v21.navigateToHomePage, v21.navigateToSquadInviteFriends, v21.onUserCardActivated, v21.users, v24));
+    v55.UIListLayout = v3.createElement("UIListLayout", {
         FillDirection = Enum.FillDirection.Vertical, 
         HorizontalAlignment = Enum.HorizontalAlignment.Center, 
         VerticalAlignment = Enum.VerticalAlignment.Top, 
         SortOrder = Enum.SortOrder.LayoutOrder, 
         Padding = UDim.new(0, l_Medium_0)
     });
-    v53.UIPadding = v3.createElement("UIPadding", {
-        PaddingBottom = v19.paddingBottom, 
+    v55.UIPadding = v3.createElement("UIPadding", {
+        PaddingBottom = v21.paddingBottom, 
         PaddingLeft = UDim.new(0, l_XLarge_0), 
         PaddingRight = UDim.new(0, l_XLarge_0)
     });
-    return l_Roact_0.createFragment(v53);
+    return l_Roact_0.createFragment(v55);
 end;

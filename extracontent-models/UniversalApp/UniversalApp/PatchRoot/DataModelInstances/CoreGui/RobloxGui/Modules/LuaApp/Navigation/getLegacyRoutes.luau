@@ -21,291 +21,294 @@ local l_AvatarScreen_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExper
 local v20 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_FFlagShareTargetGameCleanup_0 = v20.FFlagShareTargetGameCleanup;
 local l_FFlagEnableBlackbird_0 = v20.FFlagEnableBlackbird;
-local l_GetFStringBlackbirdUrl_0 = v20.GetFStringBlackbirdUrl;
-local v24 = require(l_Modules_0.LuaApp.Flags.FFlagReworkPurchaseRobuxPage);
-local v25 = require(l_Modules_0.LuaApp.Flags.GetFFlagWebViewServiceHasBackButtonVisibility);
+local v23 = require(l_Modules_0.LuaApp.Flags.FFlagReworkPurchaseRobuxPage);
+local v24 = require(l_Modules_0.LuaApp.Flags.GetFFlagWebViewServiceHasBackButtonVisibility);
 local l_FFlagLuaAppEnableStratusStreamingTestOnly_0 = v20.FFlagLuaAppEnableStratusStreamingTestOnly;
-local v27 = l_createLazyComponent_0(function() --[[ Line: 37 ]]
+local v26 = l_createLazyComponent_0(function() --[[ Line: 36 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.VideoServerScreen).VideoServerScreenContainer;
 end);
-local v28 = {
-    SafetySupportPage = l_createLazyComponent_0(function() --[[ Line: 42 ]]
+local v27 = {
+    SafetySupportPage = l_createLazyComponent_0(function() --[[ Line: 41 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.More.SafetySupportPage);
     end), 
-    DeviceSettingsPage = l_createLazyComponent_0(function() --[[ Line: 45 ]]
+    DeviceSettingsPage = l_createLazyComponent_0(function() --[[ Line: 44 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.More.DeviceSettings.DeviceSettingsPage);
     end), 
-    AppInformation = l_createLazyComponent_0(function() --[[ Line: 48 ]]
+    AppInformation = l_createLazyComponent_0(function() --[[ Line: 47 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.More.AppInformationPage);
     end), 
-    DevSubsPage = l_createLazyComponent_0(function() --[[ Line: 51 ]]
+    DevSubsPage = l_createLazyComponent_0(function() --[[ Line: 50 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.More.DevSubsPage);
     end), 
-    TencentNoticeCenterPage = l_createLazyComponent_0(function() --[[ Line: 54 ]]
+    TencentNoticeCenterPage = l_createLazyComponent_0(function() --[[ Line: 53 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.Luobu.Components.More.TencentNoticeCenter.TencentNoticeCenterPage);
     end), 
-    TencentNoticeContentPage = l_createLazyComponent_0(function() --[[ Line: 57 ]]
+    TencentNoticeContentPage = l_createLazyComponent_0(function() --[[ Line: 56 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.Luobu.Components.More.TencentNoticeCenter.TencentNoticeContentPage);
     end)
 };
-local v29 = {
-    CharacterSelectionPage = l_createLazyComponent_0(function() --[[ Line: 62 ]]
+local v28 = {
+    CharacterSelectionPage = l_createLazyComponent_0(function() --[[ Line: 61 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.CharacterSelectPage);
     end), 
-    UsernameSelectionPage = l_createLazyComponent_0(function() --[[ Line: 65 ]]
+    UsernameSelectionPage = l_createLazyComponent_0(function() --[[ Line: 64 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.UsernameSelectionPage);
     end), 
-    PasswordSelectionPage = l_createLazyComponent_0(function() --[[ Line: 68 ]]
+    PasswordSelectionPage = l_createLazyComponent_0(function() --[[ Line: 67 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.PasswordSelectionPage);
     end), 
-    LoginV2MonoWrapper = l_createLazyComponent_0(function() --[[ Line: 71 ]]
+    LoginV2MonoWrapper = l_createLazyComponent_0(function() --[[ Line: 70 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.LoginV2MonoWrapper);
     end), 
-    AccountRecoveryMonoWrapper = l_createLazyComponent_0(function() --[[ Line: 74 ]]
+    AccountRecoveryMonoWrapper = l_createLazyComponent_0(function() --[[ Line: 73 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.AccountSecurity.AccountRecoveryMonoWrapper);
     end), 
-    UAppBlockPage = l_createLazyComponent_0(function() --[[ Line: 77 ]]
+    UAppBlockPage = l_createLazyComponent_0(function() --[[ Line: 76 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.UAppBlockPage);
     end), 
-    LandingPage = l_createLazyComponent_0(function() --[[ Line: 80 ]]
+    LandingPage = l_createLazyComponent_0(function() --[[ Line: 79 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.LandingPage);
     end), 
-    LuobuLandingPage = l_createLazyComponent_0(function() --[[ Line: 83 ]]
+    LuobuLandingPage = l_createLazyComponent_0(function() --[[ Line: 82 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.Luobu.Components.Authentication.LuobuLandingPage);
     end), 
-    BirthdayPage = l_createLazyComponent_0(function() --[[ Line: 86 ]]
+    BirthdayPage = l_createLazyComponent_0(function() --[[ Line: 85 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.BirthdayPage);
     end), 
-    LuobuSignUpPage = l_createLazyComponent_0(function() --[[ Line: 89 ]]
+    LuobuSignUpPage = l_createLazyComponent_0(function() --[[ Line: 88 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.Luobu.Components.Authentication.LuobuSignUpPage);
     end), 
-    AddAuthMethodPage = l_createLazyComponent_0(function() --[[ Line: 92 ]]
+    AddAuthMethodPage = l_createLazyComponent_0(function() --[[ Line: 91 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.Authentication.AddAuthMethodPage);
     end), 
-    PasskeyUpsellScreen = l_createLazyComponent_0(function() --[[ Line: 95 ]]
+    PasskeyUpsellScreen = l_createLazyComponent_0(function() --[[ Line: 94 ]]
         -- upvalues: l_CorePackages_0 (copy)
         return require(l_CorePackages_0.Workspace.Packages.PasskeyUpsell).Components.PasskeyUpsellScreen;
     end), 
-    CaptchaPageBrowserServiceWrapper = l_createLazyComponent_0(function() --[[ Line: 98 ]]
+    CaptchaPageBrowserServiceWrapper = l_createLazyComponent_0(function() --[[ Line: 97 ]]
         -- upvalues: l_Modules_0 (copy)
         return require(l_Modules_0.LuaApp.Components.CaptchaPageBrowserServiceWrapper);
     end), 
-    NotApprovedPage = l_createLazyComponent_0(function() --[[ Line: 101 ]]
+    NotApprovedPage = l_createLazyComponent_0(function() --[[ Line: 100 ]]
         -- upvalues: l_CorePackages_0 (copy)
         return require(l_CorePackages_0.Workspace.Packages.NotApprovedPage).NotApprovedPageV2;
     end)
 };
-local v30 = l_createLazyComponent_0(function() --[[ Line: 105 ]]
+local v29 = l_createLazyComponent_0(function() --[[ Line: 104 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.ExperienceDetails.Navigation.ExperienceDetailsSelector);
 end);
-local v31 = l_createLazyComponent_0(function() --[[ Line: 108 ]]
+local v30 = l_createLazyComponent_0(function() --[[ Line: 107 ]]
+    -- upvalues: l_Modules_0 (copy)
+    return require(l_Modules_0.LuaApp.Components.BlackbirdPageWrapper);
+end);
+local v31 = l_createLazyComponent_0(function() --[[ Line: 110 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Passes.PassesPage);
 end);
-local v32 = l_createLazyComponent_0(function() --[[ Line: 111 ]]
+local v32 = l_createLazyComponent_0(function() --[[ Line: 113 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.InviteLinkExpiredModal.api).InviteLinkExpiredModal;
 end);
-local v33 = l_createLazyComponent_0(function() --[[ Line: 114 ]]
+local v33 = l_createLazyComponent_0(function() --[[ Line: 116 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.ShareLinkInvalidModal.api).ShareLinkInvalidModal;
 end);
-local v34 = l_createLazyComponent_0(function() --[[ Line: 117 ]]
+local v34 = l_createLazyComponent_0(function() --[[ Line: 119 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.ProfileQRCodePage.api).ProfileQRCodeEntryPoint;
 end);
-local v35 = l_createLazyComponent_0(function() --[[ Line: 120 ]]
+local v35 = l_createLazyComponent_0(function() --[[ Line: 122 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.SocialMessageToast.api).RootScreen;
 end);
-local v36 = l_createLazyComponent_0(function() --[[ Line: 123 ]]
+local v36 = l_createLazyComponent_0(function() --[[ Line: 125 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.EditProfile).EditUsernameWrapper;
 end);
-local v37 = l_createLazyComponent_0(function() --[[ Line: 126 ]]
+local v37 = l_createLazyComponent_0(function() --[[ Line: 128 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.AccountSelector).AccountSelectorPeekView;
 end);
-local v38 = l_createLazyComponent_0(function() --[[ Line: 129 ]]
+local v38 = l_createLazyComponent_0(function() --[[ Line: 131 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.AccountSelector).AccountSwitchingAddAccountPeekView;
 end);
-local v39 = l_createLazyComponent_0(function() --[[ Line: 132 ]]
+local v39 = l_createLazyComponent_0(function() --[[ Line: 134 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.VirtualEvents).ShareEventModal;
 end);
-local v40 = l_createLazyComponent_0(function() --[[ Line: 135 ]]
+local v40 = l_createLazyComponent_0(function() --[[ Line: 137 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.VerifiedBadges).AboutVerifiedBadgeModal;
 end);
-local v41 = l_createLazyComponent_0(function() --[[ Line: 138 ]]
+local v41 = l_createLazyComponent_0(function() --[[ Line: 140 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.VirtualEvents.EventDetailsWrapper);
 end);
-local v42 = l_createLazyComponent_0(function() --[[ Line: 141 ]]
+local v42 = l_createLazyComponent_0(function() --[[ Line: 143 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.VirtualEvents.EventNotificationsModalWrapper);
 end);
-local v43 = l_createLazyComponent_0(function() --[[ Line: 144 ]]
+local v43 = l_createLazyComponent_0(function() --[[ Line: 146 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.YouTubePageWrapper);
 end);
-local v44 = l_createLazyComponent_0(function() --[[ Line: 147 ]]
+local v44 = l_createLazyComponent_0(function() --[[ Line: 149 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.GenericWebPageWrapper);
 end);
-local v45 = l_createLazyComponent_0(function() --[[ Line: 150 ]]
+local v45 = l_createLazyComponent_0(function() --[[ Line: 152 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.GenericNativePageWrapper);
 end);
-local v46 = l_createLazyComponent_0(function() --[[ Line: 153 ]]
+local v46 = l_createLazyComponent_0(function() --[[ Line: 155 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.ShareTargetGame.Components.ShareTargetGameEntrypoint);
 end);
-local v47 = l_createLazyComponent_0(function() --[[ Line: 156 ]]
+local v47 = l_createLazyComponent_0(function() --[[ Line: 158 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Authentication.WeChatLoginWrapper);
 end);
-local v48 = l_createLazyComponent_0(function() --[[ Line: 159 ]]
+local v48 = l_createLazyComponent_0(function() --[[ Line: 161 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.NativeViewUserProfileWrapper);
 end);
-local v49 = l_createLazyComponent_0(function() --[[ Line: 162 ]]
+local v49 = l_createLazyComponent_0(function() --[[ Line: 164 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.NativeViewProfileWrapper);
 end);
-local v50 = l_createLazyComponent_0(function() --[[ Line: 165 ]]
+local v50 = l_createLazyComponent_0(function() --[[ Line: 167 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.NativePageWithUrlWrapper);
 end);
-local v51 = l_createLazyComponent_0(function() --[[ Line: 168 ]]
+local v51 = l_createLazyComponent_0(function() --[[ Line: 170 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.NativeReportAbuseWrapper);
 end);
-local v52 = l_createLazyComponent_0(function() --[[ Line: 171 ]]
+local v52 = l_createLazyComponent_0(function() --[[ Line: 173 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.NativePurchaseRobuxPageWrapper);
 end);
-local v53 = l_createLazyComponent_0(function() --[[ Line: 174 ]]
+local v53 = l_createLazyComponent_0(function() --[[ Line: 176 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.More.AccountInfoPage);
 end);
-local v54 = l_createLazyComponent_0(function() --[[ Line: 177 ]]
+local v54 = l_createLazyComponent_0(function() --[[ Line: 179 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.ShareSheetWrapper);
 end);
-local v55 = l_createLazyComponent_0(function() --[[ Line: 180 ]]
+local v55 = l_createLazyComponent_0(function() --[[ Line: 182 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.SdkShareWrapper);
 end);
-local v56 = l_createLazyComponent_0(function() --[[ Line: 183 ]]
+local v56 = l_createLazyComponent_0(function() --[[ Line: 185 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.Luobu.Components.More.TencentHelp.TencentHelpWrapper);
 end);
-local v57 = l_createLazyComponent_0(function() --[[ Line: 186 ]]
+local v57 = l_createLazyComponent_0(function() --[[ Line: 188 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.TutorialUpsell).Components.TutorialUpsellScreen;
 end);
-local v58 = l_createLazyComponent_0(function() --[[ Line: 189 ]]
+local v58 = l_createLazyComponent_0(function() --[[ Line: 191 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Authentication.VerificationUpsell.PhoneVerificationNativeWrapper);
 end);
-local v59 = l_createLazyComponent_0(function() --[[ Line: 192 ]]
+local v59 = l_createLazyComponent_0(function() --[[ Line: 194 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.SettingsNativeWrapper);
 end);
-local v60 = l_createLazyComponent_0(function() --[[ Line: 195 ]]
+local v60 = l_createLazyComponent_0(function() --[[ Line: 197 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.More.ParentVerificationPage);
 end);
-local v61 = l_createLazyComponent_0(function() --[[ Line: 198 ]]
+local v61 = l_createLazyComponent_0(function() --[[ Line: 200 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.WebView.AppWebView);
 end);
-local v62 = l_createLazyComponent_0(function() --[[ Line: 201 ]]
+local v62 = l_createLazyComponent_0(function() --[[ Line: 203 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Challenge.HybridOverlayPage);
 end);
-local v63 = l_createLazyComponent_0(function() --[[ Line: 204 ]]
+local v63 = l_createLazyComponent_0(function() --[[ Line: 206 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Challenge.HybridWebView);
 end);
-local v64 = l_createLazyComponent_0(function() --[[ Line: 207 ]]
+local v64 = l_createLazyComponent_0(function() --[[ Line: 209 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.ChallengeDialog).ChallengeDialogModalContainer;
 end);
-local v65 = l_createLazyComponent_0(function() --[[ Line: 210 ]]
+local v65 = l_createLazyComponent_0(function() --[[ Line: 212 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.AppRouterWrapper.AvatarExperienceWrapper);
 end);
-local v66 = l_createLazyComponent_0(function() --[[ Line: 213 ]]
+local v66 = l_createLazyComponent_0(function() --[[ Line: 215 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.AmpUpsell).IDVUpsellContainer;
 end);
-local v67 = l_createLazyComponent_0(function() --[[ Line: 216 ]]
+local v67 = l_createLazyComponent_0(function() --[[ Line: 218 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.AmpUpsell).VPCUpsellContainer;
 end);
-local v68 = l_createLazyComponent_0(function() --[[ Line: 219 ]]
+local v68 = l_createLazyComponent_0(function() --[[ Line: 221 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.AmpUpsell.RobloxSubscriptionUpsellScreen);
 end);
-local v69 = l_createLazyComponent_0(function() --[[ Line: 222 ]]
+local v69 = l_createLazyComponent_0(function() --[[ Line: 224 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.AgeVerification.AgeVerificationModal);
 end);
-local v70 = l_createLazyComponent_0(function() --[[ Line: 225 ]]
+local v70 = l_createLazyComponent_0(function() --[[ Line: 227 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.RobuxUpsell.RobuxUpsellContainer);
 end);
-local v71 = l_createLazyComponent_0(function() --[[ Line: 228 ]]
+local v71 = l_createLazyComponent_0(function() --[[ Line: 230 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Subscription.Purchase.SubscriptionPurchaseContainer);
 end);
-local v72 = l_createLazyComponent_0(function() --[[ Line: 231 ]]
+local v72 = l_createLazyComponent_0(function() --[[ Line: 233 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.BuyRobux.BuyRobuxContainer);
 end);
-local v73 = l_createLazyComponent_0(function() --[[ Line: 234 ]]
+local v73 = l_createLazyComponent_0(function() --[[ Line: 236 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.AbuseReporting.ReportContainer);
 end);
-local v74 = l_createLazyComponent_0(function() --[[ Line: 237 ]]
+local v74 = l_createLazyComponent_0(function() --[[ Line: 239 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.Games.SponsoredTooltipPeekView);
 end);
-local v75 = l_createLazyComponent_0(function() --[[ Line: 240 ]]
+local v75 = l_createLazyComponent_0(function() --[[ Line: 242 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.AppBlox).InfoPeekView;
 end);
-local v76 = l_createLazyComponent_0(function() --[[ Line: 243 ]]
+local v76 = l_createLazyComponent_0(function() --[[ Line: 245 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.AmpUpsell.AccountSettingsUpsellWrapper);
 end);
-local v77 = l_createLazyComponent_0(function() --[[ Line: 246 ]]
+local v77 = l_createLazyComponent_0(function() --[[ Line: 248 ]]
     -- upvalues: l_Modules_0 (copy)
     return require(l_Modules_0.LuaApp.Components.AmpUpsell.AmpWizardContainerWrapper);
 end);
-local v78 = l_createLazyComponent_0(function() --[[ Line: 249 ]]
+local v78 = l_createLazyComponent_0(function() --[[ Line: 251 ]]
     -- upvalues: l_CorePackages_0 (copy)
     return require(l_CorePackages_0.Workspace.Packages.PhoneUpsell).VoiceTrialUpsell;
 end);
@@ -331,7 +334,7 @@ local l_FFlagPasskeyUpsellEnabled_0 = v20.FFlagPasskeyUpsellEnabled;
 local l_FFlagTutorialUpsellEnabled_0 = v20.FFlagTutorialUpsellEnabled;
 local l_FFlagEnableNapDedicatedPage_0 = v20.FFlagEnableNapDedicatedPage;
 local l_FFlagLuaAppSduiEventDetailsEnabled_0 = v20.FFlagLuaAppSduiEventDetailsEnabled;
-local function v93(v90) --[[ Line: 278 ]] --[[ Name: getLegacyNavigationOptions ]]
+local function v93(v90) --[[ Line: 280 ]] --[[ Name: getLegacyNavigationOptions ]]
     -- upvalues: v18 (copy), v80 (copy), l_AppPage_0 (copy), l_AvatarScreen_0 (copy)
     local v91 = (v18[v90] or {}).renderUnderlyingPage or false;
     local l_v91_0 = v91;
@@ -343,53 +346,53 @@ local function v93(v90) --[[ Line: 278 ]] --[[ Name: getLegacyNavigationOptions 
         overlayEnabled = l_v91_0
     };
 end;
-return function(_) --[[ Line: 302 ]]
-    -- upvalues: l_AppPage_0 (copy), l_FFlagLuaAppEnableStratusStreamingTestOnly_0 (copy), v2 (copy), v27 (copy), v13 (copy), v29 (copy), l_FFlagEnableLuaLoginRevamp_0 (copy), l_GetFFlagEnableLuafiedRecoveryFlow_0 (copy), v14 (copy), v47 (copy), v30 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v46 (copy), v28 (copy), l_FFlagLuaAppSduiEventDetailsEnabled_0 (copy), v41 (copy), v3 (copy), v37 (copy), v38 (copy), v39 (copy), v42 (copy), v56 (copy), v44 (copy), v79 (copy), v59 (copy), v50 (copy), v15 (copy), v43 (copy), v45 (copy), v65 (copy), v61 (copy), v16 (copy), v25 (copy), l_FFlagEnableBlackbird_0 (copy), l_GetFStringBlackbirdUrl_0 (copy), v52 (copy), v17 (copy), v48 (copy), v49 (copy), v70 (copy), v71 (copy), v54 (copy), v55 (copy), v51 (copy), v58 (copy), v36 (copy), v62 (copy), v64 (copy), v73 (copy), v69 (copy), v63 (copy), v32 (copy), v33 (copy), v34 (copy), v53 (copy), v81 (copy), v60 (copy), v40 (copy), v35 (copy), v31 (copy), v76 (copy), v77 (copy), v66 (copy), v67 (copy), v68 (copy), l_FFlagPasskeyUpsellEnabled_0 (copy), l_FFlagTutorialUpsellEnabled_0 (copy), v57 (copy), v74 (copy), v75 (copy), v84 (copy), v78 (copy), l_GetFFlagEnableSecurityAlertDeeplink_0 (copy), v12 (copy), v93 (copy), l_Modules_0 (copy), l_createLazyComponent_0 (copy), l_IsVRAppBuild_0 (copy), l_GuiService_0 (copy), v72 (copy), v24 (copy), l_ScreenKind_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_CorePackages_0 (copy), l_FFlagEnableNapDedicatedPage_0 (copy)
+return function(_) --[[ Line: 304 ]]
+    -- upvalues: l_AppPage_0 (copy), l_FFlagLuaAppEnableStratusStreamingTestOnly_0 (copy), v2 (copy), v26 (copy), v13 (copy), v28 (copy), l_FFlagEnableLuaLoginRevamp_0 (copy), l_GetFFlagEnableLuafiedRecoveryFlow_0 (copy), v14 (copy), v47 (copy), v29 (copy), l_FFlagShareTargetGameCleanup_0 (copy), v46 (copy), v27 (copy), l_FFlagLuaAppSduiEventDetailsEnabled_0 (copy), v41 (copy), v3 (copy), v37 (copy), v38 (copy), v39 (copy), v42 (copy), v56 (copy), v44 (copy), v79 (copy), v59 (copy), v50 (copy), v15 (copy), v43 (copy), v45 (copy), v65 (copy), v61 (copy), v16 (copy), v24 (copy), l_FFlagEnableBlackbird_0 (copy), v30 (copy), v52 (copy), v17 (copy), v48 (copy), v49 (copy), v70 (copy), v71 (copy), v54 (copy), v55 (copy), v51 (copy), v58 (copy), v36 (copy), v62 (copy), v64 (copy), v73 (copy), v69 (copy), v63 (copy), v32 (copy), v33 (copy), v34 (copy), v53 (copy), v81 (copy), v60 (copy), v40 (copy), v35 (copy), v31 (copy), v76 (copy), v77 (copy), v66 (copy), v67 (copy), v68 (copy), l_FFlagPasskeyUpsellEnabled_0 (copy), l_FFlagTutorialUpsellEnabled_0 (copy), v57 (copy), v74 (copy), v75 (copy), v84 (copy), v78 (copy), l_GetFFlagEnableSecurityAlertDeeplink_0 (copy), v12 (copy), v93 (copy), l_Modules_0 (copy), l_createLazyComponent_0 (copy), l_IsVRAppBuild_0 (copy), l_GuiService_0 (copy), v72 (copy), v23 (copy), l_ScreenKind_0 (copy), l_GlobalNavDisplayOption_0 (copy), l_CorePackages_0 (copy), l_FFlagEnableNapDedicatedPage_0 (copy)
     local v281 = {
-        [l_AppPage_0.None] = function() --[[ Line: 304 ]]
+        [l_AppPage_0.None] = function() --[[ Line: 306 ]]
             return nil;
         end, 
-        [l_AppPage_0.VideoServer] = l_FFlagLuaAppEnableStratusStreamingTestOnly_0 and function() --[[ Line: 308 ]]
-            -- upvalues: v2 (ref), v27 (ref)
-            return v2.createElement(v27);
+        [l_AppPage_0.VideoServer] = l_FFlagLuaAppEnableStratusStreamingTestOnly_0 and function() --[[ Line: 310 ]]
+            -- upvalues: v2 (ref), v26 (ref)
+            return v2.createElement(v26);
         end or nil, 
-        [l_AppPage_0.UAppBlock] = function(v95) --[[ Line: 312 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.UAppBlockPage, l_AppPage_0.UAppBlock, v95);
+        [l_AppPage_0.UAppBlock] = function(v95) --[[ Line: 314 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.UAppBlockPage, l_AppPage_0.UAppBlock, v95);
         end, 
-        [l_AppPage_0.LoginV2] = function(v96) --[[ Line: 315 ]]
-            -- upvalues: l_FFlagEnableLuaLoginRevamp_0 (ref), v13 (ref), v29 (ref), l_AppPage_0 (ref)
+        [l_AppPage_0.LoginV2] = function(v96) --[[ Line: 317 ]]
+            -- upvalues: l_FFlagEnableLuaLoginRevamp_0 (ref), v13 (ref), v28 (ref), l_AppPage_0 (ref)
             if l_FFlagEnableLuaLoginRevamp_0 then
-                return v13(v29.LoginV2MonoWrapper, l_AppPage_0.Login, v96);
+                return v13(v28.LoginV2MonoWrapper, l_AppPage_0.Login, v96);
             else
                 return nil;
             end;
         end, 
-        [l_AppPage_0.AccountRecovery] = function(v97) --[[ Line: 321 ]]
-            -- upvalues: l_GetFFlagEnableLuafiedRecoveryFlow_0 (ref), v13 (ref), v29 (ref), l_AppPage_0 (ref)
+        [l_AppPage_0.AccountRecovery] = function(v97) --[[ Line: 323 ]]
+            -- upvalues: l_GetFFlagEnableLuafiedRecoveryFlow_0 (ref), v13 (ref), v28 (ref), l_AppPage_0 (ref)
             if l_GetFFlagEnableLuafiedRecoveryFlow_0() then
-                return v13(v29.AccountRecoveryMonoWrapper, l_AppPage_0.AccountRecovery, v97);
+                return v13(v28.AccountRecoveryMonoWrapper, l_AppPage_0.AccountRecovery, v97);
             else
                 return nil;
             end;
         end, 
-        [l_AppPage_0.CharacterSelectionPage] = function(v98) --[[ Line: 331 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.CharacterSelectionPage, l_AppPage_0.CharacterSelectionPage, v98);
+        [l_AppPage_0.CharacterSelectionPage] = function(v98) --[[ Line: 333 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.CharacterSelectionPage, l_AppPage_0.CharacterSelectionPage, v98);
         end, 
-        [l_AppPage_0.UsernameSelectionPage] = function(v99) --[[ Line: 338 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.UsernameSelectionPage, l_AppPage_0.UsernameSelectionPage, v99);
+        [l_AppPage_0.UsernameSelectionPage] = function(v99) --[[ Line: 340 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.UsernameSelectionPage, l_AppPage_0.UsernameSelectionPage, v99);
         end, 
-        [l_AppPage_0.PasswordSelectionPage] = function(v100) --[[ Line: 341 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.PasswordSelectionPage, l_AppPage_0.PasswordSelectionPage, v100);
+        [l_AppPage_0.PasswordSelectionPage] = function(v100) --[[ Line: 343 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.PasswordSelectionPage, l_AppPage_0.PasswordSelectionPage, v100);
         end, 
-        [l_AppPage_0.LuobuSignUpPage] = function(v101) --[[ Line: 344 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.LuobuSignUpPage, l_AppPage_0.LuobuSignUpPage, v101);
+        [l_AppPage_0.LuobuSignUpPage] = function(v101) --[[ Line: 346 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.LuobuSignUpPage, l_AppPage_0.LuobuSignUpPage, v101);
         end, 
-        [l_AppPage_0.WeChatLoginWrapper] = function(v102) --[[ Line: 347 ]]
+        [l_AppPage_0.WeChatLoginWrapper] = function(v102) --[[ Line: 349 ]]
             -- upvalues: v14 (ref), v13 (ref), v47 (ref), l_AppPage_0 (ref)
             if v14.WeChatLoginEnabled() then
                 return v13(v47, l_AppPage_0.WeChatLoginWrapper, v102);
@@ -397,62 +400,62 @@ return function(_) --[[ Line: 302 ]]
                 return nil;
             end;
         end, 
-        [l_AppPage_0.GameDetail] = function(v103) --[[ Line: 353 ]]
-            -- upvalues: v13 (ref), v30 (ref), l_AppPage_0 (ref)
-            return v13(v30, l_AppPage_0.GameDetail, v103);
+        [l_AppPage_0.GameDetail] = function(v103) --[[ Line: 355 ]]
+            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
+            return v13(v29, l_AppPage_0.GameDetail, v103);
         end, 
-        [l_AppPage_0.ShareGameToChat] = if l_FFlagShareTargetGameCleanup_0 then nil else function(v104, v105) --[[ Line: 358 ]]
+        [l_AppPage_0.ShareGameToChat] = if l_FFlagShareTargetGameCleanup_0 then nil else function(v104, v105) --[[ Line: 360 ]]
             -- upvalues: v13 (ref), v46 (ref), l_AppPage_0 (ref)
             return v13(v46, l_AppPage_0.ShareGameToChat, v104, {
                 placeId = v105
             });
         end, 
-        [l_AppPage_0.Birthday] = function(v106) --[[ Line: 363 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.BirthdayPage, l_AppPage_0.Birthday, v106);
-        end, 
-        [l_AppPage_0.SafetySupport] = function(v107) --[[ Line: 366 ]]
+        [l_AppPage_0.Birthday] = function(v106) --[[ Line: 365 ]]
             -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
-            return v13(v28.SafetySupportPage, l_AppPage_0.SafetySupport, v107);
+            return v13(v28.BirthdayPage, l_AppPage_0.Birthday, v106);
         end, 
-        [l_AppPage_0.Accessibility] = function(v108) --[[ Line: 369 ]]
-            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
-            return v13(v28.DeviceSettingsPage, l_AppPage_0.Accessibility, v108);
+        [l_AppPage_0.SafetySupport] = function(v107) --[[ Line: 368 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
+            return v13(v27.SafetySupportPage, l_AppPage_0.SafetySupport, v107);
         end, 
-        [l_AppPage_0.AppInformation] = function(v109) --[[ Line: 372 ]]
-            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
-            return v13(v28.AppInformation, l_AppPage_0.AppInformation, v109);
+        [l_AppPage_0.Accessibility] = function(v108) --[[ Line: 371 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
+            return v13(v27.DeviceSettingsPage, l_AppPage_0.Accessibility, v108);
         end, 
-        [l_AppPage_0.DevSubs] = function(v110, v111) --[[ Line: 375 ]]
-            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+        [l_AppPage_0.AppInformation] = function(v109) --[[ Line: 374 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
+            return v13(v27.AppInformation, l_AppPage_0.AppInformation, v109);
+        end, 
+        [l_AppPage_0.DevSubs] = function(v110, v111) --[[ Line: 377 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
             local v112 = v111 and {
                 selectedGame = v111
             };
-            return v13(v28.DevSubsPage, l_AppPage_0.DevSubs, v110, v112);
+            return v13(v27.DevSubsPage, l_AppPage_0.DevSubs, v110, v112);
         end, 
-        [l_AppPage_0.EventDetails] = not l_FFlagLuaAppSduiEventDetailsEnabled_0 and function(v113, v114, v115) --[[ Line: 380 ]]
+        [l_AppPage_0.EventDetails] = not l_FFlagLuaAppSduiEventDetailsEnabled_0 and function(v113, v114, v115) --[[ Line: 382 ]]
             -- upvalues: v13 (ref), v41 (ref), l_AppPage_0 (ref), v3 (ref)
             return v13(v41, l_AppPage_0.EventDetails, v113, v3.Dictionary.join(v115 or {}, {
                 virtualEventId = v114
             }));
         end or nil, 
-        [l_AppPage_0.AccountSelectorPeekView] = function(v116, _, v118) --[[ Line: 389 ]]
+        [l_AppPage_0.AccountSelectorPeekView] = function(v116, _, v118) --[[ Line: 391 ]]
             -- upvalues: v13 (ref), v37 (ref), l_AppPage_0 (ref)
             return v13(v37, l_AppPage_0.AccountSelectorPeekView, v116, v118);
         end, 
-        [l_AppPage_0.AccountSwitchingAddAccountPeekView] = function(v119, _, v121) --[[ Line: 397 ]]
+        [l_AppPage_0.AccountSwitchingAddAccountPeekView] = function(v119, _, v121) --[[ Line: 399 ]]
             -- upvalues: v13 (ref), v38 (ref), l_AppPage_0 (ref)
             return v13(v38, l_AppPage_0.AccountSwitchingAddAccountPeekView, v119, v121);
         end, 
-        [l_AppPage_0.ShareVirtualEventModal] = function(v122, _, v124) --[[ Line: 405 ]]
+        [l_AppPage_0.ShareVirtualEventModal] = function(v122, _, v124) --[[ Line: 407 ]]
             -- upvalues: v13 (ref), v39 (ref), l_AppPage_0 (ref)
             return v13(v39, l_AppPage_0.ShareVirtualEventModal, v122, v124);
         end, 
-        [l_AppPage_0.EventNotificationsModal] = function(v125, _, v127) --[[ Line: 408 ]]
+        [l_AppPage_0.EventNotificationsModal] = function(v125, _, v127) --[[ Line: 410 ]]
             -- upvalues: v13 (ref), v42 (ref), l_AppPage_0 (ref)
             return v13(v42, l_AppPage_0.EventNotificationsModal, v125, v127);
         end, 
-        [l_AppPage_0.TencentHelp] = function(v128, v129, v130) --[[ Line: 416 ]]
+        [l_AppPage_0.TencentHelp] = function(v128, v129, v130) --[[ Line: 418 ]]
             -- upvalues: v2 (ref), v56 (ref)
             return v2.createElement(v56, {
                 navigationProps = v128, 
@@ -460,15 +463,15 @@ return function(_) --[[ Line: 302 ]]
                 extraProps = v130
             });
         end, 
-        [l_AppPage_0.TencentNoticeCenter] = function(v131) --[[ Line: 423 ]]
-            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
-            return v13(v28.TencentNoticeCenterPage, l_AppPage_0.TencentNoticeCenter, v131);
+        [l_AppPage_0.TencentNoticeCenter] = function(v131) --[[ Line: 425 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
+            return v13(v27.TencentNoticeCenterPage, l_AppPage_0.TencentNoticeCenter, v131);
         end, 
-        [l_AppPage_0.TencentNoticeContent] = function(v132, _, v134) --[[ Line: 426 ]]
-            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
-            return v13(v28.TencentNoticeContentPage, l_AppPage_0.TencentNoticeContent, v132, v134);
+        [l_AppPage_0.TencentNoticeContent] = function(v132, _, v134) --[[ Line: 428 ]]
+            -- upvalues: v13 (ref), v27 (ref), l_AppPage_0 (ref)
+            return v13(v27.TencentNoticeContentPage, l_AppPage_0.TencentNoticeContent, v132, v134);
         end, 
-        [l_AppPage_0.GenericWebPage] = function(v135, v136, v137) --[[ Line: 434 ]]
+        [l_AppPage_0.GenericWebPage] = function(v135, v136, v137) --[[ Line: 436 ]]
             -- upvalues: v2 (ref), v44 (ref)
             return v2.createElement(v44, {
                 isVisible = v135.isVisible, 
@@ -481,7 +484,7 @@ return function(_) --[[ Line: 302 ]]
                 onClose = v137 and v137.onClose or nil
             });
         end, 
-        [l_AppPage_0.GenericOpaqueWebPage] = function(v138, v139, v140) --[[ Line: 446 ]]
+        [l_AppPage_0.GenericOpaqueWebPage] = function(v138, v139, v140) --[[ Line: 448 ]]
             -- upvalues: v2 (ref), v44 (ref)
             return v2.createElement(v44, {
                 isVisible = v138.isVisible, 
@@ -494,7 +497,7 @@ return function(_) --[[ Line: 302 ]]
                 onClose = v140 and v140.onClose or nil
             });
         end, 
-        [l_AppPage_0.SettingsSubPage] = function(v141, v142, v143) --[[ Line: 458 ]]
+        [l_AppPage_0.SettingsSubPage] = function(v141, v142, v143) --[[ Line: 460 ]]
             -- upvalues: v79 (ref), v2 (ref), v59 (ref), v50 (ref), v15 (ref)
             if v79.GetFFlagLuaAppUseSettingsNativeWrapper() then
                 return v2.createElement(v59, {
@@ -518,7 +521,7 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.YouTubePlayer] = function(v144, v145, v146) --[[ Line: 481 ]]
+        [l_AppPage_0.YouTubePlayer] = function(v144, v145, v146) --[[ Line: 483 ]]
             -- upvalues: v2 (ref), v43 (ref)
             return v2.createElement(v43, {
                 isVisible = v144.isVisible, 
@@ -528,7 +531,7 @@ return function(_) --[[ Line: 302 ]]
                 transitionAnimation = v146 and v146.transitionAnimation or nil
             });
         end, 
-        [l_AppPage_0.ScanQrCode] = function(v147, _, v149) --[[ Line: 490 ]]
+        [l_AppPage_0.ScanQrCode] = function(v147, _, v149) --[[ Line: 492 ]]
             -- upvalues: v2 (ref), v45 (ref), v15 (ref)
             return v2.createElement(v45, {
                 isVisible = v147.isVisible, 
@@ -537,22 +540,22 @@ return function(_) --[[ Line: 302 ]]
                 notificationType = v15.SCAN_QR_CODE
             });
         end, 
-        [l_AppPage_0.AvatarExperienceWrapper] = function(v150, _, v152) --[[ Line: 498 ]]
+        [l_AppPage_0.AvatarExperienceWrapper] = function(v150, _, v152) --[[ Line: 500 ]]
             -- upvalues: v13 (ref), v65 (ref), l_AppPage_0 (ref)
             return v13(v65, l_AppPage_0.AvatarExperienceWrapper, v150, v152);
         end, 
-        [l_AppPage_0.AvatarExperienceWrapperTransparent] = function(v153, _, v155) --[[ Line: 506 ]]
+        [l_AppPage_0.AvatarExperienceWrapperTransparent] = function(v153, _, v155) --[[ Line: 508 ]]
             -- upvalues: v13 (ref), v65 (ref), l_AppPage_0 (ref)
             return v13(v65, l_AppPage_0.AvatarExperienceWrapperTransparent, v153, v155);
         end, 
-        [l_AppPage_0.BuildersClub] = function(v156, _, v158) --[[ Line: 514 ]]
-            -- upvalues: v79 (ref), v2 (ref), v61 (ref), v16 (ref), v25 (ref), v45 (ref), v15 (ref)
+        [l_AppPage_0.BuildersClub] = function(v156, _, v158) --[[ Line: 516 ]]
+            -- upvalues: v79 (ref), v2 (ref), v61 (ref), v16 (ref), v24 (ref), v45 (ref), v15 (ref)
             if v79.GetFFlagEnableUnifiedStaticWebViews() then
                 return v2.createElement(v61, {
                     url = v16.fromString("www:premium/membership")(), 
                     titleKey = "CommonUI.Features.Label.Premium", 
                     transitionAnimation = v158.transitionAnimation, 
-                    hasBackButton = not v25() and nil, 
+                    hasBackButton = not v24() and nil, 
                     overlayProps = {
                         isVisible = v156.isVisible, 
                         DisplayOrder = v156.displayOrder
@@ -568,24 +571,15 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.Blackbird] = l_FFlagEnableBlackbird_0 and function(v159, _, v161) --[[ Line: 538 ]]
-            -- upvalues: v79 (ref), v2 (ref), v61 (ref), v16 (ref), l_GetFStringBlackbirdUrl_0 (ref), v25 (ref)
-            if v79.GetFFlagEnableUnifiedStaticWebViews() then
-                return v2.createElement(v61, {
-                    url = v16.fromString(l_GetFStringBlackbirdUrl_0())(), 
-                    titleKey = "CommonUI.Features.Label.X", 
-                    transitionAnimation = v161.transitionAnimation, 
-                    hasBackButton = not v25() and nil, 
-                    overlayProps = {
-                        isVisible = v159.isVisible, 
-                        DisplayOrder = v159.displayOrder
-                    }
-                });
-            else
-                return nil;
-            end;
+        [l_AppPage_0.Blackbird] = l_FFlagEnableBlackbird_0 and function(v159, _, v161) --[[ Line: 540 ]]
+            -- upvalues: v2 (ref), v30 (ref)
+            return v2.createElement(v30, {
+                isVisible = v159.isVisible, 
+                DisplayOrder = v159.displayOrder, 
+                transitionAnimation = v161.transitionAnimation
+            });
         end or nil, 
-        [l_AppPage_0.Payment] = function(v162, v163, v164) --[[ Line: 559 ]]
+        [l_AppPage_0.Payment] = function(v162, v163, v164) --[[ Line: 548 ]]
             -- upvalues: v2 (ref), v52 (ref), v79 (ref), v16 (ref)
             return v2.createElement(v52, {
                 url = if v79.GetFFlagEnableUnifiedStaticWebViews() and v164 and v164.analyticId ~= nil then v16.fromString("www:upgrades/paymentmethods?ap={productId}&analyticId={analyticId}")({
@@ -599,7 +593,7 @@ return function(_) --[[ Line: 302 ]]
                 transitionAnimation = v164 and v164.transitionAnimation or nil
             });
         end, 
-        [l_AppPage_0.Notifications] = function(v165, _, v167) --[[ Line: 578 ]]
+        [l_AppPage_0.Notifications] = function(v165, _, v167) --[[ Line: 567 ]]
             -- upvalues: v79 (ref), v2 (ref), v61 (ref), v16 (ref), v17 (ref), v45 (ref), v15 (ref)
             if v79.GetFFlagEnableUnifiedStaticWebViews() then
                 return v2.createElement(v61, {
@@ -625,7 +619,7 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.LogoutConfirmation] = function(v168, _, v170) --[[ Line: 604 ]]
+        [l_AppPage_0.LogoutConfirmation] = function(v168, _, v170) --[[ Line: 593 ]]
             -- upvalues: v2 (ref), v45 (ref), v15 (ref)
             return v2.createElement(v45, {
                 isVisible = v168.isVisible, 
@@ -634,7 +628,7 @@ return function(_) --[[ Line: 302 ]]
                 transitionAnimation = v170 and v170.transitionAnimation or nil
             });
         end, 
-        [l_AppPage_0.AddFriends] = function(v171, _, v173) --[[ Line: 612 ]]
+        [l_AppPage_0.AddFriends] = function(v171, _, v173) --[[ Line: 601 ]]
             -- upvalues: v79 (ref), v2 (ref), v61 (ref), v16 (ref), v45 (ref), v15 (ref)
             if v79.GetFFlagEnableUnifiedStaticWebViews() then
                 return v2.createElement(v61, {
@@ -661,7 +655,7 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.ViewUserProfile] = function(v174, v175, v176) --[[ Line: 639 ]]
+        [l_AppPage_0.ViewUserProfile] = function(v174, v175, v176) --[[ Line: 628 ]]
             -- upvalues: v2 (ref), v48 (ref)
             return v2.createElement(v48, {
                 isVisible = v174.isVisible, 
@@ -670,7 +664,7 @@ return function(_) --[[ Line: 302 ]]
                 onClose = v176 and v176.onClose or nil
             });
         end, 
-        [l_AppPage_0.ViewProfile] = function(v177, v178) --[[ Line: 647 ]]
+        [l_AppPage_0.ViewProfile] = function(v177, v178) --[[ Line: 636 ]]
             -- upvalues: v2 (ref), v49 (ref)
             return v2.createElement(v49, {
                 isVisible = v177.isVisible, 
@@ -678,7 +672,7 @@ return function(_) --[[ Line: 302 ]]
                 url = v178
             });
         end, 
-        [l_AppPage_0.LoginNative] = function(v179, _, v181) --[[ Line: 654 ]]
+        [l_AppPage_0.LoginNative] = function(v179, _, v181) --[[ Line: 643 ]]
             -- upvalues: v2 (ref), v45 (ref), v15 (ref)
             return v2.createElement(v45, {
                 isVisible = v179.isVisible, 
@@ -687,8 +681,8 @@ return function(_) --[[ Line: 302 ]]
                 transitionAnimation = v181 and v181.transitionAnimation or nil
             });
         end, 
-        [l_AppPage_0.CaptchaNative] = function(v182, _, v184) --[[ Line: 662 ]]
-            -- upvalues: v2 (ref), v29 (ref)
+        [l_AppPage_0.CaptchaNative] = function(v182, _, v184) --[[ Line: 651 ]]
+            -- upvalues: v2 (ref), v28 (ref)
             local v185 = v184.captchaType == "signup";
             if v184.captchaType == "login" or v185 then
                 local v186 = {
@@ -704,9 +698,9 @@ return function(_) --[[ Line: 302 ]]
                     transitionAnimation = v184 and v184.transitionAnimation or nil, 
                     webViewVisible = false
                 };
-                return v2.createElement(v29.CaptchaPageBrowserServiceWrapper, v186);
+                return v2.createElement(v28.CaptchaPageBrowserServiceWrapper, v186);
             else
-                return v2.createElement(v29.CaptchaPageBrowserServiceWrapper, {
+                return v2.createElement(v28.CaptchaPageBrowserServiceWrapper, {
                     isVisible = v182.isVisible, 
                     DisplayOrder = v182.displayOrder, 
                     captchaType = v184.captchaType, 
@@ -719,15 +713,15 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.RobuxUpsell] = function(v187, _, v189) --[[ Line: 694 ]]
+        [l_AppPage_0.RobuxUpsell] = function(v187, _, v189) --[[ Line: 683 ]]
             -- upvalues: v13 (ref), v70 (ref), l_AppPage_0 (ref)
             return v13(v70, l_AppPage_0.RobuxUpsell, v187, v189);
         end, 
-        [l_AppPage_0.SubscriptionPurchase] = function(v190, _, v192) --[[ Line: 697 ]]
+        [l_AppPage_0.SubscriptionPurchase] = function(v190, _, v192) --[[ Line: 686 ]]
             -- upvalues: v13 (ref), v71 (ref), l_AppPage_0 (ref)
             return v13(v71, l_AppPage_0.SubscriptionPurchase, v190, v192);
         end, 
-        [l_AppPage_0.ShareSheet] = function(v193, _, v195) --[[ Line: 705 ]]
+        [l_AppPage_0.ShareSheet] = function(v193, _, v195) --[[ Line: 694 ]]
             -- upvalues: v2 (ref), v54 (ref)
             return v2.createElement(v54, {
                 isVisible = v193.isVisible, 
@@ -735,7 +729,7 @@ return function(_) --[[ Line: 302 ]]
                 data = v195
             });
         end, 
-        [l_AppPage_0.SdkShare] = function(v196, _, v198) --[[ Line: 712 ]]
+        [l_AppPage_0.SdkShare] = function(v196, _, v198) --[[ Line: 701 ]]
             -- upvalues: v2 (ref), v55 (ref)
             return v2.createElement(v55, {
                 isVisible = v196.isVisible, 
@@ -743,7 +737,7 @@ return function(_) --[[ Line: 302 ]]
                 data = v198
             });
         end, 
-        [l_AppPage_0.ReportAbuse] = function(v199, v200, v201) --[[ Line: 719 ]]
+        [l_AppPage_0.ReportAbuse] = function(v199, v200, v201) --[[ Line: 708 ]]
             -- upvalues: v2 (ref), v51 (ref)
             return v2.createElement(v51, {
                 isVisible = v199.isVisible, 
@@ -752,52 +746,52 @@ return function(_) --[[ Line: 302 ]]
                 onClose = v201 and v201.onClose or nil
             });
         end, 
-        [l_AppPage_0.PhoneVerification] = function(_, _, v204) --[[ Line: 727 ]]
+        [l_AppPage_0.PhoneVerification] = function(_, _, v204) --[[ Line: 716 ]]
             -- upvalues: v2 (ref), v58 (ref)
             return v2.createElement(v58, v204);
         end, 
-        [l_AppPage_0.EditUsername] = function(_, _, v207) --[[ Line: 730 ]]
+        [l_AppPage_0.EditUsername] = function(_, _, v207) --[[ Line: 719 ]]
             -- upvalues: v2 (ref), v36 (ref)
             return v2.createElement(v36, v207);
         end, 
-        [l_AppPage_0.ChallengeHybridOverlayPage] = function(v208, _, v210) --[[ Line: 733 ]]
+        [l_AppPage_0.ChallengeHybridOverlayPage] = function(v208, _, v210) --[[ Line: 722 ]]
             -- upvalues: v13 (ref), v62 (ref), l_AppPage_0 (ref)
             return v13(v62, l_AppPage_0.ChallengeHybridOverlayPage, v208, v210);
         end, 
-        [l_AppPage_0.ChallengeDialogModalContainer] = v79.GetFFlagLuaAppChallengeDialogContainerPageEnabled() and function(v211, _, v213) --[[ Line: 742 ]]
+        [l_AppPage_0.ChallengeDialogModalContainer] = v79.GetFFlagLuaAppChallengeDialogContainerPageEnabled() and function(v211, _, v213) --[[ Line: 731 ]]
             -- upvalues: v13 (ref), v64 (ref), l_AppPage_0 (ref)
             return v13(v64, l_AppPage_0.ChallengeDialogModalContainer, v211, v213);
         end or nil, 
-        [l_AppPage_0.ReportDialog] = function(v214) --[[ Line: 751 ]]
+        [l_AppPage_0.ReportDialog] = function(v214) --[[ Line: 740 ]]
             -- upvalues: v13 (ref), v73 (ref), l_AppPage_0 (ref)
             return v13(v73, l_AppPage_0.ReportDialog, v214);
         end, 
-        [l_AppPage_0.AgeVerificationRequired] = function(v215, v216) --[[ Line: 754 ]]
+        [l_AppPage_0.AgeVerificationRequired] = function(v215, v216) --[[ Line: 743 ]]
             -- upvalues: v13 (ref), v69 (ref), l_AppPage_0 (ref)
             local v217 = v216 and {
                 universeId = v216
             } or nil;
             return v13(v69, l_AppPage_0.AgeVerificationRequired, v215, v217);
         end, 
-        [l_AppPage_0.ChallengeHybridWebView] = function(v218, _, v220) --[[ Line: 766 ]]
+        [l_AppPage_0.ChallengeHybridWebView] = function(v218, _, v220) --[[ Line: 755 ]]
             -- upvalues: v2 (ref), v63 (ref), v3 (ref)
             return v2.createElement(v63, v3.Dictionary.join(v220, {
                 appContainerNavigation = v218
             }));
         end, 
-        [l_AppPage_0.InviteLinkExpiredModal] = function(v221, _, v223) --[[ Line: 774 ]]
+        [l_AppPage_0.InviteLinkExpiredModal] = function(v221, _, v223) --[[ Line: 763 ]]
             -- upvalues: v13 (ref), v32 (ref), l_AppPage_0 (ref)
             return v13(v32, l_AppPage_0.InviteLinkExpiredModal, v221, v223);
         end, 
-        [l_AppPage_0.ShareLinkInvalidModal] = function(v224, _, v226) --[[ Line: 782 ]]
+        [l_AppPage_0.ShareLinkInvalidModal] = function(v224, _, v226) --[[ Line: 771 ]]
             -- upvalues: v13 (ref), v33 (ref), l_AppPage_0 (ref)
             return v13(v33, l_AppPage_0.ShareLinkInvalidModal, v224, v226);
         end, 
-        [l_AppPage_0.ProfileQRCodePage] = function(v227, _, v229) --[[ Line: 790 ]]
+        [l_AppPage_0.ProfileQRCodePage] = function(v227, _, v229) --[[ Line: 779 ]]
             -- upvalues: v13 (ref), v34 (ref), l_AppPage_0 (ref)
             return v13(v34, l_AppPage_0.ProfileQRCodePage, v227, v229);
         end, 
-        [l_AppPage_0.AccountInfo] = function(v230, v231, v232) --[[ Line: 793 ]]
+        [l_AppPage_0.AccountInfo] = function(v230, v231, v232) --[[ Line: 782 ]]
             -- upvalues: v79 (ref), v2 (ref), v53 (ref), v3 (ref)
             if v79.FFlagFetchUserNameOnCloseAccountInfo then
                 return v2.createElement(v53, v3.Dictionary.join(v232, {
@@ -809,7 +803,7 @@ return function(_) --[[ Line: 302 ]]
                 return nil;
             end;
         end, 
-        [l_AppPage_0.ParentVerification] = function(_, v234) --[[ Line: 808 ]]
+        [l_AppPage_0.ParentVerification] = function(_, v234) --[[ Line: 797 ]]
             -- upvalues: v81 (ref), v2 (ref), v60 (ref), v16 (ref)
             if v81 then
                 return v2.createElement(v60, {
@@ -821,7 +815,7 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.EmailVerification] = function(_, v236) --[[ Line: 819 ]]
+        [l_AppPage_0.EmailVerification] = function(_, v236) --[[ Line: 808 ]]
             -- upvalues: v81 (ref), v2 (ref), v60 (ref), v16 (ref)
             if v81 then
                 return v2.createElement(v60, {
@@ -833,15 +827,15 @@ return function(_) --[[ Line: 302 ]]
                 });
             end;
         end, 
-        [l_AppPage_0.VerifiedBadgeModal] = function(v237, _, v239) --[[ Line: 830 ]]
+        [l_AppPage_0.VerifiedBadgeModal] = function(v237, _, v239) --[[ Line: 819 ]]
             -- upvalues: v13 (ref), v40 (ref), l_AppPage_0 (ref)
             return v13(v40, l_AppPage_0.VerifiedBadgeModal, v237, v239);
         end, 
-        [l_AppPage_0.SocialMessageToast] = function(v240, _, v242) --[[ Line: 833 ]]
+        [l_AppPage_0.SocialMessageToast] = function(v240, _, v242) --[[ Line: 822 ]]
             -- upvalues: v13 (ref), v35 (ref), l_AppPage_0 (ref)
             return v13(v35, l_AppPage_0.SocialMessageToast, v240, v242);
         end, 
-        [l_AppPage_0.PassesPage] = function(v243, v244, v245) --[[ Line: 836 ]]
+        [l_AppPage_0.PassesPage] = function(v243, v244, v245) --[[ Line: 825 ]]
             -- upvalues: v3 (ref), v13 (ref), v31 (ref), l_AppPage_0 (ref)
             local v246 = {
                 universeId = v244
@@ -851,51 +845,51 @@ return function(_) --[[ Line: 302 ]]
             end;
             return v13(v31, l_AppPage_0.PassesPage, v243, v246);
         end, 
-        [l_AppPage_0.AccountSettingsUpsell] = v79.GetFFlagEnableAccountSettingsUpsell() and function(v247, _, v249) --[[ Line: 846 ]]
+        [l_AppPage_0.AccountSettingsUpsell] = v79.GetFFlagEnableAccountSettingsUpsell() and function(v247, _, v249) --[[ Line: 835 ]]
             -- upvalues: v13 (ref), v76 (ref), l_AppPage_0 (ref)
             return v13(v76, l_AppPage_0.AccountSettingsUpsell, v247, v249);
         end or nil, 
-        [l_AppPage_0.AmpWizardContainer] = v79.GetFFlagEnableAmpUpsellWizard() and function(v250, _, v252) --[[ Line: 856 ]]
+        [l_AppPage_0.AmpWizardContainer] = v79.GetFFlagEnableAmpUpsellWizard() and function(v250, _, v252) --[[ Line: 845 ]]
             -- upvalues: v13 (ref), v77 (ref), l_AppPage_0 (ref)
             return v13(v77, l_AppPage_0.AmpWizardContainer, v250, v252);
         end or nil, 
-        [l_AppPage_0.IDVUpsellContainer] = v79.GetFFlagEnableAmpIDVUpsellSupport() and function(v253, _, v255) --[[ Line: 866 ]]
+        [l_AppPage_0.IDVUpsellContainer] = v79.GetFFlagEnableAmpIDVUpsellSupport() and function(v253, _, v255) --[[ Line: 855 ]]
             -- upvalues: v13 (ref), v66 (ref), l_AppPage_0 (ref)
             return v13(v66, l_AppPage_0.IDVUpsellContainer, v253, v255);
         end or nil, 
-        [l_AppPage_0.VPCUpsellContainer] = function(v256, _, v258) --[[ Line: 870 ]]
+        [l_AppPage_0.VPCUpsellContainer] = function(v256, _, v258) --[[ Line: 859 ]]
             -- upvalues: v13 (ref), v67 (ref), l_AppPage_0 (ref)
             return v13(v67, l_AppPage_0.VPCUpsellContainer, v256, v258);
         end, 
-        [l_AppPage_0.RobloxSubscriptionUpsell] = v79.GetFFlagEnableAmpSubscriptionUpsell() and function(v259, _, v261) --[[ Line: 874 ]]
+        [l_AppPage_0.RobloxSubscriptionUpsell] = v79.GetFFlagEnableAmpSubscriptionUpsell() and function(v259, _, v261) --[[ Line: 863 ]]
             -- upvalues: v13 (ref), v68 (ref), l_AppPage_0 (ref)
             return v13(v68, l_AppPage_0.RobloxSubscriptionUpsell, v259, v261);
         end or nil, 
-        [l_AppPage_0.AddAuthMethodPage] = function(v262) --[[ Line: 883 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.AddAuthMethodPage, l_AppPage_0.AddAuthMethodPage, v262);
+        [l_AppPage_0.AddAuthMethodPage] = function(v262) --[[ Line: 872 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.AddAuthMethodPage, l_AppPage_0.AddAuthMethodPage, v262);
         end, 
-        [l_AppPage_0.PasskeyUpsellScreen] = l_FFlagPasskeyUpsellEnabled_0 and function(v263, _, v265) --[[ Line: 887 ]]
-            -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-            return v13(v29.PasskeyUpsellScreen, l_AppPage_0.PasskeyUpsellScreen, v263, v265);
+        [l_AppPage_0.PasskeyUpsellScreen] = l_FFlagPasskeyUpsellEnabled_0 and function(v263, _, v265) --[[ Line: 876 ]]
+            -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+            return v13(v28.PasskeyUpsellScreen, l_AppPage_0.PasskeyUpsellScreen, v263, v265);
         end or nil, 
-        [l_AppPage_0.TutorialUpsellScreen] = l_FFlagTutorialUpsellEnabled_0 and function(v266, _, v268) --[[ Line: 897 ]]
+        [l_AppPage_0.TutorialUpsellScreen] = l_FFlagTutorialUpsellEnabled_0 and function(v266, _, v268) --[[ Line: 886 ]]
             -- upvalues: v13 (ref), v57 (ref), l_AppPage_0 (ref)
             return v13(v57, l_AppPage_0.TutorialUpsellScreen, v266, v268);
         end or nil, 
-        [l_AppPage_0.SponsoredTooltipPeekView] = function(v269, _, v271) --[[ Line: 906 ]]
+        [l_AppPage_0.SponsoredTooltipPeekView] = function(v269, _, v271) --[[ Line: 895 ]]
             -- upvalues: v13 (ref), v74 (ref), l_AppPage_0 (ref)
             return v13(v74, l_AppPage_0.SponsoredTooltipPeekView, v269, v271);
         end, 
-        [l_AppPage_0.InfoPeekView] = function(v272, _, v274) --[[ Line: 914 ]]
+        [l_AppPage_0.InfoPeekView] = function(v272, _, v274) --[[ Line: 903 ]]
             -- upvalues: v13 (ref), v75 (ref), l_AppPage_0 (ref)
             return v13(v75, l_AppPage_0.InfoPeekView, v272, v274);
         end, 
-        [l_AppPage_0.VoiceTrialUpsell] = v84() and function(v275, _, v277) --[[ Line: 918 ]]
+        [l_AppPage_0.VoiceTrialUpsell] = v84() and function(v275, _, v277) --[[ Line: 907 ]]
             -- upvalues: v13 (ref), v78 (ref), l_AppPage_0 (ref)
             return v13(v78, l_AppPage_0.VoiceTrialUpsell, v275, v277);
         end or nil, 
-        [l_AppPage_0.SecurityAlertInfo] = l_GetFFlagEnableSecurityAlertDeeplink_0() and function(v278, v279, v280) --[[ Line: 923 ]]
+        [l_AppPage_0.SecurityAlertInfo] = l_GetFFlagEnableSecurityAlertDeeplink_0() and function(v278, v279, v280) --[[ Line: 912 ]]
             -- upvalues: v2 (ref), v50 (ref), v15 (ref), v79 (ref)
             return v2.createElement(v50, {
                 isVisible = v278.isVisible, 
@@ -920,7 +914,7 @@ return function(_) --[[ Line: 302 ]]
     end;
     table.insert(v282, {
         [l_AppPage_0.AvatarExperienceRoot] = {
-            getScreen = function() --[[ Line: 952 ]] --[[ Name: getScreen ]]
+            getScreen = function() --[[ Line: 941 ]] --[[ Name: getScreen ]]
                 -- upvalues: l_Modules_0 (ref)
                 return require(l_Modules_0.AvatarExperience.Common.Components.RoactNavigation.AvatarExperienceRootContainer);
             end, 
@@ -930,24 +924,24 @@ return function(_) --[[ Line: 302 ]]
         }
     });
     table.insert(v282, {
-        [l_AppPage_0.Chat] = l_createLazyComponent_0(function() --[[ Line: 962 ]]
+        [l_AppPage_0.Chat] = l_createLazyComponent_0(function() --[[ Line: 951 ]]
             -- upvalues: l_Modules_0 (ref)
             return require(l_Modules_0.LuaApp.Components.SocialTab.SocialTabUniversalAppWrapper.Container);
         end)
     });
     table.insert(v282, {
         [l_AppPage_0.PurchaseRobux] = {
-            screen = v12(function(v285, v286, v287) --[[ Line: 969 ]]
-                -- upvalues: v79 (ref), l_IsVRAppBuild_0 (ref), l_GuiService_0 (ref), v13 (ref), v72 (ref), l_AppPage_0 (ref), v24 (ref), v16 (ref), v2 (ref), v52 (ref)
+            screen = v12(function(v285, v286, v287) --[[ Line: 958 ]]
+                -- upvalues: v79 (ref), l_IsVRAppBuild_0 (ref), l_GuiService_0 (ref), v13 (ref), v72 (ref), l_AppPage_0 (ref), v23 (ref), v16 (ref), v2 (ref), v52 (ref)
                 if v79.GetFFlagLuaAppLuaBuyRobuxPage() and l_IsVRAppBuild_0() or l_GuiService_0:IsTenFootInterface() then
                     return v13(v72, l_AppPage_0.PurchaseRobux, v285, v287);
                 else
                     local v288 = nil;
-                    if v24 then
+                    if v23 then
                         v288 = v16.fromString("www:Upgrades/Robux.aspx?analyticId={analyticId|}&product_id={productId|}")(v287);
                     end;
                     return v2.createElement(v52, {
-                        url = if v24 then v288 else if v79.GetFFlagEnableUnifiedStaticWebViews() then v16.fromString("www:Upgrades/Robux.aspx")() else if v286 then v16.fromString("www:Upgrades/Robux.aspx?analyticId={analyticId}")({
+                        url = if v23 then v288 else if v79.GetFFlagEnableUnifiedStaticWebViews() then v16.fromString("www:Upgrades/Robux.aspx")() else if v286 then v16.fromString("www:Upgrades/Robux.aspx?analyticId={analyticId}")({
                             analyticId = v286
                         }) else nil, 
                         isVisible = v285.isVisible, 
@@ -964,7 +958,7 @@ return function(_) --[[ Line: 302 ]]
     });
     table.insert(v282, {
         [l_AppPage_0.ReportScreen] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 1007 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 996 ]]
                 -- upvalues: l_CorePackages_0 (ref)
                 return require(l_CorePackages_0.Workspace.Packages.AbuseReporting).ReportScreen;
             end), 
@@ -976,7 +970,7 @@ return function(_) --[[ Line: 302 ]]
     });
     table.insert(v282, {
         [l_AppPage_0.ChallengeNativeWrapper] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 1019 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 1008 ]]
                 -- upvalues: l_Modules_0 (ref)
                 return require(l_Modules_0.LuaApp.Components.Challenge.NativeWrapper);
             end), 
@@ -988,7 +982,7 @@ return function(_) --[[ Line: 302 ]]
     });
     table.insert(v282, {
         [l_AppPage_0.FAEUpsell] = {
-            screen = l_createLazyComponent_0(function() --[[ Line: 1031 ]]
+            screen = l_createLazyComponent_0(function() --[[ Line: 1020 ]]
                 -- upvalues: l_CorePackages_0 (ref)
                 return require(l_CorePackages_0.Workspace.Packages.AmpUpsell).FAEUpsellContainer;
             end), 
@@ -998,9 +992,9 @@ return function(_) --[[ Line: 302 ]]
     if l_FFlagEnableNapDedicatedPage_0 then
         table.insert(v282, {
             [l_AppPage_0.NotApprovedPage] = {
-                screen = v12(function(v289, _, v291) --[[ Line: 1042 ]]
-                    -- upvalues: v13 (ref), v29 (ref), l_AppPage_0 (ref)
-                    return v13(v29.NotApprovedPage, l_AppPage_0.NotApprovedPage, v289, v291);
+                screen = v12(function(v289, _, v291) --[[ Line: 1031 ]]
+                    -- upvalues: v13 (ref), v28 (ref), l_AppPage_0 (ref)
+                    return v13(v28.NotApprovedPage, l_AppPage_0.NotApprovedPage, v289, v291);
                 end, l_AppPage_0.NotApprovedPage), 
                 navigationOptions = {
                     screenKind = l_ScreenKind_0.FullScreen, 

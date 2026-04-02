@@ -25,7 +25,7 @@ local v22 = {
     damping = 24, 
     mass = 1
 };
-return function(v23) --[[ Line: 51 ]]
+return function(v23) --[[ Line: 54 ]]
     -- upvalues: l_useStyle_0 (copy), v3 (copy), v5 (copy), l_useLocalization_0 (copy), v4 (copy), l_NotificationHelper_0 (copy), l_EventStream_0 (copy), v21 (copy), v22 (copy), v7 (copy), v16 (copy), v17 (copy), l_ImageSetLabel_0 (copy), v19 (copy), v15 (copy), v18 (copy), v14 (copy)
     local v24 = l_useStyle_0();
     local l_Font_0 = v24.Font;
@@ -42,13 +42,13 @@ return function(v23) --[[ Line: 51 ]]
         moreText = v4.Text.ShowMoreKey, 
         lessText = v4.Text.ShowLessKey
     });
-    local v39 = v3.useCallback(function(v37, v38) --[[ Line: 74 ]]
+    local v39 = v3.useCallback(function(v37, v38) --[[ Line: 77 ]]
         -- upvalues: v28 (copy), v31 (copy)
         if v37 == 1 and v28 then
             v31(v38);
         end;
     end);
-    local function v44(v40) --[[ Line: 80 ]]
+    local function v44(v40) --[[ Line: 83 ]]
         local v41 = {};
         for _, v43 in v40 do
             if v43.id then
@@ -57,9 +57,9 @@ return function(v23) --[[ Line: 51 ]]
         end;
         return v41;
     end;
-    local function v48() --[[ Line: 90 ]]
+    local function v48() --[[ Line: 93 ]]
         -- upvalues: v29 (copy), l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v21 (ref), v23 (copy), v44 (copy)
-        v29(function(v45) --[[ Line: 91 ]]
+        v29(function(v45) --[[ Line: 94 ]]
             -- upvalues: l_NotificationHelper_0 (ref), l_EventStream_0 (ref), v21 (ref), v23 (ref), v44 (ref)
             l_NotificationHelper_0.fireEvent(l_EventStream_0, v21.Context.click, if v45 then v21.EventNames.bundleOpened else v21.EventNames.bundleClosed, {
                 bundleKey = v23.notifications[1].content.bundleKey or nil, 
@@ -80,7 +80,7 @@ return function(v23) --[[ Line: 51 ]]
             return not v45;
         end);
     end;
-    v3.useEffect(function() --[[ Line: 129 ]]
+    v3.useEffect(function() --[[ Line: 132 ]]
         -- upvalues: v35 (copy), v5 (ref), v28 (copy), v22 (ref)
         v35({
             shadowHeight = v5.spring(v28 and 0 or 1, v22), 
@@ -89,17 +89,18 @@ return function(v23) --[[ Line: 51 ]]
     end, {
         v28
     });
-    v3.useEffect(function() --[[ Line: 137 ]]
+    v3.useEffect(function() --[[ Line: 140 ]]
         -- upvalues: v33 (copy), v23 (copy)
         v33(#v23.notifications > 1);
     end, {
         v23.notifications
     });
-    return (v3.useMemo(function() --[[ Line: 141 ]]
+    return (v3.useMemo(function() --[[ Line: 145 ]]
         -- upvalues: v23 (copy), v28 (copy), v32 (copy), v3 (ref), v7 (ref), v39 (copy), v34 (copy), v30 (copy), v4 (ref), v24 (copy), v16 (ref), l_Font_1 (copy), v27 (copy), v48 (copy), v17 (ref), v36 (copy), l_ImageSetLabel_0 (ref), v19 (ref), v15 (ref), v18 (ref), v14 (ref)
         local v49 = {};
         for v50, v51 in ipairs(v23.notifications) do
             local v52 = false;
+            local v53 = if v23.impressionMetadataByNotificationId then v23.impressionMetadataByNotificationId[v51.id] else nil;
             if v28 and v32 then
                 v52 = true;
             end;
@@ -110,7 +111,9 @@ return function(v23) --[[ Line: 51 ]]
                 handleActions = v23.handleActions, 
                 openMetaActions = v23.openMetaActions, 
                 onHeightChange = v39, 
-                collapsed = v52
+                collapsed = v52, 
+                impressionsTag = v23.impressionsTag, 
+                impressionIndex = v53 and v53.impressionIndex or nil
             });
         end;
         v49.UIPadding = v3.createElement("UIPadding", {
@@ -122,9 +125,9 @@ return function(v23) --[[ Line: 51 ]]
             HorizontalAlignment = Enum.HorizontalAlignment.Center
         });
         v49.Shadow1 = if v28 and v32 then v3.createElement("Frame", {
-            Size = v34:map(function(v53) --[[ Line: 175 ]]
+            Size = v34:map(function(v54) --[[ Line: 185 ]]
                 -- upvalues: v30 (ref), v4 (ref)
-                return UDim2.new(1, 0, 0, v53.shadowHeight * v30 + v4.DefaultPadding);
+                return UDim2.new(1, 0, 0, v54.shadowHeight * v30 + v4.DefaultPadding);
             end), 
             LayoutOrder = #v23.notifications + 1, 
             ZIndex = -(#v23.notifications + 1), 
@@ -132,9 +135,9 @@ return function(v23) --[[ Line: 51 ]]
             BorderSizePixel = 0
         }, {
             v3.createElement("Frame", {
-                Size = v34:map(function(v54) --[[ Line: 184 ]]
+                Size = v34:map(function(v55) --[[ Line: 194 ]]
                     -- upvalues: v4 (ref), v30 (ref)
-                    return UDim2.new(1, -(v4.DefaultPadding * 4 * v54.shadowWidth), 0, v30 - v4.DefaultPadding);
+                    return UDim2.new(1, -(v4.DefaultPadding * 4 * v55.shadowWidth), 0, v30 - v4.DefaultPadding);
                 end), 
                 BackgroundColor3 = v24.Theme.BackgroundDefault.Color, 
                 BackgroundTransparency = 0, 
@@ -148,9 +151,9 @@ return function(v23) --[[ Line: 51 ]]
             })
         }) else nil;
         v49.Shadow2 = if v28 and v32 then v3.createElement("Frame", {
-            Size = v34:map(function(v55) --[[ Line: 209 ]]
+            Size = v34:map(function(v56) --[[ Line: 219 ]]
                 -- upvalues: v30 (ref), v4 (ref)
-                return UDim2.new(1, 0, 0, v55.shadowHeight * v30 + v4.DefaultPadding * 2);
+                return UDim2.new(1, 0, 0, v56.shadowHeight * v30 + v4.DefaultPadding * 2);
             end), 
             LayoutOrder = #v23.notifications + 2, 
             BackgroundTransparency = 1, 
@@ -158,9 +161,9 @@ return function(v23) --[[ Line: 51 ]]
             BorderSizePixel = 0
         }, {
             v3.createElement("Frame", {
-                Size = v34:map(function(v56) --[[ Line: 218 ]]
+                Size = v34:map(function(v57) --[[ Line: 228 ]]
                     -- upvalues: v4 (ref), v30 (ref)
-                    return UDim2.new(1, -(v4.DefaultPadding * 6 * v56.shadowWidth), 0, v30 - v4.DefaultPadding);
+                    return UDim2.new(1, -(v4.DefaultPadding * 6 * v57.shadowWidth), 0, v30 - v4.DefaultPadding);
                 end), 
                 BackgroundColor3 = v24.Theme.BackgroundContrast.Color, 
                 BackgroundTransparency = 0, 
@@ -320,6 +323,8 @@ return function(v23) --[[ Line: 51 ]]
         v23.notifications, 
         v28, 
         v30, 
-        v32
+        v32, 
+        v23.impressionsTag, 
+        v23.impressionMetadataByNotificationId
     }));
 end;

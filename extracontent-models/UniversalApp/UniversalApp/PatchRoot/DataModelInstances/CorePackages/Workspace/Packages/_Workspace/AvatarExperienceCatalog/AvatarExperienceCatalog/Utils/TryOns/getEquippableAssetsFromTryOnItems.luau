@@ -4,7 +4,7 @@ local l_FFlagParseHeadShapeFromAPIResponse_0 = require(l_Parent_0.AvatarExperien
 local l_Constants_0 = v1.Constants;
 return function(v4) --[[ Line: 16 ]] --[[ Name: getEquippableAssetsFromTryOnItems ]]
     -- upvalues: l_Constants_0 (copy), l_FFlagParseHeadShapeFromAPIResponse_0 (copy)
-    table.sort(v4, function(v5, v6) --[[ Line: 28 ]]
+    table.sort(v4, function(v5, v6) --[[ Line: 29 ]]
         return tonumber(v5.itemRecency) < tonumber(v6.itemRecency);
     end);
     local v7 = {};
@@ -13,7 +13,8 @@ return function(v4) --[[ Line: 16 ]] --[[ Name: getEquippableAssetsFromTryOnItem
             if v9.itemType == Enum.AvatarItemType.Asset.Name then
                 table.insert(v7, {
                     assetId = v9.itemId, 
-                    assetTypeId = v9.itemSubType
+                    assetTypeId = v9.itemSubType, 
+                    order = v9.order
                 });
             elseif v9.itemType == Enum.AvatarItemType.Bundle.Name then
                 for v10, v11 in v9.bundleInfo do

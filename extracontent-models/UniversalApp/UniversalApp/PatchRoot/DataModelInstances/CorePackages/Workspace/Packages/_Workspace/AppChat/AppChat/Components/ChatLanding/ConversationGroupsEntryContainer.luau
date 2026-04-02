@@ -14,7 +14,7 @@ local l_GetFFlagUseCommunitiesTranslation_0 = require(l_Parent_0.SharedFlags).Ge
 local l_Images_0 = v3.App.ImageSet.Images;
 local v14 = require(l_script_FirstAncestor_0.Utils.DomLocators);
 local v15 = require(script.Parent.CustomConversationListEntry);
-local v16 = require(l_script_FirstAncestor_0.Flags.FFlagAppChatEnableDomLocators);
+local v16 = require(l_script_FirstAncestor_0.Flags.FFlagDebugAppChatEnableDomLocators);
 local v17 = l_Images_0["icons/menu/groups"];
 ConversationGroupsEntryContainer = function(v18) --[[ Line: 29 ]] --[[ Name: ConversationGroupsEntryContainer ]]
     -- upvalues: l_getFFlagCommunitiesUseVisualConfigUtil_0 (copy), v10 (copy), l_useLocalization_0 (copy), l_GetFFlagUseCommunitiesTranslation_0 (copy), v2 (copy), v4 (copy), v6 (copy), v8 (copy), l_Images_0 (copy), v17 (copy), v15 (copy), v9 (copy), v16 (copy), v14 (copy)

@@ -15,68 +15,72 @@ local v13 = require(l_script_FirstAncestor_0.Components.ReactivationButton);
 local v14 = require(l_script_FirstAncestor_0.Utils.canReactivate);
 local v15 = require(l_script_FirstAncestor_0.Utils.calculateTimeRemaining);
 local v16 = require(l_script_FirstAncestor_0.Utils.sendNotApprovedPageEvent);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 local l_Constants_0 = require(l_Parent_0.NotApprovedPageState).Constants;
 local l_EVENT_TYPES_0 = l_Constants_0.EVENT_TYPES;
 local l_INTERVENTION_TYPES_0 = l_Constants_0.INTERVENTION_TYPES;
 local l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0 = l_Constants_0.PUNISHMENT_TYPE_TO_INTERVENTION_MAP;
-return v2.memo(function(v21) --[[ Line: 40 ]] --[[ Name: ProceedActionsCta ]]
-    -- upvalues: l_useNotApprovedPageContext_0 (copy), l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0 (copy), v14 (copy), l_useState_0 (copy), l_useEffect_0 (copy), l_INTERVENTION_TYPES_0 (copy), l_dependencyArray_0 (copy), v2 (copy), v16 (copy), l_EVENT_TYPES_0 (copy), v15 (copy), l_Fragment_0 (copy), v12 (copy), l_Checkbox_0 (copy), l_InputSize_0 (copy), v13 (copy)
+return v2.memo(function(v22) --[[ Line: 42 ]] --[[ Name: ProceedActionsCta ]]
+    -- upvalues: l_useNotApprovedPageContext_0 (copy), l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0 (copy), v14 (copy), l_useState_0 (copy), l_useEffect_0 (copy), l_INTERVENTION_TYPES_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v2 (copy), v16 (copy), l_EVENT_TYPES_0 (copy), v15 (copy), l_Fragment_0 (copy), v12 (copy), l_Checkbox_0 (copy), l_InputSize_0 (copy), v13 (copy)
     local l_translations_0 = l_useNotApprovedPageContext_0().translations;
-    local l_moderationDetail_0 = v21.moderationDetail;
+    local l_moderationDetail_0 = v22.moderationDetail;
     local l_endDate_0 = l_moderationDetail_0.endDate;
     local l_punishmentTypeDescription_0 = l_moderationDetail_0.punishmentTypeDescription;
     local l_verificationCategory_0 = l_moderationDetail_0.verificationCategory;
-    local v27 = l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0[l_punishmentTypeDescription_0];
-    local v28 = v14(v27, l_endDate_0, l_verificationCategory_0);
-    local v29, v30 = l_useState_0(false);
-    local v31, v32 = l_useState_0(false);
-    l_useEffect_0(function() --[[ Line: 59 ]]
-        -- upvalues: v27 (copy), l_INTERVENTION_TYPES_0 (ref), v32 (copy)
-        if v27 ~= l_INTERVENTION_TYPES_0.Banned then
+    local v28 = l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0[l_punishmentTypeDescription_0];
+    local v29 = v14(v28, l_endDate_0, l_verificationCategory_0);
+    local v30, v31 = l_useState_0(false);
+    local v32, v33 = l_useState_0(false);
+    l_useEffect_0(function() --[[ Line: 62 ]]
+        -- upvalues: v28 (copy), l_INTERVENTION_TYPES_0 (ref), v33 (copy)
+        if v28 ~= l_INTERVENTION_TYPES_0.Banned then
             return;
         else
-            local v34 = task.delay(60, function() --[[ Line: 65 ]]
-                -- upvalues: v32 (ref)
-                v32(function(v33) --[[ Line: 66 ]]
-                    return not v33;
+            local v35 = task.delay(60, function() --[[ Line: 68 ]]
+                -- upvalues: v33 (ref)
+                v33(function(v34) --[[ Line: 69 ]]
+                    return not v34;
                 end);
             end);
-            return function() --[[ Line: 71 ]]
-                -- upvalues: v34 (copy)
-                if v34 and typeof(v34) == "thread" then
-                    task.cancel(v34);
+            return function() --[[ Line: 74 ]]
+                -- upvalues: v35 (copy)
+                if v35 and typeof(v35) == "thread" then
+                    task.cancel(v35);
                 end;
             end;
         end;
-    end, l_dependencyArray_0(v31, l_punishmentTypeDescription_0));
-    local v36 = v2.useCallback(function(v35) --[[ Line: 78 ]]
-        -- upvalues: v30 (copy), v16 (ref), l_EVENT_TYPES_0 (ref)
-        v30(v35);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v32, 
+        l_punishmentTypeDescription_0
+    } else l_dependencyArray_0(v32, l_punishmentTypeDescription_0));
+    local v37 = v2.useCallback(function(v36) --[[ Line: 85 ]]
+        -- upvalues: v31 (copy), v16 (ref), l_EVENT_TYPES_0 (ref)
+        v31(v36);
         v16({
             eventType = l_EVENT_TYPES_0.CheckboxChecked
         });
-    end, l_dependencyArray_0());
-    local v37 = not v28;
-    local v38 = v15(l_endDate_0);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {} else l_dependencyArray_0());
+    local v38 = not v29;
+    local v39 = v15(l_endDate_0);
     return v2.createElement(l_Fragment_0, nil, {
-        SuspensionDurationAlert = v37 and v2.createElement(v12, {
-            timeRemaining = v38, 
+        SuspensionDurationAlert = v38 and v2.createElement(v12, {
+            timeRemaining = v39, 
             layoutOrder = 1
         }), 
-        AgreeCheckbox = not v37 and v2.createElement(l_Checkbox_0, {
-            isChecked = v29, 
+        AgreeCheckbox = not v38 and v2.createElement(l_Checkbox_0, {
+            isChecked = v30, 
             size = l_InputSize_0.Small, 
-            onActivated = v36, 
+            onActivated = v37, 
             label = l_translations_0.acknowledgementCheckboxLabel, 
             LayoutOrder = 2
         }), 
         ReactivationButton = v2.createElement(v13, {
             moderationDetail = l_moderationDetail_0, 
             layoutOrder = 3, 
-            LogoutThunk = v21.LogoutThunk, 
-            isAgreed = v29, 
-            canReactivate = v28, 
-            sendPageEvent = v21.sendPageEvent
+            LogoutThunk = v22.LogoutThunk, 
+            isAgreed = v30, 
+            canReactivate = v29, 
+            sendPageEvent = v22.sendPageEvent
         })
     });
 end);

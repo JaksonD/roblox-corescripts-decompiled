@@ -7,25 +7,24 @@ local v5 = require(l_script_FirstAncestor_0.Enums.InputSize);
 local v6 = require(l_script_FirstAncestor_0.Enums.FillBehavior);
 local _ = require(l_script_FirstAncestor_0.Enums.IconSize);
 local v8 = require(l_script_FirstAncestor_0.Enums.ButtonVariant);
-local v9 = require(l_script_FirstAncestor_0.Utility.Flags);
 local _ = require(l_script_FirstAncestor_0.Enums.Radius);
-local v11 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
+local v10 = require(l_script_FirstAncestor_0.Providers.Style.useTokens);
 local l_usePresentationContext_0 = require(l_script_FirstAncestor_0.Providers.Style.PresentationContext).usePresentationContext;
-local v13 = require(l_script_FirstAncestor_0.Utility.getIconScale);
-local v14 = require(l_script_FirstAncestor_0.Utility.iconMigrationUtils);
-local v15 = require(l_script_FirstAncestor_0.Utility.isBuilderIcon);
-local v16 = require(script.Parent.useIconButtonVariants);
-local v17 = require(l_script_FirstAncestor_0.Utility.useIconSize);
-local v18 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-local v19 = require(l_script_FirstAncestor_0.Utility.withDefaults);
-local l_isMigrated_0 = v14.isMigrated;
-local l_isBuilderOrMigratedIcon_0 = v14.isBuilderOrMigratedIcon;
-local v22 = require(l_script_FirstAncestor_0.Constants);
-local v23 = require(l_script_FirstAncestor_0.Components.Image);
-local v24 = require(l_script_FirstAncestor_0.Components.Text);
+local v12 = require(l_script_FirstAncestor_0.Utility.getIconScale);
+local v13 = require(l_script_FirstAncestor_0.Utility.iconMigrationUtils);
+local v14 = require(l_script_FirstAncestor_0.Utility.isBuilderIcon);
+local v15 = require(script.Parent.useIconButtonVariants);
+local v16 = require(l_script_FirstAncestor_0.Utility.useIconSize);
+local v17 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
+local v18 = require(l_script_FirstAncestor_0.Utility.withDefaults);
+local l_isMigrated_0 = v13.isMigrated;
+local l_isBuilderOrMigratedIcon_0 = v13.isBuilderOrMigratedIcon;
+local v21 = require(l_script_FirstAncestor_0.Constants);
+local v22 = require(l_script_FirstAncestor_0.Components.Image);
+local v23 = require(l_script_FirstAncestor_0.Components.Text);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v26 = require(l_script_FirstAncestor_0.Components.View);
-local v27 = {
+local v25 = require(l_script_FirstAncestor_0.Components.View);
+local v26 = {
     isDisabled = false, 
     size = v5.Medium, 
     width = UDim.new(0, 0), 
@@ -33,89 +32,84 @@ local v27 = {
     variant = v8.Utility, 
     testId = "--foundation-icon-button"
 };
-return v3.memo(v3.forwardRef(function(v28, v29) --[[ Line: 81 ]] --[[ Name: IconButton ]]
-    -- upvalues: v19 (copy), v27 (copy), v11 (copy), l_usePresentationContext_0 (copy), l_isBuilderOrMigratedIcon_0 (copy), v13 (copy), v16 (copy), v17 (copy), v15 (copy), v3 (copy), v9 (copy), v6 (copy), v26 (copy), v18 (copy), v22 (copy), v24 (copy), l_isMigrated_0 (copy), l_uiblox_0 (copy), v2 (copy), v23 (copy)
-    local v30 = v19(v28, v27);
-    local v31 = v11();
-    local v32 = l_usePresentationContext_0();
-    local v33 = if typeof(v30.icon) == "table" then v30.icon.name else v30.icon;
-    local v34 = if typeof(v30.icon) == "table" then v30.icon.variant else nil;
+return v3.memo(v3.forwardRef(function(v27, v28) --[[ Line: 79 ]] --[[ Name: IconButton ]]
+    -- upvalues: v18 (copy), v26 (copy), v10 (copy), l_usePresentationContext_0 (copy), l_isBuilderOrMigratedIcon_0 (copy), v12 (copy), v15 (copy), v16 (copy), v14 (copy), v3 (copy), v6 (copy), v25 (copy), v17 (copy), v21 (copy), v23 (copy), l_isMigrated_0 (copy), l_uiblox_0 (copy), v2 (copy), v22 (copy)
+    local v29 = v18(v27, v26);
+    local v30 = v10();
+    local v31 = l_usePresentationContext_0();
+    local v32 = if typeof(v29.icon) == "table" then v29.icon.name else v29.icon;
+    local v33 = if typeof(v29.icon) == "table" then v29.icon.variant else nil;
+    local v34 = nil;
     local v35 = nil;
-    local v36 = nil;
-    if l_isBuilderOrMigratedIcon_0(v33) then
-        v35 = nil;
-        v36 = 1;
+    if l_isBuilderOrMigratedIcon_0(v32) then
+        v34 = nil;
+        v35 = 1;
     else
-        local v37, v38 = v13(v33, v30.size);
+        local v36, v37 = v12(v32, v29.size);
+        v34 = v36;
         v35 = v37;
-        v36 = v38;
     end;
-    local v39 = v16(v31, v30.size, v30.variant, if v32 then v32.colorMode else nil);
-    local l_size_0 = v39.container.size;
-    local v41 = if v30.isCircular then UDim.new(0, v31.Radius.Circle) else UDim.new(0, v39.container.radius or v31.Radius.Large);
-    local v42 = v17(v30.size, v15(v33), true);
-    local v43 = v3.useMemo(function() --[[ Line: 113 ]]
-        -- upvalues: v41 (copy), v31 (copy)
+    local v38 = v15(v30, v29.size, v29.variant, if v31 then v31.colorMode else nil);
+    local l_size_0 = v38.container.size;
+    local v40 = if v29.isCircular then UDim.new(0, v30.Radius.Circle) else UDim.new(0, v38.container.radius or v30.Radius.Large);
+    local v41 = v16(v29.size, v14(v32), true);
+    local v42 = v3.useMemo(function() --[[ Line: 111 ]]
+        -- upvalues: v40 (copy), v30 (copy)
         return {
-            radius = v41, 
-            offset = v31.Size.Size_150, 
-            borderWidth = v31.Stroke.Thicker
+            radius = v40, 
+            offset = v30.Size.Size_150, 
+            borderWidth = v30.Stroke.Thicker
         };
     end, {
-        v31, 
-        v41
+        v30, 
+        v40
     });
-    local v44 = v9.FoundationIconButtonFillBehavior and v30.fillBehavior == v6.Fill;
-    local v45 = nil;
-    if v9.FoundationIconButtonWidth then
-        local v46 = true;
-        if v30.width.Scale == 0 then
-            v46 = v30.width.Offset ~= 0;
-        end;
-        v45 = if v44 then UDim.new(1, 0) else if v46 then v30.width else l_size_0.X;
-    else
-        v45 = if v44 then UDim.new(1, 0) else l_size_0.X;
+    local v43 = v29.fillBehavior == v6.Fill;
+    local v44 = true;
+    if v29.width.Scale == 0 then
+        v44 = v29.width.Offset ~= 0;
     end;
-    return v3.createElement(v26, v18(v30, {
-        onActivated = v30.onActivated, 
+    local v45 = if v43 then UDim.new(1, 0) else if v44 then v29.width else l_size_0.X;
+    return v3.createElement(v25, v17(v29, {
+        onActivated = v29.onActivated, 
         Size = UDim2.new(v45, UDim.new(0, l_size_0.Y.Offset)), 
-        flexItem = if v30.fillBehavior and v9.FoundationIconButtonFillBehavior then {
-            FlexMode = if v30.fillBehavior == v6.Fill then Enum.UIFlexMode.Fill else Enum.UIFlexMode.Shrink
+        flexItem = if v29.fillBehavior then {
+            FlexMode = if v29.fillBehavior == v6.Fill then Enum.UIFlexMode.Fill else Enum.UIFlexMode.Shrink
         } else nil, 
         selection = {
-            Selectable = not v30.isDisabled and v30.Selectable, 
-            NextSelectionUp = v30.NextSelectionUp, 
-            NextSelectionDown = v30.NextSelectionDown, 
-            NextSelectionLeft = v30.NextSelectionLeft, 
-            NextSelectionRight = v30.NextSelectionRight
+            Selectable = not v29.isDisabled and v29.Selectable, 
+            NextSelectionUp = v29.NextSelectionUp, 
+            NextSelectionDown = v29.NextSelectionDown, 
+            NextSelectionLeft = v29.NextSelectionLeft, 
+            NextSelectionRight = v29.NextSelectionRight
         }, 
-        isDisabled = v30.isDisabled, 
-        stateLayer = v39.container.stateLayer, 
-        padding = v39.container.padding, 
-        cornerRadius = v41, 
-        backgroundStyle = v39.container.style, 
-        stroke = v39.container.stroke, 
-        cursor = v43, 
-        GroupTransparency = if v30.isDisabled then v22.DISABLED_TRANSPARENCY else nil, 
-        ref = v29
+        isDisabled = v29.isDisabled, 
+        stateLayer = v38.container.stateLayer, 
+        padding = v38.container.padding, 
+        cornerRadius = v40, 
+        backgroundStyle = v38.container.style, 
+        stroke = v38.container.stroke, 
+        cursor = v42, 
+        GroupTransparency = if v29.isDisabled then v21.DISABLED_TRANSPARENCY else nil, 
+        ref = v28
     }), {
-        Icon = if l_isBuilderOrMigratedIcon_0(v33) then v3.createElement(v24, {
-            Text = if l_isMigrated_0(v33) then l_uiblox_0[v33].name else v33, 
+        Icon = if l_isBuilderOrMigratedIcon_0(v32) then v3.createElement(v23, {
+            Text = if l_isMigrated_0(v32) then l_uiblox_0[v32].name else v32, 
             fontStyle = {
-                Font = v2.Font[if l_isMigrated_0(v33) then l_uiblox_0[v33].variant else v34 or v2.IconVariant.Regular], 
-                FontSize = v42.Y.Offset
+                Font = v2.Font[if l_isMigrated_0(v32) then l_uiblox_0[v32].variant else v33 or v2.IconVariant.Regular], 
+                FontSize = v41.Y.Offset
             }, 
             tag = "anchor-center-center position-center-center", 
-            Size = v42, 
-            textStyle = v39.content.style, 
-            testId = ("%*--icon"):format(v30.testId)
-        }) else v3.createElement(v23, {
+            Size = v41, 
+            textStyle = v38.content.style, 
+            testId = ("%*--icon"):format(v29.testId)
+        }) else v3.createElement(v22, {
             tag = "anchor-center-center position-center-center", 
-            Image = v33, 
-            Size = if v35 then UDim2.fromOffset(v35.X, v35.Y) else v42, 
-            imageStyle = v39.content.style, 
-            scale = v36, 
-            testId = ("%*--image"):format(v30.testId)
+            Image = v32, 
+            Size = if v34 then UDim2.fromOffset(v34.X, v34.Y) else v41, 
+            imageStyle = v38.content.style, 
+            scale = v35, 
+            testId = ("%*--image"):format(v29.testId)
         })
     });
 end));

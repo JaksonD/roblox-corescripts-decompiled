@@ -9,34 +9,38 @@ local l_useNavigation_0 = v1.Hooks.useNavigation;
 local l_dependencyArray_0 = v1.Hooks.dependencyArray;
 local l_useDidUpdate_0 = v1.Hooks.useDidUpdate;
 local v10 = require(script.Parent.getTranslationKeys);
-local v11 = {
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v1.SharedFlags.FFlagRemoveDependencyArrayAntipattern;
+local v12 = {
     messageType = v2.DefaultError, 
     duration = 2
 };
-return function(v12) --[[ Line: 28 ]]
-    -- upvalues: l_Dash_0 (copy), v11 (copy), l_useLocalization_0 (copy), v10 (copy), l_useNavigation_0 (copy), l_useDidUpdate_0 (copy), l_React_0 (copy), l_dependencyArray_0 (copy), l_Toast_0 (copy)
-    local v13 = l_Dash_0.join(v11, v12 or {});
-    local v14 = l_useLocalization_0(v10(v13.messageType, v13.localizationOverrides));
-    local v15 = l_useNavigation_0();
-    local v16 = l_useDidUpdate_0();
-    local v17 = l_React_0.useMemo(function() --[[ Line: 35 ]]
-        -- upvalues: v14 (copy), v16 (copy), v15 (copy)
+return function(v13) --[[ Line: 31 ]]
+    -- upvalues: l_Dash_0 (copy), v12 (copy), l_useLocalization_0 (copy), v10 (copy), l_useNavigation_0 (copy), l_useDidUpdate_0 (copy), l_React_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_Toast_0 (copy)
+    local v14 = l_Dash_0.join(v12, v13 or {});
+    local v15 = l_useLocalization_0(v10(v14.messageType, v14.localizationOverrides));
+    local v16 = l_useNavigation_0();
+    local v17 = l_useDidUpdate_0();
+    local v18 = l_React_0.useMemo(function() --[[ Line: 39 ]]
+        -- upvalues: v15 (copy), v17 (copy), v16 (copy)
         return {
-            toastTitle = v14.toastTitle, 
-            toastSubtitle = v14.toastSubtitle, 
-            onDismissed = function() --[[ Line: 39 ]] --[[ Name: onDismissed ]]
-                -- upvalues: v16 (ref), v15 (ref)
-                if v16.current then
+            toastTitle = v15.toastTitle, 
+            toastSubtitle = v15.toastSubtitle, 
+            onDismissed = function() --[[ Line: 43 ]] --[[ Name: onDismissed ]]
+                -- upvalues: v17 (ref), v16 (ref)
+                if v17.current then
                     return;
                 else
-                    v15.goBack();
+                    v16.goBack();
                     return;
                 end;
             end
         };
-    end, l_dependencyArray_0(v14.toastTitle, v14.toastSubtitle));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v15.toastTitle, 
+        v15.toastSubtitle
+    } else l_dependencyArray_0(v15.toastTitle, v15.toastSubtitle));
     return l_React_0.createElement(l_Toast_0, {
-        toastContent = v17, 
-        duration = v13.duration
+        toastContent = v18, 
+        duration = v14.duration
     });
 end;

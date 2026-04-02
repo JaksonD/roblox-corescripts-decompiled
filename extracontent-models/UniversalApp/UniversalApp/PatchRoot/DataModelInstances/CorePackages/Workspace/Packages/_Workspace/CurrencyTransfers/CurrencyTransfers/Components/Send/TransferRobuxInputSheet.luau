@@ -23,94 +23,101 @@ local v21 = require(l_script_FirstAncestor_0.Actions.Send.setTransferPromptState
 local v22 = require(l_script_FirstAncestor_0.Enums.PromptState);
 local v23 = require(l_script_FirstAncestor_0.Flags.GetFIntCurrencyTransferMinAmount);
 local v24 = require(l_script_FirstAncestor_0.Flags.GetFIntCurrencyTransferMaxAmount);
-return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
-    -- upvalues: l_useLocalization_0 (copy), v17 (copy), v3 (copy), v2 (copy), v23 (copy), v24 (copy), v21 (copy), v22 (copy), v20 (copy), v18 (copy), v19 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), v14 (copy), l_View_0 (copy), v16 (copy), v13 (copy), l_Text_0 (copy), v15 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
-    local v26 = l_useLocalization_0({
+local v25 = require(l_script_FirstAncestor_0.Events.CurrencyTransferTelemetry);
+local v26 = require(l_script_FirstAncestor_0.Utils.logCurrencyTransferCounter);
+return function(_) --[[ Line: 46 ]] --[[ Name: TransferRobuxInputSheet ]]
+    -- upvalues: l_useLocalization_0 (copy), v17 (copy), v2 (copy), v26 (copy), v25 (copy), v3 (copy), v23 (copy), v24 (copy), v21 (copy), v22 (copy), v20 (copy), v18 (copy), v19 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), v14 (copy), l_View_0 (copy), v16 (copy), v13 (copy), l_Text_0 (copy), v15 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy)
+    local v28 = l_useLocalization_0({
         SendRobux = "Features.Transfers.RobuxTransfer.Heading.SendRobux", 
         Next = "Features.Transfers.RobuxTransfer.Action.Next", 
         Disclaimer = "Features.Transfers.RobuxTransfer.SentInstantNoFee", 
         LowerThanMinAmount = "Features.Transfers.Error.LowerThanMinAmount", 
         GreaterThanMaxAmount = "Features.Transfers.Error.GreaterThanMaxAmount"
     });
-    local v27 = v17();
-    local v28 = v3.useSignalState(v27.getSelectedAmount) or 0;
-    local l_setSelectedAmount_0 = v27.setSelectedAmount;
-    local v30, v31 = v2.useState(500);
-    local v32, v33 = v2.useState(false);
-    local v34 = v27.getRobuxBalanceAmount(false);
-    local v35 = v27.getRecipient(false);
-    local v36 = v2.useRef(nil);
-    local v37 = v23();
-    local v38 = v24();
-    v2.useEffect(function() --[[ Line: 64 ]]
-        -- upvalues: v28 (copy), v37 (copy), v38 (copy), v33 (copy)
-        if v28 == 0 or v37 <= v28 and v28 <= v38 then
-            v33(false);
+    local v29 = v17();
+    v2.useEffect(function() --[[ Line: 57 ]]
+        -- upvalues: v26 (ref), v29 (copy), v25 (ref)
+        v26(v29, v25.CurrencyTransferInputSheetShownCounter);
+        return nil;
+    end, {});
+    local v30 = v3.useSignalState(v29.getSelectedAmount) or 0;
+    local l_setSelectedAmount_0 = v29.setSelectedAmount;
+    local v32, v33 = v2.useState(500);
+    local v34, v35 = v2.useState(false);
+    local v36 = v29.getRobuxBalanceAmount(false);
+    local v37 = v29.getRecipient(false);
+    local v38 = v2.useRef(nil);
+    local v39 = v23();
+    local v40 = v24();
+    v2.useEffect(function() --[[ Line: 72 ]]
+        -- upvalues: v30 (copy), v39 (copy), v40 (copy), v35 (copy)
+        if v30 == 0 or v39 <= v30 and v30 <= v40 then
+            v35(false);
         end;
     end, {
-        v28, 
-        v37, 
-        v38
+        v30, 
+        v39, 
+        v40
     });
-    local v39 = v2.useCallback(function() --[[ Line: 70 ]]
-        -- upvalues: v28 (copy), v37 (copy), v38 (copy), v33 (copy), v34 (copy), v21 (ref), v27 (copy), v22 (ref), v20 (ref)
-        if v28 and (v28 < v37 or v38 < v28) then
-            v33(true);
+    local v41 = v2.useCallback(function() --[[ Line: 78 ]]
+        -- upvalues: v30 (copy), v39 (copy), v40 (copy), v35 (copy), v36 (copy), v21 (ref), v29 (copy), v22 (ref), v20 (ref)
+        if v30 and (v30 < v39 or v40 < v30) then
+            v35(true);
             return;
-        elseif v28 and v34 < v28 then
-            v21(v27, v22.TransferInsufficientBalance);
+        elseif v30 and v36 < v30 then
+            v21(v29, v22.TransferInsufficientBalance);
             return;
         else
-            v20(v27, v28 or 0);
+            v20(v29, v30 or 0);
             return;
         end;
     end, {
-        v27, 
-        v28, 
-        v34, 
-        v37, 
-        v38
+        v29, 
+        v30, 
+        v36, 
+        v39, 
+        v40
     });
-    local v43 = v18(v2.useCallback(function(v40) --[[ Line: 85 ]]
+    local v45 = v18(v2.useCallback(function(v42) --[[ Line: 93 ]]
         -- upvalues: l_setSelectedAmount_0 (copy)
-        l_setSelectedAmount_0(v40 or 0);
+        l_setSelectedAmount_0(v42 or 0);
     end, {
         l_setSelectedAmount_0
-    }), v2.useCallback(function(v41, v42) --[[ Line: 88 ]]
-        -- upvalues: v31 (copy), v28 (copy), v37 (copy), v38 (copy), v33 (copy), v39 (copy)
-        if v41 then
-            v31(800);
+    }), v2.useCallback(function(v43, v44) --[[ Line: 96 ]]
+        -- upvalues: v33 (copy), v30 (copy), v39 (copy), v40 (copy), v35 (copy), v41 (copy)
+        if v43 then
+            v33(800);
             return;
-        elseif v42 then
-            if v28 and v28 > 0 and (v28 < v37 or v38 < v28) then
-                v33(true);
+        elseif v44 then
+            if v30 and v30 > 0 and (v30 < v39 or v40 < v30) then
+                v35(true);
             else
-                v39();
+                v41();
             end;
-            v31(500);
+            v33(500);
             return;
         else
-            v31(500);
+            v33(500);
             return;
         end;
     end, {
+        v41, 
+        v30, 
         v39, 
-        v28, 
-        v37, 
-        v38
+        v40
     }));
-    local l_triggerOnClose_0 = v27.triggerOnClose;
-    local v45 = v19(v43, 0.05);
-    local v47 = v2.useCallback(function(v46) --[[ Line: 114 ]]
-        -- upvalues: v36 (copy), v45 (copy)
-        if v46 then
-            v36.current = v46;
-            v45(v46);
+    local l_triggerOnClose_0 = v29.triggerOnClose;
+    local v47 = v19(v45, 0.05);
+    local v49 = v2.useCallback(function(v48) --[[ Line: 122 ]]
+        -- upvalues: v38 (copy), v47 (copy)
+        if v48 then
+            v38.current = v48;
+            v47(v48);
         end;
     end, {
-        v45
+        v47
     });
-    local v48 = v2.useMemo(function() --[[ Line: 121 ]]
+    local v50 = v2.useMemo(function() --[[ Line: 129 ]]
         return {
             {
                 amount = 25, 
@@ -130,57 +137,57 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
             }
         };
     end, {});
-    local v50 = v2.useCallback(function(v49) --[[ Line: 130 ]]
+    local v52 = v2.useCallback(function(v51) --[[ Line: 138 ]]
         -- upvalues: l_setSelectedAmount_0 (copy)
-        l_setSelectedAmount_0(v49);
+        l_setSelectedAmount_0(v51);
     end, {
         l_setSelectedAmount_0
     });
-    local v51 = false;
-    if v28 > 0 then
-        v51 = true;
-        if v28 >= v37 then
-            v51 = v38 < v28;
+    local v53 = false;
+    if v30 > 0 then
+        v53 = true;
+        if v30 >= v39 then
+            v53 = v40 < v30;
         end;
     end;
-    local v52 = v32 and v51;
-    local v53 = v2.useMemo(function() --[[ Line: 138 ]]
-        -- upvalues: v52 (copy), v28 (copy), v37 (copy), v26 (copy), v38 (copy)
-        if not v52 or not v28 or v28 <= 0 then
+    local v54 = v34 and v53;
+    local v55 = v2.useMemo(function() --[[ Line: 146 ]]
+        -- upvalues: v54 (copy), v30 (copy), v39 (copy), v28 (copy), v40 (copy)
+        if not v54 or not v30 or v30 <= 0 then
             return nil;
-        elseif v28 < v37 then
-            return v26.LowerThanMinAmount;
-        elseif v38 < v28 then
-            return v26.GreaterThanMaxAmount;
+        elseif v30 < v39 then
+            return v28.LowerThanMinAmount;
+        elseif v40 < v30 then
+            return v28.GreaterThanMaxAmount;
         else
             return nil;
         end;
     end, {
-        v52, 
-        v28, 
-        v37, 
-        v38, 
-        v26.LowerThanMinAmount, 
-        v26.GreaterThanMaxAmount
+        v54, 
+        v30, 
+        v39, 
+        v40, 
+        v28.LowerThanMinAmount, 
+        v28.GreaterThanMaxAmount
     });
-    local v54 = v2.useMemo(function() --[[ Line: 159 ]]
-        -- upvalues: v28 (copy)
-        return not v28 or v28 <= 0;
+    local v56 = v2.useMemo(function() --[[ Line: 167 ]]
+        -- upvalues: v30 (copy)
+        return not v30 or v30 <= 0;
     end, {
-        v28
+        v30
     });
     return v2.createElement(l_Sheet_0.Root, {
         preferCenterSheet = true, 
         snapPoints = {
-            l_useScaledValue_0(v30), 
+            l_useScaledValue_0(v32), 
             0.8
         }, 
         onClose = l_triggerOnClose_0
     }, {
         Header = v2.createElement(l_Sheet_0.Header, {}, {
             TransferRobuxHeader = v2.createElement(v14, {
-                titleText = v26.SendRobux, 
-                robuxBalanceAmount = v34
+                titleText = v28.SendRobux, 
+                robuxBalanceAmount = v36
             })
         }), 
         Content = v2.createElement(l_Sheet_0.Content, {
@@ -202,11 +209,11 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                     }, {
                         TextBox = v2.createElement("TextBox", {
                             Size = UDim2.new(1, 0, 1, 0), 
-                            Text = if v28 and v28 > 0 then tostring(v28) else "0", 
+                            Text = if v30 and v30 > 0 then tostring(v30) else "0", 
                             PlaceholderText = "", 
                             TextInputType = Enum.TextInputType.Number, 
                             BackgroundTransparency = 1, 
-                            ref = v47
+                            ref = v49
                         })
                     })
                 }), 
@@ -219,9 +226,9 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                     Content = v2.createElement(l_View_0, {
                         tag = "col gap-xlarge auto-y size-full-0 align-x-center items-center padding-top-xlarge"
                     }, {
-                        RecipientProfile = if v35 and v35.targetId then v2.createElement(v16, {
-                            userId = tostring(v35.targetId), 
-                            username = v35.targetName, 
+                        RecipientProfile = if v37 and v37.targetId then v2.createElement(v16, {
+                            userId = tostring(v37.targetId), 
+                            username = v37.targetName, 
                             showUsername = true, 
                             size = UDim2.fromOffset(60, 60), 
                             layoutOrder = 1, 
@@ -246,7 +253,7 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                                     LayoutOrder = 1
                                 }, {
                                     SelectedAmountDisplay = v2.createElement(v13, {
-                                        amount = v28, 
+                                        amount = v30, 
                                         layoutOrder = 1
                                     }), 
                                     AmountTapTarget = v2.createElement("TextButton", {
@@ -255,10 +262,10 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                                         Text = "", 
                                         BackgroundTransparency = 1, 
                                         ZIndex = 2, 
-                                        [v2.Event.Activated] = function() --[[ Line: 251 ]]
-                                            -- upvalues: v36 (copy)
-                                            if v36.current then
-                                                v36.current:CaptureFocus();
+                                        [v2.Event.Activated] = function() --[[ Line: 259 ]]
+                                            -- upvalues: v38 (copy)
+                                            if v38.current then
+                                                v38.current:CaptureFocus();
                                             end;
                                         end
                                     })
@@ -269,8 +276,8 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                                 Size = UDim2.new(1, 0, 0, 40), 
                                 LayoutOrder = 3
                             }, {
-                                ValidationErrorText = if v53 then v2.createElement(l_Text_0, {
-                                    Text = v53, 
+                                ValidationErrorText = if v55 then v2.createElement(l_Text_0, {
+                                    Text = v55, 
                                     tag = "auto-xy text-caption-small content-system-alert text-align-x-center", 
                                     LayoutOrder = 1
                                 }) else nil
@@ -283,10 +290,10 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                         Text = "", 
                         BackgroundTransparency = 1, 
                         ZIndex = 2, 
-                        [v2.Event.Activated] = function() --[[ Line: 281 ]]
-                            -- upvalues: v36 (copy)
-                            if v36.current then
-                                v36.current:CaptureFocus();
+                        [v2.Event.Activated] = function() --[[ Line: 289 ]]
+                            -- upvalues: v38 (copy)
+                            if v38.current then
+                                v38.current:CaptureFocus();
                             end;
                         end
                     })
@@ -297,9 +304,9 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                     ZIndex = 3
                 }, {
                     Chips = v2.createElement(v15, {
-                        chips = v48, 
-                        onChipSelected = v50, 
-                        selectedAmount = v28, 
+                        chips = v50, 
+                        onChipSelected = v52, 
+                        selectedAmount = v30, 
                         layoutOrder = 1
                     })
                 })
@@ -316,15 +323,15 @@ return function(_) --[[ Line: 44 ]] --[[ Name: TransferRobuxInputSheet ]]
                     LayoutOrder = 1
                 }, {
                     v2.createElement(l_Button_0, {
-                        text = v26.Next, 
-                        onActivated = v39, 
+                        text = v28.Next, 
+                        onActivated = v41, 
                         variant = l_ButtonVariant_0.Emphasis, 
                         fillBehavior = l_FillBehavior_0.Fill, 
-                        isDisabled = v54
+                        isDisabled = v56
                     })
                 }); 
                 Disclaimer = v2.createElement(l_Text_0, {
-                    Text = v26.Disclaimer, 
+                    Text = v28.Disclaimer, 
                     tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap", 
                     LayoutOrder = 2
                 })

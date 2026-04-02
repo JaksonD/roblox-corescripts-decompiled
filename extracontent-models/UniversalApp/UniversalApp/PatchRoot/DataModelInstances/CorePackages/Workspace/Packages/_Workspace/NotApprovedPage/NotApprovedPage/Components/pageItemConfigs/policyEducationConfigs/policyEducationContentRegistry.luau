@@ -49,6 +49,15 @@ local v5 = {
     policyKey = "pii"
 };
 local v6 = {
+    ruleTitle = "Feature.NotApproved.Heading.RuleExplanation.RealLifeEvents", 
+    ruleSubtitle = "Feature.NotApproved.SubHeading.RuleExplanation.RealLifeEvents", 
+    ruleDescription = "Feature.NotApproved.Description.RuleExplanation.RealLifeEvents", 
+    ruleDescriptionBullets = "Feature.NotApproved.Description.RuleExplanation.Bullets.RealLifeEvents", 
+    importanceTitle = "Feature.NotApproved.Heading.RuleImportance", 
+    importanceDescription = "Feature.NotApproved.Description.RuleImportance.RealLifeEvents", 
+    policyKey = "real-life-events"
+};
+local v7 = {
     ruleTitle = "Feature.NotApproved.Heading.RuleExplanation.Spam", 
     ruleSubtitle = "Feature.NotApproved.SubHeading.RuleExplanation.Spam", 
     ruleDescription = "Feature.NotApproved.Description.RuleExplanation.Spam", 
@@ -56,7 +65,7 @@ local v6 = {
     importanceDescription = "Feature.NotApproved.Description.RuleImportance.Spam", 
     policyKey = "spam"
 };
-local v7 = {
+local v8 = {
     ruleTitle = "Feature.NotApproved.Heading.RuleExplanation.SSHAndIllegalRegulatedActivities", 
     ruleSubtitle = "Feature.NotApproved.SubHeading.RuleExplanation.SSHAndIllegalRegulatedActivities", 
     ruleDescription = "Feature.NotApproved.Description.RuleExplanation.SSHAndIllegalRegulatedActivities", 
@@ -65,7 +74,7 @@ local v7 = {
     importanceDescription = "Feature.NotApproved.Description.RuleImportance.SSHAndIllegalRegulatedActivities", 
     policyKey = "ssh-and-illegal-regulated-activities"
 };
-local v8 = {
+local v9 = {
     ruleTitle = "Feature.NotApproved.Heading.RuleExplanation.ViolentContentAndGore", 
     ruleSubtitle = "Feature.NotApproved.SubHeading.RuleExplanation.ViolentContentAndGore", 
     ruleDescription = "Feature.NotApproved.Description.RuleExplanation.ViolentContentAndGore", 
@@ -75,17 +84,17 @@ local v8 = {
 };
 return {
     ["Label.AbuseType.CheatandExploits"] = v4, 
-    ["Label.AbuseType.ContestsandSweepstakes"] = v7, 
+    ["Label.AbuseType.ContestsandSweepstakes"] = v8, 
     ["Label.AbuseType.Dating"] = v1, 
     ["Label.AbuseType.DirectingUsersOffPlatform"] = v3, 
     ["Label.AbuseType.DiscriminatoryContent"] = v2, 
     ["Label.AbuseType.DisruptiveAudio"] = v4, 
-    ["Label.AbuseType.EncouragingDangerousBehavior"] = v7, 
+    ["Label.AbuseType.EncouragingDangerousBehavior"] = v8, 
     ["Label.AbuseType.ExtortionandBlackmail"] = v2, 
     ["Label.AbuseType.Harassment"] = v2, 
-    ["Label.AbuseType.IllegalandRegulatedContent"] = v7, 
+    ["Label.AbuseType.IllegalandRegulatedContent"] = v8, 
     ["Label.AbuseType.Impersonation"] = v2, 
-    ["Label.AbuseType.IrlDangerousActivities"] = v7, 
+    ["Label.AbuseType.IrlDangerousActivities"] = v8, 
     ["Label.AbuseType.MisusingRobloxSystems"] = v4, 
     ["Label.AbuseType.OffPlatformSpeechandBehavior"] = v2, 
     ["Label.AbuseType.PrivacyAskingforPII"] = v5, 
@@ -93,10 +102,12 @@ return {
     ["Label.AbuseType.RealLifeThreats"] = v2, 
     ["Label.AbuseType.Scamming"] = v4, 
     ["Label.AbuseType.SexualContent"] = v1, 
-    ["Label.AbuseType.Spam"] = v6, 
-    ["Label.AbuseType.SuicideSelfHarm"] = v7, 
+    ["Label.AbuseType.Spam"] = v7, 
+    ["Label.AbuseType.SuicideSelfHarm"] = v8, 
     ["Label.AbuseType.Swearing"] = v0, 
     ["Label.AbuseType.ThreatsOrAbuseOfRobloxEmployeesOrAffiliates"] = v2, 
-    ["Label.AbuseType.ViolentContentAndGore"] = v8, 
-    ["Label.AbuseType.VirtualCasino"] = v7
+    ["Label.AbuseType.ViolentContentAndGore"] = v9, 
+    ["Label.AbuseType.VirtualCasino"] = v8, 
+    ["Label.Sublabel.RealLifeEvents"] = v6, 
+    ["Label.Sublabel.RomanceOrSex"] = v1
 };

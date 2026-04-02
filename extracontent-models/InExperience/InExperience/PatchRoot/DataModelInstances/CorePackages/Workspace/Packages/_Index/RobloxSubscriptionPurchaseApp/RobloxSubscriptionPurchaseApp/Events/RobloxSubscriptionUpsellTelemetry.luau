@@ -130,5 +130,31 @@ return {
         }, 
         throttlingPercentage = 100, 
         description = "Counter fired when purchase attempt is made."
+    }, 
+    RobloxSubscriptionPurchaseErrorShownCounter = {
+        eventName = "RobloxSubscriptionPurchaseErrorShownCounter", 
+        backends = {
+            v1.TelemetryBackends.Counter
+        }, 
+        lastUpdated = {
+            2026, 
+            3, 
+            24
+        }, 
+        throttlingPercentage = 100, 
+        description = "Counter fired when purchase error is shown."
+    }, 
+    RobloxSubscriptionCreatePaymentSessionFailedCounter = {
+        eventName = "RobloxSubscriptionCreatePaymentSessionFailedCounter", 
+        backends = {
+            v1.TelemetryBackends.Counter
+        }, 
+        lastUpdated = {
+            2026, 
+            3, 
+            25
+        }, 
+        throttlingPercentage = 100, 
+        description = "Counter fired when create payment session fails."
     }
 };

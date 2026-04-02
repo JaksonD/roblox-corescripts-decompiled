@@ -2,7 +2,7 @@ local l_script_FirstAncestor_0 = script:FindFirstAncestor("AvatarExperienceCatal
 local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.Rodux);
 local _ = require(l_script_FirstAncestor_0.Stores.createAXShoppingCartStore);
-return v2.makeActionCreator(script.Name, function(v4) --[[ Line: 50 ]]
+return v2.makeActionCreator(script.Name, function(v4) --[[ Line: 51 ]]
     return {
         equippableAssets = v4.equippableAssets, 
         items = v4.items, 

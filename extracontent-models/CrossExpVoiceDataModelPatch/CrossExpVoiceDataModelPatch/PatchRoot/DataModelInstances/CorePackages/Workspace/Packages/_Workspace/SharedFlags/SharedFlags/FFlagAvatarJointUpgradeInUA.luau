@@ -1,0 +1,1 @@
+return game:DefineFastFlag("AvatarJointUpgradeInUA2", false) and game:GetEngineFeature("AvatarJointUpgradeWritable");

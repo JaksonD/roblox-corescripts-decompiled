@@ -38,7 +38,7 @@ local function v13(v10) --[[ Line: 45 ]] --[[ Name: variantsFactory ]]
             tag = "size-full-0 auto-y"
         }, 
         titleText = {
-            tag = "size-full-0 auto-y content-emphasized text-wrap text-align-x-left"
+            tag = ("size-full-0 auto-y text-wrap text-align-x-left %*"):format(v5.FoundationDialogTitleEmphasisFix and "content-emphasis" or "content-emphasized")
         }, 
         content = {
             tag = "auto-y size-full fill"
@@ -141,7 +141,7 @@ local function v13(v10) --[[ Line: 45 ]] --[[ Name: variantsFactory ]]
         size = v12
     };
 end;
-useDialogVariants = function() --[[ Line: 178 ]] --[[ Name: useDialogVariants ]]
+useDialogVariants = function() --[[ Line: 180 ]] --[[ Name: useDialogVariants ]]
     -- upvalues: v6 (copy), v7 (copy), v13 (copy), v8 (copy), v3 (copy)
     local v14 = v6();
     local v15 = v7.useVariants("Dialog", v13, v14);

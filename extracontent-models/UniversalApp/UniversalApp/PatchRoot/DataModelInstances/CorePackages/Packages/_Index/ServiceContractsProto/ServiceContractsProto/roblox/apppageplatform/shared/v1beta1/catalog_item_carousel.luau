@@ -8,14 +8,14 @@ local v6 = require(script.Parent.prop_types);
 local v7 = {};
 v7.__index = v7;
 local l_v7_0 = v7 --[[ copy: 7 -> 8 ]];
-v7.new = function(v9) --[[ Line: 108 ]] --[[ Name: new ]]
+v7.new = function(v9) --[[ Line: 110 ]] --[[ Name: new ]]
     -- upvalues: l_v7_0 (copy)
     return (setmetatable({
         props = if not (v9 ~= nil) or v9.props == nil then nil else v9.props, 
         shared = if not (v9 ~= nil) or v9.shared == nil then nil else v9.shared
     }, l_v7_0));
 end;
-v7.encode = function(v10) --[[ Line: 117 ]] --[[ Name: encode ]]
+v7.encode = function(v10) --[[ Line: 119 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v11 = buffer.create(0);
     local v12 = 0;
@@ -37,7 +37,7 @@ v7.encode = function(v10) --[[ Line: 117 ]] --[[ Name: encode ]]
     buffer.copy(v19, 0, v11, 0, v12);
     return v19;
 end;
-v7.decode = function(v20) --[[ Line: 138 ]] --[[ Name: decode ]]
+v7.decode = function(v20) --[[ Line: 140 ]] --[[ Name: decode ]]
     -- upvalues: l_v7_0 (copy), v0 (copy), v2 (copy), v5 (copy)
     local v21 = l_v7_0.new();
     local v22 = 0;
@@ -87,7 +87,7 @@ v7.decode = function(v20) --[[ Line: 138 ]] --[[ Name: decode ]]
     end;
     return v21;
 end;
-v7.jsonEncode = function(v28) --[[ Line: 186 ]] --[[ Name: jsonEncode ]]
+v7.jsonEncode = function(v28) --[[ Line: 188 ]] --[[ Name: jsonEncode ]]
     local v29 = {};
     if v28.props ~= nil then
         v29.props = v28.props:jsonEncode();
@@ -97,7 +97,7 @@ v7.jsonEncode = function(v28) --[[ Line: 186 ]] --[[ Name: jsonEncode ]]
     end;
     return v29;
 end;
-v7.jsonDecode = function(v30) --[[ Line: 200 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v30) --[[ Line: 202 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v7_0 (copy), v2 (copy), v5 (copy)
     local v31 = l_v7_0.new();
     if v30.props ~= nil then
@@ -116,7 +116,7 @@ v2.CatalogItemCarouselSchema = v7;
 v1.default:register(v2.CatalogItemCarouselSchema);
 v7 = {};
 v7.__index = v7;
-v7.new = function(v32) --[[ Line: 229 ]] --[[ Name: new ]]
+v7.new = function(v32) --[[ Line: 231 ]] --[[ Name: new ]]
     -- upvalues: v7 (copy)
     return (setmetatable({
         id = if not (v32 ~= nil) or v32.id == nil then nil else v32.id, 
@@ -133,10 +133,11 @@ v7.new = function(v32) --[[ Line: 229 ]] --[[ Name: new ]]
         position = if not (v32 ~= nil) or v32.position == nil then nil else v32.position, 
         layout_order = if not (v32 ~= nil) or v32.layout_order == nil then nil else v32.layout_order, 
         anchor_point = if not (v32 ~= nil) or v32.anchor_point == nil then nil else v32.anchor_point, 
-        size = if not (v32 ~= nil) or v32.size == nil then nil else v32.size
+        size = if not (v32 ~= nil) or v32.size == nil then nil else v32.size, 
+        tag_id = if not (v32 ~= nil) or v32.tag_id == nil then nil else v32.tag_id
     }, v7));
 end;
-v7.encode = function(v33) --[[ Line: 251 ]] --[[ Name: encode ]]
+v7.encode = function(v33) --[[ Line: 254 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v34 = buffer.create(0);
     local v35 = 0;
@@ -245,257 +246,279 @@ v7.encode = function(v33) --[[ Line: 251 ]] --[[ Name: encode ]]
         v34 = v79;
         v35 = v80;
     end;
-    local v81 = buffer.create(v35);
-    buffer.copy(v81, 0, v34, 0, v35);
-    return v81;
+    if v33.tag_id ~= nil then
+        local v81 = v33.tag_id:encode();
+        local v82, v83 = v0.writeTag(v34, v35, 16, v0.wireTypes.lengthDelimited);
+        v82, v83 = v0.writeBuffer(v82, v83, v81, buffer.len(v81));
+        v34 = v82;
+        v35 = v83;
+    end;
+    local v84 = buffer.create(v35);
+    buffer.copy(v84, 0, v34, 0, v35);
+    return v84;
 end;
-v7.decode = function(v82) --[[ Line: 350 ]] --[[ Name: decode ]]
+v7.decode = function(v85) --[[ Line: 359 ]] --[[ Name: decode ]]
     -- upvalues: v7 (copy), v0 (copy), v6 (copy), v4 (copy), v3 (copy)
-    local v83 = v7.new();
-    local v84 = 0;
-    while v84 < buffer.len(v82) do
-        local v85 = nil;
-        local v86 = nil;
-        local v87, v88, v89 = v0.readTag(v82, v84);
-        v85 = v87;
-        v86 = v88;
-        v84 = v89;
-        if v86 == v0.wireTypes.varint then
-            v87 = nil;
-            v88, v89 = v0.readVarInt(v82, v84);
-            v87 = v88;
-            v84 = v89;
-        elseif v86 == v0.wireTypes.lengthDelimited then
-            if v85 == 1 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.id = v6.StringProp.decode(v87);
-            elseif v85 == 2 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.type = v6.StringProp.decode(v87);
-            elseif v85 == 3 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.content = v4.ArrayOfCatalogSortContentProp.decode(v87);
-            elseif v85 == 4 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.num_items_to_show = v6.Int32Prop.decode(v87);
-            elseif v85 == 5 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.preview_columns = v6.Int32Prop.decode(v87);
-            elseif v85 == 6 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.title = v6.StringProp.decode(v87);
-            elseif v85 == 7 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.description = v6.StringProp.decode(v87);
-            elseif v85 == 8 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.item_footers = v4.ArrayOfItemFooterProp.decode(v87);
-            elseif v85 == 9 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.card_style = v4.CardStyleProp.decode(v87);
-            elseif v85 == 10 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.on_see_all = v3.ActionProp.decode(v87);
-            elseif v85 == 11 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.tags = v6.StringProp.decode(v87);
-            elseif v85 == 12 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.position = v6.UiScaledUDim2Prop.decode(v87);
-            elseif v85 == 13 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.layout_order = v6.Int32Prop.decode(v87);
-            elseif v85 == 14 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.anchor_point = v6.Vector2Prop.decode(v87);
-            elseif v85 == 15 then
-                v87 = nil;
-                v88, v89 = v0.readBuffer(v82, v84);
-                v87 = v88;
-                v84 = v89;
-                v83.size = v6.UiScaledUDim2Prop.decode(v87);
+    local v86 = v7.new();
+    local v87 = 0;
+    while v87 < buffer.len(v85) do
+        local v88 = nil;
+        local v89 = nil;
+        local v90, v91, v92 = v0.readTag(v85, v87);
+        v88 = v90;
+        v89 = v91;
+        v87 = v92;
+        if v89 == v0.wireTypes.varint then
+            v90 = nil;
+            v91, v92 = v0.readVarInt(v85, v87);
+            v90 = v91;
+            v87 = v92;
+        elseif v89 == v0.wireTypes.lengthDelimited then
+            if v88 == 1 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.id = v6.StringProp.decode(v90);
+            elseif v88 == 2 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.type = v6.StringProp.decode(v90);
+            elseif v88 == 3 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.content = v4.ArrayOfCatalogSortContentProp.decode(v90);
+            elseif v88 == 4 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.num_items_to_show = v6.Int32Prop.decode(v90);
+            elseif v88 == 5 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.preview_columns = v6.Int32Prop.decode(v90);
+            elseif v88 == 6 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.title = v6.StringProp.decode(v90);
+            elseif v88 == 7 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.description = v6.StringProp.decode(v90);
+            elseif v88 == 8 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.item_footers = v4.ArrayOfItemFooterProp.decode(v90);
+            elseif v88 == 9 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.card_style = v4.CardStyleProp.decode(v90);
+            elseif v88 == 10 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.on_see_all = v3.ActionProp.decode(v90);
+            elseif v88 == 11 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.tags = v6.StringProp.decode(v90);
+            elseif v88 == 12 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.position = v6.UiScaledUDim2Prop.decode(v90);
+            elseif v88 == 13 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.layout_order = v6.Int32Prop.decode(v90);
+            elseif v88 == 14 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.anchor_point = v6.Vector2Prop.decode(v90);
+            elseif v88 == 15 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.size = v6.UiScaledUDim2Prop.decode(v90);
+            elseif v88 == 16 then
+                v90 = nil;
+                v91, v92 = v0.readBuffer(v85, v87);
+                v90 = v91;
+                v87 = v92;
+                v86.tag_id = v6.StringProp.decode(v90);
             else
-                v87 = nil;
-                v88, v89 = v0.readVarInt(v82, v84);
-                v84 = v89 + v88;
+                v90 = nil;
+                v91, v92 = v0.readVarInt(v85, v87);
+                v87 = v92 + v91;
             end;
-        elseif v86 == v0.wireTypes.i32 then
-            v87 = nil;
-            v88, v89 = v0.readFixed32(v82, v84);
-            v87 = v88;
-            v84 = v89;
-        elseif v86 == v0.wireTypes.i64 then
-            v87 = nil;
-            v88, v89 = v0.readFixed64(v82, v84);
-            v87 = v88;
-            v84 = v89;
+        elseif v89 == v0.wireTypes.i32 then
+            v90 = nil;
+            v91, v92 = v0.readFixed32(v85, v87);
+            v90 = v91;
+            v87 = v92;
+        elseif v89 == v0.wireTypes.i64 then
+            v90 = nil;
+            v91, v92 = v0.readFixed64(v85, v87);
+            v90 = v91;
+            v87 = v92;
         else
-            error("Unsupported wire type: " .. v86);
+            error("Unsupported wire type: " .. v89);
         end;
     end;
-    return v83;
+    return v86;
 end;
-v7.jsonEncode = function(v90) --[[ Line: 470 ]] --[[ Name: jsonEncode ]]
-    local v91 = {};
-    if v90.id ~= nil then
-        v91.id = v90.id:jsonEncode();
+v7.jsonEncode = function(v93) --[[ Line: 484 ]] --[[ Name: jsonEncode ]]
+    local v94 = {};
+    if v93.id ~= nil then
+        v94.id = v93.id:jsonEncode();
     end;
-    if v90.type ~= nil then
-        v91.type = v90.type:jsonEncode();
+    if v93.type ~= nil then
+        v94.type = v93.type:jsonEncode();
     end;
-    if v90.content ~= nil then
-        v91.content = v90.content:jsonEncode();
+    if v93.content ~= nil then
+        v94.content = v93.content:jsonEncode();
     end;
-    if v90.num_items_to_show ~= nil then
-        v91.numItemsToShow = v90.num_items_to_show:jsonEncode();
+    if v93.num_items_to_show ~= nil then
+        v94.numItemsToShow = v93.num_items_to_show:jsonEncode();
     end;
-    if v90.preview_columns ~= nil then
-        v91.previewColumns = v90.preview_columns:jsonEncode();
+    if v93.preview_columns ~= nil then
+        v94.previewColumns = v93.preview_columns:jsonEncode();
     end;
-    if v90.title ~= nil then
-        v91.title = v90.title:jsonEncode();
+    if v93.title ~= nil then
+        v94.title = v93.title:jsonEncode();
     end;
-    if v90.description ~= nil then
-        v91.description = v90.description:jsonEncode();
+    if v93.description ~= nil then
+        v94.description = v93.description:jsonEncode();
     end;
-    if v90.item_footers ~= nil then
-        v91.itemFooters = v90.item_footers:jsonEncode();
+    if v93.item_footers ~= nil then
+        v94.itemFooters = v93.item_footers:jsonEncode();
     end;
-    if v90.card_style ~= nil then
-        v91.cardStyle = v90.card_style:jsonEncode();
+    if v93.card_style ~= nil then
+        v94.cardStyle = v93.card_style:jsonEncode();
     end;
-    if v90.on_see_all ~= nil then
-        v91.onSeeAll = v90.on_see_all:jsonEncode();
+    if v93.on_see_all ~= nil then
+        v94.onSeeAll = v93.on_see_all:jsonEncode();
     end;
-    if v90.tags ~= nil then
-        v91.tags = v90.tags:jsonEncode();
+    if v93.tags ~= nil then
+        v94.tags = v93.tags:jsonEncode();
     end;
-    if v90.position ~= nil then
-        v91.position = v90.position:jsonEncode();
+    if v93.position ~= nil then
+        v94.position = v93.position:jsonEncode();
     end;
-    if v90.layout_order ~= nil then
-        v91.layoutOrder = v90.layout_order:jsonEncode();
+    if v93.layout_order ~= nil then
+        v94.layoutOrder = v93.layout_order:jsonEncode();
     end;
-    if v90.anchor_point ~= nil then
-        v91.anchorPoint = v90.anchor_point:jsonEncode();
+    if v93.anchor_point ~= nil then
+        v94.anchorPoint = v93.anchor_point:jsonEncode();
     end;
-    if v90.size ~= nil then
-        v91.size = v90.size:jsonEncode();
+    if v93.size ~= nil then
+        v94.size = v93.size:jsonEncode();
     end;
-    return v91;
+    if v93.tag_id ~= nil then
+        v94.tagId = v93.tag_id:jsonEncode();
+    end;
+    return v94;
 end;
-v7.jsonDecode = function(v92) --[[ Line: 536 ]] --[[ Name: jsonDecode ]]
+v7.jsonDecode = function(v95) --[[ Line: 554 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v7 (copy), v6 (copy), v4 (copy), v3 (copy)
-    local v93 = v7.new();
-    if v92.id ~= nil then
-        v93.id = v6.StringProp.jsonDecode(v92.id);
+    local v96 = v7.new();
+    if v95.id ~= nil then
+        v96.id = v6.StringProp.jsonDecode(v95.id);
     end;
-    if v92.type ~= nil then
-        v93.type = v6.StringProp.jsonDecode(v92.type);
+    if v95.type ~= nil then
+        v96.type = v6.StringProp.jsonDecode(v95.type);
     end;
-    if v92.content ~= nil then
-        v93.content = v4.ArrayOfCatalogSortContentProp.jsonDecode(v92.content);
+    if v95.content ~= nil then
+        v96.content = v4.ArrayOfCatalogSortContentProp.jsonDecode(v95.content);
     end;
-    if v92.num_items_to_show ~= nil then
-        v93.num_items_to_show = v6.Int32Prop.jsonDecode(v92.num_items_to_show);
+    if v95.num_items_to_show ~= nil then
+        v96.num_items_to_show = v6.Int32Prop.jsonDecode(v95.num_items_to_show);
     end;
-    if v92.numItemsToShow ~= nil then
-        v93.num_items_to_show = v6.Int32Prop.jsonDecode(v92.numItemsToShow);
+    if v95.numItemsToShow ~= nil then
+        v96.num_items_to_show = v6.Int32Prop.jsonDecode(v95.numItemsToShow);
     end;
-    if v92.preview_columns ~= nil then
-        v93.preview_columns = v6.Int32Prop.jsonDecode(v92.preview_columns);
+    if v95.preview_columns ~= nil then
+        v96.preview_columns = v6.Int32Prop.jsonDecode(v95.preview_columns);
     end;
-    if v92.previewColumns ~= nil then
-        v93.preview_columns = v6.Int32Prop.jsonDecode(v92.previewColumns);
+    if v95.previewColumns ~= nil then
+        v96.preview_columns = v6.Int32Prop.jsonDecode(v95.previewColumns);
     end;
-    if v92.title ~= nil then
-        v93.title = v6.StringProp.jsonDecode(v92.title);
+    if v95.title ~= nil then
+        v96.title = v6.StringProp.jsonDecode(v95.title);
     end;
-    if v92.description ~= nil then
-        v93.description = v6.StringProp.jsonDecode(v92.description);
+    if v95.description ~= nil then
+        v96.description = v6.StringProp.jsonDecode(v95.description);
     end;
-    if v92.item_footers ~= nil then
-        v93.item_footers = v4.ArrayOfItemFooterProp.jsonDecode(v92.item_footers);
+    if v95.item_footers ~= nil then
+        v96.item_footers = v4.ArrayOfItemFooterProp.jsonDecode(v95.item_footers);
     end;
-    if v92.itemFooters ~= nil then
-        v93.item_footers = v4.ArrayOfItemFooterProp.jsonDecode(v92.itemFooters);
+    if v95.itemFooters ~= nil then
+        v96.item_footers = v4.ArrayOfItemFooterProp.jsonDecode(v95.itemFooters);
     end;
-    if v92.card_style ~= nil then
-        v93.card_style = v4.CardStyleProp.jsonDecode(v92.card_style);
+    if v95.card_style ~= nil then
+        v96.card_style = v4.CardStyleProp.jsonDecode(v95.card_style);
     end;
-    if v92.cardStyle ~= nil then
-        v93.card_style = v4.CardStyleProp.jsonDecode(v92.cardStyle);
+    if v95.cardStyle ~= nil then
+        v96.card_style = v4.CardStyleProp.jsonDecode(v95.cardStyle);
     end;
-    if v92.on_see_all ~= nil then
-        v93.on_see_all = v3.ActionProp.jsonDecode(v92.on_see_all);
+    if v95.on_see_all ~= nil then
+        v96.on_see_all = v3.ActionProp.jsonDecode(v95.on_see_all);
     end;
-    if v92.onSeeAll ~= nil then
-        v93.on_see_all = v3.ActionProp.jsonDecode(v92.onSeeAll);
+    if v95.onSeeAll ~= nil then
+        v96.on_see_all = v3.ActionProp.jsonDecode(v95.onSeeAll);
     end;
-    if v92.tags ~= nil then
-        v93.tags = v6.StringProp.jsonDecode(v92.tags);
+    if v95.tags ~= nil then
+        v96.tags = v6.StringProp.jsonDecode(v95.tags);
     end;
-    if v92.position ~= nil then
-        v93.position = v6.UiScaledUDim2Prop.jsonDecode(v92.position);
+    if v95.position ~= nil then
+        v96.position = v6.UiScaledUDim2Prop.jsonDecode(v95.position);
     end;
-    if v92.layout_order ~= nil then
-        v93.layout_order = v6.Int32Prop.jsonDecode(v92.layout_order);
+    if v95.layout_order ~= nil then
+        v96.layout_order = v6.Int32Prop.jsonDecode(v95.layout_order);
     end;
-    if v92.layoutOrder ~= nil then
-        v93.layout_order = v6.Int32Prop.jsonDecode(v92.layoutOrder);
+    if v95.layoutOrder ~= nil then
+        v96.layout_order = v6.Int32Prop.jsonDecode(v95.layoutOrder);
     end;
-    if v92.anchor_point ~= nil then
-        v93.anchor_point = v6.Vector2Prop.jsonDecode(v92.anchor_point);
+    if v95.anchor_point ~= nil then
+        v96.anchor_point = v6.Vector2Prop.jsonDecode(v95.anchor_point);
     end;
-    if v92.anchorPoint ~= nil then
-        v93.anchor_point = v6.Vector2Prop.jsonDecode(v92.anchorPoint);
+    if v95.anchorPoint ~= nil then
+        v96.anchor_point = v6.Vector2Prop.jsonDecode(v95.anchorPoint);
     end;
-    if v92.size ~= nil then
-        v93.size = v6.UiScaledUDim2Prop.jsonDecode(v92.size);
+    if v95.size ~= nil then
+        v96.size = v6.UiScaledUDim2Prop.jsonDecode(v95.size);
     end;
-    return v93;
+    if v95.tag_id ~= nil then
+        v96.tag_id = v6.StringProp.jsonDecode(v95.tag_id);
+    end;
+    if v95.tagId ~= nil then
+        v96.tag_id = v6.StringProp.jsonDecode(v95.tagId);
+    end;
+    return v96;
 end;
 v7.descriptor = {
     name = "CatalogItemCarouselSchema_Props", 

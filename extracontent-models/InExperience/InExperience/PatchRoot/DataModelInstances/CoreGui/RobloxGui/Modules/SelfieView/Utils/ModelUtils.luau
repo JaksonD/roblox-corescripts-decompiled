@@ -1,6 +1,6 @@
 local l_CollectionService_0 = game:GetService("CollectionService");
-local v1 = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false);
-local v2 = game:DefineFastFlag("SelfViewNeckCheck", false);
+local v1 = game:DefineFastFlag("SelfViewNeckCheck", false);
+local v2 = game:DefineFastFlag("SelfViewR15PlusSupport", false);
 local v3 = {
     Accessory = "Accessory", 
     CharacterMesh = "CharacterMesh", 
@@ -13,15 +13,15 @@ local v3 = {
     SpecialMesh = "SpecialMesh", 
     SurfaceAppearance = "SurfaceAppearance"
 };
-local function v5(v4) --[[ Line: 25 ]] --[[ Name: getFaceControls ]]
+local function v5(v4) --[[ Line: 26 ]] --[[ Name: getFaceControls ]]
     if v4 == nil then
         return;
     else
         return (v4:FindFirstChildWhichIsA("FaceControls", true));
     end;
 end;
-local function v15(v6, v7) --[[ Line: 32 ]] --[[ Name: getNeck ]]
-    -- upvalues: v2 (copy)
+local function v15(v6, v7) --[[ Line: 33 ]] --[[ Name: getNeck ]]
+    -- upvalues: v1 (copy)
     if v6 == nil or v7 == nil then
         return nil;
     else
@@ -31,7 +31,7 @@ local function v15(v6, v7) --[[ Line: 32 ]] --[[ Name: getNeck ]]
                 return v10;
             end;
         end;
-        if v2 == true then
+        if v1 == true then
             for _, v12 in l_v6_Descendants_0 do
                 if v12:IsA("AnimationConstraint") and v12.Parent == v7 and (v12.Attachment0 ~= nil and v12.Attachment0.Name == "NeckRigAttachment" or v12.Name == "Neck") then
                     return v12;
@@ -47,7 +47,7 @@ local function v15(v6, v7) --[[ Line: 32 ]] --[[ Name: getNeck ]]
         return nil;
     end;
 end;
-local function v21(v16, v17, v18) --[[ Line: 73 ]] --[[ Name: findObjectOfNameAndTypeName ]]
+local function v21(v16, v17, v18) --[[ Line: 74 ]] --[[ Name: findObjectOfNameAndTypeName ]]
     if v18 == nil then
         return nil;
     else
@@ -59,7 +59,7 @@ local function v21(v16, v17, v18) --[[ Line: 73 ]] --[[ Name: findObjectOfNameAn
         return nil;
     end;
 end;
-local function v25(v22) --[[ Line: 86 ]] --[[ Name: getHead ]]
+local function v25(v22) --[[ Line: 87 ]] --[[ Name: getHead ]]
     -- upvalues: v21 (copy)
     if not v22 then
         return nil;
@@ -78,7 +78,7 @@ local function v25(v22) --[[ Line: 86 ]] --[[ Name: getHead ]]
         return v23;
     end;
 end;
-local function v31(v26, v27) --[[ Line: 119 ]] --[[ Name: getAnimator ]]
+local function v31(v26, v27) --[[ Line: 120 ]] --[[ Name: getAnimator ]]
     local v28 = nil;
     local v29 = nil;
     if v27 > 0 then
@@ -113,7 +113,7 @@ local v32 = {
     "RightLowerArm", 
     "RightUpperArm"
 };
-local function v37(v33, v34) --[[ Line: 173 ]] --[[ Name: updateTransparency ]]
+local function v37(v33, v34) --[[ Line: 174 ]] --[[ Name: updateTransparency ]]
     -- upvalues: v32 (copy), l_CollectionService_0 (copy)
     for _, v36 in ipairs(v33:GetDescendants()) do
         if v36:IsA("Decal") then
@@ -136,7 +136,7 @@ local function v37(v33, v34) --[[ Line: 173 ]] --[[ Name: updateTransparency ]]
         end;
     end;
 end;
-local function v39(v38) --[[ Line: 202 ]] --[[ Name: shouldMarkCloneDirtyForDescendant ]]
+local function v39(v38) --[[ Line: 203 ]] --[[ Name: shouldMarkCloneDirtyForDescendant ]]
     -- upvalues: v3 (copy)
     if v38:IsA("MeshPart") or v38:IsA("Part") or v38:IsA("Decal") then
         if v38.Transparency < 1 then
@@ -147,7 +147,7 @@ local function v39(v38) --[[ Line: 202 ]] --[[ Name: shouldMarkCloneDirtyForDesc
     end;
     return false;
 end;
-local function v43(v40) --[[ Line: 215 ]] --[[ Name: resetPartOrientation ]]
+local function v43(v40) --[[ Line: 216 ]] --[[ Name: resetPartOrientation ]]
     for _, v42 in ipairs(v40:GetDescendants()) do
         if v42:IsA("Motor6D") then
             v42.C0 = CFrame.new(v42.C0.Position);
@@ -155,13 +155,13 @@ local function v43(v40) --[[ Line: 215 ]] --[[ Name: resetPartOrientation ]]
         end;
     end;
 end;
-local function _(v44, v45) --[[ Line: 224 ]] --[[ Name: removeChild ]]
+local function _(v44, v45) --[[ Line: 225 ]] --[[ Name: removeChild ]]
     local l_v44_FirstChild_0 = v44:FindFirstChild(v45);
     if l_v44_FirstChild_0 then
         l_v44_FirstChild_0:Destroy();
     end;
 end;
-local function v52(v48) --[[ Line: 230 ]] --[[ Name: removeScripts ]]
+local function v52(v48) --[[ Line: 231 ]] --[[ Name: removeScripts ]]
     local l_Animate_0 = v48:FindFirstChild("Animate");
     if l_Animate_0 then
         l_Animate_0:Destroy();
@@ -176,7 +176,7 @@ local function v52(v48) --[[ Line: 230 ]] --[[ Name: removeScripts ]]
         end;
     end;
 end;
-local function v62(v53) --[[ Line: 241 ]] --[[ Name: removeTags ]]
+local function v62(v53) --[[ Line: 242 ]] --[[ Name: removeTags ]]
     -- upvalues: l_CollectionService_0 (copy)
     local l_l_CollectionService_0_Tags_0 = l_CollectionService_0:GetTags(v53);
     for _, v56 in ipairs(l_l_CollectionService_0_Tags_0) do
@@ -198,14 +198,17 @@ local v63 = {
     Accessory = "Accessory", 
     Animator = "Animator", 
     Attachment = "Attachment", 
-    AnimationConstraint = v1 and "AnimationConstraint" or nil, 
-    BallSocketConstraint = v1 and "BallSocketConstraint" or nil, 
+    AnimationConstraint = "AnimationConstraint", 
+    BallSocketConstraint = "BallSocketConstraint", 
     BodyColors = "BodyColors", 
+    Bone = v2 and "Bone" or nil, 
     CharacterMesh = "CharacterMesh", 
     Decal = "Decal", 
+    DigitsRigDescription = v2 and "DigitsRigDescription" or nil, 
     FaceControls = "FaceControls", 
     Humanoid = "Humanoid", 
     HumanoidDescription = "HumanoidDescription", 
+    HumanoidRigDescription = v2 and "HumanoidRigDescription" or nil, 
     MeshPart = "MeshPart", 
     Motor6D = "Motor6D", 
     NumberValue = "NumberValue", 
@@ -227,7 +230,7 @@ local v63 = {
     RigidConstraint = "RigidConstraint", 
     WrapTextureTransfer = "WrapTextureTransfer"
 };
-local function v64(v65) --[[ Line: 296 ]] --[[ Name: disableScripts ]]
+local function v64(v65) --[[ Line: 300 ]] --[[ Name: disableScripts ]]
     -- upvalues: v64 (copy)
     for _, v67 in v65:GetChildren() do
         if v67:IsA("Script") then
@@ -237,7 +240,7 @@ local function v64(v65) --[[ Line: 296 ]] --[[ Name: disableScripts ]]
         v64(v67);
     end;
 end;
-local function v68(v69) --[[ Line: 306 ]] --[[ Name: removeUI ]]
+local function v68(v69) --[[ Line: 310 ]] --[[ Name: removeUI ]]
     -- upvalues: v68 (copy)
     for _, v71 in v69:GetChildren() do
         if v71:IsA("GuiObject") or v71:IsA("ScreenGui") or v71:IsA("BillboardGui") or v71:IsA("AdGui") or v71:IsA("SurfaceGui") then
@@ -246,7 +249,7 @@ local function v68(v69) --[[ Line: 306 ]] --[[ Name: removeUI ]]
         v68(v71);
     end;
 end;
-local function v72(v73) --[[ Line: 321 ]] --[[ Name: removeInstancesStrict ]]
+local function v72(v73) --[[ Line: 325 ]] --[[ Name: removeInstancesStrict ]]
     -- upvalues: v63 (copy), v72 (copy)
     for _, v75 in v73:GetChildren() do
         if not v63[v75.ClassName] then
@@ -265,7 +268,7 @@ return {
     resetPartOrientation = v43, 
     removeScripts = v52, 
     removeTags = v62, 
-    sanitizeCharacter = function(v76) --[[ Line: 330 ]] --[[ Name: sanitizeCharacter ]]
+    sanitizeCharacter = function(v76) --[[ Line: 334 ]] --[[ Name: sanitizeCharacter ]]
         -- upvalues: v72 (copy)
         if not v76 then
             return;
@@ -274,7 +277,7 @@ return {
             return;
         end;
     end, 
-    isValidAvatar = function(v77) --[[ Line: 338 ]] --[[ Name: isValidAvatar ]]
+    isValidAvatar = function(v77) --[[ Line: 342 ]] --[[ Name: isValidAvatar ]]
         -- upvalues: v31 (copy), v25 (copy)
         if not v31(v77, 10) then
             return false;
@@ -284,7 +287,7 @@ return {
             return true;
         end;
     end, 
-    hasDynamicHead = function(v78) --[[ Line: 352 ]] --[[ Name: hasDynamicHead ]]
+    hasDynamicHead = function(v78) --[[ Line: 356 ]] --[[ Name: hasDynamicHead ]]
         return (if v78 == nil then nil else v78:FindFirstChildWhichIsA("FaceControls", true)) ~= nil;
     end
 };

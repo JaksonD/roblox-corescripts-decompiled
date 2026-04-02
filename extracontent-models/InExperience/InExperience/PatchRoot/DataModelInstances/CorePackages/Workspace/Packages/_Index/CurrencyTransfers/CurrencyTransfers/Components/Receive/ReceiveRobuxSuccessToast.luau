@@ -13,30 +13,30 @@ local v11 = require(l_script_FirstAncestor_0.Utils.formatNumber);
 return function(_) --[[ Line: 32 ]] --[[ Name: ReceiveRobuxSuccessToast ]]
     -- upvalues: l_useLocalization_0 (copy), v10 (copy), v3 (copy), v11 (copy), l_LocalizationService_0 (copy), v2 (copy), v9 (copy), l_Snackbar_0 (copy), l_Enums_0 (copy)
     local v13 = l_useLocalization_0({
-        ReceiveRobux = "Features.Transfers.RobuxTransfers.Label.SuccessNotification"
+        SuccessNotification = "Features.Transfers.RobuxTransfers.Label.SuccessNotification"
     });
     local v14 = v10();
     local v15 = v3.useSignalState(v14.getRobuxTransfer);
     local v16 = if v15 then v15.transferAmount else 0;
     local v17 = v11(l_LocalizationService_0.RobloxLocaleId, v16);
-    local v18 = v2.useMemo(function() --[[ Line: 45 ]]
+    local v18 = v2.useMemo(function() --[[ Line: 42 ]]
         -- upvalues: v13 (copy), v17 (copy)
-        return string.gsub(v13.ReceiveRobux, "{amount}", (tostring(v17)));
+        return string.gsub(v13.SuccessNotification, "{amount}", (tostring(v17)));
     end, {
         v17, 
-        v13.ReceiveRobux
+        v13.SuccessNotification
     });
     local v19 = v2.useRef(nil);
-    v2.useEffect(function() --[[ Line: 51 ]]
+    v2.useEffect(function() --[[ Line: 48 ]]
         -- upvalues: v19 (copy), v9 (ref), v14 (copy)
         if v19.current then
             task.cancel(v19.current);
         end;
-        v19.current = task.delay(5, function() --[[ Line: 58 ]]
+        v19.current = task.delay(5, function() --[[ Line: 55 ]]
             -- upvalues: v9 (ref), v14 (ref)
             v9(v14);
         end);
-        return function() --[[ Line: 64 ]]
+        return function() --[[ Line: 61 ]]
             -- upvalues: v19 (ref)
             if v19.current then
                 task.cancel(v19.current);
@@ -55,7 +55,7 @@ return function(_) --[[ Line: 32 ]] --[[ Name: ReceiveRobuxSuccessToast ]]
         Size = UDim2.new(1, 0, 0, 0), 
         AutomaticSize = Enum.AutomaticSize.Y, 
         ZIndex = 100, 
-        onClose = function() --[[ Line: 83 ]] --[[ Name: onClose ]]
+        onClose = function() --[[ Line: 80 ]] --[[ Name: onClose ]]
             -- upvalues: v9 (ref), v14 (copy)
             v9(v14);
         end

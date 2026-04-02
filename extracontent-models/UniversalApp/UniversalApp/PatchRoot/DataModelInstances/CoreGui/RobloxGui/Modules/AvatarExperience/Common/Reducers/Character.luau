@@ -1,25 +1,26 @@
+local l_CorePackages_0 = game:GetService("CorePackages");
 local l_Parent_0 = script.Parent;
-local v1 = require(l_Parent_0.CurrentCharacter);
-local v2 = require(l_Parent_0.CharacterVersion);
-local v3 = require(l_Parent_0.PlayingSwimAnimation);
-local v4 = require(l_Parent_0.CharacterModelVersion);
-local v5 = require(l_Parent_0.TryOnCharacterModelVersion);
-local v6 = require(l_Parent_0.SavedCharacterModelVersion);
-local v7 = require(l_Parent_0.ApplyingLayeredClothing);
-local v8 = require(l_Parent_0.ShouldDelaySaveManager);
-local v9 = require(l_Parent_0.WaitingOnLayeredClothingUpdates);
-return function(v10, v11) --[[ Line: 26 ]]
-    -- upvalues: v2 (copy), v1 (copy), v3 (copy), v7 (copy), v4 (copy), v5 (copy), v6 (copy), v8 (copy), v9 (copy)
-    v10 = v10 or {};
+local l_PlayingSwimAnimation_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux).Reducers.PlayingSwimAnimation;
+local v3 = require(l_Parent_0.CurrentCharacter);
+local v4 = require(l_Parent_0.CharacterVersion);
+local v5 = require(l_Parent_0.CharacterModelVersion);
+local v6 = require(l_Parent_0.TryOnCharacterModelVersion);
+local v7 = require(l_Parent_0.SavedCharacterModelVersion);
+local v8 = require(l_Parent_0.ApplyingLayeredClothing);
+local v9 = require(l_Parent_0.ShouldDelaySaveManager);
+local v10 = require(l_Parent_0.WaitingOnLayeredClothingUpdates);
+return function(v11, v12) --[[ Line: 29 ]]
+    -- upvalues: v4 (copy), v3 (copy), l_PlayingSwimAnimation_0 (copy), v8 (copy), v5 (copy), v6 (copy), v7 (copy), v9 (copy), v10 (copy)
+    v11 = v11 or {};
     return {
-        CharacterVersion = v2(v10.CharacterVersion, v11), 
-        CurrentCharacter = v1(v10.CurrentCharacter, v11), 
-        PlayingSwimAnimation = v3(v10.PlayingSwimAnimation, v11), 
-        ApplyingLayeredClothing = v7(v10.ApplyingLayeredClothing, v11), 
-        CharacterModelVersion = v4(v10.CharacterModelVersion, v11), 
-        TryOnCharacterModelVersion = v5(v10.TryOnCharacterModelVersion, v11), 
-        SavedCharacterModelVersion = v6(v10.SavedCharacterModelVersion, v11), 
-        ShouldDelaySaveManager = v8(v10.ShouldDelaySaveManager, v11), 
-        WaitingOnLayeredClothingUpdates = v9(v10.WaitingOnLayeredClothingUpdates, v11)
+        CharacterVersion = v4(v11.CharacterVersion, v12), 
+        CurrentCharacter = v3(v11.CurrentCharacter, v12), 
+        PlayingSwimAnimation = l_PlayingSwimAnimation_0(v11.PlayingSwimAnimation, v12), 
+        ApplyingLayeredClothing = v8(v11.ApplyingLayeredClothing, v12), 
+        CharacterModelVersion = v5(v11.CharacterModelVersion, v12), 
+        TryOnCharacterModelVersion = v6(v11.TryOnCharacterModelVersion, v12), 
+        SavedCharacterModelVersion = v7(v11.SavedCharacterModelVersion, v12), 
+        ShouldDelaySaveManager = v9(v11.ShouldDelaySaveManager, v12), 
+        WaitingOnLayeredClothingUpdates = v10(v11.WaitingOnLayeredClothingUpdates, v12)
     };
 end;

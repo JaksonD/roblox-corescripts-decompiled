@@ -18,7 +18,7 @@ local l_FFlagAXEnableHomeTryOnComplexView_0 = v14.FFlagAXEnableHomeTryOnComplexV
 local l_FFlagAXFixPurchaseSurfaceLogging_0 = v14.FFlagAXFixPurchaseSurfaceLogging;
 local l_FFlagAXAvatarSortInDiscoveryUnifiedPurchase_0 = v14.FFlagAXAvatarSortInDiscoveryUnifiedPurchase;
 local v19 = game:DefineFastFlag("AXFixHomepageTryOnScreenAnalytics", false);
-local v20 = game:DefineFastFlag("AXMarketplaceTryOnActionUnifiedLogging", false);
+local v20 = game:DefineFastFlag("AXMarketplaceTryOnActionUnifiedLogging2", false);
 local v21 = if l_FFlagAXTryOnScreenImprovements_0 then {
     [l_AppPage_0.Home] = l_ImpressionEnums_0.MarketplaceSurfaceType.DISCOVERY_HOMEPAGE, 
     [l_AppPage_0.SearchPage] = l_ImpressionEnums_0.MarketplaceSurfaceType.DISCOVERY_SEARCH_RESULTS
@@ -27,7 +27,7 @@ local v22 = if l_FFlagAXAvatarSortInDiscoveryUnifiedPurchase_0 then {
     [l_AppPage_0.Home] = l_UnifiedLoggingSurface_0.DISCOVERY_HOMEPAGE, 
     [l_AppPage_0.SearchPage] = l_UnifiedLoggingSurface_0.DISCOVERY_SEARCH_RESULTS
 } else nil;
-local function _(v23, v24, v25) --[[ Line: 53 ]] --[[ Name: reportOpenMarketplaceTryOnPropError ]]
+local function _(v23, v24, v25) --[[ Line: 54 ]] --[[ Name: reportOpenMarketplaceTryOnPropError ]]
     -- upvalues: l_SduiActionType_0 (copy), l_SduiErrorType_0 (copy)
     local v26 = {
         name = l_SduiActionType_0.OpenMarketplaceTryOn, 
@@ -38,7 +38,7 @@ local function _(v23, v24, v25) --[[ Line: 53 ]] --[[ Name: reportOpenMarketplac
     end;
     v23.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, v26, v23.appPage);
 end;
-return function(v28, _, v30) --[[ Line: 66 ]]
+return function(v28, _, v30) --[[ Line: 67 ]]
     -- upvalues: l_SduiActionType_0 (copy), l_SduiErrorType_0 (copy), v20 (copy), l_UnifiedEventLogEnums_0 (copy), l_FFlagAXAvatarSortInDiscoveryUnifiedPurchase_0 (copy), v22 (copy), l_FFlagAXTryOnScreenImprovements_0 (copy), v21 (copy), l_ImpressionEnums_0 (copy), v19 (copy), l_AppPage_0 (copy), l_AnalyticsService_0 (copy), l_UnifiedLoggingSurface_0 (copy), l_UnifiedEventLogConstants_0 (copy), l_NavigateDown_0 (copy), l_AvatarScreen_0 (copy), l_FFlagAXFixPurchaseSurfaceLogging_0 (copy), l_FFlagAXEnableHomeTryOnComplexView_0 (copy)
     local v31 = v28 and v28.actionParams or nil;
     if v31 == nil then
@@ -99,7 +99,6 @@ return function(v28, _, v30) --[[ Line: 66 ]]
                                 propName = "itemPrice"
                             };
                             v30.dependencies.logger.reportError(l_SduiErrorType_0.InvalidActionParams, v46, v30.appPage);
-                            return;
                         end;
                     end;
                     local v47 = v37 .. v34;

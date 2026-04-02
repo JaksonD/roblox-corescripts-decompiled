@@ -34,50 +34,50 @@ local l_IconSize_0 = l_Foundation_0.Enums.IconSize;
 local l_ImageSetLabel_0 = v4.Core.ImageSet.ImageSetLabel;
 local _ = require(l_script_FirstAncestor_0.Common.ModelTypes);
 local v35 = require(l_script_FirstAncestor_0.Enums.SquadUserPartyStatus);
-local v36 = game:DefineFastFlag("EnablePartyVoiceCrossContextIdValidation", false);
-local v37 = game:DefineFastFlag("ApplyVoiceConnectingStatusInPartySheet", false);
-local v38 = game:DefineFastInt("PartyVoiceActivityIndicatorDebounceMs", 100);
-local v39 = game:DefineFastInt("PartyVoiceActivityIndicatorAnimationMs", 100);
+local v36 = game:DefineFastInt("PartyVoiceActivityIndicatorDebounceMs", 100);
+local v37 = game:DefineFastInt("PartyVoiceActivityIndicatorAnimationMs", 100);
 local l_FFlagEnablePartyVoiceChangersInLua_0 = l_SharedFlags_0.FFlagEnablePartyVoiceChangersInLua;
 local l_FFlagEnableBlackbirdCheckDev_0 = l_SharedFlags_0.FFlagEnableBlackbirdCheckDev;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = l_SharedFlags_0.FFlagRemoveDependencyArrayAntipattern;
 local l_useIsRobloxSubscriber_0 = v5.Hooks.useIsRobloxSubscriber;
-return function(v43) --[[ Line: 79 ]]
-    -- upvalues: l_useLocalization_0 (copy), l_useTokens_0 (copy), l_useAnimatedTransparency_0 (copy), v39 (copy), l_useIsRobloxSubscriber_0 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), v5 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_React_0 (copy), l_useSelector_0 (copy), l_PresenceType_0 (copy), l_useLocalUserId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useIsVoiceConnected_0 (copy), l_SharedFlags_0 (copy), l_useIsMicPermissionsError_0 (copy), l_useParticipant_0 (copy), l_useIsVoiceConnecting_0 (copy), l_useIsActiveParticipant_0 (copy), l_useIsLocalPlayerPartyVoiceEligible_0 (copy), l_useIsUserPartyVoiceEligible_0 (copy), l_useIsCurrentSquadPartyVoiceEligible_0 (copy), l_useIsParticipantMutedLocally_0 (copy), l_useIsParticipantMuted_0 (copy), v36 (copy), l_useIsParticipantInOtherAudioContext_0 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v3 (copy), v38 (copy), v35 (copy), v37 (copy), l_Foundation_0 (copy), l_IconSize_0 (copy), v8 (copy), l_dependencyArray_0 (copy), l_FFlagEnableSquadUserCardHoverFix_0 (copy), v26 (copy), l_ImageSetLabel_0 (copy)
-    local v44 = l_useLocalization_0({
+return function(v42) --[[ Line: 77 ]]
+    -- upvalues: l_useLocalization_0 (copy), l_useTokens_0 (copy), l_useAnimatedTransparency_0 (copy), v37 (copy), l_useIsRobloxSubscriber_0 (copy), l_FFlagEnableBlackbirdCheckDev_0 (copy), v5 (copy), l_getStandardSizeAvatarHeadShotRbxthumb_0 (copy), l_React_0 (copy), l_useSelector_0 (copy), l_PresenceType_0 (copy), l_useLocalUserId_0 (copy), l_GetFFlagEnableCrossExpVoice_0 (copy), l_useIsVoiceConnected_0 (copy), l_useIsMicPermissionsError_0 (copy), l_useParticipant_0 (copy), l_useIsVoiceConnecting_0 (copy), l_useIsActiveParticipant_0 (copy), l_useIsLocalPlayerPartyVoiceEligible_0 (copy), l_useIsUserPartyVoiceEligible_0 (copy), l_useIsCurrentSquadPartyVoiceEligible_0 (copy), l_useIsParticipantMutedLocally_0 (copy), l_useIsParticipantMuted_0 (copy), l_useIsParticipantInOtherAudioContext_0 (copy), l_FFlagEnablePartyVoiceChangersInLua_0 (copy), v3 (copy), v36 (copy), v35 (copy), l_Foundation_0 (copy), l_IconSize_0 (copy), v8 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_FFlagEnableSquadUserCardHoverFix_0 (copy), v26 (copy), l_ImageSetLabel_0 (copy)
+    local v43 = l_useLocalization_0({
         connectingText = "Feature.Squads.Label.Connecting", 
         inExperiencePresenceText = "Common.Presence.Label.InExperience", 
         invitedText = "Feature.Squads.Description.Invited", 
         noResponseText = "Feature.Squads.Description.NoResponse", 
         onlinePresenceText = "Common.Presence.Label.Online"
     });
-    local v45 = l_useTokens_0();
-    local v46, v47 = l_useAnimatedTransparency_0(1, v39, Enum.EasingStyle.Cubic);
-    local v48 = l_useIsRobloxSubscriber_0(if l_FFlagEnableBlackbirdCheckDev_0 then tostring(v43.user.userId) else nil);
-    local v49 = v5.Hooks.useUserProfilesFetch({
+    local v44 = l_useTokens_0();
+    local v45, v46 = l_useAnimatedTransparency_0(1, v37, Enum.EasingStyle.Cubic);
+    local v47 = l_useIsRobloxSubscriber_0(if l_FFlagEnableBlackbirdCheckDev_0 then tostring(v42.user.userId) else nil);
+    local v48 = v5.Hooks.useUserProfilesFetch({
         userIds = {
-            (tostring(v43.user.userId))
+            (tostring(v42.user.userId))
         }, 
         query = v5.Queries.userProfilesCombinedNameByUserIds
     });
-    local v50 = "";
-    if v49.data then
-        v50 = v5.Selectors.getCombinedNameFromId(v49.data, v43.user.userId);
+    local v49 = "";
+    if v48.data then
+        v49 = v5.Selectors.getCombinedNameFromId(v48.data, v42.user.userId);
     end;
-    local v51 = l_getStandardSizeAvatarHeadShotRbxthumb_0((tostring(v43.user.userId)));
-    local v53 = l_React_0.useCallback(function(v52) --[[ Line: 106 ]]
-        -- upvalues: v43 (copy)
-        return v52.Squad.Presence.byUserId[tostring(v43.user.userId)];
+    local v50 = l_getStandardSizeAvatarHeadShotRbxthumb_0((tostring(v42.user.userId)));
+    local v52 = l_React_0.useCallback(function(v51) --[[ Line: 104 ]]
+        -- upvalues: v42 (copy)
+        return v51.Squad.Presence.byUserId[tostring(v42.user.userId)];
     end, {
-        v43.user.userId
+        v42.user.userId
     });
-    local v54 = l_useSelector_0(v53);
-    local v55 = v54 and v54.userPresenceType == l_PresenceType_0.InGame;
-    local v56 = nil;
-    v56 = if v55 then if v54.lastLocation and v54.lastLocation ~= "" then v54.lastLocation else v44.inExperiencePresenceText else v44.onlinePresenceText;
-    local l_isConnecting_0 = v43.isConnecting;
-    local v58 = tonumber(l_useLocalUserId_0()) or 0;
-    local v59 = v58 == v43.user.userId;
-    local v60 = nil;
+    local v53 = l_useSelector_0(v52);
+    local v54 = v53 and v53.userPresenceType == l_PresenceType_0.InGame;
+    local v55 = nil;
+    v55 = if v54 then if v53.lastLocation and v53.lastLocation ~= "" then v53.lastLocation else v43.inExperiencePresenceText else v43.onlinePresenceText;
+    local l_isConnecting_0 = v42.isConnecting;
+    local v57 = tonumber(l_useLocalUserId_0()) or 0;
+    local v58 = v57 == v42.user.userId;
+    local v59 = nil;
+    local v60 = false;
     local v61 = false;
     local v62 = false;
     local v63 = false;
@@ -90,112 +90,107 @@ return function(v43) --[[ Line: 79 ]]
     local v70 = false;
     local v71 = false;
     local v72 = false;
-    local v73 = false;
     if l_GetFFlagEnableCrossExpVoice_0() then
-        v62 = l_useIsVoiceConnected_0();
-        if l_SharedFlags_0.FFlagPartyVoiceEnableMicPermissionsBanner then
-            v72 = l_useIsMicPermissionsError_0();
-        end;
-        v60 = l_useParticipant_0(v43.user.userId);
-        v70 = l_useIsVoiceConnecting_0() and v59;
-        v61 = l_useIsActiveParticipant_0(v43.user.userId);
-        v63 = l_useIsLocalPlayerPartyVoiceEligible_0();
-        v64 = l_useIsUserPartyVoiceEligible_0(v43.user.userId);
-        v65 = l_useIsCurrentSquadPartyVoiceEligible_0() == true;
-        local v74 = l_useIsParticipantMutedLocally_0(v43.user.userId) == true;
-        v71 = v64 and v65 and not v59 and v74;
-        v69 = l_useIsParticipantMuted_0(v43.user.userId) and not v71;
-        if v36 then
-            v68 = l_useIsParticipantInOtherAudioContext_0(v58, v43.user.userId) == true;
-        end;
-        v66 = v65 and v63 and v64 and (not v62 or not v60 or v68 or v72);
-        v67 = v65 and v63 and not v64;
-        v73 = if l_FFlagEnablePartyVoiceChangersInLua_0 and v60 then v60.isVoiceChangerActive else false;
+        v61 = l_useIsVoiceConnected_0();
+        v71 = l_useIsMicPermissionsError_0();
+        v59 = l_useParticipant_0(v42.user.userId);
+        v69 = l_useIsVoiceConnecting_0() and v58;
+        v60 = l_useIsActiveParticipant_0(v42.user.userId);
+        v62 = l_useIsLocalPlayerPartyVoiceEligible_0();
+        v63 = l_useIsUserPartyVoiceEligible_0(v42.user.userId);
+        v64 = l_useIsCurrentSquadPartyVoiceEligible_0() == true;
+        local v73 = l_useIsParticipantMutedLocally_0(v42.user.userId) == true;
+        v70 = v63 and v64 and not v58 and v73;
+        v68 = l_useIsParticipantMuted_0(v42.user.userId) and not v70;
+        v67 = l_useIsParticipantInOtherAudioContext_0(v57, v42.user.userId) == true;
+        v65 = v64 and v62 and v63 and (not v61 or not v59 or v67 or v71);
+        v66 = v64 and v62 and not v63;
+        v72 = if l_FFlagEnablePartyVoiceChangersInLua_0 and v59 then v59.isVoiceChangerActive else false;
     end;
-    local v76 = l_React_0.useMemo(function() --[[ Line: 178 ]]
-        -- upvalues: v3 (ref), v47 (copy), v38 (ref)
-        return v3.Utils.debounce(function(v75) --[[ Line: 179 ]]
-            -- upvalues: v47 (ref)
-            v47(v75);
-        end, v38);
+    local v75 = l_React_0.useMemo(function() --[[ Line: 171 ]]
+        -- upvalues: v3 (ref), v46 (copy), v36 (ref)
+        return v3.Utils.debounce(function(v74) --[[ Line: 172 ]]
+            -- upvalues: v46 (ref)
+            v46(v74);
+        end, v36);
     end, {});
-    l_React_0.useEffect(function() --[[ Line: 184 ]]
-        -- upvalues: l_GetFFlagEnableCrossExpVoice_0 (ref), v61 (ref), v76 (copy), v47 (copy)
+    l_React_0.useEffect(function() --[[ Line: 177 ]]
+        -- upvalues: l_GetFFlagEnableCrossExpVoice_0 (ref), v60 (ref), v75 (copy), v46 (copy)
         if l_GetFFlagEnableCrossExpVoice_0() then
-            if v61 then
-                v76.cancel();
-                v47(0);
+            if v60 then
+                v75.cancel();
+                v46(0);
                 return;
             else
-                v76.call(1);
+                v75.call(1);
             end;
         end;
     end, {
-        v61
+        v60
     });
-    local v77 = l_React_0.useMemo(function() --[[ Line: 196 ]]
-        -- upvalues: v43 (copy), v35 (ref), v44 (copy), l_isConnecting_0 (copy), v37 (ref), v70 (ref), v56 (ref)
-        if v43.user.partyStatus == v35.NoResponse then
-            return v44.noResponseText;
-        elseif v43.user.partyStatus == v35.Invited then
-            return v44.invitedText;
-        elseif l_isConnecting_0 or v37 and v70 then
-            return v44.connectingText;
+    local v76 = l_React_0.useMemo(function() --[[ Line: 189 ]]
+        -- upvalues: v42 (copy), v35 (ref), v43 (copy), l_isConnecting_0 (copy), v69 (ref), v55 (ref)
+        if v42.user.partyStatus == v35.NoResponse then
+            return v43.noResponseText;
+        elseif v42.user.partyStatus == v35.Invited then
+            return v43.invitedText;
+        elseif l_isConnecting_0 or v69 then
+            return v43.connectingText;
         else
-            return v56;
+            return v55;
         end;
     end, {
-        v43.user and v43.user.partyStatus, 
-        v56, 
+        v42.user and v42.user.partyStatus, 
+        v55, 
         l_isConnecting_0, 
-        v70, 
-        v44.noResponse, 
-        v44.invitedText, 
-        v44.connectingText
+        v69, 
+        v43.noResponse, 
+        v43.invitedText, 
+        v43.connectingText
     });
-    local v78 = l_React_0.useMemo(function() --[[ Line: 218 ]]
-        -- upvalues: v43 (copy), v35 (ref), l_React_0 (ref), l_Foundation_0 (ref), l_IconSize_0 (ref), v45 (copy), l_isConnecting_0 (copy), v37 (ref), v70 (ref), v55 (copy)
-        if v43.user.partyStatus == v35.Invited then
+    local v77 = l_React_0.useMemo(function() --[[ Line: 211 ]]
+        -- upvalues: v42 (copy), v35 (ref), l_React_0 (ref), l_Foundation_0 (ref), l_IconSize_0 (ref), v44 (copy), l_isConnecting_0 (copy), v69 (ref), v54 (copy)
+        if v42.user.partyStatus == v35.Invited then
             return l_React_0.createElement(l_Foundation_0.View, {
                 tag = "auto-xy"
             }, {
                 LoadingIcon = l_React_0.createElement(l_Foundation_0.Loading, {
                     LayoutOrder = 1, 
                     size = l_IconSize_0.Small, 
-                    Padding = v45.Padding.XSmall
+                    Padding = v44.Padding.XSmall
                 })
             });
-        elseif v43.user.partyStatus == v35.NoResponse then
+        elseif v42.user.partyStatus == v35.NoResponse then
             return nil;
-        elseif l_isConnecting_0 or v37 and v70 then
+        elseif l_isConnecting_0 or v69 then
             return l_React_0.createElement(l_Foundation_0.View, {
                 tag = "auto-xy"
             }, {
                 LoadingIcon = l_React_0.createElement(l_Foundation_0.Loading, {
                     LayoutOrder = 1, 
                     size = l_IconSize_0.Small, 
-                    Padding = v45.Padding.XSmall
+                    Padding = v44.Padding.XSmall
                 })
             });
-        elseif v55 then
+        elseif v54 then
             return l_React_0.createElement(l_Foundation_0.Icon, {
                 LayoutOrder = 1, 
                 name = "icons/common/play", 
                 size = l_IconSize_0.Small, 
-                style = v45.Color.Content.Emphasis
+                style = v44.Color.Content.Emphasis
             });
         else
             return nil;
         end;
     end, {
-        v43.user and v43.user.partyStatus, 
+        v42.user and v42.user.partyStatus, 
         l_isConnecting_0, 
-        v70, 
-        v55
+        v69, 
+        v54
     });
-    local v79 = l_React_0.useMemo(function() --[[ Line: 251 ]]
-        -- upvalues: v50 (ref), l_React_0 (ref), v45 (copy), v43 (copy), l_Foundation_0 (ref), l_IconSize_0 (ref), v71 (ref), v69 (ref), v66 (ref), v67 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v73 (ref), v8 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), v48 (copy)
-        if v50 ~= "" then
+    local v78 = l_React_0.useMemo(function() --[[ Line: 244 ]]
+        -- upvalues: v49 (ref), l_React_0 (ref), v44 (copy), v42 (copy), l_Foundation_0 (ref), l_IconSize_0 (ref), v70 (ref), v68 (ref), v65 (ref), v66 (ref), l_FFlagEnablePartyVoiceChangersInLua_0 (ref), v72 (ref), v8 (ref), l_FFlagEnableBlackbirdCheckDev_0 (ref), v47 (copy)
+        if v49 ~= "" then
             return (l_React_0.createElement("Frame", {
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 Size = UDim2.fromScale(1, 0), 
@@ -204,53 +199,53 @@ return function(v43) --[[ Line: 79 ]]
             }, {
                 UIListLayout = l_React_0.createElement("UIListLayout", {
                     FillDirection = Enum.FillDirection.Horizontal, 
-                    Padding = UDim.new(0, v45.Gap.XSmall + 2), 
+                    Padding = UDim.new(0, v44.Gap.XSmall + 2), 
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     VerticalAlignment = Enum.VerticalAlignment.Center
                 }), 
-                BlockedIcon = if v43.isBlocked then l_React_0.createElement(l_Foundation_0.Icon, {
+                BlockedIcon = if v42.isBlocked then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 1, 
                     name = "icons/status/unavailable_small", 
                     size = l_IconSize_0.Small, 
-                    style = v45.Color.Extended.Red.Red_800
+                    style = v44.Color.Extended.Red.Red_800
                 }) else nil, 
-                MutedLocallyIcon = if v71 then l_React_0.createElement(l_Foundation_0.Icon, {
+                MutedLocallyIcon = if v70 then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 2, 
                     name = "icons/controls/voice/microphone_off_small_dark", 
                     size = l_IconSize_0.Small, 
-                    style = v45.Color.Extended.Red.Red_800
+                    style = v44.Color.Extended.Red.Red_800
                 }) else nil, 
-                MutedIcon = if v69 then l_React_0.createElement(l_Foundation_0.Icon, {
+                MutedIcon = if v68 then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 3, 
                     name = "icons/controls/microphoneMute_small", 
                     size = l_IconSize_0.Small, 
-                    style = v45.Color.Content.Emphasis
+                    style = v44.Color.Content.Emphasis
                 }) else nil, 
-                NotVoiceParticipantIcon = if v66 then l_React_0.createElement(l_Foundation_0.Icon, {
+                NotVoiceParticipantIcon = if v65 then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 4, 
                     name = "icons/controls/headphoneDeafen_small", 
                     size = l_IconSize_0.Small, 
-                    style = v45.Color.Content.Emphasis
+                    style = v44.Color.Content.Emphasis
                 }) else nil, 
-                NotEligibleVoiceParticipant = if v67 then l_React_0.createElement(l_Foundation_0.Icon, {
+                NotEligibleVoiceParticipant = if v66 then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 5, 
                     name = "icons/controls/headphoneDeafen_small", 
                     size = l_IconSize_0.Small, 
-                    style = v45.Color.System.Warning
+                    style = v44.Color.System.Warning
                 }) else nil, 
-                VoiceChangerActiveIcon = if l_FFlagEnablePartyVoiceChangersInLua_0 and v73 then l_React_0.createElement(l_Foundation_0.Icon, {
+                VoiceChangerActiveIcon = if l_FFlagEnablePartyVoiceChangersInLua_0 and v72 then l_React_0.createElement(l_Foundation_0.Icon, {
                     LayoutOrder = 6, 
                     size = l_IconSize_0.Small, 
                     name = v8.Icon.DiamondSimplified, 
-                    style = v45.Color.Content.Emphasis
+                    style = v44.Color.Content.Emphasis
                 }) else nil, 
                 NameTextLabel = if not l_FFlagEnableBlackbirdCheckDev_0 then l_React_0.createElement(l_Foundation_0.Text, {
                     AutomaticSize = Enum.AutomaticSize.Y, 
-                    backgroundStyle = v45.Color.None, 
-                    colorstyle = v45.Color.Content.Emphasis, 
-                    fontStyle = v45.Typography.TitleMedium, 
+                    backgroundStyle = v44.Color.None, 
+                    colorstyle = v44.Color.Content.Emphasis, 
+                    fontStyle = v44.Typography.TitleMedium, 
                     LayoutOrder = l_FFlagEnablePartyVoiceChangersInLua_0 and 7 or 6, 
-                    Text = v50, 
+                    Text = v49, 
                     TextXAlignment = Enum.TextXAlignment.Left, 
                     TextYAlignment = Enum.TextYAlignment.Center, 
                     TextTruncate = Enum.TextTruncate.AtEnd, 
@@ -268,7 +263,7 @@ return function(v43) --[[ Line: 79 ]]
                 }, {
                     Layout = l_React_0.createElement("UIListLayout", {
                         FillDirection = Enum.FillDirection.Horizontal, 
-                        Padding = UDim.new(0, v45.Gap.XSmall), 
+                        Padding = UDim.new(0, v44.Gap.XSmall), 
                         SortOrder = Enum.SortOrder.LayoutOrder, 
                         VerticalAlignment = Enum.VerticalAlignment.Center
                     }), 
@@ -277,11 +272,11 @@ return function(v43) --[[ Line: 79 ]]
                     }), 
                     NameText = l_React_0.createElement(l_Foundation_0.Text, {
                         AutomaticSize = Enum.AutomaticSize.XY, 
-                        backgroundStyle = v45.Color.None, 
-                        colorstyle = v45.Color.Content.Emphasis, 
-                        fontStyle = v45.Typography.TitleMedium, 
+                        backgroundStyle = v44.Color.None, 
+                        colorstyle = v44.Color.Content.Emphasis, 
+                        fontStyle = v44.Typography.TitleMedium, 
                         LayoutOrder = 1, 
-                        Text = v50, 
+                        Text = v49, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         TextYAlignment = Enum.TextYAlignment.Center, 
                         TextTruncate = Enum.TextTruncate.AtEnd, 
@@ -291,20 +286,30 @@ return function(v43) --[[ Line: 79 ]]
                             FlexMode = Enum.UIFlexMode.Shrink
                         })
                     }), 
-                    SubscriptionBadge = if v48 then l_React_0.createElement(l_Foundation_0.Icon, {
+                    SubscriptionBadge = if v47 then l_React_0.createElement(l_Foundation_0.Icon, {
                         LayoutOrder = 2, 
                         size = l_IconSize_0.Small, 
                         name = l_Foundation_0.Enums.IconName.PaperAirplane, 
-                        style = v45.Color.Content.Emphasis
+                        style = v44.Color.Content.Emphasis
                     }) else nil
                 }) else nil
             }));
         else
             return nil;
         end;
-    end, l_dependencyArray_0(v50, v69, v71, v43.isBlocked, v45, v66, v67, if l_FFlagEnablePartyVoiceChangersInLua_0 then v73 else nil, if l_FFlagEnableBlackbirdCheckDev_0 then v48 else nil));
-    local v80 = l_React_0.useMemo(function() --[[ Line: 391 ]]
-        -- upvalues: l_React_0 (ref), v45 (copy), v78 (copy), l_Foundation_0 (ref), v77 (copy)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v49, 
+        v68, 
+        v70, 
+        v42.isBlocked, 
+        v44, 
+        v65, 
+        v66, 
+        if l_FFlagEnablePartyVoiceChangersInLua_0 then v72 else nil, 
+        if l_FFlagEnableBlackbirdCheckDev_0 then v47 else nil
+    } else l_dependencyArray_0(v49, v68, v70, v42.isBlocked, v44, v65, v66, if l_FFlagEnablePartyVoiceChangersInLua_0 then v72 else nil, if l_FFlagEnableBlackbirdCheckDev_0 then v47 else nil));
+    local v79 = l_React_0.useMemo(function() --[[ Line: 396 ]]
+        -- upvalues: l_React_0 (ref), v44 (copy), v77 (copy), l_Foundation_0 (ref), v76 (copy)
         return l_React_0.createElement("Frame", {
             AutomaticSize = Enum.AutomaticSize.Y, 
             Size = UDim2.fromScale(1, 0), 
@@ -313,18 +318,18 @@ return function(v43) --[[ Line: 79 ]]
         }, {
             UIListLayout = l_React_0.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal, 
-                Padding = UDim.new(0, v45.Gap.XSmall), 
+                Padding = UDim.new(0, v44.Gap.XSmall), 
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 VerticalAlignment = Enum.VerticalAlignment.Center
             }), 
-            PresenceIcon = v78, 
+            PresenceIcon = v77, 
             PresenceTextLabel = l_React_0.createElement(l_Foundation_0.Text, {
                 AutomaticSize = Enum.AutomaticSize.Y, 
-                backgroundStyle = v45.Color.None, 
-                colorstyle = v45.Color.Content.Default, 
-                fontStyle = v45.Typography.BodyMedium, 
+                backgroundStyle = v44.Color.None, 
+                colorstyle = v44.Color.Content.Default, 
+                fontStyle = v44.Typography.BodyMedium, 
                 LayoutOrder = 2, 
-                Text = v77, 
+                Text = v76, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 TextYAlignment = Enum.TextYAlignment.Center, 
                 TextTruncate = Enum.TextTruncate.AtEnd, 
@@ -335,35 +340,47 @@ return function(v43) --[[ Line: 79 ]]
                 })
             })
         });
-    end, l_dependencyArray_0(l_isConnecting_0, v70, v55, v44.connectingText, v56, v45, v78, v77));
-    local v81 = nil;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_isConnecting_0, 
+        v69, 
+        v54, 
+        v43.connectingText, 
+        v55, 
+        v44, 
+        v77, 
+        v76
+    } else l_dependencyArray_0(l_isConnecting_0, v69, v54, v43.connectingText, v55, v44, v77, v76));
+    local v80 = nil;
     if l_FFlagEnableSquadUserCardHoverFix_0 then
-        local v82 = #v26(v43.user.userId, v43.isInExperience) < 1;
-        v81 = not v59 and not v82;
+        local v81 = #v26(v42.user.userId, v42.isInExperience) < 1;
+        v80 = not v58 and not v81;
     else
-        v81 = not v59;
+        v80 = not v58;
     end;
-    local v83 = l_React_0.useCallback(function() --[[ Line: 446 ]]
-        -- upvalues: v43 (copy)
-        if v43.onActivated then
-            v43.onActivated((tostring(v43.user.userId)));
+    local v82 = l_React_0.useCallback(function() --[[ Line: 463 ]]
+        -- upvalues: v42 (copy)
+        if v42.onActivated then
+            v42.onActivated((tostring(v42.user.userId)));
         end;
-    end, l_dependencyArray_0(v43.onActivated, v43.user.userId));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v42.onActivated, 
+        v42.user.userId
+    } else l_dependencyArray_0(v42.onActivated, v42.user.userId));
     return l_React_0.createElement(l_Foundation_0.View, {
-        LayoutOrder = v43.layoutOrder, 
-        Size = v43.size, 
-        backgroundStyle = v45.Color.Surface.Surface_200, 
-        cornerRadius = UDim.new(0, v45.Radius.Medium), 
-        isDisabled = l_isConnecting_0 or v37 and v70 or v43.user.partyStatus == v35.Invited or v43.user.partyStatus == v35.NoResponse, 
-        onActivated = if v43.onActivated and v81 then v83 else nil
+        LayoutOrder = v42.layoutOrder, 
+        Size = v42.size, 
+        backgroundStyle = v44.Color.Surface.Surface_200, 
+        cornerRadius = UDim.new(0, v44.Radius.Medium), 
+        isDisabled = l_isConnecting_0 or v69 or v42.user.partyStatus == v35.Invited or v42.user.partyStatus == v35.NoResponse, 
+        onActivated = if v42.onActivated and v80 then v82 else nil
     }, {
         AvatarImage = l_React_0.createElement(l_ImageSetLabel_0, {
             AnchorPoint = Vector2.new(0.5, 0.5), 
             Position = UDim2.fromScale(0.5, 0.5), 
             Size = UDim2.fromOffset(96, 96), 
-            BackgroundColor3 = v45.Color.Shift.Shift_300.Color3, 
-            BackgroundTransparency = v45.Color.Shift.Shift_300.Transparency, 
-            Image = v51, 
+            BackgroundColor3 = v44.Color.Shift.Shift_300.Color3, 
+            BackgroundTransparency = v44.Color.Shift.Shift_300.Transparency, 
+            Image = v50, 
             ZIndex = 0
         }, {
             UICorner = l_React_0.createElement("UICorner", {
@@ -374,12 +391,12 @@ return function(v43) --[[ Line: 79 ]]
             Size = UDim2.fromScale(1, 0.5), 
             Position = UDim2.fromScale(0, 1), 
             AnchorPoint = Vector2.new(0, 1), 
-            BackgroundColor3 = v45.Color.Surface.Surface_100.Color3, 
-            BackgroundTransparency = v45.Color.Surface.Surface_100.Transparency, 
+            BackgroundColor3 = v44.Color.Surface.Surface_100.Color3, 
+            BackgroundTransparency = v44.Color.Surface.Surface_100.Transparency, 
             ZIndex = 1
         }, {
             UICorner = l_React_0.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v45.Radius.Medium)
+                CornerRadius = UDim.new(0, v44.Radius.Medium)
             }), 
             UIGradient = l_React_0.createElement("UIGradient", {
                 Rotation = 90, 
@@ -389,10 +406,10 @@ return function(v43) --[[ Line: 79 ]]
                 })
             }, {})
         }), 
-        InactiveOverlay = if not (not (not not l_isConnecting_0 or v66 or v37 and v70) and v43.user.partyStatus ~= v35.Invited) or v43.user.partyStatus == v35.NoResponse then l_React_0.createElement(l_Foundation_0.View, {
+        InactiveOverlay = if not (not (not not l_isConnecting_0 or v65 or v69) and v42.user.partyStatus ~= v35.Invited) or v42.user.partyStatus == v35.NoResponse then l_React_0.createElement(l_Foundation_0.View, {
             tag = "size-full radius-medium", 
             backgroundStyle = {
-                Color3 = v45.Color.Surface.Surface_100.Color3, 
+                Color3 = v44.Color.Surface.Surface_100.Color3, 
                 Transparency = 0.25
             }
         }, {}) else nil, 
@@ -411,13 +428,13 @@ return function(v43) --[[ Line: 79 ]]
                 VerticalAlignment = Enum.VerticalAlignment.Bottom
             }), 
             UIPadding = l_React_0.createElement("UIPadding", {
-                PaddingBottom = UDim.new(0, v45.Padding.Medium), 
-                PaddingLeft = UDim.new(0, v45.Padding.Medium), 
-                PaddingRight = UDim.new(0, v45.Padding.Medium), 
-                PaddingTop = UDim.new(0, v45.Padding.Medium)
+                PaddingBottom = UDim.new(0, v44.Padding.Medium), 
+                PaddingLeft = UDim.new(0, v44.Padding.Medium), 
+                PaddingRight = UDim.new(0, v44.Padding.Medium), 
+                PaddingTop = UDim.new(0, v44.Padding.Medium)
             }), 
-            Name = v79, 
-            Presence = if not v43.isBlocked then v80 else nil
+            Name = v78, 
+            Presence = if not v42.isBlocked then v79 else nil
         }), 
         ActiveBorder = l_React_0.createElement("Frame", {
             AnchorPoint = Vector2.new(0.5, 0.5), 
@@ -427,12 +444,12 @@ return function(v43) --[[ Line: 79 ]]
             ZIndex = 4
         }, {
             UICorner = l_React_0.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v45.Radius.Medium - 4)
+                CornerRadius = UDim.new(0, v44.Radius.Medium - 4)
             }), 
             UIStroke = l_React_0.createElement("UIStroke", {
                 Thickness = 4, 
-                Color = v45.Color.Extended.Green.Green_800.Color3, 
-                Transparency = v46
+                Color = v44.Color.Extended.Green.Green_800.Color3, 
+                Transparency = v45
             })
         }), 
         DefaultBorder = l_React_0.createElement("Frame", {
@@ -443,17 +460,17 @@ return function(v43) --[[ Line: 79 ]]
             ZIndex = 3
         }, {
             UICorner = l_React_0.createElement("UICorner", {
-                CornerRadius = UDim.new(0, v45.Radius.Medium - 1)
+                CornerRadius = UDim.new(0, v44.Radius.Medium - 1)
             }), 
             UIStroke = l_React_0.createElement("UIStroke", {
                 Thickness = 1, 
-                Color = v45.Color.Stroke.Default.Color3, 
-                Transparency = v46:map(function(v84) --[[ Line: 570 ]]
-                    -- upvalues: v45 (copy)
-                    if v84 < 0.9 then
+                Color = v44.Color.Stroke.Default.Color3, 
+                Transparency = v45:map(function(v83) --[[ Line: 591 ]]
+                    -- upvalues: v44 (copy)
+                    if v83 < 0.9 then
                         return 1;
                     else
-                        return v45.Color.Stroke.Default.Transparency;
+                        return v44.Color.Stroke.Default.Transparency;
                     end;
                 end)
             })

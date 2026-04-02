@@ -1,1 +1,1 @@
-return game:DefineFastFlag("UniversalFeatureRestrictionReceivers3", false);
+return game:DefineFastFlag("UniversalFeatureRestrictionReceivers4", false);

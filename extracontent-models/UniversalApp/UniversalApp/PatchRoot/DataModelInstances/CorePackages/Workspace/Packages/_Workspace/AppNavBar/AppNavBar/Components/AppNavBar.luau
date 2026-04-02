@@ -19,136 +19,139 @@ local v17 = require(l_Parent_0.getScrollAwayEnabled);
 local l_FFlagAppNavObservability_0 = require(l_Parent_1.SharedFlags).FFlagAppNavObservability;
 local v19 = if l_FFlagAppNavObservability_0 then require(l_Parent_0.Telemetry.AppNavTelemetry) else nil;
 local l_game_EngineFeature_0 = game:GetEngineFeature("WebViewRedesignEnabled");
-local v21 = {
+local l_FFlagAddGamepadBumperNavigation_0 = require(l_Parent_1.SharedFlags).FFlagAddGamepadBumperNavigation;
+local v22 = {
     selectedIndex = 1, 
     isVisible = true, 
     clipsDescendants = true
 };
-return v2.memo(function(v22) --[[ Line: 57 ]] --[[ Name: AppNavBar ]]
-    -- upvalues: v3 (copy), v21 (copy), l_useAppPolicy_0 (copy), l_useRoactService_0 (copy), v7 (copy), v2 (copy), v14 (copy), l_game_EngineFeature_0 (copy), v15 (copy), v13 (copy), v17 (copy), v16 (copy), l_FFlagAppNavObservability_0 (copy), v19 (copy), v12 (copy), l_NavigationBar_0 (copy), l_NavigationBarAlignment_0 (copy), l_NavigationRailV2_0 (copy), l_NavigationRailAlignment_0 (copy)
-    local v23 = v3.Dictionary.join(v21, v22);
-    local l_items_0 = v23.items;
-    local v26 = l_useAppPolicy_0(function(v25) --[[ Line: 62 ]]
-        return v25.getShowStudioCTA();
+return v2.memo(function(v23) --[[ Line: 60 ]] --[[ Name: AppNavBar ]]
+    -- upvalues: v3 (copy), v22 (copy), l_useAppPolicy_0 (copy), l_useRoactService_0 (copy), v7 (copy), v2 (copy), v14 (copy), l_game_EngineFeature_0 (copy), v15 (copy), v13 (copy), v17 (copy), v16 (copy), l_FFlagAppNavObservability_0 (copy), v19 (copy), v12 (copy), l_NavigationBar_0 (copy), l_NavigationBarAlignment_0 (copy), l_NavigationRailV2_0 (copy), l_NavigationRailAlignment_0 (copy), l_FFlagAddGamepadBumperNavigation_0 (copy)
+    local v24 = v3.Dictionary.join(v22, v23);
+    local l_items_0 = v24.items;
+    local v27 = l_useAppPolicy_0(function(v26) --[[ Line: 65 ]]
+        return v26.getShowStudioCTA();
     end);
-    local v27 = l_useRoactService_0(v7.AppEventIngestService);
-    local v28 = l_useRoactService_0(v7.AppLinking);
-    local v31 = v2.useCallback(function(_, v30) --[[ Line: 67 ]]
-        -- upvalues: v2 (ref), v14 (ref), l_game_EngineFeature_0 (ref), v22 (copy)
+    local v28 = l_useRoactService_0(v7.AppEventIngestService);
+    local v29 = l_useRoactService_0(v7.AppLinking);
+    local v32 = v2.useCallback(function(_, v31) --[[ Line: 70 ]]
+        -- upvalues: v2 (ref), v14 (ref), l_game_EngineFeature_0 (ref), v23 (copy)
         return v2.createElement(v14, {
-            controlState = v30, 
-            showTooltip = if l_game_EngineFeature_0 then v22.showTooltip else nil
+            controlState = v31, 
+            showTooltip = if l_game_EngineFeature_0 then v23.showTooltip else nil
         });
     end, {
-        if l_game_EngineFeature_0 then v22.showTooltip else nil
+        if l_game_EngineFeature_0 then v23.showTooltip else nil
     });
-    local v33 = v2.useCallback(function() --[[ Line: 73 ]]
-        -- upvalues: v27 (copy), v15 (ref), v23 (copy), v28 (copy)
-        v27:setRBXEventStream(v15.STUDIO_CTA_EVENT_CONTEXT, v15.STUDIO_CTA_EVENT_NAME_OPEN);
-        local v32 = v23.buildCreatorWebNavUrl({
+    local v34 = v2.useCallback(function() --[[ Line: 76 ]]
+        -- upvalues: v28 (copy), v15 (ref), v24 (copy), v29 (copy)
+        v28:setRBXEventStream(v15.STUDIO_CTA_EVENT_CONTEXT, v15.STUDIO_CTA_EVENT_NAME_OPEN);
+        local v33 = v24.buildCreatorWebNavUrl({
             utm_content = "side_bar_blue_icon"
         });
-        v28:openURL(v32);
+        v29:openURL(v33);
     end, {
-        v27, 
         v28, 
-        v23.buildCreatorWebNavUrl
+        v29, 
+        v24.buildCreatorWebNavUrl
     });
-    if v26 then
+    if v27 then
         l_items_0 = v3.List.join(l_items_0);
         table.insert(l_items_0, {
             isSecondary = true, 
-            renderIcon = v31, 
-            onActivated = v33
+            renderIcon = v32, 
+            onActivated = v34
         });
     end;
-    local v34 = nil;
-    local v37 = v2.useCallback(function(v35, v36) --[[ Line: 91 ]]
-        -- upvalues: v2 (ref), v13 (ref), v23 (copy)
+    local v35 = nil;
+    local v38 = v2.useCallback(function(v36, v37) --[[ Line: 94 ]]
+        -- upvalues: v2 (ref), v13 (ref), v24 (copy)
         return v2.createElement(v13, {
-            item = v35, 
-            isChecked = v36, 
+            item = v36, 
+            isChecked = v37, 
             isCenterPositioned = true, 
             hasLabel = true, 
-            systemBarLabelTextSizeBinding = v23.systemBarLabelTextSizeBinding
+            systemBarLabelTextSizeBinding = v24.systemBarLabelTextSizeBinding
         });
     end, {
-        v23.systemBarLabelTextSizeBinding
+        v24.systemBarLabelTextSizeBinding
     });
-    local v40 = v2.useCallback(function(v38, v39) --[[ Line: 101 ]]
-        -- upvalues: v2 (ref), v13 (ref), v23 (copy)
+    local v41 = v2.useCallback(function(v39, v40) --[[ Line: 104 ]]
+        -- upvalues: v2 (ref), v13 (ref), v24 (copy)
         return v2.createElement(v13, {
-            item = v38, 
-            isChecked = v39, 
+            item = v39, 
+            isChecked = v40, 
             isCenterPositioned = false, 
             hasLabel = true, 
-            systemBarLabelTextSizeBinding = v23.systemBarLabelTextSizeBinding
+            systemBarLabelTextSizeBinding = v24.systemBarLabelTextSizeBinding
         });
     end, {
-        v23.systemBarLabelTextSizeBinding
+        v24.systemBarLabelTextSizeBinding
     });
-    local v41 = nil;
+    local v42 = nil;
     if v17() then
-        v41 = v16.getFooterBinding();
-        v2.useEffect(function() --[[ Line: 114 ]]
-            -- upvalues: v16 (ref), v23 (copy)
-            v16.setFooterVisible(v23.isVisible);
+        v42 = v16.getFooterBinding();
+        v2.useEffect(function() --[[ Line: 117 ]]
+            -- upvalues: v16 (ref), v24 (copy)
+            v16.setFooterVisible(v24.isVisible);
         end, {
-            v23.isVisible
+            v24.isVisible
         });
     end;
     if l_FFlagAppNavObservability_0 then
-        v2.useEffect(function() --[[ Line: 121 ]]
-            -- upvalues: v23 (copy), v19 (ref)
-            local v42 = v23.items[v23.selectedIndex];
-            if v42 ~= nil and v42.page ~= nil then
-                v19.logSwitchTabEnd(v42.page);
+        v2.useEffect(function() --[[ Line: 124 ]]
+            -- upvalues: v24 (copy), v19 (ref)
+            local v43 = v24.items[v24.selectedIndex];
+            if v43 ~= nil and v43.page ~= nil then
+                v19.logSwitchTabEnd(v43.page);
             end;
         end, {
-            v23.items, 
-            v23.selectedIndex
-        });
-        v2.useEffect(function() --[[ Line: 127 ]]
-            -- upvalues: v19 (ref), v23 (copy)
-            v19.logVisibilityEnd(v23.isVisible);
-        end, {
-            v23.isVisible
+            v24.items, 
+            v24.selectedIndex
         });
         v2.useEffect(function() --[[ Line: 130 ]]
-            -- upvalues: v19 (ref), v23 (copy)
-            v19.logPlacement(v23.placement);
+            -- upvalues: v19 (ref), v24 (copy)
+            v19.logVisibilityEnd(v24.isVisible);
         end, {
-            v23.placement
+            v24.isVisible
+        });
+        v2.useEffect(function() --[[ Line: 133 ]]
+            -- upvalues: v19 (ref), v24 (copy)
+            v19.logPlacement(v24.placement);
+        end, {
+            v24.placement
         });
     end;
-    if v23.placement == v12.Bottom then
+    if v24.placement == v12.Bottom then
         return (v2.createElement(l_NavigationBar_0, {
             alignment = l_NavigationBarAlignment_0.EvenlyDistributed, 
             items = l_items_0, 
-            isVisible = v23.isVisible, 
-            size = v23.size, 
-            renderItem = v37, 
-            position = v23.position, 
-            selection = v23.selectedIndex, 
-            clipsDescendants = v23.clipsDescendants, 
+            isVisible = v24.isVisible, 
+            size = v24.size, 
+            renderItem = v38, 
+            position = v24.position, 
+            selection = v24.selectedIndex, 
+            clipsDescendants = v24.clipsDescendants, 
             animated = true, 
-            visibility = v41, 
+            visibility = v42, 
             active = true
         }));
     else
-        if v23.placement == v12.Left then
-            v34 = v2.createElement(l_NavigationRailV2_0, {
+        if v24.placement == v12.Left then
+            v35 = v2.createElement(l_NavigationRailV2_0, {
                 alignment = l_NavigationRailAlignment_0.Justified, 
                 items = l_items_0, 
-                renderItem = v40, 
-                size = v23.size, 
+                renderItem = v41, 
+                size = v24.size, 
                 animated = true, 
-                isVisible = v23.isVisible, 
-                position = v23.position, 
-                selection = v23.selectedIndex, 
-                clipsDescendants = v23.clipsDescendants
+                isVisible = v24.isVisible, 
+                position = v24.position, 
+                selection = v24.selectedIndex, 
+                clipsDescendants = v24.clipsDescendants, 
+                leadingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v24.leadingComponent else nil, 
+                trailingComponent = if l_FFlagAddGamepadBumperNavigation_0 then v24.trailingComponent else nil
             });
         end;
-        return v34;
+        return v35;
     end;
 end);

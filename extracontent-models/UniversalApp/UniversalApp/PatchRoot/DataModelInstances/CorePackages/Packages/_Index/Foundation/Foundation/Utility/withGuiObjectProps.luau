@@ -3,57 +3,62 @@ local l_Parent_0 = l_script_FirstAncestor_0.Parent;
 local v2 = require(l_Parent_0.React);
 local v3 = require(l_Parent_0.ReactIs);
 local _ = require(l_script_FirstAncestor_0.Components.Types);
-local v5 = require(l_script_FirstAncestor_0.Utility.getTestIdTag);
-local v6 = require(l_script_FirstAncestor_0.Utility.indexBindable);
-local v7 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
-return function(v8, v9) --[[ Line: 43 ]] --[[ Name: withGuiObjectProps ]]
-    -- upvalues: v6 (copy), v3 (copy), v7 (copy), v2 (copy), v5 (copy)
-    if type(v9) == "table" then
-        v9.AutoLocalize = v8.AutoLocalize;
-        v9.AutomaticSize = v8.AutomaticSize;
-        v9.BackgroundColor3 = if v8.backgroundStyle then v6(v8.backgroundStyle, "Color3") else nil;
-        v9.BackgroundTransparency = if v8.backgroundStyle then v6(v8.backgroundStyle, "Transparency") else nil;
-        v9.BorderSizePixel = v8.BorderSizePixel;
-        v9.BorderColor3 = v8.BorderColor3;
-        v9.BorderMode = v8.BorderMode;
-        v9.ClipsDescendants = v8.ClipsDescendants;
-        v9.Rotation = v8.Rotation;
-        v9.SizeConstraint = v8.SizeConstraint;
-        if v8.selection then
-            v9.Selectable = v8.selection.Selectable;
-            v9.SelectionImageObject = v8.selection.SelectionImageObject;
-            v9.SelectionOrder = v8.selection.SelectionOrder;
-            v9.NextSelectionDown = v8.selection.NextSelectionDown;
-            v9.NextSelectionLeft = v8.selection.NextSelectionLeft;
-            v9.NextSelectionRight = v8.selection.NextSelectionRight;
-            v9.NextSelectionUp = v8.selection.NextSelectionUp;
+local v5 = require(l_script_FirstAncestor_0.Utility.Flags);
+local v6 = require(l_script_FirstAncestor_0.Utility.getTestIdTag);
+local v7 = require(l_script_FirstAncestor_0.Utility.indexBindable);
+local v8 = require(l_script_FirstAncestor_0.Utility.withCommonProps);
+local v9 = v5.FoundationGuiObjectInputSinkProperty and pcall(game.GetEngineFeature, game, "GuiObjectInputSink");
+return function(v10, v11) --[[ Line: 52 ]] --[[ Name: withGuiObjectProps ]]
+    -- upvalues: v7 (copy), v9 (copy), v3 (copy), v8 (copy), v2 (copy), v6 (copy)
+    if type(v11) == "table" then
+        v11.AutoLocalize = v10.AutoLocalize;
+        v11.AutomaticSize = v10.AutomaticSize;
+        v11.BackgroundColor3 = if v10.backgroundStyle then v7(v10.backgroundStyle, "Color3") else nil;
+        v11.BackgroundTransparency = if v10.backgroundStyle then v7(v10.backgroundStyle, "Transparency") else nil;
+        v11.BorderSizePixel = v10.BorderSizePixel;
+        v11.BorderColor3 = v10.BorderColor3;
+        v11.BorderMode = v10.BorderMode;
+        v11.ClipsDescendants = v10.ClipsDescendants;
+        if v9 then
+            v11.InputSink = v10.InputSink;
         end;
-        if v8.selectionGroup ~= nil then
-            if type(v8.selectionGroup) == "boolean" or v3.isBinding(v8.selectionGroup) then
-                v9.SelectionGroup = v8.selectionGroup;
+        v11.Rotation = v10.Rotation;
+        v11.SizeConstraint = v10.SizeConstraint;
+        if v10.selection then
+            v11.Selectable = v10.selection.Selectable;
+            v11.SelectionImageObject = v10.selection.SelectionImageObject;
+            v11.SelectionOrder = v10.selection.SelectionOrder;
+            v11.NextSelectionDown = v10.selection.NextSelectionDown;
+            v11.NextSelectionLeft = v10.selection.NextSelectionLeft;
+            v11.NextSelectionRight = v10.selection.NextSelectionRight;
+            v11.NextSelectionUp = v10.selection.NextSelectionUp;
+        end;
+        if v10.selectionGroup ~= nil then
+            if type(v10.selectionGroup) == "boolean" or v3.isBinding(v10.selectionGroup) then
+                v11.SelectionGroup = v10.selectionGroup;
             else
-                local l_selectionGroup_0 = v8.selectionGroup;
-                v9.SelectionGroup = true;
-                v9.SelectionBehaviorUp = l_selectionGroup_0.SelectionBehaviorUp;
-                v9.SelectionBehaviorDown = l_selectionGroup_0.SelectionBehaviorDown;
-                v9.SelectionBehaviorLeft = l_selectionGroup_0.SelectionBehaviorLeft;
-                v9.SelectionBehaviorRight = l_selectionGroup_0.SelectionBehaviorRight;
+                local l_selectionGroup_0 = v10.selectionGroup;
+                v11.SelectionGroup = true;
+                v11.SelectionBehaviorUp = l_selectionGroup_0.SelectionBehaviorUp;
+                v11.SelectionBehaviorDown = l_selectionGroup_0.SelectionBehaviorDown;
+                v11.SelectionBehaviorLeft = l_selectionGroup_0.SelectionBehaviorLeft;
+                v11.SelectionBehaviorRight = l_selectionGroup_0.SelectionBehaviorRight;
             end;
         end;
-        v9.Size = v8.Size;
+        v11.Size = v10.Size;
     end;
-    local v11 = v7(v8, v9);
-    v11[v2.Change.AbsoluteSize] = v8.onAbsoluteSizeChanged;
-    v11.onAbsoluteSizeChanged = nil;
-    v11[v2.Change.AbsolutePosition] = v8.onAbsolutePositionChanged;
-    v11.onAbsolutePositionChanged = nil;
-    local v12 = v5(v11.testId);
-    if v11[v2.Tag] and v12 then
+    local v13 = v8(v10, v11);
+    v13[v2.Change.AbsoluteSize] = v10.onAbsoluteSizeChanged;
+    v13.onAbsoluteSizeChanged = nil;
+    v13[v2.Change.AbsolutePosition] = v10.onAbsolutePositionChanged;
+    v13.onAbsolutePositionChanged = nil;
+    local v14 = v6(v13.testId);
+    if v13[v2.Tag] and v14 then
         local l_Tag_0 = v2.Tag;
-        v11[l_Tag_0] = v11[l_Tag_0] .. " " .. v12;
+        v13[l_Tag_0] = v13[l_Tag_0] .. " " .. v14;
     else
-        v11[v2.Tag] = v11[v2.Tag] or v12;
+        v13[v2.Tag] = v13[v2.Tag] or v14;
     end;
-    v11.testId = nil;
-    return v11;
+    v13.testId = nil;
+    return v13;
 end;

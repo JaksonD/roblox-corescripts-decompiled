@@ -42,36 +42,35 @@ local l_LocalStorageKey_0 = require(l_CorePackages_0.Workspace.Packages.LocalSto
 local v41 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableUiNavigationKeyBindSettingInAppShellSettings);
 local v42 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
 local l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0 = v42.GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty;
-local l_GetFFlagEnableCrossExpVoiceVolumeIXPCheck_0 = v42.GetFFlagEnableCrossExpVoiceVolumeIXPCheck;
-local v45 = require(l_Modules_0.LuaApp.Flags.FFlagEnableDevicePreferenceLayoutUpdate);
+local v44 = require(l_Modules_0.LuaApp.Flags.FFlagEnableDevicePreferenceLayoutUpdate);
 local l_GetFFlagEnableReadAloudInUA_0 = v42.GetFFlagEnableReadAloudInUA;
 local l_GetFFlagSystemTrayEnabled_0 = v42.GetFFlagSystemTrayEnabled;
 local l_FFlagVRUseStandardDeviceSettingPageContent_0 = v42.FFlagVRUseStandardDeviceSettingPageContent;
 local l_useLocalUserId_0 = require(l_CorePackages_0.Workspace.Packages.RobloxAppHooks).useLocalUserId;
-local v50 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableThemeUpdatedLoggingFix);
+local v49 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableThemeUpdatedLoggingFix);
 local l_default_1 = require(l_CorePackages_0.Workspace.Packages.CrossExperienceVoice).IXPManager.default;
-local v52 = require(l_Parent_0.ApplyThemeSelection);
-local v53 = require(l_Modules_0.LuaApp.Components.EventReceivers.GetSystemTheme);
-local v54 = l_GetFFlagEnableCrossExpVoiceVolumeIXPCheck_0() and l_default_1 and l_default_1.getHasPartyVoiceVolume();
+local v51 = require(l_Parent_0.ApplyThemeSelection);
+local v52 = require(l_Modules_0.LuaApp.Components.EventReceivers.GetSystemTheme);
+local v53 = l_default_1 and l_default_1.getHasPartyVoiceVolume();
 local l_DeviceLevelThemeKey_0 = v24.DeviceLevelThemeKey;
 local l_LAYOUT_ORDER_0 = v24.LAYOUT_ORDER;
 local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive).useIsSpatial;
-local function _() --[[ Line: 85 ]] --[[ Name: createLayoutOrderGenerator ]]
+local function _() --[[ Line: 82 ]] --[[ Name: createLayoutOrderGenerator ]]
     -- upvalues: v35 (copy), l_LAYOUT_ORDER_0 (copy)
-    local v58 = 0;
-    return function(v59) --[[ Line: 87 ]]
-        -- upvalues: v35 (ref), l_LAYOUT_ORDER_0 (ref), v58 (ref)
-        if v35 and v59 then
-            return l_LAYOUT_ORDER_0[v59];
+    local v57 = 0;
+    return function(v58) --[[ Line: 84 ]]
+        -- upvalues: v35 (ref), l_LAYOUT_ORDER_0 (ref), v57 (ref)
+        if v35 and v58 then
+            return l_LAYOUT_ORDER_0[v58];
         else
-            v58 = v58 + 1;
-            return v58;
+            v57 = v57 + 1;
+            return v57;
         end;
     end;
 end;
-local v61 = v7.PureComponent:extend("DeviceSettingsPageContent");
+local v60 = v7.PureComponent:extend("DeviceSettingsPageContent");
 if v35 then
-    v61.validateProps = v11.strictInterface({
+    v60.validateProps = v11.strictInterface({
         formFactor = v11.string, 
         platform = v11.EnumItem, 
         themeSelectedCallback = v11.callback, 
@@ -82,52 +81,52 @@ if v35 then
         roactAnalytics = v11.union(v11.Instance, v11.table)
     });
 else
-    v61.validateProps = v11.strictInterface({
+    v60.validateProps = v11.strictInterface({
         formFactor = v11.string, 
         platform = v11.EnumItem, 
         isSpatial = v11.optional(v11.boolean), 
         roactAnalytics = v11.union(v11.Instance, v11.table)
     });
 end;
-v61.eventDisconnect = function(v62) --[[ Line: 120 ]] --[[ Name: eventDisconnect ]]
+v60.eventDisconnect = function(v61) --[[ Line: 117 ]] --[[ Name: eventDisconnect ]]
     -- upvalues: l_GetFFlagEnableReadAloudInUA_0 (copy)
-    if v62.onReducedMotionChangedSignal then
-        v62.onReducedMotionChangedSignal:Disconnect();
-        v62.onReducedMotionChangedSignal = nil;
+    if v61.onReducedMotionChangedSignal then
+        v61.onReducedMotionChangedSignal:Disconnect();
+        v61.onReducedMotionChangedSignal = nil;
     end;
-    if v62.onPreferredTransparencyChangedSignal then
-        v62.onPreferredTransparencyChangedSignal:Disconnect();
-        v62.onPreferredTransparencyChangedSignal = nil;
+    if v61.onPreferredTransparencyChangedSignal then
+        v61.onPreferredTransparencyChangedSignal:Disconnect();
+        v61.onPreferredTransparencyChangedSignal = nil;
     end;
-    if v62.onPreferredTextSizeChangedSignal then
-        v62.onPreferredTextSizeChangedSignal:Disconnect();
-        v62.onPreferredTextSizeChangedSignal = nil;
+    if v61.onPreferredTextSizeChangedSignal then
+        v61.onPreferredTextSizeChangedSignal:Disconnect();
+        v61.onPreferredTextSizeChangedSignal = nil;
     end;
-    if v62.onUiNavigationKeyBindEnabledChanged then
-        v62.onUiNavigationKeyBindEnabledChanged:Disconnect();
-        v62.onUiNavigationKeyBindEnabledChanged = nil;
+    if v61.onUiNavigationKeyBindEnabledChanged then
+        v61.onUiNavigationKeyBindEnabledChanged:Disconnect();
+        v61.onUiNavigationKeyBindEnabledChanged = nil;
     end;
-    if v62.onKeyboardEnabledChangedSignal then
-        v62.onKeyboardEnabledChangedSignal:Disconnect();
-        v62.onKeyboardEnabledChangedSignal = nil;
+    if v61.onKeyboardEnabledChangedSignal then
+        v61.onKeyboardEnabledChangedSignal:Disconnect();
+        v61.onKeyboardEnabledChangedSignal = nil;
     end;
-    if l_GetFFlagEnableReadAloudInUA_0() and v62.onReadAloudChangedSignal then
-        v62.onReadAloudChangedSignal:Disconnect();
-        v62.onReadAloudChangedSignal = nil;
+    if l_GetFFlagEnableReadAloudInUA_0() and v61.onReadAloudChangedSignal then
+        v61.onReadAloudChangedSignal:Disconnect();
+        v61.onReadAloudChangedSignal = nil;
     end;
 end;
-v61.init = function(v63) --[[ Line: 148 ]] --[[ Name: init ]]
+v60.init = function(v62) --[[ Line: 145 ]] --[[ Name: init ]]
     -- upvalues: l_GetFFlagSystemTrayEnabled_0 (copy), l_AppStorageService_0 (copy), l_UserInputService_0 (copy), l_UserGameSettings_0 (copy), l_GetFFlagEnableReadAloudInUA_0 (copy), l_LocalStorageKey_0 (copy), v26 (copy), v23 (copy), v25 (copy)
-    local function _(v64) --[[ Line: 149 ]] --[[ Name: preferredTransparencySliderValueFromValue ]]
-        return 10 - math.clamp(math.floor(v64 * 10 + 0.5), 0, 10);
+    local function _(v63) --[[ Line: 146 ]] --[[ Name: preferredTransparencySliderValueFromValue ]]
+        return 10 - math.clamp(math.floor(v63 * 10 + 0.5), 0, 10);
     end;
-    local function _(v66) --[[ Line: 153 ]] --[[ Name: preferredTextSizeSliderValueFromValue ]]
-        return v66.Value - 1;
+    local function _(v65) --[[ Line: 150 ]] --[[ Name: preferredTextSizeSliderValueFromValue ]]
+        return v65.Value - 1;
     end;
-    local function _(v68) --[[ Line: 157 ]] --[[ Name: appStorageItem ]]
+    local function _(v67) --[[ Line: 154 ]] --[[ Name: appStorageItem ]]
         -- upvalues: l_GetFFlagSystemTrayEnabled_0 (ref), l_AppStorageService_0 (ref)
         if l_GetFFlagSystemTrayEnabled_0() then
-            if l_AppStorageService_0:GetItem(v68) == "true" then
+            if l_AppStorageService_0:GetItem(v67) == "true" then
                 return true;
             else
                 return false;
@@ -136,7 +135,7 @@ v61.init = function(v63) --[[ Line: 148 ]] --[[ Name: init ]]
             return nil;
         end;
     end;
-    local v70 = {
+    local v69 = {
         keyboardEnabled = l_UserInputService_0.KeyboardEnabled, 
         reducedMotionEnabled = l_UserGameSettings_0.ReducedMotion, 
         preferredTransparencyValue = 10 - math.clamp(math.floor(l_UserGameSettings_0.PreferredTransparency * 10 + 0.5), 0, 10), 
@@ -146,184 +145,184 @@ v61.init = function(v63) --[[ Line: 148 ]] --[[ Name: init ]]
         isLocalPlayerPartyVoiceEligible = false
     };
     local l_LaunchAtStartup_0 = l_LocalStorageKey_0.LaunchAtStartup;
-    v70.isLaunchAtStartupEnabled = if l_GetFFlagSystemTrayEnabled_0() then l_AppStorageService_0:GetItem(l_LaunchAtStartup_0) == "true" else nil;
+    v69.isLaunchAtStartupEnabled = if l_GetFFlagSystemTrayEnabled_0() then l_AppStorageService_0:GetItem(l_LaunchAtStartup_0) == "true" else nil;
     l_LaunchAtStartup_0 = l_LocalStorageKey_0.MinimizeToTray;
-    v70.isMinimizeToTrayEnabled = if l_GetFFlagSystemTrayEnabled_0() then l_AppStorageService_0:GetItem(l_LaunchAtStartup_0) == "true" else nil;
-    v63.state = v70;
+    v69.isMinimizeToTrayEnabled = if l_GetFFlagSystemTrayEnabled_0() then l_AppStorageService_0:GetItem(l_LaunchAtStartup_0) == "true" else nil;
+    v62.state = v69;
     if l_GetFFlagSystemTrayEnabled_0() then
-        v63.onLaunchAtStartupActivated = function() --[[ Line: 182 ]]
-            -- upvalues: v63 (copy), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
-            local v72 = not v63.state.isLaunchAtStartupEnabled;
-            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.LaunchAtStartup, (tostring(v72)));
+        v62.onLaunchAtStartupActivated = function() --[[ Line: 179 ]]
+            -- upvalues: v62 (copy), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
+            local v71 = not v62.state.isLaunchAtStartupEnabled;
+            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.LaunchAtStartup, (tostring(v71)));
             l_AppStorageService_0:Flush();
-            v63:setState({
-                isLaunchAtStartupEnabled = v72
+            v62:setState({
+                isLaunchAtStartupEnabled = v71
             });
         end;
-        v63.onMinimizeToTrayActivated = function() --[[ Line: 194 ]]
-            -- upvalues: v63 (copy), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
-            local v73 = not v63.state.isMinimizeToTrayEnabled;
-            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.MinimizeToTray, (tostring(v73)));
+        v62.onMinimizeToTrayActivated = function() --[[ Line: 191 ]]
+            -- upvalues: v62 (copy), l_AppStorageService_0 (ref), l_LocalStorageKey_0 (ref)
+            local v72 = not v62.state.isMinimizeToTrayEnabled;
+            l_AppStorageService_0:SetItem(l_LocalStorageKey_0.MinimizeToTray, (tostring(v72)));
             l_AppStorageService_0:Flush();
-            v63:setState({
-                isMinimizeToTrayEnabled = v73
+            v62:setState({
+                isMinimizeToTrayEnabled = v72
             });
         end;
     end;
-    v63.onReducedMotionActivated = function() --[[ Line: 207 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref)
-        local l_reducedMotionEnabled_0 = v63.state.reducedMotionEnabled;
-        local v75 = not v63.state.reducedMotionEnabled;
-        l_UserGameSettings_0.ReducedMotion = v75;
-        v26(v63.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "ReducedMotion", tostring(l_reducedMotionEnabled_0), (tostring(v75)));
+    v62.onReducedMotionActivated = function() --[[ Line: 204 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref)
+        local l_reducedMotionEnabled_0 = v62.state.reducedMotionEnabled;
+        local v74 = not v62.state.reducedMotionEnabled;
+        l_UserGameSettings_0.ReducedMotion = v74;
+        v26(v62.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "ReducedMotion", tostring(l_reducedMotionEnabled_0), (tostring(v74)));
     end;
-    v63.onReducedMotionChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("ReducedMotion"):Connect(function() --[[ Line: 220 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref)
-        v63:setState({
+    v62.onReducedMotionChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("ReducedMotion"):Connect(function() --[[ Line: 217 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref)
+        v62:setState({
             reducedMotionEnabled = l_UserGameSettings_0.ReducedMotion
         });
     end);
     if l_GetFFlagEnableReadAloudInUA_0() then
-        v63.onReadAloudActivated = function() --[[ Line: 227 ]]
-            -- upvalues: v63 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref), v25 (ref)
-            local l_readAloudEnabled_0 = v63.state.readAloudEnabled;
-            local v77 = not v63.state.readAloudEnabled;
-            l_UserGameSettings_0.ReadAloud = v77;
-            v26(v63.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, v25.ReadAloud, tostring(l_readAloudEnabled_0), (tostring(v77)));
+        v62.onReadAloudActivated = function() --[[ Line: 224 ]]
+            -- upvalues: v62 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref), v25 (ref)
+            local l_readAloudEnabled_0 = v62.state.readAloudEnabled;
+            local v76 = not v62.state.readAloudEnabled;
+            l_UserGameSettings_0.ReadAloud = v76;
+            v26(v62.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, v25.ReadAloud, tostring(l_readAloudEnabled_0), (tostring(v76)));
         end;
-        v63.onReadAloudChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("ReadAloud"):Connect(function() --[[ Line: 240 ]]
-            -- upvalues: v63 (copy), l_UserGameSettings_0 (ref)
-            v63:setState({
+        v62.onReadAloudChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("ReadAloud"):Connect(function() --[[ Line: 237 ]]
+            -- upvalues: v62 (copy), l_UserGameSettings_0 (ref)
+            v62:setState({
                 readAloudEnabled = l_UserGameSettings_0.ReadAloud
             });
         end);
     end;
-    v63.onPreferredTransparencyValueChanged = function(v78) --[[ Line: 247 ]]
-        -- upvalues: l_UserGameSettings_0 (ref), v26 (ref), v63 (copy), v23 (ref)
+    v62.onPreferredTransparencyValueChanged = function(v77) --[[ Line: 244 ]]
+        -- upvalues: l_UserGameSettings_0 (ref), v26 (ref), v62 (copy), v23 (ref)
         local l_PreferredTransparency_0 = l_UserGameSettings_0.PreferredTransparency;
-        local v80 = (10 - math.clamp(math.floor(v78), 0, 10)) / 10;
-        l_UserGameSettings_0.PreferredTransparency = v80;
-        v26(v63.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "PreferredTransparency", tostring(l_PreferredTransparency_0), (tostring(v80)));
+        local v79 = (10 - math.clamp(math.floor(v77), 0, 10)) / 10;
+        l_UserGameSettings_0.PreferredTransparency = v79;
+        v26(v62.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "PreferredTransparency", tostring(l_PreferredTransparency_0), (tostring(v79)));
     end;
-    v63.onPreferredTransparencyChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTransparency"):Connect(function() --[[ Line: 261 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref)
-        v63:setState({
+    v62.onPreferredTransparencyChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTransparency"):Connect(function() --[[ Line: 258 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref)
+        v62:setState({
             preferredTransparencyValue = 10 - math.clamp(math.floor(l_UserGameSettings_0.PreferredTransparency * 10 + 0.5), 0, 10)
         });
     end);
-    v63.onPreferredTextSizeValueChanged = function(v81) --[[ Line: 269 ]]
-        -- upvalues: l_UserGameSettings_0 (ref), v26 (ref), v63 (copy), v23 (ref)
+    v62.onPreferredTextSizeValueChanged = function(v80) --[[ Line: 266 ]]
+        -- upvalues: l_UserGameSettings_0 (ref), v26 (ref), v62 (copy), v23 (ref)
         local l_PreferredTextSize_0 = l_UserGameSettings_0.PreferredTextSize;
-        local v83 = Enum.PreferredTextSize:GetEnumItems()[v81 + 1];
-        l_UserGameSettings_0.PreferredTextSize = v83;
-        v26(v63.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "PreferredTextSize", tostring(l_PreferredTextSize_0), (tostring(v83)));
+        local v82 = Enum.PreferredTextSize:GetEnumItems()[v80 + 1];
+        l_UserGameSettings_0.PreferredTextSize = v82;
+        v26(v62.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "PreferredTextSize", tostring(l_PreferredTextSize_0), (tostring(v82)));
     end;
-    v63.onPreferredTextSizeChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTextSize"):Connect(function() --[[ Line: 282 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref)
-        v63:setState({
+    v62.onPreferredTextSizeChangedSignal = l_UserGameSettings_0:GetPropertyChangedSignal("PreferredTextSize"):Connect(function() --[[ Line: 279 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref)
+        v62:setState({
             preferredTextSizeValue = l_UserGameSettings_0.PreferredTextSize.Value - 1
         });
     end);
-    v63.onUiNavigationKeyBindActivated = function() --[[ Line: 288 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref)
-        local l_uiNavigationKeyBindEnabled_0 = v63.state.uiNavigationKeyBindEnabled;
-        local v85 = not v63.state.uiNavigationKeyBindEnabled;
-        l_UserGameSettings_0.UiNavigationKeyBindEnabled = v85;
-        v26(v63.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "UiNavigationKeyBind", tostring(l_uiNavigationKeyBindEnabled_0), (tostring(v85)));
+    v62.onUiNavigationKeyBindActivated = function() --[[ Line: 285 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref), v26 (ref), v23 (ref)
+        local l_uiNavigationKeyBindEnabled_0 = v62.state.uiNavigationKeyBindEnabled;
+        local v84 = not v62.state.uiNavigationKeyBindEnabled;
+        l_UserGameSettings_0.UiNavigationKeyBindEnabled = v84;
+        v26(v62.props.roactAnalytics.EventStream, v23.Context.AccessibilitySettingsPage, "UiNavigationKeyBind", tostring(l_uiNavigationKeyBindEnabled_0), (tostring(v84)));
     end;
-    v63.onUiNavigationKeyBindEnabledChanged = l_UserGameSettings_0:GetPropertyChangedSignal("UiNavigationKeyBindEnabled"):Connect(function() --[[ Line: 302 ]]
-        -- upvalues: v63 (copy), l_UserGameSettings_0 (ref)
-        v63:setState({
+    v62.onUiNavigationKeyBindEnabledChanged = l_UserGameSettings_0:GetPropertyChangedSignal("UiNavigationKeyBindEnabled"):Connect(function() --[[ Line: 299 ]]
+        -- upvalues: v62 (copy), l_UserGameSettings_0 (ref)
+        v62:setState({
             uiNavigationKeyBindEnabled = l_UserGameSettings_0.UiNavigationKeyBindEnabled
         });
     end);
-    v63.onKeyboardEnabledChangedSignal = l_UserInputService_0:GetPropertyChangedSignal("KeyboardEnabled"):Connect(function() --[[ Line: 309 ]]
-        -- upvalues: v63 (copy), l_UserInputService_0 (ref)
-        v63:setState({
+    v62.onKeyboardEnabledChangedSignal = l_UserInputService_0:GetPropertyChangedSignal("KeyboardEnabled"):Connect(function() --[[ Line: 306 ]]
+        -- upvalues: v62 (copy), l_UserInputService_0 (ref)
+        v62:setState({
             keyboardEnabled = l_UserInputService_0.KeyboardEnabled
         });
     end);
 end;
-local function v88(v86) --[[ Line: 316 ]] --[[ Name: Divider ]]
+local function v87(v85) --[[ Line: 313 ]] --[[ Name: Divider ]]
     -- upvalues: v7 (copy)
-    local l_style_0 = v86.style;
+    local l_style_0 = v85.style;
     return v7.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, 1), 
         BorderSizePixel = 0, 
         BackgroundColor3 = l_style_0.Theme.Divider.Color, 
         BackgroundTransparency = l_style_0.Theme.Divider.Transparency, 
-        LayoutOrder = v86.layoutOrder
+        LayoutOrder = v85.layoutOrder
     });
 end;
-local function v96(v89, v90) --[[ Line: 327 ]] --[[ Name: getThemeDropdownProperties ]]
-    -- upvalues: v35 (copy), v37 (copy), l_default_0 (copy), v34 (copy), l_DeviceLevelThemeKey_0 (copy), v50 (copy)
+local function v95(v88, v89) --[[ Line: 324 ]] --[[ Name: getThemeDropdownProperties ]]
+    -- upvalues: v35 (copy), v37 (copy), l_default_0 (copy), v34 (copy), l_DeviceLevelThemeKey_0 (copy), v49 (copy)
+    local v90 = nil;
     local v91 = nil;
-    local v92 = nil;
     if v35 and v37 then
         local l_result_0 = l_default_0:decodeInternal(v34.DeviceLevelThemeLocalStorageKey).result;
-        local v94 = l_result_0 and l_result_0[v90] or nil;
-        if v94 then
-            local v95 = v37.getSystemThemeEnum(v94);
-            if v95 == v37.Light then
-                v91 = l_DeviceLevelThemeKey_0.Light;
-                v92 = v89.deviceLevelThemeLight;
-            elseif v95 == v37.Dark then
-                v91 = l_DeviceLevelThemeKey_0.Dark;
-                v92 = v89.deviceLevelThemeDark;
-            elseif v95 == v37.SystemLight or v95 == v37.SystemDark then
-                v91 = l_DeviceLevelThemeKey_0.System;
-                v92 = v89.deviceLevelThemeSystem;
+        local v93 = l_result_0 and l_result_0[v89] or nil;
+        if v93 then
+            local v94 = v37.getSystemThemeEnum(v93);
+            if v94 == v37.Light then
+                v90 = l_DeviceLevelThemeKey_0.Light;
+                v91 = v88.deviceLevelThemeLight;
+            elseif v94 == v37.Dark then
+                v90 = l_DeviceLevelThemeKey_0.Dark;
+                v91 = v88.deviceLevelThemeDark;
+            elseif v94 == v37.SystemLight or v94 == v37.SystemDark then
+                v90 = l_DeviceLevelThemeKey_0.System;
+                v91 = v88.deviceLevelThemeSystem;
             end;
         end;
     end;
-    if v50() and v35 and (v92 == nil or v92 == "") then
-        v92 = v89.deviceLevelThemeLight or v89.deviceLevelThemeDark or v89.deviceLevelThemeSystem or "";
+    if v49() and v35 and (v91 == nil or v91 == "") then
+        v91 = v88.deviceLevelThemeLight or v88.deviceLevelThemeDark or v88.deviceLevelThemeSystem or "";
     end;
-    if v50() and v92 == nil then
-        v92 = "";
+    if v49() and v91 == nil then
+        v91 = "";
     end;
-    return v91, v92;
+    return v90, v91;
 end;
-v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Name: renderWithProviders ]]
-    -- upvalues: l_FormFactor_0 (copy), v35 (copy), l_LAYOUT_ORDER_0 (copy), v41 (copy), v24 (copy), v96 (copy), l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0 (copy), v7 (copy), v25 (copy), v45 (copy), v27 (copy), l_Toggle_0 (copy), l_InputSize_0 (copy), v88 (copy), v20 (copy), l_Slider_0 (copy), v14 (copy), v28 (copy), v54 (copy), v29 (copy), v30 (copy), l_DropdownMenu_0 (copy), l_DeviceLevelThemeKey_0 (copy), l_GetFFlagEnableReadAloudInUA_0 (copy), l_LocalPlayerPartyVoiceEligibleBinder_0 (copy), l_GetFFlagSystemTrayEnabled_0 (copy)
-    local v101 = v97.props.formFactor == l_FormFactor_0.WIDE;
-    local v102 = 0;
-    local v103;
+v60.renderWithProviders = function(v96, v97, _, v99) --[[ Line: 366 ]] --[[ Name: renderWithProviders ]]
+    -- upvalues: l_FormFactor_0 (copy), v35 (copy), l_LAYOUT_ORDER_0 (copy), v41 (copy), v24 (copy), v95 (copy), l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0 (copy), v7 (copy), v25 (copy), v44 (copy), v27 (copy), l_Toggle_0 (copy), l_InputSize_0 (copy), v87 (copy), v20 (copy), l_Slider_0 (copy), v14 (copy), v28 (copy), v53 (copy), v29 (copy), v30 (copy), l_DropdownMenu_0 (copy), l_DeviceLevelThemeKey_0 (copy), l_GetFFlagEnableReadAloudInUA_0 (copy), l_LocalPlayerPartyVoiceEligibleBinder_0 (copy), l_GetFFlagSystemTrayEnabled_0 (copy)
+    local v100 = v96.props.formFactor == l_FormFactor_0.WIDE;
+    local v101 = 0;
+    local v102;
     do
-        local l_v102_0 = v102;
-        v103 = function(v105) --[[ Line: 87 ]]
-            -- upvalues: v35 (ref), l_LAYOUT_ORDER_0 (ref), l_v102_0 (ref)
-            if v35 and v105 then
-                return l_LAYOUT_ORDER_0[v105];
+        local l_v101_0 = v101;
+        v102 = function(v104) --[[ Line: 84 ]]
+            -- upvalues: v35 (ref), l_LAYOUT_ORDER_0 (ref), l_v101_0 (ref)
+            if v35 and v104 then
+                return l_LAYOUT_ORDER_0[v104];
             else
-                l_v102_0 = l_v102_0 + 1;
-                return l_v102_0;
+                l_v101_0 = l_v101_0 + 1;
+                return l_v101_0;
             end;
         end;
     end;
-    v102 = v97.props.userId;
-    local l_isSpatial_0 = v97.props.isSpatial;
+    v101 = v96.props.userId;
+    local l_isSpatial_0 = v96.props.isSpatial;
+    local v106 = not l_isSpatial_0;
     local v107 = not l_isSpatial_0;
-    local v108 = not l_isSpatial_0;
-    local v109 = v41() and v97.state.keyboardEnabled;
-    local l_BaseSize_0 = v100.Font.BaseSize;
-    local v111 = l_BaseSize_0 * v100.Font.Body.RelativeSize;
-    local v112 = l_BaseSize_0 * v100.Font.CaptionBody.RelativeSize;
-    local l_Font_0 = v100.Font.Body.Font;
-    local l_Font_1 = v100.Font.CaptionBody.Font;
-    local v115 = v100.Tokens.Global.Stroke_100 * v24.CONTEXTUAL_SLIDER_BASE_WIDTH;
+    local v108 = v41() and v96.state.keyboardEnabled;
+    local l_BaseSize_0 = v99.Font.BaseSize;
+    local v110 = l_BaseSize_0 * v99.Font.Body.RelativeSize;
+    local v111 = l_BaseSize_0 * v99.Font.CaptionBody.RelativeSize;
+    local l_Font_0 = v99.Font.Body.Font;
+    local l_Font_1 = v99.Font.CaptionBody.Font;
+    local v114 = v99.Tokens.Global.Stroke_100 * v24.CONTEXTUAL_SLIDER_BASE_WIDTH;
+    local v115 = nil;
     local v116 = nil;
-    local v117 = nil;
     if v35 then
-        local v118, v119 = v96(v98, v102);
+        local v117, v118 = v95(v97, v101);
+        v115 = v117;
         v116 = v118;
-        v117 = v119;
     end;
-    local function v121(v120) --[[ Line: 394 ]]
-        -- upvalues: l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0 (ref), v97 (copy)
+    local function v120(v119) --[[ Line: 391 ]]
+        -- upvalues: l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0 (ref), v96 (copy)
         if l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() then
-            v97:setState({
-                isLocalPlayerPartyVoiceEligible = v120
+            v96:setState({
+                isLocalPlayerPartyVoiceEligible = v119
             });
         end;
     end;
@@ -333,49 +332,49 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
             AutomaticSize = Enum.AutomaticSize.Y, 
             BorderSizePixel = 0, 
             BackgroundTransparency = 1, 
-            LayoutOrder = v103(v25.SettingDescription)
+            LayoutOrder = v102(v25.SettingDescription)
         }, {
-            UIPadding = if not v45 then v7.createElement("UIPadding", {
+            UIPadding = if not v44 then v7.createElement("UIPadding", {
                 PaddingBottom = UDim.new(0, 25)
             }) else nil, 
             SettingDescriptionText = v7.createElement("TextLabel", {
                 Size = UDim2.new(1, 0, 0, 0), 
                 BackgroundTransparency = 1, 
                 BorderSizePixel = 0, 
-                Text = v98.accessibilityDescription, 
+                Text = v97.accessibilityDescription, 
                 Font = l_Font_0, 
-                TextSize = v111, 
-                TextColor3 = v100.Theme.TextDefault.Color, 
-                TextTransparency = v100.Theme.TextDefault.Transparency, 
+                TextSize = v110, 
+                TextColor3 = v99.Theme.TextDefault.Color, 
+                TextTransparency = v99.Theme.TextDefault.Transparency, 
                 TextXAlignment = Enum.TextXAlignment.Left, 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 TextWrapped = true
             })
         }), 
-        ReducedMotion = if v107 then v7.createElement(v27, {
-            style = v100, 
-            header = v98.reducedMotionHeader, 
-            description = v98.reducedMotionDescription, 
-            layoutOrder = v103(v25.ReducedMotion), 
+        ReducedMotion = if v106 then v7.createElement(v27, {
+            style = v99, 
+            header = v97.reducedMotionHeader, 
+            description = v97.reducedMotionDescription, 
+            layoutOrder = v102(v25.ReducedMotion), 
             Control = v7.createElement(l_Toggle_0, {
-                isChecked = v97.state.reducedMotionEnabled, 
-                onActivated = v97.onReducedMotionActivated, 
+                isChecked = v96.state.reducedMotionEnabled, 
+                onActivated = v96.onReducedMotionActivated, 
                 label = "", 
                 size = l_InputSize_0.Large
             })
         }) else nil, 
-        Divider1 = if v107 then v88({
-            style = v100, 
-            layoutOrder = v103(v25.PreferredTransparencyDivider)
+        Divider1 = if v106 then v87({
+            style = v99, 
+            layoutOrder = v102(v25.PreferredTransparencyDivider)
         }) else nil, 
-        PreferredTransparency = if v108 then v7.createElement(v27, {
-            style = v100, 
-            header = v98.preferredTransparencyHeader, 
-            description = v98.preferredTransparencyDescription, 
-            layoutOrder = v103(v25.PreferredTransparency), 
-            topToBottom = not v101, 
+        PreferredTransparency = if v107 then v7.createElement(v27, {
+            style = v99, 
+            header = v97.preferredTransparencyHeader, 
+            description = v97.preferredTransparencyDescription, 
+            layoutOrder = v102(v25.PreferredTransparency), 
+            topToBottom = not v100, 
             Control = v7.createElement("Frame", {
-                Size = if v101 then UDim2.new(0, v115, 0, 0) else UDim2.fromScale(1, 0), 
+                Size = if v100 then UDim2.new(0, v114, 0, 0) else UDim2.fromScale(1, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 BorderSizePixel = 0, 
                 BackgroundTransparency = 1
@@ -388,8 +387,8 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                 ContextualSlider = v7.createElement(l_Slider_0, {
                     width = UDim.new(1, 0), 
                     range = NumberRange.new(0, 10), 
-                    value = v97.state.preferredTransparencyValue, 
-                    onValueChanged = v97.onPreferredTransparencyValueChanged, 
+                    value = v96.state.preferredTransparencyValue, 
+                    onValueChanged = v96.onPreferredTransparencyValueChanged, 
                     size = v14.Enums.InputSize.Large, 
                     knobVisibility = v14.Enums.ScrollBarVisibility.Always, 
                     variant = v14.Enums.SliderVariant.Emphasis, 
@@ -408,11 +407,11 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                         Size = UDim2.fromScale(1, 0), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        Text = v98.preferredTransparencyTransparent, 
+                        Text = v97.preferredTransparencyTransparent, 
                         Font = l_Font_1, 
-                        TextSize = v112, 
-                        TextColor3 = v100.Theme.TextMuted.Color, 
-                        TextTransparency = v100.Theme.TextMuted.Transparency, 
+                        TextSize = v111, 
+                        TextColor3 = v99.Theme.TextMuted.Color, 
+                        TextTransparency = v99.Theme.TextMuted.Transparency, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         LayoutOrder = 1
                     }), 
@@ -420,29 +419,29 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                         Size = UDim2.fromScale(1, 0), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        Text = v98.preferredTransparencyOpaque, 
+                        Text = v97.preferredTransparencyOpaque, 
                         Font = l_Font_1, 
-                        TextSize = v112, 
-                        TextColor3 = v100.Theme.TextMuted.Color, 
-                        TextTransparency = v100.Theme.TextMuted.Transparency, 
+                        TextSize = v111, 
+                        TextColor3 = v99.Theme.TextMuted.Color, 
+                        TextTransparency = v99.Theme.TextMuted.Transparency, 
                         TextXAlignment = Enum.TextXAlignment.Right, 
                         LayoutOrder = 2
                     })
                 })
             })
         }) else nil, 
-        Divider2 = if v108 then v88({
-            style = v100, 
-            layoutOrder = v103(v25.PreferredTextSizeDivider)
+        Divider2 = if v107 then v87({
+            style = v99, 
+            layoutOrder = v102(v25.PreferredTextSizeDivider)
         }) else nil, 
         PreferredTextSize = v7.createElement(v27, {
-            style = v100, 
-            header = v98.preferredTextSizeHeader, 
-            description = v98.preferredTextSizeDescription, 
-            layoutOrder = v103(v25.PreferredTextSize), 
-            topToBottom = not v101, 
+            style = v99, 
+            header = v97.preferredTextSizeHeader, 
+            description = v97.preferredTextSizeDescription, 
+            layoutOrder = v102(v25.PreferredTextSize), 
+            topToBottom = not v100, 
             Control = v7.createElement("Frame", {
-                Size = if v101 then UDim2.new(0, v115, 0, 0) else UDim2.fromScale(1, 0), 
+                Size = if v100 then UDim2.new(0, v114, 0, 0) else UDim2.fromScale(1, 0), 
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 BorderSizePixel = 0, 
                 BackgroundTransparency = 1
@@ -455,8 +454,8 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                 ContextualSlider = v7.createElement(l_Slider_0, {
                     width = UDim.new(1, 0), 
                     range = NumberRange.new(0, 3), 
-                    value = v97.state.preferredTextSizeValue, 
-                    onValueChanged = v97.onPreferredTextSizeValueChanged, 
+                    value = v96.state.preferredTextSizeValue, 
+                    onValueChanged = v96.onPreferredTextSizeValueChanged, 
                     size = v14.Enums.InputSize.Large, 
                     knobVisibility = v14.Enums.ScrollBarVisibility.Always, 
                     variant = v14.Enums.SliderVariant.Emphasis, 
@@ -475,11 +474,11 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                         Size = UDim2.fromScale(1, 0), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        Text = v98.preferredTextSizeDefault, 
+                        Text = v97.preferredTextSizeDefault, 
                         Font = l_Font_1, 
-                        TextSize = v112, 
-                        TextColor3 = v100.Theme.TextMuted.Color, 
-                        TextTransparency = v100.Theme.TextMuted.Transparency, 
+                        TextSize = v111, 
+                        TextColor3 = v99.Theme.TextMuted.Color, 
+                        TextTransparency = v99.Theme.TextMuted.Transparency, 
                         TextXAlignment = Enum.TextXAlignment.Left, 
                         LayoutOrder = 1
                     }), 
@@ -487,150 +486,150 @@ v61.renderWithProviders = function(v97, v98, _, v100) --[[ Line: 369 ]] --[[ Nam
                         Size = UDim2.fromScale(1, 0), 
                         BackgroundTransparency = 1, 
                         BorderSizePixel = 0, 
-                        Text = v98.preferredTextSizeLargest, 
+                        Text = v97.preferredTextSizeLargest, 
                         Font = l_Font_1, 
-                        TextSize = v112, 
-                        TextColor3 = v100.Theme.TextMuted.Color, 
-                        TextTransparency = v100.Theme.TextMuted.Transparency, 
+                        TextSize = v111, 
+                        TextColor3 = v99.Theme.TextMuted.Color, 
+                        TextTransparency = v99.Theme.TextMuted.Transparency, 
                         TextXAlignment = Enum.TextXAlignment.Right, 
                         LayoutOrder = 2
                     })
                 })
             })
         }), 
-        Divider3 = if v109 then v88({
-            style = v100, 
-            layoutOrder = v103(v25.UINavigationKeyBindDivider)
+        Divider3 = if v108 then v87({
+            style = v99, 
+            layoutOrder = v102(v25.UINavigationKeyBindDivider)
         }) else nil, 
-        UiNavigationKeyBind = if v109 then v7.createElement(v27, {
-            style = v100, 
-            header = v98.uiNavigationKeyBindHeader, 
-            description = v98.uiNavigationKeyBindDescription, 
-            layoutOrder = v103(v25.UINavigationKeyBind), 
+        UiNavigationKeyBind = if v108 then v7.createElement(v27, {
+            style = v99, 
+            header = v97.uiNavigationKeyBindHeader, 
+            description = v97.uiNavigationKeyBindDescription, 
+            layoutOrder = v102(v25.UINavigationKeyBind), 
             Control = v7.createElement(l_Toggle_0, {
-                isChecked = v97.state.uiNavigationKeyBindEnabled, 
-                onActivated = v97.onUiNavigationKeyBindActivated, 
+                isChecked = v96.state.uiNavigationKeyBindEnabled, 
+                onActivated = v96.onUiNavigationKeyBindActivated, 
                 label = "", 
                 size = l_InputSize_0.Large
             })
         }) else nil, 
-        Divider4 = v88({
-            style = v100, 
-            layoutOrder = v103(v25.ReducedMotionDivider)
+        Divider4 = v87({
+            style = v99, 
+            layoutOrder = v102(v25.ReducedMotionDivider)
         }), 
         MasterVolume = v7.createElement(v28, {
-            layoutOrder = v103(v25.MasterVolume)
+            layoutOrder = v102(v25.MasterVolume)
         }), 
-        Divider5 = if v54 and (not l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() or v97.state.isLocalPlayerPartyVoiceEligible) then v88({
-            style = v100, 
-            layoutOrder = v103(v25.PartyVoiceVolumeDivider)
+        Divider5 = if v53 and (not l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() or v96.state.isLocalPlayerPartyVoiceEligible) then v87({
+            style = v99, 
+            layoutOrder = v102(v25.PartyVoiceVolumeDivider)
         }) else nil, 
-        PartyVoiceVolume = if v54 and (not l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() or v97.state.isLocalPlayerPartyVoiceEligible) then v7.createElement(v29, {
-            layoutOrder = v103(v25.PartyVoiceVolume)
+        PartyVoiceVolume = if v53 and (not l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() or v96.state.isLocalPlayerPartyVoiceEligible) then v7.createElement(v29, {
+            layoutOrder = v102(v25.PartyVoiceVolume)
         }) else nil, 
-        Divider6 = v88({
-            style = v100, 
-            layoutOrder = v103(v25.HapticsDivider)
+        Divider6 = v87({
+            style = v99, 
+            layoutOrder = v102(v25.HapticsDivider)
         }), 
         HapticsToggle = v7.createElement(v30, {
-            layoutOrder = v103(v25.Haptics)
+            layoutOrder = v102(v25.Haptics)
         }), 
-        Divider7 = if v35 then v88({
-            style = v100, 
-            layoutOrder = v103(v25.DeviceLevelThemeDivider)
+        Divider7 = if v35 then v87({
+            style = v99, 
+            layoutOrder = v102(v25.DeviceLevelThemeDivider)
         }) else nil, 
         DeviceLevelThemeDropdown = if v35 then v7.createElement(v27, {
-            style = v100, 
-            header = v98.deviceLevelThemeHeading, 
-            description = v98.deviceLevelThemeDescription, 
-            layoutOrder = v103(v25.DeviceLevelTheme), 
+            style = v99, 
+            header = v97.deviceLevelThemeHeading, 
+            description = v97.deviceLevelThemeDescription, 
+            layoutOrder = v102(v25.DeviceLevelTheme), 
             zIndex = 2, 
-            topToBottom = not v101, 
+            topToBottom = not v100, 
             Control = v7.createElement("Frame", {
-                Size = if v101 then UDim2.new(0, v115, 0, v97.props.themeCellHeight.Offset) else UDim2.new(1, 0, 0, v97.props.themeCellHeight.Offset), 
+                Size = if v100 then UDim2.new(0, v114, 0, v96.props.themeCellHeight.Offset) else UDim2.new(1, 0, 0, v96.props.themeCellHeight.Offset), 
                 BorderSizePixel = 0, 
                 BackgroundTransparency = 1
             }, {
                 v7.createElement(l_DropdownMenu_0, {
-                    placeholder = v117, 
-                    onChange = v97.props.themeSelectedCallback, 
-                    height = v97.props.themeCellHeight, 
-                    screenSize = v97.props.screenSize, 
+                    placeholder = v116, 
+                    onChange = v96.props.themeSelectedCallback, 
+                    height = v96.props.themeCellHeight, 
+                    screenSize = v96.props.screenSize, 
                     errorState = false, 
                     showDropShadow = false, 
                     dropdownMenuListPositionFixed = true, 
-                    defaultKey = v116, 
+                    defaultKey = v115, 
                     cellDatas = {
                         {
                             key = l_DeviceLevelThemeKey_0.System, 
-                            text = v98.deviceLevelThemeSystem
+                            text = v97.deviceLevelThemeSystem
                         }, 
                         {
                             key = l_DeviceLevelThemeKey_0.Dark, 
-                            text = v98.deviceLevelThemeDark
+                            text = v97.deviceLevelThemeDark
                         }, 
                         {
                             key = l_DeviceLevelThemeKey_0.Light, 
-                            text = v98.deviceLevelThemeLight
+                            text = v97.deviceLevelThemeLight
                         }
                     }
                 })
             })
         }) else nil, 
-        Divider8 = if l_GetFFlagEnableReadAloudInUA_0() then v88({
-            style = v100, 
-            layoutOrder = v103(v25.ReadAloudDivider)
+        Divider8 = if l_GetFFlagEnableReadAloudInUA_0() then v87({
+            style = v99, 
+            layoutOrder = v102(v25.ReadAloudDivider)
         }) else nil, 
         ReadAloud = if l_GetFFlagEnableReadAloudInUA_0() then v7.createElement(v27, {
-            style = v100, 
+            style = v99, 
             header = "Read Aloud", 
             description = "Experimental feature to allow text to be read aloud when right clicking.", 
-            layoutOrder = v103(v25.ReadAloud), 
+            layoutOrder = v102(v25.ReadAloud), 
             Control = v7.createElement(l_Toggle_0, {
-                isChecked = v97.state.readAloudEnabled, 
-                onActivated = v97.onReadAloudActivated, 
+                isChecked = v96.state.readAloudEnabled, 
+                onActivated = v96.onReadAloudActivated, 
                 size = l_InputSize_0.Large, 
                 label = ""
             })
         }) else nil, 
         LocalPlayerPartyVoiceEligibleBinder = if l_GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty_0() then v7.createElement(l_LocalPlayerPartyVoiceEligibleBinder_0, {
-            onChange = v121
+            onChange = v120
         }) else nil, 
-        Divider9 = if l_GetFFlagSystemTrayEnabled_0() then v88({
-            style = v100, 
-            layoutOrder = v103(v25.LaunchAtStartupDivider)
+        Divider9 = if l_GetFFlagSystemTrayEnabled_0() then v87({
+            style = v99, 
+            layoutOrder = v102(v25.LaunchAtStartupDivider)
         }) else nil, 
         LaunchAtStartup = if l_GetFFlagSystemTrayEnabled_0() then v7.createElement(v27, {
-            style = v100, 
-            header = v98.launchAtStartupHeader, 
-            description = v98.launchAtStartupDescription, 
-            layoutOrder = v103(v25.LaunchAtStartup), 
+            style = v99, 
+            header = v97.launchAtStartupHeader, 
+            description = v97.launchAtStartupDescription, 
+            layoutOrder = v102(v25.LaunchAtStartup), 
             Control = v7.createElement(l_Toggle_0, {
-                isChecked = v97.state.isLaunchAtStartupEnabled, 
-                onActivated = v97.onLaunchAtStartupActivated, 
+                isChecked = v96.state.isLaunchAtStartupEnabled, 
+                onActivated = v96.onLaunchAtStartupActivated, 
                 size = l_InputSize_0.Large, 
                 label = ""
             })
         }) else nil, 
-        Divider10 = if l_GetFFlagSystemTrayEnabled_0() then v88({
-            style = v100, 
-            layoutOrder = v103(v25.MinimizeToTrayDivider)
+        Divider10 = if l_GetFFlagSystemTrayEnabled_0() then v87({
+            style = v99, 
+            layoutOrder = v102(v25.MinimizeToTrayDivider)
         }) else nil, 
         MinimizeToTray = if l_GetFFlagSystemTrayEnabled_0() then v7.createElement(v27, {
-            style = v100, 
-            header = v98.minimizeToTrayHeader, 
-            description = v98.minimizeToTrayDescription, 
-            layoutOrder = v103(v25.MinimizeToTray), 
+            style = v99, 
+            header = v97.minimizeToTrayHeader, 
+            description = v97.minimizeToTrayDescription, 
+            layoutOrder = v102(v25.MinimizeToTray), 
             Control = v7.createElement(l_Toggle_0, {
-                isChecked = v97.state.isMinimizeToTrayEnabled, 
-                onActivated = v97.onMinimizeToTrayActivated, 
+                isChecked = v96.state.isMinimizeToTrayEnabled, 
+                onActivated = v96.onMinimizeToTrayActivated, 
                 size = l_InputSize_0.Large, 
                 label = ""
             })
         }) else nil
     });
 end;
-v61.render = function(v122) --[[ Line: 753 ]] --[[ Name: render ]]
+v60.render = function(v121) --[[ Line: 750 ]] --[[ Name: render ]]
     -- upvalues: v21 (copy), l_UserInputService_0 (copy), l_withStyle_0 (copy)
     return v21({
         accessibilityDescription = "Feature.Accessibility.Description.Main", 
@@ -658,65 +657,65 @@ v61.render = function(v122) --[[ Line: 753 ]] --[[ Name: render ]]
         launchAtStartupDescription = "Feature.Accessibility.Description.LaunchAtStartup", 
         minimizeToTrayHeader = "Feature.Accessibility.Heading.MinimizeToTray", 
         minimizeToTrayDescription = "Feature.Accessibility.Description.MinimizeToTray"
-    })(function(v123) --[[ Line: 780 ]]
-        -- upvalues: l_withStyle_0 (ref), v122 (copy)
-        return l_withStyle_0(function(v124) --[[ Line: 781 ]]
-            -- upvalues: v122 (ref), v123 (copy)
-            return v122:renderWithProviders(v123, v124.Theme.BackgroundDefault, v124);
+    })(function(v122) --[[ Line: 777 ]]
+        -- upvalues: l_withStyle_0 (ref), v121 (copy)
+        return l_withStyle_0(function(v123) --[[ Line: 778 ]]
+            -- upvalues: v121 (ref), v122 (copy)
+            return v121:renderWithProviders(v122, v123.Theme.BackgroundDefault, v123);
         end);
     end);
 end;
-v61.willUnmount = function(v125) --[[ Line: 787 ]] --[[ Name: willUnmount ]]
-    v125:eventDisconnect();
+v60.willUnmount = function(v124) --[[ Line: 784 ]] --[[ Name: willUnmount ]]
+    v124:eventDisconnect();
 end;
-v61 = v10.connect(function(v126, _) --[[ Line: 791 ]]
+v60 = v10.connect(function(v125, _) --[[ Line: 788 ]]
     -- upvalues: v35 (copy)
     return {
-        formFactor = v126.FormFactor, 
-        platform = v126.Platform, 
-        screenSize = if v35 then v126.ScreenSize else nil
+        formFactor = v125.FormFactor, 
+        platform = v125.Platform, 
+        screenSize = if v35 then v125.ScreenSize else nil
     };
-end)(v61);
-local function v137(v128) --[[ Line: 800 ]] --[[ Name: DeviceSettingsPageContentContainer ]]
-    -- upvalues: v6 (copy), l_ThemeContext_0 (copy), v35 (copy), l_useLocalUserId_0 (copy), v50 (copy), v52 (copy), l_DeviceLevelThemeKey_0 (copy), v36 (copy), v53 (copy), v37 (copy), l_Logger_0 (copy), l_useTokens_0 (copy), v33 (copy), l_FFlagVRUseStandardDeviceSettingPageContent_0 (copy), l_useIsSpatial_0 (copy), v61 (ref)
-    local v129 = v6.useContext(l_ThemeContext_0);
-    local v130 = if v35 then l_useLocalUserId_0() else nil;
-    local v133 = v6.useCallback(function(v131) --[[ Line: 803 ]]
-        -- upvalues: v50 (ref), v52 (ref), l_DeviceLevelThemeKey_0 (ref), v36 (ref), v53 (ref), v37 (ref), l_Logger_0 (ref)
-        if v50() then
-            v52(v131, {});
+end)(v60);
+local function v136(v127) --[[ Line: 797 ]] --[[ Name: DeviceSettingsPageContentContainer ]]
+    -- upvalues: v6 (copy), l_ThemeContext_0 (copy), v35 (copy), l_useLocalUserId_0 (copy), v49 (copy), v51 (copy), l_DeviceLevelThemeKey_0 (copy), v36 (copy), v52 (copy), v37 (copy), l_Logger_0 (copy), l_useTokens_0 (copy), v33 (copy), l_FFlagVRUseStandardDeviceSettingPageContent_0 (copy), l_useIsSpatial_0 (copy), v60 (ref)
+    local v128 = v6.useContext(l_ThemeContext_0);
+    local v129 = if v35 then l_useLocalUserId_0() else nil;
+    local v132 = v6.useCallback(function(v130) --[[ Line: 800 ]]
+        -- upvalues: v49 (ref), v51 (ref), l_DeviceLevelThemeKey_0 (ref), v36 (ref), v52 (ref), v37 (ref), l_Logger_0 (ref)
+        if v49() then
+            v51(v130, {});
             return;
         else
-            local v132 = nil;
-            if v131 == l_DeviceLevelThemeKey_0.System then
-                v132 = v36 and v53(v36) or nil;
-            elseif v131 == l_DeviceLevelThemeKey_0.Light then
-                v132 = v37 and v37.Light or nil;
-            elseif v131 == l_DeviceLevelThemeKey_0.Dark then
-                v132 = v37 and v37.Dark or nil;
+            local v131 = nil;
+            if v130 == l_DeviceLevelThemeKey_0.System then
+                v131 = v36 and v52(v36) or nil;
+            elseif v130 == l_DeviceLevelThemeKey_0.Light then
+                v131 = v37 and v37.Light or nil;
+            elseif v130 == l_DeviceLevelThemeKey_0.Dark then
+                v131 = v37 and v37.Dark or nil;
             end;
-            l_Logger_0:info("The user selected theme: " .. v131 .. ". Setting theme to: " .. tostring(v132));
-            if v36 and v132 then
-                v36:setTheme(v132);
+            l_Logger_0:info("The user selected theme: " .. v130 .. ". Setting theme to: " .. tostring(v131));
+            if v36 and v131 then
+                v36:setTheme(v131);
             end;
             return;
         end;
     end, {
-        v129
+        v128
     });
-    local v134 = l_useTokens_0();
-    local v135 = UDim.new(0, v134.Size.Size_1200);
-    local v136 = v33.Dictionary.join(v128, {
-        themeSelectedCallback = v133, 
-        themeCellHeight = v135, 
-        userId = v130, 
+    local v133 = l_useTokens_0();
+    local v134 = UDim.new(0, v133.Size.Size_1200);
+    local v135 = v33.Dictionary.join(v127, {
+        themeSelectedCallback = v132, 
+        themeCellHeight = v134, 
+        userId = v129, 
         isSpatial = l_FFlagVRUseStandardDeviceSettingPageContent_0 and l_useIsSpatial_0()
     });
-    return v6.createElement(v61, v136);
+    return v6.createElement(v60, v135);
 end;
 local _ = nil;
 return if v35 then l_RoactServices_0.connect({
     roactAnalytics = v9
-})(v137) else l_RoactServices_0.connect({
+})(v136) else l_RoactServices_0.connect({
     roactAnalytics = v9
-})(v61);
+})(v60);

@@ -54,10 +54,13 @@ local v5 = {
 local v6 = {
     titleText = "Feature.Parents.Title.EnterParentEmailV2", 
     buttonText = "Feature.Parents.Action.SendEmail", 
-    textFieldHeaderText = "Feature.Parents.Label.EmailCapitalized", 
+    textFieldHeaderText = "Feature.Parents.Label.ParentEmail", 
     errorText = "Feature.Parents.Message.InvalidEmail", 
     emailPlaceholder = "Feature.Parents.Label.Email", 
-    privacyLinkText = "Amp.IDVUpsell.PrivacyPageHeader"
+    privacyLinkText = "Amp.IDVUpsell.PrivacyPageHeader", 
+    childInstructions = "Feature.Parents.Description.EnterParentEmail.ChildInstructions", 
+    parentInstructionsPC = "Feature.Parents.Description.EnterParentEmail.PC", 
+    parentInstructionsNoPC = "Feature.Parents.Description.EnterParentEmail.NoPC"
 };
 local v7 = {
     [l_VPCErrorCategoriesEnum_0.InternalVPCError] = {

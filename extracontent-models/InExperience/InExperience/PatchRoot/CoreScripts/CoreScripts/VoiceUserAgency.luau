@@ -15,24 +15,27 @@ local v13 = require(l_CorePackages_0.Workspace.Packages.RobloxTranslator);
 local l_default_0 = require(l_Modules_0.VoiceChat.VoiceChatServiceManager).default;
 local v15 = require(l_Modules_0.VoiceChat.Constants);
 local l_AppFonts_0 = require(l_CorePackages_0.Workspace.Packages.Style).AppFonts;
-local v17 = require(l_Modules_0.Flags.GetFFlagVoiceUserAgencyEnableIXP);
-local v18 = require(l_Modules_0.Flags.GetFStringVoiceUserAgencyIXPLayerName);
-local v19 = game:DefineFastInt("VoiceUserAgencyAlertInitTimeOffset", 5);
-local v20 = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3);
-local v21 = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7);
-local v22 = game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false);
-local v23 = game:DefineFastFlag("VoiceUserAgencyAdjustDescriptionText", false);
-local v24 = v13:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.Remember");
-local v25 = tostring(game.PlaceId);
+local v17 = require(l_CorePackages_0.Packages.BuilderIcons);
+local _ = v17.Migration;
+local v19 = require(l_Modules_0.Flags.GetFFlagVoiceUserAgencyEnableIXP);
+local v20 = require(l_Modules_0.Flags.GetFStringVoiceUserAgencyIXPLayerName);
+local l_FFlagManuallyMigrateDeprecatedIconUsage_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagManuallyMigrateDeprecatedIconUsage;
+local v22 = game:DefineFastInt("VoiceUserAgencyAlertInitTimeOffset", 5);
+local v23 = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3);
+local v24 = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7);
+local v25 = game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false);
+local v26 = game:DefineFastFlag("VoiceUserAgencyAdjustDescriptionText", false);
+local v27 = v13:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.Remember");
+local v28 = tostring(game.PlaceId);
 local l_UserId_0 = l_Players_0.LocalPlayer.UserId;
-local function v31() --[[ Line: 44 ]] --[[ Name: getAppStorageTable ]]
+local function v34() --[[ Line: 48 ]] --[[ Name: getAppStorageTable ]]
     -- upvalues: l_AppStorageService_0 (copy), l_HttpService_0 (copy)
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 45 ]]
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 49 ]]
         -- upvalues: l_AppStorageService_0 (ref)
         return l_AppStorageService_0:GetItem("VoiceUserAgencyPlaceIds");
     end);
     if l_status_0 then
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 49 ]]
+        local l_status_1, l_result_1 = pcall(function() --[[ Line: 53 ]]
             -- upvalues: l_HttpService_0 (ref), l_result_0 (copy)
             return l_HttpService_0:JSONDecode(l_result_0);
         end);
@@ -42,21 +45,21 @@ local function v31() --[[ Line: 44 ]] --[[ Name: getAppStorageTable ]]
     end;
     return {};
 end;
-local v32 = false;
-local _ = function() --[[ Line: 60 ]] --[[ Name: resetHistory ]]
-    -- upvalues: v32 (ref), v31 (copy), v25 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v12 (copy)
-    if v32 then
+local v35 = false;
+local _ = function() --[[ Line: 64 ]] --[[ Name: resetHistory ]]
+    -- upvalues: v35 (ref), v34 (copy), v28 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v12 (copy)
+    if v35 then
         return;
     else
-        local l_status_2, l_result_2 = pcall(function() --[[ Line: 64 ]]
-            -- upvalues: v31 (ref), v25 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v32 (ref)
-            local v33 = v31();
-            for v34, _ in v33 do
-                if v34 == v25 then
-                    v33[v34] = nil;
-                    l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v33));
+        local l_status_2, l_result_2 = pcall(function() --[[ Line: 68 ]]
+            -- upvalues: v34 (ref), v28 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v35 (ref)
+            local v36 = v34();
+            for v37, _ in v36 do
+                if v37 == v28 then
+                    v36[v37] = nil;
+                    l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v36));
                     l_AppStorageService_0:Flush();
-                    v32 = true;
+                    v35 = true;
                     return;
                 end;
             end;
@@ -67,22 +70,22 @@ local _ = function() --[[ Line: 60 ]] --[[ Name: resetHistory ]]
         return;
     end;
 end;
-local function v50() --[[ Line: 81 ]] --[[ Name: bindResetHistory ]]
-    -- upvalues: l_default_0 (copy), v32 (ref), v31 (copy), v25 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v12 (copy)
-    l_default_0.muteAllChanged.Event:Connect(function(_) --[[ Line: 83 ]]
-        -- upvalues: v32 (ref), v31 (ref), v25 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v12 (ref)
-        if v32 then
+local function v53() --[[ Line: 85 ]] --[[ Name: bindResetHistory ]]
+    -- upvalues: l_default_0 (copy), v35 (ref), v34 (copy), v28 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v12 (copy)
+    l_default_0.muteAllChanged.Event:Connect(function(_) --[[ Line: 87 ]]
+        -- upvalues: v35 (ref), v34 (ref), v28 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v12 (ref)
+        if v35 then
             return;
         else
-            local l_status_3, l_result_3 = pcall(function() --[[ Line: 64 ]]
-                -- upvalues: v31 (ref), v25 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v32 (ref)
-                local v40 = v31();
-                for v41, _ in v40 do
-                    if v41 == v25 then
-                        v40[v41] = nil;
-                        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v40));
+            local l_status_3, l_result_3 = pcall(function() --[[ Line: 68 ]]
+                -- upvalues: v34 (ref), v28 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v35 (ref)
+                local v43 = v34();
+                for v44, _ in v43 do
+                    if v44 == v28 then
+                        v43[v44] = nil;
+                        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v43));
                         l_AppStorageService_0:Flush();
-                        v32 = true;
+                        v35 = true;
                         return;
                     end;
                 end;
@@ -93,20 +96,20 @@ local function v50() --[[ Line: 81 ]] --[[ Name: bindResetHistory ]]
             return;
         end;
     end);
-    l_default_0.mutedNonFriends.Event:Connect(function() --[[ Line: 86 ]]
-        -- upvalues: v32 (ref), v31 (ref), v25 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v12 (ref)
-        if v32 then
+    l_default_0.mutedNonFriends.Event:Connect(function() --[[ Line: 90 ]]
+        -- upvalues: v35 (ref), v34 (ref), v28 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v12 (ref)
+        if v35 then
             return;
         else
-            local l_status_4, l_result_4 = pcall(function() --[[ Line: 64 ]]
-                -- upvalues: v31 (ref), v25 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v32 (ref)
-                local v45 = v31();
-                for v46, _ in v45 do
-                    if v46 == v25 then
-                        v45[v46] = nil;
-                        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v45));
+            local l_status_4, l_result_4 = pcall(function() --[[ Line: 68 ]]
+                -- upvalues: v34 (ref), v28 (ref), l_AppStorageService_0 (ref), l_HttpService_0 (ref), v35 (ref)
+                local v48 = v34();
+                for v49, _ in v48 do
+                    if v49 == v28 then
+                        v48[v49] = nil;
+                        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v48));
                         l_AppStorageService_0:Flush();
-                        v32 = true;
+                        v35 = true;
                         return;
                     end;
                 end;
@@ -118,35 +121,35 @@ local function v50() --[[ Line: 81 ]] --[[ Name: bindResetHistory ]]
         end;
     end);
 end;
-local function v55(v51, v52, v53) --[[ Line: 91 ]] --[[ Name: removeUserAgencyPrompt ]]
-    -- upvalues: v31 (copy), v25 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v22 (copy), l_RbxAnalyticsService_0 (copy), l_UserId_0 (copy), l_default_0 (copy), v50 (copy)
-    v51:Destroy();
-    if v52 then
-        local v54 = v31();
-        v54[v25] = v53;
-        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v54));
+local function v58(v54, v55, v56) --[[ Line: 95 ]] --[[ Name: removeUserAgencyPrompt ]]
+    -- upvalues: v34 (copy), v28 (copy), l_AppStorageService_0 (copy), l_HttpService_0 (copy), v25 (copy), l_RbxAnalyticsService_0 (copy), l_UserId_0 (copy), l_default_0 (copy), v53 (copy)
+    v54:Destroy();
+    if v55 then
+        local v57 = v34();
+        v57[v28] = v56;
+        l_AppStorageService_0:SetItem("VoiceUserAgencyPlaceIds", l_HttpService_0:JSONEncode(v57));
         l_AppStorageService_0:Flush();
     end;
-    if v22 then
+    if v25 then
         l_RbxAnalyticsService_0:SendEventDeferred("client", "voiceChat", "SelectJoinWithVoice", {
             userId = l_UserId_0, 
             voiceSessionId = l_default_0:getService():GetSessionId(), 
             voiceExperienceId = l_default_0:getService():GetVoiceExperienceId(), 
-            isMuteAll = v53, 
-            isRememberSetting = v52
+            isMuteAll = v56, 
+            isRememberSetting = v55
         });
     end;
-    l_default_0:FireUserAgencySelectedEvent(v53);
-    v50();
+    l_default_0:FireUserAgencySelectedEvent(v56);
+    v53();
 end;
-local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
-    -- upvalues: v17 (copy), l_IXPServiceWrapper_0 (copy), v18 (copy), v31 (copy), v25 (copy), v12 (copy), l_default_0 (copy), v15 (copy), v50 (copy), l_RbxAnalyticsService_0 (copy), l_UserId_0 (copy), l_CoreGui_0 (copy), l_Create_0 (copy), l_AppFonts_0 (copy), v13 (copy), v55 (copy), v21 (copy), l_TweenService_0 (copy), l_Images_0 (copy), v24 (copy), l_TextService_0 (copy), v23 (copy), v20 (copy)
-    local v56 = false;
-    local v57 = false;
-    if v17() then
-        local l_status_5, l_result_5 = pcall(function() --[[ Line: 122 ]]
-            -- upvalues: l_IXPServiceWrapper_0 (ref), v18 (ref)
-            return l_IXPServiceWrapper_0:GetLayerData(v18());
+local function v80() --[[ Line: 120 ]] --[[ Name: showUserAgencyPrompt ]]
+    -- upvalues: v19 (copy), l_IXPServiceWrapper_0 (copy), v20 (copy), v34 (copy), v28 (copy), v12 (copy), l_default_0 (copy), v15 (copy), v53 (copy), l_RbxAnalyticsService_0 (copy), l_UserId_0 (copy), l_CoreGui_0 (copy), l_Create_0 (copy), l_AppFonts_0 (copy), v13 (copy), v58 (copy), v24 (copy), l_TweenService_0 (copy), l_FFlagManuallyMigrateDeprecatedIconUsage_0 (copy), v17 (copy), l_Images_0 (copy), v27 (copy), l_TextService_0 (copy), v26 (copy), v23 (copy)
+    local v59 = false;
+    local v60 = false;
+    if v19() then
+        local l_status_5, l_result_5 = pcall(function() --[[ Line: 126 ]]
+            -- upvalues: l_IXPServiceWrapper_0 (ref), v20 (ref)
+            return l_IXPServiceWrapper_0:GetLayerData(v20());
         end);
         if not l_status_5 then
             return;
@@ -156,12 +159,12 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
             return;
         end;
     end;
-    local l_status_6, l_result_6 = pcall(function() --[[ Line: 141 ]]
-        -- upvalues: v31 (ref), v25 (ref)
-        local v60 = v31();
-        for v61, v62 in pairs(v60) do
-            if v61 == v25 and v62 ~= nil then
-                return v62;
+    local l_status_6, l_result_6 = pcall(function() --[[ Line: 145 ]]
+        -- upvalues: v34 (ref), v28 (ref)
+        local v63 = v34();
+        for v64, v65 in pairs(v63) do
+            if v64 == v28 and v65 ~= nil then
+                return v65;
             end;
         end;
     end);
@@ -171,7 +174,7 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
     elseif l_result_6 ~= nil then
         l_default_0:MuteAll(l_result_6, v15.VOICE_CONTEXT_TYPE.USER_AGENCY);
         l_default_0:FireUserAgencySelectedEvent(l_result_6);
-        v50();
+        v53();
         l_RbxAnalyticsService_0:SendEventDeferred("client", "voiceChat", "JoinWithVoice", {
             userId = l_UserId_0, 
             voiceSessionId = l_default_0:getService():GetSessionId(), 
@@ -186,7 +189,7 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
         l_ScreenGui_0.DisplayOrder = -1;
         l_ScreenGui_0.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
         l_ScreenGui_0.Parent = l_CoreGui_0;
-        local v66 = l_Create_0("TextButton")({
+        local v69 = l_Create_0("TextButton")({
             Name = "MuteAllButton", 
             BorderSizePixel = 0, 
             Size = UDim2.new(0.5, -6, 0, 36), 
@@ -205,13 +208,13 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
                 Color = Color3.fromRGB(178, 178, 178)
             })
         });
-        v66.Activated:Connect(function() --[[ Line: 196 ]]
-            -- upvalues: v56 (ref), l_default_0 (ref), v15 (ref), v55 (ref), l_ScreenGui_0 (copy), v57 (ref)
-            v56 = true;
-            l_default_0:MuteAll(v56, v15.VOICE_CONTEXT_TYPE.USER_AGENCY);
-            v55(l_ScreenGui_0, v57, v56);
+        v69.Activated:Connect(function() --[[ Line: 200 ]]
+            -- upvalues: v59 (ref), l_default_0 (ref), v15 (ref), v58 (ref), l_ScreenGui_0 (copy), v60 (ref)
+            v59 = true;
+            l_default_0:MuteAll(v59, v15.VOICE_CONTEXT_TYPE.USER_AGENCY);
+            v58(l_ScreenGui_0, v60, v59);
         end);
-        local v67 = l_Create_0("TextButton")({
+        local v70 = l_Create_0("TextButton")({
             Name = "UnmuteAllButton", 
             BorderSizePixel = 0, 
             Size = UDim2.new(0.5, -6, 0, 36), 
@@ -225,62 +228,67 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
                 CornerRadius = UDim.new(0, 8)
             })
         });
-        v67.Activated:Connect(function() --[[ Line: 217 ]]
-            -- upvalues: v56 (ref), l_default_0 (ref), v15 (ref), v55 (ref), l_ScreenGui_0 (copy), v57 (ref)
-            v56 = false;
-            l_default_0:MuteAll(v56, v15.VOICE_CONTEXT_TYPE.USER_AGENCY);
-            v55(l_ScreenGui_0, v57, v56);
+        v70.Activated:Connect(function() --[[ Line: 221 ]]
+            -- upvalues: v59 (ref), l_default_0 (ref), v15 (ref), v58 (ref), l_ScreenGui_0 (copy), v60 (ref)
+            v59 = false;
+            l_default_0:MuteAll(v59, v15.VOICE_CONTEXT_TYPE.USER_AGENCY);
+            v58(l_ScreenGui_0, v60, v59);
         end);
-        local v68 = l_Create_0("Frame")({
+        local v71 = l_Create_0("Frame")({
             Name = "TimerBar", 
             BorderSizePixel = 0, 
             Size = UDim2.new(0, 0, 1, 0), 
             BackgroundColor3 = Color3.fromRGB(255, 255, 255), 
             BackgroundTransparency = 0
         });
-        local v69 = {
+        local v72 = {
             Size = UDim2.fromScale(1, 1)
         };
-        local v70 = TweenInfo.new(v21, Enum.EasingStyle.Sine);
-        local v71 = l_TweenService_0:Create(v68, v70, v69);
-        v71.Completed:Connect(function(v72) --[[ Line: 234 ]]
-            -- upvalues: v55 (ref), l_ScreenGui_0 (copy), v57 (ref), v56 (ref)
-            if v72 == Enum.PlaybackState.Completed then
-                v55(l_ScreenGui_0, v57, v56);
+        local v73 = TweenInfo.new(v24, Enum.EasingStyle.Sine);
+        local v74 = l_TweenService_0:Create(v71, v73, v72);
+        v74.Completed:Connect(function(v75) --[[ Line: 238 ]]
+            -- upvalues: v58 (ref), l_ScreenGui_0 (copy), v60 (ref), v59 (ref)
+            if v75 == Enum.PlaybackState.Completed then
+                v58(l_ScreenGui_0, v60, v59);
             end;
         end);
-        local v73 = l_Create_0("ImageLabel")({
+        local v76 = if l_FFlagManuallyMigrateDeprecatedIconUsage_0 then l_Create_0("TextLabel")({
+            Size = UDim2.new(1, 0, 1, 0), 
+            BackgroundTransparency = 1, 
+            Text = v17.Migration["icons/status/success_small"].name, 
+            FontFace = v17.Font[v17.Migration["icons/status/success_small"].variant]
+        }) else l_Create_0("ImageLabel")({
             Size = UDim2.new(1, 0, 1, 0), 
             BackgroundTransparency = 1, 
             Image = l_Images_0["icons/status/success_small"].Image, 
             ImageRectOffset = l_Images_0["icons/status/success_small"].ImageRectOffset, 
             ImageRectSize = l_Images_0["icons/status/success_small"].ImageRectSize
         });
-        local v74 = l_Create_0("ImageButton")({
+        local v77 = l_Create_0("ImageButton")({
             Size = UDim2.new(0, 14, 0, 14), 
             BackgroundTransparency = 1, 
             Image = l_Images_0["squircles/hollow"].Image, 
             ImageRectOffset = l_Images_0["squircles/hollow"].ImageRectOffset, 
             ImageRectSize = l_Images_0["squircles/hollow"].ImageRectSize
         });
-        v73.Visible = false;
-        v73.Parent = v74;
-        v74.Activated:Connect(function() --[[ Line: 256 ]]
-            -- upvalues: v73 (copy), v57 (ref), v71 (copy), l_RbxAnalyticsService_0 (ref), l_UserId_0 (ref), l_default_0 (ref)
-            v73.Visible = not v73.Visible;
-            v57 = v73.Visible;
-            v71:Pause();
+        v76.Visible = false;
+        v76.Parent = v77;
+        v77.Activated:Connect(function() --[[ Line: 267 ]]
+            -- upvalues: v76 (copy), v60 (ref), v74 (copy), l_RbxAnalyticsService_0 (ref), l_UserId_0 (ref), l_default_0 (ref)
+            v76.Visible = not v76.Visible;
+            v60 = v76.Visible;
+            v74:Pause();
             l_RbxAnalyticsService_0:SendEventDeferred("client", "voiceChat", "RememberJoinWithVoice", {
                 userId = l_UserId_0, 
                 voiceSessionId = l_default_0:getService():GetSessionId(), 
                 voiceExperienceId = l_default_0:getService():GetVoiceExperienceId(), 
-                shouldRememberStatus = v57
+                shouldRememberStatus = v60
             });
         end);
-        local v75 = l_Create_0("TextLabel")({
+        local v78 = l_Create_0("TextLabel")({
             Name = "CheckboxTextLabel", 
             Font = l_AppFonts_0.default:getDefault(), 
-            Text = v24, 
+            Text = v27, 
             TextColor3 = Color3.fromRGB(190, 190, 190), 
             TextSize = 16, 
             TextWrapped = true, 
@@ -289,8 +297,8 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
             TextTransparency = 0, 
             LayoutOrder = 2
         });
-        local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v24, 16, l_AppFonts_0.default:getDefault(), Vector2.new(350, 24));
-        v75.Size = UDim2.new(0, l_l_TextService_0_TextSize_0.X + 10, 0, 24);
+        local l_l_TextService_0_TextSize_0 = l_TextService_0:GetTextSize(v27, 16, l_AppFonts_0.default:getDefault(), Vector2.new(350, 24));
+        v78.Size = UDim2.new(0, l_l_TextService_0_TextSize_0.X + 10, 0, 24);
         l_Create_0("Frame")({
             Name = "VoiceUserAgencyFrame", 
             AnchorPoint = Vector2.new(0.5, 0), 
@@ -329,7 +337,7 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
             l_Create_0("TextLabel")({
                 Name = "Lower", 
                 Font = l_AppFonts_0.default:getDefault(), 
-                Text = v23 and v13:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Description") or v13:FormatByKey("Feature.SettingsHub.VoiceUserAgency.JoinUnmuted.Description"), 
+                Text = v26 and v13:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Description") or v13:FormatByKey("Feature.SettingsHub.VoiceUserAgency.JoinUnmuted.Description"), 
                 TextColor3 = Color3.fromRGB(190, 190, 190), 
                 TextSize = 16, 
                 TextWrapped = true, 
@@ -345,7 +353,7 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
                 Size = UDim2.new(1, 48, 0, 3), 
                 BackgroundTransparency = 0, 
                 LayoutOrder = 3; 
-                v68
+                v71
             }), 
             l_Create_0("Frame")({
                 Name = "ButtonsContainer", 
@@ -360,8 +368,8 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     Padding = UDim.new(0, 12)
                 }), 
-                v67, 
-                v66
+                v70, 
+                v69
             }), 
             l_Create_0("Frame")({
                 Name = "CheckboxContainer", 
@@ -376,28 +384,28 @@ local function v77() --[[ Line: 116 ]] --[[ Name: showUserAgencyPrompt ]]
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     Padding = UDim.new(0, 8)
                 }), 
-                v74, 
-                v75
+                v77, 
+                v78
             })
         }).Parent = l_ScreenGui_0;
-        task.delay(v20, function() --[[ Line: 397 ]]
-            -- upvalues: l_RbxAnalyticsService_0 (ref), l_UserId_0 (ref), l_default_0 (ref), v71 (copy)
+        task.delay(v23, function() --[[ Line: 408 ]]
+            -- upvalues: l_RbxAnalyticsService_0 (ref), l_UserId_0 (ref), l_default_0 (ref), v74 (copy)
             l_RbxAnalyticsService_0:SendEventDeferred("client", "voiceChat", "ShowJoinWithVoice", {
                 userId = l_UserId_0, 
                 voiceSessionId = l_default_0:getService():GetSessionId(), 
                 voiceExperienceId = l_default_0:getService():GetVoiceExperienceId()
             });
-            v71:Play();
+            v74:Play();
         end);
         return;
     end;
 end;
-task.delay(v19, function() --[[ Line: 410 ]]
-    -- upvalues: l_default_0 (copy), v77 (copy), v12 (copy)
-    l_default_0:asyncInit():andThen(function() --[[ Line: 412 ]]
-        -- upvalues: v77 (ref)
-        v77();
-    end):catch(function() --[[ Line: 415 ]]
+task.delay(v22, function() --[[ Line: 421 ]]
+    -- upvalues: l_default_0 (copy), v80 (copy), v12 (copy)
+    l_default_0:asyncInit():andThen(function() --[[ Line: 423 ]]
+        -- upvalues: v80 (ref)
+        v80();
+    end):catch(function() --[[ Line: 426 ]]
         -- upvalues: v12 (ref)
         v12:trace("VoiceChatServiceManager did not initialize for VoiceUserAgency");
     end);

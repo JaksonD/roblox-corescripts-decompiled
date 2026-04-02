@@ -4,14 +4,14 @@ local v2 = {};
 local v3 = {};
 v3.__index = v3;
 local l_v3_0 = v3 --[[ copy: 3 -> 4 ]];
-v3.new = function(v5) --[[ Line: 137 ]] --[[ Name: new ]]
+v3.new = function(v5) --[[ Line: 139 ]] --[[ Name: new ]]
     -- upvalues: l_v3_0 (copy)
     return (setmetatable({
         id = (not (v5 ~= nil) or v5.id == nil) and "" or v5.id, 
         type = (not (v5 ~= nil) or v5.type == nil) and "" or v5.type
     }, l_v3_0));
 end;
-v3.encode = function(v6) --[[ Line: 144 ]] --[[ Name: encode ]]
+v3.encode = function(v6) --[[ Line: 146 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v7 = buffer.create(0);
     local v8 = 0;
@@ -31,7 +31,7 @@ v3.encode = function(v6) --[[ Line: 144 ]] --[[ Name: encode ]]
     buffer.copy(v13, 0, v7, 0, v8);
     return v13;
 end;
-v3.decode = function(v14) --[[ Line: 163 ]] --[[ Name: decode ]]
+v3.decode = function(v14) --[[ Line: 165 ]] --[[ Name: decode ]]
     -- upvalues: l_v3_0 (copy), v0 (copy)
     local v15 = l_v3_0.new();
     local v16 = 0;
@@ -81,7 +81,7 @@ v3.decode = function(v14) --[[ Line: 163 ]] --[[ Name: decode ]]
     end;
     return v15;
 end;
-v3.jsonEncode = function(v22) --[[ Line: 211 ]] --[[ Name: jsonEncode ]]
+v3.jsonEncode = function(v22) --[[ Line: 213 ]] --[[ Name: jsonEncode ]]
     local v23 = {};
     if v22.id ~= nil and v22.id ~= "" then
         v23.id = v22.id;
@@ -91,7 +91,7 @@ v3.jsonEncode = function(v22) --[[ Line: 211 ]] --[[ Name: jsonEncode ]]
     end;
     return v23;
 end;
-v3.jsonDecode = function(v24) --[[ Line: 225 ]] --[[ Name: jsonDecode ]]
+v3.jsonDecode = function(v24) --[[ Line: 227 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v3_0 (copy)
     local v25 = l_v3_0.new();
     if v24.id ~= nil then
@@ -111,13 +111,13 @@ v1.default:register(v2.CatalogSortContentData);
 v3 = {};
 v3.__index = v3;
 local l_v3_1 = v3 --[[ copy: 3 -> 5 ]];
-v3.new = function(v27) --[[ Line: 253 ]] --[[ Name: new ]]
+v3.new = function(v27) --[[ Line: 255 ]] --[[ Name: new ]]
     -- upvalues: l_v3_1 (copy)
     return (setmetatable({
         content_type = (not (v27 ~= nil) or v27.content_type == nil) and "" or v27.content_type
     }, l_v3_1));
 end;
-v3.encode = function(v28) --[[ Line: 261 ]] --[[ Name: encode ]]
+v3.encode = function(v28) --[[ Line: 263 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v29 = buffer.create(0);
     local v30 = 0;
@@ -131,7 +131,7 @@ v3.encode = function(v28) --[[ Line: 261 ]] --[[ Name: encode ]]
     buffer.copy(v33, 0, v29, 0, v30);
     return v33;
 end;
-v3.decode = function(v34) --[[ Line: 275 ]] --[[ Name: decode ]]
+v3.decode = function(v34) --[[ Line: 277 ]] --[[ Name: decode ]]
     -- upvalues: l_v3_1 (copy), v0 (copy)
     local v35 = l_v3_1.new();
     local v36 = 0;
@@ -175,14 +175,14 @@ v3.decode = function(v34) --[[ Line: 275 ]] --[[ Name: decode ]]
     end;
     return v35;
 end;
-v3.jsonEncode = function(v42) --[[ Line: 318 ]] --[[ Name: jsonEncode ]]
+v3.jsonEncode = function(v42) --[[ Line: 320 ]] --[[ Name: jsonEncode ]]
     local v43 = {};
     if v42.content_type ~= nil and v42.content_type ~= "" then
         v43.contentType = v42.content_type;
     end;
     return v43;
 end;
-v3.jsonDecode = function(v44) --[[ Line: 328 ]] --[[ Name: jsonDecode ]]
+v3.jsonDecode = function(v44) --[[ Line: 330 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v3_1 (copy)
     local v45 = l_v3_1.new();
     if v44.content_type ~= nil then
@@ -202,13 +202,13 @@ v1.default:register(v2.CatalogSortCardItemFooter);
 v3 = {};
 v3.__index = v3;
 local l_v3_2 = v3 --[[ copy: 3 -> 6 ]];
-v3.new = function(v47) --[[ Line: 356 ]] --[[ Name: new ]]
+v3.new = function(v47) --[[ Line: 358 ]] --[[ Name: new ]]
     -- upvalues: l_v3_2 (copy)
     return (setmetatable({
         thumbnail_aspect_ratio = (not (v47 ~= nil) or v47.thumbnail_aspect_ratio == nil) and "" or v47.thumbnail_aspect_ratio
     }, l_v3_2));
 end;
-v3.encode = function(v48) --[[ Line: 364 ]] --[[ Name: encode ]]
+v3.encode = function(v48) --[[ Line: 366 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v49 = buffer.create(0);
     local v50 = 0;
@@ -222,7 +222,7 @@ v3.encode = function(v48) --[[ Line: 364 ]] --[[ Name: encode ]]
     buffer.copy(v53, 0, v49, 0, v50);
     return v53;
 end;
-v3.decode = function(v54) --[[ Line: 378 ]] --[[ Name: decode ]]
+v3.decode = function(v54) --[[ Line: 380 ]] --[[ Name: decode ]]
     -- upvalues: l_v3_2 (copy), v0 (copy)
     local v55 = l_v3_2.new();
     local v56 = 0;
@@ -266,14 +266,14 @@ v3.decode = function(v54) --[[ Line: 378 ]] --[[ Name: decode ]]
     end;
     return v55;
 end;
-v3.jsonEncode = function(v62) --[[ Line: 421 ]] --[[ Name: jsonEncode ]]
+v3.jsonEncode = function(v62) --[[ Line: 423 ]] --[[ Name: jsonEncode ]]
     local v63 = {};
     if v62.thumbnail_aspect_ratio ~= nil and v62.thumbnail_aspect_ratio ~= "" then
         v63.thumbnailAspectRatio = v62.thumbnail_aspect_ratio;
     end;
     return v63;
 end;
-v3.jsonDecode = function(v64) --[[ Line: 431 ]] --[[ Name: jsonDecode ]]
+v3.jsonDecode = function(v64) --[[ Line: 433 ]] --[[ Name: jsonDecode ]]
     -- upvalues: l_v3_2 (copy)
     local v65 = l_v3_2.new();
     if v64.thumbnail_aspect_ratio ~= nil then
@@ -292,7 +292,7 @@ v2.CatalogSortCardStyle = v3;
 v1.default:register(v2.CatalogSortCardStyle);
 v3 = {};
 v3.__index = v3;
-v3.new = function(v66) --[[ Line: 459 ]] --[[ Name: new ]]
+v3.new = function(v66) --[[ Line: 461 ]] --[[ Name: new ]]
     -- upvalues: v3 (copy)
     return (setmetatable({
         id = (not (v66 ~= nil) or v66.id == nil) and "" or v66.id, 
@@ -304,10 +304,11 @@ v3.new = function(v66) --[[ Line: 459 ]] --[[ Name: new ]]
         title = (not (v66 ~= nil) or v66.title == nil) and "" or v66.title, 
         description = (not (v66 ~= nil) or v66.description == nil) and "" or v66.description, 
         card_style = if not (v66 ~= nil) or v66.card_style == nil then nil else v66.card_style, 
-        card_footers = if not (v66 ~= nil) or v66.card_footers == nil then {} else v66.card_footers
+        card_footers = if not (v66 ~= nil) or v66.card_footers == nil then {} else v66.card_footers, 
+        tag_id = (not (v66 ~= nil) or v66.tag_id == nil) and "" or v66.tag_id
     }, v3));
 end;
-v3.encode = function(v67) --[[ Line: 474 ]] --[[ Name: encode ]]
+v3.encode = function(v67) --[[ Line: 477 ]] --[[ Name: encode ]]
     -- upvalues: v0 (copy)
     local v68 = buffer.create(0);
     local v69 = 0;
@@ -378,213 +379,234 @@ v3.encode = function(v67) --[[ Line: 474 ]] --[[ Name: encode ]]
             v69 = v96;
         end;
     end;
-    local v97 = buffer.create(v69);
-    buffer.copy(v97, 0, v68, 0, v69);
-    return v97;
-end;
-v3.decode = function(v98) --[[ Line: 540 ]] --[[ Name: decode ]]
-    -- upvalues: v3 (copy), v0 (copy), v2 (copy)
-    local v99 = v3.new();
-    local v100 = 0;
-    while v100 < buffer.len(v98) do
-        local v101 = nil;
-        local v102 = nil;
-        local v103, v104, v105 = v0.readTag(v98, v100);
-        v101 = v103;
-        v102 = v104;
-        v100 = v105;
-        if v102 == v0.wireTypes.varint then
-            if v101 == 3 then
-                v103 = nil;
-                v104, v105 = v0.readVarIntI32(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.hydration_priority = v103;
-            elseif v101 == 4 then
-                v103 = nil;
-                v104, v105 = v0.readVarIntI32(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.hydration_count = v103;
-            elseif v101 == 6 then
-                v103 = nil;
-                v104, v105 = v0.readVarIntI64(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.preview_columns = v103;
-            else
-                v103 = nil;
-                v104, v105 = v0.readVarInt(v98, v100);
-                v103 = v104;
-                v100 = v105;
-            end;
-        elseif v102 == v0.wireTypes.lengthDelimited then
-            if v101 == 1 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.id = buffer.tostring(v103);
-            elseif v101 == 2 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.type = buffer.tostring(v103);
-            elseif v101 == 5 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                table.insert(v99.content, v2.CatalogSortContentData.decode(v103));
-            elseif v101 == 7 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.title = buffer.tostring(v103);
-            elseif v101 == 8 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.description = buffer.tostring(v103);
-            elseif v101 == 9 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                v99.card_style = v2.CatalogSortCardStyle.decode(v103);
-            elseif v101 == 10 then
-                v103 = nil;
-                v104, v105 = v0.readBuffer(v98, v100);
-                v103 = v104;
-                v100 = v105;
-                table.insert(v99.card_footers, v2.CatalogSortCardItemFooter.decode(v103));
-            else
-                v103 = nil;
-                v104, v105 = v0.readVarInt(v98, v100);
-                v100 = v105 + v104;
-            end;
-        elseif v102 == v0.wireTypes.i32 then
-            v103 = nil;
-            v104, v105 = v0.readFixed32(v98, v100);
-            v103 = v104;
-            v100 = v105;
-        elseif v102 == v0.wireTypes.i64 then
-            v103 = nil;
-            v104, v105 = v0.readFixed64(v98, v100);
-            v103 = v104;
-            v100 = v105;
-        else
-            error("Unsupported wire type: " .. v102);
-        end;
+    if v67.tag_id ~= nil and v67.tag_id ~= "" then
+        local v97, v98 = v0.writeTag(v68, v69, 11, v0.wireTypes.lengthDelimited);
+        v97, v98 = v0.writeString(v97, v98, v67.tag_id);
+        v68 = v97;
+        v69 = v98;
     end;
+    local v99 = buffer.create(v69);
+    buffer.copy(v99, 0, v68, 0, v69);
     return v99;
 end;
-v3.jsonEncode = function(v106) --[[ Line: 628 ]] --[[ Name: jsonEncode ]]
-    local v107 = {};
-    if v106.id ~= nil and v106.id ~= "" then
-        v107.id = v106.id;
-    end;
-    if v106.type ~= nil and v106.type ~= "" then
-        v107.type = v106.type;
-    end;
-    if v106.hydration_priority ~= nil and v106.hydration_priority ~= 0 then
-        v107.hydrationPriority = v106.hydration_priority;
-    end;
-    if v106.hydration_count ~= nil and v106.hydration_count ~= 0 then
-        v107.hydrationCount = v106.hydration_count;
-    end;
-    if v106.content ~= nil and #v106.content > 0 then
-        local v108 = {};
-        for _, v110 in v106.content do
-            table.insert(v108, v110:jsonEncode());
+v3.decode = function(v100) --[[ Line: 548 ]] --[[ Name: decode ]]
+    -- upvalues: v3 (copy), v0 (copy), v2 (copy)
+    local v101 = v3.new();
+    local v102 = 0;
+    while v102 < buffer.len(v100) do
+        local v103 = nil;
+        local v104 = nil;
+        local v105, v106, v107 = v0.readTag(v100, v102);
+        v103 = v105;
+        v104 = v106;
+        v102 = v107;
+        if v104 == v0.wireTypes.varint then
+            if v103 == 3 then
+                v105 = nil;
+                v106, v107 = v0.readVarIntI32(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.hydration_priority = v105;
+            elseif v103 == 4 then
+                v105 = nil;
+                v106, v107 = v0.readVarIntI32(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.hydration_count = v105;
+            elseif v103 == 6 then
+                v105 = nil;
+                v106, v107 = v0.readVarIntI64(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.preview_columns = v105;
+            else
+                v105 = nil;
+                v106, v107 = v0.readVarInt(v100, v102);
+                v105 = v106;
+                v102 = v107;
+            end;
+        elseif v104 == v0.wireTypes.lengthDelimited then
+            if v103 == 1 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.id = buffer.tostring(v105);
+            elseif v103 == 2 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.type = buffer.tostring(v105);
+            elseif v103 == 5 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                table.insert(v101.content, v2.CatalogSortContentData.decode(v105));
+            elseif v103 == 7 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.title = buffer.tostring(v105);
+            elseif v103 == 8 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.description = buffer.tostring(v105);
+            elseif v103 == 9 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.card_style = v2.CatalogSortCardStyle.decode(v105);
+            elseif v103 == 10 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                table.insert(v101.card_footers, v2.CatalogSortCardItemFooter.decode(v105));
+            elseif v103 == 11 then
+                v105 = nil;
+                v106, v107 = v0.readBuffer(v100, v102);
+                v105 = v106;
+                v102 = v107;
+                v101.tag_id = buffer.tostring(v105);
+            else
+                v105 = nil;
+                v106, v107 = v0.readVarInt(v100, v102);
+                v102 = v107 + v106;
+            end;
+        elseif v104 == v0.wireTypes.i32 then
+            v105 = nil;
+            v106, v107 = v0.readFixed32(v100, v102);
+            v105 = v106;
+            v102 = v107;
+        elseif v104 == v0.wireTypes.i64 then
+            v105 = nil;
+            v106, v107 = v0.readFixed64(v100, v102);
+            v105 = v106;
+            v102 = v107;
+        else
+            error("Unsupported wire type: " .. v104);
         end;
-        v107.content = v108;
     end;
-    if v106.preview_columns ~= nil and v106.preview_columns ~= 0 then
-        v107.previewColumns = v106.preview_columns;
-    end;
-    if v106.title ~= nil and v106.title ~= "" then
-        v107.title = v106.title;
-    end;
-    if v106.description ~= nil and v106.description ~= "" then
-        v107.description = v106.description;
-    end;
-    if v106.card_style ~= nil then
-        v107.cardStyle = v106.card_style:jsonEncode();
-    end;
-    if v106.card_footers ~= nil and #v106.card_footers > 0 then
-        local v111 = {};
-        for _, v113 in v106.card_footers do
-            table.insert(v111, v113:jsonEncode());
-        end;
-        v107.cardFooters = v111;
-    end;
-    return v107;
+    return v101;
 end;
-v3.jsonDecode = function(v114) --[[ Line: 682 ]] --[[ Name: jsonDecode ]]
+v3.jsonEncode = function(v108) --[[ Line: 641 ]] --[[ Name: jsonEncode ]]
+    local v109 = {};
+    if v108.id ~= nil and v108.id ~= "" then
+        v109.id = v108.id;
+    end;
+    if v108.type ~= nil and v108.type ~= "" then
+        v109.type = v108.type;
+    end;
+    if v108.hydration_priority ~= nil and v108.hydration_priority ~= 0 then
+        v109.hydrationPriority = v108.hydration_priority;
+    end;
+    if v108.hydration_count ~= nil and v108.hydration_count ~= 0 then
+        v109.hydrationCount = v108.hydration_count;
+    end;
+    if v108.content ~= nil and #v108.content > 0 then
+        local v110 = {};
+        for _, v112 in v108.content do
+            table.insert(v110, v112:jsonEncode());
+        end;
+        v109.content = v110;
+    end;
+    if v108.preview_columns ~= nil and v108.preview_columns ~= 0 then
+        v109.previewColumns = v108.preview_columns;
+    end;
+    if v108.title ~= nil and v108.title ~= "" then
+        v109.title = v108.title;
+    end;
+    if v108.description ~= nil and v108.description ~= "" then
+        v109.description = v108.description;
+    end;
+    if v108.card_style ~= nil then
+        v109.cardStyle = v108.card_style:jsonEncode();
+    end;
+    if v108.card_footers ~= nil and #v108.card_footers > 0 then
+        local v113 = {};
+        for _, v115 in v108.card_footers do
+            table.insert(v113, v115:jsonEncode());
+        end;
+        v109.cardFooters = v113;
+    end;
+    if v108.tag_id ~= nil and v108.tag_id ~= "" then
+        v109.tagId = v108.tag_id;
+    end;
+    return v109;
+end;
+v3.jsonDecode = function(v116) --[[ Line: 699 ]] --[[ Name: jsonDecode ]]
     -- upvalues: v3 (copy), v2 (copy)
-    local v115 = v3.new();
-    if v114.id ~= nil then
-        v115.id = v114.id;
+    local v117 = v3.new();
+    if v116.id ~= nil then
+        v117.id = v116.id;
     end;
-    if v114.type ~= nil then
-        v115.type = v114.type;
+    if v116.type ~= nil then
+        v117.type = v116.type;
     end;
-    if v114.hydration_priority ~= nil then
-        v115.hydration_priority = v114.hydration_priority;
+    if v116.hydration_priority ~= nil then
+        v117.hydration_priority = v116.hydration_priority;
     end;
-    if v114.hydrationPriority ~= nil then
-        v115.hydration_priority = v114.hydrationPriority;
+    if v116.hydrationPriority ~= nil then
+        v117.hydration_priority = v116.hydrationPriority;
     end;
-    if v114.hydration_count ~= nil then
-        v115.hydration_count = v114.hydration_count;
+    if v116.hydration_count ~= nil then
+        v117.hydration_count = v116.hydration_count;
     end;
-    if v114.hydrationCount ~= nil then
-        v115.hydration_count = v114.hydrationCount;
+    if v116.hydrationCount ~= nil then
+        v117.hydration_count = v116.hydrationCount;
     end;
-    if v114.content ~= nil then
-        local v116 = {};
-        for _, v118 in v114.content do
-            table.insert(v116, v2.CatalogSortContentData.jsonDecode(v118));
+    if v116.content ~= nil then
+        local v118 = {};
+        for _, v120 in v116.content do
+            table.insert(v118, v2.CatalogSortContentData.jsonDecode(v120));
         end;
-        v115.content = v116;
+        v117.content = v118;
     end;
-    if v114.preview_columns ~= nil then
-        v115.preview_columns = v114.preview_columns;
+    if v116.preview_columns ~= nil then
+        v117.preview_columns = v116.preview_columns;
     end;
-    if v114.previewColumns ~= nil then
-        v115.preview_columns = v114.previewColumns;
+    if v116.previewColumns ~= nil then
+        v117.preview_columns = v116.previewColumns;
     end;
-    if v114.title ~= nil then
-        v115.title = v114.title;
+    if v116.title ~= nil then
+        v117.title = v116.title;
     end;
-    if v114.description ~= nil then
-        v115.description = v114.description;
+    if v116.description ~= nil then
+        v117.description = v116.description;
     end;
-    if v114.card_style ~= nil then
-        v115.card_style = v2.CatalogSortCardStyle.jsonDecode(v114.card_style);
+    if v116.card_style ~= nil then
+        v117.card_style = v2.CatalogSortCardStyle.jsonDecode(v116.card_style);
     end;
-    if v114.cardStyle ~= nil then
-        v115.card_style = v2.CatalogSortCardStyle.jsonDecode(v114.cardStyle);
+    if v116.cardStyle ~= nil then
+        v117.card_style = v2.CatalogSortCardStyle.jsonDecode(v116.cardStyle);
     end;
-    if v114.card_footers ~= nil then
-        local v119 = {};
-        for _, v121 in v114.card_footers do
-            table.insert(v119, v2.CatalogSortCardItemFooter.jsonDecode(v121));
+    if v116.card_footers ~= nil then
+        local v121 = {};
+        for _, v123 in v116.card_footers do
+            table.insert(v121, v2.CatalogSortCardItemFooter.jsonDecode(v123));
         end;
-        v115.card_footers = v119;
+        v117.card_footers = v121;
     end;
-    if v114.cardFooters ~= nil then
-        local v122 = {};
-        for _, v124 in v114.cardFooters do
-            table.insert(v122, v2.CatalogSortCardItemFooter.jsonDecode(v124));
+    if v116.cardFooters ~= nil then
+        local v124 = {};
+        for _, v126 in v116.cardFooters do
+            table.insert(v124, v2.CatalogSortCardItemFooter.jsonDecode(v126));
         end;
-        v115.card_footers = v122;
+        v117.card_footers = v124;
     end;
-    return v115;
+    if v116.tag_id ~= nil then
+        v117.tag_id = v116.tag_id;
+    end;
+    if v116.tagId ~= nil then
+        v117.tag_id = v116.tagId;
+    end;
+    return v117;
 end;
 v3.descriptor = {
     name = "CatalogSortData", 

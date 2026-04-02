@@ -44,10 +44,20 @@ return {
         end;
         return l_l_FFlagStreamNotificationUXDropdown_0_0;
     end, 
-    logExposure = function() --[[ Line: 42 ]] --[[ Name: logExposure ]]
-        -- upvalues: l_FFlagStreamNotificationUXDropdown_0 (copy), l_ixpHelper_0 (copy), v5 (copy)
-        if l_FFlagStreamNotificationUXDropdown_0 and l_ixpHelper_0.getIxpLayerData(v5) ~= nil then
-            l_ixpHelper_0.logUserLayerExposure(v5);
+    logExposure = function() --[[ Line: 43 ]] --[[ Name: logExposure ]]
+        -- upvalues: l_FFlagStreamNotificationUXDropdown_0 (copy), v4 (copy), l_ixpHelper_0 (copy), v5 (copy), v6 (copy)
+        if l_FFlagStreamNotificationUXDropdown_0 then
+            local l_CurrentCamera_2 = workspace.CurrentCamera;
+            local v15 = false;
+            if l_CurrentCamera_2 ~= nil then
+                v15 = l_CurrentCamera_2.ViewportSize.X >= v4.Modal.WidthLimit;
+            end;
+            if v15 then
+                v15 = l_ixpHelper_0.getIxpLayerData(v5);
+                if v15 and v15[v6] ~= nil then
+                    l_ixpHelper_0.logUserLayerExposure(v5);
+                end;
+            end;
         end;
     end
 };

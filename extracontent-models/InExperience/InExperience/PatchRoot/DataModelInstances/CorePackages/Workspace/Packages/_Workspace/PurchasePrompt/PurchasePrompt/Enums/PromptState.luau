@@ -17,5 +17,6 @@ return (require(script.Parent.createEnum)("PromptState", {
     "LeaveRobloxWarning", 
     "EnablePurchaseVPCModal", 
     "Error", 
-    "InitializingPurchase"
+    "InitializingPurchase", 
+    "BlackbirdUpsellInProgress"
 }));

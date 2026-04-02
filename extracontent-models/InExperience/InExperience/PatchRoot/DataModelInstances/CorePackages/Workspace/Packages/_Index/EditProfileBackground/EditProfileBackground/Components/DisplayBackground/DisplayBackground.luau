@@ -28,47 +28,70 @@ local l_FFlagPPVEnable3DBackground_0 = require(l_Parent_0.SharedFlags).FFlagPPVE
 local v24 = game:DefineFastFlag("PPVBackgroundParallelAssetLoading", false);
 local l_FFlagPPVBackgroundPrefetchAvatar_0 = require(l_Parent_0.SharedFlags).FFlagPPVBackgroundPrefetchAvatar;
 local v26 = if l_FFlagPPVBackgroundPrefetchAvatar_0 then require(l_script_FirstAncestor_0.Common.AvatarModelPrefetch) else nil;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v28 = game:DefineFastFlag("DisplayBackgroundUseToolAnimation", false);
 local l_InsertService_0 = game:GetService("InsertService");
-return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
-    -- upvalues: l_useLocalUserId_0 (copy), l_useSelectedTheme_0 (copy), v2 (copy), v22 (copy), l_FFlagPPVEnable3DBackground_0 (copy), l_InsertService_0 (copy), l_getDisplayBackgroundId_0 (copy), v18 (copy), v19 (copy), l_RunService_0 (copy), v3 (copy), l_dependencyArray_0 (copy), v24 (copy), v12 (copy), l_FFlagPPVBackgroundPrefetchAvatar_0 (copy), v26 (copy), l_Players_0 (copy), l_ErrorTypes_0 (copy), v20 (copy), l_UserInputService_0 (copy), l_View_0 (copy), l_FFlagPPVBackgroundUse2DAsLoadingState_0 (copy), l_LoadableImage_0 (copy), l_LoadingSpinner_0 (copy)
-    local v29 = l_useLocalUserId_0();
-    local v30 = v28.userId or v29 and tonumber(v29);
-    local v31 = l_useSelectedTheme_0();
-    local v32 = v2.useRef(nil);
-    local v33 = v2.useRef(nil);
-    local v34 = v2.useRef(nil);
-    local v35 = v2.useRef(nil);
-    local v36, v37 = v2.useState(true);
-    local v38 = if v22 then v2.useRef(nil) else nil;
+local function v37(v30) --[[ Line: 99 ]] --[[ Name: playToolAnimation ]]
+    local l_Animate_0 = v30:FindFirstChild("Animate");
+    assert(l_Animate_0 ~= nil, "Expected animate to always exist");
+    local l_toolnone_0 = l_Animate_0:FindFirstChild("toolnone");
+    assert(l_toolnone_0 ~= nil, "Expected tool animation to always exist");
+    local v33 = l_toolnone_0:GetChildren()[1];
+    if v33 == nil then
+        return;
+    else
+        assert(v33:IsA("Animation"), "Unexpected type for tool animation");
+        local l_Humanoid_0 = v30:FindFirstChild("Humanoid");
+        assert(l_Humanoid_0 ~= nil, "Expected humanoid to always exist");
+        local l_Animator_0 = l_Humanoid_0:FindFirstChild("Animator");
+        assert(l_Animator_0 ~= nil, "Expected Animator to always exist");
+        assert(l_Animator_0:IsA("Animator"), "Animator should be of type Animator");
+        local v36 = l_Animator_0:LoadAnimation(v33);
+        v36.Looped = true;
+        v36:Play();
+        return;
+    end;
+end;
+return function(v38) --[[ Line: 125 ]] --[[ Name: BackgroundDisplay ]]
+    -- upvalues: l_useLocalUserId_0 (copy), l_useSelectedTheme_0 (copy), v2 (copy), v22 (copy), l_FFlagPPVEnable3DBackground_0 (copy), l_InsertService_0 (copy), l_getDisplayBackgroundId_0 (copy), v18 (copy), v19 (copy), l_RunService_0 (copy), v28 (copy), v37 (copy), v3 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v24 (copy), v12 (copy), l_FFlagPPVBackgroundPrefetchAvatar_0 (copy), v26 (copy), l_Players_0 (copy), l_ErrorTypes_0 (copy), v20 (copy), l_UserInputService_0 (copy), l_View_0 (copy), l_FFlagPPVBackgroundUse2DAsLoadingState_0 (copy), l_LoadableImage_0 (copy), l_LoadingSpinner_0 (copy)
+    local v39 = l_useLocalUserId_0();
+    local v40 = v38.userId or v39 and tonumber(v39);
+    local v41 = l_useSelectedTheme_0();
+    local v42 = v2.useRef(nil);
+    local v43 = v2.useRef(nil);
+    local v44 = v2.useRef(nil);
+    local v45 = v2.useRef(nil);
+    local v46, v47 = v2.useState(true);
+    local v48 = if v22 then v2.useRef(nil) else nil;
     if l_FFlagPPVEnable3DBackground_0 then
-        v2.useEffect(function() --[[ Line: 108 ]]
-            -- upvalues: v28 (copy), l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v31 (copy), v33 (copy), v32 (copy), v18 (ref), v19 (ref)
-            task.defer(function() --[[ Line: 110 ]]
-                -- upvalues: v28 (ref), l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v31 (ref), v33 (ref), v32 (ref), v18 (ref), v19 (ref)
-                if not v28.currentBackgroundId then
+        v2.useEffect(function() --[[ Line: 139 ]]
+            -- upvalues: v38 (copy), l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v41 (copy), v43 (copy), v42 (copy), v18 (ref), v19 (ref)
+            task.defer(function() --[[ Line: 141 ]]
+                -- upvalues: v38 (ref), l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v41 (ref), v43 (ref), v42 (ref), v18 (ref), v19 (ref)
+                if not v38.currentBackgroundId then
                     return;
                 else
-                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 115 ]]
-                        -- upvalues: l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v28 (ref), v31 (ref)
-                        return l_InsertService_0:LoadAsset(l_getDisplayBackgroundId_0(v28.currentBackgroundId, v31));
+                    local l_status_0, l_result_0 = pcall(function() --[[ Line: 146 ]]
+                        -- upvalues: l_InsertService_0 (ref), l_getDisplayBackgroundId_0 (ref), v38 (ref), v41 (ref)
+                        return l_InsertService_0:LoadAsset(l_getDisplayBackgroundId_0(v38.currentBackgroundId, v41));
                     end);
                     if l_status_0 and l_result_0 then
-                        if v33.current then
-                            for _, v42 in pairs(v33.current:GetChildren()) do
-                                if v42.Name ~= "Character" then
-                                    v42:Destroy();
+                        if v43.current then
+                            for _, v52 in pairs(v43.current:GetChildren()) do
+                                if v52.Name ~= "Character" then
+                                    v52:Destroy();
                                 end;
                             end;
                         end;
                         local l_Model_0 = Instance.new("Model");
                         l_Model_0.Name = "BackgroundModel";
-                        l_Model_0.Parent = v33.current;
-                        for _, v45 in pairs(l_result_0:GetChildren()) do
-                            v45.Parent = l_Model_0;
+                        l_Model_0.Parent = v43.current;
+                        for _, v55 in pairs(l_result_0:GetChildren()) do
+                            v55.Parent = l_Model_0;
                         end;
                         l_Model_0:PivotTo(CFrame.new(0, 7, -4.5));
                         l_result_0:Destroy();
-                        local l_current_0 = v32.current;
+                        local l_current_0 = v42.current;
                         if l_current_0 then
                             l_current_0.Ambient = v18;
                             l_current_0.LightColor = v19;
@@ -79,25 +102,26 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
                 end;
             end);
         end, {
-            v28.currentBackgroundId
+            v38.currentBackgroundId
         });
     end;
     if v22 then
-        v2.useEffect(function() --[[ Line: 152 ]]
-            -- upvalues: v38 (copy), l_RunService_0 (ref)
-            v38.current = l_RunService_0:getThrottleFramerateEnabled();
+        v2.useEffect(function() --[[ Line: 183 ]]
+            -- upvalues: v48 (copy), l_RunService_0 (ref)
+            v48.current = l_RunService_0:getThrottleFramerateEnabled();
             l_RunService_0:setThrottleFramerateEnabled(false);
-            return function() --[[ Line: 155 ]]
-                -- upvalues: l_RunService_0 (ref), v38 (ref)
-                l_RunService_0:setThrottleFramerateEnabled(v38.current or true);
+            return function() --[[ Line: 186 ]]
+                -- upvalues: l_RunService_0 (ref), v48 (ref)
+                l_RunService_0:setThrottleFramerateEnabled(v48.current or true);
             end;
         end, {});
     end;
-    local v56 = v2.useCallback(function(v47, v48) --[[ Line: 161 ]]
-        if not v47 or not v48 then
+    local v66 = v2.useCallback(function(v57, v58) --[[ Line: 192 ]]
+        -- upvalues: v28 (ref), v37 (ref)
+        if not v57 or not v58 then
             return;
         else
-            local l_RightHand_0 = v47:FindFirstChild("RightHand");
+            local l_RightHand_0 = v57:FindFirstChild("RightHand");
             if not l_RightHand_0 or not l_RightHand_0:IsA("BasePart") then
                 return;
             else
@@ -105,70 +129,76 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
                 if not l_RightGripAttachment_0 or not l_RightGripAttachment_0:IsA("Attachment") then
                     return;
                 else
-                    local l_v47_FirstChild_0 = v47:FindFirstChild("RightShoulder", true);
-                    if not l_v47_FirstChild_0 or not l_v47_FirstChild_0:IsA("Motor6D") then
-                        return;
-                    else
-                        local l_Handle_0 = v48:FindFirstChild("Handle");
-                        if not l_Handle_0 or not l_Handle_0:IsA("BasePart") then
-                            return;
-                        else
-                            for _, v54 in ipairs(v48:GetDescendants()) do
-                                if v54:IsA("Script") or v54:IsA("LocalScript") then
-                                    v54.Disabled = true;
-                                end;
-                            end;
-                            v48.Parent = v47;
-                            l_v47_FirstChild_0.C0 = l_v47_FirstChild_0.C0 * CFrame.Angles(1.5707963267948966, 0, 0);
-                            l_Handle_0.CFrame = l_RightGripAttachment_0.WorldCFrame;
-                            local l_Weld_0 = Instance.new("Weld");
-                            l_Weld_0.Parent = v48;
-                            l_Weld_0.Part0 = l_Handle_0;
-                            l_Weld_0.Part1 = l_RightHand_0;
-                            l_Weld_0.C0 = v48.Grip;
-                            l_Weld_0.C1 = l_RightGripAttachment_0.CFrame;
+                    local v61 = nil;
+                    if not v28 then
+                        v61 = v57:FindFirstChild("RightShoulder", true);
+                        if not v61 or not v61:IsA("Motor6D") then
                             return;
                         end;
+                    end;
+                    local l_Handle_0 = v58:FindFirstChild("Handle");
+                    if not l_Handle_0 or not l_Handle_0:IsA("BasePart") then
+                        return;
+                    else
+                        for _, v64 in ipairs(v58:GetDescendants()) do
+                            if v64:IsA("Script") or v64:IsA("LocalScript") then
+                                v64.Disabled = true;
+                            end;
+                        end;
+                        v58.Parent = v57;
+                        if v28 then
+                            v37(v57);
+                        else
+                            v61.C0 = v61.C0 * CFrame.Angles(1.5707963267948966, 0, 0);
+                        end;
+                        l_Handle_0.CFrame = l_RightGripAttachment_0.WorldCFrame;
+                        local l_Weld_0 = Instance.new("Weld");
+                        l_Weld_0.Parent = v58;
+                        l_Weld_0.Part0 = l_Handle_0;
+                        l_Weld_0.Part1 = l_RightHand_0;
+                        l_Weld_0.C0 = v58.Grip;
+                        l_Weld_0.C1 = l_RightGripAttachment_0.CFrame;
+                        return;
                     end;
                 end;
             end;
         end;
     end, {});
-    local v67 = v2.useCallback(function(v57, v58) --[[ Line: 199 ]]
-        if not v57 or not v58 then
+    local v77 = v2.useCallback(function(v67, v68) --[[ Line: 242 ]]
+        if not v67 or not v68 then
             return;
         else
-            local l_v57_FirstChild_0 = v57:FindFirstChild("Right Arm");
-            if not l_v57_FirstChild_0 or not l_v57_FirstChild_0:IsA("BasePart") then
+            local l_v67_FirstChild_0 = v67:FindFirstChild("Right Arm");
+            if not l_v67_FirstChild_0 or not l_v67_FirstChild_0:IsA("BasePart") then
                 return;
             else
-                local l_RightGripAttachment_1 = l_v57_FirstChild_0:FindFirstChild("RightGripAttachment");
+                local l_RightGripAttachment_1 = l_v67_FirstChild_0:FindFirstChild("RightGripAttachment");
                 if not l_RightGripAttachment_1 or not l_RightGripAttachment_1:IsA("Attachment") then
                     return;
                 else
-                    local l_v57_FirstChild_1 = v57:FindFirstChild("Right Shoulder", true);
-                    if not l_v57_FirstChild_1 or not l_v57_FirstChild_1:IsA("Motor6D") then
+                    local l_v67_FirstChild_1 = v67:FindFirstChild("Right Shoulder", true);
+                    if not l_v67_FirstChild_1 or not l_v67_FirstChild_1:IsA("Motor6D") then
                         return;
                     else
-                        local l_Handle_1 = v58:FindFirstChild("Handle");
+                        local l_Handle_1 = v68:FindFirstChild("Handle");
                         if not l_Handle_1 or not l_Handle_1:IsA("BasePart") then
                             return;
                         else
-                            for _, v64 in ipairs(v58:GetDescendants()) do
-                                if v64:IsA("Script") or v64:IsA("LocalScript") then
-                                    v64.Disabled = true;
+                            for _, v74 in ipairs(v68:GetDescendants()) do
+                                if v74:IsA("Script") or v74:IsA("LocalScript") then
+                                    v74.Disabled = true;
                                 end;
                             end;
-                            v58.Parent = v57;
-                            l_v57_FirstChild_1.C0 = l_v57_FirstChild_1.C0 * CFrame.Angles(0, 0, 1.5707963267948966);
+                            v68.Parent = v67;
+                            l_v67_FirstChild_1.C0 = l_v67_FirstChild_1.C0 * CFrame.Angles(0, 0, 1.5707963267948966);
                             l_Handle_1.CFrame = l_RightGripAttachment_1.WorldCFrame;
-                            local v65 = CFrame.new(0, -1, 0) * CFrame.Angles(-1.5707963267948966, 0, 0);
+                            local v75 = CFrame.new(0, -1, 0) * CFrame.Angles(-1.5707963267948966, 0, 0);
                             local l_Weld_1 = Instance.new("Weld");
-                            l_Weld_1.Parent = v58;
+                            l_Weld_1.Parent = v68;
                             l_Weld_1.Part0 = l_Handle_1;
-                            l_Weld_1.Part1 = l_v57_FirstChild_0;
-                            l_Weld_1.C0 = v58.Grip;
-                            l_Weld_1.C1 = v65;
+                            l_Weld_1.Part1 = l_v67_FirstChild_0;
+                            l_Weld_1.C0 = v68.Grip;
+                            l_Weld_1.C1 = v75;
                             return;
                         end;
                     end;
@@ -176,22 +206,22 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
             end;
         end;
     end, {});
-    local v75 = v2.useCallback(function(v68) --[[ Line: 236 ]]
+    local v85 = v2.useCallback(function(v78) --[[ Line: 279 ]]
         -- upvalues: v3 (ref), l_InsertService_0 (ref)
-        local v71 = v3.List.findWhere(v68.assets, function(v69, _) --[[ Line: 237 ]]
-            if v69.assetType.name == "Gear" then
+        local v81 = v3.List.findWhere(v78.assets, function(v79, _) --[[ Line: 280 ]]
+            if v79.assetType.name == "Gear" then
                 return true;
             else
                 return false;
             end;
         end);
-        if not v71 then
+        if not v81 then
             return nil;
         else
-            local v72 = v68.assets[v71];
-            local l_status_1, l_result_1 = pcall(function() --[[ Line: 249 ]]
-                -- upvalues: l_InsertService_0 (ref), v72 (copy)
-                return l_InsertService_0:LoadAsset(v72.id):FindFirstChildOfClass("Tool");
+            local v82 = v78.assets[v81];
+            local l_status_1, l_result_1 = pcall(function() --[[ Line: 292 ]]
+                -- upvalues: l_InsertService_0 (ref), v82 (copy)
+                return l_InsertService_0:LoadAsset(v82.id):FindFirstChildOfClass("Tool");
             end);
             if not l_status_1 or not l_result_1 or not l_result_1:IsA("Tool") then
                 return nil;
@@ -200,163 +230,167 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
             end;
         end;
     end, {});
-    local v80 = v2.useCallback(function(v76, v77) --[[ Line: 258 ]]
-        -- upvalues: v75 (copy), v56 (copy), v67 (copy)
-        local l_playerAvatarType_0 = v77.playerAvatarType;
-        local v79 = v75(v77);
-        if v79 and l_playerAvatarType_0 == "R15" then
-            v56(v76, v79);
+    local v90 = v2.useCallback(function(v86, v87) --[[ Line: 302 ]]
+        -- upvalues: v85 (copy), v66 (copy), v77 (copy)
+        local l_playerAvatarType_0 = v87.playerAvatarType;
+        local v89 = v85(v87);
+        if v89 and l_playerAvatarType_0 == "R15" then
+            v66(v86, v89);
             return;
         else
-            if v79 and l_playerAvatarType_0 == "R6" then
-                v67(v76, v79);
+            if v89 and l_playerAvatarType_0 == "R6" then
+                v77(v86, v89);
             end;
             return;
         end;
-    end, l_dependencyArray_0(v75, v56, v67));
-    v2.useEffect(function() --[[ Line: 268 ]]
-        -- upvalues: v30 (copy), v37 (copy), v24 (ref), v12 (ref), l_FFlagPPVBackgroundPrefetchAvatar_0 (ref), v26 (ref), l_Players_0 (ref), l_InsertService_0 (ref), v3 (ref), v28 (copy), l_ErrorTypes_0 (ref), v33 (copy), v20 (ref), v35 (copy), v56 (copy), v67 (copy), v22 (ref), l_UserInputService_0 (ref), v80 (copy)
-        task.defer(function() --[[ Line: 270 ]]
-            -- upvalues: v30 (ref), v37 (ref), v24 (ref), v12 (ref), l_FFlagPPVBackgroundPrefetchAvatar_0 (ref), v26 (ref), l_Players_0 (ref), l_InsertService_0 (ref), v3 (ref), v28 (ref), l_ErrorTypes_0 (ref), v33 (ref), v20 (ref), v35 (ref), v56 (ref), v67 (ref), v22 (ref), l_UserInputService_0 (ref), v80 (ref)
-            if not v30 then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v85, 
+        v66, 
+        v77
+    } else l_dependencyArray_0(v85, v66, v77));
+    v2.useEffect(function() --[[ Line: 316 ]]
+        -- upvalues: v40 (copy), v47 (copy), v24 (ref), v12 (ref), l_FFlagPPVBackgroundPrefetchAvatar_0 (ref), v26 (ref), l_Players_0 (ref), l_InsertService_0 (ref), v3 (ref), v38 (copy), l_ErrorTypes_0 (ref), v43 (copy), v20 (ref), v45 (copy), v66 (copy), v77 (copy), v22 (ref), l_UserInputService_0 (ref), v90 (copy)
+        task.defer(function() --[[ Line: 318 ]]
+            -- upvalues: v40 (ref), v47 (ref), v24 (ref), v12 (ref), l_FFlagPPVBackgroundPrefetchAvatar_0 (ref), v26 (ref), l_Players_0 (ref), l_InsertService_0 (ref), v3 (ref), v38 (ref), l_ErrorTypes_0 (ref), v43 (ref), v20 (ref), v45 (ref), v66 (ref), v77 (ref), v22 (ref), l_UserInputService_0 (ref), v90 (ref)
+            if not v40 then
                 return;
             else
-                v37(true);
+                v47(true);
                 if v24 then
-                    local v81 = v12.resolve(nil);
-                    local v82 = v12.resolve(nil);
-                    local v87 = if l_FFlagPPVBackgroundPrefetchAvatar_0 then v26.get(v30) else v12.new(function(v83, v84) --[[ Line: 283 ]]
-                        -- upvalues: l_Players_0 (ref), v30 (ref)
-                        local l_status_2, l_result_2 = pcall(function() --[[ Line: 284 ]]
-                            -- upvalues: l_Players_0 (ref), v30 (ref)
+                    local v91 = v12.resolve(nil);
+                    local v92 = v12.resolve(nil);
+                    local v97 = if l_FFlagPPVBackgroundPrefetchAvatar_0 then v26.get(v40) else v12.new(function(v93, v94) --[[ Line: 331 ]]
+                        -- upvalues: l_Players_0 (ref), v40 (ref)
+                        local l_status_2, l_result_2 = pcall(function() --[[ Line: 332 ]]
+                            -- upvalues: l_Players_0 (ref), v40 (ref)
                             if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-                                return l_Players_0:CreateHumanoidModelFromUserIdAsync(v30);
+                                return l_Players_0:CreateHumanoidModelFromUserIdAsync(v40);
                             else
-                                return game.Players:CreateHumanoidModelFromUserId(v30);
+                                return game.Players:CreateHumanoidModelFromUserId(v40);
                             end;
                         end);
                         if l_status_2 and l_result_2 then
-                            v83(l_result_2);
+                            v93(l_result_2);
                             return;
                         else
-                            v84("CharacterModelCreationFailed");
+                            v94("CharacterModelCreationFailed");
                             return;
                         end;
                     end);
-                    local v100 = v12.new(function(v88) --[[ Line: 298 ]]
-                        -- upvalues: v30 (ref), v81 (ref), v12 (ref), l_InsertService_0 (ref), v3 (ref), v82 (ref)
-                        local l_status_3, l_result_3 = pcall(function() --[[ Line: 299 ]]
-                            -- upvalues: v30 (ref)
-                            return game.Players:GetCharacterAppearanceInfoAsync(v30);
+                    local v110 = v12.new(function(v98) --[[ Line: 346 ]]
+                        -- upvalues: v40 (ref), v91 (ref), v12 (ref), l_InsertService_0 (ref), v3 (ref), v92 (ref)
+                        local l_status_3, l_result_3 = pcall(function() --[[ Line: 347 ]]
+                            -- upvalues: v40 (ref)
+                            return game.Players:GetCharacterAppearanceInfoAsync(v40);
                         end);
                         if l_status_3 and l_result_3 then
                             if l_result_3.emotes and #l_result_3.emotes > 0 then
-                                v81 = v12.new(function(v91) --[[ Line: 304 ]]
+                                v91 = v12.new(function(v101) --[[ Line: 352 ]]
                                     -- upvalues: l_InsertService_0 (ref), l_result_3 (copy)
-                                    local l_status_4, l_result_4 = pcall(function() --[[ Line: 305 ]]
+                                    local l_status_4, l_result_4 = pcall(function() --[[ Line: 353 ]]
                                         -- upvalues: l_InsertService_0 (ref), l_result_3 (ref)
                                         return (l_InsertService_0:LoadAsset(l_result_3.emotes[1].assetId):FindFirstChildOfClass("Animation"));
                                     end);
-                                    v91(if l_status_4 then l_result_4 else nil);
+                                    v101(if l_status_4 then l_result_4 else nil);
                                 end);
                             end;
                             if l_result_3.assets then
-                                local v95 = v3.List.findWhere(l_result_3.assets, function(v94) --[[ Line: 314 ]]
-                                    return v94.assetType.name == "Gear";
+                                local v105 = v3.List.findWhere(l_result_3.assets, function(v104) --[[ Line: 362 ]]
+                                    return v104.assetType.name == "Gear";
                                 end);
-                                if v95 then
-                                    local v96 = l_result_3.assets[v95];
-                                    v82 = v12.new(function(v97) --[[ Line: 319 ]]
-                                        -- upvalues: l_InsertService_0 (ref), v96 (copy)
-                                        local l_status_5, l_result_5 = pcall(function() --[[ Line: 320 ]]
-                                            -- upvalues: l_InsertService_0 (ref), v96 (ref)
-                                            return l_InsertService_0:LoadAsset(v96.id):FindFirstChildOfClass("Tool");
+                                if v105 then
+                                    local v106 = l_result_3.assets[v105];
+                                    v92 = v12.new(function(v107) --[[ Line: 367 ]]
+                                        -- upvalues: l_InsertService_0 (ref), v106 (copy)
+                                        local l_status_5, l_result_5 = pcall(function() --[[ Line: 368 ]]
+                                            -- upvalues: l_InsertService_0 (ref), v106 (ref)
+                                            return l_InsertService_0:LoadAsset(v106.id):FindFirstChildOfClass("Tool");
                                         end);
-                                        v97(if l_status_5 and l_result_5 and l_result_5:IsA("Tool") then l_result_5 else nil);
+                                        v107(if l_status_5 and l_result_5 and l_result_5:IsA("Tool") then l_result_5 else nil);
                                     end);
                                 end;
                             end;
                         end;
-                        v88(if l_status_3 then l_result_3 else nil);
+                        v98(if l_status_3 then l_result_3 else nil);
                     end);
-                    local v101, v102 = v12.all({
-                        v87, 
-                        v100:catch(function() --[[ Line: 340 ]]
+                    local v111, v112 = v12.all({
+                        v97, 
+                        v110:catch(function() --[[ Line: 388 ]]
                             return nil;
                         end)
                     }):await();
-                    if not v101 then
-                        if v28.analytics then
-                            v28.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
+                    if not v111 then
+                        if v38.analytics then
+                            v38.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
                                 errorType = l_ErrorTypes_0.CharacterModelCreationFailed
                             });
                         end;
-                        v37(false);
+                        v47(false);
                         return;
                     else
-                        local v103 = v102[1];
-                        local v104 = v102[2];
+                        local v113 = v112[1];
+                        local v114 = v112[2];
                         if l_FFlagPPVBackgroundPrefetchAvatar_0 then
-                            v26.clear(v30);
+                            v26.clear(v40);
                         end;
-                        v103.Name = "Character";
-                        v103.Parent = v33.current;
-                        if v103.PrimaryPart then
-                            v103.PrimaryPart.CFrame = v20;
+                        v113.Name = "Character";
+                        v113.Parent = v43.current;
+                        if v113.PrimaryPart then
+                            v113.PrimaryPart.CFrame = v20;
                         end;
-                        v35.current = v103;
-                        if v104 then
-                            local _, v106 = v82:await();
-                            if v106 then
-                                local l_playerAvatarType_1 = v104.playerAvatarType;
+                        v45.current = v113;
+                        if v114 then
+                            local _, v116 = v92:await();
+                            if v116 then
+                                local l_playerAvatarType_1 = v114.playerAvatarType;
                                 if l_playerAvatarType_1 == "R15" then
-                                    v56(v103, v106);
+                                    v66(v113, v116);
                                 elseif l_playerAvatarType_1 == "R6" then
-                                    v67(v103, v106);
+                                    v77(v113, v116);
                                 end;
                             end;
                         end;
-                        local l_Humanoid_0 = v103:FindFirstChild("Humanoid");
-                        if l_Humanoid_0 then
+                        local l_Humanoid_1 = v113:FindFirstChild("Humanoid");
+                        if l_Humanoid_1 then
                             v12.race({
-                                v12.fromEvent(l_Humanoid_0.ClusterCompositionFinished), 
+                                v12.fromEvent(l_Humanoid_1.ClusterCompositionFinished), 
                                 v12.delay(3)
                             }):await();
                         end;
-                        if v103.PrimaryPart then
-                            v103.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, 0, 0, 0), (Vector3.new(0, 0, -10, 0)));
-                            local v109 = v103:FindFirstChild("RightFoot") or v103:FindFirstChild("Right Leg");
-                            if v109 and v109:IsA("BasePart") then
-                                local v110 = v109.Position.Y - v109.Size.Y / 2;
-                                local v111 = v103.PrimaryPart.Position.Y + (-3 - v110);
-                                v103.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, v111, 0), (Vector3.new(0, 0, -10, 0)));
+                        if v113.PrimaryPart then
+                            v113.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, 0, 0, 0), (Vector3.new(0, 0, -10, 0)));
+                            local v119 = v113:FindFirstChild("RightFoot") or v113:FindFirstChild("Right Leg");
+                            if v119 and v119:IsA("BasePart") then
+                                local v120 = v119.Position.Y - v119.Size.Y / 2;
+                                local v121 = v113.PrimaryPart.Position.Y + (-3 - v120);
+                                v113.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, v121, 0), (Vector3.new(0, 0, -10, 0)));
                             end;
                         end;
-                        v37(false);
+                        v47(false);
                         if v22 or l_UserInputService_0.PreferredInput ~= Enum.PreferredInput.Touch then
-                            local l_status_6, _ = pcall(function() --[[ Line: 412 ]]
-                                -- upvalues: v81 (ref), v103 (copy)
-                                local _, v113 = v81:await();
-                                local l_Animation1_0 = v103:FindFirstChild("Animate"):FindFirstChild("idle"):FindFirstChild("Animation1");
-                                local l_Animator_0 = v103:FindFirstChild("Humanoid"):FindFirstChild("Animator");
-                                if l_Animation1_0 and l_Animator_0 and l_Animator_0:IsA("Animator") then
-                                    local v116 = l_Animator_0:LoadAnimation(l_Animation1_0);
-                                    if v113 then
-                                        local v117 = l_Animator_0:LoadAnimation(v113);
-                                        v117.Looped = false;
-                                        v117:Play();
-                                        v117.Stopped:Connect(function() --[[ Line: 427 ]]
-                                            -- upvalues: v116 (copy)
-                                            v116:Play();
+                            local l_status_6, _ = pcall(function() --[[ Line: 460 ]]
+                                -- upvalues: v91 (ref), v113 (copy)
+                                local _, v123 = v91:await();
+                                local l_Animation1_0 = v113:FindFirstChild("Animate"):FindFirstChild("idle"):FindFirstChild("Animation1");
+                                local l_Animator_1 = v113:FindFirstChild("Humanoid"):FindFirstChild("Animator");
+                                if l_Animation1_0 and l_Animator_1 and l_Animator_1:IsA("Animator") then
+                                    local v126 = l_Animator_1:LoadAnimation(l_Animation1_0);
+                                    if v123 then
+                                        local v127 = l_Animator_1:LoadAnimation(v123);
+                                        v127.Looped = false;
+                                        v127:Play();
+                                        v127.Stopped:Connect(function() --[[ Line: 475 ]]
+                                            -- upvalues: v126 (copy)
+                                            v126:Play();
                                         end);
                                         return;
                                     else
-                                        v116:Play();
+                                        v126:Play();
                                     end;
                                 end;
                             end);
-                            if not l_status_6 and v28.analytics then
-                                v28.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
+                            if not l_status_6 and v38.analytics then
+                                v38.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
                                     errorType = l_ErrorTypes_0.CharacterAnimationFailed
                                 });
                             end;
@@ -364,78 +398,78 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
                         return;
                     end;
                 else
-                    local v120 = nil;
-                    local v121 = nil;
+                    local v130 = nil;
+                    local v131 = nil;
                     if l_FFlagPPVBackgroundPrefetchAvatar_0 then
-                        local v122, v123 = v26.get(v30):await();
-                        v120 = v122;
-                        v121 = v123;
-                        v26.clear(v30);
+                        local v132, v133 = v26.get(v40):await();
+                        v130 = v132;
+                        v131 = v133;
+                        v26.clear(v40);
                     else
-                        local l_status_7, l_result_7 = pcall(function() --[[ Line: 450 ]]
-                            -- upvalues: l_Players_0 (ref), v30 (ref)
+                        local l_status_7, l_result_7 = pcall(function() --[[ Line: 498 ]]
+                            -- upvalues: l_Players_0 (ref), v40 (ref)
                             if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-                                return l_Players_0:CreateHumanoidModelFromUserIdAsync(v30);
+                                return l_Players_0:CreateHumanoidModelFromUserIdAsync(v40);
                             else
-                                return game.Players:CreateHumanoidModelFromUserId(v30);
+                                return game.Players:CreateHumanoidModelFromUserId(v40);
                             end;
                         end);
-                        v120 = l_status_7;
-                        v121 = l_result_7;
+                        v130 = l_status_7;
+                        v131 = l_result_7;
                     end;
-                    if not v120 or not v121 then
-                        if v28.analytics then
-                            v28.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
+                    if not v130 or not v131 then
+                        if v38.analytics then
+                            v38.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
                                 errorType = l_ErrorTypes_0.CharacterModelCreationFailed
                             });
                         end;
-                        v37(false);
+                        v47(false);
                         return;
                     else
-                        v121.Name = "Character";
-                        v121.Parent = v33.current;
-                        if v121.PrimaryPart then
-                            v121.PrimaryPart.CFrame = v20;
+                        v131.Name = "Character";
+                        v131.Parent = v43.current;
+                        if v131.PrimaryPart then
+                            v131.PrimaryPart.CFrame = v20;
                         end;
-                        v35.current = v121;
-                        local v126 = nil;
-                        local v127 = nil;
-                        local l_status_8, l_result_8 = pcall(function() --[[ Line: 480 ]]
-                            -- upvalues: v30 (ref)
-                            return game.Players:GetCharacterAppearanceInfoAsync(v30);
+                        v45.current = v131;
+                        local v136 = nil;
+                        local v137 = nil;
+                        local l_status_8, l_result_8 = pcall(function() --[[ Line: 528 ]]
+                            -- upvalues: v40 (ref)
+                            return game.Players:GetCharacterAppearanceInfoAsync(v40);
                         end);
-                        v126 = l_status_8;
-                        v127 = l_result_8;
-                        if v126 and v127 then
-                            v80(v121, v127);
+                        v136 = l_status_8;
+                        v137 = l_result_8;
+                        if v136 and v137 then
+                            v90(v131, v137);
                         end;
-                        l_status_8 = v121:FindFirstChild("Humanoid");
+                        l_status_8 = v131:FindFirstChild("Humanoid");
                         if l_status_8 then
                             v12.race({
                                 v12.fromEvent(l_status_8.ClusterCompositionFinished), 
                                 v12.delay(3)
                             }):await();
                         end;
-                        if v121.PrimaryPart then
-                            v121.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, 0, 0, 0), (Vector3.new(0, 0, -10, 0)));
-                            l_result_8 = v121:FindFirstChild("RightFoot") or v121:FindFirstChild("Right Leg");
+                        if v131.PrimaryPart then
+                            v131.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, 0, 0, 0), (Vector3.new(0, 0, -10, 0)));
+                            l_result_8 = v131:FindFirstChild("RightFoot") or v131:FindFirstChild("Right Leg");
                             if l_result_8 and l_result_8:IsA("BasePart") then
-                                local v130 = l_result_8.Position.Y - l_result_8.Size.Y / 2;
-                                local v131 = v121.PrimaryPart.Position.Y + (-3 - v130);
-                                v121.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, v131, 0), (Vector3.new(0, 0, -10, 0)));
+                                local v140 = l_result_8.Position.Y - l_result_8.Size.Y / 2;
+                                local v141 = v131.PrimaryPart.Position.Y + (-3 - v140);
+                                v131.PrimaryPart.CFrame = CFrame.lookAt(Vector3.new(0, v141, 0), (Vector3.new(0, 0, -10, 0)));
                             end;
                         end;
-                        v37(false);
+                        v47(false);
                         if v22 or l_UserInputService_0.PreferredInput ~= Enum.PreferredInput.Touch then
-                            local v132;
-                            l_result_8, v132 = pcall(function() --[[ Line: 516 ]]
-                                -- upvalues: v126 (ref), v127 (ref), l_InsertService_0 (ref), v121 (ref)
-                                local v133 = nil;
-                                local v134 = nil;
-                                if v126 and v127 then
-                                    local l_emotes_0 = v127.emotes;
+                            local v142;
+                            l_result_8, v142 = pcall(function() --[[ Line: 564 ]]
+                                -- upvalues: v136 (ref), v137 (ref), l_InsertService_0 (ref), v131 (ref)
+                                local v143 = nil;
+                                local v144 = nil;
+                                if v136 and v137 then
+                                    local l_emotes_0 = v137.emotes;
                                     local l_l_emotes_0_0 = l_emotes_0 --[[ copy: 2 -> 6 ]];
-                                    local l_status_9, l_result_9 = pcall(function() --[[ Line: 520 ]]
+                                    local l_status_9, l_result_9 = pcall(function() --[[ Line: 568 ]]
                                         -- upvalues: l_l_emotes_0_0 (copy), l_InsertService_0 (ref)
                                         if not l_l_emotes_0_0 or #l_l_emotes_0_0 == 0 then
                                             return;
@@ -443,29 +477,29 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
                                             return (l_InsertService_0:LoadAsset(l_l_emotes_0_0[1].assetId):FindFirstChildOfClass("Animation"));
                                         end;
                                     end);
-                                    v133 = l_status_9;
-                                    v134 = l_result_9;
+                                    v143 = l_status_9;
+                                    v144 = l_result_9;
                                 end;
-                                local l_Animation1_1 = v121:FindFirstChild("Animate"):FindFirstChild("idle"):FindFirstChild("Animation1");
-                                local l_Animator_1 = v121:FindFirstChild("Humanoid"):FindFirstChild("Animator");
-                                if l_Animation1_1 and l_Animator_1 and l_Animator_1:IsA("Animator") then
-                                    local v141 = l_Animator_1:LoadAnimation(l_Animation1_1);
-                                    if v133 and v134 then
-                                        local v142 = l_Animator_1:LoadAnimation(v134);
-                                        v142.Looped = false;
-                                        v142:Play();
-                                        v142.Stopped:Connect(function() --[[ Line: 540 ]]
-                                            -- upvalues: v141 (copy)
-                                            v141:Play();
+                                local l_Animation1_1 = v131:FindFirstChild("Animate"):FindFirstChild("idle"):FindFirstChild("Animation1");
+                                local l_Animator_2 = v131:FindFirstChild("Humanoid"):FindFirstChild("Animator");
+                                if l_Animation1_1 and l_Animator_2 and l_Animator_2:IsA("Animator") then
+                                    local v151 = l_Animator_2:LoadAnimation(l_Animation1_1);
+                                    if v143 and v144 then
+                                        local v152 = l_Animator_2:LoadAnimation(v144);
+                                        v152.Looped = false;
+                                        v152:Play();
+                                        v152.Stopped:Connect(function() --[[ Line: 588 ]]
+                                            -- upvalues: v151 (copy)
+                                            v151:Play();
                                         end);
                                         return;
                                     else
-                                        v141:Play();
+                                        v151:Play();
                                     end;
                                 end;
                             end);
-                            if not l_result_8 and v28.analytics then
-                                v28.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
+                            if not l_result_8 and v38.analytics then
+                                v38.analytics.fireAnalyticsEvent("EditProfileBackgroundFailure", {
                                     errorType = l_ErrorTypes_0.CharacterAnimationFailed
                                 });
                             end;
@@ -476,35 +510,35 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
             end;
         end);
     end, {
-        v30
+        v40
     });
-    v2.useEffect(function() --[[ Line: 562 ]]
-        -- upvalues: v32 (copy), v34 (copy)
-        if v32.current and v34.current then
-            v32.current.CurrentCamera = v34.current;
+    v2.useEffect(function() --[[ Line: 610 ]]
+        -- upvalues: v42 (copy), v44 (copy)
+        if v42.current and v44.current then
+            v42.current.CurrentCamera = v44.current;
         end;
     end);
     return v2.createElement(l_View_0, {
-        Size = UDim2.new(1, 0, 0, v28.height), 
+        Size = UDim2.new(1, 0, 0, v38.height), 
         ZIndex = 2
     }, {
         Background = v2.createElement("ViewportFrame", {
             Size = UDim2.fromScale(1, 1), 
-            ref = v32, 
+            ref = v42, 
             Ambient = v18, 
             LightColor = v19, 
             BackgroundTransparency = 1
         }, {
             WorldModel = v2.createElement("WorldModel", {
-                ref = v33
+                ref = v43
             }), 
             Camera = v2.createElement("Camera", {
                 CameraType = Enum.CameraType.Scriptable, 
                 CFrame = CFrame.lookAt(Vector3.new(0, 0, -8, 0), (Vector3.new(0, 1, 10, 0))), 
-                ref = v34
+                ref = v44
             })
         }), 
-        LoadingFrame = v36 and v2.createElement(l_View_0, {
+        LoadingFrame = v46 and v2.createElement(l_View_0, {
             tag = "size-full-full", 
             ZIndex = 2
         }, {
@@ -514,7 +548,7 @@ return function(v28) --[[ Line: 94 ]] --[[ Name: BackgroundDisplay ]]
                 Size = UDim2.new(1, v24 and -48 or 48, 1, v24 and -48 or 48), 
                 ScaleType = Enum.ScaleType.Fit, 
                 BackgroundTransparency = 1, 
-                Image = v28.userThumbnail, 
+                Image = v38.userThumbnail, 
                 useShimmerAnimationWhileLoading = true, 
                 ZIndex = 2
             }) else v2.createElement(l_LoadingSpinner_0, {

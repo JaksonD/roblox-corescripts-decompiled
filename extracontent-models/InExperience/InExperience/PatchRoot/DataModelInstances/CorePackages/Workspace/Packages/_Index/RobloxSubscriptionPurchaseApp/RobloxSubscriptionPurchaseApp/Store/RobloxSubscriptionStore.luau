@@ -4,93 +4,97 @@ local v2 = require(l_Parent_0.Signals);
 local v3 = require(l_script_FirstAncestor_0.Enums.PromptState);
 local _ = require(l_script_FirstAncestor_0.Enums.RobloxSubscriptionFlowCompleteReason);
 local _ = require(l_script_FirstAncestor_0.Models.GetRobloxSubscriptionProductsModel);
+local _ = require(l_script_FirstAncestor_0.Enums.ErrorReason);
 local _ = require(l_script_FirstAncestor_0.types);
-local v7 = nil;
-local function v40() --[[ Line: 50 ]]
+local v8 = nil;
+local function v43() --[[ Line: 54 ]]
     -- upvalues: v2 (copy), v3 (copy)
-    local v8, v9 = v2.createSignal(v3.Unspecified);
-    local v10, v11 = v2.createSignal(nil);
-    local v12, v13 = v2.createSignal(false);
-    local v14, v15 = v2.createSignal({});
-    local v16, v17 = v2.createSignal("");
-    local v18, v19 = v2.createSignal(false);
-    local v20, v21 = v2.createSignal({});
-    local v22, v23 = v2.createSignal({});
-    local v26 = v2.createComputed(function(v24) --[[ Line: 61 ]]
-        -- upvalues: v10 (copy)
-        local v25 = v10(v24);
-        return v25 and v25.ProductKey and v25.ProductKey.Id or "";
+    local v9, v10 = v2.createSignal(v3.Unspecified);
+    local v11, v12 = v2.createSignal(nil);
+    local v13, v14 = v2.createSignal(false);
+    local v15, v16 = v2.createSignal({});
+    local v17, v18 = v2.createSignal("");
+    local v19, v20 = v2.createSignal(false);
+    local v21, v22 = v2.createSignal({});
+    local v23, v24 = v2.createSignal({});
+    local v25, v26 = v2.createSignal(nil);
+    local v29 = v2.createComputed(function(v27) --[[ Line: 66 ]]
+        -- upvalues: v11 (copy)
+        local v28 = v11(v27);
+        return v28 and v28.ProductKey and v28.ProductKey.Id or "";
     end);
-    local v27 = nil;
-    local v28 = nil;
-    local v29 = nil;
-    local function v31(v30) --[[ Line: 72 ]] --[[ Name: setOnFlowComplete ]]
-        -- upvalues: v27 (ref)
-        v27 = v30;
+    local v30 = nil;
+    local v31 = nil;
+    local v32 = nil;
+    local function v34(v33) --[[ Line: 77 ]] --[[ Name: setOnFlowComplete ]]
+        -- upvalues: v30 (ref)
+        v30 = v33;
     end;
-    local function v33(v32) --[[ Line: 76 ]] --[[ Name: triggerOnFlowComplete ]]
-        -- upvalues: v27 (ref)
-        if v27 then
-            v27(v32);
+    local function v36(v35) --[[ Line: 81 ]] --[[ Name: triggerOnFlowComplete ]]
+        -- upvalues: v30 (ref)
+        if v30 then
+            v30(v35);
         end;
     end;
-    local function v35(v34) --[[ Line: 82 ]] --[[ Name: setOnBackButtonActivated ]]
-        -- upvalues: v29 (ref)
-        v29 = v34;
+    local function v38(v37) --[[ Line: 87 ]] --[[ Name: setOnBackButtonActivated ]]
+        -- upvalues: v32 (ref)
+        v32 = v37;
     end;
-    local function v36() --[[ Line: 86 ]] --[[ Name: triggerOnBackButtonActivated ]]
-        -- upvalues: v29 (ref)
-        if v29 then
-            v29();
+    local function v39() --[[ Line: 91 ]] --[[ Name: triggerOnBackButtonActivated ]]
+        -- upvalues: v32 (ref)
+        if v32 then
+            v32();
         end;
     end;
-    local function v38(v37) --[[ Line: 92 ]] --[[ Name: setOnUnmountUI ]]
-        -- upvalues: v28 (ref)
-        v28 = v37;
+    local function v41(v40) --[[ Line: 97 ]] --[[ Name: setOnUnmountUI ]]
+        -- upvalues: v31 (ref)
+        v31 = v40;
     end;
-    local function v39() --[[ Line: 96 ]] --[[ Name: triggerUnmountUI ]]
-        -- upvalues: v28 (ref)
-        if v28 then
-            v28();
-            v28 = nil;
+    local function v42() --[[ Line: 101 ]] --[[ Name: triggerUnmountUI ]]
+        -- upvalues: v31 (ref)
+        if v31 then
+            v31();
+            v31 = nil;
         end;
     end;
     return {
-        getPromptState = v8, 
-        setPromptState = v9, 
-        getRobloxSubscriptionProduct = v10, 
-        setRobloxSubscriptionProduct = v11, 
-        getPurchaseFlowOptions = v22, 
-        setPurchaseFlowOptions = v23, 
-        getDidTryPurchasing = v12, 
-        setDidTryPurchasing = v13, 
-        getPaymentSessionId = v16, 
-        setPaymentSessionId = v17, 
-        getEntryContext = v20, 
-        setEntryContext = v21, 
-        setOnFlowComplete = v31, 
-        triggerOnFlowComplete = v33, 
-        getPurchaseUIOptions = v14, 
-        setPurchaseUIOptions = v15, 
-        getIsNativePurchase = v18, 
-        setIsNativePurchase = v19, 
-        getRobloxSubscriptionProductId = v26, 
-        setOnUnmountUI = v38, 
-        triggerUnmountUI = v39, 
-        setOnBackButtonActivated = v35, 
-        triggerOnBackButtonActivated = v36
+        getPromptState = v9, 
+        setPromptState = v10, 
+        getRobloxSubscriptionProduct = v11, 
+        setRobloxSubscriptionProduct = v12, 
+        getPurchaseFlowOptions = v23, 
+        setPurchaseFlowOptions = v24, 
+        getDidTryPurchasing = v13, 
+        setDidTryPurchasing = v14, 
+        getPaymentSessionId = v17, 
+        setPaymentSessionId = v18, 
+        getEntryContext = v21, 
+        setEntryContext = v22, 
+        getErrorReason = v25, 
+        setErrorReason = v26, 
+        setOnFlowComplete = v34, 
+        triggerOnFlowComplete = v36, 
+        getPurchaseUIOptions = v15, 
+        setPurchaseUIOptions = v16, 
+        getIsNativePurchase = v19, 
+        setIsNativePurchase = v20, 
+        getRobloxSubscriptionProductId = v29, 
+        setOnUnmountUI = v41, 
+        triggerUnmountUI = v42, 
+        setOnBackButtonActivated = v38, 
+        triggerOnBackButtonActivated = v39
     };
 end;
 return {
-    get = function() --[[ Line: 132 ]]
-        -- upvalues: v7 (ref), v2 (copy), v40 (copy)
-        if v7 == nil then
-            v7 = v2.createComputed(v40)(false);
+    get = function() --[[ Line: 139 ]]
+        -- upvalues: v8 (ref), v2 (copy), v43 (copy)
+        if v8 == nil then
+            v8 = v2.createComputed(v43)(false);
         end;
-        return v7;
+        return v8;
     end, 
-    cleanup = function() --[[ Line: 139 ]]
-        -- upvalues: v7 (ref)
-        v7 = nil;
+    cleanup = function() --[[ Line: 146 ]]
+        -- upvalues: v8 (ref)
+        v8 = nil;
     end
 };

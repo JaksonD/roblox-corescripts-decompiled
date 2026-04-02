@@ -1,1 +1,0 @@
-return game:DefineFastFlag("AppChatEnableDomLocators3", false);

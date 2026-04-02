@@ -50,15 +50,16 @@ local l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 = v46.Flags.GetFIntLu
 local v49 = require(l_Modules_0.LuaApp.Flags.FFlagShouldLinkBrowserTrackerToDevice);
 local v50 = require(l_Modules_0.LuaApp.Flags.FFlagEnableLuaAccountSwitch);
 local v51 = require(l_Modules_0.LuaApp.Flags.FFlagEnableKoreaKISACompliance);
-local v52 = require(l_Modules_0.LuaApp.Flags.FFlagBypassIXPKoreaCompliance);
-local v53 = require(l_Modules_0.LuaApp.Flags.FFlagBypassGUACKoreaCompliance);
-local v54 = require(l_Modules_0.LuaApp.Http.Requests.PostAssociateBrowserTrackerToDevice);
+local v52 = require(l_Modules_0.LuaApp.Flags.FFlagBypassIXPBrazilCompliance);
+local v53 = require(l_Modules_0.LuaApp.Flags.FFlagBypassIXPKoreaCompliance);
+local v54 = require(l_Modules_0.LuaApp.Flags.FFlagBypassGUACKoreaCompliance);
+local v55 = require(l_Modules_0.LuaApp.Http.Requests.PostAssociateBrowserTrackerToDevice);
 local l_LinkingProtocol_0 = require(l_CorePackages_0.Workspace.Packages.LinkingProtocol).LinkingProtocol;
-local v56 = require(l_CorePackages_0.Workspace.Packages.Responsive);
+local v57 = require(l_CorePackages_0.Workspace.Packages.Responsive);
 local l_AppBtidLayers_0 = require(l_CorePackages_0.Workspace.Packages.ExperimentLayers).AppBtidLayers;
-local v58 = require(l_CorePackages_0.Packages.RoactAppExperiment);
-local v59 = require(l_Modules_0.LuaApp.Thunks.Authentication.Util.getDeepLinkData);
-local v60 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment);
+local v59 = require(l_CorePackages_0.Packages.RoactAppExperiment);
+local v60 = require(l_Modules_0.LuaApp.Thunks.Authentication.Util.getDeepLinkData);
+local v61 = require(l_Modules_0.LuaApp.Flags.GetFFlagEnableMultiPageSignupExperiment);
 local l_FFlagEnableLuaLoginRevamp_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLuaLoginRevamp;
 local l_FFlagLuafiedWechatQQLogin_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuafiedWechatQQLogin;
 local l_FStringLuaLoginRevampIxpLayer_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FStringLuaLoginRevampIxpLayer;
@@ -67,59 +68,59 @@ local l_FFlagLuaEnableCustomizedInviteLandingPage_0 = require(l_CorePackages_0.W
 local l_FFlagLuaEnableCustomizedInviteLandingPageForTesting_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagLuaEnableCustomizedInviteLandingPageForTesting;
 local l_FFlagEnableLoginV1ForcedUsernameOverride_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLoginV1ForcedUsernameOverride;
 local l_FFlagEnableLoginV2ForcedUsernameOverride_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagEnableLoginV2ForcedUsernameOverride;
-local v69 = game:DefineFastFlag("CustomizedLandingEDP", false);
-local v70 = game:DefineFastFlag("CustomizedLandingLaunchGame", false);
-local v71 = game:DefineFastFlag("EnablePrewarmChallengeWebView", false);
-local v72 = game:DefineFastString("CustomizedLandingExperienceSort", "");
-local v77 = (function(v73) --[[ Line: 100 ]] --[[ Name: parseStringToSet ]]
-    local v74 = {};
-    for v75 in string.gmatch(v73, "([^,]+)") do
-        local v76 = v75:gsub("^%s*(.-)%s*$", "%1");
-        if v76 ~= "" then
-            v74[v76] = true;
+local v70 = game:DefineFastFlag("CustomizedLandingEDP", false);
+local v71 = game:DefineFastFlag("CustomizedLandingLaunchGame", false);
+local v72 = game:DefineFastFlag("EnablePrewarmChallengeWebView", false);
+local v73 = game:DefineFastString("CustomizedLandingExperienceSort", "");
+local v78 = (function(v74) --[[ Line: 101 ]] --[[ Name: parseStringToSet ]]
+    local v75 = {};
+    for v76 in string.gmatch(v74, "([^,]+)") do
+        local v77 = v76:gsub("^%s*(.-)%s*$", "%1");
+        if v77 ~= "" then
+            v75[v77] = true;
         end;
     end;
-    return v74;
-end)(v72);
+    return v75;
+end)(v73);
 local l_InvoluntaryLogoutAnalyticsEvents_0 = v37.Analytics.InvoluntaryLogoutAnalyticsEvents;
 local l_authPageload_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).Events.authPageload;
-local v80 = v2.PureComponent:extend("LandingPage");
-local v81 = require(l_Modules_0.LuaApp.Components.EventReceivers.SystemThemeFeature);
+local v81 = v2.PureComponent:extend("LandingPage");
+local v82 = require(l_Modules_0.LuaApp.Components.EventReceivers.SystemThemeFeature);
 local l_TelemetryConfigs_0 = require(l_CorePackages_0.Workspace.Packages.AuthAnalytics).TelemetryConfigs;
-local v83 = require(l_CorePackages_0.Packages.Foundation);
-local l_Button_0 = v83.Button;
-local l_ButtonVariant_0 = v83.Enums.ButtonVariant;
-local l_ButtonSize_0 = v83.Enums.ButtonSize;
-local v87 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
-local v88 = require(l_Modules_0.LuaApp.Flags.FFlagUseStandardFoundationButtonVariant);
-local l_GetFFlagEnableLuaAccountPicker_0 = v87.GetFFlagEnableLuaAccountPicker;
-local l_GetFFlagEnableAccountSwitcherRedesignIXP_0 = v87.GetFFlagEnableAccountSwitcherRedesignIXP;
-local v91 = require(l_Modules_0.LuaApp.Thunks.Authentication.SessionCheck);
+local v84 = require(l_CorePackages_0.Packages.Foundation);
+local l_Button_0 = v84.Button;
+local l_ButtonVariant_0 = v84.Enums.ButtonVariant;
+local l_ButtonSize_0 = v84.Enums.ButtonSize;
+local v88 = require(l_CorePackages_0.Workspace.Packages.SharedFlags);
+local v89 = require(l_Modules_0.LuaApp.Flags.FFlagUseStandardFoundationButtonVariant);
+local l_GetFFlagEnableLuaAccountPicker_0 = v88.GetFFlagEnableLuaAccountPicker;
+local l_GetFFlagEnableAccountSwitcherRedesignIXP_0 = v88.GetFFlagEnableAccountSwitcherRedesignIXP;
+local v92 = require(l_Modules_0.LuaApp.Thunks.Authentication.SessionCheck);
 local l_AccountCarouselContainer_0 = require(l_CorePackages_0.Workspace.Packages.LandingPage).Components.AccountCarouselContainer;
-local v93 = require(l_Modules_0.LuaApp.Thunks.Authentication.AccountSwitcher.SwitchToAccount);
+local v94 = require(l_Modules_0.LuaApp.Thunks.Authentication.AccountSwitcher.SwitchToAccount);
 local l_GetAccountsListWithSignedOutAccounts_0 = require(l_CorePackages_0.Workspace.Packages.AccountSwitching).GetAccountsListWithSignedOutAccounts;
-local v95 = require(l_Modules_0.LuaApp.Thunks.Challenge.PrewarmWebView);
-local l_FFlagAuthSecExclusions_0 = v87.FFlagAuthSecExclusions;
-local l_GetFFlagSetStatusBarHeight_0 = v87.GetFFlagSetStatusBarHeight;
-local l_FFlagEnableAuthDeepLinkReceiver_0 = v87.FFlagEnableAuthDeepLinkReceiver;
+local v96 = require(l_Modules_0.LuaApp.Thunks.Challenge.PrewarmWebView);
+local l_FFlagAuthSecExclusions_0 = v88.FFlagAuthSecExclusions;
+local l_GetFFlagSetStatusBarHeight_0 = v88.GetFFlagSetStatusBarHeight;
+local l_FFlagEnableAuthDeepLinkReceiver_0 = v88.FFlagEnableAuthDeepLinkReceiver;
 local l_PreAuthDeepLinkUrlStore_0 = v37.Stores.PreAuthDeepLinkUrlStore;
 local l_ExperienceService_0 = require(l_CorePackages_0.Workspace.Packages.ExperienceService).ExperienceService;
 local l_GetUniverseIdFromPlaceId_0 = v37.Thunks.GetUniverseIdFromPlaceId;
 local l_AccountPickerListView_0 = require(l_CorePackages_0.Workspace.Packages.LandingPage).Components.AccountPickerListView;
-local l_GetFIntAccountPickerVariantOverride_0 = v87.GetFIntAccountPickerVariantOverride;
+local l_GetFIntAccountPickerVariantOverride_0 = v88.GetFIntAccountPickerVariantOverride;
 local l_ThirdPartyUserService_0 = game:GetService("ThirdPartyUserService");
 local l_game_EngineFeature_1 = game:GetEngineFeature("ThirdPartyUserServiceIsAccountSwitchingSupported");
-local v106 = game:DefineFastFlag("ShowLandingPageThirdPartySwitchAccountButton", false);
-local v107 = game:DefineFastFlag("ShowBrazilContentRatingBadge4", false);
+local v107 = game:DefineFastFlag("ShowLandingPageThirdPartySwitchAccountButton", false);
+local v108 = game:DefineFastFlag("ShowBrazilContentRatingBadge4", false);
 local l_BrazilContentRatingBadge_0 = require(l_CorePackages_0.Workspace.Packages.LandingPage).Components.BrazilContentRatingBadge;
-v80.init = function(v109) --[[ Line: 160 ]] --[[ Name: init ]]
-    -- upvalues: v24 (copy), l_authTimingUtil_0 (copy), v21 (copy), v27 (copy), v31 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), v69 (copy), v59 (copy), v28 (copy), v70 (copy), l_ExperienceService_0 (copy), l_GetUniverseIdFromPlaceId_0 (copy), v72 (copy), v77 (copy), v43 (copy), l_GetFFlagEnableMultiPageSignup_0 (copy), v44 (copy), l_FFlagEnableLuaLoginRevamp_0 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (copy), l_GetFFlagEnableLuaAccountPicker_0 (copy), l_FFlagAuthSecExclusions_0 (copy), v50 (copy), v51 (copy), v53 (copy), v52 (copy), v49 (copy), v54 (copy), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (copy), l_FFlagLuaEnableCustomizedInviteLandingPageForTesting_0 (copy)
-    if v109.props.shouldDoSessionCheck then
-        local v110 = v24.fromLocalStorage();
-        v109.props.sessionCheck(v109.props.networking, v110, v109.props.analytics, v109.props.appPolicy, v109.props.loggingProtocol);
+v81.init = function(v110) --[[ Line: 161 ]] --[[ Name: init ]]
+    -- upvalues: v24 (copy), l_authTimingUtil_0 (copy), v21 (copy), v27 (copy), v31 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), v70 (copy), v60 (copy), v28 (copy), v71 (copy), l_ExperienceService_0 (copy), l_GetUniverseIdFromPlaceId_0 (copy), v73 (copy), v78 (copy), v43 (copy), l_GetFFlagEnableMultiPageSignup_0 (copy), v44 (copy), l_FFlagEnableLuaLoginRevamp_0 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (copy), l_GetFFlagEnableLuaAccountPicker_0 (copy), l_FFlagAuthSecExclusions_0 (copy), v50 (copy), v51 (copy), v54 (copy), v53 (copy), v49 (copy), v55 (copy), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (copy), l_FFlagLuaEnableCustomizedInviteLandingPageForTesting_0 (copy)
+    if v110.props.shouldDoSessionCheck then
+        local v111 = v24.fromLocalStorage();
+        v110.props.sessionCheck(v110.props.networking, v111, v110.props.analytics, v110.props.appPolicy, v110.props.loggingProtocol);
     end;
     l_authTimingUtil_0.landingPageLoadStart();
-    v109.state = {
+    v110.state = {
         shouldShowAccountSwitcherButton = false, 
         landingVideoAsset = "", 
         credProtocolIsAvailableResponse = nil, 
@@ -128,92 +129,92 @@ v80.init = function(v109) --[[ Line: 160 ]] --[[ Name: init ]]
         deepLinkData = nil
     };
     if v21.getIsFirstLaunchAfterInstall() == "true" then
-        wait(v109.props.landingPageLatency);
+        wait(v110.props.landingPageLatency);
     end;
     if v27() then
-        if v109.props.landingVideoAsset and type(v109.props.landingVideoAsset) == "string" and string.len(v109.props.landingVideoAsset) > 0 then
-            v109:setState({
-                landingVideoAsset = v109.props.landingVideoAsset
+        if v110.props.landingVideoAsset and type(v110.props.landingVideoAsset) == "string" and string.len(v110.props.landingVideoAsset) > 0 then
+            v110:setState({
+                landingVideoAsset = v110.props.landingVideoAsset
             });
         else
-            v109:setState({
+            v110:setState({
                 landingVideoAsset = v31()
             });
         end;
     end;
-    v109.maybeShowCustomizedLandingPage = function() --[[ Line: 203 ]]
-        -- upvalues: l_FFlagEnableAuthDeepLinkReceiver_0 (ref), l_PreAuthDeepLinkUrlStore_0 (ref), l_LinkingProtocol_0 (ref), v69 (ref), v109 (copy), v59 (ref), v28 (ref), v70 (ref), l_ExperienceService_0 (ref), l_GetUniverseIdFromPlaceId_0 (ref), v72 (ref), v77 (ref)
-        local v111 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-        if v69 and v111 and string.find(v111, "game_details") then
-            local v112 = v111:match("gameId=(%d+)");
-            if v112 then
-                v109:setState({
+    v110.maybeShowCustomizedLandingPage = function() --[[ Line: 204 ]]
+        -- upvalues: l_FFlagEnableAuthDeepLinkReceiver_0 (ref), l_PreAuthDeepLinkUrlStore_0 (ref), l_LinkingProtocol_0 (ref), v70 (ref), v110 (copy), v60 (ref), v28 (ref), v71 (ref), l_ExperienceService_0 (ref), l_GetUniverseIdFromPlaceId_0 (ref), v73 (ref), v78 (ref)
+        local v112 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
+        if v70 and v112 and string.find(v112, "game_details") then
+            local v113 = v112:match("gameId=(%d+)");
+            if v113 then
+                v110:setState({
                     shouldShowCustomizedLandingPage = true, 
                     deepLinkData = {
-                        universeId = v112
+                        universeId = v113
                     }
                 });
             end;
         end;
-        if v111 and string.find(v111, "share") then
-            local v113 = v59(v109.props.networking, v111);
-            if v113 then
-                local l_universeId_0 = v113.universeId;
-                local l_inviterId_0 = v113.inviterId;
+        if v112 and string.find(v112, "share") then
+            local v114 = v60(v110.props.networking, v112);
+            if v114 then
+                local l_universeId_0 = v114.universeId;
+                local l_inviterId_0 = v114.inviterId;
                 if v28 and l_universeId_0 or l_universeId_0 and l_inviterId_0 then
-                    v109:setState({
+                    v110:setState({
                         shouldShowCustomizedLandingPage = true, 
-                        deepLinkData = v113
+                        deepLinkData = v114
                     });
                 end;
             end;
         end;
-        if v70 then
+        if v71 then
             local l_l_ExperienceService_0_PendingJoinAttempt_0 = l_ExperienceService_0:GetPendingJoinAttempt();
             if l_l_ExperienceService_0_PendingJoinAttempt_0 then
                 local l_placeId_0 = l_l_ExperienceService_0_PendingJoinAttempt_0.placeId;
                 if l_placeId_0 then
-                    l_GetUniverseIdFromPlaceId_0(v109.props.networking, l_placeId_0):andThen(function(v118) --[[ Line: 238 ]]
-                        -- upvalues: v109 (ref)
-                        if v118 then
-                            v109:setState({
+                    l_GetUniverseIdFromPlaceId_0(v110.props.networking, l_placeId_0):andThen(function(v119) --[[ Line: 239 ]]
+                        -- upvalues: v110 (ref)
+                        if v119 then
+                            v110:setState({
                                 shouldShowCustomizedLandingPage = true, 
                                 deepLinkData = {
-                                    universeId = v118
+                                    universeId = v119
                                 }
                             });
                         end;
-                    end):catch(function(_) --[[ Line: 247 ]]
+                    end):catch(function(_) --[[ Line: 248 ]]
 
                     end);
                 end;
             end;
         end;
-        if v72 and v111 and string.find(v111, "navigation/experience_sort") then
-            local v120 = v111:match("sortId=([^&]+)");
-            if v120 and v77[v120] then
-                v109:setState({
+        if v73 and v112 and string.find(v112, "navigation/experience_sort") then
+            local v121 = v112:match("sortId=([^&]+)");
+            if v121 and v78[v121] then
+                v110:setState({
                     shouldShowCustomizedLandingPage = true, 
                     deepLinkData = {
-                        genre = v120
+                        genre = v121
                     }
                 });
             end;
         end;
     end;
-    v109.navigateToSignUp = function(v121) --[[ Line: 272 ]]
-        -- upvalues: v109 (copy), v43 (ref), l_GetFFlagEnableMultiPageSignup_0 (ref), v44 (ref)
-        local l_networking_0 = v109.props.networking;
-        local l_analytics_0 = v109.props.analytics;
-        local l_fetchSignUpBundles_0 = v109.props.fetchSignUpBundles;
-        local l_navigateToSinglePageSignUp_0 = v109.props.navigateToSinglePageSignUp;
-        local l_navigateToMultiPageSignUp_0 = v109.props.navigateToMultiPageSignUp;
-        local l_navigateToBirthdayPage_0 = v109.props.navigateToBirthdayPage;
+    v110.navigateToSignUp = function(v122) --[[ Line: 273 ]]
+        -- upvalues: v110 (copy), v43 (ref), l_GetFFlagEnableMultiPageSignup_0 (ref), v44 (ref)
+        local l_networking_0 = v110.props.networking;
+        local l_analytics_0 = v110.props.analytics;
+        local l_fetchSignUpBundles_0 = v110.props.fetchSignUpBundles;
+        local l_navigateToSinglePageSignUp_0 = v110.props.navigateToSinglePageSignUp;
+        local l_navigateToMultiPageSignUp_0 = v110.props.navigateToMultiPageSignUp;
+        local l_navigateToBirthdayPage_0 = v110.props.navigateToBirthdayPage;
         l_analytics_0.reportSignUpButtonClicked(v43.Context.LandingScreen);
-        if l_GetFFlagEnableMultiPageSignup_0() and v109.props.shouldEnableMultiPageSignup then
-            l_navigateToMultiPageSignUp_0(v121);
+        if l_GetFFlagEnableMultiPageSignup_0() and v110.props.shouldEnableMultiPageSignup then
+            l_navigateToMultiPageSignUp_0(v122);
             return;
-        elseif v109.props.shouldShowMultipageSignupDirectionalTest then
+        elseif v110.props.shouldShowMultipageSignupDirectionalTest then
             l_navigateToBirthdayPage_0();
             return;
         elseif v44.SinglePageSignUpEnabled() then
@@ -225,105 +226,105 @@ v80.init = function(v109) --[[ Line: 160 ]] --[[ Name: init ]]
             return;
         end;
     end;
-    v109.navigateToLogin = function(v128, v129) --[[ Line: 302 ]]
-        -- upvalues: l_FFlagEnableLuaLoginRevamp_0 (ref), v109 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (ref)
-        if l_FFlagEnableLuaLoginRevamp_0 and v109.props.showLoginRevamp then
+    v110.navigateToLogin = function(v129, v130) --[[ Line: 303 ]]
+        -- upvalues: l_FFlagEnableLuaLoginRevamp_0 (ref), v110 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (ref)
+        if l_FFlagEnableLuaLoginRevamp_0 and v110.props.showLoginRevamp then
             if l_FFlagEnableLoginV2ForcedUsernameOverride_0 then
-                v109.props.gotoLoginV2(v128, v129);
+                v110.props.gotoLoginV2(v129, v130);
                 return;
             else
-                v109.props.gotoLoginV2(v128);
+                v110.props.gotoLoginV2(v129);
                 return;
             end;
         elseif l_FFlagEnableLoginV1ForcedUsernameOverride_0 then
-            v109.props.gotoLogin(v129);
+            v110.props.gotoLogin(v130);
             return;
         else
-            v109.props.gotoLogin();
+            v110.props.gotoLogin();
             return;
         end;
     end;
-    v109.openAccountSwitcher = function() --[[ Line: 318 ]]
-        -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (ref), v109 (copy), l_FFlagAuthSecExclusions_0 (ref), v50 (ref), v21 (ref)
-        if l_GetFFlagEnableLuaAccountPicker_0() and v109.props.accountPickerVariantEnabled ~= 0 and v109.props.accountPickerVariantEnabled ~= nil then
+    v110.openAccountSwitcher = function() --[[ Line: 319 ]]
+        -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (ref), v110 (copy), l_FFlagAuthSecExclusions_0 (ref), v50 (ref), v21 (ref)
+        if l_GetFFlagEnableLuaAccountPicker_0() and v110.props.accountPickerVariantEnabled ~= 0 and v110.props.accountPickerVariantEnabled ~= nil then
             return;
-        elseif l_FFlagAuthSecExclusions_0 and v109.props.excludeAccountSwitcher then
+        elseif l_FFlagAuthSecExclusions_0 and v110.props.excludeAccountSwitcher then
             return;
         else
             if v50 == true then
-                local v130 = v21.getAccountBlob();
-                local function v133(v131) --[[ Line: 333 ]]
-                    -- upvalues: v109 (ref)
-                    local v132 = false;
-                    if v131 ~= nil then
-                        v132 = v131 > 0;
+                local v131 = v21.getAccountBlob();
+                local function v134(v132) --[[ Line: 334 ]]
+                    -- upvalues: v110 (ref)
+                    local v133 = false;
+                    if v132 ~= nil then
+                        v133 = v132 > 0;
                     end;
-                    v109:setState({
-                        shouldShowAccountSwitcherButton = v132
+                    v110:setState({
+                        shouldShowAccountSwitcherButton = v133
                     });
                 end;
-                if v130 and v130 ~= "" then
-                    v109.props.showAccountSwitcher(v109.props.networking, v133, v109.props.analytics, v109.props.appPolicy, v109.props.omniRecommendationsRequest, v109.props.enableFoundationDesign, v109.props.enableSignedOutAccounts);
+                if v131 and v131 ~= "" then
+                    v110.props.showAccountSwitcher(v110.props.networking, v134, v110.props.analytics, v110.props.appPolicy, v110.props.omniRecommendationsRequest, v110.props.enableFoundationDesign, v110.props.enableSignedOutAccounts);
                 end;
             end;
             return;
         end;
     end;
-    v109.getShouldShowKISAAgreements = function() --[[ Line: 354 ]]
-        -- upvalues: v51 (ref), v109 (copy), v53 (ref), v52 (ref)
-        return v51 and (v109.props.useKoreaKISAUserAgreementPopup or v53) and (v109.props.shouldShowKoreanKISASignUpFlow or v52);
+    v110.getShouldShowKISAAgreements = function() --[[ Line: 355 ]]
+        -- upvalues: v51 (ref), v110 (copy), v54 (ref), v53 (ref)
+        return v51 and (v110.props.useKoreaKISAUserAgreementPopup or v54) and (v110.props.shouldShowKoreanKISASignUpFlow or v53);
     end;
     if v49() then
-        local l_networking_1 = v109.props.networking;
-        v54(l_networking_1):catch(function() --[[ Line: 362 ]]
+        local l_networking_1 = v110.props.networking;
+        v55(l_networking_1):catch(function() --[[ Line: 363 ]]
 
         end);
     end;
-    if l_FFlagLuaEnableCustomizedInviteLandingPage_0 and (v109.props.isCustomizedLandingPageEnabled or l_FFlagLuaEnableCustomizedInviteLandingPageForTesting_0) then
-        v109.maybeShowCustomizedLandingPage();
+    if l_FFlagLuaEnableCustomizedInviteLandingPage_0 and (v110.props.isCustomizedLandingPageEnabled or l_FFlagLuaEnableCustomizedInviteLandingPageForTesting_0) then
+        v110.maybeShowCustomizedLandingPage();
     end;
 end;
-v80.didUpdate = function(v135, _) --[[ Line: 374 ]] --[[ Name: didUpdate ]]
+v81.didUpdate = function(v136, _) --[[ Line: 375 ]] --[[ Name: didUpdate ]]
     -- upvalues: l_GetFFlagSetStatusBarHeight_0 (copy), l_UIConstants_0 (copy)
-    if l_GetFFlagSetStatusBarHeight_0() and v135.props.isCompact then
-        v135.props.setStatusBarHeight(l_UIConstants_0.STATUS_BAR_HEIGHT);
+    if l_GetFFlagSetStatusBarHeight_0() and v136.props.isCompact then
+        v136.props.setStatusBarHeight(l_UIConstants_0.STATUS_BAR_HEIGHT);
     end;
 end;
-v80.render = function(v137) --[[ Line: 382 ]] --[[ Name: render ]]
-    -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (copy), l_AccountCarouselContainer_0 (copy), l_AccountPickerListView_0 (copy), v2 (copy), v21 (copy), v9 (copy), l_UiMode_0 (copy), v17 (copy), v16 (copy), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (copy), v27 (copy), v25 (copy), v26 (copy), v107 (copy), l_FormFactor_0 (copy), v42 (copy), l_BrazilContentRatingBadge_0 (copy), v19 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_TelemetryConfigs_0 (copy), v50 (copy), v88 (copy), v43 (copy), l_ThirdPartyUserService_0 (copy), l_game_EngineFeature_1 (copy), v106 (copy), l_ThirdPartySwitchAccountComponent_0 (copy), v18 (copy)
-    if l_GetFFlagEnableLuaAccountPicker_0() and v137.props.accountPickerVariantEnabled ~= 0 and v137.props.accountPickerVariantEnabled ~= nil and #v137.state.accountPickerAccounts > 0 then
-        local v138 = {
+v81.render = function(v138) --[[ Line: 383 ]] --[[ Name: render ]]
+    -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (copy), l_AccountCarouselContainer_0 (copy), l_AccountPickerListView_0 (copy), v2 (copy), v21 (copy), v9 (copy), l_UiMode_0 (copy), v17 (copy), v16 (copy), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (copy), v27 (copy), v25 (copy), v26 (copy), v108 (copy), v52 (copy), l_FormFactor_0 (copy), v42 (copy), l_BrazilContentRatingBadge_0 (copy), v19 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_ButtonSize_0 (copy), l_TelemetryConfigs_0 (copy), v50 (copy), v89 (copy), v43 (copy), l_ThirdPartyUserService_0 (copy), l_game_EngineFeature_1 (copy), v107 (copy), l_ThirdPartySwitchAccountComponent_0 (copy), v18 (copy)
+    if l_GetFFlagEnableLuaAccountPicker_0() and v138.props.accountPickerVariantEnabled ~= 0 and v138.props.accountPickerVariantEnabled ~= nil and #v138.state.accountPickerAccounts > 0 then
+        local v139 = {
             [1] = l_AccountCarouselContainer_0, 
             [2] = l_AccountPickerListView_0
         };
-        return v2.createElement(v138[v137.props.accountPickerVariantEnabled], {
-            accounts = v137.state.accountPickerAccounts, 
+        return v2.createElement(v139[v138.props.accountPickerVariantEnabled], {
+            accounts = v138.state.accountPickerAccounts, 
             avatarSize = UDim2.new(0, 160, 0, 240), 
-            onAvatarActivated = function(v139, v140, v141) --[[ Line: 397 ]] --[[ Name: onAvatarActivated ]]
-                -- upvalues: v21 (ref), v137 (copy)
-                if v141 then
-                    v21.setAccountSwitchTargetUsername(v140);
+            onAvatarActivated = function(v140, v141, v142) --[[ Line: 398 ]] --[[ Name: onAvatarActivated ]]
+                -- upvalues: v21 (ref), v138 (copy)
+                if v142 then
+                    v21.setAccountSwitchTargetUsername(v141);
                     v21.flush();
-                    v137.props.navigateSwitchToAccount(v137.props.networking, v139, v137.props.appPolicy, v137.props.omniRecommendationsRequest, v137.props.analytics);
+                    v138.props.navigateSwitchToAccount(v138.props.networking, v140, v138.props.appPolicy, v138.props.omniRecommendationsRequest, v138.props.analytics);
                     return;
                 else
-                    v137.navigateToLogin(v137.state.credProtocolIsAvailableResponse, v140);
+                    v138.navigateToLogin(v138.state.credProtocolIsAvailableResponse, v141);
                     return;
                 end;
             end, 
-            setAccountPickerAccounts = function(v142) --[[ Line: 412 ]] --[[ Name: setAccountPickerAccounts ]]
-                -- upvalues: v137 (copy)
-                v137:setState({
-                    accountPickerAccounts = v142
+            setAccountPickerAccounts = function(v143) --[[ Line: 413 ]] --[[ Name: setAccountPickerAccounts ]]
+                -- upvalues: v138 (copy)
+                v138:setState({
+                    accountPickerAccounts = v143
                 });
             end, 
-            navigateToSignup = function() --[[ Line: 417 ]] --[[ Name: navigateToSignup ]]
-                -- upvalues: v137 (copy)
-                v137.navigateToSignUp(v137.state.credProtocolIsAvailableResponse);
+            navigateToSignup = function() --[[ Line: 418 ]] --[[ Name: navigateToSignup ]]
+                -- upvalues: v138 (copy)
+                v138.navigateToSignUp(v138.state.credProtocolIsAvailableResponse);
             end, 
-            navigateToLogin = function() --[[ Line: 420 ]] --[[ Name: navigateToLogin ]]
-                -- upvalues: v137 (copy)
-                v137.navigateToLogin(v137.state.credProtocolIsAvailableResponse, "");
+            navigateToLogin = function() --[[ Line: 421 ]] --[[ Name: navigateToLogin ]]
+                -- upvalues: v138 (copy)
+                v138.navigateToLogin(v138.state.credProtocolIsAvailableResponse, "");
             end
         });
     else
@@ -331,48 +332,48 @@ v80.render = function(v137) --[[ Line: 382 ]] --[[ Name: render ]]
             signUpText = "Authentication.SignUp.Action.CreateAccount", 
             signInText = "Authentication.Login.Action.SignIn", 
             switchAccountsText = "Authentication.AccountSwitch.Action.SwitchAccount"
-        })(function(v143) --[[ Line: 430 ]]
-            -- upvalues: v137 (copy), l_UiMode_0 (ref), v17 (ref), v16 (ref), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (ref), v27 (ref), v25 (ref), v26 (ref), v107 (ref), v2 (ref), l_FormFactor_0 (ref), v42 (ref), l_BrazilContentRatingBadge_0 (ref), v19 (ref), l_Button_0 (ref), l_ButtonVariant_0 (ref), l_ButtonSize_0 (ref), l_TelemetryConfigs_0 (ref), v50 (ref), v88 (ref), v43 (ref), l_ThirdPartyUserService_0 (ref), l_game_EngineFeature_1 (ref), v106 (ref), l_ThirdPartySwitchAccountComponent_0 (ref), v18 (ref)
-            local l_LandingPage_0 = v137.props.tokens.LuaApps.LandingPage;
-            local v145 = v137.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
-            local v146 = if v145 then v17 else v16;
-            local v147 = l_FFlagLuaEnableCustomizedInviteLandingPage_0 and v137.state.shouldShowCustomizedLandingPage;
-            local v148 = v27() and v137.props.landingVideoEnabled and not v147;
-            if v148 then
-                v146 = v25;
-            elseif v147 then
-                v146 = v26;
+        })(function(v144) --[[ Line: 431 ]]
+            -- upvalues: v138 (copy), l_UiMode_0 (ref), v17 (ref), v16 (ref), l_FFlagLuaEnableCustomizedInviteLandingPage_0 (ref), v27 (ref), v25 (ref), v26 (ref), v108 (ref), v52 (ref), v2 (ref), l_FormFactor_0 (ref), v42 (ref), l_BrazilContentRatingBadge_0 (ref), v19 (ref), l_Button_0 (ref), l_ButtonVariant_0 (ref), l_ButtonSize_0 (ref), l_TelemetryConfigs_0 (ref), v50 (ref), v89 (ref), v43 (ref), l_ThirdPartyUserService_0 (ref), l_game_EngineFeature_1 (ref), v107 (ref), l_ThirdPartySwitchAccountComponent_0 (ref), v18 (ref)
+            local l_LandingPage_0 = v138.props.tokens.LuaApps.LandingPage;
+            local v146 = v138.props.uiModeInfo.uiMode == l_UiMode_0.TenFoot;
+            local v147 = if v146 then v17 else v16;
+            local v148 = l_FFlagLuaEnableCustomizedInviteLandingPage_0 and v138.state.shouldShowCustomizedLandingPage;
+            local v149 = v27() and v138.props.landingVideoEnabled and not v148;
+            if v149 then
+                v147 = v25;
+            elseif v148 then
+                v147 = v26;
             end;
-            local l_signUpText_0 = v143.signUpText;
-            local v150 = v107 and v137.props.showBrazilContentRatingLogo and v137.props.shouldDisplayBrazilAgeRatingIXP;
+            local l_signUpText_0 = v144.signUpText;
+            local v151 = v108 and v138.props.showBrazilContentRatingLogo and (v138.props.shouldDisplayBrazilAgeRatingIXP or v52);
             local l_createElement_0 = v2.createElement;
-            local l_v146_0 = v146;
-            local v153 = {
-                ContentAlign = if not v145 and v137.props.formFactor == l_FormFactor_0.COMPACT then v42.Bottom else v42.Top, 
-                ref = v137.props.containerRef, 
-                VNAgeBadgeEnabled = v137.props.showVNGAge12Badge, 
-                screenSize = if not not v27() or v147 then v137.props.screenSize else nil, 
-                statusBarHeight = if not not v27() or v147 then v137.props.statusBarHeight else nil, 
-                globalGuiInset = if not not v27() or v147 then v137.props.globalGuiInset else nil, 
-                formFactor = if v27() then v137.props.formFactor else nil, 
-                landingVideoAsset = if v27() then v137.state.landingVideoAsset else nil, 
-                deepLinkData = if v147 then v137.state.deepLinkData else nil, 
-                containerRef = v137.props.containerRef, 
-                FooterElement = if v150 then v2.createElement(l_BrazilContentRatingBadge_0) else nil, 
-                FooterHeight = if v150 then l_LandingPage_0.brazilBadgeHeight else 0
+            local l_v147_0 = v147;
+            local v154 = {
+                ContentAlign = if not v146 and v138.props.formFactor == l_FormFactor_0.COMPACT then v42.Bottom else v42.Top, 
+                ref = v138.props.containerRef, 
+                VNAgeBadgeEnabled = v138.props.showVNGAge12Badge, 
+                screenSize = if not not v27() or v148 then v138.props.screenSize else nil, 
+                statusBarHeight = if not not v27() or v148 then v138.props.statusBarHeight else nil, 
+                globalGuiInset = if not not v27() or v148 then v138.props.globalGuiInset else nil, 
+                formFactor = if v27() then v138.props.formFactor else nil, 
+                landingVideoAsset = if v27() then v138.state.landingVideoAsset else nil, 
+                deepLinkData = if v148 then v138.state.deepLinkData else nil, 
+                containerRef = v138.props.containerRef, 
+                FooterElement = if v151 then v2.createElement(l_BrazilContentRatingBadge_0) else nil, 
+                FooterHeight = if v151 then l_LandingPage_0.brazilBadgeHeight else 0
             };
-            local v154 = {};
+            local v155 = {};
             local l_createElement_1 = v2.createElement;
             local l_FitFrame_0 = v19.FitFrame;
-            local v157 = {
+            local v158 = {
                 Size = UDim2.new(1, -40, 0, 0), 
                 fitAxis = v19.FitAxis.Height, 
                 Position = UDim2.new(0.5, 0, 0, 0), 
                 AnchorPoint = Vector2.new(0.5, 0), 
                 BackgroundTransparency = 1, 
-                ref = v137.props.ref
+                ref = v138.props.ref
             };
-            local v158 = {
+            local v159 = {
                 UIListLayout = v2.createElement("UIListLayout", {
                     Padding = UDim.new(0, l_LandingPage_0.contentPadding), 
                     SortOrder = Enum.SortOrder.LayoutOrder, 
@@ -387,352 +388,352 @@ v80.render = function(v137) --[[ Line: 382 ]] --[[ Name: render ]]
                     MinSize = Vector2.new(0, 0), 
                     MaxSize = Vector2.new(l_LandingPage_0.buttonWidth, 1e999)
                 }), 
-                SignUpButton = if not v148 then v2.createElement(l_Button_0, {
+                SignUpButton = if not v149 then v2.createElement(l_Button_0, {
                     LayoutOrder = 1, 
                     variant = l_ButtonVariant_0.SubEmphasis, 
                     size = l_ButtonSize_0.Large, 
                     text = l_signUpText_0, 
-                    onActivated = function() --[[ Line: 503 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v137 (ref), l_TelemetryConfigs_0 (ref)
-                        v137.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingSignupButtonClickedConfig, 1);
-                        v137.navigateToSignUp(v137.state.credProtocolIsAvailableResponse);
+                    onActivated = function() --[[ Line: 504 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v138 (ref), l_TelemetryConfigs_0 (ref)
+                        v138.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingSignupButtonClickedConfig, 1);
+                        v138.navigateToSignUp(v138.state.credProtocolIsAvailableResponse);
                     end, 
                     width = UDim.new(1, 0), 
-                    [v2.Ref] = v137.props.defaultRef
+                    [v2.Ref] = v138.props.defaultRef
                 }) else v2.createElement(l_Button_0, {
                     LayoutOrder = 1, 
                     variant = l_ButtonVariant_0.Emphasis, 
                     size = l_ButtonSize_0.Large, 
                     width = UDim.new(1, 0), 
                     text = l_signUpText_0, 
-                    onActivated = function() --[[ Line: 522 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v137 (ref), l_TelemetryConfigs_0 (ref)
-                        v137.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingSignupButtonClickedConfig, 1);
-                        v137.navigateToSignUp(v137.state.credProtocolIsAvailableResponse);
+                    onActivated = function() --[[ Line: 523 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v138 (ref), l_TelemetryConfigs_0 (ref)
+                        v138.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingSignupButtonClickedConfig, 1);
+                        v138.navigateToSignUp(v138.state.credProtocolIsAvailableResponse);
                     end, 
-                    [v2.Ref] = v137.props.defaultRef
+                    [v2.Ref] = v138.props.defaultRef
                 })
             };
-            local v159 = false;
+            local v160 = false;
             if v50 == true then
-                v159 = v137.state.shouldShowAccountSwitcherButton and v2.createElement(l_Button_0, {
+                v160 = v138.state.shouldShowAccountSwitcherButton and v2.createElement(l_Button_0, {
                     LayoutOrder = 2, 
-                    variant = if v88 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Subtle, 
+                    variant = if v89 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Subtle, 
                     size = l_ButtonSize_0.Large, 
                     width = UDim.new(1, 0), 
-                    text = v143.switchAccountsText, 
-                    onActivated = function() --[[ Line: 543 ]] --[[ Name: onActivated ]]
-                        -- upvalues: v137 (ref), v43 (ref)
-                        v137.props.analytics.reportSwitchAccountButtonClicked(v43.Context.LandingScreen);
-                        v137.openAccountSwitcher();
+                    text = v144.switchAccountsText, 
+                    onActivated = function() --[[ Line: 544 ]] --[[ Name: onActivated ]]
+                        -- upvalues: v138 (ref), v43 (ref)
+                        v138.props.analytics.reportSwitchAccountButtonClicked(v43.Context.LandingScreen);
+                        v138.openAccountSwitcher();
                     end
                 });
             end;
-            v158.AccountSwitchButton = v159;
-            v158.LoginButton = v2.createElement(l_Button_0, {
+            v159.AccountSwitchButton = v160;
+            v159.LoginButton = v2.createElement(l_Button_0, {
                 LayoutOrder = 3, 
-                variant = if v88 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Subtle, 
+                variant = if v89 then l_ButtonVariant_0.Standard else l_ButtonVariant_0.Subtle, 
                 size = l_ButtonSize_0.Large, 
                 width = UDim.new(1, 0), 
-                text = v143.signInText, 
-                onActivated = function() --[[ Line: 559 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v137 (ref), l_TelemetryConfigs_0 (ref), v43 (ref)
-                    v137.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingLoginButtonClickedConfig, 1);
-                    v137.props.analytics.reportLogInButtonClicked(v43.Context.LandingScreen);
-                    v137.props.analytics.reportAuthButtonClick(v43.Context.LandingScreen, v43.Button.LogIn);
-                    v137.navigateToLogin(v137.state.credProtocolIsAvailableResponse);
+                text = v144.signInText, 
+                onActivated = function() --[[ Line: 560 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v138 (ref), l_TelemetryConfigs_0 (ref), v43 (ref)
+                    v138.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingLoginButtonClickedConfig, 1);
+                    v138.props.analytics.reportLogInButtonClicked(v43.Context.LandingScreen);
+                    v138.props.analytics.reportAuthButtonClick(v43.Context.LandingScreen, v43.Button.LogIn);
+                    v138.navigateToLogin(v138.state.credProtocolIsAvailableResponse);
                 end
             });
-            v158.ThirdPartySwitchAccountComponent = if l_ThirdPartyUserService_0 and l_game_EngineFeature_1 and l_ThirdPartyUserService_0:IsAccountSwitchingSupported() and v106 then v2.createElement(l_ThirdPartySwitchAccountComponent_0, {
+            v159.ThirdPartySwitchAccountComponent = if l_ThirdPartyUserService_0 and l_game_EngineFeature_1 and l_ThirdPartyUserService_0:IsAccountSwitchingSupported() and v107 then v2.createElement(l_ThirdPartySwitchAccountComponent_0, {
                 layoutOrder = 4, 
                 dividerTextKey = "CommonUI.Features.Labels.ConnectTo", 
                 thirdPartyUserName = l_ThirdPartyUserService_0:GetUserPlatformName()
             }) else nil;
-            v158.DisclaimerLinks = if not not v137.props.useVNGUserAgreementPopup or v137.getShouldShowKISAAgreements() or v145 then nil else v2.createElement(v18, {
-                LayoutOrder = v106 and 5 or 4
+            v159.DisclaimerLinks = if not not v138.props.useVNGUserAgreementPopup or v138.getShouldShowKISAAgreements() or v146 then nil else v2.createElement(v18, {
+                LayoutOrder = v107 and 5 or 4
             });
-            v154.LandingPageContents = l_createElement_1(l_FitFrame_0, v157, v158);
-            return l_createElement_0(l_v146_0, v153, v154);
+            v155.LandingPageContents = l_createElement_1(l_FitFrame_0, v158, v159);
+            return l_createElement_0(l_v147_0, v154, v155);
         end);
     end;
 end;
-v80.didMount = function(v160) --[[ Line: 594 ]] --[[ Name: didMount ]]
-    -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (copy), l_GetAccountsListWithSignedOutAccounts_0 (copy), l_InvoluntaryLogoutAnalyticsEvents_0 (copy), v43 (copy), v27 (copy), v71 (copy), v95 (copy), l_TelemetryConfigs_0 (copy), l_game_EngineFeature_0 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), v81 (copy)
-    if l_GetFFlagEnableLuaAccountPicker_0() and v160.props.accountPickerVariantEnabled ~= 0 and v160.props.accountPickerVariantEnabled ~= nil then
-        pcall(function() --[[ Line: 600 ]]
-            -- upvalues: l_GetAccountsListWithSignedOutAccounts_0 (ref), v160 (copy)
-            l_GetAccountsListWithSignedOutAccounts_0(v160.props.networking, {
+v81.didMount = function(v161) --[[ Line: 595 ]] --[[ Name: didMount ]]
+    -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (copy), l_GetAccountsListWithSignedOutAccounts_0 (copy), l_InvoluntaryLogoutAnalyticsEvents_0 (copy), v43 (copy), v27 (copy), v72 (copy), v96 (copy), l_TelemetryConfigs_0 (copy), l_game_EngineFeature_0 (copy), l_FFlagEnableAuthDeepLinkReceiver_0 (copy), l_PreAuthDeepLinkUrlStore_0 (copy), l_LinkingProtocol_0 (copy), l_default_0 (copy), l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0 (copy), v82 (copy)
+    if l_GetFFlagEnableLuaAccountPicker_0() and v161.props.accountPickerVariantEnabled ~= 0 and v161.props.accountPickerVariantEnabled ~= nil then
+        pcall(function() --[[ Line: 601 ]]
+            -- upvalues: l_GetAccountsListWithSignedOutAccounts_0 (ref), v161 (copy)
+            l_GetAccountsListWithSignedOutAccounts_0(v161.props.networking, {
                 isAuthenticated = false, 
                 filterUnauthenticatedSessionsForAccountPicker = true
-            }):andThen(function(v161) --[[ Line: 604 ]]
-                -- upvalues: v160 (ref)
-                v160:setState({
-                    accountPickerAccounts = v161
+            }):andThen(function(v162) --[[ Line: 605 ]]
+                -- upvalues: v161 (ref)
+                v161:setState({
+                    accountPickerAccounts = v162
                 });
-            end):catch(function(v162) --[[ Line: 608 ]]
-                warn(v162);
+            end):catch(function(v163) --[[ Line: 609 ]]
+                warn(v163);
             end);
         end);
     end;
     l_InvoluntaryLogoutAnalyticsEvents_0.sendImmediatelyPageLoadEvent(v43.Origin.LandingScreen, "");
-    v160.openAccountSwitcher();
+    v161.openAccountSwitcher();
     if v27() then
-        v160.props.analytics.reportAuthPageload(v43.Context.LandingScreenVideo, (tostring(true)));
+        v161.props.analytics.reportAuthPageload(v43.Context.LandingScreenVideo, (tostring(true)));
     else
-        v160.props.analytics.reportAuthPageload(v43.Context.LandingScreenVideo, (tostring(false)));
+        v161.props.analytics.reportAuthPageload(v43.Context.LandingScreenVideo, (tostring(false)));
     end;
-    v160.props.loggingProtocol:logEventOnce("landing_page_did_mount");
-    if v71 then
-        local l_status_0, l_result_0 = pcall(function() --[[ Line: 624 ]]
-            -- upvalues: v95 (ref)
-            v95.init();
+    v161.props.loggingProtocol:logEventOnce("landing_page_did_mount");
+    if v72 then
+        local l_status_0, l_result_0 = pcall(function() --[[ Line: 625 ]]
+            -- upvalues: v96 (ref)
+            v96.init();
         end);
         if not l_status_0 or not l_result_0 then
-            v160.props.analytics.reportAuthClientError(v43.Context.LandingScreen, "prewarm_challenge_webview_error");
+            v161.props.analytics.reportAuthClientError(v43.Context.LandingScreen, "prewarm_challenge_webview_error");
         end;
     end;
-    v160.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingPageMountTelemetryConfig, 1);
+    v161.props.loggingProtocol:logRobloxTelemetryCounter(l_TelemetryConfigs_0.LandingPageMountTelemetryConfig, 1);
     if l_game_EngineFeature_0 then
-        v160.props.appLifecycleObserverService:TriggerOnLandingPageMount();
+        v161.props.appLifecycleObserverService:TriggerOnLandingPageMount();
     end;
-    local v165 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
-    v160.props.analytics.reportAuthPageload(v43.Context.LandingScreen, v165);
-    local v166 = os.clock();
-    l_default_0:isAvailable(l_default_0.CredentialsTypes.all, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v167) --[[ Line: 652 ]]
-        -- upvalues: v160 (copy), v43 (ref), v166 (copy)
-        v160.props.analytics.reportAuthPageload(v43.Context.LandingPageIsAvailablePrefetch, (tostring(os.clock() - v166)));
-        v160:setState({
-            credProtocolIsAvailableResponse = v167
+    local v166 = if l_FFlagEnableAuthDeepLinkReceiver_0 then l_PreAuthDeepLinkUrlStore_0.getUrl() else l_LinkingProtocol_0:getLastLuaURL();
+    v161.props.analytics.reportAuthPageload(v43.Context.LandingScreen, v166);
+    local v167 = os.clock();
+    l_default_0:isAvailable(l_default_0.CredentialsTypes.all, l_GetFIntLuaAppCredentialsProtocolAvailableTimeout_0()):andThen(function(v168) --[[ Line: 653 ]]
+        -- upvalues: v161 (copy), v43 (ref), v167 (copy)
+        v161.props.analytics.reportAuthPageload(v43.Context.LandingPageIsAvailablePrefetch, (tostring(os.clock() - v167)));
+        v161:setState({
+            credProtocolIsAvailableResponse = v168
         });
     end);
-    v81.SetDarkThemeOverride();
+    v82.SetDarkThemeOverride();
 end;
-v80.willUnmount = function(_) --[[ Line: 665 ]] --[[ Name: willUnmount ]]
-    -- upvalues: l_authPageload_0 (copy), v43 (copy), v71 (copy), v95 (copy), v81 (copy)
+v81.willUnmount = function(_) --[[ Line: 666 ]] --[[ Name: willUnmount ]]
+    -- upvalues: l_authPageload_0 (copy), v43 (copy), v72 (copy), v96 (copy), v82 (copy)
     l_authPageload_0(v43.Context.LandingPageUnmount);
-    if v71 then
-        pcall(function() --[[ Line: 669 ]]
-            -- upvalues: v95 (ref)
-            v95.cleanup();
+    if v72 then
+        pcall(function() --[[ Line: 670 ]]
+            -- upvalues: v96 (ref)
+            v96.cleanup();
         end);
     end;
-    v81.ClearThemeOverride();
+    v82.ClearThemeOverride();
 end;
-v80 = v3.connect(function(v169, _) --[[ Line: 677 ]]
+v81 = v3.connect(function(v170, _) --[[ Line: 678 ]]
     return {
-        formFactor = v169.FormFactor, 
-        screenSize = v169.ScreenSize, 
-        statusBarHeight = v169.TopBar.statusBarHeight, 
-        globalGuiInset = v169.GlobalGuiInset
+        formFactor = v170.FormFactor, 
+        screenSize = v170.ScreenSize, 
+        statusBarHeight = v170.TopBar.statusBarHeight, 
+        globalGuiInset = v170.GlobalGuiInset
     };
-end, function(v171) --[[ Line: 684 ]]
-    -- upvalues: v20 (copy), v14 (copy), v13 (copy), l_GetFFlagEnableLuaAccountPicker_0 (copy), v93 (copy), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), v45 (copy), v43 (copy), v91 (copy), v15 (copy)
+end, function(v172) --[[ Line: 685 ]]
+    -- upvalues: v20 (copy), v14 (copy), v13 (copy), l_GetFFlagEnableLuaAccountPicker_0 (copy), v94 (copy), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (copy), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (copy), v45 (copy), v43 (copy), v92 (copy), v15 (copy)
     return {
-        fetchSignUpBundles = function(v172) --[[ Line: 686 ]] --[[ Name: fetchSignUpBundles ]]
-            -- upvalues: v171 (copy), v20 (ref)
-            return v171(v20.Fetch(v172));
+        fetchSignUpBundles = function(v173) --[[ Line: 687 ]] --[[ Name: fetchSignUpBundles ]]
+            -- upvalues: v172 (copy), v20 (ref)
+            return v172(v20.Fetch(v173));
         end, 
-        navigateToSinglePageSignUp = function() --[[ Line: 689 ]] --[[ Name: navigateToSinglePageSignUp ]]
-            -- upvalues: v171 (copy), v14 (ref), v13 (ref)
-            v171(v14({
+        navigateToSinglePageSignUp = function() --[[ Line: 690 ]] --[[ Name: navigateToSinglePageSignUp ]]
+            -- upvalues: v172 (copy), v14 (ref), v13 (ref)
+            v172(v14({
                 name = v13.SinglePageSignUp
             }));
         end, 
-        navigateToMultiPageSignUp = function(v173) --[[ Line: 692 ]] --[[ Name: navigateToMultiPageSignUp ]]
-            -- upvalues: v171 (copy), v14 (ref), v13 (ref)
-            v171(v14({
+        navigateToMultiPageSignUp = function(v174) --[[ Line: 693 ]] --[[ Name: navigateToMultiPageSignUp ]]
+            -- upvalues: v172 (copy), v14 (ref), v13 (ref)
+            v172(v14({
                 name = v13.MultiPageSignup, 
                 extraProps = {
                     enforceResetState = true, 
-                    credProtocolIsAvailableResponse = v173
+                    credProtocolIsAvailableResponse = v174
                 }
             }));
         end, 
-        navigateSwitchToAccount = function(v174, v175, v176, v177, v178) --[[ Line: 701 ]] --[[ Name: navigateSwitchToAccount ]]
-            -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (ref), v171 (copy), v93 (ref)
+        navigateSwitchToAccount = function(v175, v176, v177, v178, v179) --[[ Line: 702 ]] --[[ Name: navigateSwitchToAccount ]]
+            -- upvalues: l_GetFFlagEnableLuaAccountPicker_0 (ref), v172 (copy), v94 (ref)
             if not l_GetFFlagEnableLuaAccountPicker_0() then
                 return;
             else
-                v171(v93(v174, v175, v176, v177, v178));
+                v172(v94(v175, v176, v177, v178, v179));
                 return;
             end;
         end, 
-        navigateToBirthdayPage = function() --[[ Line: 707 ]] --[[ Name: navigateToBirthdayPage ]]
-            -- upvalues: v171 (copy), v14 (ref), v13 (ref)
-            v171(v14({
+        navigateToBirthdayPage = function() --[[ Line: 708 ]] --[[ Name: navigateToBirthdayPage ]]
+            -- upvalues: v172 (copy), v14 (ref), v13 (ref)
+            v172(v14({
                 name = v13.Birthday
             }));
         end, 
-        gotoLogin = function(v179) --[[ Line: 710 ]] --[[ Name: gotoLogin ]]
-            -- upvalues: v171 (copy), v14 (ref), v13 (ref), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (ref)
-            v171(v14({
+        gotoLogin = function(v180) --[[ Line: 711 ]] --[[ Name: gotoLogin ]]
+            -- upvalues: v172 (copy), v14 (ref), v13 (ref), l_FFlagEnableLoginV1ForcedUsernameOverride_0 (ref)
+            v172(v14({
                 name = v13.Login, 
                 extraProps = {
-                    forcedUsernameOverride = if l_FFlagEnableLoginV1ForcedUsernameOverride_0 then v179 else nil
+                    forcedUsernameOverride = if l_FFlagEnableLoginV1ForcedUsernameOverride_0 then v180 else nil
                 }
             }));
         end, 
-        gotoLoginV2 = function(v180, v181) --[[ Line: 720 ]] --[[ Name: gotoLoginV2 ]]
-            -- upvalues: v171 (copy), v14 (ref), v13 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref)
-            v171(v14({
+        gotoLoginV2 = function(v181, v182) --[[ Line: 721 ]] --[[ Name: gotoLoginV2 ]]
+            -- upvalues: v172 (copy), v14 (ref), v13 (ref), l_FFlagEnableLoginV2ForcedUsernameOverride_0 (ref)
+            v172(v14({
                 name = v13.LoginV2, 
                 extraProps = {
-                    credProtocolIsAvailableResponse = v180, 
-                    forcedUsernameOverride = if l_FFlagEnableLoginV2ForcedUsernameOverride_0 then v181 else nil
+                    credProtocolIsAvailableResponse = v181, 
+                    forcedUsernameOverride = if l_FFlagEnableLoginV2ForcedUsernameOverride_0 then v182 else nil
                 }
             }));
         end, 
-        showAccountSwitcher = function(v182, v183, v184, v185, v186, v187, v188) --[[ Line: 731 ]] --[[ Name: showAccountSwitcher ]]
-            -- upvalues: v171 (copy), v45 (ref), v43 (ref)
-            v171(v45(true, v182, v43.Origin.LandingScreen, v184, v185, v186, v187, v188)):andThen(function(v189) --[[ Line: 751 ]]
-                -- upvalues: v183 (copy)
-                if v189 ~= nil and v183 then
-                    v183(v189);
+        showAccountSwitcher = function(v183, v184, v185, v186, v187, v188, v189) --[[ Line: 732 ]] --[[ Name: showAccountSwitcher ]]
+            -- upvalues: v172 (copy), v45 (ref), v43 (ref)
+            v172(v45(true, v183, v43.Origin.LandingScreen, v185, v186, v187, v188, v189)):andThen(function(v190) --[[ Line: 752 ]]
+                -- upvalues: v184 (copy)
+                if v190 ~= nil and v184 then
+                    v184(v190);
                 end;
             end);
         end, 
-        sessionCheck = function(v190, v191, v192, v193, v194) --[[ Line: 758 ]] --[[ Name: sessionCheck ]]
-            -- upvalues: v171 (copy), v91 (ref)
-            return v171(v91(v190, v191, v192, v193, v194));
+        sessionCheck = function(v191, v192, v193, v194, v195) --[[ Line: 759 ]] --[[ Name: sessionCheck ]]
+            -- upvalues: v172 (copy), v92 (ref)
+            return v172(v92(v191, v192, v193, v194, v195));
         end, 
-        setStatusBarHeight = function(v195) --[[ Line: 761 ]] --[[ Name: setStatusBarHeight ]]
-            -- upvalues: v171 (copy), v15 (ref)
-            return v171(v15(v195));
+        setStatusBarHeight = function(v196) --[[ Line: 762 ]] --[[ Name: setStatusBarHeight ]]
+            -- upvalues: v172 (copy), v15 (ref)
+            return v172(v15(v196));
         end
     };
-end)(v80);
-v80 = l_RoactAppPolicy_0.connect(function(v196, _) --[[ Line: 767 ]]
+end)(v81);
+v81 = l_RoactAppPolicy_0.connect(function(v197, _) --[[ Line: 768 ]]
     return {
-        showVNGAge12Badge = v196.getShowVNGAge12Badge(), 
-        useVNGUserAgreementPopup = v196.getUseVNGUserAgreementPopup(), 
-        useKoreaKISAUserAgreementPopup = v196.getUseKoreaKISAUserAgreementPopup(), 
-        excludeAccountSwitcher = v196.getExcludeAccountSwitcher(), 
-        showBrazilContentRatingLogo = v196.getShowBrazilContentRatingLogo(), 
-        appPolicy = v196
+        showVNGAge12Badge = v197.getShowVNGAge12Badge(), 
+        useVNGUserAgreementPopup = v197.getUseVNGUserAgreementPopup(), 
+        useKoreaKISAUserAgreementPopup = v197.getUseKoreaKISAUserAgreementPopup(), 
+        excludeAccountSwitcher = v197.getExcludeAccountSwitcher(), 
+        showBrazilContentRatingLogo = v197.getShowBrazilContentRatingLogo(), 
+        appPolicy = v197
     };
-end)(v80);
-local v198 = l_RoactServices_0.connect({
+end)(v81);
+local v199 = l_RoactServices_0.connect({
     networking = v7, 
     guiService = l_AppGuiService_0, 
     analytics = v8, 
     loggingProtocol = l_AppLogging_0, 
     appLifecycleObserverService = l_AppAppLifecycleObserverService_0
-})(v80);
-local l_v198_0 = v198 --[[ copy: 107 -> 108 ]];
-v80 = function(v200) --[[ Line: 787 ]]
-    -- upvalues: l_useUiModeInfo_0 (copy), l_useDesignTokens_0 (copy), v41 (copy), l_GetFFlagSetStatusBarHeight_0 (copy), v56 (copy), v12 (copy), v2 (copy), l_v198_0 (copy), v11 (copy)
-    local v201 = l_useUiModeInfo_0();
-    local v202 = l_useDesignTokens_0();
-    local v203 = v41();
-    local v204 = false;
+})(v81);
+local l_v199_0 = v199 --[[ copy: 108 -> 109 ]];
+v81 = function(v201) --[[ Line: 788 ]]
+    -- upvalues: l_useUiModeInfo_0 (copy), l_useDesignTokens_0 (copy), v41 (copy), l_GetFFlagSetStatusBarHeight_0 (copy), v57 (copy), v12 (copy), v2 (copy), l_v199_0 (copy), v11 (copy)
+    local v202 = l_useUiModeInfo_0();
+    local v203 = l_useDesignTokens_0();
+    local v204 = v41();
+    local v205 = false;
     if l_GetFFlagSetStatusBarHeight_0() then
-        v204 = v56.useBreakpointXOrSmaller(v56.Keys.Medium);
+        v205 = v57.useBreakpointXOrSmaller(v57.Keys.Medium);
     end;
-    local v205, v206 = v12.useDefaultFocusBehavior(v203);
-    return v2.createElement(l_v198_0, v11.Dictionary.join({
-        uiModeInfo = v201, 
-        tokens = v202, 
+    local v206, v207 = v12.useDefaultFocusBehavior(v204);
+    return v2.createElement(l_v199_0, v11.Dictionary.join({
+        uiModeInfo = v202, 
+        tokens = v203, 
         eventHandlerRef = nil, 
-        defaultRef = v205, 
-        containerRef = v206, 
-        isCompact = v204
-    }, v200));
+        defaultRef = v206, 
+        containerRef = v207, 
+        isCompact = v205
+    }, v201));
 end;
 if v27() then
-    v80 = v58.connectBrowserTrackerLayer({
+    v81 = v59.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.LandingLayer
-    }, function(v207, _) --[[ Line: 815 ]]
+    }, function(v208, _) --[[ Line: 816 ]]
         -- upvalues: l_AppBtidLayers_0 (copy)
-        local v209 = v207[l_AppBtidLayers_0.LandingLayer] or {};
+        local v210 = v208[l_AppBtidLayers_0.LandingLayer] or {};
         return {
-            landingVideoEnabled = v209.landingVideoEnabled, 
-            landingVideoAsset = v209.landingVideoAsset
+            landingVideoEnabled = v210.landingVideoEnabled, 
+            landingVideoAsset = v210.landingVideoAsset
         };
-    end)(v80);
+    end)(v81);
 end;
 if l_FFlagLuaEnableCustomizedInviteLandingPage_0 then
-    v80 = v58.connectBrowserTrackerLayer({
+    v81 = v59.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.LandingLayer
-    }, function(v210, _) --[[ Line: 827 ]]
+    }, function(v211, _) --[[ Line: 828 ]]
         -- upvalues: l_AppBtidLayers_0 (copy)
         return {
-            isCustomizedLandingPageEnabled = (v210[l_AppBtidLayers_0.LandingLayer] or {}).isCustomizedLandingPageEnabled
+            isCustomizedLandingPageEnabled = (v211[l_AppBtidLayers_0.LandingLayer] or {}).isCustomizedLandingPageEnabled
         };
-    end)(v80);
+    end)(v81);
 end;
 if l_GetFFlagEnableLuaAccountPicker_0() then
-    v80 = v58.connectBrowserTrackerLayer({
+    v81 = v59.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.LandingLayer
-    }, function(v212, _) --[[ Line: 838 ]]
+    }, function(v213, _) --[[ Line: 839 ]]
         -- upvalues: l_AppBtidLayers_0 (copy), l_GetFIntAccountPickerVariantOverride_0 (copy)
-        local v214 = v212[l_AppBtidLayers_0.LandingLayer] or {};
+        local v215 = v213[l_AppBtidLayers_0.LandingLayer] or {};
         return {
-            accountPickerVariantEnabled = v214.accountPickerVariantEnabled and tonumber(v214.accountPickerVariantEnabled) or l_GetFIntAccountPickerVariantOverride_0()
+            accountPickerVariantEnabled = v215.accountPickerVariantEnabled and tonumber(v215.accountPickerVariantEnabled) or l_GetFIntAccountPickerVariantOverride_0()
         };
-    end)(v80);
+    end)(v81);
 end;
-v80 = v58.connectBrowserTrackerLayer({
+v81 = v59.connectBrowserTrackerLayer({
     l_AppBtidLayers_0.LandingLayer
-}, function(v215, _) --[[ Line: 850 ]]
+}, function(v216, _) --[[ Line: 851 ]]
     -- upvalues: l_AppBtidLayers_0 (copy)
     return {
-        landingPageLatency = (v215[l_AppBtidLayers_0.LandingLayer] or {}).landingPageLatency or 0
+        landingPageLatency = (v216[l_AppBtidLayers_0.LandingLayer] or {}).landingPageLatency or 0
     };
-end)(v80);
-v198 = function() --[[ Line: 858 ]] --[[ Name: getSignupLayerVariables ]]
-    -- upvalues: v60 (copy), l_GetFFlagEnableMultiPageSignup_0 (copy), v51 (copy)
-    return v60() or l_GetFFlagEnableMultiPageSignup_0() or v51;
+end)(v81);
+v199 = function() --[[ Line: 859 ]] --[[ Name: getSignupLayerVariables ]]
+    -- upvalues: v61 (copy), l_GetFFlagEnableMultiPageSignup_0 (copy), v51 (copy)
+    return v61() or l_GetFFlagEnableMultiPageSignup_0() or v51;
 end;
-if v60() or l_GetFFlagEnableMultiPageSignup_0() or v51 then
-    v80 = v58.connectBrowserTrackerLayer({
+if v61() or l_GetFFlagEnableMultiPageSignup_0() or v51 then
+    v81 = v59.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.SignupLayer
-    }, function(v217, _) --[[ Line: 867 ]]
+    }, function(v218, _) --[[ Line: 868 ]]
         -- upvalues: l_AppBtidLayers_0 (copy)
-        local v219 = v217[l_AppBtidLayers_0.SignupLayer] or {};
+        local v220 = v218[l_AppBtidLayers_0.SignupLayer] or {};
         return {
-            shouldShowMultipageSignupDirectionalTest = v219.shouldShowMultipageSignupDirectionalTest, 
-            shouldShowKoreanKISASignUpFlow = v219.shouldShowKoreanKISASignUpFlow, 
-            shouldEnableMultiPageSignup = v219.shouldEnableMultiPageSignup
+            shouldShowMultipageSignupDirectionalTest = v220.shouldShowMultipageSignupDirectionalTest, 
+            shouldShowKoreanKISASignUpFlow = v220.shouldShowKoreanKISASignUpFlow, 
+            shouldEnableMultiPageSignup = v220.shouldEnableMultiPageSignup
         };
-    end)(v80);
+    end)(v81);
 end;
 if l_FFlagEnableLuaLoginRevamp_0 then
-    v80 = v58.connectBrowserTrackerLayer({
+    v81 = v59.connectBrowserTrackerLayer({
         l_FStringLuaLoginRevampIxpLayer_0
-    }, function(v220, _) --[[ Line: 880 ]]
+    }, function(v221, _) --[[ Line: 881 ]]
         -- upvalues: l_FStringLuaLoginRevampIxpLayer_0 (copy)
         return {
-            showLoginRevamp = (v220[l_FStringLuaLoginRevampIxpLayer_0] or {}).showLoginRevamp
+            showLoginRevamp = (v221[l_FStringLuaLoginRevampIxpLayer_0] or {}).showLoginRevamp
         };
-    end)(v80);
+    end)(v81);
 end;
-v80 = v58.connectBrowserTrackerLayer({
+v81 = v59.connectBrowserTrackerLayer({
     l_AppBtidLayers_0.LandingLayer
-}, function(v222, _) --[[ Line: 890 ]]
+}, function(v223, _) --[[ Line: 891 ]]
     -- upvalues: l_AppBtidLayers_0 (copy)
     return {
-        shouldDoSessionCheck = (v222[l_AppBtidLayers_0.LandingLayer] or {}).shouldDoSessionCheck
+        shouldDoSessionCheck = (v223[l_AppBtidLayers_0.LandingLayer] or {}).shouldDoSessionCheck
     };
-end)(v80);
-if v107 then
-    v80 = v58.connectBrowserTrackerLayer({
+end)(v81);
+if v108 then
+    v81 = v59.connectBrowserTrackerLayer({
         l_AppBtidLayers_0.LandingLayer
-    }, function(v224, _) --[[ Line: 900 ]]
+    }, function(v225, _) --[[ Line: 901 ]]
         -- upvalues: l_AppBtidLayers_0 (copy)
         return {
-            shouldDisplayBrazilAgeRatingIXP = (v224[l_AppBtidLayers_0.LandingLayer] or {}).shouldDisplayBrazilAgeRating
+            shouldDisplayBrazilAgeRatingIXP = (v225[l_AppBtidLayers_0.LandingLayer] or {}).shouldDisplayBrazilAgeRating
         };
-    end)(v80);
+    end)(v81);
 end;
-v80 = v58.connectBrowserTrackerLayer({
+v81 = v59.connectBrowserTrackerLayer({
     l_AppBtidLayers_0.AccountSwitcherLayer
-}, function(v226, _) --[[ Line: 910 ]]
+}, function(v227, _) --[[ Line: 911 ]]
     -- upvalues: l_AppBtidLayers_0 (copy), l_GetFFlagEnableAccountSwitcherRedesignIXP_0 (copy)
-    local v228 = v226[l_AppBtidLayers_0.AccountSwitcherLayer] or {};
+    local v229 = v227[l_AppBtidLayers_0.AccountSwitcherLayer] or {};
     if l_GetFFlagEnableAccountSwitcherRedesignIXP_0() then
         return {
-            enableFoundationDesign = v228.enableAccountSwitcherFoundationDesign == true, 
-            enableSignedOutAccounts = v228.enableAccountSwitcherSignedOutAccounts == true
+            enableFoundationDesign = v229.enableAccountSwitcherFoundationDesign == true, 
+            enableSignedOutAccounts = v229.enableAccountSwitcherSignedOutAccounts == true
         };
     else
         return {
@@ -740,18 +741,18 @@ v80 = v58.connectBrowserTrackerLayer({
             enableSignedOutAccounts = true
         };
     end;
-end)(v80);
-return function(v229) --[[ Line: 925 ]]
-    -- upvalues: v44 (copy), l_useAppPolicy_0 (copy), v2 (copy), v22 (copy), l_FFlagLuafiedWechatQQLogin_0 (copy), l_WechatQQLoginPage_0 (copy), v80 (ref)
-    if if v44.LuaAuthEnabledForLuobu() then l_useAppPolicy_0(function(v230) --[[ Line: 927 ]]
-        return v230.useLuobuAuthentication();
+end)(v81);
+return function(v230) --[[ Line: 926 ]]
+    -- upvalues: v44 (copy), l_useAppPolicy_0 (copy), v2 (copy), v22 (copy), l_FFlagLuafiedWechatQQLogin_0 (copy), l_WechatQQLoginPage_0 (copy), v81 (ref)
+    if if v44.LuaAuthEnabledForLuobu() then l_useAppPolicy_0(function(v231) --[[ Line: 928 ]]
+        return v231.useLuobuAuthentication();
     end) else false then
-        return v2.createElement(v22, v229);
-    elseif if l_FFlagLuafiedWechatQQLogin_0 then l_useAppPolicy_0(function(v231) --[[ Line: 937 ]]
-        return v231.useWechatQQAuthentication();
+        return v2.createElement(v22, v230);
+    elseif if l_FFlagLuafiedWechatQQLogin_0 then l_useAppPolicy_0(function(v232) --[[ Line: 938 ]]
+        return v232.useWechatQQAuthentication();
     end) else false then
-        return v2.createElement(l_WechatQQLoginPage_0, v229);
+        return v2.createElement(l_WechatQQLoginPage_0, v230);
     else
-        return v2.createElement(v80, v229);
+        return v2.createElement(v81, v230);
     end;
 end;

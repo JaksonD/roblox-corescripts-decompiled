@@ -17,7 +17,8 @@ return {
             ACTIVE_SQUAD_APP_STORAGE_KEY = require(script.Common.Constants).ACTIVE_SQUAD_APP_STORAGE_KEY, 
             SQUAD_CHANNEL_TYPE = require(script.Common.Constants).SQUAD_CHANNEL_TYPE, 
             SQUAD_VOICE_EU_MODAL_CONSENT_GIVEN_KEY = require(script.Common.Constants).SQUAD_VOICE_EU_MODAL_CONSENT_GIVEN_KEY, 
-            SQUAD_VOICE_EU_MODAL_SEEN_KEY = require(script.Common.Constants).SQUAD_VOICE_EU_MODAL_SEEN_KEY
+            SQUAD_VOICE_EU_MODAL_SEEN_KEY = require(script.Common.Constants).SQUAD_VOICE_EU_MODAL_SEEN_KEY, 
+            SQUAD_TOP_BANNER_TEST_ID = require(script.Common.Constants).SQUAD_TOP_BANNER_TEST_ID
         }, 
         getColorFromUserId = require(script.Common.getColorFromUserId), 
         clearSquadStorage = require(script.Common.clearSquadStorage), 

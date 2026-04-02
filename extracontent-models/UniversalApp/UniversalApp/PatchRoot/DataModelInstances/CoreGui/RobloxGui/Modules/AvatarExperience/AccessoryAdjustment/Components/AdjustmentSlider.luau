@@ -20,8 +20,9 @@ local l_useIsSpatial_0 = require(l_CorePackages_0.Workspace.Packages.Responsive)
 local v19 = game:DefineFastInt("AXAdjustmentSnapThreshold", 5);
 local v20 = game:DefineFastFlag("AXAddVRContainerRefToAASlider", false);
 local l_FFlagAXMigrateSystemSliderToFoundationSlider_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAXMigrateSystemSliderToFoundationSlider;
-local v22 = l_Images_0["component_assets/circle_21"];
-local v23 = {
+local l_FFlagAXMakeSlidersSmoothWithGamepad_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceFlags).FFlagAXMakeSlidersSmoothWithGamepad;
+local v23 = l_Images_0["component_assets/circle_21"];
+local v24 = {
     [v16.PositionX] = {
         Text = v17.X, 
         Color = v15.XAxisColor, 
@@ -68,27 +69,27 @@ local v23 = {
         LimitKey = "xScale"
     }
 };
-local function _(v24, v25, v26) --[[ Line: 90 ]]
-    -- upvalues: v23 (copy)
-    local l_AdjustmentKey_0 = v23[v24].AdjustmentKey;
-    local l_LimitKey_0 = v23[v24].LimitKey;
-    return v25[l_AdjustmentKey_0][l_LimitKey_0], v26[l_AdjustmentKey_0][l_LimitKey_0];
+local function _(v25, v26, v27) --[[ Line: 92 ]]
+    -- upvalues: v24 (copy)
+    local l_AdjustmentKey_0 = v24[v25].AdjustmentKey;
+    local l_LimitKey_0 = v24[v25].LimitKey;
+    return v26[l_AdjustmentKey_0][l_LimitKey_0], v27[l_AdjustmentKey_0][l_LimitKey_0];
 end;
-local function v33(v30, v31, v32) --[[ Line: 111 ]] --[[ Name: SliderImage ]]
-    -- upvalues: v3 (copy), l_ImageSetLabel_0 (copy), v22 (copy), v23 (copy), v15 (copy)
+local function v34(v31, v32, v33) --[[ Line: 113 ]] --[[ Name: SliderImage ]]
+    -- upvalues: v3 (copy), l_ImageSetLabel_0 (copy), v23 (copy), v24 (copy), v15 (copy)
     return v3.createElement(l_ImageSetLabel_0, {
-        Size = UDim2.new(0, v32, 0, v32), 
+        Size = UDim2.new(0, v33, 0, v33), 
         BackgroundTransparency = 1, 
-        Image = v22, 
-        ImageColor3 = v23[v31].Color, 
-        ImageTransparency = v30.IconEmphasis.Transparency, 
+        Image = v23, 
+        ImageColor3 = v24[v32].Color, 
+        ImageTransparency = v31.IconEmphasis.Transparency, 
         AnchorPoint = Vector2.new(0.5, 0.5), 
         Position = UDim2.new(0.5, 0, 0.5, 0)
     }, {
         Letter = v3.createElement("TextLabel", {
             Size = UDim2.new(1, -3, 1, -3), 
             BackgroundTransparency = 1, 
-            Text = v23[v31].Text, 
+            Text = v24[v32].Text, 
             TextScaled = true, 
             FontFace = v15.FontFace, 
             TextColor3 = Color3.new(1, 1, 1), 
@@ -98,112 +99,112 @@ local function v33(v30, v31, v32) --[[ Line: 111 ]] --[[ Name: SliderImage ]]
         })
     });
 end;
-local function _(v34, v35, v36, v37, v38) --[[ Line: 136 ]] --[[ Name: valueToPercent ]]
-    local v39 = nil;
-    v39 = if v34 < v37 then -math.abs((v34 - v37) / (v35 - v37)) else math.abs((v34 - v37) / (v36 - v37));
-    if v38 then
-        v39 = -v39;
+local function _(v35, v36, v37, v38, v39) --[[ Line: 138 ]] --[[ Name: valueToPercent ]]
+    local v40 = nil;
+    v40 = if v35 < v38 then -math.abs((v35 - v38) / (v36 - v38)) else math.abs((v35 - v38) / (v37 - v38));
+    if v39 then
+        v40 = -v40;
     end;
-    return v39 * 100;
+    return v40 * 100;
 end;
-local function _(v41, v42, v43, v44, v45) --[[ Line: 149 ]] --[[ Name: percentToValue ]]
-    if v45 then
-        v41 = -v41;
+local function _(v42, v43, v44, v45, v46) --[[ Line: 151 ]] --[[ Name: percentToValue ]]
+    if v46 then
+        v42 = -v42;
     end;
-    if v41 < 0 then
-        return v44 - math.abs(v41 / 100) * math.abs(v44 - v42);
+    if v42 < 0 then
+        return v45 - math.abs(v42 / 100) * math.abs(v45 - v43);
     else
-        return v44 + math.abs(v41 / 100) * math.abs(v43 - v44);
+        return v45 + math.abs(v42 / 100) * math.abs(v44 - v45);
     end;
 end;
-local function v48(v47) --[[ Line: 159 ]]
-    return v47.AvatarExperience.AccessoryAdjustment.AdjustmentTypeSelected;
+local function v49(v48) --[[ Line: 161 ]]
+    return v48.AvatarExperience.AccessoryAdjustment.AdjustmentTypeSelected;
 end;
 if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
-    local _ = function(v49, _, v51, v52, v53) --[[ Line: 164 ]] --[[ Name: convertStoredValueToSliderValue ]]
+    local _ = function(v50, _, v52, v53, v54) --[[ Line: 166 ]] --[[ Name: convertStoredValueToSliderValue ]]
         -- upvalues: v5 (copy)
-        if v51 <= v52 then
+        if v52 <= v53 then
             v5("AdjustmentSlider.lua convertStoredValueToSliderValue argument error: max must be greater than defaultValue.");
             return 0.5;
         else
-            local v54 = nil;
-            v54 = if v49 < v52 then 0.5 - (v52 - v49) / (v51 - v52) / 2 else (v49 - v52) / (v51 - v52) / 2 + 0.5;
-            if v53 then
-                return 1 - v54;
+            local v55 = nil;
+            v55 = if v50 < v53 then 0.5 - (v53 - v50) / (v52 - v53) / 2 else (v50 - v53) / (v52 - v53) / 2 + 0.5;
+            if v54 then
+                return 1 - v55;
             else
-                return v54;
+                return v55;
             end;
         end;
     end;
-    local _ = function(v56, _, v58, v59, v60) --[[ Line: 191 ]] --[[ Name: convertSliderValueToStoredValue ]]
-        if v60 then
-            v56 = 1 - v56;
+    local _ = function(v57, _, v59, v60, v61) --[[ Line: 193 ]] --[[ Name: convertSliderValueToStoredValue ]]
+        if v61 then
+            v57 = 1 - v57;
         end;
         local _ = nil;
-        if v56 < 0.5 then
-            return v59 - (0.5 - v56) / 0.5 * (v58 - v59);
+        if v57 < 0.5 then
+            return v60 - (0.5 - v57) / 0.5 * (v59 - v60);
         else
-            return v59 + (v56 - 0.5) / 0.5 * (v58 - v59);
+            return v60 + (v57 - 0.5) / 0.5 * (v59 - v60);
         end;
     end;
-    return function(v63) --[[ Line: 212 ]] --[[ Name: AdjustmentSlider ]]
-        -- upvalues: l_useStyle_0 (copy), v20 (copy), l_useIsSpatial_0 (copy), v3 (copy), l_useSelector_0 (copy), v11 (copy), v12 (copy), v48 (copy), v15 (copy), v14 (copy), v23 (copy), l_useDesignTokens_0 (copy), v16 (copy), v5 (copy), v33 (copy), v2 (copy)
+    return function(v64) --[[ Line: 214 ]] --[[ Name: AdjustmentSlider ]]
+        -- upvalues: l_useStyle_0 (copy), v20 (copy), l_useIsSpatial_0 (copy), v3 (copy), l_useSelector_0 (copy), v11 (copy), v12 (copy), v49 (copy), v15 (copy), v14 (copy), v24 (copy), l_useDesignTokens_0 (copy), v16 (copy), v5 (copy), v34 (copy), v2 (copy), l_FFlagAXMakeSlidersSmoothWithGamepad_0 (copy)
         local l_Theme_0 = l_useStyle_0().Theme;
-        local v65 = if v20 then l_useIsSpatial_0() else nil;
-        local v66 = if v20 and v65 then v3.createRef() else nil;
-        local v67 = l_useSelector_0(v11);
-        local v68 = l_useSelector_0(v12);
-        local v69 = l_useSelector_0(v48) ~= v15.AdjustmentSliderTypeToAdjustmentType[v63.adjustmentSliderType];
-        local v70 = v3.useRef(false);
-        local v71 = nil;
-        v71 = v14.useLastInput() == v14.Input.Directional;
-        local l_adjustmentSliderType_0 = v63.adjustmentSliderType;
-        local l_AdjustmentKey_1 = v23[l_adjustmentSliderType_0].AdjustmentKey;
-        local l_LimitKey_1 = v23[l_adjustmentSliderType_0].LimitKey;
-        local v75 = v67[l_AdjustmentKey_1][l_LimitKey_1];
+        local v66 = if v20 then l_useIsSpatial_0() else nil;
+        local v67 = if v20 and v66 then v3.createRef() else nil;
+        local v68 = l_useSelector_0(v11);
+        local v69 = l_useSelector_0(v12);
+        local v70 = l_useSelector_0(v49) ~= v15.AdjustmentSliderTypeToAdjustmentType[v64.adjustmentSliderType];
+        local v71 = v3.useRef(false);
+        local v72 = nil;
+        v72 = v14.useLastInput() == v14.Input.Directional;
+        local l_adjustmentSliderType_0 = v64.adjustmentSliderType;
+        local l_AdjustmentKey_1 = v24[l_adjustmentSliderType_0].AdjustmentKey;
+        local l_LimitKey_1 = v24[l_adjustmentSliderType_0].LimitKey;
         local v76 = v68[l_AdjustmentKey_1][l_LimitKey_1];
-        l_AdjustmentKey_1 = l_useDesignTokens_0(function(v77) --[[ Line: 231 ]] --[[ Name: mapTokens ]]
+        local v77 = v69[l_AdjustmentKey_1][l_LimitKey_1];
+        l_AdjustmentKey_1 = l_useDesignTokens_0(function(v78) --[[ Line: 233 ]] --[[ Name: mapTokens ]]
             return {
-                smallIconSize = v77.Semantic.Icon.Size.Small, 
-                padding = v77.Global.Size_200
+                smallIconSize = v78.Semantic.Icon.Size.Small, 
+                padding = v78.Global.Size_200
             };
         end);
-        l_LimitKey_1 = v63.adjustmentSliderType == v16.Scale and 1 or 0;
-        local l_Invert_0 = v23[v63.adjustmentSliderType].Invert;
+        l_LimitKey_1 = v64.adjustmentSliderType == v16.Scale and 1 or 0;
+        local l_Invert_0 = v24[v64.adjustmentSliderType].Invert;
         local l_useState_0 = v3.useState;
-        local l_sliderValue_0 = v63.sliderValue;
-        local v81;
-        if v76 <= l_LimitKey_1 then
+        local l_sliderValue_0 = v64.sliderValue;
+        local v82;
+        if v77 <= l_LimitKey_1 then
             v5("AdjustmentSlider.lua convertStoredValueToSliderValue argument error: max must be greater than defaultValue.");
-            v81 = 0.5;
+            v82 = 0.5;
         else
-            local v82 = nil;
-            v82 = if l_sliderValue_0 < l_LimitKey_1 then 0.5 - (l_LimitKey_1 - l_sliderValue_0) / (v76 - l_LimitKey_1) / 2 else (l_sliderValue_0 - l_LimitKey_1) / (v76 - l_LimitKey_1) / 2 + 0.5;
-            v81 = if l_Invert_0 then 1 - v82 else v82;
+            local v83 = nil;
+            v83 = if l_sliderValue_0 < l_LimitKey_1 then 0.5 - (l_LimitKey_1 - l_sliderValue_0) / (v77 - l_LimitKey_1) / 2 else (l_sliderValue_0 - l_LimitKey_1) / (v77 - l_LimitKey_1) / 2 + 0.5;
+            v82 = if l_Invert_0 then 1 - v83 else v83;
         end;
-        l_useState_0, v81 = l_useState_0(v81);
-        v3.useEffect(function() --[[ Line: 244 ]]
-            -- upvalues: v81 (copy), v63 (copy), v75 (copy), v76 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v5 (ref)
-            local l_v81_0 = v81;
-            local l_sliderValue_1 = v63.sliderValue;
-            local _ = v75;
-            local l_v76_0 = v76;
+        l_useState_0, v82 = l_useState_0(v82);
+        v3.useEffect(function() --[[ Line: 246 ]]
+            -- upvalues: v82 (copy), v64 (copy), v76 (copy), v77 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v5 (ref)
+            local l_v82_0 = v82;
+            local l_sliderValue_1 = v64.sliderValue;
+            local _ = v76;
+            local l_v77_0 = v77;
             local l_l_LimitKey_1_0 = l_LimitKey_1;
             local l_l_Invert_0_0 = l_Invert_0;
-            local v89;
-            if l_v76_0 <= l_l_LimitKey_1_0 then
+            local v90;
+            if l_v77_0 <= l_l_LimitKey_1_0 then
                 v5("AdjustmentSlider.lua convertStoredValueToSliderValue argument error: max must be greater than defaultValue.");
-                v89 = 0.5;
+                v90 = 0.5;
             else
-                local v90 = nil;
-                v90 = if l_sliderValue_1 < l_l_LimitKey_1_0 then 0.5 - (l_l_LimitKey_1_0 - l_sliderValue_1) / (l_v76_0 - l_l_LimitKey_1_0) / 2 else (l_sliderValue_1 - l_l_LimitKey_1_0) / (l_v76_0 - l_l_LimitKey_1_0) / 2 + 0.5;
-                v89 = if l_l_Invert_0_0 then 1 - v90 else v90;
+                local v91 = nil;
+                v91 = if l_sliderValue_1 < l_l_LimitKey_1_0 then 0.5 - (l_l_LimitKey_1_0 - l_sliderValue_1) / (l_v77_0 - l_l_LimitKey_1_0) / 2 else (l_sliderValue_1 - l_l_LimitKey_1_0) / (l_v77_0 - l_l_LimitKey_1_0) / 2 + 0.5;
+                v90 = if l_l_Invert_0_0 then 1 - v91 else v91;
             end;
-            l_v81_0(v89);
+            l_v82_0(v90);
         end, {
-            v63.sliderValue, 
-            v75, 
+            v64.sliderValue, 
             v76, 
+            v77, 
             l_LimitKey_1, 
             l_Invert_0
         });
@@ -212,8 +213,8 @@ if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
             Size = UDim2.fromScale(1, 0), 
             BackgroundColor3 = l_Theme_0.BackgroundDefault.Color, 
             BackgroundTransparency = 1, 
-            LayoutOrder = v63.LayoutOrder, 
-            ref = if v20 and v65 then v66 else nil
+            LayoutOrder = v64.LayoutOrder, 
+            ref = if v20 and v66 then v67 else nil
         }, {
             UIListLayout = v3.createElement("UIListLayout", {
                 Padding = UDim.new(0, l_AdjustmentKey_1.padding), 
@@ -222,118 +223,119 @@ if l_FFlagAXMigrateSystemSliderToFoundationSlider_0 then
                 HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                 VerticalAlignment = Enum.VerticalAlignment.Center
             }), 
-            SliderImage = v33(l_Theme_0, v63.adjustmentSliderType, l_AdjustmentKey_1.smallIconSize), 
+            SliderImage = v34(l_Theme_0, v64.adjustmentSliderType, l_AdjustmentKey_1.smallIconSize), 
             Slider = v3.createElement(v2.Slider, {
-                ref = v63.sliderRef, 
-                NextSelectionDown = v63.NextSelectionDown, 
-                NextSelectionUp = v63.NextSelectionUp, 
-                isDisabled = v69, 
+                ref = v64.sliderRef, 
+                NextSelectionDown = v64.NextSelectionDown, 
+                NextSelectionUp = v64.NextSelectionUp, 
+                isDisabled = v70, 
                 range = NumberRange.new(0, 1), 
                 value = l_useState_0, 
-                onDragStarted = function() --[[ Line: 273 ]] --[[ Name: onDragStarted ]]
-                    -- upvalues: v70 (copy)
-                    v70.current = true;
+                onDragStarted = function() --[[ Line: 275 ]] --[[ Name: onDragStarted ]]
+                    -- upvalues: v71 (copy)
+                    v71.current = true;
                 end, 
-                onValueChanged = function(v91) --[[ Line: 276 ]] --[[ Name: onValueChanged ]]
-                    -- upvalues: v71 (ref), l_useState_0 (copy), v75 (copy), v76 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v63 (copy), v81 (copy)
-                    if math.abs(0.5 - v91) < 0.025 then
-                        if v71 then
-                            if v91 < 0.5 and l_useState_0 < v91 or v91 > 0.5 and v91 < l_useState_0 then
-                                v91 = 0.5;
+                onValueChanged = function(v92) --[[ Line: 278 ]] --[[ Name: onValueChanged ]]
+                    -- upvalues: v72 (ref), l_useState_0 (copy), v76 (copy), v77 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v64 (copy), v82 (copy)
+                    if math.abs(0.5 - v92) < 0.025 then
+                        if v72 then
+                            if v92 < 0.5 and l_useState_0 < v92 or v92 > 0.5 and v92 < l_useState_0 then
+                                v92 = 0.5;
                             elseif l_useState_0 == 0.5 then
-                                v91 = v91 > 0.5 and 0.525 or 0.475;
+                                v92 = v92 > 0.5 and 0.525 or 0.475;
                             end;
                         else
-                            v91 = 0.5;
+                            v92 = 0.5;
                         end;
                     end;
-                    local l_v91_0 = v91;
-                    local _ = v75;
-                    local l_v76_1 = v76;
+                    local l_v92_0 = v92;
+                    local _ = v76;
+                    local l_v77_1 = v77;
                     local l_l_LimitKey_1_1 = l_LimitKey_1;
                     if l_Invert_0 then
-                        l_v91_0 = 1 - l_v91_0;
+                        l_v92_0 = 1 - l_v92_0;
                     end;
-                    local v96 = nil;
-                    v96 = if l_v91_0 < 0.5 then l_l_LimitKey_1_1 - (0.5 - l_v91_0) / 0.5 * (l_v76_1 - l_l_LimitKey_1_1) else l_l_LimitKey_1_1 + (l_v91_0 - 0.5) / 0.5 * (l_v76_1 - l_l_LimitKey_1_1);
-                    v63.updateCharacterCallback(v96, v63.adjustmentSliderType);
-                    v81(v91);
+                    local v97 = nil;
+                    v97 = if l_v92_0 < 0.5 then l_l_LimitKey_1_1 - (0.5 - l_v92_0) / 0.5 * (l_v77_1 - l_l_LimitKey_1_1) else l_l_LimitKey_1_1 + (l_v92_0 - 0.5) / 0.5 * (l_v77_1 - l_l_LimitKey_1_1);
+                    v64.updateCharacterCallback(v97, v64.adjustmentSliderType);
+                    v82(v92);
                 end, 
-                onDragEnded = function() --[[ Line: 298 ]] --[[ Name: onDragEnded ]]
-                    -- upvalues: v70 (copy), l_useState_0 (copy), v75 (copy), v76 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v63 (copy)
-                    if not v70.current then
+                onDragEnded = function() --[[ Line: 300 ]] --[[ Name: onDragEnded ]]
+                    -- upvalues: v71 (copy), l_useState_0 (copy), v76 (copy), v77 (copy), l_LimitKey_1 (copy), l_Invert_0 (copy), v64 (copy)
+                    if not v71.current then
                         return;
                     else
                         local l_l_useState_0_0 = l_useState_0;
-                        local _ = v75;
-                        local l_v76_2 = v76;
+                        local _ = v76;
+                        local l_v77_2 = v77;
                         local l_l_LimitKey_1_2 = l_LimitKey_1;
                         if l_Invert_0 then
                             l_l_useState_0_0 = 1 - l_l_useState_0_0;
                         end;
-                        local v101 = nil;
-                        v101 = if l_l_useState_0_0 < 0.5 then l_l_LimitKey_1_2 - (0.5 - l_l_useState_0_0) / 0.5 * (l_v76_2 - l_l_LimitKey_1_2) else l_l_LimitKey_1_2 + (l_l_useState_0_0 - 0.5) / 0.5 * (l_v76_2 - l_l_LimitKey_1_2);
-                        v63.setSliderValuesCallback(v101, v63.adjustmentSliderType);
-                        v70.current = false;
+                        local v102 = nil;
+                        v102 = if l_l_useState_0_0 < 0.5 then l_l_LimitKey_1_2 - (0.5 - l_l_useState_0_0) / 0.5 * (l_v77_2 - l_l_LimitKey_1_2) else l_l_LimitKey_1_2 + (l_l_useState_0_0 - 0.5) / 0.5 * (l_v77_2 - l_l_LimitKey_1_2);
+                        v64.setSliderValuesCallback(v102, v64.adjustmentSliderType);
+                        v71.current = false;
                         return;
                     end;
                 end, 
                 width = UDim.new(1, -l_AdjustmentKey_1.padding - l_AdjustmentKey_1.smallIconSize), 
-                layoutOrder = 2
+                layoutOrder = 2, 
+                step = l_FFlagAXMakeSlidersSmoothWithGamepad_0 and 0.01 or nil
             })
         });
     end;
 else
-    return function(v102) --[[ Line: 318 ]] --[[ Name: AdjustmentSlider ]]
-        -- upvalues: l_useStyle_0 (copy), v20 (copy), l_useIsSpatial_0 (copy), v3 (copy), l_useSelector_0 (copy), v11 (copy), v12 (copy), v48 (copy), v15 (copy), v14 (copy), v23 (copy), l_useDesignTokens_0 (copy), v16 (copy), v33 (copy), l_SystemSlider_0 (copy), v19 (copy)
+    return function(v103) --[[ Line: 321 ]] --[[ Name: AdjustmentSlider ]]
+        -- upvalues: l_useStyle_0 (copy), v20 (copy), l_useIsSpatial_0 (copy), v3 (copy), l_useSelector_0 (copy), v11 (copy), v12 (copy), v49 (copy), v15 (copy), v14 (copy), v24 (copy), l_useDesignTokens_0 (copy), v16 (copy), v34 (copy), l_SystemSlider_0 (copy), v19 (copy)
         local l_Theme_1 = l_useStyle_0().Theme;
-        local v104 = if v20 then l_useIsSpatial_0() else nil;
-        local v105 = if v20 and v104 then v3.createRef() else nil;
-        local v106 = l_useSelector_0(v11);
-        local v107 = l_useSelector_0(v12);
-        local v108 = l_useSelector_0(v48) ~= v15.AdjustmentSliderTypeToAdjustmentType[v102.adjustmentSliderType];
-        local v109 = v3.useRef(false);
-        local v110 = v14.useLastInput() == v14.Input.Directional;
-        local l_adjustmentSliderType_1 = v102.adjustmentSliderType;
-        local l_AdjustmentKey_2 = v23[l_adjustmentSliderType_1].AdjustmentKey;
-        local l_LimitKey_2 = v23[l_adjustmentSliderType_1].LimitKey;
-        local v114 = v106[l_AdjustmentKey_2][l_LimitKey_2];
+        local v105 = if v20 then l_useIsSpatial_0() else nil;
+        local v106 = if v20 and v105 then v3.createRef() else nil;
+        local v107 = l_useSelector_0(v11);
+        local v108 = l_useSelector_0(v12);
+        local v109 = l_useSelector_0(v49) ~= v15.AdjustmentSliderTypeToAdjustmentType[v103.adjustmentSliderType];
+        local v110 = v3.useRef(false);
+        local v111 = v14.useLastInput() == v14.Input.Directional;
+        local l_adjustmentSliderType_1 = v103.adjustmentSliderType;
+        local l_AdjustmentKey_2 = v24[l_adjustmentSliderType_1].AdjustmentKey;
+        local l_LimitKey_2 = v24[l_adjustmentSliderType_1].LimitKey;
         local v115 = v107[l_AdjustmentKey_2][l_LimitKey_2];
-        l_AdjustmentKey_2 = l_useDesignTokens_0(function(v116) --[[ Line: 335 ]] --[[ Name: mapTokens ]]
+        local v116 = v108[l_AdjustmentKey_2][l_LimitKey_2];
+        l_AdjustmentKey_2 = l_useDesignTokens_0(function(v117) --[[ Line: 338 ]] --[[ Name: mapTokens ]]
             return {
-                smallIconSize = v116.Semantic.Icon.Size.Small, 
-                padding = v116.Global.Size_200
+                smallIconSize = v117.Semantic.Icon.Size.Small, 
+                padding = v117.Global.Size_200
             };
         end);
-        l_LimitKey_2 = v102.adjustmentSliderType == v16.Scale and 1 or 0;
-        local l_Invert_1 = v23[v102.adjustmentSliderType].Invert;
+        l_LimitKey_2 = v103.adjustmentSliderType == v16.Scale and 1 or 0;
+        local l_Invert_1 = v24[v103.adjustmentSliderType].Invert;
         local l_useState_1 = v3.useState;
-        local l_sliderValue_2 = v102.sliderValue;
-        local v120 = nil;
-        v120 = if l_sliderValue_2 < l_LimitKey_2 then -math.abs((l_sliderValue_2 - l_LimitKey_2) / (v114 - l_LimitKey_2)) else math.abs((l_sliderValue_2 - l_LimitKey_2) / (v115 - l_LimitKey_2));
+        local l_sliderValue_2 = v103.sliderValue;
+        local v121 = nil;
+        v121 = if l_sliderValue_2 < l_LimitKey_2 then -math.abs((l_sliderValue_2 - l_LimitKey_2) / (v115 - l_LimitKey_2)) else math.abs((l_sliderValue_2 - l_LimitKey_2) / (v116 - l_LimitKey_2));
         if l_Invert_1 then
-            v120 = -v120;
+            v121 = -v121;
         end;
-        local v121;
-        l_useState_1, v121 = l_useState_1(v120 * 100);
-        v3.useEffect(function() --[[ Line: 348 ]]
-            -- upvalues: v121 (copy), v102 (copy), v114 (copy), v115 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy)
-            local l_v121_0 = v121;
-            local l_sliderValue_3 = v102.sliderValue;
-            local l_v114_0 = v114;
+        local v122;
+        l_useState_1, v122 = l_useState_1(v121 * 100);
+        v3.useEffect(function() --[[ Line: 351 ]]
+            -- upvalues: v122 (copy), v103 (copy), v115 (copy), v116 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy)
+            local l_v122_0 = v122;
+            local l_sliderValue_3 = v103.sliderValue;
             local l_v115_0 = v115;
+            local l_v116_0 = v116;
             local l_l_LimitKey_2_0 = l_LimitKey_2;
             local l_l_Invert_1_0 = l_Invert_1;
-            local v128 = nil;
-            v128 = if l_sliderValue_3 < l_l_LimitKey_2_0 then -math.abs((l_sliderValue_3 - l_l_LimitKey_2_0) / (l_v114_0 - l_l_LimitKey_2_0)) else math.abs((l_sliderValue_3 - l_l_LimitKey_2_0) / (l_v115_0 - l_l_LimitKey_2_0));
+            local v129 = nil;
+            v129 = if l_sliderValue_3 < l_l_LimitKey_2_0 then -math.abs((l_sliderValue_3 - l_l_LimitKey_2_0) / (l_v115_0 - l_l_LimitKey_2_0)) else math.abs((l_sliderValue_3 - l_l_LimitKey_2_0) / (l_v116_0 - l_l_LimitKey_2_0));
             if l_l_Invert_1_0 then
-                v128 = -v128;
+                v129 = -v129;
             end;
-            l_v121_0(v128 * 100);
+            l_v122_0(v129 * 100);
         end, {
-            v102.sliderValue, 
-            v114, 
+            v103.sliderValue, 
             v115, 
+            v116, 
             l_LimitKey_2, 
             l_Invert_1
         });
@@ -342,8 +344,8 @@ else
             Size = UDim2.fromScale(1, 0), 
             BackgroundColor3 = l_Theme_1.BackgroundDefault.Color, 
             BackgroundTransparency = 1, 
-            LayoutOrder = v102.LayoutOrder, 
-            ref = if v20 and v104 then v105 else nil
+            LayoutOrder = v103.LayoutOrder, 
+            ref = if v20 and v105 then v106 else nil
         }, {
             UIListLayout = v3.createElement("UIListLayout", {
                 Padding = UDim.new(0, l_AdjustmentKey_2.padding), 
@@ -352,65 +354,65 @@ else
                 HorizontalAlignment = Enum.HorizontalAlignment.Left, 
                 VerticalAlignment = Enum.VerticalAlignment.Center
             }), 
-            SliderImage = v33(l_Theme_1, v102.adjustmentSliderType, l_AdjustmentKey_2.smallIconSize), 
+            SliderImage = v34(l_Theme_1, v103.adjustmentSliderType, l_AdjustmentKey_2.smallIconSize), 
             Slider = v3.createElement(l_SystemSlider_0, {
-                ref = v102.sliderRef, 
-                NextSelectionDown = v102.NextSelectionDown, 
-                NextSelectionUp = v102.NextSelectionUp, 
-                isDisabled = v108, 
+                ref = v103.sliderRef, 
+                NextSelectionDown = v103.NextSelectionDown, 
+                NextSelectionUp = v103.NextSelectionUp, 
+                isDisabled = v109, 
                 min = -100, 
                 max = 100, 
                 stepInterval = 2, 
                 value = l_useState_1, 
-                onDragStart = function() --[[ Line: 380 ]] --[[ Name: onDragStart ]]
-                    -- upvalues: v109 (copy)
-                    v109.current = true;
+                onDragStart = function() --[[ Line: 383 ]] --[[ Name: onDragStart ]]
+                    -- upvalues: v110 (copy)
+                    v110.current = true;
                 end, 
-                onValueChanged = function(v129) --[[ Line: 383 ]] --[[ Name: onValueChanged ]]
-                    -- upvalues: v19 (ref), v110 (copy), l_useState_1 (copy), v114 (copy), v115 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy), v102 (copy), v121 (copy)
-                    if math.abs(v129) < v19 then
-                        if v110 then
-                            if v129 < 0 and l_useState_1 < v129 or v129 > 0 and v129 < l_useState_1 then
-                                v129 = 0;
+                onValueChanged = function(v130) --[[ Line: 386 ]] --[[ Name: onValueChanged ]]
+                    -- upvalues: v19 (ref), v111 (copy), l_useState_1 (copy), v115 (copy), v116 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy), v103 (copy), v122 (copy)
+                    if math.abs(v130) < v19 then
+                        if v111 then
+                            if v130 < 0 and l_useState_1 < v130 or v130 > 0 and v130 < l_useState_1 then
+                                v130 = 0;
                             elseif l_useState_1 == 0 then
-                                v129 = (v129 < 0 and -1 or 1) * v19;
+                                v130 = (v130 < 0 and -1 or 1) * v19;
                             end;
                         else
-                            v129 = 0;
+                            v130 = 0;
                         end;
                     end;
-                    local l_v129_0 = v129;
-                    local l_v114_1 = v114;
+                    local l_v130_0 = v130;
                     local l_v115_1 = v115;
+                    local l_v116_1 = v116;
                     local l_l_LimitKey_2_1 = l_LimitKey_2;
                     if l_Invert_1 then
-                        l_v129_0 = -l_v129_0;
+                        l_v130_0 = -l_v130_0;
                     end;
-                    local v134 = if l_v129_0 < 0 then l_l_LimitKey_2_1 - math.abs(l_v129_0 / 100) * math.abs(l_l_LimitKey_2_1 - l_v114_1) else l_l_LimitKey_2_1 + math.abs(l_v129_0 / 100) * math.abs(l_v115_1 - l_l_LimitKey_2_1);
-                    v102.updateCharacterCallback(v134, v102.adjustmentSliderType);
-                    v121(v129);
+                    local v135 = if l_v130_0 < 0 then l_l_LimitKey_2_1 - math.abs(l_v130_0 / 100) * math.abs(l_l_LimitKey_2_1 - l_v115_1) else l_l_LimitKey_2_1 + math.abs(l_v130_0 / 100) * math.abs(l_v116_1 - l_l_LimitKey_2_1);
+                    v103.updateCharacterCallback(v135, v103.adjustmentSliderType);
+                    v122(v130);
                 end, 
-                onDragEnd = function() --[[ Line: 403 ]] --[[ Name: onDragEnd ]]
-                    -- upvalues: v109 (copy), l_useState_1 (copy), v114 (copy), v115 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy), v102 (copy)
-                    if not v109.current then
+                onDragEnd = function() --[[ Line: 406 ]] --[[ Name: onDragEnd ]]
+                    -- upvalues: v110 (copy), l_useState_1 (copy), v115 (copy), v116 (copy), l_LimitKey_2 (copy), l_Invert_1 (copy), v103 (copy)
+                    if not v110.current then
                         return;
                     else
                         local l_l_useState_1_0 = l_useState_1;
-                        local l_v114_2 = v114;
                         local l_v115_2 = v115;
+                        local l_v116_2 = v116;
                         local l_l_LimitKey_2_2 = l_LimitKey_2;
                         if l_Invert_1 then
                             l_l_useState_1_0 = -l_l_useState_1_0;
                         end;
-                        local v139 = if l_l_useState_1_0 < 0 then l_l_LimitKey_2_2 - math.abs(l_l_useState_1_0 / 100) * math.abs(l_l_LimitKey_2_2 - l_v114_2) else l_l_LimitKey_2_2 + math.abs(l_l_useState_1_0 / 100) * math.abs(l_v115_2 - l_l_LimitKey_2_2);
-                        v102.setSliderValuesCallback(v139, v102.adjustmentSliderType);
-                        v109.current = false;
+                        local v140 = if l_l_useState_1_0 < 0 then l_l_LimitKey_2_2 - math.abs(l_l_useState_1_0 / 100) * math.abs(l_l_LimitKey_2_2 - l_v115_2) else l_l_LimitKey_2_2 + math.abs(l_l_useState_1_0 / 100) * math.abs(l_v116_2 - l_l_LimitKey_2_2);
+                        v103.setSliderValuesCallback(v140, v103.adjustmentSliderType);
+                        v110.current = false;
                         return;
                     end;
                 end, 
                 width = UDim.new(1, -l_AdjustmentKey_2.padding - l_AdjustmentKey_2.smallIconSize), 
                 layoutOrder = 2, 
-                containerRef = if v20 and v104 then v105 else nil
+                containerRef = if v20 and v105 then v106 else nil
             })
         });
     end;

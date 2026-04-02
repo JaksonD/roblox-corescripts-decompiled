@@ -4,42 +4,43 @@ local l_Parent_1 = l_Parent_0.Parent;
 local v3 = require(l_Parent_1.Roact);
 local v4 = require(l_Parent_1.t);
 local v5 = require(l_Parent_1.Cryo);
-local v6 = require(l_Core_0.Control.Interactable);
-local v7 = require(l_Core_0.Control.Enum.ControlState);
-local v8 = require(l_Core_0.Button.getContentStyle);
-local v9 = require(l_Parent_0.Core.Style.withStyle);
-local v10 = require(l_Core_0.ImageSet.ImageSetComponent);
-local v11 = require(l_Parent_0.App.Loading.ShimmerPanel);
-local v12 = require(l_Parent_0.App.ImageSet.Enum.IconSize);
-local v13 = require(l_Parent_0.App.ImageSet.getIconSize);
-local v14 = require(l_Core_0.Text.GenericTextLabel.GenericTextLabel);
-local v15 = require(l_Parent_0.Core.Style.Validator.validateFontInfo);
-local v16 = require(l_Core_0.ImageSet.Validator.validateImage);
-local v17 = v3.PureComponent:extend("SegmentedControlTabName");
-v17.init = function(v18) --[[ Line: 31 ]] --[[ Name: init ]]
-    -- upvalues: v7 (copy)
-    v18.state = {
-        controlState = v7.Initialize
+local v6 = require(l_Parent_1.Foundation);
+local v7 = require(l_Core_0.Control.Interactable);
+local v8 = require(l_Core_0.Control.Enum.ControlState);
+local v9 = require(l_Core_0.Button.getContentStyle);
+local v10 = require(l_Parent_0.Core.Style.withStyle);
+local v11 = require(l_Core_0.ImageSet.ImageSetComponent);
+local l_Skeleton_0 = v6.Skeleton;
+local v13 = require(l_Parent_0.App.ImageSet.Enum.IconSize);
+local v14 = require(l_Parent_0.App.ImageSet.getIconSize);
+local v15 = require(l_Core_0.Text.GenericTextLabel.GenericTextLabel);
+local v16 = require(l_Parent_0.Core.Style.Validator.validateFontInfo);
+local v17 = require(l_Core_0.ImageSet.Validator.validateImage);
+local v18 = v3.PureComponent:extend("SegmentedControlTabName");
+v18.init = function(v19) --[[ Line: 32 ]] --[[ Name: init ]]
+    -- upvalues: v8 (copy)
+    v19.state = {
+        controlState = v8.Initialize
     };
-    v18.onStateChanged = function(v19, v20) --[[ Line: 36 ]]
-        -- upvalues: v18 (copy)
-        v18:setState({
-            controlState = v20
+    v19.onStateChanged = function(v20, v21) --[[ Line: 37 ]]
+        -- upvalues: v19 (copy)
+        v19:setState({
+            controlState = v21
         });
-        if v18.props.onStateChanged then
-            v18.props.onStateChanged(v19, v20);
+        if v19.props.onStateChanged then
+            v19.props.onStateChanged(v20, v21);
         end;
     end;
 end;
-local v21 = v4.interface({
-    [v7.Default] = v4.string
+local v22 = v4.interface({
+    [v8.Default] = v4.string
 });
-v17.validateProps = v4.interface({
-    icon = v4.optional(v16), 
+v18.validateProps = v4.interface({
+    icon = v4.optional(v17), 
     text = v4.optional(v4.string), 
-    fontStyle = v4.optional(v15), 
-    textStateColorMap = v4.optional(v21), 
-    iconStateColorMap = v4.optional(v21), 
+    fontStyle = v4.optional(v16), 
+    textStateColorMap = v4.optional(v22), 
+    iconStateColorMap = v4.optional(v22), 
     isDisabled = v4.optional(v4.boolean), 
     isLoading = v4.optional(v4.boolean), 
     onActivated = v4.callback, 
@@ -47,51 +48,51 @@ v17.validateProps = v4.interface({
     userInteractionEnabled = v4.optional(v4.boolean), 
     isSelectedStyle = v4.optional(v4.boolean)
 });
-v17.defaultProps = {
+v18.defaultProps = {
     isDisabled = false, 
     isLoading = false, 
     isSelectedStyle = false, 
     SliceCenter = Rect.new(8, 8, 9, 9), 
     textStateColorMap = {
-        [v7.Default] = "TextDefault", 
-        [v7.Hover] = "TextEmphasis"
+        [v8.Default] = "TextDefault", 
+        [v8.Hover] = "TextEmphasis"
     }, 
     buttonStateColorMap = {
-        [v7.Default] = "SecondaryContent"
+        [v8.Default] = "SecondaryContent"
     }
 };
-v17.render = function(v22) --[[ Line: 100 ]] --[[ Name: render ]]
-    -- upvalues: v9 (copy), v7 (copy), v8 (copy), v3 (copy), v11 (copy), v10 (copy), v13 (copy), v12 (copy), v14 (copy), v6 (copy), v5 (copy)
-    return v9(function(v23) --[[ Line: 101 ]]
-        -- upvalues: v22 (copy), v7 (ref), v8 (ref), v3 (ref), v11 (ref), v10 (ref), v13 (ref), v12 (ref), v14 (ref), v6 (ref), v5 (ref)
-        local l_controlState_0 = v22.state.controlState;
-        local l_text_0 = v22.props.text;
-        local l_icon_0 = v22.props.icon;
-        local l_isLoading_0 = v22.props.isLoading;
-        local l_isDisabled_0 = v22.props.isDisabled;
-        local l_buttonStateColorMap_0 = v22.props.buttonStateColorMap;
-        local l_contentStateColorMap_0 = v22.props.contentStateColorMap;
-        local v31 = v22.props.textStateColorMap or l_contentStateColorMap_0;
-        local v32 = v22.props.iconStateColorMap or l_contentStateColorMap_0;
+v18.render = function(v23) --[[ Line: 101 ]] --[[ Name: render ]]
+    -- upvalues: v10 (copy), v8 (copy), v9 (copy), v3 (copy), l_Skeleton_0 (copy), v11 (copy), v14 (copy), v13 (copy), v15 (copy), v7 (copy), v5 (copy)
+    return v10(function(v24) --[[ Line: 102 ]]
+        -- upvalues: v23 (copy), v8 (ref), v9 (ref), v3 (ref), l_Skeleton_0 (ref), v11 (ref), v14 (ref), v13 (ref), v15 (ref), v7 (ref), v5 (ref)
+        local l_controlState_0 = v23.state.controlState;
+        local l_text_0 = v23.props.text;
+        local l_icon_0 = v23.props.icon;
+        local l_isLoading_0 = v23.props.isLoading;
+        local l_isDisabled_0 = v23.props.isDisabled;
+        local l_buttonStateColorMap_0 = v23.props.buttonStateColorMap;
+        local l_contentStateColorMap_0 = v23.props.contentStateColorMap;
+        local v32 = v23.props.textStateColorMap or l_contentStateColorMap_0;
+        local v33 = v23.props.iconStateColorMap or l_contentStateColorMap_0;
         if l_isLoading_0 then
             l_isDisabled_0 = true;
         end;
         local l_l_controlState_0_0 = l_controlState_0;
-        if v22.props.isDisabled then
-            l_l_controlState_0_0 = v7.Disabled;
-        elseif v22.props.isSelectedStyle then
-            l_l_controlState_0_0 = v7.Hover;
+        if v23.props.isDisabled then
+            l_l_controlState_0_0 = v8.Disabled;
+        elseif v23.props.isSelectedStyle then
+            l_l_controlState_0_0 = v8.Hover;
         end;
-        local v34 = v8(l_buttonStateColorMap_0, l_controlState_0, v23);
-        local v35 = l_text_0 and v8(v31, l_l_controlState_0_0, v23);
-        local v36 = l_icon_0 and v8(v32, l_controlState_0, v23);
-        local v37 = v22.props.fontStyle or v23.Font.Header2;
-        local v38 = nil;
-        v38 = if l_isLoading_0 then {
-            isLoadingShimmer = v3.createElement(v11, {
-                Size = UDim2.new(1, 0, 1, 0)
+        local v35 = v9(l_buttonStateColorMap_0, l_controlState_0, v24);
+        local v36 = l_text_0 and v9(v32, l_l_controlState_0_0, v24);
+        local v37 = l_icon_0 and v9(v33, l_controlState_0, v24);
+        local v38 = v23.props.fontStyle or v24.Font.Header2;
+        local v39 = nil;
+        v39 = if l_isLoading_0 then {
+            isLoadingShimmer = v3.createElement(l_Skeleton_0, {
+                Size = UDim2.fromScale(1, 1)
             })
-        } else v22.props[v3.Children] or {
+        } else v23.props[v3.Children] or {
             UIListLayout = v3.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal, 
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
@@ -99,25 +100,25 @@ v17.render = function(v22) --[[ Line: 100 ]] --[[ Name: render ]]
                 SortOrder = Enum.SortOrder.LayoutOrder, 
                 Padding = UDim.new(0, 5)
             }), 
-            Icon = l_icon_0 and v3.createElement(v10.Label, {
-                Size = UDim2.new(0, v13(v12.Medium), 0, v13(v12.Medium)), 
+            Icon = l_icon_0 and v3.createElement(v11.Label, {
+                Size = UDim2.new(0, v14(v13.Medium), 0, v14(v13.Medium)), 
                 BackgroundTransparency = 1, 
                 Image = l_icon_0, 
-                ImageColor3 = v36.Color, 
-                ImageTransparency = v36.Transparency, 
+                ImageColor3 = v37.Color, 
+                ImageTransparency = v37.Transparency, 
                 LayoutOrder = 1
             }) or nil, 
-            Text = l_text_0 and v3.createElement(v14, {
+            Text = l_text_0 and v3.createElement(v15, {
                 AutomaticSize = Enum.AutomaticSize.X, 
                 TextTruncate = Enum.TextTruncate.AtEnd, 
                 BackgroundTransparency = 1, 
                 Text = l_text_0, 
-                fontStyle = v37, 
-                colorStyle = v35, 
+                fontStyle = v38, 
+                colorStyle = v36, 
                 LayoutOrder = 2
             }) or nil
         };
-        return v3.createElement(v6, v5.Dictionary.join(v22.props, {
+        return v3.createElement(v7, v5.Dictionary.join(v23.props, {
             icon = v5.None, 
             text = v5.None, 
             buttonStateColorMap = v5.None, 
@@ -129,21 +130,21 @@ v17.render = function(v22) --[[ Line: 100 ]] --[[ Name: render ]]
             isSelectedStyle = v5.None, 
             [v3.Children] = v5.None, 
             isDisabled = l_isDisabled_0, 
-            onStateChanged = v22.onStateChanged, 
-            userInteractionEnabled = v22.props.userInteractionEnabled, 
+            onStateChanged = v23.onStateChanged, 
+            userInteractionEnabled = v23.props.userInteractionEnabled, 
             Image = v5.None, 
             ScaleType = Enum.ScaleType.Slice, 
-            ImageColor3 = v34.Color, 
-            ImageTransparency = v34.Transparency, 
+            ImageColor3 = v35.Color, 
+            ImageTransparency = v35.Transparency, 
             BackgroundTransparency = 1, 
             AutoButtonColor = false, 
-            [v3.Event.Activated] = v22.props.onActivated
+            [v3.Event.Activated] = v23.props.onActivated
         }), {
             ButtonContent = v3.createElement("Frame", {
                 Size = UDim2.new(1, 0, 1, 0), 
                 BackgroundTransparency = 1
-            }, v38)
+            }, v39)
         });
     end);
 end;
-return v17;
+return v18;

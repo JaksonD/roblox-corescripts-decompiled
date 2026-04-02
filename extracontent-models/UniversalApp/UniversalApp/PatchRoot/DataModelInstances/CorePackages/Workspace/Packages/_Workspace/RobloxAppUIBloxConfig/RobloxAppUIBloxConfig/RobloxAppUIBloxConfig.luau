@@ -13,7 +13,7 @@ return {
     didMountUpdateFullPageModal = l_UIBlox_0.GetFFlagUIBloxDidMountUpdateFullPageModal(), 
     useTokenizedShortcutBar = l_UIBlox_0.FFlagUIBloxAppShortcutBarUseTokens, 
     enableScalingForSomeEdpIcons = true, 
-    enableShortcutCustomization = v1.FFlagLuaAppEnableStickyShortcutBar, 
+    enableShortcutCustomization = v1.FFlagLuaAppEnableStickyShortcutBar or v1.FFlagGuacStickyShortcutBarEnabled, 
     enableActionBarButtonOverride = l_UIBlox_0.FFlagUIBloxEnableActionBarButtonOverride, 
     enablePanel3DSurfaceGuiRef = v1.FFlagLuaAppSupportFoundationOverlayInVR, 
     enableTooltipRichText = l_UIBlox_0.FFlagUIBloxEnableTooltipRichText, 

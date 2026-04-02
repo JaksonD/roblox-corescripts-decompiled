@@ -5,69 +5,81 @@ local v3 = require(l_Parent_1.React);
 local v4 = require(l_Parent_1.Cryo);
 local l_dependencyArray_0 = require(l_Parent_1.RoactUtils).Hooks.dependencyArray;
 local v6 = require(l_Parent_1.UserProfiles);
-return function(v7) --[[ Line: 20 ]]
-    -- upvalues: v6 (copy), v3 (copy), v4 (copy), l_dependencyArray_0 (copy), v2 (copy)
-    local v8 = v6.Hooks.useUserProfilesFetch({
-        userIds = v7.preselectedUsers or {}, 
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_1.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function(v8) --[[ Line: 22 ]]
+    -- upvalues: v6 (copy), v3 (copy), v4 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v2 (copy)
+    local v9 = v6.Hooks.useUserProfilesFetch({
+        userIds = v8.preselectedUsers or {}, 
         query = v6.Queries.userProfilesCombinedNameByUserIds
     });
-    local v14 = v3.useCallback(function(v9) --[[ Line: 26 ]]
-        -- upvalues: v8 (copy), v6 (ref), v7 (copy)
-        local v10 = {};
-        local v11 = "";
-        for _, v13 in pairs(v9) do
-            if v8.data then
-                v11 = v6.Selectors.getCombinedNameFromId(v8.data, v13);
+    local v15 = v3.useCallback(function(v10) --[[ Line: 28 ]]
+        -- upvalues: v9 (copy), v6 (ref), v8 (copy)
+        local v11 = {};
+        local v12 = "";
+        for _, v14 in pairs(v10) do
+            if v9.data then
+                v12 = v6.Selectors.getCombinedNameFromId(v9.data, v14);
             end;
-            v10[v13] = {
-                displayName = v11, 
-                layoutOrder = #v10 + 1, 
-                unremovable = v7.preselectedUsersUnremovable
+            v11[v14] = {
+                displayName = v12, 
+                layoutOrder = #v11 + 1, 
+                unremovable = v8.preselectedUsersUnremovable
             };
         end;
-        return v10;
+        return v11;
     end, nil);
-    local v15 = v3.useRef(if v7.preselectedUsers then #v7.preselectedUsers else 0);
-    local v16, v17 = v3.useState(if v7.preselectedUsers then v14(v7.preselectedUsers) else {});
-    local v18, v19 = v3.useState(if v7.preselectedUsers then #v7.preselectedUsers else 0);
-    local v22 = v3.useCallback(function(v20, v21) --[[ Line: 50 ]]
-        -- upvalues: v7 (copy), v18 (copy), v17 (copy), v4 (ref), v16 (copy), v15 (copy), v19 (copy)
-        if v7.selectionLimit == nil or v18 < v7.selectionLimit then
-            v17(v4.Dictionary.join(v16, {
-                [v20] = {
-                    displayName = v21, 
-                    layoutOrder = v15.current
+    local v16 = v3.useRef(if v8.preselectedUsers then #v8.preselectedUsers else 0);
+    local v17, v18 = v3.useState(if v8.preselectedUsers then v15(v8.preselectedUsers) else {});
+    local v19, v20 = v3.useState(if v8.preselectedUsers then #v8.preselectedUsers else 0);
+    local v23 = v3.useCallback(function(v21, v22) --[[ Line: 52 ]]
+        -- upvalues: v8 (copy), v19 (copy), v18 (copy), v4 (ref), v17 (copy), v16 (copy), v20 (copy)
+        if v8.selectionLimit == nil or v19 < v8.selectionLimit then
+            v18(v4.Dictionary.join(v17, {
+                [v21] = {
+                    displayName = v22, 
+                    layoutOrder = v16.current
                 }
             }));
-            v15.current = v15.current + 1;
-            v19(v18 + 1);
+            v16.current = v16.current + 1;
+            v20(v19 + 1);
         end;
-    end, l_dependencyArray_0(v16));
-    local v25 = v3.useCallback(function(v23, v24) --[[ Line: 64 ]]
-        -- upvalues: v17 (copy), v4 (ref), v16 (copy), v19 (copy), v18 (copy), v7 (copy)
-        v17(v4.Dictionary.join(v16, {
-            [v23] = v4.None
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v17
+    } else l_dependencyArray_0(v17));
+    local v26 = v3.useCallback(function(v24, v25) --[[ Line: 66 ]]
+        -- upvalues: v18 (copy), v4 (ref), v17 (copy), v20 (copy), v19 (copy), v8 (copy)
+        v18(v4.Dictionary.join(v17, {
+            [v24] = v4.None
         }));
-        v19(v18 - 1);
-        if v7.onRemoveCallback then
-            v7.onRemoveCallback(v23, v24);
+        v20(v19 - 1);
+        if v8.onRemoveCallback then
+            v8.onRemoveCallback(v24, v25);
         end;
-    end, l_dependencyArray_0(v16));
-    local v27 = v3.useCallback(function(v26) --[[ Line: 72 ]]
-        -- upvalues: v16 (copy)
-        return v16[v26] ~= nil;
-    end, l_dependencyArray_0(v16));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v17
+    } else l_dependencyArray_0(v17));
+    local v28 = v3.useCallback(function(v27) --[[ Line: 74 ]]
+        -- upvalues: v17 (copy)
+        return v17[v27] ~= nil;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v17
+    } else l_dependencyArray_0(v17));
     return v3.createElement(v2.Provider, {
-        value = v3.useMemo(function() --[[ Line: 77 ]]
-            -- upvalues: v18 (copy), v16 (copy), v22 (copy), v25 (copy), v27 (copy), v7 (copy)
+        value = v3.useMemo(function() --[[ Line: 80 ]]
+            -- upvalues: v19 (copy), v17 (copy), v23 (copy), v26 (copy), v28 (copy), v8 (copy)
             return {
-                selectedFriendsSize = v18, 
-                selectedFriends = v16, 
-                addFriend = v22, 
-                removeFriend = v25, 
-                isFriendSelected = v27, 
-                preselectedUsers = v7.preselectedUsers
+                selectedFriendsSize = v19, 
+                selectedFriends = v17, 
+                addFriend = v23, 
+                removeFriend = v26, 
+                isFriendSelected = v28, 
+                preselectedUsers = v8.preselectedUsers
             };
-        end, l_dependencyArray_0(v16, v22, v25, v27))
-    }, v7.children);
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v17, 
+            v23, 
+            v26, 
+            v28
+        } else l_dependencyArray_0(v17, v23, v26, v28))
+    }, v8.children);
 end;

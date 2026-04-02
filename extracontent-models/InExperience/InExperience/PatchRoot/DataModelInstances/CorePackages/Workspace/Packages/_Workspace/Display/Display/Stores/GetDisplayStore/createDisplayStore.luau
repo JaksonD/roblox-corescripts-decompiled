@@ -12,44 +12,45 @@ local v10 = game:DefineFastFlag("DebugLuaAppEnableScale", false);
 local v11 = v10 or v9 and l_game_EngineFeature_0;
 local l_FFlagExtendScrollingFramesBySafeInsets_0 = require(l_Parent_1.SharedFlags).FFlagExtendScrollingFramesBySafeInsets;
 local l_FFlagDebugForceConsoleSafeInsets_0 = require(l_Parent_1.SharedFlags).FFlagDebugForceConsoleSafeInsets;
+local l_FFlagEnableLeftNavOnConsole_0 = require(l_Parent_1.SharedFlags).FFlagEnableLeftNavOnConsole;
 local l_FFlagLuaAppCompositionSupport_0 = require(l_Parent_1.SharedFlags).FFlagLuaAppCompositionSupport;
-local v15 = if l_FFlagLuaAppCompositionSupport_0 then l_GuiService_0:IsTenFootInterface() else nil;
-local function v21(v16) --[[ Line: 45 ]] --[[ Name: forceConsoleSafeInsets ]]
+local v16 = if l_FFlagLuaAppCompositionSupport_0 then l_GuiService_0:IsTenFootInterface() else nil;
+local function v22(v17) --[[ Line: 46 ]] --[[ Name: forceConsoleSafeInsets ]]
     -- upvalues: l_Parent_1 (copy)
     local l_MessageBus_0 = require(l_Parent_1.MessageBus).MessageBus;
-    local v18 = require(l_Parent_1.t);
-    local v19 = {
+    local v19 = require(l_Parent_1.t);
+    local v20 = {
         mid = l_MessageBus_0.getMessageId("Screen", "safeAreaInsets"), 
-        validateParams = v18.strictInterface({
-            left = v18.number, 
-            top = v18.number, 
-            right = v18.number, 
-            bottom = v18.number
+        validateParams = v19.strictInterface({
+            left = v19.number, 
+            top = v19.number, 
+            right = v19.number, 
+            bottom = v19.number
         })
     };
-    local v20 = {
-        left = v16.X * 0.05, 
-        top = v16.Y * 0.05, 
-        right = v16.X * 0.05, 
-        bottom = v16.Y * 0.05
+    local v21 = {
+        left = v17.X * 0.05, 
+        top = v17.Y * 0.05, 
+        right = v17.X * 0.05, 
+        bottom = v17.Y * 0.05
     };
-    l_MessageBus_0.publish(v19, v20);
+    l_MessageBus_0.publish(v20, v21);
 end;
-return function() --[[ Line: 68 ]]
-    -- upvalues: v3 (copy), v4 (copy), l_GuiService_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), v5 (copy), l_FFlagDebugForceConsoleSafeInsets_0 (copy), v21 (copy), l_game_EngineFeature_0 (copy), v6 (copy), v10 (copy), v7 (copy), v11 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), v15 (copy)
-    local v22 = nil;
-    local v23, v24 = v3.createSignal(workspace.CurrentCamera);
-    v22 = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function() --[[ Line: 71 ]]
-        -- upvalues: v24 (copy)
-        v24(workspace.CurrentCamera);
+return function() --[[ Line: 69 ]]
+    -- upvalues: v3 (copy), v4 (copy), l_GuiService_0 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (copy), v5 (copy), l_FFlagDebugForceConsoleSafeInsets_0 (copy), v22 (copy), l_game_EngineFeature_0 (copy), v6 (copy), v10 (copy), v7 (copy), v11 (copy), l_FFlagLuaAppCompositionSupport_0 (copy), v16 (copy), l_FFlagEnableLeftNavOnConsole_0 (copy)
+    local v23 = nil;
+    local v24, v25 = v3.createSignal(workspace.CurrentCamera);
+    v23 = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function() --[[ Line: 72 ]]
+        -- upvalues: v25 (copy)
+        v25(workspace.CurrentCamera);
     end);
-    local v25 = nil;
-    local v26, v27 = v3.createSignal(v4.isSpatial());
-    v25 = v4.connectToIsSpatialChanged(function(v28) --[[ Line: 77 ]]
-        -- upvalues: v27 (copy)
-        v27(v28);
+    local v26 = nil;
+    local v27, v28 = v3.createSignal(v4.isSpatial());
+    v26 = v4.connectToIsSpatialChanged(function(v29) --[[ Line: 78 ]]
+        -- upvalues: v28 (copy)
+        v28(v29);
     end);
-    local function v31() --[[ Line: 81 ]] --[[ Name: calculateDeviceSafePadding ]]
+    local function v32() --[[ Line: 82 ]] --[[ Name: calculateDeviceSafePadding ]]
         -- upvalues: l_GuiService_0 (ref)
         local l_l_GuiService_0_InsetArea_0 = l_GuiService_0:GetInsetArea(Enum.ScreenInsets.None);
         local l_l_GuiService_0_InsetArea_1 = l_GuiService_0:GetInsetArea(Enum.ScreenInsets.DeviceSafeInsets);
@@ -60,137 +61,137 @@ return function() --[[ Line: 68 ]]
             bottom = l_l_GuiService_0_InsetArea_0.Max.Y - l_l_GuiService_0_InsetArea_1.Max.Y
         };
     end;
-    local v32 = nil;
     local v33 = nil;
+    local v34 = nil;
     if l_FFlagExtendScrollingFramesBySafeInsets_0 then
-        local v34, v35 = v3.createSignal((v31()));
-        v32 = v34;
+        local v35, v36 = v3.createSignal((v32()));
         v33 = v35;
+        v34 = v36;
     end;
-    local v36 = Vector2.new(1, 1);
-    local v37 = v23(false);
-    if v37 then
-        v36 = v37.ViewportSize;
+    local v37 = Vector2.new(1, 1);
+    local v38 = v24(false);
+    if v38 then
+        v37 = v38.ViewportSize;
     end;
-    local v38, v39 = v3.createSignal(v36);
-    local v40 = nil;
-    local v43 = v3.createEffect(function(v41) --[[ Line: 104 ]]
-        -- upvalues: v23 (copy), v40 (ref), v26 (copy), v39 (copy), v5 (ref), l_FFlagExtendScrollingFramesBySafeInsets_0 (ref), v33 (ref), v31 (copy), l_FFlagDebugForceConsoleSafeInsets_0 (ref), v21 (ref), v38 (copy)
-        local v42 = v23(v41);
-        if v42 then
-            if v40 then
-                v40:Disconnect();
-                v40 = nil;
+    local v39, v40 = v3.createSignal(v37);
+    local v41 = nil;
+    local v44 = v3.createEffect(function(v42) --[[ Line: 105 ]]
+        -- upvalues: v24 (copy), v41 (ref), v27 (copy), v40 (copy), v5 (ref), l_FFlagExtendScrollingFramesBySafeInsets_0 (ref), v34 (ref), v32 (copy), l_FFlagDebugForceConsoleSafeInsets_0 (ref), v22 (ref), v39 (copy)
+        local v43 = v24(v42);
+        if v43 then
+            if v41 then
+                v41:Disconnect();
+                v41 = nil;
             end;
-            if v26(v41) then
-                v39(v5.VRConstants.MainScreenResolution);
+            if v27(v42) then
+                v40(v5.VRConstants.MainScreenResolution);
                 return;
             else
-                v40 = v42:GetPropertyChangedSignal("ViewportSize"):Connect(function() --[[ Line: 115 ]]
-                    -- upvalues: v39 (ref), v42 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (ref), v33 (ref), v31 (ref), l_FFlagDebugForceConsoleSafeInsets_0 (ref), v21 (ref), v38 (ref), v41 (copy)
-                    v39(v42.ViewportSize);
+                v41 = v43:GetPropertyChangedSignal("ViewportSize"):Connect(function() --[[ Line: 116 ]]
+                    -- upvalues: v40 (ref), v43 (copy), l_FFlagExtendScrollingFramesBySafeInsets_0 (ref), v34 (ref), v32 (ref), l_FFlagDebugForceConsoleSafeInsets_0 (ref), v22 (ref), v39 (ref), v42 (copy)
+                    v40(v43.ViewportSize);
                     if l_FFlagExtendScrollingFramesBySafeInsets_0 then
-                        v33((v31()));
+                        v34((v32()));
                         if l_FFlagDebugForceConsoleSafeInsets_0 then
-                            v21(v38(v41));
+                            v22(v39(v42));
                         end;
                     end;
                 end);
             end;
         end;
     end);
-    local v44 = nil;
+    local v45 = nil;
     if l_game_EngineFeature_0 then
-        v44 = l_GuiService_0.ViewportDisplaySize;
+        v45 = l_GuiService_0.ViewportDisplaySize;
     end;
-    local v45, v46 = v3.createSignal(v44);
-    local v47 = nil;
+    local v46, v47 = v3.createSignal(v45);
+    local v48 = nil;
     if l_game_EngineFeature_0 then
-        v47 = l_GuiService_0:GetPropertyChangedSignal("ViewportDisplaySize"):Connect(function() --[[ Line: 136 ]]
-            -- upvalues: v46 (copy), l_GuiService_0 (ref)
-            v46(l_GuiService_0.ViewportDisplaySize);
+        v48 = l_GuiService_0:GetPropertyChangedSignal("ViewportDisplaySize"):Connect(function() --[[ Line: 137 ]]
+            -- upvalues: v47 (copy), l_GuiService_0 (ref)
+            v47(l_GuiService_0.ViewportDisplaySize);
         end);
     end;
-    local v48 = v6();
-    local v49, v50 = v3.createSignal(v48);
-    local v51, v52 = v3.createSignal(v48.top);
-    local v58 = v3.createComputed(function(v53) --[[ Line: 145 ]]
-        -- upvalues: v45 (copy), v38 (copy), v10 (ref), v7 (ref), v11 (ref)
-        local v54 = v45(v53);
-        local v55 = v38(v53);
-        if v54 == nil or v55.X == 0 then
+    local v49 = v6();
+    local v50, v51 = v3.createSignal(v49);
+    local v52, v53 = v3.createSignal(v49.top);
+    local v59 = v3.createComputed(function(v54) --[[ Line: 146 ]]
+        -- upvalues: v46 (copy), v39 (copy), v10 (ref), v7 (ref), v11 (ref)
+        local v55 = v46(v54);
+        local v56 = v39(v54);
+        if v55 == nil or v56.X == 0 then
             return 1;
         else
-            local v56 = true;
-            if v54 ~= Enum.DisplaySize.Small then
-                v56 = v10;
+            local v57 = true;
+            if v55 ~= Enum.DisplaySize.Small then
+                v57 = v10;
             end;
-            local v57 = v55.X > v7;
-            if v11 and v56 and v57 then
-                return v55.X / v7;
+            local v58 = v56.X > v7;
+            if v11 and v57 and v58 then
+                return v56.X / v7;
             else
                 return 1;
             end;
         end;
     end);
-    local v59 = nil;
     local v60 = nil;
+    local v61 = nil;
     if l_FFlagLuaAppCompositionSupport_0 then
-        v59 = v3.createComputed(function(v61) --[[ Line: 165 ]]
-            -- upvalues: v15 (ref), v58 (copy)
-            if v15 then
+        v60 = v3.createComputed(function(v62) --[[ Line: 166 ]]
+            -- upvalues: v16 (ref), v59 (copy)
+            if v16 then
                 return 1.5;
             else
-                return v58(v61);
+                return v59(v62);
             end;
         end);
-        v60 = v3.createComputed(function(v62) --[[ Line: 174 ]]
-            -- upvalues: v38 (copy), v59 (ref)
-            local v63 = v38(v62);
-            local v64 = v59(v62);
-            if not v64 or v64 == 0 then
-                v64 = 1;
+        v61 = v3.createComputed(function(v63) --[[ Line: 175 ]]
+            -- upvalues: v39 (copy), v60 (ref)
+            local v64 = v39(v63);
+            local v65 = v60(v63);
+            if not v65 or v65 == 0 then
+                v65 = 1;
             end;
-            return v63.X / v64;
+            return v64.X / v65;
         end);
     end;
     return {
-        getViewportSize = v38, 
-        getDisplaySize = v45, 
-        getGuiInset = v49, 
-        getTopBarHeight = v51, 
-        getUIScale = v58, 
-        getPlatformScale = if l_FFlagLuaAppCompositionSupport_0 then v59 else nil, 
-        getDesignSpaceViewportWidth = if l_FFlagLuaAppCompositionSupport_0 then v60 else nil, 
-        getIsSpatial = v26, 
-        setGuiInset = v50, 
-        setTopBarHeight = v52, 
-        getDeviceSafePadding = if l_FFlagExtendScrollingFramesBySafeInsets_0 then v32 else nil, 
-        cleanUp = function() --[[ Line: 198 ]] --[[ Name: cleanUp ]]
-            -- upvalues: v47 (ref), v40 (ref), v22 (ref), v25 (ref), v43 (copy)
-            if v47 then
-                v47:Disconnect();
-                v47 = nil;
+        getViewportSize = v39, 
+        getDisplaySize = v46, 
+        getGuiInset = v50, 
+        getTopBarHeight = v52, 
+        getUIScale = v59, 
+        getPlatformScale = if l_FFlagLuaAppCompositionSupport_0 then v60 else nil, 
+        getDesignSpaceViewportWidth = if l_FFlagLuaAppCompositionSupport_0 then v61 else nil, 
+        getIsSpatial = v27, 
+        setGuiInset = v51, 
+        setTopBarHeight = v53, 
+        getDeviceSafePadding = if not not l_FFlagExtendScrollingFramesBySafeInsets_0 or l_FFlagEnableLeftNavOnConsole_0 then v33 else nil, 
+        cleanUp = function() --[[ Line: 201 ]] --[[ Name: cleanUp ]]
+            -- upvalues: v48 (ref), v41 (ref), v23 (ref), v26 (ref), v44 (copy)
+            if v48 then
+                v48:Disconnect();
+                v48 = nil;
             end;
-            if v40 then
-                v40:Disconnect();
-                v40 = nil;
+            if v41 then
+                v41:Disconnect();
+                v41 = nil;
             end;
-            if v22 then
-                v22:Disconnect();
-                v22 = nil;
+            if v23 then
+                v23:Disconnect();
+                v23 = nil;
             end;
-            if v25 then
-                v25:Disconnect();
-                v25 = nil;
+            if v26 then
+                v26:Disconnect();
+                v26 = nil;
             end;
-            if v43 then
-                v43();
+            if v44 then
+                v44();
             end;
         end, 
-        forceConsoleSafeInsets = l_FFlagDebugForceConsoleSafeInsets_0 and function() --[[ Line: 220 ]]
-            -- upvalues: v21 (ref), v38 (copy)
-            v21(v38());
+        forceConsoleSafeInsets = l_FFlagDebugForceConsoleSafeInsets_0 and function() --[[ Line: 223 ]]
+            -- upvalues: v22 (ref), v39 (copy)
+            v22(v39());
         end or nil
     };
 end;

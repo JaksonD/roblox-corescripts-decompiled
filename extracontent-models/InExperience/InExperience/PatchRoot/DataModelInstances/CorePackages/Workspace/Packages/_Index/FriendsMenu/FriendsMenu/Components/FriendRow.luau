@@ -22,76 +22,94 @@ local v20 = require(l_Enums_0.FriendMenuType);
 local l_useStyle_0 = v6.Core.Style.useStyle;
 local _ = require(l_script_FirstAncestor_0.friendsMenuModalType);
 local l_FFlagEnableAppChatFocusableFixes_0 = require(l_Parent_0.SharedFlags).FFlagEnableAppChatFocusableFixes;
-local v24 = UDim2.new(1, 0, 0.5, 0);
-local v25 = Vector2.new(1, 0.5);
-local function v26() --[[ Line: 45 ]]
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v9.FFlagRemoveDependencyArrayAntipattern;
+local v25 = UDim2.new(1, 0, 0.5, 0);
+local v26 = Vector2.new(1, 0.5);
+local function v27() --[[ Line: 47 ]]
 
 end;
-local v27 = {
+local v28 = {
     sidePadding = 24, 
     isFullRowActivatable = false, 
     backgroundTransparency = nil
 };
-return function(v28) --[[ Line: 65 ]]
-    -- upvalues: v7 (copy), v27 (copy), v5 (copy), l_useStyle_0 (copy), v18 (copy), v19 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_useCursor_0 (copy), v12 (copy), l_dependencyArray_0 (copy), l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0 (copy), v20 (copy), v26 (copy), v14 (copy), v16 (copy), v17 (copy), v24 (copy), v25 (copy), v15 (copy)
-    local v29 = v7.Dictionary.join(v27, v28);
-    local v30, v31 = v5.useState(false);
+return function(v29) --[[ Line: 67 ]]
+    -- upvalues: v7 (copy), v28 (copy), v5 (copy), l_useStyle_0 (copy), v18 (copy), v19 (copy), l_FFlagEnableAppChatFocusableFixes_0 (copy), l_useCursor_0 (copy), v12 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0 (copy), v20 (copy), v27 (copy), v14 (copy), v16 (copy), v17 (copy), v25 (copy), v26 (copy), v15 (copy)
+    local v30 = v7.Dictionary.join(v28, v29);
+    local v31, v32 = v5.useState(false);
     local l_Theme_0 = l_useStyle_0().Theme;
-    local l_friend_0 = v29.friend;
+    local l_friend_0 = v30.friend;
     assert(l_friend_0, "friend should be non-nil. Silence type checker.");
-    local v34 = v5.useContext(v18);
-    local v35 = v5.useContext(v19);
-    local l_sidePadding_0 = v29.sidePadding;
-    local v37 = if l_FFlagEnableAppChatFocusableFixes_0 then l_useCursor_0(v12.Enums.CursorType.RoundedSlot) else nil;
-    local v38 = v29.isFullRowActivatable and not v29.isFetchingFriends;
-    local v39 = v5.useCallback(function() --[[ Line: 83 ]]
-        -- upvalues: v34 (copy), l_friend_0 (copy), v29 (copy)
-        if v34 and v34.inviteSingleFriend and not l_friend_0.isLoadingPlaceholder then
-            v34.inviteSingleFriend(l_friend_0.id, v29.layoutOrder);
+    local v35 = v5.useContext(v18);
+    local v36 = v5.useContext(v19);
+    local l_sidePadding_0 = v30.sidePadding;
+    local v38 = if l_FFlagEnableAppChatFocusableFixes_0 then l_useCursor_0(v12.Enums.CursorType.RoundedSlot) else nil;
+    local v39 = v30.isFullRowActivatable and not v30.isFetchingFriends;
+    local v40 = v5.useCallback(function() --[[ Line: 85 ]]
+        -- upvalues: v35 (copy), l_friend_0 (copy), v30 (copy)
+        if v35 and v35.inviteSingleFriend and not l_friend_0.isLoadingPlaceholder then
+            v35.inviteSingleFriend(l_friend_0.id, v30.layoutOrder);
         end;
-    end, l_dependencyArray_0(v34, v34.inviteSingleFriend, l_friend_0.id, l_friend_0.isLoadingPlaceholder, v29.layoutOrder));
-    local v40 = v5.useCallback(function() --[[ Line: 98 ]]
-        -- upvalues: v35 (copy), v29 (copy)
-        if v35.isFriendSelected(v29.friend.id) then
-            v35.removeFriend(v29.friend.id, v29.friend.displayName);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v35, 
+        v35.inviteSingleFriend, 
+        l_friend_0.id, 
+        l_friend_0.isLoadingPlaceholder, 
+        v30.layoutOrder
+    } else l_dependencyArray_0(v35, v35.inviteSingleFriend, l_friend_0.id, l_friend_0.isLoadingPlaceholder, v30.layoutOrder));
+    local v41 = v5.useCallback(function() --[[ Line: 108 ]]
+        -- upvalues: v36 (copy), v30 (copy)
+        if v36.isFriendSelected(v30.friend.id) then
+            v36.removeFriend(v30.friend.id, v30.friend.displayName);
             return;
         else
-            v35.addFriend(v29.friend.id, v29.friend.displayName);
+            v36.addFriend(v30.friend.id, v30.friend.displayName);
             return;
         end;
-    end, l_dependencyArray_0(v35.isFriendSelected, v35.removeFriend, v35.addFriend, v29.friend.id));
-    local v41 = v5.useCallback(function() --[[ Line: 114 ]]
-        -- upvalues: v38 (copy), l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0 (ref), l_friend_0 (copy), v29 (copy), v20 (ref), v39 (copy), v40 (copy)
-        if not v38 or l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0() and l_friend_0.isLoadingPlaceholder then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v36.isFriendSelected, 
+        v36.removeFriend, 
+        v36.addFriend, 
+        v30.friend.id
+    } else l_dependencyArray_0(v36.isFriendSelected, v36.removeFriend, v36.addFriend, v30.friend.id));
+    local v42 = v5.useCallback(function() --[[ Line: 131 ]]
+        -- upvalues: v39 (copy), l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0 (ref), l_friend_0 (copy), v30 (copy), v20 (ref), v40 (copy), v41 (copy)
+        if not v39 or l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0() and l_friend_0.isLoadingPlaceholder then
             return;
-        elseif v29.menuType ~= v20.MultiSelect then
-            v39();
-            return;
-        else
+        elseif v30.menuType ~= v20.MultiSelect then
             v40();
             return;
+        else
+            v41();
+            return;
         end;
-    end, l_dependencyArray_0(v38, v29.menuType, v39, v40, l_friend_0.isLoadingPlaceholder));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v39, 
+        v30.menuType, 
+        v40, 
+        v41, 
+        l_friend_0.isLoadingPlaceholder
+    } else l_dependencyArray_0(v39, v30.menuType, v40, v41, l_friend_0.isLoadingPlaceholder));
     return v5.createElement("ImageButton", {
         Size = UDim2.new(1, 0, 0, 72), 
         AutomaticSize = Enum.AutomaticSize.Y, 
-        BackgroundColor3 = v30 and l_Theme_0.BackgroundOnHover.Color or l_Theme_0.BackgroundDefault.Color, 
-        BackgroundTransparency = if v30 then l_Theme_0.BackgroundOnHover.Transparency else if v29.backgroundTransparency then v29.backgroundTransparency else l_Theme_0.BackgroundDefault.Transparency, 
+        BackgroundColor3 = v31 and l_Theme_0.BackgroundOnHover.Color or l_Theme_0.BackgroundDefault.Color, 
+        BackgroundTransparency = if v31 then l_Theme_0.BackgroundOnHover.Transparency else if v30.backgroundTransparency then v30.backgroundTransparency else l_Theme_0.BackgroundDefault.Transparency, 
         BorderSizePixel = 0, 
-        LayoutOrder = v29.layoutOrder, 
-        SelectionImageObject = if l_FFlagEnableAppChatFocusableFixes_0 and v29.isFullRowActivatable then v37 else nil, 
-        [v5.Event.MouseEnter] = function() --[[ Line: 151 ]]
-            -- upvalues: v29 (copy), v31 (copy)
-            if not v29.isFetchingFriends then
-                v31(true);
+        LayoutOrder = v30.layoutOrder, 
+        SelectionImageObject = if l_FFlagEnableAppChatFocusableFixes_0 and v30.isFullRowActivatable then v38 else nil, 
+        [v5.Event.MouseEnter] = function() --[[ Line: 176 ]]
+            -- upvalues: v30 (copy), v32 (copy)
+            if not v30.isFetchingFriends then
+                v32(true);
             end;
         end, 
-        [v5.Event.MouseLeave] = function() --[[ Line: 156 ]]
-            -- upvalues: v31 (copy)
-            v31(false);
+        [v5.Event.MouseLeave] = function() --[[ Line: 181 ]]
+            -- upvalues: v32 (copy)
+            v32(false);
         end, 
-        [v5.Event.Activated] = if not (l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0() and l_friend_0.isLoadingPlaceholder) and v38 then v41 else v26, 
-        AutoButtonColor = v38
+        [v5.Event.Activated] = if not (l_GetFFlagFriendsMenuDummyLoadingFriendsFix_0() and l_friend_0.isLoadingPlaceholder) and v39 then v42 else v27, 
+        AutoButtonColor = v39
     }, {
         UIListLayout = v5.createElement("UIListLayout", {
             VerticalAlignment = Enum.VerticalAlignment.Center, 
@@ -107,35 +125,35 @@ return function(v28) --[[ Line: 65 ]]
         }), 
         ThumbnailAndPresenceWrapper = v5.createElement(v14, {
             friend = l_friend_0, 
-            isHoverRow = v30, 
+            isHoverRow = v31, 
             size = UDim2.new(0, 56, 0, 56), 
             position = UDim2.new(0, 0, 0.5, 0), 
             anchorPoint = Vector2.new(0, 0.5), 
-            isFetchingFriends = v29.isFetchingFriends, 
+            isFetchingFriends = v30.isFetchingFriends, 
             LayoutOrder = 1
         }), 
         UserInfo = v5.createElement(v16, {
             position = UDim2.new(0, 56, 0, 0), 
             size = UDim2.new(1, -134, 0, 0), 
             friend = l_friend_0, 
-            isFetchingFriendsNames = v29.isFetchingFriendsNames, 
+            isFetchingFriendsNames = v30.isFetchingFriendsNames, 
             LayoutOrder = 2
         }), 
-        InviteButton = if v29.menuType == v20.MultiSelect then v5.createElement(v17, {
+        InviteButton = if v30.menuType == v20.MultiSelect then v5.createElement(v17, {
             size = UDim2.new(0, 66, 0, 36), 
-            position = v24, 
-            anchorPoint = v25, 
+            position = v25, 
+            anchorPoint = v26, 
             friend = l_friend_0, 
-            isDisabled = v29.isFetchingFriends, 
+            isDisabled = v30.isFetchingFriends, 
             layoutOrder = 3, 
-            selectable = (not l_FFlagEnableAppChatFocusableFixes_0 or not v29.isFullRowActivatable) and nil
+            selectable = (not l_FFlagEnableAppChatFocusableFixes_0 or not v30.isFullRowActivatable) and nil
         }) else v5.createElement(v15, {
             size = UDim2.new(0, 66, 0, 36), 
-            position = v24, 
-            anchorPoint = v25, 
+            position = v25, 
+            anchorPoint = v26, 
             friend = l_friend_0, 
-            onInvite = v39, 
-            isFullRowActivatable = v29.isFullRowActivatable, 
+            onInvite = v40, 
+            isFullRowActivatable = v30.isFullRowActivatable, 
             layoutOrder = 3
         })
     });

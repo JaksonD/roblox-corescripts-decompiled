@@ -40,18 +40,20 @@ local v38 = game:DefineFastString("ContactsListEmojiSortingIxpLayer", "Social.Co
 local l_FFlagQRCodeCopyUpdates_0 = require(l_Parent_0.SharedFlags).FFlagQRCodeCopyUpdates;
 local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
 local l_FStringCanAccessTrustedContactsAmpFeature_0 = require(l_Parent_0.SharedFlags).FStringCanAccessTrustedContactsAmpFeature;
+local l_FStringIsUserInTcEligibleCountryAmpFeature_0 = require(l_Parent_0.SharedFlags).FStringIsUserInTcEligibleCountryAmpFeature;
+local l_FFlagTCPolicyCheckRedirect_0 = require(l_Parent_0.SharedFlags).FFlagTCPolicyCheckRedirect;
 local l_FStringCanAccessTrustedContactsAmpNameSpace_0 = require(l_Parent_0.SharedFlags).FStringCanAccessTrustedContactsAmpNameSpace;
 local l_AmpApiProvider_0 = require(l_Parent_0.AmpUpsell).AmpApiProvider;
 local l_AmpEnums_0 = require(l_Parent_0.AmpUpsell).AmpEnums;
 local l_UserInputService_0 = v2.UserInputService;
-return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
-    -- upvalues: l_useAppPolicy_0 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), v15 (copy), l_FFlagQRCodeCopyUpdates_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v32 (copy), v31 (copy), l_Dash_0 (copy), l_EventNames_0 (copy), l_React_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v36 (copy), l_uprankContactsWithEmoji_0 (copy), v37 (copy), l_IXPService_0 (copy), v38 (copy), l_AmpApiProvider_0 (copy), l_FStringCanAccessTrustedContactsAmpFeature_0 (copy), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (copy), l_AmpEnums_0 (copy), l_Roact_0 (copy), v16 (copy), v17 (copy), l_StyledTextLabel_0 (copy), l_ButtonType_0 (copy), l_UserInputService_0 (copy), l_FFlagAddFriendsBannersNewUI_IXP_0 (copy), v21 (copy), l_SectionList_0 (copy), v18 (copy), l_InputLabel_0 (copy), l_InputLabelSize_0 (copy), v24 (copy), v20 (copy), v19 (copy), l_FullPageModal_0 (copy), l_HorizontalPageMargin_0 (copy)
-    local v48 = l_useAppPolicy_0(function(v47) --[[ Line: 93 ]]
-        return v47.getWebViewSupport();
+return function(v48) --[[ Line: 94 ]] --[[ Name: ContactsList ]]
+    -- upvalues: l_useAppPolicy_0 (copy), l_useStyle_0 (copy), l_useDispatch_0 (copy), l_useLocalization_0 (copy), v15 (copy), l_FFlagQRCodeCopyUpdates_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy), v32 (copy), v31 (copy), l_Dash_0 (copy), l_EventNames_0 (copy), l_React_0 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), v36 (copy), l_uprankContactsWithEmoji_0 (copy), v37 (copy), l_IXPService_0 (copy), v38 (copy), l_FFlagTCPolicyCheckRedirect_0 (copy), l_FStringIsUserInTcEligibleCountryAmpFeature_0 (copy), l_FStringCanAccessTrustedContactsAmpFeature_0 (copy), l_AmpApiProvider_0 (copy), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (copy), l_AmpEnums_0 (copy), l_Roact_0 (copy), v16 (copy), v17 (copy), l_StyledTextLabel_0 (copy), l_ButtonType_0 (copy), l_UserInputService_0 (copy), l_FFlagAddFriendsBannersNewUI_IXP_0 (copy), v21 (copy), l_SectionList_0 (copy), v18 (copy), l_InputLabel_0 (copy), l_InputLabelSize_0 (copy), v24 (copy), v20 (copy), v19 (copy), l_FullPageModal_0 (copy), l_HorizontalPageMargin_0 (copy)
+    local v50 = l_useAppPolicy_0(function(v49) --[[ Line: 95 ]]
+        return v49.getWebViewSupport();
     end);
-    local v49 = l_useStyle_0();
-    local v50 = l_useDispatch_0();
-    local v51 = l_useLocalization_0({
+    local v51 = l_useStyle_0();
+    local v52 = l_useDispatch_0();
+    local v53 = l_useLocalization_0({
         fromContactsText = v15.ON_ROBLOX, 
         inviteToRobloxText = v15.INVITE_TO_ROBLOX, 
         contactsListBlurb = v15.CONTACTS_LIST_DESCRIPTION, 
@@ -63,29 +65,29 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
         searchContacts = v15.SEARCH_CONTACTS, 
         learnMore = "Feature.Chat.Action.LearnMore"
     });
-    local v52 = if v32 then v31.useIsRemoveCloseButtonExperimentEnabled({
+    local v54 = if v32 then v31.useIsRemoveCloseButtonExperimentEnabled({
         isExposureEnabled = true
     }) else false;
-    local function v57(v53, v54, v55) --[[ Line: 120 ]]
+    local function v59(v55, v56, v57) --[[ Line: 122 ]]
         -- upvalues: l_Dash_0 (ref)
-        local v56 = if #v54 ~= 0 then {
+        local v58 = if #v56 ~= 0 then {
             {
                 isSectionDivider = true
             }
         } else nil;
-        l_Dash_0.append(v53, v54, v56, v55);
+        l_Dash_0.append(v55, v56, v58, v57);
     end;
-    local function v58() --[[ Line: 125 ]]
-        -- upvalues: v46 (copy), l_EventNames_0 (ref)
-        v46.closeModal(l_EventNames_0.CloseContactListButton);
+    local function v60() --[[ Line: 127 ]]
+        -- upvalues: v48 (copy), l_EventNames_0 (ref)
+        v48.closeModal(l_EventNames_0.CloseContactListButton);
     end;
-    local function v59() --[[ Line: 129 ]]
-        -- upvalues: v46 (copy), l_EventNames_0 (ref)
-        v46.closeModal(l_EventNames_0.CloseContactListCross);
+    local function v61() --[[ Line: 131 ]]
+        -- upvalues: v48 (copy), l_EventNames_0 (ref)
+        v48.closeModal(l_EventNames_0.CloseContactListCross);
     end;
-    local v60 = l_React_0.useCallback(function() --[[ Line: 133 ]]
-        -- upvalues: v50 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
-        v50(l_NavigateDown_0({
+    local v62 = l_React_0.useCallback(function() --[[ Line: 135 ]]
+        -- upvalues: v52 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref)
+        v52(l_NavigateDown_0({
             name = l_AppPage_0.GenericWebPage, 
             detail = "https://en.help.roblox.com/hc/en-us/articles/37725513985812", 
             extraProps = {
@@ -93,156 +95,157 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
             }
         }, nil));
     end, {
-        v50
+        v52
     });
-    local v61, v62 = l_React_0.useState("");
-    local function _(v63) --[[ Line: 145 ]]
-        -- upvalues: l_Dash_0 (ref), v61 (copy)
-        return l_Dash_0.filter(v63, function(v64) --[[ Line: 146 ]]
-            -- upvalues: v61 (ref)
-            if v64.contactName ~= nil then
-                if not v64.contactName:match("^%s*$") then
-                    return string.find(string.lower(v64.contactName or ""), string.lower(v61)) ~= nil;
+    local v63, v64 = l_React_0.useState("");
+    local function _(v65) --[[ Line: 147 ]]
+        -- upvalues: l_Dash_0 (ref), v63 (copy)
+        return l_Dash_0.filter(v65, function(v66) --[[ Line: 148 ]]
+            -- upvalues: v63 (ref)
+            if v66.contactName ~= nil then
+                if not v66.contactName:match("^%s*$") then
+                    return string.find(string.lower(v66.contactName or ""), string.lower(v63)) ~= nil;
                 else
                     return false;
                 end;
             else
-                return string.find(string.lower(v64.contactName or ""), string.lower(v61)) ~= nil;
+                return string.find(string.lower(v66.contactName or ""), string.lower(v63)) ~= nil;
             end;
         end);
     end;
-    local v66 = if v36 then l_React_0.useMemo(function() --[[ Line: 160 ]]
-        -- upvalues: l_uprankContactsWithEmoji_0 (ref), v46 (copy)
-        return l_uprankContactsWithEmoji_0(v46.matchedContacts);
+    local v68 = if v36 then l_React_0.useMemo(function() --[[ Line: 162 ]]
+        -- upvalues: l_uprankContactsWithEmoji_0 (ref), v48 (copy)
+        return l_uprankContactsWithEmoji_0(v48.matchedContacts);
     end, {
-        v46.matchedContacts
+        v48.matchedContacts
     }) else nil;
-    local v67 = if v36 then l_React_0.useMemo(function() --[[ Line: 165 ]]
-        -- upvalues: l_uprankContactsWithEmoji_0 (ref), v46 (copy)
-        return l_uprankContactsWithEmoji_0(v46.deviceContacts);
+    local v69 = if v36 then l_React_0.useMemo(function() --[[ Line: 167 ]]
+        -- upvalues: l_uprankContactsWithEmoji_0 (ref), v48 (copy)
+        return l_uprankContactsWithEmoji_0(v48.deviceContacts);
     end, {
-        v46.deviceContacts
+        v48.deviceContacts
     }) else nil;
-    local v68 = {};
-    local v69 = {};
+    local v70 = {};
+    local v71 = {};
     if v36 then
-        v68 = l_Dash_0.filter(v66, function(v70) --[[ Line: 146 ]]
-            -- upvalues: v61 (copy)
-            if v70.contactName ~= nil then
-                if not v70.contactName:match("^%s*$") then
-                    return string.find(string.lower(v70.contactName or ""), string.lower(v61)) ~= nil;
-                else
-                    return false;
-                end;
-            else
-                return string.find(string.lower(v70.contactName or ""), string.lower(v61)) ~= nil;
-            end;
-        end);
-    else
-        local l_matchedContacts_0 = v46.matchedContacts;
-        v68 = l_Dash_0.filter(l_matchedContacts_0, function(v72) --[[ Line: 146 ]]
-            -- upvalues: v61 (copy)
+        v70 = l_Dash_0.filter(v68, function(v72) --[[ Line: 148 ]]
+            -- upvalues: v63 (copy)
             if v72.contactName ~= nil then
                 if not v72.contactName:match("^%s*$") then
-                    return string.find(string.lower(v72.contactName or ""), string.lower(v61)) ~= nil;
+                    return string.find(string.lower(v72.contactName or ""), string.lower(v63)) ~= nil;
                 else
                     return false;
                 end;
             else
-                return string.find(string.lower(v72.contactName or ""), string.lower(v61)) ~= nil;
+                return string.find(string.lower(v72.contactName or ""), string.lower(v63)) ~= nil;
+            end;
+        end);
+    else
+        local l_matchedContacts_0 = v48.matchedContacts;
+        v70 = l_Dash_0.filter(l_matchedContacts_0, function(v74) --[[ Line: 148 ]]
+            -- upvalues: v63 (copy)
+            if v74.contactName ~= nil then
+                if not v74.contactName:match("^%s*$") then
+                    return string.find(string.lower(v74.contactName or ""), string.lower(v63)) ~= nil;
+                else
+                    return false;
+                end;
+            else
+                return string.find(string.lower(v74.contactName or ""), string.lower(v63)) ~= nil;
             end;
         end);
     end;
     if v36 then
-        v69 = l_Dash_0.filter(v67, function(v73) --[[ Line: 146 ]]
-            -- upvalues: v61 (copy)
-            if v73.contactName ~= nil then
-                if not v73.contactName:match("^%s*$") then
-                    return string.find(string.lower(v73.contactName or ""), string.lower(v61)) ~= nil;
+        v71 = l_Dash_0.filter(v69, function(v75) --[[ Line: 148 ]]
+            -- upvalues: v63 (copy)
+            if v75.contactName ~= nil then
+                if not v75.contactName:match("^%s*$") then
+                    return string.find(string.lower(v75.contactName or ""), string.lower(v63)) ~= nil;
                 else
                     return false;
                 end;
             else
-                return string.find(string.lower(v73.contactName or ""), string.lower(v61)) ~= nil;
+                return string.find(string.lower(v75.contactName or ""), string.lower(v63)) ~= nil;
             end;
         end);
     else
-        local l_deviceContacts_0 = v46.deviceContacts;
-        v69 = l_Dash_0.filter(l_deviceContacts_0, function(v75) --[[ Line: 146 ]]
-            -- upvalues: v61 (copy)
-            if v75.contactName ~= nil then
-                if not v75.contactName:match("^%s*$") then
-                    return string.find(string.lower(v75.contactName or ""), string.lower(v61)) ~= nil;
+        local l_deviceContacts_0 = v48.deviceContacts;
+        v71 = l_Dash_0.filter(l_deviceContacts_0, function(v77) --[[ Line: 148 ]]
+            -- upvalues: v63 (copy)
+            if v77.contactName ~= nil then
+                if not v77.contactName:match("^%s*$") then
+                    return string.find(string.lower(v77.contactName or ""), string.lower(v63)) ~= nil;
                 else
                     return false;
                 end;
             else
-                return string.find(string.lower(v75.contactName or ""), string.lower(v61)) ~= nil;
+                return string.find(string.lower(v77.contactName or ""), string.lower(v63)) ~= nil;
             end;
         end);
     end;
     if v37 then
-        l_React_0.useEffect(function() --[[ Line: 180 ]]
+        l_React_0.useEffect(function() --[[ Line: 182 ]]
             -- upvalues: l_IXPService_0 (ref), v38 (ref)
             l_IXPService_0:LogFlagLinkedUserLayerExposure(v38);
         end, {});
     end;
-    local v76, v77 = l_React_0.useState(false);
+    local v78, v79 = l_React_0.useState(false);
     if l_FFlagQRCodeCopyUpdates_0 then
-        l_React_0.useEffect(function() --[[ Line: 188 ]]
-            -- upvalues: l_AmpApiProvider_0 (ref), l_FStringCanAccessTrustedContactsAmpFeature_0 (ref), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (ref), l_AmpEnums_0 (ref), v77 (copy)
-            if l_AmpApiProvider_0.upsellFeatureAccess(l_FStringCanAccessTrustedContactsAmpFeature_0, {}, l_FStringCanAccessTrustedContactsAmpNameSpace_0).access == l_AmpEnums_0.AccessResponseEnum.Granted then
-                v77(true);
+        l_React_0.useEffect(function() --[[ Line: 190 ]]
+            -- upvalues: l_FFlagTCPolicyCheckRedirect_0 (ref), l_FStringIsUserInTcEligibleCountryAmpFeature_0 (ref), l_FStringCanAccessTrustedContactsAmpFeature_0 (ref), l_AmpApiProvider_0 (ref), l_FStringCanAccessTrustedContactsAmpNameSpace_0 (ref), l_AmpEnums_0 (ref), v79 (copy)
+            local v80 = if l_FFlagTCPolicyCheckRedirect_0 then l_FStringIsUserInTcEligibleCountryAmpFeature_0 else l_FStringCanAccessTrustedContactsAmpFeature_0;
+            if l_AmpApiProvider_0.upsellFeatureAccess(v80, {}, l_FStringCanAccessTrustedContactsAmpNameSpace_0).access == l_AmpEnums_0.AccessResponseEnum.Granted then
+                v79(true);
             end;
         end);
     end;
-    local v78 = {};
-    v57(v78, v68, v69);
-    local v79 = {};
-    if #v68 > 0 then
-        table.insert(v79, {
-            data = v68, 
-            title = v51.fromContactsText, 
-            sectionNumber = #v79 + 1
+    local v81 = {};
+    v59(v81, v70, v71);
+    local v82 = {};
+    if #v70 > 0 then
+        table.insert(v82, {
+            data = v70, 
+            title = v53.fromContactsText, 
+            sectionNumber = #v82 + 1
         });
     end;
-    if #v69 > 0 then
-        table.insert(v79, {
-            data = v69, 
-            title = v51.inviteToRobloxText, 
-            sectionNumber = #v79 + 1
+    if #v71 > 0 then
+        table.insert(v82, {
+            data = v71, 
+            title = v53.inviteToRobloxText, 
+            sectionNumber = #v82 + 1
         });
     end;
-    local function _() --[[ Line: 217 ]]
-        -- upvalues: v46 (copy)
-        return #v46.matchedContacts + #v46.deviceContacts == 0;
+    local function _() --[[ Line: 220 ]]
+        -- upvalues: v48 (copy)
+        return #v48.matchedContacts + #v48.deviceContacts == 0;
     end;
-    local function v84(v81) --[[ Line: 221 ]]
-        -- upvalues: l_Roact_0 (ref), v49 (copy), v16 (ref), v51 (copy), v46 (copy), v17 (ref)
-        local l_item_0 = v81.item;
+    local function v87(v84) --[[ Line: 224 ]]
+        -- upvalues: l_Roact_0 (ref), v51 (copy), v16 (ref), v53 (copy), v48 (copy), v17 (ref)
+        local l_item_0 = v84.item;
         if l_item_0.isSectionDivider then
-            local v83 = v81.index ~= 1;
+            local v86 = v84.index ~= 1;
             return l_Roact_0.createElement("Frame", {
                 BackgroundTransparency = 1, 
                 Size = UDim2.new(1, 0, 0, 24)
             }, {
                 divider = l_Roact_0.createElement("Frame", {
                     Size = UDim2.new(1, 0, 0, 1), 
-                    Position = UDim2.new(0, 0, v83 and 0.5 or 0.5, 0), 
+                    Position = UDim2.new(0, 0, v86 and 0.5 or 0.5, 0), 
                     BorderSizePixel = 0, 
-                    BackgroundColor3 = v49.Theme.Divider.Color, 
-                    BackgroundTransparency = v49.Theme.Divider.Transparency
+                    BackgroundColor3 = v51.Theme.Divider.Color, 
+                    BackgroundTransparency = v51.Theme.Divider.Transparency
                 })
             });
         elseif l_item_0.isMatchedContact then
             return l_Roact_0.createElement(v16, {
                 contactName = l_item_0.contactName, 
                 contactId = l_item_0.contactId, 
-                contextualInfo = v51.fromContactsText, 
+                contextualInfo = v53.fromContactsText, 
                 hasDivider = true, 
                 hasSentRequest = l_item_0.hasSentRequest, 
-                requestFriendship = v46.requestFriendship, 
-                openProfilePeekView = v46.openProfilePeekView, 
+                requestFriendship = v48.requestFriendship, 
+                openProfilePeekView = v48.openProfilePeekView, 
                 headshotThumbnailUrl = l_item_0.headshotThumbnailUrl, 
                 avatarThumbnailUrl = l_item_0.avatarThumbnailUrl
             });
@@ -256,9 +259,9 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
             });
         end;
     end;
-    local function v86(v85) --[[ Line: 260 ]]
-        -- upvalues: l_Roact_0 (ref), l_StyledTextLabel_0 (ref), v49 (copy)
-        if v85.section then
+    local function v89(v88) --[[ Line: 263 ]]
+        -- upvalues: l_Roact_0 (ref), l_StyledTextLabel_0 (ref), v51 (copy)
+        if v88.section then
             return l_Roact_0.createElement("Frame", {
                 BackgroundTransparency = 1, 
                 Size = UDim2.new(1, 0, 0, 0)
@@ -267,7 +270,7 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                     SortOrder = Enum.SortOrder.LayoutOrder, 
                     FillDirection = Enum.FillDirection.Vertical
                 }), 
-                padding = if v85.section.sectionNumber ~= 1 then l_Roact_0.createElement("Frame", {
+                padding = if v88.section.sectionNumber ~= 1 then l_Roact_0.createElement("Frame", {
                     Size = UDim2.new(1, 0, 0, 24), 
                     BackgroundTransparency = 1, 
                     LayoutOrder = 1
@@ -278,9 +281,9 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                     BackgroundTransparency = 1
                 }, {
                     sectionHeaderTextLabel = l_Roact_0.createElement(l_StyledTextLabel_0, {
-                        fontStyle = v49.Font.Header2, 
-                        colorStyle = v49.Theme.TextDefault, 
-                        text = v85.section.title or ""
+                        fontStyle = v51.Font.Header2, 
+                        colorStyle = v51.Theme.TextDefault, 
+                        text = v88.section.title or ""
                     })
                 })
             });
@@ -293,15 +296,15 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                     Size = UDim2.new(1, 0, 0, 1), 
                     Position = UDim2.new(0, 0, 0.5, 0), 
                     BorderSizePixel = 0, 
-                    BackgroundColor3 = v49.Theme.Divider.Color, 
-                    BackgroundTransparency = v49.Theme.Divider.Transparency
+                    BackgroundColor3 = v51.Theme.Divider.Color, 
+                    BackgroundTransparency = v51.Theme.Divider.Transparency
                 })
             });
         end;
     end;
-    local function v88(v87) --[[ Line: 305 ]]
-        -- upvalues: v46 (copy), l_ButtonType_0 (ref), l_Dash_0 (ref), v52 (copy), v58 (copy)
-        if v46.isFetching then
+    local function v91(v90) --[[ Line: 308 ]]
+        -- upvalues: v48 (copy), l_ButtonType_0 (ref), l_Dash_0 (ref), v54 (copy), v60 (copy)
+        if v48.isFetching then
             return {
                 {
                     buttonType = l_ButtonType_0.PrimarySystem, 
@@ -311,14 +314,14 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                     }
                 }
             };
-        elseif v46.showAddFriendsButton and #v46.matchedContacts + #v46.deviceContacts == 0 then
-            if v52 then
+        elseif v48.showAddFriendsButton and #v48.matchedContacts + #v48.deviceContacts == 0 then
+            if v54 then
                 return {
                     {
                         buttonType = l_ButtonType_0.PrimarySystem, 
                         props = {
-                            onActivated = v46.onAddFriendsActivated, 
-                            text = v87.goToAddFriends
+                            onActivated = v48.onAddFriendsActivated, 
+                            text = v90.goToAddFriends
                         }
                     }
                 };
@@ -327,57 +330,57 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                     {
                         buttonType = l_ButtonType_0.PrimarySystem, 
                         props = {
-                            onActivated = v46.onAddFriendsActivated, 
-                            text = v87.goToAddFriends
+                            onActivated = v48.onAddFriendsActivated, 
+                            text = v90.goToAddFriends
                         }
                     }, 
                     {
                         buttonType = l_ButtonType_0.Secondary, 
                         props = {
-                            onActivated = v58, 
-                            text = v87.closeModal
+                            onActivated = v60, 
+                            text = v90.closeModal
                         }
                     }
                 };
             end;
-        elseif v52 then
+        elseif v54 then
             return {};
         else
             return {
                 {
                     buttonType = l_ButtonType_0.PrimarySystem, 
                     props = {
-                        onActivated = v58, 
-                        text = v87.closeModal
+                        onActivated = v60, 
+                        text = v90.closeModal
                     }
                 }
             };
         end;
     end;
     local l_Y_0 = l_UserInputService_0.StatusBarSize.Y;
-    local v90 = if l_FFlagAddFriendsBannersNewUI_IXP_0 then v21.useIsVisible() else nil;
-    local v91 = {
+    local v93 = if l_FFlagAddFriendsBannersNewUI_IXP_0 then v21.useIsVisible() else nil;
+    local v94 = {
         layout = l_Roact_0.createElement("UIListLayout", {
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             FillDirection = Enum.FillDirection.Vertical
         }), 
-        contactsSyncWarning = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v90 then l_React_0.createElement(v21.Component, {
+        contactsSyncWarning = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v93 then l_React_0.createElement(v21.Component, {
             layoutOrder = -1
         }) else nil
     };
-    local v92 = l_React_0.createRef();
-    local function v94(v93) --[[ Line: 381 ]]
-        -- upvalues: v62 (copy)
-        v62(v93);
+    local v95 = l_React_0.createRef();
+    local function v97(v96) --[[ Line: 384 ]]
+        -- upvalues: v64 (copy)
+        v64(v96);
     end;
-    local v95 = if #v78 ~= 0 then l_Roact_0.createElement(l_SectionList_0, {
-        ref = v92, 
-        sections = v79, 
-        renderSectionHeader = if #v68 > 0 then v86 else nil, 
-        renderItem = v84, 
+    local v98 = if #v81 ~= 0 then l_Roact_0.createElement(l_SectionList_0, {
+        ref = v95, 
+        sections = v82, 
+        renderSectionHeader = if #v70 > 0 then v89 else nil, 
+        renderItem = v87, 
         initialNumToRender = 15, 
-        CanvasSize = UDim2.new(1, 0, 0, #v78 * 73), 
+        CanvasSize = UDim2.new(1, 0, 0, #v81 * 73), 
         contentContainerStyle = {
             BackgroundTransparency = 1, 
             BorderSizePixel = 0
@@ -386,59 +389,59 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
             BackgroundTransparency = 1, 
             ScrollBarThickness = 0, 
             LayoutOrder = 8, 
-            Size = UDim2.new(1, 0, 1, -80 - (v52 and 0 or 48) - 36 - 16), 
+            Size = UDim2.new(1, 0, 1, -80 - (v54 and 0 or 48) - 36 - 16), 
             ElasticBehavior = Enum.ElasticBehavior.Always
         }
     }) else l_Roact_0.createElement(v18, {
         errorTextKey = v15.NO_RESULTS, 
         layoutOrder = 8
     });
-    local v96 = {
+    local v99 = {
         layout = l_Roact_0.createElement("UIListLayout", {
             HorizontalAlignment = Enum.HorizontalAlignment.Center, 
             SortOrder = Enum.SortOrder.LayoutOrder, 
             FillDirection = Enum.FillDirection.Vertical
         }), 
-        contactsSyncWarning = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v90 then l_React_0.createElement(v21.Component, {
+        contactsSyncWarning = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v93 then l_React_0.createElement(v21.Component, {
             layoutOrder = -1
         }) else nil, 
-        spacer1 = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v90 then nil else l_Roact_0.createElement("Frame", {
+        spacer1 = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v93 then nil else l_Roact_0.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 24), 
             BackgroundTransparency = 1, 
             LayoutOrder = 1
         }), 
-        descriptionFrame = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v90 then nil else l_Roact_0.createElement("Frame", {
+        descriptionFrame = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v93 then nil else l_Roact_0.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 80), 
             BackgroundTransparency = 1, 
             LayoutOrder = 2
         }, {
             textLayout = l_Roact_0.createElement("UIListLayout", {
-                HorizontalAlignment = if l_FFlagQRCodeCopyUpdates_0 and v76 then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Center, 
+                HorizontalAlignment = if l_FFlagQRCodeCopyUpdates_0 and v78 then Enum.HorizontalAlignment.Left else Enum.HorizontalAlignment.Center, 
                 VerticalAlignment = Enum.VerticalAlignment.Center, 
                 SortOrder = Enum.SortOrder.LayoutOrder
             }), 
             descriptionText = l_Roact_0.createElement(l_StyledTextLabel_0, {
-                text = if l_FFlagQRCodeCopyUpdates_0 and v76 then if l_FFlagConnectionsToFriendsRename_0 then v51.contactsListTFEducationBlurb else v51.contactsListTCEducationBlurb else v51.contactsListBlurb, 
+                text = if l_FFlagQRCodeCopyUpdates_0 and v78 then if l_FFlagConnectionsToFriendsRename_0 then v53.contactsListTFEducationBlurb else v53.contactsListTCEducationBlurb else v53.contactsListBlurb, 
                 automaticSize = Enum.AutomaticSize.Y, 
-                colorStyle = v49.Theme.TextDefault, 
-                fontStyle = v49.Font.Body, 
+                colorStyle = v51.Theme.TextDefault, 
+                fontStyle = v51.Font.Body, 
                 lineHeight = 1, 
                 size = UDim2.new(1, 0, 0, 0), 
                 maxSize = Vector2.new(0, 80), 
-                textXAlignment = if l_FFlagQRCodeCopyUpdates_0 and v76 then Enum.TextXAlignment.Left else Enum.TextXAlignment.Center, 
+                textXAlignment = if l_FFlagQRCodeCopyUpdates_0 and v78 then Enum.TextXAlignment.Left else Enum.TextXAlignment.Center, 
                 textYAlignment = Enum.TextYAlignment.Center, 
                 layoutOrder = 1
             }), 
-            LearnMoreWebLink = v48 and l_React_0.createElement(l_InputLabel_0, {
+            LearnMoreWebLink = v50 and l_React_0.createElement(l_InputLabel_0, {
                 LayoutOrder = 2, 
                 tag = "auto-y size-full-0", 
                 RichText = true, 
-                Text = ("<u>%*</u>"):format(v51.learnMore), 
+                Text = ("<u>%*</u>"):format(v53.learnMore), 
                 size = l_InputLabelSize_0.Large, 
-                onActivated = v60
+                onActivated = v62
             })
         }), 
-        spacer2 = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v90 then nil else l_Roact_0.createElement("Frame", {
+        spacer2 = if l_FFlagAddFriendsBannersNewUI_IXP_0 and v93 then nil else l_Roact_0.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 24), 
             BackgroundTransparency = 1, 
             LayoutOrder = 3
@@ -446,41 +449,41 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
         searchBarContainer = l_Roact_0.createElement(v24, {
             height = 36, 
             layoutOrder = 4, 
-            textChangeCallback = v94
+            textChangeCallback = v97
         }), 
         spacer4 = l_Roact_0.createElement("Frame", {
             Size = UDim2.new(1, 0, 0, 16), 
             BackgroundTransparency = 1, 
             LayoutOrder = 7
         }), 
-        contactsList = v95
+        contactsList = v98
     };
-    if v46.isFetching then
-        for _, v98 in {
+    if v48.isFetching then
+        for _, v101 in {
             1, 
             2, 
             3
         } do
-            v91["glimmer" .. v98] = l_Roact_0.createElement(v20, {
-                layoutOrder = v98
+            v94["glimmer" .. v101] = l_Roact_0.createElement(v20, {
+                layoutOrder = v101
             });
         end;
-    elseif v46.hasUploadError and #v46.matchedContacts + #v46.deviceContacts == 0 then
-        v91.errorModal = l_Roact_0.createElement(v19);
-    elseif #v46.matchedContacts + #v46.deviceContacts == 0 then
-        v91.emptyList = l_Roact_0.createElement(v18);
+    elseif v48.hasUploadError and #v48.matchedContacts + #v48.deviceContacts == 0 then
+        v94.errorModal = l_Roact_0.createElement(v19);
+    elseif #v48.matchedContacts + #v48.deviceContacts == 0 then
+        v94.emptyList = l_Roact_0.createElement(v18);
     else
-        v91 = v96;
+        v94 = v99;
     end;
     return l_Roact_0.createElement(l_FullPageModal_0, {
-        title = v51.connectWithFriends, 
-        screenSize = v46.screenSize, 
+        title = v53.connectWithFriends, 
+        screenSize = v48.screenSize, 
         marginSize = 0, 
         distanceFromTop = l_Y_0, 
-        onCloseClicked = v59, 
+        onCloseClicked = v61, 
         buttonStackProps = {
-            buttons = v88(v51), 
-            buttonHeight = v52 and 0 or 48, 
+            buttons = v91(v53), 
+            buttonHeight = v54 and 0 or 48, 
             forcedFillDirection = Enum.FillDirection.Vertical
         }
     }, {
@@ -492,9 +495,9 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
             contentFrame = l_Roact_0.createElement("Frame", {
                 Size = UDim2.fromScale(1, 1), 
                 BackgroundTransparency = 1
-            }, v91), 
+            }, v94), 
             gradientFrame = l_Roact_0.createElement("Frame", {
-                Position = UDim2.new(0, 0, 1, v52 and 0 or -24), 
+                Position = UDim2.new(0, 0, 1, v54 and 0 or -24), 
                 Size = UDim2.new(1, 0, 0, 24), 
                 BackgroundColor3 = Color3.fromRGB(255, 255, 255), 
                 BackgroundTransparency = 0, 
@@ -504,8 +507,8 @@ return function(v46) --[[ Line: 92 ]] --[[ Name: ContactsList ]]
                 gradient = l_Roact_0.createElement("UIGradient", {
                     Rotation = 270, 
                     Color = ColorSequence.new({
-                        ColorSequenceKeypoint.new(0, v49.Theme.BackgroundUIDefault.Color), 
-                        ColorSequenceKeypoint.new(1, v49.Theme.BackgroundUIDefault.Color)
+                        ColorSequenceKeypoint.new(0, v51.Theme.BackgroundUIDefault.Color), 
+                        ColorSequenceKeypoint.new(1, v51.Theme.BackgroundUIDefault.Color)
                     }), 
                     Transparency = NumberSequence.new({
                         NumberSequenceKeypoint.new(0, 0), 

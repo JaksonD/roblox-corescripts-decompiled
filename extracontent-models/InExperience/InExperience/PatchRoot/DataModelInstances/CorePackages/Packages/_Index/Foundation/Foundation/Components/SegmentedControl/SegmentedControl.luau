@@ -32,48 +32,56 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 40 ]] --[[ Name: Segm
     local v27 = nil;
     local v28 = nil;
     local v29 = nil;
-    local v30 = nil;
     v20 = v3.useRef(nil);
-    v21 = v10(v17.value, v16 or v20);
+    local v33 = v3.useMemo(function() --[[ Line: 56 ]]
+        -- upvalues: v17 (copy), v3 (ref)
+        local v30 = {};
+        for _, v32 in v17.segments do
+            v30[v32.id] = v32.ref or v3.createRef();
+        end;
+        return v30;
+    end, {
+        v17.segments
+    });
+    v21 = v10(v17.value, v16 or v20, v33);
     v22 = v21.activeItemHeight;
-    v23 = v21.itemRefs;
-    v24 = v21.highlightPosition;
-    v25 = v21.highlightWidth;
-    local v31, v32 = v3.useBinding(Vector2.new(0, 0));
-    v26 = v31;
-    v27 = v32;
-    v28 = v3.useCallback(function(v33) --[[ Line: 59 ]]
-        -- upvalues: v27 (ref)
-        v27(v33.AbsoluteSize);
+    v23 = v21.highlightPosition;
+    v24 = v21.highlightWidth;
+    local v34, v35 = v3.useBinding(Vector2.new(0, 0));
+    v25 = v34;
+    v26 = v35;
+    v27 = v3.useCallback(function(v36) --[[ Line: 69 ]]
+        -- upvalues: v26 (ref)
+        v26(v36.AbsoluteSize);
     end, {
         v19.container.tag
     });
-    v30 = v3.useCallback(function(v34) --[[ Line: 63 ]]
-        -- upvalues: v17 (copy), v28 (ref)
+    v29 = v3.useCallback(function(v37) --[[ Line: 73 ]]
+        -- upvalues: v17 (copy), v27 (ref)
         if v17.onAbsoluteSizeChanged then
-            v17.onAbsoluteSizeChanged(v34);
+            v17.onAbsoluteSizeChanged(v37);
         end;
-        v28(v34);
+        v27(v37);
     end, {
         v17.onAbsoluteSizeChanged, 
-        v28
+        v27
     });
-    v29 = v3.useCallback(function(v35) --[[ Line: 70 ]]
-        -- upvalues: v23 (ref), v17 (copy)
-        local v36 = 0;
-        if v35.current then
-            local l_current_0 = v23[v17.value].current;
+    v28 = v3.useCallback(function(v38) --[[ Line: 80 ]]
+        -- upvalues: v33 (copy), v17 (copy)
+        local v39 = 0;
+        if v38.current then
+            local l_current_0 = v33[v17.value].current;
             if l_current_0 then
-                v36 = l_current_0.AbsolutePosition.Y - v35.current.AbsolutePosition.Y;
+                v39 = l_current_0.AbsolutePosition.Y - v38.current.AbsolutePosition.Y;
             end;
         end;
-        return v36;
+        return v39;
     end, {
         v17.value
     });
     return v3.createElement(v5, {
-        Size = v26:map(function(v38) --[[ Line: 84 ]]
-            return UDim2.fromOffset(v38.X, v38.Y);
+        Size = v25:map(function(v41) --[[ Line: 94 ]]
+            return UDim2.fromOffset(v41.X, v41.Y);
         end), 
         testId = "--foundation-segmented-control-container"
     }, {
@@ -82,22 +90,22 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 40 ]] --[[ Name: Segm
             ref = v16 or v20, 
             testId = "--foundation-segmented-control"
         }), {
-            onAbsoluteSizeChanged = v30
-        }), v2.map(v17.segments, function(v39, v40) --[[ Line: 101 ]]
-            -- upvalues: v3 (ref), v12 (ref), v17 (copy), v23 (ref)
-            local v41 = (v40 - 1) * 2 + 1;
+            onAbsoluteSizeChanged = v29
+        }), v2.map(v17.segments, function(v42, v43) --[[ Line: 111 ]]
+            -- upvalues: v3 (ref), v12 (ref), v17 (copy), v33 (copy)
+            local v44 = (v43 - 1) * 2 + 1;
             return v3.createElement(v3.Fragment, {
-                key = tostring(v39.id)
+                key = tostring(v42.id)
             }, {
                 Segment = v3.createElement(v12, {
-                    id = v39.id, 
+                    id = v42.id, 
                     size = v17.size, 
-                    text = v39.text, 
-                    isActive = v39.id == v17.value, 
+                    text = v42.text, 
+                    isActive = v42.id == v17.value, 
                     onActivated = v17.onActivated, 
-                    LayoutOrder = v41, 
-                    testId = ("%*--segment-%*"):format(v17.testId, v39.id), 
-                    ref = v23[v39.id]
+                    LayoutOrder = v44, 
+                    testId = ("%*--segment-%*"):format(v17.testId, v42.id), 
+                    ref = v33[v42.id]
                 })
             });
         end)), 
@@ -105,15 +113,15 @@ return v3.memo(v3.forwardRef(function(v15, v16) --[[ Line: 40 ]] --[[ Name: Segm
             backgroundStyle = v18.Color.Shift.Shift_400, 
             tag = v19.segment.tag, 
             Size = v3.joinBindings({
-                v25, 
+                v24, 
                 v22
-            }):map(function(v42) --[[ Line: 122 ]]
-                return UDim2.fromOffset(v42[1], v42[2]);
+            }):map(function(v45) --[[ Line: 132 ]]
+                return UDim2.fromOffset(v45[1], v45[2]);
             end), 
-            Position = v24:map(function(v43) --[[ Line: 125 ]]
-                -- upvalues: v29 (ref), v16 (copy), v20 (ref)
-                local v44 = v29(v16 or v20);
-                return UDim2.fromOffset(v43, v44);
+            Position = v23:map(function(v46) --[[ Line: 135 ]]
+                -- upvalues: v28 (ref), v16 (copy), v20 (ref)
+                local v47 = v28(v16 or v20);
+                return UDim2.fromOffset(v46, v47);
             end), 
             ZIndex = v17.ZIndex + 1, 
             testId = "--foundation-segmented-control--animated-overlay"

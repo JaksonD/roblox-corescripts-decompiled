@@ -1,55 +1,57 @@
 local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.Dash);
-local v3 = require(l_CorePackages_0.Packages.React);
+local l_AppLifecycleObserverService_0 = game:GetService("AppLifecycleObserverService");
+local v3 = require(l_CorePackages_0.Packages.Dash);
+local v4 = require(l_CorePackages_0.Packages.React);
 local l_useCrossPlaySettings_0 = require(l_CorePackages_0.Workspace.Packages.CrossPlay).Hooks.useCrossPlaySettings;
 local l_CrossPlayCapabilities_0 = require(l_CorePackages_0.Workspace.Packages.UniversalAppPolicy).Enum.CrossPlayCapabilities;
 local l_useLocalization_0 = require(l_CorePackages_0.Workspace.Packages.Localization).Hooks.useLocalization;
-local v7 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
+local v8 = require(l_Modules_0.LuaApp.Hooks.useAppPolicy);
 local l_useEffectOnMount_0 = require(l_CorePackages_0.Workspace.Packages.RoactUtils).Hooks.useEffectOnMount;
-local v9 = require(l_Modules_0.LuaApp.TenFootUI.MoreComponents.MoreSection);
-local v10 = require(l_Modules_0.LuaApp.TenFootUI.MoreComponents.MoreStatusButton);
+local v10 = require(l_Modules_0.LuaApp.TenFootUI.MoreComponents.MoreSection);
+local v11 = require(l_Modules_0.LuaApp.TenFootUI.MoreComponents.MoreStatusButton);
 local l_BodyText_0 = require(l_Modules_0.LuaApp.TenFootUI.MoreComponents.MoreText).BodyText;
+local l_FFlagDontUseCrossPlayGlobalEffect_0 = require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagDontUseCrossPlayGlobalEffect;
 local _ = require(script.Parent.Types);
-local function _(v13, v14) --[[ Line: 30 ]] --[[ Name: getCrossPlayStatusText ]]
-    local v15 = if v13.isEnabled then "(" .. v14.recommended .. ") " else "";
-    if v13.isLoading then
-        return v15 .. v14.loading;
-    elseif v13.hasError then
-        return v15 .. v14.error;
-    elseif v13.isEnabled then
-        return v15 .. v14.enabled;
+local function _(v15, v16) --[[ Line: 34 ]] --[[ Name: getCrossPlayStatusText ]]
+    local v17 = if v15.isEnabled then "(" .. v16.recommended .. ") " else "";
+    if v15.isLoading then
+        return v17 .. v16.loading;
+    elseif v15.hasError then
+        return v17 .. v16.error;
+    elseif v15.isEnabled then
+        return v17 .. v16.enabled;
     else
-        return v15 .. v14.disabled;
+        return v17 .. v16.disabled;
     end;
 end;
-local function _(v17) --[[ Line: 45 ]] --[[ Name: isCapabilityEnabled ]]
-    return v17 and v17.Success and v17.CanJoinGame and v17.PrivilegeCheckResult == "NoIssue";
+local function _(v19) --[[ Line: 49 ]] --[[ Name: isCapabilityEnabled ]]
+    return v19 and v19.Success and v19.CanJoinGame and v19.PrivilegeCheckResult == "NoIssue";
 end;
-local function v28(v19, v20, v21, v22) --[[ Line: 49 ]] --[[ Name: getPrivilegeStatuses ]]
-    -- upvalues: l_CrossPlayCapabilities_0 (copy), v2 (copy)
-    local v23 = {
-        [l_CrossPlayCapabilities_0.CrossPlatform] = v21.crossPlatform, 
-        [l_CrossPlayCapabilities_0.Multiplayer] = v21.multiplayer, 
-        [l_CrossPlayCapabilities_0.SharedContent] = v21.sharedContent
+local function v30(v21, v22, v23, v24) --[[ Line: 53 ]] --[[ Name: getPrivilegeStatuses ]]
+    -- upvalues: l_CrossPlayCapabilities_0 (copy), v3 (copy)
+    local v25 = {
+        [l_CrossPlayCapabilities_0.CrossPlatform] = v23.crossPlatform, 
+        [l_CrossPlayCapabilities_0.Multiplayer] = v23.multiplayer, 
+        [l_CrossPlayCapabilities_0.SharedContent] = v23.sharedContent
     };
-    return v2.map(v19, function(v24) --[[ Line: 61 ]]
-        -- upvalues: v20 (copy), v22 (copy), v21 (copy), v23 (copy)
-        local v25 = v20[v24];
-        local v26 = v25 and v25.Success and v25.CanJoinGame and v25.PrivilegeCheckResult == "NoIssue";
-        v25 = v20[v24] and v20[v24].PrivilegeCheckResult == "Error";
-        local v27 = nil;
-        v27 = if v22 then v21.loading else if v25 then v21.error else if v26 then v21.allowed else v21.disallowed;
+    return v3.map(v21, function(v26) --[[ Line: 65 ]]
+        -- upvalues: v22 (copy), v24 (copy), v23 (copy), v25 (copy)
+        local v27 = v22[v26];
+        local v28 = v27 and v27.Success and v27.CanJoinGame and v27.PrivilegeCheckResult == "NoIssue";
+        v27 = v22[v26] and v22[v26].PrivilegeCheckResult == "Error";
+        local v29 = nil;
+        v29 = if v24 then v23.loading else if v27 then v23.error else if v28 then v23.allowed else v23.disallowed;
         return {
-            label = v23[v24], 
-            status = v27
+            label = v25[v26], 
+            status = v29
         };
     end);
 end;
-local function v34(v29) --[[ Line: 83 ]] --[[ Name: useCrossPlayStatus ]]
-    -- upvalues: l_useCrossPlaySettings_0 (copy), l_useLocalization_0 (copy), v3 (copy), v28 (copy), l_useEffectOnMount_0 (copy)
-    local v30 = l_useCrossPlaySettings_0();
-    local v31 = l_useLocalization_0({
+local function v36(v31) --[[ Line: 87 ]] --[[ Name: useCrossPlayStatus ]]
+    -- upvalues: l_useCrossPlaySettings_0 (copy), l_useLocalization_0 (copy), v4 (copy), v30 (copy), l_useEffectOnMount_0 (copy)
+    local v32 = l_useCrossPlaySettings_0();
+    local v33 = l_useLocalization_0({
         multiplayer = "Feature.Settings.Label.Multiplayer", 
         sharedContent = "Feature.Settings.Label.SharedContent", 
         recommended = "Feature.Settings.Label.Recommended", 
@@ -60,108 +62,123 @@ local function v34(v29) --[[ Line: 83 ]] --[[ Name: useCrossPlayStatus ]]
         allowed = "Feature.Settings.Label.Allowed", 
         disallowed = "Feature.Settings.Label.Disallowed"
     });
-    local v32 = if v30.isEnabled then "(" .. v31.recommended .. ") " else "";
-    local v33 = if v30.isLoading then v32 .. v31.loading else if v30.hasError then v32 .. v31.error else if v30.isEnabled then v32 .. v31.enabled else v32 .. v31.disabled;
-    v32 = v3.useMemo(function() --[[ Line: 99 ]]
-        -- upvalues: v28 (ref), v29 (copy), v30 (copy), v31 (copy)
-        return v28(v29, v30.systemPrivileges, v31, v30.isLoading);
+    local v34 = if v32.isEnabled then "(" .. v33.recommended .. ") " else "";
+    local v35 = if v32.isLoading then v34 .. v33.loading else if v32.hasError then v34 .. v33.error else if v32.isEnabled then v34 .. v33.enabled else v34 .. v33.disabled;
+    v34 = v4.useMemo(function() --[[ Line: 103 ]]
+        -- upvalues: v30 (ref), v31 (copy), v32 (copy), v33 (copy)
+        return v30(v31, v32.systemPrivileges, v33, v32.isLoading);
     end, {
-        v30, 
-        v29, 
-        v31
+        v32, 
+        v31, 
+        v33
     });
-    l_useEffectOnMount_0(function() --[[ Line: 108 ]]
-        -- upvalues: v30 (copy)
-        v30.reload();
+    l_useEffectOnMount_0(function() --[[ Line: 112 ]]
+        -- upvalues: v32 (copy)
+        v32.reload();
     end);
-    return (v3.useMemo(function() --[[ Line: 113 ]]
-        -- upvalues: v30 (copy), v33 (copy), v32 (copy)
+    return (v4.useMemo(function() --[[ Line: 117 ]]
+        -- upvalues: v32 (copy), v35 (copy), v34 (copy)
         return {
-            crossPlaySettings = v30, 
-            crossPlayStatusText = v33, 
-            privilegeStatuses = v32
+            crossPlaySettings = v32, 
+            crossPlayStatusText = v35, 
+            privilegeStatuses = v34
         };
     end, {
-        v30, 
-        v33, 
-        v32
+        v32, 
+        v35, 
+        v34
     }));
 end;
-local function _(v35, v36, v37) --[[ Line: 130 ]] --[[ Name: getAccountSettingsSuccess ]]
-    -- upvalues: v2 (copy)
-    return v2.reduce(v36, function(v38, v39) --[[ Line: 131 ]]
-        -- upvalues: v37 (copy)
-        local l_v38_0 = v38;
-        if l_v38_0 then
-            local v41 = v37[v39];
-            l_v38_0 = v41 and v41.Success and v41.CanJoinGame and v41.PrivilegeCheckResult == "NoIssue";
+local function _(v37, v38, v39) --[[ Line: 134 ]] --[[ Name: getAccountSettingsSuccess ]]
+    -- upvalues: v3 (copy)
+    return v3.reduce(v38, function(v40, v41) --[[ Line: 135 ]]
+        -- upvalues: v39 (copy)
+        local l_v40_0 = v40;
+        if l_v40_0 then
+            local v43 = v39[v41];
+            l_v40_0 = v43 and v43.Success and v43.CanJoinGame and v43.PrivilegeCheckResult == "NoIssue";
         end;
-        return l_v38_0;
-    end, v35.isEnabled);
+        return l_v40_0;
+    end, v37.isEnabled);
 end;
-return function(v43) --[[ Line: 136 ]] --[[ Name: DeviceSettingsSection ]]
-    -- upvalues: v7 (copy), l_useLocalization_0 (copy), v34 (copy), v2 (copy), v3 (copy), v10 (copy), l_BodyText_0 (copy), v9 (copy)
-    local v45 = v7(function(v44) --[[ Line: 137 ]]
-        return v44.getPlatformAccountName();
+return function(v45) --[[ Line: 140 ]] --[[ Name: DeviceSettingsSection ]]
+    -- upvalues: v8 (copy), l_useLocalization_0 (copy), v36 (copy), l_FFlagDontUseCrossPlayGlobalEffect_0 (copy), v4 (copy), l_AppLifecycleObserverService_0 (copy), v3 (copy), v11 (copy), l_BodyText_0 (copy), v10 (copy)
+    local v47 = v8(function(v46) --[[ Line: 141 ]]
+        return v46.getPlatformAccountName();
     end);
-    local v46 = l_useLocalization_0({
+    local v48 = l_useLocalization_0({
         platformAccountSettingsSuccess = {
             "Feature.Settings.Description.PlatformAccountSettingsSuccess"; 
-            platform = v45
+            platform = v47
         }, 
         platformAccountSettings = {
             "Feature.Settings.Heading.PlatformAccountSettings"; 
-            platform = v45
+            platform = v47
         }, 
         crossPlatform = "Feature.Settings.Label.CrossPlatform", 
         crossPlatformDescription = "Feature.Settings.Description.CrossPlatform"
     });
-    local v48 = v7(function(v47) --[[ Line: 151 ]]
-        return (v47.getCrossPlayCapabilities());
+    local v50 = v8(function(v49) --[[ Line: 155 ]]
+        return (v49.getCrossPlayCapabilities());
     end);
-    local v49 = v34(v48);
-    local l_crossPlaySettings_0 = v49.crossPlaySettings;
-    local l_crossPlayStatusText_0 = v49.crossPlayStatusText;
-    local l_privilegeStatuses_0 = v49.privilegeStatuses;
-    local v55 = v2.map(l_privilegeStatuses_0, function(v53, v54) --[[ Line: 160 ]]
-        -- upvalues: v3 (ref), v10 (ref), l_crossPlaySettings_0 (copy)
-        return v3.createElement(v10, {
-            layoutOrder = v54 + 2, 
-            title = v53.label, 
-            status = v53.status, 
+    local v51 = v36(v50);
+    local l_crossPlaySettings_0 = v51.crossPlaySettings;
+    local l_crossPlayStatusText_0 = v51.crossPlayStatusText;
+    local l_privilegeStatuses_0 = v51.privilegeStatuses;
+    if l_FFlagDontUseCrossPlayGlobalEffect_0 then
+        v4.useEffect(function() --[[ Line: 165 ]]
+            -- upvalues: l_AppLifecycleObserverService_0 (ref), l_crossPlaySettings_0 (copy)
+            local v55 = l_AppLifecycleObserverService_0.OnBecomeActive:Connect(function() --[[ Line: 166 ]]
+                -- upvalues: l_crossPlaySettings_0 (ref)
+                l_crossPlaySettings_0.reload();
+            end);
+            return function() --[[ Line: 170 ]]
+                -- upvalues: v55 (copy)
+                v55:Disconnect();
+            end;
+        end, {
+            l_crossPlaySettings_0
+        });
+    end;
+    local v58 = v3.map(l_privilegeStatuses_0, function(v56, v57) --[[ Line: 176 ]]
+        -- upvalues: v4 (ref), v11 (ref), l_crossPlaySettings_0 (copy)
+        return v4.createElement(v11, {
+            layoutOrder = v57 + 2, 
+            title = v56.label, 
+            status = v56.status, 
             onActivated = l_crossPlaySettings_0.invokeSystemUi
         });
     end);
     local l_systemPrivileges_0 = l_crossPlaySettings_0.systemPrivileges;
-    l_systemPrivileges_0 = if v2.reduce(v48, function(v57, v58) --[[ Line: 131 ]]
+    l_systemPrivileges_0 = if v3.reduce(v50, function(v60, v61) --[[ Line: 135 ]]
         -- upvalues: l_systemPrivileges_0 (copy)
-        local l_v57_0 = v57;
-        if l_v57_0 then
-            local v60 = l_systemPrivileges_0[v58];
-            l_v57_0 = v60 and v60.Success and v60.CanJoinGame and v60.PrivilegeCheckResult == "NoIssue";
+        local l_v60_0 = v60;
+        if l_v60_0 then
+            local v63 = l_systemPrivileges_0[v61];
+            l_v60_0 = v63 and v63.Success and v63.CanJoinGame and v63.PrivilegeCheckResult == "NoIssue";
         end;
-        return l_v57_0;
-    end, l_crossPlaySettings_0.isEnabled) then v3.createElement(l_BodyText_0, {
+        return l_v60_0;
+    end, l_crossPlaySettings_0.isEnabled) then v4.createElement(l_BodyText_0, {
         layoutOrder = 10, 
-        text = v46.platformAccountSettingsSuccess
+        text = v48.platformAccountSettingsSuccess
     }) else nil;
-    return v3.createElement(v9, {
-        layoutOrder = v43.layoutOrder, 
-        withDivider = v43.withDivider, 
-        title = v46.platformAccountSettings
-    }, v2.append({
-        v3.createElement(v10, {
+    return v4.createElement(v10, {
+        layoutOrder = v45.layoutOrder, 
+        withDivider = v45.withDivider, 
+        title = v48.platformAccountSettings
+    }, v3.append({
+        v4.createElement(v11, {
             layoutOrder = 1, 
-            title = v46.crossPlatform, 
+            title = v48.crossPlatform, 
             status = l_crossPlayStatusText_0, 
             isDisabled = l_crossPlaySettings_0.isLoading, 
             onActivated = l_crossPlaySettings_0.toggle
         }), 
-        v3.createElement(l_BodyText_0, {
+        v4.createElement(l_BodyText_0, {
             layoutOrder = 2, 
-            text = v46.crossPlatformDescription
+            text = v48.crossPlatformDescription
         })
-    }, v55, {
+    }, v58, {
         l_systemPrivileges_0
     }));
 end;

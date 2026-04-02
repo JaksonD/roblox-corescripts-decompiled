@@ -20,70 +20,78 @@ local v18 = require(l_script_FirstAncestor_0.Hooks.useTransferStore);
 local v19 = require(l_script_FirstAncestor_0.Actions.Send.setTransferPromptState);
 local v20 = require(l_script_FirstAncestor_0.Actions.Send.processTransfer);
 local v21 = require(l_script_FirstAncestor_0.Enums.PromptState);
-return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
-    -- upvalues: l_useLocalization_0 (copy), v18 (copy), v2 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), v15 (copy), l_View_0 (copy), v16 (copy), l_Text_0 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), l_IconVariant_0 (copy), v17 (copy), l_Button_0 (copy), v20 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), v19 (copy), v21 (copy), v3 (copy)
-    local v23 = l_useLocalization_0({
+local v22 = require(l_script_FirstAncestor_0.Events.CurrencyTransferTelemetry);
+local v23 = require(l_script_FirstAncestor_0.Utils.logCurrencyTransferCounter);
+return function(_) --[[ Line: 43 ]] --[[ Name: TransferRobuxConfirmSheet ]]
+    -- upvalues: l_useLocalization_0 (copy), v18 (copy), v2 (copy), v23 (copy), v22 (copy), l_Sheet_0 (copy), l_useScaledValue_0 (copy), v15 (copy), l_View_0 (copy), v16 (copy), l_Text_0 (copy), l_getIconRichText_0 (copy), l_Enums_0 (copy), l_IconVariant_0 (copy), v17 (copy), l_Button_0 (copy), v20 (copy), l_ButtonVariant_0 (copy), l_FillBehavior_0 (copy), v19 (copy), v21 (copy), v3 (copy)
+    local v25 = l_useLocalization_0({
         SendRobux = "Features.Transfers.RobuxTransfer.Heading.SendRobux", 
         NewConnection = "Features.Transfers.RobuxTransfer.Label.NewConnection", 
         JoinedInYear = "Features.Transfers.RobuxTransfer.Label.JoinedInYear", 
+        ConnectedYear = "Features.Transfers.Label.ConnectedSince", 
         MutualConnection = "Features.Transfers.RobuxTransfer.Label.MutualConnection", 
         AgeEstimationDisclaimer = "Features.Transfers.RobuxTransfer.Disclaimer.AgeEstimationTransfer", 
         Send = "Features.Transfers.RobuxTransfer.Action.Send", 
         Edit = "Features.Transfers.RobuxTransfer.Action.Edit"
     });
-    local v24 = v18();
-    local v25 = v24.getRobuxBalanceAmount(false);
-    local v26 = v24.getSelectedAmount(false);
-    local v27 = v24.getUserRelationshipDetail(false);
-    local v28 = v24.getRecipient(false);
-    local l_triggerOnClose_0 = v24.triggerOnClose;
+    local v26 = v18();
+    v2.useEffect(function() --[[ Line: 57 ]]
+        -- upvalues: v23 (ref), v26 (copy), v22 (ref)
+        v23(v26, v22.CurrencyTransferConfirmSheetShownCounter);
+        return nil;
+    end, {});
+    local v27 = v26.getRobuxBalanceAmount(false);
+    local v28 = v26.getSelectedAmount(false);
+    local v29 = v26.getUserRelationshipDetail(false);
+    local v30 = v26.getRecipient(false);
+    local l_triggerOnClose_0 = v26.triggerOnClose;
     local l_year_0 = os.date("*t").year;
-    local v31, v32 = v2.useState(v27);
-    local v33, v34 = v2.useState(v28);
-    v2.useEffect(function() --[[ Line: 63 ]]
-        -- upvalues: v27 (copy), v32 (copy)
-        if v27 then
-            v32(v27);
+    local v33, v34 = v2.useState(v29);
+    local v35, v36 = v2.useState(v30);
+    v2.useEffect(function() --[[ Line: 72 ]]
+        -- upvalues: v29 (copy), v34 (copy)
+        if v29 then
+            v34(v29);
         end;
     end, {
-        v27
+        v29
     });
-    v2.useEffect(function() --[[ Line: 69 ]]
-        -- upvalues: v28 (copy), v34 (copy)
-        if v28 then
-            v34(v28);
+    v2.useEffect(function() --[[ Line: 78 ]]
+        -- upvalues: v30 (copy), v36 (copy)
+        if v30 then
+            v36(v30);
         end;
     end, {
-        v28
+        v30
     });
-    local v37 = v2.useMemo(function() --[[ Line: 75 ]]
-        -- upvalues: v31 (copy), v23 (copy), l_year_0 (copy)
-        if not v31 or not v31.friendSinceYear then
-            return v23.NewConnection;
+    local v39 = v2.useMemo(function() --[[ Line: 84 ]]
+        -- upvalues: v33 (copy), v25 (copy), l_year_0 (copy)
+        if not v33 or not v33.friendSinceYear then
+            return v25.NewConnection;
         else
-            local l_friendSinceYear_0 = v31.friendSinceYear;
-            local v36 = l_year_0 - l_friendSinceYear_0;
-            if v36 == 0 then
-                return v23.NewConnection;
+            local l_friendSinceYear_0 = v33.friendSinceYear;
+            local v38 = l_year_0 - l_friendSinceYear_0;
+            if v38 == 0 then
+                return v25.NewConnection;
             else
-                return string.gsub(v23.JoinedInYear, "{year}", (tostring(v36)));
+                return string.gsub(v25.ConnectedYear, "{year}", (tostring(v38)));
             end;
         end;
     end, {
         l_year_0, 
-        v31
+        v33
     });
-    local v38 = v2.useMemo(function() --[[ Line: 87 ]]
-        -- upvalues: v23 (copy), v31 (copy)
-        return string.gsub(v23.MutualConnection, "{amount}", (tostring(v31.mutualFriendsCount)));
+    local v40 = v2.useMemo(function() --[[ Line: 96 ]]
+        -- upvalues: v25 (copy), v33 (copy)
+        return string.gsub(v25.MutualConnection, "{amount}", (tostring(v33.mutualFriendsCount)));
     end, {
-        v31.mutualFriendsCount
+        v33.mutualFriendsCount
     });
-    local v39 = v2.useMemo(function() --[[ Line: 95 ]]
-        -- upvalues: v23 (copy), v31 (copy)
-        return string.gsub(v23.JoinedInYear, "{year}", (tostring(v31.userAccountSinceYear)));
+    local v41 = v2.useMemo(function() --[[ Line: 104 ]]
+        -- upvalues: v25 (copy), v33 (copy)
+        return string.gsub(v25.JoinedInYear, "{year}", (tostring(v33.userAccountSinceYear)));
     end, {
-        v31.userAccountSinceYear
+        v33.userAccountSinceYear
     });
     return v2.createElement(l_Sheet_0.Root, {
         preferCenterSheet = true, 
@@ -95,8 +103,8 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
     }, {
         Header = v2.createElement(l_Sheet_0.Header, {}, {
             TransferRobuxHeader = v2.createElement(v15, {
-                titleText = v23.SendRobux, 
-                robuxBalanceAmount = v25
+                titleText = v25.SendRobux, 
+                robuxBalanceAmount = v27
             })
         }), 
         Content = v2.createElement(l_Sheet_0.Content, {
@@ -110,10 +118,10 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
                     tag = "col gap-xlarge align-x-center bg-shift-100 align-y-center radius-medium padding-large", 
                     LayoutOrder = 1
                 }, {
-                    RecipientProfile = if v33 and v33.targetId then v2.createElement(v16, {
-                        userId = tostring(v33.targetId), 
-                        username = v33.targetName, 
-                        displayName = v33.targetDisplayName, 
+                    RecipientProfile = if v35 and v35.targetId then v2.createElement(v16, {
+                        userId = tostring(v35.targetId), 
+                        username = v35.targetName, 
+                        displayName = v35.targetDisplayName, 
                         showUsername = true, 
                         size = UDim2.fromOffset(60, 60), 
                         layoutOrder = 1, 
@@ -127,26 +135,26 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
                             tag = "row align-x-center align-y-center auto-xy", 
                             LayoutOrder = 1
                         }, {
-                            ConnectedDetail = if v31 and v31.areFriends then v2.createElement(l_Text_0, {
-                                Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.Calendar, l_IconVariant_0.Filled), v37), 
+                            ConnectedDetail = if v33 and v33.areFriends then v2.createElement(l_Text_0, {
+                                Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.Calendar, l_IconVariant_0.Filled), v39), 
                                 tag = "auto-xy text-body-medium content-default text-no-wrap", 
                                 RichText = true, 
                                 LayoutOrder = 1
                             }) else nil, 
-                            Spacer = if v31 and v31.areFriends then v2.createElement(l_View_0, {
+                            Spacer = if v33 and v33.areFriends then v2.createElement(l_View_0, {
                                 tag = "auto-xy", 
                                 Size = UDim2.new(0, 8, 0, 0), 
                                 LayoutOrder = 2
                             }) else nil, 
                             MutualDetail = v2.createElement(l_Text_0, {
-                                Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.TwoPeople, l_IconVariant_0.Filled), v38), 
+                                Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.TwoPeople, l_IconVariant_0.Filled), v40), 
                                 tag = "auto-xy text-body-medium content-default text-no-wrap", 
                                 RichText = true, 
                                 LayoutOrder = 3
                             })
                         }), 
                         JoinedDetail = v2.createElement(l_Text_0, {
-                            Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.CircleI, l_IconVariant_0.Filled), v39), 
+                            Text = ("%* %*"):format(l_getIconRichText_0(l_Enums_0.IconName.CircleI, l_IconVariant_0.Filled), v41), 
                             tag = "auto-xy text-body-medium content-default text-no-wrap padding-y-xsmall", 
                             RichText = true, 
                             LayoutOrder = 2
@@ -158,7 +166,7 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
                     LayoutOrder = 2
                 }, {
                     Amount = v2.createElement(v17, {
-                        amount = v26 or 0, 
+                        amount = v28 or 0, 
                         layoutOrder = 1
                     })
                 })
@@ -168,7 +176,7 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
             LayoutOrder = 3
         }, {
             v2.createElement(l_View_0, {
-                tag = "col align-y-center align-x-center size-full-1000 gap-medium"
+                tag = "col align-y-center align-x-center size-full-1000 gap-medium padding-top-large"
             }, {
                 v2.createElement(l_View_0, {
                     tag = "row auto-y size-full-0 gap-small", 
@@ -176,27 +184,27 @@ return function(_) --[[ Line: 41 ]] --[[ Name: TransferRobuxConfirmSheet ]]
                 }, {
                     v2.createElement(l_Button_0, {
                         LayoutOrder = 1, 
-                        text = v23.Send, 
-                        onActivated = function() --[[ Line: 195 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v20 (ref), v24 (copy), v26 (copy)
-                            v20(v24, v26 or 0);
+                        text = v25.Send, 
+                        onActivated = function() --[[ Line: 204 ]] --[[ Name: onActivated ]]
+                            -- upvalues: v20 (ref), v26 (copy), v28 (copy)
+                            v20(v26, v28 or 0);
                         end, 
                         variant = l_ButtonVariant_0.Emphasis, 
                         fillBehavior = l_FillBehavior_0.Fill
                     }), 
                     v2.createElement(l_Button_0, {
                         LayoutOrder = 2, 
-                        text = v23.Edit, 
-                        onActivated = function() --[[ Line: 204 ]] --[[ Name: onActivated ]]
-                            -- upvalues: v19 (ref), v24 (copy), v21 (ref)
-                            v19(v24, v21.TransferInput);
+                        text = v25.Edit, 
+                        onActivated = function() --[[ Line: 213 ]] --[[ Name: onActivated ]]
+                            -- upvalues: v19 (ref), v26 (copy), v21 (ref)
+                            v19(v26, v21.TransferInput);
                         end, 
                         variant = l_ButtonVariant_0.Standard, 
                         fillBehavior = l_FillBehavior_0.Fill
                     })
                 }); 
                 Disclaimer = v2.createElement(v3.Text, {
-                    Text = v23.AgeEstimationDisclaimer, 
+                    Text = v25.AgeEstimationDisclaimer, 
                     tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap", 
                     LayoutOrder = 2
                 })

@@ -21,101 +21,123 @@ local l_useSelector_0 = v14.Hooks.RoactRodux.useSelector;
 local v20 = require(l_script_FirstAncestor_0.Common.Enums);
 local v21 = game:DefineFastFlag("ProfilePlatformDisableEventReceiverForNonUserProfiles", false);
 local v22 = game:DefineFastFlag("ProfilePlatformRefactorPresenceEventListener", false);
-return function() --[[ Line: 35 ]]
-    -- upvalues: v8 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), v12 (copy), l_RobloxEventReceiver_0 (copy), l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v21 (copy), v22 (copy), l_useSelector_0 (copy), v6 (copy), l_PresenceType_0 (copy), v5 (copy), v20 (copy), v10 (copy), l_dependencyArray_0 (copy), v9 (copy), v3 (copy)
-    local v23 = v8();
-    local v24 = l_useRoactService_0(l_AppNotificationService_0);
-    local v25 = v12.useMemo(function() --[[ Line: 38 ]]
-        -- upvalues: l_RobloxEventReceiver_0 (ref), v24 (copy)
-        return l_RobloxEventReceiver_0.new(v24);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function() --[[ Line: 37 ]]
+    -- upvalues: v8 (copy), l_useRoactService_0 (copy), l_AppNotificationService_0 (copy), v12 (copy), l_RobloxEventReceiver_0 (copy), l_useDispatch_0 (copy), l_useLocalUserId_0 (copy), v21 (copy), v22 (copy), l_useSelector_0 (copy), v6 (copy), l_PresenceType_0 (copy), v5 (copy), v20 (copy), v10 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v9 (copy), v3 (copy)
+    local v24 = v8();
+    local v25 = l_useRoactService_0(l_AppNotificationService_0);
+    local v26 = v12.useMemo(function() --[[ Line: 40 ]]
+        -- upvalues: l_RobloxEventReceiver_0 (ref), v25 (copy)
+        return l_RobloxEventReceiver_0.new(v25);
     end, {
-        v24
+        v25
     });
-    local v26 = l_useDispatch_0();
-    local v27 = l_useLocalUserId_0();
-    local l_profileId_0 = v23.profileId;
-    local v29 = if v21 then v23.profileType else nil;
+    local v27 = l_useDispatch_0();
+    local v28 = l_useLocalUserId_0();
+    local l_profileId_0 = v24.profileId;
+    local v30 = if v21 then v24.profileType else nil;
     if v22 then
-        local v31 = l_useSelector_0(function(v30) --[[ Line: 49 ]]
+        local v32 = l_useSelector_0(function(v31) --[[ Line: 51 ]]
             -- upvalues: v6 (ref), l_profileId_0 (copy), l_PresenceType_0 (ref)
-            return v6.Selectors.getUserPresenceByUserId(v30, l_profileId_0) or {
+            return v6.Selectors.getUserPresenceByUserId(v31, l_profileId_0) or {
                 userPresenceType = l_PresenceType_0.Offline, 
                 lastLocation = ""
             };
         end);
-        local v32 = v5(v31.userPresenceType, v31.universeId);
-        local v33 = v12.useRef(v32);
-        v12.useEffect(function() --[[ Line: 59 ]]
-            -- upvalues: v21 (ref), v29 (copy), v20 (ref), v33 (copy), v32 (copy), v26 (copy), v10 (ref), l_profileId_0 (copy)
-            if v21 and v29 ~= v20.ProfileTypes.User then
+        local v33 = v5(v32.userPresenceType, v32.universeId);
+        local v34 = v12.useRef(v33);
+        v12.useEffect(function() --[[ Line: 61 ]]
+            -- upvalues: v21 (ref), v30 (copy), v20 (ref), v34 (copy), v33 (copy), v27 (copy), v10 (ref), l_profileId_0 (copy)
+            if v21 and v30 ~= v20.ProfileTypes.User then
                 return;
             else
-                if v33.current ~= v32 then
-                    if v33.current == v20.PresenceTypes.InGame or v32 == v20.PresenceTypes.InGame then
-                        v26(v10(l_profileId_0));
+                if v34.current ~= v33 then
+                    if v34.current == v20.PresenceTypes.InGame or v33 == v20.PresenceTypes.InGame then
+                        v27(v10(l_profileId_0));
                     end;
-                    v33.current = v32;
+                    v34.current = v33;
                 end;
                 return;
             end;
-        end, l_dependencyArray_0(v32, v26, l_profileId_0, if v21 then v29 else nil));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v33, 
+            v27, 
+            l_profileId_0, 
+            if v21 then v30 else nil
+        } else l_dependencyArray_0(v33, v27, l_profileId_0, if v21 then v30 else nil));
     end;
-    v12.useEffect(function() --[[ Line: 89 ]]
-        -- upvalues: v21 (ref), v29 (copy), v20 (ref), v25 (copy), l_profileId_0 (copy), v26 (copy), v9 (ref)
-        if v21 and v29 ~= v20.ProfileTypes.User then
+    v12.useEffect(function() --[[ Line: 98 ]]
+        -- upvalues: v21 (ref), v30 (copy), v20 (ref), v26 (copy), l_profileId_0 (copy), v27 (copy), v9 (ref)
+        if v21 and v30 ~= v20.ProfileTypes.User then
             return;
         else
-            local v37 = v25:observeEvent("UserProfileNotifications", function(v34) --[[ Line: 97 ]]
-                -- upvalues: l_profileId_0 (ref), v20 (ref), v26 (ref), v9 (ref)
-                local v35 = tostring(v34.VieweeUserId);
-                local l_Type_0 = v34.Type;
-                if l_profileId_0 == v35 and (l_Type_0 == v20.NameTypes.DisplayName or l_Type_0 == v20.NameTypes.Alias or l_Type_0 == v20.NameTypes.Username) then
-                    v26(v9(v35));
+            local v38 = v26:observeEvent("UserProfileNotifications", function(v35) --[[ Line: 106 ]]
+                -- upvalues: l_profileId_0 (ref), v20 (ref), v27 (ref), v9 (ref)
+                local v36 = tostring(v35.VieweeUserId);
+                local l_Type_0 = v35.Type;
+                if l_profileId_0 == v36 and (l_Type_0 == v20.NameTypes.DisplayName or l_Type_0 == v20.NameTypes.Alias or l_Type_0 == v20.NameTypes.Username) then
+                    v27(v9(v36));
                 end;
             end);
-            return function() --[[ Line: 112 ]]
-                -- upvalues: v37 (copy)
-                v37:disconnect();
+            return function() --[[ Line: 121 ]]
+                -- upvalues: v38 (copy)
+                v38:disconnect();
             end;
         end;
-    end, l_dependencyArray_0(v25, v26, l_profileId_0, if v21 then v29 else nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v26, 
+        v27, 
+        l_profileId_0, 
+        if v21 then v30 else nil
+    } else l_dependencyArray_0(v26, v27, l_profileId_0, if v21 then v30 else nil));
     if not v22 then
-        v12.useEffect(function() --[[ Line: 126 ]]
-            -- upvalues: v21 (ref), v29 (copy), v20 (ref), v25 (copy), v3 (ref), l_profileId_0 (copy), v26 (copy), v10 (ref)
-            if v21 and v29 ~= v20.ProfileTypes.User then
+        v12.useEffect(function() --[[ Line: 142 ]]
+            -- upvalues: v21 (ref), v30 (copy), v20 (ref), v26 (copy), v3 (ref), l_profileId_0 (copy), v27 (copy), v10 (ref)
+            if v21 and v30 ~= v20.ProfileTypes.User then
                 return;
             else
-                local v40 = v25:observeEvent("PresenceBulkNotifications", function(v38) --[[ Line: 134 ]]
-                    -- upvalues: v3 (ref), l_profileId_0 (ref), v26 (ref), v10 (ref)
-                    if v3.List.filter(v38, function(v39) --[[ Line: 135 ]]
+                local v41 = v26:observeEvent("PresenceBulkNotifications", function(v39) --[[ Line: 150 ]]
+                    -- upvalues: v3 (ref), l_profileId_0 (ref), v27 (ref), v10 (ref)
+                    if v3.List.filter(v39, function(v40) --[[ Line: 151 ]]
                         -- upvalues: l_profileId_0 (ref)
-                        return tostring(v39.UserId) == l_profileId_0;
+                        return tostring(v40.UserId) == l_profileId_0;
                     end) then
-                        v26(v10(l_profileId_0));
+                        v27(v10(l_profileId_0));
                     end;
                 end);
-                return function() --[[ Line: 144 ]]
-                    -- upvalues: v40 (copy)
-                    v40:disconnect();
+                return function() --[[ Line: 160 ]]
+                    -- upvalues: v41 (copy)
+                    v41:disconnect();
                 end;
             end;
-        end, l_dependencyArray_0(v25, v26, l_profileId_0, if v21 then v29 else nil));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            v26, 
+            v27, 
+            l_profileId_0, 
+            if v21 then v30 else nil
+        } else l_dependencyArray_0(v26, v27, l_profileId_0, if v21 then v30 else nil));
     end;
-    v12.useEffect(function() --[[ Line: 158 ]]
-        -- upvalues: v21 (ref), v29 (copy), v20 (ref), v25 (copy), v27 (copy), l_profileId_0 (copy), v26 (copy), v10 (ref)
-        if v21 and v29 ~= v20.ProfileTypes.User then
+    v12.useEffect(function() --[[ Line: 181 ]]
+        -- upvalues: v21 (ref), v30 (copy), v20 (ref), v26 (copy), v28 (copy), l_profileId_0 (copy), v27 (copy), v10 (ref)
+        if v21 and v30 ~= v20.ProfileTypes.User then
             return;
         else
-            local v42 = v25:observeEvent("FriendshipNotifications", function(v41) --[[ Line: 166 ]]
-                -- upvalues: v27 (ref), l_profileId_0 (ref), v26 (ref), v10 (ref)
-                if (if tostring(v27) == tostring(v41.EventArgs.UserId1) then tostring(v41.EventArgs.UserId2) else tostring(v41.EventArgs.UserId1)) == l_profileId_0 then
-                    v26(v10(l_profileId_0));
+            local v43 = v26:observeEvent("FriendshipNotifications", function(v42) --[[ Line: 189 ]]
+                -- upvalues: v28 (ref), l_profileId_0 (ref), v27 (ref), v10 (ref)
+                if (if tostring(v28) == tostring(v42.EventArgs.UserId1) then tostring(v42.EventArgs.UserId2) else tostring(v42.EventArgs.UserId1)) == l_profileId_0 then
+                    v27(v10(l_profileId_0));
                 end;
             end);
-            return function() --[[ Line: 176 ]]
-                -- upvalues: v42 (copy)
-                v42:disconnect();
+            return function() --[[ Line: 199 ]]
+                -- upvalues: v43 (copy)
+                v43:disconnect();
             end;
         end;
-    end, l_dependencyArray_0(v25, v26, l_profileId_0, v27, if v21 then v29 else nil));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v26, 
+        v27, 
+        l_profileId_0, 
+        v28, 
+        if v21 then v30 else nil
+    } else l_dependencyArray_0(v26, v27, l_profileId_0, v28, if v21 then v30 else nil));
 end;

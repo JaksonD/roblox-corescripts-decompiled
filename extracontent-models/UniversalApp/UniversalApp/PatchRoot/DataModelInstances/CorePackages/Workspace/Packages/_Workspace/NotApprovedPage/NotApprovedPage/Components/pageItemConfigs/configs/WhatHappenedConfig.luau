@@ -11,28 +11,31 @@ local l_dependencyArray_0 = require(l_Parent_0.RoactUtils).Hooks.dependencyArray
 local v10 = require(l_script_FirstAncestor_0.Components.EvidenceField);
 local l_useNotApprovedPageContext_0 = require(l_script_FirstAncestor_0.Contexts.NotApprovedPageContext).useNotApprovedPageContext;
 local l_FFlagEnableNapDedicatedPage_0 = require(l_Parent_0.SharedFlags).FFlagEnableNapDedicatedPage;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 return {
-    getIsVisible = function() --[[ Line: 74 ]] --[[ Name: getIsVisible ]]
+    getIsVisible = function() --[[ Line: 81 ]] --[[ Name: getIsVisible ]]
         return true;
     end, 
-    renderComponent = v4.memo(function(v13) --[[ Line: 29 ]] --[[ Name: WhatHappened ]]
-        -- upvalues: l_useNotApprovedPageContext_0 (copy), l_useMemo_0 (copy), l_dependencyArray_0 (copy), v4 (copy), l_View_0 (copy), l_Text_0 (copy), l_FFlagEnableNapDedicatedPage_0 (copy), v10 (copy)
-        local v14 = l_useNotApprovedPageContext_0();
-        local l_translations_0 = v14.translations;
-        local l_violationReasons_0 = v14.violationReasons;
-        local l_messageToUser_0 = v13.moderationDetail.messageToUser;
-        local v19 = l_useMemo_0(function() --[[ Line: 36 ]]
+    renderComponent = v4.memo(function(v14) --[[ Line: 31 ]] --[[ Name: WhatHappened ]]
+        -- upvalues: l_useNotApprovedPageContext_0 (copy), l_useMemo_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v4 (copy), l_View_0 (copy), l_Text_0 (copy), l_FFlagEnableNapDedicatedPage_0 (copy), v10 (copy)
+        local v15 = l_useNotApprovedPageContext_0();
+        local l_translations_0 = v15.translations;
+        local l_violationReasons_0 = v15.violationReasons;
+        local l_messageToUser_0 = v14.moderationDetail.messageToUser;
+        local v20 = l_useMemo_0(function() --[[ Line: 39 ]]
             -- upvalues: l_violationReasons_0 (copy), l_translations_0 (copy)
-            local v18 = table.concat(l_violationReasons_0.translatedReasons, ", ");
-            if v18 ~= "" then
-                return v18;
+            local v19 = table.concat(l_violationReasons_0.translatedReasons, ", ");
+            if v19 ~= "" then
+                return v19;
             else
                 return l_translations_0.otherAbuseType;
             end;
-        end, l_dependencyArray_0(l_violationReasons_0.translatedReasons));
+        end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+            l_violationReasons_0.translatedReasons
+        } else l_dependencyArray_0(l_violationReasons_0.translatedReasons));
         return v4.createElement(l_View_0, {
             tag = "size-full-0 auto-y col gap-medium", 
-            LayoutOrder = v13.layoutOrder
+            LayoutOrder = v14.layoutOrder
         }, {
             Heading = v4.createElement(l_Text_0, {
                 tag = {
@@ -48,7 +51,7 @@ return {
             }, {
                 Reason = v4.createElement(v10, {
                     fieldLabel = l_translations_0.reasonLabel, 
-                    fieldValue = v19, 
+                    fieldValue = v20, 
                     layoutOrder = 1
                 }), 
                 ModeratorNote = v4.createElement(v10, {

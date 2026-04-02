@@ -27,10 +27,10 @@ local l_CloseCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Thunks.CloseC
 local l_SetCentralOverlay_0 = require(l_Parent_0.CentralOverlay).Actions.SetCentralOverlay;
 local l_CentralOverlayType_0 = require(l_Parent_0.RobloxAppEnums).CentralOverlayType;
 local l_UrlBuilder_0 = require(l_Parent_0.UrlBuilder).UrlBuilder;
-local l_GetFFlagUseDecomposedVPCForChargebacks_0 = require(l_Parent_0.SharedFlags).GetFFlagUseDecomposedVPCForChargebacks;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
 local l_useNotApprovedPageContext_0 = require(l_script_FirstAncestor_0.Contexts.NotApprovedPageContext).useNotApprovedPageContext;
 return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
-    -- upvalues: l_useState_0 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useNotApprovedPageContext_0 (copy), l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0 (copy), l_useCallback_0 (copy), l_EVENT_TYPES_0 (copy), v3 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_UrlBuilder_0 (copy), l_dependencyArray_0 (copy), l_GetFFlagUseDecomposedVPCForChargebacks_0 (copy), l_CloseCentralOverlay_0 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_NavigateBack_0 (copy), v2 (copy), l_useMemo_0 (copy), l_VERIFICATION_TYPES_0 (copy), l_INTERVENTION_TYPES_0 (copy), v10 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy)
+    -- upvalues: l_useState_0 (copy), l_useDispatch_0 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useNotApprovedPageContext_0 (copy), l_PUNISHMENT_TYPE_TO_INTERVENTION_MAP_0 (copy), l_useCallback_0 (copy), l_EVENT_TYPES_0 (copy), v3 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_UrlBuilder_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_CloseCentralOverlay_0 (copy), l_SetCentralOverlay_0 (copy), l_CentralOverlayType_0 (copy), l_NavigateBack_0 (copy), v2 (copy), l_useMemo_0 (copy), l_VERIFICATION_TYPES_0 (copy), l_INTERVENTION_TYPES_0 (copy), v10 (copy), l_Button_0 (copy), l_ButtonVariant_0 (copy), l_InputSize_0 (copy)
     local v32, v33 = l_useState_0(false);
     local v34 = l_useDispatch_0();
     local v35 = l_useRoactService_0(l_RoactNetworking_0);
@@ -53,9 +53,11 @@ return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
             name = l_AppPage_0.EmailVerification, 
             detail = l_UrlBuilder_0.fromString("www:")()
         }));
-    end, l_dependencyArray_0(v34));
-    local v44 = l_useCallback_0(function() --[[ Line: 88 ]]
-        -- upvalues: v33 (copy), v31 (copy), l_EVENT_TYPES_0 (ref), v3 (ref), l_GetFFlagUseDecomposedVPCForChargebacks_0 (ref), v34 (copy), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_moderationDetail_0 (copy), v40 (copy), l_NavigateBack_0 (ref), l_UrlBuilder_0 (ref)
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v34
+    } else l_dependencyArray_0(v34));
+    local v44 = l_useCallback_0(function() --[[ Line: 89 ]]
+        -- upvalues: v33 (copy), v31 (copy), l_EVENT_TYPES_0 (ref), v3 (ref), v34 (copy), l_CloseCentralOverlay_0 (ref), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_moderationDetail_0 (copy), v40 (copy), l_NavigateBack_0 (ref)
         v33(true);
         if v31.sendPageEvent then
             v31.sendPageEvent(l_EVENT_TYPES_0.ParentVerificationClicked);
@@ -64,38 +66,34 @@ return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
                 eventType = l_EVENT_TYPES_0.ParentVerificationClicked
             });
         end;
-        if l_GetFFlagUseDecomposedVPCForChargebacks_0() then
-            v34(l_CloseCentralOverlay_0());
-            v34(l_NavigateDown_0({
-                name = l_AppPage_0.AmpWizardContainer, 
-                extraProps = {
-                    featureName = "CanRequestPunishmentLifting", 
-                    recourseData = {
-                        punishmentType = "Chargeback"
-                    }, 
-                    entryPointEventCtx = "banScreenChargebackLiftPunishment", 
-                    completionCallback = function(_, _) --[[ Line: 105 ]] --[[ Name: completionCallback ]]
-                        -- upvalues: v34 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_moderationDetail_0 (ref), v40 (ref), v31 (ref), l_NavigateBack_0 (ref), v33 (ref)
-                        v34(l_SetCentralOverlay_0(l_CentralOverlayType_0.NotApprovedPage, {
-                            moderationDetail = l_moderationDetail_0, 
-                            interventionType = v40, 
-                            LogoutThunk = v31.LogoutThunk
-                        }));
-                        v34(l_NavigateBack_0());
-                        v33(false);
-                    end
-                }
-            }));
-            return;
-        else
-            v34(l_NavigateDown_0({
-                name = l_AppPage_0.ParentVerification, 
-                detail = l_UrlBuilder_0.fromString("www:parents/account-setup")()
-            }));
-            return;
-        end;
-    end, l_dependencyArray_0(v34, l_moderationDetail_0, v40, v31.LogoutThunk));
-    local v45 = l_useCallback_0(function() --[[ Line: 125 ]]
+        v34(l_CloseCentralOverlay_0());
+        v34(l_NavigateDown_0({
+            name = l_AppPage_0.AmpWizardContainer, 
+            extraProps = {
+                featureName = "CanRequestPunishmentLifting", 
+                recourseData = {
+                    punishmentType = "Chargeback"
+                }, 
+                entryPointEventCtx = "banScreenChargebackLiftPunishment", 
+                completionCallback = function(_, _) --[[ Line: 104 ]] --[[ Name: completionCallback ]]
+                    -- upvalues: v34 (ref), l_SetCentralOverlay_0 (ref), l_CentralOverlayType_0 (ref), l_moderationDetail_0 (ref), v40 (ref), v31 (ref), l_NavigateBack_0 (ref), v33 (ref)
+                    v34(l_SetCentralOverlay_0(l_CentralOverlayType_0.NotApprovedPage, {
+                        moderationDetail = l_moderationDetail_0, 
+                        interventionType = v40, 
+                        LogoutThunk = v31.LogoutThunk
+                    }));
+                    v34(l_NavigateBack_0());
+                    v33(false);
+                end
+            }
+        }));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v34, 
+        l_moderationDetail_0, 
+        v40, 
+        v31.LogoutThunk
+    } else l_dependencyArray_0(v34, l_moderationDetail_0, v40, v31.LogoutThunk));
+    local v45 = l_useCallback_0(function() --[[ Line: 122 ]]
         -- upvalues: v33 (copy), v31 (copy), l_EVENT_TYPES_0 (ref), v3 (ref), v34 (copy), v2 (ref), v35 (copy), l_moderationDetail_0 (copy)
         v33(true);
         if v31.sendPageEvent then
@@ -105,12 +103,16 @@ return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
                 eventType = l_EVENT_TYPES_0.ReactivateClicked
             });
         end;
-        v34(v2(v35, l_moderationDetail_0.punishmentId)):andThen(function() --[[ Line: 134 ]]
+        v34(v2(v35, l_moderationDetail_0.punishmentId)):andThen(function() --[[ Line: 131 ]]
             -- upvalues: v33 (ref)
             v33(false);
         end);
-    end, l_dependencyArray_0(v34, v35, l_moderationDetail_0.punishmentId));
-    local v46 = l_useMemo_0(function() --[[ Line: 140 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v34, 
+        v35, 
+        l_moderationDetail_0.punishmentId
+    } else l_dependencyArray_0(v34, v35, l_moderationDetail_0.punishmentId));
+    local v46 = l_useMemo_0(function() --[[ Line: 141 ]]
         -- upvalues: l_verificationCategory_0 (copy), l_VERIFICATION_TYPES_0 (ref), l_translations_0 (copy), v44 (copy), v41 (copy), v40 (copy), l_INTERVENTION_TYPES_0 (ref), l_canReactivate_0 (copy), v45 (copy)
         if l_verificationCategory_0 == l_VERIFICATION_TYPES_0.Parent then
             return {
@@ -125,7 +127,7 @@ return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
         elseif v40 == l_INTERVENTION_TYPES_0.Banned and not l_canReactivate_0 then
             return {
                 label = l_translations_0.continueButton, 
-                action = function() --[[ Line: 154 ]] --[[ Name: action ]]
+                action = function() --[[ Line: 155 ]] --[[ Name: action ]]
 
                 end
             };
@@ -135,7 +137,15 @@ return v10.memo(function(v31) --[[ Line: 59 ]] --[[ Name: ReactivationButton ]]
                 action = v45
             };
         end;
-    end, l_dependencyArray_0(l_canReactivate_0, v44, v41, v45, l_moderationDetail_0.endDate, l_verificationCategory_0, v40));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_canReactivate_0, 
+        v44, 
+        v41, 
+        v45, 
+        l_moderationDetail_0.endDate, 
+        l_verificationCategory_0, 
+        v40
+    } else l_dependencyArray_0(l_canReactivate_0, v44, v41, v45, l_moderationDetail_0.endDate, l_verificationCategory_0, v40));
     return v10.createElement(l_Button_0, {
         text = v46.label, 
         onActivated = v46.action, 

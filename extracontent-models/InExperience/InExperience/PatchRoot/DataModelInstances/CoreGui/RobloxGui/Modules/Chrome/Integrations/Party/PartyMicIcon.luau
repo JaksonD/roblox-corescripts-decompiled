@@ -11,7 +11,7 @@ local l_useIsVoiceConnected_0 = v6.Hooks.useIsVoiceConnected;
 local l_useIsActiveParticipant_0 = v6.Hooks.useIsActiveParticipant;
 local l_useIsParticipantMuted_0 = v6.Hooks.useIsParticipantMuted;
 local l_Parent_0 = script.Parent.Parent.Parent;
-local v13 = require(l_Parent_0.ChromeShared.Unibar.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 = require(l_Parent_0.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider;
 local l_ImageSetLabel_0 = v5.Core.ImageSet.ImageSetLabel;
 local v16 = game:DefineFastInt("PartyMicVoiceIndicatorFrameBuffer", 3);
@@ -26,7 +26,7 @@ local function v22(v17, v18, v19, v20, v21) --[[ Line: 28 ]] --[[ Name: getLoadi
     end;
 end;
 PartyMicIcon = function(v23) --[[ Line: 44 ]] --[[ Name: PartyMicIcon ]]
-    -- upvalues: l_Players_0 (copy), l_useIsVoiceConnected_0 (copy), l_useParticipant_0 (copy), l_useIsActiveParticipant_0 (copy), v4 (copy), l_useIsParticipantMuted_0 (copy), l_HttpService_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v13 (copy), v16 (copy), l_RunService_0 (copy), v22 (copy), l_ImageSetLabel_0 (copy)
+    -- upvalues: l_Players_0 (copy), l_useIsVoiceConnected_0 (copy), l_useParticipant_0 (copy), l_useIsActiveParticipant_0 (copy), v4 (copy), l_useIsParticipantMuted_0 (copy), l_HttpService_0 (copy), l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v16 (copy), l_RunService_0 (copy), v22 (copy), l_ImageSetLabel_0 (copy)
     local v24 = l_Players_0 and l_Players_0.LocalPlayer and l_Players_0.LocalPlayer.UserId or -1;
     local v25 = l_useIsVoiceConnected_0();
     local v26 = l_useParticipant_0(v24);
@@ -41,7 +41,7 @@ PartyMicIcon = function(v23) --[[ Line: 44 ]] --[[ Name: PartyMicIcon ]]
     end, {});
     local _ = nil;
     local v35 = nil;
-    v35 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v13.use().ICON_SIZE else 36;
+    v35 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_SIZE else 36;
     v4.useEffect(function() --[[ Line: 66 ]]
         -- upvalues: v26 (copy), v23 (copy)
         if v26 then

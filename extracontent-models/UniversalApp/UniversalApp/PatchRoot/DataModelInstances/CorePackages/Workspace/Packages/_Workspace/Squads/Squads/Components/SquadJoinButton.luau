@@ -23,139 +23,167 @@ local l_SquadPromptType_0 = v9.SquadsCore.Enums.SquadPromptType;
 local l_useSquadState_0 = l_SquadsCore_0.Hooks.useSquadState;
 local l_useTokens_0 = l_Foundation_0.Hooks.useTokens;
 local l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 = v4.FFlagPartyDevAPIToRespectThirdPartySettingsEnabled;
-local l_FFlagAppChatEnableDomLocators_0 = v4.FFlagAppChatEnableDomLocators;
-local v26 = {
+local l_FFlagDebugAppChatEnableDomLocators_0 = v4.FFlagDebugAppChatEnableDomLocators;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v4.FFlagRemoveDependencyArrayAntipattern;
+local v27 = {
     dampingRatio = 1, 
     frequency = 1
 };
-return function(v27) --[[ Line: 58 ]]
-    -- upvalues: l_useLocalization_0 (copy), l_useDispatch_0 (copy), l_usePreferredInput_0 (copy), l_useTokens_0 (copy), l_React_0 (copy), l_SquadExternalContractContext_0 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (copy), l_useSquadState_0 (copy), v3 (copy), v26 (copy), l_useSelector_0 (copy), l_dependencyArray_0 (copy), v6 (copy), l_EventNames_0 (copy), l_leaveSquad_0 (copy), l_SquadPromptType_0 (copy), l_Foundation_0 (copy), l_SquadState_0 (copy), l_FFlagAppChatEnableDomLocators_0 (copy), v7 (copy), l_UserInputService_0 (copy)
-    local v28 = l_useLocalization_0({
+return function(v28) --[[ Line: 60 ]]
+    -- upvalues: l_useLocalization_0 (copy), l_useDispatch_0 (copy), l_usePreferredInput_0 (copy), l_useTokens_0 (copy), l_React_0 (copy), l_SquadExternalContractContext_0 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (copy), l_useSquadState_0 (copy), v3 (copy), v27 (copy), l_useSelector_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v6 (copy), l_EventNames_0 (copy), l_leaveSquad_0 (copy), l_SquadPromptType_0 (copy), l_Foundation_0 (copy), l_SquadState_0 (copy), l_FFlagDebugAppChatEnableDomLocators_0 (copy), v7 (copy), l_UserInputService_0 (copy)
+    local v29 = l_useLocalization_0({
         joinButtonText = "Feature.Squads.Action.Join", 
         startButtonText = "Feature.Squads.Action.Start", 
         viewButtonText = "Feature.Squads.Action.View"
     });
-    local v29 = l_useDispatch_0();
-    local v30 = l_usePreferredInput_0();
-    local v31 = l_useTokens_0();
-    local v32 = l_React_0.useContext(l_SquadExternalContractContext_0);
-    local v33 = v32.useParentChannelHasGroupUp(v27.conversationId);
-    local v34 = not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v32.useIsChatEnabled();
-    local v35 = l_useSquadState_0();
-    local v36 = nil;
+    local v30 = l_useDispatch_0();
+    local v31 = l_usePreferredInput_0();
+    local v32 = l_useTokens_0();
+    local v33 = l_React_0.useContext(l_SquadExternalContractContext_0);
+    local v34 = v33.useParentChannelHasGroupUp(v28.conversationId);
+    local v35 = not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v33.useIsChatEnabled();
+    local v36 = l_useSquadState_0();
     local v37 = nil;
-    local v39, v40 = v3.useAnimatedBinding(1, function(v38) --[[ Line: 78 ]]
-        -- upvalues: v27 (copy), v37 (ref), v3 (ref), v26 (ref)
-        if v27.shouldAnimate then
-            task.delay(0.5, function() --[[ Line: 80 ]]
-                -- upvalues: v37 (ref), v3 (ref), v38 (copy), v26 (ref)
-                v37(v3.spring(v38 == 1 and 0 or 1, v26));
+    local v38 = nil;
+    local v40, v41 = v3.useAnimatedBinding(1, function(v39) --[[ Line: 80 ]]
+        -- upvalues: v28 (copy), v38 (ref), v3 (ref), v27 (ref)
+        if v28.shouldAnimate then
+            task.delay(0.5, function() --[[ Line: 82 ]]
+                -- upvalues: v38 (ref), v3 (ref), v39 (copy), v27 (ref)
+                v38(v3.spring(v39 == 1 and 0 or 1, v27));
             end);
         end;
     end);
-    v36 = v39;
     v37 = v40;
-    l_React_0.useEffect(function() --[[ Line: 86 ]]
-        -- upvalues: v27 (copy), v37 (ref), v3 (ref), v26 (ref)
-        if v27.shouldAnimate then
-            v37(v3.spring(1, v26));
+    v38 = v41;
+    l_React_0.useEffect(function() --[[ Line: 88 ]]
+        -- upvalues: v28 (copy), v38 (ref), v3 (ref), v27 (ref)
+        if v28.shouldAnimate then
+            v38(v3.spring(1, v27));
             return;
         else
-            v37(v3.instant(1));
+            v38(v3.instant(1));
             return;
         end;
     end, {
-        v27.shouldAnimate, 
-        v37
+        v28.shouldAnimate, 
+        v38
     });
-    v39 = l_React_0.useCallback(function(v41) --[[ Line: 94 ]]
-        if v41.Squad and v41.Squad.Squad then
-            return v41.Squad.Squad.currentSquad;
+    v40 = l_React_0.useCallback(function(v42) --[[ Line: 96 ]]
+        if v42.Squad and v42.Squad.Squad then
+            return v42.Squad.Squad.currentSquad;
         else
             return nil;
         end;
     end, {});
-    v40 = l_useSelector_0(v39);
-    local v42 = l_React_0.useMemo(function() --[[ Line: 103 ]]
-        -- upvalues: v40 (copy), v27 (copy)
-        return v40 and v40.parentChannelId == v27.conversationId;
-    end, l_dependencyArray_0(v40, v27.conversationId));
-    local v43 = l_React_0.useMemo(function() --[[ Line: 107 ]]
-        -- upvalues: v42 (copy), v6 (ref), v33 (copy)
-        if v42 then
+    v41 = l_useSelector_0(v40);
+    local v43 = l_React_0.useMemo(function() --[[ Line: 106 ]]
+        -- upvalues: v41 (copy), v28 (copy)
+        return v41 and v41.parentChannelId == v28.conversationId;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v41, 
+        v28.conversationId
+    } else l_dependencyArray_0(v41, v28.conversationId));
+    local v44 = l_React_0.useMemo(function() --[[ Line: 115 ]]
+        -- upvalues: v43 (copy), v6 (ref), v34 (copy)
+        if v43 then
             return v6.View;
-        elseif v33 then
+        elseif v34 then
             return v6.Join;
         else
             return v6.Create;
         end;
-    end, l_dependencyArray_0(v42, v33));
-    local v44 = l_React_0.useMemo(function() --[[ Line: 118 ]]
-        -- upvalues: v42 (copy), v28 (copy), v33 (copy)
-        if v42 then
-            return v28.viewButtonText;
-        elseif v33 then
-            return v28.joinButtonText;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v43, 
+        v34
+    } else l_dependencyArray_0(v43, v34));
+    local v45 = l_React_0.useMemo(function() --[[ Line: 130 ]]
+        -- upvalues: v43 (copy), v29 (copy), v34 (copy)
+        if v43 then
+            return v29.viewButtonText;
+        elseif v34 then
+            return v29.joinButtonText;
         else
-            return v28.startButtonText;
+            return v29.startButtonText;
         end;
-    end, l_dependencyArray_0(v33, v42, v28.joinButtonText, v28.startButtonText, v28.viewButtonText));
-    local v45 = l_React_0.useCallback(function() --[[ Line: 137 ]]
-        -- upvalues: v32 (copy), l_EventNames_0 (ref), v27 (copy), v40 (copy), v43 (copy)
-        v32.fireSquadAnalytics(l_EventNames_0.EnterSquadButtonPressed, {
-            conversationId = v27.conversationId, 
-            squadButtonSource = v27.squadButtonSource, 
-            squadId = v40 and v40.squadId, 
-            squadLocation = v27.squadLocation, 
-            userIntention = v43
-        });
-    end, l_dependencyArray_0(v43, v40, v27.conversationId, v27.squadButtonSource, v27.squadLocation, v32.fireSquadAnalytics));
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v34, 
+        v43, 
+        v29.joinButtonText, 
+        v29.startButtonText, 
+        v29.viewButtonText
+    } else l_dependencyArray_0(v34, v43, v29.joinButtonText, v29.startButtonText, v29.viewButtonText));
     local v46 = l_React_0.useCallback(function() --[[ Line: 157 ]]
-        -- upvalues: v45 (copy), v42 (copy), v40 (copy), v29 (copy), l_leaveSquad_0 (ref), l_SquadPromptType_0 (ref), v32 (copy), v27 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (ref), v34 (copy)
-        v45();
-        if not v42 and v40 then
-            v29(l_leaveSquad_0(l_SquadPromptType_0.JoinAnotherSquad, v32.setSquadPrompt, function() --[[ Line: 164 ]]
-                -- upvalues: v27 (ref)
-                v27.onActivated(v27.conversationId);
-            end, v32.squadLocation, not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v34));
+        -- upvalues: v33 (copy), l_EventNames_0 (ref), v28 (copy), v41 (copy), v44 (copy)
+        v33.fireSquadAnalytics(l_EventNames_0.EnterSquadButtonPressed, {
+            conversationId = v28.conversationId, 
+            squadButtonSource = v28.squadButtonSource, 
+            squadId = v41 and v41.squadId, 
+            squadLocation = v28.squadLocation, 
+            userIntention = v44
+        });
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v44, 
+        v41, 
+        v28.conversationId, 
+        v28.squadButtonSource, 
+        v28.squadLocation, 
+        v33.fireSquadAnalytics
+    } else l_dependencyArray_0(v44, v41, v28.conversationId, v28.squadButtonSource, v28.squadLocation, v33.fireSquadAnalytics));
+    local v47 = l_React_0.useCallback(function() --[[ Line: 186 ]]
+        -- upvalues: v46 (copy), v43 (copy), v41 (copy), v30 (copy), l_leaveSquad_0 (ref), l_SquadPromptType_0 (ref), v33 (copy), v28 (copy), l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 (ref), v35 (copy)
+        v46();
+        if not v43 and v41 then
+            v30(l_leaveSquad_0(l_SquadPromptType_0.JoinAnotherSquad, v33.setSquadPrompt, function() --[[ Line: 193 ]]
+                -- upvalues: v28 (ref)
+                v28.onActivated(v28.conversationId);
+            end, v33.squadLocation, not l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 or v35));
             return;
         else
-            v27.onActivated(v27.conversationId);
+            v28.onActivated(v28.conversationId);
             return;
         end;
-    end, l_dependencyArray_0(v40, v42, v27.onActivated, v45, v32.setSquadPrompt, v32.squadLocation, if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v34 else nil));
-    local v47 = l_React_0.useMemo(function() --[[ Line: 186 ]]
-        -- upvalues: v31 (copy), v27 (copy)
-        if v31.Config.ColorMode.IsLight == "true" then
-            if v27.isInCard then
-                return v31.Color.Extended.Gray.Gray_300;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v41, 
+        v43, 
+        v28.onActivated, 
+        v46, 
+        v33.setSquadPrompt, 
+        v33.squadLocation, 
+        if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v35 else nil
+    } else l_dependencyArray_0(v41, v43, v28.onActivated, v46, v33.setSquadPrompt, v33.squadLocation, if l_FFlagPartyDevAPIToRespectThirdPartySettingsEnabled_0 then v35 else nil));
+    local v48 = l_React_0.useMemo(function() --[[ Line: 225 ]]
+        -- upvalues: v32 (copy), v28 (copy)
+        if v32.Config.ColorMode.IsLight == "true" then
+            if v28.isInCard then
+                return v32.Color.Extended.Gray.Gray_300;
             else
-                return v31.Color.Extended.Gray.Gray_200;
+                return v32.Color.Extended.Gray.Gray_200;
             end;
-        elseif v27.isInCard then
-            return v31.Color.Extended.Gray.Gray_800;
+        elseif v28.isInCard then
+            return v32.Color.Extended.Gray.Gray_800;
         else
-            return v31.Color.Extended.Gray.Gray_900;
+            return v32.Color.Extended.Gray.Gray_900;
         end;
     end, {
-        v27.isInCard, 
-        v31.Config.ColorMode.IsLight
+        v28.isInCard, 
+        v32.Config.ColorMode.IsLight
     });
     return l_React_0.createElement(l_Foundation_0.View, {
         tag = "row align-x-center align-y-center gap-xsmall stroke-action-standard radius-medium bg-action-standard", 
-        AutomaticSize = if v27.isFullWidth then Enum.AutomaticSize.None else Enum.AutomaticSize.XY, 
-        Size = UDim2.new(v27.isFullWidth and 1 or 0, 0, 0, v31.Size.Size_800), 
-        isDisabled = v35 == l_SquadState_0.Initializing, 
-        onActivated = v46, 
-        LayoutOrder = v27.layoutOrder, 
+        AutomaticSize = if v28.isFullWidth then Enum.AutomaticSize.None else Enum.AutomaticSize.XY, 
+        Size = UDim2.new(v28.isFullWidth and 1 or 0, 0, 0, v32.Size.Size_800), 
+        isDisabled = v36 == l_SquadState_0.Initializing, 
+        onActivated = v47, 
+        LayoutOrder = v28.layoutOrder, 
         padding = {
-            left = UDim.new(0, v31.Padding.Small), 
-            right = UDim.new(0, v31.Padding.Small)
+            left = UDim.new(0, v32.Padding.Small), 
+            right = UDim.new(0, v32.Padding.Small)
         }, 
         selection = {
-            Selectable = v27.Selectable
+            Selectable = v28.Selectable
         }, 
-        testId = if l_FFlagAppChatEnableDomLocators_0 then ("%*%*"):format(v27.testId, v43) else nil
+        testId = if l_FFlagDebugAppChatEnableDomLocators_0 then ("%*%*"):format(v28.testId, v44) else nil
     }, {
         GroupIconContainer = l_React_0.createElement(l_Foundation_0.View, {
             tag = "size-400-400", 
@@ -164,27 +192,27 @@ return function(v27) --[[ Line: 58 ]]
             GroupIcon = l_React_0.createElement(l_Foundation_0.Icon, {
                 name = l_Foundation_0.Enums.IconName.ThreePeople, 
                 size = l_Foundation_0.Enums.IconSize.Small, 
-                style = v31.Color.ActionStandard.Foreground, 
+                style = v32.Color.ActionStandard.Foreground, 
                 variant = l_Foundation_0.Enums.IconVariant.Regular
             }), 
-            GreenDot = if not not v33 or v42 then l_React_0.createElement(l_Foundation_0.View, {
+            GreenDot = if not not v34 or v43 then l_React_0.createElement(l_Foundation_0.View, {
                 tag = "radius-circle anchor-top-right", 
-                Size = UDim2.fromOffset(v31.Size.Size_200, v31.Size.Size_200), 
-                backgroundStyle = v36:map(function(v48) --[[ Line: 232 ]]
-                    -- upvalues: v31 (copy)
+                Size = UDim2.fromOffset(v32.Size.Size_200, v32.Size.Size_200), 
+                backgroundStyle = v37:map(function(v49) --[[ Line: 271 ]]
+                    -- upvalues: v32 (copy)
                     return {
-                        Color3 = v31.Color.Extended.Green.Green_500.Color3, 
-                        Transparency = 1 + (v31.Color.Extended.Green.Green_500.Transparency - 1) * v48
+                        Color3 = v32.Color.Extended.Green.Green_500.Color3, 
+                        Transparency = 1 + (v32.Color.Extended.Green.Green_500.Transparency - 1) * v49
                     };
                 end), 
-                Position = UDim2.new(1, v31.Size.Size_50, 0, -v31.Size.Size_50), 
+                Position = UDim2.new(1, v32.Size.Size_50, 0, -v32.Size.Size_50), 
                 stroke = {
-                    Color = v47.Color3, 
-                    Transparency = v36:map(function(v49) --[[ Line: 241 ]]
-                        -- upvalues: v47 (copy)
-                        return 1 + (v47.Transparency - 1) * v49;
+                    Color = v48.Color3, 
+                    Transparency = v37:map(function(v50) --[[ Line: 280 ]]
+                        -- upvalues: v48 (copy)
+                        return 1 + (v48.Transparency - 1) * v50;
                     end), 
-                    Thickness = v31.Stroke.Thicker
+                    Thickness = v32.Stroke.Thicker
                 }, 
                 ZIndex = 2
             }) else nil
@@ -192,19 +220,19 @@ return function(v27) --[[ Line: 58 ]]
         TextLabel = l_React_0.createElement(l_Foundation_0.Text, {
             tag = "auto-xy text-label-small content-action-standard text-truncate-end text-no-wrap", 
             LayoutOrder = 2, 
-            Text = v44, 
+            Text = v45, 
             padding = {
-                right = UDim.new(0, v31.Padding.XXSmall)
+                right = UDim.new(0, v32.Padding.XXSmall)
             }, 
-            sizeConstraint = if v27.isFullWidth then nil else {
-                MaxSize = Vector2.new(v31.Size.Size_2800, v31.Size.Size_800)
+            sizeConstraint = if v28.isFullWidth then nil else {
+                MaxSize = Vector2.new(v32.Size.Size_2800, v32.Size.Size_800)
             }
         }), 
-        SignifierImage = if v27.shouldShowSignifier and v30 == v7.Input.Directional then l_React_0.createElement(l_Foundation_0.Icon, {
+        SignifierImage = if v28.shouldShowSignifier and v31 == v7.Input.Directional then l_React_0.createElement(l_Foundation_0.Icon, {
             LayoutOrder = 3, 
             name = l_UserInputService_0:GetImageForKeyCode(Enum.KeyCode.ButtonX), 
             size = l_Foundation_0.Enums.IconSize.Small, 
-            style = v31.Color.ActionStandard.Foreground
+            style = v32.Color.ActionStandard.Foreground
         }) else nil
     });
 end;

@@ -9,233 +9,235 @@ local v7 = require(l_Parent_0.util.getMeshInfo);
 local v8 = require(l_Parent_0.util.BoundsDataUtils);
 local v9 = require(l_Parent_0.util.getExpectedPartSize);
 local v10 = require(l_Parent_0.flags.getFFlagUGCValidateLegFullBodySeparation);
-local v11 = {};
-local function v17(v12, v13, v14) --[[ Line: 28 ]] --[[ Name: orientSingleAssetToWorldAxes ]]
+local v11 = require(l_Parent_0.util.R15plusUtils);
+local v12 = require(l_Parent_0.util.getAttachmentCFrameInPartSpace);
+local v13 = {};
+local function v19(v14, v15, v16) --[[ Line: 33 ]] --[[ Name: orientSingleAssetToWorldAxes ]]
     -- upvalues: v4 (copy)
-    if v13 ~= Enum.AssetType.LeftArm and v13 ~= Enum.AssetType.RightArm and v13 ~= Enum.AssetType.LeftLeg and v13 ~= Enum.AssetType.RightLeg then
+    if v15 ~= Enum.AssetType.LeftArm and v15 ~= Enum.AssetType.RightArm and v15 ~= Enum.AssetType.LeftLeg and v15 ~= Enum.AssetType.RightLeg then
         return;
     else
-        for v15, v16 in (v4.calculateStraightenedLimb(v13, v12, v14)) do
-            v12[v15] = v16;
+        for v17, v18 in (v4.calculateStraightenedLimb(v15, v14, v16)) do
+            v14[v17] = v18;
         end;
         return;
     end;
 end;
-local function v33(v18, v19) --[[ Line: 49 ]] --[[ Name: orientFullBodyArmsLegsToWorldAxes ]]
-    -- upvalues: v17 (copy), v5 (copy), v3 (copy)
-    local function v32(v20, v21) --[[ Line: 50 ]] --[[ Name: orientAndMoveParts ]]
-        -- upvalues: v17 (ref), v18 (copy), v19 (copy), v5 (ref), v3 (ref)
-        v17(v18, v20, v19);
-        local v22 = v5(v20);
-        local v23 = v19(v22[1]);
-        local v24 = v3.getRigAttachmentToParent(v20, v23.Name);
-        local l_v23_FirstChild_0 = v23:FindFirstChild(v24);
-        assert(l_v23_FirstChild_0);
-        local v26 = v18[v23.Name] * l_v23_FirstChild_0.CFrame;
-        local v27 = v19(v21);
-        assert(v27);
-        local l_v27_FirstChild_0 = v27:FindFirstChild(v24);
-        assert(l_v27_FirstChild_0);
-        local v29 = (v18[v27.Name] * l_v27_FirstChild_0.CFrame).Position - v26.Position;
-        for _, v31 in v22 do
-            v18[v31] = CFrame.new(v18[v31].Position + v29) * v18[v31].Rotation;
+local function v35(v20, v21) --[[ Line: 54 ]] --[[ Name: orientFullBodyArmsLegsToWorldAxes ]]
+    -- upvalues: v19 (copy), v5 (copy), v3 (copy), v11 (copy), v12 (copy)
+    local function v34(v22, v23) --[[ Line: 55 ]] --[[ Name: orientAndMoveParts ]]
+        -- upvalues: v19 (ref), v20 (copy), v21 (copy), v5 (ref), v3 (ref), v11 (ref), v12 (ref)
+        v19(v20, v22, v21);
+        local v24 = v5(v22);
+        local v25 = v21(v24[1]);
+        local v26 = v3.getRigAttachmentToParent(v22, v25.Name);
+        local l_v25_FirstChild_0 = v25:FindFirstChild(v26, v11.checkFlagEnabledForAllowHrd());
+        assert(l_v25_FirstChild_0);
+        local v28 = v20[v25.Name] * v12(l_v25_FirstChild_0);
+        local v29 = v21(v23);
+        assert(v29);
+        local l_v29_FirstChild_0 = v29:FindFirstChild(v26, v11.checkFlagEnabledForAllowHrd());
+        assert(l_v29_FirstChild_0);
+        local v31 = (v20[v29.Name] * v12(l_v29_FirstChild_0)).Position - v28.Position;
+        for _, v33 in v24 do
+            v20[v33] = CFrame.new(v20[v33].Position + v31) * v20[v33].Rotation;
         end;
     end;
-    v32(Enum.AssetType.LeftArm, "UpperTorso");
-    v32(Enum.AssetType.RightArm, "UpperTorso");
-    v32(Enum.AssetType.LeftLeg, "LowerTorso");
-    v32(Enum.AssetType.RightLeg, "LowerTorso");
+    v34(Enum.AssetType.LeftArm, "UpperTorso");
+    v34(Enum.AssetType.RightArm, "UpperTorso");
+    v34(Enum.AssetType.LeftLeg, "LowerTorso");
+    v34(Enum.AssetType.RightLeg, "LowerTorso");
 end;
-local function v53(v34, v35, v36, v37, v38) --[[ Line: 81 ]] --[[ Name: calculateBoundsDataForPart ]]
-    -- upvalues: v9 (copy), v6 (copy), v8 (copy), v3 (copy)
-    assert(v34 ~= nil ~= (v38 ~= nil));
-    local l_MeshSize_0 = v35.MeshSize;
-    local v40 = v9(v35, v37) / l_MeshSize_0;
-    local v41 = nil;
-    if v38 then
-        if v38.meshData and v38.meshData[v35.MeshId] then
-            local l_verts_0 = v38.meshData[v35.MeshId].verts;
+local function v55(v36, v37, v38, v39, v40) --[[ Line: 90 ]] --[[ Name: calculateBoundsDataForPart ]]
+    -- upvalues: v9 (copy), v6 (copy), v8 (copy), v3 (copy), v11 (copy), v12 (copy)
+    assert(v36 ~= nil ~= (v40 ~= nil));
+    local l_MeshSize_0 = v37.MeshSize;
+    local v42 = v9(v37, v39) / l_MeshSize_0;
+    local v43 = nil;
+    if v40 then
+        if v40.meshData and v40.meshData[v37.MeshId] then
+            local l_verts_0 = v40.meshData[v37.MeshId].verts;
             if l_verts_0 then
-                v41 = l_verts_0;
+                v43 = l_verts_0;
             end;
         end;
-        if not v41 then
+        if not v43 then
             return false, {
                 "Verts not found in data cache"
             };
         end;
     end;
-    if not v41 then
-        local v43, v44, v45 = v6(v34, v37);
-        if not v43 then
-            return v43, v44;
+    if not v43 then
+        local v45, v46, v47 = v6(v36, v39);
+        if not v45 then
+            return v45, v46;
         else
-            v41 = v45;
+            v43 = v47;
         end;
     end;
-    local v46 = {};
-    for _, v48 in v41 do
-        v8.expandMeshBounds(v46, v36:PointToWorldSpace(v48 * v40));
+    local v48 = {};
+    for _, v50 in v43 do
+        v8.expandMeshBounds(v48, v38:PointToWorldSpace(v50 * v42));
     end;
-    for _, v50 in v3.getAttachments(nil, v35.Name) do
-        if string.match(v50, "RigAttachment$") ~= nil then
-            local l_v35_FirstChild_0 = v35:FindFirstChild(v50);
-            assert(l_v35_FirstChild_0);
-            local v52 = v36 * l_v35_FirstChild_0.CFrame;
-            v8.expandRigAttachmentBounds(v46, v52.Position);
+    for _, v52 in v3.getAttachments(nil, v37.Name) do
+        if string.match(v52, "RigAttachment$") ~= nil then
+            local l_v37_FirstChild_0 = v37:FindFirstChild(v52, v11.checkFlagEnabledForAllowHrd());
+            assert(l_v37_FirstChild_0);
+            local v54 = v38 * v12(l_v37_FirstChild_0);
+            v8.expandRigAttachmentBounds(v48, v54.Position);
         end;
     end;
-    v8.setOverallBounds(v46);
-    return true, nil, v46;
+    v8.setOverallBounds(v48);
+    return true, nil, v48;
 end;
-local function v72(v54, v55, v56, v57) --[[ Line: 139 ]] --[[ Name: calculateAllPartsBoundsData ]]
-    -- upvalues: v7 (copy), v1 (copy), v53 (copy)
-    local v58 = {};
-    for v59, v60 in v54 do
-        local v61 = v55(v59);
-        local v62 = nil;
-        if not v57 then
-            local v63 = nil;
-            local v64 = nil;
+local function v74(v56, v57, v58, v59) --[[ Line: 148 ]] --[[ Name: calculateAllPartsBoundsData ]]
+    -- upvalues: v7 (copy), v1 (copy), v55 (copy)
+    local v60 = {};
+    for v61, v62 in v56 do
+        local v63 = v57(v61);
+        local v64 = nil;
+        if not v59 then
             local v65 = nil;
-            local v66, v67, v68 = v7(v61, v1.MESH_CONTENT_TYPE.RENDER_MESH, v56);
-            v63 = v66;
-            v64 = v67;
+            local v66 = nil;
+            local v67 = nil;
+            local v68, v69, v70 = v7(v63, v1.MESH_CONTENT_TYPE.RENDER_MESH, v58);
             v65 = v68;
-            if not v63 then
-                return v63, v64;
+            v66 = v69;
+            v67 = v70;
+            if not v65 then
+                return v65, v66;
             else
-                v62 = v65;
+                v64 = v67;
             end;
         end;
-        local v69, v70, v71 = v53(v62, v61, v60, v56, v57);
-        if not v69 then
-            return v69, v70;
+        local v71, v72, v73 = v55(v64, v63, v62, v58, v59);
+        if not v71 then
+            return v71, v72;
         else
-            v58[v59] = v71;
+            v60[v61] = v73;
         end;
     end;
-    return true, nil, v58;
+    return true, nil, v60;
 end;
-local function v82(v73, v74, v75) --[[ Line: 170 ]] --[[ Name: calculateTotalBoundsForAsset ]]
-    -- upvalues: v72 (copy), v8 (copy)
-    local v76, v77, v78 = v72(v73, v74, v75);
-    if not v76 then
-        return v76, v77;
+local function v84(v75, v76, v77) --[[ Line: 179 ]] --[[ Name: calculateTotalBoundsForAsset ]]
+    -- upvalues: v74 (copy), v8 (copy)
+    local v78, v79, v80 = v74(v75, v76, v77);
+    if not v78 then
+        return v78, v79;
     else
-        local v79 = {};
-        for _, v81 in v78 do
-            v79 = v8.combineBounds(v79, v81);
+        local v81 = {};
+        for _, v83 in v80 do
+            v81 = v8.combineBounds(v81, v83);
         end;
-        return true, nil, v79;
+        return true, nil, v81;
     end;
 end;
-local function v90(v83, v84) --[[ Line: 189 ]] --[[ Name: calculatePartBounds ]]
-    -- upvalues: v82 (copy)
-    local v85 = {
-        [v83.Name] = CFrame.new()
+local function v92(v85, v86) --[[ Line: 198 ]] --[[ Name: calculatePartBounds ]]
+    -- upvalues: v84 (copy)
+    local v87 = {
+        [v85.Name] = CFrame.new()
     };
-    local v87, v88, v89 = v82(v85, function(v86) --[[ Line: 194 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: v83 (copy)
-        assert(v86 == v83.Name);
-        return v83;
-    end, v84);
-    if not v87 then
-        return v87, v88;
+    local v89, v90, v91 = v84(v87, function(v88) --[[ Line: 203 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: v85 (copy)
+        assert(v88 == v85.Name);
+        return v85;
+    end, v86);
+    if not v89 then
+        return v89, v90;
     else
-        return true, nil, v89;
+        return true, nil, v91;
     end;
 end;
-v11.calculateAssetBounds = function(v91, v92) --[[ Line: 208 ]] --[[ Name: calculateAssetBounds ]]
-    -- upvalues: v90 (copy), v4 (copy), v17 (copy), v82 (copy)
-    local l_assetTypeEnum_0 = v92.assetTypeEnum;
+v13.calculateAssetBounds = function(v93, v94) --[[ Line: 217 ]] --[[ Name: calculateAssetBounds ]]
+    -- upvalues: v92 (copy), v4 (copy), v19 (copy), v84 (copy)
+    local l_assetTypeEnum_0 = v94.assetTypeEnum;
     assert(l_assetTypeEnum_0);
     if l_assetTypeEnum_0 == Enum.AssetType.DynamicHead then
-        return v90(v91, v92);
+        return v92(v93, v94);
     else
-        local v94 = v4.calculateAllTransformsForAsset(l_assetTypeEnum_0, v91);
-        local function v96(v95) --[[ Line: 221 ]] --[[ Name: findMeshHandle ]]
-            -- upvalues: v91 (copy)
-            return (v91:FindFirstChild(v95));
+        local v96 = v4.calculateAllTransformsForAsset(l_assetTypeEnum_0, v93);
+        local function v98(v97) --[[ Line: 230 ]] --[[ Name: findMeshHandle ]]
+            -- upvalues: v93 (copy)
+            return (v93:FindFirstChild(v97));
         end;
-        v17(v94, l_assetTypeEnum_0, v96);
-        local v97, v98, v99 = v82(v94, v96, v92);
-        if not v97 then
-            return v97, v98;
+        v19(v96, l_assetTypeEnum_0, v98);
+        local v99, v100, v101 = v84(v96, v98, v94);
+        if not v99 then
+            return v99, v100;
         else
-            return true, nil, v99;
+            return true, nil, v101;
         end;
     end;
 end;
-v11.calculateIndividualAssetPartsData = function(v100, v101) --[[ Line: 237 ]] --[[ Name: calculateIndividualAssetPartsData ]]
-    -- upvalues: v4 (copy), v17 (copy), v72 (copy)
-    local l_assetTypeEnum_1 = v101.assetTypeEnum;
+v13.calculateIndividualAssetPartsData = function(v102, v103) --[[ Line: 246 ]] --[[ Name: calculateIndividualAssetPartsData ]]
+    -- upvalues: v4 (copy), v19 (copy), v74 (copy)
+    local l_assetTypeEnum_1 = v103.assetTypeEnum;
     assert(l_assetTypeEnum_1);
-    local v103 = v4.calculateAllTransformsForAsset(l_assetTypeEnum_1, v100);
-    local function v105(v104) --[[ Line: 246 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: l_assetTypeEnum_1 (copy), v100 (copy)
+    local v105 = v4.calculateAllTransformsForAsset(l_assetTypeEnum_1, v102);
+    local function v107(v106) --[[ Line: 255 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: l_assetTypeEnum_1 (copy), v102 (copy)
         if l_assetTypeEnum_1 == Enum.AssetType.DynamicHead then
-            return v100;
+            return v102;
         else
-            return (v100:FindFirstChild(v104));
+            return (v102:FindFirstChild(v106));
         end;
     end;
-    v17(v103, l_assetTypeEnum_1, v105);
-    local v106, v107, v108 = v72(v103, v105, v101);
-    if not v106 then
-        return v106, v107;
+    v19(v105, l_assetTypeEnum_1, v107);
+    local v108, v109, v110 = v74(v105, v107, v103);
+    if not v108 then
+        return v108, v109;
     else
-        local v109 = {};
-        for v110, v111 in v108 do
-            v109[v110] = {
-                boundsData = v111, 
-                cframe = v103[v110]
+        local v111 = {};
+        for v112, v113 in v110 do
+            v111[v112] = {
+                boundsData = v113, 
+                cframe = v105[v112]
             };
         end;
-        return true, nil, v109;
+        return true, nil, v111;
     end;
 end;
-v11.calculateIndividualFullBodyPartsData = function(v112, v113, v114, v115) --[[ Line: 271 ]] --[[ Name: calculateIndividualFullBodyPartsData ]]
-    -- upvalues: v4 (copy), v10 (copy), v33 (copy), v72 (copy)
-    local function v117(v116) --[[ Line: 277 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: v112 (copy)
-        return v112[v116];
+v13.calculateIndividualFullBodyPartsData = function(v114, v115, v116, v117) --[[ Line: 280 ]] --[[ Name: calculateIndividualFullBodyPartsData ]]
+    -- upvalues: v4 (copy), v10 (copy), v35 (copy), v74 (copy)
+    local function v119(v118) --[[ Line: 286 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: v114 (copy)
+        return v114[v118];
     end;
-    local v118 = v4.calculateAllTransformsForFullBody(v112);
+    local v120 = v4.calculateAllTransformsForFullBody(v114);
     if v10() then
-        if v115 then
-            v33(v118, v117);
+        if v117 then
+            v35(v120, v119);
         end;
     else
-        v33(v118, v117);
+        v35(v120, v119);
     end;
-    local v119, v120, v121 = v72(v118, v117, v113, v114);
-    if not v119 then
-        return v119, v120;
+    local v121, v122, v123 = v74(v120, v119, v115, v116);
+    if not v121 then
+        return v121, v122;
     else
-        local v122 = {};
-        for v123, v124 in v121 do
-            v122[v123] = {
-                boundsData = v124, 
-                cframe = v118[v123]
+        local v124 = {};
+        for v125, v126 in v123 do
+            v124[v125] = {
+                boundsData = v126, 
+                cframe = v120[v125]
             };
         end;
-        return true, nil, v122;
+        return true, nil, v124;
     end;
 end;
-v11.calculateFullBodyBounds = function(v125, v126) --[[ Line: 304 ]] --[[ Name: calculateFullBodyBounds ]]
-    -- upvalues: v4 (copy), v33 (copy), v82 (copy)
-    local function v128(v127) --[[ Line: 308 ]] --[[ Name: findMeshHandle ]]
-        -- upvalues: v125 (copy)
-        return v125[v127];
+v13.calculateFullBodyBounds = function(v127, v128) --[[ Line: 313 ]] --[[ Name: calculateFullBodyBounds ]]
+    -- upvalues: v4 (copy), v35 (copy), v84 (copy)
+    local function v130(v129) --[[ Line: 317 ]] --[[ Name: findMeshHandle ]]
+        -- upvalues: v127 (copy)
+        return v127[v129];
     end;
-    local v129 = v4.calculateAllTransformsForFullBody(v125);
-    v33(v129, v128);
-    local v130, v131, v132 = v82(v129, v128, v126);
-    if not v130 then
-        return v130, v131;
+    local v131 = v4.calculateAllTransformsForFullBody(v127);
+    v35(v131, v130);
+    local v132, v133, v134 = v84(v131, v130, v128);
+    if not v132 then
+        return v132, v133;
     else
-        return true, nil, v132;
+        return true, nil, v134;
     end;
 end;
-return v11;
+return v13;

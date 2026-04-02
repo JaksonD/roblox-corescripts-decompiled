@@ -78,7 +78,9 @@ return v2.memo(function(v21) --[[ Line: 46 ]] --[[ Name: CheckoutPage ]]
                 FlexMode = Enum.UIFlexMode.Fill
             }, 
             Size = UDim2.fromScale(1, 1), 
-            Selectable = false
+            selection = {
+                Selectable = false
+            }
         }, {
             CheckoutPageBody = v2.createElement(v12, {
                 cartItems = v21.cartItems, 

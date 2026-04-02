@@ -15,84 +15,88 @@ local l_dependencyArray_0 = v11.Hooks.dependencyArray;
 local l_FFlagEnableSquadTopBannerWideMode_0 = v12.FFlagEnableSquadTopBannerWideMode;
 local l_FFlagEnableSquadCoplayAnalytic_0 = v12.FFlagEnableSquadCoplayAnalytic;
 local l_FFlagEnableSquadRegroupExperimentation_0 = v12.FFlagEnableSquadRegroupExperimentation;
-return function(v17) --[[ Line: 33 ]]
-    -- upvalues: v10 (copy), v4 (copy), l_FFlagEnableSquadTopBannerWideMode_0 (copy), v5 (copy), l_useCurrentSquadId_0 (copy), v9 (copy), l_dependencyArray_0 (copy), l_FFlagEnableSquadCoplayAnalytic_0 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (copy), v2 (copy)
-    local v18, v19 = v10.useState(v4.None);
-    local v22 = if l_FFlagEnableSquadTopBannerWideMode_0 then v17.contract.useSquadTopBannerManager() else v10.useMemo(function() --[[ Line: 38 ]]
+local l_FFlagRemoveDependencyArrayAntipattern_0 = v12.FFlagRemoveDependencyArrayAntipattern;
+return function(v18) --[[ Line: 35 ]]
+    -- upvalues: v10 (copy), v4 (copy), l_FFlagEnableSquadTopBannerWideMode_0 (copy), v5 (copy), l_useCurrentSquadId_0 (copy), v9 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_FFlagEnableSquadCoplayAnalytic_0 (copy), l_FFlagEnableSquadRegroupExperimentation_0 (copy), v2 (copy)
+    local v19, v20 = v10.useState(v4.None);
+    local v23 = if l_FFlagEnableSquadTopBannerWideMode_0 then v18.contract.useSquadTopBannerManager() else v10.useMemo(function() --[[ Line: 40 ]]
         return {
-            disableSquadTopBanner = function(_, _) --[[ Line: 40 ]] --[[ Name: disableSquadTopBanner ]]
+            disableSquadTopBanner = function(_, _) --[[ Line: 42 ]] --[[ Name: disableSquadTopBanner ]]
 
             end, 
-            useSquadTopBannerDisabled = function() --[[ Line: 41 ]] --[[ Name: useSquadTopBannerDisabled ]]
+            useSquadTopBannerDisabled = function() --[[ Line: 43 ]] --[[ Name: useSquadTopBannerDisabled ]]
                 return false;
             end
         };
     end, {});
-    local v23 = v10.useMemo(v5.Analytics, {});
-    local v24 = l_useCurrentSquadId_0();
-    local v27 = v10.useCallback(function(v25, v26) --[[ Line: 49 ]]
-        -- upvalues: v9 (ref), v24 (copy), v17 (copy), v23 (copy)
-        v26 = v9.Dictionary.join(v26, {
-            squadId = v24, 
-            squadLocation = v17.squadLocation
+    local v24 = v10.useMemo(v5.Analytics, {});
+    local v25 = l_useCurrentSquadId_0();
+    local v28 = v10.useCallback(function(v26, v27) --[[ Line: 52 ]]
+        -- upvalues: v9 (ref), v25 (copy), v18 (copy), v24 (copy)
+        v27 = v9.Dictionary.join(v27, {
+            squadId = v25, 
+            squadLocation = v18.squadLocation
         });
-        v23.fireAnalyticsEvent(v25, v26);
-    end, l_dependencyArray_0(v24, v17.squadLocation));
-    local v32 = {
-        closeSquadPrompt = v17.contract.closeSquadPrompt, 
-        createFriendConversation = v17.contract.createFriendConversation, 
-        createConversation = v17.contract.createConversation, 
-        disableSquadTopBanner = v22.disableSquadTopBanner, 
-        fetchParentChannelDetails = v17.contract.fetchParentChannelDetails, 
-        fireSquadAnalytics = v27, 
-        inviteToParentChannel = v17.contract.inviteToParentChannel, 
-        navigateIntoSquadLobby = v17.contract.navigateIntoSquadLobby, 
-        removeUserFromParentChannel = v17.contract.removeUserFromParentChannel, 
-        setSquadPrompt = v17.contract.setSquadPrompt, 
-        showSearchOverlay = v17.contract.showSearchOverlay, 
-        squadLocation = if l_FFlagEnableSquadCoplayAnalytic_0 then v17.squadLocation else nil, 
-        updateSquadViewFlags = v10.useCallback(function(v28, v29) --[[ Line: 72 ]]
-            -- upvalues: v19 (copy)
-            if v29 then
-                v19(function(v30) --[[ Line: 74 ]]
-                    -- upvalues: v28 (copy)
-                    return (bit32.bor(v30, v28));
+        v24.fireAnalyticsEvent(v26, v27);
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v25, 
+        v18.squadLocation
+    } else l_dependencyArray_0(v25, v18.squadLocation));
+    local v33 = {
+        closeSquadPrompt = v18.contract.closeSquadPrompt, 
+        createFriendConversation = v18.contract.createFriendConversation, 
+        createConversation = v18.contract.createConversation, 
+        disableSquadTopBanner = v23.disableSquadTopBanner, 
+        fetchParentChannelDetails = v18.contract.fetchParentChannelDetails, 
+        fireSquadAnalytics = v28, 
+        inviteToParentChannel = v18.contract.inviteToParentChannel, 
+        navigateIntoSquadLobby = v18.contract.navigateIntoSquadLobby, 
+        removeUserFromParentChannel = v18.contract.removeUserFromParentChannel, 
+        setSquadPrompt = v18.contract.setSquadPrompt, 
+        showSearchOverlay = v18.contract.showSearchOverlay, 
+        squadLocation = if l_FFlagEnableSquadCoplayAnalytic_0 then v18.squadLocation else nil, 
+        updateSquadViewFlags = v10.useCallback(function(v29, v30) --[[ Line: 79 ]]
+            -- upvalues: v20 (copy)
+            if v30 then
+                v20(function(v31) --[[ Line: 81 ]]
+                    -- upvalues: v29 (copy)
+                    return (bit32.bor(v31, v29));
                 end);
                 return;
             else
-                v19(function(v31) --[[ Line: 78 ]]
-                    -- upvalues: v28 (copy)
-                    return (bit32.band(v31, (bit32.bnot(v28))));
+                v20(function(v32) --[[ Line: 85 ]]
+                    -- upvalues: v29 (copy)
+                    return (bit32.band(v32, (bit32.bnot(v29))));
                 end);
                 return;
             end;
         end, {}), 
-        useGetConversationFromId = v17.contract.useGetConversationFromId, 
-        useIsChatUserMessagesEnabled = v17.contract.useIsChatUserMessagesEnabled, 
-        useParentChannelHasGroupUp = v17.contract.useParentChannelHasGroupUp, 
-        useParentChannelHasSquadAccess = v17.contract.useParentChannelHasSquadAccess, 
-        useParentChannelIsPartyVoiceEligible = v17.contract.useParentChannelIsPartyVoiceEligible, 
-        useParentChannelTitleSelector = v17.contract.useParentChannelTitleSelector, 
-        useSquadRootView = v17.contract.useSquadRootView, 
-        useSquadTopBannerDisabled = v22.useSquadTopBannerDisabled, 
-        useIsChatEnabled = v17.contract.useIsChatEnabled, 
-        useIsLoadingChatSettings = v17.contract.useIsLoadingChatSettings, 
-        useSquadViewFlags = v10.useCallback(function() --[[ Line: 93 ]]
-            -- upvalues: v18 (copy)
-            return v18;
+        useGetConversationFromId = v18.contract.useGetConversationFromId, 
+        useIsChatUserMessagesEnabled = v18.contract.useIsChatUserMessagesEnabled, 
+        useParentChannelHasGroupUp = v18.contract.useParentChannelHasGroupUp, 
+        useParentChannelHasSquadAccess = v18.contract.useParentChannelHasSquadAccess, 
+        useParentChannelIsPartyVoiceEligible = v18.contract.useParentChannelIsPartyVoiceEligible, 
+        useParentChannelTitleSelector = v18.contract.useParentChannelTitleSelector, 
+        useSquadRootView = v18.contract.useSquadRootView, 
+        useSquadTopBannerDisabled = v23.useSquadTopBannerDisabled, 
+        useIsChatEnabled = v18.contract.useIsChatEnabled, 
+        useIsLoadingChatSettings = v18.contract.useIsLoadingChatSettings, 
+        useSquadViewFlags = v10.useCallback(function() --[[ Line: 100 ]]
+            -- upvalues: v19 (copy)
+            return v19;
         end, {
-            v18
+            v19
         }), 
-        shouldShowOSAForConversation = v17.contract.shouldShowOSAForConversation, 
-        showGroupOSADialog = v17.contract.showGroupOSADialog
+        shouldShowOSAForConversation = v18.contract.shouldShowOSAForConversation, 
+        showGroupOSADialog = v18.contract.showGroupOSADialog
     };
-    if l_FFlagEnableSquadRegroupExperimentation_0 and v17.contract.createExperienceInvite then
-        v32.createExperienceInvite = function(v33, v34) --[[ Line: 101 ]]
-            -- upvalues: v17 (copy), v32 (copy)
-            return v17.contract.createExperienceInvite(v33, v32, v34);
+    if l_FFlagEnableSquadRegroupExperimentation_0 and v18.contract.createExperienceInvite then
+        v33.createExperienceInvite = function(v34, v35) --[[ Line: 108 ]]
+            -- upvalues: v18 (copy), v33 (copy)
+            return v18.contract.createExperienceInvite(v34, v33, v35);
         end;
     end;
     return v10.createElement(v2.Provider, {
-        value = v32
-    }, v17.children);
+        value = v33
+    }, v18.children);
 end;

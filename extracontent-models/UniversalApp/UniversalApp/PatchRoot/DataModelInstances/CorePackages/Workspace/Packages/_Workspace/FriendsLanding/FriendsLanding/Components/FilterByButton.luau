@@ -15,96 +15,94 @@ local l_Chip_0 = v12.Chip;
 local l_Enums_0 = v12.Enums;
 local l_View_0 = v12.View;
 local l_Text_0 = v12.Text;
-local l_InputLabel_0 = v12.InputLabel;
-local l_InputLabelSize_0 = v12.Enums.InputLabelSize;
 local l_Images_0 = l_UIBlox_0.App.ImageSet.Images;
-local v20 = require(l_script_FirstAncestor_0.FriendsLandingAnalytics.ImpressionEvents);
+local v18 = require(l_script_FirstAncestor_0.FriendsLandingAnalytics.ImpressionEvents);
 local l_Pill_0 = l_UIBlox_0.App.Control.Pill;
 local l_withStyle_0 = l_UIBlox_0.Style.withStyle;
 local l_withTooltip_0 = l_UIBlox_0.App.Dialog.TooltipV2.withTooltip;
 local l_TooltipOrientation_0 = l_UIBlox_0.App.Dialog.Enum.TooltipOrientation;
-local v25 = require(l_script_FirstAncestor_0.Friends.filterStates);
-local v26 = require(l_script_FirstAncestor_0.Components.PillWithAlert);
-local v27 = require(l_script_FirstAncestor_0.Components.ChipFilterGroup);
+local v23 = require(l_script_FirstAncestor_0.Friends.filterStates);
+local v24 = require(l_script_FirstAncestor_0.Components.PillWithAlert);
+local v25 = require(l_script_FirstAncestor_0.Components.ChipFilterGroup);
 local l_IconSize_0 = l_UIBlox_0.App.ImageSet.Enum.IconSize;
 local l_getIconSize_0 = l_UIBlox_0.App.ImageSet.getIconSize;
-local v30 = require(l_script_FirstAncestor_0.Flags.FFlagFixScalingOnFriendsLanding);
+local v28 = require(l_script_FirstAncestor_0.Flags.FFlagFixScalingOnFriendsLanding);
 local l_FFlagConnectionManagementChips_0 = require(l_Parent_0.SharedFlags).FFlagConnectionManagementChips;
 local l_FFlagConnectionsToFriendsRename_0 = require(l_Parent_0.SharedFlags).FFlagConnectionsToFriendsRename;
 local l_FFlagFriendsPageUserListEnabled_0 = require(l_Parent_0.SharedFlags).FFlagFriendsPageUserListEnabled;
-local v34 = l_Roact_0.PureComponent:extend("FilterByButton");
-v34.defaultProps = {
+local v32 = l_Roact_0.PureComponent:extend("FilterByButton");
+v32.defaultProps = {
     analytics = nil, 
     layoutOrder = 1, 
-    onActivated = function() --[[ Line: 53 ]] --[[ Name: onActivated ]]
+    onActivated = function() --[[ Line: 51 ]] --[[ Name: onActivated ]]
 
     end, 
-    filter = v25.All, 
+    filter = v23.All, 
     friendCount = 0, 
     inactiveFriendCount = 0, 
     isDisabled = false, 
     showFriendPruningAlert = false, 
     initialShowFriendPruningTooltip = false, 
-    onTooltipDismissal = function() --[[ Line: 60 ]] --[[ Name: onTooltipDismissal ]]
+    onTooltipDismissal = function() --[[ Line: 58 ]] --[[ Name: onTooltipDismissal ]]
 
     end
 };
-v34.init = function(v35) --[[ Line: 63 ]] --[[ Name: init ]]
-    -- upvalues: l_FFlagConnectionManagementChips_0 (copy), v25 (copy), l_AppPage_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy)
-    v35.state = {
-        showFriendPruningTooltip = v35.props.initialShowFriendPruningTooltip, 
+v32.init = function(v33) --[[ Line: 61 ]] --[[ Name: init ]]
+    -- upvalues: l_FFlagConnectionManagementChips_0 (copy), v23 (copy), l_AppPage_0 (copy), l_FFlagConnectionsToFriendsRename_0 (copy)
+    v33.state = {
+        showFriendPruningTooltip = v33.props.initialShowFriendPruningTooltip, 
         hasDismissedFriendPruningTooltip = false
     };
     if l_FFlagConnectionManagementChips_0 then
-        v35.state.canAccessTrustedContacts = v35.props.canAccessTrustedContacts;
+        v33.state.canAccessTrustedContacts = v33.props.canAccessTrustedContacts;
     end;
-    v35.convertFilterToTranslation = function(v36, v37) --[[ Line: 73 ]]
-        -- upvalues: v25 (ref), l_FFlagConnectionManagementChips_0 (ref)
-        if v36 == v25.All then
-            return v37.all;
-        elseif v36 == v25.Online then
-            return v37.online;
-        elseif v36 == v25.InExperience then
-            return v37.inExperience;
-        elseif v36 == v25.Offline then
-            return v37.offline;
-        elseif v36 == v25.Inactive then
-            return v37.inactive;
-        elseif l_FFlagConnectionManagementChips_0 and v36 == v25.Trusted then
-            return v37.trusted;
+    v33.convertFilterToTranslation = function(v34, v35) --[[ Line: 71 ]]
+        -- upvalues: v23 (ref), l_FFlagConnectionManagementChips_0 (ref)
+        if v34 == v23.All then
+            return v35.all;
+        elseif v34 == v23.Online then
+            return v35.online;
+        elseif v34 == v23.InExperience then
+            return v35.inExperience;
+        elseif v34 == v23.Offline then
+            return v35.offline;
+        elseif v34 == v23.Inactive then
+            return v35.inactive;
+        elseif l_FFlagConnectionManagementChips_0 and v34 == v23.Trusted then
+            return v35.trusted;
         else
             return nil;
         end;
     end;
-    v35.buildFilterText = function(v38, v39, v40) --[[ Line: 91 ]]
-        -- upvalues: v35 (copy)
-        local v41 = v35.convertFilterToTranslation(v38, v39);
-        if v40 == 0 then
-            return v41;
+    v33.buildFilterText = function(v36, v37, v38) --[[ Line: 89 ]]
+        -- upvalues: v33 (copy)
+        local v39 = v33.convertFilterToTranslation(v36, v37);
+        if v38 == 0 then
+            return v39;
         else
-            return v41 .. " (" .. v40 .. ")";
+            return v39 .. " (" .. v38 .. ")";
         end;
     end;
-    v35.isSelected = function(v42) --[[ Line: 100 ]]
-        -- upvalues: v25 (ref)
-        if v42 == v25.All then
+    v33.isSelected = function(v40) --[[ Line: 98 ]]
+        -- upvalues: v23 (ref)
+        if v40 == v23.All then
             return false;
         else
             return true;
         end;
     end;
-    v35.dismissFriendPruningTooltip = function() --[[ Line: 108 ]]
-        -- upvalues: v35 (copy)
-        v35:setState({
+    v33.dismissFriendPruningTooltip = function() --[[ Line: 106 ]]
+        -- upvalues: v33 (copy)
+        v33:setState({
             showFriendPruningTooltip = false, 
             hasDismissedFriendPruningTooltip = true
         });
-        v35.props.onTooltipDismissal();
+        v33.props.onTooltipDismissal();
     end;
     if l_FFlagConnectionManagementChips_0 then
-        v35.onLearnMoreClicked = function() --[[ Line: 117 ]]
-            -- upvalues: v35 (copy), l_AppPage_0 (ref)
-            v35.props.navigateDown({
+        v33.onLearnMoreClicked = function() --[[ Line: 115 ]]
+            -- upvalues: v33 (copy), l_AppPage_0 (ref)
+            v33.props.navigateDown({
                 name = l_AppPage_0.GenericWebPage, 
                 detail = "https://en.help.roblox.com/hc/articles/46158344285204", 
                 extraProps = {
@@ -114,38 +112,42 @@ v34.init = function(v35) --[[ Line: 63 ]] --[[ Name: init ]]
         end;
     end;
     if l_FFlagConnectionManagementChips_0 then
-        v35.getTrustedFilterText = function(v43) --[[ Line: 127 ]]
-            -- upvalues: v35 (copy), l_FFlagConnectionsToFriendsRename_0 (ref)
-            local l_webViewSupported_0 = v35.props.webViewSupported;
-            local v45 = if l_FFlagConnectionsToFriendsRename_0 then if v35.props.canAccessTrustedContacts then v43.doMoreWithTrustedFriends else v43.trustedFriendsUnavailable else if v35.props.canAccessTrustedContacts then v43.doMoreWithTrustedConnections else v43.trustedConnectionsUnavailable;
-            if l_webViewSupported_0 and v35.props.canAccessTrustedContacts then
-                return v45 .. " <u>" .. v43.learnMore .. "</u>";
+        v33.getTrustedFilterText = function(v41) --[[ Line: 125 ]]
+            -- upvalues: l_FFlagConnectionsToFriendsRename_0 (ref), v33 (copy)
+            if l_FFlagConnectionsToFriendsRename_0 then
+                if v33.props.canAccessTrustedContacts then
+                    return v41.doMoreWithTrustedFriends;
+                else
+                    return v41.trustedFriendsUnavailable;
+                end;
+            elseif v33.props.canAccessTrustedContacts then
+                return v41.doMoreWithTrustedConnections;
             else
-                return v45;
+                return v41.trustedConnectionsUnavailable;
             end;
         end;
     end;
 end;
-v34.didMount = function(v46) --[[ Line: 145 ]] --[[ Name: didMount ]]
-    -- upvalues: v20 (copy)
-    if v46.props.initialShowFriendPruningTooltip and v46.props.analytics then
-        v46.props.analytics:impressionEvent(v20.FriendPruningTooltipSeen, {
-            friendCount = tostring(v46.props.friendCount), 
-            inactiveFriendCount = tostring(v46.props.inactiveFriendCount)
+v32.didMount = function(v42) --[[ Line: 138 ]] --[[ Name: didMount ]]
+    -- upvalues: v18 (copy)
+    if v42.props.initialShowFriendPruningTooltip and v42.props.analytics then
+        v42.props.analytics:impressionEvent(v18.FriendPruningTooltipSeen, {
+            friendCount = tostring(v42.props.friendCount), 
+            inactiveFriendCount = tostring(v42.props.inactiveFriendCount)
         });
     end;
 end;
-v34.didUpdate = function(v47) --[[ Line: 156 ]] --[[ Name: didUpdate ]]
-    v47:setState({
-        showFriendPruningTooltip = v47.props.initialShowFriendPruningTooltip and not v47.state.hasDismissedFriendPruningTooltip
+v32.didUpdate = function(v43) --[[ Line: 149 ]] --[[ Name: didUpdate ]]
+    v43:setState({
+        showFriendPruningTooltip = v43.props.initialShowFriendPruningTooltip and not v43.state.hasDismissedFriendPruningTooltip
     });
 end;
-v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
-    -- upvalues: l_withStyle_0 (copy), v30 (copy), l_Images_0 (copy), l_FFlagConnectionManagementChips_0 (copy), l_withLocalization_0 (copy), l_TooltipOrientation_0 (copy), l_CoreGui_0 (copy), l_Roact_0 (copy), l_withTooltip_0 (copy), l_getIconSize_0 (copy), l_IconSize_0 (copy), l_TextService_0 (copy), v26 (copy), l_Pill_0 (copy), l_View_0 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), v27 (copy), v25 (copy), l_InputLabel_0 (copy), l_InputLabelSize_0 (copy), l_Text_0 (copy), l_Chip_0 (copy), l_Enums_0 (copy)
-    return l_withStyle_0(function(_) --[[ Line: 165 ]]
-        -- upvalues: v30 (ref), l_Images_0 (ref), l_FFlagConnectionManagementChips_0 (ref), l_withLocalization_0 (ref), v48 (copy), l_TooltipOrientation_0 (ref), l_CoreGui_0 (ref), l_Roact_0 (ref), l_withStyle_0 (ref), l_withTooltip_0 (ref), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v26 (ref), l_Pill_0 (ref), l_View_0 (ref), l_FFlagFriendsPageUserListEnabled_0 (ref), v27 (ref), v25 (ref), l_InputLabel_0 (ref), l_InputLabelSize_0 (ref), l_Text_0 (ref), l_Chip_0 (ref), l_Enums_0 (ref)
-        local v50 = v30 and "icons/actions/filter_small" or l_Images_0["icons/actions/filter"];
-        local v51 = {
+v32.render = function(v44) --[[ Line: 157 ]] --[[ Name: render ]]
+    -- upvalues: l_withStyle_0 (copy), v28 (copy), l_Images_0 (copy), l_FFlagConnectionManagementChips_0 (copy), l_withLocalization_0 (copy), l_TooltipOrientation_0 (copy), l_CoreGui_0 (copy), l_Roact_0 (copy), l_withTooltip_0 (copy), l_getIconSize_0 (copy), l_IconSize_0 (copy), l_TextService_0 (copy), v24 (copy), l_Pill_0 (copy), l_View_0 (copy), l_FFlagFriendsPageUserListEnabled_0 (copy), v25 (copy), v23 (copy), l_Text_0 (copy), l_Chip_0 (copy), l_Enums_0 (copy)
+    return l_withStyle_0(function(_) --[[ Line: 158 ]]
+        -- upvalues: v28 (ref), l_Images_0 (ref), l_FFlagConnectionManagementChips_0 (ref), l_withLocalization_0 (ref), v44 (copy), l_TooltipOrientation_0 (ref), l_CoreGui_0 (ref), l_Roact_0 (ref), l_withStyle_0 (ref), l_withTooltip_0 (ref), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v24 (ref), l_Pill_0 (ref), l_View_0 (ref), l_FFlagFriendsPageUserListEnabled_0 (ref), v25 (ref), v23 (ref), l_Text_0 (ref), l_Chip_0 (ref), l_Enums_0 (ref)
+        local v46 = v28 and "icons/actions/filter_small" or l_Images_0["icons/actions/filter"];
+        local v47 = {
             all = "Feature.Friends.Label.All", 
             inactive = "Feature.Friends.Label.FewestInteractions", 
             inExperience = "Feature.Friends.Label.InGame", 
@@ -155,31 +157,31 @@ v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
             offline = "Common.Presence.Label.Offline"
         };
         if l_FFlagConnectionManagementChips_0 then
-            v51.trusted = "Feature.Friends.TrustedConnection.Label.Trusted";
-            v51.learnMore = "Feature.Chat.Action.LearnMore";
-            v51.doMoreWithTrustedConnections = "Feature.Friends.Description.DoMoreWithTrustedConnections";
-            v51.doMoreWithTrustedFriends = "Feature.Friends.Description.DoMoreWithTrustedFriends";
-            v51.trustedConnectionsUnavailable = "Feature.Friends.Description.TrustedConnectionsUnavailable";
-            v51.trustedFriendsUnavailable = "Feature.Friends.Description.TrustedFriendsUnavailable";
+            v47.trusted = "Feature.Friends.TrustedConnection.Label.Trusted";
+            v47.learnMore = "Feature.Chat.Action.LearnMore";
+            v47.doMoreWithTrustedConnections = "Feature.Friends.Description.DoMoreWithTrustedConnections";
+            v47.doMoreWithTrustedFriends = "Feature.Friends.Description.DoMoreWithTrustedFriends";
+            v47.trustedConnectionsUnavailable = "Feature.Friends.Description.TrustedConnectionsUnavailable";
+            v47.trustedFriendsUnavailable = "Feature.Friends.Description.TrustedFriendsUnavailable";
         end;
-        return l_withLocalization_0(v51)(function(v52) --[[ Line: 186 ]]
-            -- upvalues: v48 (ref), l_FFlagConnectionManagementChips_0 (ref), l_TooltipOrientation_0 (ref), l_CoreGui_0 (ref), l_Roact_0 (ref), l_withStyle_0 (ref), l_withTooltip_0 (ref), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v26 (ref), v50 (copy), l_Pill_0 (ref), l_View_0 (ref), l_FFlagFriendsPageUserListEnabled_0 (ref), v27 (ref), v25 (ref), l_InputLabel_0 (ref), l_InputLabelSize_0 (ref), l_Text_0 (ref), v30 (ref), l_Chip_0 (ref), l_Enums_0 (ref)
-            local l_filter_0 = v48.props.filter;
-            local l_friendCount_0 = v48.props.friendCount;
-            local l_isDisabled_0 = v48.props.isDisabled;
-            local l_onActivated_0 = v48.props.onActivated;
-            local v57 = v48.buildFilterText(l_filter_0, v52, l_friendCount_0);
-            local v58 = nil;
-            local v59 = nil;
+        return l_withLocalization_0(v47)(function(v48) --[[ Line: 179 ]]
+            -- upvalues: v44 (ref), l_FFlagConnectionManagementChips_0 (ref), l_TooltipOrientation_0 (ref), l_CoreGui_0 (ref), l_Roact_0 (ref), l_withStyle_0 (ref), l_withTooltip_0 (ref), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v24 (ref), v46 (copy), l_Pill_0 (ref), l_View_0 (ref), l_FFlagFriendsPageUserListEnabled_0 (ref), v25 (ref), v23 (ref), l_Text_0 (ref), v28 (ref), l_Chip_0 (ref), l_Enums_0 (ref)
+            local l_filter_0 = v44.props.filter;
+            local l_friendCount_0 = v44.props.friendCount;
+            local l_isDisabled_0 = v44.props.isDisabled;
+            local l_onActivated_0 = v44.props.onActivated;
+            local v53 = v44.buildFilterText(l_filter_0, v48, l_friendCount_0);
+            local v54 = nil;
+            local v55 = nil;
             if l_FFlagConnectionManagementChips_0 then
-                v58 = v48.props.maxWidth;
-                v59 = v48.props.webViewSupported;
+                v54 = v44.props.maxWidth;
+                v55 = v44.props.webViewSupported;
             end;
-            local v60 = {
-                headerText = v52.tooltipHeader, 
-                bodyText = v52.tooltipBody
+            local v56 = {
+                headerText = v48.tooltipHeader, 
+                bodyText = v48.tooltipBody
             };
-            local v61 = {
+            local v57 = {
                 preferredOrientation = l_TooltipOrientation_0.Bottom, 
                 guiTarget = l_CoreGui_0, 
                 active = true, 
@@ -188,24 +190,24 @@ v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
             return l_Roact_0.createElement("Frame", {
                 AutomaticSize = Enum.AutomaticSize.Y, 
                 Size = UDim2.new(1, 0, 0, 36), 
-                LayoutOrder = v48.props.layoutOrder, 
+                LayoutOrder = v44.props.layoutOrder, 
                 BackgroundTransparency = 1
             }, {
-                Button = if v48.state.showFriendPruningTooltip then l_withStyle_0(function(v62) --[[ Line: 216 ]]
-                    -- upvalues: l_withTooltip_0 (ref), v60 (copy), v61 (copy), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v57 (copy), l_Roact_0 (ref), v48 (ref), l_CoreGui_0 (ref), v26 (ref), v50 (ref), l_isDisabled_0 (copy), l_filter_0 (copy), l_onActivated_0 (copy), l_Pill_0 (ref)
-                    return l_withTooltip_0(v60, v61, function(v63) --[[ Line: 217 ]]
-                        -- upvalues: v62 (copy), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v57 (ref), l_Roact_0 (ref), v48 (ref), l_CoreGui_0 (ref), v26 (ref), v50 (ref), l_isDisabled_0 (ref), l_filter_0 (ref), l_onActivated_0 (ref), l_Pill_0 (ref)
-                        local l_Font_0 = v62.Font;
-                        local v65 = l_getIconSize_0(l_IconSize_0.Small);
+                Button = if v44.state.showFriendPruningTooltip then l_withStyle_0(function(v58) --[[ Line: 209 ]]
+                    -- upvalues: l_withTooltip_0 (ref), v56 (copy), v57 (copy), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v53 (copy), l_Roact_0 (ref), v44 (ref), l_CoreGui_0 (ref), v24 (ref), v46 (ref), l_isDisabled_0 (copy), l_filter_0 (copy), l_onActivated_0 (copy), l_Pill_0 (ref)
+                    return l_withTooltip_0(v56, v57, function(v59) --[[ Line: 210 ]]
+                        -- upvalues: v58 (copy), l_getIconSize_0 (ref), l_IconSize_0 (ref), l_TextService_0 (ref), v53 (ref), l_Roact_0 (ref), v44 (ref), l_CoreGui_0 (ref), v24 (ref), v46 (ref), l_isDisabled_0 (ref), l_filter_0 (ref), l_onActivated_0 (ref), l_Pill_0 (ref)
+                        local l_Font_0 = v58.Font;
+                        local v61 = l_getIconSize_0(l_IconSize_0.Small);
                         local l_BaseSize_0 = l_Font_0.BaseSize;
-                        local v67 = l_Font_0.CaptionHeader.RelativeSize * l_BaseSize_0;
-                        local v68 = l_TextService_0:GetTextSize(v57, v67, l_Font_0.CaptionHeader.Font, Vector2.new(10000, 10000)).X + 24;
+                        local v63 = l_Font_0.CaptionHeader.RelativeSize * l_BaseSize_0;
+                        local v64 = l_TextService_0:GetTextSize(v53, v63, l_Font_0.CaptionHeader.Font, Vector2.new(10000, 10000)).X + 24;
                         return l_Roact_0.createElement("Frame", {
-                            Size = UDim2.fromOffset(v68 + 4 + v65, 28), 
-                            LayoutOrder = v48.props.layoutOrder, 
+                            Size = UDim2.fromOffset(v64 + 4 + v61, 28), 
+                            LayoutOrder = v44.props.layoutOrder, 
                             BackgroundTransparency = 1, 
-                            [l_Roact_0.Change.AbsoluteSize] = v63, 
-                            [l_Roact_0.Change.AbsolutePosition] = v63
+                            [l_Roact_0.Change.AbsoluteSize] = v59, 
+                            [l_Roact_0.Change.AbsolutePosition] = v59
                         }, {
                             PortalToCoreGui = l_Roact_0.createElement(l_Roact_0.Portal, {
                                 target = l_CoreGui_0
@@ -219,50 +221,50 @@ v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
                                         BackgroundTransparency = 1, 
                                         Size = UDim2.fromScale(1, 1), 
                                         Text = "", 
-                                        [l_Roact_0.Event.Activated] = v48.dismissFriendPruningTooltip, 
-                                        [l_Roact_0.Event.TouchSwipe] = v48.dismissFriendPruningTooltip, 
-                                        [l_Roact_0.Event.MouseWheelForward] = v48.dismissFriendPruningTooltip, 
-                                        [l_Roact_0.Event.MouseWheelBackward] = v48.dismissFriendPruningTooltip
+                                        [l_Roact_0.Event.Activated] = v44.dismissFriendPruningTooltip, 
+                                        [l_Roact_0.Event.TouchSwipe] = v44.dismissFriendPruningTooltip, 
+                                        [l_Roact_0.Event.MouseWheelForward] = v44.dismissFriendPruningTooltip, 
+                                        [l_Roact_0.Event.MouseWheelBackward] = v44.dismissFriendPruningTooltip
                                     })
                                 })
                             }), 
-                            FilterByButtonPillPossiblyWithAlert = if v48.props.showFriendPruningAlert then l_Roact_0.createElement(v26, {
-                                icon = v50, 
-                                text = v57, 
+                            FilterByButtonPillPossiblyWithAlert = if v44.props.showFriendPruningAlert then l_Roact_0.createElement(v24, {
+                                icon = v46, 
+                                text = v53, 
                                 isDisabled = l_isDisabled_0, 
-                                isSelected = v48.isSelected(l_filter_0), 
+                                isSelected = v44.isSelected(l_filter_0), 
                                 onActivated = l_onActivated_0
                             }) else l_Roact_0.createElement(l_Pill_0, {
-                                icon = v50, 
-                                text = v57, 
+                                icon = v46, 
+                                text = v53, 
                                 isDisabled = l_isDisabled_0, 
-                                isSelected = v48.isSelected(l_filter_0), 
+                                isSelected = v44.isSelected(l_filter_0), 
                                 onActivated = l_onActivated_0
                             })
                         });
                     end);
-                end) else if v48.props.showFriendPruningAlert then l_Roact_0.createElement(v26, {
-                    icon = v50, 
-                    text = v57, 
+                end) else if v44.props.showFriendPruningAlert then l_Roact_0.createElement(v24, {
+                    icon = v46, 
+                    text = v53, 
                     isDisabled = l_isDisabled_0, 
-                    isSelected = v48.isSelected(l_filter_0), 
+                    isSelected = v44.isSelected(l_filter_0), 
                     onActivated = l_onActivated_0
                 }) else if l_FFlagConnectionManagementChips_0 then l_Roact_0.createElement(l_View_0, {
                     tag = l_FFlagFriendsPageUserListEnabled_0 and "auto-y size-full-0 flex-between gap-large padding-top-large" or "auto-y size-full-0 flex-between gap-large padding-top-large padding-bottom-large"
                 }, {
-                    UISizeConstraint = if v58 then l_Roact_0.createElement("UISizeConstraint", {
-                        MaxSize = Vector2.new(v58, 1e999)
+                    UISizeConstraint = if v54 then l_Roact_0.createElement("UISizeConstraint", {
+                        MaxSize = Vector2.new(v54, 1e999)
                     }) else nil, 
                     Layout = l_Roact_0.createElement("UIListLayout", {
                         FillDirection = Enum.FillDirection.Vertical, 
                         SortOrder = Enum.SortOrder.LayoutOrder
                     }), 
-                    FilterGroup = l_Roact_0.createElement(v27, {
+                    FilterGroup = l_Roact_0.createElement(v25, {
                         onActivated = l_onActivated_0, 
                         isDisabled = l_isDisabled_0, 
                         LayoutOrder = 1
                     }), 
-                    EducationText = if v25.Trusted == l_filter_0 then l_Roact_0.createElement(l_View_0, {
+                    EducationText = if v23.Trusted == l_filter_0 then l_Roact_0.createElement(l_View_0, {
                         tag = "auto-y size-full-0", 
                         LayoutOrder = 2
                     }, {
@@ -271,34 +273,38 @@ v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
                             SortOrder = Enum.SortOrder.LayoutOrder, 
                             VerticalAlignment = Enum.VerticalAlignment.Top
                         }), 
-                        Content = if v59 then l_Roact_0.createElement(l_InputLabel_0, {
+                        Content = l_Roact_0.createElement(l_Text_0, {
                             LayoutOrder = 1, 
-                            tag = "auto-y size-full-0 text-caption-small text-align-x-left text-align-y-top text-wrap", 
-                            RichText = true, 
-                            Text = v48.getTrustedFilterText(v52), 
-                            size = l_InputLabelSize_0.Small, 
-                            onActivated = v48.onLearnMoreClicked
-                        }) else l_Roact_0.createElement(l_Text_0, {
-                            LayoutOrder = 1, 
-                            Text = v48.getTrustedFilterText(v52), 
-                            tag = "auto-y size-full-0 text-caption-small text-align-x-left text-align-y-top text-wrap"
-                        })
+                            tag = "auto-y size-full-0 text-caption-medium text-align-x-left text-align-y-top text-wrap", 
+                            Text = v44.getTrustedFilterText(v48)
+                        }), 
+                        LearnMore = if v55 and v44.props.canAccessTrustedContacts then l_Roact_0.createElement(l_View_0, {
+                            LayoutOrder = 2, 
+                            tag = "auto-y size-full-0 padding-top-xsmall"
+                        }, {
+                            Text = l_Roact_0.createElement(l_Text_0, {
+                                tag = "auto-xy text-caption-medium text-align-x-left text-align-y-top", 
+                                RichText = true, 
+                                Text = ("<u>%*</u>"):format(v48.learnMore), 
+                                onActivated = v44.onLearnMoreClicked
+                            })
+                        }) else nil
                     }) else nil
-                }) else if v30 then l_Roact_0.createElement(l_Chip_0, {
+                }) else if v28 then l_Roact_0.createElement(l_Chip_0, {
                     leading = {
-                        name = v50, 
+                        name = v46, 
                         iconName = l_Enums_0.IconName.ThreeBarsHorizontalNarrowing, 
                         position = l_Enums_0.IconPosition.Left
                     }, 
-                    text = v57, 
-                    isChecked = v48.isSelected(l_filter_0), 
+                    text = v53, 
+                    isChecked = v44.isSelected(l_filter_0), 
                     onActivated = l_onActivated_0, 
                     isDisabled = l_isDisabled_0
                 }) else l_Roact_0.createElement(l_Pill_0, {
-                    icon = v50, 
-                    text = v57, 
+                    icon = v46, 
+                    text = v53, 
                     isDisabled = l_isDisabled_0, 
-                    isSelected = v48.isSelected(l_filter_0), 
+                    isSelected = v44.isSelected(l_filter_0), 
                     onActivated = l_onActivated_0
                 })
             });
@@ -306,22 +312,22 @@ v34.render = function(v48) --[[ Line: 164 ]] --[[ Name: render ]]
     end);
 end;
 if l_FFlagConnectionManagementChips_0 then
-    v34 = v3.connect(function(_, _) --[[ Line: 357 ]]
+    v32 = v3.connect(function(_, _) --[[ Line: 354 ]]
         return {};
-    end, function(v71) --[[ Line: 359 ]]
+    end, function(v67) --[[ Line: 356 ]]
         -- upvalues: l_NavigateDown_0 (copy)
         return {
-            navigateDown = function(v72) --[[ Line: 361 ]] --[[ Name: navigateDown ]]
-                -- upvalues: v71 (copy), l_NavigateDown_0 (ref)
-                return v71(l_NavigateDown_0(v72));
+            navigateDown = function(v68) --[[ Line: 358 ]] --[[ Name: navigateDown ]]
+                -- upvalues: v67 (copy), l_NavigateDown_0 (ref)
+                return v67(l_NavigateDown_0(v68));
             end
         };
-    end)(v34);
-    return l_RoactAppPolicy_0.connect(function(v73) --[[ Line: 367 ]]
+    end)(v32);
+    return l_RoactAppPolicy_0.connect(function(v69) --[[ Line: 364 ]]
         return {
-            webViewSupported = v73.getWebViewSupport()
+            webViewSupported = v69.getWebViewSupport()
         };
-    end)(v34);
+    end)(v32);
 else
-    return v34;
+    return v32;
 end;

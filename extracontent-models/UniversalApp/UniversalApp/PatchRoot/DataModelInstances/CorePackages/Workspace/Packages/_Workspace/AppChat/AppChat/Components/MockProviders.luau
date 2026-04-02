@@ -129,24 +129,28 @@ return function(v25) --[[ Line: 57 ]] --[[ Name: MockProviders ]]
 
                 end, 
                 addListener = function() --[[ Line: 159 ]] --[[ Name: addListener ]]
+                    return {
+                        remove = function() --[[ Line: 160 ]] --[[ Name: remove ]]
+
+                        end
+                    };
+                end, 
+                isFocused = function() --[[ Line: 162 ]] --[[ Name: isFocused ]]
 
                 end, 
-                isFocused = function() --[[ Line: 160 ]] --[[ Name: isFocused ]]
+                setParams = function() --[[ Line: 163 ]] --[[ Name: setParams ]]
 
                 end, 
-                setParams = function() --[[ Line: 161 ]] --[[ Name: setParams ]]
+                getParam = function() --[[ Line: 164 ]] --[[ Name: getParam ]]
 
                 end, 
-                getParam = function() --[[ Line: 162 ]] --[[ Name: getParam ]]
+                replace = function() --[[ Line: 165 ]] --[[ Name: replace ]]
 
                 end, 
-                replace = function() --[[ Line: 163 ]] --[[ Name: replace ]]
+                push = function() --[[ Line: 166 ]] --[[ Name: push ]]
 
                 end, 
-                push = function() --[[ Line: 164 ]] --[[ Name: push ]]
-
-                end, 
-                getScreenProps = function() --[[ Line: 165 ]] --[[ Name: getScreenProps ]]
+                getScreenProps = function() --[[ Line: 167 ]] --[[ Name: getScreenProps ]]
 
                 end
             }

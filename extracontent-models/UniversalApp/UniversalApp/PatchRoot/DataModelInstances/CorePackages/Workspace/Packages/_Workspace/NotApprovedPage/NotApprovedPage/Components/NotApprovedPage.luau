@@ -30,38 +30,41 @@ local l_IXPService_0 = game:GetService("IXPService");
 local l_AppUserLayers_0 = require(l_Parent_0.ExperimentLayers).AppUserLayers;
 local l_FFlagEnableNapIxpLayerExposure_0 = require(l_Parent_0.SharedFlags).FFlagEnableNapIxpLayerExposure;
 local v31 = require(l_script_FirstAncestor_0.Flags.FFlagEnableNapMiddlePages);
-return v17.memo(function(v32) --[[ Line: 58 ]] --[[ Name: NotApprovedPage ]]
-    -- upvalues: l_useState_0 (copy), l_UserInputService_0 (copy), l_useSelector_0 (copy), v31 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useEffect_0 (copy), v10 (copy), l_dependencyArray_0 (copy), l_FFlagEnableNapIxpLayerExposure_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v1 (copy), l_EVENT_TYPES_0 (copy), v4 (copy), l_TRANSLATION_KEYS_0 (copy), v2 (copy), v3 (copy), l_useLocalization_0 (copy), l_useCallback_0 (copy), v17 (copy), v9 (copy), v11 (copy), l_NotApprovedPageProvider_0 (copy), l_PageNavigationProvider_0 (copy), l_PageAnalyticsProvider_0 (copy), l_FullPageModal_0 (copy), v5 (copy)
-    local v33, v34 = l_useState_0(true);
-    local v35, v36 = l_useState_0(nil);
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return v17.memo(function(v33) --[[ Line: 60 ]] --[[ Name: NotApprovedPage ]]
+    -- upvalues: l_useState_0 (copy), l_UserInputService_0 (copy), l_useSelector_0 (copy), v31 (copy), l_useRoactService_0 (copy), l_RoactNetworking_0 (copy), l_useEffect_0 (copy), v10 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_FFlagEnableNapIxpLayerExposure_0 (copy), l_IXPService_0 (copy), l_AppUserLayers_0 (copy), v1 (copy), l_EVENT_TYPES_0 (copy), v4 (copy), l_TRANSLATION_KEYS_0 (copy), v2 (copy), v3 (copy), l_useLocalization_0 (copy), l_useCallback_0 (copy), v17 (copy), v9 (copy), v11 (copy), l_NotApprovedPageProvider_0 (copy), l_PageNavigationProvider_0 (copy), l_PageAnalyticsProvider_0 (copy), l_FullPageModal_0 (copy), v5 (copy)
+    local v34, v35 = l_useState_0(true);
+    local v36, v37 = l_useState_0(nil);
     local l_Y_0 = l_UserInputService_0.StatusBarSize.Y;
-    local v39 = l_useSelector_0(function(v38) --[[ Line: 63 ]]
-        return v38.ScreenSize;
+    local v40 = l_useSelector_0(function(v39) --[[ Line: 65 ]]
+        return v39.ScreenSize;
     end);
-    local l_moderationDetail_0 = v32.moderationDetail;
+    local l_moderationDetail_0 = v33.moderationDetail;
     local l_punishmentTypeDescription_0 = l_moderationDetail_0.punishmentTypeDescription;
-    local l_interventionType_0 = v32.interventionType;
-    local v43 = if v31 then l_useRoactService_0(l_RoactNetworking_0) else nil;
-    l_useEffect_0(function() --[[ Line: 74 ]]
-        -- upvalues: v31 (ref), v10 (ref), v43 (copy), v36 (copy), v34 (copy)
+    local l_interventionType_0 = v33.interventionType;
+    local v44 = if v31 then l_useRoactService_0(l_RoactNetworking_0) else nil;
+    l_useEffect_0(function() --[[ Line: 76 ]]
+        -- upvalues: v31 (ref), v10 (ref), v44 (copy), v37 (copy), v35 (copy)
         if v31 then
-            v10(v43):andThen(function(v44) --[[ Line: 77 ]]
-                -- upvalues: v36 (ref)
-                if v44.responseBody then
-                    v36(v44.responseBody);
+            v10(v44):andThen(function(v45) --[[ Line: 79 ]]
+                -- upvalues: v37 (ref)
+                if v45.responseBody then
+                    v37(v45.responseBody);
                 end;
-            end):catch(function(_) --[[ Line: 82 ]]
-                -- upvalues: v36 (ref)
-                v36({
+            end):catch(function(_) --[[ Line: 84 ]]
+                -- upvalues: v37 (ref)
+                v37({
                     educational_pass_eligible = false
                 });
-            end):finally(function() --[[ Line: 88 ]]
-                -- upvalues: v34 (ref)
-                v34(false);
+            end):finally(function() --[[ Line: 90 ]]
+                -- upvalues: v35 (ref)
+                v35(false);
             end);
         end;
-    end, l_dependencyArray_0(v43));
-    l_useEffect_0(function() --[[ Line: 94 ]]
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v44
+    } else l_dependencyArray_0(v44));
+    l_useEffect_0(function() --[[ Line: 96 ]]
         -- upvalues: l_FFlagEnableNapIxpLayerExposure_0 (ref), l_IXPService_0 (ref), l_AppUserLayers_0 (ref), v1 (ref), l_EVENT_TYPES_0 (ref), l_moderationDetail_0 (copy), v4 (ref), l_interventionType_0 (copy)
         if l_FFlagEnableNapIxpLayerExposure_0 and game:GetEngineFeature("EnableLogFlagLinkedUserLayerExposure") then
             l_IXPService_0:LogFlagLinkedUserLayerExposure(l_AppUserLayers_0.NotApprovedPageUserIDLayer);
@@ -77,42 +80,45 @@ return v17.memo(function(v32) --[[ Line: 58 ]] --[[ Name: NotApprovedPage ]]
     local l_l_TRANSLATION_KEYS_0_0 = l_TRANSLATION_KEYS_0;
     v2(l_moderationDetail_0, l_l_TRANSLATION_KEYS_0_0);
     v3(l_moderationDetail_0, l_l_TRANSLATION_KEYS_0_0);
-    local v47 = l_useLocalization_0(l_l_TRANSLATION_KEYS_0_0);
-    local v48 = l_useCallback_0(function() --[[ Line: 118 ]]
-        -- upvalues: v17 (ref), v9 (ref), l_moderationDetail_0 (copy), v32 (copy)
+    local v48 = l_useLocalization_0(l_l_TRANSLATION_KEYS_0_0);
+    local v49 = l_useCallback_0(function() --[[ Line: 121 ]]
+        -- upvalues: v17 (ref), v9 (ref), l_moderationDetail_0 (copy), v33 (copy)
         return v17.createElement(v9, {
             moderationDetail = l_moderationDetail_0, 
-            LogoutThunk = v32.LogoutThunk
+            LogoutThunk = v33.LogoutThunk
         });
-    end, l_dependencyArray_0(l_moderationDetail_0, v32.LogoutThunk));
-    if v31 and v33 then
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_moderationDetail_0, 
+        v33.LogoutThunk
+    } else l_dependencyArray_0(l_moderationDetail_0, v33.LogoutThunk));
+    if v31 and v34 then
         return v17.createElement(v11, {
-            title = v47[l_punishmentTypeDescription_0] or ""
+            title = v48[l_punishmentTypeDescription_0] or ""
         });
     else
         return v17.createElement(l_NotApprovedPageProvider_0, if v31 then {
-            translations = v47, 
+            translations = v48, 
             moderationDetail = l_moderationDetail_0, 
-            commutationEligibility = v35
+            commutationEligibility = v36
         } else {
-            translations = v47, 
+            translations = v48, 
             moderationDetail = l_moderationDetail_0
         }, v17.createElement(l_PageNavigationProvider_0, {
             moderationDetail = l_moderationDetail_0
         }, v17.createElement(l_PageAnalyticsProvider_0, nil, v17.createElement(l_FullPageModal_0, {
-            title = v47[l_punishmentTypeDescription_0], 
-            screenSize = v39, 
+            title = v48[l_punishmentTypeDescription_0], 
+            screenSize = v40, 
             marginSize = 0, 
             distanceFromTop = l_Y_0, 
-            footerContent = v48
+            footerContent = v49
         }, {
             Content = v17.createElement(v5, if v31 then {
                 moderationDetail = l_moderationDetail_0, 
-                LogoutThunk = v32.LogoutThunk, 
-                commutationEligibility = v35
+                LogoutThunk = v33.LogoutThunk, 
+                commutationEligibility = v36
             } else {
                 moderationDetail = l_moderationDetail_0, 
-                LogoutThunk = v32.LogoutThunk
+                LogoutThunk = v33.LogoutThunk
             })
         }))));
     end;

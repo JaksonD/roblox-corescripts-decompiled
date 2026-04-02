@@ -17,7 +17,7 @@ local v9 = {
         frequency = 3
     }
 };
-return function(v10) --[[ Line: 60 ]] --[[ Name: NavigationRail ]]
+return function(v10) --[[ Line: 64 ]] --[[ Name: NavigationRail ]]
     -- upvalues: v3 (copy), v9 (copy), v7 (copy), v8 (copy), v4 (copy), v5 (copy)
     assert(#v10.items > 0, "At least one item should be present!");
     local v11 = v3.Dictionary.join(v9, v10);
@@ -35,7 +35,7 @@ return function(v10) --[[ Line: 60 ]] --[[ Name: NavigationRail ]]
         error("NavigationRail alignment type is incorrect!");
     end;
     local v18, v19 = v4.useState(if v11.size then v11.size.X.Offset else 0);
-    local v21 = v4.useCallback(function(v20) --[[ Line: 86 ]]
+    local v21 = v4.useCallback(function(v20) --[[ Line: 90 ]]
         -- upvalues: v11 (copy), v19 (copy)
         if v11.animated then
             v19(v20.AbsoluteSize.X);
@@ -44,7 +44,7 @@ return function(v10) --[[ Line: 60 ]] --[[ Name: NavigationRail ]]
         v11.animated
     });
     local v22, v23 = v5.useAnimatedBinding((not v11.animated or v11.isVisible) and 0 or -v18);
-    v4.useEffect(function() --[[ Line: 93 ]]
+    v4.useEffect(function() --[[ Line: 97 ]]
         -- upvalues: v11 (copy), v23 (copy), v5 (ref), v18 (copy)
         if v11.animated then
             if v11.isVisible then
@@ -87,9 +87,15 @@ return function(v10) --[[ Line: 60 ]] --[[ Name: NavigationRail ]]
             v24[tostring(v27)] = v11.renderItem(v28, v29);
         end;
     end;
-    local v31 = v22:map(function(v30) --[[ Line: 132 ]]
+    local v31 = v22:map(function(v30) --[[ Line: 136 ]]
         return UDim2.new(0, math.floor(v30 + 0.5), 0, 0);
     end);
+    if v11.leadingComponent then
+        v24["0"] = v11.leadingComponent;
+    end;
+    if v11.trailingComponent then
+        v24[":"] = v11.trailingComponent;
+    end;
     return v4.createElement("Frame", {
         BackgroundTransparency = 1, 
         ClipsDescendants = v11.clipsDescendants, 

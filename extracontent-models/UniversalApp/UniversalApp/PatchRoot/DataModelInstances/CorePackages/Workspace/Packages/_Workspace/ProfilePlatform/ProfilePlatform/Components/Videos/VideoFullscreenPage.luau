@@ -24,139 +24,152 @@ local l_useScreenSize_0 = require(l_Parent_0.RobloxAppHooks).useScreenSize;
 local l_useNavigationFocus_0 = require(l_Parent_0.Navigation).useNavigationFocus;
 local l_FFlagBrandVideosEnableActionAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagBrandVideosEnableActionAnalytics;
 local v25 = game:DefineFastFlag("BrandVideosFixCloseFullscreen", false);
-return function() --[[ Line: 58 ]]
-    -- upvalues: l_useNavigation_0 (copy), l_useScreenSize_0 (copy), l_useStyle_0 (copy), v3 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (copy), l_useNavigationFocus_0 (copy), v6 (copy), l_dependencyArray_0 (copy), l_VideoLogger_0 (copy), l_VideoActions_0 (copy), v25 (copy), l_UserInputService_0 (copy), l_FullscreenPageWithSafeArea_0 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_ButtonSize_0 (copy), v11 (copy), l_VideoPlaybackCoordinator_0 (copy), v12 (copy), l_Interactable_0 (copy)
-    local v26 = l_useNavigation_0();
-    local v27 = v26.getParam("extraProps");
-    local v28 = l_useScreenSize_0();
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+return function() --[[ Line: 60 ]]
+    -- upvalues: l_useNavigation_0 (copy), l_useScreenSize_0 (copy), l_useStyle_0 (copy), v3 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (copy), l_useNavigationFocus_0 (copy), v6 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), l_VideoLogger_0 (copy), l_VideoActions_0 (copy), v25 (copy), l_UserInputService_0 (copy), l_FullscreenPageWithSafeArea_0 (copy), l_View_0 (copy), l_IconButton_0 (copy), l_ButtonSize_0 (copy), v11 (copy), l_VideoPlaybackCoordinator_0 (copy), v12 (copy), l_Interactable_0 (copy)
+    local v27 = l_useNavigation_0();
+    local v28 = v27.getParam("extraProps");
+    local v29 = l_useScreenSize_0();
     local l_Theme_0 = l_useStyle_0().Theme;
-    local v30, v31 = v3.useState(0);
-    local v32, v33 = v3.useState(0);
-    local v34, v35 = v3.useState(true);
-    local v36, v37 = v3.useState(not v27 or not (v27.isMuted ~= nil) or v27.isMuted);
-    local v38 = v3.useRef(nil);
-    local v39 = if l_FFlagBrandVideosEnableActionAnalytics_0 and v27 and v27.videoKey then v27.videoKey or v27.videoId else nil;
-    v3.useEffect(function() --[[ Line: 77 ]]
-        -- upvalues: v27 (copy), v36 (copy)
-        if v27 and v27.onMuteUpdate then
-            v27.onMuteUpdate(v36);
+    local v31, v32 = v3.useState(0);
+    local v33, v34 = v3.useState(0);
+    local v35, v36 = v3.useState(true);
+    local v37, v38 = v3.useState(not v28 or not (v28.isMuted ~= nil) or v28.isMuted);
+    local v39 = v3.useRef(nil);
+    local v40 = if l_FFlagBrandVideosEnableActionAnalytics_0 and v28 and v28.videoKey then v28.videoKey or v28.videoId else nil;
+    v3.useEffect(function() --[[ Line: 79 ]]
+        -- upvalues: v28 (copy), v37 (copy)
+        if v28 and v28.onMuteUpdate then
+            v28.onMuteUpdate(v37);
         end;
     end, {
-        v36, 
-        v27
+        v37, 
+        v28
     });
-    local v40 = if l_FFlagBrandVideosEnableActionAnalytics_0 then l_useNavigationFocus_0() else nil;
-    local v43 = if l_FFlagBrandVideosEnableActionAnalytics_0 then v3.useCallback(function(v41) --[[ Line: 86 ]]
-        -- upvalues: v36 (copy), v27 (copy), v39 (copy), v6 (ref), v40 (copy), v32 (copy)
-        if v41 == nil then
-            v41 = v36;
+    local v41 = if l_FFlagBrandVideosEnableActionAnalytics_0 then l_useNavigationFocus_0() else nil;
+    local v44 = if l_FFlagBrandVideosEnableActionAnalytics_0 then v3.useCallback(function(v42) --[[ Line: 89 ]]
+        -- upvalues: v37 (copy), v28 (copy), v40 (copy), v6 (ref), v41 (copy), v33 (copy)
+        if v42 == nil then
+            v42 = v37;
         end;
-        local v42 = nil;
-        if v27 and v27.videoPlaybackCoordinator then
-            v42 = v27.videoPlaybackCoordinator:getVideoMetadata(v39);
+        local v43 = nil;
+        if v28 and v28.videoPlaybackCoordinator then
+            v43 = v28.videoPlaybackCoordinator:getVideoMetadata(v40);
         end;
-        return v6.Dictionary.join(if v27 then v27.videoAnalyticsMetadata else {}, {
-            isAudible = not v41, 
+        return v6.Dictionary.join(if v28 then v28.videoAnalyticsMetadata else {}, {
+            isAudible = not v42, 
             isFullscreen = true, 
-            isVisible = v40, 
-            videoAssetDuration = v32 or 0, 
-            volumeLevel = v41 and 0 or 1, 
-            playbackSessionId = v42 and v42.playbackSessionId, 
-            impressionId = v42 and v42.impressionId
+            isVisible = v41, 
+            videoAssetDuration = v33 or 0, 
+            volumeLevel = v42 and 0 or 1, 
+            playbackSessionId = v43 and v43.playbackSessionId, 
+            impressionId = v43 and v43.impressionId
         });
-    end, l_dependencyArray_0(v36, v40, v32)) else nil;
-    local v46 = v3.useMemo(function() --[[ Line: 107 ]]
-        -- upvalues: v28 (copy)
-        local l_X_0 = v28.X;
-        local v45 = l_X_0 / 1.7777777777777777;
-        if v28.Y < v45 then
-            v45 = v28.Y;
-            l_X_0 = v45 * 1.7777777777777777;
+    end, if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v37, 
+        v41, 
+        v33
+    } else l_dependencyArray_0(v37, v41, v33)) else nil;
+    local v47 = v3.useMemo(function() --[[ Line: 114 ]]
+        -- upvalues: v29 (copy)
+        local l_X_0 = v29.X;
+        local v46 = l_X_0 / 1.7777777777777777;
+        if v29.Y < v46 then
+            v46 = v29.Y;
+            l_X_0 = v46 * 1.7777777777777777;
         end;
-        return UDim2.new(0, l_X_0, 0, v45);
+        return UDim2.new(0, l_X_0, 0, v46);
     end, {
-        v28.X, 
-        v28.Y
+        v29.X, 
+        v29.Y
     });
-    local v47 = v3.useCallback(function() --[[ Line: 119 ]]
-        -- upvalues: l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v43 (copy), v25 (ref), v38 (copy), v34 (copy), v27 (copy), v39 (copy), v26 (copy)
+    local v48 = v3.useCallback(function() --[[ Line: 126 ]]
+        -- upvalues: l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v44 (copy), v25 (ref), v39 (copy), v35 (copy), v28 (copy), v40 (copy), v27 (copy)
         if l_FFlagBrandVideosEnableActionAnalytics_0 then
-            l_VideoLogger_0.reportVideoAction(l_VideoActions_0.exit_fullscreen, nil, v43());
+            l_VideoLogger_0.reportVideoAction(l_VideoActions_0.exit_fullscreen, nil, v44());
         end;
-        if v25 and v38.current and v34 then
-            v38.current.togglePlayPause();
+        if v25 and v39.current and v35 then
+            v39.current.togglePlayPause();
         end;
-        if l_FFlagBrandVideosEnableActionAnalytics_0 and v27 and v27.videoPlaybackCoordinator then
-            v27.videoPlaybackCoordinator:setVideoKeepSessionOnPlaybackCancel(v39, false);
-            v27.videoPlaybackCoordinator:cancelPlayback(v39, "", nil, nil, v43());
+        if l_FFlagBrandVideosEnableActionAnalytics_0 and v28 and v28.videoPlaybackCoordinator then
+            v28.videoPlaybackCoordinator:setVideoKeepSessionOnPlaybackCancel(v40, false);
+            v28.videoPlaybackCoordinator:cancelPlayback(v40, "", nil, nil, v44());
         end;
-        if l_FFlagBrandVideosEnableActionAnalytics_0 and v27 and v27.onFullscreenClose then
-            v27.onFullscreenClose();
+        if l_FFlagBrandVideosEnableActionAnalytics_0 and v28 and v28.onFullscreenClose then
+            v28.onFullscreenClose();
         end;
-        v26.goBack();
+        v27.goBack();
     end, {
-        v26.goBack
+        v27.goBack
     });
-    local v52 = v3.useCallback(function(v48, v49, v50, v51) --[[ Line: 137 ]]
-        -- upvalues: v31 (copy), v33 (copy), v35 (copy), v37 (copy)
-        v31(v48);
-        v33(v49);
-        v35(v50);
-        v37(v51);
+    local v53 = v3.useCallback(function(v49, v50, v51, v52) --[[ Line: 144 ]]
+        -- upvalues: v32 (copy), v34 (copy), v36 (copy), v38 (copy)
+        v32(v49);
+        v34(v50);
+        v36(v51);
+        v38(v52);
     end, {});
-    local v54 = v3.useCallback(function(v53) --[[ Line: 144 ]]
-        -- upvalues: v38 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v43 (copy), v30 (copy), v32 (copy)
-        if v38.current and v38.current.setTimePosition then
+    local v55 = v3.useCallback(function(v54) --[[ Line: 152 ]]
+        -- upvalues: v39 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v44 (copy), v31 (copy), v33 (copy)
+        if v39.current and v39.current.setTimePosition then
             if l_FFlagBrandVideosEnableActionAnalytics_0 then
-                l_VideoLogger_0.reportVideoAction(l_VideoActions_0.scrub, nil, v43(), {
-                    scrubStartTime = v30, 
-                    scrubEndTime = v32 * v53
+                l_VideoLogger_0.reportVideoAction(l_VideoActions_0.scrub, nil, v44(), {
+                    scrubStartTime = v31, 
+                    scrubEndTime = v33 * v54
                 });
             end;
-            v38.current.setTimePosition(v32 * v53);
+            v39.current.setTimePosition(v33 * v54);
         end;
-    end, if l_FFlagBrandVideosEnableActionAnalytics_0 then l_dependencyArray_0(v32, v30) else {
-        v32
+    end, if l_FFlagBrandVideosEnableActionAnalytics_0 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v33, 
+        v31
+    } else l_dependencyArray_0(v33, v31) else {
+        v33
     });
-    local v55 = v3.useCallback(function() --[[ Line: 156 ]]
-        -- upvalues: v38 (copy)
-        if v38.current and v38.current.togglePlayPause then
-            v38.current.togglePlayPause();
+    local v56 = v3.useCallback(function() --[[ Line: 170 ]]
+        -- upvalues: v39 (copy)
+        if v39.current and v39.current.togglePlayPause then
+            v39.current.togglePlayPause();
         end;
     end, {});
-    local v57 = v3.useCallback(function() --[[ Line: 163 ]]
-        -- upvalues: v38 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), v36 (copy), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v43 (copy)
-        if v38.current and v38.current.toggleMute then
-            v38.current.toggleMute();
+    local v58 = v3.useCallback(function() --[[ Line: 177 ]]
+        -- upvalues: v39 (copy), l_FFlagBrandVideosEnableActionAnalytics_0 (ref), v37 (copy), l_VideoLogger_0 (ref), l_VideoActions_0 (ref), v44 (copy)
+        if v39.current and v39.current.toggleMute then
+            v39.current.toggleMute();
             if l_FFlagBrandVideosEnableActionAnalytics_0 then
-                local v56 = not v36;
-                l_VideoLogger_0.reportVideoAction(l_VideoActions_0.volume, nil, v43(v56));
+                local v57 = not v37;
+                l_VideoLogger_0.reportVideoAction(l_VideoActions_0.volume, nil, v44(v57));
             end;
         end;
-    end, if l_FFlagBrandVideosEnableActionAnalytics_0 then l_dependencyArray_0(v36, v32, v40, v27) else {});
-    v3.useEffect(function() --[[ Line: 178 ]]
-        -- upvalues: l_UserInputService_0 (ref), v55 (copy), v47 (copy)
-        local v60 = l_UserInputService_0.InputBegan:Connect(function(v58, v59) --[[ Line: 179 ]]
-            -- upvalues: v55 (ref), v47 (ref)
-            if v59 then
+    end, if l_FFlagBrandVideosEnableActionAnalytics_0 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v37, 
+        v33, 
+        v41, 
+        v28
+    } else l_dependencyArray_0(v37, v33, v41, v28) else {});
+    v3.useEffect(function() --[[ Line: 194 ]]
+        -- upvalues: l_UserInputService_0 (ref), v56 (copy), v48 (copy)
+        local v61 = l_UserInputService_0.InputBegan:Connect(function(v59, v60) --[[ Line: 195 ]]
+            -- upvalues: v56 (ref), v48 (ref)
+            if v60 then
                 return;
             else
-                if v58.KeyCode == Enum.KeyCode.Space then
-                    v55();
+                if v59.KeyCode == Enum.KeyCode.Space then
+                    v56();
                 end;
-                if v58.KeyCode == Enum.KeyCode.Escape then
-                    v47();
+                if v59.KeyCode == Enum.KeyCode.Escape then
+                    v48();
                 end;
                 return;
             end;
         end);
-        return function() --[[ Line: 193 ]]
-            -- upvalues: v60 (copy)
-            v60:Disconnect();
+        return function() --[[ Line: 209 ]]
+            -- upvalues: v61 (copy)
+            v61:Disconnect();
         end;
     end, {
-        v55, 
-        v47
+        v56, 
+        v48
     });
     return v3.createElement(l_FullscreenPageWithSafeArea_0, {
         includeStatusBar = true, 
@@ -164,7 +177,7 @@ return function() --[[ Line: 58 ]]
         BackgroundTransparency = l_Theme_0.BackgroundDefault.Transparency
     }, {
         CloseButtonContainer = v3.createElement(l_View_0, {
-            tag = "align-x-right align-y-top anchor-top-right position-top-right auto-xy padding-medium padding-xlarge", 
+            tag = "align-x-right align-y-top position-top-right anchor-top-right auto-xy padding-xlarge padding-medium", 
             ZIndex = 100000
         }, {
             CloseButton = v3.createElement(l_IconButton_0, {
@@ -172,43 +185,43 @@ return function() --[[ Line: 58 ]]
                 Position = UDim2.new(0, 0, 0.5, 0), 
                 icon = "icons/navigation/close", 
                 size = l_ButtonSize_0.Medium, 
-                onActivated = v47
+                onActivated = v48
             })
         }), 
         VideoContainer = v3.createElement(l_View_0, {
-            Size = v46, 
-            tag = "anchor-center-center position-center-center"
+            Size = v47, 
+            tag = "position-center-center anchor-center-center"
         }, {
-            VideoPlayer = if v27 and v27.videoId then v3.createElement(v11, {
-                initialTimePosition = v27.initialTimePosition, 
+            VideoPlayer = if v28 and v28.videoId then v3.createElement(v11, {
+                initialTimePosition = v28.initialTimePosition, 
                 isFullscreen = true, 
-                isMuted = v36, 
+                isMuted = v37, 
                 looped = false, 
-                videoId = v27.videoId, 
-                videoKey = if l_FFlagBrandVideosEnableActionAnalytics_0 then v39 else nil, 
-                onProgressUpdate = v52, 
-                videoPlaybackCoordinator = if l_FFlagBrandVideosEnableActionAnalytics_0 then v27.videoPlaybackCoordinator or l_VideoPlaybackCoordinator_0.new() else nil, 
-                videoAnalyticsMetadata = if l_FFlagBrandVideosEnableActionAnalytics_0 then v27.videoAnalyticsMetadata else nil, 
-                ref = v38
+                videoId = v28.videoId, 
+                videoKey = if l_FFlagBrandVideosEnableActionAnalytics_0 then v40 else nil, 
+                onProgressUpdate = v53, 
+                videoPlaybackCoordinator = if l_FFlagBrandVideosEnableActionAnalytics_0 then v28.videoPlaybackCoordinator or l_VideoPlaybackCoordinator_0.new() else nil, 
+                videoAnalyticsMetadata = if l_FFlagBrandVideosEnableActionAnalytics_0 then v28.videoAnalyticsMetadata else nil, 
+                ref = v39
             }) else nil
         }), 
-        FixedProgressBar = if v32 > 0 then v3.createElement(l_View_0, {
+        FixedProgressBar = if v33 > 0 then v3.createElement(l_View_0, {
             Size = UDim2.new(1, 0, 0, 80), 
-            tag = "anchor-bottom-center position-bottom-center", 
+            tag = "position-bottom-center anchor-bottom-center", 
             ZIndex = 1000
         }, {
             ProgressBar = v3.createElement(v12, {
                 isFullScreen = true, 
-                isMuted = v36, 
-                isPlaying = v34, 
-                onMuteButtonActivated = v57, 
-                onPlayButtonActivated = v55, 
-                onProgressBarActivated = v54, 
-                timePosition = v30, 
-                timeLength = v32
+                isMuted = v37, 
+                isPlaying = v35, 
+                onMuteButtonActivated = v58, 
+                onPlayButtonActivated = v56, 
+                onProgressBarActivated = v55, 
+                timePosition = v31, 
+                timeLength = v33
             })
         }) else nil, 
-        InteractableWrapper = if v32 > 0 then v3.createElement(l_View_0, {
+        InteractableWrapper = if v33 > 0 then v3.createElement(l_View_0, {
             Size = UDim2.fromScale(1, 1), 
             ZIndex = 999
         }, {
@@ -216,7 +229,7 @@ return function() --[[ Line: 58 ]]
                 Size = UDim2.fromScale(1, 1), 
                 BackgroundTransparency = 1, 
                 Selectable = false, 
-                [v3.Event.Activated] = v55
+                [v3.Event.Activated] = v56
             })
         }) else nil
     });

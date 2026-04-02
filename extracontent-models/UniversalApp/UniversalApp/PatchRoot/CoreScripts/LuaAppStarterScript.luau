@@ -133,6 +133,9 @@ else
     if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagDebugForceConsoleSafeInsets and UserSettings().GameSettings:InStudioMode() then
         require(l_CorePackages_0.Workspace.Packages.Display).GetDisplayStore().forceConsoleSafeInsets();
     end;
+    if require(l_CorePackages_0.Workspace.Packages.SharedFlags).FFlagAvatarJointUpgradeInUA and require(l_CorePackages_0.Packages.Thumbnailing).EmoteUtility.EmoteUtilitySupportAJU then
+        game:GetService("StarterPlayer").AvatarJointUpgrade = Enum.RolloutState.Enabled;
+    end;
     v6.default:logEventOnce("lua_app_starter_script_end");
     return;
 end;

@@ -28,36 +28,37 @@ local v26 = require(l_script_FirstAncestor_0.Parent.Flags.FFlagIntegrationsChrom
 local v27 = game:DefineFastFlag("ChromeDeprecateMRUs", false);
 local l_FFlagVirtualCursorTopbarAlwaysVisible_0 = v6.FFlagVirtualCursorTopbarAlwaysVisible;
 local l_FFlagEnableSideSheet_0 = v6.FFlagEnableSideSheet;
+local l_FFlagEnableChromeWindowsNotInMenu_0 = require(l_script_FirstAncestor_0.Flags).FFlagEnableChromeWindowsNotInMenu;
 if l_FFlagEnableSideSheet_0 then
     v23 = require(l_CorePackages_0.Workspace.Packages.InExperienceSideSheet).openSideSheet;
 end;
-local v30 = {};
-v30.__index = v30;
-v30.AvailabilitySignal = v13.AvailabilitySignalState;
-v30.IntegrationStatus = {
+local v31 = {};
+v31.__index = v31;
+v31.AvailabilitySignal = v13.AvailabilitySignalState;
+v31.IntegrationStatus = {
     None = 0, 
     Icon = 1, 
     Window = 2
 };
-noop = function() --[[ Line: 75 ]] --[[ Name: noop ]]
+noop = function() --[[ Line: 76 ]] --[[ Name: noop ]]
 
 end;
-local v31 = {
+local v32 = {
     id = "div", 
     label = "div", 
-    initialAvailability = v30.AvailabilitySignal.Unavailable, 
-    availability = l_AvailabilitySignal_0.new(v30.AvailabilitySignal.Unavailable), 
+    initialAvailability = v31.AvailabilitySignal.Unavailable, 
+    availability = l_AvailabilitySignal_0.new(v31.AvailabilitySignal.Unavailable), 
     notification = l_NotifySignal_0.new(), 
     components = {}, 
     hideNotificationCountWhileOpen = false
 };
-createUnibarLayoutInfo = function(v32, v33) --[[ Line: 219 ]] --[[ Name: createUnibarLayoutInfo ]]
-    return Rect.new(v32, v32 + v33);
+createUnibarLayoutInfo = function(v33, v34) --[[ Line: 220 ]] --[[ Name: createUnibarLayoutInfo ]]
+    return Rect.new(v33, v33 + v34);
 end;
-v30.new = function() --[[ Line: 223 ]] --[[ Name: new ]]
-    -- upvalues: l_LocalizationService_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v22 (copy), v13 (copy), l_ObservableValue_0 (copy), l_NotifySignal_0 (copy), l_Localization_0 (copy), l_Signal_0 (copy), l_isInExperienceUIVREnabled_0 (copy), v30 (copy), v15 (copy), v27 (copy), l_FocusOnChromeSignal_0 (copy), l_FocusOffChromeSignal_0 (copy)
+v31.new = function() --[[ Line: 224 ]] --[[ Name: new ]]
+    -- upvalues: l_LocalizationService_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v22 (copy), v13 (copy), l_ObservableValue_0 (copy), l_NotifySignal_0 (copy), l_Localization_0 (copy), l_Signal_0 (copy), l_isInExperienceUIVREnabled_0 (copy), v31 (copy), v15 (copy), v27 (copy), l_FocusOnChromeSignal_0 (copy), l_FocusOffChromeSignal_0 (copy)
     local l_RobloxLocaleId_0 = l_LocalizationService_0.RobloxLocaleId;
-    local v35 = {
+    local v36 = {
         _shortcutService = if l_FFlagEnableConsoleExpControls_0 then v22.new() else nil, 
         _layout = v13.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero)), 
         _menuAbsolutePosition = Vector2.zero, 
@@ -91,613 +92,624 @@ v30.new = function() --[[ Line: 223 ]] --[[ Name: new ]]
         _topBarVisibility = if l_isInExperienceUIVREnabled_0 then l_ObservableValue_0.new(nil) else nil, 
         _inFocusNav = l_ObservableValue_0.new(false)
     };
-    local v36 = setmetatable(v35, v30);
-    v15.viewport:connect(function(v37) --[[ Line: 266 ]]
-        -- upvalues: v27 (ref), v36 (copy)
+    local v37 = setmetatable(v36, v31);
+    v15.viewport:connect(function(v38) --[[ Line: 267 ]]
+        -- upvalues: v27 (ref), v37 (copy)
         if v27 then
-            v36:updateWindowSizeSignals();
+            v37:updateWindowSizeSignals();
             return;
         else
-            v36:updateScreenSize(v37.size, v37.isMobileDevice, v37.portraitOrientation, v37.tinyPortrait);
+            v37:updateScreenSize(v38.size, v38.isMobileDevice, v38.portraitOrientation, v38.tinyPortrait);
             return;
         end;
     end, true);
     if l_FFlagEnableConsoleExpControls_0 then
-        v35._shortcutService.onShortcutBarChanged:connect(function(v38) --[[ Line: 280 ]]
-            -- upvalues: v36 (copy)
-            v36._currentShortcutBar:set(v38);
+        v36._shortcutService.onShortcutBarChanged:connect(function(v39) --[[ Line: 281 ]]
+            -- upvalues: v37 (copy)
+            v37._currentShortcutBar:set(v39);
         end);
     end;
-    l_FocusOnChromeSignal_0:connect(function(v39) --[[ Line: 284 ]]
-        -- upvalues: v35 (copy), v36 (copy)
-        if v39 and not v35._subMenuConfig.nine_dot[v39] then
-            v36:setSelected(v39);
+    l_FocusOnChromeSignal_0:connect(function(v40) --[[ Line: 285 ]]
+        -- upvalues: v36 (copy), v37 (copy)
+        if v40 and not v36._subMenuConfig.nine_dot[v40] then
+            v37:setSelected(v40);
         end;
-        v36:enableFocusNav();
+        v37:enableFocusNav();
     end);
-    l_FocusOffChromeSignal_0:connect(function() --[[ Line: 291 ]]
-        -- upvalues: v36 (copy), l_FFlagEnableConsoleExpControls_0 (ref)
-        v36:disableFocusNav();
+    l_FocusOffChromeSignal_0:connect(function() --[[ Line: 292 ]]
+        -- upvalues: v37 (copy), l_FFlagEnableConsoleExpControls_0 (ref)
+        v37:disableFocusNav();
         if l_FFlagEnableConsoleExpControls_0 then
-            v36:setShortcutBar(nil);
+            v37:setShortcutBar(nil);
         end;
     end);
-    return v36;
+    return v37;
 end;
-v30.storeChromeInteracted = function(_) --[[ Line: 303 ]] --[[ Name: storeChromeInteracted ]]
+v31.storeChromeInteracted = function(_) --[[ Line: 304 ]] --[[ Name: storeChromeInteracted ]]
     -- upvalues: v14 (copy)
     if v14.isEnabled() then
         v14.storeForLocalPlayer("ChromeInteracted3", true);
     end;
 end;
-v30.updateScreenSize = function(v41, _, v43, v44, v45) --[[ Line: 309 ]] --[[ Name: updateScreenSize ]]
+v31.updateScreenSize = function(v42, _, v44, v45, v46) --[[ Line: 310 ]] --[[ Name: updateScreenSize ]]
     -- upvalues: v21 (copy)
-    local v46 = 0;
-    v46 = if v43 then if v45 then v21.MOBILE_TINY_PORTRAIT_SLOTS - v21.CORE_SLOTS else if v44 then v21.MOBILE_PORTRAIT_SLOTS - v21.CORE_SLOTS else v21.MOBILE_LANDSCAPE_SLOTS - v21.CORE_SLOTS else v21.NON_MOBILE_SLOTS - v21.CORE_SLOTS;
-    if v46 ~= v41._mostRecentlyUsedAndPinnedLimit then
-        v41._mostRecentlyUsedAndPinnedLimit = v46;
-        v41:updateMenuList();
-        v41:updateNotificationTotals();
+    local v47 = 0;
+    v47 = if v44 then if v46 then v21.MOBILE_TINY_PORTRAIT_SLOTS - v21.CORE_SLOTS else if v45 then v21.MOBILE_PORTRAIT_SLOTS - v21.CORE_SLOTS else v21.MOBILE_LANDSCAPE_SLOTS - v21.CORE_SLOTS else v21.NON_MOBILE_SLOTS - v21.CORE_SLOTS;
+    if v47 ~= v42._mostRecentlyUsedAndPinnedLimit then
+        v42._mostRecentlyUsedAndPinnedLimit = v47;
+        v42:updateMenuList();
+        v42:updateNotificationTotals();
     end;
-    v41:updateWindowSizeSignals();
+    v42:updateWindowSizeSignals();
 end;
-v30.updateWindowSizeSignals = function(v47) --[[ Line: 345 ]] --[[ Name: updateWindowSizeSignals ]]
-    for _, v49 in v47._integrations do
-        if v49.windowSize then
-            v49.windowSize:updateConstraints();
+v31.updateWindowSizeSignals = function(v48) --[[ Line: 346 ]] --[[ Name: updateWindowSizeSignals ]]
+    for _, v50 in v48._integrations do
+        if v50.windowSize then
+            v50.windowSize:updateConstraints();
         end;
     end;
 end;
-v30.notificationIndicator = function(v50) --[[ Line: 353 ]] --[[ Name: notificationIndicator ]]
-    return v50._notificationIndicator;
+v31.notificationIndicator = function(v51) --[[ Line: 354 ]] --[[ Name: notificationIndicator ]]
+    return v51._notificationIndicator;
 end;
-v30.toggleSubMenu = function(v51, v52) --[[ Line: 357 ]] --[[ Name: toggleSubMenu ]]
+v31.toggleSubMenu = function(v52, v53) --[[ Line: 358 ]] --[[ Name: toggleSubMenu ]]
     -- upvalues: l_FFlagEnableSideSheet_0 (copy), v23 (ref)
     if l_FFlagEnableSideSheet_0 then
         v23();
         return;
-    elseif not v51._subMenuConfig[v52] then
-        warn("Not a valid subMenuId:" .. v52);
+    elseif not v52._subMenuConfig[v53] then
+        warn("Not a valid subMenuId:" .. v53);
         return;
-    elseif v51._currentSubMenu:get() == v52 then
-        v51._currentSubMenu:set(nil);
+    elseif v52._currentSubMenu:get() == v53 then
+        v52._currentSubMenu:set(nil);
         return;
     else
-        v51._currentSubMenu:set(v52);
+        v52._currentSubMenu:set(v53);
         return;
     end;
 end;
-v30.currentSubMenu = function(v53) --[[ Line: 377 ]] --[[ Name: currentSubMenu ]]
-    return v53._currentSubMenu;
+v31.currentSubMenu = function(v54) --[[ Line: 378 ]] --[[ Name: currentSubMenu ]]
+    return v54._currentSubMenu;
 end;
-v30.inFocusNav = function(v54) --[[ Line: 381 ]] --[[ Name: inFocusNav ]]
-    return v54._inFocusNav;
+v31.inFocusNav = function(v55) --[[ Line: 382 ]] --[[ Name: inFocusNav ]]
+    return v55._inFocusNav;
 end;
-v30.enableFocusNav = function(v55) --[[ Line: 385 ]] --[[ Name: enableFocusNav ]]
+v31.enableFocusNav = function(v56) --[[ Line: 386 ]] --[[ Name: enableFocusNav ]]
     -- upvalues: l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_GamepadService_0 (copy), l_FFlagEnableConsoleExpControls_0 (copy), v21 (copy)
     if l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled then
         return;
     else
-        if not v55._inFocusNav:get() then
-            v55._inFocusNav:set(true);
+        if not v56._inFocusNav:get() then
+            v56._inFocusNav:set(true);
         end;
         if l_FFlagEnableConsoleExpControls_0 then
-            v55:setShortcutBar(v21.UNIBAR_SHORTCUTBAR_ID);
+            v56:setShortcutBar(v21.UNIBAR_SHORTCUTBAR_ID);
         end;
         return;
     end;
 end;
-v30.disableFocusNav = function(v56) --[[ Line: 398 ]] --[[ Name: disableFocusNav ]]
+v31.disableFocusNav = function(v57) --[[ Line: 399 ]] --[[ Name: disableFocusNav ]]
     -- upvalues: l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_GamepadService_0 (copy)
     if l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled then
         return;
     else
-        if v56._inFocusNav:get() then
-            v56._inFocusNav:set(false);
-            v56._selectedItem:set(nil);
-            v56._currentSubMenu:set(nil);
+        if v57._inFocusNav:get() then
+            v57._inFocusNav:set(false);
+            v57._selectedItem:set(nil);
+            v57._currentSubMenu:set(nil);
         end;
         return;
     end;
 end;
-v30.toggleWindow = function(v57, v58) --[[ Line: 410 ]] --[[ Name: toggleWindow ]]
-    -- upvalues: v30 (copy), v14 (copy)
-    if v57._integrations[v58].components.Window then
-        if not v57._integrationsStatus[v58] or v57._integrationsStatus[v58] == v30.IntegrationStatus.None or v57._integrationsStatus[v58] == v30.IntegrationStatus.Icon then
-            v57._integrationsStatus[v58] = v30.IntegrationStatus.Window;
+v31.toggleWindow = function(v58, v59) --[[ Line: 411 ]] --[[ Name: toggleWindow ]]
+    -- upvalues: v31 (copy), v14 (copy)
+    if v58._integrations[v59].components.Window then
+        if not v58._integrationsStatus[v59] or v58._integrationsStatus[v59] == v31.IntegrationStatus.None or v58._integrationsStatus[v59] == v31.IntegrationStatus.Icon then
+            v58._integrationsStatus[v59] = v31.IntegrationStatus.Window;
         else
-            v57._integrationsStatus[v58] = v30.IntegrationStatus.Icon;
+            v58._integrationsStatus[v59] = v31.IntegrationStatus.Icon;
         end;
-        v57._onIntegrationStatusChanged:fire(v58, v57._integrationsStatus[v58]);
+        v58._onIntegrationStatusChanged:fire(v59, v58._integrationsStatus[v59]);
     end;
-    if v14.isEnabled() and v57._integrations[v58] and v57._integrations[v58].persistWindowState then
-        local v59 = v14.loadForLocalPlayer("ChromeWindowStatus") or {};
-        v59[v58] = v57._integrationsStatus[v58] == v30.IntegrationStatus.Window;
-        v14.storeForLocalPlayer("ChromeWindowStatus", v59);
+    if v14.isEnabled() and v58._integrations[v59] and v58._integrations[v59].persistWindowState then
+        local v60 = v14.loadForLocalPlayer("ChromeWindowStatus") or {};
+        v60[v59] = v58._integrationsStatus[v59] == v31.IntegrationStatus.Window;
+        v14.storeForLocalPlayer("ChromeWindowStatus", v60);
     end;
-    v57:updateMenuList();
+    v58:updateMenuList();
 end;
-v30.isWindowOpen = function(v60, v61) --[[ Line: 436 ]] --[[ Name: isWindowOpen ]]
-    -- upvalues: v30 (copy)
-    return v60._integrations[v61].components.Window and v60._integrationsStatus[v61] == v30.IntegrationStatus.Window;
+v31.isWindowOpen = function(v61, v62) --[[ Line: 437 ]] --[[ Name: isWindowOpen ]]
+    -- upvalues: v31 (copy)
+    return v61._integrations[v62].components.Window and v61._integrationsStatus[v62] == v31.IntegrationStatus.Window;
 end;
-v30.menuList = function(v62) --[[ Line: 440 ]] --[[ Name: menuList ]]
-    return v62._menuList;
+v31.menuList = function(v63) --[[ Line: 441 ]] --[[ Name: menuList ]]
+    return v63._menuList;
 end;
-v30.windowList = function(v63) --[[ Line: 444 ]] --[[ Name: windowList ]]
-    return v63._windowList;
+v31.windowList = function(v64) --[[ Line: 445 ]] --[[ Name: windowList ]]
+    return v64._windowList;
 end;
-v30.dragConnection = function(v64, v65) --[[ Line: 448 ]] --[[ Name: dragConnection ]]
-    if v64._integrations[v65] then
-        return v64._dragConnection[v65];
+v31.dragConnection = function(v65, v66) --[[ Line: 449 ]] --[[ Name: dragConnection ]]
+    if v65._integrations[v66] then
+        return v65._dragConnection[v66];
     else
         return nil;
     end;
 end;
-v30.updateLocalization = function(v66, v67) --[[ Line: 456 ]] --[[ Name: updateLocalization ]]
-    local v68 = "";
+v31.updateLocalization = function(v67, v68) --[[ Line: 457 ]] --[[ Name: updateLocalization ]]
     local v69 = "";
-    v66._localizedLabelKeys[v67.id] = {};
-    v66._localizedLabelKeys[v67.id].label = v67.label;
-    v68 = v67.label;
-    local l_status_0, l_result_0 = pcall(function() --[[ Line: 467 ]]
-        -- upvalues: v68 (ref), v66 (copy)
-        v68 = v66._localization:Format(v68);
+    local v70 = "";
+    v67._localizedLabelKeys[v68.id] = {};
+    v67._localizedLabelKeys[v68.id].label = v68.label;
+    v69 = v68.label;
+    local l_status_0, l_result_0 = pcall(function() --[[ Line: 468 ]]
+        -- upvalues: v69 (ref), v67 (copy)
+        v69 = v67._localization:Format(v69);
     end);
     if not l_status_0 then
-        v68 = v67.label;
+        v69 = v68.label;
         warn(l_result_0);
     end;
-    v67.label = v68;
-    if v67.secondaryAction then
-        v66._localizedLabelKeys[v67.id].secondaryActionLabel = v67.secondaryAction.label;
-        v69 = v67.secondaryAction.label;
-        local l_status_1, l_result_1 = pcall(function() --[[ Line: 481 ]]
-            -- upvalues: v69 (ref), v66 (copy)
-            v69 = v66._localization:Format(v69);
+    v68.label = v69;
+    if v68.secondaryAction then
+        v67._localizedLabelKeys[v68.id].secondaryActionLabel = v68.secondaryAction.label;
+        v70 = v68.secondaryAction.label;
+        local l_status_1, l_result_1 = pcall(function() --[[ Line: 482 ]]
+            -- upvalues: v70 (ref), v67 (copy)
+            v70 = v67._localization:Format(v70);
         end);
         if not l_status_1 then
-            v69 = v67.secondaryAction.label;
+            v70 = v68.secondaryAction.label;
             warn(l_result_1);
         end;
-        v67.secondaryAction.label = v69;
+        v68.secondaryAction.label = v70;
     end;
-    return v67;
+    return v68;
 end;
-v30.register = function(v74, v75) --[[ Line: 496 ]] --[[ Name: register ]]
-    -- upvalues: v30 (copy), l_AvailabilitySignal_0 (copy), l_NotifySignal_0 (copy), v16 (copy), v21 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_GamepadService_0 (copy)
-    if v74._integrations[v75.id] then
-        warn(string.format(v75.id .. "already registered", debug.traceback()));
-        for _, v77 in v74._integrationsConnections[v75.id] do
-            v77:disconnect();
+v31.register = function(v75, v76) --[[ Line: 497 ]] --[[ Name: register ]]
+    -- upvalues: v31 (copy), l_AvailabilitySignal_0 (copy), l_NotifySignal_0 (copy), v16 (copy), v21 (copy), l_FFlagEnableConsoleExpControls_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (copy), l_GamepadService_0 (copy)
+    if v75._integrations[v76.id] then
+        warn(string.format(v76.id .. "already registered", debug.traceback()));
+        for _, v78 in v75._integrationsConnections[v76.id] do
+            v78:disconnect();
         end;
     end;
-    v74._integrationsConnections[v75.id] = {};
-    local v78 = v74._integrationsConnections[v75.id];
-    if v75.initialAvailability == nil then
-        v75.initialAvailability = v30.AvailabilitySignal.Unavailable;
+    v75._integrationsConnections[v76.id] = {};
+    local v79 = v75._integrationsConnections[v76.id];
+    if v76.initialAvailability == nil then
+        v76.initialAvailability = v31.AvailabilitySignal.Unavailable;
     end;
-    if v75.availability == nil then
-        v75.availability = l_AvailabilitySignal_0.new(v75.initialAvailability or v30.AvailabilitySignal.Unavailable);
+    if v76.availability == nil then
+        v76.availability = l_AvailabilitySignal_0.new(v76.initialAvailability or v31.AvailabilitySignal.Unavailable);
     end;
-    if v75.notification == nil then
-        v75.notification = l_NotifySignal_0.new();
+    if v76.notification == nil then
+        v76.notification = l_NotifySignal_0.new();
     end;
-    if v75.components == nil then
-        v75.components = {};
+    if v76.components == nil then
+        v76.components = {};
     end;
-    if v75.availability then
-        v78[#v78 + 1] = v75.availability:connect(function() --[[ Line: 525 ]]
-            -- upvalues: v74 (copy), v75 (ref)
-            v74:availabilityChanged(v75);
+    if v76.availability then
+        v79[#v79 + 1] = v76.availability:connect(function() --[[ Line: 526 ]]
+            -- upvalues: v75 (copy), v76 (ref)
+            v75:availabilityChanged(v76);
         end);
     end;
-    if v75.notification and not v75.notification:excludeFromTotalCounts() then
-        v78[#v78 + 1] = v75.notification:connect(function() --[[ Line: 531 ]]
-            -- upvalues: v74 (copy)
-            v74:updateNotificationTotals();
+    if v76.notification and not v76.notification:excludeFromTotalCounts() then
+        v79[#v79 + 1] = v76.notification:connect(function() --[[ Line: 532 ]]
+            -- upvalues: v75 (copy)
+            v75:updateNotificationTotals();
         end);
     end;
-    if v75.windowSize == nil and v75.components and v75.components.Window then
-        v75.windowSize = v16.new();
+    if v76.windowSize == nil and v76.components and v76.components.Window then
+        v76.windowSize = v16.new();
     end;
-    if v30:getWindowStatusFromStore(v75.id) and v75.persistWindowState or v75.windowDefaultOpen then
-        v74._integrationsStatus[v75.id] = v30.IntegrationStatus.Window;
-        v74._onIntegrationStatusChanged:fire(v75.id, v74._integrationsStatus[v75.id]);
+    if v31:getWindowStatusFromStore(v76.id) and v76.persistWindowState or v76.windowDefaultOpen then
+        v75._integrationsStatus[v76.id] = v31.IntegrationStatus.Window;
+        v75._onIntegrationStatusChanged:fire(v76.id, v75._integrationsStatus[v76.id]);
     end;
-    local v79 = UDim2.fromOffset(v21.MENU_ICON_SCREEN_SIDE_OFFSET, v21.WINDOW_DEFAULT_PADDING);
-    if v75.startingWindowPosition then
-        v79 = if v75.persistWindowState then v74:getWindowPositionFromStore(v75.id) or v75.startingWindowPosition else v75.startingWindowPosition;
+    local v80 = UDim2.fromOffset(v21.MENU_ICON_SCREEN_SIDE_OFFSET, v21.WINDOW_DEFAULT_PADDING);
+    if v76.startingWindowPosition then
+        v80 = if v76.persistWindowState then v75:getWindowPositionFromStore(v76.id) or v76.startingWindowPosition else v76.startingWindowPosition;
     end;
-    v74._windowPositions[v75.id] = v79;
-    v75 = v74:updateLocalization(v75);
-    local l_v75_0 = v75;
-    v74._integrations[v75.id] = l_v75_0;
-    if l_FFlagEnableConsoleExpControls_0 and v75.selected then
-        v78[#v78 + 1] = v74:selectedItem():connect(function(v81) --[[ Line: 565 ]]
-            -- upvalues: l_v75_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GamepadService_0 (ref), v75 (ref)
-            if l_v75_0.id == v81 then
+    v75._windowPositions[v76.id] = v80;
+    v76 = v75:updateLocalization(v76);
+    local l_v76_0 = v76;
+    v75._integrations[v76.id] = l_v76_0;
+    if l_FFlagEnableConsoleExpControls_0 and v76.selected then
+        v79[#v79 + 1] = v75:selectedItem():connect(function(v82) --[[ Line: 566 ]]
+            -- upvalues: l_v76_0 (copy), l_FFlagVirtualCursorTopbarAlwaysVisible_0 (ref), l_GamepadService_0 (ref), v76 (ref)
+            if l_v76_0.id == v82 then
                 if l_FFlagVirtualCursorTopbarAlwaysVisible_0 and l_GamepadService_0.GamepadCursorEnabled then
                     return;
                 else
-                    v75.selected(l_v75_0);
+                    v76.selected(l_v76_0);
                 end;
             end;
         end);
     end;
-    return l_v75_0;
+    return l_v76_0;
 end;
-v30.createIconProps = function(v82, v83, v84) --[[ Line: 578 ]] --[[ Name: createIconProps ]]
-    -- upvalues: v31 (copy)
-    local v85 = v84 or 0;
-    if v82._integrations[v83] then
+v31.createIconProps = function(v83, v84, v85) --[[ Line: 579 ]] --[[ Name: createIconProps ]]
+    -- upvalues: v32 (copy)
+    local v86 = v85 or 0;
+    if v83._integrations[v84] then
         return {
-            id = v83, 
+            id = v84, 
             children = {}, 
-            order = v85, 
-            component = v82._integrations[v83].components.Icon, 
-            integration = v82._integrations[v83], 
+            order = v86, 
+            component = v83._integrations[v84].components.Icon, 
+            integration = v83._integrations[v84], 
             isDivider = false, 
-            activated = function() --[[ Line: 588 ]] --[[ Name: activated ]]
-                -- upvalues: v82 (copy), v83 (copy)
-                v82:activate(v83);
+            activated = function() --[[ Line: 589 ]] --[[ Name: activated ]]
+                -- upvalues: v83 (copy), v84 (copy)
+                v83:activate(v84);
             end
         };
     else
         return {
-            id = v83, 
+            id = v84, 
             children = {}, 
-            order = v85, 
+            order = v86, 
             activated = noop, 
-            integration = v31
+            integration = v32
         };
     end;
 end;
-reverseOrder = function(v86) --[[ Line: 603 ]] --[[ Name: reverseOrder ]]
-    local v87 = #v86;
-    local v88 = {};
-    for v89 = 1, v87 do
-        v88[v89] = v86[v89].order;
+reverseOrder = function(v87) --[[ Line: 604 ]] --[[ Name: reverseOrder ]]
+    local v88 = #v87;
+    local v89 = {};
+    for v90 = 1, v88 do
+        v89[v90] = v87[v90].order;
     end;
-    for v90 = 1, v87 do
-        v86[v90].order = v88[v87 - v90 + 1];
+    for v91 = 1, v88 do
+        v87[v91].order = v89[v88 - v91 + 1];
     end;
 end;
-v30.updateMenuList = function(v91) --[[ Line: 616 ]] --[[ Name: updateMenuList ]]
-    -- upvalues: v31 (copy), v30 (copy), l_reverse_0 (copy)
-    local v92 = 0;
+v31.updateMenuList = function(v92) --[[ Line: 617 ]] --[[ Name: updateMenuList ]]
+    -- upvalues: v32 (copy), v31 (copy), l_reverse_0 (copy), l_FFlagEnableChromeWindowsNotInMenu_0 (copy)
     local v93 = 0;
-    local function v95(v94) --[[ Line: 620 ]] --[[ Name: iconProps ]]
-        -- upvalues: v93 (ref), v91 (copy)
-        v93 = v93 + 1;
-        return v91:createIconProps(v94, v93);
+    local v94 = 0;
+    local function v96(v95) --[[ Line: 621 ]] --[[ Name: iconProps ]]
+        -- upvalues: v94 (ref), v92 (copy)
+        v94 = v94 + 1;
+        return v92:createIconProps(v95, v94);
     end;
-    local function v97(v96) --[[ Line: 625 ]] --[[ Name: windowProps ]]
-        -- upvalues: v93 (ref), v91 (copy), v31 (ref)
-        v93 = v93 + 1;
-        if v91._integrations[v96] then
+    local function v98(v97) --[[ Line: 626 ]] --[[ Name: windowProps ]]
+        -- upvalues: v94 (ref), v92 (copy), v32 (ref)
+        v94 = v94 + 1;
+        if v92._integrations[v97] then
             return {
-                id = v96, 
+                id = v97, 
                 children = {}, 
-                order = v93, 
-                component = v91._integrations[v96].components.Window, 
+                order = v94, 
+                component = v92._integrations[v97].components.Window, 
                 activated = noop, 
-                integration = v91._integrations[v96]
+                integration = v92._integrations[v97]
             };
         else
             return {
-                id = v96, 
+                id = v97, 
                 children = {}, 
-                order = v93, 
+                order = v94, 
                 activated = noop, 
-                integration = v31
+                integration = v32
             };
         end;
     end;
-    local function v99(_) --[[ Line: 647 ]] --[[ Name: divider ]]
-        -- upvalues: v92 (ref), v93 (ref), v31 (ref)
-        v92 = v92 + 1;
+    local function v100(_) --[[ Line: 648 ]] --[[ Name: divider ]]
+        -- upvalues: v93 (ref), v94 (ref), v32 (ref)
         v93 = v93 + 1;
+        v94 = v94 + 1;
         return {
-            id = "DIV" .. v92, 
-            order = v93, 
+            id = "DIV" .. v93, 
+            order = v94, 
             isDivider = true, 
             children = {}, 
             activated = noop, 
-            integration = v31
+            integration = v32
         };
     end;
-    local function _(v100) --[[ Line: 660 ]] --[[ Name: valid ]]
-        -- upvalues: v91 (copy), v30 (ref)
-        local v101 = v91._integrations[v100];
-        if v101 then
-            local l_availability_0 = v101.availability;
-            return l_availability_0 and l_availability_0:get() ~= v30.AvailabilitySignal.Unavailable;
+    local function _(v101) --[[ Line: 661 ]] --[[ Name: valid ]]
+        -- upvalues: v92 (copy), v31 (ref)
+        local v102 = v92._integrations[v101];
+        if v102 then
+            local l_availability_0 = v102.availability;
+            return l_availability_0 and l_availability_0:get() ~= v31.AvailabilitySignal.Unavailable;
         else
             return false;
         end;
     end;
-    local function v104(v105, v106, v107) --[[ Line: 671 ]] --[[ Name: collectMenu ]]
-        -- upvalues: v99 (copy), v92 (ref), v104 (copy), v91 (copy), v30 (ref), v93 (ref), v97 (copy), v95 (copy)
-        local v108 = 0;
-        for v109, v110 in pairs(v105) do
-            if type(v110) == "table" then
-                if not #v106.children then
-                    table.insert(v106.children, (v99(v92)));
+    local function v105(v106, v107, v108) --[[ Line: 672 ]] --[[ Name: collectMenu ]]
+        -- upvalues: v100 (copy), v93 (ref), v105 (copy), v92 (copy), v31 (ref), v94 (ref), v98 (copy), v96 (copy)
+        local v109 = 0;
+        for v110, v111 in pairs(v106) do
+            if type(v111) == "table" then
+                if not #v107.children then
+                    table.insert(v107.children, (v100(v93)));
                 end;
-                if v104(v110, v106, v107) > 0 then
-                    table.insert(v106.children, (v99(v92)));
+                if v105(v111, v107, v108) > 0 then
+                    table.insert(v107.children, (v100(v93)));
                 end;
             else
-                if typeof(v110) ~= "string" then
-                    error((("Only tables or strings should be passed into the items list, received %* (at key %*)"):format(v110, v109)));
+                if typeof(v111) ~= "string" then
+                    error((("Only tables or strings should be passed into the items list, received %* (at key %*)"):format(v111, v110)));
                 end;
-                if v91._subMenuConfig[v110] then
-                    local v111 = v91._integrations[v110];
-                    local v112;
-                    if v111 then
-                        local l_availability_1 = v111.availability;
-                        v112 = l_availability_1 and l_availability_1:get() ~= v30.AvailabilitySignal.Unavailable;
-                    else
-                        v112 = false;
-                    end;
+                if v92._subMenuConfig[v111] then
+                    local v112 = v92._integrations[v111];
+                    local v113;
                     if v112 then
-                        v93 = v93 + 1;
-                        v112 = v91:createIconProps(v110, v93);
-                        v108 = v108 + 1;
-                        v104(v91._subMenuConfig[v110], v112, v107);
-                        if #v112.children > 0 then
-                            table.insert(v106.children, v112);
+                        local l_availability_1 = v112.availability;
+                        v113 = l_availability_1 and l_availability_1:get() ~= v31.AvailabilitySignal.Unavailable;
+                    else
+                        v113 = false;
+                    end;
+                    if v113 then
+                        v94 = v94 + 1;
+                        v113 = v92:createIconProps(v111, v94);
+                        v109 = v109 + 1;
+                        v105(v92._subMenuConfig[v111], v113, v108);
+                        if #v113.children > 0 then
+                            table.insert(v107.children, v113);
                         end;
                     end;
                 else
-                    local v114 = v91._integrations[v110];
-                    local v115;
-                    if v114 then
-                        local l_availability_2 = v114.availability;
-                        v115 = l_availability_2 and l_availability_2:get() ~= v30.AvailabilitySignal.Unavailable;
-                    else
-                        v115 = false;
-                    end;
+                    local v115 = v92._integrations[v111];
+                    local v116;
                     if v115 then
-                        if v91:isWindowOpen(v110) then
-                            table.insert(v107, (v97(v110)));
-                            table.insert(v106.children, v95(v110));
-                            v108 = v108 + 1;
+                        local l_availability_2 = v115.availability;
+                        v116 = l_availability_2 and l_availability_2:get() ~= v31.AvailabilitySignal.Unavailable;
+                    else
+                        v116 = false;
+                    end;
+                    if v116 then
+                        if v92:isWindowOpen(v111) then
+                            table.insert(v108, (v98(v111)));
+                            table.insert(v107.children, v96(v111));
+                            v109 = v109 + 1;
                         else
-                            table.insert(v106.children, v95(v110));
-                            v108 = v108 + 1;
+                            table.insert(v107.children, v96(v111));
+                            v109 = v109 + 1;
                         end;
                     end;
                 end;
             end;
         end;
-        return v108;
+        return v109;
     end;
-    local v117 = {
+    local v118 = {
         children = {}
     };
-    local v118 = {};
-    v104(v91._menuConfig, v117, v118);
-    if #v117.children and v117.children[#v117.children] and v117.children[#v117.children].isDivider then
-        table.remove(v117.children, #v117.children);
+    local v119 = {};
+    v105(v92._menuConfig, v118, v119);
+    if #v118.children and v118.children[#v118.children] and v118.children[#v118.children].isDivider then
+        table.remove(v118.children, #v118.children);
     end;
-    if v91._orderAlignment:get() == Enum.HorizontalAlignment.Left then
-        v117.children = l_reverse_0(v117.children);
-        reverseOrder(v117.children);
+    if v92._orderAlignment:get() == Enum.HorizontalAlignment.Left then
+        v118.children = l_reverse_0(v118.children);
+        reverseOrder(v118.children);
     end;
-    v91._menuList:set(v117.children);
-    v91._windowList:set(v118);
-    v91:repairSelected();
-end;
-v30.availabilityChanged = function(v119, _) --[[ Line: 741 ]] --[[ Name: availabilityChanged ]]
-    v119:updateNotificationTotals();
-    v119:updateMenuList();
-end;
-v30.subMenuNotifications = function(v121, v122) --[[ Line: 746 ]] --[[ Name: subMenuNotifications ]]
-    -- upvalues: l_NotifySignal_0 (copy)
-    if not v121._subMenuNotifications[v122] then
-        v121._subMenuNotifications[v122] = l_NotifySignal_0.new(true);
-    end;
-    return v121._subMenuNotifications[v122];
-end;
-v30.totalNotifications = function(v123) --[[ Line: 753 ]] --[[ Name: totalNotifications ]]
-    return v123._totalNotifications;
-end;
-v30.onIntegrationRegistered = function(v124) --[[ Line: 757 ]] --[[ Name: onIntegrationRegistered ]]
-    return v124._onIntegrationRegistered;
-end;
-v30.onIntegrationActivated = function(v125) --[[ Line: 761 ]] --[[ Name: onIntegrationActivated ]]
-    return v125._onIntegrationActivated;
-end;
-v30.onIntegrationHovered = function(v126) --[[ Line: 765 ]] --[[ Name: onIntegrationHovered ]]
-    return v126._onIntegrationHovered;
-end;
-v30.onIntegrationStatusChanged = function(v127) --[[ Line: 769 ]] --[[ Name: onIntegrationStatusChanged ]]
-    return v127._onIntegrationStatusChanged;
-end;
-v30.integrations = function(v128) --[[ Line: 773 ]] --[[ Name: integrations ]]
-    return v128._integrations;
-end;
-v30.updateNotificationTotals = function(v129) --[[ Line: 777 ]] --[[ Name: updateNotificationTotals ]]
-    -- upvalues: v30 (copy)
-    local v130 = 0;
-    for _, v132 in v129._integrations do
-        if v132.availability:get() ~= v30.AvailabilitySignal.Unavailable and v132.availability:get() ~= v30.AvailabilitySignal.Pinned and not v132.notification:excludeFromTotalCounts() then
-            local v133 = v132.notification:get();
-            if v133 and v133.type == "count" then
-                assert(typeof(v133.value) == "number", "Expected count value to be number");
-                v130 = v130 + v133.value;
+    if l_FFlagEnableChromeWindowsNotInMenu_0 then
+        local v120 = {};
+        for _, v122 in v119 do
+            v120[v122.id] = true;
+        end;
+        for v123, _ in v92._integrations do
+            if v92:isWindowOpen(v123) and not v120[v123] then
+                table.insert(v119, (v98(v123)));
             end;
         end;
     end;
-    v129._totalNotifications:fireCount(v130);
-    for v134, v135 in v129._subMenuNotifications do
-        local v136 = v129:withinCurrentTopLevelMenu(v134);
-        v130 = 0;
-        if v136 then
-            for _, v138 in v136.children do
-                if not v129:withinCurrentTopLevelMenu(v138.id) and v138.integration.availability:get() ~= v30.AvailabilitySignal.Unavailable and not v138.integration.notification:excludeFromTotalCounts() then
-                    local v139 = v138.integration.notification:get();
-                    if v139 and v139.type == "count" then
-                        assert(typeof(v139.value) == "number", "Expected count value to be number");
-                        v130 = v130 + v139.value;
+    v92._menuList:set(v118.children);
+    v92._windowList:set(v119);
+    v92:repairSelected();
+end;
+v31.availabilityChanged = function(v125, _) --[[ Line: 754 ]] --[[ Name: availabilityChanged ]]
+    v125:updateNotificationTotals();
+    v125:updateMenuList();
+end;
+v31.subMenuNotifications = function(v127, v128) --[[ Line: 759 ]] --[[ Name: subMenuNotifications ]]
+    -- upvalues: l_NotifySignal_0 (copy)
+    if not v127._subMenuNotifications[v128] then
+        v127._subMenuNotifications[v128] = l_NotifySignal_0.new(true);
+    end;
+    return v127._subMenuNotifications[v128];
+end;
+v31.totalNotifications = function(v129) --[[ Line: 766 ]] --[[ Name: totalNotifications ]]
+    return v129._totalNotifications;
+end;
+v31.onIntegrationRegistered = function(v130) --[[ Line: 770 ]] --[[ Name: onIntegrationRegistered ]]
+    return v130._onIntegrationRegistered;
+end;
+v31.onIntegrationActivated = function(v131) --[[ Line: 774 ]] --[[ Name: onIntegrationActivated ]]
+    return v131._onIntegrationActivated;
+end;
+v31.onIntegrationHovered = function(v132) --[[ Line: 778 ]] --[[ Name: onIntegrationHovered ]]
+    return v132._onIntegrationHovered;
+end;
+v31.onIntegrationStatusChanged = function(v133) --[[ Line: 782 ]] --[[ Name: onIntegrationStatusChanged ]]
+    return v133._onIntegrationStatusChanged;
+end;
+v31.integrations = function(v134) --[[ Line: 786 ]] --[[ Name: integrations ]]
+    return v134._integrations;
+end;
+v31.updateNotificationTotals = function(v135) --[[ Line: 790 ]] --[[ Name: updateNotificationTotals ]]
+    -- upvalues: v31 (copy)
+    local v136 = 0;
+    for _, v138 in v135._integrations do
+        if v138.availability:get() ~= v31.AvailabilitySignal.Unavailable and v138.availability:get() ~= v31.AvailabilitySignal.Pinned and not v138.notification:excludeFromTotalCounts() then
+            local v139 = v138.notification:get();
+            if v139 and v139.type == "count" then
+                assert(typeof(v139.value) == "number", "Expected count value to be number");
+                v136 = v136 + v139.value;
+            end;
+        end;
+    end;
+    v135._totalNotifications:fireCount(v136);
+    for v140, v141 in v135._subMenuNotifications do
+        local v142 = v135:withinCurrentTopLevelMenu(v140);
+        v136 = 0;
+        if v142 then
+            for _, v144 in v142.children do
+                if not v135:withinCurrentTopLevelMenu(v144.id) and v144.integration.availability:get() ~= v31.AvailabilitySignal.Unavailable and not v144.integration.notification:excludeFromTotalCounts() then
+                    local v145 = v144.integration.notification:get();
+                    if v145 and v145.type == "count" then
+                        assert(typeof(v145.value) == "number", "Expected count value to be number");
+                        v136 = v136 + v145.value;
                     end;
                 end;
             end;
-            v135:fireCount(v130);
+            v141:fireCount(v136);
         end;
     end;
 end;
-v30.configureReset = function(v140) --[[ Line: 821 ]] --[[ Name: configureReset ]]
-    v140._menuConfig = {};
-    v140._subMenuConfig = {};
-    v140._subMenuNotifications = {};
-    v140:updateMenuList();
+v31.configureReset = function(v146) --[[ Line: 834 ]] --[[ Name: configureReset ]]
+    v146._menuConfig = {};
+    v146._subMenuConfig = {};
+    v146._subMenuNotifications = {};
+    v146:updateMenuList();
 end;
-v30.configureMenu = function(v141, v142) --[[ Line: 828 ]] --[[ Name: configureMenu ]]
-    v141._menuConfig = v142;
-    v141:updateNotificationTotals();
-    v141:updateMenuList();
+v31.configureMenu = function(v147, v148) --[[ Line: 841 ]] --[[ Name: configureMenu ]]
+    v147._menuConfig = v148;
+    v147:updateNotificationTotals();
+    v147:updateMenuList();
 end;
-v30.configureSubMenu = function(v143, v144, v145) --[[ Line: 834 ]] --[[ Name: configureSubMenu ]]
+v31.configureSubMenu = function(v149, v150, v151) --[[ Line: 847 ]] --[[ Name: configureSubMenu ]]
     -- upvalues: l_NotifySignal_0 (copy)
-    v143._subMenuConfig[v144] = v145;
-    if not v143._subMenuNotifications[v144] then
-        v143._subMenuNotifications[v144] = l_NotifySignal_0.new(true);
+    v149._subMenuConfig[v150] = v151;
+    if not v149._subMenuNotifications[v150] then
+        v149._subMenuNotifications[v150] = l_NotifySignal_0.new(true);
     end;
-    v143:updateNotificationTotals();
-    v143:updateMenuList();
+    v149:updateNotificationTotals();
+    v149:updateMenuList();
 end;
 if l_FFlagEnableConsoleExpControls_0 then
-    v30.registerShortcut = function(v146, v147) --[[ Line: 844 ]] --[[ Name: registerShortcut ]]
-        -- upvalues: v30 (copy)
-        v146._shortcutService:registerShortcut(v147);
-        local v148 = v146._shortcutService:getShortcut(v147.id);
-        if v148.integration and v146._integrations[v148.integration] then
-            local v149 = v146._integrations[v148.integration];
-            if v149.availability:get() == v30.AvailabilitySignal.Unavailable then
-                v148.availability:unavailable();
+    v31.registerShortcut = function(v152, v153) --[[ Line: 857 ]] --[[ Name: registerShortcut ]]
+        -- upvalues: v31 (copy)
+        v152._shortcutService:registerShortcut(v153);
+        local v154 = v152._shortcutService:getShortcut(v153.id);
+        if v154.integration and v152._integrations[v154.integration] then
+            local v155 = v152._integrations[v154.integration];
+            if v155.availability:get() == v31.AvailabilitySignal.Unavailable then
+                v154.availability:unavailable();
             end;
-            v149.availability:connect(function() --[[ Line: 852 ]]
-                -- upvalues: v149 (copy), v30 (ref), v148 (copy)
-                local v150 = v149.availability:get();
-                if v150 == v30.AvailabilitySignal.Unavailable then
-                    v148.availability:unavailable();
+            v155.availability:connect(function() --[[ Line: 865 ]]
+                -- upvalues: v155 (copy), v31 (ref), v154 (copy)
+                local v156 = v155.availability:get();
+                if v156 == v31.AvailabilitySignal.Unavailable then
+                    v154.availability:unavailable();
                     return;
                 else
-                    if v150 == v30.AvailabilitySignal.Available or v150 == v30.AvailabilitySignal.Pinned then
-                        v148.availability:available();
+                    if v156 == v31.AvailabilitySignal.Available or v156 == v31.AvailabilitySignal.Pinned then
+                        v154.availability:available();
                     end;
                     return;
                 end;
             end);
         end;
     end;
-    v30.activateShortcut = function(v151, v152) --[[ Line: 866 ]] --[[ Name: activateShortcut ]]
+    v31.activateShortcut = function(v157, v158) --[[ Line: 879 ]] --[[ Name: activateShortcut ]]
         -- upvalues: v26 (copy)
-        local v153 = v151._shortcutService:getShortcut(v152);
-        if v153.integration then
-            if v153.activated then
+        local v159 = v157._shortcutService:getShortcut(v158);
+        if v159.integration then
+            if v159.activated then
                 if v26 then
-                    v151._shortcutService:activateShortcut(v152);
-                    v151._onIntegrationActivated:fire(v153.integration, {
+                    v157._shortcutService:activateShortcut(v158);
+                    v157._onIntegrationActivated:fire(v159.integration, {
                         fromShortcut = true
                     });
                     return;
                 end;
             elseif v26 then
-                v151:activate(v153.integration, {
+                v157:activate(v159.integration, {
                     fromShortcut = true
                 });
                 return;
             else
-                v151:activate(v153.integration);
+                v157:activate(v159.integration);
                 return;
             end;
         else
-            v151._shortcutService:activateShortcut(v152);
+            v157._shortcutService:activateShortcut(v158);
         end;
     end;
-    v30.configureShortcutBar = function(v154, v155, v156) --[[ Line: 886 ]] --[[ Name: configureShortcutBar ]]
-        v154._shortcutService:configureShortcutBar(v155, v156);
+    v31.configureShortcutBar = function(v160, v161, v162) --[[ Line: 899 ]] --[[ Name: configureShortcutBar ]]
+        v160._shortcutService:configureShortcutBar(v161, v162);
     end;
-    v30.setShortcutBar = function(v157, v158) --[[ Line: 890 ]] --[[ Name: setShortcutBar ]]
-        v157._shortcutService:setShortcutBar(v158);
+    v31.setShortcutBar = function(v163, v164) --[[ Line: 903 ]] --[[ Name: setShortcutBar ]]
+        v163._shortcutService:setShortcutBar(v164);
     end;
-    v30.getCurrentShortcutBar = function(v159) --[[ Line: 894 ]] --[[ Name: getCurrentShortcutBar ]]
-        return v159._currentShortcutBar;
+    v31.getCurrentShortcutBar = function(v165) --[[ Line: 907 ]] --[[ Name: getCurrentShortcutBar ]]
+        return v165._currentShortcutBar;
     end;
-    v30.getShortcutsFromBar = function(v160, v161) --[[ Line: 898 ]] --[[ Name: getShortcutsFromBar ]]
-        return v160._shortcutService:getShortcutsFromBar(v161, v160._integrations);
+    v31.getShortcutsFromBar = function(v166, v167) --[[ Line: 911 ]] --[[ Name: getShortcutsFromBar ]]
+        return v166._shortcutService:getShortcutsFromBar(v167, v166._integrations);
     end;
-    v30.getCurrentShortcuts = function(v162) --[[ Line: 902 ]] --[[ Name: getCurrentShortcuts ]]
-        return v162:getShortcutsFromBar(v162._currentShortcutBar:get());
+    v31.getCurrentShortcuts = function(v168) --[[ Line: 915 ]] --[[ Name: getCurrentShortcuts ]]
+        return v168:getShortcutsFromBar(v168._currentShortcutBar:get());
     end;
-    v30.onShortcutBarChanged = function(v163) --[[ Line: 906 ]] --[[ Name: onShortcutBarChanged ]]
-        return v163._shortcutService.onShortcutBarChanged;
+    v31.onShortcutBarChanged = function(v169) --[[ Line: 919 ]] --[[ Name: onShortcutBarChanged ]]
+        return v169._shortcutService.onShortcutBarChanged;
     end;
-    v30.selectMenuIcon = function(v164) --[[ Line: 910 ]] --[[ Name: selectMenuIcon ]]
-        v164._triggerMenuIcon:fire();
+    v31.selectMenuIcon = function(v170) --[[ Line: 923 ]] --[[ Name: selectMenuIcon ]]
+        v170._triggerMenuIcon:fire();
     end;
-    v30.onTriggerMenuIcon = function(v165) --[[ Line: 914 ]] --[[ Name: onTriggerMenuIcon ]]
-        return v165._triggerMenuIcon;
+    v31.onTriggerMenuIcon = function(v171) --[[ Line: 927 ]] --[[ Name: onTriggerMenuIcon ]]
+        return v171._triggerMenuIcon;
     end;
-    v30.setHideShortcutBar = function(v166, v167, v168) --[[ Line: 918 ]] --[[ Name: setHideShortcutBar ]]
-        v166._shortcutService:setHideShortcutBar(v167, v168);
+    v31.setHideShortcutBar = function(v172, v173, v174) --[[ Line: 931 ]] --[[ Name: setHideShortcutBar ]]
+        v172._shortcutService:setHideShortcutBar(v173, v174);
     end;
-    v30.getHideShortcutBar = function(v169) --[[ Line: 922 ]] --[[ Name: getHideShortcutBar ]]
-        return v169._shortcutService:getHideShortcutBar();
+    v31.getHideShortcutBar = function(v175) --[[ Line: 935 ]] --[[ Name: getHideShortcutBar ]]
+        return v175._shortcutService:getHideShortcutBar();
     end;
 end;
 if l_isInExperienceUIVREnabled_0 then
-    v30.onTriggerVRToggleButton = function(v170) --[[ Line: 928 ]] --[[ Name: onTriggerVRToggleButton ]]
-        return v170._triggerVRToggleButton;
+    v31.onTriggerVRToggleButton = function(v176) --[[ Line: 941 ]] --[[ Name: onTriggerVRToggleButton ]]
+        return v176._triggerVRToggleButton;
     end;
-    v30.showTopBar = function(v171) --[[ Line: 932 ]] --[[ Name: showTopBar ]]
-        return v171._topBarVisibility:get();
+    v31.showTopBar = function(v177) --[[ Line: 945 ]] --[[ Name: showTopBar ]]
+        return v177._topBarVisibility:get();
     end;
-    v30.getTopBarVisibiity = function(v172) --[[ Line: 936 ]] --[[ Name: getTopBarVisibiity ]]
-        return v172._topBarVisibility;
+    v31.getTopBarVisibiity = function(v178) --[[ Line: 949 ]] --[[ Name: getTopBarVisibiity ]]
+        return v178._topBarVisibility;
     end;
-    v30.connectTopBarVisibility = function(v173, v174) --[[ Line: 940 ]] --[[ Name: connectTopBarVisibility ]]
-        v173._topBarVisibility = v174;
+    v31.connectTopBarVisibility = function(v179, v180) --[[ Line: 953 ]] --[[ Name: connectTopBarVisibility ]]
+        v179._topBarVisibility = v180;
     end;
 end;
-v30.gesture = function(v175, v176, v177, v178) --[[ Line: 945 ]] --[[ Name: gesture ]]
-    if v175._integrations[v176] then
-        v175._dragConnection[v176] = {
-            connection = v177, 
-            inputObject = v178
+v31.gesture = function(v181, v182, v183, v184) --[[ Line: 958 ]] --[[ Name: gesture ]]
+    if v181._integrations[v182] then
+        v181._dragConnection[v182] = {
+            connection = v183, 
+            inputObject = v184
         };
     end;
 end;
-v30.withinCurrentTopLevelMenu = function(v179, v180) --[[ Line: 958 ]] --[[ Name: withinCurrentTopLevelMenu ]]
-    for v181, v182 in (v179._menuList:get()) do
-        if v182.id == v180 then
-            return v182, v181;
+v31.withinCurrentTopLevelMenu = function(v185, v186) --[[ Line: 971 ]] --[[ Name: withinCurrentTopLevelMenu ]]
+    for v187, v188 in (v185._menuList:get()) do
+        if v188.id == v186 then
+            return v188, v187;
         end;
     end;
     return nil, 0;
 end;
-v30.withinCurrentSubmenu = function(v183, v184) --[[ Line: 968 ]] --[[ Name: withinCurrentSubmenu ]]
-    local v185 = v183._currentSubMenu:get();
-    if not v185 then
+v31.withinCurrentSubmenu = function(v189, v190) --[[ Line: 981 ]] --[[ Name: withinCurrentSubmenu ]]
+    local v191 = v189._currentSubMenu:get();
+    if not v191 then
         return false;
     else
-        local v186 = v183._menuList:get();
-        local v187 = nil;
-        for _, v189 in v186 do
-            if v189.id == v185 then
-                v187 = v189.children;
+        local v192 = v189._menuList:get();
+        local v193 = nil;
+        for _, v195 in v192 do
+            if v195.id == v191 then
+                v193 = v195.children;
                 break;
             end;
         end;
-        if not v187 then
+        if not v193 then
             return false;
         else
-            for _, v191 in v187 do
-                if v191.id == v184 then
+            for _, v197 in v193 do
+                if v197.id == v190 then
                     return true;
                 end;
             end;
@@ -705,37 +717,37 @@ v30.withinCurrentSubmenu = function(v183, v184) --[[ Line: 968 ]] --[[ Name: wit
         end;
     end;
 end;
-v30.windowPosition = function(v192, v193) --[[ Line: 997 ]] --[[ Name: windowPosition ]]
-    return v192._windowPositions[v193];
+v31.windowPosition = function(v198, v199) --[[ Line: 1010 ]] --[[ Name: windowPosition ]]
+    return v198._windowPositions[v199];
 end;
-v30.updateWindowPosition = function(v194, v195, v196) --[[ Line: 1001 ]] --[[ Name: updateWindowPosition ]]
+v31.updateWindowPosition = function(v200, v201, v202) --[[ Line: 1014 ]] --[[ Name: updateWindowPosition ]]
     -- upvalues: v14 (copy)
-    if v14.isEnabled() and v194._integrations[v195] and v194._integrations[v195].persistWindowState then
-        local v197 = v14.loadForLocalPlayer("ChromeWindowPosition") or {};
-        v197[v195] = {
-            v196.X.Scale, 
-            v196.X.Offset, 
-            v196.Y.Scale, 
-            v196.Y.Offset
+    if v14.isEnabled() and v200._integrations[v201] and v200._integrations[v201].persistWindowState then
+        local v203 = v14.loadForLocalPlayer("ChromeWindowPosition") or {};
+        v203[v201] = {
+            v202.X.Scale, 
+            v202.X.Offset, 
+            v202.Y.Scale, 
+            v202.Y.Offset
         };
-        v14.storeForLocalPlayer("ChromeWindowPosition", v197);
+        v14.storeForLocalPlayer("ChromeWindowPosition", v203);
     end;
-    v194._windowPositions[v195] = v196;
+    v200._windowPositions[v201] = v202;
 end;
-v30.getWindowStatusFromStore = function(_, v199) --[[ Line: 1014 ]] --[[ Name: getWindowStatusFromStore ]]
+v31.getWindowStatusFromStore = function(_, v205) --[[ Line: 1027 ]] --[[ Name: getWindowStatusFromStore ]]
     -- upvalues: v14 (copy)
     if v14.isEnabled() then
-        return (v14.loadForLocalPlayer("ChromeWindowStatus") or {})[v199] or false;
+        return (v14.loadForLocalPlayer("ChromeWindowStatus") or {})[v205] or false;
     else
         return nil;
     end;
 end;
-v30.getWindowPositionFromStore = function(_, v201) --[[ Line: 1024 ]] --[[ Name: getWindowPositionFromStore ]]
+v31.getWindowPositionFromStore = function(_, v207) --[[ Line: 1037 ]] --[[ Name: getWindowPositionFromStore ]]
     -- upvalues: v14 (copy)
     if v14.isEnabled() then
-        local v202 = (v14.loadForLocalPlayer("ChromeWindowPosition") or {})[v201] or nil;
-        if v202 then
-            return (UDim2.new(v202[1], v202[2], v202[3], v202[4]));
+        local v208 = (v14.loadForLocalPlayer("ChromeWindowPosition") or {})[v207] or nil;
+        if v208 then
+            return (UDim2.new(v208[1], v208[2], v208[3], v208[4]));
         else
             return nil;
         end;
@@ -743,105 +755,105 @@ v30.getWindowPositionFromStore = function(_, v201) --[[ Line: 1024 ]] --[[ Name:
         return nil;
     end;
 end;
-v30.activate = function(v203, v204, v205) --[[ Line: 1035 ]] --[[ Name: activate ]]
+v31.activate = function(v209, v210, v211) --[[ Line: 1048 ]] --[[ Name: activate ]]
     -- upvalues: v26 (copy), l_FFlagEnableConsoleExpControls_0 (copy)
-    local v206 = nil;
-    if v203._integrations[v204] then
-        local l_activated_0 = v203._integrations[v204].activated;
+    local v212 = nil;
+    if v209._integrations[v210] then
+        local l_activated_0 = v209._integrations[v210].activated;
         if v26 then
-            v203._onIntegrationActivated:fire(v204, v205);
+            v209._onIntegrationActivated:fire(v210, v211);
         else
-            v203._onIntegrationActivated:fire(v204);
+            v209._onIntegrationActivated:fire(v210);
         end;
-        v203:storeChromeInteracted();
+        v209:storeChromeInteracted();
         if l_activated_0 then
-            local l_status_2, l_result_2 = pcall(function() --[[ Line: 1051 ]]
-                -- upvalues: l_activated_0 (copy), v203 (copy), v204 (copy), l_FFlagEnableConsoleExpControls_0 (ref)
-                l_activated_0(v203._integrations[v204]);
+            local l_status_2, l_result_2 = pcall(function() --[[ Line: 1064 ]]
+                -- upvalues: l_activated_0 (copy), v209 (copy), v210 (copy), l_FFlagEnableConsoleExpControls_0 (ref)
+                l_activated_0(v209._integrations[v210]);
                 if not l_FFlagEnableConsoleExpControls_0 then
-                    v203:disableFocusNav();
+                    v209:disableFocusNav();
                 end;
             end);
             if not l_status_2 then
-                warn("ChromeService: activate error thrown for " .. v204);
-                v206 = l_result_2;
+                warn("ChromeService: activate error thrown for " .. v210);
+                v212 = l_result_2;
             end;
         else
-            if v203._subMenuConfig[v204] then
-                v203:toggleSubMenu(v204);
+            if v209._subMenuConfig[v210] then
+                v209:toggleSubMenu(v210);
             end;
-            v203:toggleWindow(v204);
+            v209:toggleWindow(v210);
         end;
-        if v203._currentSubMenu:get() ~= v204 then
-            v203._currentSubMenu:set(nil);
+        if v209._currentSubMenu:get() ~= v210 then
+            v209._currentSubMenu:set(nil);
         end;
     end;
-    if v206 then
-        error(v206);
+    if v212 then
+        error(v212);
     end;
 end;
-v30.selectedItem = function(v210) --[[ Line: 1079 ]] --[[ Name: selectedItem ]]
-    return v210._selectedItem;
+v31.selectedItem = function(v216) --[[ Line: 1092 ]] --[[ Name: selectedItem ]]
+    return v216._selectedItem;
 end;
-v30.setSelected = function(v211, v212) --[[ Line: 1083 ]] --[[ Name: setSelected ]]
+v31.setSelected = function(v217, v218) --[[ Line: 1096 ]] --[[ Name: setSelected ]]
     -- upvalues: l_UserInputService_0 (copy)
-    local v213, v214 = v211:withinCurrentTopLevelMenu(v212 or "");
-    if not v213 then
+    local v219, v220 = v217:withinCurrentTopLevelMenu(v218 or "");
+    if not v219 then
         return;
     else
         local l_l_UserInputService_0_LastInputType_0 = l_UserInputService_0:GetLastInputType();
-        local v216 = true;
+        local v222 = true;
         if l_l_UserInputService_0_LastInputType_0 ~= Enum.UserInputType.MouseButton1 then
-            v216 = l_l_UserInputService_0_LastInputType_0 == Enum.UserInputType.Touch;
+            v222 = l_l_UserInputService_0_LastInputType_0 == Enum.UserInputType.Touch;
         end;
-        local v217 = v211._currentSubMenu:get();
-        if v217 and v217 ~= v212 and not v216 then
-            v211:toggleSubMenu(v217);
+        local v223 = v217._currentSubMenu:get();
+        if v223 and v223 ~= v218 and not v222 then
+            v217:toggleSubMenu(v223);
         end;
-        v211._selectedItemIdx = v214;
-        v211._selectedItem:set(v212);
+        v217._selectedItemIdx = v220;
+        v217._selectedItem:set(v218);
         return;
     end;
 end;
-v30.setSelectedByOffset = function(v218, v219) --[[ Line: 1101 ]] --[[ Name: setSelectedByOffset ]]
-    local v220 = v218._menuList:get();
-    local _, v222 = v218:withinCurrentTopLevelMenu(v218._selectedItem:get() or "");
-    if v222 > 0 then
-        v218:setSelected(v220[math.clamp(v222 + v219, 1, #v220)].id);
+v31.setSelectedByOffset = function(v224, v225) --[[ Line: 1114 ]] --[[ Name: setSelectedByOffset ]]
+    local v226 = v224._menuList:get();
+    local _, v228 = v224:withinCurrentTopLevelMenu(v224._selectedItem:get() or "");
+    if v228 > 0 then
+        v224:setSelected(v226[math.clamp(v228 + v225, 1, #v226)].id);
     end;
 end;
-v30.repairSelected = function(v223) --[[ Line: 1111 ]] --[[ Name: repairSelected ]]
-    if v223._selectedItem:get() then
-        local _, v225 = v223:withinCurrentTopLevelMenu(v223._selectedItem:get() or "");
-        if v225 == 0 then
-            v225 = v223._selectedItemIdx;
+v31.repairSelected = function(v229) --[[ Line: 1124 ]] --[[ Name: repairSelected ]]
+    if v229._selectedItem:get() then
+        local _, v231 = v229:withinCurrentTopLevelMenu(v229._selectedItem:get() or "");
+        if v231 == 0 then
+            v231 = v229._selectedItemIdx;
         end;
-        local v226 = v223._menuList:get();
-        v223:setSelected(v226[math.clamp(v225, 1, #v226)].id);
+        local v232 = v229._menuList:get();
+        v229:setSelected(v232[math.clamp(v231, 1, #v232)].id);
     end;
 end;
-v30.configureOrderAlignment = function(v227, v228) --[[ Line: 1125 ]] --[[ Name: configureOrderAlignment ]]
-    if v227._orderAlignment:get() ~= v228 then
-        v227._orderAlignment:set(v228);
-        v227:updateMenuList();
+v31.configureOrderAlignment = function(v233, v234) --[[ Line: 1138 ]] --[[ Name: configureOrderAlignment ]]
+    if v233._orderAlignment:get() ~= v234 then
+        v233._orderAlignment:set(v234);
+        v233:updateMenuList();
     end;
 end;
-v30.orderAlignment = function(v229) --[[ Line: 1132 ]] --[[ Name: orderAlignment ]]
-    return v229._orderAlignment;
+v31.orderAlignment = function(v235) --[[ Line: 1145 ]] --[[ Name: orderAlignment ]]
+    return v235._orderAlignment;
 end;
-v30.setMenuAbsolutePosition = function(v230, v231) --[[ Line: 1136 ]] --[[ Name: setMenuAbsolutePosition ]]
-    if v231 ~= v230._menuAbsolutePosition then
-        v230._menuAbsolutePosition = v231;
-        v230._layout:set(createUnibarLayoutInfo(v231, v230._menuAbsoluteSizeOpen));
+v31.setMenuAbsolutePosition = function(v236, v237) --[[ Line: 1149 ]] --[[ Name: setMenuAbsolutePosition ]]
+    if v237 ~= v236._menuAbsolutePosition then
+        v236._menuAbsolutePosition = v237;
+        v236._layout:set(createUnibarLayoutInfo(v237, v236._menuAbsoluteSizeOpen));
     end;
 end;
-v30.setMenuAbsoluteSize = function(v232, v233) --[[ Line: 1143 ]] --[[ Name: setMenuAbsoluteSize ]]
-    if v233 ~= v232._menuAbsoluteSizeOpen then
-        v232._menuAbsoluteSizeOpen = v233;
-        v232._layout:set(createUnibarLayoutInfo(v232._menuAbsolutePosition, v233));
+v31.setMenuAbsoluteSize = function(v238, v239) --[[ Line: 1156 ]] --[[ Name: setMenuAbsoluteSize ]]
+    if v239 ~= v238._menuAbsoluteSizeOpen then
+        v238._menuAbsoluteSizeOpen = v239;
+        v238._layout:set(createUnibarLayoutInfo(v238._menuAbsolutePosition, v239));
     end;
 end;
-v30.layout = function(v234) --[[ Line: 1150 ]] --[[ Name: layout ]]
-    return v234._layout;
+v31.layout = function(v240) --[[ Line: 1163 ]] --[[ Name: layout ]]
+    return v240._layout;
 end;
-return v30;
+return v31;

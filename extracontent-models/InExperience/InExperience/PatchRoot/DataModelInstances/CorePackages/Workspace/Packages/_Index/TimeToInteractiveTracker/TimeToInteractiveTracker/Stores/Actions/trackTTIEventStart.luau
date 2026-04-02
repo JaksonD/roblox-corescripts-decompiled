@@ -1,22 +1,29 @@
+local l_Parent_0 = script:FindFirstAncestor("TimeToInteractiveTracker").Parent;
+local l_FFlagAXTTIEnableColdWarmDetection_0 = require(l_Parent_0.SharedFlags).FFlagAXTTIEnableColdWarmDetection;
 local _ = require(script.Parent.Parent.types);
-local v1 = require(script.Parent.Parent.Parent.Utils.now);
-return function(v2) --[[ Line: 9 ]]
-    -- upvalues: v1 (copy)
-    return function(v3) --[[ Line: 10 ]]
-        -- upvalues: v2 (copy), v1 (ref)
-        v2(function(v4) --[[ Line: 11 ]]
-            -- upvalues: v3 (copy), v1 (ref)
-            local v5 = v4[v3];
-            local v6 = v1();
-            local v7 = table.clone(v4);
-            v7[v3] = {
-                startTime = v6, 
+local v3 = require(script.Parent.Parent.Parent.Utils.now);
+return function(v4) --[[ Line: 16 ]]
+    -- upvalues: v3 (copy), l_FFlagAXTTIEnableColdWarmDetection_0 (copy)
+    local v5 = {};
+    return function(v6, v7) --[[ Line: 22 ]]
+        -- upvalues: v4 (copy), v3 (ref), l_FFlagAXTTIEnableColdWarmDetection_0 (ref), v5 (copy)
+        v4(function(v8) --[[ Line: 23 ]]
+            -- upvalues: v6 (copy), v3 (ref), l_FFlagAXTTIEnableColdWarmDetection_0 (ref), v7 (copy), v5 (ref)
+            local v9 = v8[v6];
+            local v10 = v3();
+            local v11 = table.clone(v8);
+            v11[v6] = {
+                startTime = v10, 
                 endTime = nil, 
                 deltaMs = nil, 
                 sent = nil, 
-                metadata = if v5 ~= nil then table.clone(v5.metadata) else {}
+                metadata = if v9 ~= nil then table.clone(v9.metadata) else {}
             };
-            return v7;
+            if l_FFlagAXTTIEnableColdWarmDetection_0 and v7 then
+                v11[v6].metadata.coldStart = not v5[v6];
+                v5[v6] = true;
+            end;
+            return v11;
         end);
     end;
 end;

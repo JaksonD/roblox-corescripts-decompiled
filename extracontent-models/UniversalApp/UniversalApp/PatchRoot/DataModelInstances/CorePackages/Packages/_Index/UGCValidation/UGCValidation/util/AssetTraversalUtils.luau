@@ -4,99 +4,101 @@ local v2 = require(l_Parent_0.util.calculateMinMax);
 local v3 = require(l_Parent_0.util.getExpectedPartSize);
 local v4 = require(l_Parent_0.ConstantsInterface);
 local v5 = require(l_Parent_0.util.getPartNamesInHierarchyOrder);
-local v24 = {
-    calculateBounds = function(v6, v7, v8, v9, v10) --[[ Line: 21 ]] --[[ Name: calculateBounds ]]
-        -- upvalues: v3 (copy), v2 (copy), v4 (copy)
-        if v10 then
-            local v11 = v3(v7, v10);
-            local v12, v13 = v2(v9.minMeshCorner, v9.maxMeshCorner, v8:PointToWorldSpace(-(v11 / 2)), v8:PointToWorldSpace(-(v11 / 2)));
-            v9.minMeshCorner = v12;
-            v9.maxMeshCorner = v13;
-            v12, v13 = v2(v9.minMeshCorner, v9.maxMeshCorner, v8:PointToWorldSpace(v11 / 2), v8:PointToWorldSpace(v11 / 2));
-            v9.minMeshCorner = v12;
-            v9.maxMeshCorner = v13;
+local v6 = require(l_Parent_0.util.R15plusUtils);
+local v7 = require(l_Parent_0.util.getAttachmentCFrameInPartSpace);
+local v26 = {
+    calculateBounds = function(v8, v9, v10, v11, v12) --[[ Line: 25 ]] --[[ Name: calculateBounds ]]
+        -- upvalues: v3 (copy), v2 (copy), v4 (copy), v6 (copy), v7 (copy)
+        if v12 then
+            local v13 = v3(v9, v12);
+            local v14, v15 = v2(v11.minMeshCorner, v11.maxMeshCorner, v10:PointToWorldSpace(-(v13 / 2)), v10:PointToWorldSpace(-(v13 / 2)));
+            v11.minMeshCorner = v14;
+            v11.maxMeshCorner = v15;
+            v14, v15 = v2(v11.minMeshCorner, v11.maxMeshCorner, v10:PointToWorldSpace(v13 / 2), v10:PointToWorldSpace(v13 / 2));
+            v11.minMeshCorner = v14;
+            v11.maxMeshCorner = v15;
         else
-            local v14, v15 = v2(v9.minMeshCorner, v9.maxMeshCorner, v8:PointToWorldSpace(-(v7.Size / 2)), v8:PointToWorldSpace(-(v7.Size / 2)));
-            v9.minMeshCorner = v14;
-            v9.maxMeshCorner = v15;
-            v14, v15 = v2(v9.minMeshCorner, v9.maxMeshCorner, v8:PointToWorldSpace(v7.Size / 2), v8:PointToWorldSpace(v7.Size / 2));
-            v9.minMeshCorner = v14;
-            v9.maxMeshCorner = v15;
+            local v16, v17 = v2(v11.minMeshCorner, v11.maxMeshCorner, v10:PointToWorldSpace(-(v9.Size / 2)), v10:PointToWorldSpace(-(v9.Size / 2)));
+            v11.minMeshCorner = v16;
+            v11.maxMeshCorner = v17;
+            v16, v17 = v2(v11.minMeshCorner, v11.maxMeshCorner, v10:PointToWorldSpace(v9.Size / 2), v10:PointToWorldSpace(v9.Size / 2));
+            v11.minMeshCorner = v16;
+            v11.maxMeshCorner = v17;
         end;
-        for _, v17 in v4.getAttachments(v6, v7.Name) do
-            local l_v7_FirstChild_0 = v7:FindFirstChild(v17);
-            assert(l_v7_FirstChild_0);
-            if string.match(l_v7_FirstChild_0.Name, "RigAttachment$") ~= nil then
-                local v19 = v8 * l_v7_FirstChild_0.CFrame;
-                local v20, v21 = v2(v9.minRigAttachment, v9.maxRigAttachment, v19.Position, v19.Position);
-                v9.minRigAttachment = v20;
-                v9.maxRigAttachment = v21;
+        for _, v19 in v4.getAttachments(v8, v9.Name) do
+            local l_v9_FirstChild_0 = v9:FindFirstChild(v19, v6.checkFlagEnabledForAllowHrd());
+            assert(l_v9_FirstChild_0);
+            if string.match(l_v9_FirstChild_0.Name, "RigAttachment$") ~= nil then
+                local v21 = v10 * v7(l_v9_FirstChild_0);
+                local v22, v23 = v2(v11.minRigAttachment, v11.maxRigAttachment, v21.Position, v21.Position);
+                v11.minRigAttachment = v22;
+                v11.maxRigAttachment = v23;
             end;
         end;
-        local v22, v23 = v2(v9.minOverall, v9.maxOverall, v9.minMeshCorner, v9.maxMeshCorner);
-        v9.minOverall = v22;
-        v9.maxOverall = v23;
-        v22, v23 = v2(v9.minOverall, v9.maxOverall, v9.minRigAttachment, v9.maxRigAttachment);
-        v9.minOverall = v22;
-        v9.maxOverall = v23;
+        local v24, v25 = v2(v11.minOverall, v11.maxOverall, v11.minMeshCorner, v11.maxMeshCorner);
+        v11.minOverall = v24;
+        v11.maxOverall = v25;
+        v24, v25 = v2(v11.minOverall, v11.maxOverall, v11.minRigAttachment, v11.maxRigAttachment);
+        v11.minOverall = v24;
+        v11.maxOverall = v25;
     end
 };
-v24.traverseHierarchy = function(v25, v26, v27, v28, v29, v30, v31, v32, v33) --[[ Line: 93 ]] --[[ Name: traverseHierarchy ]]
-    -- upvalues: v4 (copy), v24 (copy)
-    local v34 = v26 and v27;
-    assert(v25 ~= nil ~= (v34 ~= nil));
-    local v35 = nil;
-    v35 = if v25 then v25[v30] else v26:FindFirstChild(v30);
-    assert(v35);
-    local l_v29_0 = v29;
-    if v28 then
-        local v37 = nil;
-        v37 = if v25 then v25[v28] else v26:FindFirstChild(v28);
-        assert(v37);
-        local v38 = v4.getRigAttachmentToParent(v27, v30);
-        local l_v37_FirstChild_0 = v37:FindFirstChild(v38);
+v26.traverseHierarchy = function(v27, v28, v29, v30, v31, v32, v33, v34, v35) --[[ Line: 98 ]] --[[ Name: traverseHierarchy ]]
+    -- upvalues: v4 (copy), v6 (copy), v7 (copy), v26 (copy)
+    local v36 = v28 and v29;
+    assert(v27 ~= nil ~= (v36 ~= nil));
+    local v37 = nil;
+    v37 = if v27 then v27[v32] else v28:FindFirstChild(v32);
+    assert(v37);
+    local l_v31_0 = v31;
+    if v30 then
+        local v39 = nil;
+        v39 = if v27 then v27[v30] else v28:FindFirstChild(v30);
+        assert(v39);
+        local v40 = v4.getRigAttachmentToParent(v29, v32);
+        local l_v39_FirstChild_0 = v39:FindFirstChild(v40, v6.checkFlagEnabledForAllowHrd());
+        assert(l_v39_FirstChild_0);
+        local l_v37_FirstChild_0 = v37:FindFirstChild(v40, v6.checkFlagEnabledForAllowHrd());
         assert(l_v37_FirstChild_0);
-        local l_v35_FirstChild_0 = v35:FindFirstChild(v38);
-        assert(l_v35_FirstChild_0);
-        l_v29_0 = l_v29_0 * l_v37_FirstChild_0.CFrame * l_v35_FirstChild_0.CFrame:Inverse();
+        l_v31_0 = l_v31_0 * v7(l_v39_FirstChild_0) * v7(l_v37_FirstChild_0):Inverse();
     else
-        l_v29_0 = CFrame.new();
+        l_v31_0 = CFrame.new();
     end;
-    v24.calculateBounds(v27, v35, l_v29_0, v32, v33);
-    if v31.children then
-        for v41, v42 in v31.children do
-            v24.traverseHierarchy(v25, v26, v27, v30, l_v29_0, v41, v42, v32, v33);
+    v26.calculateBounds(v29, v37, l_v31_0, v34, v35);
+    if v33.children then
+        for v43, v44 in v33.children do
+            v26.traverseHierarchy(v27, v28, v29, v32, l_v31_0, v43, v44, v34, v35);
         end;
     end;
 end;
-local v43 = nil;
-local function v48() --[[ Line: 155 ]] --[[ Name: initRigParentToChild ]]
-    -- upvalues: v43 (ref), v5 (copy)
-    if v43 then
+local v45 = nil;
+local function v50() --[[ Line: 163 ]] --[[ Name: initRigParentToChild ]]
+    -- upvalues: v45 (ref), v5 (copy)
+    if v45 then
         return;
     else
-        v43 = {};
-        for _, v45 in {
+        v45 = {};
+        for _, v47 in {
             Enum.AssetType.LeftArm, 
             Enum.AssetType.RightArm, 
             Enum.AssetType.LeftLeg, 
             Enum.AssetType.RightLeg
         } do
-            local v46 = v5(v45);
-            v43[v45] = {};
-            for v47 = 1, #v46 - 1 do
-                v43[v45][v46[v47]] = v46[v47 + 1];
+            local v48 = v5(v47);
+            v45[v47] = {};
+            for v49 = 1, #v48 - 1 do
+                v45[v47][v48[v49]] = v48[v49 + 1];
             end;
         end;
         return;
     end;
 end;
-v24.getAssetRigChild = function(v49, v50) --[[ Line: 171 ]] --[[ Name: getAssetRigChild ]]
-    -- upvalues: v48 (copy), v43 (ref)
-    v48();
-    return assert(v43[v49], "Invalid asset type")[v50];
+v26.getAssetRigChild = function(v51, v52) --[[ Line: 179 ]] --[[ Name: getAssetRigChild ]]
+    -- upvalues: v50 (copy), v45 (ref)
+    v50();
+    return assert(v45[v51], "Invalid asset type")[v52];
 end;
-v24.assetHierarchy = {
+v26.assetHierarchy = {
     [Enum.AssetType.DynamicHead] = {
         root = "Head"
     }, 
@@ -147,4 +149,4 @@ v24.assetHierarchy = {
         }
     }
 };
-return v24;
+return v26;

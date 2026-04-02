@@ -23,7 +23,7 @@ local v21 = require(l_SelfieView_0.Utils.SizingUtils);
 local v22 = require(l_SelfieView_0.Utils.SelfieViewPolicy);
 local l_AvailabilitySignalState_0 = require(l_script_FirstAncestor_0.ChromeShared.Service.ChromeUtils).AvailabilitySignalState;
 local v24 = require(l_script_FirstAncestor_0.ChromeShared.Service.WindowSizeSignal);
-local v25 = require(l_script_FirstAncestor_0.ChromeShared.Unibar.UnibarStyle);
+local l_UnibarStyle_0 = require(l_CorePackages_0.Workspace.Packages.Chrome).UnibarStyle;
 local v26 = require(l_script_FirstAncestor_0.ChromeShared.Service.ViewportUtil);
 local v27 = v21.getSize(v26.screenSize:get(), false);
 local v28 = v24.new(v27.X, v27.Y);
@@ -55,10 +55,10 @@ local v44 = v3:register({
     cachePosition = true, 
     components = {
         Icon = function(_) --[[ Line: 76 ]] --[[ Name: Icon ]]
-            -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), v25 (copy), v29 (copy), v2 (copy), v9 (copy), v32 (copy), v19 (copy), v3 (copy), l_SELFIE_VIEW_ID_0 (copy)
+            -- upvalues: l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 (copy), l_UnibarStyle_0 (copy), v29 (copy), v2 (copy), v9 (copy), v32 (copy), v19 (copy), v3 (copy), l_SELFIE_VIEW_ID_0 (copy)
             local _ = nil;
             local v37 = nil;
-            v37 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then v25.use().ICON_SIZE else v29.ICON_SIZE;
+            v37 = if l_FFlagTokenizeUnibarConstantsWithStyleProvider_0 then l_UnibarStyle_0.use().ICON_SIZE else v29.ICON_SIZE;
             return v2.createElement("Frame", {
                 Size = UDim2.new(0, v37, 0, v37), 
                 BackgroundTransparency = 1

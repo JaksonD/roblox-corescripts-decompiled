@@ -17,8 +17,8 @@ local v14 = require(l_RobloxGui_0.Modules.Chrome.Flags.FFlagLeaveActionChromeSho
 local l_GetDefaultQualityLevel_0 = require(l_CorePackages_0.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel;
 local l_Constants_0 = require(l_RobloxGui_0.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"));
 local v17 = require(l_RobloxGui_0.Modules.Common.ReactSchedulingTracker);
-return function(v18, v19) --[[ Line: 41 ]]
-    -- upvalues: l_FFlagEnableGameLeftMessage_0 (copy), l_MessageBus_0 (copy), l_Constants_0 (copy), v13 (copy), v9 (copy), v17 (copy), l_RobloxGui_0 (copy), l_GuiService_0 (copy), l_game_EngineFeature_0 (copy), l_RbxAnalyticsService_0 (copy), v14 (copy), v10 (copy), l_Players_0 (copy), v12 (copy), l_RunService_0 (copy), l_GetDefaultQualityLevel_0 (copy)
+return function(v18, v19) --[[ Line: 40 ]]
+    -- upvalues: l_FFlagEnableGameLeftMessage_0 (copy), l_MessageBus_0 (copy), l_Constants_0 (copy), v13 (copy), v9 (copy), v17 (copy), l_CorePackages_0 (copy), l_GuiService_0 (copy), l_game_EngineFeature_0 (copy), l_RbxAnalyticsService_0 (copy), v14 (copy), v10 (copy), l_Players_0 (copy), v12 (copy), l_RunService_0 (copy), l_GetDefaultQualityLevel_0 (copy)
     if l_FFlagEnableGameLeftMessage_0 then
         l_MessageBus_0.publish(l_Constants_0.OnAppRatingPromptEventDescriptor, {
             gameTime = game:getGameTime()
@@ -28,7 +28,7 @@ return function(v18, v19) --[[ Line: 41 ]]
         v9.leavingGame();
     end;
     v17:reportSession();
-    local v20 = require(l_RobloxGui_0.Modules.Common.CorescriptMemoryTracker)();
+    local v20 = require(l_CorePackages_0.Workspace.Packages.Memory).MemoryTracker();
     if v20 then
         v20:destroy();
     end;

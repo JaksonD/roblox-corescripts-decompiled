@@ -34,72 +34,73 @@ local v32 = game:DefineFastFlag("ProfilePlatformFavoritesEnableProfilePlatformCl
 local l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 = v30.FFlagProfilePlatformFavoritesEnableGameDetailAnalytics;
 local l_FFlagProfilePlatformEnableImpressions_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformEnableImpressions;
 local l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 = require(l_Parent_0.SharedFlags).FFlagProfilePlatformImproveGameDetailsAnalytics;
-local v36 = {};
-local function v38(v37) --[[ Line: 62 ]] --[[ Name: getSquareExperienceTileHeight ]]
-    return v37 + 42;
+local l_FFlagRemoveDependencyArrayAntipattern_0 = require(l_Parent_0.SharedFlags).FFlagRemoveDependencyArrayAntipattern;
+local v37 = {};
+local function v39(v38) --[[ Line: 64 ]] --[[ Name: getSquareExperienceTileHeight ]]
+    return v38 + 42;
 end;
-local function v52(_) --[[ Line: 66 ]] --[[ Name: useFavoriteExperiences ]]
-    -- upvalues: l_useDispatch_0 (copy), v15 (copy), v23 (copy), v36 (copy), v2 (copy), v3 (copy), v12 (copy), l_useSelector_0 (copy), l_getDeepValue_0 (copy)
-    local v40 = l_useDispatch_0();
-    local v41 = v15(v23.Components.FavoriteExperiences).experiences or v36;
-    local v44 = v2.useMemo(function() --[[ Line: 72 ]]
-        -- upvalues: v3 (ref), v41 (copy)
-        return v3.List.map(v41, function(v42, _) --[[ Line: 73 ]]
-            return (tostring(v42.universeId));
+local function v53(_) --[[ Line: 68 ]] --[[ Name: useFavoriteExperiences ]]
+    -- upvalues: l_useDispatch_0 (copy), v15 (copy), v23 (copy), v37 (copy), v2 (copy), v3 (copy), v12 (copy), l_useSelector_0 (copy), l_getDeepValue_0 (copy)
+    local v41 = l_useDispatch_0();
+    local v42 = v15(v23.Components.FavoriteExperiences).experiences or v37;
+    local v45 = v2.useMemo(function() --[[ Line: 74 ]]
+        -- upvalues: v3 (ref), v42 (copy)
+        return v3.List.map(v42, function(v43, _) --[[ Line: 75 ]]
+            return (tostring(v43.universeId));
         end);
     end, {
-        v41
+        v42
     });
-    v2.useEffect(function() --[[ Line: 78 ]]
-        -- upvalues: v44 (copy), v3 (ref), v40 (copy), v12 (ref)
-        if v44 ~= nil and not v3.isEmpty(v44) then
-            v40(v12.GetExperiencesDetails.API(v44)):catch(function(_) --[[ Line: 80 ]]
+    v2.useEffect(function() --[[ Line: 80 ]]
+        -- upvalues: v45 (copy), v3 (ref), v41 (copy), v12 (ref)
+        if v45 ~= nil and not v3.isEmpty(v45) then
+            v41(v12.GetExperiencesDetails.API(v45)):catch(function(_) --[[ Line: 82 ]]
 
             end);
         end;
     end, {
-        v44
+        v45
     });
-    local v47 = l_useSelector_0(function(v46) --[[ Line: 86 ]]
-        -- upvalues: l_getDeepValue_0 (ref), v36 (ref)
-        return l_getDeepValue_0(v46, "ProfilePlatform.Games.byGameId") or v36;
+    local v48 = l_useSelector_0(function(v47) --[[ Line: 88 ]]
+        -- upvalues: l_getDeepValue_0 (ref), v37 (ref)
+        return l_getDeepValue_0(v47, "ProfilePlatform.Games.byGameId") or v37;
     end);
-    local v51 = v2.useMemo(function() --[[ Line: 90 ]]
-        -- upvalues: v44 (copy), v47 (copy)
-        local v48 = {};
-        for _, v50 in v44 do
-            if v47[v50] then
-                table.insert(v48, v47[v50]);
+    local v52 = v2.useMemo(function() --[[ Line: 92 ]]
+        -- upvalues: v45 (copy), v48 (copy)
+        local v49 = {};
+        for _, v51 in v45 do
+            if v48[v51] then
+                table.insert(v49, v48[v51]);
             end;
         end;
-        return v48;
+        return v49;
     end, {
-        v44, 
-        v47
+        v45, 
+        v48
     });
-    if not v41 or #v51 ~= #v44 then
-        return v36;
+    if not v42 or #v52 ~= #v45 then
+        return v37;
     else
-        return v51;
+        return v52;
     end;
 end;
-return function(v53) --[[ Line: 111 ]] --[[ Name: FavoriteExperiences ]]
-    -- upvalues: l_useDispatch_0 (copy), v18 (copy), v32 (copy), v19 (copy), l_FFlagProfilePlatformEnableImpressions_0 (copy), v21 (copy), v23 (copy), l_useLocalization_0 (copy), v25 (copy), v2 (copy), v24 (copy), v31 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Url_0 (copy), l_dependencyArray_0 (copy), v38 (copy), v52 (copy), l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 (copy), l_useRoactService_0 (copy), l_RoactAnalyticsCommonGameEvents_0 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (copy), v16 (copy), v17 (copy), v22 (copy), v20 (copy), l_ContentType_0 (copy), v3 (copy), v14 (copy)
-    local v54 = l_useDispatch_0();
-    local v55 = v18();
-    local v56 = if v32 then v19() else nil;
-    local v57 = if l_FFlagProfilePlatformEnableImpressions_0 then v21(v23.Components.FavoriteExperiences) else nil;
-    local l_profileId_0 = v55.profileId;
-    local v59 = l_useLocalization_0({
+return function(v54) --[[ Line: 113 ]] --[[ Name: FavoriteExperiences ]]
+    -- upvalues: l_useDispatch_0 (copy), v18 (copy), v32 (copy), v19 (copy), l_FFlagProfilePlatformEnableImpressions_0 (copy), v21 (copy), v23 (copy), l_useLocalization_0 (copy), v25 (copy), v2 (copy), v24 (copy), v31 (copy), l_NavigateDown_0 (copy), l_AppPage_0 (copy), l_Url_0 (copy), l_FFlagRemoveDependencyArrayAntipattern_0 (copy), l_dependencyArray_0 (copy), v39 (copy), v53 (copy), l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 (copy), l_useRoactService_0 (copy), l_RoactAnalyticsCommonGameEvents_0 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (copy), v16 (copy), v17 (copy), v22 (copy), v20 (copy), l_ContentType_0 (copy), v3 (copy), v14 (copy)
+    local v55 = l_useDispatch_0();
+    local v56 = v18();
+    local v57 = if v32 then v19() else nil;
+    local v58 = if l_FFlagProfilePlatformEnableImpressions_0 then v21(v23.Components.FavoriteExperiences) else nil;
+    local l_profileId_0 = v56.profileId;
+    local v60 = l_useLocalization_0({
         title = v25.Favorites
     });
-    local v60 = v2.useCallback(function() --[[ Line: 128 ]]
-        -- upvalues: v32 (ref), v56 (copy), v24 (ref), v31 (ref), v54 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_Url_0 (ref), l_profileId_0 (copy), v25 (ref)
-        if v32 and v56 then
-            v56.fireAnalyticsEvent(v24.FavoriteExperienceSeeAll);
+    local v61 = v2.useCallback(function() --[[ Line: 130 ]]
+        -- upvalues: v32 (ref), v57 (copy), v24 (ref), v31 (ref), v55 (copy), l_NavigateDown_0 (ref), l_AppPage_0 (ref), l_Url_0 (ref), l_profileId_0 (copy), v25 (ref)
+        if v32 and v57 then
+            v57.fireAnalyticsEvent(v24.FavoriteExperienceSeeAll);
         end;
         if v31 then
-            v54(l_NavigateDown_0({
+            v55(l_NavigateDown_0({
                 name = l_AppPage_0.GenericWebPage, 
                 detail = string.format("%susers/%s/favorites#!/places", l_Url_0.BASE_URL, l_profileId_0), 
                 extraProps = {
@@ -107,46 +108,56 @@ return function(v53) --[[ Line: 111 ]] --[[ Name: FavoriteExperiences ]]
                 }
             }, nil));
         end;
-    end, if v32 then l_dependencyArray_0(l_profileId_0, v56) else nil);
-    local v61 = not v31;
-    local l_v38_0 = v38;
-    local v63 = v52(l_profileId_0);
-    local v64 = if l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 then l_useRoactService_0(l_RoactAnalyticsCommonGameEvents_0) else nil;
-    local v69 = v2.useCallback(function(v65, v66, v67) --[[ Line: 157 ]]
-        -- upvalues: v32 (ref), v56 (copy), v24 (ref), l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 (ref), v63 (copy), v64 (copy), l_AppPage_0 (ref), v53 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), l_profileId_0 (copy)
+    end, if v32 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        l_profileId_0, 
+        v57
+    } else l_dependencyArray_0(l_profileId_0, v57) else nil);
+    local v62 = not v31;
+    local l_v39_0 = v39;
+    local v64 = v53(l_profileId_0);
+    local v65 = if l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 then l_useRoactService_0(l_RoactAnalyticsCommonGameEvents_0) else nil;
+    local v70 = v2.useCallback(function(v66, v67, v68) --[[ Line: 161 ]]
+        -- upvalues: v32 (ref), v57 (copy), v24 (ref), l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 (ref), v64 (copy), v65 (copy), l_AppPage_0 (ref), v54 (copy), l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 (ref), l_profileId_0 (copy)
         if v32 then
-            v56.fireAnalyticsEvent(v24.FavoriteExperienceOpened, {
-                experienceId = v65.experienceId, 
-                positionInComponent = v66
+            v57.fireAnalyticsEvent(v24.FavoriteExperienceOpened, {
+                experienceId = v66.experienceId, 
+                positionInComponent = v67
             });
         end;
         if l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 then
-            local v68 = 0;
-            if v63 then
-                v68 = #v63;
+            local v69 = 0;
+            if v64 then
+                v69 = #v64;
             end;
-            v64.reportOpenGameDetailFromProfile(v65.rootPlaceId, v66, v68, v65.experienceId, l_AppPage_0.ProfilePlatform, v53.layoutOrder, v67 or 1, if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then l_profileId_0 else nil);
+            v65.reportOpenGameDetailFromProfile(v66.rootPlaceId, v67, v69, v66.experienceId, l_AppPage_0.ProfilePlatform, v54.layoutOrder, v68 or 1, if l_FFlagProfilePlatformImproveGameDetailsAnalytics_0 then l_profileId_0 else nil);
         end;
-    end, if l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 then l_dependencyArray_0(v56, v63, v64, v53.layoutOrder) else l_dependencyArray_0(v56));
-    local v70 = if l_FFlagProfilePlatformEnableImpressions_0 then v16(v57, "ProfileFavoriteExperienceTile", v69) else v17("ProfileFavoriteExperienceTile", v69);
-    local v71 = if l_FFlagProfilePlatformEnableImpressions_0 then v2.useMemo(function() --[[ Line: 190 ]]
-        -- upvalues: v22 (ref), v63 (copy)
-        return v22(v63);
+    end, if l_FFlagProfilePlatformFavoritesEnableGameDetailAnalytics_0 then if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v57, 
+        v64, 
+        v65, 
+        v54.layoutOrder
+    } else l_dependencyArray_0(v57, v64, v65, v54.layoutOrder) else if l_FFlagRemoveDependencyArrayAntipattern_0 then {
+        v57
+    } else l_dependencyArray_0(v57));
+    local v71 = if l_FFlagProfilePlatformEnableImpressions_0 then v16(v58, "ProfileFavoriteExperienceTile", v70) else v17("ProfileFavoriteExperienceTile", v70);
+    local v72 = if l_FFlagProfilePlatformEnableImpressions_0 then v2.useMemo(function() --[[ Line: 196 ]]
+        -- upvalues: v22 (ref), v64 (copy)
+        return v22(v64);
     end, {
-        v63
+        v64
     }) else nil;
-    local v72 = if l_FFlagProfilePlatformEnableImpressions_0 then v20(v71, 3, l_ContentType_0.Game, v53.layoutOrder, v23.Components.FavoriteExperiences) else nil;
-    if not v3.isEmpty(v63) then
+    local v73 = if l_FFlagProfilePlatformEnableImpressions_0 then v20(v72, 3, l_ContentType_0.Game, v54.layoutOrder, v23.Components.FavoriteExperiences) else nil;
+    if not v3.isEmpty(v64) then
         return (v2.createElement(v14, {
-            getItemHeight = l_v38_0, 
-            hideHeaderButton = v61, 
-            items = v63, 
-            layoutOrder = v53.layoutOrder, 
-            onActivateHeader = v60, 
-            renderItem = v70, 
-            title = v59.title, 
-            impressionsTag = if l_FFlagProfilePlatformEnableImpressions_0 then v57 else nil, 
-            sendImpressions = if l_FFlagProfilePlatformEnableImpressions_0 then v72 else nil, 
+            getItemHeight = l_v39_0, 
+            hideHeaderButton = v62, 
+            items = v64, 
+            layoutOrder = v54.layoutOrder, 
+            onActivateHeader = v61, 
+            renderItem = v71, 
+            title = v60.title, 
+            impressionsTag = if l_FFlagProfilePlatformEnableImpressions_0 then v58 else nil, 
+            sendImpressions = if l_FFlagProfilePlatformEnableImpressions_0 then v73 else nil, 
             overrides = {
                 numColumns = 3
             }

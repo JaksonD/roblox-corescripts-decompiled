@@ -1,34 +1,35 @@
-local l_Modules_0 = game:GetService("CoreGui").RobloxGui.Modules;
 local l_CorePackages_0 = game:GetService("CorePackages");
-local v2 = require(l_CorePackages_0.Packages.Roact);
-local v3 = require(l_CorePackages_0.Packages.RoactRodux);
-local v4 = require(l_CorePackages_0.Packages.t);
-local l_AvatarRoute_0 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation).AvatarRoute.AvatarRoute;
-local v6 = require(l_Modules_0.AvatarExperience.Common.Actions.SetAvatarSceneRoute);
-local v7 = v2.PureComponent:extend("AvatarRouteUpdater");
-v7.validateProps = v4.strictInterface({
+local v1 = require(l_CorePackages_0.Packages.Roact);
+local v2 = require(l_CorePackages_0.Packages.RoactRodux);
+local v3 = require(l_CorePackages_0.Packages.t);
+local v4 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceNavigation);
+local v5 = require(l_CorePackages_0.Workspace.Packages.AvatarExperienceRodux);
+local l_AvatarRoute_0 = v4.AvatarRoute.AvatarRoute;
+local l_SetAvatarSceneRoute_0 = v5.Actions.SetAvatarSceneRoute;
+local v8 = v1.PureComponent:extend("AvatarRouteUpdater");
+v8.validateProps = v3.strictInterface({
     avatarRoute = l_AvatarRoute_0.Interface, 
-    setAvatarSceneRoute = v4.callback
+    setAvatarSceneRoute = v3.callback
 });
-v7.render = function(_) --[[ Line: 32 ]] --[[ Name: render ]]
+v8.render = function(_) --[[ Line: 32 ]] --[[ Name: render ]]
     return nil;
 end;
-v7.didMount = function(v9) --[[ Line: 36 ]] --[[ Name: didMount ]]
-    local l_avatarRoute_0 = v9.props.avatarRoute;
-    v9.props.setAvatarSceneRoute(l_avatarRoute_0);
+v8.didMount = function(v10) --[[ Line: 36 ]] --[[ Name: didMount ]]
+    local l_avatarRoute_0 = v10.props.avatarRoute;
+    v10.props.setAvatarSceneRoute(l_avatarRoute_0);
 end;
-v7.didUpdate = function(v11, v12) --[[ Line: 42 ]] --[[ Name: didUpdate ]]
-    local l_avatarRoute_1 = v11.props.avatarRoute;
-    if l_avatarRoute_1 ~= v12.avatarRoute then
-        v11.props.setAvatarSceneRoute(l_avatarRoute_1);
+v8.didUpdate = function(v12, v13) --[[ Line: 42 ]] --[[ Name: didUpdate ]]
+    local l_avatarRoute_1 = v12.props.avatarRoute;
+    if l_avatarRoute_1 ~= v13.avatarRoute then
+        v12.props.setAvatarSceneRoute(l_avatarRoute_1);
     end;
 end;
-return (v3.connect(nil, function(v14) --[[ Line: 51 ]]
-    -- upvalues: v6 (copy)
+return (v2.connect(nil, function(v15) --[[ Line: 51 ]]
+    -- upvalues: l_SetAvatarSceneRoute_0 (copy)
     return {
-        setAvatarSceneRoute = function(v15) --[[ Line: 53 ]] --[[ Name: setAvatarSceneRoute ]]
-            -- upvalues: v14 (copy), v6 (ref)
-            v14(v6(v15));
+        setAvatarSceneRoute = function(v16) --[[ Line: 53 ]] --[[ Name: setAvatarSceneRoute ]]
+            -- upvalues: v15 (copy), l_SetAvatarSceneRoute_0 (ref)
+            v15(l_SetAvatarSceneRoute_0(v16));
         end
     };
-end)(v7));
+end)(v8));

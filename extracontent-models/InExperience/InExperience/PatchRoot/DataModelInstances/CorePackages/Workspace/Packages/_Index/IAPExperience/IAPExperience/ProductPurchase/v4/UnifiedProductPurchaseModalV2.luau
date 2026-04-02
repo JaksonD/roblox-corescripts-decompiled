@@ -11,28 +11,30 @@ local l_DialogSize_0 = v4.Enums.DialogSize;
 local v10 = require(l_Parent_0.Generic.UnifiedProductDetails);
 local v11 = require(l_Parent_0.Generic.PriceSummary);
 local v12 = require(l_Parent_0.Generic.DiscountSummary);
-local v13 = require(l_Parent_0.Generic.Hooks.useFocusNavigationRefs);
+local v13 = require(l_Parent_0.Generic.ProductDetailsContainer);
+local v14 = require(l_Parent_0.Generic.Hooks.useFocusNavigationRefs);
 local l_LocalizationService_0 = game:GetService("LocalizationService");
 local l_Localization_0 = require(l_Parent_1.AppLocales).Localization;
-local v16 = require(l_Parent_1.Localization);
-local l_LocalizationProvider_0 = v16.LocalizationProvider;
-local l_useLocalization_0 = v16.Hooks.useLocalization;
+local v17 = require(l_Parent_1.Localization);
+local l_LocalizationProvider_0 = v17.LocalizationProvider;
+local l_useLocalization_0 = v17.Hooks.useLocalization;
 local l_UrlBuilder_0 = require(l_Parent_1.UrlBuilder).UrlBuilder;
-local v20 = require(script.Parent.SubtitleComponentMap);
+local v21 = require(script.Parent.SubtitleComponentMap);
 local _ = require(script.Parent.Parent.v3.UnifiedProductPurchaseModalTypes);
-local v22 = require(l_Parent_0.Enums.UnifiedPurchaseModalTypeEnum);
+local v23 = require(l_Parent_0.Enums.UnifiedPurchaseModalTypeEnum);
 local l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 = require(l_Parent_0.Parent.SharedFlags).FFlagUnifiedPurchaseFlowMarketplaceUIImprovements;
 local l_FFlagAddUnifiedTestPurchaseDisclaimer_0 = require(l_Parent_0.Parent.SharedFlags).FFlagAddUnifiedTestPurchaseDisclaimer;
 local l_FFlagUnifiedPurchaseAddSkeleton_0 = require(l_Parent_0.Parent.SharedFlags).FFlagUnifiedPurchaseAddSkeleton;
 local l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 = require(l_Parent_0.Parent.SharedFlags).FFlagEnableUnifiedPurchaseFlowForDevSubs;
 local l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 = require(l_Parent_0.Parent.SharedFlags).FFlagEnableDiscountInfoInUnifiedPurchaseModal;
 local l_FFlagUnifiedPurchaseModalLayoutRefactor_0 = require(l_Parent_0.Parent.SharedFlags).FFlagUnifiedPurchaseModalLayoutRefactor;
-local v29 = game:DefineFastFlag("FixCheckboxesMissingUnifiedPurchase", false);
-local v30 = game:DefineFastFlag("UnifiedPurchaseFixTitleFlash", false);
+local v30 = game:DefineFastFlag("FixCheckboxesMissingUnifiedPurchase", false);
+local v31 = game:DefineFastFlag("UnifiedPurchaseFixTitleFlash", false);
+local l_FFlagRefactorUnifiedProductDetails_0 = require(l_Parent_0.Parent.SharedFlags).FFlagRefactorUnifiedProductDetails;
 local _ = require(l_Parent_0.ProductPurchase.PricingTypes);
-local function v64(v32) --[[ Line: 107 ]] --[[ Name: UnifiedProductPurchaseModalV2 ]]
-    -- upvalues: l_useLocalization_0 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (copy), l_FFlagAddUnifiedTestPurchaseDisclaimer_0 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_UrlBuilder_0 (copy), v22 (copy), v2 (copy), v30 (copy), v13 (copy), l_Checkbox_0 (copy), l_FFlagUnifiedPurchaseAddSkeleton_0 (copy), v20 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), l_View_0 (copy), v11 (copy), v10 (copy), l_FFlagUnifiedPurchaseModalLayoutRefactor_0 (copy), v12 (copy), l_ButtonVariant_0 (copy), v4 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), v29 (copy), l_BlackbirdUpsellBanner_0 (copy)
-    local v33 = l_useLocalization_0({
+local function v66(v34) --[[ Line: 103 ]] --[[ Name: UnifiedProductPurchaseModalV2 ]]
+    -- upvalues: l_useLocalization_0 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (copy), l_FFlagAddUnifiedTestPurchaseDisclaimer_0 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (copy), l_UrlBuilder_0 (copy), v23 (copy), v2 (copy), v31 (copy), v14 (copy), l_Checkbox_0 (copy), l_FFlagUnifiedPurchaseAddSkeleton_0 (copy), v21 (copy), l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 (copy), l_View_0 (copy), v11 (copy), v10 (copy), l_FFlagUnifiedPurchaseModalLayoutRefactor_0 (copy), l_FFlagRefactorUnifiedProductDetails_0 (copy), v13 (copy), v12 (copy), l_ButtonVariant_0 (copy), v4 (copy), l_Dialog_0 (copy), l_DialogSize_0 (copy), v30 (copy), l_BlackbirdUpsellBanner_0 (copy)
+    local v35 = l_useLocalization_0({
         Buy = "IAPExperience.PurchasePrompt.Action.Buy", 
         Subscribe = "Feature.Subscription.Action.Subscribe", 
         BuyItem = "IAPExperience.PurchasePrompt.Title.BuyItem", 
@@ -49,203 +51,212 @@ local function v64(v32) --[[ Line: 107 ]] --[[ Name: UnifiedProductPurchaseModal
             tosUrl = l_UrlBuilder_0.static.about.terms()
         } else nil
     });
-    local v34 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v32.purchaseModalType == v22.DeveloperSubscription then v33.PerMonth else nil;
-    local v35, v36 = v2.useState(v32.postPurchaseActions or {});
-    local v37 = nil;
-    local v38 = nil;
-    if not v30 then
-        local v39, v40 = v2.useState(v33.BuyItem);
-        v37 = v39;
-        v38 = v40;
-        v2.useEffect(function() --[[ Line: 144 ]]
-            -- upvalues: v32 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v22 (ref), v38 (ref), v33 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (ref)
-            local l_purchaseModalType_0 = v32.purchaseModalType;
-            if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and l_purchaseModalType_0 == v22.DeveloperSubscription then
-                v38(v33.GetSubscription);
+    local v36 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v34.purchaseModalType == v23.DeveloperSubscription then v35.PerMonth else nil;
+    local v37, v38 = v2.useState(v34.postPurchaseActions or {});
+    local v39 = nil;
+    local v40 = nil;
+    if not v31 then
+        local v41, v42 = v2.useState(v35.BuyItem);
+        v39 = v41;
+        v40 = v42;
+        v2.useEffect(function() --[[ Line: 140 ]]
+            -- upvalues: v34 (copy), l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 (ref), v23 (ref), v40 (ref), v35 (copy), l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 (ref)
+            local l_purchaseModalType_0 = v34.purchaseModalType;
+            if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and l_purchaseModalType_0 == v23.DeveloperSubscription then
+                v40(v35.GetSubscription);
                 return;
-            elseif l_purchaseModalType_0 == v22.MultiItem then
+            elseif l_purchaseModalType_0 == v23.MultiItem then
                 if l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then
-                    v38(v33.BuyAvatar);
+                    v40(v35.BuyAvatar);
                     return;
                 else
-                    v38(v33.BuyItems);
+                    v40(v35.BuyItems);
                     return;
                 end;
-            elseif l_purchaseModalType_0 == v22.Experience then
-                v38(v33.BuyExperience);
+            elseif l_purchaseModalType_0 == v23.Experience then
+                v40(v35.BuyExperience);
                 return;
             elseif l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 then
-                v38(v33.BuyItemV2);
+                v40(v35.BuyItemV2);
                 return;
             else
-                v38(v33.BuyItem);
+                v40(v35.BuyItem);
                 return;
             end;
         end, {
-            v32.purchaseModalType
+            v34.purchaseModalType
         });
     else
-        local l_purchaseModalType_1 = v32.purchaseModalType;
-        v37 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and l_purchaseModalType_1 == v22.DeveloperSubscription then v33.GetSubscription else if l_purchaseModalType_1 == v22.MultiItem then v33.BuyAvatar else if l_purchaseModalType_1 == v22.Experience then v33.BuyExperience else v33.BuyItemV2;
+        local l_purchaseModalType_1 = v34.purchaseModalType;
+        v39 = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and l_purchaseModalType_1 == v23.DeveloperSubscription then v35.GetSubscription else if l_purchaseModalType_1 == v23.MultiItem then v35.BuyAvatar else if l_purchaseModalType_1 == v23.Experience then v35.BuyExperience else v35.BuyItemV2;
     end;
-    local v43 = nil;
-    local v44 = nil;
-    local v45, v46 = v13(v32.buttons.cancelActivated, v32.onBuyItemButtonMounted);
-    v43 = v45;
-    v44 = v46;
-    v45 = v2.useCallback(function() --[[ Line: 187 ]]
-        -- upvalues: v35 (copy), v32 (copy)
-        if v35 and v32.setPostPurchaseActions then
-            v32.setPostPurchaseActions(v35);
+    local v45 = nil;
+    local v46 = nil;
+    local v47, v48 = v14(v34.buttons.cancelActivated, v34.onBuyItemButtonMounted);
+    v45 = v47;
+    v46 = v48;
+    v47 = v2.useCallback(function() --[[ Line: 183 ]]
+        -- upvalues: v37 (copy), v34 (copy)
+        if v37 and v34.setPostPurchaseActions then
+            v34.setPostPurchaseActions(v37);
         end;
-        v32.buttons.buyItemActivated();
+        v34.buttons.buyItemActivated();
     end, {
-        v32.buttons.buyItemActivated, 
-        v35
+        v34.buttons.buyItemActivated, 
+        v37
     });
-    v2.useEffect(function() --[[ Line: 195 ]]
-        -- upvalues: v36 (copy), v32 (copy)
-        v36(v32.postPurchaseActions or {});
+    v2.useEffect(function() --[[ Line: 191 ]]
+        -- upvalues: v38 (copy), v34 (copy)
+        v38(v34.postPurchaseActions or {});
     end, {
-        v32.postPurchaseActions
+        v34.postPurchaseActions
     });
-    v46 = v2.useMemo(function() --[[ Line: 199 ]]
-        -- upvalues: v35 (copy), v2 (ref), l_Checkbox_0 (ref), v32 (copy), l_FFlagUnifiedPurchaseAddSkeleton_0 (ref), v36 (copy)
-        local v47 = {};
+    v48 = v2.useMemo(function() --[[ Line: 195 ]]
+        -- upvalues: v37 (copy), v2 (ref), l_Checkbox_0 (ref), v34 (copy), l_FFlagUnifiedPurchaseAddSkeleton_0 (ref), v38 (copy)
+        local v49 = {};
         local l_ipairs_0 = ipairs;
-        local v49 = v35 or {};
-        for v50, v51 in l_ipairs_0(v49) do
-            v47["PostPurchaseActionCheckBox_" .. tostring(v50)] = v2.createElement(l_Checkbox_0, {
-                LayoutOrder = v50, 
+        local v51 = v37 or {};
+        for v52, v53 in l_ipairs_0(v51) do
+            v49["PostPurchaseActionCheckBox_" .. tostring(v52)] = v2.createElement(l_Checkbox_0, {
+                LayoutOrder = v52, 
                 size = "XSmall", 
-                label = v51.label, 
-                isChecked = v51.isActionSelected, 
-                isDisabled = v32.buttons.isDisabled or if l_FFlagUnifiedPurchaseAddSkeleton_0 then v32.isLoading else nil, 
-                onActivated = function() --[[ Line: 210 ]] --[[ Name: onActivated ]]
-                    -- upvalues: v36 (ref), v50 (copy), v51 (copy)
-                    v36(function(v52) --[[ Line: 211 ]]
-                        -- upvalues: v50 (ref), v51 (ref)
-                        local v53 = table.clone(v52);
-                        v53[v50] = {
-                            label = v51.label, 
-                            isActionSelected = not v51.isActionSelected, 
-                            actionKey = v51.actionKey
+                label = v53.label, 
+                isChecked = v53.isActionSelected, 
+                isDisabled = v34.buttons.isDisabled or if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil, 
+                onActivated = function() --[[ Line: 206 ]] --[[ Name: onActivated ]]
+                    -- upvalues: v38 (ref), v52 (copy), v53 (copy)
+                    v38(function(v54) --[[ Line: 207 ]]
+                        -- upvalues: v52 (ref), v53 (ref)
+                        local v55 = table.clone(v54);
+                        v55[v52] = {
+                            label = v53.label, 
+                            isActionSelected = not v53.isActionSelected, 
+                            actionKey = v53.actionKey
                         };
-                        return v53;
+                        return v55;
                     end);
                 end
             });
         end;
-        return v47;
+        return v49;
     end, {
-        v35, 
-        if l_FFlagUnifiedPurchaseAddSkeleton_0 then v32.isLoading else nil
+        v37, 
+        if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil
     });
-    local v54 = nil;
-    if v32.subtitleView then
-        local v55 = v20[v32.subtitleView.componentName];
-        if v55 then
-            v54 = v2.createElement(v55, v32.subtitleView.props);
+    local v56 = nil;
+    if v34.subtitleView then
+        local v57 = v21[v34.subtitleView.componentName];
+        if v57 then
+            v56 = v2.createElement(v57, v34.subtitleView.props);
         end;
     end;
-    local v56 = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then v32.product.itemPrice else nil;
-    local v57 = if v56 then v56.priceInRobux else v32.product.itemRobuxCost;
-    local v58 = v2.createElement(l_View_0, {
+    local v58 = if l_FFlagEnableDiscountInfoInUnifiedPurchaseModal_0 then v34.product.itemPrice else nil;
+    local v59 = if v58 then v58.priceInRobux else v34.product.itemRobuxCost;
+    local v60 = v2.createElement(l_View_0, {
         tag = "col gap-medium auto-y size-full-0 align-x-center align-y-center", 
         LayoutOrder = 1
     }, {
-        ProductDetails = if v32.purchaseModalType == v22.MultiItem then v2.createElement(v11, {
-            amount = v57, 
-            itemPrice = v56
+        ProductDetails = if v34.purchaseModalType == v23.MultiItem then v2.createElement(v11, {
+            amount = v59, 
+            itemPrice = v58
         }) else v2.createElement(v10, {
             isPortrait = false, 
-            itemIcon = v32.product.itemIcon, 
-            itemName = v32.product.itemName, 
-            itemRobuxCost = v57, 
-            itemPrice = v56, 
-            itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v32.product.itemDisplayPrice else nil, 
-            priceSuffix = v34, 
-            model = v32.product.model, 
-            isLoading = if l_FFlagUnifiedPurchaseAddSkeleton_0 then v32.isLoading else nil, 
-            subtitleView = if l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v54 else nil
+            itemIcon = v34.product.itemIcon, 
+            itemName = v34.product.itemName, 
+            itemRobuxCost = v59, 
+            itemPrice = v58, 
+            itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v34.product.itemDisplayPrice else nil, 
+            priceSuffix = v36, 
+            model = v34.product.model, 
+            isLoading = if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil, 
+            subtitleView = if l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v56 else nil
         })
     });
-    local v59 = if v56 then v2.createElement(l_View_0, {
+    if l_FFlagRefactorUnifiedProductDetails_0 then
+        v60 = v2.createElement(v13, {
+            purchaseModalType = v34.purchaseModalType, 
+            product = v34.product, 
+            subtitleView = v56, 
+            priceSuffix = v36, 
+            isLoading = if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil
+        });
+    end;
+    local v61 = if v58 then v2.createElement(l_View_0, {
         tag = "auto-y size-full-0 padding-xxsmall", 
         LayoutOrder = 2
     }, {
         Discount = v2.createElement(v12, {
-            itemPrice = v56
+            itemPrice = v58
         })
     }) else nil;
-    local v60 = if next(v46) then v2.createElement(l_View_0, {
+    local v62 = if next(v48) then v2.createElement(l_View_0, {
         tag = not l_FFlagUnifiedPurchaseModalLayoutRefactor_0 and l_FFlagUnifiedPurchaseFlowMarketplaceUIImprovements_0 and "col gap-medium auto-y size-full-0 align-x-start align-y-start padding-top-small" or "col gap-medium auto-y size-full-0 align-x-start align-y-start", 
         LayoutOrder = l_FFlagUnifiedPurchaseModalLayoutRefactor_0 and 1 or 3
     }, {
-        v46
+        v48
     }) else nil;
-    local v61 = {
+    local v63 = {
         {
-            text = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v32.purchaseModalType == v22.DeveloperSubscription then v33.Subscribe else v33.Buy, 
+            text = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v34.purchaseModalType == v23.DeveloperSubscription then v35.Subscribe else v35.Buy, 
             variant = l_ButtonVariant_0.Emphasis, 
-            onActivated = v45, 
-            isDisabled = v32.buttons.isDisabled or if l_FFlagUnifiedPurchaseAddSkeleton_0 then v32.isLoading else nil, 
-            ref = v44, 
-            inputDelay = (not v32.buttons.buyItemEnableInputDelayed or v32.buttons.isDisabled) and 0 or 2.5
+            onActivated = v47, 
+            isDisabled = v34.buttons.isDisabled or if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil, 
+            ref = v46, 
+            inputDelay = (not v34.buttons.buyItemEnableInputDelayed or v34.buttons.isDisabled) and 0 or 2.5
         }
     };
-    local v62 = nil;
-    if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v32.purchaseModalType == v22.DeveloperSubscription then
-        local v63 = string.gsub(v33.SubscribeTermsAgreement or "", "<a.->(.-)</a>", "%1");
-        v63 = string.gsub(v63, "<.->", "");
-        v62 = v2.createElement(v4.Text, {
+    local v64 = nil;
+    if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 and v34.purchaseModalType == v23.DeveloperSubscription then
+        local v65 = string.gsub(v35.SubscribeTermsAgreement or "", "<a.->(.-)</a>", "%1");
+        v65 = string.gsub(v65, "<.->", "");
+        v64 = v2.createElement(v4.Text, {
             LayoutOrder = l_FFlagUnifiedPurchaseModalLayoutRefactor_0 and 6 or 5, 
-            Text = v63, 
+            Text = v65, 
             tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap"
         });
     end;
     return v2.createElement(l_Dialog_0.Root, {
         size = l_DialogSize_0.Medium, 
-        onClose = v32.buttons.cancelActivated, 
-        ref = v43, 
+        onClose = v34.buttons.cancelActivated, 
+        ref = v45, 
         disablePortal = false
     }, {
         DialogTitle = v2.createElement(l_Dialog_0.Title, {
-            text = v37
+            text = v39
         }), 
         DialogContent = if l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v2.createElement(l_View_0, {
             tag = "col gap-medium auto-y size-full-0 align-x-center align-y-center", 
             LayoutOrder = 1
         }, {
-            ProductDetailsContainer = v58, 
-            DiscountSummary = v59
+            ProductDetailsContainer = v60, 
+            DiscountSummary = if not l_FFlagRefactorUnifiedProductDetails_0 then v61 else nil
         }) else v2.createElement(l_Dialog_0.Content, nil, {
             ContentView = v2.createElement(l_View_0, {
                 tag = "col gap-medium auto-y size-full-0 align-x-center align-y-center"
             }, {
-                ProductDetails = if v32.purchaseModalType == v22.MultiItem then v2.createElement(v11, {
-                    amount = v57, 
-                    itemPrice = v56
+                ProductDetails = if v34.purchaseModalType == v23.MultiItem then v2.createElement(v11, {
+                    amount = v59, 
+                    itemPrice = v58
                 }) else v2.createElement(v10, {
                     isPortrait = false, 
-                    itemIcon = v32.product.itemIcon, 
-                    itemName = v32.product.itemName, 
-                    subtitleView = v54, 
-                    itemRobuxCost = v57, 
-                    itemPrice = v56, 
-                    itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v32.product.itemDisplayPrice else nil, 
-                    priceSuffix = v34, 
-                    model = v32.product.model, 
-                    isLoading = if l_FFlagUnifiedPurchaseAddSkeleton_0 then v32.isLoading else nil
+                    itemIcon = v34.product.itemIcon, 
+                    itemName = v34.product.itemName, 
+                    subtitleView = v56, 
+                    itemRobuxCost = v59, 
+                    itemPrice = v58, 
+                    itemDisplayPrice = if l_FFlagEnableUnifiedPurchaseFlowForDevSubs_0 then v34.product.itemDisplayPrice else nil, 
+                    priceSuffix = v36, 
+                    model = v34.product.model, 
+                    isLoading = if l_FFlagUnifiedPurchaseAddSkeleton_0 then v34.isLoading else nil
                 }), 
-                PostPurchaseActions = if v29 then v60 else nil
+                PostPurchaseActions = if v30 then v62 else nil
             })
         }), 
         ActionsSection = if l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v2.createElement(l_View_0, {
             tag = "col size-full-0 auto-y gap-xlarge", 
             LayoutOrder = 3
         }, {
-            PostPurchaseActions = v60, 
+            PostPurchaseActions = v62, 
             BuyAndUpsell = v2.createElement(l_View_0, {
                 tag = "col size-full-0 auto-y gap-medium", 
                 LayoutOrder = 2
@@ -253,11 +264,11 @@ local function v64(v32) --[[ Line: 107 ]] --[[ Name: UnifiedProductPurchaseModal
                 DialogActions = v2.createElement(l_Dialog_0.Actions, {
                     LayoutOrder = 1, 
                     orientation = v4.Enums.Orientation.Horizontal, 
-                    actions = v61
+                    actions = v63
                 }), 
-                BlackbirdUpsellBanner = if v32.BlackbirdUpsellBannerProductInfo and v32.onBlackbirdUpsellActivated then v2.createElement(l_BlackbirdUpsellBanner_0, {
-                    productInfo = v32.BlackbirdUpsellBannerProductInfo, 
-                    onActivated = v32.onBlackbirdUpsellActivated, 
+                BlackbirdUpsellBanner = if v34.BlackbirdUpsellBannerProductInfo and v34.onBlackbirdUpsellActivated then v2.createElement(l_BlackbirdUpsellBanner_0, {
+                    productInfo = v34.BlackbirdUpsellBannerProductInfo, 
+                    onActivated = v34.onBlackbirdUpsellActivated, 
                     LayoutOrder = 2
                 }) else nil
             })
@@ -265,21 +276,21 @@ local function v64(v32) --[[ Line: 107 ]] --[[ Name: UnifiedProductPurchaseModal
         DialogActions = if not l_FFlagUnifiedPurchaseModalLayoutRefactor_0 then v2.createElement(l_Dialog_0.Actions, {
             LayoutOrder = 3, 
             orientation = v4.Enums.Orientation.Horizontal, 
-            actions = v61
+            actions = v63
         }) else nil, 
-        TestDisclaimer = if l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and v32.isTestPurchase then v2.createElement(v4.Text, {
+        TestDisclaimer = if l_FFlagAddUnifiedTestPurchaseDisclaimer_0 and v34.isTestPurchase then v2.createElement(v4.Text, {
             LayoutOrder = l_FFlagUnifiedPurchaseModalLayoutRefactor_0 and 5 or 4, 
-            Text = v33.TestPurchaseDisclaimer, 
+            Text = v35.TestPurchaseDisclaimer, 
             tag = "auto-y size-full-0 text-caption-small text-align-x-center text-wrap wrap"
         }) else nil, 
-        SubscribeTerms = v62
+        SubscribeTerms = v64
     });
 end;
-return function(v65) --[[ Line: 404 ]] --[[ Name: UnifiedProductPurchaseModalV2Container ]]
-    -- upvalues: v2 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v64 (copy)
+return function(v67) --[[ Line: 410 ]] --[[ Name: UnifiedProductPurchaseModalV2Container ]]
+    -- upvalues: v2 (copy), l_LocalizationProvider_0 (copy), l_Localization_0 (copy), l_LocalizationService_0 (copy), v66 (copy)
     return v2.createElement(l_LocalizationProvider_0, {
         localization = l_Localization_0.new(l_LocalizationService_0.RobloxLocaleId)
     }, {
-        ProductPurchaseModal = v2.createElement(v64, v65)
+        ProductPurchaseModal = v2.createElement(v66, v67)
     });
 end;
